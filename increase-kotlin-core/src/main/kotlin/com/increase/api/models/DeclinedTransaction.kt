@@ -2363,6 +2363,8 @@ private constructor(
                     val DECLINED_BY_STAND_IN_PROCESSING =
                         Reason(JsonField.of("declined_by_stand_in_processing"))
 
+                    val INVALID_PHYSICAL_CARD = Reason(JsonField.of("invalid_physical_card"))
+
                     fun of(value: String) = Reason(JsonField.of(value))
                 }
 
@@ -2377,6 +2379,7 @@ private constructor(
                     WEBHOOK_DECLINED,
                     WEBHOOK_TIMED_OUT,
                     DECLINED_BY_STAND_IN_PROCESSING,
+                    INVALID_PHYSICAL_CARD,
                 }
 
                 enum class Value {
@@ -2390,6 +2393,7 @@ private constructor(
                     WEBHOOK_DECLINED,
                     WEBHOOK_TIMED_OUT,
                     DECLINED_BY_STAND_IN_PROCESSING,
+                    INVALID_PHYSICAL_CARD,
                     _UNKNOWN,
                 }
 
@@ -2405,6 +2409,7 @@ private constructor(
                         WEBHOOK_DECLINED -> Value.WEBHOOK_DECLINED
                         WEBHOOK_TIMED_OUT -> Value.WEBHOOK_TIMED_OUT
                         DECLINED_BY_STAND_IN_PROCESSING -> Value.DECLINED_BY_STAND_IN_PROCESSING
+                        INVALID_PHYSICAL_CARD -> Value.INVALID_PHYSICAL_CARD
                         else -> Value._UNKNOWN
                     }
 
@@ -2420,6 +2425,7 @@ private constructor(
                         WEBHOOK_DECLINED -> Known.WEBHOOK_DECLINED
                         WEBHOOK_TIMED_OUT -> Known.WEBHOOK_TIMED_OUT
                         DECLINED_BY_STAND_IN_PROCESSING -> Known.DECLINED_BY_STAND_IN_PROCESSING
+                        INVALID_PHYSICAL_CARD -> Known.INVALID_PHYSICAL_CARD
                         else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
                     }
 
