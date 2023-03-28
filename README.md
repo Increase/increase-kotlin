@@ -19,7 +19,7 @@ The API documentation can be found [here](https://increase.com/documentation).
 #### Gradle
 
 ```kotlin
-implementation("com.increase.api:increase-kotlin:0.0.1")
+implementation("com.increase.api:increase-kotlin:0.1.0")
 ```
 
 #### Maven
@@ -28,7 +28,7 @@ implementation("com.increase.api:increase-kotlin:0.0.1")
 <dependency>
     <groupId>com.increase.api</groupId>
     <artifactId>increase-kotlin</artifactId>
-    <version>0.0.1</version>
+    <version>0.1.0</version>
 </dependency>
 ```
 
@@ -89,6 +89,14 @@ See [Pagination](#pagination) below for more information on transparently workin
 
 ---
 
+
+
+
+
+
+
+
+
 ## Requests
 
 ### Parameters and bodies
@@ -118,10 +126,15 @@ When receiving a response, the Increase Kotlin SDK will deserialize it into inst
 val account = client.accounts.create().validate()
 ```
 
+
+
 ### Response properties as JSON
 
 In rare cases, you may want to access the underlying JSON value for a response property rather than using the typed version provided by
 this SDK. Each model property has a corresponding JSON version, with an underscore before the method name, which returns a `JsonField` value.
+
+
+
 
 ### Additional model properties
 
@@ -130,6 +143,7 @@ Sometimes, the server response may include additional properties that are not ye
 ```kotlin
 val secret = account._additionalProperties().get("secret_field")
 ```
+
 
 ---
 
@@ -198,32 +212,24 @@ This library throws exceptions in a single hierarchy for easy handling:
 ## Network options
 
 ### Retries
-
 Requests that experience certain errors are automatically retried 2 times by default, with a short exponential backoff. Connection errors (for example, due to a network connectivity problem), 409 Conflict, 429 Rate Limit, and >=500 Internal errors will all be retried by default.
 You can provide a `maxRetries` on the client builder to configure this:
-
 ```kotlin
 val client = IncreaseOkHttpClient.builder()
     .fromEnv()
     .maxRetries(4)
     .build()
 ```
-
 ### Timeouts
-
 Requests time out after 60 seconds by default. You can configure this on the client builder:
-
 ```kotlin
 val client = IncreaseOkHttpClient.builder()
     .fromEnv()
     .timeout(Duration.ofSeconds(30))
     .build()
 ```
-
 ### Environments
-
 Requests are made to the production environment by default. You can connect to other environments, like `sandbox`, via the client builder:
-
 ```kotlin
 val client = IncreaseOkHttpClient.builder()
     .fromEnv()
