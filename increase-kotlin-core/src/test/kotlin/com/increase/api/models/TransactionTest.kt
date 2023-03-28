@@ -18,7 +18,7 @@ class TransactionTest {
                 .description("string")
                 .id("string")
                 .routeId("string")
-                .routeType("string")
+                .routeType(Transaction.RouteType.ACCOUNT_NUMBER)
                 .source(
                     Transaction.Source.builder()
                         .category(Transaction.Source.Category.ACCOUNT_TRANSFER_INTENTION)
@@ -406,7 +406,7 @@ class TransactionTest {
         assertThat(transaction.description()).isEqualTo("string")
         assertThat(transaction.id()).isEqualTo("string")
         assertThat(transaction.routeId()).isEqualTo("string")
-        assertThat(transaction.routeType()).isEqualTo("string")
+        assertThat(transaction.routeType()).isEqualTo(Transaction.RouteType.ACCOUNT_NUMBER)
         assertThat(transaction.source())
             .isEqualTo(
                 Transaction.Source.builder()
