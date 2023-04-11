@@ -35,7 +35,7 @@ constructor(
                 .putAllHeaders(clientOptions.headers)
                 .putAllHeaders(params.getHeaders())
                 .build()
-        return clientOptions.httpClient.execute(request).let { response ->
+        return clientOptions.httpClient.execute(request, requestOptions).let { response ->
             response
                 .let { retrieveDetailsHandler.handle(it) }
                 .apply {

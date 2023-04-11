@@ -47,7 +47,7 @@ constructor(
                 .putAllHeaders(params.getHeaders())
                 .apply { params.getBody()?.also { body(json(clientOptions.jsonMapper, it)) } }
                 .build()
-        return clientOptions.httpClient.executeAsync(request).let { response ->
+        return clientOptions.httpClient.executeAsync(request, requestOptions).let { response ->
             response
                 .let { completeHandler.handle(it) }
                 .apply {

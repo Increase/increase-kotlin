@@ -47,7 +47,7 @@ constructor(
                 .putAllHeaders(params.getHeaders())
                 .body(json(clientOptions.jsonMapper, params.getBody()))
                 .build()
-        return clientOptions.httpClient.executeAsync(request).let { response ->
+        return clientOptions.httpClient.executeAsync(request, requestOptions).let { response ->
             response
                 .let { authorizeHandler.handle(it) }
                 .apply {
@@ -80,7 +80,7 @@ constructor(
                 .putAllHeaders(params.getHeaders())
                 .body(json(clientOptions.jsonMapper, params.getBody()))
                 .build()
-        return clientOptions.httpClient.executeAsync(request).let { response ->
+        return clientOptions.httpClient.executeAsync(request, requestOptions).let { response ->
             response
                 .let { settlementHandler.handle(it) }
                 .apply {
