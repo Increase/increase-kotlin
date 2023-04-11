@@ -41,7 +41,7 @@ constructor(
                 .putAllHeaders(params.getHeaders())
                 .body(json(clientOptions.jsonMapper, params.getBody()))
                 .build()
-        return clientOptions.httpClient.execute(request).let { response ->
+        return clientOptions.httpClient.execute(request, requestOptions).let { response ->
             response
                 .let { createInboundHandler.handle(it) }
                 .apply {

@@ -1,6 +1,18 @@
 package com.increase.api.core
 
-class RequestOptions private constructor(val responseValidation: Boolean?) {
+import java.time.Duration
+
+class RequestOptions
+private constructor(
+    val responseValidation: Boolean?,
+    val timeout: Duration?,
+) {
+    fun applyDefaults(options: RequestOptions): RequestOptions {
+        return RequestOptions(
+            responseValidation = this.responseValidation ?: options.responseValidation,
+            timeout = this.timeout ?: options.timeout
+        )
+    }
 
     companion object {
 
@@ -13,13 +25,16 @@ class RequestOptions private constructor(val responseValidation: Boolean?) {
 
     class Builder {
         private var responseValidation: Boolean? = null
+        private var timeout: Duration? = null
 
         fun responseValidation(responseValidation: Boolean) = apply {
             this.responseValidation = responseValidation
         }
 
+        fun timeout(timeout: Duration) = apply { this.timeout = timeout }
+
         fun build(): RequestOptions {
-            return RequestOptions(responseValidation)
+            return RequestOptions(responseValidation, timeout)
         }
     }
 }

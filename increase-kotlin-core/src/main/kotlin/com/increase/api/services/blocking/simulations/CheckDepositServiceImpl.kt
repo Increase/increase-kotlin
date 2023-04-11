@@ -42,7 +42,7 @@ constructor(
                 .putAllHeaders(params.getHeaders())
                 .apply { params.getBody()?.also { body(json(clientOptions.jsonMapper, it)) } }
                 .build()
-        return clientOptions.httpClient.execute(request).let { response ->
+        return clientOptions.httpClient.execute(request, requestOptions).let { response ->
             response
                 .let { rejectHandler.handle(it) }
                 .apply {
@@ -73,7 +73,7 @@ constructor(
                 .putAllHeaders(params.getHeaders())
                 .apply { params.getBody()?.also { body(json(clientOptions.jsonMapper, it)) } }
                 .build()
-        return clientOptions.httpClient.execute(request).let { response ->
+        return clientOptions.httpClient.execute(request, requestOptions).let { response ->
             response
                 .let { returnHandler.handle(it) }
                 .apply {
@@ -104,7 +104,7 @@ constructor(
                 .putAllHeaders(params.getHeaders())
                 .apply { params.getBody()?.also { body(json(clientOptions.jsonMapper, it)) } }
                 .build()
-        return clientOptions.httpClient.execute(request).let { response ->
+        return clientOptions.httpClient.execute(request, requestOptions).let { response ->
             response
                 .let { submitHandler.handle(it) }
                 .apply {

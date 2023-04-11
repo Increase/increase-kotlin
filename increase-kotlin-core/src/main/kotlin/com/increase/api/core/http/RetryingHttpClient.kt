@@ -2,6 +2,7 @@
 
 package com.increase.api.core.http
 
+import com.increase.api.core.RequestOptions
 import com.increase.api.errors.IncreaseIoException
 import java.io.IOException
 import java.time.Clock
@@ -26,9 +27,10 @@ private constructor(
 
     override fun execute(
         request: HttpRequest,
+        requestOptions: RequestOptions,
     ): HttpResponse {
         if (!isRetryable(request) || maxRetries <= 0) {
-            return httpClient.execute(request)
+            return httpClient.execute(request, requestOptions)
         }
 
         maybeAddIdempotencyHeader(request)
@@ -38,7 +40,7 @@ private constructor(
         while (true) {
             val response =
                 try {
-                    val response = httpClient.execute(request)
+                    val response = httpClient.execute(request, requestOptions)
                     if (++retries > maxRetries || !shouldRetry(response)) {
                         return response
                     }
@@ -59,9 +61,10 @@ private constructor(
 
     override suspend fun executeAsync(
         request: HttpRequest,
+        requestOptions: RequestOptions,
     ): HttpResponse {
         if (!isRetryable(request) || maxRetries <= 0) {
-            return httpClient.executeAsync(request)
+            return httpClient.executeAsync(request, requestOptions)
         }
 
         maybeAddIdempotencyHeader(request)
@@ -71,7 +74,7 @@ private constructor(
         while (true) {
             val response =
                 try {
-                    val response = httpClient.execute(request)
+                    val response = httpClient.execute(request, requestOptions)
                     if (++retries > maxRetries || !shouldRetry(response)) {
                         return response
                     }
