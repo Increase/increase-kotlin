@@ -12,6 +12,8 @@ import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.toUnmodifiable
 import com.increase.api.services.async.LimitServiceAsync
 import java.util.Objects
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.FlowCollector
 
 class LimitListPageAsync
 private constructor(
@@ -67,6 +69,8 @@ private constructor(
     suspend fun getNextPage(): LimitListPageAsync? {
         return getNextPageParams()?.let { limitsService.list(it) }
     }
+
+    fun autoPager(): AutoPager = AutoPager(this)
 
     companion object {
 
@@ -171,6 +175,24 @@ private constructor(
                     nextCursor,
                     additionalProperties.toUnmodifiable(),
                 )
+        }
+    }
+
+    class AutoPager
+    constructor(
+        private val firstPage: LimitListPageAsync,
+    ) : Flow<Limit> {
+
+        override suspend fun collect(collector: FlowCollector<Limit>) {
+            var page = firstPage
+            var index = 0
+            while (true) {
+                while (index < page.data().size) {
+                    collector.emit(page.data()[index++])
+                }
+                page = page.getNextPage() ?: break
+                index = 0
+            }
         }
     }
 }

@@ -12,8 +12,6 @@ import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.toUnmodifiable
 import com.increase.api.services.blocking.CardDisputeService
 import java.util.Objects
-import java.util.stream.Stream
-import java.util.stream.StreamSupport
 
 class CardDisputeListPage
 private constructor(
@@ -185,24 +183,18 @@ private constructor(
     class AutoPager
     constructor(
         private val firstPage: CardDisputeListPage,
-    ) : Iterable<CardDispute> {
+    ) : Sequence<CardDispute> {
 
-        override fun iterator(): Iterator<CardDispute> =
-            sequence {
-                    var page = firstPage
-                    var index = 0
-                    while (true) {
-                        while (index >= page.data().size) {
-                            page = page.getNextPage() ?: return@sequence
-                            index = 0
-                        }
-                        yield(page.data()[index++])
-                    }
+        override fun iterator(): Iterator<CardDispute> = iterator {
+            var page = firstPage
+            var index = 0
+            while (true) {
+                while (index < page.data().size) {
+                    yield(page.data()[index++])
                 }
-                .iterator()
-
-        fun stream(): Stream<CardDispute> {
-            return StreamSupport.stream(spliterator(), false)
+                page = page.getNextPage() ?: break
+                index = 0
+            }
         }
     }
 }
