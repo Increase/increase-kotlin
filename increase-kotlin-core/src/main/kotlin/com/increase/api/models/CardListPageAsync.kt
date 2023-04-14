@@ -12,6 +12,8 @@ import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.toUnmodifiable
 import com.increase.api.services.async.CardServiceAsync
 import java.util.Objects
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.FlowCollector
 
 class CardListPageAsync
 private constructor(
@@ -67,6 +69,8 @@ private constructor(
     suspend fun getNextPage(): CardListPageAsync? {
         return getNextPageParams()?.let { cardsService.list(it) }
     }
+
+    fun autoPager(): AutoPager = AutoPager(this)
 
     companion object {
 
@@ -170,6 +174,24 @@ private constructor(
                     nextCursor,
                     additionalProperties.toUnmodifiable(),
                 )
+        }
+    }
+
+    class AutoPager
+    constructor(
+        private val firstPage: CardListPageAsync,
+    ) : Flow<Card> {
+
+        override suspend fun collect(collector: FlowCollector<Card>) {
+            var page = firstPage
+            var index = 0
+            while (true) {
+                while (index < page.data().size) {
+                    collector.emit(page.data()[index++])
+                }
+                page = page.getNextPage() ?: break
+                index = 0
+            }
         }
     }
 }

@@ -12,6 +12,8 @@ import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.toUnmodifiable
 import com.increase.api.services.async.InboundWireDrawdownRequestServiceAsync
 import java.util.Objects
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.FlowCollector
 
 class InboundWireDrawdownRequestListPageAsync
 private constructor(
@@ -70,6 +72,8 @@ private constructor(
     suspend fun getNextPage(): InboundWireDrawdownRequestListPageAsync? {
         return getNextPageParams()?.let { inboundWireDrawdownRequestsService.list(it) }
     }
+
+    fun autoPager(): AutoPager = AutoPager(this)
 
     companion object {
 
@@ -178,6 +182,24 @@ private constructor(
                     nextCursor,
                     additionalProperties.toUnmodifiable(),
                 )
+        }
+    }
+
+    class AutoPager
+    constructor(
+        private val firstPage: InboundWireDrawdownRequestListPageAsync,
+    ) : Flow<InboundWireDrawdownRequest> {
+
+        override suspend fun collect(collector: FlowCollector<InboundWireDrawdownRequest>) {
+            var page = firstPage
+            var index = 0
+            while (true) {
+                while (index < page.data().size) {
+                    collector.emit(page.data()[index++])
+                }
+                page = page.getNextPage() ?: break
+                index = 0
+            }
         }
     }
 }

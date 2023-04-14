@@ -12,6 +12,8 @@ import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.toUnmodifiable
 import com.increase.api.services.async.AccountTransferServiceAsync
 import java.util.Objects
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.FlowCollector
 
 class AccountTransferListPageAsync
 private constructor(
@@ -67,6 +69,8 @@ private constructor(
     suspend fun getNextPage(): AccountTransferListPageAsync? {
         return getNextPageParams()?.let { accountTransfersService.list(it) }
     }
+
+    fun autoPager(): AutoPager = AutoPager(this)
 
     companion object {
 
@@ -175,6 +179,24 @@ private constructor(
                     nextCursor,
                     additionalProperties.toUnmodifiable(),
                 )
+        }
+    }
+
+    class AutoPager
+    constructor(
+        private val firstPage: AccountTransferListPageAsync,
+    ) : Flow<AccountTransfer> {
+
+        override suspend fun collect(collector: FlowCollector<AccountTransfer>) {
+            var page = firstPage
+            var index = 0
+            while (true) {
+                while (index < page.data().size) {
+                    collector.emit(page.data()[index++])
+                }
+                page = page.getNextPage() ?: break
+                index = 0
+            }
         }
     }
 }

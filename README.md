@@ -67,7 +67,7 @@ import com.increase.api.models.AccountCreateParams
 val params = AccountCreateParams.builder()
     .name("My First Increase Account")
     .build()
-val account = client.accounts.create(params)
+val account = client.accounts().create(params)
 ```
 
 ### Example: listing resources
@@ -79,7 +79,7 @@ You can retrieve the first page by:
 import com.increase.api.models.Account
 import com.increase.api.models.Page
 
-val page = client.accounts.list()
+val page = client.accounts().list()
 for (account: Account in page.data()) {
     print(account)
 }
@@ -115,7 +115,7 @@ val params = AccountCreateParams.builder()
 When receiving a response, the Increase Kotlin SDK will deserialize it into instances of the typed model classes. In rare cases, the API may return a response property that doesn't match the expected Kotlin type. If you directly access the mistaken property, the SDK will throw an unchecked `IncreaseInvalidDataException` at runtime. If you would prefer to check in advance that that response is completely well-typed, call `.validate()` on the returned model.
 
 ```kotlin
-val account = client.accounts.create().validate()
+val account = client.accounts().create().validate()
 ```
 
 ### Response properties as JSON
@@ -143,14 +143,23 @@ the results either one page at a time, or item-by-item across all pages.
 To iterate through all results across all pages, you can use `autoPager`,
 which automatically handles fetching more pages for you:
 
+### Synchronous
+
 ```kotlin
 // As a Sequence:
-client.accounts.list(params).autoPager().sequence()
+client.accounts().list(params).autoPager()
     .take(50)
     .forEach { account -> print(account) }
 ```
 
-Note that fetching each page blocks the current thread.
+### Asynchronous
+
+```kotlin
+// As a Flow:
+asyncClient.accounts().list(params).autoPager()
+    .take(50)
+    .collect { account -> print(account) }
+```
 
 ### Manual pagination
 
@@ -160,7 +169,7 @@ A page of results has a `data()` method to fetch the list of objects, as well as
 `hasNextPage`, `getNextPage`, and `getNextPageParams` methods to help with pagination.
 
 ```kotlin
-val page = client.accounts.list(params)
+val page = client.accounts().list(params)
 while (page != null) {
     for (account in page.data) {
         print(account)

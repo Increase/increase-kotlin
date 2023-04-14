@@ -12,8 +12,6 @@ import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.toUnmodifiable
 import com.increase.api.services.blocking.InboundAchTransferReturnService
 import java.util.Objects
-import java.util.stream.Stream
-import java.util.stream.StreamSupport
 
 class InboundAchTransferReturnListPage
 private constructor(
@@ -188,24 +186,18 @@ private constructor(
     class AutoPager
     constructor(
         private val firstPage: InboundAchTransferReturnListPage,
-    ) : Iterable<InboundAchTransferReturn> {
+    ) : Sequence<InboundAchTransferReturn> {
 
-        override fun iterator(): Iterator<InboundAchTransferReturn> =
-            sequence {
-                    var page = firstPage
-                    var index = 0
-                    while (true) {
-                        while (index >= page.data().size) {
-                            page = page.getNextPage() ?: return@sequence
-                            index = 0
-                        }
-                        yield(page.data()[index++])
-                    }
+        override fun iterator(): Iterator<InboundAchTransferReturn> = iterator {
+            var page = firstPage
+            var index = 0
+            while (true) {
+                while (index < page.data().size) {
+                    yield(page.data()[index++])
                 }
-                .iterator()
-
-        fun stream(): Stream<InboundAchTransferReturn> {
-            return StreamSupport.stream(spliterator(), false)
+                page = page.getNextPage() ?: break
+                index = 0
+            }
         }
     }
 }

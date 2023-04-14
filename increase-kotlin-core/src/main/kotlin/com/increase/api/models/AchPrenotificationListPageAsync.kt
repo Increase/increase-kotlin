@@ -12,6 +12,8 @@ import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.toUnmodifiable
 import com.increase.api.services.async.AchPrenotificationServiceAsync
 import java.util.Objects
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.FlowCollector
 
 class AchPrenotificationListPageAsync
 private constructor(
@@ -67,6 +69,8 @@ private constructor(
     suspend fun getNextPage(): AchPrenotificationListPageAsync? {
         return getNextPageParams()?.let { achPrenotificationsService.list(it) }
     }
+
+    fun autoPager(): AutoPager = AutoPager(this)
 
     companion object {
 
@@ -175,6 +179,24 @@ private constructor(
                     nextCursor,
                     additionalProperties.toUnmodifiable(),
                 )
+        }
+    }
+
+    class AutoPager
+    constructor(
+        private val firstPage: AchPrenotificationListPageAsync,
+    ) : Flow<AchPrenotification> {
+
+        override suspend fun collect(collector: FlowCollector<AchPrenotification>) {
+            var page = firstPage
+            var index = 0
+            while (true) {
+                while (index < page.data().size) {
+                    collector.emit(page.data()[index++])
+                }
+                page = page.getNextPage() ?: break
+                index = 0
+            }
         }
     }
 }

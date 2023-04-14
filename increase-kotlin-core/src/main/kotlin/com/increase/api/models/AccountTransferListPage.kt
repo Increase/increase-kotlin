@@ -12,8 +12,6 @@ import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.toUnmodifiable
 import com.increase.api.services.blocking.AccountTransferService
 import java.util.Objects
-import java.util.stream.Stream
-import java.util.stream.StreamSupport
 
 class AccountTransferListPage
 private constructor(
@@ -185,24 +183,18 @@ private constructor(
     class AutoPager
     constructor(
         private val firstPage: AccountTransferListPage,
-    ) : Iterable<AccountTransfer> {
+    ) : Sequence<AccountTransfer> {
 
-        override fun iterator(): Iterator<AccountTransfer> =
-            sequence {
-                    var page = firstPage
-                    var index = 0
-                    while (true) {
-                        while (index >= page.data().size) {
-                            page = page.getNextPage() ?: return@sequence
-                            index = 0
-                        }
-                        yield(page.data()[index++])
-                    }
+        override fun iterator(): Iterator<AccountTransfer> = iterator {
+            var page = firstPage
+            var index = 0
+            while (true) {
+                while (index < page.data().size) {
+                    yield(page.data()[index++])
                 }
-                .iterator()
-
-        fun stream(): Stream<AccountTransfer> {
-            return StreamSupport.stream(spliterator(), false)
+                page = page.getNextPage() ?: break
+                index = 0
+            }
         }
     }
 }
