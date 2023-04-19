@@ -38,7 +38,6 @@ private constructor(
     private val status: JsonField<Status>,
     private val submittedAt: JsonField<OffsetDateTime>,
     private val submission: JsonField<Submission>,
-    private val templateId: JsonField<String>,
     private val transactionId: JsonField<String>,
     private val stopPaymentRequest: JsonField<StopPaymentRequest>,
     private val deposit: JsonField<Deposit>,
@@ -113,9 +112,6 @@ private constructor(
 
     /** After the transfer is submitted, this will contain supplemental details. */
     fun submission(): Submission? = submission.getNullable("submission")
-
-    /** If the transfer was created from a template, this will be the template's ID. */
-    fun templateId(): String? = templateId.getNullable("template_id")
 
     /** The ID for the transaction caused by the transfer. */
     fun transactionId(): String? = transactionId.getNullable("transaction_id")
@@ -203,9 +199,6 @@ private constructor(
     /** After the transfer is submitted, this will contain supplemental details. */
     @JsonProperty("submission") @ExcludeMissing fun _submission() = submission
 
-    /** If the transfer was created from a template, this will be the template's ID. */
-    @JsonProperty("template_id") @ExcludeMissing fun _templateId() = templateId
-
     /** The ID for the transaction caused by the transfer. */
     @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
 
@@ -254,7 +247,6 @@ private constructor(
             status()
             submittedAt()
             submission()?.validate()
-            templateId()
             transactionId()
             stopPaymentRequest()?.validate()
             deposit()?.validate()
@@ -290,7 +282,6 @@ private constructor(
             this.status == other.status &&
             this.submittedAt == other.submittedAt &&
             this.submission == other.submission &&
-            this.templateId == other.templateId &&
             this.transactionId == other.transactionId &&
             this.stopPaymentRequest == other.stopPaymentRequest &&
             this.deposit == other.deposit &&
@@ -321,7 +312,6 @@ private constructor(
                     status,
                     submittedAt,
                     submission,
-                    templateId,
                     transactionId,
                     stopPaymentRequest,
                     deposit,
@@ -334,7 +324,7 @@ private constructor(
     }
 
     override fun toString() =
-        "CheckTransfer{accountId=$accountId, addressLine1=$addressLine1, addressLine2=$addressLine2, addressCity=$addressCity, addressState=$addressState, addressZip=$addressZip, returnAddress=$returnAddress, amount=$amount, createdAt=$createdAt, currency=$currency, id=$id, mailedAt=$mailedAt, message=$message, note=$note, recipientName=$recipientName, status=$status, submittedAt=$submittedAt, submission=$submission, templateId=$templateId, transactionId=$transactionId, stopPaymentRequest=$stopPaymentRequest, deposit=$deposit, returnDetails=$returnDetails, type=$type, additionalProperties=$additionalProperties}"
+        "CheckTransfer{accountId=$accountId, addressLine1=$addressLine1, addressLine2=$addressLine2, addressCity=$addressCity, addressState=$addressState, addressZip=$addressZip, returnAddress=$returnAddress, amount=$amount, createdAt=$createdAt, currency=$currency, id=$id, mailedAt=$mailedAt, message=$message, note=$note, recipientName=$recipientName, status=$status, submittedAt=$submittedAt, submission=$submission, transactionId=$transactionId, stopPaymentRequest=$stopPaymentRequest, deposit=$deposit, returnDetails=$returnDetails, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -361,7 +351,6 @@ private constructor(
         private var status: JsonField<Status> = JsonMissing.of()
         private var submittedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var submission: JsonField<Submission> = JsonMissing.of()
-        private var templateId: JsonField<String> = JsonMissing.of()
         private var transactionId: JsonField<String> = JsonMissing.of()
         private var stopPaymentRequest: JsonField<StopPaymentRequest> = JsonMissing.of()
         private var deposit: JsonField<Deposit> = JsonMissing.of()
@@ -388,7 +377,6 @@ private constructor(
             this.status = checkTransfer.status
             this.submittedAt = checkTransfer.submittedAt
             this.submission = checkTransfer.submission
-            this.templateId = checkTransfer.templateId
             this.transactionId = checkTransfer.transactionId
             this.stopPaymentRequest = checkTransfer.stopPaymentRequest
             this.deposit = checkTransfer.deposit
@@ -569,14 +557,6 @@ private constructor(
         @ExcludeMissing
         fun submission(submission: JsonField<Submission>) = apply { this.submission = submission }
 
-        /** If the transfer was created from a template, this will be the template's ID. */
-        fun templateId(templateId: String) = templateId(JsonField.of(templateId))
-
-        /** If the transfer was created from a template, this will be the template's ID. */
-        @JsonProperty("template_id")
-        @ExcludeMissing
-        fun templateId(templateId: JsonField<String>) = apply { this.templateId = templateId }
-
         /** The ID for the transaction caused by the transfer. */
         fun transactionId(transactionId: String) = transactionId(JsonField.of(transactionId))
 
@@ -676,7 +656,6 @@ private constructor(
                 status,
                 submittedAt,
                 submission,
-                templateId,
                 transactionId,
                 stopPaymentRequest,
                 deposit,

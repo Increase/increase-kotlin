@@ -334,8 +334,8 @@ constructor(
         private var hashCode: Int = 0
 
         /**
-         * Return results whose value is in the provided list. For GET requests, this should be
-         * encoded as a comma-delimited string, such as `?in=one,two,three`.
+         * Filter Events for those with the specified category or categories. For GET requests, this
+         * should be encoded as a comma-delimited string, such as `?in=one,two,three`.
          */
         fun in_(): List<In>? = in_
 
@@ -383,8 +383,8 @@ constructor(
             }
 
             /**
-             * Return results whose value is in the provided list. For GET requests, this should be
-             * encoded as a comma-delimited string, such as `?in=one,two,three`.
+             * Filter Events for those with the specified category or categories. For GET requests,
+             * this should be encoded as a comma-delimited string, such as `?in=one,two,three`.
              */
             fun in_(in_: List<In>) = apply { this.in_ = in_ }
 
@@ -453,6 +453,10 @@ constructor(
                 val CARD_CREATED = In(JsonField.of("card.created"))
 
                 val CARD_UPDATED = In(JsonField.of("card.updated"))
+
+                val CARD_PAYMENT_CREATED = In(JsonField.of("card_payment.created"))
+
+                val CARD_PAYMENT_UPDATED = In(JsonField.of("card_payment.updated"))
 
                 val CARD_DISPUTE_CREATED = In(JsonField.of("card_dispute.created"))
 
@@ -553,6 +557,8 @@ constructor(
                 ACH_TRANSFER_UPDATED,
                 CARD_CREATED,
                 CARD_UPDATED,
+                CARD_PAYMENT_CREATED,
+                CARD_PAYMENT_UPDATED,
                 CARD_DISPUTE_CREATED,
                 CARD_DISPUTE_UPDATED,
                 CHECK_DEPOSIT_CREATED,
@@ -604,6 +610,8 @@ constructor(
                 ACH_TRANSFER_UPDATED,
                 CARD_CREATED,
                 CARD_UPDATED,
+                CARD_PAYMENT_CREATED,
+                CARD_PAYMENT_UPDATED,
                 CARD_DISPUTE_CREATED,
                 CARD_DISPUTE_UPDATED,
                 CHECK_DEPOSIT_CREATED,
@@ -657,6 +665,8 @@ constructor(
                     ACH_TRANSFER_UPDATED -> Value.ACH_TRANSFER_UPDATED
                     CARD_CREATED -> Value.CARD_CREATED
                     CARD_UPDATED -> Value.CARD_UPDATED
+                    CARD_PAYMENT_CREATED -> Value.CARD_PAYMENT_CREATED
+                    CARD_PAYMENT_UPDATED -> Value.CARD_PAYMENT_UPDATED
                     CARD_DISPUTE_CREATED -> Value.CARD_DISPUTE_CREATED
                     CARD_DISPUTE_UPDATED -> Value.CARD_DISPUTE_UPDATED
                     CHECK_DEPOSIT_CREATED -> Value.CHECK_DEPOSIT_CREATED
@@ -716,6 +726,8 @@ constructor(
                     ACH_TRANSFER_UPDATED -> Known.ACH_TRANSFER_UPDATED
                     CARD_CREATED -> Known.CARD_CREATED
                     CARD_UPDATED -> Known.CARD_UPDATED
+                    CARD_PAYMENT_CREATED -> Known.CARD_PAYMENT_CREATED
+                    CARD_PAYMENT_UPDATED -> Known.CARD_PAYMENT_UPDATED
                     CARD_DISPUTE_CREATED -> Known.CARD_DISPUTE_CREATED
                     CARD_DISPUTE_UPDATED -> Known.CARD_DISPUTE_UPDATED
                     CHECK_DEPOSIT_CREATED -> Known.CHECK_DEPOSIT_CREATED

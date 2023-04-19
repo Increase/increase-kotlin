@@ -16,6 +16,7 @@ constructor(
     private val amount: Long,
     private val cardId: String?,
     private val digitalWalletTokenId: String?,
+    private val eventSubscriptionId: String?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
     private val additionalBodyProperties: Map<String, JsonValue>,
@@ -27,11 +28,14 @@ constructor(
 
     fun digitalWalletTokenId(): String? = digitalWalletTokenId
 
+    fun eventSubscriptionId(): String? = eventSubscriptionId
+
     internal fun getBody(): SimulationsCardAuthorizeBody {
         return SimulationsCardAuthorizeBody(
             amount,
             cardId,
             digitalWalletTokenId,
+            eventSubscriptionId,
             additionalBodyProperties,
         )
     }
@@ -47,6 +51,7 @@ constructor(
         private val amount: Long?,
         private val cardId: String?,
         private val digitalWalletTokenId: String?,
+        private val eventSubscriptionId: String?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -61,6 +66,15 @@ constructor(
         /** The identifier of the Digital Wallet Token to be authorized. */
         @JsonProperty("digital_wallet_token_id")
         fun digitalWalletTokenId(): String? = digitalWalletTokenId
+
+        /**
+         * The identifier of the Event Subscription to use. If provided, will override the default
+         * real time event subscription. Because you can only create one real time decision event
+         * subscription, you can use this field to route events to any specified event subscription
+         * for testing purposes.
+         */
+        @JsonProperty("event_subscription_id")
+        fun eventSubscriptionId(): String? = eventSubscriptionId
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -77,6 +91,7 @@ constructor(
                 this.amount == other.amount &&
                 this.cardId == other.cardId &&
                 this.digitalWalletTokenId == other.digitalWalletTokenId &&
+                this.eventSubscriptionId == other.eventSubscriptionId &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -87,6 +102,7 @@ constructor(
                         amount,
                         cardId,
                         digitalWalletTokenId,
+                        eventSubscriptionId,
                         additionalProperties,
                     )
             }
@@ -94,7 +110,7 @@ constructor(
         }
 
         override fun toString() =
-            "SimulationsCardAuthorizeBody{amount=$amount, cardId=$cardId, digitalWalletTokenId=$digitalWalletTokenId, additionalProperties=$additionalProperties}"
+            "SimulationsCardAuthorizeBody{amount=$amount, cardId=$cardId, digitalWalletTokenId=$digitalWalletTokenId, eventSubscriptionId=$eventSubscriptionId, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -106,12 +122,14 @@ constructor(
             private var amount: Long? = null
             private var cardId: String? = null
             private var digitalWalletTokenId: String? = null
+            private var eventSubscriptionId: String? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(simulationsCardAuthorizeBody: SimulationsCardAuthorizeBody) = apply {
                 this.amount = simulationsCardAuthorizeBody.amount
                 this.cardId = simulationsCardAuthorizeBody.cardId
                 this.digitalWalletTokenId = simulationsCardAuthorizeBody.digitalWalletTokenId
+                this.eventSubscriptionId = simulationsCardAuthorizeBody.eventSubscriptionId
                 additionalProperties(simulationsCardAuthorizeBody.additionalProperties)
             }
 
@@ -125,6 +143,17 @@ constructor(
             @JsonProperty("digital_wallet_token_id")
             fun digitalWalletTokenId(digitalWalletTokenId: String) = apply {
                 this.digitalWalletTokenId = digitalWalletTokenId
+            }
+
+            /**
+             * The identifier of the Event Subscription to use. If provided, will override the
+             * default real time event subscription. Because you can only create one real time
+             * decision event subscription, you can use this field to route events to any specified
+             * event subscription for testing purposes.
+             */
+            @JsonProperty("event_subscription_id")
+            fun eventSubscriptionId(eventSubscriptionId: String) = apply {
+                this.eventSubscriptionId = eventSubscriptionId
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -146,6 +175,7 @@ constructor(
                     checkNotNull(amount) { "`amount` is required but was not set" },
                     cardId,
                     digitalWalletTokenId,
+                    eventSubscriptionId,
                     additionalProperties.toUnmodifiable(),
                 )
         }
@@ -166,6 +196,7 @@ constructor(
             this.amount == other.amount &&
             this.cardId == other.cardId &&
             this.digitalWalletTokenId == other.digitalWalletTokenId &&
+            this.eventSubscriptionId == other.eventSubscriptionId &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders &&
             this.additionalBodyProperties == other.additionalBodyProperties
@@ -176,6 +207,7 @@ constructor(
             amount,
             cardId,
             digitalWalletTokenId,
+            eventSubscriptionId,
             additionalQueryParams,
             additionalHeaders,
             additionalBodyProperties,
@@ -183,7 +215,7 @@ constructor(
     }
 
     override fun toString() =
-        "SimulationsCardAuthorizeParams{amount=$amount, cardId=$cardId, digitalWalletTokenId=$digitalWalletTokenId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "SimulationsCardAuthorizeParams{amount=$amount, cardId=$cardId, digitalWalletTokenId=$digitalWalletTokenId, eventSubscriptionId=$eventSubscriptionId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -198,6 +230,7 @@ constructor(
         private var amount: Long? = null
         private var cardId: String? = null
         private var digitalWalletTokenId: String? = null
+        private var eventSubscriptionId: String? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -206,6 +239,7 @@ constructor(
             this.amount = simulationsCardAuthorizeParams.amount
             this.cardId = simulationsCardAuthorizeParams.cardId
             this.digitalWalletTokenId = simulationsCardAuthorizeParams.digitalWalletTokenId
+            this.eventSubscriptionId = simulationsCardAuthorizeParams.eventSubscriptionId
             additionalQueryParams(simulationsCardAuthorizeParams.additionalQueryParams)
             additionalHeaders(simulationsCardAuthorizeParams.additionalHeaders)
             additionalBodyProperties(simulationsCardAuthorizeParams.additionalBodyProperties)
@@ -220,6 +254,16 @@ constructor(
         /** The identifier of the Digital Wallet Token to be authorized. */
         fun digitalWalletTokenId(digitalWalletTokenId: String) = apply {
             this.digitalWalletTokenId = digitalWalletTokenId
+        }
+
+        /**
+         * The identifier of the Event Subscription to use. If provided, will override the default
+         * real time event subscription. Because you can only create one real time decision event
+         * subscription, you can use this field to route events to any specified event subscription
+         * for testing purposes.
+         */
+        fun eventSubscriptionId(eventSubscriptionId: String) = apply {
+            this.eventSubscriptionId = eventSubscriptionId
         }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
@@ -281,6 +325,7 @@ constructor(
                 checkNotNull(amount) { "`amount` is required but was not set" },
                 cardId,
                 digitalWalletTokenId,
+                eventSubscriptionId,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalBodyProperties.toUnmodifiable(),
