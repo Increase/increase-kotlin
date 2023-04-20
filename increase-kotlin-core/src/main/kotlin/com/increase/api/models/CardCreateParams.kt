@@ -67,8 +67,10 @@ constructor(
         @JsonProperty("billing_address") fun billingAddress(): BillingAddress? = billingAddress
 
         /**
-         * The contact information used in the two-factor steps for digital wallet card creation. At
-         * least one field must be present to complete the digital wallet steps.
+         * The contact information used in the two-factor steps for digital wallet card creation. To
+         * add the card to a digital wallet, you may supply an email or phone number with this
+         * request. Otherwise, subscribe and then action a Real Time Decision with the category
+         * `digital_wallet_token_requested` or `digital_wallet_authentication_requested`.
          */
         @JsonProperty("digital_wallet") fun digitalWallet(): DigitalWallet? = digitalWallet
 
@@ -145,7 +147,10 @@ constructor(
 
             /**
              * The contact information used in the two-factor steps for digital wallet card
-             * creation. At least one field must be present to complete the digital wallet steps.
+             * creation. To add the card to a digital wallet, you may supply an email or phone
+             * number with this request. Otherwise, subscribe and then action a Real Time Decision
+             * with the category `digital_wallet_token_requested` or
+             * `digital_wallet_authentication_requested`.
              */
             @JsonProperty("digital_wallet")
             fun digitalWallet(digitalWallet: DigitalWallet) = apply {
@@ -253,8 +258,10 @@ constructor(
         }
 
         /**
-         * The contact information used in the two-factor steps for digital wallet card creation. At
-         * least one field must be present to complete the digital wallet steps.
+         * The contact information used in the two-factor steps for digital wallet card creation. To
+         * add the card to a digital wallet, you may supply an email or phone number with this
+         * request. Otherwise, subscribe and then action a Real Time Decision with the category
+         * `digital_wallet_token_requested` or `digital_wallet_authentication_requested`.
          */
         fun digitalWallet(digitalWallet: DigitalWallet) = apply {
             this.digitalWallet = digitalWallet
@@ -460,8 +467,10 @@ constructor(
     }
 
     /**
-     * The contact information used in the two-factor steps for digital wallet card creation. At
-     * least one field must be present to complete the digital wallet steps.
+     * The contact information used in the two-factor steps for digital wallet card creation. To add
+     * the card to a digital wallet, you may supply an email or phone number with this request.
+     * Otherwise, subscribe and then action a Real Time Decision with the category
+     * `digital_wallet_token_requested` or `digital_wallet_authentication_requested`.
      */
     @JsonDeserialize(builder = DigitalWallet.Builder::class)
     @NoAutoDetect
