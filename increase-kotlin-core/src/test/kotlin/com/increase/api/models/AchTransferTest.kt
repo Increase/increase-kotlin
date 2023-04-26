@@ -32,12 +32,14 @@ class AchTransferTest {
                 .externalAccountId("string")
                 .id("string")
                 .network(AchTransfer.Network.ACH)
-                .notificationOfChange(
-                    AchTransfer.NotificationOfChange.builder()
-                        .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .changeCode("string")
-                        .correctedData("string")
-                        .build()
+                .notificationsOfChange(
+                    listOf(
+                        AchTransfer.NotificationsOfChange.builder()
+                            .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .changeCode("string")
+                            .correctedData("string")
+                            .build()
+                    )
                 )
                 .return_(
                     AchTransfer.Return.builder()
@@ -95,9 +97,9 @@ class AchTransferTest {
         assertThat(achTransfer.externalAccountId()).isEqualTo("string")
         assertThat(achTransfer.id()).isEqualTo("string")
         assertThat(achTransfer.network()).isEqualTo(AchTransfer.Network.ACH)
-        assertThat(achTransfer.notificationOfChange())
-            .isEqualTo(
-                AchTransfer.NotificationOfChange.builder()
+        assertThat(achTransfer.notificationsOfChange())
+            .containsExactly(
+                AchTransfer.NotificationsOfChange.builder()
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .changeCode("string")
                     .correctedData("string")
