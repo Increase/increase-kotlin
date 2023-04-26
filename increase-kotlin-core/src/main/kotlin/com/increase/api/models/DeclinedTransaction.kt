@@ -2417,6 +2417,8 @@ private constructor(
 
                     val TRANSACTION_NOT_ALLOWED = Reason(JsonField.of("transaction_not_allowed"))
 
+                    val BREACHES_INTERNAL_LIMIT = Reason(JsonField.of("breaches_internal_limit"))
+
                     val BREACHES_LIMIT = Reason(JsonField.of("breaches_limit"))
 
                     val WEBHOOK_DECLINED = Reason(JsonField.of("webhook_declined"))
@@ -2441,6 +2443,7 @@ private constructor(
                     INSUFFICIENT_FUNDS,
                     CVV2_MISMATCH,
                     TRANSACTION_NOT_ALLOWED,
+                    BREACHES_INTERNAL_LIMIT,
                     BREACHES_LIMIT,
                     WEBHOOK_DECLINED,
                     WEBHOOK_TIMED_OUT,
@@ -2456,6 +2459,7 @@ private constructor(
                     INSUFFICIENT_FUNDS,
                     CVV2_MISMATCH,
                     TRANSACTION_NOT_ALLOWED,
+                    BREACHES_INTERNAL_LIMIT,
                     BREACHES_LIMIT,
                     WEBHOOK_DECLINED,
                     WEBHOOK_TIMED_OUT,
@@ -2473,6 +2477,7 @@ private constructor(
                         INSUFFICIENT_FUNDS -> Value.INSUFFICIENT_FUNDS
                         CVV2_MISMATCH -> Value.CVV2_MISMATCH
                         TRANSACTION_NOT_ALLOWED -> Value.TRANSACTION_NOT_ALLOWED
+                        BREACHES_INTERNAL_LIMIT -> Value.BREACHES_INTERNAL_LIMIT
                         BREACHES_LIMIT -> Value.BREACHES_LIMIT
                         WEBHOOK_DECLINED -> Value.WEBHOOK_DECLINED
                         WEBHOOK_TIMED_OUT -> Value.WEBHOOK_TIMED_OUT
@@ -2490,6 +2495,7 @@ private constructor(
                         INSUFFICIENT_FUNDS -> Known.INSUFFICIENT_FUNDS
                         CVV2_MISMATCH -> Known.CVV2_MISMATCH
                         TRANSACTION_NOT_ALLOWED -> Known.TRANSACTION_NOT_ALLOWED
+                        BREACHES_INTERNAL_LIMIT -> Known.BREACHES_INTERNAL_LIMIT
                         BREACHES_LIMIT -> Known.BREACHES_LIMIT
                         WEBHOOK_DECLINED -> Known.WEBHOOK_DECLINED
                         WEBHOOK_TIMED_OUT -> Known.WEBHOOK_TIMED_OUT
