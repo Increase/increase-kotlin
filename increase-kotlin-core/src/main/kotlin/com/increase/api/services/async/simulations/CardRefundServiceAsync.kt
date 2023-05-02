@@ -3,7 +3,7 @@
 package com.increase.api.services.async.simulations
 
 import com.increase.api.core.RequestOptions
-import com.increase.api.models.SimulationsCardRefundCreateParams
+import com.increase.api.models.SimulationCardRefundCreateParams
 import com.increase.api.models.Transaction
 
 interface CardRefundServiceAsync {
@@ -13,7 +13,7 @@ interface CardRefundServiceAsync {
      * refunded.
      */
     suspend fun create(
-        params: SimulationsCardRefundCreateParams,
+        params: SimulationCardRefundCreateParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): Transaction
 }

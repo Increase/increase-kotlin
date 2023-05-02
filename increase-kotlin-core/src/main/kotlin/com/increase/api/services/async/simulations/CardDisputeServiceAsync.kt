@@ -4,7 +4,7 @@ package com.increase.api.services.async.simulations
 
 import com.increase.api.core.RequestOptions
 import com.increase.api.models.CardDispute
-import com.increase.api.models.SimulationsCardDisputeActionParams
+import com.increase.api.models.SimulationCardDisputeActionParams
 
 interface CardDisputeServiceAsync {
 
@@ -15,7 +15,7 @@ interface CardDisputeServiceAsync {
      * a status of `pending_reviewing`.
      */
     suspend fun action(
-        params: SimulationsCardDisputeActionParams,
+        params: SimulationCardDisputeActionParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): CardDispute
 }

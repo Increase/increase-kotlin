@@ -4,13 +4,13 @@ package com.increase.api.services.async.simulations
 
 import com.increase.api.core.RequestOptions
 import com.increase.api.models.Document
-import com.increase.api.models.SimulationsDocumentCreateParams
+import com.increase.api.models.SimulationDocumentCreateParams
 
 interface DocumentServiceAsync {
 
     /** Simulates an tax document being created for an account. */
     suspend fun create(
-        params: SimulationsDocumentCreateParams,
+        params: SimulationDocumentCreateParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): Document
 }

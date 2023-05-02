@@ -4,8 +4,8 @@ package com.increase.api.services.async.simulations
 
 import com.increase.api.core.RequestOptions
 import com.increase.api.models.CardAuthorizationSimulation
-import com.increase.api.models.SimulationsCardAuthorizeParams
-import com.increase.api.models.SimulationsCardSettlementParams
+import com.increase.api.models.SimulationCardAuthorizeParams
+import com.increase.api.models.SimulationCardSettlementParams
 import com.increase.api.models.Transaction
 
 interface CardServiceAsync {
@@ -19,7 +19,7 @@ interface CardServiceAsync {
      * ways purchases can be made.
      */
     suspend fun authorize(
-        params: SimulationsCardAuthorizeParams,
+        params: SimulationCardAuthorizeParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): CardAuthorizationSimulation
 
@@ -30,7 +30,7 @@ interface CardServiceAsync {
      * from the amount originally authorized, for example, when adding a tip to a restaurant bill.
      */
     suspend fun settlement(
-        params: SimulationsCardSettlementParams,
+        params: SimulationCardSettlementParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): Transaction
 }

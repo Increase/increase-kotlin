@@ -4,7 +4,7 @@ package com.increase.api.services.async.simulations
 
 import com.increase.api.core.RequestOptions
 import com.increase.api.models.AccountStatement
-import com.increase.api.models.SimulationsAccountStatementCreateParams
+import com.increase.api.models.SimulationAccountStatementCreateParams
 
 interface AccountStatementServiceAsync {
 
@@ -13,7 +13,7 @@ interface AccountStatementServiceAsync {
      * production, Account Statements are generated once per month.
      */
     suspend fun create(
-        params: SimulationsAccountStatementCreateParams,
+        params: SimulationAccountStatementCreateParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): AccountStatement
 }

@@ -4,7 +4,7 @@ package com.increase.api.services.async.simulations
 
 import com.increase.api.core.RequestOptions
 import com.increase.api.models.AccountTransfer
-import com.increase.api.models.SimulationsAccountTransferCompleteParams
+import com.increase.api.models.SimulationAccountTransferCompleteParams
 
 interface AccountTransferServiceAsync {
 
@@ -15,7 +15,7 @@ interface AccountTransferServiceAsync {
      * `pending_approval`.
      */
     suspend fun complete(
-        params: SimulationsAccountTransferCompleteParams,
+        params: SimulationAccountTransferCompleteParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): AccountTransfer
 }
