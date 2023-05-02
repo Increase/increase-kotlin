@@ -3,7 +3,7 @@
 package com.increase.api.services.blocking.simulations
 
 import com.increase.api.core.RequestOptions
-import com.increase.api.models.SimulationsCardRefundCreateParams
+import com.increase.api.models.SimulationCardRefundCreateParams
 import com.increase.api.models.Transaction
 
 interface CardRefundService {
@@ -13,7 +13,7 @@ interface CardRefundService {
      * refunded.
      */
     fun create(
-        params: SimulationsCardRefundCreateParams,
+        params: SimulationCardRefundCreateParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): Transaction
 }

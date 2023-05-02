@@ -3,14 +3,14 @@
 package com.increase.api.services.blocking.entities
 
 import com.increase.api.core.RequestOptions
-import com.increase.api.models.EntitiesSupplementalDocumentCreateParams
 import com.increase.api.models.Entity
+import com.increase.api.models.EntitySupplementalDocumentCreateParams
 
 interface SupplementalDocumentService {
 
     /** Create a supplemental document for an Entity */
     fun create(
-        params: EntitiesSupplementalDocumentCreateParams,
+        params: EntitySupplementalDocumentCreateParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): Entity
 }

@@ -3,14 +3,14 @@
 package com.increase.api.services.async.simulations
 
 import com.increase.api.core.RequestOptions
-import com.increase.api.models.SimulationsWireTransferCreateInboundParams
+import com.increase.api.models.SimulationWireTransferCreateInboundParams
 import com.increase.api.models.WireTransferSimulation
 
 interface WireTransferServiceAsync {
 
     /** Simulates an inbound Wire Transfer to your account. */
     suspend fun createInbound(
-        params: SimulationsWireTransferCreateInboundParams,
+        params: SimulationWireTransferCreateInboundParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): WireTransferSimulation
 }

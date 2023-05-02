@@ -5,8 +5,8 @@ package com.increase.api.services.blocking.simulations
 import com.increase.api.core.RequestOptions
 import com.increase.api.models.InboundRealTimePaymentsTransferSimulationResult
 import com.increase.api.models.RealTimePaymentsTransfer
-import com.increase.api.models.SimulationsRealTimePaymentsTransferCompleteParams
-import com.increase.api.models.SimulationsRealTimePaymentsTransferCreateInboundParams
+import com.increase.api.models.SimulationRealTimePaymentsTransferCompleteParams
+import com.increase.api.models.SimulationRealTimePaymentsTransferCreateInboundParams
 
 interface RealTimePaymentsTransferService {
 
@@ -16,7 +16,7 @@ interface RealTimePaymentsTransferService {
      * `pending_submission`.
      */
     fun complete(
-        params: SimulationsRealTimePaymentsTransferCompleteParams,
+        params: SimulationRealTimePaymentsTransferCompleteParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): RealTimePaymentsTransfer
 
@@ -25,7 +25,7 @@ interface RealTimePaymentsTransferService {
      * beta feature.
      */
     fun createInbound(
-        params: SimulationsRealTimePaymentsTransferCreateInboundParams,
+        params: SimulationRealTimePaymentsTransferCreateInboundParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): InboundRealTimePaymentsTransferSimulationResult
 }

@@ -4,7 +4,7 @@ package com.increase.api.services.blocking.simulations
 
 import com.increase.api.core.RequestOptions
 import com.increase.api.models.InterestPaymentSimulationResult
-import com.increase.api.models.SimulationsInterestPaymentCreateParams
+import com.increase.api.models.SimulationInterestPaymentCreateParams
 
 interface InterestPaymentService {
 
@@ -13,7 +13,7 @@ interface InterestPaymentService {
      * the first of each month.
      */
     fun create(
-        params: SimulationsInterestPaymentCreateParams,
+        params: SimulationInterestPaymentCreateParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): InterestPaymentSimulationResult
 }

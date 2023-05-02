@@ -4,7 +4,7 @@ package com.increase.api.services.async.simulations
 
 import com.increase.api.core.RequestOptions
 import com.increase.api.models.InboundWireDrawdownRequest
-import com.increase.api.models.SimulationsInboundWireDrawdownRequestCreateParams
+import com.increase.api.models.SimulationInboundWireDrawdownRequestCreateParams
 
 interface InboundWireDrawdownRequestServiceAsync {
 
@@ -13,7 +13,7 @@ interface InboundWireDrawdownRequestServiceAsync {
      * .
      */
     suspend fun create(
-        params: SimulationsInboundWireDrawdownRequestCreateParams,
+        params: SimulationInboundWireDrawdownRequestCreateParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): InboundWireDrawdownRequest
 }

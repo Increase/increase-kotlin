@@ -4,9 +4,9 @@ package com.increase.api.services.blocking.simulations
 
 import com.increase.api.core.RequestOptions
 import com.increase.api.models.CheckDeposit
-import com.increase.api.models.SimulationsCheckDepositRejectParams
-import com.increase.api.models.SimulationsCheckDepositReturnParams
-import com.increase.api.models.SimulationsCheckDepositSubmitParams
+import com.increase.api.models.SimulationCheckDepositRejectParams
+import com.increase.api.models.SimulationCheckDepositReturnParams
+import com.increase.api.models.SimulationCheckDepositSubmitParams
 
 interface CheckDepositService {
 
@@ -15,7 +15,7 @@ interface CheckDepositService {
      * poor image quality. This Check Deposit must first have a `status` of `pending`.
      */
     fun reject(
-        params: SimulationsCheckDepositRejectParams,
+        params: SimulationCheckDepositRejectParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): CheckDeposit
 
@@ -24,7 +24,7 @@ interface CheckDepositService {
      * have a `status` of `submitted`.
      */
     fun return_(
-        params: SimulationsCheckDepositReturnParams,
+        params: SimulationCheckDepositReturnParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): CheckDeposit
 
@@ -33,7 +33,7 @@ interface CheckDepositService {
      * Check Deposit must first have a `status` of `pending`.
      */
     fun submit(
-        params: SimulationsCheckDepositSubmitParams,
+        params: SimulationCheckDepositSubmitParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): CheckDeposit
 }

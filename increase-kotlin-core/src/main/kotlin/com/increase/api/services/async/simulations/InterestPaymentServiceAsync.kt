@@ -4,7 +4,7 @@ package com.increase.api.services.async.simulations
 
 import com.increase.api.core.RequestOptions
 import com.increase.api.models.InterestPaymentSimulationResult
-import com.increase.api.models.SimulationsInterestPaymentCreateParams
+import com.increase.api.models.SimulationInterestPaymentCreateParams
 
 interface InterestPaymentServiceAsync {
 
@@ -13,7 +13,7 @@ interface InterestPaymentServiceAsync {
      * the first of each month.
      */
     suspend fun create(
-        params: SimulationsInterestPaymentCreateParams,
+        params: SimulationInterestPaymentCreateParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): InterestPaymentSimulationResult
 }
