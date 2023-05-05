@@ -349,6 +349,9 @@ private constructor(
 
             val PENETRATION_TEST_REPORT = Category(JsonField.of("penetration_test_report"))
 
+            val PLATFORM_COMPLIANCE_METRICS_SUBMISSION =
+                Category(JsonField.of("platform_compliance_metrics_submission"))
+
             val PROGRAM_RISK_ASSESSMENT = Category(JsonField.of("program_risk_assessment"))
 
             val SECURITY_AUDIT_REPORT = Category(JsonField.of("security_audit_report"))
@@ -412,6 +415,7 @@ private constructor(
             NETWORK_SECURITY_DIAGRAM,
             ONBOARDING_QUESTIONNAIRE,
             PENETRATION_TEST_REPORT,
+            PLATFORM_COMPLIANCE_METRICS_SUBMISSION,
             PROGRAM_RISK_ASSESSMENT,
             SECURITY_AUDIT_REPORT,
             SERVICING_POLICY,
@@ -462,6 +466,7 @@ private constructor(
             NETWORK_SECURITY_DIAGRAM,
             ONBOARDING_QUESTIONNAIRE,
             PENETRATION_TEST_REPORT,
+            PLATFORM_COMPLIANCE_METRICS_SUBMISSION,
             PROGRAM_RISK_ASSESSMENT,
             SECURITY_AUDIT_REPORT,
             SERVICING_POLICY,
@@ -514,6 +519,8 @@ private constructor(
                 NETWORK_SECURITY_DIAGRAM -> Value.NETWORK_SECURITY_DIAGRAM
                 ONBOARDING_QUESTIONNAIRE -> Value.ONBOARDING_QUESTIONNAIRE
                 PENETRATION_TEST_REPORT -> Value.PENETRATION_TEST_REPORT
+                PLATFORM_COMPLIANCE_METRICS_SUBMISSION ->
+                    Value.PLATFORM_COMPLIANCE_METRICS_SUBMISSION
                 PROGRAM_RISK_ASSESSMENT -> Value.PROGRAM_RISK_ASSESSMENT
                 SECURITY_AUDIT_REPORT -> Value.SECURITY_AUDIT_REPORT
                 SERVICING_POLICY -> Value.SERVICING_POLICY
@@ -566,6 +573,8 @@ private constructor(
                 NETWORK_SECURITY_DIAGRAM -> Known.NETWORK_SECURITY_DIAGRAM
                 ONBOARDING_QUESTIONNAIRE -> Known.ONBOARDING_QUESTIONNAIRE
                 PENETRATION_TEST_REPORT -> Known.PENETRATION_TEST_REPORT
+                PLATFORM_COMPLIANCE_METRICS_SUBMISSION ->
+                    Known.PLATFORM_COMPLIANCE_METRICS_SUBMISSION
                 PROGRAM_RISK_ASSESSMENT -> Known.PROGRAM_RISK_ASSESSMENT
                 SECURITY_AUDIT_REPORT -> Known.SECURITY_AUDIT_REPORT
                 SERVICING_POLICY -> Known.SERVICING_POLICY
