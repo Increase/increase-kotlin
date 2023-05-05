@@ -2435,6 +2435,8 @@ private constructor(
                     val CHECK_TRANSFER_STOP_PAYMENT_REQUEST =
                         Category(JsonField.of("check_transfer_stop_payment_request"))
 
+                    val COLLECTION_RECEIVABLE = Category(JsonField.of("collection_receivable"))
+
                     val DISPUTE_RESOLUTION = Category(JsonField.of("dispute_resolution"))
 
                     val EMPYREAL_CASH_DEPOSIT = Category(JsonField.of("empyreal_cash_deposit"))
@@ -2512,6 +2514,7 @@ private constructor(
                     CHECK_TRANSFER_RETURN,
                     CHECK_TRANSFER_REJECTION,
                     CHECK_TRANSFER_STOP_PAYMENT_REQUEST,
+                    COLLECTION_RECEIVABLE,
                     DISPUTE_RESOLUTION,
                     EMPYREAL_CASH_DEPOSIT,
                     FEE_PAYMENT,
@@ -2555,6 +2558,7 @@ private constructor(
                     CHECK_TRANSFER_RETURN,
                     CHECK_TRANSFER_REJECTION,
                     CHECK_TRANSFER_STOP_PAYMENT_REQUEST,
+                    COLLECTION_RECEIVABLE,
                     DISPUTE_RESOLUTION,
                     EMPYREAL_CASH_DEPOSIT,
                     FEE_PAYMENT,
@@ -2601,6 +2605,7 @@ private constructor(
                         CHECK_TRANSFER_REJECTION -> Value.CHECK_TRANSFER_REJECTION
                         CHECK_TRANSFER_STOP_PAYMENT_REQUEST ->
                             Value.CHECK_TRANSFER_STOP_PAYMENT_REQUEST
+                        COLLECTION_RECEIVABLE -> Value.COLLECTION_RECEIVABLE
                         DISPUTE_RESOLUTION -> Value.DISPUTE_RESOLUTION
                         EMPYREAL_CASH_DEPOSIT -> Value.EMPYREAL_CASH_DEPOSIT
                         FEE_PAYMENT -> Value.FEE_PAYMENT
@@ -2653,6 +2658,7 @@ private constructor(
                         CHECK_TRANSFER_REJECTION -> Known.CHECK_TRANSFER_REJECTION
                         CHECK_TRANSFER_STOP_PAYMENT_REQUEST ->
                             Known.CHECK_TRANSFER_STOP_PAYMENT_REQUEST
+                        COLLECTION_RECEIVABLE -> Known.COLLECTION_RECEIVABLE
                         DISPUTE_RESOLUTION -> Known.DISPUTE_RESOLUTION
                         EMPYREAL_CASH_DEPOSIT -> Known.EMPYREAL_CASH_DEPOSIT
                         FEE_PAYMENT -> Known.FEE_PAYMENT
