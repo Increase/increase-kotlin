@@ -2191,8 +2191,6 @@ private constructor(
                 val CHECK_TRANSFER_STOP_PAYMENT_REQUEST =
                     Category(JsonField.of("check_transfer_stop_payment_request"))
 
-                val COLLECTION_RECEIVABLE = Category(JsonField.of("collection_receivable"))
-
                 val DISPUTE_RESOLUTION = Category(JsonField.of("dispute_resolution"))
 
                 val EMPYREAL_CASH_DEPOSIT = Category(JsonField.of("empyreal_cash_deposit"))
@@ -2270,7 +2268,6 @@ private constructor(
                 CHECK_TRANSFER_RETURN,
                 CHECK_TRANSFER_REJECTION,
                 CHECK_TRANSFER_STOP_PAYMENT_REQUEST,
-                COLLECTION_RECEIVABLE,
                 DISPUTE_RESOLUTION,
                 EMPYREAL_CASH_DEPOSIT,
                 FEE_PAYMENT,
@@ -2314,7 +2311,6 @@ private constructor(
                 CHECK_TRANSFER_RETURN,
                 CHECK_TRANSFER_REJECTION,
                 CHECK_TRANSFER_STOP_PAYMENT_REQUEST,
-                COLLECTION_RECEIVABLE,
                 DISPUTE_RESOLUTION,
                 EMPYREAL_CASH_DEPOSIT,
                 FEE_PAYMENT,
@@ -2360,7 +2356,6 @@ private constructor(
                     CHECK_TRANSFER_RETURN -> Value.CHECK_TRANSFER_RETURN
                     CHECK_TRANSFER_REJECTION -> Value.CHECK_TRANSFER_REJECTION
                     CHECK_TRANSFER_STOP_PAYMENT_REQUEST -> Value.CHECK_TRANSFER_STOP_PAYMENT_REQUEST
-                    COLLECTION_RECEIVABLE -> Value.COLLECTION_RECEIVABLE
                     DISPUTE_RESOLUTION -> Value.DISPUTE_RESOLUTION
                     EMPYREAL_CASH_DEPOSIT -> Value.EMPYREAL_CASH_DEPOSIT
                     FEE_PAYMENT -> Value.FEE_PAYMENT
@@ -2410,7 +2405,6 @@ private constructor(
                     CHECK_TRANSFER_RETURN -> Known.CHECK_TRANSFER_RETURN
                     CHECK_TRANSFER_REJECTION -> Known.CHECK_TRANSFER_REJECTION
                     CHECK_TRANSFER_STOP_PAYMENT_REQUEST -> Known.CHECK_TRANSFER_STOP_PAYMENT_REQUEST
-                    COLLECTION_RECEIVABLE -> Known.COLLECTION_RECEIVABLE
                     DISPUTE_RESOLUTION -> Known.DISPUTE_RESOLUTION
                     EMPYREAL_CASH_DEPOSIT -> Known.EMPYREAL_CASH_DEPOSIT
                     FEE_PAYMENT -> Known.FEE_PAYMENT
@@ -12339,6 +12333,8 @@ private constructor(
 
                     val CASHBACK = Reason(JsonField.of("cashback"))
 
+                    val COLLECTION_RECEIVABLE = Reason(JsonField.of("collection_receivable"))
+
                     val EMPYREAL_ADJUSTMENT = Reason(JsonField.of("empyreal_adjustment"))
 
                     val ERROR = Reason(JsonField.of("error"))
@@ -12348,6 +12344,9 @@ private constructor(
                     val FEES = Reason(JsonField.of("fees"))
 
                     val INTEREST = Reason(JsonField.of("interest"))
+
+                    val NEGATIVE_BALANCE_FORGIVENESS =
+                        Reason(JsonField.of("negative_balance_forgiveness"))
 
                     val SAMPLE_FUNDS = Reason(JsonField.of("sample_funds"))
 
@@ -12359,11 +12358,13 @@ private constructor(
                 enum class Known {
                     BANK_MIGRATION,
                     CASHBACK,
+                    COLLECTION_RECEIVABLE,
                     EMPYREAL_ADJUSTMENT,
                     ERROR,
                     ERROR_CORRECTION,
                     FEES,
                     INTEREST,
+                    NEGATIVE_BALANCE_FORGIVENESS,
                     SAMPLE_FUNDS,
                     SAMPLE_FUNDS_RETURN,
                 }
@@ -12371,11 +12372,13 @@ private constructor(
                 enum class Value {
                     BANK_MIGRATION,
                     CASHBACK,
+                    COLLECTION_RECEIVABLE,
                     EMPYREAL_ADJUSTMENT,
                     ERROR,
                     ERROR_CORRECTION,
                     FEES,
                     INTEREST,
+                    NEGATIVE_BALANCE_FORGIVENESS,
                     SAMPLE_FUNDS,
                     SAMPLE_FUNDS_RETURN,
                     _UNKNOWN,
@@ -12385,11 +12388,13 @@ private constructor(
                     when (this) {
                         BANK_MIGRATION -> Value.BANK_MIGRATION
                         CASHBACK -> Value.CASHBACK
+                        COLLECTION_RECEIVABLE -> Value.COLLECTION_RECEIVABLE
                         EMPYREAL_ADJUSTMENT -> Value.EMPYREAL_ADJUSTMENT
                         ERROR -> Value.ERROR
                         ERROR_CORRECTION -> Value.ERROR_CORRECTION
                         FEES -> Value.FEES
                         INTEREST -> Value.INTEREST
+                        NEGATIVE_BALANCE_FORGIVENESS -> Value.NEGATIVE_BALANCE_FORGIVENESS
                         SAMPLE_FUNDS -> Value.SAMPLE_FUNDS
                         SAMPLE_FUNDS_RETURN -> Value.SAMPLE_FUNDS_RETURN
                         else -> Value._UNKNOWN
@@ -12399,11 +12404,13 @@ private constructor(
                     when (this) {
                         BANK_MIGRATION -> Known.BANK_MIGRATION
                         CASHBACK -> Known.CASHBACK
+                        COLLECTION_RECEIVABLE -> Known.COLLECTION_RECEIVABLE
                         EMPYREAL_ADJUSTMENT -> Known.EMPYREAL_ADJUSTMENT
                         ERROR -> Known.ERROR
                         ERROR_CORRECTION -> Known.ERROR_CORRECTION
                         FEES -> Known.FEES
                         INTEREST -> Known.INTEREST
+                        NEGATIVE_BALANCE_FORGIVENESS -> Known.NEGATIVE_BALANCE_FORGIVENESS
                         SAMPLE_FUNDS -> Known.SAMPLE_FUNDS
                         SAMPLE_FUNDS_RETURN -> Known.SAMPLE_FUNDS_RETURN
                         else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
