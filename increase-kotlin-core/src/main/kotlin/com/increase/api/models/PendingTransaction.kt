@@ -1648,6 +1648,7 @@ private constructor(
             private val currency: JsonField<Currency>,
             private val realTimeDecisionId: JsonField<String>,
             private val digitalWalletTokenId: JsonField<String>,
+            private val pendingTransactionId: JsonField<String>,
             private val type: JsonField<Type>,
             private val additionalProperties: Map<String, JsonValue>,
         ) {
@@ -1712,6 +1713,10 @@ private constructor(
              */
             fun digitalWalletTokenId(): String? =
                 digitalWalletTokenId.getNullable("digital_wallet_token_id")
+
+            /** The identifier of the Pending Transaction associated with this Transaction. */
+            fun pendingTransactionId(): String? =
+                pendingTransactionId.getNullable("pending_transaction_id")
 
             /**
              * A constant representing the object's type. For this resource it will always be
@@ -1784,6 +1789,11 @@ private constructor(
             @ExcludeMissing
             fun _digitalWalletTokenId() = digitalWalletTokenId
 
+            /** The identifier of the Pending Transaction associated with this Transaction. */
+            @JsonProperty("pending_transaction_id")
+            @ExcludeMissing
+            fun _pendingTransactionId() = pendingTransactionId
+
             /**
              * A constant representing the object's type. For this resource it will always be
              * `card_authorization`.
@@ -1808,6 +1818,7 @@ private constructor(
                     currency()
                     realTimeDecisionId()
                     digitalWalletTokenId()
+                    pendingTransactionId()
                     type()
                     validated = true
                 }
@@ -1833,6 +1844,7 @@ private constructor(
                     this.currency == other.currency &&
                     this.realTimeDecisionId == other.realTimeDecisionId &&
                     this.digitalWalletTokenId == other.digitalWalletTokenId &&
+                    this.pendingTransactionId == other.pendingTransactionId &&
                     this.type == other.type &&
                     this.additionalProperties == other.additionalProperties
             }
@@ -1853,6 +1865,7 @@ private constructor(
                             currency,
                             realTimeDecisionId,
                             digitalWalletTokenId,
+                            pendingTransactionId,
                             type,
                             additionalProperties,
                         )
@@ -1861,7 +1874,7 @@ private constructor(
             }
 
             override fun toString() =
-                "CardAuthorization{id=$id, merchantAcceptorId=$merchantAcceptorId, merchantDescriptor=$merchantDescriptor, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, network=$network, networkDetails=$networkDetails, amount=$amount, currency=$currency, realTimeDecisionId=$realTimeDecisionId, digitalWalletTokenId=$digitalWalletTokenId, type=$type, additionalProperties=$additionalProperties}"
+                "CardAuthorization{id=$id, merchantAcceptorId=$merchantAcceptorId, merchantDescriptor=$merchantDescriptor, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, network=$network, networkDetails=$networkDetails, amount=$amount, currency=$currency, realTimeDecisionId=$realTimeDecisionId, digitalWalletTokenId=$digitalWalletTokenId, pendingTransactionId=$pendingTransactionId, type=$type, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -1882,6 +1895,7 @@ private constructor(
                 private var currency: JsonField<Currency> = JsonMissing.of()
                 private var realTimeDecisionId: JsonField<String> = JsonMissing.of()
                 private var digitalWalletTokenId: JsonField<String> = JsonMissing.of()
+                private var pendingTransactionId: JsonField<String> = JsonMissing.of()
                 private var type: JsonField<Type> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -1898,6 +1912,7 @@ private constructor(
                     this.currency = cardAuthorization.currency
                     this.realTimeDecisionId = cardAuthorization.realTimeDecisionId
                     this.digitalWalletTokenId = cardAuthorization.digitalWalletTokenId
+                    this.pendingTransactionId = cardAuthorization.pendingTransactionId
                     this.type = cardAuthorization.type
                     additionalProperties(cardAuthorization.additionalProperties)
                 }
@@ -2057,6 +2072,17 @@ private constructor(
                     this.digitalWalletTokenId = digitalWalletTokenId
                 }
 
+                /** The identifier of the Pending Transaction associated with this Transaction. */
+                fun pendingTransactionId(pendingTransactionId: String) =
+                    pendingTransactionId(JsonField.of(pendingTransactionId))
+
+                /** The identifier of the Pending Transaction associated with this Transaction. */
+                @JsonProperty("pending_transaction_id")
+                @ExcludeMissing
+                fun pendingTransactionId(pendingTransactionId: JsonField<String>) = apply {
+                    this.pendingTransactionId = pendingTransactionId
+                }
+
                 /**
                  * A constant representing the object's type. For this resource it will always be
                  * `card_authorization`.
@@ -2100,6 +2126,7 @@ private constructor(
                         currency,
                         realTimeDecisionId,
                         digitalWalletTokenId,
+                        pendingTransactionId,
                         type,
                         additionalProperties.toUnmodifiable(),
                     )
