@@ -3,7 +3,6 @@ package com.increase.api.errors
 import com.google.common.collect.ListMultimap
 
 abstract class IncreaseServiceException
-@JvmOverloads
 constructor(
     private val headers: ListMultimap<String, String>,
     message: String? = null,

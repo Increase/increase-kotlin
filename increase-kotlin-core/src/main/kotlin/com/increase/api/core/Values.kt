@@ -79,7 +79,6 @@ sealed class JsonField<out T : Any> {
             else -> null
         }
 
-    @JvmSynthetic
     internal fun getRequired(name: String): T =
         when (this) {
             is KnownValue -> value
@@ -88,7 +87,6 @@ sealed class JsonField<out T : Any> {
             else -> throw IncreaseInvalidDataException("'${name}' is invalid, received ${this}")
         }
 
-    @JvmSynthetic
     internal fun getNullable(name: String): T? =
         when (this) {
             is KnownValue -> value
@@ -97,7 +95,6 @@ sealed class JsonField<out T : Any> {
             else -> throw IncreaseInvalidDataException("'${name}' is invalid, received ${this}")
         }
 
-    @JvmSynthetic
     internal fun <R : Any> map(transform: (T) -> R): JsonField<R> =
         when (this) {
             is KnownValue -> KnownValue.of(transform(value))

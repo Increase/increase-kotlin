@@ -8,7 +8,6 @@ import com.increase.api.errors.IncreaseException
 import java.io.OutputStream
 import org.apache.hc.client5.http.entity.mime.MultipartEntityBuilder
 
-@JvmSynthetic
 internal inline fun <reified T> json(
     jsonMapper: JsonMapper,
     value: T,
@@ -30,7 +29,6 @@ internal inline fun <reified T> json(
     }
 }
 
-@JvmSynthetic
 internal fun multipartFormData(
     files: Map<String, ByteArray>,
 ): HttpRequestBody {
