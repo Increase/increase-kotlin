@@ -17,13 +17,13 @@ import com.increase.api.errors.UnauthorizedException
 import com.increase.api.errors.UnexpectedStatusCodeException
 import com.increase.api.errors.UnprocessableEntityException
 
-@JvmSynthetic internal fun emptyHandler(): Handler<Void?> = EmptyHandler
+internal fun emptyHandler(): Handler<Void?> = EmptyHandler
 
 private object EmptyHandler : Handler<Void?> {
     override fun handle(response: HttpResponse): Void? = null
 }
 
-@JvmSynthetic internal fun stringHandler(): Handler<String> = StringHandler
+internal fun stringHandler(): Handler<String> = StringHandler
 
 private object StringHandler : Handler<String> {
     override fun handle(response: HttpResponse): String {
@@ -31,7 +31,6 @@ private object StringHandler : Handler<String> {
     }
 }
 
-@JvmSynthetic
 internal inline fun <reified T> jsonHandler(jsonMapper: JsonMapper): Handler<T> {
     return object : Handler<T> {
         override fun handle(response: HttpResponse): T {
@@ -44,7 +43,6 @@ internal inline fun <reified T> jsonHandler(jsonMapper: JsonMapper): Handler<T> 
     }
 }
 
-@JvmSynthetic
 internal fun errorHandler(jsonMapper: JsonMapper): Handler<IncreaseError> {
     val handler = jsonHandler<IncreaseError>(jsonMapper)
 
@@ -59,7 +57,6 @@ internal fun errorHandler(jsonMapper: JsonMapper): Handler<IncreaseError> {
     }
 }
 
-@JvmSynthetic
 internal fun <T> Handler<T>.withErrorHandler(errorHandler: Handler<IncreaseError>): Handler<T> {
     return object : Handler<T> {
         override fun handle(response: HttpResponse): T {

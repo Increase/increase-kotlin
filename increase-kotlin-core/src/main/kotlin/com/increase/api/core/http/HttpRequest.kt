@@ -20,7 +20,7 @@ private constructor(
         "HttpRequest {method=$method, pathSegments=$pathSegments, queryParams=$queryParams, headers=$headers, body=$body}"
 
     companion object {
-        @JvmStatic fun builder() = Builder()
+        fun builder() = Builder()
     }
 
     class Builder {

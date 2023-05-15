@@ -8,7 +8,6 @@ import com.google.common.collect.Multimaps
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Collections
 
-@JvmSynthetic
 internal fun <T : Any> T?.getOrThrow(name: String): T {
     if (this == null) {
         throw IncreaseInvalidDataException("'${name}' is not present")
@@ -17,7 +16,6 @@ internal fun <T : Any> T?.getOrThrow(name: String): T {
     return this
 }
 
-@JvmSynthetic
 internal fun <T> List<T>.toUnmodifiable(): List<T> {
     if (isEmpty()) {
         return Collections.emptyList()
@@ -26,7 +24,6 @@ internal fun <T> List<T>.toUnmodifiable(): List<T> {
     return Collections.unmodifiableList(this)
 }
 
-@JvmSynthetic
 internal fun <K, V> Map<K, V>.toUnmodifiable(): Map<K, V> {
     if (isEmpty()) {
         return Collections.emptyMap()
@@ -35,7 +32,6 @@ internal fun <K, V> Map<K, V>.toUnmodifiable(): Map<K, V> {
     return Collections.unmodifiableMap(this)
 }
 
-@JvmSynthetic
 internal fun <K, V> ListMultimap<K, V>.toUnmodifiable(): ListMultimap<K, V> {
     if (isEmpty()) {
         return ImmutableListMultimap.of()

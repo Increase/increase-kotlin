@@ -149,7 +149,7 @@ private constructor(private val okHttpClient: okhttp3.OkHttpClient, private val 
     }
 
     companion object {
-        @JvmStatic fun builder() = Builder()
+        fun builder() = Builder()
     }
 
     class Builder {
