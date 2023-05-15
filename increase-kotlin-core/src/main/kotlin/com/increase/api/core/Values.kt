@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.core.JsonGenerator
 import com.fasterxml.jackson.core.ObjectCodec
+import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.BeanProperty
 import com.fasterxml.jackson.databind.DeserializationContext
 import com.fasterxml.jackson.databind.JavaType
@@ -25,7 +26,9 @@ import com.fasterxml.jackson.databind.node.JsonNodeType.OBJECT
 import com.fasterxml.jackson.databind.node.JsonNodeType.POJO
 import com.fasterxml.jackson.databind.node.JsonNodeType.STRING
 import com.fasterxml.jackson.databind.ser.std.NullSerializer
+import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.increase.api.errors.IncreaseInvalidDataException
+import kotlin.reflect.KClass
 
 @JsonDeserialize(using = JsonField.Deserializer::class)
 sealed class JsonField<out T : Any> {
@@ -150,6 +153,12 @@ sealed class JsonField<out T : Any> {
 
 @JsonDeserialize(using = JsonValue.Deserializer::class)
 sealed class JsonValue : JsonField<Nothing>() {
+
+    inline fun <reified R : Any> convert(): R? = convert(jacksonTypeRef())
+
+    fun <R : Any> convert(type: TypeReference<R>): R? = JSON_MAPPER.convertValue(this, type)
+
+    fun <R : Any> convert(type: KClass<R>): R? = JSON_MAPPER.convertValue(this, type.java)
 
     fun <R> accept(visitor: Visitor<R>): R =
         when (this) {
