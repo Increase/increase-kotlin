@@ -300,7 +300,7 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-    fun validate() = apply {
+    fun validate(): AchTransfer = apply {
         if (!validated) {
             accountId()
             accountNumber()
@@ -968,7 +968,7 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-        fun validate() = apply {
+        fun validate(): Approval = apply {
             if (!validated) {
                 approvedAt()
                 approvedBy()
@@ -1117,7 +1117,7 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-        fun validate() = apply {
+        fun validate(): Cancellation = apply {
             if (!validated) {
                 canceledAt()
                 canceledBy()
@@ -1316,7 +1316,7 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-        fun validate() = apply {
+        fun validate(): NotificationsOfChange = apply {
             if (!validated) {
                 createdAt()
                 changeCode()
@@ -1485,7 +1485,7 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-        fun validate() = apply {
+        fun validate(): Return = apply {
             if (!validated) {
                 createdAt()
                 returnReasonCode()
@@ -1961,7 +1961,7 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-        fun validate() = apply {
+        fun validate(): Submission = apply {
             if (!validated) {
                 traceNumber()
                 submittedAt()

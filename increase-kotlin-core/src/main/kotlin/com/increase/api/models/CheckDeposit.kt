@@ -151,7 +151,7 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-    fun validate() = apply {
+    fun validate(): CheckDeposit = apply {
         if (!validated) {
             id()
             amount()
@@ -682,7 +682,7 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-        fun validate() = apply {
+        fun validate(): DepositAcceptance = apply {
             if (!validated) {
                 amount()
                 currency()
@@ -1018,7 +1018,7 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-        fun validate() = apply {
+        fun validate(): DepositRejection = apply {
             if (!validated) {
                 amount()
                 currency()
@@ -1410,7 +1410,7 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-        fun validate() = apply {
+        fun validate(): DepositReturn = apply {
             if (!validated) {
                 amount()
                 returnedAt()

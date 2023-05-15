@@ -72,7 +72,7 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-    fun validate() = apply {
+    fun validate(): BookkeepingEntrySet = apply {
         if (!validated) {
             id()
             transactionId()
@@ -247,7 +247,7 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-        fun validate() = apply {
+        fun validate(): Entry = apply {
             if (!validated) {
                 accountId()
                 amount()
