@@ -95,7 +95,7 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-    fun validate() = apply {
+    fun validate(): CardProfile = apply {
         if (!validated) {
             id()
             createdAt()
@@ -408,7 +408,7 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-        fun validate() = apply {
+        fun validate(): DigitalWallets = apply {
             if (!validated) {
                 textColor().validate()
                 issuerName()
@@ -635,7 +635,7 @@ private constructor(
             @ExcludeMissing
             fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-            fun validate() = apply {
+            fun validate(): TextColor = apply {
                 if (!validated) {
                     red()
                     green()

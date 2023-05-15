@@ -78,7 +78,7 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-    fun validate() = apply {
+    fun validate(): AchTransferSimulation = apply {
         if (!validated) {
             transaction()?.validate()
             declinedTransaction()?.validate()
@@ -346,7 +346,7 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-        fun validate() = apply {
+        fun validate(): Transaction = apply {
             if (!validated) {
                 accountId()
                 amount()
@@ -1365,7 +1365,7 @@ private constructor(
             @ExcludeMissing
             fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-            fun validate() = apply {
+            fun validate(): Source = apply {
                 if (!validated) {
                     category()
                     accountTransferIntention()?.validate()
@@ -2767,7 +2767,7 @@ private constructor(
                 @ExcludeMissing
                 fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-                fun validate() = apply {
+                fun validate(): AccountTransferIntention = apply {
                     if (!validated) {
                         amount()
                         currency()
@@ -3065,7 +3065,7 @@ private constructor(
                 @ExcludeMissing
                 fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-                fun validate() = apply {
+                fun validate(): AchCheckConversionReturn = apply {
                     if (!validated) {
                         amount()
                         returnReasonCode()
@@ -3206,7 +3206,7 @@ private constructor(
                 @ExcludeMissing
                 fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-                fun validate() = apply {
+                fun validate(): AchCheckConversion = apply {
                     if (!validated) {
                         amount()
                         fileId()
@@ -3362,7 +3362,7 @@ private constructor(
                 @ExcludeMissing
                 fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-                fun validate() = apply {
+                fun validate(): AchTransferIntention = apply {
                     if (!validated) {
                         amount()
                         accountNumber()
@@ -3534,7 +3534,7 @@ private constructor(
                 @ExcludeMissing
                 fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-                fun validate() = apply {
+                fun validate(): AchTransferRejection = apply {
                     if (!validated) {
                         transferId()
                         validated = true
@@ -3664,7 +3664,7 @@ private constructor(
                 @ExcludeMissing
                 fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-                fun validate() = apply {
+                fun validate(): AchTransferReturn = apply {
                     if (!validated) {
                         createdAt()
                         returnReasonCode()
@@ -4094,7 +4094,7 @@ private constructor(
                 @ExcludeMissing
                 fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-                fun validate() = apply {
+                fun validate(): CardDisputeAcceptance = apply {
                     if (!validated) {
                         acceptedAt()
                         cardDisputeId()
@@ -4343,7 +4343,7 @@ private constructor(
                 @ExcludeMissing
                 fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-                fun validate() = apply {
+                fun validate(): CardRefund = apply {
                     if (!validated) {
                         id()
                         amount()
@@ -4896,7 +4896,7 @@ private constructor(
                 @ExcludeMissing
                 fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-                fun validate() = apply {
+                fun validate(): CardSettlement = apply {
                     if (!validated) {
                         id()
                         cardAuthorization()
@@ -5430,7 +5430,7 @@ private constructor(
                 @ExcludeMissing
                 fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-                fun validate() = apply {
+                fun validate(): CardRevenuePayment = apply {
                     if (!validated) {
                         amount()
                         currency()
@@ -5763,7 +5763,7 @@ private constructor(
                 @ExcludeMissing
                 fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-                fun validate() = apply {
+                fun validate(): CheckDepositAcceptance = apply {
                     if (!validated) {
                         amount()
                         currency()
@@ -6132,7 +6132,7 @@ private constructor(
                 @ExcludeMissing
                 fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-                fun validate() = apply {
+                fun validate(): CheckDepositReturn = apply {
                     if (!validated) {
                         amount()
                         returnedAt()
@@ -6600,7 +6600,7 @@ private constructor(
                 @ExcludeMissing
                 fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-                fun validate() = apply {
+                fun validate(): CheckTransferIntention = apply {
                     if (!validated) {
                         addressLine1()
                         addressLine2()
@@ -6963,7 +6963,7 @@ private constructor(
                 @ExcludeMissing
                 fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-                fun validate() = apply {
+                fun validate(): CheckTransferReturn = apply {
                     if (!validated) {
                         transferId()
                         returnedAt()
@@ -7209,7 +7209,7 @@ private constructor(
                 @ExcludeMissing
                 fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-                fun validate() = apply {
+                fun validate(): CheckTransferRejection = apply {
                     if (!validated) {
                         transferId()
                         validated = true
@@ -7336,7 +7336,7 @@ private constructor(
                 @ExcludeMissing
                 fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-                fun validate() = apply {
+                fun validate(): CheckTransferStopPaymentRequest = apply {
                     if (!validated) {
                         transferId()
                         transactionId()
@@ -7583,7 +7583,7 @@ private constructor(
                 @ExcludeMissing
                 fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-                fun validate() = apply {
+                fun validate(): DisputeResolution = apply {
                     if (!validated) {
                         amount()
                         currency()
@@ -7829,7 +7829,7 @@ private constructor(
                 @ExcludeMissing
                 fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-                fun validate() = apply {
+                fun validate(): EmpyrealCashDeposit = apply {
                     if (!validated) {
                         amount()
                         bagId()
@@ -7986,7 +7986,7 @@ private constructor(
                 @ExcludeMissing
                 fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-                fun validate() = apply {
+                fun validate(): FeePayment = apply {
                     if (!validated) {
                         amount()
                         currency()
@@ -8268,7 +8268,7 @@ private constructor(
                 @ExcludeMissing
                 fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-                fun validate() = apply {
+                fun validate(): InboundAchTransfer = apply {
                     if (!validated) {
                         amount()
                         originatorCompanyName()
@@ -8563,7 +8563,7 @@ private constructor(
                 @ExcludeMissing
                 fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-                fun validate() = apply {
+                fun validate(): InboundCheck = apply {
                     if (!validated) {
                         amount()
                         currency()
@@ -9130,7 +9130,7 @@ private constructor(
                 @ExcludeMissing
                 fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-                fun validate() = apply {
+                fun validate(): InboundInternationalAchTransfer = apply {
                     if (!validated) {
                         amount()
                         foreignExchangeIndicator()
@@ -9993,7 +9993,7 @@ private constructor(
                 @ExcludeMissing
                 fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-                fun validate() = apply {
+                fun validate(): InboundRealTimePaymentsTransferConfirmation = apply {
                     if (!validated) {
                         amount()
                         currency()
@@ -10412,7 +10412,7 @@ private constructor(
                 @ExcludeMissing
                 fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-                fun validate() = apply {
+                fun validate(): InboundWireDrawdownPaymentReversal = apply {
                     if (!validated) {
                         amount()
                         description()
@@ -10808,7 +10808,7 @@ private constructor(
                 @ExcludeMissing
                 fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-                fun validate() = apply {
+                fun validate(): InboundWireDrawdownPayment = apply {
                     if (!validated) {
                         amount()
                         beneficiaryAddressLine1()
@@ -11272,7 +11272,7 @@ private constructor(
                 @ExcludeMissing
                 fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-                fun validate() = apply {
+                fun validate(): InboundWireReversal = apply {
                     if (!validated) {
                         amount()
                         createdAt()
@@ -11828,7 +11828,7 @@ private constructor(
                 @ExcludeMissing
                 fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-                fun validate() = apply {
+                fun validate(): InboundWireTransfer = apply {
                     if (!validated) {
                         amount()
                         beneficiaryAddressLine1()
@@ -12277,7 +12277,7 @@ private constructor(
                 @ExcludeMissing
                 fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-                fun validate() = apply {
+                fun validate(): InterestPayment = apply {
                     if (!validated) {
                         amount()
                         currency()
@@ -12564,7 +12564,7 @@ private constructor(
                 @ExcludeMissing
                 fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-                fun validate() = apply {
+                fun validate(): InternalSource = apply {
                     if (!validated) {
                         amount()
                         currency()
@@ -12962,7 +12962,7 @@ private constructor(
                 @ExcludeMissing
                 fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-                fun validate() = apply {
+                fun validate(): CardRouteRefund = apply {
                     if (!validated) {
                         amount()
                         currency()
@@ -13325,7 +13325,7 @@ private constructor(
                 @ExcludeMissing
                 fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-                fun validate() = apply {
+                fun validate(): CardRouteSettlement = apply {
                     if (!validated) {
                         amount()
                         currency()
@@ -13670,7 +13670,7 @@ private constructor(
                 @ExcludeMissing
                 fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-                fun validate() = apply {
+                fun validate(): RealTimePaymentsTransferAcknowledgement = apply {
                     if (!validated) {
                         amount()
                         destinationAccountNumber()
@@ -13862,7 +13862,7 @@ private constructor(
                 @ExcludeMissing
                 fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-                fun validate() = apply {
+                fun validate(): SampleFunds = apply {
                     if (!validated) {
                         originator()
                         validated = true
@@ -13985,7 +13985,7 @@ private constructor(
                 @ExcludeMissing
                 fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-                fun validate() = apply {
+                fun validate(): WireDrawdownPaymentIntention = apply {
                     if (!validated) {
                         amount()
                         accountNumber()
@@ -14149,7 +14149,7 @@ private constructor(
                 @ExcludeMissing
                 fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-                fun validate() = apply {
+                fun validate(): WireDrawdownPaymentRejection = apply {
                     if (!validated) {
                         transferId()
                         validated = true
@@ -14280,7 +14280,7 @@ private constructor(
                 @ExcludeMissing
                 fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-                fun validate() = apply {
+                fun validate(): WireTransferIntention = apply {
                     if (!validated) {
                         amount()
                         accountNumber()
@@ -14448,7 +14448,7 @@ private constructor(
                 @ExcludeMissing
                 fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-                fun validate() = apply {
+                fun validate(): WireTransferRejection = apply {
                     if (!validated) {
                         transferId()
                         validated = true
@@ -14707,7 +14707,7 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-        fun validate() = apply {
+        fun validate(): DeclinedTransaction = apply {
             if (!validated) {
                 accountId()
                 amount()
@@ -15236,7 +15236,7 @@ private constructor(
             @ExcludeMissing
             fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-            fun validate() = apply {
+            fun validate(): Source = apply {
                 if (!validated) {
                     category()
                     achDecline()?.validate()
@@ -15684,7 +15684,7 @@ private constructor(
                 @ExcludeMissing
                 fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-                fun validate() = apply {
+                fun validate(): AchDecline = apply {
                     if (!validated) {
                         amount()
                         originatorCompanyName()
@@ -16190,7 +16190,7 @@ private constructor(
                 @ExcludeMissing
                 fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-                fun validate() = apply {
+                fun validate(): CardDecline = apply {
                     if (!validated) {
                         merchantAcceptorId()
                         merchantDescriptor()
@@ -16574,7 +16574,7 @@ private constructor(
                     @ExcludeMissing
                     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-                    fun validate() = apply {
+                    fun validate(): NetworkDetails = apply {
                         if (!validated) {
                             visa().validate()
                             validated = true
@@ -16699,7 +16699,7 @@ private constructor(
                         @ExcludeMissing
                         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-                        fun validate() = apply {
+                        fun validate(): Visa = apply {
                             if (!validated) {
                                 electronicCommerceIndicator()
                                 pointOfServiceEntryMode()
@@ -17210,7 +17210,7 @@ private constructor(
                 @ExcludeMissing
                 fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-                fun validate() = apply {
+                fun validate(): CheckDecline = apply {
                     if (!validated) {
                         amount()
                         auxiliaryOnUs()
@@ -17566,7 +17566,7 @@ private constructor(
                 @ExcludeMissing
                 fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-                fun validate() = apply {
+                fun validate(): InboundRealTimePaymentsTransferDecline = apply {
                     if (!validated) {
                         amount()
                         currency()
@@ -18307,7 +18307,7 @@ private constructor(
                 @ExcludeMissing
                 fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-                fun validate() = apply {
+                fun validate(): InternationalAchDecline = apply {
                     if (!validated) {
                         amount()
                         foreignExchangeIndicator()
@@ -19141,7 +19141,7 @@ private constructor(
                 @ExcludeMissing
                 fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-                fun validate() = apply {
+                fun validate(): CardRouteDecline = apply {
                     if (!validated) {
                         amount()
                         currency()
@@ -19584,7 +19584,7 @@ private constructor(
                 @ExcludeMissing
                 fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-                fun validate() = apply {
+                fun validate(): WireDecline = apply {
                     if (!validated) {
                         amount()
                         reason()

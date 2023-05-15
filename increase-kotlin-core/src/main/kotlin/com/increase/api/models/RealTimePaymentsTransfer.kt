@@ -216,7 +216,7 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-    fun validate() = apply {
+    fun validate(): RealTimePaymentsTransfer = apply {
         if (!validated) {
             type()
             id()
@@ -686,7 +686,7 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-        fun validate() = apply {
+        fun validate(): Approval = apply {
             if (!validated) {
                 approvedAt()
                 approvedBy()
@@ -835,7 +835,7 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-        fun validate() = apply {
+        fun validate(): Cancellation = apply {
             if (!validated) {
                 canceledAt()
                 canceledBy()
@@ -1151,7 +1151,7 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-        fun validate() = apply {
+        fun validate(): Submission = apply {
             if (!validated) {
                 submittedAt()
                 transactionIdentification()
@@ -1318,7 +1318,7 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-        fun validate() = apply {
+        fun validate(): Rejection = apply {
             if (!validated) {
                 rejectedAt()
                 rejectReasonCode()
