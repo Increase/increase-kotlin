@@ -26,7 +26,7 @@ private constructor(
 
     fun data(): List<InboundWireDrawdownRequest> = response().data()
 
-    fun nextCursor(): String = response().nextCursor()
+    fun nextCursor(): String? = response().nextCursor()
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -55,7 +55,7 @@ private constructor(
             return false
         }
 
-        return nextCursor().isNotEmpty()
+        return nextCursor()?.isNotEmpty() ?: false
     }
 
     fun getNextPageParams(): InboundWireDrawdownRequestListParams? {
@@ -65,7 +65,7 @@ private constructor(
 
         return InboundWireDrawdownRequestListParams.builder()
             .from(params)
-            .cursor(nextCursor())
+            .apply { nextCursor()?.let { this.cursor(it) } }
             .build()
     }
 
@@ -100,9 +100,9 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun data(): List<InboundWireDrawdownRequest> = data.getRequired("data")
+        fun data(): List<InboundWireDrawdownRequest> = data.getNullable("data") ?: listOf()
 
-        fun nextCursor(): String = nextCursor.getRequired("next_cursor")
+        fun nextCursor(): String? = nextCursor.getNullable("next_cursor")
 
         @JsonProperty("data") fun _data(): JsonField<List<InboundWireDrawdownRequest>>? = data
 
@@ -114,7 +114,7 @@ private constructor(
 
         fun validate(): Response = apply {
             if (!validated) {
-                data().forEach { it.validate() }
+                data().map { it.validate() }
                 nextCursor()
                 validated = true
             }

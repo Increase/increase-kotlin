@@ -26,7 +26,7 @@ private constructor(
 
     fun data(): List<RealTimePaymentsTransfer> = response().data()
 
-    fun nextCursor(): String = response().nextCursor()
+    fun nextCursor(): String? = response().nextCursor()
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -55,7 +55,7 @@ private constructor(
             return false
         }
 
-        return nextCursor().isNotEmpty()
+        return nextCursor()?.isNotEmpty() ?: false
     }
 
     fun getNextPageParams(): RealTimePaymentsTransferListParams? {
@@ -65,7 +65,7 @@ private constructor(
 
         return RealTimePaymentsTransferListParams.builder()
             .from(params)
-            .cursor(nextCursor())
+            .apply { nextCursor()?.let { this.cursor(it) } }
             .build()
     }
 
@@ -100,9 +100,9 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun data(): List<RealTimePaymentsTransfer> = data.getRequired("data")
+        fun data(): List<RealTimePaymentsTransfer> = data.getNullable("data") ?: listOf()
 
-        fun nextCursor(): String = nextCursor.getRequired("next_cursor")
+        fun nextCursor(): String? = nextCursor.getNullable("next_cursor")
 
         @JsonProperty("data") fun _data(): JsonField<List<RealTimePaymentsTransfer>>? = data
 
@@ -114,7 +114,7 @@ private constructor(
 
         fun validate(): Response = apply {
             if (!validated) {
-                data().forEach { it.validate() }
+                data().map { it.validate() }
                 nextCursor()
                 validated = true
             }

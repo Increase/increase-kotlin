@@ -26,7 +26,7 @@ private constructor(
 
     fun data(): List<WireTransfer> = response().data()
 
-    fun nextCursor(): String = response().nextCursor()
+    fun nextCursor(): String? = response().nextCursor()
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -55,7 +55,7 @@ private constructor(
             return false
         }
 
-        return nextCursor().isNotEmpty()
+        return nextCursor()?.isNotEmpty() ?: false
     }
 
     fun getNextPageParams(): WireTransferListParams? {
@@ -63,7 +63,10 @@ private constructor(
             return null
         }
 
-        return WireTransferListParams.builder().from(params).cursor(nextCursor()).build()
+        return WireTransferListParams.builder()
+            .from(params)
+            .apply { nextCursor()?.let { this.cursor(it) } }
+            .build()
     }
 
     suspend fun getNextPage(): WireTransferListPageAsync? {
@@ -97,9 +100,9 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun data(): List<WireTransfer> = data.getRequired("data")
+        fun data(): List<WireTransfer> = data.getNullable("data") ?: listOf()
 
-        fun nextCursor(): String = nextCursor.getRequired("next_cursor")
+        fun nextCursor(): String? = nextCursor.getNullable("next_cursor")
 
         @JsonProperty("data") fun _data(): JsonField<List<WireTransfer>>? = data
 
@@ -111,7 +114,7 @@ private constructor(
 
         fun validate(): Response = apply {
             if (!validated) {
-                data().forEach { it.validate() }
+                data().map { it.validate() }
                 nextCursor()
                 validated = true
             }

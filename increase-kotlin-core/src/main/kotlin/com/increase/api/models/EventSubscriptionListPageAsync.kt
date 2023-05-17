@@ -26,7 +26,7 @@ private constructor(
 
     fun data(): List<EventSubscription> = response().data()
 
-    fun nextCursor(): String = response().nextCursor()
+    fun nextCursor(): String? = response().nextCursor()
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -55,7 +55,7 @@ private constructor(
             return false
         }
 
-        return nextCursor().isNotEmpty()
+        return nextCursor()?.isNotEmpty() ?: false
     }
 
     fun getNextPageParams(): EventSubscriptionListParams? {
@@ -63,7 +63,10 @@ private constructor(
             return null
         }
 
-        return EventSubscriptionListParams.builder().from(params).cursor(nextCursor()).build()
+        return EventSubscriptionListParams.builder()
+            .from(params)
+            .apply { nextCursor()?.let { this.cursor(it) } }
+            .build()
     }
 
     suspend fun getNextPage(): EventSubscriptionListPageAsync? {
@@ -97,9 +100,9 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun data(): List<EventSubscription> = data.getRequired("data")
+        fun data(): List<EventSubscription> = data.getNullable("data") ?: listOf()
 
-        fun nextCursor(): String = nextCursor.getRequired("next_cursor")
+        fun nextCursor(): String? = nextCursor.getNullable("next_cursor")
 
         @JsonProperty("data") fun _data(): JsonField<List<EventSubscription>>? = data
 
@@ -111,7 +114,7 @@ private constructor(
 
         fun validate(): Response = apply {
             if (!validated) {
-                data().forEach { it.validate() }
+                data().map { it.validate() }
                 nextCursor()
                 validated = true
             }
