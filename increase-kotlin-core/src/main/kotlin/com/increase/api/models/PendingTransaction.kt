@@ -1646,6 +1646,7 @@ private constructor(
             private val networkDetails: JsonField<NetworkDetails>,
             private val amount: JsonField<Long>,
             private val currency: JsonField<Currency>,
+            private val expiresAt: JsonField<OffsetDateTime>,
             private val realTimeDecisionId: JsonField<String>,
             private val digitalWalletTokenId: JsonField<String>,
             private val pendingTransactionId: JsonField<String>,
@@ -1700,6 +1701,12 @@ private constructor(
              * currency.
              */
             fun currency(): Currency = currency.getRequired("currency")
+
+            /**
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) when this authorization will
+             * expire and the pending transaction will be released.
+             */
+            fun expiresAt(): OffsetDateTime = expiresAt.getRequired("expires_at")
 
             /**
              * The identifier of the Real-Time Decision sent to approve or decline this transaction.
@@ -1775,6 +1782,12 @@ private constructor(
             @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
 
             /**
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) when this authorization will
+             * expire and the pending transaction will be released.
+             */
+            @JsonProperty("expires_at") @ExcludeMissing fun _expiresAt() = expiresAt
+
+            /**
              * The identifier of the Real-Time Decision sent to approve or decline this transaction.
              */
             @JsonProperty("real_time_decision_id")
@@ -1816,6 +1829,7 @@ private constructor(
                     networkDetails().validate()
                     amount()
                     currency()
+                    expiresAt()
                     realTimeDecisionId()
                     digitalWalletTokenId()
                     pendingTransactionId()
@@ -1842,6 +1856,7 @@ private constructor(
                     this.networkDetails == other.networkDetails &&
                     this.amount == other.amount &&
                     this.currency == other.currency &&
+                    this.expiresAt == other.expiresAt &&
                     this.realTimeDecisionId == other.realTimeDecisionId &&
                     this.digitalWalletTokenId == other.digitalWalletTokenId &&
                     this.pendingTransactionId == other.pendingTransactionId &&
@@ -1863,6 +1878,7 @@ private constructor(
                             networkDetails,
                             amount,
                             currency,
+                            expiresAt,
                             realTimeDecisionId,
                             digitalWalletTokenId,
                             pendingTransactionId,
@@ -1874,7 +1890,7 @@ private constructor(
             }
 
             override fun toString() =
-                "CardAuthorization{id=$id, merchantAcceptorId=$merchantAcceptorId, merchantDescriptor=$merchantDescriptor, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, network=$network, networkDetails=$networkDetails, amount=$amount, currency=$currency, realTimeDecisionId=$realTimeDecisionId, digitalWalletTokenId=$digitalWalletTokenId, pendingTransactionId=$pendingTransactionId, type=$type, additionalProperties=$additionalProperties}"
+                "CardAuthorization{id=$id, merchantAcceptorId=$merchantAcceptorId, merchantDescriptor=$merchantDescriptor, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, network=$network, networkDetails=$networkDetails, amount=$amount, currency=$currency, expiresAt=$expiresAt, realTimeDecisionId=$realTimeDecisionId, digitalWalletTokenId=$digitalWalletTokenId, pendingTransactionId=$pendingTransactionId, type=$type, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -1893,6 +1909,7 @@ private constructor(
                 private var networkDetails: JsonField<NetworkDetails> = JsonMissing.of()
                 private var amount: JsonField<Long> = JsonMissing.of()
                 private var currency: JsonField<Currency> = JsonMissing.of()
+                private var expiresAt: JsonField<OffsetDateTime> = JsonMissing.of()
                 private var realTimeDecisionId: JsonField<String> = JsonMissing.of()
                 private var digitalWalletTokenId: JsonField<String> = JsonMissing.of()
                 private var pendingTransactionId: JsonField<String> = JsonMissing.of()
@@ -1910,6 +1927,7 @@ private constructor(
                     this.networkDetails = cardAuthorization.networkDetails
                     this.amount = cardAuthorization.amount
                     this.currency = cardAuthorization.currency
+                    this.expiresAt = cardAuthorization.expiresAt
                     this.realTimeDecisionId = cardAuthorization.realTimeDecisionId
                     this.digitalWalletTokenId = cardAuthorization.digitalWalletTokenId
                     this.pendingTransactionId = cardAuthorization.pendingTransactionId
@@ -2039,6 +2057,22 @@ private constructor(
                 fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
 
                 /**
+                 * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) when this authorization
+                 * will expire and the pending transaction will be released.
+                 */
+                fun expiresAt(expiresAt: OffsetDateTime) = expiresAt(JsonField.of(expiresAt))
+
+                /**
+                 * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) when this authorization
+                 * will expire and the pending transaction will be released.
+                 */
+                @JsonProperty("expires_at")
+                @ExcludeMissing
+                fun expiresAt(expiresAt: JsonField<OffsetDateTime>) = apply {
+                    this.expiresAt = expiresAt
+                }
+
+                /**
                  * The identifier of the Real-Time Decision sent to approve or decline this
                  * transaction.
                  */
@@ -2124,6 +2158,7 @@ private constructor(
                         networkDetails,
                         amount,
                         currency,
+                        expiresAt,
                         realTimeDecisionId,
                         digitalWalletTokenId,
                         pendingTransactionId,
