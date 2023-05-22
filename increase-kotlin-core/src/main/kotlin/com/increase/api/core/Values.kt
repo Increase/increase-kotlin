@@ -43,6 +43,16 @@ sealed class JsonField<out T : Any> {
             else -> null
         }
 
+    /**
+     * If the "known" value (i.e. matching the type that the SDK expects) is returned by the API
+     * then this method will return `null`, otherwise a `JsonValue` is returned.
+     */
+    fun asUnknown(): JsonValue? =
+        when (this) {
+            is JsonValue -> this
+            else -> null
+        }
+
     fun asBoolean(): Boolean? =
         when (this) {
             is JsonBoolean -> value
