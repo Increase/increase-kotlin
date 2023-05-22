@@ -53,7 +53,7 @@ private constructor(
             return false
         }
 
-        return nextCursor()?.isNotEmpty() ?: false
+        return nextCursor() != null
     }
 
     fun getNextPageParams(): AccountStatementListParams? {
