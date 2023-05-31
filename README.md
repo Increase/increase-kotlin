@@ -18,6 +18,8 @@ The API documentation can be found [here](https://increase.com/documentation).
 
 #### Gradle
 
+<!-- x-release-please-start-version -->
+
 ```kotlin
 implementation("com.increase.api:increase-kotlin:0.0.1")
 ```
@@ -31,6 +33,8 @@ implementation("com.increase.api:increase-kotlin:0.0.1")
     <version>0.0.1</version>
 </dependency>
 ```
+
+<!-- x-release-please-end -->
 
 ### Configure the client
 
