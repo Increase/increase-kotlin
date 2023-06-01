@@ -33,9 +33,9 @@ configure<PublishingExtension> {
                 }
 
                 scm {
-                    connection.set("scm:git:git://github.com/increase/increase-java.git")
-                    developerConnection.set("scm:git:git://github.com/increase/increase-java.git")
-                    url.set("https://github.com/increase/increase-java")
+                    connection.set("scm:git:git://github.com/increase/increase-kotlin.git")
+                    developerConnection.set("scm:git:git://github.com/increase/increase-kotlin.git")
+                    url.set("https://github.com/increase/increase-kotlin")
                 }
 
                 versionMapping {
