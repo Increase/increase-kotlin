@@ -2743,6 +2743,8 @@ private constructor(
 
                     val UNABLE_TO_LOCATE_ACCOUNT = Reason(JsonField.of("unable_to_locate_account"))
 
+                    val NOT_OUR_ITEM = Reason(JsonField.of("not_our_item"))
+
                     val UNABLE_TO_PROCESS = Reason(JsonField.of("unable_to_process"))
 
                     val REFER_TO_IMAGE = Reason(JsonField.of("refer_to_image"))
@@ -2768,6 +2770,7 @@ private constructor(
                     GROUP_LOCKED,
                     INSUFFICIENT_FUNDS,
                     UNABLE_TO_LOCATE_ACCOUNT,
+                    NOT_OUR_ITEM,
                     UNABLE_TO_PROCESS,
                     REFER_TO_IMAGE,
                     STOP_PAYMENT_REQUESTED,
@@ -2785,6 +2788,7 @@ private constructor(
                     GROUP_LOCKED,
                     INSUFFICIENT_FUNDS,
                     UNABLE_TO_LOCATE_ACCOUNT,
+                    NOT_OUR_ITEM,
                     UNABLE_TO_PROCESS,
                     REFER_TO_IMAGE,
                     STOP_PAYMENT_REQUESTED,
@@ -2804,6 +2808,7 @@ private constructor(
                         GROUP_LOCKED -> Value.GROUP_LOCKED
                         INSUFFICIENT_FUNDS -> Value.INSUFFICIENT_FUNDS
                         UNABLE_TO_LOCATE_ACCOUNT -> Value.UNABLE_TO_LOCATE_ACCOUNT
+                        NOT_OUR_ITEM -> Value.NOT_OUR_ITEM
                         UNABLE_TO_PROCESS -> Value.UNABLE_TO_PROCESS
                         REFER_TO_IMAGE -> Value.REFER_TO_IMAGE
                         STOP_PAYMENT_REQUESTED -> Value.STOP_PAYMENT_REQUESTED
@@ -2823,6 +2828,7 @@ private constructor(
                         GROUP_LOCKED -> Known.GROUP_LOCKED
                         INSUFFICIENT_FUNDS -> Known.INSUFFICIENT_FUNDS
                         UNABLE_TO_LOCATE_ACCOUNT -> Known.UNABLE_TO_LOCATE_ACCOUNT
+                        NOT_OUR_ITEM -> Known.NOT_OUR_ITEM
                         UNABLE_TO_PROCESS -> Known.UNABLE_TO_PROCESS
                         REFER_TO_IMAGE -> Known.REFER_TO_IMAGE
                         STOP_PAYMENT_REQUESTED -> Known.STOP_PAYMENT_REQUESTED
