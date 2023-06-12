@@ -341,8 +341,8 @@ constructor(
             val BENEFICIARY_OR_ACCOUNT_HOLDER_DECEASED =
                 Reason(JsonField.of("beneficiary_or_account_holder_deceased"))
 
-            val CHECK_TRUNCATION_ENTRY_RETURN =
-                Reason(JsonField.of("check_truncation_entry_return"))
+            val CUSTOMER_ADVISED_NOT_WITHIN_AUTHORIZATION_TERMS =
+                Reason(JsonField.of("customer_advised_not_within_authorization_terms"))
 
             val CORRECTED_RETURN = Reason(JsonField.of("corrected_return"))
 
@@ -490,7 +490,7 @@ constructor(
             ACCOUNT_SOLD_TO_ANOTHER_DFI,
             ADDENDA_ERROR,
             BENEFICIARY_OR_ACCOUNT_HOLDER_DECEASED,
-            CHECK_TRUNCATION_ENTRY_RETURN,
+            CUSTOMER_ADVISED_NOT_WITHIN_AUTHORIZATION_TERMS,
             CORRECTED_RETURN,
             DUPLICATE_ENTRY,
             DUPLICATE_RETURN,
@@ -564,7 +564,7 @@ constructor(
             ACCOUNT_SOLD_TO_ANOTHER_DFI,
             ADDENDA_ERROR,
             BENEFICIARY_OR_ACCOUNT_HOLDER_DECEASED,
-            CHECK_TRUNCATION_ENTRY_RETURN,
+            CUSTOMER_ADVISED_NOT_WITHIN_AUTHORIZATION_TERMS,
             CORRECTED_RETURN,
             DUPLICATE_ENTRY,
             DUPLICATE_RETURN,
@@ -646,7 +646,8 @@ constructor(
                 ADDENDA_ERROR -> Value.ADDENDA_ERROR
                 BENEFICIARY_OR_ACCOUNT_HOLDER_DECEASED ->
                     Value.BENEFICIARY_OR_ACCOUNT_HOLDER_DECEASED
-                CHECK_TRUNCATION_ENTRY_RETURN -> Value.CHECK_TRUNCATION_ENTRY_RETURN
+                CUSTOMER_ADVISED_NOT_WITHIN_AUTHORIZATION_TERMS ->
+                    Value.CUSTOMER_ADVISED_NOT_WITHIN_AUTHORIZATION_TERMS
                 CORRECTED_RETURN -> Value.CORRECTED_RETURN
                 DUPLICATE_ENTRY -> Value.DUPLICATE_ENTRY
                 DUPLICATE_RETURN -> Value.DUPLICATE_RETURN
@@ -739,7 +740,8 @@ constructor(
                 ADDENDA_ERROR -> Known.ADDENDA_ERROR
                 BENEFICIARY_OR_ACCOUNT_HOLDER_DECEASED ->
                     Known.BENEFICIARY_OR_ACCOUNT_HOLDER_DECEASED
-                CHECK_TRUNCATION_ENTRY_RETURN -> Known.CHECK_TRUNCATION_ENTRY_RETURN
+                CUSTOMER_ADVISED_NOT_WITHIN_AUTHORIZATION_TERMS ->
+                    Known.CUSTOMER_ADVISED_NOT_WITHIN_AUTHORIZATION_TERMS
                 CORRECTED_RETURN -> Known.CORRECTED_RETURN
                 DUPLICATE_ENTRY -> Known.DUPLICATE_ENTRY
                 DUPLICATE_RETURN -> Known.DUPLICATE_RETURN
