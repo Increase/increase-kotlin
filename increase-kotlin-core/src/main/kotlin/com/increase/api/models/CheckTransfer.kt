@@ -1348,6 +1348,8 @@ private constructor(
 
             val PENDING_MAILING = Status(JsonField.of("pending_mailing"))
 
+            val STOPPED_AND_PENDING_MAILING = Status(JsonField.of("stopped_and_pending_mailing"))
+
             val MAILED = Status(JsonField.of("mailed"))
 
             val CANCELED = Status(JsonField.of("canceled"))
@@ -1370,6 +1372,7 @@ private constructor(
             PENDING_SUBMISSION,
             SUBMITTED,
             PENDING_MAILING,
+            STOPPED_AND_PENDING_MAILING,
             MAILED,
             CANCELED,
             DEPOSITED,
@@ -1384,6 +1387,7 @@ private constructor(
             PENDING_SUBMISSION,
             SUBMITTED,
             PENDING_MAILING,
+            STOPPED_AND_PENDING_MAILING,
             MAILED,
             CANCELED,
             DEPOSITED,
@@ -1400,6 +1404,7 @@ private constructor(
                 PENDING_SUBMISSION -> Value.PENDING_SUBMISSION
                 SUBMITTED -> Value.SUBMITTED
                 PENDING_MAILING -> Value.PENDING_MAILING
+                STOPPED_AND_PENDING_MAILING -> Value.STOPPED_AND_PENDING_MAILING
                 MAILED -> Value.MAILED
                 CANCELED -> Value.CANCELED
                 DEPOSITED -> Value.DEPOSITED
@@ -1416,6 +1421,7 @@ private constructor(
                 PENDING_SUBMISSION -> Known.PENDING_SUBMISSION
                 SUBMITTED -> Known.SUBMITTED
                 PENDING_MAILING -> Known.PENDING_MAILING
+                STOPPED_AND_PENDING_MAILING -> Known.STOPPED_AND_PENDING_MAILING
                 MAILED -> Known.MAILED
                 CANCELED -> Known.CANCELED
                 DEPOSITED -> Known.DEPOSITED
