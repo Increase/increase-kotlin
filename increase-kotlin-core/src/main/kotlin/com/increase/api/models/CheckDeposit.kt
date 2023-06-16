@@ -1714,6 +1714,8 @@ private constructor(
 
                 val UNREADABLE_IMAGE = ReturnReason(JsonField.of("unreadable_image"))
 
+                val ENDORSEMENT_IRREGULAR = ReturnReason(JsonField.of("endorsement_irregular"))
+
                 fun of(value: String) = ReturnReason(JsonField.of(value))
             }
 
@@ -1729,6 +1731,7 @@ private constructor(
                 UNKNOWN_REASON,
                 UNMATCHED_DETAILS,
                 UNREADABLE_IMAGE,
+                ENDORSEMENT_IRREGULAR,
             }
 
             enum class Value {
@@ -1743,6 +1746,7 @@ private constructor(
                 UNKNOWN_REASON,
                 UNMATCHED_DETAILS,
                 UNREADABLE_IMAGE,
+                ENDORSEMENT_IRREGULAR,
                 _UNKNOWN,
             }
 
@@ -1759,6 +1763,7 @@ private constructor(
                     UNKNOWN_REASON -> Value.UNKNOWN_REASON
                     UNMATCHED_DETAILS -> Value.UNMATCHED_DETAILS
                     UNREADABLE_IMAGE -> Value.UNREADABLE_IMAGE
+                    ENDORSEMENT_IRREGULAR -> Value.ENDORSEMENT_IRREGULAR
                     else -> Value._UNKNOWN
                 }
 
@@ -1775,6 +1780,7 @@ private constructor(
                     UNKNOWN_REASON -> Known.UNKNOWN_REASON
                     UNMATCHED_DETAILS -> Known.UNMATCHED_DETAILS
                     UNREADABLE_IMAGE -> Known.UNREADABLE_IMAGE
+                    ENDORSEMENT_IRREGULAR -> Known.ENDORSEMENT_IRREGULAR
                     else -> throw IncreaseInvalidDataException("Unknown ReturnReason: $value")
                 }
 
