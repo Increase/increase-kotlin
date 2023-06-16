@@ -443,10 +443,6 @@ constructor(
 
                 val ACCOUNT_TRANSFER_INTENTION = In(JsonField.of("account_transfer_intention"))
 
-                val ACH_CHECK_CONVERSION_RETURN = In(JsonField.of("ach_check_conversion_return"))
-
-                val ACH_CHECK_CONVERSION = In(JsonField.of("ach_check_conversion"))
-
                 val ACH_TRANSFER_INTENTION = In(JsonField.of("ach_transfer_intention"))
 
                 val ACH_TRANSFER_REJECTION = In(JsonField.of("ach_transfer_rejection"))
@@ -473,10 +469,6 @@ constructor(
 
                 val CHECK_TRANSFER_STOP_PAYMENT_REQUEST =
                     In(JsonField.of("check_transfer_stop_payment_request"))
-
-                val DISPUTE_RESOLUTION = In(JsonField.of("dispute_resolution"))
-
-                val EMPYREAL_CASH_DEPOSIT = In(JsonField.of("empyreal_cash_deposit"))
 
                 val FEE_PAYMENT = In(JsonField.of("fee_payment"))
 
@@ -505,25 +497,12 @@ constructor(
 
                 val INTEREST_PAYMENT = In(JsonField.of("interest_payment"))
 
-                val INTERNAL_GENERAL_LEDGER_TRANSACTION =
-                    In(JsonField.of("internal_general_ledger_transaction"))
-
                 val INTERNAL_SOURCE = In(JsonField.of("internal_source"))
-
-                val CARD_ROUTE_REFUND = In(JsonField.of("card_route_refund"))
-
-                val CARD_ROUTE_SETTLEMENT = In(JsonField.of("card_route_settlement"))
 
                 val REAL_TIME_PAYMENTS_TRANSFER_ACKNOWLEDGEMENT =
                     In(JsonField.of("real_time_payments_transfer_acknowledgement"))
 
                 val SAMPLE_FUNDS = In(JsonField.of("sample_funds"))
-
-                val WIRE_DRAWDOWN_PAYMENT_INTENTION =
-                    In(JsonField.of("wire_drawdown_payment_intention"))
-
-                val WIRE_DRAWDOWN_PAYMENT_REJECTION =
-                    In(JsonField.of("wire_drawdown_payment_rejection"))
 
                 val WIRE_TRANSFER_INTENTION = In(JsonField.of("wire_transfer_intention"))
 
@@ -536,8 +515,6 @@ constructor(
 
             enum class Known {
                 ACCOUNT_TRANSFER_INTENTION,
-                ACH_CHECK_CONVERSION_RETURN,
-                ACH_CHECK_CONVERSION,
                 ACH_TRANSFER_INTENTION,
                 ACH_TRANSFER_REJECTION,
                 ACH_TRANSFER_RETURN,
@@ -551,8 +528,6 @@ constructor(
                 CHECK_TRANSFER_RETURN,
                 CHECK_TRANSFER_REJECTION,
                 CHECK_TRANSFER_STOP_PAYMENT_REQUEST,
-                DISPUTE_RESOLUTION,
-                EMPYREAL_CASH_DEPOSIT,
                 FEE_PAYMENT,
                 INBOUND_ACH_TRANSFER,
                 INBOUND_ACH_TRANSFER_RETURN_INTENTION,
@@ -564,14 +539,9 @@ constructor(
                 INBOUND_WIRE_REVERSAL,
                 INBOUND_WIRE_TRANSFER,
                 INTEREST_PAYMENT,
-                INTERNAL_GENERAL_LEDGER_TRANSACTION,
                 INTERNAL_SOURCE,
-                CARD_ROUTE_REFUND,
-                CARD_ROUTE_SETTLEMENT,
                 REAL_TIME_PAYMENTS_TRANSFER_ACKNOWLEDGEMENT,
                 SAMPLE_FUNDS,
-                WIRE_DRAWDOWN_PAYMENT_INTENTION,
-                WIRE_DRAWDOWN_PAYMENT_REJECTION,
                 WIRE_TRANSFER_INTENTION,
                 WIRE_TRANSFER_REJECTION,
                 OTHER,
@@ -579,8 +549,6 @@ constructor(
 
             enum class Value {
                 ACCOUNT_TRANSFER_INTENTION,
-                ACH_CHECK_CONVERSION_RETURN,
-                ACH_CHECK_CONVERSION,
                 ACH_TRANSFER_INTENTION,
                 ACH_TRANSFER_REJECTION,
                 ACH_TRANSFER_RETURN,
@@ -594,8 +562,6 @@ constructor(
                 CHECK_TRANSFER_RETURN,
                 CHECK_TRANSFER_REJECTION,
                 CHECK_TRANSFER_STOP_PAYMENT_REQUEST,
-                DISPUTE_RESOLUTION,
-                EMPYREAL_CASH_DEPOSIT,
                 FEE_PAYMENT,
                 INBOUND_ACH_TRANSFER,
                 INBOUND_ACH_TRANSFER_RETURN_INTENTION,
@@ -607,14 +573,9 @@ constructor(
                 INBOUND_WIRE_REVERSAL,
                 INBOUND_WIRE_TRANSFER,
                 INTEREST_PAYMENT,
-                INTERNAL_GENERAL_LEDGER_TRANSACTION,
                 INTERNAL_SOURCE,
-                CARD_ROUTE_REFUND,
-                CARD_ROUTE_SETTLEMENT,
                 REAL_TIME_PAYMENTS_TRANSFER_ACKNOWLEDGEMENT,
                 SAMPLE_FUNDS,
-                WIRE_DRAWDOWN_PAYMENT_INTENTION,
-                WIRE_DRAWDOWN_PAYMENT_REJECTION,
                 WIRE_TRANSFER_INTENTION,
                 WIRE_TRANSFER_REJECTION,
                 OTHER,
@@ -624,8 +585,6 @@ constructor(
             fun value(): Value =
                 when (this) {
                     ACCOUNT_TRANSFER_INTENTION -> Value.ACCOUNT_TRANSFER_INTENTION
-                    ACH_CHECK_CONVERSION_RETURN -> Value.ACH_CHECK_CONVERSION_RETURN
-                    ACH_CHECK_CONVERSION -> Value.ACH_CHECK_CONVERSION
                     ACH_TRANSFER_INTENTION -> Value.ACH_TRANSFER_INTENTION
                     ACH_TRANSFER_REJECTION -> Value.ACH_TRANSFER_REJECTION
                     ACH_TRANSFER_RETURN -> Value.ACH_TRANSFER_RETURN
@@ -639,8 +598,6 @@ constructor(
                     CHECK_TRANSFER_RETURN -> Value.CHECK_TRANSFER_RETURN
                     CHECK_TRANSFER_REJECTION -> Value.CHECK_TRANSFER_REJECTION
                     CHECK_TRANSFER_STOP_PAYMENT_REQUEST -> Value.CHECK_TRANSFER_STOP_PAYMENT_REQUEST
-                    DISPUTE_RESOLUTION -> Value.DISPUTE_RESOLUTION
-                    EMPYREAL_CASH_DEPOSIT -> Value.EMPYREAL_CASH_DEPOSIT
                     FEE_PAYMENT -> Value.FEE_PAYMENT
                     INBOUND_ACH_TRANSFER -> Value.INBOUND_ACH_TRANSFER
                     INBOUND_ACH_TRANSFER_RETURN_INTENTION ->
@@ -655,15 +612,10 @@ constructor(
                     INBOUND_WIRE_REVERSAL -> Value.INBOUND_WIRE_REVERSAL
                     INBOUND_WIRE_TRANSFER -> Value.INBOUND_WIRE_TRANSFER
                     INTEREST_PAYMENT -> Value.INTEREST_PAYMENT
-                    INTERNAL_GENERAL_LEDGER_TRANSACTION -> Value.INTERNAL_GENERAL_LEDGER_TRANSACTION
                     INTERNAL_SOURCE -> Value.INTERNAL_SOURCE
-                    CARD_ROUTE_REFUND -> Value.CARD_ROUTE_REFUND
-                    CARD_ROUTE_SETTLEMENT -> Value.CARD_ROUTE_SETTLEMENT
                     REAL_TIME_PAYMENTS_TRANSFER_ACKNOWLEDGEMENT ->
                         Value.REAL_TIME_PAYMENTS_TRANSFER_ACKNOWLEDGEMENT
                     SAMPLE_FUNDS -> Value.SAMPLE_FUNDS
-                    WIRE_DRAWDOWN_PAYMENT_INTENTION -> Value.WIRE_DRAWDOWN_PAYMENT_INTENTION
-                    WIRE_DRAWDOWN_PAYMENT_REJECTION -> Value.WIRE_DRAWDOWN_PAYMENT_REJECTION
                     WIRE_TRANSFER_INTENTION -> Value.WIRE_TRANSFER_INTENTION
                     WIRE_TRANSFER_REJECTION -> Value.WIRE_TRANSFER_REJECTION
                     OTHER -> Value.OTHER
@@ -673,8 +625,6 @@ constructor(
             fun known(): Known =
                 when (this) {
                     ACCOUNT_TRANSFER_INTENTION -> Known.ACCOUNT_TRANSFER_INTENTION
-                    ACH_CHECK_CONVERSION_RETURN -> Known.ACH_CHECK_CONVERSION_RETURN
-                    ACH_CHECK_CONVERSION -> Known.ACH_CHECK_CONVERSION
                     ACH_TRANSFER_INTENTION -> Known.ACH_TRANSFER_INTENTION
                     ACH_TRANSFER_REJECTION -> Known.ACH_TRANSFER_REJECTION
                     ACH_TRANSFER_RETURN -> Known.ACH_TRANSFER_RETURN
@@ -688,8 +638,6 @@ constructor(
                     CHECK_TRANSFER_RETURN -> Known.CHECK_TRANSFER_RETURN
                     CHECK_TRANSFER_REJECTION -> Known.CHECK_TRANSFER_REJECTION
                     CHECK_TRANSFER_STOP_PAYMENT_REQUEST -> Known.CHECK_TRANSFER_STOP_PAYMENT_REQUEST
-                    DISPUTE_RESOLUTION -> Known.DISPUTE_RESOLUTION
-                    EMPYREAL_CASH_DEPOSIT -> Known.EMPYREAL_CASH_DEPOSIT
                     FEE_PAYMENT -> Known.FEE_PAYMENT
                     INBOUND_ACH_TRANSFER -> Known.INBOUND_ACH_TRANSFER
                     INBOUND_ACH_TRANSFER_RETURN_INTENTION ->
@@ -704,15 +652,10 @@ constructor(
                     INBOUND_WIRE_REVERSAL -> Known.INBOUND_WIRE_REVERSAL
                     INBOUND_WIRE_TRANSFER -> Known.INBOUND_WIRE_TRANSFER
                     INTEREST_PAYMENT -> Known.INTEREST_PAYMENT
-                    INTERNAL_GENERAL_LEDGER_TRANSACTION -> Known.INTERNAL_GENERAL_LEDGER_TRANSACTION
                     INTERNAL_SOURCE -> Known.INTERNAL_SOURCE
-                    CARD_ROUTE_REFUND -> Known.CARD_ROUTE_REFUND
-                    CARD_ROUTE_SETTLEMENT -> Known.CARD_ROUTE_SETTLEMENT
                     REAL_TIME_PAYMENTS_TRANSFER_ACKNOWLEDGEMENT ->
                         Known.REAL_TIME_PAYMENTS_TRANSFER_ACKNOWLEDGEMENT
                     SAMPLE_FUNDS -> Known.SAMPLE_FUNDS
-                    WIRE_DRAWDOWN_PAYMENT_INTENTION -> Known.WIRE_DRAWDOWN_PAYMENT_INTENTION
-                    WIRE_DRAWDOWN_PAYMENT_REJECTION -> Known.WIRE_DRAWDOWN_PAYMENT_REJECTION
                     WIRE_TRANSFER_INTENTION -> Known.WIRE_TRANSFER_INTENTION
                     WIRE_TRANSFER_REJECTION -> Known.WIRE_TRANSFER_REJECTION
                     OTHER -> Known.OTHER
