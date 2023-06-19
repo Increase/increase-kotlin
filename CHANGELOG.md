@@ -1,5 +1,37 @@
 # Changelog
 
+## [0.3.0](https://github.com/Increase/increase-kotlin/compare/v0.2.0...v0.3.0) (2023-06-19)
+
+
+### ⚠ BREAKING CHANGES
+
+* **api:** rename return reason enum member ([#19](https://github.com/Increase/increase-kotlin/issues/19))
+
+### Features
+
+* **api:** add new endpoints + properties + enums ([#13](https://github.com/Increase/increase-kotlin/issues/13)) ([70cd75f](https://github.com/Increase/increase-kotlin/commit/70cd75f5bb256be0483f6467d9c138ce610446c5))
+
+
+### Bug Fixes
+
+* **metadata:** correct scm URL ([#11](https://github.com/Increase/increase-kotlin/issues/11)) ([ca56eec](https://github.com/Increase/increase-kotlin/commit/ca56eec435984535401181165860314b453bed14))
+
+
+### Chores
+
+* **internal:** remove unused check-test-server script ([#15](https://github.com/Increase/increase-kotlin/issues/15)) ([c912af8](https://github.com/Increase/increase-kotlin/commit/c912af8d3341aaba8078ef5b23f44b177f276ac6))
+
+
+### Documentation
+
+* point to github repo instead of email contact ([#20](https://github.com/Increase/increase-kotlin/issues/20)) ([78f1806](https://github.com/Increase/increase-kotlin/commit/78f18063682fc9f41250892ce7ba75fee61e4141))
+
+
+### Refactors
+
+* **api:** remove unused properties and enum members ([#21](https://github.com/Increase/increase-kotlin/issues/21)) ([b4fa416](https://github.com/Increase/increase-kotlin/commit/b4fa416e21fbed5d1d4e19b72fecea6048214e50))
+* **api:** rename return reason enum member ([#19](https://github.com/Increase/increase-kotlin/issues/19)) ([77624f7](https://github.com/Increase/increase-kotlin/commit/77624f7c9d381fb9ee2976b89334b3e955f45f30))
+
 ## [0.2.0](https://github.com/Increase/increase-kotlin/compare/v0.1.0...v0.2.0) (2023-05-31)
 
 
