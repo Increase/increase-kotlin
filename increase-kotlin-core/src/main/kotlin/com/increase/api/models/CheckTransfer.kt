@@ -56,19 +56,19 @@ private constructor(
     fun accountId(): String = accountId.getRequired("account_id")
 
     /** The street address of the check's destination. */
-    fun addressLine1(): String = addressLine1.getRequired("address_line1")
+    fun addressLine1(): String? = addressLine1.getNullable("address_line1")
 
     /** The second line of the address of the check's destination. */
     fun addressLine2(): String? = addressLine2.getNullable("address_line2")
 
     /** The city of the check's destination. */
-    fun addressCity(): String = addressCity.getRequired("address_city")
+    fun addressCity(): String? = addressCity.getNullable("address_city")
 
     /** The state of the check's destination. */
-    fun addressState(): String = addressState.getRequired("address_state")
+    fun addressState(): String? = addressState.getNullable("address_state")
 
     /** The postal code of the check's destination. */
-    fun addressZip(): String = addressZip.getRequired("address_zip")
+    fun addressZip(): String? = addressZip.getNullable("address_zip")
 
     /** The return address to be printed on the check. */
     fun returnAddress(): ReturnAddress? = returnAddress.getNullable("return_address")
@@ -107,13 +107,13 @@ private constructor(
     fun mailedAt(): OffsetDateTime? = mailedAt.getNullable("mailed_at")
 
     /** The descriptor that will be printed on the memo field on the check. */
-    fun message(): String = message.getRequired("message")
+    fun message(): String? = message.getNullable("message")
 
     /** The descriptor that will be printed on the letter included with the check. */
     fun note(): String? = note.getNullable("note")
 
     /** The name that will be printed on the check. */
-    fun recipientName(): String = recipientName.getRequired("recipient_name")
+    fun recipientName(): String? = recipientName.getNullable("recipient_name")
 
     /** The lifecycle status of the transfer. */
     fun status(): Status = status.getRequired("status")
@@ -1348,8 +1348,6 @@ private constructor(
 
             val PENDING_MAILING = Status(JsonField.of("pending_mailing"))
 
-            val STOPPED_AND_PENDING_MAILING = Status(JsonField.of("stopped_and_pending_mailing"))
-
             val MAILED = Status(JsonField.of("mailed"))
 
             val CANCELED = Status(JsonField.of("canceled"))
@@ -1372,7 +1370,6 @@ private constructor(
             PENDING_SUBMISSION,
             SUBMITTED,
             PENDING_MAILING,
-            STOPPED_AND_PENDING_MAILING,
             MAILED,
             CANCELED,
             DEPOSITED,
@@ -1387,7 +1384,6 @@ private constructor(
             PENDING_SUBMISSION,
             SUBMITTED,
             PENDING_MAILING,
-            STOPPED_AND_PENDING_MAILING,
             MAILED,
             CANCELED,
             DEPOSITED,
@@ -1404,7 +1400,6 @@ private constructor(
                 PENDING_SUBMISSION -> Value.PENDING_SUBMISSION
                 SUBMITTED -> Value.SUBMITTED
                 PENDING_MAILING -> Value.PENDING_MAILING
-                STOPPED_AND_PENDING_MAILING -> Value.STOPPED_AND_PENDING_MAILING
                 MAILED -> Value.MAILED
                 CANCELED -> Value.CANCELED
                 DEPOSITED -> Value.DEPOSITED
@@ -1421,7 +1416,6 @@ private constructor(
                 PENDING_SUBMISSION -> Known.PENDING_SUBMISSION
                 SUBMITTED -> Known.SUBMITTED
                 PENDING_MAILING -> Known.PENDING_MAILING
-                STOPPED_AND_PENDING_MAILING -> Known.STOPPED_AND_PENDING_MAILING
                 MAILED -> Known.MAILED
                 CANCELED -> Known.CANCELED
                 DEPOSITED -> Known.DEPOSITED
