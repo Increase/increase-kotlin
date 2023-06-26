@@ -265,335 +265,41 @@ private constructor(
 
         companion object {
 
-            val ACCOUNT_OPENING_DISCLOSURES = Category(JsonField.of("account_opening_disclosures"))
-
-            val ANTI_MONEY_LAUNDERING_POLICY =
-                Category(JsonField.of("anti_money_laundering_policy"))
-
-            val ANTI_MONEY_LAUNDERING_PROCEDURES =
-                Category(JsonField.of("anti_money_laundering_procedures"))
-
-            val AUDIT_REPORT = Category(JsonField.of("audit_report"))
-
-            val BACKGROUND_CHECKS = Category(JsonField.of("background_checks"))
-
-            val BUSINESS_CONTINUITY_PLAN = Category(JsonField.of("business_continuity_plan"))
-
-            val COLLECTIONS_POLICY = Category(JsonField.of("collections_policy"))
-
-            val COMPLAINTS_POLICY = Category(JsonField.of("complaints_policy"))
-
-            val COMPLAINT_REPORT = Category(JsonField.of("complaint_report"))
-
-            val COMPLIANCE_REPORT = Category(JsonField.of("compliance_report"))
-
-            val COMPLIANCE_STAFFING_PLAN = Category(JsonField.of("compliance_staffing_plan"))
-
-            val COMPLIANCE_MANAGEMENT_SYSTEM_POLICY =
-                Category(JsonField.of("compliance_management_system_policy"))
-
-            val CONSUMER_PRIVACY_NOTICE = Category(JsonField.of("consumer_privacy_notice"))
-
-            val CONSUMER_PROTECTION_POLICY = Category(JsonField.of("consumer_protection_policy"))
-
-            val CORPORATE_FORMATION_DOCUMENT =
-                Category(JsonField.of("corporate_formation_document"))
-
-            val CREDIT_MONITORING_REPORT = Category(JsonField.of("credit_monitoring_report"))
-
-            val CUSTOMER_INFORMATION_PROGRAM_POLICY =
-                Category(JsonField.of("customer_information_program_policy"))
-
-            val ELECTRONIC_FUNDS_TRANFER_ACT_POLICY =
-                Category(JsonField.of("electronic_funds_tranfer_act_policy"))
-
-            val EMPLOYEE_OVERVIEW = Category(JsonField.of("employee_overview"))
-
-            val END_USER_TERMS_OF_SERVICE = Category(JsonField.of("end_user_terms_of_service"))
-
-            val E_SIGN_POLICY = Category(JsonField.of("e_sign_policy"))
-
-            val FINANCIAL_STATEMENT = Category(JsonField.of("financial_statement"))
-
             val FORM_1099_INT = Category(JsonField.of("form_1099_int"))
 
-            val FRAUD_PREVENTION_POLICY = Category(JsonField.of("fraud_prevention_policy"))
+            val PROOF_OF_AUTHORIZATION = Category(JsonField.of("proof_of_authorization"))
 
-            val FUNDS_AVAILABILITY_POLICY = Category(JsonField.of("funds_availability_policy"))
-
-            val FUNDS_AVAILABILITY_DISCLOSURE =
-                Category(JsonField.of("funds_availability_disclosure"))
-
-            val FUNDS_FLOW_DIAGRAM = Category(JsonField.of("funds_flow_diagram"))
-
-            val GRAMM_LEACH_BLILEY_ACT_POLICY =
-                Category(JsonField.of("gramm_leach_bliley_act_policy"))
-
-            val INFORMATION_SECURITY_POLICY = Category(JsonField.of("information_security_policy"))
-
-            val INSURANCE_POLICY = Category(JsonField.of("insurance_policy"))
-
-            val INVESTOR_PRESENTATION = Category(JsonField.of("investor_presentation"))
-
-            val LOAN_APPLICATION_PROCESSING_POLICY =
-                Category(JsonField.of("loan_application_processing_policy"))
-
-            val MANAGEMENT_BIOGRAPHY = Category(JsonField.of("management_biography"))
-
-            val MARKETING_AND_ADVERTISING_POLICY =
-                Category(JsonField.of("marketing_and_advertising_policy"))
-
-            val NETWORK_SECURITY_DIAGRAM = Category(JsonField.of("network_security_diagram"))
-
-            val ONBOARDING_QUESTIONNAIRE = Category(JsonField.of("onboarding_questionnaire"))
-
-            val PENETRATION_TEST_REPORT = Category(JsonField.of("penetration_test_report"))
-
-            val PLATFORM_COMPLIANCE_METRICS_SUBMISSION =
-                Category(JsonField.of("platform_compliance_metrics_submission"))
-
-            val CONSUMER_PLATFORM_COMPLIANCE_METRICS_SUBMISSION =
-                Category(JsonField.of("consumer_platform_compliance_metrics_submission"))
-
-            val PROGRAM_RISK_ASSESSMENT = Category(JsonField.of("program_risk_assessment"))
-
-            val SECURITY_AUDIT_REPORT = Category(JsonField.of("security_audit_report"))
-
-            val SERVICING_POLICY = Category(JsonField.of("servicing_policy"))
-
-            val TRANSACTION_MONITORING_REPORT =
-                Category(JsonField.of("transaction_monitoring_report"))
-
-            val TRUTH_IN_SAVINGS_ACT_POLICY = Category(JsonField.of("truth_in_savings_act_policy"))
-
-            val UNDERWRITING_POLICY = Category(JsonField.of("underwriting_policy"))
-
-            val VENDOR_LIST = Category(JsonField.of("vendor_list"))
-
-            val VENDOR_MANAGEMENT_POLICY = Category(JsonField.of("vendor_management_policy"))
-
-            val VENDOR_RISK_MANAGEMENT_REPORT =
-                Category(JsonField.of("vendor_risk_management_report"))
-
-            val VOLUME_FORECAST = Category(JsonField.of("volume_forecast"))
+            val COMPANY_INFORMATION = Category(JsonField.of("company_information"))
 
             fun of(value: String) = Category(JsonField.of(value))
         }
 
         enum class Known {
-            ACCOUNT_OPENING_DISCLOSURES,
-            ANTI_MONEY_LAUNDERING_POLICY,
-            ANTI_MONEY_LAUNDERING_PROCEDURES,
-            AUDIT_REPORT,
-            BACKGROUND_CHECKS,
-            BUSINESS_CONTINUITY_PLAN,
-            COLLECTIONS_POLICY,
-            COMPLAINTS_POLICY,
-            COMPLAINT_REPORT,
-            COMPLIANCE_REPORT,
-            COMPLIANCE_STAFFING_PLAN,
-            COMPLIANCE_MANAGEMENT_SYSTEM_POLICY,
-            CONSUMER_PRIVACY_NOTICE,
-            CONSUMER_PROTECTION_POLICY,
-            CORPORATE_FORMATION_DOCUMENT,
-            CREDIT_MONITORING_REPORT,
-            CUSTOMER_INFORMATION_PROGRAM_POLICY,
-            ELECTRONIC_FUNDS_TRANFER_ACT_POLICY,
-            EMPLOYEE_OVERVIEW,
-            END_USER_TERMS_OF_SERVICE,
-            E_SIGN_POLICY,
-            FINANCIAL_STATEMENT,
             FORM_1099_INT,
-            FRAUD_PREVENTION_POLICY,
-            FUNDS_AVAILABILITY_POLICY,
-            FUNDS_AVAILABILITY_DISCLOSURE,
-            FUNDS_FLOW_DIAGRAM,
-            GRAMM_LEACH_BLILEY_ACT_POLICY,
-            INFORMATION_SECURITY_POLICY,
-            INSURANCE_POLICY,
-            INVESTOR_PRESENTATION,
-            LOAN_APPLICATION_PROCESSING_POLICY,
-            MANAGEMENT_BIOGRAPHY,
-            MARKETING_AND_ADVERTISING_POLICY,
-            NETWORK_SECURITY_DIAGRAM,
-            ONBOARDING_QUESTIONNAIRE,
-            PENETRATION_TEST_REPORT,
-            PLATFORM_COMPLIANCE_METRICS_SUBMISSION,
-            CONSUMER_PLATFORM_COMPLIANCE_METRICS_SUBMISSION,
-            PROGRAM_RISK_ASSESSMENT,
-            SECURITY_AUDIT_REPORT,
-            SERVICING_POLICY,
-            TRANSACTION_MONITORING_REPORT,
-            TRUTH_IN_SAVINGS_ACT_POLICY,
-            UNDERWRITING_POLICY,
-            VENDOR_LIST,
-            VENDOR_MANAGEMENT_POLICY,
-            VENDOR_RISK_MANAGEMENT_REPORT,
-            VOLUME_FORECAST,
+            PROOF_OF_AUTHORIZATION,
+            COMPANY_INFORMATION,
         }
 
         enum class Value {
-            ACCOUNT_OPENING_DISCLOSURES,
-            ANTI_MONEY_LAUNDERING_POLICY,
-            ANTI_MONEY_LAUNDERING_PROCEDURES,
-            AUDIT_REPORT,
-            BACKGROUND_CHECKS,
-            BUSINESS_CONTINUITY_PLAN,
-            COLLECTIONS_POLICY,
-            COMPLAINTS_POLICY,
-            COMPLAINT_REPORT,
-            COMPLIANCE_REPORT,
-            COMPLIANCE_STAFFING_PLAN,
-            COMPLIANCE_MANAGEMENT_SYSTEM_POLICY,
-            CONSUMER_PRIVACY_NOTICE,
-            CONSUMER_PROTECTION_POLICY,
-            CORPORATE_FORMATION_DOCUMENT,
-            CREDIT_MONITORING_REPORT,
-            CUSTOMER_INFORMATION_PROGRAM_POLICY,
-            ELECTRONIC_FUNDS_TRANFER_ACT_POLICY,
-            EMPLOYEE_OVERVIEW,
-            END_USER_TERMS_OF_SERVICE,
-            E_SIGN_POLICY,
-            FINANCIAL_STATEMENT,
             FORM_1099_INT,
-            FRAUD_PREVENTION_POLICY,
-            FUNDS_AVAILABILITY_POLICY,
-            FUNDS_AVAILABILITY_DISCLOSURE,
-            FUNDS_FLOW_DIAGRAM,
-            GRAMM_LEACH_BLILEY_ACT_POLICY,
-            INFORMATION_SECURITY_POLICY,
-            INSURANCE_POLICY,
-            INVESTOR_PRESENTATION,
-            LOAN_APPLICATION_PROCESSING_POLICY,
-            MANAGEMENT_BIOGRAPHY,
-            MARKETING_AND_ADVERTISING_POLICY,
-            NETWORK_SECURITY_DIAGRAM,
-            ONBOARDING_QUESTIONNAIRE,
-            PENETRATION_TEST_REPORT,
-            PLATFORM_COMPLIANCE_METRICS_SUBMISSION,
-            CONSUMER_PLATFORM_COMPLIANCE_METRICS_SUBMISSION,
-            PROGRAM_RISK_ASSESSMENT,
-            SECURITY_AUDIT_REPORT,
-            SERVICING_POLICY,
-            TRANSACTION_MONITORING_REPORT,
-            TRUTH_IN_SAVINGS_ACT_POLICY,
-            UNDERWRITING_POLICY,
-            VENDOR_LIST,
-            VENDOR_MANAGEMENT_POLICY,
-            VENDOR_RISK_MANAGEMENT_REPORT,
-            VOLUME_FORECAST,
+            PROOF_OF_AUTHORIZATION,
+            COMPANY_INFORMATION,
             _UNKNOWN,
         }
 
         fun value(): Value =
             when (this) {
-                ACCOUNT_OPENING_DISCLOSURES -> Value.ACCOUNT_OPENING_DISCLOSURES
-                ANTI_MONEY_LAUNDERING_POLICY -> Value.ANTI_MONEY_LAUNDERING_POLICY
-                ANTI_MONEY_LAUNDERING_PROCEDURES -> Value.ANTI_MONEY_LAUNDERING_PROCEDURES
-                AUDIT_REPORT -> Value.AUDIT_REPORT
-                BACKGROUND_CHECKS -> Value.BACKGROUND_CHECKS
-                BUSINESS_CONTINUITY_PLAN -> Value.BUSINESS_CONTINUITY_PLAN
-                COLLECTIONS_POLICY -> Value.COLLECTIONS_POLICY
-                COMPLAINTS_POLICY -> Value.COMPLAINTS_POLICY
-                COMPLAINT_REPORT -> Value.COMPLAINT_REPORT
-                COMPLIANCE_REPORT -> Value.COMPLIANCE_REPORT
-                COMPLIANCE_STAFFING_PLAN -> Value.COMPLIANCE_STAFFING_PLAN
-                COMPLIANCE_MANAGEMENT_SYSTEM_POLICY -> Value.COMPLIANCE_MANAGEMENT_SYSTEM_POLICY
-                CONSUMER_PRIVACY_NOTICE -> Value.CONSUMER_PRIVACY_NOTICE
-                CONSUMER_PROTECTION_POLICY -> Value.CONSUMER_PROTECTION_POLICY
-                CORPORATE_FORMATION_DOCUMENT -> Value.CORPORATE_FORMATION_DOCUMENT
-                CREDIT_MONITORING_REPORT -> Value.CREDIT_MONITORING_REPORT
-                CUSTOMER_INFORMATION_PROGRAM_POLICY -> Value.CUSTOMER_INFORMATION_PROGRAM_POLICY
-                ELECTRONIC_FUNDS_TRANFER_ACT_POLICY -> Value.ELECTRONIC_FUNDS_TRANFER_ACT_POLICY
-                EMPLOYEE_OVERVIEW -> Value.EMPLOYEE_OVERVIEW
-                END_USER_TERMS_OF_SERVICE -> Value.END_USER_TERMS_OF_SERVICE
-                E_SIGN_POLICY -> Value.E_SIGN_POLICY
-                FINANCIAL_STATEMENT -> Value.FINANCIAL_STATEMENT
                 FORM_1099_INT -> Value.FORM_1099_INT
-                FRAUD_PREVENTION_POLICY -> Value.FRAUD_PREVENTION_POLICY
-                FUNDS_AVAILABILITY_POLICY -> Value.FUNDS_AVAILABILITY_POLICY
-                FUNDS_AVAILABILITY_DISCLOSURE -> Value.FUNDS_AVAILABILITY_DISCLOSURE
-                FUNDS_FLOW_DIAGRAM -> Value.FUNDS_FLOW_DIAGRAM
-                GRAMM_LEACH_BLILEY_ACT_POLICY -> Value.GRAMM_LEACH_BLILEY_ACT_POLICY
-                INFORMATION_SECURITY_POLICY -> Value.INFORMATION_SECURITY_POLICY
-                INSURANCE_POLICY -> Value.INSURANCE_POLICY
-                INVESTOR_PRESENTATION -> Value.INVESTOR_PRESENTATION
-                LOAN_APPLICATION_PROCESSING_POLICY -> Value.LOAN_APPLICATION_PROCESSING_POLICY
-                MANAGEMENT_BIOGRAPHY -> Value.MANAGEMENT_BIOGRAPHY
-                MARKETING_AND_ADVERTISING_POLICY -> Value.MARKETING_AND_ADVERTISING_POLICY
-                NETWORK_SECURITY_DIAGRAM -> Value.NETWORK_SECURITY_DIAGRAM
-                ONBOARDING_QUESTIONNAIRE -> Value.ONBOARDING_QUESTIONNAIRE
-                PENETRATION_TEST_REPORT -> Value.PENETRATION_TEST_REPORT
-                PLATFORM_COMPLIANCE_METRICS_SUBMISSION ->
-                    Value.PLATFORM_COMPLIANCE_METRICS_SUBMISSION
-                CONSUMER_PLATFORM_COMPLIANCE_METRICS_SUBMISSION ->
-                    Value.CONSUMER_PLATFORM_COMPLIANCE_METRICS_SUBMISSION
-                PROGRAM_RISK_ASSESSMENT -> Value.PROGRAM_RISK_ASSESSMENT
-                SECURITY_AUDIT_REPORT -> Value.SECURITY_AUDIT_REPORT
-                SERVICING_POLICY -> Value.SERVICING_POLICY
-                TRANSACTION_MONITORING_REPORT -> Value.TRANSACTION_MONITORING_REPORT
-                TRUTH_IN_SAVINGS_ACT_POLICY -> Value.TRUTH_IN_SAVINGS_ACT_POLICY
-                UNDERWRITING_POLICY -> Value.UNDERWRITING_POLICY
-                VENDOR_LIST -> Value.VENDOR_LIST
-                VENDOR_MANAGEMENT_POLICY -> Value.VENDOR_MANAGEMENT_POLICY
-                VENDOR_RISK_MANAGEMENT_REPORT -> Value.VENDOR_RISK_MANAGEMENT_REPORT
-                VOLUME_FORECAST -> Value.VOLUME_FORECAST
+                PROOF_OF_AUTHORIZATION -> Value.PROOF_OF_AUTHORIZATION
+                COMPANY_INFORMATION -> Value.COMPANY_INFORMATION
                 else -> Value._UNKNOWN
             }
 
         fun known(): Known =
             when (this) {
-                ACCOUNT_OPENING_DISCLOSURES -> Known.ACCOUNT_OPENING_DISCLOSURES
-                ANTI_MONEY_LAUNDERING_POLICY -> Known.ANTI_MONEY_LAUNDERING_POLICY
-                ANTI_MONEY_LAUNDERING_PROCEDURES -> Known.ANTI_MONEY_LAUNDERING_PROCEDURES
-                AUDIT_REPORT -> Known.AUDIT_REPORT
-                BACKGROUND_CHECKS -> Known.BACKGROUND_CHECKS
-                BUSINESS_CONTINUITY_PLAN -> Known.BUSINESS_CONTINUITY_PLAN
-                COLLECTIONS_POLICY -> Known.COLLECTIONS_POLICY
-                COMPLAINTS_POLICY -> Known.COMPLAINTS_POLICY
-                COMPLAINT_REPORT -> Known.COMPLAINT_REPORT
-                COMPLIANCE_REPORT -> Known.COMPLIANCE_REPORT
-                COMPLIANCE_STAFFING_PLAN -> Known.COMPLIANCE_STAFFING_PLAN
-                COMPLIANCE_MANAGEMENT_SYSTEM_POLICY -> Known.COMPLIANCE_MANAGEMENT_SYSTEM_POLICY
-                CONSUMER_PRIVACY_NOTICE -> Known.CONSUMER_PRIVACY_NOTICE
-                CONSUMER_PROTECTION_POLICY -> Known.CONSUMER_PROTECTION_POLICY
-                CORPORATE_FORMATION_DOCUMENT -> Known.CORPORATE_FORMATION_DOCUMENT
-                CREDIT_MONITORING_REPORT -> Known.CREDIT_MONITORING_REPORT
-                CUSTOMER_INFORMATION_PROGRAM_POLICY -> Known.CUSTOMER_INFORMATION_PROGRAM_POLICY
-                ELECTRONIC_FUNDS_TRANFER_ACT_POLICY -> Known.ELECTRONIC_FUNDS_TRANFER_ACT_POLICY
-                EMPLOYEE_OVERVIEW -> Known.EMPLOYEE_OVERVIEW
-                END_USER_TERMS_OF_SERVICE -> Known.END_USER_TERMS_OF_SERVICE
-                E_SIGN_POLICY -> Known.E_SIGN_POLICY
-                FINANCIAL_STATEMENT -> Known.FINANCIAL_STATEMENT
                 FORM_1099_INT -> Known.FORM_1099_INT
-                FRAUD_PREVENTION_POLICY -> Known.FRAUD_PREVENTION_POLICY
-                FUNDS_AVAILABILITY_POLICY -> Known.FUNDS_AVAILABILITY_POLICY
-                FUNDS_AVAILABILITY_DISCLOSURE -> Known.FUNDS_AVAILABILITY_DISCLOSURE
-                FUNDS_FLOW_DIAGRAM -> Known.FUNDS_FLOW_DIAGRAM
-                GRAMM_LEACH_BLILEY_ACT_POLICY -> Known.GRAMM_LEACH_BLILEY_ACT_POLICY
-                INFORMATION_SECURITY_POLICY -> Known.INFORMATION_SECURITY_POLICY
-                INSURANCE_POLICY -> Known.INSURANCE_POLICY
-                INVESTOR_PRESENTATION -> Known.INVESTOR_PRESENTATION
-                LOAN_APPLICATION_PROCESSING_POLICY -> Known.LOAN_APPLICATION_PROCESSING_POLICY
-                MANAGEMENT_BIOGRAPHY -> Known.MANAGEMENT_BIOGRAPHY
-                MARKETING_AND_ADVERTISING_POLICY -> Known.MARKETING_AND_ADVERTISING_POLICY
-                NETWORK_SECURITY_DIAGRAM -> Known.NETWORK_SECURITY_DIAGRAM
-                ONBOARDING_QUESTIONNAIRE -> Known.ONBOARDING_QUESTIONNAIRE
-                PENETRATION_TEST_REPORT -> Known.PENETRATION_TEST_REPORT
-                PLATFORM_COMPLIANCE_METRICS_SUBMISSION ->
-                    Known.PLATFORM_COMPLIANCE_METRICS_SUBMISSION
-                CONSUMER_PLATFORM_COMPLIANCE_METRICS_SUBMISSION ->
-                    Known.CONSUMER_PLATFORM_COMPLIANCE_METRICS_SUBMISSION
-                PROGRAM_RISK_ASSESSMENT -> Known.PROGRAM_RISK_ASSESSMENT
-                SECURITY_AUDIT_REPORT -> Known.SECURITY_AUDIT_REPORT
-                SERVICING_POLICY -> Known.SERVICING_POLICY
-                TRANSACTION_MONITORING_REPORT -> Known.TRANSACTION_MONITORING_REPORT
-                TRUTH_IN_SAVINGS_ACT_POLICY -> Known.TRUTH_IN_SAVINGS_ACT_POLICY
-                UNDERWRITING_POLICY -> Known.UNDERWRITING_POLICY
-                VENDOR_LIST -> Known.VENDOR_LIST
-                VENDOR_MANAGEMENT_POLICY -> Known.VENDOR_MANAGEMENT_POLICY
-                VENDOR_RISK_MANAGEMENT_REPORT -> Known.VENDOR_RISK_MANAGEMENT_REPORT
-                VOLUME_FORECAST -> Known.VOLUME_FORECAST
+                PROOF_OF_AUTHORIZATION -> Known.PROOF_OF_AUTHORIZATION
+                COMPANY_INFORMATION -> Known.COMPANY_INFORMATION
                 else -> throw IncreaseInvalidDataException("Unknown Category: $value")
             }
 
