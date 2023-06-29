@@ -1,5 +1,27 @@
 # Changelog
 
+## [0.4.0](https://github.com/Increase/increase-kotlin/compare/v0.3.0...v0.4.0) (2023-06-29)
+
+
+### ⚠ BREAKING CHANGES
+
+* **api:** remove many enum members from document category ([#25](https://github.com/Increase/increase-kotlin/issues/25))
+
+### Features
+
+* **api/types:** mark more check transfer intention properties as nullable ([#24](https://github.com/Increase/increase-kotlin/issues/24)) ([9dca61f](https://github.com/Increase/increase-kotlin/commit/9dca61f75f2df5bf572abc55b0b8b1e14a6af825))
+
+
+### Refactors
+
+* **api:** remove `other` from reason enum ([#22](https://github.com/Increase/increase-kotlin/issues/22)) ([17fb581](https://github.com/Increase/increase-kotlin/commit/17fb581030f83acfbd32b3b3853a9a3a2b43df95))
+* **api:** remove many enum members from document category ([#25](https://github.com/Increase/increase-kotlin/issues/25)) ([53f7582](https://github.com/Increase/increase-kotlin/commit/53f7582d6e7a6478722e4cdaaf3c5a39066deb3f))
+
+
+### Documentation
+
+* add trailing newlines ([#26](https://github.com/Increase/increase-kotlin/issues/26)) ([3eac110](https://github.com/Increase/increase-kotlin/commit/3eac1104b49f98c27fcb438055187d950019e0b4))
+
 ## [0.3.0](https://github.com/Increase/increase-kotlin/compare/v0.2.0...v0.3.0) (2023-06-19)
 
 
