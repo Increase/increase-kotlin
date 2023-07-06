@@ -6,7 +6,6 @@ import com.increase.api.core.RequestOptions
 import com.increase.api.models.CheckTransfer
 import com.increase.api.models.SimulationCheckTransferDepositParams
 import com.increase.api.models.SimulationCheckTransferMailParams
-import com.increase.api.models.SimulationCheckTransferReturnParams
 
 interface CheckTransferServiceAsync {
 
@@ -26,15 +25,6 @@ interface CheckTransferServiceAsync {
      */
     suspend fun mail(
         params: SimulationCheckTransferMailParams,
-        requestOptions: RequestOptions = RequestOptions.none()
-    ): CheckTransfer
-
-    /**
-     * Simulates a [Check Transfer](#check-transfers) being returned via USPS to Increase. This
-     * transfer must first have a `status` of `mailed`.
-     */
-    suspend fun return_(
-        params: SimulationCheckTransferReturnParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): CheckTransfer
 }
