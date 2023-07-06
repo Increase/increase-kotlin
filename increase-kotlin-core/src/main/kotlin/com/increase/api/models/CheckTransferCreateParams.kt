@@ -14,6 +14,7 @@ import java.util.Objects
 class CheckTransferCreateParams
 constructor(
     private val accountId: String,
+    private val sourceAccountNumberId: String?,
     private val addressLine1: String,
     private val addressLine2: String?,
     private val addressCity: String,
@@ -31,6 +32,8 @@ constructor(
 ) {
 
     fun accountId(): String = accountId
+
+    fun sourceAccountNumberId(): String? = sourceAccountNumberId
 
     fun addressLine1(): String = addressLine1
 
@@ -57,6 +60,7 @@ constructor(
     internal fun getBody(): CheckTransferCreateBody {
         return CheckTransferCreateBody(
             accountId,
+            sourceAccountNumberId,
             addressLine1,
             addressLine2,
             addressCity,
@@ -81,6 +85,7 @@ constructor(
     class CheckTransferCreateBody
     internal constructor(
         private val accountId: String?,
+        private val sourceAccountNumberId: String?,
         private val addressLine1: String?,
         private val addressLine2: String?,
         private val addressCity: String?,
@@ -99,6 +104,13 @@ constructor(
 
         /** The identifier for the account that will send the transfer. */
         @JsonProperty("account_id") fun accountId(): String? = accountId
+
+        /**
+         * The identifier of the Account Number from which to send the transfer and print on the
+         * check.
+         */
+        @JsonProperty("source_account_number_id")
+        fun sourceAccountNumberId(): String? = sourceAccountNumberId
 
         /** The street address of the check's destination. */
         @JsonProperty("address_line1") fun addressLine1(): String? = addressLine1
@@ -149,6 +161,7 @@ constructor(
 
             return other is CheckTransferCreateBody &&
                 this.accountId == other.accountId &&
+                this.sourceAccountNumberId == other.sourceAccountNumberId &&
                 this.addressLine1 == other.addressLine1 &&
                 this.addressLine2 == other.addressLine2 &&
                 this.addressCity == other.addressCity &&
@@ -168,6 +181,7 @@ constructor(
                 hashCode =
                     Objects.hash(
                         accountId,
+                        sourceAccountNumberId,
                         addressLine1,
                         addressLine2,
                         addressCity,
@@ -186,7 +200,7 @@ constructor(
         }
 
         override fun toString() =
-            "CheckTransferCreateBody{accountId=$accountId, addressLine1=$addressLine1, addressLine2=$addressLine2, addressCity=$addressCity, addressState=$addressState, addressZip=$addressZip, returnAddress=$returnAddress, amount=$amount, message=$message, note=$note, recipientName=$recipientName, requireApproval=$requireApproval, additionalProperties=$additionalProperties}"
+            "CheckTransferCreateBody{accountId=$accountId, sourceAccountNumberId=$sourceAccountNumberId, addressLine1=$addressLine1, addressLine2=$addressLine2, addressCity=$addressCity, addressState=$addressState, addressZip=$addressZip, returnAddress=$returnAddress, amount=$amount, message=$message, note=$note, recipientName=$recipientName, requireApproval=$requireApproval, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -196,6 +210,7 @@ constructor(
         class Builder {
 
             private var accountId: String? = null
+            private var sourceAccountNumberId: String? = null
             private var addressLine1: String? = null
             private var addressLine2: String? = null
             private var addressCity: String? = null
@@ -211,6 +226,7 @@ constructor(
 
             internal fun from(checkTransferCreateBody: CheckTransferCreateBody) = apply {
                 this.accountId = checkTransferCreateBody.accountId
+                this.sourceAccountNumberId = checkTransferCreateBody.sourceAccountNumberId
                 this.addressLine1 = checkTransferCreateBody.addressLine1
                 this.addressLine2 = checkTransferCreateBody.addressLine2
                 this.addressCity = checkTransferCreateBody.addressCity
@@ -228,6 +244,15 @@ constructor(
             /** The identifier for the account that will send the transfer. */
             @JsonProperty("account_id")
             fun accountId(accountId: String) = apply { this.accountId = accountId }
+
+            /**
+             * The identifier of the Account Number from which to send the transfer and print on the
+             * check.
+             */
+            @JsonProperty("source_account_number_id")
+            fun sourceAccountNumberId(sourceAccountNumberId: String) = apply {
+                this.sourceAccountNumberId = sourceAccountNumberId
+            }
 
             /** The street address of the check's destination. */
             @JsonProperty("address_line1")
@@ -294,6 +319,7 @@ constructor(
             fun build(): CheckTransferCreateBody =
                 CheckTransferCreateBody(
                     checkNotNull(accountId) { "`accountId` is required but was not set" },
+                    sourceAccountNumberId,
                     checkNotNull(addressLine1) { "`addressLine1` is required but was not set" },
                     addressLine2,
                     checkNotNull(addressCity) { "`addressCity` is required but was not set" },
@@ -323,6 +349,7 @@ constructor(
 
         return other is CheckTransferCreateParams &&
             this.accountId == other.accountId &&
+            this.sourceAccountNumberId == other.sourceAccountNumberId &&
             this.addressLine1 == other.addressLine1 &&
             this.addressLine2 == other.addressLine2 &&
             this.addressCity == other.addressCity &&
@@ -342,6 +369,7 @@ constructor(
     override fun hashCode(): Int {
         return Objects.hash(
             accountId,
+            sourceAccountNumberId,
             addressLine1,
             addressLine2,
             addressCity,
@@ -360,7 +388,7 @@ constructor(
     }
 
     override fun toString() =
-        "CheckTransferCreateParams{accountId=$accountId, addressLine1=$addressLine1, addressLine2=$addressLine2, addressCity=$addressCity, addressState=$addressState, addressZip=$addressZip, returnAddress=$returnAddress, amount=$amount, message=$message, note=$note, recipientName=$recipientName, requireApproval=$requireApproval, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "CheckTransferCreateParams{accountId=$accountId, sourceAccountNumberId=$sourceAccountNumberId, addressLine1=$addressLine1, addressLine2=$addressLine2, addressCity=$addressCity, addressState=$addressState, addressZip=$addressZip, returnAddress=$returnAddress, amount=$amount, message=$message, note=$note, recipientName=$recipientName, requireApproval=$requireApproval, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -373,6 +401,7 @@ constructor(
     class Builder {
 
         private var accountId: String? = null
+        private var sourceAccountNumberId: String? = null
         private var addressLine1: String? = null
         private var addressLine2: String? = null
         private var addressCity: String? = null
@@ -390,6 +419,7 @@ constructor(
 
         internal fun from(checkTransferCreateParams: CheckTransferCreateParams) = apply {
             this.accountId = checkTransferCreateParams.accountId
+            this.sourceAccountNumberId = checkTransferCreateParams.sourceAccountNumberId
             this.addressLine1 = checkTransferCreateParams.addressLine1
             this.addressLine2 = checkTransferCreateParams.addressLine2
             this.addressCity = checkTransferCreateParams.addressCity
@@ -408,6 +438,14 @@ constructor(
 
         /** The identifier for the account that will send the transfer. */
         fun accountId(accountId: String) = apply { this.accountId = accountId }
+
+        /**
+         * The identifier of the Account Number from which to send the transfer and print on the
+         * check.
+         */
+        fun sourceAccountNumberId(sourceAccountNumberId: String) = apply {
+            this.sourceAccountNumberId = sourceAccountNumberId
+        }
 
         /** The street address of the check's destination. */
         fun addressLine1(addressLine1: String) = apply { this.addressLine1 = addressLine1 }
@@ -506,6 +544,7 @@ constructor(
         fun build(): CheckTransferCreateParams =
             CheckTransferCreateParams(
                 checkNotNull(accountId) { "`accountId` is required but was not set" },
+                sourceAccountNumberId,
                 checkNotNull(addressLine1) { "`addressLine1` is required but was not set" },
                 addressLine2,
                 checkNotNull(addressCity) { "`addressCity` is required but was not set" },
