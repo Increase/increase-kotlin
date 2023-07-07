@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.5.0](https://github.com/Increase/increase-kotlin/compare/v0.4.0...v0.5.0) (2023-07-07)
+
+
+### ⚠ BREAKING CHANGES
+
+* **api:** add card profiles simulation method ([#28](https://github.com/Increase/increase-kotlin/issues/28))
+
+### Features
+
+* **api:** add card profiles simulation method ([#28](https://github.com/Increase/increase-kotlin/issues/28)) ([574d377](https://github.com/Increase/increase-kotlin/commit/574d3776fd41933e5cf7ee6ac54d7301d4cfb6df))
+
 ## [0.4.0](https://github.com/Increase/increase-kotlin/compare/v0.3.0...v0.4.0) (2023-06-29)
 
 
