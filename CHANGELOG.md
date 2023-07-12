@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.6.0](https://github.com/Increase/increase-kotlin/compare/v0.5.0...v0.6.0) (2023-07-12)
+
+
+### ⚠ BREAKING CHANGES
+
+* **api:** add unique_identifier, driver's license backs, inbound funds holds, and more ([#31](https://github.com/Increase/increase-kotlin/issues/31))
+
+### Features
+
+* **api:** add unique_identifier, driver's license backs, inbound funds holds, and more ([#31](https://github.com/Increase/increase-kotlin/issues/31)) ([2ca5f23](https://github.com/Increase/increase-kotlin/commit/2ca5f238dbef90ef3af6646ba96d9a8477f70ead))
+
 ## [0.5.0](https://github.com/Increase/increase-kotlin/compare/v0.4.0...v0.5.0) (2023-07-07)
 
 
