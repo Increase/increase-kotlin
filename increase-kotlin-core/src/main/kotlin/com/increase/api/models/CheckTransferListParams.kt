@@ -12,6 +12,7 @@ constructor(
     private val cursor: String?,
     private val limit: Long?,
     private val accountId: String?,
+    private val uniqueIdentifier: String?,
     private val createdAt: CreatedAt?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
@@ -23,6 +24,8 @@ constructor(
 
     fun accountId(): String? = accountId
 
+    fun uniqueIdentifier(): String? = uniqueIdentifier
+
     fun createdAt(): CreatedAt? = createdAt
 
     internal fun getQueryParams(): Map<String, List<String>> {
@@ -30,6 +33,7 @@ constructor(
         this.cursor?.let { params.put("cursor", listOf(it.toString())) }
         this.limit?.let { params.put("limit", listOf(it.toString())) }
         this.accountId?.let { params.put("account_id", listOf(it.toString())) }
+        this.uniqueIdentifier?.let { params.put("unique_identifier", listOf(it.toString())) }
         this.createdAt?.forEachQueryParam { key, values -> params.put("created_at.$key", values) }
         params.putAll(additionalQueryParams)
         return params.toUnmodifiable()
@@ -50,6 +54,7 @@ constructor(
             this.cursor == other.cursor &&
             this.limit == other.limit &&
             this.accountId == other.accountId &&
+            this.uniqueIdentifier == other.uniqueIdentifier &&
             this.createdAt == other.createdAt &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders
@@ -60,6 +65,7 @@ constructor(
             cursor,
             limit,
             accountId,
+            uniqueIdentifier,
             createdAt,
             additionalQueryParams,
             additionalHeaders,
@@ -67,7 +73,7 @@ constructor(
     }
 
     override fun toString() =
-        "CheckTransferListParams{cursor=$cursor, limit=$limit, accountId=$accountId, createdAt=$createdAt, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+        "CheckTransferListParams{cursor=$cursor, limit=$limit, accountId=$accountId, uniqueIdentifier=$uniqueIdentifier, createdAt=$createdAt, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -82,6 +88,7 @@ constructor(
         private var cursor: String? = null
         private var limit: Long? = null
         private var accountId: String? = null
+        private var uniqueIdentifier: String? = null
         private var createdAt: CreatedAt? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
@@ -90,6 +97,7 @@ constructor(
             this.cursor = checkTransferListParams.cursor
             this.limit = checkTransferListParams.limit
             this.accountId = checkTransferListParams.accountId
+            this.uniqueIdentifier = checkTransferListParams.uniqueIdentifier
             this.createdAt = checkTransferListParams.createdAt
             additionalQueryParams(checkTransferListParams.additionalQueryParams)
             additionalHeaders(checkTransferListParams.additionalHeaders)
@@ -105,6 +113,11 @@ constructor(
 
         /** Filter Check Transfers to those that originated from the specified Account. */
         fun accountId(accountId: String) = apply { this.accountId = accountId }
+
+        /** Filter Check Transfers to the one with the specified unique identifier. */
+        fun uniqueIdentifier(uniqueIdentifier: String) = apply {
+            this.uniqueIdentifier = uniqueIdentifier
+        }
 
         fun createdAt(createdAt: CreatedAt) = apply { this.createdAt = createdAt }
 
@@ -153,6 +166,7 @@ constructor(
                 cursor,
                 limit,
                 accountId,
+                uniqueIdentifier,
                 createdAt,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
