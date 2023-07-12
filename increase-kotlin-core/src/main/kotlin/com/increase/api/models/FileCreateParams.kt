@@ -336,7 +336,7 @@ constructor(
 
             val DIGITAL_WALLET_APP_ICON = Purpose(JsonField.of("digital_wallet_app_icon"))
 
-            val PHYSICAL_CARD_ARTWORK = Purpose(JsonField.of("physical_card_artwork"))
+            val PHYSICAL_CARD_FRONT = Purpose(JsonField.of("physical_card_front"))
 
             val PHYSICAL_CARD_CARRIER = Purpose(JsonField.of("physical_card_carrier"))
 
@@ -356,7 +356,7 @@ constructor(
             TRUST_FORMATION_DOCUMENT,
             DIGITAL_WALLET_ARTWORK,
             DIGITAL_WALLET_APP_ICON,
-            PHYSICAL_CARD_ARTWORK,
+            PHYSICAL_CARD_FRONT,
             PHYSICAL_CARD_CARRIER,
             DOCUMENT_REQUEST,
             ENTITY_SUPPLEMENTAL_DOCUMENT,
@@ -371,7 +371,7 @@ constructor(
             TRUST_FORMATION_DOCUMENT,
             DIGITAL_WALLET_ARTWORK,
             DIGITAL_WALLET_APP_ICON,
-            PHYSICAL_CARD_ARTWORK,
+            PHYSICAL_CARD_FRONT,
             PHYSICAL_CARD_CARRIER,
             DOCUMENT_REQUEST,
             ENTITY_SUPPLEMENTAL_DOCUMENT,
@@ -388,7 +388,7 @@ constructor(
                 TRUST_FORMATION_DOCUMENT -> Value.TRUST_FORMATION_DOCUMENT
                 DIGITAL_WALLET_ARTWORK -> Value.DIGITAL_WALLET_ARTWORK
                 DIGITAL_WALLET_APP_ICON -> Value.DIGITAL_WALLET_APP_ICON
-                PHYSICAL_CARD_ARTWORK -> Value.PHYSICAL_CARD_ARTWORK
+                PHYSICAL_CARD_FRONT -> Value.PHYSICAL_CARD_FRONT
                 PHYSICAL_CARD_CARRIER -> Value.PHYSICAL_CARD_CARRIER
                 DOCUMENT_REQUEST -> Value.DOCUMENT_REQUEST
                 ENTITY_SUPPLEMENTAL_DOCUMENT -> Value.ENTITY_SUPPLEMENTAL_DOCUMENT
@@ -405,7 +405,7 @@ constructor(
                 TRUST_FORMATION_DOCUMENT -> Known.TRUST_FORMATION_DOCUMENT
                 DIGITAL_WALLET_ARTWORK -> Known.DIGITAL_WALLET_ARTWORK
                 DIGITAL_WALLET_APP_ICON -> Known.DIGITAL_WALLET_APP_ICON
-                PHYSICAL_CARD_ARTWORK -> Known.PHYSICAL_CARD_ARTWORK
+                PHYSICAL_CARD_FRONT -> Known.PHYSICAL_CARD_FRONT
                 PHYSICAL_CARD_CARRIER -> Known.PHYSICAL_CARD_CARRIER
                 DOCUMENT_REQUEST -> Known.DOCUMENT_REQUEST
                 ENTITY_SUPPLEMENTAL_DOCUMENT -> Known.ENTITY_SUPPLEMENTAL_DOCUMENT
