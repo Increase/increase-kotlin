@@ -26,6 +26,7 @@ constructor(
     private val note: String?,
     private val recipientName: String,
     private val requireApproval: Boolean?,
+    private val uniqueIdentifier: String?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
     private val additionalBodyProperties: Map<String, JsonValue>,
@@ -57,6 +58,8 @@ constructor(
 
     fun requireApproval(): Boolean? = requireApproval
 
+    fun uniqueIdentifier(): String? = uniqueIdentifier
+
     internal fun getBody(): CheckTransferCreateBody {
         return CheckTransferCreateBody(
             accountId,
@@ -72,6 +75,7 @@ constructor(
             note,
             recipientName,
             requireApproval,
+            uniqueIdentifier,
             additionalBodyProperties,
         )
     }
@@ -97,6 +101,7 @@ constructor(
         private val note: String?,
         private val recipientName: String?,
         private val requireApproval: Boolean?,
+        private val uniqueIdentifier: String?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -148,6 +153,13 @@ constructor(
         /** Whether the transfer requires explicit approval via the dashboard or API. */
         @JsonProperty("require_approval") fun requireApproval(): Boolean? = requireApproval
 
+        /**
+         * A unique identifier you choose for the transfer. Reusing this identifer for another
+         * transfer will result in an error. You can query for the transfer associated with this
+         * identifier using the List endpoint.
+         */
+        @JsonProperty("unique_identifier") fun uniqueIdentifier(): String? = uniqueIdentifier
+
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -173,6 +185,7 @@ constructor(
                 this.note == other.note &&
                 this.recipientName == other.recipientName &&
                 this.requireApproval == other.requireApproval &&
+                this.uniqueIdentifier == other.uniqueIdentifier &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -193,6 +206,7 @@ constructor(
                         note,
                         recipientName,
                         requireApproval,
+                        uniqueIdentifier,
                         additionalProperties,
                     )
             }
@@ -200,7 +214,7 @@ constructor(
         }
 
         override fun toString() =
-            "CheckTransferCreateBody{accountId=$accountId, sourceAccountNumberId=$sourceAccountNumberId, addressLine1=$addressLine1, addressLine2=$addressLine2, addressCity=$addressCity, addressState=$addressState, addressZip=$addressZip, returnAddress=$returnAddress, amount=$amount, message=$message, note=$note, recipientName=$recipientName, requireApproval=$requireApproval, additionalProperties=$additionalProperties}"
+            "CheckTransferCreateBody{accountId=$accountId, sourceAccountNumberId=$sourceAccountNumberId, addressLine1=$addressLine1, addressLine2=$addressLine2, addressCity=$addressCity, addressState=$addressState, addressZip=$addressZip, returnAddress=$returnAddress, amount=$amount, message=$message, note=$note, recipientName=$recipientName, requireApproval=$requireApproval, uniqueIdentifier=$uniqueIdentifier, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -222,6 +236,7 @@ constructor(
             private var note: String? = null
             private var recipientName: String? = null
             private var requireApproval: Boolean? = null
+            private var uniqueIdentifier: String? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(checkTransferCreateBody: CheckTransferCreateBody) = apply {
@@ -238,6 +253,7 @@ constructor(
                 this.note = checkTransferCreateBody.note
                 this.recipientName = checkTransferCreateBody.recipientName
                 this.requireApproval = checkTransferCreateBody.requireApproval
+                this.uniqueIdentifier = checkTransferCreateBody.uniqueIdentifier
                 additionalProperties(checkTransferCreateBody.additionalProperties)
             }
 
@@ -302,6 +318,16 @@ constructor(
                 this.requireApproval = requireApproval
             }
 
+            /**
+             * A unique identifier you choose for the transfer. Reusing this identifer for another
+             * transfer will result in an error. You can query for the transfer associated with this
+             * identifier using the List endpoint.
+             */
+            @JsonProperty("unique_identifier")
+            fun uniqueIdentifier(uniqueIdentifier: String) = apply {
+                this.uniqueIdentifier = uniqueIdentifier
+            }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 this.additionalProperties.putAll(additionalProperties)
@@ -331,6 +357,7 @@ constructor(
                     note,
                     checkNotNull(recipientName) { "`recipientName` is required but was not set" },
                     requireApproval,
+                    uniqueIdentifier,
                     additionalProperties.toUnmodifiable(),
                 )
         }
@@ -361,6 +388,7 @@ constructor(
             this.note == other.note &&
             this.recipientName == other.recipientName &&
             this.requireApproval == other.requireApproval &&
+            this.uniqueIdentifier == other.uniqueIdentifier &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders &&
             this.additionalBodyProperties == other.additionalBodyProperties
@@ -381,6 +409,7 @@ constructor(
             note,
             recipientName,
             requireApproval,
+            uniqueIdentifier,
             additionalQueryParams,
             additionalHeaders,
             additionalBodyProperties,
@@ -388,7 +417,7 @@ constructor(
     }
 
     override fun toString() =
-        "CheckTransferCreateParams{accountId=$accountId, sourceAccountNumberId=$sourceAccountNumberId, addressLine1=$addressLine1, addressLine2=$addressLine2, addressCity=$addressCity, addressState=$addressState, addressZip=$addressZip, returnAddress=$returnAddress, amount=$amount, message=$message, note=$note, recipientName=$recipientName, requireApproval=$requireApproval, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "CheckTransferCreateParams{accountId=$accountId, sourceAccountNumberId=$sourceAccountNumberId, addressLine1=$addressLine1, addressLine2=$addressLine2, addressCity=$addressCity, addressState=$addressState, addressZip=$addressZip, returnAddress=$returnAddress, amount=$amount, message=$message, note=$note, recipientName=$recipientName, requireApproval=$requireApproval, uniqueIdentifier=$uniqueIdentifier, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -413,6 +442,7 @@ constructor(
         private var note: String? = null
         private var recipientName: String? = null
         private var requireApproval: Boolean? = null
+        private var uniqueIdentifier: String? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -431,6 +461,7 @@ constructor(
             this.note = checkTransferCreateParams.note
             this.recipientName = checkTransferCreateParams.recipientName
             this.requireApproval = checkTransferCreateParams.requireApproval
+            this.uniqueIdentifier = checkTransferCreateParams.uniqueIdentifier
             additionalQueryParams(checkTransferCreateParams.additionalQueryParams)
             additionalHeaders(checkTransferCreateParams.additionalHeaders)
             additionalBodyProperties(checkTransferCreateParams.additionalBodyProperties)
@@ -485,6 +516,15 @@ constructor(
         /** Whether the transfer requires explicit approval via the dashboard or API. */
         fun requireApproval(requireApproval: Boolean) = apply {
             this.requireApproval = requireApproval
+        }
+
+        /**
+         * A unique identifier you choose for the transfer. Reusing this identifer for another
+         * transfer will result in an error. You can query for the transfer associated with this
+         * identifier using the List endpoint.
+         */
+        fun uniqueIdentifier(uniqueIdentifier: String) = apply {
+            this.uniqueIdentifier = uniqueIdentifier
         }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
@@ -556,6 +596,7 @@ constructor(
                 note,
                 checkNotNull(recipientName) { "`recipientName` is required but was not set" },
                 requireApproval,
+                uniqueIdentifier,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalBodyProperties.toUnmodifiable(),

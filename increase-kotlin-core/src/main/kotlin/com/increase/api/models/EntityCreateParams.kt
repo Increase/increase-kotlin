@@ -1621,6 +1621,7 @@ constructor(
                     class DriversLicense
                     private constructor(
                         private val fileId: String?,
+                        private val backFileId: String?,
                         private val expirationDate: LocalDate?,
                         private val state: String?,
                         private val additionalProperties: Map<String, JsonValue>,
@@ -1628,8 +1629,15 @@ constructor(
 
                         private var hashCode: Int = 0
 
-                        /** The identifier of the File containing the driver's license. */
+                        /**
+                         * The identifier of the File containing the front of the driver's license.
+                         */
                         @JsonProperty("file_id") fun fileId(): String? = fileId
+
+                        /**
+                         * The identifier of the File containing the back of the driver's license.
+                         */
+                        @JsonProperty("back_file_id") fun backFileId(): String? = backFileId
 
                         /** The driver's license's expiration date in YYYY-MM-DD format. */
                         @JsonProperty("expiration_date")
@@ -1651,6 +1659,7 @@ constructor(
 
                             return other is DriversLicense &&
                                 this.fileId == other.fileId &&
+                                this.backFileId == other.backFileId &&
                                 this.expirationDate == other.expirationDate &&
                                 this.state == other.state &&
                                 this.additionalProperties == other.additionalProperties
@@ -1661,6 +1670,7 @@ constructor(
                                 hashCode =
                                     Objects.hash(
                                         fileId,
+                                        backFileId,
                                         expirationDate,
                                         state,
                                         additionalProperties,
@@ -1670,7 +1680,7 @@ constructor(
                         }
 
                         override fun toString() =
-                            "DriversLicense{fileId=$fileId, expirationDate=$expirationDate, state=$state, additionalProperties=$additionalProperties}"
+                            "DriversLicense{fileId=$fileId, backFileId=$backFileId, expirationDate=$expirationDate, state=$state, additionalProperties=$additionalProperties}"
 
                         companion object {
 
@@ -1680,6 +1690,7 @@ constructor(
                         class Builder {
 
                             private var fileId: String? = null
+                            private var backFileId: String? = null
                             private var expirationDate: LocalDate? = null
                             private var state: String? = null
                             private var additionalProperties: MutableMap<String, JsonValue> =
@@ -1687,14 +1698,27 @@ constructor(
 
                             internal fun from(driversLicense: DriversLicense) = apply {
                                 this.fileId = driversLicense.fileId
+                                this.backFileId = driversLicense.backFileId
                                 this.expirationDate = driversLicense.expirationDate
                                 this.state = driversLicense.state
                                 additionalProperties(driversLicense.additionalProperties)
                             }
 
-                            /** The identifier of the File containing the driver's license. */
+                            /**
+                             * The identifier of the File containing the front of the driver's
+                             * license.
+                             */
                             @JsonProperty("file_id")
                             fun fileId(fileId: String) = apply { this.fileId = fileId }
+
+                            /**
+                             * The identifier of the File containing the back of the driver's
+                             * license.
+                             */
+                            @JsonProperty("back_file_id")
+                            fun backFileId(backFileId: String) = apply {
+                                this.backFileId = backFileId
+                            }
 
                             /** The driver's license's expiration date in YYYY-MM-DD format. */
                             @JsonProperty("expiration_date")
@@ -1724,6 +1748,7 @@ constructor(
                             fun build(): DriversLicense =
                                 DriversLicense(
                                     checkNotNull(fileId) { "`fileId` is required but was not set" },
+                                    backFileId,
                                     checkNotNull(expirationDate) {
                                         "`expirationDate` is required but was not set"
                                     },
@@ -1745,6 +1770,7 @@ constructor(
                         private val description: String?,
                         private val expirationDate: LocalDate?,
                         private val fileId: String?,
+                        private val backFileId: String?,
                         private val additionalProperties: Map<String, JsonValue>,
                     ) {
 
@@ -1763,8 +1789,14 @@ constructor(
                         @JsonProperty("expiration_date")
                         fun expirationDate(): LocalDate? = expirationDate
 
-                        /** The identifier of the File containing the document. */
+                        /** The identifier of the File containing the front of the document. */
                         @JsonProperty("file_id") fun fileId(): String? = fileId
+
+                        /**
+                         * The identifier of the File containing the back of the document. Not every
+                         * document has a reverse side.
+                         */
+                        @JsonProperty("back_file_id") fun backFileId(): String? = backFileId
 
                         @JsonAnyGetter
                         @ExcludeMissing
@@ -1782,6 +1814,7 @@ constructor(
                                 this.description == other.description &&
                                 this.expirationDate == other.expirationDate &&
                                 this.fileId == other.fileId &&
+                                this.backFileId == other.backFileId &&
                                 this.additionalProperties == other.additionalProperties
                         }
 
@@ -1793,6 +1826,7 @@ constructor(
                                         description,
                                         expirationDate,
                                         fileId,
+                                        backFileId,
                                         additionalProperties,
                                     )
                             }
@@ -1800,7 +1834,7 @@ constructor(
                         }
 
                         override fun toString() =
-                            "Other{country=$country, description=$description, expirationDate=$expirationDate, fileId=$fileId, additionalProperties=$additionalProperties}"
+                            "Other{country=$country, description=$description, expirationDate=$expirationDate, fileId=$fileId, backFileId=$backFileId, additionalProperties=$additionalProperties}"
 
                         companion object {
 
@@ -1813,6 +1847,7 @@ constructor(
                             private var description: String? = null
                             private var expirationDate: LocalDate? = null
                             private var fileId: String? = null
+                            private var backFileId: String? = null
                             private var additionalProperties: MutableMap<String, JsonValue> =
                                 mutableMapOf()
 
@@ -1821,6 +1856,7 @@ constructor(
                                 this.description = other.description
                                 this.expirationDate = other.expirationDate
                                 this.fileId = other.fileId
+                                this.backFileId = other.backFileId
                                 additionalProperties(other.additionalProperties)
                             }
 
@@ -1843,9 +1879,18 @@ constructor(
                                 this.expirationDate = expirationDate
                             }
 
-                            /** The identifier of the File containing the document. */
+                            /** The identifier of the File containing the front of the document. */
                             @JsonProperty("file_id")
                             fun fileId(fileId: String) = apply { this.fileId = fileId }
+
+                            /**
+                             * The identifier of the File containing the back of the document. Not
+                             * every document has a reverse side.
+                             */
+                            @JsonProperty("back_file_id")
+                            fun backFileId(backFileId: String) = apply {
+                                this.backFileId = backFileId
+                            }
 
                             fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
                                 apply {
@@ -1872,6 +1917,7 @@ constructor(
                                     },
                                     expirationDate,
                                     checkNotNull(fileId) { "`fileId` is required but was not set" },
+                                    backFileId,
                                     additionalProperties.toUnmodifiable(),
                                 )
                         }
@@ -2595,6 +2641,7 @@ constructor(
             class DriversLicense
             private constructor(
                 private val fileId: String?,
+                private val backFileId: String?,
                 private val expirationDate: LocalDate?,
                 private val state: String?,
                 private val additionalProperties: Map<String, JsonValue>,
@@ -2602,8 +2649,11 @@ constructor(
 
                 private var hashCode: Int = 0
 
-                /** The identifier of the File containing the driver's license. */
+                /** The identifier of the File containing the front of the driver's license. */
                 @JsonProperty("file_id") fun fileId(): String? = fileId
+
+                /** The identifier of the File containing the back of the driver's license. */
+                @JsonProperty("back_file_id") fun backFileId(): String? = backFileId
 
                 /** The driver's license's expiration date in YYYY-MM-DD format. */
                 @JsonProperty("expiration_date") fun expirationDate(): LocalDate? = expirationDate
@@ -2624,6 +2674,7 @@ constructor(
 
                     return other is DriversLicense &&
                         this.fileId == other.fileId &&
+                        this.backFileId == other.backFileId &&
                         this.expirationDate == other.expirationDate &&
                         this.state == other.state &&
                         this.additionalProperties == other.additionalProperties
@@ -2634,6 +2685,7 @@ constructor(
                         hashCode =
                             Objects.hash(
                                 fileId,
+                                backFileId,
                                 expirationDate,
                                 state,
                                 additionalProperties,
@@ -2643,7 +2695,7 @@ constructor(
                 }
 
                 override fun toString() =
-                    "DriversLicense{fileId=$fileId, expirationDate=$expirationDate, state=$state, additionalProperties=$additionalProperties}"
+                    "DriversLicense{fileId=$fileId, backFileId=$backFileId, expirationDate=$expirationDate, state=$state, additionalProperties=$additionalProperties}"
 
                 companion object {
 
@@ -2653,20 +2705,26 @@ constructor(
                 class Builder {
 
                     private var fileId: String? = null
+                    private var backFileId: String? = null
                     private var expirationDate: LocalDate? = null
                     private var state: String? = null
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                     internal fun from(driversLicense: DriversLicense) = apply {
                         this.fileId = driversLicense.fileId
+                        this.backFileId = driversLicense.backFileId
                         this.expirationDate = driversLicense.expirationDate
                         this.state = driversLicense.state
                         additionalProperties(driversLicense.additionalProperties)
                     }
 
-                    /** The identifier of the File containing the driver's license. */
+                    /** The identifier of the File containing the front of the driver's license. */
                     @JsonProperty("file_id")
                     fun fileId(fileId: String) = apply { this.fileId = fileId }
+
+                    /** The identifier of the File containing the back of the driver's license. */
+                    @JsonProperty("back_file_id")
+                    fun backFileId(backFileId: String) = apply { this.backFileId = backFileId }
 
                     /** The driver's license's expiration date in YYYY-MM-DD format. */
                     @JsonProperty("expiration_date")
@@ -2695,6 +2753,7 @@ constructor(
                     fun build(): DriversLicense =
                         DriversLicense(
                             checkNotNull(fileId) { "`fileId` is required but was not set" },
+                            backFileId,
                             checkNotNull(expirationDate) {
                                 "`expirationDate` is required but was not set"
                             },
@@ -2716,6 +2775,7 @@ constructor(
                 private val description: String?,
                 private val expirationDate: LocalDate?,
                 private val fileId: String?,
+                private val backFileId: String?,
                 private val additionalProperties: Map<String, JsonValue>,
             ) {
 
@@ -2733,8 +2793,14 @@ constructor(
                 /** The document's expiration date in YYYY-MM-DD format. */
                 @JsonProperty("expiration_date") fun expirationDate(): LocalDate? = expirationDate
 
-                /** The identifier of the File containing the document. */
+                /** The identifier of the File containing the front of the document. */
                 @JsonProperty("file_id") fun fileId(): String? = fileId
+
+                /**
+                 * The identifier of the File containing the back of the document. Not every
+                 * document has a reverse side.
+                 */
+                @JsonProperty("back_file_id") fun backFileId(): String? = backFileId
 
                 @JsonAnyGetter
                 @ExcludeMissing
@@ -2752,6 +2818,7 @@ constructor(
                         this.description == other.description &&
                         this.expirationDate == other.expirationDate &&
                         this.fileId == other.fileId &&
+                        this.backFileId == other.backFileId &&
                         this.additionalProperties == other.additionalProperties
                 }
 
@@ -2763,6 +2830,7 @@ constructor(
                                 description,
                                 expirationDate,
                                 fileId,
+                                backFileId,
                                 additionalProperties,
                             )
                     }
@@ -2770,7 +2838,7 @@ constructor(
                 }
 
                 override fun toString() =
-                    "Other{country=$country, description=$description, expirationDate=$expirationDate, fileId=$fileId, additionalProperties=$additionalProperties}"
+                    "Other{country=$country, description=$description, expirationDate=$expirationDate, fileId=$fileId, backFileId=$backFileId, additionalProperties=$additionalProperties}"
 
                 companion object {
 
@@ -2783,6 +2851,7 @@ constructor(
                     private var description: String? = null
                     private var expirationDate: LocalDate? = null
                     private var fileId: String? = null
+                    private var backFileId: String? = null
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                     internal fun from(other: Other) = apply {
@@ -2790,6 +2859,7 @@ constructor(
                         this.description = other.description
                         this.expirationDate = other.expirationDate
                         this.fileId = other.fileId
+                        this.backFileId = other.backFileId
                         additionalProperties(other.additionalProperties)
                     }
 
@@ -2810,9 +2880,16 @@ constructor(
                         this.expirationDate = expirationDate
                     }
 
-                    /** The identifier of the File containing the document. */
+                    /** The identifier of the File containing the front of the document. */
                     @JsonProperty("file_id")
                     fun fileId(fileId: String) = apply { this.fileId = fileId }
+
+                    /**
+                     * The identifier of the File containing the back of the document. Not every
+                     * document has a reverse side.
+                     */
+                    @JsonProperty("back_file_id")
+                    fun backFileId(backFileId: String) = apply { this.backFileId = backFileId }
 
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                         this.additionalProperties.clear()
@@ -2837,6 +2914,7 @@ constructor(
                             },
                             expirationDate,
                             checkNotNull(fileId) { "`fileId` is required but was not set" },
+                            backFileId,
                             additionalProperties.toUnmodifiable(),
                         )
                 }
@@ -3607,6 +3685,7 @@ constructor(
                 class DriversLicense
                 private constructor(
                     private val fileId: String?,
+                    private val backFileId: String?,
                     private val expirationDate: LocalDate?,
                     private val state: String?,
                     private val additionalProperties: Map<String, JsonValue>,
@@ -3614,8 +3693,11 @@ constructor(
 
                     private var hashCode: Int = 0
 
-                    /** The identifier of the File containing the driver's license. */
+                    /** The identifier of the File containing the front of the driver's license. */
                     @JsonProperty("file_id") fun fileId(): String? = fileId
+
+                    /** The identifier of the File containing the back of the driver's license. */
+                    @JsonProperty("back_file_id") fun backFileId(): String? = backFileId
 
                     /** The driver's license's expiration date in YYYY-MM-DD format. */
                     @JsonProperty("expiration_date")
@@ -3637,6 +3719,7 @@ constructor(
 
                         return other is DriversLicense &&
                             this.fileId == other.fileId &&
+                            this.backFileId == other.backFileId &&
                             this.expirationDate == other.expirationDate &&
                             this.state == other.state &&
                             this.additionalProperties == other.additionalProperties
@@ -3647,6 +3730,7 @@ constructor(
                             hashCode =
                                 Objects.hash(
                                     fileId,
+                                    backFileId,
                                     expirationDate,
                                     state,
                                     additionalProperties,
@@ -3656,7 +3740,7 @@ constructor(
                     }
 
                     override fun toString() =
-                        "DriversLicense{fileId=$fileId, expirationDate=$expirationDate, state=$state, additionalProperties=$additionalProperties}"
+                        "DriversLicense{fileId=$fileId, backFileId=$backFileId, expirationDate=$expirationDate, state=$state, additionalProperties=$additionalProperties}"
 
                     companion object {
 
@@ -3666,6 +3750,7 @@ constructor(
                     class Builder {
 
                         private var fileId: String? = null
+                        private var backFileId: String? = null
                         private var expirationDate: LocalDate? = null
                         private var state: String? = null
                         private var additionalProperties: MutableMap<String, JsonValue> =
@@ -3673,14 +3758,23 @@ constructor(
 
                         internal fun from(driversLicense: DriversLicense) = apply {
                             this.fileId = driversLicense.fileId
+                            this.backFileId = driversLicense.backFileId
                             this.expirationDate = driversLicense.expirationDate
                             this.state = driversLicense.state
                             additionalProperties(driversLicense.additionalProperties)
                         }
 
-                        /** The identifier of the File containing the driver's license. */
+                        /**
+                         * The identifier of the File containing the front of the driver's license.
+                         */
                         @JsonProperty("file_id")
                         fun fileId(fileId: String) = apply { this.fileId = fileId }
+
+                        /**
+                         * The identifier of the File containing the back of the driver's license.
+                         */
+                        @JsonProperty("back_file_id")
+                        fun backFileId(backFileId: String) = apply { this.backFileId = backFileId }
 
                         /** The driver's license's expiration date in YYYY-MM-DD format. */
                         @JsonProperty("expiration_date")
@@ -3710,6 +3804,7 @@ constructor(
                         fun build(): DriversLicense =
                             DriversLicense(
                                 checkNotNull(fileId) { "`fileId` is required but was not set" },
+                                backFileId,
                                 checkNotNull(expirationDate) {
                                     "`expirationDate` is required but was not set"
                                 },
@@ -3731,6 +3826,7 @@ constructor(
                     private val description: String?,
                     private val expirationDate: LocalDate?,
                     private val fileId: String?,
+                    private val backFileId: String?,
                     private val additionalProperties: Map<String, JsonValue>,
                 ) {
 
@@ -3749,8 +3845,14 @@ constructor(
                     @JsonProperty("expiration_date")
                     fun expirationDate(): LocalDate? = expirationDate
 
-                    /** The identifier of the File containing the document. */
+                    /** The identifier of the File containing the front of the document. */
                     @JsonProperty("file_id") fun fileId(): String? = fileId
+
+                    /**
+                     * The identifier of the File containing the back of the document. Not every
+                     * document has a reverse side.
+                     */
+                    @JsonProperty("back_file_id") fun backFileId(): String? = backFileId
 
                     @JsonAnyGetter
                     @ExcludeMissing
@@ -3768,6 +3870,7 @@ constructor(
                             this.description == other.description &&
                             this.expirationDate == other.expirationDate &&
                             this.fileId == other.fileId &&
+                            this.backFileId == other.backFileId &&
                             this.additionalProperties == other.additionalProperties
                     }
 
@@ -3779,6 +3882,7 @@ constructor(
                                     description,
                                     expirationDate,
                                     fileId,
+                                    backFileId,
                                     additionalProperties,
                                 )
                         }
@@ -3786,7 +3890,7 @@ constructor(
                     }
 
                     override fun toString() =
-                        "Other{country=$country, description=$description, expirationDate=$expirationDate, fileId=$fileId, additionalProperties=$additionalProperties}"
+                        "Other{country=$country, description=$description, expirationDate=$expirationDate, fileId=$fileId, backFileId=$backFileId, additionalProperties=$additionalProperties}"
 
                     companion object {
 
@@ -3799,6 +3903,7 @@ constructor(
                         private var description: String? = null
                         private var expirationDate: LocalDate? = null
                         private var fileId: String? = null
+                        private var backFileId: String? = null
                         private var additionalProperties: MutableMap<String, JsonValue> =
                             mutableMapOf()
 
@@ -3807,6 +3912,7 @@ constructor(
                             this.description = other.description
                             this.expirationDate = other.expirationDate
                             this.fileId = other.fileId
+                            this.backFileId = other.backFileId
                             additionalProperties(other.additionalProperties)
                         }
 
@@ -3829,9 +3935,16 @@ constructor(
                             this.expirationDate = expirationDate
                         }
 
-                        /** The identifier of the File containing the document. */
+                        /** The identifier of the File containing the front of the document. */
                         @JsonProperty("file_id")
                         fun fileId(fileId: String) = apply { this.fileId = fileId }
+
+                        /**
+                         * The identifier of the File containing the back of the document. Not every
+                         * document has a reverse side.
+                         */
+                        @JsonProperty("back_file_id")
+                        fun backFileId(backFileId: String) = apply { this.backFileId = backFileId }
 
                         fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
                             apply {
@@ -3856,6 +3969,7 @@ constructor(
                                 },
                                 expirationDate,
                                 checkNotNull(fileId) { "`fileId` is required but was not set" },
+                                backFileId,
                                 additionalProperties.toUnmodifiable(),
                             )
                     }
@@ -5102,6 +5216,7 @@ constructor(
                     class DriversLicense
                     private constructor(
                         private val fileId: String?,
+                        private val backFileId: String?,
                         private val expirationDate: LocalDate?,
                         private val state: String?,
                         private val additionalProperties: Map<String, JsonValue>,
@@ -5109,8 +5224,15 @@ constructor(
 
                         private var hashCode: Int = 0
 
-                        /** The identifier of the File containing the driver's license. */
+                        /**
+                         * The identifier of the File containing the front of the driver's license.
+                         */
                         @JsonProperty("file_id") fun fileId(): String? = fileId
+
+                        /**
+                         * The identifier of the File containing the back of the driver's license.
+                         */
+                        @JsonProperty("back_file_id") fun backFileId(): String? = backFileId
 
                         /** The driver's license's expiration date in YYYY-MM-DD format. */
                         @JsonProperty("expiration_date")
@@ -5132,6 +5254,7 @@ constructor(
 
                             return other is DriversLicense &&
                                 this.fileId == other.fileId &&
+                                this.backFileId == other.backFileId &&
                                 this.expirationDate == other.expirationDate &&
                                 this.state == other.state &&
                                 this.additionalProperties == other.additionalProperties
@@ -5142,6 +5265,7 @@ constructor(
                                 hashCode =
                                     Objects.hash(
                                         fileId,
+                                        backFileId,
                                         expirationDate,
                                         state,
                                         additionalProperties,
@@ -5151,7 +5275,7 @@ constructor(
                         }
 
                         override fun toString() =
-                            "DriversLicense{fileId=$fileId, expirationDate=$expirationDate, state=$state, additionalProperties=$additionalProperties}"
+                            "DriversLicense{fileId=$fileId, backFileId=$backFileId, expirationDate=$expirationDate, state=$state, additionalProperties=$additionalProperties}"
 
                         companion object {
 
@@ -5161,6 +5285,7 @@ constructor(
                         class Builder {
 
                             private var fileId: String? = null
+                            private var backFileId: String? = null
                             private var expirationDate: LocalDate? = null
                             private var state: String? = null
                             private var additionalProperties: MutableMap<String, JsonValue> =
@@ -5168,14 +5293,27 @@ constructor(
 
                             internal fun from(driversLicense: DriversLicense) = apply {
                                 this.fileId = driversLicense.fileId
+                                this.backFileId = driversLicense.backFileId
                                 this.expirationDate = driversLicense.expirationDate
                                 this.state = driversLicense.state
                                 additionalProperties(driversLicense.additionalProperties)
                             }
 
-                            /** The identifier of the File containing the driver's license. */
+                            /**
+                             * The identifier of the File containing the front of the driver's
+                             * license.
+                             */
                             @JsonProperty("file_id")
                             fun fileId(fileId: String) = apply { this.fileId = fileId }
+
+                            /**
+                             * The identifier of the File containing the back of the driver's
+                             * license.
+                             */
+                            @JsonProperty("back_file_id")
+                            fun backFileId(backFileId: String) = apply {
+                                this.backFileId = backFileId
+                            }
 
                             /** The driver's license's expiration date in YYYY-MM-DD format. */
                             @JsonProperty("expiration_date")
@@ -5205,6 +5343,7 @@ constructor(
                             fun build(): DriversLicense =
                                 DriversLicense(
                                     checkNotNull(fileId) { "`fileId` is required but was not set" },
+                                    backFileId,
                                     checkNotNull(expirationDate) {
                                         "`expirationDate` is required but was not set"
                                     },
@@ -5226,6 +5365,7 @@ constructor(
                         private val description: String?,
                         private val expirationDate: LocalDate?,
                         private val fileId: String?,
+                        private val backFileId: String?,
                         private val additionalProperties: Map<String, JsonValue>,
                     ) {
 
@@ -5244,8 +5384,14 @@ constructor(
                         @JsonProperty("expiration_date")
                         fun expirationDate(): LocalDate? = expirationDate
 
-                        /** The identifier of the File containing the document. */
+                        /** The identifier of the File containing the front of the document. */
                         @JsonProperty("file_id") fun fileId(): String? = fileId
+
+                        /**
+                         * The identifier of the File containing the back of the document. Not every
+                         * document has a reverse side.
+                         */
+                        @JsonProperty("back_file_id") fun backFileId(): String? = backFileId
 
                         @JsonAnyGetter
                         @ExcludeMissing
@@ -5263,6 +5409,7 @@ constructor(
                                 this.description == other.description &&
                                 this.expirationDate == other.expirationDate &&
                                 this.fileId == other.fileId &&
+                                this.backFileId == other.backFileId &&
                                 this.additionalProperties == other.additionalProperties
                         }
 
@@ -5274,6 +5421,7 @@ constructor(
                                         description,
                                         expirationDate,
                                         fileId,
+                                        backFileId,
                                         additionalProperties,
                                     )
                             }
@@ -5281,7 +5429,7 @@ constructor(
                         }
 
                         override fun toString() =
-                            "Other{country=$country, description=$description, expirationDate=$expirationDate, fileId=$fileId, additionalProperties=$additionalProperties}"
+                            "Other{country=$country, description=$description, expirationDate=$expirationDate, fileId=$fileId, backFileId=$backFileId, additionalProperties=$additionalProperties}"
 
                         companion object {
 
@@ -5294,6 +5442,7 @@ constructor(
                             private var description: String? = null
                             private var expirationDate: LocalDate? = null
                             private var fileId: String? = null
+                            private var backFileId: String? = null
                             private var additionalProperties: MutableMap<String, JsonValue> =
                                 mutableMapOf()
 
@@ -5302,6 +5451,7 @@ constructor(
                                 this.description = other.description
                                 this.expirationDate = other.expirationDate
                                 this.fileId = other.fileId
+                                this.backFileId = other.backFileId
                                 additionalProperties(other.additionalProperties)
                             }
 
@@ -5324,9 +5474,18 @@ constructor(
                                 this.expirationDate = expirationDate
                             }
 
-                            /** The identifier of the File containing the document. */
+                            /** The identifier of the File containing the front of the document. */
                             @JsonProperty("file_id")
                             fun fileId(fileId: String) = apply { this.fileId = fileId }
+
+                            /**
+                             * The identifier of the File containing the back of the document. Not
+                             * every document has a reverse side.
+                             */
+                            @JsonProperty("back_file_id")
+                            fun backFileId(backFileId: String) = apply {
+                                this.backFileId = backFileId
+                            }
 
                             fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
                                 apply {
@@ -5353,6 +5512,7 @@ constructor(
                                     },
                                     expirationDate,
                                     checkNotNull(fileId) { "`fileId` is required but was not set" },
+                                    backFileId,
                                     additionalProperties.toUnmodifiable(),
                                 )
                         }
@@ -6026,6 +6186,7 @@ constructor(
                 class DriversLicense
                 private constructor(
                     private val fileId: String?,
+                    private val backFileId: String?,
                     private val expirationDate: LocalDate?,
                     private val state: String?,
                     private val additionalProperties: Map<String, JsonValue>,
@@ -6033,8 +6194,11 @@ constructor(
 
                     private var hashCode: Int = 0
 
-                    /** The identifier of the File containing the driver's license. */
+                    /** The identifier of the File containing the front of the driver's license. */
                     @JsonProperty("file_id") fun fileId(): String? = fileId
+
+                    /** The identifier of the File containing the back of the driver's license. */
+                    @JsonProperty("back_file_id") fun backFileId(): String? = backFileId
 
                     /** The driver's license's expiration date in YYYY-MM-DD format. */
                     @JsonProperty("expiration_date")
@@ -6056,6 +6220,7 @@ constructor(
 
                         return other is DriversLicense &&
                             this.fileId == other.fileId &&
+                            this.backFileId == other.backFileId &&
                             this.expirationDate == other.expirationDate &&
                             this.state == other.state &&
                             this.additionalProperties == other.additionalProperties
@@ -6066,6 +6231,7 @@ constructor(
                             hashCode =
                                 Objects.hash(
                                     fileId,
+                                    backFileId,
                                     expirationDate,
                                     state,
                                     additionalProperties,
@@ -6075,7 +6241,7 @@ constructor(
                     }
 
                     override fun toString() =
-                        "DriversLicense{fileId=$fileId, expirationDate=$expirationDate, state=$state, additionalProperties=$additionalProperties}"
+                        "DriversLicense{fileId=$fileId, backFileId=$backFileId, expirationDate=$expirationDate, state=$state, additionalProperties=$additionalProperties}"
 
                     companion object {
 
@@ -6085,6 +6251,7 @@ constructor(
                     class Builder {
 
                         private var fileId: String? = null
+                        private var backFileId: String? = null
                         private var expirationDate: LocalDate? = null
                         private var state: String? = null
                         private var additionalProperties: MutableMap<String, JsonValue> =
@@ -6092,14 +6259,23 @@ constructor(
 
                         internal fun from(driversLicense: DriversLicense) = apply {
                             this.fileId = driversLicense.fileId
+                            this.backFileId = driversLicense.backFileId
                             this.expirationDate = driversLicense.expirationDate
                             this.state = driversLicense.state
                             additionalProperties(driversLicense.additionalProperties)
                         }
 
-                        /** The identifier of the File containing the driver's license. */
+                        /**
+                         * The identifier of the File containing the front of the driver's license.
+                         */
                         @JsonProperty("file_id")
                         fun fileId(fileId: String) = apply { this.fileId = fileId }
+
+                        /**
+                         * The identifier of the File containing the back of the driver's license.
+                         */
+                        @JsonProperty("back_file_id")
+                        fun backFileId(backFileId: String) = apply { this.backFileId = backFileId }
 
                         /** The driver's license's expiration date in YYYY-MM-DD format. */
                         @JsonProperty("expiration_date")
@@ -6129,6 +6305,7 @@ constructor(
                         fun build(): DriversLicense =
                             DriversLicense(
                                 checkNotNull(fileId) { "`fileId` is required but was not set" },
+                                backFileId,
                                 checkNotNull(expirationDate) {
                                     "`expirationDate` is required but was not set"
                                 },
@@ -6150,6 +6327,7 @@ constructor(
                     private val description: String?,
                     private val expirationDate: LocalDate?,
                     private val fileId: String?,
+                    private val backFileId: String?,
                     private val additionalProperties: Map<String, JsonValue>,
                 ) {
 
@@ -6168,8 +6346,14 @@ constructor(
                     @JsonProperty("expiration_date")
                     fun expirationDate(): LocalDate? = expirationDate
 
-                    /** The identifier of the File containing the document. */
+                    /** The identifier of the File containing the front of the document. */
                     @JsonProperty("file_id") fun fileId(): String? = fileId
+
+                    /**
+                     * The identifier of the File containing the back of the document. Not every
+                     * document has a reverse side.
+                     */
+                    @JsonProperty("back_file_id") fun backFileId(): String? = backFileId
 
                     @JsonAnyGetter
                     @ExcludeMissing
@@ -6187,6 +6371,7 @@ constructor(
                             this.description == other.description &&
                             this.expirationDate == other.expirationDate &&
                             this.fileId == other.fileId &&
+                            this.backFileId == other.backFileId &&
                             this.additionalProperties == other.additionalProperties
                     }
 
@@ -6198,6 +6383,7 @@ constructor(
                                     description,
                                     expirationDate,
                                     fileId,
+                                    backFileId,
                                     additionalProperties,
                                 )
                         }
@@ -6205,7 +6391,7 @@ constructor(
                     }
 
                     override fun toString() =
-                        "Other{country=$country, description=$description, expirationDate=$expirationDate, fileId=$fileId, additionalProperties=$additionalProperties}"
+                        "Other{country=$country, description=$description, expirationDate=$expirationDate, fileId=$fileId, backFileId=$backFileId, additionalProperties=$additionalProperties}"
 
                     companion object {
 
@@ -6218,6 +6404,7 @@ constructor(
                         private var description: String? = null
                         private var expirationDate: LocalDate? = null
                         private var fileId: String? = null
+                        private var backFileId: String? = null
                         private var additionalProperties: MutableMap<String, JsonValue> =
                             mutableMapOf()
 
@@ -6226,6 +6413,7 @@ constructor(
                             this.description = other.description
                             this.expirationDate = other.expirationDate
                             this.fileId = other.fileId
+                            this.backFileId = other.backFileId
                             additionalProperties(other.additionalProperties)
                         }
 
@@ -6248,9 +6436,16 @@ constructor(
                             this.expirationDate = expirationDate
                         }
 
-                        /** The identifier of the File containing the document. */
+                        /** The identifier of the File containing the front of the document. */
                         @JsonProperty("file_id")
                         fun fileId(fileId: String) = apply { this.fileId = fileId }
+
+                        /**
+                         * The identifier of the File containing the back of the document. Not every
+                         * document has a reverse side.
+                         */
+                        @JsonProperty("back_file_id")
+                        fun backFileId(backFileId: String) = apply { this.backFileId = backFileId }
 
                         fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
                             apply {
@@ -6275,6 +6470,7 @@ constructor(
                                 },
                                 expirationDate,
                                 checkNotNull(fileId) { "`fileId` is required but was not set" },
+                                backFileId,
                                 additionalProperties.toUnmodifiable(),
                             )
                     }

@@ -41,6 +41,7 @@ private constructor(
     private val transactionId: JsonField<String>,
     private val submission: JsonField<Submission>,
     private val rejection: JsonField<Rejection>,
+    private val uniqueIdentifier: JsonField<String>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
@@ -127,6 +128,9 @@ private constructor(
      */
     fun rejection(): Rejection? = rejection.getNullable("rejection")
 
+    /** The unique identifier you chose for this transfer. */
+    fun uniqueIdentifier(): String? = uniqueIdentifier.getNullable("unique_identifier")
+
     /**
      * A constant representing the object's type. For this resource it will always be
      * `real_time_payments_transfer`.
@@ -212,6 +216,9 @@ private constructor(
      */
     @JsonProperty("rejection") @ExcludeMissing fun _rejection() = rejection
 
+    /** The unique identifier you chose for this transfer. */
+    @JsonProperty("unique_identifier") @ExcludeMissing fun _uniqueIdentifier() = uniqueIdentifier
+
     @JsonAnyGetter
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -236,6 +243,7 @@ private constructor(
             transactionId()
             submission()?.validate()
             rejection()?.validate()
+            uniqueIdentifier()
             validated = true
         }
     }
@@ -266,6 +274,7 @@ private constructor(
             this.transactionId == other.transactionId &&
             this.submission == other.submission &&
             this.rejection == other.rejection &&
+            this.uniqueIdentifier == other.uniqueIdentifier &&
             this.additionalProperties == other.additionalProperties
     }
 
@@ -291,6 +300,7 @@ private constructor(
                     transactionId,
                     submission,
                     rejection,
+                    uniqueIdentifier,
                     additionalProperties,
                 )
         }
@@ -298,7 +308,7 @@ private constructor(
     }
 
     override fun toString() =
-        "RealTimePaymentsTransfer{type=$type, id=$id, approval=$approval, cancellation=$cancellation, status=$status, createdAt=$createdAt, accountId=$accountId, externalAccountId=$externalAccountId, sourceAccountNumberId=$sourceAccountNumberId, creditorName=$creditorName, remittanceInformation=$remittanceInformation, amount=$amount, currency=$currency, destinationAccountNumber=$destinationAccountNumber, destinationRoutingNumber=$destinationRoutingNumber, transactionId=$transactionId, submission=$submission, rejection=$rejection, additionalProperties=$additionalProperties}"
+        "RealTimePaymentsTransfer{type=$type, id=$id, approval=$approval, cancellation=$cancellation, status=$status, createdAt=$createdAt, accountId=$accountId, externalAccountId=$externalAccountId, sourceAccountNumberId=$sourceAccountNumberId, creditorName=$creditorName, remittanceInformation=$remittanceInformation, amount=$amount, currency=$currency, destinationAccountNumber=$destinationAccountNumber, destinationRoutingNumber=$destinationRoutingNumber, transactionId=$transactionId, submission=$submission, rejection=$rejection, uniqueIdentifier=$uniqueIdentifier, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -325,6 +335,7 @@ private constructor(
         private var transactionId: JsonField<String> = JsonMissing.of()
         private var submission: JsonField<Submission> = JsonMissing.of()
         private var rejection: JsonField<Rejection> = JsonMissing.of()
+        private var uniqueIdentifier: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(realTimePaymentsTransfer: RealTimePaymentsTransfer) = apply {
@@ -346,6 +357,7 @@ private constructor(
             this.transactionId = realTimePaymentsTransfer.transactionId
             this.submission = realTimePaymentsTransfer.submission
             this.rejection = realTimePaymentsTransfer.rejection
+            this.uniqueIdentifier = realTimePaymentsTransfer.uniqueIdentifier
             additionalProperties(realTimePaymentsTransfer.additionalProperties)
         }
 
@@ -554,6 +566,17 @@ private constructor(
         @ExcludeMissing
         fun rejection(rejection: JsonField<Rejection>) = apply { this.rejection = rejection }
 
+        /** The unique identifier you chose for this transfer. */
+        fun uniqueIdentifier(uniqueIdentifier: String) =
+            uniqueIdentifier(JsonField.of(uniqueIdentifier))
+
+        /** The unique identifier you chose for this transfer. */
+        @JsonProperty("unique_identifier")
+        @ExcludeMissing
+        fun uniqueIdentifier(uniqueIdentifier: JsonField<String>) = apply {
+            this.uniqueIdentifier = uniqueIdentifier
+        }
+
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
             this.additionalProperties.putAll(additionalProperties)
@@ -588,6 +611,7 @@ private constructor(
                 transactionId,
                 submission,
                 rejection,
+                uniqueIdentifier,
                 additionalProperties.toUnmodifiable(),
             )
     }
