@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.6.1](https://github.com/Increase/increase-kotlin/compare/v0.6.0...v0.6.1) (2023-07-17)
+
+
+### Features
+
+* **api:** add physical_card_id ([#34](https://github.com/Increase/increase-kotlin/issues/34)) ([924fd46](https://github.com/Increase/increase-kotlin/commit/924fd46b34e2a234f10692716f12d71a55798627))
+
+
+### Chores
+
+* **internal:** minor reformatting ([#37](https://github.com/Increase/increase-kotlin/issues/37)) ([3ddfa8f](https://github.com/Increase/increase-kotlin/commit/3ddfa8f76f29cb0ff7edd44bf720c1a200a182c1))
+* **internal:** minor reformatting + remove internal examples classes ([#36](https://github.com/Increase/increase-kotlin/issues/36)) ([3c1c615](https://github.com/Increase/increase-kotlin/commit/3c1c6156a584dee5e4f6951ad9da941061d37b3c))
+
 ## [0.6.0](https://github.com/Increase/increase-kotlin/compare/v0.5.0...v0.6.0) (2023-07-12)
 
 
