@@ -1776,7 +1776,6 @@ private constructor(
                 private val merchantCity: JsonField<String>,
                 private val merchantCountry: JsonField<String>,
                 private val physicalCardId: JsonField<String>,
-                private val network: JsonField<Network>,
                 private val networkDetails: JsonField<NetworkDetails>,
                 private val amount: JsonField<Long>,
                 private val currency: JsonField<Currency>,
@@ -1824,9 +1823,6 @@ private constructor(
                  * that was used.
                  */
                 fun physicalCardId(): String? = physicalCardId.getNullable("physical_card_id")
-
-                /** The payment network used to process this card authorization */
-                fun network(): Network = network.getRequired("network")
 
                 /** Fields specific to the `network` */
                 fun networkDetails(): NetworkDetails = networkDetails.getRequired("network_details")
@@ -1913,9 +1909,6 @@ private constructor(
                 @ExcludeMissing
                 fun _physicalCardId() = physicalCardId
 
-                /** The payment network used to process this card authorization */
-                @JsonProperty("network") @ExcludeMissing fun _network() = network
-
                 /** Fields specific to the `network` */
                 @JsonProperty("network_details")
                 @ExcludeMissing
@@ -1979,7 +1972,6 @@ private constructor(
                         merchantCity()
                         merchantCountry()
                         physicalCardId()
-                        network()
                         networkDetails().validate()
                         amount()
                         currency()
@@ -2007,7 +1999,6 @@ private constructor(
                         this.merchantCity == other.merchantCity &&
                         this.merchantCountry == other.merchantCountry &&
                         this.physicalCardId == other.physicalCardId &&
-                        this.network == other.network &&
                         this.networkDetails == other.networkDetails &&
                         this.amount == other.amount &&
                         this.currency == other.currency &&
@@ -2030,7 +2021,6 @@ private constructor(
                                 merchantCity,
                                 merchantCountry,
                                 physicalCardId,
-                                network,
                                 networkDetails,
                                 amount,
                                 currency,
@@ -2046,7 +2036,7 @@ private constructor(
                 }
 
                 override fun toString() =
-                    "CardAuthorization{id=$id, merchantAcceptorId=$merchantAcceptorId, merchantDescriptor=$merchantDescriptor, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, physicalCardId=$physicalCardId, network=$network, networkDetails=$networkDetails, amount=$amount, currency=$currency, expiresAt=$expiresAt, realTimeDecisionId=$realTimeDecisionId, digitalWalletTokenId=$digitalWalletTokenId, pendingTransactionId=$pendingTransactionId, type=$type, additionalProperties=$additionalProperties}"
+                    "CardAuthorization{id=$id, merchantAcceptorId=$merchantAcceptorId, merchantDescriptor=$merchantDescriptor, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, physicalCardId=$physicalCardId, networkDetails=$networkDetails, amount=$amount, currency=$currency, expiresAt=$expiresAt, realTimeDecisionId=$realTimeDecisionId, digitalWalletTokenId=$digitalWalletTokenId, pendingTransactionId=$pendingTransactionId, type=$type, additionalProperties=$additionalProperties}"
 
                 companion object {
 
@@ -2062,7 +2052,6 @@ private constructor(
                     private var merchantCity: JsonField<String> = JsonMissing.of()
                     private var merchantCountry: JsonField<String> = JsonMissing.of()
                     private var physicalCardId: JsonField<String> = JsonMissing.of()
-                    private var network: JsonField<Network> = JsonMissing.of()
                     private var networkDetails: JsonField<NetworkDetails> = JsonMissing.of()
                     private var amount: JsonField<Long> = JsonMissing.of()
                     private var currency: JsonField<Currency> = JsonMissing.of()
@@ -2081,7 +2070,6 @@ private constructor(
                         this.merchantCity = cardAuthorization.merchantCity
                         this.merchantCountry = cardAuthorization.merchantCountry
                         this.physicalCardId = cardAuthorization.physicalCardId
-                        this.network = cardAuthorization.network
                         this.networkDetails = cardAuthorization.networkDetails
                         this.amount = cardAuthorization.amount
                         this.currency = cardAuthorization.currency
@@ -2184,14 +2172,6 @@ private constructor(
                     fun physicalCardId(physicalCardId: JsonField<String>) = apply {
                         this.physicalCardId = physicalCardId
                     }
-
-                    /** The payment network used to process this card authorization */
-                    fun network(network: Network) = network(JsonField.of(network))
-
-                    /** The payment network used to process this card authorization */
-                    @JsonProperty("network")
-                    @ExcludeMissing
-                    fun network(network: JsonField<Network>) = apply { this.network = network }
 
                     /** Fields specific to the `network` */
                     fun networkDetails(networkDetails: NetworkDetails) =
@@ -2335,7 +2315,6 @@ private constructor(
                             merchantCity,
                             merchantCountry,
                             physicalCardId,
-                            network,
                             networkDetails,
                             amount,
                             currency,
@@ -2348,63 +2327,12 @@ private constructor(
                         )
                 }
 
-                class Network
-                @JsonCreator
-                private constructor(
-                    private val value: JsonField<String>,
-                ) {
-
-                    @com.fasterxml.jackson.annotation.JsonValue
-                    fun _value(): JsonField<String> = value
-
-                    override fun equals(other: Any?): Boolean {
-                        if (this === other) {
-                            return true
-                        }
-
-                        return other is Network && this.value == other.value
-                    }
-
-                    override fun hashCode() = value.hashCode()
-
-                    override fun toString() = value.toString()
-
-                    companion object {
-
-                        val VISA = Network(JsonField.of("visa"))
-
-                        fun of(value: String) = Network(JsonField.of(value))
-                    }
-
-                    enum class Known {
-                        VISA,
-                    }
-
-                    enum class Value {
-                        VISA,
-                        _UNKNOWN,
-                    }
-
-                    fun value(): Value =
-                        when (this) {
-                            VISA -> Value.VISA
-                            else -> Value._UNKNOWN
-                        }
-
-                    fun known(): Known =
-                        when (this) {
-                            VISA -> Known.VISA
-                            else -> throw IncreaseInvalidDataException("Unknown Network: $value")
-                        }
-
-                    fun asString(): String = _value().asStringOrThrow()
-                }
-
                 /** Fields specific to the `network` */
                 @JsonDeserialize(builder = NetworkDetails.Builder::class)
                 @NoAutoDetect
                 class NetworkDetails
                 private constructor(
+                    private val category: JsonField<Category>,
                     private val visa: JsonField<Visa>,
                     private val additionalProperties: Map<String, JsonValue>,
                 ) {
@@ -2413,8 +2341,14 @@ private constructor(
 
                     private var hashCode: Int = 0
 
+                    /** The payment network used to process this card authorization */
+                    fun category(): Category = category.getRequired("category")
+
                     /** Fields specific to the `visa` network */
-                    fun visa(): Visa = visa.getRequired("visa")
+                    fun visa(): Visa? = visa.getNullable("visa")
+
+                    /** The payment network used to process this card authorization */
+                    @JsonProperty("category") @ExcludeMissing fun _category() = category
 
                     /** Fields specific to the `visa` network */
                     @JsonProperty("visa") @ExcludeMissing fun _visa() = visa
@@ -2425,7 +2359,8 @@ private constructor(
 
                     fun validate(): NetworkDetails = apply {
                         if (!validated) {
-                            visa().validate()
+                            category()
+                            visa()?.validate()
                             validated = true
                         }
                     }
@@ -2438,19 +2373,25 @@ private constructor(
                         }
 
                         return other is NetworkDetails &&
+                            this.category == other.category &&
                             this.visa == other.visa &&
                             this.additionalProperties == other.additionalProperties
                     }
 
                     override fun hashCode(): Int {
                         if (hashCode == 0) {
-                            hashCode = Objects.hash(visa, additionalProperties)
+                            hashCode =
+                                Objects.hash(
+                                    category,
+                                    visa,
+                                    additionalProperties,
+                                )
                         }
                         return hashCode
                     }
 
                     override fun toString() =
-                        "NetworkDetails{visa=$visa, additionalProperties=$additionalProperties}"
+                        "NetworkDetails{category=$category, visa=$visa, additionalProperties=$additionalProperties}"
 
                     companion object {
 
@@ -2459,13 +2400,25 @@ private constructor(
 
                     class Builder {
 
+                        private var category: JsonField<Category> = JsonMissing.of()
                         private var visa: JsonField<Visa> = JsonMissing.of()
                         private var additionalProperties: MutableMap<String, JsonValue> =
                             mutableMapOf()
 
                         internal fun from(networkDetails: NetworkDetails) = apply {
+                            this.category = networkDetails.category
                             this.visa = networkDetails.visa
                             additionalProperties(networkDetails.additionalProperties)
+                        }
+
+                        /** The payment network used to process this card authorization */
+                        fun category(category: Category) = category(JsonField.of(category))
+
+                        /** The payment network used to process this card authorization */
+                        @JsonProperty("category")
+                        @ExcludeMissing
+                        fun category(category: JsonField<Category>) = apply {
+                            this.category = category
                         }
 
                         /** Fields specific to the `visa` network */
@@ -2492,7 +2445,64 @@ private constructor(
                         ) = apply { this.additionalProperties.putAll(additionalProperties) }
 
                         fun build(): NetworkDetails =
-                            NetworkDetails(visa, additionalProperties.toUnmodifiable())
+                            NetworkDetails(
+                                category,
+                                visa,
+                                additionalProperties.toUnmodifiable(),
+                            )
+                    }
+
+                    class Category
+                    @JsonCreator
+                    private constructor(
+                        private val value: JsonField<String>,
+                    ) {
+
+                        @com.fasterxml.jackson.annotation.JsonValue
+                        fun _value(): JsonField<String> = value
+
+                        override fun equals(other: Any?): Boolean {
+                            if (this === other) {
+                                return true
+                            }
+
+                            return other is Category && this.value == other.value
+                        }
+
+                        override fun hashCode() = value.hashCode()
+
+                        override fun toString() = value.toString()
+
+                        companion object {
+
+                            val VISA = Category(JsonField.of("visa"))
+
+                            fun of(value: String) = Category(JsonField.of(value))
+                        }
+
+                        enum class Known {
+                            VISA,
+                        }
+
+                        enum class Value {
+                            VISA,
+                            _UNKNOWN,
+                        }
+
+                        fun value(): Value =
+                            when (this) {
+                                VISA -> Value.VISA
+                                else -> Value._UNKNOWN
+                            }
+
+                        fun known(): Known =
+                            when (this) {
+                                VISA -> Known.VISA
+                                else ->
+                                    throw IncreaseInvalidDataException("Unknown Category: $value")
+                            }
+
+                        fun asString(): String = _value().asStringOrThrow()
                     }
 
                     /** Fields specific to the `visa` network */
@@ -5966,7 +5976,6 @@ private constructor(
                 private val merchantCity: JsonField<String>,
                 private val merchantCountry: JsonField<String>,
                 private val physicalCardId: JsonField<String>,
-                private val network: JsonField<Network>,
                 private val networkDetails: JsonField<NetworkDetails>,
                 private val amount: JsonField<Long>,
                 private val currency: JsonField<Currency>,
@@ -6010,9 +6019,6 @@ private constructor(
                  * that was used.
                  */
                 fun physicalCardId(): String? = physicalCardId.getNullable("physical_card_id")
-
-                /** The payment network used to process this card authorization */
-                fun network(): Network = network.getRequired("network")
 
                 /** Fields specific to the `network` */
                 fun networkDetails(): NetworkDetails = networkDetails.getRequired("network_details")
@@ -6086,9 +6092,6 @@ private constructor(
                 @ExcludeMissing
                 fun _physicalCardId() = physicalCardId
 
-                /** The payment network used to process this card authorization */
-                @JsonProperty("network") @ExcludeMissing fun _network() = network
-
                 /** Fields specific to the `network` */
                 @JsonProperty("network_details")
                 @ExcludeMissing
@@ -6140,7 +6143,6 @@ private constructor(
                         merchantCity()
                         merchantCountry()
                         physicalCardId()
-                        network()
                         networkDetails().validate()
                         amount()
                         currency()
@@ -6166,7 +6168,6 @@ private constructor(
                         this.merchantCity == other.merchantCity &&
                         this.merchantCountry == other.merchantCountry &&
                         this.physicalCardId == other.physicalCardId &&
-                        this.network == other.network &&
                         this.networkDetails == other.networkDetails &&
                         this.amount == other.amount &&
                         this.currency == other.currency &&
@@ -6187,7 +6188,6 @@ private constructor(
                                 merchantCity,
                                 merchantCountry,
                                 physicalCardId,
-                                network,
                                 networkDetails,
                                 amount,
                                 currency,
@@ -6202,7 +6202,7 @@ private constructor(
                 }
 
                 override fun toString() =
-                    "CardDecline{merchantAcceptorId=$merchantAcceptorId, merchantDescriptor=$merchantDescriptor, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, physicalCardId=$physicalCardId, network=$network, networkDetails=$networkDetails, amount=$amount, currency=$currency, reason=$reason, merchantState=$merchantState, realTimeDecisionId=$realTimeDecisionId, digitalWalletTokenId=$digitalWalletTokenId, additionalProperties=$additionalProperties}"
+                    "CardDecline{merchantAcceptorId=$merchantAcceptorId, merchantDescriptor=$merchantDescriptor, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, physicalCardId=$physicalCardId, networkDetails=$networkDetails, amount=$amount, currency=$currency, reason=$reason, merchantState=$merchantState, realTimeDecisionId=$realTimeDecisionId, digitalWalletTokenId=$digitalWalletTokenId, additionalProperties=$additionalProperties}"
 
                 companion object {
 
@@ -6217,7 +6217,6 @@ private constructor(
                     private var merchantCity: JsonField<String> = JsonMissing.of()
                     private var merchantCountry: JsonField<String> = JsonMissing.of()
                     private var physicalCardId: JsonField<String> = JsonMissing.of()
-                    private var network: JsonField<Network> = JsonMissing.of()
                     private var networkDetails: JsonField<NetworkDetails> = JsonMissing.of()
                     private var amount: JsonField<Long> = JsonMissing.of()
                     private var currency: JsonField<Currency> = JsonMissing.of()
@@ -6234,7 +6233,6 @@ private constructor(
                         this.merchantCity = cardDecline.merchantCity
                         this.merchantCountry = cardDecline.merchantCountry
                         this.physicalCardId = cardDecline.physicalCardId
-                        this.network = cardDecline.network
                         this.networkDetails = cardDecline.networkDetails
                         this.amount = cardDecline.amount
                         this.currency = cardDecline.currency
@@ -6328,14 +6326,6 @@ private constructor(
                     fun physicalCardId(physicalCardId: JsonField<String>) = apply {
                         this.physicalCardId = physicalCardId
                     }
-
-                    /** The payment network used to process this card authorization */
-                    fun network(network: Network) = network(JsonField.of(network))
-
-                    /** The payment network used to process this card authorization */
-                    @JsonProperty("network")
-                    @ExcludeMissing
-                    fun network(network: JsonField<Network>) = apply { this.network = network }
 
                     /** Fields specific to the `network` */
                     fun networkDetails(networkDetails: NetworkDetails) =
@@ -6452,7 +6442,6 @@ private constructor(
                             merchantCity,
                             merchantCountry,
                             physicalCardId,
-                            network,
                             networkDetails,
                             amount,
                             currency,
@@ -6464,63 +6453,12 @@ private constructor(
                         )
                 }
 
-                class Network
-                @JsonCreator
-                private constructor(
-                    private val value: JsonField<String>,
-                ) {
-
-                    @com.fasterxml.jackson.annotation.JsonValue
-                    fun _value(): JsonField<String> = value
-
-                    override fun equals(other: Any?): Boolean {
-                        if (this === other) {
-                            return true
-                        }
-
-                        return other is Network && this.value == other.value
-                    }
-
-                    override fun hashCode() = value.hashCode()
-
-                    override fun toString() = value.toString()
-
-                    companion object {
-
-                        val VISA = Network(JsonField.of("visa"))
-
-                        fun of(value: String) = Network(JsonField.of(value))
-                    }
-
-                    enum class Known {
-                        VISA,
-                    }
-
-                    enum class Value {
-                        VISA,
-                        _UNKNOWN,
-                    }
-
-                    fun value(): Value =
-                        when (this) {
-                            VISA -> Value.VISA
-                            else -> Value._UNKNOWN
-                        }
-
-                    fun known(): Known =
-                        when (this) {
-                            VISA -> Known.VISA
-                            else -> throw IncreaseInvalidDataException("Unknown Network: $value")
-                        }
-
-                    fun asString(): String = _value().asStringOrThrow()
-                }
-
                 /** Fields specific to the `network` */
                 @JsonDeserialize(builder = NetworkDetails.Builder::class)
                 @NoAutoDetect
                 class NetworkDetails
                 private constructor(
+                    private val category: JsonField<Category>,
                     private val visa: JsonField<Visa>,
                     private val additionalProperties: Map<String, JsonValue>,
                 ) {
@@ -6529,8 +6467,14 @@ private constructor(
 
                     private var hashCode: Int = 0
 
+                    /** The payment network used to process this card authorization */
+                    fun category(): Category = category.getRequired("category")
+
                     /** Fields specific to the `visa` network */
-                    fun visa(): Visa = visa.getRequired("visa")
+                    fun visa(): Visa? = visa.getNullable("visa")
+
+                    /** The payment network used to process this card authorization */
+                    @JsonProperty("category") @ExcludeMissing fun _category() = category
 
                     /** Fields specific to the `visa` network */
                     @JsonProperty("visa") @ExcludeMissing fun _visa() = visa
@@ -6541,7 +6485,8 @@ private constructor(
 
                     fun validate(): NetworkDetails = apply {
                         if (!validated) {
-                            visa().validate()
+                            category()
+                            visa()?.validate()
                             validated = true
                         }
                     }
@@ -6554,19 +6499,25 @@ private constructor(
                         }
 
                         return other is NetworkDetails &&
+                            this.category == other.category &&
                             this.visa == other.visa &&
                             this.additionalProperties == other.additionalProperties
                     }
 
                     override fun hashCode(): Int {
                         if (hashCode == 0) {
-                            hashCode = Objects.hash(visa, additionalProperties)
+                            hashCode =
+                                Objects.hash(
+                                    category,
+                                    visa,
+                                    additionalProperties,
+                                )
                         }
                         return hashCode
                     }
 
                     override fun toString() =
-                        "NetworkDetails{visa=$visa, additionalProperties=$additionalProperties}"
+                        "NetworkDetails{category=$category, visa=$visa, additionalProperties=$additionalProperties}"
 
                     companion object {
 
@@ -6575,13 +6526,25 @@ private constructor(
 
                     class Builder {
 
+                        private var category: JsonField<Category> = JsonMissing.of()
                         private var visa: JsonField<Visa> = JsonMissing.of()
                         private var additionalProperties: MutableMap<String, JsonValue> =
                             mutableMapOf()
 
                         internal fun from(networkDetails: NetworkDetails) = apply {
+                            this.category = networkDetails.category
                             this.visa = networkDetails.visa
                             additionalProperties(networkDetails.additionalProperties)
+                        }
+
+                        /** The payment network used to process this card authorization */
+                        fun category(category: Category) = category(JsonField.of(category))
+
+                        /** The payment network used to process this card authorization */
+                        @JsonProperty("category")
+                        @ExcludeMissing
+                        fun category(category: JsonField<Category>) = apply {
+                            this.category = category
                         }
 
                         /** Fields specific to the `visa` network */
@@ -6608,7 +6571,64 @@ private constructor(
                         ) = apply { this.additionalProperties.putAll(additionalProperties) }
 
                         fun build(): NetworkDetails =
-                            NetworkDetails(visa, additionalProperties.toUnmodifiable())
+                            NetworkDetails(
+                                category,
+                                visa,
+                                additionalProperties.toUnmodifiable(),
+                            )
+                    }
+
+                    class Category
+                    @JsonCreator
+                    private constructor(
+                        private val value: JsonField<String>,
+                    ) {
+
+                        @com.fasterxml.jackson.annotation.JsonValue
+                        fun _value(): JsonField<String> = value
+
+                        override fun equals(other: Any?): Boolean {
+                            if (this === other) {
+                                return true
+                            }
+
+                            return other is Category && this.value == other.value
+                        }
+
+                        override fun hashCode() = value.hashCode()
+
+                        override fun toString() = value.toString()
+
+                        companion object {
+
+                            val VISA = Category(JsonField.of("visa"))
+
+                            fun of(value: String) = Category(JsonField.of(value))
+                        }
+
+                        enum class Known {
+                            VISA,
+                        }
+
+                        enum class Value {
+                            VISA,
+                            _UNKNOWN,
+                        }
+
+                        fun value(): Value =
+                            when (this) {
+                                VISA -> Value.VISA
+                                else -> Value._UNKNOWN
+                            }
+
+                        fun known(): Known =
+                            when (this) {
+                                VISA -> Known.VISA
+                                else ->
+                                    throw IncreaseInvalidDataException("Unknown Category: $value")
+                            }
+
+                        fun asString(): String = _value().asStringOrThrow()
                     }
 
                     /** Fields specific to the `visa` network */
