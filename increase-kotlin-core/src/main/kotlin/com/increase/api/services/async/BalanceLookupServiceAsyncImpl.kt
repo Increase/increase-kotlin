@@ -40,7 +40,7 @@ constructor(
                 .build()
         return clientOptions.httpClient.executeAsync(request, requestOptions).let { response ->
             response
-                .let { lookupHandler.handle(it) }
+                .use { lookupHandler.handle(it) }
                 .apply {
                     if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
                         validate()
