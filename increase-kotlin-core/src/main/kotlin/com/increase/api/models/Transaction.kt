@@ -7086,6 +7086,7 @@ private constructor(
         private constructor(
             private val amount: JsonField<Long>,
             private val currency: JsonField<Currency>,
+            private val feePeriodStart: JsonField<LocalDate>,
             private val additionalProperties: Map<String, JsonValue>,
         ) {
 
@@ -7105,6 +7106,9 @@ private constructor(
              */
             fun currency(): Currency = currency.getRequired("currency")
 
+            /** The start of this payment's fee period, usually the first day of a month. */
+            fun feePeriodStart(): LocalDate = feePeriodStart.getRequired("fee_period_start")
+
             /**
              * The amount in the minor unit of the transaction's currency. For dollars, for example,
              * this is cents.
@@ -7117,6 +7121,9 @@ private constructor(
              */
             @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
 
+            /** The start of this payment's fee period, usually the first day of a month. */
+            @JsonProperty("fee_period_start") @ExcludeMissing fun _feePeriodStart() = feePeriodStart
+
             @JsonAnyGetter
             @ExcludeMissing
             fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -7125,6 +7132,7 @@ private constructor(
                 if (!validated) {
                     amount()
                     currency()
+                    feePeriodStart()
                     validated = true
                 }
             }
@@ -7139,6 +7147,7 @@ private constructor(
                 return other is FeePayment &&
                     this.amount == other.amount &&
                     this.currency == other.currency &&
+                    this.feePeriodStart == other.feePeriodStart &&
                     this.additionalProperties == other.additionalProperties
             }
 
@@ -7148,6 +7157,7 @@ private constructor(
                         Objects.hash(
                             amount,
                             currency,
+                            feePeriodStart,
                             additionalProperties,
                         )
                 }
@@ -7155,7 +7165,7 @@ private constructor(
             }
 
             override fun toString() =
-                "FeePayment{amount=$amount, currency=$currency, additionalProperties=$additionalProperties}"
+                "FeePayment{amount=$amount, currency=$currency, feePeriodStart=$feePeriodStart, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -7166,11 +7176,13 @@ private constructor(
 
                 private var amount: JsonField<Long> = JsonMissing.of()
                 private var currency: JsonField<Currency> = JsonMissing.of()
+                private var feePeriodStart: JsonField<LocalDate> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(feePayment: FeePayment) = apply {
                     this.amount = feePayment.amount
                     this.currency = feePayment.currency
+                    this.feePeriodStart = feePayment.feePeriodStart
                     additionalProperties(feePayment.additionalProperties)
                 }
 
@@ -7202,6 +7214,17 @@ private constructor(
                 @ExcludeMissing
                 fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
 
+                /** The start of this payment's fee period, usually the first day of a month. */
+                fun feePeriodStart(feePeriodStart: LocalDate) =
+                    feePeriodStart(JsonField.of(feePeriodStart))
+
+                /** The start of this payment's fee period, usually the first day of a month. */
+                @JsonProperty("fee_period_start")
+                @ExcludeMissing
+                fun feePeriodStart(feePeriodStart: JsonField<LocalDate>) = apply {
+                    this.feePeriodStart = feePeriodStart
+                }
+
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
                     this.additionalProperties.putAll(additionalProperties)
@@ -7221,6 +7244,7 @@ private constructor(
                     FeePayment(
                         amount,
                         currency,
+                        feePeriodStart,
                         additionalProperties.toUnmodifiable(),
                     )
             }

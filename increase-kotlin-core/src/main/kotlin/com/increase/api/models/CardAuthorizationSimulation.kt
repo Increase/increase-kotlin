@@ -5881,6 +5881,9 @@ private constructor(
 
                         val MISROUTED_RETURN = Reason(JsonField.of("misrouted_return"))
 
+                        val RETURN_OF_ERRONEOUS_OR_REVERSING_DEBIT =
+                            Reason(JsonField.of("return_of_erroneous_or_reversing_debit"))
+
                         val NO_ACH_ROUTE = Reason(JsonField.of("no_ach_route"))
 
                         val ORIGINATOR_REQUEST = Reason(JsonField.of("originator_request"))
@@ -5901,6 +5904,7 @@ private constructor(
                         GROUP_LOCKED,
                         INSUFFICIENT_FUNDS,
                         MISROUTED_RETURN,
+                        RETURN_OF_ERRONEOUS_OR_REVERSING_DEBIT,
                         NO_ACH_ROUTE,
                         ORIGINATOR_REQUEST,
                         TRANSACTION_NOT_ALLOWED,
@@ -5916,6 +5920,7 @@ private constructor(
                         GROUP_LOCKED,
                         INSUFFICIENT_FUNDS,
                         MISROUTED_RETURN,
+                        RETURN_OF_ERRONEOUS_OR_REVERSING_DEBIT,
                         NO_ACH_ROUTE,
                         ORIGINATOR_REQUEST,
                         TRANSACTION_NOT_ALLOWED,
@@ -5934,6 +5939,8 @@ private constructor(
                             GROUP_LOCKED -> Value.GROUP_LOCKED
                             INSUFFICIENT_FUNDS -> Value.INSUFFICIENT_FUNDS
                             MISROUTED_RETURN -> Value.MISROUTED_RETURN
+                            RETURN_OF_ERRONEOUS_OR_REVERSING_DEBIT ->
+                                Value.RETURN_OF_ERRONEOUS_OR_REVERSING_DEBIT
                             NO_ACH_ROUTE -> Value.NO_ACH_ROUTE
                             ORIGINATOR_REQUEST -> Value.ORIGINATOR_REQUEST
                             TRANSACTION_NOT_ALLOWED -> Value.TRANSACTION_NOT_ALLOWED
@@ -5952,6 +5959,8 @@ private constructor(
                             GROUP_LOCKED -> Known.GROUP_LOCKED
                             INSUFFICIENT_FUNDS -> Known.INSUFFICIENT_FUNDS
                             MISROUTED_RETURN -> Known.MISROUTED_RETURN
+                            RETURN_OF_ERRONEOUS_OR_REVERSING_DEBIT ->
+                                Known.RETURN_OF_ERRONEOUS_OR_REVERSING_DEBIT
                             NO_ACH_ROUTE -> Known.NO_ACH_ROUTE
                             ORIGINATOR_REQUEST -> Known.ORIGINATOR_REQUEST
                             TRANSACTION_NOT_ALLOWED -> Known.TRANSACTION_NOT_ALLOWED
