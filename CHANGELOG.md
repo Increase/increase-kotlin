@@ -1,5 +1,27 @@
 # Changelog
 
+## [0.7.0](https://github.com/Increase/increase-kotlin/compare/v0.6.1...v0.7.0) (2023-07-22)
+
+
+### ⚠ BREAKING CHANGES
+
+* **api:** reorganize `check_transfer` and `network fields; add `request_details`; add `unknown` ([#39](https://github.com/Increase/increase-kotlin/issues/39))
+
+### Features
+
+* **api:** add fee_period_start and return_of_erroneous_or_reversing_debit ([#43](https://github.com/Increase/increase-kotlin/issues/43)) ([39c32a9](https://github.com/Increase/increase-kotlin/commit/39c32a973a6bc7e6812a24c0d29535f4b81f6129))
+* **api:** reorganize `check_transfer` and `network fields; add `request_details`; add `unknown` ([#39](https://github.com/Increase/increase-kotlin/issues/39)) ([dd538f4](https://github.com/Increase/increase-kotlin/commit/dd538f429c32daed264c2977dd3cabb5339c3080))
+
+
+### Bug Fixes
+
+* auto-close responses even if an exception is thrown during deserialization ([#41](https://github.com/Increase/increase-kotlin/issues/41)) ([9e17d1a](https://github.com/Increase/increase-kotlin/commit/9e17d1aa1d97fa86b4f1afb2fcd941b6a7ecceae))
+
+
+### Documentation
+
+* **api:** update `model_id` documentation ([#42](https://github.com/Increase/increase-kotlin/issues/42)) ([d0df821](https://github.com/Increase/increase-kotlin/commit/d0df821897b9fc24c59417fc2e8c6d7b1e294792))
+
 ## [0.6.1](https://github.com/Increase/increase-kotlin/compare/v0.6.0...v0.6.1) (2023-07-17)
 
 

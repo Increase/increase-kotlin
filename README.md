@@ -21,7 +21,7 @@ The API documentation can be found [here](https://increase.com/documentation).
 <!-- x-release-please-start-version -->
 
 ```kotlin
-implementation("com.increase.api:increase-kotlin:0.6.1")
+implementation("com.increase.api:increase-kotlin:0.7.0")
 ```
 
 #### Maven
@@ -30,7 +30,7 @@ implementation("com.increase.api:increase-kotlin:0.6.1")
 <dependency>
     <groupId>com.increase.api</groupId>
     <artifactId>increase-kotlin</artifactId>
-    <version>0.6.1</version>
+    <version>0.7.0</version>
 </dependency>
 ```
 
