@@ -351,10 +351,10 @@ constructor(
         fun asString(): String = _value().asStringOrThrow()
     }
 
-    /** Options for the created export. Required if `category` is equal to `transaction_csv`. */
-    @JsonDeserialize(builder = TransactionCsv.Builder::class)
+    /** Options for the created export. Required if `category` is equal to `balance_csv`. */
+    @JsonDeserialize(builder = BalanceCsv.Builder::class)
     @NoAutoDetect
-    class TransactionCsv
+    class BalanceCsv
     private constructor(
         private val accountId: String?,
         private val createdAt: CreatedAt?,
@@ -380,7 +380,7 @@ constructor(
                 return true
             }
 
-            return other is TransactionCsv &&
+            return other is BalanceCsv &&
                 this.accountId == other.accountId &&
                 this.createdAt == other.createdAt &&
                 this.additionalProperties == other.additionalProperties
@@ -399,7 +399,7 @@ constructor(
         }
 
         override fun toString() =
-            "TransactionCsv{accountId=$accountId, createdAt=$createdAt, additionalProperties=$additionalProperties}"
+            "BalanceCsv{accountId=$accountId, createdAt=$createdAt, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -412,10 +412,10 @@ constructor(
             private var createdAt: CreatedAt? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(transactionCsv: TransactionCsv) = apply {
-                this.accountId = transactionCsv.accountId
-                this.createdAt = transactionCsv.createdAt
-                additionalProperties(transactionCsv.additionalProperties)
+            internal fun from(balanceCsv: BalanceCsv) = apply {
+                this.accountId = balanceCsv.accountId
+                this.createdAt = balanceCsv.createdAt
+                additionalProperties(balanceCsv.additionalProperties)
             }
 
             /** Filter exported Transactions to the specified Account. */
@@ -440,8 +440,8 @@ constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): TransactionCsv =
-                TransactionCsv(
+            fun build(): BalanceCsv =
+                BalanceCsv(
                     accountId,
                     createdAt,
                     additionalProperties.toUnmodifiable(),
@@ -598,10 +598,10 @@ constructor(
         }
     }
 
-    /** Options for the created export. Required if `category` is equal to `balance_csv`. */
-    @JsonDeserialize(builder = BalanceCsv.Builder::class)
+    /** Options for the created export. Required if `category` is equal to `transaction_csv`. */
+    @JsonDeserialize(builder = TransactionCsv.Builder::class)
     @NoAutoDetect
-    class BalanceCsv
+    class TransactionCsv
     private constructor(
         private val accountId: String?,
         private val createdAt: CreatedAt?,
@@ -627,7 +627,7 @@ constructor(
                 return true
             }
 
-            return other is BalanceCsv &&
+            return other is TransactionCsv &&
                 this.accountId == other.accountId &&
                 this.createdAt == other.createdAt &&
                 this.additionalProperties == other.additionalProperties
@@ -646,7 +646,7 @@ constructor(
         }
 
         override fun toString() =
-            "BalanceCsv{accountId=$accountId, createdAt=$createdAt, additionalProperties=$additionalProperties}"
+            "TransactionCsv{accountId=$accountId, createdAt=$createdAt, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -659,10 +659,10 @@ constructor(
             private var createdAt: CreatedAt? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(balanceCsv: BalanceCsv) = apply {
-                this.accountId = balanceCsv.accountId
-                this.createdAt = balanceCsv.createdAt
-                additionalProperties(balanceCsv.additionalProperties)
+            internal fun from(transactionCsv: TransactionCsv) = apply {
+                this.accountId = transactionCsv.accountId
+                this.createdAt = transactionCsv.createdAt
+                additionalProperties(transactionCsv.additionalProperties)
             }
 
             /** Filter exported Transactions to the specified Account. */
@@ -687,8 +687,8 @@ constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): BalanceCsv =
-                BalanceCsv(
+            fun build(): TransactionCsv =
+                TransactionCsv(
                     accountId,
                     createdAt,
                     additionalProperties.toUnmodifiable(),
