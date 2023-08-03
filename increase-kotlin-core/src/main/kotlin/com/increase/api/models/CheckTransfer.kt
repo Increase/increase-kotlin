@@ -2194,6 +2194,8 @@ private constructor(
 
                 val MAIL_DELIVERY_FAILED = Reason(JsonField.of("mail_delivery_failed"))
 
+                val REJECTED_BY_INCREASE = Reason(JsonField.of("rejected_by_increase"))
+
                 val UNKNOWN = Reason(JsonField.of("unknown"))
 
                 fun of(value: String) = Reason(JsonField.of(value))
@@ -2201,11 +2203,13 @@ private constructor(
 
             enum class Known {
                 MAIL_DELIVERY_FAILED,
+                REJECTED_BY_INCREASE,
                 UNKNOWN,
             }
 
             enum class Value {
                 MAIL_DELIVERY_FAILED,
+                REJECTED_BY_INCREASE,
                 UNKNOWN,
                 _UNKNOWN,
             }
@@ -2213,6 +2217,7 @@ private constructor(
             fun value(): Value =
                 when (this) {
                     MAIL_DELIVERY_FAILED -> Value.MAIL_DELIVERY_FAILED
+                    REJECTED_BY_INCREASE -> Value.REJECTED_BY_INCREASE
                     UNKNOWN -> Value.UNKNOWN
                     else -> Value._UNKNOWN
                 }
@@ -2220,6 +2225,7 @@ private constructor(
             fun known(): Known =
                 when (this) {
                     MAIL_DELIVERY_FAILED -> Known.MAIL_DELIVERY_FAILED
+                    REJECTED_BY_INCREASE -> Known.REJECTED_BY_INCREASE
                     UNKNOWN -> Known.UNKNOWN
                     else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
                 }
