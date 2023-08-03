@@ -883,96 +883,6 @@ private constructor(
                 )
         }
 
-        class Category
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) {
-
-            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is Category && this.value == other.value
-            }
-
-            override fun hashCode() = value.hashCode()
-
-            override fun toString() = value.toString()
-
-            companion object {
-
-                val ACH_DECLINE = Category(JsonField.of("ach_decline"))
-
-                val CARD_DECLINE = Category(JsonField.of("card_decline"))
-
-                val CHECK_DECLINE = Category(JsonField.of("check_decline"))
-
-                val INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE =
-                    Category(JsonField.of("inbound_real_time_payments_transfer_decline"))
-
-                val INTERNATIONAL_ACH_DECLINE = Category(JsonField.of("international_ach_decline"))
-
-                val WIRE_DECLINE = Category(JsonField.of("wire_decline"))
-
-                val OTHER = Category(JsonField.of("other"))
-
-                fun of(value: String) = Category(JsonField.of(value))
-            }
-
-            enum class Known {
-                ACH_DECLINE,
-                CARD_DECLINE,
-                CHECK_DECLINE,
-                INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE,
-                INTERNATIONAL_ACH_DECLINE,
-                WIRE_DECLINE,
-                OTHER,
-            }
-
-            enum class Value {
-                ACH_DECLINE,
-                CARD_DECLINE,
-                CHECK_DECLINE,
-                INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE,
-                INTERNATIONAL_ACH_DECLINE,
-                WIRE_DECLINE,
-                OTHER,
-                _UNKNOWN,
-            }
-
-            fun value(): Value =
-                when (this) {
-                    ACH_DECLINE -> Value.ACH_DECLINE
-                    CARD_DECLINE -> Value.CARD_DECLINE
-                    CHECK_DECLINE -> Value.CHECK_DECLINE
-                    INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE ->
-                        Value.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE
-                    INTERNATIONAL_ACH_DECLINE -> Value.INTERNATIONAL_ACH_DECLINE
-                    WIRE_DECLINE -> Value.WIRE_DECLINE
-                    OTHER -> Value.OTHER
-                    else -> Value._UNKNOWN
-                }
-
-            fun known(): Known =
-                when (this) {
-                    ACH_DECLINE -> Known.ACH_DECLINE
-                    CARD_DECLINE -> Known.CARD_DECLINE
-                    CHECK_DECLINE -> Known.CHECK_DECLINE
-                    INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE ->
-                        Known.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE
-                    INTERNATIONAL_ACH_DECLINE -> Known.INTERNATIONAL_ACH_DECLINE
-                    WIRE_DECLINE -> Known.WIRE_DECLINE
-                    OTHER -> Known.OTHER
-                    else -> throw IncreaseInvalidDataException("Unknown Category: $value")
-                }
-
-            fun asString(): String = _value().asStringOrThrow()
-        }
-
         /**
          * A ACH Decline object. This field will be present in the JSON response if and only if
          * `category` is equal to `ach_decline`.
@@ -1885,6 +1795,87 @@ private constructor(
                     )
             }
 
+            class Currency
+            @JsonCreator
+            private constructor(
+                private val value: JsonField<String>,
+            ) {
+
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is Currency && this.value == other.value
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+
+                companion object {
+
+                    val CAD = Currency(JsonField.of("CAD"))
+
+                    val CHF = Currency(JsonField.of("CHF"))
+
+                    val EUR = Currency(JsonField.of("EUR"))
+
+                    val GBP = Currency(JsonField.of("GBP"))
+
+                    val JPY = Currency(JsonField.of("JPY"))
+
+                    val USD = Currency(JsonField.of("USD"))
+
+                    fun of(value: String) = Currency(JsonField.of(value))
+                }
+
+                enum class Known {
+                    CAD,
+                    CHF,
+                    EUR,
+                    GBP,
+                    JPY,
+                    USD,
+                }
+
+                enum class Value {
+                    CAD,
+                    CHF,
+                    EUR,
+                    GBP,
+                    JPY,
+                    USD,
+                    _UNKNOWN,
+                }
+
+                fun value(): Value =
+                    when (this) {
+                        CAD -> Value.CAD
+                        CHF -> Value.CHF
+                        EUR -> Value.EUR
+                        GBP -> Value.GBP
+                        JPY -> Value.JPY
+                        USD -> Value.USD
+                        else -> Value._UNKNOWN
+                    }
+
+                fun known(): Known =
+                    when (this) {
+                        CAD -> Known.CAD
+                        CHF -> Known.CHF
+                        EUR -> Known.EUR
+                        GBP -> Known.GBP
+                        JPY -> Known.JPY
+                        USD -> Known.USD
+                        else -> throw IncreaseInvalidDataException("Unknown Currency: $value")
+                    }
+
+                fun asString(): String = _value().asStringOrThrow()
+            }
+
             /** Fields specific to the `network` */
             @JsonDeserialize(builder = NetworkDetails.Builder::class)
             @NoAutoDetect
@@ -2351,87 +2342,6 @@ private constructor(
                 }
             }
 
-            class Currency
-            @JsonCreator
-            private constructor(
-                private val value: JsonField<String>,
-            ) {
-
-                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is Currency && this.value == other.value
-                }
-
-                override fun hashCode() = value.hashCode()
-
-                override fun toString() = value.toString()
-
-                companion object {
-
-                    val CAD = Currency(JsonField.of("CAD"))
-
-                    val CHF = Currency(JsonField.of("CHF"))
-
-                    val EUR = Currency(JsonField.of("EUR"))
-
-                    val GBP = Currency(JsonField.of("GBP"))
-
-                    val JPY = Currency(JsonField.of("JPY"))
-
-                    val USD = Currency(JsonField.of("USD"))
-
-                    fun of(value: String) = Currency(JsonField.of(value))
-                }
-
-                enum class Known {
-                    CAD,
-                    CHF,
-                    EUR,
-                    GBP,
-                    JPY,
-                    USD,
-                }
-
-                enum class Value {
-                    CAD,
-                    CHF,
-                    EUR,
-                    GBP,
-                    JPY,
-                    USD,
-                    _UNKNOWN,
-                }
-
-                fun value(): Value =
-                    when (this) {
-                        CAD -> Value.CAD
-                        CHF -> Value.CHF
-                        EUR -> Value.EUR
-                        GBP -> Value.GBP
-                        JPY -> Value.JPY
-                        USD -> Value.USD
-                        else -> Value._UNKNOWN
-                    }
-
-                fun known(): Known =
-                    when (this) {
-                        CAD -> Known.CAD
-                        CHF -> Known.CHF
-                        EUR -> Known.EUR
-                        GBP -> Known.GBP
-                        JPY -> Known.JPY
-                        USD -> Known.USD
-                        else -> throw IncreaseInvalidDataException("Unknown Currency: $value")
-                    }
-
-                fun asString(): String = _value().asStringOrThrow()
-            }
-
             class Reason
             @JsonCreator
             private constructor(
@@ -2556,6 +2466,96 @@ private constructor(
 
                 fun asString(): String = _value().asStringOrThrow()
             }
+        }
+
+        class Category
+        @JsonCreator
+        private constructor(
+            private val value: JsonField<String>,
+        ) {
+
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Category && this.value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+
+            companion object {
+
+                val ACH_DECLINE = Category(JsonField.of("ach_decline"))
+
+                val CARD_DECLINE = Category(JsonField.of("card_decline"))
+
+                val CHECK_DECLINE = Category(JsonField.of("check_decline"))
+
+                val INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE =
+                    Category(JsonField.of("inbound_real_time_payments_transfer_decline"))
+
+                val INTERNATIONAL_ACH_DECLINE = Category(JsonField.of("international_ach_decline"))
+
+                val WIRE_DECLINE = Category(JsonField.of("wire_decline"))
+
+                val OTHER = Category(JsonField.of("other"))
+
+                fun of(value: String) = Category(JsonField.of(value))
+            }
+
+            enum class Known {
+                ACH_DECLINE,
+                CARD_DECLINE,
+                CHECK_DECLINE,
+                INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE,
+                INTERNATIONAL_ACH_DECLINE,
+                WIRE_DECLINE,
+                OTHER,
+            }
+
+            enum class Value {
+                ACH_DECLINE,
+                CARD_DECLINE,
+                CHECK_DECLINE,
+                INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE,
+                INTERNATIONAL_ACH_DECLINE,
+                WIRE_DECLINE,
+                OTHER,
+                _UNKNOWN,
+            }
+
+            fun value(): Value =
+                when (this) {
+                    ACH_DECLINE -> Value.ACH_DECLINE
+                    CARD_DECLINE -> Value.CARD_DECLINE
+                    CHECK_DECLINE -> Value.CHECK_DECLINE
+                    INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE ->
+                        Value.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE
+                    INTERNATIONAL_ACH_DECLINE -> Value.INTERNATIONAL_ACH_DECLINE
+                    WIRE_DECLINE -> Value.WIRE_DECLINE
+                    OTHER -> Value.OTHER
+                    else -> Value._UNKNOWN
+                }
+
+            fun known(): Known =
+                when (this) {
+                    ACH_DECLINE -> Known.ACH_DECLINE
+                    CARD_DECLINE -> Known.CARD_DECLINE
+                    CHECK_DECLINE -> Known.CHECK_DECLINE
+                    INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE ->
+                        Known.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE
+                    INTERNATIONAL_ACH_DECLINE -> Known.INTERNATIONAL_ACH_DECLINE
+                    WIRE_DECLINE -> Known.WIRE_DECLINE
+                    OTHER -> Known.OTHER
+                    else -> throw IncreaseInvalidDataException("Unknown Category: $value")
+                }
+
+            fun asString(): String = _value().asStringOrThrow()
         }
 
         /**
