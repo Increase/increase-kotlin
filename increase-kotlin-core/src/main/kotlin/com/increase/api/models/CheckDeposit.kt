@@ -521,75 +521,6 @@ private constructor(
         fun asString(): String = _value().asStringOrThrow()
     }
 
-    class Status
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) {
-
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Status && this.value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-
-        companion object {
-
-            val PENDING = Status(JsonField.of("pending"))
-
-            val SUBMITTED = Status(JsonField.of("submitted"))
-
-            val REJECTED = Status(JsonField.of("rejected"))
-
-            val RETURNED = Status(JsonField.of("returned"))
-
-            fun of(value: String) = Status(JsonField.of(value))
-        }
-
-        enum class Known {
-            PENDING,
-            SUBMITTED,
-            REJECTED,
-            RETURNED,
-        }
-
-        enum class Value {
-            PENDING,
-            SUBMITTED,
-            REJECTED,
-            RETURNED,
-            _UNKNOWN,
-        }
-
-        fun value(): Value =
-            when (this) {
-                PENDING -> Value.PENDING
-                SUBMITTED -> Value.SUBMITTED
-                REJECTED -> Value.REJECTED
-                RETURNED -> Value.RETURNED
-                else -> Value._UNKNOWN
-            }
-
-        fun known(): Known =
-            when (this) {
-                PENDING -> Known.PENDING
-                SUBMITTED -> Known.SUBMITTED
-                REJECTED -> Known.REJECTED
-                RETURNED -> Known.RETURNED
-                else -> throw IncreaseInvalidDataException("Unknown Status: $value")
-            }
-
-        fun asString(): String = _value().asStringOrThrow()
-    }
-
     /**
      * If your deposit is successfully parsed and accepted by Increase, this will contain details of
      * the parsed check.
@@ -1786,6 +1717,75 @@ private constructor(
 
             fun asString(): String = _value().asStringOrThrow()
         }
+    }
+
+    class Status
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Status && this.value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            val PENDING = Status(JsonField.of("pending"))
+
+            val SUBMITTED = Status(JsonField.of("submitted"))
+
+            val REJECTED = Status(JsonField.of("rejected"))
+
+            val RETURNED = Status(JsonField.of("returned"))
+
+            fun of(value: String) = Status(JsonField.of(value))
+        }
+
+        enum class Known {
+            PENDING,
+            SUBMITTED,
+            REJECTED,
+            RETURNED,
+        }
+
+        enum class Value {
+            PENDING,
+            SUBMITTED,
+            REJECTED,
+            RETURNED,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                PENDING -> Value.PENDING
+                SUBMITTED -> Value.SUBMITTED
+                REJECTED -> Value.REJECTED
+                RETURNED -> Value.RETURNED
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                PENDING -> Known.PENDING
+                SUBMITTED -> Known.SUBMITTED
+                REJECTED -> Known.REJECTED
+                RETURNED -> Known.RETURNED
+                else -> throw IncreaseInvalidDataException("Unknown Status: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
     }
 
     class Type

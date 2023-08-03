@@ -338,137 +338,6 @@ private constructor(
             )
     }
 
-    class Status
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) {
-
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Status && this.value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-
-        companion object {
-
-            val PENDING = Status(JsonField.of("pending"))
-
-            val RESPONDED = Status(JsonField.of("responded"))
-
-            val TIMED_OUT = Status(JsonField.of("timed_out"))
-
-            fun of(value: String) = Status(JsonField.of(value))
-        }
-
-        enum class Known {
-            PENDING,
-            RESPONDED,
-            TIMED_OUT,
-        }
-
-        enum class Value {
-            PENDING,
-            RESPONDED,
-            TIMED_OUT,
-            _UNKNOWN,
-        }
-
-        fun value(): Value =
-            when (this) {
-                PENDING -> Value.PENDING
-                RESPONDED -> Value.RESPONDED
-                TIMED_OUT -> Value.TIMED_OUT
-                else -> Value._UNKNOWN
-            }
-
-        fun known(): Known =
-            when (this) {
-                PENDING -> Known.PENDING
-                RESPONDED -> Known.RESPONDED
-                TIMED_OUT -> Known.TIMED_OUT
-                else -> throw IncreaseInvalidDataException("Unknown Status: $value")
-            }
-
-        fun asString(): String = _value().asStringOrThrow()
-    }
-
-    class Category
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) {
-
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Category && this.value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-
-        companion object {
-
-            val CARD_AUTHORIZATION_REQUESTED =
-                Category(JsonField.of("card_authorization_requested"))
-
-            val DIGITAL_WALLET_TOKEN_REQUESTED =
-                Category(JsonField.of("digital_wallet_token_requested"))
-
-            val DIGITAL_WALLET_AUTHENTICATION_REQUESTED =
-                Category(JsonField.of("digital_wallet_authentication_requested"))
-
-            fun of(value: String) = Category(JsonField.of(value))
-        }
-
-        enum class Known {
-            CARD_AUTHORIZATION_REQUESTED,
-            DIGITAL_WALLET_TOKEN_REQUESTED,
-            DIGITAL_WALLET_AUTHENTICATION_REQUESTED,
-        }
-
-        enum class Value {
-            CARD_AUTHORIZATION_REQUESTED,
-            DIGITAL_WALLET_TOKEN_REQUESTED,
-            DIGITAL_WALLET_AUTHENTICATION_REQUESTED,
-            _UNKNOWN,
-        }
-
-        fun value(): Value =
-            when (this) {
-                CARD_AUTHORIZATION_REQUESTED -> Value.CARD_AUTHORIZATION_REQUESTED
-                DIGITAL_WALLET_TOKEN_REQUESTED -> Value.DIGITAL_WALLET_TOKEN_REQUESTED
-                DIGITAL_WALLET_AUTHENTICATION_REQUESTED ->
-                    Value.DIGITAL_WALLET_AUTHENTICATION_REQUESTED
-                else -> Value._UNKNOWN
-            }
-
-        fun known(): Known =
-            when (this) {
-                CARD_AUTHORIZATION_REQUESTED -> Known.CARD_AUTHORIZATION_REQUESTED
-                DIGITAL_WALLET_TOKEN_REQUESTED -> Known.DIGITAL_WALLET_TOKEN_REQUESTED
-                DIGITAL_WALLET_AUTHENTICATION_REQUESTED ->
-                    Known.DIGITAL_WALLET_AUTHENTICATION_REQUESTED
-                else -> throw IncreaseInvalidDataException("Unknown Category: $value")
-            }
-
-        fun asString(): String = _value().asStringOrThrow()
-    }
-
     /** Fields related to a card authorization. */
     @JsonDeserialize(builder = CardAuthorization.Builder::class)
     @NoAutoDetect
@@ -999,6 +868,63 @@ private constructor(
                 )
         }
 
+        class Decision
+        @JsonCreator
+        private constructor(
+            private val value: JsonField<String>,
+        ) {
+
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Decision && this.value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+
+            companion object {
+
+                val APPROVE = Decision(JsonField.of("approve"))
+
+                val DECLINE = Decision(JsonField.of("decline"))
+
+                fun of(value: String) = Decision(JsonField.of(value))
+            }
+
+            enum class Known {
+                APPROVE,
+                DECLINE,
+            }
+
+            enum class Value {
+                APPROVE,
+                DECLINE,
+                _UNKNOWN,
+            }
+
+            fun value(): Value =
+                when (this) {
+                    APPROVE -> Value.APPROVE
+                    DECLINE -> Value.DECLINE
+                    else -> Value._UNKNOWN
+                }
+
+            fun known(): Known =
+                when (this) {
+                    APPROVE -> Known.APPROVE
+                    DECLINE -> Known.DECLINE
+                    else -> throw IncreaseInvalidDataException("Unknown Decision: $value")
+                }
+
+            fun asString(): String = _value().asStringOrThrow()
+        }
+
         /** Fields specific to the `network` */
         @JsonDeserialize(builder = NetworkDetails.Builder::class)
         @NoAutoDetect
@@ -1453,63 +1379,6 @@ private constructor(
             }
         }
 
-        class Decision
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) {
-
-            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is Decision && this.value == other.value
-            }
-
-            override fun hashCode() = value.hashCode()
-
-            override fun toString() = value.toString()
-
-            companion object {
-
-                val APPROVE = Decision(JsonField.of("approve"))
-
-                val DECLINE = Decision(JsonField.of("decline"))
-
-                fun of(value: String) = Decision(JsonField.of(value))
-            }
-
-            enum class Known {
-                APPROVE,
-                DECLINE,
-            }
-
-            enum class Value {
-                APPROVE,
-                DECLINE,
-                _UNKNOWN,
-            }
-
-            fun value(): Value =
-                when (this) {
-                    APPROVE -> Value.APPROVE
-                    DECLINE -> Value.DECLINE
-                    else -> Value._UNKNOWN
-                }
-
-            fun known(): Known =
-                when (this) {
-                    APPROVE -> Known.APPROVE
-                    DECLINE -> Known.DECLINE
-                    else -> throw IncreaseInvalidDataException("Unknown Decision: $value")
-                }
-
-            fun asString(): String = _value().asStringOrThrow()
-        }
-
         /** Fields specific to the type of request, such as an incremental authorization. */
         @JsonDeserialize(builder = RequestDetails.Builder::class)
         @NoAutoDetect
@@ -1874,6 +1743,478 @@ private constructor(
         }
     }
 
+    class Category
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Category && this.value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            val CARD_AUTHORIZATION_REQUESTED =
+                Category(JsonField.of("card_authorization_requested"))
+
+            val DIGITAL_WALLET_TOKEN_REQUESTED =
+                Category(JsonField.of("digital_wallet_token_requested"))
+
+            val DIGITAL_WALLET_AUTHENTICATION_REQUESTED =
+                Category(JsonField.of("digital_wallet_authentication_requested"))
+
+            fun of(value: String) = Category(JsonField.of(value))
+        }
+
+        enum class Known {
+            CARD_AUTHORIZATION_REQUESTED,
+            DIGITAL_WALLET_TOKEN_REQUESTED,
+            DIGITAL_WALLET_AUTHENTICATION_REQUESTED,
+        }
+
+        enum class Value {
+            CARD_AUTHORIZATION_REQUESTED,
+            DIGITAL_WALLET_TOKEN_REQUESTED,
+            DIGITAL_WALLET_AUTHENTICATION_REQUESTED,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                CARD_AUTHORIZATION_REQUESTED -> Value.CARD_AUTHORIZATION_REQUESTED
+                DIGITAL_WALLET_TOKEN_REQUESTED -> Value.DIGITAL_WALLET_TOKEN_REQUESTED
+                DIGITAL_WALLET_AUTHENTICATION_REQUESTED ->
+                    Value.DIGITAL_WALLET_AUTHENTICATION_REQUESTED
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                CARD_AUTHORIZATION_REQUESTED -> Known.CARD_AUTHORIZATION_REQUESTED
+                DIGITAL_WALLET_TOKEN_REQUESTED -> Known.DIGITAL_WALLET_TOKEN_REQUESTED
+                DIGITAL_WALLET_AUTHENTICATION_REQUESTED ->
+                    Known.DIGITAL_WALLET_AUTHENTICATION_REQUESTED
+                else -> throw IncreaseInvalidDataException("Unknown Category: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
+    }
+
+    /** Fields related to a digital wallet authentication attempt. */
+    @JsonDeserialize(builder = DigitalWalletAuthentication.Builder::class)
+    @NoAutoDetect
+    class DigitalWalletAuthentication
+    private constructor(
+        private val result: JsonField<Result>,
+        private val cardId: JsonField<String>,
+        private val digitalWallet: JsonField<DigitalWallet>,
+        private val channel: JsonField<Channel>,
+        private val oneTimePasscode: JsonField<String>,
+        private val phone: JsonField<String>,
+        private val email: JsonField<String>,
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
+
+        private var validated: Boolean = false
+
+        private var hashCode: Int = 0
+
+        /** Whether your application successfully delivered the one-time passcode. */
+        fun result(): Result? = result.getNullable("result")
+
+        /** The identifier of the Card that is being tokenized. */
+        fun cardId(): String = cardId.getRequired("card_id")
+
+        /** The digital wallet app being used. */
+        fun digitalWallet(): DigitalWallet = digitalWallet.getRequired("digital_wallet")
+
+        /** The channel to send the card user their one-time passcode. */
+        fun channel(): Channel = channel.getRequired("channel")
+
+        /** The one-time passcode to send the card user. */
+        fun oneTimePasscode(): String = oneTimePasscode.getRequired("one_time_passcode")
+
+        /** The phone number to send the one-time passcode to if `channel` is equal to `sms`. */
+        fun phone(): String? = phone.getNullable("phone")
+
+        /** The email to send the one-time passcode to if `channel` is equal to `email`. */
+        fun email(): String? = email.getNullable("email")
+
+        /** Whether your application successfully delivered the one-time passcode. */
+        @JsonProperty("result") @ExcludeMissing fun _result() = result
+
+        /** The identifier of the Card that is being tokenized. */
+        @JsonProperty("card_id") @ExcludeMissing fun _cardId() = cardId
+
+        /** The digital wallet app being used. */
+        @JsonProperty("digital_wallet") @ExcludeMissing fun _digitalWallet() = digitalWallet
+
+        /** The channel to send the card user their one-time passcode. */
+        @JsonProperty("channel") @ExcludeMissing fun _channel() = channel
+
+        /** The one-time passcode to send the card user. */
+        @JsonProperty("one_time_passcode") @ExcludeMissing fun _oneTimePasscode() = oneTimePasscode
+
+        /** The phone number to send the one-time passcode to if `channel` is equal to `sms`. */
+        @JsonProperty("phone") @ExcludeMissing fun _phone() = phone
+
+        /** The email to send the one-time passcode to if `channel` is equal to `email`. */
+        @JsonProperty("email") @ExcludeMissing fun _email() = email
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun validate(): DigitalWalletAuthentication = apply {
+            if (!validated) {
+                result()
+                cardId()
+                digitalWallet()
+                channel()
+                oneTimePasscode()
+                phone()
+                email()
+                validated = true
+            }
+        }
+
+        fun toBuilder() = Builder().from(this)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is DigitalWalletAuthentication &&
+                this.result == other.result &&
+                this.cardId == other.cardId &&
+                this.digitalWallet == other.digitalWallet &&
+                this.channel == other.channel &&
+                this.oneTimePasscode == other.oneTimePasscode &&
+                this.phone == other.phone &&
+                this.email == other.email &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        result,
+                        cardId,
+                        digitalWallet,
+                        channel,
+                        oneTimePasscode,
+                        phone,
+                        email,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "DigitalWalletAuthentication{result=$result, cardId=$cardId, digitalWallet=$digitalWallet, channel=$channel, oneTimePasscode=$oneTimePasscode, phone=$phone, email=$email, additionalProperties=$additionalProperties}"
+
+        companion object {
+
+            fun builder() = Builder()
+        }
+
+        class Builder {
+
+            private var result: JsonField<Result> = JsonMissing.of()
+            private var cardId: JsonField<String> = JsonMissing.of()
+            private var digitalWallet: JsonField<DigitalWallet> = JsonMissing.of()
+            private var channel: JsonField<Channel> = JsonMissing.of()
+            private var oneTimePasscode: JsonField<String> = JsonMissing.of()
+            private var phone: JsonField<String> = JsonMissing.of()
+            private var email: JsonField<String> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            internal fun from(digitalWalletAuthentication: DigitalWalletAuthentication) = apply {
+                this.result = digitalWalletAuthentication.result
+                this.cardId = digitalWalletAuthentication.cardId
+                this.digitalWallet = digitalWalletAuthentication.digitalWallet
+                this.channel = digitalWalletAuthentication.channel
+                this.oneTimePasscode = digitalWalletAuthentication.oneTimePasscode
+                this.phone = digitalWalletAuthentication.phone
+                this.email = digitalWalletAuthentication.email
+                additionalProperties(digitalWalletAuthentication.additionalProperties)
+            }
+
+            /** Whether your application successfully delivered the one-time passcode. */
+            fun result(result: Result) = result(JsonField.of(result))
+
+            /** Whether your application successfully delivered the one-time passcode. */
+            @JsonProperty("result")
+            @ExcludeMissing
+            fun result(result: JsonField<Result>) = apply { this.result = result }
+
+            /** The identifier of the Card that is being tokenized. */
+            fun cardId(cardId: String) = cardId(JsonField.of(cardId))
+
+            /** The identifier of the Card that is being tokenized. */
+            @JsonProperty("card_id")
+            @ExcludeMissing
+            fun cardId(cardId: JsonField<String>) = apply { this.cardId = cardId }
+
+            /** The digital wallet app being used. */
+            fun digitalWallet(digitalWallet: DigitalWallet) =
+                digitalWallet(JsonField.of(digitalWallet))
+
+            /** The digital wallet app being used. */
+            @JsonProperty("digital_wallet")
+            @ExcludeMissing
+            fun digitalWallet(digitalWallet: JsonField<DigitalWallet>) = apply {
+                this.digitalWallet = digitalWallet
+            }
+
+            /** The channel to send the card user their one-time passcode. */
+            fun channel(channel: Channel) = channel(JsonField.of(channel))
+
+            /** The channel to send the card user their one-time passcode. */
+            @JsonProperty("channel")
+            @ExcludeMissing
+            fun channel(channel: JsonField<Channel>) = apply { this.channel = channel }
+
+            /** The one-time passcode to send the card user. */
+            fun oneTimePasscode(oneTimePasscode: String) =
+                oneTimePasscode(JsonField.of(oneTimePasscode))
+
+            /** The one-time passcode to send the card user. */
+            @JsonProperty("one_time_passcode")
+            @ExcludeMissing
+            fun oneTimePasscode(oneTimePasscode: JsonField<String>) = apply {
+                this.oneTimePasscode = oneTimePasscode
+            }
+
+            /** The phone number to send the one-time passcode to if `channel` is equal to `sms`. */
+            fun phone(phone: String) = phone(JsonField.of(phone))
+
+            /** The phone number to send the one-time passcode to if `channel` is equal to `sms`. */
+            @JsonProperty("phone")
+            @ExcludeMissing
+            fun phone(phone: JsonField<String>) = apply { this.phone = phone }
+
+            /** The email to send the one-time passcode to if `channel` is equal to `email`. */
+            fun email(email: String) = email(JsonField.of(email))
+
+            /** The email to send the one-time passcode to if `channel` is equal to `email`. */
+            @JsonProperty("email")
+            @ExcludeMissing
+            fun email(email: JsonField<String>) = apply { this.email = email }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            @JsonAnySetter
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun build(): DigitalWalletAuthentication =
+                DigitalWalletAuthentication(
+                    result,
+                    cardId,
+                    digitalWallet,
+                    channel,
+                    oneTimePasscode,
+                    phone,
+                    email,
+                    additionalProperties.toUnmodifiable(),
+                )
+        }
+
+        class Channel
+        @JsonCreator
+        private constructor(
+            private val value: JsonField<String>,
+        ) {
+
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Channel && this.value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+
+            companion object {
+
+                val SMS = Channel(JsonField.of("sms"))
+
+                val EMAIL = Channel(JsonField.of("email"))
+
+                fun of(value: String) = Channel(JsonField.of(value))
+            }
+
+            enum class Known {
+                SMS,
+                EMAIL,
+            }
+
+            enum class Value {
+                SMS,
+                EMAIL,
+                _UNKNOWN,
+            }
+
+            fun value(): Value =
+                when (this) {
+                    SMS -> Value.SMS
+                    EMAIL -> Value.EMAIL
+                    else -> Value._UNKNOWN
+                }
+
+            fun known(): Known =
+                when (this) {
+                    SMS -> Known.SMS
+                    EMAIL -> Known.EMAIL
+                    else -> throw IncreaseInvalidDataException("Unknown Channel: $value")
+                }
+
+            fun asString(): String = _value().asStringOrThrow()
+        }
+
+        class DigitalWallet
+        @JsonCreator
+        private constructor(
+            private val value: JsonField<String>,
+        ) {
+
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is DigitalWallet && this.value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+
+            companion object {
+
+                val APPLE_PAY = DigitalWallet(JsonField.of("apple_pay"))
+
+                val GOOGLE_PAY = DigitalWallet(JsonField.of("google_pay"))
+
+                fun of(value: String) = DigitalWallet(JsonField.of(value))
+            }
+
+            enum class Known {
+                APPLE_PAY,
+                GOOGLE_PAY,
+            }
+
+            enum class Value {
+                APPLE_PAY,
+                GOOGLE_PAY,
+                _UNKNOWN,
+            }
+
+            fun value(): Value =
+                when (this) {
+                    APPLE_PAY -> Value.APPLE_PAY
+                    GOOGLE_PAY -> Value.GOOGLE_PAY
+                    else -> Value._UNKNOWN
+                }
+
+            fun known(): Known =
+                when (this) {
+                    APPLE_PAY -> Known.APPLE_PAY
+                    GOOGLE_PAY -> Known.GOOGLE_PAY
+                    else -> throw IncreaseInvalidDataException("Unknown DigitalWallet: $value")
+                }
+
+            fun asString(): String = _value().asStringOrThrow()
+        }
+
+        class Result
+        @JsonCreator
+        private constructor(
+            private val value: JsonField<String>,
+        ) {
+
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Result && this.value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+
+            companion object {
+
+                val SUCCESS = Result(JsonField.of("success"))
+
+                val FAILURE = Result(JsonField.of("failure"))
+
+                fun of(value: String) = Result(JsonField.of(value))
+            }
+
+            enum class Known {
+                SUCCESS,
+                FAILURE,
+            }
+
+            enum class Value {
+                SUCCESS,
+                FAILURE,
+                _UNKNOWN,
+            }
+
+            fun value(): Value =
+                when (this) {
+                    SUCCESS -> Value.SUCCESS
+                    FAILURE -> Value.FAILURE
+                    else -> Value._UNKNOWN
+                }
+
+            fun known(): Known =
+                when (this) {
+                    SUCCESS -> Known.SUCCESS
+                    FAILURE -> Known.FAILURE
+                    else -> throw IncreaseInvalidDataException("Unknown Result: $value")
+                }
+
+            fun asString(): String = _value().asStringOrThrow()
+        }
+    }
+
     /** Fields related to a digital wallet token provisioning attempt. */
     @JsonDeserialize(builder = DigitalWalletToken.Builder::class)
     @NoAutoDetect
@@ -2185,408 +2526,67 @@ private constructor(
         }
     }
 
-    /** Fields related to a digital wallet authentication attempt. */
-    @JsonDeserialize(builder = DigitalWalletAuthentication.Builder::class)
-    @NoAutoDetect
-    class DigitalWalletAuthentication
+    class Status
+    @JsonCreator
     private constructor(
-        private val result: JsonField<Result>,
-        private val cardId: JsonField<String>,
-        private val digitalWallet: JsonField<DigitalWallet>,
-        private val channel: JsonField<Channel>,
-        private val oneTimePasscode: JsonField<String>,
-        private val phone: JsonField<String>,
-        private val email: JsonField<String>,
-        private val additionalProperties: Map<String, JsonValue>,
+        private val value: JsonField<String>,
     ) {
 
-        private var validated: Boolean = false
-
-        private var hashCode: Int = 0
-
-        /** Whether your application successfully delivered the one-time passcode. */
-        fun result(): Result? = result.getNullable("result")
-
-        /** The identifier of the Card that is being tokenized. */
-        fun cardId(): String = cardId.getRequired("card_id")
-
-        /** The digital wallet app being used. */
-        fun digitalWallet(): DigitalWallet = digitalWallet.getRequired("digital_wallet")
-
-        /** The channel to send the card user their one-time passcode. */
-        fun channel(): Channel = channel.getRequired("channel")
-
-        /** The one-time passcode to send the card user. */
-        fun oneTimePasscode(): String = oneTimePasscode.getRequired("one_time_passcode")
-
-        /** The phone number to send the one-time passcode to if `channel` is equal to `sms`. */
-        fun phone(): String? = phone.getNullable("phone")
-
-        /** The email to send the one-time passcode to if `channel` is equal to `email`. */
-        fun email(): String? = email.getNullable("email")
-
-        /** Whether your application successfully delivered the one-time passcode. */
-        @JsonProperty("result") @ExcludeMissing fun _result() = result
-
-        /** The identifier of the Card that is being tokenized. */
-        @JsonProperty("card_id") @ExcludeMissing fun _cardId() = cardId
-
-        /** The digital wallet app being used. */
-        @JsonProperty("digital_wallet") @ExcludeMissing fun _digitalWallet() = digitalWallet
-
-        /** The channel to send the card user their one-time passcode. */
-        @JsonProperty("channel") @ExcludeMissing fun _channel() = channel
-
-        /** The one-time passcode to send the card user. */
-        @JsonProperty("one_time_passcode") @ExcludeMissing fun _oneTimePasscode() = oneTimePasscode
-
-        /** The phone number to send the one-time passcode to if `channel` is equal to `sms`. */
-        @JsonProperty("phone") @ExcludeMissing fun _phone() = phone
-
-        /** The email to send the one-time passcode to if `channel` is equal to `email`. */
-        @JsonProperty("email") @ExcludeMissing fun _email() = email
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        fun validate(): DigitalWalletAuthentication = apply {
-            if (!validated) {
-                result()
-                cardId()
-                digitalWallet()
-                channel()
-                oneTimePasscode()
-                phone()
-                email()
-                validated = true
-            }
-        }
-
-        fun toBuilder() = Builder().from(this)
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
                 return true
             }
 
-            return other is DigitalWalletAuthentication &&
-                this.result == other.result &&
-                this.cardId == other.cardId &&
-                this.digitalWallet == other.digitalWallet &&
-                this.channel == other.channel &&
-                this.oneTimePasscode == other.oneTimePasscode &&
-                this.phone == other.phone &&
-                this.email == other.email &&
-                this.additionalProperties == other.additionalProperties
+            return other is Status && this.value == other.value
         }
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        result,
-                        cardId,
-                        digitalWallet,
-                        channel,
-                        oneTimePasscode,
-                        phone,
-                        email,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
+        override fun hashCode() = value.hashCode()
 
-        override fun toString() =
-            "DigitalWalletAuthentication{result=$result, cardId=$cardId, digitalWallet=$digitalWallet, channel=$channel, oneTimePasscode=$oneTimePasscode, phone=$phone, email=$email, additionalProperties=$additionalProperties}"
+        override fun toString() = value.toString()
 
         companion object {
 
-            fun builder() = Builder()
+            val PENDING = Status(JsonField.of("pending"))
+
+            val RESPONDED = Status(JsonField.of("responded"))
+
+            val TIMED_OUT = Status(JsonField.of("timed_out"))
+
+            fun of(value: String) = Status(JsonField.of(value))
         }
 
-        class Builder {
-
-            private var result: JsonField<Result> = JsonMissing.of()
-            private var cardId: JsonField<String> = JsonMissing.of()
-            private var digitalWallet: JsonField<DigitalWallet> = JsonMissing.of()
-            private var channel: JsonField<Channel> = JsonMissing.of()
-            private var oneTimePasscode: JsonField<String> = JsonMissing.of()
-            private var phone: JsonField<String> = JsonMissing.of()
-            private var email: JsonField<String> = JsonMissing.of()
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            internal fun from(digitalWalletAuthentication: DigitalWalletAuthentication) = apply {
-                this.result = digitalWalletAuthentication.result
-                this.cardId = digitalWalletAuthentication.cardId
-                this.digitalWallet = digitalWalletAuthentication.digitalWallet
-                this.channel = digitalWalletAuthentication.channel
-                this.oneTimePasscode = digitalWalletAuthentication.oneTimePasscode
-                this.phone = digitalWalletAuthentication.phone
-                this.email = digitalWalletAuthentication.email
-                additionalProperties(digitalWalletAuthentication.additionalProperties)
-            }
-
-            /** Whether your application successfully delivered the one-time passcode. */
-            fun result(result: Result) = result(JsonField.of(result))
-
-            /** Whether your application successfully delivered the one-time passcode. */
-            @JsonProperty("result")
-            @ExcludeMissing
-            fun result(result: JsonField<Result>) = apply { this.result = result }
-
-            /** The identifier of the Card that is being tokenized. */
-            fun cardId(cardId: String) = cardId(JsonField.of(cardId))
-
-            /** The identifier of the Card that is being tokenized. */
-            @JsonProperty("card_id")
-            @ExcludeMissing
-            fun cardId(cardId: JsonField<String>) = apply { this.cardId = cardId }
-
-            /** The digital wallet app being used. */
-            fun digitalWallet(digitalWallet: DigitalWallet) =
-                digitalWallet(JsonField.of(digitalWallet))
-
-            /** The digital wallet app being used. */
-            @JsonProperty("digital_wallet")
-            @ExcludeMissing
-            fun digitalWallet(digitalWallet: JsonField<DigitalWallet>) = apply {
-                this.digitalWallet = digitalWallet
-            }
-
-            /** The channel to send the card user their one-time passcode. */
-            fun channel(channel: Channel) = channel(JsonField.of(channel))
-
-            /** The channel to send the card user their one-time passcode. */
-            @JsonProperty("channel")
-            @ExcludeMissing
-            fun channel(channel: JsonField<Channel>) = apply { this.channel = channel }
-
-            /** The one-time passcode to send the card user. */
-            fun oneTimePasscode(oneTimePasscode: String) =
-                oneTimePasscode(JsonField.of(oneTimePasscode))
-
-            /** The one-time passcode to send the card user. */
-            @JsonProperty("one_time_passcode")
-            @ExcludeMissing
-            fun oneTimePasscode(oneTimePasscode: JsonField<String>) = apply {
-                this.oneTimePasscode = oneTimePasscode
-            }
-
-            /** The phone number to send the one-time passcode to if `channel` is equal to `sms`. */
-            fun phone(phone: String) = phone(JsonField.of(phone))
-
-            /** The phone number to send the one-time passcode to if `channel` is equal to `sms`. */
-            @JsonProperty("phone")
-            @ExcludeMissing
-            fun phone(phone: JsonField<String>) = apply { this.phone = phone }
-
-            /** The email to send the one-time passcode to if `channel` is equal to `email`. */
-            fun email(email: String) = email(JsonField.of(email))
-
-            /** The email to send the one-time passcode to if `channel` is equal to `email`. */
-            @JsonProperty("email")
-            @ExcludeMissing
-            fun email(email: JsonField<String>) = apply { this.email = email }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            @JsonAnySetter
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun build(): DigitalWalletAuthentication =
-                DigitalWalletAuthentication(
-                    result,
-                    cardId,
-                    digitalWallet,
-                    channel,
-                    oneTimePasscode,
-                    phone,
-                    email,
-                    additionalProperties.toUnmodifiable(),
-                )
+        enum class Known {
+            PENDING,
+            RESPONDED,
+            TIMED_OUT,
         }
 
-        class Result
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) {
-
-            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is Result && this.value == other.value
-            }
-
-            override fun hashCode() = value.hashCode()
-
-            override fun toString() = value.toString()
-
-            companion object {
-
-                val SUCCESS = Result(JsonField.of("success"))
-
-                val FAILURE = Result(JsonField.of("failure"))
-
-                fun of(value: String) = Result(JsonField.of(value))
-            }
-
-            enum class Known {
-                SUCCESS,
-                FAILURE,
-            }
-
-            enum class Value {
-                SUCCESS,
-                FAILURE,
-                _UNKNOWN,
-            }
-
-            fun value(): Value =
-                when (this) {
-                    SUCCESS -> Value.SUCCESS
-                    FAILURE -> Value.FAILURE
-                    else -> Value._UNKNOWN
-                }
-
-            fun known(): Known =
-                when (this) {
-                    SUCCESS -> Known.SUCCESS
-                    FAILURE -> Known.FAILURE
-                    else -> throw IncreaseInvalidDataException("Unknown Result: $value")
-                }
-
-            fun asString(): String = _value().asStringOrThrow()
+        enum class Value {
+            PENDING,
+            RESPONDED,
+            TIMED_OUT,
+            _UNKNOWN,
         }
 
-        class DigitalWallet
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) {
-
-            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is DigitalWallet && this.value == other.value
+        fun value(): Value =
+            when (this) {
+                PENDING -> Value.PENDING
+                RESPONDED -> Value.RESPONDED
+                TIMED_OUT -> Value.TIMED_OUT
+                else -> Value._UNKNOWN
             }
 
-            override fun hashCode() = value.hashCode()
-
-            override fun toString() = value.toString()
-
-            companion object {
-
-                val APPLE_PAY = DigitalWallet(JsonField.of("apple_pay"))
-
-                val GOOGLE_PAY = DigitalWallet(JsonField.of("google_pay"))
-
-                fun of(value: String) = DigitalWallet(JsonField.of(value))
+        fun known(): Known =
+            when (this) {
+                PENDING -> Known.PENDING
+                RESPONDED -> Known.RESPONDED
+                TIMED_OUT -> Known.TIMED_OUT
+                else -> throw IncreaseInvalidDataException("Unknown Status: $value")
             }
 
-            enum class Known {
-                APPLE_PAY,
-                GOOGLE_PAY,
-            }
-
-            enum class Value {
-                APPLE_PAY,
-                GOOGLE_PAY,
-                _UNKNOWN,
-            }
-
-            fun value(): Value =
-                when (this) {
-                    APPLE_PAY -> Value.APPLE_PAY
-                    GOOGLE_PAY -> Value.GOOGLE_PAY
-                    else -> Value._UNKNOWN
-                }
-
-            fun known(): Known =
-                when (this) {
-                    APPLE_PAY -> Known.APPLE_PAY
-                    GOOGLE_PAY -> Known.GOOGLE_PAY
-                    else -> throw IncreaseInvalidDataException("Unknown DigitalWallet: $value")
-                }
-
-            fun asString(): String = _value().asStringOrThrow()
-        }
-
-        class Channel
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) {
-
-            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is Channel && this.value == other.value
-            }
-
-            override fun hashCode() = value.hashCode()
-
-            override fun toString() = value.toString()
-
-            companion object {
-
-                val SMS = Channel(JsonField.of("sms"))
-
-                val EMAIL = Channel(JsonField.of("email"))
-
-                fun of(value: String) = Channel(JsonField.of(value))
-            }
-
-            enum class Known {
-                SMS,
-                EMAIL,
-            }
-
-            enum class Value {
-                SMS,
-                EMAIL,
-                _UNKNOWN,
-            }
-
-            fun value(): Value =
-                when (this) {
-                    SMS -> Value.SMS
-                    EMAIL -> Value.EMAIL
-                    else -> Value._UNKNOWN
-                }
-
-            fun known(): Known =
-                when (this) {
-                    SMS -> Known.SMS
-                    EMAIL -> Known.EMAIL
-                    else -> throw IncreaseInvalidDataException("Unknown Channel: $value")
-                }
-
-            fun asString(): String = _value().asStringOrThrow()
-        }
+        fun asString(): String = _value().asStringOrThrow()
     }
 
     class Type
