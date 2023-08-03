@@ -771,6 +771,7 @@ private constructor(
     @NoAutoDetect
     class PhysicalCards
     private constructor(
+        private val status: JsonField<Status>,
         private val contactPhone: JsonField<String>,
         private val frontImageFileId: JsonField<String>,
         private val backImageFileId: JsonField<String>,
@@ -782,17 +783,23 @@ private constructor(
 
         private var hashCode: Int = 0
 
+        /** The status of the Physical Card Profile. */
+        fun status(): Status = status.getRequired("status")
+
         /** A phone number the user can contact to receive support for their card. */
-        fun contactPhone(): String = contactPhone.getRequired("contact_phone")
+        fun contactPhone(): String? = contactPhone.getNullable("contact_phone")
 
         /** The identifier of the File containing the physical card's front image. */
-        fun frontImageFileId(): String = frontImageFileId.getRequired("front_image_file_id")
+        fun frontImageFileId(): String? = frontImageFileId.getNullable("front_image_file_id")
 
         /** The identifier of the File containing the physical card's back image. */
-        fun backImageFileId(): String = backImageFileId.getRequired("back_image_file_id")
+        fun backImageFileId(): String? = backImageFileId.getNullable("back_image_file_id")
 
         /** The identifier of the File containing the physical card's carrier image. */
-        fun carrierImageFileId(): String = carrierImageFileId.getRequired("carrier_image_file_id")
+        fun carrierImageFileId(): String? = carrierImageFileId.getNullable("carrier_image_file_id")
+
+        /** The status of the Physical Card Profile. */
+        @JsonProperty("status") @ExcludeMissing fun _status() = status
 
         /** A phone number the user can contact to receive support for their card. */
         @JsonProperty("contact_phone") @ExcludeMissing fun _contactPhone() = contactPhone
@@ -816,6 +823,7 @@ private constructor(
 
         fun validate(): PhysicalCards = apply {
             if (!validated) {
+                status()
                 contactPhone()
                 frontImageFileId()
                 backImageFileId()
@@ -832,6 +840,7 @@ private constructor(
             }
 
             return other is PhysicalCards &&
+                this.status == other.status &&
                 this.contactPhone == other.contactPhone &&
                 this.frontImageFileId == other.frontImageFileId &&
                 this.backImageFileId == other.backImageFileId &&
@@ -843,6 +852,7 @@ private constructor(
             if (hashCode == 0) {
                 hashCode =
                     Objects.hash(
+                        status,
                         contactPhone,
                         frontImageFileId,
                         backImageFileId,
@@ -854,7 +864,7 @@ private constructor(
         }
 
         override fun toString() =
-            "PhysicalCards{contactPhone=$contactPhone, frontImageFileId=$frontImageFileId, backImageFileId=$backImageFileId, carrierImageFileId=$carrierImageFileId, additionalProperties=$additionalProperties}"
+            "PhysicalCards{status=$status, contactPhone=$contactPhone, frontImageFileId=$frontImageFileId, backImageFileId=$backImageFileId, carrierImageFileId=$carrierImageFileId, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -863,6 +873,7 @@ private constructor(
 
         class Builder {
 
+            private var status: JsonField<Status> = JsonMissing.of()
             private var contactPhone: JsonField<String> = JsonMissing.of()
             private var frontImageFileId: JsonField<String> = JsonMissing.of()
             private var backImageFileId: JsonField<String> = JsonMissing.of()
@@ -870,12 +881,21 @@ private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(physicalCards: PhysicalCards) = apply {
+                this.status = physicalCards.status
                 this.contactPhone = physicalCards.contactPhone
                 this.frontImageFileId = physicalCards.frontImageFileId
                 this.backImageFileId = physicalCards.backImageFileId
                 this.carrierImageFileId = physicalCards.carrierImageFileId
                 additionalProperties(physicalCards.additionalProperties)
             }
+
+            /** The status of the Physical Card Profile. */
+            fun status(status: Status) = status(JsonField.of(status))
+
+            /** The status of the Physical Card Profile. */
+            @JsonProperty("status")
+            @ExcludeMissing
+            fun status(status: JsonField<Status>) = apply { this.status = status }
 
             /** A phone number the user can contact to receive support for their card. */
             fun contactPhone(contactPhone: String) = contactPhone(JsonField.of(contactPhone))
@@ -936,12 +956,88 @@ private constructor(
 
             fun build(): PhysicalCards =
                 PhysicalCards(
+                    status,
                     contactPhone,
                     frontImageFileId,
                     backImageFileId,
                     carrierImageFileId,
                     additionalProperties.toUnmodifiable(),
                 )
+        }
+
+        class Status
+        @JsonCreator
+        private constructor(
+            private val value: JsonField<String>,
+        ) {
+
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Status && this.value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+
+            companion object {
+
+                val NOT_ELIGIBLE = Status(JsonField.of("not_eligible"))
+
+                val REJECTED = Status(JsonField.of("rejected"))
+
+                val PENDING_REVIEWING = Status(JsonField.of("pending_reviewing"))
+
+                val PENDING_SUBMITTING = Status(JsonField.of("pending_submitting"))
+
+                val SUBMITTED = Status(JsonField.of("submitted"))
+
+                fun of(value: String) = Status(JsonField.of(value))
+            }
+
+            enum class Known {
+                NOT_ELIGIBLE,
+                REJECTED,
+                PENDING_REVIEWING,
+                PENDING_SUBMITTING,
+                SUBMITTED,
+            }
+
+            enum class Value {
+                NOT_ELIGIBLE,
+                REJECTED,
+                PENDING_REVIEWING,
+                PENDING_SUBMITTING,
+                SUBMITTED,
+                _UNKNOWN,
+            }
+
+            fun value(): Value =
+                when (this) {
+                    NOT_ELIGIBLE -> Value.NOT_ELIGIBLE
+                    REJECTED -> Value.REJECTED
+                    PENDING_REVIEWING -> Value.PENDING_REVIEWING
+                    PENDING_SUBMITTING -> Value.PENDING_SUBMITTING
+                    SUBMITTED -> Value.SUBMITTED
+                    else -> Value._UNKNOWN
+                }
+
+            fun known(): Known =
+                when (this) {
+                    NOT_ELIGIBLE -> Known.NOT_ELIGIBLE
+                    REJECTED -> Known.REJECTED
+                    PENDING_REVIEWING -> Known.PENDING_REVIEWING
+                    PENDING_SUBMITTING -> Known.PENDING_SUBMITTING
+                    SUBMITTED -> Known.SUBMITTED
+                    else -> throw IncreaseInvalidDataException("Unknown Status: $value")
+                }
+
+            fun asString(): String = _value().asStringOrThrow()
         }
     }
 
