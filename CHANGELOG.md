@@ -1,5 +1,28 @@
 # Changelog
 
+## [0.7.1](https://github.com/Increase/increase-kotlin/compare/v0.7.0...v0.7.1) (2023-08-08)
+
+
+### Features
+
+* **api:** updates ([#55](https://github.com/Increase/increase-kotlin/issues/55)) ([b56d956](https://github.com/Increase/increase-kotlin/commit/b56d95600620961940e0efb7ceafde9974d9ec88))
+* **ci:** add a publish-sonatype workflow for manual running ([#47](https://github.com/Increase/increase-kotlin/issues/47)) ([aca1537](https://github.com/Increase/increase-kotlin/commit/aca1537398469c3a920e588b37999ad1e3286e5e))
+* **test:** unskip file uploads tests ([#49](https://github.com/Increase/increase-kotlin/issues/49)) ([c805758](https://github.com/Increase/increase-kotlin/commit/c805758372ff1e0350405f62ae5f106e09ac7c83))
+
+
+### Chores
+
+* **ci:** allow release to proceed without signing key id secret ([#56](https://github.com/Increase/increase-kotlin/issues/56)) ([d85fe88](https://github.com/Increase/increase-kotlin/commit/d85fe882874543c45c10b972739c9f78fa0e9a70))
+* **internal:** add `codegen.log` to `.gitignore` ([#45](https://github.com/Increase/increase-kotlin/issues/45)) ([6978144](https://github.com/Increase/increase-kotlin/commit/69781448cae4644990dd259f295cbf6cc1ec6358))
+* **internal:** publish with --stacktrace for more helpful error information ([#52](https://github.com/Increase/increase-kotlin/issues/52)) ([efc6b11](https://github.com/Increase/increase-kotlin/commit/efc6b11fb5d0212e1bfb76b93943736acbaab0ad))
+* **internal:** reorganize types ([#57](https://github.com/Increase/increase-kotlin/issues/57)) ([d060ea1](https://github.com/Increase/increase-kotlin/commit/d060ea16c4b26607a66ef751eb65d9fbfccc28fe))
+* **internal:** support passing GPG_SIGNING_KEY_ID from secrets ([#54](https://github.com/Increase/increase-kotlin/issues/54)) ([2db452c](https://github.com/Increase/increase-kotlin/commit/2db452c7a42dfc38f9593031a5622a0ed6da0801))
+
+
+### Documentation
+
+* **readme:** remove beta status + document versioning policy ([#58](https://github.com/Increase/increase-kotlin/issues/58)) ([4789614](https://github.com/Increase/increase-kotlin/commit/47896146a771ace4a6df32dbc899c831aa378aed))
+
 ## [0.7.0](https://github.com/Increase/increase-kotlin/compare/v0.6.1...v0.7.0) (2023-07-22)
 
 
