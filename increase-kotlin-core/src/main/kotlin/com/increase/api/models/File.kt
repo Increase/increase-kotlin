@@ -375,6 +375,8 @@ private constructor(
 
             val CHECK_IMAGE_BACK = Purpose(JsonField.of("check_image_back"))
 
+            val MAILED_CHECK_IMAGE = Purpose(JsonField.of("mailed_check_image"))
+
             val FORM_1099_INT = Purpose(JsonField.of("form_1099_int"))
 
             val FORM_SS_4 = Purpose(JsonField.of("form_ss_4"))
@@ -409,6 +411,7 @@ private constructor(
         enum class Known {
             CHECK_IMAGE_FRONT,
             CHECK_IMAGE_BACK,
+            MAILED_CHECK_IMAGE,
             FORM_1099_INT,
             FORM_SS_4,
             IDENTITY_DOCUMENT,
@@ -428,6 +431,7 @@ private constructor(
         enum class Value {
             CHECK_IMAGE_FRONT,
             CHECK_IMAGE_BACK,
+            MAILED_CHECK_IMAGE,
             FORM_1099_INT,
             FORM_SS_4,
             IDENTITY_DOCUMENT,
@@ -449,6 +453,7 @@ private constructor(
             when (this) {
                 CHECK_IMAGE_FRONT -> Value.CHECK_IMAGE_FRONT
                 CHECK_IMAGE_BACK -> Value.CHECK_IMAGE_BACK
+                MAILED_CHECK_IMAGE -> Value.MAILED_CHECK_IMAGE
                 FORM_1099_INT -> Value.FORM_1099_INT
                 FORM_SS_4 -> Value.FORM_SS_4
                 IDENTITY_DOCUMENT -> Value.IDENTITY_DOCUMENT
@@ -470,6 +475,7 @@ private constructor(
             when (this) {
                 CHECK_IMAGE_FRONT -> Known.CHECK_IMAGE_FRONT
                 CHECK_IMAGE_BACK -> Known.CHECK_IMAGE_BACK
+                MAILED_CHECK_IMAGE -> Known.MAILED_CHECK_IMAGE
                 FORM_1099_INT -> Known.FORM_1099_INT
                 FORM_SS_4 -> Known.FORM_SS_4
                 IDENTITY_DOCUMENT -> Known.IDENTITY_DOCUMENT
