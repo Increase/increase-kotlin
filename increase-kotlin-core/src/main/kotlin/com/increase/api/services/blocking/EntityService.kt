@@ -4,6 +4,7 @@ package com.increase.api.services.blocking
 
 import com.increase.api.core.RequestOptions
 import com.increase.api.models.Entity
+import com.increase.api.models.EntityArchiveParams
 import com.increase.api.models.EntityCreateParams
 import com.increase.api.models.EntityListPage
 import com.increase.api.models.EntityListParams
@@ -34,4 +35,10 @@ interface EntityService {
         params: EntityListParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): EntityListPage
+
+    /** Archive an Entity */
+    fun archive(
+        params: EntityArchiveParams,
+        requestOptions: RequestOptions = RequestOptions.none()
+    ): Entity
 }

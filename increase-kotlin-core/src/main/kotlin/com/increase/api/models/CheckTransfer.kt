@@ -1364,6 +1364,7 @@ private constructor(
     class Mailing
     private constructor(
         private val mailedAt: JsonField<OffsetDateTime>,
+        private val imageId: JsonField<String>,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -1378,10 +1379,20 @@ private constructor(
         fun mailedAt(): OffsetDateTime = mailedAt.getRequired("mailed_at")
 
         /**
+         * The ID of the file corresponding to an image of the check that was mailed, if available.
+         */
+        fun imageId(): String? = imageId.getNullable("image_id")
+
+        /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the check
          * was mailed.
          */
         @JsonProperty("mailed_at") @ExcludeMissing fun _mailedAt() = mailedAt
+
+        /**
+         * The ID of the file corresponding to an image of the check that was mailed, if available.
+         */
+        @JsonProperty("image_id") @ExcludeMissing fun _imageId() = imageId
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -1390,6 +1401,7 @@ private constructor(
         fun validate(): Mailing = apply {
             if (!validated) {
                 mailedAt()
+                imageId()
                 validated = true
             }
         }
@@ -1403,18 +1415,24 @@ private constructor(
 
             return other is Mailing &&
                 this.mailedAt == other.mailedAt &&
+                this.imageId == other.imageId &&
                 this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode = Objects.hash(mailedAt, additionalProperties)
+                hashCode =
+                    Objects.hash(
+                        mailedAt,
+                        imageId,
+                        additionalProperties,
+                    )
             }
             return hashCode
         }
 
         override fun toString() =
-            "Mailing{mailedAt=$mailedAt, additionalProperties=$additionalProperties}"
+            "Mailing{mailedAt=$mailedAt, imageId=$imageId, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -1424,10 +1442,12 @@ private constructor(
         class Builder {
 
             private var mailedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+            private var imageId: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(mailing: Mailing) = apply {
                 this.mailedAt = mailing.mailedAt
+                this.imageId = mailing.imageId
                 additionalProperties(mailing.additionalProperties)
             }
 
@@ -1445,6 +1465,20 @@ private constructor(
             @ExcludeMissing
             fun mailedAt(mailedAt: JsonField<OffsetDateTime>) = apply { this.mailedAt = mailedAt }
 
+            /**
+             * The ID of the file corresponding to an image of the check that was mailed, if
+             * available.
+             */
+            fun imageId(imageId: String) = imageId(JsonField.of(imageId))
+
+            /**
+             * The ID of the file corresponding to an image of the check that was mailed, if
+             * available.
+             */
+            @JsonProperty("image_id")
+            @ExcludeMissing
+            fun imageId(imageId: JsonField<String>) = apply { this.imageId = imageId }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 this.additionalProperties.putAll(additionalProperties)
@@ -1459,7 +1493,12 @@ private constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): Mailing = Mailing(mailedAt, additionalProperties.toUnmodifiable())
+            fun build(): Mailing =
+                Mailing(
+                    mailedAt,
+                    imageId,
+                    additionalProperties.toUnmodifiable(),
+                )
         }
     }
 

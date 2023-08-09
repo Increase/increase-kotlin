@@ -4,6 +4,7 @@ package com.increase.api.services.async
 
 import com.increase.api.core.RequestOptions
 import com.increase.api.models.Entity
+import com.increase.api.models.EntityArchiveParams
 import com.increase.api.models.EntityCreateParams
 import com.increase.api.models.EntityListPageAsync
 import com.increase.api.models.EntityListParams
@@ -34,4 +35,10 @@ interface EntityServiceAsync {
         params: EntityListParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): EntityListPageAsync
+
+    /** Archive an Entity */
+    suspend fun archive(
+        params: EntityArchiveParams,
+        requestOptions: RequestOptions = RequestOptions.none()
+    ): Entity
 }

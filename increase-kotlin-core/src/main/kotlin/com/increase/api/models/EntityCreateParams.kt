@@ -896,7 +896,7 @@ constructor(
         private constructor(
             private val individual: Individual?,
             private val companyTitle: String?,
-            private val prong: Prong?,
+            private val prongs: List<Prong>?,
             private val additionalProperties: Map<String, JsonValue>,
         ) {
 
@@ -908,8 +908,11 @@ constructor(
             /** This person's role or title within the entity. */
             @JsonProperty("company_title") fun companyTitle(): String? = companyTitle
 
-            /** Why this person is considered a beneficial owner of the entity. */
-            @JsonProperty("prong") fun prong(): Prong? = prong
+            /**
+             * Why this person is considered a beneficial owner of the entity. At least one option
+             * is required.
+             */
+            @JsonProperty("prongs") fun prongs(): List<Prong>? = prongs
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -925,7 +928,7 @@ constructor(
                 return other is BeneficialOwner &&
                     this.individual == other.individual &&
                     this.companyTitle == other.companyTitle &&
-                    this.prong == other.prong &&
+                    this.prongs == other.prongs &&
                     this.additionalProperties == other.additionalProperties
             }
 
@@ -935,7 +938,7 @@ constructor(
                         Objects.hash(
                             individual,
                             companyTitle,
-                            prong,
+                            prongs,
                             additionalProperties,
                         )
                 }
@@ -943,7 +946,7 @@ constructor(
             }
 
             override fun toString() =
-                "BeneficialOwner{individual=$individual, companyTitle=$companyTitle, prong=$prong, additionalProperties=$additionalProperties}"
+                "BeneficialOwner{individual=$individual, companyTitle=$companyTitle, prongs=$prongs, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -954,13 +957,13 @@ constructor(
 
                 private var individual: Individual? = null
                 private var companyTitle: String? = null
-                private var prong: Prong? = null
+                private var prongs: List<Prong>? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(beneficialOwner: BeneficialOwner) = apply {
                     this.individual = beneficialOwner.individual
                     this.companyTitle = beneficialOwner.companyTitle
-                    this.prong = beneficialOwner.prong
+                    this.prongs = beneficialOwner.prongs
                     additionalProperties(beneficialOwner.additionalProperties)
                 }
 
@@ -972,8 +975,12 @@ constructor(
                 @JsonProperty("company_title")
                 fun companyTitle(companyTitle: String) = apply { this.companyTitle = companyTitle }
 
-                /** Why this person is considered a beneficial owner of the entity. */
-                @JsonProperty("prong") fun prong(prong: Prong) = apply { this.prong = prong }
+                /**
+                 * Why this person is considered a beneficial owner of the entity. At least one
+                 * option is required.
+                 */
+                @JsonProperty("prongs")
+                fun prongs(prongs: List<Prong>) = apply { this.prongs = prongs }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -994,7 +1001,8 @@ constructor(
                     BeneficialOwner(
                         checkNotNull(individual) { "`individual` is required but was not set" },
                         companyTitle,
-                        checkNotNull(prong) { "`prong` is required but was not set" },
+                        checkNotNull(prongs) { "`prongs` is required but was not set" }
+                            .toUnmodifiable(),
                         additionalProperties.toUnmodifiable(),
                     )
             }
