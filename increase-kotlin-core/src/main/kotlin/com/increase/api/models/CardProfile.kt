@@ -28,6 +28,7 @@ private constructor(
     private val createdAt: JsonField<OffsetDateTime>,
     private val status: JsonField<Status>,
     private val description: JsonField<String>,
+    private val isDefault: JsonField<Boolean>,
     private val digitalWallets: JsonField<DigitalWallets>,
     private val physicalCards: JsonField<PhysicalCards>,
     private val type: JsonField<Type>,
@@ -52,6 +53,9 @@ private constructor(
 
     /** A description you can use to identify the Card Profile. */
     fun description(): String = description.getRequired("description")
+
+    /** Whether this Card Profile is the default for all cards in its Increase group. */
+    fun isDefault(): Boolean = isDefault.getRequired("is_default")
 
     /**
      * How Cards should appear in digital wallets such as Apple Pay. Different wallets will use
@@ -83,6 +87,9 @@ private constructor(
     /** A description you can use to identify the Card Profile. */
     @JsonProperty("description") @ExcludeMissing fun _description() = description
 
+    /** Whether this Card Profile is the default for all cards in its Increase group. */
+    @JsonProperty("is_default") @ExcludeMissing fun _isDefault() = isDefault
+
     /**
      * How Cards should appear in digital wallets such as Apple Pay. Different wallets will use
      * these values to render card artwork appropriately for their app.
@@ -108,6 +115,7 @@ private constructor(
             createdAt()
             status()
             description()
+            isDefault()
             digitalWallets().validate()
             physicalCards()?.validate()
             type()
@@ -127,6 +135,7 @@ private constructor(
             this.createdAt == other.createdAt &&
             this.status == other.status &&
             this.description == other.description &&
+            this.isDefault == other.isDefault &&
             this.digitalWallets == other.digitalWallets &&
             this.physicalCards == other.physicalCards &&
             this.type == other.type &&
@@ -141,6 +150,7 @@ private constructor(
                     createdAt,
                     status,
                     description,
+                    isDefault,
                     digitalWallets,
                     physicalCards,
                     type,
@@ -151,7 +161,7 @@ private constructor(
     }
 
     override fun toString() =
-        "CardProfile{id=$id, createdAt=$createdAt, status=$status, description=$description, digitalWallets=$digitalWallets, physicalCards=$physicalCards, type=$type, additionalProperties=$additionalProperties}"
+        "CardProfile{id=$id, createdAt=$createdAt, status=$status, description=$description, isDefault=$isDefault, digitalWallets=$digitalWallets, physicalCards=$physicalCards, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -164,6 +174,7 @@ private constructor(
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var status: JsonField<Status> = JsonMissing.of()
         private var description: JsonField<String> = JsonMissing.of()
+        private var isDefault: JsonField<Boolean> = JsonMissing.of()
         private var digitalWallets: JsonField<DigitalWallets> = JsonMissing.of()
         private var physicalCards: JsonField<PhysicalCards> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
@@ -174,6 +185,7 @@ private constructor(
             this.createdAt = cardProfile.createdAt
             this.status = cardProfile.status
             this.description = cardProfile.description
+            this.isDefault = cardProfile.isDefault
             this.digitalWallets = cardProfile.digitalWallets
             this.physicalCards = cardProfile.physicalCards
             this.type = cardProfile.type
@@ -215,6 +227,14 @@ private constructor(
         @JsonProperty("description")
         @ExcludeMissing
         fun description(description: JsonField<String>) = apply { this.description = description }
+
+        /** Whether this Card Profile is the default for all cards in its Increase group. */
+        fun isDefault(isDefault: Boolean) = isDefault(JsonField.of(isDefault))
+
+        /** Whether this Card Profile is the default for all cards in its Increase group. */
+        @JsonProperty("is_default")
+        @ExcludeMissing
+        fun isDefault(isDefault: JsonField<Boolean>) = apply { this.isDefault = isDefault }
 
         /**
          * How Cards should appear in digital wallets such as Apple Pay. Different wallets will use
@@ -277,6 +297,7 @@ private constructor(
                 createdAt,
                 status,
                 description,
+                isDefault,
                 digitalWallets,
                 physicalCards,
                 type,
