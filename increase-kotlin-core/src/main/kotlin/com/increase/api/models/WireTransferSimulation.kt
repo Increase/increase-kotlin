@@ -744,35 +744,34 @@ private constructor(
             private var hashCode: Int = 0
 
             /**
-             * The type of transaction that took place. We may add additional possible values for
-             * this enum over time; your application should be able to handle such additions
-             * gracefully.
+             * The type of the resource. We may add additional possible values for this enum over
+             * time; your application should be able to handle such additions gracefully.
              */
             fun category(): Category = category.getRequired("category")
 
             /**
-             * A Account Transfer Intention object. This field will be present in the JSON response
+             * An Account Transfer Intention object. This field will be present in the JSON response
              * if and only if `category` is equal to `account_transfer_intention`.
              */
             fun accountTransferIntention(): AccountTransferIntention? =
                 accountTransferIntention.getNullable("account_transfer_intention")
 
             /**
-             * A ACH Transfer Intention object. This field will be present in the JSON response if
+             * An ACH Transfer Intention object. This field will be present in the JSON response if
              * and only if `category` is equal to `ach_transfer_intention`.
              */
             fun achTransferIntention(): AchTransferIntention? =
                 achTransferIntention.getNullable("ach_transfer_intention")
 
             /**
-             * A ACH Transfer Rejection object. This field will be present in the JSON response if
+             * An ACH Transfer Rejection object. This field will be present in the JSON response if
              * and only if `category` is equal to `ach_transfer_rejection`.
              */
             fun achTransferRejection(): AchTransferRejection? =
                 achTransferRejection.getNullable("ach_transfer_rejection")
 
             /**
-             * A ACH Transfer Return object. This field will be present in the JSON response if and
+             * An ACH Transfer Return object. This field will be present in the JSON response if and
              * only if `category` is equal to `ach_transfer_return`.
              */
             fun achTransferReturn(): AchTransferReturn? =
@@ -846,28 +845,28 @@ private constructor(
             fun feePayment(): FeePayment? = feePayment.getNullable("fee_payment")
 
             /**
-             * A Inbound ACH Transfer Intention object. This field will be present in the JSON
+             * An Inbound ACH Transfer Intention object. This field will be present in the JSON
              * response if and only if `category` is equal to `inbound_ach_transfer`.
              */
             fun inboundAchTransfer(): InboundAchTransfer? =
                 inboundAchTransfer.getNullable("inbound_ach_transfer")
 
             /**
-             * A Inbound Check object. This field will be present in the JSON response if and only
+             * An Inbound Check object. This field will be present in the JSON response if and only
              * if `category` is equal to `inbound_check`.
              */
             fun inboundCheck(): InboundCheck? = inboundCheck.getNullable("inbound_check")
 
             /**
-             * A Inbound International ACH Transfer object. This field will be present in the JSON
+             * An Inbound International ACH Transfer object. This field will be present in the JSON
              * response if and only if `category` is equal to `inbound_international_ach_transfer`.
              */
             fun inboundInternationalAchTransfer(): InboundInternationalAchTransfer? =
                 inboundInternationalAchTransfer.getNullable("inbound_international_ach_transfer")
 
             /**
-             * A Inbound Real Time Payments Transfer Confirmation object. This field will be present
-             * in the JSON response if and only if `category` is equal to
+             * An Inbound Real Time Payments Transfer Confirmation object. This field will be
+             * present in the JSON response if and only if `category` is equal to
              * `inbound_real_time_payments_transfer_confirmation`.
              */
             fun inboundRealTimePaymentsTransferConfirmation():
@@ -877,14 +876,14 @@ private constructor(
                 )
 
             /**
-             * A Inbound Wire Drawdown Payment object. This field will be present in the JSON
+             * An Inbound Wire Drawdown Payment object. This field will be present in the JSON
              * response if and only if `category` is equal to `inbound_wire_drawdown_payment`.
              */
             fun inboundWireDrawdownPayment(): InboundWireDrawdownPayment? =
                 inboundWireDrawdownPayment.getNullable("inbound_wire_drawdown_payment")
 
             /**
-             * A Inbound Wire Drawdown Payment Reversal object. This field will be present in the
+             * An Inbound Wire Drawdown Payment Reversal object. This field will be present in the
              * JSON response if and only if `category` is equal to
              * `inbound_wire_drawdown_payment_reversal`.
              */
@@ -894,29 +893,29 @@ private constructor(
                 )
 
             /**
-             * A Inbound Wire Reversal object. This field will be present in the JSON response if
+             * An Inbound Wire Reversal object. This field will be present in the JSON response if
              * and only if `category` is equal to `inbound_wire_reversal`.
              */
             fun inboundWireReversal(): InboundWireReversal? =
                 inboundWireReversal.getNullable("inbound_wire_reversal")
 
             /**
-             * A Inbound Wire Transfer object. This field will be present in the JSON response if
+             * An Inbound Wire Transfer object. This field will be present in the JSON response if
              * and only if `category` is equal to `inbound_wire_transfer`.
              */
             fun inboundWireTransfer(): InboundWireTransfer? =
                 inboundWireTransfer.getNullable("inbound_wire_transfer")
 
             /**
-             * A Interest Payment object. This field will be present in the JSON response if and
+             * An Interest Payment object. This field will be present in the JSON response if and
              * only if `category` is equal to `interest_payment`.
              */
             fun interestPayment(): InterestPayment? =
                 interestPayment.getNullable("interest_payment")
 
             /**
-             * A Internal Source object. This field will be present in the JSON response if and only
-             * if `category` is equal to `internal_source`.
+             * An Internal Source object. This field will be present in the JSON response if and
+             * only if `category` is equal to `internal_source`.
              */
             fun internalSource(): InternalSource? = internalSource.getNullable("internal_source")
 
@@ -952,14 +951,13 @@ private constructor(
                 wireTransferRejection.getNullable("wire_transfer_rejection")
 
             /**
-             * The type of transaction that took place. We may add additional possible values for
-             * this enum over time; your application should be able to handle such additions
-             * gracefully.
+             * The type of the resource. We may add additional possible values for this enum over
+             * time; your application should be able to handle such additions gracefully.
              */
             @JsonProperty("category") @ExcludeMissing fun _category() = category
 
             /**
-             * A Account Transfer Intention object. This field will be present in the JSON response
+             * An Account Transfer Intention object. This field will be present in the JSON response
              * if and only if `category` is equal to `account_transfer_intention`.
              */
             @JsonProperty("account_transfer_intention")
@@ -967,7 +965,7 @@ private constructor(
             fun _accountTransferIntention() = accountTransferIntention
 
             /**
-             * A ACH Transfer Intention object. This field will be present in the JSON response if
+             * An ACH Transfer Intention object. This field will be present in the JSON response if
              * and only if `category` is equal to `ach_transfer_intention`.
              */
             @JsonProperty("ach_transfer_intention")
@@ -975,7 +973,7 @@ private constructor(
             fun _achTransferIntention() = achTransferIntention
 
             /**
-             * A ACH Transfer Rejection object. This field will be present in the JSON response if
+             * An ACH Transfer Rejection object. This field will be present in the JSON response if
              * and only if `category` is equal to `ach_transfer_rejection`.
              */
             @JsonProperty("ach_transfer_rejection")
@@ -983,7 +981,7 @@ private constructor(
             fun _achTransferRejection() = achTransferRejection
 
             /**
-             * A ACH Transfer Return object. This field will be present in the JSON response if and
+             * An ACH Transfer Return object. This field will be present in the JSON response if and
              * only if `category` is equal to `ach_transfer_return`.
              */
             @JsonProperty("ach_transfer_return")
@@ -1065,7 +1063,7 @@ private constructor(
             @JsonProperty("fee_payment") @ExcludeMissing fun _feePayment() = feePayment
 
             /**
-             * A Inbound ACH Transfer Intention object. This field will be present in the JSON
+             * An Inbound ACH Transfer Intention object. This field will be present in the JSON
              * response if and only if `category` is equal to `inbound_ach_transfer`.
              */
             @JsonProperty("inbound_ach_transfer")
@@ -1073,13 +1071,13 @@ private constructor(
             fun _inboundAchTransfer() = inboundAchTransfer
 
             /**
-             * A Inbound Check object. This field will be present in the JSON response if and only
+             * An Inbound Check object. This field will be present in the JSON response if and only
              * if `category` is equal to `inbound_check`.
              */
             @JsonProperty("inbound_check") @ExcludeMissing fun _inboundCheck() = inboundCheck
 
             /**
-             * A Inbound International ACH Transfer object. This field will be present in the JSON
+             * An Inbound International ACH Transfer object. This field will be present in the JSON
              * response if and only if `category` is equal to `inbound_international_ach_transfer`.
              */
             @JsonProperty("inbound_international_ach_transfer")
@@ -1087,8 +1085,8 @@ private constructor(
             fun _inboundInternationalAchTransfer() = inboundInternationalAchTransfer
 
             /**
-             * A Inbound Real Time Payments Transfer Confirmation object. This field will be present
-             * in the JSON response if and only if `category` is equal to
+             * An Inbound Real Time Payments Transfer Confirmation object. This field will be
+             * present in the JSON response if and only if `category` is equal to
              * `inbound_real_time_payments_transfer_confirmation`.
              */
             @JsonProperty("inbound_real_time_payments_transfer_confirmation")
@@ -1097,7 +1095,7 @@ private constructor(
                 inboundRealTimePaymentsTransferConfirmation
 
             /**
-             * A Inbound Wire Drawdown Payment object. This field will be present in the JSON
+             * An Inbound Wire Drawdown Payment object. This field will be present in the JSON
              * response if and only if `category` is equal to `inbound_wire_drawdown_payment`.
              */
             @JsonProperty("inbound_wire_drawdown_payment")
@@ -1105,7 +1103,7 @@ private constructor(
             fun _inboundWireDrawdownPayment() = inboundWireDrawdownPayment
 
             /**
-             * A Inbound Wire Drawdown Payment Reversal object. This field will be present in the
+             * An Inbound Wire Drawdown Payment Reversal object. This field will be present in the
              * JSON response if and only if `category` is equal to
              * `inbound_wire_drawdown_payment_reversal`.
              */
@@ -1114,7 +1112,7 @@ private constructor(
             fun _inboundWireDrawdownPaymentReversal() = inboundWireDrawdownPaymentReversal
 
             /**
-             * A Inbound Wire Reversal object. This field will be present in the JSON response if
+             * An Inbound Wire Reversal object. This field will be present in the JSON response if
              * and only if `category` is equal to `inbound_wire_reversal`.
              */
             @JsonProperty("inbound_wire_reversal")
@@ -1122,7 +1120,7 @@ private constructor(
             fun _inboundWireReversal() = inboundWireReversal
 
             /**
-             * A Inbound Wire Transfer object. This field will be present in the JSON response if
+             * An Inbound Wire Transfer object. This field will be present in the JSON response if
              * and only if `category` is equal to `inbound_wire_transfer`.
              */
             @JsonProperty("inbound_wire_transfer")
@@ -1130,7 +1128,7 @@ private constructor(
             fun _inboundWireTransfer() = inboundWireTransfer
 
             /**
-             * A Interest Payment object. This field will be present in the JSON response if and
+             * An Interest Payment object. This field will be present in the JSON response if and
              * only if `category` is equal to `interest_payment`.
              */
             @JsonProperty("interest_payment")
@@ -1138,8 +1136,8 @@ private constructor(
             fun _interestPayment() = interestPayment
 
             /**
-             * A Internal Source object. This field will be present in the JSON response if and only
-             * if `category` is equal to `internal_source`.
+             * An Internal Source object. This field will be present in the JSON response if and
+             * only if `category` is equal to `internal_source`.
              */
             @JsonProperty("internal_source") @ExcludeMissing fun _internalSource() = internalSource
 
@@ -1390,30 +1388,28 @@ private constructor(
                 }
 
                 /**
-                 * The type of transaction that took place. We may add additional possible values
-                 * for this enum over time; your application should be able to handle such additions
-                 * gracefully.
+                 * The type of the resource. We may add additional possible values for this enum
+                 * over time; your application should be able to handle such additions gracefully.
                  */
                 fun category(category: Category) = category(JsonField.of(category))
 
                 /**
-                 * The type of transaction that took place. We may add additional possible values
-                 * for this enum over time; your application should be able to handle such additions
-                 * gracefully.
+                 * The type of the resource. We may add additional possible values for this enum
+                 * over time; your application should be able to handle such additions gracefully.
                  */
                 @JsonProperty("category")
                 @ExcludeMissing
                 fun category(category: JsonField<Category>) = apply { this.category = category }
 
                 /**
-                 * A Account Transfer Intention object. This field will be present in the JSON
+                 * An Account Transfer Intention object. This field will be present in the JSON
                  * response if and only if `category` is equal to `account_transfer_intention`.
                  */
                 fun accountTransferIntention(accountTransferIntention: AccountTransferIntention) =
                     accountTransferIntention(JsonField.of(accountTransferIntention))
 
                 /**
-                 * A Account Transfer Intention object. This field will be present in the JSON
+                 * An Account Transfer Intention object. This field will be present in the JSON
                  * response if and only if `category` is equal to `account_transfer_intention`.
                  */
                 @JsonProperty("account_transfer_intention")
@@ -1423,14 +1419,14 @@ private constructor(
                 ) = apply { this.accountTransferIntention = accountTransferIntention }
 
                 /**
-                 * A ACH Transfer Intention object. This field will be present in the JSON response
+                 * An ACH Transfer Intention object. This field will be present in the JSON response
                  * if and only if `category` is equal to `ach_transfer_intention`.
                  */
                 fun achTransferIntention(achTransferIntention: AchTransferIntention) =
                     achTransferIntention(JsonField.of(achTransferIntention))
 
                 /**
-                 * A ACH Transfer Intention object. This field will be present in the JSON response
+                 * An ACH Transfer Intention object. This field will be present in the JSON response
                  * if and only if `category` is equal to `ach_transfer_intention`.
                  */
                 @JsonProperty("ach_transfer_intention")
@@ -1441,14 +1437,14 @@ private constructor(
                     }
 
                 /**
-                 * A ACH Transfer Rejection object. This field will be present in the JSON response
+                 * An ACH Transfer Rejection object. This field will be present in the JSON response
                  * if and only if `category` is equal to `ach_transfer_rejection`.
                  */
                 fun achTransferRejection(achTransferRejection: AchTransferRejection) =
                     achTransferRejection(JsonField.of(achTransferRejection))
 
                 /**
-                 * A ACH Transfer Rejection object. This field will be present in the JSON response
+                 * An ACH Transfer Rejection object. This field will be present in the JSON response
                  * if and only if `category` is equal to `ach_transfer_rejection`.
                  */
                 @JsonProperty("ach_transfer_rejection")
@@ -1459,14 +1455,14 @@ private constructor(
                     }
 
                 /**
-                 * A ACH Transfer Return object. This field will be present in the JSON response if
+                 * An ACH Transfer Return object. This field will be present in the JSON response if
                  * and only if `category` is equal to `ach_transfer_return`.
                  */
                 fun achTransferReturn(achTransferReturn: AchTransferReturn) =
                     achTransferReturn(JsonField.of(achTransferReturn))
 
                 /**
-                 * A ACH Transfer Return object. This field will be present in the JSON response if
+                 * An ACH Transfer Return object. This field will be present in the JSON response if
                  * and only if `category` is equal to `ach_transfer_return`.
                  */
                 @JsonProperty("ach_transfer_return")
@@ -1649,14 +1645,14 @@ private constructor(
                 }
 
                 /**
-                 * A Inbound ACH Transfer Intention object. This field will be present in the JSON
+                 * An Inbound ACH Transfer Intention object. This field will be present in the JSON
                  * response if and only if `category` is equal to `inbound_ach_transfer`.
                  */
                 fun inboundAchTransfer(inboundAchTransfer: InboundAchTransfer) =
                     inboundAchTransfer(JsonField.of(inboundAchTransfer))
 
                 /**
-                 * A Inbound ACH Transfer Intention object. This field will be present in the JSON
+                 * An Inbound ACH Transfer Intention object. This field will be present in the JSON
                  * response if and only if `category` is equal to `inbound_ach_transfer`.
                  */
                 @JsonProperty("inbound_ach_transfer")
@@ -1666,14 +1662,14 @@ private constructor(
                 }
 
                 /**
-                 * A Inbound Check object. This field will be present in the JSON response if and
+                 * An Inbound Check object. This field will be present in the JSON response if and
                  * only if `category` is equal to `inbound_check`.
                  */
                 fun inboundCheck(inboundCheck: InboundCheck) =
                     inboundCheck(JsonField.of(inboundCheck))
 
                 /**
-                 * A Inbound Check object. This field will be present in the JSON response if and
+                 * An Inbound Check object. This field will be present in the JSON response if and
                  * only if `category` is equal to `inbound_check`.
                  */
                 @JsonProperty("inbound_check")
@@ -1683,7 +1679,7 @@ private constructor(
                 }
 
                 /**
-                 * A Inbound International ACH Transfer object. This field will be present in the
+                 * An Inbound International ACH Transfer object. This field will be present in the
                  * JSON response if and only if `category` is equal to
                  * `inbound_international_ach_transfer`.
                  */
@@ -1692,7 +1688,7 @@ private constructor(
                 ) = inboundInternationalAchTransfer(JsonField.of(inboundInternationalAchTransfer))
 
                 /**
-                 * A Inbound International ACH Transfer object. This field will be present in the
+                 * An Inbound International ACH Transfer object. This field will be present in the
                  * JSON response if and only if `category` is equal to
                  * `inbound_international_ach_transfer`.
                  */
@@ -1703,7 +1699,7 @@ private constructor(
                 ) = apply { this.inboundInternationalAchTransfer = inboundInternationalAchTransfer }
 
                 /**
-                 * A Inbound Real Time Payments Transfer Confirmation object. This field will be
+                 * An Inbound Real Time Payments Transfer Confirmation object. This field will be
                  * present in the JSON response if and only if `category` is equal to
                  * `inbound_real_time_payments_transfer_confirmation`.
                  */
@@ -1716,7 +1712,7 @@ private constructor(
                     )
 
                 /**
-                 * A Inbound Real Time Payments Transfer Confirmation object. This field will be
+                 * An Inbound Real Time Payments Transfer Confirmation object. This field will be
                  * present in the JSON response if and only if `category` is equal to
                  * `inbound_real_time_payments_transfer_confirmation`.
                  */
@@ -1731,7 +1727,7 @@ private constructor(
                 }
 
                 /**
-                 * A Inbound Wire Drawdown Payment object. This field will be present in the JSON
+                 * An Inbound Wire Drawdown Payment object. This field will be present in the JSON
                  * response if and only if `category` is equal to `inbound_wire_drawdown_payment`.
                  */
                 fun inboundWireDrawdownPayment(
@@ -1739,7 +1735,7 @@ private constructor(
                 ) = inboundWireDrawdownPayment(JsonField.of(inboundWireDrawdownPayment))
 
                 /**
-                 * A Inbound Wire Drawdown Payment object. This field will be present in the JSON
+                 * An Inbound Wire Drawdown Payment object. This field will be present in the JSON
                  * response if and only if `category` is equal to `inbound_wire_drawdown_payment`.
                  */
                 @JsonProperty("inbound_wire_drawdown_payment")
@@ -1749,7 +1745,7 @@ private constructor(
                 ) = apply { this.inboundWireDrawdownPayment = inboundWireDrawdownPayment }
 
                 /**
-                 * A Inbound Wire Drawdown Payment Reversal object. This field will be present in
+                 * An Inbound Wire Drawdown Payment Reversal object. This field will be present in
                  * the JSON response if and only if `category` is equal to
                  * `inbound_wire_drawdown_payment_reversal`.
                  */
@@ -1761,7 +1757,7 @@ private constructor(
                     )
 
                 /**
-                 * A Inbound Wire Drawdown Payment Reversal object. This field will be present in
+                 * An Inbound Wire Drawdown Payment Reversal object. This field will be present in
                  * the JSON response if and only if `category` is equal to
                  * `inbound_wire_drawdown_payment_reversal`.
                  */
@@ -1775,14 +1771,14 @@ private constructor(
                 }
 
                 /**
-                 * A Inbound Wire Reversal object. This field will be present in the JSON response
+                 * An Inbound Wire Reversal object. This field will be present in the JSON response
                  * if and only if `category` is equal to `inbound_wire_reversal`.
                  */
                 fun inboundWireReversal(inboundWireReversal: InboundWireReversal) =
                     inboundWireReversal(JsonField.of(inboundWireReversal))
 
                 /**
-                 * A Inbound Wire Reversal object. This field will be present in the JSON response
+                 * An Inbound Wire Reversal object. This field will be present in the JSON response
                  * if and only if `category` is equal to `inbound_wire_reversal`.
                  */
                 @JsonProperty("inbound_wire_reversal")
@@ -1793,14 +1789,14 @@ private constructor(
                     }
 
                 /**
-                 * A Inbound Wire Transfer object. This field will be present in the JSON response
+                 * An Inbound Wire Transfer object. This field will be present in the JSON response
                  * if and only if `category` is equal to `inbound_wire_transfer`.
                  */
                 fun inboundWireTransfer(inboundWireTransfer: InboundWireTransfer) =
                     inboundWireTransfer(JsonField.of(inboundWireTransfer))
 
                 /**
-                 * A Inbound Wire Transfer object. This field will be present in the JSON response
+                 * An Inbound Wire Transfer object. This field will be present in the JSON response
                  * if and only if `category` is equal to `inbound_wire_transfer`.
                  */
                 @JsonProperty("inbound_wire_transfer")
@@ -1811,15 +1807,15 @@ private constructor(
                     }
 
                 /**
-                 * A Interest Payment object. This field will be present in the JSON response if and
-                 * only if `category` is equal to `interest_payment`.
+                 * An Interest Payment object. This field will be present in the JSON response if
+                 * and only if `category` is equal to `interest_payment`.
                  */
                 fun interestPayment(interestPayment: InterestPayment) =
                     interestPayment(JsonField.of(interestPayment))
 
                 /**
-                 * A Interest Payment object. This field will be present in the JSON response if and
-                 * only if `category` is equal to `interest_payment`.
+                 * An Interest Payment object. This field will be present in the JSON response if
+                 * and only if `category` is equal to `interest_payment`.
                  */
                 @JsonProperty("interest_payment")
                 @ExcludeMissing
@@ -1828,14 +1824,14 @@ private constructor(
                 }
 
                 /**
-                 * A Internal Source object. This field will be present in the JSON response if and
+                 * An Internal Source object. This field will be present in the JSON response if and
                  * only if `category` is equal to `internal_source`.
                  */
                 fun internalSource(internalSource: InternalSource) =
                     internalSource(JsonField.of(internalSource))
 
                 /**
-                 * A Internal Source object. This field will be present in the JSON response if and
+                 * An Internal Source object. This field will be present in the JSON response if and
                  * only if `category` is equal to `internal_source`.
                  */
                 @JsonProperty("internal_source")
@@ -1974,7 +1970,7 @@ private constructor(
             }
 
             /**
-             * A Account Transfer Intention object. This field will be present in the JSON response
+             * An Account Transfer Intention object. This field will be present in the JSON response
              * if and only if `category` is equal to `account_transfer_intention`.
              */
             @JsonDeserialize(builder = AccountTransferIntention.Builder::class)
@@ -2309,7 +2305,7 @@ private constructor(
             }
 
             /**
-             * A ACH Transfer Intention object. This field will be present in the JSON response if
+             * An ACH Transfer Intention object. This field will be present in the JSON response if
              * and only if `category` is equal to `ach_transfer_intention`.
              */
             @JsonDeserialize(builder = AchTransferIntention.Builder::class)
@@ -2512,7 +2508,7 @@ private constructor(
             }
 
             /**
-             * A ACH Transfer Rejection object. This field will be present in the JSON response if
+             * An ACH Transfer Rejection object. This field will be present in the JSON response if
              * and only if `category` is equal to `ach_transfer_rejection`.
              */
             @JsonDeserialize(builder = AchTransferRejection.Builder::class)
@@ -2612,7 +2608,7 @@ private constructor(
             }
 
             /**
-             * A ACH Transfer Return object. This field will be present in the JSON response if and
+             * An ACH Transfer Return object. This field will be present in the JSON response if and
              * only if `category` is equal to `ach_transfer_return`.
              */
             @JsonDeserialize(builder = AchTransferReturn.Builder::class)
@@ -14979,7 +14975,7 @@ private constructor(
             }
 
             /**
-             * A Inbound ACH Transfer Intention object. This field will be present in the JSON
+             * An Inbound ACH Transfer Intention object. This field will be present in the JSON
              * response if and only if `category` is equal to `inbound_ach_transfer`.
              */
             @JsonDeserialize(builder = InboundAchTransfer.Builder::class)
@@ -15303,7 +15299,7 @@ private constructor(
             }
 
             /**
-             * A Inbound Check object. This field will be present in the JSON response if and only
+             * An Inbound Check object. This field will be present in the JSON response if and only
              * if `category` is equal to `inbound_check`.
              */
             @JsonDeserialize(builder = InboundCheck.Builder::class)
@@ -15600,7 +15596,7 @@ private constructor(
             }
 
             /**
-             * A Inbound International ACH Transfer object. This field will be present in the JSON
+             * An Inbound International ACH Transfer object. This field will be present in the JSON
              * response if and only if `category` is equal to `inbound_international_ach_transfer`.
              */
             @JsonDeserialize(builder = InboundInternationalAchTransfer.Builder::class)
@@ -16695,8 +16691,8 @@ private constructor(
             }
 
             /**
-             * A Inbound Real Time Payments Transfer Confirmation object. This field will be present
-             * in the JSON response if and only if `category` is equal to
+             * An Inbound Real Time Payments Transfer Confirmation object. This field will be
+             * present in the JSON response if and only if `category` is equal to
              * `inbound_real_time_payments_transfer_confirmation`.
              */
             @JsonDeserialize(builder = InboundRealTimePaymentsTransferConfirmation.Builder::class)
@@ -17103,7 +17099,7 @@ private constructor(
             }
 
             /**
-             * A Inbound Wire Drawdown Payment object. This field will be present in the JSON
+             * An Inbound Wire Drawdown Payment object. This field will be present in the JSON
              * response if and only if `category` is equal to `inbound_wire_drawdown_payment`.
              */
             @JsonDeserialize(builder = InboundWireDrawdownPayment.Builder::class)
@@ -17516,7 +17512,7 @@ private constructor(
             }
 
             /**
-             * A Inbound Wire Drawdown Payment Reversal object. This field will be present in the
+             * An Inbound Wire Drawdown Payment Reversal object. This field will be present in the
              * JSON response if and only if `category` is equal to
              * `inbound_wire_drawdown_payment_reversal`.
              */
@@ -17902,7 +17898,7 @@ private constructor(
             }
 
             /**
-             * A Inbound Wire Reversal object. This field will be present in the JSON response if
+             * An Inbound Wire Reversal object. This field will be present in the JSON response if
              * and only if `category` is equal to `inbound_wire_reversal`.
              */
             @JsonDeserialize(builder = InboundWireReversal.Builder::class)
@@ -18465,7 +18461,7 @@ private constructor(
             }
 
             /**
-             * A Inbound Wire Transfer object. This field will be present in the JSON response if
+             * An Inbound Wire Transfer object. This field will be present in the JSON response if
              * and only if `category` is equal to `inbound_wire_transfer`.
              */
             @JsonDeserialize(builder = InboundWireTransfer.Builder::class)
@@ -19014,7 +19010,7 @@ private constructor(
             }
 
             /**
-             * A Interest Payment object. This field will be present in the JSON response if and
+             * An Interest Payment object. This field will be present in the JSON response if and
              * only if `category` is equal to `interest_payment`.
              */
             @JsonDeserialize(builder = InterestPayment.Builder::class)
@@ -19320,8 +19316,8 @@ private constructor(
             }
 
             /**
-             * A Internal Source object. This field will be present in the JSON response if and only
-             * if `category` is equal to `internal_source`.
+             * An Internal Source object. This field will be present in the JSON response if and
+             * only if `category` is equal to `internal_source`.
              */
             @JsonDeserialize(builder = InternalSource.Builder::class)
             @NoAutoDetect
