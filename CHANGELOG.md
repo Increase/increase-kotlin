@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.7.2](https://github.com/Increase/increase-kotlin/compare/v0.7.1...v0.7.2) (2023-08-11)
+
+
+### Features
+
+* **api:** updates ([#59](https://github.com/Increase/increase-kotlin/issues/59)) ([650a14c](https://github.com/Increase/increase-kotlin/commit/650a14c085b06acfcc491a2dab780e1dac8e6593))
+
+
+### Documentation
+
+* **api:** change description of various fields ([#61](https://github.com/Increase/increase-kotlin/issues/61)) ([c1ee5b7](https://github.com/Increase/increase-kotlin/commit/c1ee5b7ff0bb30cba810497165b778231979794d))
+
 ## [0.7.1](https://github.com/Increase/increase-kotlin/compare/v0.7.0...v0.7.1) (2023-08-08)
 
 
