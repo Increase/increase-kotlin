@@ -325,7 +325,7 @@ constructor(
         private var trust: Trust? = null
         private var description: String? = null
         private var relationship: Relationship? = null
-        private var supplementalDocuments: List<SupplementalDocument>? = null
+        private var supplementalDocuments: MutableList<SupplementalDocument> = mutableListOf()
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -338,7 +338,7 @@ constructor(
             this.trust = entityCreateParams.trust
             this.description = entityCreateParams.description
             this.relationship = entityCreateParams.relationship
-            this.supplementalDocuments = entityCreateParams.supplementalDocuments
+            this.supplementalDocuments(entityCreateParams.supplementalDocuments ?: listOf())
             additionalQueryParams(entityCreateParams.additionalQueryParams)
             additionalHeaders(entityCreateParams.additionalHeaders)
             additionalBodyProperties(entityCreateParams.additionalBodyProperties)
@@ -377,7 +377,13 @@ constructor(
 
         /** Additional documentation associated with the entity. */
         fun supplementalDocuments(supplementalDocuments: List<SupplementalDocument>) = apply {
-            this.supplementalDocuments = supplementalDocuments
+            this.supplementalDocuments.clear()
+            this.supplementalDocuments.addAll(supplementalDocuments)
+        }
+
+        /** Additional documentation associated with the entity. */
+        fun addSupplementalDocument(supplementalDocument: SupplementalDocument) = apply {
+            this.supplementalDocuments.add(supplementalDocument)
         }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
@@ -443,7 +449,8 @@ constructor(
                 trust,
                 description,
                 checkNotNull(relationship) { "`relationship` is required but was not set" },
-                supplementalDocuments?.toUnmodifiable(),
+                if (supplementalDocuments.size == 0) null
+                else supplementalDocuments.toUnmodifiable(),
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalBodyProperties.toUnmodifiable(),
