@@ -30,7 +30,6 @@ private constructor(
     private val status: JsonField<Status>,
     private val selectedEventCategory: JsonField<SelectedEventCategory>,
     private val url: JsonField<String>,
-    private val sharedSecret: JsonField<String>,
     private val type: JsonField<Type>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
@@ -58,9 +57,6 @@ private constructor(
     /** The webhook url where we'll send notifications. */
     fun url(): String = url.getRequired("url")
 
-    /** The key that will be used to sign webhooks. */
-    fun sharedSecret(): String = sharedSecret.getRequired("shared_secret")
-
     /**
      * A constant representing the object's type. For this resource it will always be
      * `event_subscription`.
@@ -87,9 +83,6 @@ private constructor(
     /** The webhook url where we'll send notifications. */
     @JsonProperty("url") @ExcludeMissing fun _url() = url
 
-    /** The key that will be used to sign webhooks. */
-    @JsonProperty("shared_secret") @ExcludeMissing fun _sharedSecret() = sharedSecret
-
     /**
      * A constant representing the object's type. For this resource it will always be
      * `event_subscription`.
@@ -107,7 +100,6 @@ private constructor(
             status()
             selectedEventCategory()
             url()
-            sharedSecret()
             type()
             validated = true
         }
@@ -126,7 +118,6 @@ private constructor(
             this.status == other.status &&
             this.selectedEventCategory == other.selectedEventCategory &&
             this.url == other.url &&
-            this.sharedSecret == other.sharedSecret &&
             this.type == other.type &&
             this.additionalProperties == other.additionalProperties
     }
@@ -140,7 +131,6 @@ private constructor(
                     status,
                     selectedEventCategory,
                     url,
-                    sharedSecret,
                     type,
                     additionalProperties,
                 )
@@ -149,7 +139,7 @@ private constructor(
     }
 
     override fun toString() =
-        "EventSubscription{id=$id, createdAt=$createdAt, status=$status, selectedEventCategory=$selectedEventCategory, url=$url, sharedSecret=$sharedSecret, type=$type, additionalProperties=$additionalProperties}"
+        "EventSubscription{id=$id, createdAt=$createdAt, status=$status, selectedEventCategory=$selectedEventCategory, url=$url, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -163,7 +153,6 @@ private constructor(
         private var status: JsonField<Status> = JsonMissing.of()
         private var selectedEventCategory: JsonField<SelectedEventCategory> = JsonMissing.of()
         private var url: JsonField<String> = JsonMissing.of()
-        private var sharedSecret: JsonField<String> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -173,7 +162,6 @@ private constructor(
             this.status = eventSubscription.status
             this.selectedEventCategory = eventSubscription.selectedEventCategory
             this.url = eventSubscription.url
-            this.sharedSecret = eventSubscription.sharedSecret
             this.type = eventSubscription.type
             additionalProperties(eventSubscription.additionalProperties)
         }
@@ -225,16 +213,6 @@ private constructor(
         @ExcludeMissing
         fun url(url: JsonField<String>) = apply { this.url = url }
 
-        /** The key that will be used to sign webhooks. */
-        fun sharedSecret(sharedSecret: String) = sharedSecret(JsonField.of(sharedSecret))
-
-        /** The key that will be used to sign webhooks. */
-        @JsonProperty("shared_secret")
-        @ExcludeMissing
-        fun sharedSecret(sharedSecret: JsonField<String>) = apply {
-            this.sharedSecret = sharedSecret
-        }
-
         /**
          * A constant representing the object's type. For this resource it will always be
          * `event_subscription`.
@@ -270,7 +248,6 @@ private constructor(
                 status,
                 selectedEventCategory,
                 url,
-                sharedSecret,
                 type,
                 additionalProperties.toUnmodifiable(),
             )
