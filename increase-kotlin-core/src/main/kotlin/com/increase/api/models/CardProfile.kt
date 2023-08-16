@@ -947,7 +947,7 @@ private constructor(
 
                 val PENDING_SUBMITTING = Status(JsonField.of("pending_submitting"))
 
-                val SUBMITTED = Status(JsonField.of("submitted"))
+                val ACTIVE = Status(JsonField.of("active"))
 
                 fun of(value: String) = Status(JsonField.of(value))
             }
@@ -957,7 +957,7 @@ private constructor(
                 REJECTED,
                 PENDING_REVIEWING,
                 PENDING_SUBMITTING,
-                SUBMITTED,
+                ACTIVE,
             }
 
             enum class Value {
@@ -965,7 +965,7 @@ private constructor(
                 REJECTED,
                 PENDING_REVIEWING,
                 PENDING_SUBMITTING,
-                SUBMITTED,
+                ACTIVE,
                 _UNKNOWN,
             }
 
@@ -975,7 +975,7 @@ private constructor(
                     REJECTED -> Value.REJECTED
                     PENDING_REVIEWING -> Value.PENDING_REVIEWING
                     PENDING_SUBMITTING -> Value.PENDING_SUBMITTING
-                    SUBMITTED -> Value.SUBMITTED
+                    ACTIVE -> Value.ACTIVE
                     else -> Value._UNKNOWN
                 }
 
@@ -985,7 +985,7 @@ private constructor(
                     REJECTED -> Known.REJECTED
                     PENDING_REVIEWING -> Known.PENDING_REVIEWING
                     PENDING_SUBMITTING -> Known.PENDING_SUBMITTING
-                    SUBMITTED -> Known.SUBMITTED
+                    ACTIVE -> Known.ACTIVE
                     else -> throw IncreaseInvalidDataException("Unknown Status: $value")
                 }
 
