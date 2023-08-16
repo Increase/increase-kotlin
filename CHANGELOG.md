@@ -1,5 +1,23 @@
 # Changelog
 
+## [0.7.3](https://github.com/Increase/increase-kotlin/compare/v0.7.2...v0.7.3) (2023-08-16)
+
+
+### Features
+
+* default timeout is set for java clients ([#63](https://github.com/Increase/increase-kotlin/issues/63)) ([3a68122](https://github.com/Increase/increase-kotlin/commit/3a6812252b5598115168437e65e0b278ad41eb0d))
+* generate addXxx methods for array types ([#66](https://github.com/Increase/increase-kotlin/issues/66)) ([79d0d81](https://github.com/Increase/increase-kotlin/commit/79d0d81790f1ee5da5360fb4b6d49e2fc7981600))
+
+
+### Bug Fixes
+
+* set correct timeouts on okhttp client ([#67](https://github.com/Increase/increase-kotlin/issues/67)) ([afef21d](https://github.com/Increase/increase-kotlin/commit/afef21d8f62b285548ac3a5a3edc60135b12d904))
+
+
+### Chores
+
+* assign default reviewers to release PRs ([#65](https://github.com/Increase/increase-kotlin/issues/65)) ([5f903ae](https://github.com/Increase/increase-kotlin/commit/5f903aef6d2f8358513bada6880add0fd401492f))
+
 ## [0.7.2](https://github.com/Increase/increase-kotlin/compare/v0.7.1...v0.7.2) (2023-08-11)
 
 
