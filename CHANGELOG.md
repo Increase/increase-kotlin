@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.8.0](https://github.com/Increase/increase-kotlin/compare/v0.7.3...v0.8.0) (2023-08-17)
+
+
+### ⚠ BREAKING CHANGES
+
+* **api:** change `physical_cards.status` value, remove `event_subscription` field, add fields ([#69](https://github.com/Increase/increase-kotlin/issues/69))
+
+### Features
+
+* **api:** change `physical_cards.status` value, remove `event_subscription` field, add fields ([#69](https://github.com/Increase/increase-kotlin/issues/69)) ([3df1f0b](https://github.com/Increase/increase-kotlin/commit/3df1f0b56b65df7c9f839e6cc341fa53e257a9bc))
+
 ## [0.7.3](https://github.com/Increase/increase-kotlin/compare/v0.7.2...v0.7.3) (2023-08-16)
 
 
