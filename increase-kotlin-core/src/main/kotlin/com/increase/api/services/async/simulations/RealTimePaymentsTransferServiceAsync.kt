@@ -11,7 +11,7 @@ import com.increase.api.models.SimulationRealTimePaymentsTransferCreateInboundPa
 interface RealTimePaymentsTransferServiceAsync {
 
     /**
-     * Simulates submission of a Real Time Payments transfer and handling the response from the
+     * Simulates submission of a Real-Time Payments transfer and handling the response from the
      * destination financial institution. This transfer must first have a `status` of
      * `pending_submission`.
      */
@@ -21,7 +21,7 @@ interface RealTimePaymentsTransferServiceAsync {
     ): RealTimePaymentsTransfer
 
     /**
-     * Simulates an inbound Real Time Payments transfer to your account. Real Time Payments are a
+     * Simulates an inbound Real-Time Payments transfer to your account. Real-Time Payments are a
      * beta feature.
      */
     suspend fun createInbound(

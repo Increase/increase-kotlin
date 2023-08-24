@@ -43,6 +43,7 @@ private constructor(
     private val submission: JsonField<Submission>,
     private val acknowledgement: JsonField<Acknowledgement>,
     private val transactionId: JsonField<String>,
+    private val pendingTransactionId: JsonField<String>,
     private val companyDescriptiveDate: JsonField<String>,
     private val companyDiscretionaryData: JsonField<String>,
     private val companyEntryDescription: JsonField<String>,
@@ -146,6 +147,14 @@ private constructor(
     /** The ID for the transaction funding the transfer. */
     fun transactionId(): String? = transactionId.getNullable("transaction_id")
 
+    /**
+     * The ID for the pending transaction representing the transfer. A pending transaction is
+     * created when the transfer
+     * [requires approval](https://increase.com/documentation/transfer-approvals#transfer-approvals)
+     * by someone else in your organization.
+     */
+    fun pendingTransactionId(): String? = pendingTransactionId.getNullable("pending_transaction_id")
+
     /** The description of the date of the transfer. */
     fun companyDescriptiveDate(): String? =
         companyDescriptiveDate.getNullable("company_descriptive_date")
@@ -164,7 +173,7 @@ private constructor(
     /** The type of the account to which the transfer will be sent. */
     fun funding(): Funding = funding.getRequired("funding")
 
-    /** Your identifer for the transfer recipient. */
+    /** Your identifier for the transfer recipient. */
     fun individualId(): String? = individualId.getNullable("individual_id")
 
     /**
@@ -279,6 +288,16 @@ private constructor(
     /** The ID for the transaction funding the transfer. */
     @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
 
+    /**
+     * The ID for the pending transaction representing the transfer. A pending transaction is
+     * created when the transfer
+     * [requires approval](https://increase.com/documentation/transfer-approvals#transfer-approvals)
+     * by someone else in your organization.
+     */
+    @JsonProperty("pending_transaction_id")
+    @ExcludeMissing
+    fun _pendingTransactionId() = pendingTransactionId
+
     /** The description of the date of the transfer. */
     @JsonProperty("company_descriptive_date")
     @ExcludeMissing
@@ -300,7 +319,7 @@ private constructor(
     /** The type of the account to which the transfer will be sent. */
     @JsonProperty("funding") @ExcludeMissing fun _funding() = funding
 
-    /** Your identifer for the transfer recipient. */
+    /** Your identifier for the transfer recipient. */
     @JsonProperty("individual_id") @ExcludeMissing fun _individualId() = individualId
 
     /**
@@ -351,6 +370,7 @@ private constructor(
             submission()?.validate()
             acknowledgement()?.validate()
             transactionId()
+            pendingTransactionId()
             companyDescriptiveDate()
             companyDiscretionaryData()
             companyEntryDescription()
@@ -393,6 +413,7 @@ private constructor(
             this.submission == other.submission &&
             this.acknowledgement == other.acknowledgement &&
             this.transactionId == other.transactionId &&
+            this.pendingTransactionId == other.pendingTransactionId &&
             this.companyDescriptiveDate == other.companyDescriptiveDate &&
             this.companyDiscretionaryData == other.companyDiscretionaryData &&
             this.companyEntryDescription == other.companyEntryDescription &&
@@ -430,6 +451,7 @@ private constructor(
                     submission,
                     acknowledgement,
                     transactionId,
+                    pendingTransactionId,
                     companyDescriptiveDate,
                     companyDiscretionaryData,
                     companyEntryDescription,
@@ -448,7 +470,7 @@ private constructor(
     }
 
     override fun toString() =
-        "AchTransfer{accountId=$accountId, accountNumber=$accountNumber, addendum=$addendum, amount=$amount, currency=$currency, approval=$approval, cancellation=$cancellation, createdAt=$createdAt, externalAccountId=$externalAccountId, id=$id, network=$network, notificationsOfChange=$notificationsOfChange, return_=$return_, routingNumber=$routingNumber, statementDescriptor=$statementDescriptor, status=$status, submission=$submission, acknowledgement=$acknowledgement, transactionId=$transactionId, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, funding=$funding, individualId=$individualId, individualName=$individualName, effectiveDate=$effectiveDate, standardEntryClassCode=$standardEntryClassCode, uniqueIdentifier=$uniqueIdentifier, type=$type, additionalProperties=$additionalProperties}"
+        "AchTransfer{accountId=$accountId, accountNumber=$accountNumber, addendum=$addendum, amount=$amount, currency=$currency, approval=$approval, cancellation=$cancellation, createdAt=$createdAt, externalAccountId=$externalAccountId, id=$id, network=$network, notificationsOfChange=$notificationsOfChange, return_=$return_, routingNumber=$routingNumber, statementDescriptor=$statementDescriptor, status=$status, submission=$submission, acknowledgement=$acknowledgement, transactionId=$transactionId, pendingTransactionId=$pendingTransactionId, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, funding=$funding, individualId=$individualId, individualName=$individualName, effectiveDate=$effectiveDate, standardEntryClassCode=$standardEntryClassCode, uniqueIdentifier=$uniqueIdentifier, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -476,6 +498,7 @@ private constructor(
         private var submission: JsonField<Submission> = JsonMissing.of()
         private var acknowledgement: JsonField<Acknowledgement> = JsonMissing.of()
         private var transactionId: JsonField<String> = JsonMissing.of()
+        private var pendingTransactionId: JsonField<String> = JsonMissing.of()
         private var companyDescriptiveDate: JsonField<String> = JsonMissing.of()
         private var companyDiscretionaryData: JsonField<String> = JsonMissing.of()
         private var companyEntryDescription: JsonField<String> = JsonMissing.of()
@@ -509,6 +532,7 @@ private constructor(
             this.submission = achTransfer.submission
             this.acknowledgement = achTransfer.acknowledgement
             this.transactionId = achTransfer.transactionId
+            this.pendingTransactionId = achTransfer.pendingTransactionId
             this.companyDescriptiveDate = achTransfer.companyDescriptiveDate
             this.companyDiscretionaryData = achTransfer.companyDiscretionaryData
             this.companyEntryDescription = achTransfer.companyEntryDescription
@@ -750,6 +774,27 @@ private constructor(
             this.transactionId = transactionId
         }
 
+        /**
+         * The ID for the pending transaction representing the transfer. A pending transaction is
+         * created when the transfer
+         * [requires approval](https://increase.com/documentation/transfer-approvals#transfer-approvals)
+         * by someone else in your organization.
+         */
+        fun pendingTransactionId(pendingTransactionId: String) =
+            pendingTransactionId(JsonField.of(pendingTransactionId))
+
+        /**
+         * The ID for the pending transaction representing the transfer. A pending transaction is
+         * created when the transfer
+         * [requires approval](https://increase.com/documentation/transfer-approvals#transfer-approvals)
+         * by someone else in your organization.
+         */
+        @JsonProperty("pending_transaction_id")
+        @ExcludeMissing
+        fun pendingTransactionId(pendingTransactionId: JsonField<String>) = apply {
+            this.pendingTransactionId = pendingTransactionId
+        }
+
         /** The description of the date of the transfer. */
         fun companyDescriptiveDate(companyDescriptiveDate: String) =
             companyDescriptiveDate(JsonField.of(companyDescriptiveDate))
@@ -799,10 +844,10 @@ private constructor(
         @ExcludeMissing
         fun funding(funding: JsonField<Funding>) = apply { this.funding = funding }
 
-        /** Your identifer for the transfer recipient. */
+        /** Your identifier for the transfer recipient. */
         fun individualId(individualId: String) = individualId(JsonField.of(individualId))
 
-        /** Your identifer for the transfer recipient. */
+        /** Your identifier for the transfer recipient. */
         @JsonProperty("individual_id")
         @ExcludeMissing
         fun individualId(individualId: JsonField<String>) = apply {
@@ -911,6 +956,7 @@ private constructor(
                 submission,
                 acknowledgement,
                 transactionId,
+                pendingTransactionId,
                 companyDescriptiveDate,
                 companyDiscretionaryData,
                 companyEntryDescription,
@@ -1845,7 +1891,7 @@ private constructor(
         /** The identifier of the ACH Transfer associated with this return. */
         fun transferId(): String = transferId.getRequired("transfer_id")
 
-        /** The identifier of the Tranasaction associated with this return. */
+        /** The identifier of the Transaction associated with this return. */
         fun transactionId(): String = transactionId.getRequired("transaction_id")
 
         /**
@@ -1867,7 +1913,7 @@ private constructor(
         /** The identifier of the ACH Transfer associated with this return. */
         @JsonProperty("transfer_id") @ExcludeMissing fun _transferId() = transferId
 
-        /** The identifier of the Tranasaction associated with this return. */
+        /** The identifier of the Transaction associated with this return. */
         @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
 
         @JsonAnyGetter
@@ -1988,10 +2034,10 @@ private constructor(
             @ExcludeMissing
             fun transferId(transferId: JsonField<String>) = apply { this.transferId = transferId }
 
-            /** The identifier of the Tranasaction associated with this return. */
+            /** The identifier of the Transaction associated with this return. */
             fun transactionId(transactionId: String) = transactionId(JsonField.of(transactionId))
 
-            /** The identifier of the Tranasaction associated with this return. */
+            /** The identifier of the Transaction associated with this return. */
             @JsonProperty("transaction_id")
             @ExcludeMissing
             fun transactionId(transactionId: JsonField<String>) = apply {

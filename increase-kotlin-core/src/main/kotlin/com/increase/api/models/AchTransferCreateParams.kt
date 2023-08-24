@@ -191,7 +191,7 @@ constructor(
         /** The type of the account to which the transfer will be sent. */
         @JsonProperty("funding") fun funding(): Funding? = funding
 
-        /** Your identifer for the transfer recipient. */
+        /** Your identifier for the transfer recipient. */
         @JsonProperty("individual_id") fun individualId(): String? = individualId
 
         /**
@@ -225,7 +225,7 @@ constructor(
         fun statementDescriptor(): String? = statementDescriptor
 
         /**
-         * A unique identifier you choose for the transfer. Reusing this identifer for another
+         * A unique identifier you choose for the transfer. Reusing this identifier for another
          * transfer will result in an error. You can query for the transfer associated with this
          * identifier using the List endpoint.
          */
@@ -422,7 +422,7 @@ constructor(
             @JsonProperty("funding")
             fun funding(funding: Funding) = apply { this.funding = funding }
 
-            /** Your identifer for the transfer recipient. */
+            /** Your identifier for the transfer recipient. */
             @JsonProperty("individual_id")
             fun individualId(individualId: String) = apply { this.individualId = individualId }
 
@@ -468,7 +468,7 @@ constructor(
             }
 
             /**
-             * A unique identifier you choose for the transfer. Reusing this identifer for another
+             * A unique identifier you choose for the transfer. Reusing this identifier for another
              * transfer will result in an error. You can query for the transfer associated with this
              * identifier using the List endpoint.
              */
@@ -703,7 +703,7 @@ constructor(
         /** The type of the account to which the transfer will be sent. */
         fun funding(funding: Funding) = apply { this.funding = funding }
 
-        /** Your identifer for the transfer recipient. */
+        /** Your identifier for the transfer recipient. */
         fun individualId(individualId: String) = apply { this.individualId = individualId }
 
         /**
@@ -741,7 +741,7 @@ constructor(
         }
 
         /**
-         * A unique identifier you choose for the transfer. Reusing this identifer for another
+         * A unique identifier you choose for the transfer. Reusing this identifier for another
          * transfer will result in an error. You can query for the transfer associated with this
          * identifier using the List endpoint.
          */

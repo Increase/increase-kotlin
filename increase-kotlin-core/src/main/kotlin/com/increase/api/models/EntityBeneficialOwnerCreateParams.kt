@@ -29,29 +29,30 @@ constructor(
     fun beneficialOwner(): BeneficialOwner = beneficialOwner
 
     internal fun getBody(): EntityBeneficialOwnerCreateBody {
-        return EntityBeneficialOwnerCreateBody(beneficialOwner, additionalBodyProperties)
+        return EntityBeneficialOwnerCreateBody(
+            entityId,
+            beneficialOwner,
+            additionalBodyProperties,
+        )
     }
 
     internal fun getQueryParams(): Map<String, List<String>> = additionalQueryParams
 
     internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
 
-    fun getPathParam(index: Int): String {
-        return when (index) {
-            0 -> entityId
-            else -> ""
-        }
-    }
-
     @JsonDeserialize(builder = EntityBeneficialOwnerCreateBody.Builder::class)
     @NoAutoDetect
     class EntityBeneficialOwnerCreateBody
     internal constructor(
+        private val entityId: String?,
         private val beneficialOwner: BeneficialOwner?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         private var hashCode: Int = 0
+
+        /** The identifier of the Entity to associate with the new Beneficial Owner. */
+        @JsonProperty("entity_id") fun entityId(): String? = entityId
 
         /**
          * The identifying details of anyone controlling or owning 25% or more of the corporation.
@@ -70,19 +71,25 @@ constructor(
             }
 
             return other is EntityBeneficialOwnerCreateBody &&
+                this.entityId == other.entityId &&
                 this.beneficialOwner == other.beneficialOwner &&
                 this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode = Objects.hash(beneficialOwner, additionalProperties)
+                hashCode =
+                    Objects.hash(
+                        entityId,
+                        beneficialOwner,
+                        additionalProperties,
+                    )
             }
             return hashCode
         }
 
         override fun toString() =
-            "EntityBeneficialOwnerCreateBody{beneficialOwner=$beneficialOwner, additionalProperties=$additionalProperties}"
+            "EntityBeneficialOwnerCreateBody{entityId=$entityId, beneficialOwner=$beneficialOwner, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -91,14 +98,20 @@ constructor(
 
         class Builder {
 
+            private var entityId: String? = null
             private var beneficialOwner: BeneficialOwner? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(entityBeneficialOwnerCreateBody: EntityBeneficialOwnerCreateBody) =
                 apply {
+                    this.entityId = entityBeneficialOwnerCreateBody.entityId
                     this.beneficialOwner = entityBeneficialOwnerCreateBody.beneficialOwner
                     additionalProperties(entityBeneficialOwnerCreateBody.additionalProperties)
                 }
+
+            /** The identifier of the Entity to associate with the new Beneficial Owner. */
+            @JsonProperty("entity_id")
+            fun entityId(entityId: String) = apply { this.entityId = entityId }
 
             /**
              * The identifying details of anyone controlling or owning 25% or more of the
@@ -125,10 +138,11 @@ constructor(
 
             fun build(): EntityBeneficialOwnerCreateBody =
                 EntityBeneficialOwnerCreateBody(
+                    checkNotNull(entityId) { "`entityId` is required but was not set" },
                     checkNotNull(beneficialOwner) {
                         "`beneficialOwner` is required but was not set"
                     },
-                    additionalProperties.toUnmodifiable()
+                    additionalProperties.toUnmodifiable(),
                 )
         }
     }
@@ -190,7 +204,7 @@ constructor(
                 additionalBodyProperties(entityBeneficialOwnerCreateParams.additionalBodyProperties)
             }
 
-        /** The identifier of the Entity to retrieve. */
+        /** The identifier of the Entity to associate with the new Beneficial Owner. */
         fun entityId(entityId: String) = apply { this.entityId = entityId }
 
         /**
@@ -401,7 +415,7 @@ constructor(
             /** The person's date of birth in YYYY-MM-DD format. */
             @JsonProperty("date_of_birth") fun dateOfBirth(): LocalDate? = dateOfBirth
 
-            /** The individual's address. */
+            /** The individual's physical address. Post Office Boxes are disallowed. */
             @JsonProperty("address") fun address(): Address? = address
 
             /**
@@ -483,7 +497,7 @@ constructor(
                 @JsonProperty("date_of_birth")
                 fun dateOfBirth(dateOfBirth: LocalDate) = apply { this.dateOfBirth = dateOfBirth }
 
-                /** The individual's address. */
+                /** The individual's physical address. Post Office Boxes are disallowed. */
                 @JsonProperty("address")
                 fun address(address: Address) = apply { this.address = address }
 
@@ -532,7 +546,7 @@ constructor(
                     )
             }
 
-            /** The individual's address. */
+            /** The individual's physical address. Post Office Boxes are disallowed. */
             @JsonDeserialize(builder = Address.Builder::class)
             @NoAutoDetect
             class Address

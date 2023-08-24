@@ -54,7 +54,7 @@ constructor(
         jsonHandler<EntitySupplementalDocumentListPageAsync.Response>(clientOptions.jsonMapper)
             .withErrorHandler(errorHandler)
 
-    /** List Entity Supplemental Document Submissionss */
+    /** List Entity Supplemental Document Submissions */
     override suspend fun list(
         params: EntitySupplementalDocumentListParams,
         requestOptions: RequestOptions

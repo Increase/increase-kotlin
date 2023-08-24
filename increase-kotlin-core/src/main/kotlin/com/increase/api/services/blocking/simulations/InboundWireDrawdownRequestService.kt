@@ -8,10 +8,7 @@ import com.increase.api.models.SimulationInboundWireDrawdownRequestCreateParams
 
 interface InboundWireDrawdownRequestService {
 
-    /**
-     * Simulates the receival of an [Inbound Wire Drawdown Request](#inbound-wire-drawdown-requests)
-     * .
-     */
+    /** Simulates receiving an [Inbound Wire Drawdown Request](#inbound-wire-drawdown-requests). */
     fun create(
         params: SimulationInboundWireDrawdownRequestCreateParams,
         requestOptions: RequestOptions = RequestOptions.none()

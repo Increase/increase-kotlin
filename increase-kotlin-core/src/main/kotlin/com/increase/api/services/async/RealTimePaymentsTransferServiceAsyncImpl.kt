@@ -27,7 +27,7 @@ constructor(
         jsonHandler<RealTimePaymentsTransfer>(clientOptions.jsonMapper)
             .withErrorHandler(errorHandler)
 
-    /** Create a Real Time Payments Transfer */
+    /** Create a Real-Time Payments Transfer */
     override suspend fun create(
         params: RealTimePaymentsTransferCreateParams,
         requestOptions: RequestOptions
@@ -56,7 +56,7 @@ constructor(
         jsonHandler<RealTimePaymentsTransfer>(clientOptions.jsonMapper)
             .withErrorHandler(errorHandler)
 
-    /** Retrieve a Real Time Payments Transfer */
+    /** Retrieve a Real-Time Payments Transfer */
     override suspend fun retrieve(
         params: RealTimePaymentsTransferRetrieveParams,
         requestOptions: RequestOptions
@@ -84,7 +84,7 @@ constructor(
         jsonHandler<RealTimePaymentsTransferListPageAsync.Response>(clientOptions.jsonMapper)
             .withErrorHandler(errorHandler)
 
-    /** List Real Time Payments Transfers */
+    /** List Real-Time Payments Transfers */
     override suspend fun list(
         params: RealTimePaymentsTransferListParams,
         requestOptions: RequestOptions

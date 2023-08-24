@@ -959,7 +959,7 @@ private constructor(
         /** Total amount of all line items */
         fun totalAmount(): Long? = totalAmount.getNullable("total_amount")
 
-        /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the totla amount. */
+        /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the total amount. */
         fun totalAmountCurrency(): String? =
             totalAmountCurrency.getNullable("total_amount_currency")
 
@@ -1022,7 +1022,7 @@ private constructor(
         /** Total amount of all line items */
         @JsonProperty("total_amount") @ExcludeMissing fun _totalAmount() = totalAmount
 
-        /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the totla amount. */
+        /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the total amount. */
         @JsonProperty("total_amount_currency")
         @ExcludeMissing
         fun _totalAmountCurrency() = totalAmountCurrency
@@ -1307,11 +1307,11 @@ private constructor(
             @ExcludeMissing
             fun totalAmount(totalAmount: JsonField<Long>) = apply { this.totalAmount = totalAmount }
 
-            /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the totla amount. */
+            /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the total amount. */
             fun totalAmountCurrency(totalAmountCurrency: String) =
                 totalAmountCurrency(JsonField.of(totalAmountCurrency))
 
-            /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the totla amount. */
+            /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the total amount. */
             @JsonProperty("total_amount_currency")
             @ExcludeMissing
             fun totalAmountCurrency(totalAmountCurrency: JsonField<String>) = apply {
