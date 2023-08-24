@@ -36,6 +36,7 @@ class WireTransferTest {
                 .externalAccountId("string")
                 .messageToRecipient("string")
                 .network(WireTransfer.Network.WIRE)
+                .pendingTransactionId("string")
                 .reversal(
                     WireTransfer.Reversal.builder()
                         .amount(123L)
@@ -96,6 +97,7 @@ class WireTransferTest {
         assertThat(wireTransfer.externalAccountId()).isEqualTo("string")
         assertThat(wireTransfer.messageToRecipient()).isEqualTo("string")
         assertThat(wireTransfer.network()).isEqualTo(WireTransfer.Network.WIRE)
+        assertThat(wireTransfer.pendingTransactionId()).isEqualTo("string")
         assertThat(wireTransfer.reversal())
             .isEqualTo(
                 WireTransfer.Reversal.builder()

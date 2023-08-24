@@ -191,7 +191,7 @@ constructor(
             )
         }
 
-        /** The identifier of the Real Time Payments Transfer you wish to complete. */
+        /** The identifier of the Real-Time Payments Transfer you wish to complete. */
         fun realTimePaymentsTransferId(realTimePaymentsTransferId: String) = apply {
             this.realTimePaymentsTransferId = realTimePaymentsTransferId
         }

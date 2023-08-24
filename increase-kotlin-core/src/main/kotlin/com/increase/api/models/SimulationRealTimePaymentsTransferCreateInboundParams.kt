@@ -72,7 +72,7 @@ constructor(
 
         private var hashCode: Int = 0
 
-        /** The identifier of the Account Number the inbound Real Time Payments Transfer is for. */
+        /** The identifier of the Account Number the inbound Real-Time Payments Transfer is for. */
         @JsonProperty("account_number_id") fun accountNumberId(): String? = accountNumberId
 
         /** The transfer amount in USD cents. Must be positive. */
@@ -177,7 +177,7 @@ constructor(
             }
 
             /**
-             * The identifier of the Account Number the inbound Real Time Payments Transfer is for.
+             * The identifier of the Account Number the inbound Real-Time Payments Transfer is for.
              */
             @JsonProperty("account_number_id")
             fun accountNumberId(accountNumberId: String) = apply {
@@ -335,7 +335,7 @@ constructor(
             )
         }
 
-        /** The identifier of the Account Number the inbound Real Time Payments Transfer is for. */
+        /** The identifier of the Account Number the inbound Real-Time Payments Transfer is for. */
         fun accountNumberId(accountNumberId: String) = apply {
             this.accountNumberId = accountNumberId
         }
