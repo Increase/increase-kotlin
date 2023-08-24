@@ -31,6 +31,7 @@ private constructor(
     private val network: JsonField<Network>,
     private val status: JsonField<Status>,
     private val transactionId: JsonField<String>,
+    private val pendingTransactionId: JsonField<String>,
     private val approval: JsonField<Approval>,
     private val cancellation: JsonField<Cancellation>,
     private val uniqueIdentifier: JsonField<String>,
@@ -84,6 +85,14 @@ private constructor(
 
     /** The ID for the transaction funding the transfer. */
     fun transactionId(): String? = transactionId.getNullable("transaction_id")
+
+    /**
+     * The ID for the pending transaction representing the transfer. A pending transaction is
+     * created when the transfer
+     * [requires approval](https://increase.com/documentation/transfer-approvals#transfer-approvals)
+     * by someone else in your organization.
+     */
+    fun pendingTransactionId(): String? = pendingTransactionId.getNullable("pending_transaction_id")
 
     /**
      * If your account requires approvals for transfers and the transfer was approved, this will
@@ -153,6 +162,16 @@ private constructor(
     @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
 
     /**
+     * The ID for the pending transaction representing the transfer. A pending transaction is
+     * created when the transfer
+     * [requires approval](https://increase.com/documentation/transfer-approvals#transfer-approvals)
+     * by someone else in your organization.
+     */
+    @JsonProperty("pending_transaction_id")
+    @ExcludeMissing
+    fun _pendingTransactionId() = pendingTransactionId
+
+    /**
      * If your account requires approvals for transfers and the transfer was approved, this will
      * contain details of the approval.
      */
@@ -190,6 +209,7 @@ private constructor(
             network()
             status()
             transactionId()
+            pendingTransactionId()
             approval()?.validate()
             cancellation()?.validate()
             uniqueIdentifier()
@@ -217,6 +237,7 @@ private constructor(
             this.network == other.network &&
             this.status == other.status &&
             this.transactionId == other.transactionId &&
+            this.pendingTransactionId == other.pendingTransactionId &&
             this.approval == other.approval &&
             this.cancellation == other.cancellation &&
             this.uniqueIdentifier == other.uniqueIdentifier &&
@@ -239,6 +260,7 @@ private constructor(
                     network,
                     status,
                     transactionId,
+                    pendingTransactionId,
                     approval,
                     cancellation,
                     uniqueIdentifier,
@@ -250,7 +272,7 @@ private constructor(
     }
 
     override fun toString() =
-        "AccountTransfer{id=$id, amount=$amount, accountId=$accountId, currency=$currency, destinationAccountId=$destinationAccountId, destinationTransactionId=$destinationTransactionId, createdAt=$createdAt, description=$description, network=$network, status=$status, transactionId=$transactionId, approval=$approval, cancellation=$cancellation, uniqueIdentifier=$uniqueIdentifier, type=$type, additionalProperties=$additionalProperties}"
+        "AccountTransfer{id=$id, amount=$amount, accountId=$accountId, currency=$currency, destinationAccountId=$destinationAccountId, destinationTransactionId=$destinationTransactionId, createdAt=$createdAt, description=$description, network=$network, status=$status, transactionId=$transactionId, pendingTransactionId=$pendingTransactionId, approval=$approval, cancellation=$cancellation, uniqueIdentifier=$uniqueIdentifier, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -270,6 +292,7 @@ private constructor(
         private var network: JsonField<Network> = JsonMissing.of()
         private var status: JsonField<Status> = JsonMissing.of()
         private var transactionId: JsonField<String> = JsonMissing.of()
+        private var pendingTransactionId: JsonField<String> = JsonMissing.of()
         private var approval: JsonField<Approval> = JsonMissing.of()
         private var cancellation: JsonField<Cancellation> = JsonMissing.of()
         private var uniqueIdentifier: JsonField<String> = JsonMissing.of()
@@ -288,6 +311,7 @@ private constructor(
             this.network = accountTransfer.network
             this.status = accountTransfer.status
             this.transactionId = accountTransfer.transactionId
+            this.pendingTransactionId = accountTransfer.pendingTransactionId
             this.approval = accountTransfer.approval
             this.cancellation = accountTransfer.cancellation
             this.uniqueIdentifier = accountTransfer.uniqueIdentifier
@@ -408,6 +432,27 @@ private constructor(
         }
 
         /**
+         * The ID for the pending transaction representing the transfer. A pending transaction is
+         * created when the transfer
+         * [requires approval](https://increase.com/documentation/transfer-approvals#transfer-approvals)
+         * by someone else in your organization.
+         */
+        fun pendingTransactionId(pendingTransactionId: String) =
+            pendingTransactionId(JsonField.of(pendingTransactionId))
+
+        /**
+         * The ID for the pending transaction representing the transfer. A pending transaction is
+         * created when the transfer
+         * [requires approval](https://increase.com/documentation/transfer-approvals#transfer-approvals)
+         * by someone else in your organization.
+         */
+        @JsonProperty("pending_transaction_id")
+        @ExcludeMissing
+        fun pendingTransactionId(pendingTransactionId: JsonField<String>) = apply {
+            this.pendingTransactionId = pendingTransactionId
+        }
+
+        /**
          * If your account requires approvals for transfers and the transfer was approved, this will
          * contain details of the approval.
          */
@@ -489,6 +534,7 @@ private constructor(
                 network,
                 status,
                 transactionId,
+                pendingTransactionId,
                 approval,
                 cancellation,
                 uniqueIdentifier,

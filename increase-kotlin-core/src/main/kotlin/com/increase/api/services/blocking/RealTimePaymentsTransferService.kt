@@ -11,19 +11,19 @@ import com.increase.api.models.RealTimePaymentsTransferRetrieveParams
 
 interface RealTimePaymentsTransferService {
 
-    /** Create a Real Time Payments Transfer */
+    /** Create a Real-Time Payments Transfer */
     fun create(
         params: RealTimePaymentsTransferCreateParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): RealTimePaymentsTransfer
 
-    /** Retrieve a Real Time Payments Transfer */
+    /** Retrieve a Real-Time Payments Transfer */
     fun retrieve(
         params: RealTimePaymentsTransferRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): RealTimePaymentsTransfer
 
-    /** List Real Time Payments Transfers */
+    /** List Real-Time Payments Transfers */
     fun list(
         params: RealTimePaymentsTransferListParams,
         requestOptions: RequestOptions = RequestOptions.none()

@@ -16,7 +16,7 @@ import java.time.LocalDate
 import java.time.OffsetDateTime
 import java.util.Objects
 
-/** The results of an inbound Real Time Payments Transfer simulation. */
+/** The results of an inbound Real-Time Payments Transfer simulation. */
 @JsonDeserialize(builder = InboundRealTimePaymentsTransferSimulationResult.Builder::class)
 @NoAutoDetect
 class InboundRealTimePaymentsTransferSimulationResult
@@ -32,14 +32,14 @@ private constructor(
     private var hashCode: Int = 0
 
     /**
-     * If the Real Time Payments Transfer attempt succeeds, this will contain the resulting
+     * If the Real-Time Payments Transfer attempt succeeds, this will contain the resulting
      * [Transaction](#transactions) object. The Transaction's `source` will be of `category:
      * inbound_real_time_payments_transfer_confirmation`.
      */
     fun transaction(): Transaction? = transaction.getNullable("transaction")
 
     /**
-     * If the Real Time Payments Transfer attempt fails, this will contain the resulting
+     * If the Real-Time Payments Transfer attempt fails, this will contain the resulting
      * [Declined Transaction](#declined-transactions) object. The Declined Transaction's `source`
      * will be of `category: inbound_real_time_payments_transfer_decline`.
      */
@@ -53,14 +53,14 @@ private constructor(
     fun type(): Type = type.getRequired("type")
 
     /**
-     * If the Real Time Payments Transfer attempt succeeds, this will contain the resulting
+     * If the Real-Time Payments Transfer attempt succeeds, this will contain the resulting
      * [Transaction](#transactions) object. The Transaction's `source` will be of `category:
      * inbound_real_time_payments_transfer_confirmation`.
      */
     @JsonProperty("transaction") @ExcludeMissing fun _transaction() = transaction
 
     /**
-     * If the Real Time Payments Transfer attempt fails, this will contain the resulting
+     * If the Real-Time Payments Transfer attempt fails, this will contain the resulting
      * [Declined Transaction](#declined-transactions) object. The Declined Transaction's `source`
      * will be of `category: inbound_real_time_payments_transfer_decline`.
      */
@@ -143,14 +143,14 @@ private constructor(
         }
 
         /**
-         * If the Real Time Payments Transfer attempt succeeds, this will contain the resulting
+         * If the Real-Time Payments Transfer attempt succeeds, this will contain the resulting
          * [Transaction](#transactions) object. The Transaction's `source` will be of `category:
          * inbound_real_time_payments_transfer_confirmation`.
          */
         fun transaction(transaction: Transaction) = transaction(JsonField.of(transaction))
 
         /**
-         * If the Real Time Payments Transfer attempt succeeds, this will contain the resulting
+         * If the Real-Time Payments Transfer attempt succeeds, this will contain the resulting
          * [Transaction](#transactions) object. The Transaction's `source` will be of `category:
          * inbound_real_time_payments_transfer_confirmation`.
          */
@@ -161,7 +161,7 @@ private constructor(
         }
 
         /**
-         * If the Real Time Payments Transfer attempt fails, this will contain the resulting
+         * If the Real-Time Payments Transfer attempt fails, this will contain the resulting
          * [Declined Transaction](#declined-transactions) object. The Declined Transaction's
          * `source` will be of `category: inbound_real_time_payments_transfer_decline`.
          */
@@ -169,7 +169,7 @@ private constructor(
             declinedTransaction(JsonField.of(declinedTransaction))
 
         /**
-         * If the Real Time Payments Transfer attempt fails, this will contain the resulting
+         * If the Real-Time Payments Transfer attempt fails, this will contain the resulting
          * [Declined Transaction](#declined-transactions) object. The Declined Transaction's
          * `source` will be of `category: inbound_real_time_payments_transfer_decline`.
          */
@@ -217,7 +217,7 @@ private constructor(
     }
 
     /**
-     * If the Real Time Payments Transfer attempt fails, this will contain the resulting
+     * If the Real-Time Payments Transfer attempt fails, this will contain the resulting
      * [Declined Transaction](#declined-transactions) object. The Declined Transaction's `source`
      * will be of `category: inbound_real_time_payments_transfer_decline`.
      */
@@ -253,14 +253,14 @@ private constructor(
 
         /**
          * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the Declined
-         * Transaction's currency. This will match the currency on the Declined Transcation's
+         * Transaction's currency. This will match the currency on the Declined Transaction's
          * Account.
          */
         fun currency(): Currency = currency.getRequired("currency")
 
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date on which the Transaction
-         * occured.
+         * occurred.
          */
         fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
@@ -305,14 +305,14 @@ private constructor(
 
         /**
          * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the Declined
-         * Transaction's currency. This will match the currency on the Declined Transcation's
+         * Transaction's currency. This will match the currency on the Declined Transaction's
          * Account.
          */
         @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
 
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date on which the Transaction
-         * occured.
+         * occurred.
          */
         @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
 
@@ -467,14 +467,14 @@ private constructor(
 
             /**
              * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the Declined
-             * Transaction's currency. This will match the currency on the Declined Transcation's
+             * Transaction's currency. This will match the currency on the Declined Transaction's
              * Account.
              */
             fun currency(currency: Currency) = currency(JsonField.of(currency))
 
             /**
              * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the Declined
-             * Transaction's currency. This will match the currency on the Declined Transcation's
+             * Transaction's currency. This will match the currency on the Declined Transaction's
              * Account.
              */
             @JsonProperty("currency")
@@ -483,13 +483,13 @@ private constructor(
 
             /**
              * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date on which the Transaction
-             * occured.
+             * occurred.
              */
             fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
             /**
              * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date on which the Transaction
-             * occured.
+             * occurred.
              */
             @JsonProperty("created_at")
             @ExcludeMissing
@@ -790,7 +790,7 @@ private constructor(
             fun checkDecline(): CheckDecline? = checkDecline.getNullable("check_decline")
 
             /**
-             * An Inbound Real Time Payments Transfer Decline object. This field will be present in
+             * An Inbound Real-Time Payments Transfer Decline object. This field will be present in
              * the JSON response if and only if `category` is equal to
              * `inbound_real_time_payments_transfer_decline`.
              */
@@ -837,7 +837,7 @@ private constructor(
             @JsonProperty("check_decline") @ExcludeMissing fun _checkDecline() = checkDecline
 
             /**
-             * An Inbound Real Time Payments Transfer Decline object. This field will be present in
+             * An Inbound Real-Time Payments Transfer Decline object. This field will be present in
              * the JSON response if and only if `category` is equal to
              * `inbound_real_time_payments_transfer_decline`.
              */
@@ -1010,7 +1010,7 @@ private constructor(
                 }
 
                 /**
-                 * An Inbound Real Time Payments Transfer Decline object. This field will be present
+                 * An Inbound Real-Time Payments Transfer Decline object. This field will be present
                  * in the JSON response if and only if `category` is equal to
                  * `inbound_real_time_payments_transfer_decline`.
                  */
@@ -1022,7 +1022,7 @@ private constructor(
                     )
 
                 /**
-                 * An Inbound Real Time Payments Transfer Decline object. This field will be present
+                 * An Inbound Real-Time Payments Transfer Decline object. This field will be present
                  * in the JSON response if and only if `category` is equal to
                  * `inbound_real_time_payments_transfer_decline`.
                  */
@@ -1459,6 +1459,8 @@ private constructor(
                         val TRANSACTION_NOT_ALLOWED =
                             Reason(JsonField.of("transaction_not_allowed"))
 
+                        val USER_INITIATED = Reason(JsonField.of("user_initiated"))
+
                         fun of(value: String) = Reason(JsonField.of(value))
                     }
 
@@ -1476,6 +1478,7 @@ private constructor(
                         NO_ACH_ROUTE,
                         ORIGINATOR_REQUEST,
                         TRANSACTION_NOT_ALLOWED,
+                        USER_INITIATED,
                     }
 
                     enum class Value {
@@ -1492,6 +1495,7 @@ private constructor(
                         NO_ACH_ROUTE,
                         ORIGINATOR_REQUEST,
                         TRANSACTION_NOT_ALLOWED,
+                        USER_INITIATED,
                         _UNKNOWN,
                     }
 
@@ -1512,6 +1516,7 @@ private constructor(
                             NO_ACH_ROUTE -> Value.NO_ACH_ROUTE
                             ORIGINATOR_REQUEST -> Value.ORIGINATOR_REQUEST
                             TRANSACTION_NOT_ALLOWED -> Value.TRANSACTION_NOT_ALLOWED
+                            USER_INITIATED -> Value.USER_INITIATED
                             else -> Value._UNKNOWN
                         }
 
@@ -1532,6 +1537,7 @@ private constructor(
                             NO_ACH_ROUTE -> Known.NO_ACH_ROUTE
                             ORIGINATOR_REQUEST -> Known.ORIGINATOR_REQUEST
                             TRANSACTION_NOT_ALLOWED -> Known.TRANSACTION_NOT_ALLOWED
+                            USER_INITIATED -> Known.USER_INITIATED
                             else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
                         }
 
@@ -2594,6 +2600,129 @@ private constructor(
 
                             fun asString(): String = _value().asStringOrThrow()
                         }
+
+                        class PointOfServiceEntryMode
+                        @JsonCreator
+                        private constructor(
+                            private val value: JsonField<String>,
+                        ) {
+
+                            @com.fasterxml.jackson.annotation.JsonValue
+                            fun _value(): JsonField<String> = value
+
+                            override fun equals(other: Any?): Boolean {
+                                if (this === other) {
+                                    return true
+                                }
+
+                                return other is PointOfServiceEntryMode && this.value == other.value
+                            }
+
+                            override fun hashCode() = value.hashCode()
+
+                            override fun toString() = value.toString()
+
+                            companion object {
+
+                                val UNKNOWN = PointOfServiceEntryMode(JsonField.of("unknown"))
+
+                                val MANUAL = PointOfServiceEntryMode(JsonField.of("manual"))
+
+                                val MAGNETIC_STRIPE_NO_CVV =
+                                    PointOfServiceEntryMode(JsonField.of("magnetic_stripe_no_cvv"))
+
+                                val OPTICAL_CODE =
+                                    PointOfServiceEntryMode(JsonField.of("optical_code"))
+
+                                val INTEGRATED_CIRCUIT_CARD =
+                                    PointOfServiceEntryMode(JsonField.of("integrated_circuit_card"))
+
+                                val CONTACTLESS =
+                                    PointOfServiceEntryMode(JsonField.of("contactless"))
+
+                                val CREDENTIAL_ON_FILE =
+                                    PointOfServiceEntryMode(JsonField.of("credential_on_file"))
+
+                                val MAGNETIC_STRIPE =
+                                    PointOfServiceEntryMode(JsonField.of("magnetic_stripe"))
+
+                                val CONTACTLESS_MAGNETIC_STRIPE =
+                                    PointOfServiceEntryMode(
+                                        JsonField.of("contactless_magnetic_stripe")
+                                    )
+
+                                val INTEGRATED_CIRCUIT_CARD_NO_CVV =
+                                    PointOfServiceEntryMode(
+                                        JsonField.of("integrated_circuit_card_no_cvv")
+                                    )
+
+                                fun of(value: String) = PointOfServiceEntryMode(JsonField.of(value))
+                            }
+
+                            enum class Known {
+                                UNKNOWN,
+                                MANUAL,
+                                MAGNETIC_STRIPE_NO_CVV,
+                                OPTICAL_CODE,
+                                INTEGRATED_CIRCUIT_CARD,
+                                CONTACTLESS,
+                                CREDENTIAL_ON_FILE,
+                                MAGNETIC_STRIPE,
+                                CONTACTLESS_MAGNETIC_STRIPE,
+                                INTEGRATED_CIRCUIT_CARD_NO_CVV,
+                            }
+
+                            enum class Value {
+                                UNKNOWN,
+                                MANUAL,
+                                MAGNETIC_STRIPE_NO_CVV,
+                                OPTICAL_CODE,
+                                INTEGRATED_CIRCUIT_CARD,
+                                CONTACTLESS,
+                                CREDENTIAL_ON_FILE,
+                                MAGNETIC_STRIPE,
+                                CONTACTLESS_MAGNETIC_STRIPE,
+                                INTEGRATED_CIRCUIT_CARD_NO_CVV,
+                                _UNKNOWN,
+                            }
+
+                            fun value(): Value =
+                                when (this) {
+                                    UNKNOWN -> Value.UNKNOWN
+                                    MANUAL -> Value.MANUAL
+                                    MAGNETIC_STRIPE_NO_CVV -> Value.MAGNETIC_STRIPE_NO_CVV
+                                    OPTICAL_CODE -> Value.OPTICAL_CODE
+                                    INTEGRATED_CIRCUIT_CARD -> Value.INTEGRATED_CIRCUIT_CARD
+                                    CONTACTLESS -> Value.CONTACTLESS
+                                    CREDENTIAL_ON_FILE -> Value.CREDENTIAL_ON_FILE
+                                    MAGNETIC_STRIPE -> Value.MAGNETIC_STRIPE
+                                    CONTACTLESS_MAGNETIC_STRIPE -> Value.CONTACTLESS_MAGNETIC_STRIPE
+                                    INTEGRATED_CIRCUIT_CARD_NO_CVV ->
+                                        Value.INTEGRATED_CIRCUIT_CARD_NO_CVV
+                                    else -> Value._UNKNOWN
+                                }
+
+                            fun known(): Known =
+                                when (this) {
+                                    UNKNOWN -> Known.UNKNOWN
+                                    MANUAL -> Known.MANUAL
+                                    MAGNETIC_STRIPE_NO_CVV -> Known.MAGNETIC_STRIPE_NO_CVV
+                                    OPTICAL_CODE -> Known.OPTICAL_CODE
+                                    INTEGRATED_CIRCUIT_CARD -> Known.INTEGRATED_CIRCUIT_CARD
+                                    CONTACTLESS -> Known.CONTACTLESS
+                                    CREDENTIAL_ON_FILE -> Known.CREDENTIAL_ON_FILE
+                                    MAGNETIC_STRIPE -> Known.MAGNETIC_STRIPE
+                                    CONTACTLESS_MAGNETIC_STRIPE -> Known.CONTACTLESS_MAGNETIC_STRIPE
+                                    INTEGRATED_CIRCUIT_CARD_NO_CVV ->
+                                        Known.INTEGRATED_CIRCUIT_CARD_NO_CVV
+                                    else ->
+                                        throw IncreaseInvalidDataException(
+                                            "Unknown PointOfServiceEntryMode: $value"
+                                        )
+                                }
+
+                            fun asString(): String = _value().asStringOrThrow()
+                        }
                     }
                 }
 
@@ -2622,6 +2751,9 @@ private constructor(
 
                         val CARD_NOT_ACTIVE = Reason(JsonField.of("card_not_active"))
 
+                        val PHYSICAL_CARD_NOT_ACTIVE =
+                            Reason(JsonField.of("physical_card_not_active"))
+
                         val ENTITY_NOT_ACTIVE = Reason(JsonField.of("entity_not_active"))
 
                         val GROUP_LOCKED = Reason(JsonField.of("group_locked"))
@@ -2632,9 +2764,6 @@ private constructor(
 
                         val TRANSACTION_NOT_ALLOWED =
                             Reason(JsonField.of("transaction_not_allowed"))
-
-                        val BREACHES_INTERNAL_LIMIT =
-                            Reason(JsonField.of("breaches_internal_limit"))
 
                         val BREACHES_LIMIT = Reason(JsonField.of("breaches_limit"))
 
@@ -2650,75 +2779,81 @@ private constructor(
                         val MISSING_ORIGINAL_AUTHORIZATION =
                             Reason(JsonField.of("missing_original_authorization"))
 
+                        val SUSPECTED_FRAUD = Reason(JsonField.of("suspected_fraud"))
+
                         fun of(value: String) = Reason(JsonField.of(value))
                     }
 
                     enum class Known {
                         CARD_NOT_ACTIVE,
+                        PHYSICAL_CARD_NOT_ACTIVE,
                         ENTITY_NOT_ACTIVE,
                         GROUP_LOCKED,
                         INSUFFICIENT_FUNDS,
                         CVV2_MISMATCH,
                         TRANSACTION_NOT_ALLOWED,
-                        BREACHES_INTERNAL_LIMIT,
                         BREACHES_LIMIT,
                         WEBHOOK_DECLINED,
                         WEBHOOK_TIMED_OUT,
                         DECLINED_BY_STAND_IN_PROCESSING,
                         INVALID_PHYSICAL_CARD,
                         MISSING_ORIGINAL_AUTHORIZATION,
+                        SUSPECTED_FRAUD,
                     }
 
                     enum class Value {
                         CARD_NOT_ACTIVE,
+                        PHYSICAL_CARD_NOT_ACTIVE,
                         ENTITY_NOT_ACTIVE,
                         GROUP_LOCKED,
                         INSUFFICIENT_FUNDS,
                         CVV2_MISMATCH,
                         TRANSACTION_NOT_ALLOWED,
-                        BREACHES_INTERNAL_LIMIT,
                         BREACHES_LIMIT,
                         WEBHOOK_DECLINED,
                         WEBHOOK_TIMED_OUT,
                         DECLINED_BY_STAND_IN_PROCESSING,
                         INVALID_PHYSICAL_CARD,
                         MISSING_ORIGINAL_AUTHORIZATION,
+                        SUSPECTED_FRAUD,
                         _UNKNOWN,
                     }
 
                     fun value(): Value =
                         when (this) {
                             CARD_NOT_ACTIVE -> Value.CARD_NOT_ACTIVE
+                            PHYSICAL_CARD_NOT_ACTIVE -> Value.PHYSICAL_CARD_NOT_ACTIVE
                             ENTITY_NOT_ACTIVE -> Value.ENTITY_NOT_ACTIVE
                             GROUP_LOCKED -> Value.GROUP_LOCKED
                             INSUFFICIENT_FUNDS -> Value.INSUFFICIENT_FUNDS
                             CVV2_MISMATCH -> Value.CVV2_MISMATCH
                             TRANSACTION_NOT_ALLOWED -> Value.TRANSACTION_NOT_ALLOWED
-                            BREACHES_INTERNAL_LIMIT -> Value.BREACHES_INTERNAL_LIMIT
                             BREACHES_LIMIT -> Value.BREACHES_LIMIT
                             WEBHOOK_DECLINED -> Value.WEBHOOK_DECLINED
                             WEBHOOK_TIMED_OUT -> Value.WEBHOOK_TIMED_OUT
                             DECLINED_BY_STAND_IN_PROCESSING -> Value.DECLINED_BY_STAND_IN_PROCESSING
                             INVALID_PHYSICAL_CARD -> Value.INVALID_PHYSICAL_CARD
                             MISSING_ORIGINAL_AUTHORIZATION -> Value.MISSING_ORIGINAL_AUTHORIZATION
+                            SUSPECTED_FRAUD -> Value.SUSPECTED_FRAUD
                             else -> Value._UNKNOWN
                         }
 
                     fun known(): Known =
                         when (this) {
                             CARD_NOT_ACTIVE -> Known.CARD_NOT_ACTIVE
+                            PHYSICAL_CARD_NOT_ACTIVE -> Known.PHYSICAL_CARD_NOT_ACTIVE
                             ENTITY_NOT_ACTIVE -> Known.ENTITY_NOT_ACTIVE
                             GROUP_LOCKED -> Known.GROUP_LOCKED
                             INSUFFICIENT_FUNDS -> Known.INSUFFICIENT_FUNDS
                             CVV2_MISMATCH -> Known.CVV2_MISMATCH
                             TRANSACTION_NOT_ALLOWED -> Known.TRANSACTION_NOT_ALLOWED
-                            BREACHES_INTERNAL_LIMIT -> Known.BREACHES_INTERNAL_LIMIT
                             BREACHES_LIMIT -> Known.BREACHES_LIMIT
                             WEBHOOK_DECLINED -> Known.WEBHOOK_DECLINED
                             WEBHOOK_TIMED_OUT -> Known.WEBHOOK_TIMED_OUT
                             DECLINED_BY_STAND_IN_PROCESSING -> Known.DECLINED_BY_STAND_IN_PROCESSING
                             INVALID_PHYSICAL_CARD -> Known.INVALID_PHYSICAL_CARD
                             MISSING_ORIGINAL_AUTHORIZATION -> Known.MISSING_ORIGINAL_AUTHORIZATION
+                            SUSPECTED_FRAUD -> Known.SUSPECTED_FRAUD
                             else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
                         }
 
@@ -3115,7 +3250,7 @@ private constructor(
             }
 
             /**
-             * An Inbound Real Time Payments Transfer Decline object. This field will be present in
+             * An Inbound Real-Time Payments Transfer Decline object. This field will be present in
              * the JSON response if and only if `category` is equal to
              * `inbound_real_time_payments_transfer_decline`.
              */
@@ -3147,7 +3282,7 @@ private constructor(
 
                 /**
                  * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code of the declined
-                 * transfer's currency. This will always be "USD" for a Real Time Payments transfer.
+                 * transfer's currency. This will always be "USD" for a Real-Time Payments transfer.
                  */
                 fun currency(): Currency = currency.getRequired("currency")
 
@@ -3170,7 +3305,7 @@ private constructor(
                 fun debtorRoutingNumber(): String =
                     debtorRoutingNumber.getRequired("debtor_routing_number")
 
-                /** The Real Time Payments network identification of the declined transfer. */
+                /** The Real-Time Payments network identification of the declined transfer. */
                 fun transactionIdentification(): String =
                     transactionIdentification.getRequired("transaction_identification")
 
@@ -3186,7 +3321,7 @@ private constructor(
 
                 /**
                  * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code of the declined
-                 * transfer's currency. This will always be "USD" for a Real Time Payments transfer.
+                 * transfer's currency. This will always be "USD" for a Real-Time Payments transfer.
                  */
                 @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
 
@@ -3211,7 +3346,7 @@ private constructor(
                 @ExcludeMissing
                 fun _debtorRoutingNumber() = debtorRoutingNumber
 
-                /** The Real Time Payments network identification of the declined transfer. */
+                /** The Real-Time Payments network identification of the declined transfer. */
                 @JsonProperty("transaction_identification")
                 @ExcludeMissing
                 fun _transactionIdentification() = transactionIdentification
@@ -3338,14 +3473,14 @@ private constructor(
 
                     /**
                      * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code of the declined
-                     * transfer's currency. This will always be "USD" for a Real Time Payments
+                     * transfer's currency. This will always be "USD" for a Real-Time Payments
                      * transfer.
                      */
                     fun currency(currency: Currency) = currency(JsonField.of(currency))
 
                     /**
                      * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code of the declined
-                     * transfer's currency. This will always be "USD" for a Real Time Payments
+                     * transfer's currency. This will always be "USD" for a Real-Time Payments
                      * transfer.
                      */
                     @JsonProperty("currency")
@@ -3409,11 +3544,11 @@ private constructor(
                         this.debtorRoutingNumber = debtorRoutingNumber
                     }
 
-                    /** The Real Time Payments network identification of the declined transfer. */
+                    /** The Real-Time Payments network identification of the declined transfer. */
                     fun transactionIdentification(transactionIdentification: String) =
                         transactionIdentification(JsonField.of(transactionIdentification))
 
-                    /** The Real Time Payments network identification of the declined transfer. */
+                    /** The Real-Time Payments network identification of the declined transfer. */
                     @JsonProperty("transaction_identification")
                     @ExcludeMissing
                     fun transactionIdentification(transactionIdentification: JsonField<String>) =
@@ -5389,7 +5524,7 @@ private constructor(
     }
 
     /**
-     * If the Real Time Payments Transfer attempt succeeds, this will contain the resulting
+     * If the Real-Time Payments Transfer attempt succeeds, this will contain the resulting
      * [Transaction](#transactions) object. The Transaction's `source` will be of `category:
      * inbound_real_time_payments_transfer_confirmation`.
      */
@@ -5425,13 +5560,13 @@ private constructor(
 
         /**
          * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the Transaction's
-         * currency. This will match the currency on the Transcation's Account.
+         * currency. This will match the currency on the Transaction's Account.
          */
         fun currency(): Currency = currency.getRequired("currency")
 
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date on which the Transaction
-         * occured.
+         * occurred.
          */
         fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
@@ -5478,13 +5613,13 @@ private constructor(
 
         /**
          * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the Transaction's
-         * currency. This will match the currency on the Transcation's Account.
+         * currency. This will match the currency on the Transaction's Account.
          */
         @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
 
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date on which the Transaction
-         * occured.
+         * occurred.
          */
         @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
 
@@ -5641,13 +5776,13 @@ private constructor(
 
             /**
              * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the Transaction's
-             * currency. This will match the currency on the Transcation's Account.
+             * currency. This will match the currency on the Transaction's Account.
              */
             fun currency(currency: Currency) = currency(JsonField.of(currency))
 
             /**
              * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the Transaction's
-             * currency. This will match the currency on the Transcation's Account.
+             * currency. This will match the currency on the Transaction's Account.
              */
             @JsonProperty("currency")
             @ExcludeMissing
@@ -5655,13 +5790,13 @@ private constructor(
 
             /**
              * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date on which the Transaction
-             * occured.
+             * occurred.
              */
             fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
             /**
              * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date on which the Transaction
-             * occured.
+             * occurred.
              */
             @JsonProperty("created_at")
             @ExcludeMissing
@@ -6086,7 +6221,7 @@ private constructor(
                 inboundInternationalAchTransfer.getNullable("inbound_international_ach_transfer")
 
             /**
-             * An Inbound Real Time Payments Transfer Confirmation object. This field will be
+             * An Inbound Real-Time Payments Transfer Confirmation object. This field will be
              * present in the JSON response if and only if `category` is equal to
              * `inbound_real_time_payments_transfer_confirmation`.
              */
@@ -6141,7 +6276,7 @@ private constructor(
             fun internalSource(): InternalSource? = internalSource.getNullable("internal_source")
 
             /**
-             * A Real Time Payments Transfer Acknowledgement object. This field will be present in
+             * A Real-Time Payments Transfer Acknowledgement object. This field will be present in
              * the JSON response if and only if `category` is equal to
              * `real_time_payments_transfer_acknowledgement`.
              */
@@ -6306,7 +6441,7 @@ private constructor(
             fun _inboundInternationalAchTransfer() = inboundInternationalAchTransfer
 
             /**
-             * An Inbound Real Time Payments Transfer Confirmation object. This field will be
+             * An Inbound Real-Time Payments Transfer Confirmation object. This field will be
              * present in the JSON response if and only if `category` is equal to
              * `inbound_real_time_payments_transfer_confirmation`.
              */
@@ -6363,7 +6498,7 @@ private constructor(
             @JsonProperty("internal_source") @ExcludeMissing fun _internalSource() = internalSource
 
             /**
-             * A Real Time Payments Transfer Acknowledgement object. This field will be present in
+             * A Real-Time Payments Transfer Acknowledgement object. This field will be present in
              * the JSON response if and only if `category` is equal to
              * `real_time_payments_transfer_acknowledgement`.
              */
@@ -6920,7 +7055,7 @@ private constructor(
                 ) = apply { this.inboundInternationalAchTransfer = inboundInternationalAchTransfer }
 
                 /**
-                 * An Inbound Real Time Payments Transfer Confirmation object. This field will be
+                 * An Inbound Real-Time Payments Transfer Confirmation object. This field will be
                  * present in the JSON response if and only if `category` is equal to
                  * `inbound_real_time_payments_transfer_confirmation`.
                  */
@@ -6933,7 +7068,7 @@ private constructor(
                     )
 
                 /**
-                 * An Inbound Real Time Payments Transfer Confirmation object. This field will be
+                 * An Inbound Real-Time Payments Transfer Confirmation object. This field will be
                  * present in the JSON response if and only if `category` is equal to
                  * `inbound_real_time_payments_transfer_confirmation`.
                  */
@@ -7062,7 +7197,7 @@ private constructor(
                 }
 
                 /**
-                 * A Real Time Payments Transfer Acknowledgement object. This field will be present
+                 * A Real-Time Payments Transfer Acknowledgement object. This field will be present
                  * in the JSON response if and only if `category` is equal to
                  * `real_time_payments_transfer_acknowledgement`.
                  */
@@ -7074,7 +7209,7 @@ private constructor(
                     )
 
                 /**
-                 * A Real Time Payments Transfer Acknowledgement object. This field will be present
+                 * A Real-Time Payments Transfer Acknowledgement object. This field will be present
                  * in the JSON response if and only if `category` is equal to
                  * `real_time_payments_transfer_acknowledgement`.
                  */
@@ -7865,7 +8000,7 @@ private constructor(
                 /** The identifier of the ACH Transfer associated with this return. */
                 fun transferId(): String = transferId.getRequired("transfer_id")
 
-                /** The identifier of the Tranasaction associated with this return. */
+                /** The identifier of the Transaction associated with this return. */
                 fun transactionId(): String = transactionId.getRequired("transaction_id")
 
                 /**
@@ -7887,7 +8022,7 @@ private constructor(
                 /** The identifier of the ACH Transfer associated with this return. */
                 @JsonProperty("transfer_id") @ExcludeMissing fun _transferId() = transferId
 
-                /** The identifier of the Tranasaction associated with this return. */
+                /** The identifier of the Transaction associated with this return. */
                 @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
 
                 @JsonAnyGetter
@@ -8010,11 +8145,11 @@ private constructor(
                         this.transferId = transferId
                     }
 
-                    /** The identifier of the Tranasaction associated with this return. */
+                    /** The identifier of the Transaction associated with this return. */
                     fun transactionId(transactionId: String) =
                         transactionId(JsonField.of(transactionId))
 
-                    /** The identifier of the Tranasaction associated with this return. */
+                    /** The identifier of the Transaction associated with this return. */
                     @JsonProperty("transaction_id")
                     @ExcludeMissing
                     fun transactionId(transactionId: JsonField<String>) = apply {
@@ -10597,7 +10732,7 @@ private constructor(
                             foodBeverageChargesAmount.getNullable("food_beverage_charges_amount")
 
                         /**
-                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the foor
+                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the food
                          * and beverage charges.
                          */
                         fun foodBeverageChargesCurrency(): String? =
@@ -10693,7 +10828,7 @@ private constructor(
                         fun _foodBeverageChargesAmount() = foodBeverageChargesAmount
 
                         /**
-                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the foor
+                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the food
                          * and beverage charges.
                          */
                         @JsonProperty("food_beverage_charges_currency")
@@ -11003,7 +11138,7 @@ private constructor(
 
                             /**
                              * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
-                             * foor and beverage charges.
+                             * food and beverage charges.
                              */
                             fun foodBeverageChargesCurrency(foodBeverageChargesCurrency: String) =
                                 foodBeverageChargesCurrency(
@@ -11012,7 +11147,7 @@ private constructor(
 
                             /**
                              * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
-                             * foor and beverage charges.
+                             * food and beverage charges.
                              */
                             @JsonProperty("food_beverage_charges_currency")
                             @ExcludeMissing
@@ -15313,7 +15448,7 @@ private constructor(
                             foodBeverageChargesAmount.getNullable("food_beverage_charges_amount")
 
                         /**
-                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the foor
+                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the food
                          * and beverage charges.
                          */
                         fun foodBeverageChargesCurrency(): String? =
@@ -15409,7 +15544,7 @@ private constructor(
                         fun _foodBeverageChargesAmount() = foodBeverageChargesAmount
 
                         /**
-                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the foor
+                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the food
                          * and beverage charges.
                          */
                         @JsonProperty("food_beverage_charges_currency")
@@ -15719,7 +15854,7 @@ private constructor(
 
                             /**
                              * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
-                             * foor and beverage charges.
+                             * food and beverage charges.
                              */
                             fun foodBeverageChargesCurrency(foodBeverageChargesCurrency: String) =
                                 foodBeverageChargesCurrency(
@@ -15728,7 +15863,7 @@ private constructor(
 
                             /**
                              * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
-                             * foor and beverage charges.
+                             * food and beverage charges.
                              */
                             @JsonProperty("food_beverage_charges_currency")
                             @ExcludeMissing
@@ -21912,7 +22047,7 @@ private constructor(
             }
 
             /**
-             * An Inbound Real Time Payments Transfer Confirmation object. This field will be
+             * An Inbound Real-Time Payments Transfer Confirmation object. This field will be
              * present in the JSON response if and only if `category` is equal to
              * `inbound_real_time_payments_transfer_confirmation`.
              */
@@ -21943,7 +22078,7 @@ private constructor(
 
                 /**
                  * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code of the transfer's
-                 * currency. This will always be "USD" for a Real Time Payments transfer.
+                 * currency. This will always be "USD" for a Real-Time Payments transfer.
                  */
                 fun currency(): Currency = currency.getRequired("currency")
 
@@ -21963,7 +22098,7 @@ private constructor(
                 fun debtorRoutingNumber(): String =
                     debtorRoutingNumber.getRequired("debtor_routing_number")
 
-                /** The Real Time Payments network identification of the transfer */
+                /** The Real-Time Payments network identification of the transfer */
                 fun transactionIdentification(): String =
                     transactionIdentification.getRequired("transaction_identification")
 
@@ -21979,7 +22114,7 @@ private constructor(
 
                 /**
                  * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code of the transfer's
-                 * currency. This will always be "USD" for a Real Time Payments transfer.
+                 * currency. This will always be "USD" for a Real-Time Payments transfer.
                  */
                 @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
 
@@ -22001,7 +22136,7 @@ private constructor(
                 @ExcludeMissing
                 fun _debtorRoutingNumber() = debtorRoutingNumber
 
-                /** The Real Time Payments network identification of the transfer */
+                /** The Real-Time Payments network identification of the transfer */
                 @JsonProperty("transaction_identification")
                 @ExcludeMissing
                 fun _transactionIdentification() = transactionIdentification
@@ -22123,13 +22258,13 @@ private constructor(
 
                     /**
                      * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code of the transfer's
-                     * currency. This will always be "USD" for a Real Time Payments transfer.
+                     * currency. This will always be "USD" for a Real-Time Payments transfer.
                      */
                     fun currency(currency: Currency) = currency(JsonField.of(currency))
 
                     /**
                      * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code of the transfer's
-                     * currency. This will always be "USD" for a Real Time Payments transfer.
+                     * currency. This will always be "USD" for a Real-Time Payments transfer.
                      */
                     @JsonProperty("currency")
                     @ExcludeMissing
@@ -22184,11 +22319,11 @@ private constructor(
                         this.debtorRoutingNumber = debtorRoutingNumber
                     }
 
-                    /** The Real Time Payments network identification of the transfer */
+                    /** The Real-Time Payments network identification of the transfer */
                     fun transactionIdentification(transactionIdentification: String) =
                         transactionIdentification(JsonField.of(transactionIdentification))
 
-                    /** The Real Time Payments network identification of the transfer */
+                    /** The Real-Time Payments network identification of the transfer */
                     @JsonProperty("transaction_identification")
                     @ExcludeMissing
                     fun transactionIdentification(transactionIdentification: JsonField<String>) =
@@ -23211,7 +23346,7 @@ private constructor(
                     )
 
                 /** The ID for the Transaction associated with the transfer reversal. */
-                fun transactionId(): String? = transactionId.getNullable("transaction_id")
+                fun transactionId(): String = transactionId.getRequired("transaction_id")
 
                 /** The ID for the Wire Transfer that is being reversed. */
                 fun wireTransferId(): String = wireTransferId.getRequired("wire_transfer_id")
@@ -24911,7 +25046,7 @@ private constructor(
             }
 
             /**
-             * A Real Time Payments Transfer Acknowledgement object. This field will be present in
+             * A Real-Time Payments Transfer Acknowledgement object. This field will be present in
              * the JSON response if and only if `category` is equal to
              * `real_time_payments_transfer_acknowledgement`.
              */
@@ -24947,7 +25082,7 @@ private constructor(
                     remittanceInformation.getRequired("remittance_information")
 
                 /**
-                 * The identifier of the Real Time Payments Transfer that led to this Transaction.
+                 * The identifier of the Real-Time Payments Transfer that led to this Transaction.
                  */
                 fun transferId(): String = transferId.getRequired("transfer_id")
 
@@ -24970,7 +25105,7 @@ private constructor(
                 fun _remittanceInformation() = remittanceInformation
 
                 /**
-                 * The identifier of the Real Time Payments Transfer that led to this Transaction.
+                 * The identifier of the Real-Time Payments Transfer that led to this Transaction.
                  */
                 @JsonProperty("transfer_id") @ExcludeMissing fun _transferId() = transferId
 
@@ -25102,13 +25237,13 @@ private constructor(
                     }
 
                     /**
-                     * The identifier of the Real Time Payments Transfer that led to this
+                     * The identifier of the Real-Time Payments Transfer that led to this
                      * Transaction.
                      */
                     fun transferId(transferId: String) = transferId(JsonField.of(transferId))
 
                     /**
-                     * The identifier of the Real Time Payments Transfer that led to this
+                     * The identifier of the Real-Time Payments Transfer that led to this
                      * Transaction.
                      */
                     @JsonProperty("transfer_id")

@@ -350,6 +350,12 @@ private constructor(
 
             val GROUP_HEARTBEAT = SelectedEventCategory(JsonField.of("group.heartbeat"))
 
+            val INBOUND_ACH_TRANSFER_CREATED =
+                SelectedEventCategory(JsonField.of("inbound_ach_transfer.created"))
+
+            val INBOUND_ACH_TRANSFER_UPDATED =
+                SelectedEventCategory(JsonField.of("inbound_ach_transfer.updated"))
+
             val INBOUND_ACH_TRANSFER_RETURN_CREATED =
                 SelectedEventCategory(JsonField.of("inbound_ach_transfer_return.created"))
 
@@ -449,6 +455,8 @@ private constructor(
             FILE_CREATED,
             GROUP_UPDATED,
             GROUP_HEARTBEAT,
+            INBOUND_ACH_TRANSFER_CREATED,
+            INBOUND_ACH_TRANSFER_UPDATED,
             INBOUND_ACH_TRANSFER_RETURN_CREATED,
             INBOUND_ACH_TRANSFER_RETURN_UPDATED,
             INBOUND_WIRE_DRAWDOWN_REQUEST_CREATED,
@@ -502,6 +510,8 @@ private constructor(
             FILE_CREATED,
             GROUP_UPDATED,
             GROUP_HEARTBEAT,
+            INBOUND_ACH_TRANSFER_CREATED,
+            INBOUND_ACH_TRANSFER_UPDATED,
             INBOUND_ACH_TRANSFER_RETURN_CREATED,
             INBOUND_ACH_TRANSFER_RETURN_UPDATED,
             INBOUND_WIRE_DRAWDOWN_REQUEST_CREATED,
@@ -557,6 +567,8 @@ private constructor(
                 FILE_CREATED -> Value.FILE_CREATED
                 GROUP_UPDATED -> Value.GROUP_UPDATED
                 GROUP_HEARTBEAT -> Value.GROUP_HEARTBEAT
+                INBOUND_ACH_TRANSFER_CREATED -> Value.INBOUND_ACH_TRANSFER_CREATED
+                INBOUND_ACH_TRANSFER_UPDATED -> Value.INBOUND_ACH_TRANSFER_UPDATED
                 INBOUND_ACH_TRANSFER_RETURN_CREATED -> Value.INBOUND_ACH_TRANSFER_RETURN_CREATED
                 INBOUND_ACH_TRANSFER_RETURN_UPDATED -> Value.INBOUND_ACH_TRANSFER_RETURN_UPDATED
                 INBOUND_WIRE_DRAWDOWN_REQUEST_CREATED -> Value.INBOUND_WIRE_DRAWDOWN_REQUEST_CREATED
@@ -617,6 +629,8 @@ private constructor(
                 FILE_CREATED -> Known.FILE_CREATED
                 GROUP_UPDATED -> Known.GROUP_UPDATED
                 GROUP_HEARTBEAT -> Known.GROUP_HEARTBEAT
+                INBOUND_ACH_TRANSFER_CREATED -> Known.INBOUND_ACH_TRANSFER_CREATED
+                INBOUND_ACH_TRANSFER_UPDATED -> Known.INBOUND_ACH_TRANSFER_UPDATED
                 INBOUND_ACH_TRANSFER_RETURN_CREATED -> Known.INBOUND_ACH_TRANSFER_RETURN_CREATED
                 INBOUND_ACH_TRANSFER_RETURN_UPDATED -> Known.INBOUND_ACH_TRANSFER_RETURN_UPDATED
                 INBOUND_WIRE_DRAWDOWN_REQUEST_CREATED -> Known.INBOUND_WIRE_DRAWDOWN_REQUEST_CREATED

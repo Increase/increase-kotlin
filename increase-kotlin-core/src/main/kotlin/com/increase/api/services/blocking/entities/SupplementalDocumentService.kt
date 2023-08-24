@@ -16,7 +16,7 @@ interface SupplementalDocumentService {
         requestOptions: RequestOptions = RequestOptions.none()
     ): Entity
 
-    /** List Entity Supplemental Document Submissionss */
+    /** List Entity Supplemental Document Submissions */
     fun list(
         params: EntitySupplementalDocumentListParams,
         requestOptions: RequestOptions = RequestOptions.none()

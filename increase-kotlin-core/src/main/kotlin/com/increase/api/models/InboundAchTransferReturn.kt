@@ -46,7 +46,7 @@ private constructor(
         inboundAchTransferTransactionId.getRequired("inbound_ach_transfer_transaction_id")
 
     /** The ID for the transaction refunding the transfer. */
-    fun transactionId(): String? = transactionId.getNullable("transaction_id")
+    fun transactionId(): String = transactionId.getRequired("transaction_id")
 
     /** The lifecycle status of the transfer. */
     fun status(): Status = status.getRequired("status")
