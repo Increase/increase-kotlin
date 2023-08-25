@@ -14,25 +14,25 @@ import java.util.Objects
 
 class BookkeepingEntrySetCreateParams
 constructor(
+    private val entries: List<Entry>,
     private val date: OffsetDateTime?,
     private val transactionId: String?,
-    private val entries: List<Entry>,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
     private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
+    fun entries(): List<Entry> = entries
+
     fun date(): OffsetDateTime? = date
 
     fun transactionId(): String? = transactionId
 
-    fun entries(): List<Entry> = entries
-
     internal fun getBody(): BookkeepingEntrySetCreateBody {
         return BookkeepingEntrySetCreateBody(
+            entries,
             date,
             transactionId,
-            entries,
             additionalBodyProperties,
         )
     }
@@ -45,13 +45,16 @@ constructor(
     @NoAutoDetect
     class BookkeepingEntrySetCreateBody
     internal constructor(
+        private val entries: List<Entry>?,
         private val date: OffsetDateTime?,
         private val transactionId: String?,
-        private val entries: List<Entry>?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         private var hashCode: Int = 0
+
+        /** The bookkeeping entries. */
+        @JsonProperty("entries") fun entries(): List<Entry>? = entries
 
         /**
          * The date of the transaction. Optional if `transaction_id` is provided, in which case we
@@ -61,9 +64,6 @@ constructor(
 
         /** The identifier of the Transaction related to this entry set, if any. */
         @JsonProperty("transaction_id") fun transactionId(): String? = transactionId
-
-        /** The bookkeeping entries. */
-        @JsonProperty("entries") fun entries(): List<Entry>? = entries
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -77,9 +77,9 @@ constructor(
             }
 
             return other is BookkeepingEntrySetCreateBody &&
+                this.entries == other.entries &&
                 this.date == other.date &&
                 this.transactionId == other.transactionId &&
-                this.entries == other.entries &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -87,9 +87,9 @@ constructor(
             if (hashCode == 0) {
                 hashCode =
                     Objects.hash(
+                        entries,
                         date,
                         transactionId,
-                        entries,
                         additionalProperties,
                     )
             }
@@ -97,7 +97,7 @@ constructor(
         }
 
         override fun toString() =
-            "BookkeepingEntrySetCreateBody{date=$date, transactionId=$transactionId, entries=$entries, additionalProperties=$additionalProperties}"
+            "BookkeepingEntrySetCreateBody{entries=$entries, date=$date, transactionId=$transactionId, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -106,18 +106,22 @@ constructor(
 
         class Builder {
 
+            private var entries: List<Entry>? = null
             private var date: OffsetDateTime? = null
             private var transactionId: String? = null
-            private var entries: List<Entry>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(bookkeepingEntrySetCreateBody: BookkeepingEntrySetCreateBody) =
                 apply {
+                    this.entries = bookkeepingEntrySetCreateBody.entries
                     this.date = bookkeepingEntrySetCreateBody.date
                     this.transactionId = bookkeepingEntrySetCreateBody.transactionId
-                    this.entries = bookkeepingEntrySetCreateBody.entries
                     additionalProperties(bookkeepingEntrySetCreateBody.additionalProperties)
                 }
+
+            /** The bookkeeping entries. */
+            @JsonProperty("entries")
+            fun entries(entries: List<Entry>) = apply { this.entries = entries }
 
             /**
              * The date of the transaction. Optional if `transaction_id` is provided, in which case
@@ -128,10 +132,6 @@ constructor(
             /** The identifier of the Transaction related to this entry set, if any. */
             @JsonProperty("transaction_id")
             fun transactionId(transactionId: String) = apply { this.transactionId = transactionId }
-
-            /** The bookkeeping entries. */
-            @JsonProperty("entries")
-            fun entries(entries: List<Entry>) = apply { this.entries = entries }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -149,10 +149,10 @@ constructor(
 
             fun build(): BookkeepingEntrySetCreateBody =
                 BookkeepingEntrySetCreateBody(
-                    date,
-                    transactionId,
                     checkNotNull(entries) { "`entries` is required but was not set" }
                         .toUnmodifiable(),
+                    date,
+                    transactionId,
                     additionalProperties.toUnmodifiable(),
                 )
         }
@@ -170,9 +170,9 @@ constructor(
         }
 
         return other is BookkeepingEntrySetCreateParams &&
+            this.entries == other.entries &&
             this.date == other.date &&
             this.transactionId == other.transactionId &&
-            this.entries == other.entries &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders &&
             this.additionalBodyProperties == other.additionalBodyProperties
@@ -180,9 +180,9 @@ constructor(
 
     override fun hashCode(): Int {
         return Objects.hash(
+            entries,
             date,
             transactionId,
-            entries,
             additionalQueryParams,
             additionalHeaders,
             additionalBodyProperties,
@@ -190,7 +190,7 @@ constructor(
     }
 
     override fun toString() =
-        "BookkeepingEntrySetCreateParams{date=$date, transactionId=$transactionId, entries=$entries, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "BookkeepingEntrySetCreateParams{entries=$entries, date=$date, transactionId=$transactionId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -202,31 +202,22 @@ constructor(
     @NoAutoDetect
     class Builder {
 
+        private var entries: MutableList<Entry> = mutableListOf()
         private var date: OffsetDateTime? = null
         private var transactionId: String? = null
-        private var entries: MutableList<Entry> = mutableListOf()
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(bookkeepingEntrySetCreateParams: BookkeepingEntrySetCreateParams) =
             apply {
+                this.entries(bookkeepingEntrySetCreateParams.entries)
                 this.date = bookkeepingEntrySetCreateParams.date
                 this.transactionId = bookkeepingEntrySetCreateParams.transactionId
-                this.entries(bookkeepingEntrySetCreateParams.entries)
                 additionalQueryParams(bookkeepingEntrySetCreateParams.additionalQueryParams)
                 additionalHeaders(bookkeepingEntrySetCreateParams.additionalHeaders)
                 additionalBodyProperties(bookkeepingEntrySetCreateParams.additionalBodyProperties)
             }
-
-        /**
-         * The date of the transaction. Optional if `transaction_id` is provided, in which case we
-         * use the `date` of that transaction. Required otherwise.
-         */
-        fun date(date: OffsetDateTime) = apply { this.date = date }
-
-        /** The identifier of the Transaction related to this entry set, if any. */
-        fun transactionId(transactionId: String) = apply { this.transactionId = transactionId }
 
         /** The bookkeeping entries. */
         fun entries(entries: List<Entry>) = apply {
@@ -236,6 +227,15 @@ constructor(
 
         /** The bookkeeping entries. */
         fun addEntry(entry: Entry) = apply { this.entries.add(entry) }
+
+        /**
+         * The date of the transaction. Optional if `transaction_id` is provided, in which case we
+         * use the `date` of that transaction. Required otherwise.
+         */
+        fun date(date: OffsetDateTime) = apply { this.date = date }
+
+        /** The identifier of the Transaction related to this entry set, if any. */
+        fun transactionId(transactionId: String) = apply { this.transactionId = transactionId }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -293,9 +293,9 @@ constructor(
 
         fun build(): BookkeepingEntrySetCreateParams =
             BookkeepingEntrySetCreateParams(
+                checkNotNull(entries) { "`entries` is required but was not set" }.toUnmodifiable(),
                 date,
                 transactionId,
-                checkNotNull(entries) { "`entries` is required but was not set" }.toUnmodifiable(),
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalBodyProperties.toUnmodifiable(),

@@ -17,10 +17,10 @@ import java.util.Objects
 class CardUpdateParams
 constructor(
     private val cardId: String,
-    private val description: String?,
-    private val status: Status?,
     private val billingAddress: BillingAddress?,
+    private val description: String?,
     private val digitalWallet: DigitalWallet?,
+    private val status: Status?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
     private val additionalBodyProperties: Map<String, JsonValue>,
@@ -28,20 +28,20 @@ constructor(
 
     fun cardId(): String = cardId
 
-    fun description(): String? = description
-
-    fun status(): Status? = status
-
     fun billingAddress(): BillingAddress? = billingAddress
+
+    fun description(): String? = description
 
     fun digitalWallet(): DigitalWallet? = digitalWallet
 
+    fun status(): Status? = status
+
     internal fun getBody(): CardUpdateBody {
         return CardUpdateBody(
-            description,
-            status,
             billingAddress,
+            description,
             digitalWallet,
+            status,
             additionalBodyProperties,
         )
     }
@@ -61,29 +61,29 @@ constructor(
     @NoAutoDetect
     class CardUpdateBody
     internal constructor(
-        private val description: String?,
-        private val status: Status?,
         private val billingAddress: BillingAddress?,
+        private val description: String?,
         private val digitalWallet: DigitalWallet?,
+        private val status: Status?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         private var hashCode: Int = 0
 
-        /** The description you choose to give the card. */
-        @JsonProperty("description") fun description(): String? = description
-
-        /** The status to update the Card with. */
-        @JsonProperty("status") fun status(): Status? = status
-
         /** The card's updated billing address. */
         @JsonProperty("billing_address") fun billingAddress(): BillingAddress? = billingAddress
+
+        /** The description you choose to give the card. */
+        @JsonProperty("description") fun description(): String? = description
 
         /**
          * The contact information used in the two-factor steps for digital wallet card creation. At
          * least one field must be present to complete the digital wallet steps.
          */
         @JsonProperty("digital_wallet") fun digitalWallet(): DigitalWallet? = digitalWallet
+
+        /** The status to update the Card with. */
+        @JsonProperty("status") fun status(): Status? = status
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -97,10 +97,10 @@ constructor(
             }
 
             return other is CardUpdateBody &&
-                this.description == other.description &&
-                this.status == other.status &&
                 this.billingAddress == other.billingAddress &&
+                this.description == other.description &&
                 this.digitalWallet == other.digitalWallet &&
+                this.status == other.status &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -108,10 +108,10 @@ constructor(
             if (hashCode == 0) {
                 hashCode =
                     Objects.hash(
-                        description,
-                        status,
                         billingAddress,
+                        description,
                         digitalWallet,
+                        status,
                         additionalProperties,
                     )
             }
@@ -119,7 +119,7 @@ constructor(
         }
 
         override fun toString() =
-            "CardUpdateBody{description=$description, status=$status, billingAddress=$billingAddress, digitalWallet=$digitalWallet, additionalProperties=$additionalProperties}"
+            "CardUpdateBody{billingAddress=$billingAddress, description=$description, digitalWallet=$digitalWallet, status=$status, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -128,32 +128,29 @@ constructor(
 
         class Builder {
 
-            private var description: String? = null
-            private var status: Status? = null
             private var billingAddress: BillingAddress? = null
+            private var description: String? = null
             private var digitalWallet: DigitalWallet? = null
+            private var status: Status? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(cardUpdateBody: CardUpdateBody) = apply {
-                this.description = cardUpdateBody.description
-                this.status = cardUpdateBody.status
                 this.billingAddress = cardUpdateBody.billingAddress
+                this.description = cardUpdateBody.description
                 this.digitalWallet = cardUpdateBody.digitalWallet
+                this.status = cardUpdateBody.status
                 additionalProperties(cardUpdateBody.additionalProperties)
             }
-
-            /** The description you choose to give the card. */
-            @JsonProperty("description")
-            fun description(description: String) = apply { this.description = description }
-
-            /** The status to update the Card with. */
-            @JsonProperty("status") fun status(status: Status) = apply { this.status = status }
 
             /** The card's updated billing address. */
             @JsonProperty("billing_address")
             fun billingAddress(billingAddress: BillingAddress) = apply {
                 this.billingAddress = billingAddress
             }
+
+            /** The description you choose to give the card. */
+            @JsonProperty("description")
+            fun description(description: String) = apply { this.description = description }
 
             /**
              * The contact information used in the two-factor steps for digital wallet card
@@ -163,6 +160,9 @@ constructor(
             fun digitalWallet(digitalWallet: DigitalWallet) = apply {
                 this.digitalWallet = digitalWallet
             }
+
+            /** The status to update the Card with. */
+            @JsonProperty("status") fun status(status: Status) = apply { this.status = status }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -180,10 +180,10 @@ constructor(
 
             fun build(): CardUpdateBody =
                 CardUpdateBody(
-                    description,
-                    status,
                     billingAddress,
+                    description,
                     digitalWallet,
+                    status,
                     additionalProperties.toUnmodifiable(),
                 )
         }
@@ -202,10 +202,10 @@ constructor(
 
         return other is CardUpdateParams &&
             this.cardId == other.cardId &&
-            this.description == other.description &&
-            this.status == other.status &&
             this.billingAddress == other.billingAddress &&
+            this.description == other.description &&
             this.digitalWallet == other.digitalWallet &&
+            this.status == other.status &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders &&
             this.additionalBodyProperties == other.additionalBodyProperties
@@ -214,10 +214,10 @@ constructor(
     override fun hashCode(): Int {
         return Objects.hash(
             cardId,
-            description,
-            status,
             billingAddress,
+            description,
             digitalWallet,
+            status,
             additionalQueryParams,
             additionalHeaders,
             additionalBodyProperties,
@@ -225,7 +225,7 @@ constructor(
     }
 
     override fun toString() =
-        "CardUpdateParams{cardId=$cardId, description=$description, status=$status, billingAddress=$billingAddress, digitalWallet=$digitalWallet, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "CardUpdateParams{cardId=$cardId, billingAddress=$billingAddress, description=$description, digitalWallet=$digitalWallet, status=$status, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -238,20 +238,20 @@ constructor(
     class Builder {
 
         private var cardId: String? = null
-        private var description: String? = null
-        private var status: Status? = null
         private var billingAddress: BillingAddress? = null
+        private var description: String? = null
         private var digitalWallet: DigitalWallet? = null
+        private var status: Status? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(cardUpdateParams: CardUpdateParams) = apply {
             this.cardId = cardUpdateParams.cardId
-            this.description = cardUpdateParams.description
-            this.status = cardUpdateParams.status
             this.billingAddress = cardUpdateParams.billingAddress
+            this.description = cardUpdateParams.description
             this.digitalWallet = cardUpdateParams.digitalWallet
+            this.status = cardUpdateParams.status
             additionalQueryParams(cardUpdateParams.additionalQueryParams)
             additionalHeaders(cardUpdateParams.additionalHeaders)
             additionalBodyProperties(cardUpdateParams.additionalBodyProperties)
@@ -260,16 +260,13 @@ constructor(
         /** The card identifier. */
         fun cardId(cardId: String) = apply { this.cardId = cardId }
 
-        /** The description you choose to give the card. */
-        fun description(description: String) = apply { this.description = description }
-
-        /** The status to update the Card with. */
-        fun status(status: Status) = apply { this.status = status }
-
         /** The card's updated billing address. */
         fun billingAddress(billingAddress: BillingAddress) = apply {
             this.billingAddress = billingAddress
         }
+
+        /** The description you choose to give the card. */
+        fun description(description: String) = apply { this.description = description }
 
         /**
          * The contact information used in the two-factor steps for digital wallet card creation. At
@@ -278,6 +275,9 @@ constructor(
         fun digitalWallet(digitalWallet: DigitalWallet) = apply {
             this.digitalWallet = digitalWallet
         }
+
+        /** The status to update the Card with. */
+        fun status(status: Status) = apply { this.status = status }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -336,10 +336,10 @@ constructor(
         fun build(): CardUpdateParams =
             CardUpdateParams(
                 checkNotNull(cardId) { "`cardId` is required but was not set" },
-                description,
-                status,
                 billingAddress,
+                description,
                 digitalWallet,
+                status,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalBodyProperties.toUnmodifiable(),

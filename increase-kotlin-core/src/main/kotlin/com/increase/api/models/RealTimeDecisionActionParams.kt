@@ -18,8 +18,8 @@ class RealTimeDecisionActionParams
 constructor(
     private val realTimeDecisionId: String,
     private val cardAuthorization: CardAuthorization?,
-    private val digitalWalletToken: DigitalWalletToken?,
     private val digitalWalletAuthentication: DigitalWalletAuthentication?,
+    private val digitalWalletToken: DigitalWalletToken?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
     private val additionalBodyProperties: Map<String, JsonValue>,
@@ -29,15 +29,15 @@ constructor(
 
     fun cardAuthorization(): CardAuthorization? = cardAuthorization
 
-    fun digitalWalletToken(): DigitalWalletToken? = digitalWalletToken
-
     fun digitalWalletAuthentication(): DigitalWalletAuthentication? = digitalWalletAuthentication
+
+    fun digitalWalletToken(): DigitalWalletToken? = digitalWalletToken
 
     internal fun getBody(): RealTimeDecisionActionBody {
         return RealTimeDecisionActionBody(
             cardAuthorization,
-            digitalWalletToken,
             digitalWalletAuthentication,
+            digitalWalletToken,
             additionalBodyProperties,
         )
     }
@@ -58,8 +58,8 @@ constructor(
     class RealTimeDecisionActionBody
     internal constructor(
         private val cardAuthorization: CardAuthorization?,
-        private val digitalWalletToken: DigitalWalletToken?,
         private val digitalWalletAuthentication: DigitalWalletAuthentication?,
+        private val digitalWalletToken: DigitalWalletToken?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -73,19 +73,19 @@ constructor(
         fun cardAuthorization(): CardAuthorization? = cardAuthorization
 
         /**
-         * If the Real-Time Decision relates to a digital wallet token provisioning attempt, this
-         * object contains your response to the attempt.
-         */
-        @JsonProperty("digital_wallet_token")
-        fun digitalWalletToken(): DigitalWalletToken? = digitalWalletToken
-
-        /**
          * If the Real-Time Decision relates to a digital wallet authentication attempt, this object
          * contains your response to the authentication.
          */
         @JsonProperty("digital_wallet_authentication")
         fun digitalWalletAuthentication(): DigitalWalletAuthentication? =
             digitalWalletAuthentication
+
+        /**
+         * If the Real-Time Decision relates to a digital wallet token provisioning attempt, this
+         * object contains your response to the attempt.
+         */
+        @JsonProperty("digital_wallet_token")
+        fun digitalWalletToken(): DigitalWalletToken? = digitalWalletToken
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -100,8 +100,8 @@ constructor(
 
             return other is RealTimeDecisionActionBody &&
                 this.cardAuthorization == other.cardAuthorization &&
-                this.digitalWalletToken == other.digitalWalletToken &&
                 this.digitalWalletAuthentication == other.digitalWalletAuthentication &&
+                this.digitalWalletToken == other.digitalWalletToken &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -110,8 +110,8 @@ constructor(
                 hashCode =
                     Objects.hash(
                         cardAuthorization,
-                        digitalWalletToken,
                         digitalWalletAuthentication,
+                        digitalWalletToken,
                         additionalProperties,
                     )
             }
@@ -119,7 +119,7 @@ constructor(
         }
 
         override fun toString() =
-            "RealTimeDecisionActionBody{cardAuthorization=$cardAuthorization, digitalWalletToken=$digitalWalletToken, digitalWalletAuthentication=$digitalWalletAuthentication, additionalProperties=$additionalProperties}"
+            "RealTimeDecisionActionBody{cardAuthorization=$cardAuthorization, digitalWalletAuthentication=$digitalWalletAuthentication, digitalWalletToken=$digitalWalletToken, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -129,15 +129,15 @@ constructor(
         class Builder {
 
             private var cardAuthorization: CardAuthorization? = null
-            private var digitalWalletToken: DigitalWalletToken? = null
             private var digitalWalletAuthentication: DigitalWalletAuthentication? = null
+            private var digitalWalletToken: DigitalWalletToken? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(realTimeDecisionActionBody: RealTimeDecisionActionBody) = apply {
                 this.cardAuthorization = realTimeDecisionActionBody.cardAuthorization
-                this.digitalWalletToken = realTimeDecisionActionBody.digitalWalletToken
                 this.digitalWalletAuthentication =
                     realTimeDecisionActionBody.digitalWalletAuthentication
+                this.digitalWalletToken = realTimeDecisionActionBody.digitalWalletToken
                 additionalProperties(realTimeDecisionActionBody.additionalProperties)
             }
 
@@ -151,15 +151,6 @@ constructor(
             }
 
             /**
-             * If the Real-Time Decision relates to a digital wallet token provisioning attempt,
-             * this object contains your response to the attempt.
-             */
-            @JsonProperty("digital_wallet_token")
-            fun digitalWalletToken(digitalWalletToken: DigitalWalletToken) = apply {
-                this.digitalWalletToken = digitalWalletToken
-            }
-
-            /**
              * If the Real-Time Decision relates to a digital wallet authentication attempt, this
              * object contains your response to the authentication.
              */
@@ -167,6 +158,15 @@ constructor(
             fun digitalWalletAuthentication(
                 digitalWalletAuthentication: DigitalWalletAuthentication
             ) = apply { this.digitalWalletAuthentication = digitalWalletAuthentication }
+
+            /**
+             * If the Real-Time Decision relates to a digital wallet token provisioning attempt,
+             * this object contains your response to the attempt.
+             */
+            @JsonProperty("digital_wallet_token")
+            fun digitalWalletToken(digitalWalletToken: DigitalWalletToken) = apply {
+                this.digitalWalletToken = digitalWalletToken
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -185,8 +185,8 @@ constructor(
             fun build(): RealTimeDecisionActionBody =
                 RealTimeDecisionActionBody(
                     cardAuthorization,
-                    digitalWalletToken,
                     digitalWalletAuthentication,
+                    digitalWalletToken,
                     additionalProperties.toUnmodifiable(),
                 )
         }
@@ -206,8 +206,8 @@ constructor(
         return other is RealTimeDecisionActionParams &&
             this.realTimeDecisionId == other.realTimeDecisionId &&
             this.cardAuthorization == other.cardAuthorization &&
-            this.digitalWalletToken == other.digitalWalletToken &&
             this.digitalWalletAuthentication == other.digitalWalletAuthentication &&
+            this.digitalWalletToken == other.digitalWalletToken &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders &&
             this.additionalBodyProperties == other.additionalBodyProperties
@@ -217,8 +217,8 @@ constructor(
         return Objects.hash(
             realTimeDecisionId,
             cardAuthorization,
-            digitalWalletToken,
             digitalWalletAuthentication,
+            digitalWalletToken,
             additionalQueryParams,
             additionalHeaders,
             additionalBodyProperties,
@@ -226,7 +226,7 @@ constructor(
     }
 
     override fun toString() =
-        "RealTimeDecisionActionParams{realTimeDecisionId=$realTimeDecisionId, cardAuthorization=$cardAuthorization, digitalWalletToken=$digitalWalletToken, digitalWalletAuthentication=$digitalWalletAuthentication, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "RealTimeDecisionActionParams{realTimeDecisionId=$realTimeDecisionId, cardAuthorization=$cardAuthorization, digitalWalletAuthentication=$digitalWalletAuthentication, digitalWalletToken=$digitalWalletToken, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -240,8 +240,8 @@ constructor(
 
         private var realTimeDecisionId: String? = null
         private var cardAuthorization: CardAuthorization? = null
-        private var digitalWalletToken: DigitalWalletToken? = null
         private var digitalWalletAuthentication: DigitalWalletAuthentication? = null
+        private var digitalWalletToken: DigitalWalletToken? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -249,9 +249,9 @@ constructor(
         internal fun from(realTimeDecisionActionParams: RealTimeDecisionActionParams) = apply {
             this.realTimeDecisionId = realTimeDecisionActionParams.realTimeDecisionId
             this.cardAuthorization = realTimeDecisionActionParams.cardAuthorization
-            this.digitalWalletToken = realTimeDecisionActionParams.digitalWalletToken
             this.digitalWalletAuthentication =
                 realTimeDecisionActionParams.digitalWalletAuthentication
+            this.digitalWalletToken = realTimeDecisionActionParams.digitalWalletToken
             additionalQueryParams(realTimeDecisionActionParams.additionalQueryParams)
             additionalHeaders(realTimeDecisionActionParams.additionalHeaders)
             additionalBodyProperties(realTimeDecisionActionParams.additionalBodyProperties)
@@ -271,14 +271,6 @@ constructor(
         }
 
         /**
-         * If the Real-Time Decision relates to a digital wallet token provisioning attempt, this
-         * object contains your response to the attempt.
-         */
-        fun digitalWalletToken(digitalWalletToken: DigitalWalletToken) = apply {
-            this.digitalWalletToken = digitalWalletToken
-        }
-
-        /**
          * If the Real-Time Decision relates to a digital wallet authentication attempt, this object
          * contains your response to the authentication.
          */
@@ -286,6 +278,14 @@ constructor(
             apply {
                 this.digitalWalletAuthentication = digitalWalletAuthentication
             }
+
+        /**
+         * If the Real-Time Decision relates to a digital wallet token provisioning attempt, this
+         * object contains your response to the attempt.
+         */
+        fun digitalWalletToken(digitalWalletToken: DigitalWalletToken) = apply {
+            this.digitalWalletToken = digitalWalletToken
+        }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -347,8 +347,8 @@ constructor(
                     "`realTimeDecisionId` is required but was not set"
                 },
                 cardAuthorization,
-                digitalWalletToken,
                 digitalWalletAuthentication,
+                digitalWalletToken,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalBodyProperties.toUnmodifiable(),

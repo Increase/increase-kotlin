@@ -18,8 +18,8 @@ constructor(
     private val companyDescriptiveDate: String?,
     private val companyDiscretionaryData: String?,
     private val companyEntryDescription: String?,
-    private val companyName: String?,
     private val companyId: String?,
+    private val companyName: String?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
     private val additionalBodyProperties: Map<String, JsonValue>,
@@ -35,9 +35,9 @@ constructor(
 
     fun companyEntryDescription(): String? = companyEntryDescription
 
-    fun companyName(): String? = companyName
-
     fun companyId(): String? = companyId
+
+    fun companyName(): String? = companyName
 
     internal fun getBody(): SimulationAchTransferCreateInboundBody {
         return SimulationAchTransferCreateInboundBody(
@@ -46,8 +46,8 @@ constructor(
             companyDescriptiveDate,
             companyDiscretionaryData,
             companyEntryDescription,
-            companyName,
             companyId,
+            companyName,
             additionalBodyProperties,
         )
     }
@@ -65,8 +65,8 @@ constructor(
         private val companyDescriptiveDate: String?,
         private val companyDiscretionaryData: String?,
         private val companyEntryDescription: String?,
-        private val companyName: String?,
         private val companyId: String?,
+        private val companyName: String?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -94,11 +94,11 @@ constructor(
         @JsonProperty("company_entry_description")
         fun companyEntryDescription(): String? = companyEntryDescription
 
-        /** The name of the sender. */
-        @JsonProperty("company_name") fun companyName(): String? = companyName
-
         /** The sender's company id. */
         @JsonProperty("company_id") fun companyId(): String? = companyId
+
+        /** The name of the sender. */
+        @JsonProperty("company_name") fun companyName(): String? = companyName
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -117,8 +117,8 @@ constructor(
                 this.companyDescriptiveDate == other.companyDescriptiveDate &&
                 this.companyDiscretionaryData == other.companyDiscretionaryData &&
                 this.companyEntryDescription == other.companyEntryDescription &&
-                this.companyName == other.companyName &&
                 this.companyId == other.companyId &&
+                this.companyName == other.companyName &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -131,8 +131,8 @@ constructor(
                         companyDescriptiveDate,
                         companyDiscretionaryData,
                         companyEntryDescription,
-                        companyName,
                         companyId,
+                        companyName,
                         additionalProperties,
                     )
             }
@@ -140,7 +140,7 @@ constructor(
         }
 
         override fun toString() =
-            "SimulationAchTransferCreateInboundBody{accountNumberId=$accountNumberId, amount=$amount, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, companyId=$companyId, additionalProperties=$additionalProperties}"
+            "SimulationAchTransferCreateInboundBody{accountNumberId=$accountNumberId, amount=$amount, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyId=$companyId, companyName=$companyName, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -154,8 +154,8 @@ constructor(
             private var companyDescriptiveDate: String? = null
             private var companyDiscretionaryData: String? = null
             private var companyEntryDescription: String? = null
-            private var companyName: String? = null
             private var companyId: String? = null
+            private var companyName: String? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(
@@ -169,8 +169,8 @@ constructor(
                     simulationAchTransferCreateInboundBody.companyDiscretionaryData
                 this.companyEntryDescription =
                     simulationAchTransferCreateInboundBody.companyEntryDescription
-                this.companyName = simulationAchTransferCreateInboundBody.companyName
                 this.companyId = simulationAchTransferCreateInboundBody.companyId
+                this.companyName = simulationAchTransferCreateInboundBody.companyName
                 additionalProperties(simulationAchTransferCreateInboundBody.additionalProperties)
             }
 
@@ -205,13 +205,13 @@ constructor(
                 this.companyEntryDescription = companyEntryDescription
             }
 
-            /** The name of the sender. */
-            @JsonProperty("company_name")
-            fun companyName(companyName: String) = apply { this.companyName = companyName }
-
             /** The sender's company id. */
             @JsonProperty("company_id")
             fun companyId(companyId: String) = apply { this.companyId = companyId }
+
+            /** The name of the sender. */
+            @JsonProperty("company_name")
+            fun companyName(companyName: String) = apply { this.companyName = companyName }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -236,8 +236,8 @@ constructor(
                     companyDescriptiveDate,
                     companyDiscretionaryData,
                     companyEntryDescription,
-                    companyName,
                     companyId,
+                    companyName,
                     additionalProperties.toUnmodifiable(),
                 )
         }
@@ -260,8 +260,8 @@ constructor(
             this.companyDescriptiveDate == other.companyDescriptiveDate &&
             this.companyDiscretionaryData == other.companyDiscretionaryData &&
             this.companyEntryDescription == other.companyEntryDescription &&
-            this.companyName == other.companyName &&
             this.companyId == other.companyId &&
+            this.companyName == other.companyName &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders &&
             this.additionalBodyProperties == other.additionalBodyProperties
@@ -274,8 +274,8 @@ constructor(
             companyDescriptiveDate,
             companyDiscretionaryData,
             companyEntryDescription,
-            companyName,
             companyId,
+            companyName,
             additionalQueryParams,
             additionalHeaders,
             additionalBodyProperties,
@@ -283,7 +283,7 @@ constructor(
     }
 
     override fun toString() =
-        "SimulationAchTransferCreateInboundParams{accountNumberId=$accountNumberId, amount=$amount, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, companyId=$companyId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "SimulationAchTransferCreateInboundParams{accountNumberId=$accountNumberId, amount=$amount, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyId=$companyId, companyName=$companyName, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -300,8 +300,8 @@ constructor(
         private var companyDescriptiveDate: String? = null
         private var companyDiscretionaryData: String? = null
         private var companyEntryDescription: String? = null
-        private var companyName: String? = null
         private var companyId: String? = null
+        private var companyName: String? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -317,8 +317,8 @@ constructor(
                 simulationAchTransferCreateInboundParams.companyDiscretionaryData
             this.companyEntryDescription =
                 simulationAchTransferCreateInboundParams.companyEntryDescription
-            this.companyName = simulationAchTransferCreateInboundParams.companyName
             this.companyId = simulationAchTransferCreateInboundParams.companyId
+            this.companyName = simulationAchTransferCreateInboundParams.companyName
             additionalQueryParams(simulationAchTransferCreateInboundParams.additionalQueryParams)
             additionalHeaders(simulationAchTransferCreateInboundParams.additionalHeaders)
             additionalBodyProperties(
@@ -353,11 +353,11 @@ constructor(
             this.companyEntryDescription = companyEntryDescription
         }
 
-        /** The name of the sender. */
-        fun companyName(companyName: String) = apply { this.companyName = companyName }
-
         /** The sender's company id. */
         fun companyId(companyId: String) = apply { this.companyId = companyId }
+
+        /** The name of the sender. */
+        fun companyName(companyName: String) = apply { this.companyName = companyName }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -420,8 +420,8 @@ constructor(
                 companyDescriptiveDate,
                 companyDiscretionaryData,
                 companyEntryDescription,
-                companyName,
                 companyId,
+                companyName,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalBodyProperties.toUnmodifiable(),

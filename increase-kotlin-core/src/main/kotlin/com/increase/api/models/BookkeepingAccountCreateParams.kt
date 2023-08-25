@@ -16,29 +16,29 @@ import java.util.Objects
 
 class BookkeepingAccountCreateParams
 constructor(
+    private val name: String,
+    private val accountId: String?,
     private val complianceCategory: ComplianceCategory?,
     private val entityId: String?,
-    private val accountId: String?,
-    private val name: String,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
     private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
+    fun name(): String = name
+
+    fun accountId(): String? = accountId
+
     fun complianceCategory(): ComplianceCategory? = complianceCategory
 
     fun entityId(): String? = entityId
 
-    fun accountId(): String? = accountId
-
-    fun name(): String = name
-
     internal fun getBody(): BookkeepingAccountCreateBody {
         return BookkeepingAccountCreateBody(
+            name,
+            accountId,
             complianceCategory,
             entityId,
-            accountId,
-            name,
             additionalBodyProperties,
         )
     }
@@ -51,14 +51,20 @@ constructor(
     @NoAutoDetect
     class BookkeepingAccountCreateBody
     internal constructor(
+        private val name: String?,
+        private val accountId: String?,
         private val complianceCategory: ComplianceCategory?,
         private val entityId: String?,
-        private val accountId: String?,
-        private val name: String?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         private var hashCode: Int = 0
+
+        /** The name you choose for the account. */
+        @JsonProperty("name") fun name(): String? = name
+
+        /** The entity, if `compliance_category` is `commingled_cash`. */
+        @JsonProperty("account_id") fun accountId(): String? = accountId
 
         /** The account compliance category. */
         @JsonProperty("compliance_category")
@@ -66,12 +72,6 @@ constructor(
 
         /** The entity, if `compliance_category` is `customer_balance`. */
         @JsonProperty("entity_id") fun entityId(): String? = entityId
-
-        /** The entity, if `compliance_category` is `commingled_cash`. */
-        @JsonProperty("account_id") fun accountId(): String? = accountId
-
-        /** The name you choose for the account. */
-        @JsonProperty("name") fun name(): String? = name
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -85,10 +85,10 @@ constructor(
             }
 
             return other is BookkeepingAccountCreateBody &&
+                this.name == other.name &&
+                this.accountId == other.accountId &&
                 this.complianceCategory == other.complianceCategory &&
                 this.entityId == other.entityId &&
-                this.accountId == other.accountId &&
-                this.name == other.name &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -96,10 +96,10 @@ constructor(
             if (hashCode == 0) {
                 hashCode =
                     Objects.hash(
+                        name,
+                        accountId,
                         complianceCategory,
                         entityId,
-                        accountId,
-                        name,
                         additionalProperties,
                     )
             }
@@ -107,7 +107,7 @@ constructor(
         }
 
         override fun toString() =
-            "BookkeepingAccountCreateBody{complianceCategory=$complianceCategory, entityId=$entityId, accountId=$accountId, name=$name, additionalProperties=$additionalProperties}"
+            "BookkeepingAccountCreateBody{name=$name, accountId=$accountId, complianceCategory=$complianceCategory, entityId=$entityId, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -116,19 +116,26 @@ constructor(
 
         class Builder {
 
+            private var name: String? = null
+            private var accountId: String? = null
             private var complianceCategory: ComplianceCategory? = null
             private var entityId: String? = null
-            private var accountId: String? = null
-            private var name: String? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(bookkeepingAccountCreateBody: BookkeepingAccountCreateBody) = apply {
+                this.name = bookkeepingAccountCreateBody.name
+                this.accountId = bookkeepingAccountCreateBody.accountId
                 this.complianceCategory = bookkeepingAccountCreateBody.complianceCategory
                 this.entityId = bookkeepingAccountCreateBody.entityId
-                this.accountId = bookkeepingAccountCreateBody.accountId
-                this.name = bookkeepingAccountCreateBody.name
                 additionalProperties(bookkeepingAccountCreateBody.additionalProperties)
             }
+
+            /** The name you choose for the account. */
+            @JsonProperty("name") fun name(name: String) = apply { this.name = name }
+
+            /** The entity, if `compliance_category` is `commingled_cash`. */
+            @JsonProperty("account_id")
+            fun accountId(accountId: String) = apply { this.accountId = accountId }
 
             /** The account compliance category. */
             @JsonProperty("compliance_category")
@@ -139,13 +146,6 @@ constructor(
             /** The entity, if `compliance_category` is `customer_balance`. */
             @JsonProperty("entity_id")
             fun entityId(entityId: String) = apply { this.entityId = entityId }
-
-            /** The entity, if `compliance_category` is `commingled_cash`. */
-            @JsonProperty("account_id")
-            fun accountId(accountId: String) = apply { this.accountId = accountId }
-
-            /** The name you choose for the account. */
-            @JsonProperty("name") fun name(name: String) = apply { this.name = name }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -163,10 +163,10 @@ constructor(
 
             fun build(): BookkeepingAccountCreateBody =
                 BookkeepingAccountCreateBody(
+                    checkNotNull(name) { "`name` is required but was not set" },
+                    accountId,
                     complianceCategory,
                     entityId,
-                    accountId,
-                    checkNotNull(name) { "`name` is required but was not set" },
                     additionalProperties.toUnmodifiable(),
                 )
         }
@@ -184,10 +184,10 @@ constructor(
         }
 
         return other is BookkeepingAccountCreateParams &&
+            this.name == other.name &&
+            this.accountId == other.accountId &&
             this.complianceCategory == other.complianceCategory &&
             this.entityId == other.entityId &&
-            this.accountId == other.accountId &&
-            this.name == other.name &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders &&
             this.additionalBodyProperties == other.additionalBodyProperties
@@ -195,10 +195,10 @@ constructor(
 
     override fun hashCode(): Int {
         return Objects.hash(
+            name,
+            accountId,
             complianceCategory,
             entityId,
-            accountId,
-            name,
             additionalQueryParams,
             additionalHeaders,
             additionalBodyProperties,
@@ -206,7 +206,7 @@ constructor(
     }
 
     override fun toString() =
-        "BookkeepingAccountCreateParams{complianceCategory=$complianceCategory, entityId=$entityId, accountId=$accountId, name=$name, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "BookkeepingAccountCreateParams{name=$name, accountId=$accountId, complianceCategory=$complianceCategory, entityId=$entityId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -218,23 +218,29 @@ constructor(
     @NoAutoDetect
     class Builder {
 
+        private var name: String? = null
+        private var accountId: String? = null
         private var complianceCategory: ComplianceCategory? = null
         private var entityId: String? = null
-        private var accountId: String? = null
-        private var name: String? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(bookkeepingAccountCreateParams: BookkeepingAccountCreateParams) = apply {
+            this.name = bookkeepingAccountCreateParams.name
+            this.accountId = bookkeepingAccountCreateParams.accountId
             this.complianceCategory = bookkeepingAccountCreateParams.complianceCategory
             this.entityId = bookkeepingAccountCreateParams.entityId
-            this.accountId = bookkeepingAccountCreateParams.accountId
-            this.name = bookkeepingAccountCreateParams.name
             additionalQueryParams(bookkeepingAccountCreateParams.additionalQueryParams)
             additionalHeaders(bookkeepingAccountCreateParams.additionalHeaders)
             additionalBodyProperties(bookkeepingAccountCreateParams.additionalBodyProperties)
         }
+
+        /** The name you choose for the account. */
+        fun name(name: String) = apply { this.name = name }
+
+        /** The entity, if `compliance_category` is `commingled_cash`. */
+        fun accountId(accountId: String) = apply { this.accountId = accountId }
 
         /** The account compliance category. */
         fun complianceCategory(complianceCategory: ComplianceCategory) = apply {
@@ -243,12 +249,6 @@ constructor(
 
         /** The entity, if `compliance_category` is `customer_balance`. */
         fun entityId(entityId: String) = apply { this.entityId = entityId }
-
-        /** The entity, if `compliance_category` is `commingled_cash`. */
-        fun accountId(accountId: String) = apply { this.accountId = accountId }
-
-        /** The name you choose for the account. */
-        fun name(name: String) = apply { this.name = name }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -306,10 +306,10 @@ constructor(
 
         fun build(): BookkeepingAccountCreateParams =
             BookkeepingAccountCreateParams(
+                checkNotNull(name) { "`name` is required but was not set" },
+                accountId,
                 complianceCategory,
                 entityId,
-                accountId,
-                checkNotNull(name) { "`name` is required but was not set" },
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalBodyProperties.toUnmodifiable(),
