@@ -14,16 +14,16 @@ import java.util.Objects
 class WireTransferCreateParams
 constructor(
     private val accountId: String,
-    private val accountNumber: String?,
-    private val routingNumber: String?,
-    private val externalAccountId: String?,
     private val amount: Long,
-    private val messageToRecipient: String,
     private val beneficiaryName: String,
+    private val messageToRecipient: String,
+    private val accountNumber: String?,
     private val beneficiaryAddressLine1: String?,
     private val beneficiaryAddressLine2: String?,
     private val beneficiaryAddressLine3: String?,
+    private val externalAccountId: String?,
     private val requireApproval: Boolean?,
+    private val routingNumber: String?,
     private val uniqueIdentifier: String?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
@@ -32,17 +32,13 @@ constructor(
 
     fun accountId(): String = accountId
 
-    fun accountNumber(): String? = accountNumber
-
-    fun routingNumber(): String? = routingNumber
-
-    fun externalAccountId(): String? = externalAccountId
-
     fun amount(): Long = amount
+
+    fun beneficiaryName(): String = beneficiaryName
 
     fun messageToRecipient(): String = messageToRecipient
 
-    fun beneficiaryName(): String = beneficiaryName
+    fun accountNumber(): String? = accountNumber
 
     fun beneficiaryAddressLine1(): String? = beneficiaryAddressLine1
 
@@ -50,23 +46,27 @@ constructor(
 
     fun beneficiaryAddressLine3(): String? = beneficiaryAddressLine3
 
+    fun externalAccountId(): String? = externalAccountId
+
     fun requireApproval(): Boolean? = requireApproval
+
+    fun routingNumber(): String? = routingNumber
 
     fun uniqueIdentifier(): String? = uniqueIdentifier
 
     internal fun getBody(): WireTransferCreateBody {
         return WireTransferCreateBody(
             accountId,
-            accountNumber,
-            routingNumber,
-            externalAccountId,
             amount,
-            messageToRecipient,
             beneficiaryName,
+            messageToRecipient,
+            accountNumber,
             beneficiaryAddressLine1,
             beneficiaryAddressLine2,
             beneficiaryAddressLine3,
+            externalAccountId,
             requireApproval,
+            routingNumber,
             uniqueIdentifier,
             additionalBodyProperties,
         )
@@ -81,16 +81,16 @@ constructor(
     class WireTransferCreateBody
     internal constructor(
         private val accountId: String?,
-        private val accountNumber: String?,
-        private val routingNumber: String?,
-        private val externalAccountId: String?,
         private val amount: Long?,
-        private val messageToRecipient: String?,
         private val beneficiaryName: String?,
+        private val messageToRecipient: String?,
+        private val accountNumber: String?,
         private val beneficiaryAddressLine1: String?,
         private val beneficiaryAddressLine2: String?,
         private val beneficiaryAddressLine3: String?,
+        private val externalAccountId: String?,
         private val requireApproval: Boolean?,
+        private val routingNumber: String?,
         private val uniqueIdentifier: String?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
@@ -100,29 +100,17 @@ constructor(
         /** The identifier for the account that will send the transfer. */
         @JsonProperty("account_id") fun accountId(): String? = accountId
 
-        /** The account number for the destination account. */
-        @JsonProperty("account_number") fun accountNumber(): String? = accountNumber
-
-        /**
-         * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the destination
-         * account.
-         */
-        @JsonProperty("routing_number") fun routingNumber(): String? = routingNumber
-
-        /**
-         * The ID of an External Account to initiate a transfer to. If this parameter is provided,
-         * `account_number` and `routing_number` must be absent.
-         */
-        @JsonProperty("external_account_id") fun externalAccountId(): String? = externalAccountId
-
         /** The transfer amount in cents. */
         @JsonProperty("amount") fun amount(): Long? = amount
+
+        /** The beneficiary's name. */
+        @JsonProperty("beneficiary_name") fun beneficiaryName(): String? = beneficiaryName
 
         /** The message that will show on the recipient's bank statement. */
         @JsonProperty("message_to_recipient") fun messageToRecipient(): String? = messageToRecipient
 
-        /** The beneficiary's name. */
-        @JsonProperty("beneficiary_name") fun beneficiaryName(): String? = beneficiaryName
+        /** The account number for the destination account. */
+        @JsonProperty("account_number") fun accountNumber(): String? = accountNumber
 
         /** The beneficiary's address line 1. */
         @JsonProperty("beneficiary_address_line1")
@@ -136,8 +124,20 @@ constructor(
         @JsonProperty("beneficiary_address_line3")
         fun beneficiaryAddressLine3(): String? = beneficiaryAddressLine3
 
+        /**
+         * The ID of an External Account to initiate a transfer to. If this parameter is provided,
+         * `account_number` and `routing_number` must be absent.
+         */
+        @JsonProperty("external_account_id") fun externalAccountId(): String? = externalAccountId
+
         /** Whether the transfer requires explicit approval via the dashboard or API. */
         @JsonProperty("require_approval") fun requireApproval(): Boolean? = requireApproval
+
+        /**
+         * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the destination
+         * account.
+         */
+        @JsonProperty("routing_number") fun routingNumber(): String? = routingNumber
 
         /**
          * A unique identifier you choose for the transfer. Reusing this identifier for another
@@ -159,16 +159,16 @@ constructor(
 
             return other is WireTransferCreateBody &&
                 this.accountId == other.accountId &&
-                this.accountNumber == other.accountNumber &&
-                this.routingNumber == other.routingNumber &&
-                this.externalAccountId == other.externalAccountId &&
                 this.amount == other.amount &&
-                this.messageToRecipient == other.messageToRecipient &&
                 this.beneficiaryName == other.beneficiaryName &&
+                this.messageToRecipient == other.messageToRecipient &&
+                this.accountNumber == other.accountNumber &&
                 this.beneficiaryAddressLine1 == other.beneficiaryAddressLine1 &&
                 this.beneficiaryAddressLine2 == other.beneficiaryAddressLine2 &&
                 this.beneficiaryAddressLine3 == other.beneficiaryAddressLine3 &&
+                this.externalAccountId == other.externalAccountId &&
                 this.requireApproval == other.requireApproval &&
+                this.routingNumber == other.routingNumber &&
                 this.uniqueIdentifier == other.uniqueIdentifier &&
                 this.additionalProperties == other.additionalProperties
         }
@@ -178,16 +178,16 @@ constructor(
                 hashCode =
                     Objects.hash(
                         accountId,
-                        accountNumber,
-                        routingNumber,
-                        externalAccountId,
                         amount,
-                        messageToRecipient,
                         beneficiaryName,
+                        messageToRecipient,
+                        accountNumber,
                         beneficiaryAddressLine1,
                         beneficiaryAddressLine2,
                         beneficiaryAddressLine3,
+                        externalAccountId,
                         requireApproval,
+                        routingNumber,
                         uniqueIdentifier,
                         additionalProperties,
                     )
@@ -196,7 +196,7 @@ constructor(
         }
 
         override fun toString() =
-            "WireTransferCreateBody{accountId=$accountId, accountNumber=$accountNumber, routingNumber=$routingNumber, externalAccountId=$externalAccountId, amount=$amount, messageToRecipient=$messageToRecipient, beneficiaryName=$beneficiaryName, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, requireApproval=$requireApproval, uniqueIdentifier=$uniqueIdentifier, additionalProperties=$additionalProperties}"
+            "WireTransferCreateBody{accountId=$accountId, amount=$amount, beneficiaryName=$beneficiaryName, messageToRecipient=$messageToRecipient, accountNumber=$accountNumber, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, externalAccountId=$externalAccountId, requireApproval=$requireApproval, routingNumber=$routingNumber, uniqueIdentifier=$uniqueIdentifier, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -206,31 +206,31 @@ constructor(
         class Builder {
 
             private var accountId: String? = null
-            private var accountNumber: String? = null
-            private var routingNumber: String? = null
-            private var externalAccountId: String? = null
             private var amount: Long? = null
-            private var messageToRecipient: String? = null
             private var beneficiaryName: String? = null
+            private var messageToRecipient: String? = null
+            private var accountNumber: String? = null
             private var beneficiaryAddressLine1: String? = null
             private var beneficiaryAddressLine2: String? = null
             private var beneficiaryAddressLine3: String? = null
+            private var externalAccountId: String? = null
             private var requireApproval: Boolean? = null
+            private var routingNumber: String? = null
             private var uniqueIdentifier: String? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(wireTransferCreateBody: WireTransferCreateBody) = apply {
                 this.accountId = wireTransferCreateBody.accountId
-                this.accountNumber = wireTransferCreateBody.accountNumber
-                this.routingNumber = wireTransferCreateBody.routingNumber
-                this.externalAccountId = wireTransferCreateBody.externalAccountId
                 this.amount = wireTransferCreateBody.amount
-                this.messageToRecipient = wireTransferCreateBody.messageToRecipient
                 this.beneficiaryName = wireTransferCreateBody.beneficiaryName
+                this.messageToRecipient = wireTransferCreateBody.messageToRecipient
+                this.accountNumber = wireTransferCreateBody.accountNumber
                 this.beneficiaryAddressLine1 = wireTransferCreateBody.beneficiaryAddressLine1
                 this.beneficiaryAddressLine2 = wireTransferCreateBody.beneficiaryAddressLine2
                 this.beneficiaryAddressLine3 = wireTransferCreateBody.beneficiaryAddressLine3
+                this.externalAccountId = wireTransferCreateBody.externalAccountId
                 this.requireApproval = wireTransferCreateBody.requireApproval
+                this.routingNumber = wireTransferCreateBody.routingNumber
                 this.uniqueIdentifier = wireTransferCreateBody.uniqueIdentifier
                 additionalProperties(wireTransferCreateBody.additionalProperties)
             }
@@ -239,28 +239,14 @@ constructor(
             @JsonProperty("account_id")
             fun accountId(accountId: String) = apply { this.accountId = accountId }
 
-            /** The account number for the destination account. */
-            @JsonProperty("account_number")
-            fun accountNumber(accountNumber: String) = apply { this.accountNumber = accountNumber }
-
-            /**
-             * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the
-             * destination account.
-             */
-            @JsonProperty("routing_number")
-            fun routingNumber(routingNumber: String) = apply { this.routingNumber = routingNumber }
-
-            /**
-             * The ID of an External Account to initiate a transfer to. If this parameter is
-             * provided, `account_number` and `routing_number` must be absent.
-             */
-            @JsonProperty("external_account_id")
-            fun externalAccountId(externalAccountId: String) = apply {
-                this.externalAccountId = externalAccountId
-            }
-
             /** The transfer amount in cents. */
             @JsonProperty("amount") fun amount(amount: Long) = apply { this.amount = amount }
+
+            /** The beneficiary's name. */
+            @JsonProperty("beneficiary_name")
+            fun beneficiaryName(beneficiaryName: String) = apply {
+                this.beneficiaryName = beneficiaryName
+            }
 
             /** The message that will show on the recipient's bank statement. */
             @JsonProperty("message_to_recipient")
@@ -268,11 +254,9 @@ constructor(
                 this.messageToRecipient = messageToRecipient
             }
 
-            /** The beneficiary's name. */
-            @JsonProperty("beneficiary_name")
-            fun beneficiaryName(beneficiaryName: String) = apply {
-                this.beneficiaryName = beneficiaryName
-            }
+            /** The account number for the destination account. */
+            @JsonProperty("account_number")
+            fun accountNumber(accountNumber: String) = apply { this.accountNumber = accountNumber }
 
             /** The beneficiary's address line 1. */
             @JsonProperty("beneficiary_address_line1")
@@ -292,11 +276,27 @@ constructor(
                 this.beneficiaryAddressLine3 = beneficiaryAddressLine3
             }
 
+            /**
+             * The ID of an External Account to initiate a transfer to. If this parameter is
+             * provided, `account_number` and `routing_number` must be absent.
+             */
+            @JsonProperty("external_account_id")
+            fun externalAccountId(externalAccountId: String) = apply {
+                this.externalAccountId = externalAccountId
+            }
+
             /** Whether the transfer requires explicit approval via the dashboard or API. */
             @JsonProperty("require_approval")
             fun requireApproval(requireApproval: Boolean) = apply {
                 this.requireApproval = requireApproval
             }
+
+            /**
+             * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the
+             * destination account.
+             */
+            @JsonProperty("routing_number")
+            fun routingNumber(routingNumber: String) = apply { this.routingNumber = routingNumber }
 
             /**
              * A unique identifier you choose for the transfer. Reusing this identifier for another
@@ -325,20 +325,20 @@ constructor(
             fun build(): WireTransferCreateBody =
                 WireTransferCreateBody(
                     checkNotNull(accountId) { "`accountId` is required but was not set" },
-                    accountNumber,
-                    routingNumber,
-                    externalAccountId,
                     checkNotNull(amount) { "`amount` is required but was not set" },
-                    checkNotNull(messageToRecipient) {
-                        "`messageToRecipient` is required but was not set"
-                    },
                     checkNotNull(beneficiaryName) {
                         "`beneficiaryName` is required but was not set"
                     },
+                    checkNotNull(messageToRecipient) {
+                        "`messageToRecipient` is required but was not set"
+                    },
+                    accountNumber,
                     beneficiaryAddressLine1,
                     beneficiaryAddressLine2,
                     beneficiaryAddressLine3,
+                    externalAccountId,
                     requireApproval,
+                    routingNumber,
                     uniqueIdentifier,
                     additionalProperties.toUnmodifiable(),
                 )
@@ -358,16 +358,16 @@ constructor(
 
         return other is WireTransferCreateParams &&
             this.accountId == other.accountId &&
-            this.accountNumber == other.accountNumber &&
-            this.routingNumber == other.routingNumber &&
-            this.externalAccountId == other.externalAccountId &&
             this.amount == other.amount &&
-            this.messageToRecipient == other.messageToRecipient &&
             this.beneficiaryName == other.beneficiaryName &&
+            this.messageToRecipient == other.messageToRecipient &&
+            this.accountNumber == other.accountNumber &&
             this.beneficiaryAddressLine1 == other.beneficiaryAddressLine1 &&
             this.beneficiaryAddressLine2 == other.beneficiaryAddressLine2 &&
             this.beneficiaryAddressLine3 == other.beneficiaryAddressLine3 &&
+            this.externalAccountId == other.externalAccountId &&
             this.requireApproval == other.requireApproval &&
+            this.routingNumber == other.routingNumber &&
             this.uniqueIdentifier == other.uniqueIdentifier &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders &&
@@ -377,16 +377,16 @@ constructor(
     override fun hashCode(): Int {
         return Objects.hash(
             accountId,
-            accountNumber,
-            routingNumber,
-            externalAccountId,
             amount,
-            messageToRecipient,
             beneficiaryName,
+            messageToRecipient,
+            accountNumber,
             beneficiaryAddressLine1,
             beneficiaryAddressLine2,
             beneficiaryAddressLine3,
+            externalAccountId,
             requireApproval,
+            routingNumber,
             uniqueIdentifier,
             additionalQueryParams,
             additionalHeaders,
@@ -395,7 +395,7 @@ constructor(
     }
 
     override fun toString() =
-        "WireTransferCreateParams{accountId=$accountId, accountNumber=$accountNumber, routingNumber=$routingNumber, externalAccountId=$externalAccountId, amount=$amount, messageToRecipient=$messageToRecipient, beneficiaryName=$beneficiaryName, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, requireApproval=$requireApproval, uniqueIdentifier=$uniqueIdentifier, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "WireTransferCreateParams{accountId=$accountId, amount=$amount, beneficiaryName=$beneficiaryName, messageToRecipient=$messageToRecipient, accountNumber=$accountNumber, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, externalAccountId=$externalAccountId, requireApproval=$requireApproval, routingNumber=$routingNumber, uniqueIdentifier=$uniqueIdentifier, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -408,16 +408,16 @@ constructor(
     class Builder {
 
         private var accountId: String? = null
-        private var accountNumber: String? = null
-        private var routingNumber: String? = null
-        private var externalAccountId: String? = null
         private var amount: Long? = null
-        private var messageToRecipient: String? = null
         private var beneficiaryName: String? = null
+        private var messageToRecipient: String? = null
+        private var accountNumber: String? = null
         private var beneficiaryAddressLine1: String? = null
         private var beneficiaryAddressLine2: String? = null
         private var beneficiaryAddressLine3: String? = null
+        private var externalAccountId: String? = null
         private var requireApproval: Boolean? = null
+        private var routingNumber: String? = null
         private var uniqueIdentifier: String? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
@@ -425,16 +425,16 @@ constructor(
 
         internal fun from(wireTransferCreateParams: WireTransferCreateParams) = apply {
             this.accountId = wireTransferCreateParams.accountId
-            this.accountNumber = wireTransferCreateParams.accountNumber
-            this.routingNumber = wireTransferCreateParams.routingNumber
-            this.externalAccountId = wireTransferCreateParams.externalAccountId
             this.amount = wireTransferCreateParams.amount
-            this.messageToRecipient = wireTransferCreateParams.messageToRecipient
             this.beneficiaryName = wireTransferCreateParams.beneficiaryName
+            this.messageToRecipient = wireTransferCreateParams.messageToRecipient
+            this.accountNumber = wireTransferCreateParams.accountNumber
             this.beneficiaryAddressLine1 = wireTransferCreateParams.beneficiaryAddressLine1
             this.beneficiaryAddressLine2 = wireTransferCreateParams.beneficiaryAddressLine2
             this.beneficiaryAddressLine3 = wireTransferCreateParams.beneficiaryAddressLine3
+            this.externalAccountId = wireTransferCreateParams.externalAccountId
             this.requireApproval = wireTransferCreateParams.requireApproval
+            this.routingNumber = wireTransferCreateParams.routingNumber
             this.uniqueIdentifier = wireTransferCreateParams.uniqueIdentifier
             additionalQueryParams(wireTransferCreateParams.additionalQueryParams)
             additionalHeaders(wireTransferCreateParams.additionalHeaders)
@@ -444,35 +444,21 @@ constructor(
         /** The identifier for the account that will send the transfer. */
         fun accountId(accountId: String) = apply { this.accountId = accountId }
 
-        /** The account number for the destination account. */
-        fun accountNumber(accountNumber: String) = apply { this.accountNumber = accountNumber }
-
-        /**
-         * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the destination
-         * account.
-         */
-        fun routingNumber(routingNumber: String) = apply { this.routingNumber = routingNumber }
-
-        /**
-         * The ID of an External Account to initiate a transfer to. If this parameter is provided,
-         * `account_number` and `routing_number` must be absent.
-         */
-        fun externalAccountId(externalAccountId: String) = apply {
-            this.externalAccountId = externalAccountId
-        }
-
         /** The transfer amount in cents. */
         fun amount(amount: Long) = apply { this.amount = amount }
+
+        /** The beneficiary's name. */
+        fun beneficiaryName(beneficiaryName: String) = apply {
+            this.beneficiaryName = beneficiaryName
+        }
 
         /** The message that will show on the recipient's bank statement. */
         fun messageToRecipient(messageToRecipient: String) = apply {
             this.messageToRecipient = messageToRecipient
         }
 
-        /** The beneficiary's name. */
-        fun beneficiaryName(beneficiaryName: String) = apply {
-            this.beneficiaryName = beneficiaryName
-        }
+        /** The account number for the destination account. */
+        fun accountNumber(accountNumber: String) = apply { this.accountNumber = accountNumber }
 
         /** The beneficiary's address line 1. */
         fun beneficiaryAddressLine1(beneficiaryAddressLine1: String) = apply {
@@ -489,10 +475,24 @@ constructor(
             this.beneficiaryAddressLine3 = beneficiaryAddressLine3
         }
 
+        /**
+         * The ID of an External Account to initiate a transfer to. If this parameter is provided,
+         * `account_number` and `routing_number` must be absent.
+         */
+        fun externalAccountId(externalAccountId: String) = apply {
+            this.externalAccountId = externalAccountId
+        }
+
         /** Whether the transfer requires explicit approval via the dashboard or API. */
         fun requireApproval(requireApproval: Boolean) = apply {
             this.requireApproval = requireApproval
         }
+
+        /**
+         * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the destination
+         * account.
+         */
+        fun routingNumber(routingNumber: String) = apply { this.routingNumber = routingNumber }
 
         /**
          * A unique identifier you choose for the transfer. Reusing this identifier for another
@@ -560,18 +560,18 @@ constructor(
         fun build(): WireTransferCreateParams =
             WireTransferCreateParams(
                 checkNotNull(accountId) { "`accountId` is required but was not set" },
-                accountNumber,
-                routingNumber,
-                externalAccountId,
                 checkNotNull(amount) { "`amount` is required but was not set" },
+                checkNotNull(beneficiaryName) { "`beneficiaryName` is required but was not set" },
                 checkNotNull(messageToRecipient) {
                     "`messageToRecipient` is required but was not set"
                 },
-                checkNotNull(beneficiaryName) { "`beneficiaryName` is required but was not set" },
+                accountNumber,
                 beneficiaryAddressLine1,
                 beneficiaryAddressLine2,
                 beneficiaryAddressLine3,
+                externalAccountId,
                 requireApproval,
+                routingNumber,
                 uniqueIdentifier,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),

@@ -13,21 +13,21 @@ import java.util.Objects
 
 class EntityBeneficialOwnerArchiveParams
 constructor(
-    private val entityId: String,
     private val beneficialOwnerId: String,
+    private val entityId: String,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
     private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
-    fun entityId(): String = entityId
-
     fun beneficialOwnerId(): String = beneficialOwnerId
+
+    fun entityId(): String = entityId
 
     internal fun getBody(): EntityBeneficialOwnerArchiveBody {
         return EntityBeneficialOwnerArchiveBody(
-            entityId,
             beneficialOwnerId,
+            entityId,
             additionalBodyProperties,
         )
     }
@@ -40,20 +40,20 @@ constructor(
     @NoAutoDetect
     class EntityBeneficialOwnerArchiveBody
     internal constructor(
-        private val entityId: String?,
         private val beneficialOwnerId: String?,
+        private val entityId: String?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         private var hashCode: Int = 0
 
-        /** The identifier of the Entity to retrieve. */
-        @JsonProperty("entity_id") fun entityId(): String? = entityId
-
         /**
          * The identifying details of anyone controlling or owning 25% or more of the corporation.
          */
         @JsonProperty("beneficial_owner_id") fun beneficialOwnerId(): String? = beneficialOwnerId
+
+        /** The identifier of the Entity to retrieve. */
+        @JsonProperty("entity_id") fun entityId(): String? = entityId
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -67,8 +67,8 @@ constructor(
             }
 
             return other is EntityBeneficialOwnerArchiveBody &&
-                this.entityId == other.entityId &&
                 this.beneficialOwnerId == other.beneficialOwnerId &&
+                this.entityId == other.entityId &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -76,8 +76,8 @@ constructor(
             if (hashCode == 0) {
                 hashCode =
                     Objects.hash(
-                        entityId,
                         beneficialOwnerId,
+                        entityId,
                         additionalProperties,
                     )
             }
@@ -85,7 +85,7 @@ constructor(
         }
 
         override fun toString() =
-            "EntityBeneficialOwnerArchiveBody{entityId=$entityId, beneficialOwnerId=$beneficialOwnerId, additionalProperties=$additionalProperties}"
+            "EntityBeneficialOwnerArchiveBody{beneficialOwnerId=$beneficialOwnerId, entityId=$entityId, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -94,20 +94,16 @@ constructor(
 
         class Builder {
 
-            private var entityId: String? = null
             private var beneficialOwnerId: String? = null
+            private var entityId: String? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(entityBeneficialOwnerArchiveBody: EntityBeneficialOwnerArchiveBody) =
                 apply {
-                    this.entityId = entityBeneficialOwnerArchiveBody.entityId
                     this.beneficialOwnerId = entityBeneficialOwnerArchiveBody.beneficialOwnerId
+                    this.entityId = entityBeneficialOwnerArchiveBody.entityId
                     additionalProperties(entityBeneficialOwnerArchiveBody.additionalProperties)
                 }
-
-            /** The identifier of the Entity to retrieve. */
-            @JsonProperty("entity_id")
-            fun entityId(entityId: String) = apply { this.entityId = entityId }
 
             /**
              * The identifying details of anyone controlling or owning 25% or more of the
@@ -117,6 +113,10 @@ constructor(
             fun beneficialOwnerId(beneficialOwnerId: String) = apply {
                 this.beneficialOwnerId = beneficialOwnerId
             }
+
+            /** The identifier of the Entity to retrieve. */
+            @JsonProperty("entity_id")
+            fun entityId(entityId: String) = apply { this.entityId = entityId }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -134,10 +134,10 @@ constructor(
 
             fun build(): EntityBeneficialOwnerArchiveBody =
                 EntityBeneficialOwnerArchiveBody(
-                    checkNotNull(entityId) { "`entityId` is required but was not set" },
                     checkNotNull(beneficialOwnerId) {
                         "`beneficialOwnerId` is required but was not set"
                     },
+                    checkNotNull(entityId) { "`entityId` is required but was not set" },
                     additionalProperties.toUnmodifiable(),
                 )
         }
@@ -155,8 +155,8 @@ constructor(
         }
 
         return other is EntityBeneficialOwnerArchiveParams &&
-            this.entityId == other.entityId &&
             this.beneficialOwnerId == other.beneficialOwnerId &&
+            this.entityId == other.entityId &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders &&
             this.additionalBodyProperties == other.additionalBodyProperties
@@ -164,8 +164,8 @@ constructor(
 
     override fun hashCode(): Int {
         return Objects.hash(
-            entityId,
             beneficialOwnerId,
+            entityId,
             additionalQueryParams,
             additionalHeaders,
             additionalBodyProperties,
@@ -173,7 +173,7 @@ constructor(
     }
 
     override fun toString() =
-        "EntityBeneficialOwnerArchiveParams{entityId=$entityId, beneficialOwnerId=$beneficialOwnerId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "EntityBeneficialOwnerArchiveParams{beneficialOwnerId=$beneficialOwnerId, entityId=$entityId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -185,16 +185,16 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var entityId: String? = null
         private var beneficialOwnerId: String? = null
+        private var entityId: String? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(entityBeneficialOwnerArchiveParams: EntityBeneficialOwnerArchiveParams) =
             apply {
-                this.entityId = entityBeneficialOwnerArchiveParams.entityId
                 this.beneficialOwnerId = entityBeneficialOwnerArchiveParams.beneficialOwnerId
+                this.entityId = entityBeneficialOwnerArchiveParams.entityId
                 additionalQueryParams(entityBeneficialOwnerArchiveParams.additionalQueryParams)
                 additionalHeaders(entityBeneficialOwnerArchiveParams.additionalHeaders)
                 additionalBodyProperties(
@@ -202,15 +202,15 @@ constructor(
                 )
             }
 
-        /** The identifier of the Entity to retrieve. */
-        fun entityId(entityId: String) = apply { this.entityId = entityId }
-
         /**
          * The identifying details of anyone controlling or owning 25% or more of the corporation.
          */
         fun beneficialOwnerId(beneficialOwnerId: String) = apply {
             this.beneficialOwnerId = beneficialOwnerId
         }
+
+        /** The identifier of the Entity to retrieve. */
+        fun entityId(entityId: String) = apply { this.entityId = entityId }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -268,10 +268,10 @@ constructor(
 
         fun build(): EntityBeneficialOwnerArchiveParams =
             EntityBeneficialOwnerArchiveParams(
-                checkNotNull(entityId) { "`entityId` is required but was not set" },
                 checkNotNull(beneficialOwnerId) {
                     "`beneficialOwnerId` is required but was not set"
                 },
+                checkNotNull(entityId) { "`entityId` is required but was not set" },
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalBodyProperties.toUnmodifiable(),

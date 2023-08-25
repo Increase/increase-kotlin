@@ -18,6 +18,7 @@ import java.util.Objects
 class AchPrenotificationCreateParams
 constructor(
     private val accountNumber: String,
+    private val routingNumber: String,
     private val addendum: String?,
     private val companyDescriptiveDate: String?,
     private val companyDiscretionaryData: String?,
@@ -27,7 +28,6 @@ constructor(
     private val effectiveDate: LocalDate?,
     private val individualId: String?,
     private val individualName: String?,
-    private val routingNumber: String,
     private val standardEntryClassCode: StandardEntryClassCode?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
@@ -35,6 +35,8 @@ constructor(
 ) {
 
     fun accountNumber(): String = accountNumber
+
+    fun routingNumber(): String = routingNumber
 
     fun addendum(): String? = addendum
 
@@ -54,13 +56,12 @@ constructor(
 
     fun individualName(): String? = individualName
 
-    fun routingNumber(): String = routingNumber
-
     fun standardEntryClassCode(): StandardEntryClassCode? = standardEntryClassCode
 
     internal fun getBody(): AchPrenotificationCreateBody {
         return AchPrenotificationCreateBody(
             accountNumber,
+            routingNumber,
             addendum,
             companyDescriptiveDate,
             companyDiscretionaryData,
@@ -70,7 +71,6 @@ constructor(
             effectiveDate,
             individualId,
             individualName,
-            routingNumber,
             standardEntryClassCode,
             additionalBodyProperties,
         )
@@ -85,6 +85,7 @@ constructor(
     class AchPrenotificationCreateBody
     internal constructor(
         private val accountNumber: String?,
+        private val routingNumber: String?,
         private val addendum: String?,
         private val companyDescriptiveDate: String?,
         private val companyDiscretionaryData: String?,
@@ -94,7 +95,6 @@ constructor(
         private val effectiveDate: LocalDate?,
         private val individualId: String?,
         private val individualName: String?,
-        private val routingNumber: String?,
         private val standardEntryClassCode: StandardEntryClassCode?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
@@ -103,6 +103,12 @@ constructor(
 
         /** The account number for the destination account. */
         @JsonProperty("account_number") fun accountNumber(): String? = accountNumber
+
+        /**
+         * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the destination
+         * account.
+         */
+        @JsonProperty("routing_number") fun routingNumber(): String? = routingNumber
 
         /** Additional information that will be sent to the recipient. */
         @JsonProperty("addendum") fun addendum(): String? = addendum
@@ -140,12 +146,6 @@ constructor(
          */
         @JsonProperty("individual_name") fun individualName(): String? = individualName
 
-        /**
-         * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the destination
-         * account.
-         */
-        @JsonProperty("routing_number") fun routingNumber(): String? = routingNumber
-
         /** The Standard Entry Class (SEC) code to use for the ACH Prenotification. */
         @JsonProperty("standard_entry_class_code")
         fun standardEntryClassCode(): StandardEntryClassCode? = standardEntryClassCode
@@ -163,6 +163,7 @@ constructor(
 
             return other is AchPrenotificationCreateBody &&
                 this.accountNumber == other.accountNumber &&
+                this.routingNumber == other.routingNumber &&
                 this.addendum == other.addendum &&
                 this.companyDescriptiveDate == other.companyDescriptiveDate &&
                 this.companyDiscretionaryData == other.companyDiscretionaryData &&
@@ -172,7 +173,6 @@ constructor(
                 this.effectiveDate == other.effectiveDate &&
                 this.individualId == other.individualId &&
                 this.individualName == other.individualName &&
-                this.routingNumber == other.routingNumber &&
                 this.standardEntryClassCode == other.standardEntryClassCode &&
                 this.additionalProperties == other.additionalProperties
         }
@@ -182,6 +182,7 @@ constructor(
                 hashCode =
                     Objects.hash(
                         accountNumber,
+                        routingNumber,
                         addendum,
                         companyDescriptiveDate,
                         companyDiscretionaryData,
@@ -191,7 +192,6 @@ constructor(
                         effectiveDate,
                         individualId,
                         individualName,
-                        routingNumber,
                         standardEntryClassCode,
                         additionalProperties,
                     )
@@ -200,7 +200,7 @@ constructor(
         }
 
         override fun toString() =
-            "AchPrenotificationCreateBody{accountNumber=$accountNumber, addendum=$addendum, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, creditDebitIndicator=$creditDebitIndicator, effectiveDate=$effectiveDate, individualId=$individualId, individualName=$individualName, routingNumber=$routingNumber, standardEntryClassCode=$standardEntryClassCode, additionalProperties=$additionalProperties}"
+            "AchPrenotificationCreateBody{accountNumber=$accountNumber, routingNumber=$routingNumber, addendum=$addendum, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, creditDebitIndicator=$creditDebitIndicator, effectiveDate=$effectiveDate, individualId=$individualId, individualName=$individualName, standardEntryClassCode=$standardEntryClassCode, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -210,6 +210,7 @@ constructor(
         class Builder {
 
             private var accountNumber: String? = null
+            private var routingNumber: String? = null
             private var addendum: String? = null
             private var companyDescriptiveDate: String? = null
             private var companyDiscretionaryData: String? = null
@@ -219,12 +220,12 @@ constructor(
             private var effectiveDate: LocalDate? = null
             private var individualId: String? = null
             private var individualName: String? = null
-            private var routingNumber: String? = null
             private var standardEntryClassCode: StandardEntryClassCode? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(achPrenotificationCreateBody: AchPrenotificationCreateBody) = apply {
                 this.accountNumber = achPrenotificationCreateBody.accountNumber
+                this.routingNumber = achPrenotificationCreateBody.routingNumber
                 this.addendum = achPrenotificationCreateBody.addendum
                 this.companyDescriptiveDate = achPrenotificationCreateBody.companyDescriptiveDate
                 this.companyDiscretionaryData =
@@ -235,7 +236,6 @@ constructor(
                 this.effectiveDate = achPrenotificationCreateBody.effectiveDate
                 this.individualId = achPrenotificationCreateBody.individualId
                 this.individualName = achPrenotificationCreateBody.individualName
-                this.routingNumber = achPrenotificationCreateBody.routingNumber
                 this.standardEntryClassCode = achPrenotificationCreateBody.standardEntryClassCode
                 additionalProperties(achPrenotificationCreateBody.additionalProperties)
             }
@@ -243,6 +243,13 @@ constructor(
             /** The account number for the destination account. */
             @JsonProperty("account_number")
             fun accountNumber(accountNumber: String) = apply { this.accountNumber = accountNumber }
+
+            /**
+             * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the
+             * destination account.
+             */
+            @JsonProperty("routing_number")
+            fun routingNumber(routingNumber: String) = apply { this.routingNumber = routingNumber }
 
             /** Additional information that will be sent to the recipient. */
             @JsonProperty("addendum")
@@ -298,13 +305,6 @@ constructor(
                 this.individualName = individualName
             }
 
-            /**
-             * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the
-             * destination account.
-             */
-            @JsonProperty("routing_number")
-            fun routingNumber(routingNumber: String) = apply { this.routingNumber = routingNumber }
-
             /** The Standard Entry Class (SEC) code to use for the ACH Prenotification. */
             @JsonProperty("standard_entry_class_code")
             fun standardEntryClassCode(standardEntryClassCode: StandardEntryClassCode) = apply {
@@ -328,6 +328,7 @@ constructor(
             fun build(): AchPrenotificationCreateBody =
                 AchPrenotificationCreateBody(
                     checkNotNull(accountNumber) { "`accountNumber` is required but was not set" },
+                    checkNotNull(routingNumber) { "`routingNumber` is required but was not set" },
                     addendum,
                     companyDescriptiveDate,
                     companyDiscretionaryData,
@@ -337,7 +338,6 @@ constructor(
                     effectiveDate,
                     individualId,
                     individualName,
-                    checkNotNull(routingNumber) { "`routingNumber` is required but was not set" },
                     standardEntryClassCode,
                     additionalProperties.toUnmodifiable(),
                 )
@@ -357,6 +357,7 @@ constructor(
 
         return other is AchPrenotificationCreateParams &&
             this.accountNumber == other.accountNumber &&
+            this.routingNumber == other.routingNumber &&
             this.addendum == other.addendum &&
             this.companyDescriptiveDate == other.companyDescriptiveDate &&
             this.companyDiscretionaryData == other.companyDiscretionaryData &&
@@ -366,7 +367,6 @@ constructor(
             this.effectiveDate == other.effectiveDate &&
             this.individualId == other.individualId &&
             this.individualName == other.individualName &&
-            this.routingNumber == other.routingNumber &&
             this.standardEntryClassCode == other.standardEntryClassCode &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders &&
@@ -376,6 +376,7 @@ constructor(
     override fun hashCode(): Int {
         return Objects.hash(
             accountNumber,
+            routingNumber,
             addendum,
             companyDescriptiveDate,
             companyDiscretionaryData,
@@ -385,7 +386,6 @@ constructor(
             effectiveDate,
             individualId,
             individualName,
-            routingNumber,
             standardEntryClassCode,
             additionalQueryParams,
             additionalHeaders,
@@ -394,7 +394,7 @@ constructor(
     }
 
     override fun toString() =
-        "AchPrenotificationCreateParams{accountNumber=$accountNumber, addendum=$addendum, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, creditDebitIndicator=$creditDebitIndicator, effectiveDate=$effectiveDate, individualId=$individualId, individualName=$individualName, routingNumber=$routingNumber, standardEntryClassCode=$standardEntryClassCode, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "AchPrenotificationCreateParams{accountNumber=$accountNumber, routingNumber=$routingNumber, addendum=$addendum, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, creditDebitIndicator=$creditDebitIndicator, effectiveDate=$effectiveDate, individualId=$individualId, individualName=$individualName, standardEntryClassCode=$standardEntryClassCode, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -407,6 +407,7 @@ constructor(
     class Builder {
 
         private var accountNumber: String? = null
+        private var routingNumber: String? = null
         private var addendum: String? = null
         private var companyDescriptiveDate: String? = null
         private var companyDiscretionaryData: String? = null
@@ -416,7 +417,6 @@ constructor(
         private var effectiveDate: LocalDate? = null
         private var individualId: String? = null
         private var individualName: String? = null
-        private var routingNumber: String? = null
         private var standardEntryClassCode: StandardEntryClassCode? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
@@ -424,6 +424,7 @@ constructor(
 
         internal fun from(achPrenotificationCreateParams: AchPrenotificationCreateParams) = apply {
             this.accountNumber = achPrenotificationCreateParams.accountNumber
+            this.routingNumber = achPrenotificationCreateParams.routingNumber
             this.addendum = achPrenotificationCreateParams.addendum
             this.companyDescriptiveDate = achPrenotificationCreateParams.companyDescriptiveDate
             this.companyDiscretionaryData = achPrenotificationCreateParams.companyDiscretionaryData
@@ -433,7 +434,6 @@ constructor(
             this.effectiveDate = achPrenotificationCreateParams.effectiveDate
             this.individualId = achPrenotificationCreateParams.individualId
             this.individualName = achPrenotificationCreateParams.individualName
-            this.routingNumber = achPrenotificationCreateParams.routingNumber
             this.standardEntryClassCode = achPrenotificationCreateParams.standardEntryClassCode
             additionalQueryParams(achPrenotificationCreateParams.additionalQueryParams)
             additionalHeaders(achPrenotificationCreateParams.additionalHeaders)
@@ -442,6 +442,12 @@ constructor(
 
         /** The account number for the destination account. */
         fun accountNumber(accountNumber: String) = apply { this.accountNumber = accountNumber }
+
+        /**
+         * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the destination
+         * account.
+         */
+        fun routingNumber(routingNumber: String) = apply { this.routingNumber = routingNumber }
 
         /** Additional information that will be sent to the recipient. */
         fun addendum(addendum: String) = apply { this.addendum = addendum }
@@ -482,12 +488,6 @@ constructor(
          * recipient's bank.
          */
         fun individualName(individualName: String) = apply { this.individualName = individualName }
-
-        /**
-         * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the destination
-         * account.
-         */
-        fun routingNumber(routingNumber: String) = apply { this.routingNumber = routingNumber }
 
         /** The Standard Entry Class (SEC) code to use for the ACH Prenotification. */
         fun standardEntryClassCode(standardEntryClassCode: StandardEntryClassCode) = apply {
@@ -551,6 +551,7 @@ constructor(
         fun build(): AchPrenotificationCreateParams =
             AchPrenotificationCreateParams(
                 checkNotNull(accountNumber) { "`accountNumber` is required but was not set" },
+                checkNotNull(routingNumber) { "`routingNumber` is required but was not set" },
                 addendum,
                 companyDescriptiveDate,
                 companyDiscretionaryData,
@@ -560,7 +561,6 @@ constructor(
                 effectiveDate,
                 individualId,
                 individualName,
-                checkNotNull(routingNumber) { "`routingNumber` is required but was not set" },
                 standardEntryClassCode,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
