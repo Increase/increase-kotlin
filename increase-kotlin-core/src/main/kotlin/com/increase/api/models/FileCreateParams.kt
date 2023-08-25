@@ -17,8 +17,8 @@ import java.util.Objects
 class FileCreateParams
 constructor(
     private val file: String,
-    private val description: String?,
     private val purpose: Purpose,
+    private val description: String?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
     private val additionalBodyProperties: Map<String, JsonValue>,
@@ -26,15 +26,15 @@ constructor(
 
     fun file(): String = file
 
-    fun description(): String? = description
-
     fun purpose(): Purpose = purpose
+
+    fun description(): String? = description
 
     internal fun getBody(): FileCreateBody {
         return FileCreateBody(
             file,
-            description,
             purpose,
+            description,
             additionalBodyProperties,
         )
     }
@@ -48,8 +48,8 @@ constructor(
     class FileCreateBody
     internal constructor(
         private val file: String?,
-        private val description: String?,
         private val purpose: Purpose?,
+        private val description: String?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -62,11 +62,11 @@ constructor(
          */
         @JsonProperty("file") fun file(): String? = file
 
-        /** The description you choose to give the File. */
-        @JsonProperty("description") fun description(): String? = description
-
         /** What the File will be used for in Increase's systems. */
         @JsonProperty("purpose") fun purpose(): Purpose? = purpose
+
+        /** The description you choose to give the File. */
+        @JsonProperty("description") fun description(): String? = description
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -81,8 +81,8 @@ constructor(
 
             return other is FileCreateBody &&
                 this.file == other.file &&
-                this.description == other.description &&
                 this.purpose == other.purpose &&
+                this.description == other.description &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -91,8 +91,8 @@ constructor(
                 hashCode =
                     Objects.hash(
                         file,
-                        description,
                         purpose,
+                        description,
                         additionalProperties,
                     )
             }
@@ -100,7 +100,7 @@ constructor(
         }
 
         override fun toString() =
-            "FileCreateBody{file=$file, description=$description, purpose=$purpose, additionalProperties=$additionalProperties}"
+            "FileCreateBody{file=$file, purpose=$purpose, description=$description, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -110,14 +110,14 @@ constructor(
         class Builder {
 
             private var file: String? = null
-            private var description: String? = null
             private var purpose: Purpose? = null
+            private var description: String? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(fileCreateBody: FileCreateBody) = apply {
                 this.file = fileCreateBody.file
-                this.description = fileCreateBody.description
                 this.purpose = fileCreateBody.purpose
+                this.description = fileCreateBody.description
                 additionalProperties(fileCreateBody.additionalProperties)
             }
 
@@ -128,13 +128,13 @@ constructor(
              */
             @JsonProperty("file") fun file(file: String) = apply { this.file = file }
 
-            /** The description you choose to give the File. */
-            @JsonProperty("description")
-            fun description(description: String) = apply { this.description = description }
-
             /** What the File will be used for in Increase's systems. */
             @JsonProperty("purpose")
             fun purpose(purpose: Purpose) = apply { this.purpose = purpose }
+
+            /** The description you choose to give the File. */
+            @JsonProperty("description")
+            fun description(description: String) = apply { this.description = description }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -153,8 +153,8 @@ constructor(
             fun build(): FileCreateBody =
                 FileCreateBody(
                     checkNotNull(file) { "`file` is required but was not set" },
-                    description,
                     checkNotNull(purpose) { "`purpose` is required but was not set" },
+                    description,
                     additionalProperties.toUnmodifiable(),
                 )
         }
@@ -173,8 +173,8 @@ constructor(
 
         return other is FileCreateParams &&
             this.file == other.file &&
-            this.description == other.description &&
             this.purpose == other.purpose &&
+            this.description == other.description &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders &&
             this.additionalBodyProperties == other.additionalBodyProperties
@@ -183,8 +183,8 @@ constructor(
     override fun hashCode(): Int {
         return Objects.hash(
             file,
-            description,
             purpose,
+            description,
             additionalQueryParams,
             additionalHeaders,
             additionalBodyProperties,
@@ -192,7 +192,7 @@ constructor(
     }
 
     override fun toString() =
-        "FileCreateParams{file=$file, description=$description, purpose=$purpose, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "FileCreateParams{file=$file, purpose=$purpose, description=$description, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -205,16 +205,16 @@ constructor(
     class Builder {
 
         private var file: String? = null
-        private var description: String? = null
         private var purpose: Purpose? = null
+        private var description: String? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(fileCreateParams: FileCreateParams) = apply {
             this.file = fileCreateParams.file
-            this.description = fileCreateParams.description
             this.purpose = fileCreateParams.purpose
+            this.description = fileCreateParams.description
             additionalQueryParams(fileCreateParams.additionalQueryParams)
             additionalHeaders(fileCreateParams.additionalHeaders)
             additionalBodyProperties(fileCreateParams.additionalBodyProperties)
@@ -227,11 +227,11 @@ constructor(
          */
         fun file(file: String) = apply { this.file = file }
 
-        /** The description you choose to give the File. */
-        fun description(description: String) = apply { this.description = description }
-
         /** What the File will be used for in Increase's systems. */
         fun purpose(purpose: Purpose) = apply { this.purpose = purpose }
+
+        /** The description you choose to give the File. */
+        fun description(description: String) = apply { this.description = description }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -290,8 +290,8 @@ constructor(
         fun build(): FileCreateParams =
             FileCreateParams(
                 checkNotNull(file) { "`file` is required but was not set" },
-                description,
                 checkNotNull(purpose) { "`purpose` is required but was not set" },
+                description,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalBodyProperties.toUnmodifiable(),

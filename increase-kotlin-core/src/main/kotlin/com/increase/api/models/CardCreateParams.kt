@@ -14,8 +14,8 @@ import java.util.Objects
 class CardCreateParams
 constructor(
     private val accountId: String,
-    private val description: String?,
     private val billingAddress: BillingAddress?,
+    private val description: String?,
     private val digitalWallet: DigitalWallet?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
@@ -24,17 +24,17 @@ constructor(
 
     fun accountId(): String = accountId
 
-    fun description(): String? = description
-
     fun billingAddress(): BillingAddress? = billingAddress
+
+    fun description(): String? = description
 
     fun digitalWallet(): DigitalWallet? = digitalWallet
 
     internal fun getBody(): CardCreateBody {
         return CardCreateBody(
             accountId,
-            description,
             billingAddress,
+            description,
             digitalWallet,
             additionalBodyProperties,
         )
@@ -49,8 +49,8 @@ constructor(
     class CardCreateBody
     internal constructor(
         private val accountId: String?,
-        private val description: String?,
         private val billingAddress: BillingAddress?,
+        private val description: String?,
         private val digitalWallet: DigitalWallet?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
@@ -60,11 +60,11 @@ constructor(
         /** The Account the card should belong to. */
         @JsonProperty("account_id") fun accountId(): String? = accountId
 
-        /** The description you choose to give the card. */
-        @JsonProperty("description") fun description(): String? = description
-
         /** The card's billing address. */
         @JsonProperty("billing_address") fun billingAddress(): BillingAddress? = billingAddress
+
+        /** The description you choose to give the card. */
+        @JsonProperty("description") fun description(): String? = description
 
         /**
          * The contact information used in the two-factor steps for digital wallet card creation. To
@@ -87,8 +87,8 @@ constructor(
 
             return other is CardCreateBody &&
                 this.accountId == other.accountId &&
-                this.description == other.description &&
                 this.billingAddress == other.billingAddress &&
+                this.description == other.description &&
                 this.digitalWallet == other.digitalWallet &&
                 this.additionalProperties == other.additionalProperties
         }
@@ -98,8 +98,8 @@ constructor(
                 hashCode =
                     Objects.hash(
                         accountId,
-                        description,
                         billingAddress,
+                        description,
                         digitalWallet,
                         additionalProperties,
                     )
@@ -108,7 +108,7 @@ constructor(
         }
 
         override fun toString() =
-            "CardCreateBody{accountId=$accountId, description=$description, billingAddress=$billingAddress, digitalWallet=$digitalWallet, additionalProperties=$additionalProperties}"
+            "CardCreateBody{accountId=$accountId, billingAddress=$billingAddress, description=$description, digitalWallet=$digitalWallet, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -118,15 +118,15 @@ constructor(
         class Builder {
 
             private var accountId: String? = null
-            private var description: String? = null
             private var billingAddress: BillingAddress? = null
+            private var description: String? = null
             private var digitalWallet: DigitalWallet? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(cardCreateBody: CardCreateBody) = apply {
                 this.accountId = cardCreateBody.accountId
-                this.description = cardCreateBody.description
                 this.billingAddress = cardCreateBody.billingAddress
+                this.description = cardCreateBody.description
                 this.digitalWallet = cardCreateBody.digitalWallet
                 additionalProperties(cardCreateBody.additionalProperties)
             }
@@ -135,15 +135,15 @@ constructor(
             @JsonProperty("account_id")
             fun accountId(accountId: String) = apply { this.accountId = accountId }
 
-            /** The description you choose to give the card. */
-            @JsonProperty("description")
-            fun description(description: String) = apply { this.description = description }
-
             /** The card's billing address. */
             @JsonProperty("billing_address")
             fun billingAddress(billingAddress: BillingAddress) = apply {
                 this.billingAddress = billingAddress
             }
+
+            /** The description you choose to give the card. */
+            @JsonProperty("description")
+            fun description(description: String) = apply { this.description = description }
 
             /**
              * The contact information used in the two-factor steps for digital wallet card
@@ -174,8 +174,8 @@ constructor(
             fun build(): CardCreateBody =
                 CardCreateBody(
                     checkNotNull(accountId) { "`accountId` is required but was not set" },
-                    description,
                     billingAddress,
+                    description,
                     digitalWallet,
                     additionalProperties.toUnmodifiable(),
                 )
@@ -195,8 +195,8 @@ constructor(
 
         return other is CardCreateParams &&
             this.accountId == other.accountId &&
-            this.description == other.description &&
             this.billingAddress == other.billingAddress &&
+            this.description == other.description &&
             this.digitalWallet == other.digitalWallet &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders &&
@@ -206,8 +206,8 @@ constructor(
     override fun hashCode(): Int {
         return Objects.hash(
             accountId,
-            description,
             billingAddress,
+            description,
             digitalWallet,
             additionalQueryParams,
             additionalHeaders,
@@ -216,7 +216,7 @@ constructor(
     }
 
     override fun toString() =
-        "CardCreateParams{accountId=$accountId, description=$description, billingAddress=$billingAddress, digitalWallet=$digitalWallet, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "CardCreateParams{accountId=$accountId, billingAddress=$billingAddress, description=$description, digitalWallet=$digitalWallet, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -229,8 +229,8 @@ constructor(
     class Builder {
 
         private var accountId: String? = null
-        private var description: String? = null
         private var billingAddress: BillingAddress? = null
+        private var description: String? = null
         private var digitalWallet: DigitalWallet? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
@@ -238,8 +238,8 @@ constructor(
 
         internal fun from(cardCreateParams: CardCreateParams) = apply {
             this.accountId = cardCreateParams.accountId
-            this.description = cardCreateParams.description
             this.billingAddress = cardCreateParams.billingAddress
+            this.description = cardCreateParams.description
             this.digitalWallet = cardCreateParams.digitalWallet
             additionalQueryParams(cardCreateParams.additionalQueryParams)
             additionalHeaders(cardCreateParams.additionalHeaders)
@@ -249,13 +249,13 @@ constructor(
         /** The Account the card should belong to. */
         fun accountId(accountId: String) = apply { this.accountId = accountId }
 
-        /** The description you choose to give the card. */
-        fun description(description: String) = apply { this.description = description }
-
         /** The card's billing address. */
         fun billingAddress(billingAddress: BillingAddress) = apply {
             this.billingAddress = billingAddress
         }
+
+        /** The description you choose to give the card. */
+        fun description(description: String) = apply { this.description = description }
 
         /**
          * The contact information used in the two-factor steps for digital wallet card creation. To
@@ -324,8 +324,8 @@ constructor(
         fun build(): CardCreateParams =
             CardCreateParams(
                 checkNotNull(accountId) { "`accountId` is required but was not set" },
-                description,
                 billingAddress,
+                description,
                 digitalWallet,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),

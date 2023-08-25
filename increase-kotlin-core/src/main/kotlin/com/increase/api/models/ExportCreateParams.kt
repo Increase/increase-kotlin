@@ -18,8 +18,8 @@ import java.util.Objects
 class ExportCreateParams
 constructor(
     private val category: Category,
-    private val transactionCsv: TransactionCsv?,
     private val balanceCsv: BalanceCsv?,
+    private val transactionCsv: TransactionCsv?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
     private val additionalBodyProperties: Map<String, JsonValue>,
@@ -27,15 +27,15 @@ constructor(
 
     fun category(): Category = category
 
-    fun transactionCsv(): TransactionCsv? = transactionCsv
-
     fun balanceCsv(): BalanceCsv? = balanceCsv
+
+    fun transactionCsv(): TransactionCsv? = transactionCsv
 
     internal fun getBody(): ExportCreateBody {
         return ExportCreateBody(
             category,
-            transactionCsv,
             balanceCsv,
+            transactionCsv,
             additionalBodyProperties,
         )
     }
@@ -49,8 +49,8 @@ constructor(
     class ExportCreateBody
     internal constructor(
         private val category: Category?,
-        private val transactionCsv: TransactionCsv?,
         private val balanceCsv: BalanceCsv?,
+        private val transactionCsv: TransactionCsv?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -59,11 +59,11 @@ constructor(
         /** The type of Export to create. */
         @JsonProperty("category") fun category(): Category? = category
 
-        /** Options for the created export. Required if `category` is equal to `transaction_csv`. */
-        @JsonProperty("transaction_csv") fun transactionCsv(): TransactionCsv? = transactionCsv
-
         /** Options for the created export. Required if `category` is equal to `balance_csv`. */
         @JsonProperty("balance_csv") fun balanceCsv(): BalanceCsv? = balanceCsv
+
+        /** Options for the created export. Required if `category` is equal to `transaction_csv`. */
+        @JsonProperty("transaction_csv") fun transactionCsv(): TransactionCsv? = transactionCsv
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -78,8 +78,8 @@ constructor(
 
             return other is ExportCreateBody &&
                 this.category == other.category &&
-                this.transactionCsv == other.transactionCsv &&
                 this.balanceCsv == other.balanceCsv &&
+                this.transactionCsv == other.transactionCsv &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -88,8 +88,8 @@ constructor(
                 hashCode =
                     Objects.hash(
                         category,
-                        transactionCsv,
                         balanceCsv,
+                        transactionCsv,
                         additionalProperties,
                     )
             }
@@ -97,7 +97,7 @@ constructor(
         }
 
         override fun toString() =
-            "ExportCreateBody{category=$category, transactionCsv=$transactionCsv, balanceCsv=$balanceCsv, additionalProperties=$additionalProperties}"
+            "ExportCreateBody{category=$category, balanceCsv=$balanceCsv, transactionCsv=$transactionCsv, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -107,20 +107,24 @@ constructor(
         class Builder {
 
             private var category: Category? = null
-            private var transactionCsv: TransactionCsv? = null
             private var balanceCsv: BalanceCsv? = null
+            private var transactionCsv: TransactionCsv? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(exportCreateBody: ExportCreateBody) = apply {
                 this.category = exportCreateBody.category
-                this.transactionCsv = exportCreateBody.transactionCsv
                 this.balanceCsv = exportCreateBody.balanceCsv
+                this.transactionCsv = exportCreateBody.transactionCsv
                 additionalProperties(exportCreateBody.additionalProperties)
             }
 
             /** The type of Export to create. */
             @JsonProperty("category")
             fun category(category: Category) = apply { this.category = category }
+
+            /** Options for the created export. Required if `category` is equal to `balance_csv`. */
+            @JsonProperty("balance_csv")
+            fun balanceCsv(balanceCsv: BalanceCsv) = apply { this.balanceCsv = balanceCsv }
 
             /**
              * Options for the created export. Required if `category` is equal to `transaction_csv`.
@@ -129,10 +133,6 @@ constructor(
             fun transactionCsv(transactionCsv: TransactionCsv) = apply {
                 this.transactionCsv = transactionCsv
             }
-
-            /** Options for the created export. Required if `category` is equal to `balance_csv`. */
-            @JsonProperty("balance_csv")
-            fun balanceCsv(balanceCsv: BalanceCsv) = apply { this.balanceCsv = balanceCsv }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -151,8 +151,8 @@ constructor(
             fun build(): ExportCreateBody =
                 ExportCreateBody(
                     checkNotNull(category) { "`category` is required but was not set" },
-                    transactionCsv,
                     balanceCsv,
+                    transactionCsv,
                     additionalProperties.toUnmodifiable(),
                 )
         }
@@ -171,8 +171,8 @@ constructor(
 
         return other is ExportCreateParams &&
             this.category == other.category &&
-            this.transactionCsv == other.transactionCsv &&
             this.balanceCsv == other.balanceCsv &&
+            this.transactionCsv == other.transactionCsv &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders &&
             this.additionalBodyProperties == other.additionalBodyProperties
@@ -181,8 +181,8 @@ constructor(
     override fun hashCode(): Int {
         return Objects.hash(
             category,
-            transactionCsv,
             balanceCsv,
+            transactionCsv,
             additionalQueryParams,
             additionalHeaders,
             additionalBodyProperties,
@@ -190,7 +190,7 @@ constructor(
     }
 
     override fun toString() =
-        "ExportCreateParams{category=$category, transactionCsv=$transactionCsv, balanceCsv=$balanceCsv, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "ExportCreateParams{category=$category, balanceCsv=$balanceCsv, transactionCsv=$transactionCsv, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -203,16 +203,16 @@ constructor(
     class Builder {
 
         private var category: Category? = null
-        private var transactionCsv: TransactionCsv? = null
         private var balanceCsv: BalanceCsv? = null
+        private var transactionCsv: TransactionCsv? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(exportCreateParams: ExportCreateParams) = apply {
             this.category = exportCreateParams.category
-            this.transactionCsv = exportCreateParams.transactionCsv
             this.balanceCsv = exportCreateParams.balanceCsv
+            this.transactionCsv = exportCreateParams.transactionCsv
             additionalQueryParams(exportCreateParams.additionalQueryParams)
             additionalHeaders(exportCreateParams.additionalHeaders)
             additionalBodyProperties(exportCreateParams.additionalBodyProperties)
@@ -221,13 +221,13 @@ constructor(
         /** The type of Export to create. */
         fun category(category: Category) = apply { this.category = category }
 
+        /** Options for the created export. Required if `category` is equal to `balance_csv`. */
+        fun balanceCsv(balanceCsv: BalanceCsv) = apply { this.balanceCsv = balanceCsv }
+
         /** Options for the created export. Required if `category` is equal to `transaction_csv`. */
         fun transactionCsv(transactionCsv: TransactionCsv) = apply {
             this.transactionCsv = transactionCsv
         }
-
-        /** Options for the created export. Required if `category` is equal to `balance_csv`. */
-        fun balanceCsv(balanceCsv: BalanceCsv) = apply { this.balanceCsv = balanceCsv }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -286,8 +286,8 @@ constructor(
         fun build(): ExportCreateParams =
             ExportCreateParams(
                 checkNotNull(category) { "`category` is required but was not set" },
-                transactionCsv,
                 balanceCsv,
+                transactionCsv,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalBodyProperties.toUnmodifiable(),
