@@ -4,9 +4,11 @@ package com.increase.api.services.blocking
 
 import com.increase.api.core.RequestOptions
 import com.increase.api.models.InboundAchTransfer
+import com.increase.api.models.InboundAchTransferDeclineParams
 import com.increase.api.models.InboundAchTransferListPage
 import com.increase.api.models.InboundAchTransferListParams
 import com.increase.api.models.InboundAchTransferRetrieveParams
+import com.increase.api.models.InboundAchTransferTransferReturnParams
 
 interface InboundAchTransferService {
 
@@ -21,4 +23,16 @@ interface InboundAchTransferService {
         params: InboundAchTransferListParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): InboundAchTransferListPage
+
+    /** Decline an Inbound ACH Transfer */
+    fun decline(
+        params: InboundAchTransferDeclineParams,
+        requestOptions: RequestOptions = RequestOptions.none()
+    ): InboundAchTransfer
+
+    /** Create an ACH Return */
+    fun transferReturn(
+        params: InboundAchTransferTransferReturnParams,
+        requestOptions: RequestOptions = RequestOptions.none()
+    ): InboundAchTransfer
 }
