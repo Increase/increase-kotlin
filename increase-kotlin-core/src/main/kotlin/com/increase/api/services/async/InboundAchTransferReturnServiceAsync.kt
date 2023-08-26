@@ -4,18 +4,11 @@ package com.increase.api.services.async
 
 import com.increase.api.core.RequestOptions
 import com.increase.api.models.InboundAchTransferReturn
-import com.increase.api.models.InboundAchTransferReturnCreateParams
 import com.increase.api.models.InboundAchTransferReturnListPageAsync
 import com.increase.api.models.InboundAchTransferReturnListParams
 import com.increase.api.models.InboundAchTransferReturnRetrieveParams
 
 interface InboundAchTransferReturnServiceAsync {
-
-    /** Create an ACH Return */
-    suspend fun create(
-        params: InboundAchTransferReturnCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
-    ): InboundAchTransferReturn
 
     /** Retrieve an Inbound ACH Transfer Return */
     suspend fun retrieve(
