@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.8.1](https://github.com/Increase/increase-kotlin/compare/v0.8.0...v0.8.1) (2023-08-27)
+
+
+### Features
+
+* **api:** move inbound ACH transfer returns (⚠️ breaking); add ACH transfer declines ([#76](https://github.com/Increase/increase-kotlin/issues/76)) ([a050465](https://github.com/Increase/increase-kotlin/commit/a050465045c97a948dbc6f85cbeab017da8d6623))
+* **api:** updates ([#74](https://github.com/Increase/increase-kotlin/issues/74)) ([49269a8](https://github.com/Increase/increase-kotlin/commit/49269a818cb3114d5764dc91f6084daab31afae6))
+
+
+### Chores
+
+* **internal:** minor code re-ordering ([#75](https://github.com/Increase/increase-kotlin/issues/75)) ([d2270e8](https://github.com/Increase/increase-kotlin/commit/d2270e852cb1cbc97244d2f7f062c51585581461))
+
 ## [0.8.0](https://github.com/Increase/increase-kotlin/compare/v0.7.3...v0.8.0) (2023-08-17)
 
 
