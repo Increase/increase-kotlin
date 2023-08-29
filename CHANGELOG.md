@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.8.2 (2023-08-29)
+
+Full Changelog: [v0.8.1...v0.8.2](https://github.com/Increase/increase-kotlin/compare/v0.8.1...v0.8.2)
+
+### Features
+
+* **api:** remove unused `/inbound_ach_transfer_returns` endpoints ([#82](https://github.com/Increase/increase-kotlin/issues/82)) ([b092a05](https://github.com/Increase/increase-kotlin/commit/b092a05da97ad4198c6b540dc937340aee51d32f))
+
+
+### Bug Fixes
+
+* **api:** move ACH Return endpoint and add digital wallet properties ([#81](https://github.com/Increase/increase-kotlin/issues/81)) ([d89e39b](https://github.com/Increase/increase-kotlin/commit/d89e39b794eedf457148d7ebcbe6a252c62466ad))
+
+
+### Chores
+
+* **ci:** setup workflows to create releases and release PRs ([#78](https://github.com/Increase/increase-kotlin/issues/78)) ([e64ac5f](https://github.com/Increase/increase-kotlin/commit/e64ac5f7575df513090fae438736bdd75b1b5f03))
+
 ## [0.8.1](https://github.com/Increase/increase-kotlin/compare/v0.8.0...v0.8.1) (2023-08-27)
 
 
