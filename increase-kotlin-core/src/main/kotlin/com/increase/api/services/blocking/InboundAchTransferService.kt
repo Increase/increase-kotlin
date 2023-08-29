@@ -30,7 +30,7 @@ interface InboundAchTransferService {
         requestOptions: RequestOptions = RequestOptions.none()
     ): InboundAchTransfer
 
-    /** Create an ACH Return */
+    /** Return an Inbound ACH Transfer */
     fun transferReturn(
         params: InboundAchTransferTransferReturnParams,
         requestOptions: RequestOptions = RequestOptions.none()
