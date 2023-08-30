@@ -13733,6 +13733,7 @@ private constructor(
                 private val transactionId: JsonField<String>,
                 private val frontImageFileId: JsonField<String>,
                 private val backImageFileId: JsonField<String>,
+                private val bankOfFirstDepositRoutingNumber: JsonField<String>,
                 private val type: JsonField<Type>,
                 private val additionalProperties: Map<String, JsonValue>,
             ) {
@@ -13761,6 +13762,16 @@ private constructor(
                  * deposited check.
                  */
                 fun backImageFileId(): String? = backImageFileId.getNullable("back_image_file_id")
+
+                /**
+                 * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the bank
+                 * depositing this check. In some rare cases, this is not transmitted via Check21
+                 * and the value will be null.
+                 */
+                fun bankOfFirstDepositRoutingNumber(): String? =
+                    bankOfFirstDepositRoutingNumber.getNullable(
+                        "bank_of_first_deposit_routing_number"
+                    )
 
                 /**
                  * A constant representing the object's type. For this resource it will always be
@@ -13793,6 +13804,15 @@ private constructor(
                 fun _backImageFileId() = backImageFileId
 
                 /**
+                 * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the bank
+                 * depositing this check. In some rare cases, this is not transmitted via Check21
+                 * and the value will be null.
+                 */
+                @JsonProperty("bank_of_first_deposit_routing_number")
+                @ExcludeMissing
+                fun _bankOfFirstDepositRoutingNumber() = bankOfFirstDepositRoutingNumber
+
+                /**
                  * A constant representing the object's type. For this resource it will always be
                  * `check_transfer_deposit`.
                  */
@@ -13808,6 +13828,7 @@ private constructor(
                         transactionId()
                         frontImageFileId()
                         backImageFileId()
+                        bankOfFirstDepositRoutingNumber()
                         type()
                         validated = true
                     }
@@ -13825,6 +13846,8 @@ private constructor(
                         this.transactionId == other.transactionId &&
                         this.frontImageFileId == other.frontImageFileId &&
                         this.backImageFileId == other.backImageFileId &&
+                        this.bankOfFirstDepositRoutingNumber ==
+                            other.bankOfFirstDepositRoutingNumber &&
                         this.type == other.type &&
                         this.additionalProperties == other.additionalProperties
                 }
@@ -13837,6 +13860,7 @@ private constructor(
                                 transactionId,
                                 frontImageFileId,
                                 backImageFileId,
+                                bankOfFirstDepositRoutingNumber,
                                 type,
                                 additionalProperties,
                             )
@@ -13845,7 +13869,7 @@ private constructor(
                 }
 
                 override fun toString() =
-                    "CheckTransferDeposit{depositedAt=$depositedAt, transactionId=$transactionId, frontImageFileId=$frontImageFileId, backImageFileId=$backImageFileId, type=$type, additionalProperties=$additionalProperties}"
+                    "CheckTransferDeposit{depositedAt=$depositedAt, transactionId=$transactionId, frontImageFileId=$frontImageFileId, backImageFileId=$backImageFileId, bankOfFirstDepositRoutingNumber=$bankOfFirstDepositRoutingNumber, type=$type, additionalProperties=$additionalProperties}"
 
                 companion object {
 
@@ -13858,6 +13882,8 @@ private constructor(
                     private var transactionId: JsonField<String> = JsonMissing.of()
                     private var frontImageFileId: JsonField<String> = JsonMissing.of()
                     private var backImageFileId: JsonField<String> = JsonMissing.of()
+                    private var bankOfFirstDepositRoutingNumber: JsonField<String> =
+                        JsonMissing.of()
                     private var type: JsonField<Type> = JsonMissing.of()
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -13866,6 +13892,8 @@ private constructor(
                         this.transactionId = checkTransferDeposit.transactionId
                         this.frontImageFileId = checkTransferDeposit.frontImageFileId
                         this.backImageFileId = checkTransferDeposit.backImageFileId
+                        this.bankOfFirstDepositRoutingNumber =
+                            checkTransferDeposit.bankOfFirstDepositRoutingNumber
                         this.type = checkTransferDeposit.type
                         additionalProperties(checkTransferDeposit.additionalProperties)
                     }
@@ -13933,6 +13961,29 @@ private constructor(
                     }
 
                     /**
+                     * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the
+                     * bank depositing this check. In some rare cases, this is not transmitted via
+                     * Check21 and the value will be null.
+                     */
+                    fun bankOfFirstDepositRoutingNumber(bankOfFirstDepositRoutingNumber: String) =
+                        bankOfFirstDepositRoutingNumber(
+                            JsonField.of(bankOfFirstDepositRoutingNumber)
+                        )
+
+                    /**
+                     * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the
+                     * bank depositing this check. In some rare cases, this is not transmitted via
+                     * Check21 and the value will be null.
+                     */
+                    @JsonProperty("bank_of_first_deposit_routing_number")
+                    @ExcludeMissing
+                    fun bankOfFirstDepositRoutingNumber(
+                        bankOfFirstDepositRoutingNumber: JsonField<String>
+                    ) = apply {
+                        this.bankOfFirstDepositRoutingNumber = bankOfFirstDepositRoutingNumber
+                    }
+
+                    /**
                      * A constant representing the object's type. For this resource it will always
                      * be `check_transfer_deposit`.
                      */
@@ -13967,6 +14018,7 @@ private constructor(
                             transactionId,
                             frontImageFileId,
                             backImageFileId,
+                            bankOfFirstDepositRoutingNumber,
                             type,
                             additionalProperties.toUnmodifiable(),
                         )
@@ -14991,6 +15043,7 @@ private constructor(
                 private val receiverIdNumber: JsonField<String>,
                 private val receiverName: JsonField<String>,
                 private val traceNumber: JsonField<String>,
+                private val transferId: JsonField<String>,
                 private val additionalProperties: Map<String, JsonValue>,
             ) {
 
@@ -15031,6 +15084,9 @@ private constructor(
 
                 fun traceNumber(): String = traceNumber.getRequired("trace_number")
 
+                /** The inbound ach transfer's identifier. */
+                fun transferId(): String = transferId.getRequired("transfer_id")
+
                 /**
                  * The amount in the minor unit of the destination account currency. For dollars,
                  * for example, this is cents.
@@ -15065,6 +15121,9 @@ private constructor(
 
                 @JsonProperty("trace_number") @ExcludeMissing fun _traceNumber() = traceNumber
 
+                /** The inbound ach transfer's identifier. */
+                @JsonProperty("transfer_id") @ExcludeMissing fun _transferId() = transferId
+
                 @JsonAnyGetter
                 @ExcludeMissing
                 fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -15080,6 +15139,7 @@ private constructor(
                         receiverIdNumber()
                         receiverName()
                         traceNumber()
+                        transferId()
                         validated = true
                     }
                 }
@@ -15104,6 +15164,7 @@ private constructor(
                         this.receiverIdNumber == other.receiverIdNumber &&
                         this.receiverName == other.receiverName &&
                         this.traceNumber == other.traceNumber &&
+                        this.transferId == other.transferId &&
                         this.additionalProperties == other.additionalProperties
                 }
 
@@ -15120,6 +15181,7 @@ private constructor(
                                 receiverIdNumber,
                                 receiverName,
                                 traceNumber,
+                                transferId,
                                 additionalProperties,
                             )
                     }
@@ -15127,7 +15189,7 @@ private constructor(
                 }
 
                 override fun toString() =
-                    "InboundAchTransfer{amount=$amount, originatorCompanyName=$originatorCompanyName, originatorCompanyDescriptiveDate=$originatorCompanyDescriptiveDate, originatorCompanyDiscretionaryData=$originatorCompanyDiscretionaryData, originatorCompanyEntryDescription=$originatorCompanyEntryDescription, originatorCompanyId=$originatorCompanyId, receiverIdNumber=$receiverIdNumber, receiverName=$receiverName, traceNumber=$traceNumber, additionalProperties=$additionalProperties}"
+                    "InboundAchTransfer{amount=$amount, originatorCompanyName=$originatorCompanyName, originatorCompanyDescriptiveDate=$originatorCompanyDescriptiveDate, originatorCompanyDiscretionaryData=$originatorCompanyDiscretionaryData, originatorCompanyEntryDescription=$originatorCompanyEntryDescription, originatorCompanyId=$originatorCompanyId, receiverIdNumber=$receiverIdNumber, receiverName=$receiverName, traceNumber=$traceNumber, transferId=$transferId, additionalProperties=$additionalProperties}"
 
                 companion object {
 
@@ -15148,6 +15210,7 @@ private constructor(
                     private var receiverIdNumber: JsonField<String> = JsonMissing.of()
                     private var receiverName: JsonField<String> = JsonMissing.of()
                     private var traceNumber: JsonField<String> = JsonMissing.of()
+                    private var transferId: JsonField<String> = JsonMissing.of()
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                     internal fun from(inboundAchTransfer: InboundAchTransfer) = apply {
@@ -15163,6 +15226,7 @@ private constructor(
                         this.receiverIdNumber = inboundAchTransfer.receiverIdNumber
                         this.receiverName = inboundAchTransfer.receiverName
                         this.traceNumber = inboundAchTransfer.traceNumber
+                        this.transferId = inboundAchTransfer.transferId
                         additionalProperties(inboundAchTransfer.additionalProperties)
                     }
 
@@ -15267,6 +15331,16 @@ private constructor(
                         this.traceNumber = traceNumber
                     }
 
+                    /** The inbound ach transfer's identifier. */
+                    fun transferId(transferId: String) = transferId(JsonField.of(transferId))
+
+                    /** The inbound ach transfer's identifier. */
+                    @JsonProperty("transfer_id")
+                    @ExcludeMissing
+                    fun transferId(transferId: JsonField<String>) = apply {
+                        this.transferId = transferId
+                    }
+
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                         this.additionalProperties.clear()
                         this.additionalProperties.putAll(additionalProperties)
@@ -15293,6 +15367,7 @@ private constructor(
                             receiverIdNumber,
                             receiverName,
                             traceNumber,
+                            transferId,
                             additionalProperties.toUnmodifiable(),
                         )
                 }
@@ -15311,6 +15386,7 @@ private constructor(
                 private val checkNumber: JsonField<String>,
                 private val checkFrontImageFileId: JsonField<String>,
                 private val checkRearImageFileId: JsonField<String>,
+                private val bankOfFirstDepositRoutingNumber: JsonField<String>,
                 private val additionalProperties: Map<String, JsonValue>,
             ) {
 
@@ -15339,6 +15415,16 @@ private constructor(
                     checkRearImageFileId.getNullable("check_rear_image_file_id")
 
                 /**
+                 * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the bank
+                 * depositing this check. In some rare cases, this is not transmitted via Check21
+                 * and the value will be null.
+                 */
+                fun bankOfFirstDepositRoutingNumber(): String? =
+                    bankOfFirstDepositRoutingNumber.getNullable(
+                        "bank_of_first_deposit_routing_number"
+                    )
+
+                /**
                  * The amount in the minor unit of the destination account currency. For dollars,
                  * for example, this is cents.
                  */
@@ -15360,6 +15446,15 @@ private constructor(
                 @ExcludeMissing
                 fun _checkRearImageFileId() = checkRearImageFileId
 
+                /**
+                 * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the bank
+                 * depositing this check. In some rare cases, this is not transmitted via Check21
+                 * and the value will be null.
+                 */
+                @JsonProperty("bank_of_first_deposit_routing_number")
+                @ExcludeMissing
+                fun _bankOfFirstDepositRoutingNumber() = bankOfFirstDepositRoutingNumber
+
                 @JsonAnyGetter
                 @ExcludeMissing
                 fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -15371,6 +15466,7 @@ private constructor(
                         checkNumber()
                         checkFrontImageFileId()
                         checkRearImageFileId()
+                        bankOfFirstDepositRoutingNumber()
                         validated = true
                     }
                 }
@@ -15388,6 +15484,8 @@ private constructor(
                         this.checkNumber == other.checkNumber &&
                         this.checkFrontImageFileId == other.checkFrontImageFileId &&
                         this.checkRearImageFileId == other.checkRearImageFileId &&
+                        this.bankOfFirstDepositRoutingNumber ==
+                            other.bankOfFirstDepositRoutingNumber &&
                         this.additionalProperties == other.additionalProperties
                 }
 
@@ -15400,6 +15498,7 @@ private constructor(
                                 checkNumber,
                                 checkFrontImageFileId,
                                 checkRearImageFileId,
+                                bankOfFirstDepositRoutingNumber,
                                 additionalProperties,
                             )
                     }
@@ -15407,7 +15506,7 @@ private constructor(
                 }
 
                 override fun toString() =
-                    "InboundCheck{amount=$amount, currency=$currency, checkNumber=$checkNumber, checkFrontImageFileId=$checkFrontImageFileId, checkRearImageFileId=$checkRearImageFileId, additionalProperties=$additionalProperties}"
+                    "InboundCheck{amount=$amount, currency=$currency, checkNumber=$checkNumber, checkFrontImageFileId=$checkFrontImageFileId, checkRearImageFileId=$checkRearImageFileId, bankOfFirstDepositRoutingNumber=$bankOfFirstDepositRoutingNumber, additionalProperties=$additionalProperties}"
 
                 companion object {
 
@@ -15421,6 +15520,8 @@ private constructor(
                     private var checkNumber: JsonField<String> = JsonMissing.of()
                     private var checkFrontImageFileId: JsonField<String> = JsonMissing.of()
                     private var checkRearImageFileId: JsonField<String> = JsonMissing.of()
+                    private var bankOfFirstDepositRoutingNumber: JsonField<String> =
+                        JsonMissing.of()
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                     internal fun from(inboundCheck: InboundCheck) = apply {
@@ -15429,6 +15530,8 @@ private constructor(
                         this.checkNumber = inboundCheck.checkNumber
                         this.checkFrontImageFileId = inboundCheck.checkFrontImageFileId
                         this.checkRearImageFileId = inboundCheck.checkRearImageFileId
+                        this.bankOfFirstDepositRoutingNumber =
+                            inboundCheck.bankOfFirstDepositRoutingNumber
                         additionalProperties(inboundCheck.additionalProperties)
                     }
 
@@ -15486,6 +15589,29 @@ private constructor(
                         this.checkRearImageFileId = checkRearImageFileId
                     }
 
+                    /**
+                     * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the
+                     * bank depositing this check. In some rare cases, this is not transmitted via
+                     * Check21 and the value will be null.
+                     */
+                    fun bankOfFirstDepositRoutingNumber(bankOfFirstDepositRoutingNumber: String) =
+                        bankOfFirstDepositRoutingNumber(
+                            JsonField.of(bankOfFirstDepositRoutingNumber)
+                        )
+
+                    /**
+                     * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the
+                     * bank depositing this check. In some rare cases, this is not transmitted via
+                     * Check21 and the value will be null.
+                     */
+                    @JsonProperty("bank_of_first_deposit_routing_number")
+                    @ExcludeMissing
+                    fun bankOfFirstDepositRoutingNumber(
+                        bankOfFirstDepositRoutingNumber: JsonField<String>
+                    ) = apply {
+                        this.bankOfFirstDepositRoutingNumber = bankOfFirstDepositRoutingNumber
+                    }
+
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                         this.additionalProperties.clear()
                         this.additionalProperties.putAll(additionalProperties)
@@ -15508,6 +15634,7 @@ private constructor(
                             checkNumber,
                             checkFrontImageFileId,
                             checkRearImageFileId,
+                            bankOfFirstDepositRoutingNumber,
                             additionalProperties.toUnmodifiable(),
                         )
                 }
