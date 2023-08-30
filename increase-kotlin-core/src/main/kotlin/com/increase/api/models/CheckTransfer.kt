@@ -1046,6 +1046,7 @@ private constructor(
         private val transactionId: JsonField<String>,
         private val frontImageFileId: JsonField<String>,
         private val backImageFileId: JsonField<String>,
+        private val bankOfFirstDepositRoutingNumber: JsonField<String>,
         private val type: JsonField<Type>,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
@@ -1071,6 +1072,14 @@ private constructor(
          * check.
          */
         fun backImageFileId(): String? = backImageFileId.getNullable("back_image_file_id")
+
+        /**
+         * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the bank
+         * depositing this check. In some rare cases, this is not transmitted via Check21 and the
+         * value will be null.
+         */
+        fun bankOfFirstDepositRoutingNumber(): String? =
+            bankOfFirstDepositRoutingNumber.getNullable("bank_of_first_deposit_routing_number")
 
         /**
          * A constant representing the object's type. For this resource it will always be
@@ -1099,6 +1108,15 @@ private constructor(
         @JsonProperty("back_image_file_id") @ExcludeMissing fun _backImageFileId() = backImageFileId
 
         /**
+         * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the bank
+         * depositing this check. In some rare cases, this is not transmitted via Check21 and the
+         * value will be null.
+         */
+        @JsonProperty("bank_of_first_deposit_routing_number")
+        @ExcludeMissing
+        fun _bankOfFirstDepositRoutingNumber() = bankOfFirstDepositRoutingNumber
+
+        /**
          * A constant representing the object's type. For this resource it will always be
          * `check_transfer_deposit`.
          */
@@ -1114,6 +1132,7 @@ private constructor(
                 transactionId()
                 frontImageFileId()
                 backImageFileId()
+                bankOfFirstDepositRoutingNumber()
                 type()
                 validated = true
             }
@@ -1131,6 +1150,7 @@ private constructor(
                 this.transactionId == other.transactionId &&
                 this.frontImageFileId == other.frontImageFileId &&
                 this.backImageFileId == other.backImageFileId &&
+                this.bankOfFirstDepositRoutingNumber == other.bankOfFirstDepositRoutingNumber &&
                 this.type == other.type &&
                 this.additionalProperties == other.additionalProperties
         }
@@ -1143,6 +1163,7 @@ private constructor(
                         transactionId,
                         frontImageFileId,
                         backImageFileId,
+                        bankOfFirstDepositRoutingNumber,
                         type,
                         additionalProperties,
                     )
@@ -1151,7 +1172,7 @@ private constructor(
         }
 
         override fun toString() =
-            "Deposit{depositedAt=$depositedAt, transactionId=$transactionId, frontImageFileId=$frontImageFileId, backImageFileId=$backImageFileId, type=$type, additionalProperties=$additionalProperties}"
+            "Deposit{depositedAt=$depositedAt, transactionId=$transactionId, frontImageFileId=$frontImageFileId, backImageFileId=$backImageFileId, bankOfFirstDepositRoutingNumber=$bankOfFirstDepositRoutingNumber, type=$type, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -1164,6 +1185,7 @@ private constructor(
             private var transactionId: JsonField<String> = JsonMissing.of()
             private var frontImageFileId: JsonField<String> = JsonMissing.of()
             private var backImageFileId: JsonField<String> = JsonMissing.of()
+            private var bankOfFirstDepositRoutingNumber: JsonField<String> = JsonMissing.of()
             private var type: JsonField<Type> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -1172,6 +1194,7 @@ private constructor(
                 this.transactionId = deposit.transactionId
                 this.frontImageFileId = deposit.frontImageFileId
                 this.backImageFileId = deposit.backImageFileId
+                this.bankOfFirstDepositRoutingNumber = deposit.bankOfFirstDepositRoutingNumber
                 this.type = deposit.type
                 additionalProperties(deposit.additionalProperties)
             }
@@ -1231,6 +1254,25 @@ private constructor(
             }
 
             /**
+             * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the bank
+             * depositing this check. In some rare cases, this is not transmitted via Check21 and
+             * the value will be null.
+             */
+            fun bankOfFirstDepositRoutingNumber(bankOfFirstDepositRoutingNumber: String) =
+                bankOfFirstDepositRoutingNumber(JsonField.of(bankOfFirstDepositRoutingNumber))
+
+            /**
+             * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the bank
+             * depositing this check. In some rare cases, this is not transmitted via Check21 and
+             * the value will be null.
+             */
+            @JsonProperty("bank_of_first_deposit_routing_number")
+            @ExcludeMissing
+            fun bankOfFirstDepositRoutingNumber(
+                bankOfFirstDepositRoutingNumber: JsonField<String>
+            ) = apply { this.bankOfFirstDepositRoutingNumber = bankOfFirstDepositRoutingNumber }
+
+            /**
              * A constant representing the object's type. For this resource it will always be
              * `check_transfer_deposit`.
              */
@@ -1264,6 +1306,7 @@ private constructor(
                     transactionId,
                     frontImageFileId,
                     backImageFileId,
+                    bankOfFirstDepositRoutingNumber,
                     type,
                     additionalProperties.toUnmodifiable(),
                 )
