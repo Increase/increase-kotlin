@@ -9,6 +9,7 @@ import com.increase.api.models.EntityCreateParams
 import com.increase.api.models.EntityListPageAsync
 import com.increase.api.models.EntityListParams
 import com.increase.api.models.EntityRetrieveParams
+import com.increase.api.models.EntityUpdateAddressParams
 import com.increase.api.services.async.entities.BeneficialOwnerServiceAsync
 import com.increase.api.services.async.entities.SupplementalDocumentServiceAsync
 
@@ -39,6 +40,12 @@ interface EntityServiceAsync {
     /** Archive an Entity */
     suspend fun archive(
         params: EntityArchiveParams,
+        requestOptions: RequestOptions = RequestOptions.none()
+    ): Entity
+
+    /** Update a Natural Person or Corporation's address */
+    suspend fun updateAddress(
+        params: EntityUpdateAddressParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): Entity
 }

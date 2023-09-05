@@ -6,6 +6,7 @@ import com.increase.api.core.RequestOptions
 import com.increase.api.models.Entity
 import com.increase.api.models.EntityBeneficialOwnerArchiveParams
 import com.increase.api.models.EntityBeneficialOwnerCreateParams
+import com.increase.api.models.EntityBeneficialOwnerUpdateAddressParams
 
 interface BeneficialOwnerServiceAsync {
 
@@ -18,6 +19,12 @@ interface BeneficialOwnerServiceAsync {
     /** Archive a beneficial owner belonging to a corporate Entity */
     suspend fun archive(
         params: EntityBeneficialOwnerArchiveParams,
+        requestOptions: RequestOptions = RequestOptions.none()
+    ): Entity
+
+    /** Update the address for a beneficial owner belonging to a corporate Entity */
+    suspend fun updateAddress(
+        params: EntityBeneficialOwnerUpdateAddressParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): Entity
 }

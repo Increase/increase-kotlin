@@ -7,6 +7,7 @@ import com.increase.api.models.InboundAchTransfer
 import com.increase.api.models.InboundAchTransferDeclineParams
 import com.increase.api.models.InboundAchTransferListPageAsync
 import com.increase.api.models.InboundAchTransferListParams
+import com.increase.api.models.InboundAchTransferNotificationOfChangeParams
 import com.increase.api.models.InboundAchTransferRetrieveParams
 import com.increase.api.models.InboundAchTransferTransferReturnParams
 
@@ -27,6 +28,12 @@ interface InboundAchTransferServiceAsync {
     /** Decline an Inbound ACH Transfer */
     suspend fun decline(
         params: InboundAchTransferDeclineParams,
+        requestOptions: RequestOptions = RequestOptions.none()
+    ): InboundAchTransfer
+
+    /** Create a notification of change for an Inbound ACH Transfer */
+    suspend fun notificationOfChange(
+        params: InboundAchTransferNotificationOfChangeParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): InboundAchTransfer
 
