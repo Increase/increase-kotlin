@@ -1497,7 +1497,7 @@ private constructor(
              */
             fun physicalCardId(): String? = physicalCardId.getNullable("physical_card_id")
 
-            /** Fields specific to the `network` */
+            /** Fields specific to the `network`. */
             fun networkDetails(): NetworkDetails = networkDetails.getRequired("network_details")
 
             /**
@@ -1580,7 +1580,7 @@ private constructor(
              */
             @JsonProperty("physical_card_id") @ExcludeMissing fun _physicalCardId() = physicalCardId
 
-            /** Fields specific to the `network` */
+            /** Fields specific to the `network`. */
             @JsonProperty("network_details") @ExcludeMissing fun _networkDetails() = networkDetails
 
             /**
@@ -1849,11 +1849,11 @@ private constructor(
                     this.physicalCardId = physicalCardId
                 }
 
-                /** Fields specific to the `network` */
+                /** Fields specific to the `network`. */
                 fun networkDetails(networkDetails: NetworkDetails) =
                     networkDetails(JsonField.of(networkDetails))
 
-                /** Fields specific to the `network` */
+                /** Fields specific to the `network`. */
                 @JsonProperty("network_details")
                 @ExcludeMissing
                 fun networkDetails(networkDetails: JsonField<NetworkDetails>) = apply {
@@ -2063,7 +2063,7 @@ private constructor(
                 fun asString(): String = _value().asStringOrThrow()
             }
 
-            /** Fields specific to the `network` */
+            /** Fields specific to the `network`. */
             @JsonDeserialize(builder = NetworkDetails.Builder::class)
             @NoAutoDetect
             class NetworkDetails
@@ -2077,16 +2077,16 @@ private constructor(
 
                 private var hashCode: Int = 0
 
-                /** The payment network used to process this card authorization */
+                /** The payment network used to process this card authorization. */
                 fun category(): Category = category.getRequired("category")
 
-                /** Fields specific to the `visa` network */
+                /** Fields specific to the `visa` network. */
                 fun visa(): Visa? = visa.getNullable("visa")
 
-                /** The payment network used to process this card authorization */
+                /** The payment network used to process this card authorization. */
                 @JsonProperty("category") @ExcludeMissing fun _category() = category
 
-                /** Fields specific to the `visa` network */
+                /** Fields specific to the `visa` network. */
                 @JsonProperty("visa") @ExcludeMissing fun _visa() = visa
 
                 @JsonAnyGetter
@@ -2146,18 +2146,18 @@ private constructor(
                         additionalProperties(networkDetails.additionalProperties)
                     }
 
-                    /** The payment network used to process this card authorization */
+                    /** The payment network used to process this card authorization. */
                     fun category(category: Category) = category(JsonField.of(category))
 
-                    /** The payment network used to process this card authorization */
+                    /** The payment network used to process this card authorization. */
                     @JsonProperty("category")
                     @ExcludeMissing
                     fun category(category: JsonField<Category>) = apply { this.category = category }
 
-                    /** Fields specific to the `visa` network */
+                    /** Fields specific to the `visa` network. */
                     fun visa(visa: Visa) = visa(JsonField.of(visa))
 
-                    /** Fields specific to the `visa` network */
+                    /** Fields specific to the `visa` network. */
                     @JsonProperty("visa")
                     @ExcludeMissing
                     fun visa(visa: JsonField<Visa>) = apply { this.visa = visa }
@@ -2237,7 +2237,7 @@ private constructor(
                     fun asString(): String = _value().asStringOrThrow()
                 }
 
-                /** Fields specific to the `visa` network */
+                /** Fields specific to the `visa` network. */
                 @JsonDeserialize(builder = Visa.Builder::class)
                 @NoAutoDetect
                 class Visa
@@ -2261,7 +2261,7 @@ private constructor(
 
                     /**
                      * The method used to enter the cardholder's primary account number and card
-                     * expiration date
+                     * expiration date.
                      */
                     fun pointOfServiceEntryMode(): PointOfServiceEntryMode? =
                         pointOfServiceEntryMode.getNullable("point_of_service_entry_mode")
@@ -2277,7 +2277,7 @@ private constructor(
 
                     /**
                      * The method used to enter the cardholder's primary account number and card
-                     * expiration date
+                     * expiration date.
                      */
                     @JsonProperty("point_of_service_entry_mode")
                     @ExcludeMissing
@@ -2368,7 +2368,7 @@ private constructor(
 
                         /**
                          * The method used to enter the cardholder's primary account number and card
-                         * expiration date
+                         * expiration date.
                          */
                         fun pointOfServiceEntryMode(
                             pointOfServiceEntryMode: PointOfServiceEntryMode
@@ -2376,7 +2376,7 @@ private constructor(
 
                         /**
                          * The method used to enter the cardholder's primary account number and card
-                         * expiration date
+                         * expiration date.
                          */
                         @JsonProperty("point_of_service_entry_mode")
                         @ExcludeMissing
