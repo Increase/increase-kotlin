@@ -712,7 +712,7 @@ private constructor(
 
         private var hashCode: Int = 0
 
-        /** The reason for the transfer decline */
+        /** The reason for the transfer decline. */
         fun reason(): Reason = reason.getRequired("reason")
 
         /** The time at which the transfer was declined. */
@@ -722,7 +722,7 @@ private constructor(
         fun declinedTransactionId(): String =
             declinedTransactionId.getRequired("declined_transaction_id")
 
-        /** The reason for the transfer decline */
+        /** The reason for the transfer decline. */
         @JsonProperty("reason") @ExcludeMissing fun _reason() = reason
 
         /** The time at which the transfer was declined. */
@@ -795,10 +795,10 @@ private constructor(
                 additionalProperties(decline.additionalProperties)
             }
 
-            /** The reason for the transfer decline */
+            /** The reason for the transfer decline. */
             fun reason(reason: Reason) = reason(JsonField.of(reason))
 
-            /** The reason for the transfer decline */
+            /** The reason for the transfer decline. */
             @JsonProperty("reason")
             @ExcludeMissing
             fun reason(reason: JsonField<Reason>) = apply { this.reason = reason }
@@ -1055,20 +1055,20 @@ private constructor(
 
         private var hashCode: Int = 0
 
-        /** The new account number provided in the notification of change */
+        /** The new account number provided in the notification of change. */
         fun updatedAccountNumber(): String? =
             updatedAccountNumber.getNullable("updated_account_number")
 
-        /** The new account number provided in the notification of change */
+        /** The new account number provided in the notification of change. */
         fun updatedRoutingNumber(): String? =
             updatedRoutingNumber.getNullable("updated_routing_number")
 
-        /** The new account number provided in the notification of change */
+        /** The new account number provided in the notification of change. */
         @JsonProperty("updated_account_number")
         @ExcludeMissing
         fun _updatedAccountNumber() = updatedAccountNumber
 
-        /** The new account number provided in the notification of change */
+        /** The new account number provided in the notification of change. */
         @JsonProperty("updated_routing_number")
         @ExcludeMissing
         fun _updatedRoutingNumber() = updatedRoutingNumber
@@ -1130,22 +1130,22 @@ private constructor(
                 additionalProperties(notificationOfChange.additionalProperties)
             }
 
-            /** The new account number provided in the notification of change */
+            /** The new account number provided in the notification of change. */
             fun updatedAccountNumber(updatedAccountNumber: String) =
                 updatedAccountNumber(JsonField.of(updatedAccountNumber))
 
-            /** The new account number provided in the notification of change */
+            /** The new account number provided in the notification of change. */
             @JsonProperty("updated_account_number")
             @ExcludeMissing
             fun updatedAccountNumber(updatedAccountNumber: JsonField<String>) = apply {
                 this.updatedAccountNumber = updatedAccountNumber
             }
 
-            /** The new account number provided in the notification of change */
+            /** The new account number provided in the notification of change. */
             fun updatedRoutingNumber(updatedRoutingNumber: String) =
                 updatedRoutingNumber(JsonField.of(updatedRoutingNumber))
 
-            /** The new account number provided in the notification of change */
+            /** The new account number provided in the notification of change. */
             @JsonProperty("updated_routing_number")
             @ExcludeMissing
             fun updatedRoutingNumber(updatedRoutingNumber: JsonField<String>) = apply {
@@ -1259,7 +1259,7 @@ private constructor(
 
         private var hashCode: Int = 0
 
-        /** The reason for the transfer return */
+        /** The reason for the transfer return. */
         fun reason(): Reason = reason.getRequired("reason")
 
         /** The time at which the transfer was returned. */
@@ -1268,7 +1268,7 @@ private constructor(
         /** The id of the transaction for the returned transfer. */
         fun transactionId(): String = transactionId.getRequired("transaction_id")
 
-        /** The reason for the transfer return */
+        /** The reason for the transfer return. */
         @JsonProperty("reason") @ExcludeMissing fun _reason() = reason
 
         /** The time at which the transfer was returned. */
@@ -1339,10 +1339,10 @@ private constructor(
                 additionalProperties(transferReturn.additionalProperties)
             }
 
-            /** The reason for the transfer return */
+            /** The reason for the transfer return. */
             fun reason(reason: Reason) = reason(JsonField.of(reason))
 
-            /** The reason for the transfer return */
+            /** The reason for the transfer return. */
             @JsonProperty("reason")
             @ExcludeMissing
             fun reason(reason: JsonField<Reason>) = apply { this.reason = reason }

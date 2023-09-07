@@ -3287,7 +3287,7 @@ private constructor(
 
         private var hashCode: Int = 0
 
-        /** The trust's name */
+        /** The trust's name. */
         fun name(): String = name.getRequired("name")
 
         /** Whether the trust is `revocable` or `irrevocable`. */
@@ -3315,7 +3315,7 @@ private constructor(
         fun formationDocumentFileId(): String? =
             formationDocumentFileId.getNullable("formation_document_file_id")
 
-        /** The trust's name */
+        /** The trust's name. */
         @JsonProperty("name") @ExcludeMissing fun _name() = name
 
         /** Whether the trust is `revocable` or `irrevocable`. */
@@ -3431,10 +3431,10 @@ private constructor(
                 additionalProperties(trust.additionalProperties)
             }
 
-            /** The trust's name */
+            /** The trust's name. */
             fun name(name: String) = name(JsonField.of(name))
 
-            /** The trust's name */
+            /** The trust's name. */
             @JsonProperty("name")
             @ExcludeMissing
             fun name(name: JsonField<String>) = apply { this.name = name }
