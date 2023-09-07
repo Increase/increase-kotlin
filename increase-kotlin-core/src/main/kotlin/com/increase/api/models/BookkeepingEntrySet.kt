@@ -41,7 +41,7 @@ private constructor(
     /** The timestamp of the entry set. */
     fun date(): OffsetDateTime = date.getRequired("date")
 
-    /** The entries */
+    /** The entries. */
     fun entries(): List<Entry> = entries.getRequired("entries")
 
     /**
@@ -59,7 +59,7 @@ private constructor(
     /** The timestamp of the entry set. */
     @JsonProperty("date") @ExcludeMissing fun _date() = date
 
-    /** The entries */
+    /** The entries. */
     @JsonProperty("entries") @ExcludeMissing fun _entries() = entries
 
     /**
@@ -164,10 +164,10 @@ private constructor(
         @ExcludeMissing
         fun date(date: JsonField<OffsetDateTime>) = apply { this.date = date }
 
-        /** The entries */
+        /** The entries. */
         fun entries(entries: List<Entry>) = entries(JsonField.of(entries))
 
-        /** The entries */
+        /** The entries. */
         @JsonProperty("entries")
         @ExcludeMissing
         fun entries(entries: JsonField<List<Entry>>) = apply { this.entries = entries }
