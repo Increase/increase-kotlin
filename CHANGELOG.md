@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.8.3 (2023-09-07)
+
+Full Changelog: [v0.8.2...v0.8.3](https://github.com/increase/increase-kotlin/compare/v0.8.2...v0.8.3)
+
+### Features
+
+* **api:** add bank_of_first_deposit_routing_number and transfer_id properties ([#83](https://github.com/increase/increase-kotlin/issues/83)) ([d4cd559](https://github.com/increase/increase-kotlin/commit/d4cd559230902303c2ea0e47ebcfee578e11fc9c))
+* **api:** add Update Address  and Create Notification Change endpoints ([#86](https://github.com/increase/increase-kotlin/issues/86)) ([630a3a1](https://github.com/increase/increase-kotlin/commit/630a3a18cf7494e010bc569df3392537079811b3))
+
+
+### Documentation
+
+* **api:** add docstrings and refine enum types ([#87](https://github.com/increase/increase-kotlin/issues/87)) ([4a7a14d](https://github.com/increase/increase-kotlin/commit/4a7a14dd902769f14aa4d4d15014d7118a32f4b0))
+
 ## 0.8.2 (2023-08-29)
 
 Full Changelog: [v0.8.1...v0.8.2](https://github.com/Increase/increase-kotlin/compare/v0.8.1...v0.8.2)
