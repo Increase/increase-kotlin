@@ -83,7 +83,7 @@ constructor(
             additionalBodyProperties(accountCloseParams.additionalBodyProperties)
         }
 
-        /** The identifier of the Account to close. */
+        /** The identifier of the Account to close. The account must have a zero balance. */
         fun accountId(accountId: String) = apply { this.accountId = accountId }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
