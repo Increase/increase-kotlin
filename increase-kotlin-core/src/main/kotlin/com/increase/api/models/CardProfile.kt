@@ -943,6 +943,8 @@ private constructor(
 
                 val REJECTED = Status(JsonField.of("rejected"))
 
+                val PENDING_CREATING = Status(JsonField.of("pending_creating"))
+
                 val PENDING_REVIEWING = Status(JsonField.of("pending_reviewing"))
 
                 val PENDING_SUBMITTING = Status(JsonField.of("pending_submitting"))
@@ -955,6 +957,7 @@ private constructor(
             enum class Known {
                 NOT_ELIGIBLE,
                 REJECTED,
+                PENDING_CREATING,
                 PENDING_REVIEWING,
                 PENDING_SUBMITTING,
                 ACTIVE,
@@ -963,6 +966,7 @@ private constructor(
             enum class Value {
                 NOT_ELIGIBLE,
                 REJECTED,
+                PENDING_CREATING,
                 PENDING_REVIEWING,
                 PENDING_SUBMITTING,
                 ACTIVE,
@@ -973,6 +977,7 @@ private constructor(
                 when (this) {
                     NOT_ELIGIBLE -> Value.NOT_ELIGIBLE
                     REJECTED -> Value.REJECTED
+                    PENDING_CREATING -> Value.PENDING_CREATING
                     PENDING_REVIEWING -> Value.PENDING_REVIEWING
                     PENDING_SUBMITTING -> Value.PENDING_SUBMITTING
                     ACTIVE -> Value.ACTIVE
@@ -983,6 +988,7 @@ private constructor(
                 when (this) {
                     NOT_ELIGIBLE -> Known.NOT_ELIGIBLE
                     REJECTED -> Known.REJECTED
+                    PENDING_CREATING -> Known.PENDING_CREATING
                     PENDING_REVIEWING -> Known.PENDING_REVIEWING
                     PENDING_SUBMITTING -> Known.PENDING_SUBMITTING
                     ACTIVE -> Known.ACTIVE
