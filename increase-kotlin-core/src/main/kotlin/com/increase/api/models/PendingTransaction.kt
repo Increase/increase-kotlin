@@ -1437,6 +1437,7 @@ private constructor(
         class CardAuthorization
         private constructor(
             private val id: JsonField<String>,
+            private val cardPaymentId: JsonField<String>,
             private val merchantAcceptorId: JsonField<String>,
             private val merchantDescriptor: JsonField<String>,
             private val merchantCategoryCode: JsonField<String>,
@@ -1460,6 +1461,9 @@ private constructor(
 
             /** The Card Authorization identifier. */
             fun id(): String = id.getRequired("id")
+
+            /** The ID of the Card Payment this transaction belongs to. */
+            fun cardPaymentId(): String? = cardPaymentId.getNullable("card_payment_id")
 
             /**
              * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
@@ -1536,6 +1540,9 @@ private constructor(
 
             /** The Card Authorization identifier. */
             @JsonProperty("id") @ExcludeMissing fun _id() = id
+
+            /** The ID of the Card Payment this transaction belongs to. */
+            @JsonProperty("card_payment_id") @ExcludeMissing fun _cardPaymentId() = cardPaymentId
 
             /**
              * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
@@ -1626,6 +1633,7 @@ private constructor(
             fun validate(): CardAuthorization = apply {
                 if (!validated) {
                     id()
+                    cardPaymentId()
                     merchantAcceptorId()
                     merchantDescriptor()
                     merchantCategoryCode()
@@ -1653,6 +1661,7 @@ private constructor(
 
                 return other is CardAuthorization &&
                     this.id == other.id &&
+                    this.cardPaymentId == other.cardPaymentId &&
                     this.merchantAcceptorId == other.merchantAcceptorId &&
                     this.merchantDescriptor == other.merchantDescriptor &&
                     this.merchantCategoryCode == other.merchantCategoryCode &&
@@ -1675,6 +1684,7 @@ private constructor(
                     hashCode =
                         Objects.hash(
                             id,
+                            cardPaymentId,
                             merchantAcceptorId,
                             merchantDescriptor,
                             merchantCategoryCode,
@@ -1696,7 +1706,7 @@ private constructor(
             }
 
             override fun toString() =
-                "CardAuthorization{id=$id, merchantAcceptorId=$merchantAcceptorId, merchantDescriptor=$merchantDescriptor, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, digitalWalletTokenId=$digitalWalletTokenId, physicalCardId=$physicalCardId, networkDetails=$networkDetails, amount=$amount, currency=$currency, expiresAt=$expiresAt, realTimeDecisionId=$realTimeDecisionId, pendingTransactionId=$pendingTransactionId, type=$type, additionalProperties=$additionalProperties}"
+                "CardAuthorization{id=$id, cardPaymentId=$cardPaymentId, merchantAcceptorId=$merchantAcceptorId, merchantDescriptor=$merchantDescriptor, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, digitalWalletTokenId=$digitalWalletTokenId, physicalCardId=$physicalCardId, networkDetails=$networkDetails, amount=$amount, currency=$currency, expiresAt=$expiresAt, realTimeDecisionId=$realTimeDecisionId, pendingTransactionId=$pendingTransactionId, type=$type, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -1706,6 +1716,7 @@ private constructor(
             class Builder {
 
                 private var id: JsonField<String> = JsonMissing.of()
+                private var cardPaymentId: JsonField<String> = JsonMissing.of()
                 private var merchantAcceptorId: JsonField<String> = JsonMissing.of()
                 private var merchantDescriptor: JsonField<String> = JsonMissing.of()
                 private var merchantCategoryCode: JsonField<String> = JsonMissing.of()
@@ -1724,6 +1735,7 @@ private constructor(
 
                 internal fun from(cardAuthorization: CardAuthorization) = apply {
                     this.id = cardAuthorization.id
+                    this.cardPaymentId = cardAuthorization.cardPaymentId
                     this.merchantAcceptorId = cardAuthorization.merchantAcceptorId
                     this.merchantDescriptor = cardAuthorization.merchantDescriptor
                     this.merchantCategoryCode = cardAuthorization.merchantCategoryCode
@@ -1748,6 +1760,17 @@ private constructor(
                 @JsonProperty("id")
                 @ExcludeMissing
                 fun id(id: JsonField<String>) = apply { this.id = id }
+
+                /** The ID of the Card Payment this transaction belongs to. */
+                fun cardPaymentId(cardPaymentId: String) =
+                    cardPaymentId(JsonField.of(cardPaymentId))
+
+                /** The ID of the Card Payment this transaction belongs to. */
+                @JsonProperty("card_payment_id")
+                @ExcludeMissing
+                fun cardPaymentId(cardPaymentId: JsonField<String>) = apply {
+                    this.cardPaymentId = cardPaymentId
+                }
 
                 /**
                  * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
@@ -1964,6 +1987,7 @@ private constructor(
                 fun build(): CardAuthorization =
                     CardAuthorization(
                         id,
+                        cardPaymentId,
                         merchantAcceptorId,
                         merchantDescriptor,
                         merchantCategoryCode,
