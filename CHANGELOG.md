@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.9.1 (2023-09-15)
+
+Full Changelog: [v0.9.0...v0.9.1](https://github.com/increase/increase-kotlin/compare/v0.9.0...v0.9.1)
+
+### Features
+
+* **api:** add card payment ID reference to transaction models ([#90](https://github.com/increase/increase-kotlin/issues/90)) ([ec6769a](https://github.com/increase/increase-kotlin/commit/ec6769a5d9a913cddec1974b0928d3f4ffbf241a))
+* **client:** retry on 408 Request Timeout ([#92](https://github.com/increase/increase-kotlin/issues/92)) ([29868c2](https://github.com/increase/increase-kotlin/commit/29868c2da1c2b9d571b8882c31985e5dd37a1e02))
+
 ## 0.9.0 (2023-09-12)
 
 Full Changelog: [v0.8.3...v0.9.0](https://github.com/increase/increase-kotlin/compare/v0.8.3...v0.9.0)
