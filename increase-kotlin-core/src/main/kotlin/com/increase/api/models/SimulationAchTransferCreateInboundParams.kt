@@ -9,6 +9,7 @@ import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.toUnmodifiable
 import com.increase.api.models.*
+import java.time.OffsetDateTime
 import java.util.Objects
 
 class SimulationAchTransferCreateInboundParams
@@ -20,6 +21,7 @@ constructor(
     private val companyEntryDescription: String?,
     private val companyId: String?,
     private val companyName: String?,
+    private val resolveAt: OffsetDateTime?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
     private val additionalBodyProperties: Map<String, JsonValue>,
@@ -39,6 +41,8 @@ constructor(
 
     fun companyName(): String? = companyName
 
+    fun resolveAt(): OffsetDateTime? = resolveAt
+
     internal fun getBody(): SimulationAchTransferCreateInboundBody {
         return SimulationAchTransferCreateInboundBody(
             accountNumberId,
@@ -48,6 +52,7 @@ constructor(
             companyEntryDescription,
             companyId,
             companyName,
+            resolveAt,
             additionalBodyProperties,
         )
     }
@@ -67,6 +72,7 @@ constructor(
         private val companyEntryDescription: String?,
         private val companyId: String?,
         private val companyName: String?,
+        private val resolveAt: OffsetDateTime?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -100,6 +106,12 @@ constructor(
         /** The name of the sender. */
         @JsonProperty("company_name") fun companyName(): String? = companyName
 
+        /**
+         * The time at which the transfer should be resolved. If not provided will resolve
+         * immediately.
+         */
+        @JsonProperty("resolve_at") fun resolveAt(): OffsetDateTime? = resolveAt
+
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -119,6 +131,7 @@ constructor(
                 this.companyEntryDescription == other.companyEntryDescription &&
                 this.companyId == other.companyId &&
                 this.companyName == other.companyName &&
+                this.resolveAt == other.resolveAt &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -133,6 +146,7 @@ constructor(
                         companyEntryDescription,
                         companyId,
                         companyName,
+                        resolveAt,
                         additionalProperties,
                     )
             }
@@ -140,7 +154,7 @@ constructor(
         }
 
         override fun toString() =
-            "SimulationAchTransferCreateInboundBody{accountNumberId=$accountNumberId, amount=$amount, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyId=$companyId, companyName=$companyName, additionalProperties=$additionalProperties}"
+            "SimulationAchTransferCreateInboundBody{accountNumberId=$accountNumberId, amount=$amount, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyId=$companyId, companyName=$companyName, resolveAt=$resolveAt, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -156,6 +170,7 @@ constructor(
             private var companyEntryDescription: String? = null
             private var companyId: String? = null
             private var companyName: String? = null
+            private var resolveAt: OffsetDateTime? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(
@@ -171,6 +186,7 @@ constructor(
                     simulationAchTransferCreateInboundBody.companyEntryDescription
                 this.companyId = simulationAchTransferCreateInboundBody.companyId
                 this.companyName = simulationAchTransferCreateInboundBody.companyName
+                this.resolveAt = simulationAchTransferCreateInboundBody.resolveAt
                 additionalProperties(simulationAchTransferCreateInboundBody.additionalProperties)
             }
 
@@ -213,6 +229,13 @@ constructor(
             @JsonProperty("company_name")
             fun companyName(companyName: String) = apply { this.companyName = companyName }
 
+            /**
+             * The time at which the transfer should be resolved. If not provided will resolve
+             * immediately.
+             */
+            @JsonProperty("resolve_at")
+            fun resolveAt(resolveAt: OffsetDateTime) = apply { this.resolveAt = resolveAt }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 this.additionalProperties.putAll(additionalProperties)
@@ -238,6 +261,7 @@ constructor(
                     companyEntryDescription,
                     companyId,
                     companyName,
+                    resolveAt,
                     additionalProperties.toUnmodifiable(),
                 )
         }
@@ -262,6 +286,7 @@ constructor(
             this.companyEntryDescription == other.companyEntryDescription &&
             this.companyId == other.companyId &&
             this.companyName == other.companyName &&
+            this.resolveAt == other.resolveAt &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders &&
             this.additionalBodyProperties == other.additionalBodyProperties
@@ -276,6 +301,7 @@ constructor(
             companyEntryDescription,
             companyId,
             companyName,
+            resolveAt,
             additionalQueryParams,
             additionalHeaders,
             additionalBodyProperties,
@@ -283,7 +309,7 @@ constructor(
     }
 
     override fun toString() =
-        "SimulationAchTransferCreateInboundParams{accountNumberId=$accountNumberId, amount=$amount, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyId=$companyId, companyName=$companyName, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "SimulationAchTransferCreateInboundParams{accountNumberId=$accountNumberId, amount=$amount, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyId=$companyId, companyName=$companyName, resolveAt=$resolveAt, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -302,6 +328,7 @@ constructor(
         private var companyEntryDescription: String? = null
         private var companyId: String? = null
         private var companyName: String? = null
+        private var resolveAt: OffsetDateTime? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -319,6 +346,7 @@ constructor(
                 simulationAchTransferCreateInboundParams.companyEntryDescription
             this.companyId = simulationAchTransferCreateInboundParams.companyId
             this.companyName = simulationAchTransferCreateInboundParams.companyName
+            this.resolveAt = simulationAchTransferCreateInboundParams.resolveAt
             additionalQueryParams(simulationAchTransferCreateInboundParams.additionalQueryParams)
             additionalHeaders(simulationAchTransferCreateInboundParams.additionalHeaders)
             additionalBodyProperties(
@@ -358,6 +386,12 @@ constructor(
 
         /** The name of the sender. */
         fun companyName(companyName: String) = apply { this.companyName = companyName }
+
+        /**
+         * The time at which the transfer should be resolved. If not provided will resolve
+         * immediately.
+         */
+        fun resolveAt(resolveAt: OffsetDateTime) = apply { this.resolveAt = resolveAt }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -422,6 +456,7 @@ constructor(
                 companyEntryDescription,
                 companyId,
                 companyName,
+                resolveAt,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalBodyProperties.toUnmodifiable(),

@@ -26,6 +26,7 @@ class Card
 private constructor(
     private val id: JsonField<String>,
     private val accountId: JsonField<String>,
+    private val entityId: JsonField<String>,
     private val createdAt: JsonField<OffsetDateTime>,
     private val description: JsonField<String>,
     private val last4: JsonField<String>,
@@ -47,6 +48,9 @@ private constructor(
 
     /** The identifier for the account this card belongs to. */
     fun accountId(): String = accountId.getRequired("account_id")
+
+    /** The identifier for the entity associated with this card. */
+    fun entityId(): String? = entityId.getNullable("entity_id")
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card was
@@ -86,6 +90,9 @@ private constructor(
 
     /** The identifier for the account this card belongs to. */
     @JsonProperty("account_id") @ExcludeMissing fun _accountId() = accountId
+
+    /** The identifier for the entity associated with this card. */
+    @JsonProperty("entity_id") @ExcludeMissing fun _entityId() = entityId
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card was
@@ -128,6 +135,7 @@ private constructor(
         if (!validated) {
             id()
             accountId()
+            entityId()
             createdAt()
             description()
             last4()
@@ -151,6 +159,7 @@ private constructor(
         return other is Card &&
             this.id == other.id &&
             this.accountId == other.accountId &&
+            this.entityId == other.entityId &&
             this.createdAt == other.createdAt &&
             this.description == other.description &&
             this.last4 == other.last4 &&
@@ -169,6 +178,7 @@ private constructor(
                 Objects.hash(
                     id,
                     accountId,
+                    entityId,
                     createdAt,
                     description,
                     last4,
@@ -185,7 +195,7 @@ private constructor(
     }
 
     override fun toString() =
-        "Card{id=$id, accountId=$accountId, createdAt=$createdAt, description=$description, last4=$last4, expirationMonth=$expirationMonth, expirationYear=$expirationYear, status=$status, billingAddress=$billingAddress, digitalWallet=$digitalWallet, type=$type, additionalProperties=$additionalProperties}"
+        "Card{id=$id, accountId=$accountId, entityId=$entityId, createdAt=$createdAt, description=$description, last4=$last4, expirationMonth=$expirationMonth, expirationYear=$expirationYear, status=$status, billingAddress=$billingAddress, digitalWallet=$digitalWallet, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -196,6 +206,7 @@ private constructor(
 
         private var id: JsonField<String> = JsonMissing.of()
         private var accountId: JsonField<String> = JsonMissing.of()
+        private var entityId: JsonField<String> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var description: JsonField<String> = JsonMissing.of()
         private var last4: JsonField<String> = JsonMissing.of()
@@ -210,6 +221,7 @@ private constructor(
         internal fun from(card: Card) = apply {
             this.id = card.id
             this.accountId = card.accountId
+            this.entityId = card.entityId
             this.createdAt = card.createdAt
             this.description = card.description
             this.last4 = card.last4
@@ -235,6 +247,14 @@ private constructor(
         @JsonProperty("account_id")
         @ExcludeMissing
         fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
+
+        /** The identifier for the entity associated with this card. */
+        fun entityId(entityId: String) = entityId(JsonField.of(entityId))
+
+        /** The identifier for the entity associated with this card. */
+        @JsonProperty("entity_id")
+        @ExcludeMissing
+        fun entityId(entityId: JsonField<String>) = apply { this.entityId = entityId }
 
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card
@@ -351,6 +371,7 @@ private constructor(
             Card(
                 id,
                 accountId,
+                entityId,
                 createdAt,
                 description,
                 last4,

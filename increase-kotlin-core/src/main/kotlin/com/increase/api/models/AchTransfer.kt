@@ -1795,6 +1795,40 @@ private constructor(
                         )
                     )
 
+                val MISROUTED_NOTIFICATION_OF_CHANGE =
+                    ChangeCode(JsonField.of("misrouted_notification_of_change"))
+
+                val INCORRECT_TRACE_NUMBER = ChangeCode(JsonField.of("incorrect_trace_number"))
+
+                val INCORRECT_COMPANY_IDENTIFICATION_NUMBER =
+                    ChangeCode(JsonField.of("incorrect_company_identification_number"))
+
+                val INCORRECT_IDENTIFICATION_NUMBER =
+                    ChangeCode(JsonField.of("incorrect_identification_number"))
+
+                val INCORRECTLY_FORMATTED_CORRECTED_DATA =
+                    ChangeCode(JsonField.of("incorrectly_formatted_corrected_data"))
+
+                val INCORRECT_DISCRETIONARY_DATA =
+                    ChangeCode(JsonField.of("incorrect_discretionary_data"))
+
+                val ROUTING_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD =
+                    ChangeCode(JsonField.of("routing_number_not_from_original_entry_detail_record"))
+
+                val DEPOSITORY_FINANCIAL_INSTITUTION_ACCOUNT_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD =
+                    ChangeCode(
+                        JsonField.of(
+                            "depository_financial_institution_account_number_not_from_original_entry_detail_record"
+                        )
+                    )
+
+                val INCORRECT_TRANSACTION_CODE_BY_ORIGINATING_DEPOSITORY_FINANCIAL_INSTITUTION =
+                    ChangeCode(
+                        JsonField.of(
+                            "incorrect_transaction_code_by_originating_depository_financial_institution"
+                        )
+                    )
+
                 fun of(value: String) = ChangeCode(JsonField.of(value))
             }
 
@@ -1809,6 +1843,15 @@ private constructor(
                 INCORRECT_INDIVIDUAL_IDENTIFICATION_NUMBER,
                 ADDENDA_FORMAT_ERROR,
                 INCORRECT_STANDARD_ENTRY_CLASS_CODE_FOR_OUTBOUND_INTERNATIONAL_PAYMENT,
+                MISROUTED_NOTIFICATION_OF_CHANGE,
+                INCORRECT_TRACE_NUMBER,
+                INCORRECT_COMPANY_IDENTIFICATION_NUMBER,
+                INCORRECT_IDENTIFICATION_NUMBER,
+                INCORRECTLY_FORMATTED_CORRECTED_DATA,
+                INCORRECT_DISCRETIONARY_DATA,
+                ROUTING_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD,
+                DEPOSITORY_FINANCIAL_INSTITUTION_ACCOUNT_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD,
+                INCORRECT_TRANSACTION_CODE_BY_ORIGINATING_DEPOSITORY_FINANCIAL_INSTITUTION,
             }
 
             enum class Value {
@@ -1822,6 +1865,15 @@ private constructor(
                 INCORRECT_INDIVIDUAL_IDENTIFICATION_NUMBER,
                 ADDENDA_FORMAT_ERROR,
                 INCORRECT_STANDARD_ENTRY_CLASS_CODE_FOR_OUTBOUND_INTERNATIONAL_PAYMENT,
+                MISROUTED_NOTIFICATION_OF_CHANGE,
+                INCORRECT_TRACE_NUMBER,
+                INCORRECT_COMPANY_IDENTIFICATION_NUMBER,
+                INCORRECT_IDENTIFICATION_NUMBER,
+                INCORRECTLY_FORMATTED_CORRECTED_DATA,
+                INCORRECT_DISCRETIONARY_DATA,
+                ROUTING_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD,
+                DEPOSITORY_FINANCIAL_INSTITUTION_ACCOUNT_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD,
+                INCORRECT_TRANSACTION_CODE_BY_ORIGINATING_DEPOSITORY_FINANCIAL_INSTITUTION,
                 _UNKNOWN,
             }
 
@@ -1843,6 +1895,22 @@ private constructor(
                     ADDENDA_FORMAT_ERROR -> Value.ADDENDA_FORMAT_ERROR
                     INCORRECT_STANDARD_ENTRY_CLASS_CODE_FOR_OUTBOUND_INTERNATIONAL_PAYMENT ->
                         Value.INCORRECT_STANDARD_ENTRY_CLASS_CODE_FOR_OUTBOUND_INTERNATIONAL_PAYMENT
+                    MISROUTED_NOTIFICATION_OF_CHANGE -> Value.MISROUTED_NOTIFICATION_OF_CHANGE
+                    INCORRECT_TRACE_NUMBER -> Value.INCORRECT_TRACE_NUMBER
+                    INCORRECT_COMPANY_IDENTIFICATION_NUMBER ->
+                        Value.INCORRECT_COMPANY_IDENTIFICATION_NUMBER
+                    INCORRECT_IDENTIFICATION_NUMBER -> Value.INCORRECT_IDENTIFICATION_NUMBER
+                    INCORRECTLY_FORMATTED_CORRECTED_DATA ->
+                        Value.INCORRECTLY_FORMATTED_CORRECTED_DATA
+                    INCORRECT_DISCRETIONARY_DATA -> Value.INCORRECT_DISCRETIONARY_DATA
+                    ROUTING_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD ->
+                        Value.ROUTING_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD
+                    DEPOSITORY_FINANCIAL_INSTITUTION_ACCOUNT_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD ->
+                        Value
+                            .DEPOSITORY_FINANCIAL_INSTITUTION_ACCOUNT_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD
+                    INCORRECT_TRANSACTION_CODE_BY_ORIGINATING_DEPOSITORY_FINANCIAL_INSTITUTION ->
+                        Value
+                            .INCORRECT_TRANSACTION_CODE_BY_ORIGINATING_DEPOSITORY_FINANCIAL_INSTITUTION
                     else -> Value._UNKNOWN
                 }
 
@@ -1864,6 +1932,22 @@ private constructor(
                     ADDENDA_FORMAT_ERROR -> Known.ADDENDA_FORMAT_ERROR
                     INCORRECT_STANDARD_ENTRY_CLASS_CODE_FOR_OUTBOUND_INTERNATIONAL_PAYMENT ->
                         Known.INCORRECT_STANDARD_ENTRY_CLASS_CODE_FOR_OUTBOUND_INTERNATIONAL_PAYMENT
+                    MISROUTED_NOTIFICATION_OF_CHANGE -> Known.MISROUTED_NOTIFICATION_OF_CHANGE
+                    INCORRECT_TRACE_NUMBER -> Known.INCORRECT_TRACE_NUMBER
+                    INCORRECT_COMPANY_IDENTIFICATION_NUMBER ->
+                        Known.INCORRECT_COMPANY_IDENTIFICATION_NUMBER
+                    INCORRECT_IDENTIFICATION_NUMBER -> Known.INCORRECT_IDENTIFICATION_NUMBER
+                    INCORRECTLY_FORMATTED_CORRECTED_DATA ->
+                        Known.INCORRECTLY_FORMATTED_CORRECTED_DATA
+                    INCORRECT_DISCRETIONARY_DATA -> Known.INCORRECT_DISCRETIONARY_DATA
+                    ROUTING_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD ->
+                        Known.ROUTING_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD
+                    DEPOSITORY_FINANCIAL_INSTITUTION_ACCOUNT_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD ->
+                        Known
+                            .DEPOSITORY_FINANCIAL_INSTITUTION_ACCOUNT_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD
+                    INCORRECT_TRANSACTION_CODE_BY_ORIGINATING_DEPOSITORY_FINANCIAL_INSTITUTION ->
+                        Known
+                            .INCORRECT_TRANSACTION_CODE_BY_ORIGINATING_DEPOSITORY_FINANCIAL_INSTITUTION
                     else -> throw IncreaseInvalidDataException("Unknown ChangeCode: $value")
                 }
 
@@ -1894,7 +1978,10 @@ private constructor(
          */
         fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
-        /** Why the ACH Transfer was returned. */
+        /**
+         * Why the ACH Transfer was returned. This reason code is sent by the receiving bank back to
+         * Increase.
+         */
         fun returnReasonCode(): ReturnReasonCode =
             returnReasonCode.getRequired("return_reason_code")
 
@@ -1914,7 +2001,10 @@ private constructor(
          */
         @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
 
-        /** Why the ACH Transfer was returned. */
+        /**
+         * Why the ACH Transfer was returned. This reason code is sent by the receiving bank back to
+         * Increase.
+         */
         @JsonProperty("return_reason_code")
         @ExcludeMissing
         fun _returnReasonCode() = returnReasonCode
@@ -2018,11 +2108,17 @@ private constructor(
                 this.createdAt = createdAt
             }
 
-            /** Why the ACH Transfer was returned. */
+            /**
+             * Why the ACH Transfer was returned. This reason code is sent by the receiving bank
+             * back to Increase.
+             */
             fun returnReasonCode(returnReasonCode: ReturnReasonCode) =
                 returnReasonCode(JsonField.of(returnReasonCode))
 
-            /** Why the ACH Transfer was returned. */
+            /**
+             * Why the ACH Transfer was returned. This reason code is sent by the receiving bank
+             * back to Increase.
+             */
             @JsonProperty("return_reason_code")
             @ExcludeMissing
             fun returnReasonCode(returnReasonCode: JsonField<ReturnReasonCode>) = apply {

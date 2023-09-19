@@ -17,6 +17,7 @@ constructor(
     private val billingAddress: BillingAddress?,
     private val description: String?,
     private val digitalWallet: DigitalWallet?,
+    private val entityId: String?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
     private val additionalBodyProperties: Map<String, JsonValue>,
@@ -30,12 +31,15 @@ constructor(
 
     fun digitalWallet(): DigitalWallet? = digitalWallet
 
+    fun entityId(): String? = entityId
+
     internal fun getBody(): CardCreateBody {
         return CardCreateBody(
             accountId,
             billingAddress,
             description,
             digitalWallet,
+            entityId,
             additionalBodyProperties,
         )
     }
@@ -52,6 +56,7 @@ constructor(
         private val billingAddress: BillingAddress?,
         private val description: String?,
         private val digitalWallet: DigitalWallet?,
+        private val entityId: String?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -74,6 +79,9 @@ constructor(
          */
         @JsonProperty("digital_wallet") fun digitalWallet(): DigitalWallet? = digitalWallet
 
+        /** The Entity the card should belong to. */
+        @JsonProperty("entity_id") fun entityId(): String? = entityId
+
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -90,6 +98,7 @@ constructor(
                 this.billingAddress == other.billingAddress &&
                 this.description == other.description &&
                 this.digitalWallet == other.digitalWallet &&
+                this.entityId == other.entityId &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -101,6 +110,7 @@ constructor(
                         billingAddress,
                         description,
                         digitalWallet,
+                        entityId,
                         additionalProperties,
                     )
             }
@@ -108,7 +118,7 @@ constructor(
         }
 
         override fun toString() =
-            "CardCreateBody{accountId=$accountId, billingAddress=$billingAddress, description=$description, digitalWallet=$digitalWallet, additionalProperties=$additionalProperties}"
+            "CardCreateBody{accountId=$accountId, billingAddress=$billingAddress, description=$description, digitalWallet=$digitalWallet, entityId=$entityId, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -121,6 +131,7 @@ constructor(
             private var billingAddress: BillingAddress? = null
             private var description: String? = null
             private var digitalWallet: DigitalWallet? = null
+            private var entityId: String? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(cardCreateBody: CardCreateBody) = apply {
@@ -128,6 +139,7 @@ constructor(
                 this.billingAddress = cardCreateBody.billingAddress
                 this.description = cardCreateBody.description
                 this.digitalWallet = cardCreateBody.digitalWallet
+                this.entityId = cardCreateBody.entityId
                 additionalProperties(cardCreateBody.additionalProperties)
             }
 
@@ -157,6 +169,10 @@ constructor(
                 this.digitalWallet = digitalWallet
             }
 
+            /** The Entity the card should belong to. */
+            @JsonProperty("entity_id")
+            fun entityId(entityId: String) = apply { this.entityId = entityId }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 this.additionalProperties.putAll(additionalProperties)
@@ -177,6 +193,7 @@ constructor(
                     billingAddress,
                     description,
                     digitalWallet,
+                    entityId,
                     additionalProperties.toUnmodifiable(),
                 )
         }
@@ -198,6 +215,7 @@ constructor(
             this.billingAddress == other.billingAddress &&
             this.description == other.description &&
             this.digitalWallet == other.digitalWallet &&
+            this.entityId == other.entityId &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders &&
             this.additionalBodyProperties == other.additionalBodyProperties
@@ -209,6 +227,7 @@ constructor(
             billingAddress,
             description,
             digitalWallet,
+            entityId,
             additionalQueryParams,
             additionalHeaders,
             additionalBodyProperties,
@@ -216,7 +235,7 @@ constructor(
     }
 
     override fun toString() =
-        "CardCreateParams{accountId=$accountId, billingAddress=$billingAddress, description=$description, digitalWallet=$digitalWallet, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "CardCreateParams{accountId=$accountId, billingAddress=$billingAddress, description=$description, digitalWallet=$digitalWallet, entityId=$entityId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -232,6 +251,7 @@ constructor(
         private var billingAddress: BillingAddress? = null
         private var description: String? = null
         private var digitalWallet: DigitalWallet? = null
+        private var entityId: String? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -241,6 +261,7 @@ constructor(
             this.billingAddress = cardCreateParams.billingAddress
             this.description = cardCreateParams.description
             this.digitalWallet = cardCreateParams.digitalWallet
+            this.entityId = cardCreateParams.entityId
             additionalQueryParams(cardCreateParams.additionalQueryParams)
             additionalHeaders(cardCreateParams.additionalHeaders)
             additionalBodyProperties(cardCreateParams.additionalBodyProperties)
@@ -266,6 +287,9 @@ constructor(
         fun digitalWallet(digitalWallet: DigitalWallet) = apply {
             this.digitalWallet = digitalWallet
         }
+
+        /** The Entity the card should belong to. */
+        fun entityId(entityId: String) = apply { this.entityId = entityId }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -327,6 +351,7 @@ constructor(
                 billingAddress,
                 description,
                 digitalWallet,
+                entityId,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalBodyProperties.toUnmodifiable(),
