@@ -71,7 +71,7 @@ private constructor(
     fun description(): String? = description.getNullable("description")
 
     /** The relationship between your group and the entity. */
-    fun relationship(): Relationship = relationship.getRequired("relationship")
+    fun relationship(): Relationship? = relationship.getNullable("relationship")
 
     /**
      * Additional documentation associated with the entity. This is limited to the first 10

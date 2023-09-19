@@ -16,7 +16,7 @@ interface BeneficialOwnerService {
         requestOptions: RequestOptions = RequestOptions.none()
     ): Entity
 
-    /** Archive a beneficial owner belonging to a corporate Entity */
+    /** Archive a beneficial owner for a corporate Entity */
     fun archive(
         params: EntityBeneficialOwnerArchiveParams,
         requestOptions: RequestOptions = RequestOptions.none()
