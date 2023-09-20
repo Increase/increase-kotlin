@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.9.2 (2023-09-20)
+
+Full Changelog: [v0.9.1...v0.9.2](https://github.com/Increase/increase-kotlin/compare/v0.9.1...v0.9.2)
+
+### Features
+
+* **api:** add entity_id to Card and make relationship nullable ([#95](https://github.com/Increase/increase-kotlin/issues/95)) ([9fb6c66](https://github.com/Increase/increase-kotlin/commit/9fb6c6696e365392bae4fbeb91e321228a98ddf6))
+* **api:** export account statements in OFX format ([#97](https://github.com/Increase/increase-kotlin/issues/97)) ([e2a6b0d](https://github.com/Increase/increase-kotlin/commit/e2a6b0d9dacc322040d25bf0facab15258b80072))
+
 ## 0.9.1 (2023-09-15)
 
 Full Changelog: [v0.9.0...v0.9.1](https://github.com/increase/increase-kotlin/compare/v0.9.0...v0.9.1)
