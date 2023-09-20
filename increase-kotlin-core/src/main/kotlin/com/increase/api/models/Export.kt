@@ -309,6 +309,8 @@ private constructor(
 
         companion object {
 
+            val ACCOUNT_STATEMENT_OFX = Category(JsonField.of("account_statement_ofx"))
+
             val TRANSACTION_CSV = Category(JsonField.of("transaction_csv"))
 
             val BALANCE_CSV = Category(JsonField.of("balance_csv"))
@@ -317,11 +319,13 @@ private constructor(
         }
 
         enum class Known {
+            ACCOUNT_STATEMENT_OFX,
             TRANSACTION_CSV,
             BALANCE_CSV,
         }
 
         enum class Value {
+            ACCOUNT_STATEMENT_OFX,
             TRANSACTION_CSV,
             BALANCE_CSV,
             _UNKNOWN,
@@ -329,6 +333,7 @@ private constructor(
 
         fun value(): Value =
             when (this) {
+                ACCOUNT_STATEMENT_OFX -> Value.ACCOUNT_STATEMENT_OFX
                 TRANSACTION_CSV -> Value.TRANSACTION_CSV
                 BALANCE_CSV -> Value.BALANCE_CSV
                 else -> Value._UNKNOWN
@@ -336,6 +341,7 @@ private constructor(
 
         fun known(): Known =
             when (this) {
+                ACCOUNT_STATEMENT_OFX -> Known.ACCOUNT_STATEMENT_OFX
                 TRANSACTION_CSV -> Known.TRANSACTION_CSV
                 BALANCE_CSV -> Known.BALANCE_CSV
                 else -> throw IncreaseInvalidDataException("Unknown Category: $value")
