@@ -30,6 +30,7 @@ private constructor(
     private val originatorCompanyDiscretionaryData: JsonField<String>,
     private val originatorCompanyEntryDescription: JsonField<String>,
     private val originatorCompanyId: JsonField<String>,
+    private val originatorRoutingNumber: JsonField<String>,
     private val receiverIdNumber: JsonField<String>,
     private val receiverName: JsonField<String>,
     private val traceNumber: JsonField<String>,
@@ -79,6 +80,12 @@ private constructor(
 
     /** The id of the company that initiated the transfer. */
     fun originatorCompanyId(): String = originatorCompanyId.getRequired("originator_company_id")
+
+    /**
+     * The American Banking Association (ABA) routing number of the bank originating the transfer.
+     */
+    fun originatorRoutingNumber(): String =
+        originatorRoutingNumber.getRequired("originator_routing_number")
 
     /** The id of the receiver of the transfer. */
     fun receiverIdNumber(): String? = receiverIdNumber.getNullable("receiver_id_number")
@@ -155,6 +162,13 @@ private constructor(
     @ExcludeMissing
     fun _originatorCompanyId() = originatorCompanyId
 
+    /**
+     * The American Banking Association (ABA) routing number of the bank originating the transfer.
+     */
+    @JsonProperty("originator_routing_number")
+    @ExcludeMissing
+    fun _originatorRoutingNumber() = originatorRoutingNumber
+
     /** The id of the receiver of the transfer. */
     @JsonProperty("receiver_id_number") @ExcludeMissing fun _receiverIdNumber() = receiverIdNumber
 
@@ -208,6 +222,7 @@ private constructor(
             originatorCompanyDiscretionaryData()
             originatorCompanyEntryDescription()
             originatorCompanyId()
+            originatorRoutingNumber()
             receiverIdNumber()
             receiverName()
             traceNumber()
@@ -239,6 +254,7 @@ private constructor(
             this.originatorCompanyDiscretionaryData == other.originatorCompanyDiscretionaryData &&
             this.originatorCompanyEntryDescription == other.originatorCompanyEntryDescription &&
             this.originatorCompanyId == other.originatorCompanyId &&
+            this.originatorRoutingNumber == other.originatorRoutingNumber &&
             this.receiverIdNumber == other.receiverIdNumber &&
             this.receiverName == other.receiverName &&
             this.traceNumber == other.traceNumber &&
@@ -265,6 +281,7 @@ private constructor(
                     originatorCompanyDiscretionaryData,
                     originatorCompanyEntryDescription,
                     originatorCompanyId,
+                    originatorRoutingNumber,
                     receiverIdNumber,
                     receiverName,
                     traceNumber,
@@ -281,7 +298,7 @@ private constructor(
     }
 
     override fun toString() =
-        "InboundAchTransfer{id=$id, amount=$amount, accountNumberId=$accountNumberId, direction=$direction, status=$status, originatorCompanyName=$originatorCompanyName, originatorCompanyDescriptiveDate=$originatorCompanyDescriptiveDate, originatorCompanyDiscretionaryData=$originatorCompanyDiscretionaryData, originatorCompanyEntryDescription=$originatorCompanyEntryDescription, originatorCompanyId=$originatorCompanyId, receiverIdNumber=$receiverIdNumber, receiverName=$receiverName, traceNumber=$traceNumber, automaticallyResolvesAt=$automaticallyResolvesAt, acceptance=$acceptance, decline=$decline, transferReturn=$transferReturn, notificationOfChange=$notificationOfChange, type=$type, additionalProperties=$additionalProperties}"
+        "InboundAchTransfer{id=$id, amount=$amount, accountNumberId=$accountNumberId, direction=$direction, status=$status, originatorCompanyName=$originatorCompanyName, originatorCompanyDescriptiveDate=$originatorCompanyDescriptiveDate, originatorCompanyDiscretionaryData=$originatorCompanyDiscretionaryData, originatorCompanyEntryDescription=$originatorCompanyEntryDescription, originatorCompanyId=$originatorCompanyId, originatorRoutingNumber=$originatorRoutingNumber, receiverIdNumber=$receiverIdNumber, receiverName=$receiverName, traceNumber=$traceNumber, automaticallyResolvesAt=$automaticallyResolvesAt, acceptance=$acceptance, decline=$decline, transferReturn=$transferReturn, notificationOfChange=$notificationOfChange, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -300,6 +317,7 @@ private constructor(
         private var originatorCompanyDiscretionaryData: JsonField<String> = JsonMissing.of()
         private var originatorCompanyEntryDescription: JsonField<String> = JsonMissing.of()
         private var originatorCompanyId: JsonField<String> = JsonMissing.of()
+        private var originatorRoutingNumber: JsonField<String> = JsonMissing.of()
         private var receiverIdNumber: JsonField<String> = JsonMissing.of()
         private var receiverName: JsonField<String> = JsonMissing.of()
         private var traceNumber: JsonField<String> = JsonMissing.of()
@@ -325,6 +343,7 @@ private constructor(
             this.originatorCompanyEntryDescription =
                 inboundAchTransfer.originatorCompanyEntryDescription
             this.originatorCompanyId = inboundAchTransfer.originatorCompanyId
+            this.originatorRoutingNumber = inboundAchTransfer.originatorRoutingNumber
             this.receiverIdNumber = inboundAchTransfer.receiverIdNumber
             this.receiverName = inboundAchTransfer.receiverName
             this.traceNumber = inboundAchTransfer.traceNumber
@@ -432,6 +451,23 @@ private constructor(
         @ExcludeMissing
         fun originatorCompanyId(originatorCompanyId: JsonField<String>) = apply {
             this.originatorCompanyId = originatorCompanyId
+        }
+
+        /**
+         * The American Banking Association (ABA) routing number of the bank originating the
+         * transfer.
+         */
+        fun originatorRoutingNumber(originatorRoutingNumber: String) =
+            originatorRoutingNumber(JsonField.of(originatorRoutingNumber))
+
+        /**
+         * The American Banking Association (ABA) routing number of the bank originating the
+         * transfer.
+         */
+        @JsonProperty("originator_routing_number")
+        @ExcludeMissing
+        fun originatorRoutingNumber(originatorRoutingNumber: JsonField<String>) = apply {
+            this.originatorRoutingNumber = originatorRoutingNumber
         }
 
         /** The id of the receiver of the transfer. */
@@ -558,6 +594,7 @@ private constructor(
                 originatorCompanyDiscretionaryData,
                 originatorCompanyEntryDescription,
                 originatorCompanyId,
+                originatorRoutingNumber,
                 receiverIdNumber,
                 receiverName,
                 traceNumber,

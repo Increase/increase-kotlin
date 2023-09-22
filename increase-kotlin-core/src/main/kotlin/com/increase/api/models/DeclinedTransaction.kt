@@ -5584,6 +5584,7 @@ private constructor(
             private val originatorAddressLine2: JsonField<String>,
             private val originatorAddressLine3: JsonField<String>,
             private val originatorName: JsonField<String>,
+            private val originatorRoutingNumber: JsonField<String>,
             private val originatorToBeneficiaryInformationLine1: JsonField<String>,
             private val originatorToBeneficiaryInformationLine2: JsonField<String>,
             private val originatorToBeneficiaryInformationLine3: JsonField<String>,
@@ -5648,6 +5649,13 @@ private constructor(
 
             /** The originator of the wire, set by the sending bank. */
             fun originatorName(): String? = originatorName.getNullable("originator_name")
+
+            /**
+             * The American Banking Association (ABA) routing number of the bank originating the
+             * transfer.
+             */
+            fun originatorRoutingNumber(): String? =
+                originatorRoutingNumber.getNullable("originator_routing_number")
 
             /** A free-form message set by the wire originator. */
             fun originatorToBeneficiaryInformationLine1(): String? =
@@ -5737,6 +5745,14 @@ private constructor(
             /** The originator of the wire, set by the sending bank. */
             @JsonProperty("originator_name") @ExcludeMissing fun _originatorName() = originatorName
 
+            /**
+             * The American Banking Association (ABA) routing number of the bank originating the
+             * transfer.
+             */
+            @JsonProperty("originator_routing_number")
+            @ExcludeMissing
+            fun _originatorRoutingNumber() = originatorRoutingNumber
+
             /** A free-form message set by the wire originator. */
             @JsonProperty("originator_to_beneficiary_information_line1")
             @ExcludeMissing
@@ -5776,6 +5792,7 @@ private constructor(
                     originatorAddressLine2()
                     originatorAddressLine3()
                     originatorName()
+                    originatorRoutingNumber()
                     originatorToBeneficiaryInformationLine1()
                     originatorToBeneficiaryInformationLine2()
                     originatorToBeneficiaryInformationLine3()
@@ -5805,6 +5822,7 @@ private constructor(
                     this.originatorAddressLine2 == other.originatorAddressLine2 &&
                     this.originatorAddressLine3 == other.originatorAddressLine3 &&
                     this.originatorName == other.originatorName &&
+                    this.originatorRoutingNumber == other.originatorRoutingNumber &&
                     this.originatorToBeneficiaryInformationLine1 ==
                         other.originatorToBeneficiaryInformationLine1 &&
                     this.originatorToBeneficiaryInformationLine2 ==
@@ -5833,6 +5851,7 @@ private constructor(
                             originatorAddressLine2,
                             originatorAddressLine3,
                             originatorName,
+                            originatorRoutingNumber,
                             originatorToBeneficiaryInformationLine1,
                             originatorToBeneficiaryInformationLine2,
                             originatorToBeneficiaryInformationLine3,
@@ -5844,7 +5863,7 @@ private constructor(
             }
 
             override fun toString() =
-                "WireDecline{amount=$amount, reason=$reason, description=$description, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, beneficiaryName=$beneficiaryName, beneficiaryReference=$beneficiaryReference, inputMessageAccountabilityData=$inputMessageAccountabilityData, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, originatorToBeneficiaryInformationLine1=$originatorToBeneficiaryInformationLine1, originatorToBeneficiaryInformationLine2=$originatorToBeneficiaryInformationLine2, originatorToBeneficiaryInformationLine3=$originatorToBeneficiaryInformationLine3, originatorToBeneficiaryInformationLine4=$originatorToBeneficiaryInformationLine4, additionalProperties=$additionalProperties}"
+                "WireDecline{amount=$amount, reason=$reason, description=$description, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, beneficiaryName=$beneficiaryName, beneficiaryReference=$beneficiaryReference, inputMessageAccountabilityData=$inputMessageAccountabilityData, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, originatorRoutingNumber=$originatorRoutingNumber, originatorToBeneficiaryInformationLine1=$originatorToBeneficiaryInformationLine1, originatorToBeneficiaryInformationLine2=$originatorToBeneficiaryInformationLine2, originatorToBeneficiaryInformationLine3=$originatorToBeneficiaryInformationLine3, originatorToBeneficiaryInformationLine4=$originatorToBeneficiaryInformationLine4, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -5866,6 +5885,7 @@ private constructor(
                 private var originatorAddressLine2: JsonField<String> = JsonMissing.of()
                 private var originatorAddressLine3: JsonField<String> = JsonMissing.of()
                 private var originatorName: JsonField<String> = JsonMissing.of()
+                private var originatorRoutingNumber: JsonField<String> = JsonMissing.of()
                 private var originatorToBeneficiaryInformationLine1: JsonField<String> =
                     JsonMissing.of()
                 private var originatorToBeneficiaryInformationLine2: JsonField<String> =
@@ -5890,6 +5910,7 @@ private constructor(
                     this.originatorAddressLine2 = wireDecline.originatorAddressLine2
                     this.originatorAddressLine3 = wireDecline.originatorAddressLine3
                     this.originatorName = wireDecline.originatorName
+                    this.originatorRoutingNumber = wireDecline.originatorRoutingNumber
                     this.originatorToBeneficiaryInformationLine1 =
                         wireDecline.originatorToBeneficiaryInformationLine1
                     this.originatorToBeneficiaryInformationLine2 =
@@ -6055,6 +6076,23 @@ private constructor(
                     this.originatorName = originatorName
                 }
 
+                /**
+                 * The American Banking Association (ABA) routing number of the bank originating the
+                 * transfer.
+                 */
+                fun originatorRoutingNumber(originatorRoutingNumber: String) =
+                    originatorRoutingNumber(JsonField.of(originatorRoutingNumber))
+
+                /**
+                 * The American Banking Association (ABA) routing number of the bank originating the
+                 * transfer.
+                 */
+                @JsonProperty("originator_routing_number")
+                @ExcludeMissing
+                fun originatorRoutingNumber(originatorRoutingNumber: JsonField<String>) = apply {
+                    this.originatorRoutingNumber = originatorRoutingNumber
+                }
+
                 /** A free-form message set by the wire originator. */
                 fun originatorToBeneficiaryInformationLine1(
                     originatorToBeneficiaryInformationLine1: String
@@ -6157,6 +6195,7 @@ private constructor(
                         originatorAddressLine2,
                         originatorAddressLine3,
                         originatorName,
+                        originatorRoutingNumber,
                         originatorToBeneficiaryInformationLine1,
                         originatorToBeneficiaryInformationLine2,
                         originatorToBeneficiaryInformationLine3,
