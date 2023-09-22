@@ -18336,6 +18336,7 @@ private constructor(
                 private val originatorAddressLine2: JsonField<String>,
                 private val originatorAddressLine3: JsonField<String>,
                 private val originatorName: JsonField<String>,
+                private val originatorRoutingNumber: JsonField<String>,
                 private val originatorToBeneficiaryInformationLine1: JsonField<String>,
                 private val originatorToBeneficiaryInformationLine2: JsonField<String>,
                 private val originatorToBeneficiaryInformationLine3: JsonField<String>,
@@ -18400,6 +18401,13 @@ private constructor(
 
                 /** The originator of the wire, set by the sending bank. */
                 fun originatorName(): String? = originatorName.getNullable("originator_name")
+
+                /**
+                 * The American Banking Association (ABA) routing number of the bank originating the
+                 * transfer.
+                 */
+                fun originatorRoutingNumber(): String? =
+                    originatorRoutingNumber.getNullable("originator_routing_number")
 
                 /** A free-form message set by the wire originator. */
                 fun originatorToBeneficiaryInformationLine1(): String? =
@@ -18496,6 +18504,14 @@ private constructor(
                 @ExcludeMissing
                 fun _originatorName() = originatorName
 
+                /**
+                 * The American Banking Association (ABA) routing number of the bank originating the
+                 * transfer.
+                 */
+                @JsonProperty("originator_routing_number")
+                @ExcludeMissing
+                fun _originatorRoutingNumber() = originatorRoutingNumber
+
                 /** A free-form message set by the wire originator. */
                 @JsonProperty("originator_to_beneficiary_information_line1")
                 @ExcludeMissing
@@ -18543,6 +18559,7 @@ private constructor(
                         originatorAddressLine2()
                         originatorAddressLine3()
                         originatorName()
+                        originatorRoutingNumber()
                         originatorToBeneficiaryInformationLine1()
                         originatorToBeneficiaryInformationLine2()
                         originatorToBeneficiaryInformationLine3()
@@ -18573,6 +18590,7 @@ private constructor(
                         this.originatorAddressLine2 == other.originatorAddressLine2 &&
                         this.originatorAddressLine3 == other.originatorAddressLine3 &&
                         this.originatorName == other.originatorName &&
+                        this.originatorRoutingNumber == other.originatorRoutingNumber &&
                         this.originatorToBeneficiaryInformationLine1 ==
                             other.originatorToBeneficiaryInformationLine1 &&
                         this.originatorToBeneficiaryInformationLine2 ==
@@ -18602,6 +18620,7 @@ private constructor(
                                 originatorAddressLine2,
                                 originatorAddressLine3,
                                 originatorName,
+                                originatorRoutingNumber,
                                 originatorToBeneficiaryInformationLine1,
                                 originatorToBeneficiaryInformationLine2,
                                 originatorToBeneficiaryInformationLine3,
@@ -18614,7 +18633,7 @@ private constructor(
                 }
 
                 override fun toString() =
-                    "InboundWireDrawdownPayment{amount=$amount, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, beneficiaryName=$beneficiaryName, beneficiaryReference=$beneficiaryReference, description=$description, inputMessageAccountabilityData=$inputMessageAccountabilityData, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, originatorToBeneficiaryInformationLine1=$originatorToBeneficiaryInformationLine1, originatorToBeneficiaryInformationLine2=$originatorToBeneficiaryInformationLine2, originatorToBeneficiaryInformationLine3=$originatorToBeneficiaryInformationLine3, originatorToBeneficiaryInformationLine4=$originatorToBeneficiaryInformationLine4, originatorToBeneficiaryInformation=$originatorToBeneficiaryInformation, additionalProperties=$additionalProperties}"
+                    "InboundWireDrawdownPayment{amount=$amount, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, beneficiaryName=$beneficiaryName, beneficiaryReference=$beneficiaryReference, description=$description, inputMessageAccountabilityData=$inputMessageAccountabilityData, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, originatorRoutingNumber=$originatorRoutingNumber, originatorToBeneficiaryInformationLine1=$originatorToBeneficiaryInformationLine1, originatorToBeneficiaryInformationLine2=$originatorToBeneficiaryInformationLine2, originatorToBeneficiaryInformationLine3=$originatorToBeneficiaryInformationLine3, originatorToBeneficiaryInformationLine4=$originatorToBeneficiaryInformationLine4, originatorToBeneficiaryInformation=$originatorToBeneficiaryInformation, additionalProperties=$additionalProperties}"
 
                 companion object {
 
@@ -18635,6 +18654,7 @@ private constructor(
                     private var originatorAddressLine2: JsonField<String> = JsonMissing.of()
                     private var originatorAddressLine3: JsonField<String> = JsonMissing.of()
                     private var originatorName: JsonField<String> = JsonMissing.of()
+                    private var originatorRoutingNumber: JsonField<String> = JsonMissing.of()
                     private var originatorToBeneficiaryInformationLine1: JsonField<String> =
                         JsonMissing.of()
                     private var originatorToBeneficiaryInformationLine2: JsonField<String> =
@@ -18669,6 +18689,8 @@ private constructor(
                             this.originatorAddressLine3 =
                                 inboundWireDrawdownPayment.originatorAddressLine3
                             this.originatorName = inboundWireDrawdownPayment.originatorName
+                            this.originatorRoutingNumber =
+                                inboundWireDrawdownPayment.originatorRoutingNumber
                             this.originatorToBeneficiaryInformationLine1 =
                                 inboundWireDrawdownPayment.originatorToBeneficiaryInformationLine1
                             this.originatorToBeneficiaryInformationLine2 =
@@ -18835,6 +18857,24 @@ private constructor(
                         this.originatorName = originatorName
                     }
 
+                    /**
+                     * The American Banking Association (ABA) routing number of the bank originating
+                     * the transfer.
+                     */
+                    fun originatorRoutingNumber(originatorRoutingNumber: String) =
+                        originatorRoutingNumber(JsonField.of(originatorRoutingNumber))
+
+                    /**
+                     * The American Banking Association (ABA) routing number of the bank originating
+                     * the transfer.
+                     */
+                    @JsonProperty("originator_routing_number")
+                    @ExcludeMissing
+                    fun originatorRoutingNumber(originatorRoutingNumber: JsonField<String>) =
+                        apply {
+                            this.originatorRoutingNumber = originatorRoutingNumber
+                        }
+
                     /** A free-form message set by the wire originator. */
                     fun originatorToBeneficiaryInformationLine1(
                         originatorToBeneficiaryInformationLine1: String
@@ -18953,6 +18993,7 @@ private constructor(
                             originatorAddressLine2,
                             originatorAddressLine3,
                             originatorName,
+                            originatorRoutingNumber,
                             originatorToBeneficiaryInformationLine1,
                             originatorToBeneficiaryInformationLine2,
                             originatorToBeneficiaryInformationLine3,
@@ -18982,6 +19023,7 @@ private constructor(
                 private val previousMessageInputCycleDate: JsonField<LocalDate>,
                 private val previousMessageInputSequenceNumber: JsonField<String>,
                 private val previousMessageInputSource: JsonField<String>,
+                private val originatorRoutingNumber: JsonField<String>,
                 private val additionalProperties: Map<String, JsonValue>,
             ) {
 
@@ -19029,6 +19071,13 @@ private constructor(
                 fun previousMessageInputSource(): String =
                     previousMessageInputSource.getRequired("previous_message_input_source")
 
+                /**
+                 * The American Banking Association (ABA) routing number of the bank originating the
+                 * transfer.
+                 */
+                fun originatorRoutingNumber(): String? =
+                    originatorRoutingNumber.getNullable("originator_routing_number")
+
                 /** The amount that was reversed. */
                 @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
 
@@ -19074,6 +19123,14 @@ private constructor(
                 @ExcludeMissing
                 fun _previousMessageInputSource() = previousMessageInputSource
 
+                /**
+                 * The American Banking Association (ABA) routing number of the bank originating the
+                 * transfer.
+                 */
+                @JsonProperty("originator_routing_number")
+                @ExcludeMissing
+                fun _originatorRoutingNumber() = originatorRoutingNumber
+
                 @JsonAnyGetter
                 @ExcludeMissing
                 fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -19090,6 +19147,7 @@ private constructor(
                         previousMessageInputCycleDate()
                         previousMessageInputSequenceNumber()
                         previousMessageInputSource()
+                        originatorRoutingNumber()
                         validated = true
                     }
                 }
@@ -19115,6 +19173,7 @@ private constructor(
                         this.previousMessageInputSequenceNumber ==
                             other.previousMessageInputSequenceNumber &&
                         this.previousMessageInputSource == other.previousMessageInputSource &&
+                        this.originatorRoutingNumber == other.originatorRoutingNumber &&
                         this.additionalProperties == other.additionalProperties
                 }
 
@@ -19132,6 +19191,7 @@ private constructor(
                                 previousMessageInputCycleDate,
                                 previousMessageInputSequenceNumber,
                                 previousMessageInputSource,
+                                originatorRoutingNumber,
                                 additionalProperties,
                             )
                     }
@@ -19139,7 +19199,7 @@ private constructor(
                 }
 
                 override fun toString() =
-                    "InboundWireDrawdownPaymentReversal{amount=$amount, description=$description, inputCycleDate=$inputCycleDate, inputSequenceNumber=$inputSequenceNumber, inputSource=$inputSource, inputMessageAccountabilityData=$inputMessageAccountabilityData, previousMessageInputMessageAccountabilityData=$previousMessageInputMessageAccountabilityData, previousMessageInputCycleDate=$previousMessageInputCycleDate, previousMessageInputSequenceNumber=$previousMessageInputSequenceNumber, previousMessageInputSource=$previousMessageInputSource, additionalProperties=$additionalProperties}"
+                    "InboundWireDrawdownPaymentReversal{amount=$amount, description=$description, inputCycleDate=$inputCycleDate, inputSequenceNumber=$inputSequenceNumber, inputSource=$inputSource, inputMessageAccountabilityData=$inputMessageAccountabilityData, previousMessageInputMessageAccountabilityData=$previousMessageInputMessageAccountabilityData, previousMessageInputCycleDate=$previousMessageInputCycleDate, previousMessageInputSequenceNumber=$previousMessageInputSequenceNumber, previousMessageInputSource=$previousMessageInputSource, originatorRoutingNumber=$originatorRoutingNumber, additionalProperties=$additionalProperties}"
 
                 companion object {
 
@@ -19161,6 +19221,7 @@ private constructor(
                     private var previousMessageInputSequenceNumber: JsonField<String> =
                         JsonMissing.of()
                     private var previousMessageInputSource: JsonField<String> = JsonMissing.of()
+                    private var originatorRoutingNumber: JsonField<String> = JsonMissing.of()
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                     internal fun from(
@@ -19183,6 +19244,8 @@ private constructor(
                             inboundWireDrawdownPaymentReversal.previousMessageInputSequenceNumber
                         this.previousMessageInputSource =
                             inboundWireDrawdownPaymentReversal.previousMessageInputSource
+                        this.originatorRoutingNumber =
+                            inboundWireDrawdownPaymentReversal.originatorRoutingNumber
                         additionalProperties(
                             inboundWireDrawdownPaymentReversal.additionalProperties
                         )
@@ -19317,6 +19380,24 @@ private constructor(
                             this.previousMessageInputSource = previousMessageInputSource
                         }
 
+                    /**
+                     * The American Banking Association (ABA) routing number of the bank originating
+                     * the transfer.
+                     */
+                    fun originatorRoutingNumber(originatorRoutingNumber: String) =
+                        originatorRoutingNumber(JsonField.of(originatorRoutingNumber))
+
+                    /**
+                     * The American Banking Association (ABA) routing number of the bank originating
+                     * the transfer.
+                     */
+                    @JsonProperty("originator_routing_number")
+                    @ExcludeMissing
+                    fun originatorRoutingNumber(originatorRoutingNumber: JsonField<String>) =
+                        apply {
+                            this.originatorRoutingNumber = originatorRoutingNumber
+                        }
+
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                         this.additionalProperties.clear()
                         this.additionalProperties.putAll(additionalProperties)
@@ -19344,6 +19425,7 @@ private constructor(
                             previousMessageInputCycleDate,
                             previousMessageInputSequenceNumber,
                             previousMessageInputSource,
+                            originatorRoutingNumber,
                             additionalProperties.toUnmodifiable(),
                         )
                 }
@@ -19373,6 +19455,7 @@ private constructor(
                     JsonField<String>,
                 private val transactionId: JsonField<String>,
                 private val wireTransferId: JsonField<String>,
+                private val originatorRoutingNumber: JsonField<String>,
                 private val additionalProperties: Map<String, JsonValue>,
             ) {
 
@@ -19454,6 +19537,13 @@ private constructor(
 
                 /** The ID for the Wire Transfer that is being reversed. */
                 fun wireTransferId(): String = wireTransferId.getRequired("wire_transfer_id")
+
+                /**
+                 * The American Banking Association (ABA) routing number of the bank originating the
+                 * transfer.
+                 */
+                fun originatorRoutingNumber(): String? =
+                    originatorRoutingNumber.getNullable("originator_routing_number")
 
                 /** The amount that was reversed in USD cents. */
                 @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
@@ -19537,6 +19627,14 @@ private constructor(
                 @ExcludeMissing
                 fun _wireTransferId() = wireTransferId
 
+                /**
+                 * The American Banking Association (ABA) routing number of the bank originating the
+                 * transfer.
+                 */
+                @JsonProperty("originator_routing_number")
+                @ExcludeMissing
+                fun _originatorRoutingNumber() = originatorRoutingNumber
+
                 @JsonAnyGetter
                 @ExcludeMissing
                 fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -19558,6 +19656,7 @@ private constructor(
                         financialInstitutionToFinancialInstitutionInformation()
                         transactionId()
                         wireTransferId()
+                        originatorRoutingNumber()
                         validated = true
                     }
                 }
@@ -19590,6 +19689,7 @@ private constructor(
                             other.financialInstitutionToFinancialInstitutionInformation &&
                         this.transactionId == other.transactionId &&
                         this.wireTransferId == other.wireTransferId &&
+                        this.originatorRoutingNumber == other.originatorRoutingNumber &&
                         this.additionalProperties == other.additionalProperties
                 }
 
@@ -19612,6 +19712,7 @@ private constructor(
                                 financialInstitutionToFinancialInstitutionInformation,
                                 transactionId,
                                 wireTransferId,
+                                originatorRoutingNumber,
                                 additionalProperties,
                             )
                     }
@@ -19619,7 +19720,7 @@ private constructor(
                 }
 
                 override fun toString() =
-                    "InboundWireReversal{amount=$amount, createdAt=$createdAt, description=$description, inputCycleDate=$inputCycleDate, inputSequenceNumber=$inputSequenceNumber, inputSource=$inputSource, inputMessageAccountabilityData=$inputMessageAccountabilityData, previousMessageInputMessageAccountabilityData=$previousMessageInputMessageAccountabilityData, previousMessageInputCycleDate=$previousMessageInputCycleDate, previousMessageInputSequenceNumber=$previousMessageInputSequenceNumber, previousMessageInputSource=$previousMessageInputSource, receiverFinancialInstitutionInformation=$receiverFinancialInstitutionInformation, financialInstitutionToFinancialInstitutionInformation=$financialInstitutionToFinancialInstitutionInformation, transactionId=$transactionId, wireTransferId=$wireTransferId, additionalProperties=$additionalProperties}"
+                    "InboundWireReversal{amount=$amount, createdAt=$createdAt, description=$description, inputCycleDate=$inputCycleDate, inputSequenceNumber=$inputSequenceNumber, inputSource=$inputSource, inputMessageAccountabilityData=$inputMessageAccountabilityData, previousMessageInputMessageAccountabilityData=$previousMessageInputMessageAccountabilityData, previousMessageInputCycleDate=$previousMessageInputCycleDate, previousMessageInputSequenceNumber=$previousMessageInputSequenceNumber, previousMessageInputSource=$previousMessageInputSource, receiverFinancialInstitutionInformation=$receiverFinancialInstitutionInformation, financialInstitutionToFinancialInstitutionInformation=$financialInstitutionToFinancialInstitutionInformation, transactionId=$transactionId, wireTransferId=$wireTransferId, originatorRoutingNumber=$originatorRoutingNumber, additionalProperties=$additionalProperties}"
 
                 companion object {
 
@@ -19649,6 +19750,7 @@ private constructor(
                         JsonMissing.of()
                     private var transactionId: JsonField<String> = JsonMissing.of()
                     private var wireTransferId: JsonField<String> = JsonMissing.of()
+                    private var originatorRoutingNumber: JsonField<String> = JsonMissing.of()
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                     internal fun from(inboundWireReversal: InboundWireReversal) = apply {
@@ -19675,6 +19777,7 @@ private constructor(
                                 .financialInstitutionToFinancialInstitutionInformation
                         this.transactionId = inboundWireReversal.transactionId
                         this.wireTransferId = inboundWireReversal.wireTransferId
+                        this.originatorRoutingNumber = inboundWireReversal.originatorRoutingNumber
                         additionalProperties(inboundWireReversal.additionalProperties)
                     }
 
@@ -19909,6 +20012,24 @@ private constructor(
                         this.wireTransferId = wireTransferId
                     }
 
+                    /**
+                     * The American Banking Association (ABA) routing number of the bank originating
+                     * the transfer.
+                     */
+                    fun originatorRoutingNumber(originatorRoutingNumber: String) =
+                        originatorRoutingNumber(JsonField.of(originatorRoutingNumber))
+
+                    /**
+                     * The American Banking Association (ABA) routing number of the bank originating
+                     * the transfer.
+                     */
+                    @JsonProperty("originator_routing_number")
+                    @ExcludeMissing
+                    fun originatorRoutingNumber(originatorRoutingNumber: JsonField<String>) =
+                        apply {
+                            this.originatorRoutingNumber = originatorRoutingNumber
+                        }
+
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                         this.additionalProperties.clear()
                         this.additionalProperties.putAll(additionalProperties)
@@ -19941,6 +20062,7 @@ private constructor(
                             financialInstitutionToFinancialInstitutionInformation,
                             transactionId,
                             wireTransferId,
+                            originatorRoutingNumber,
                             additionalProperties.toUnmodifiable(),
                         )
                 }
@@ -19966,6 +20088,7 @@ private constructor(
                 private val originatorAddressLine2: JsonField<String>,
                 private val originatorAddressLine3: JsonField<String>,
                 private val originatorName: JsonField<String>,
+                private val originatorRoutingNumber: JsonField<String>,
                 private val originatorToBeneficiaryInformationLine1: JsonField<String>,
                 private val originatorToBeneficiaryInformationLine2: JsonField<String>,
                 private val originatorToBeneficiaryInformationLine3: JsonField<String>,
@@ -20027,6 +20150,13 @@ private constructor(
 
                 /** The originator of the wire, set by the sending bank. */
                 fun originatorName(): String? = originatorName.getNullable("originator_name")
+
+                /**
+                 * The American Banking Association (ABA) routing number of the bank originating the
+                 * transfer.
+                 */
+                fun originatorRoutingNumber(): String? =
+                    originatorRoutingNumber.getNullable("originator_routing_number")
 
                 /** A free-form message set by the wire originator. */
                 fun originatorToBeneficiaryInformationLine1(): String? =
@@ -20120,6 +20250,14 @@ private constructor(
                 @ExcludeMissing
                 fun _originatorName() = originatorName
 
+                /**
+                 * The American Banking Association (ABA) routing number of the bank originating the
+                 * transfer.
+                 */
+                @JsonProperty("originator_routing_number")
+                @ExcludeMissing
+                fun _originatorRoutingNumber() = originatorRoutingNumber
+
                 /** A free-form message set by the wire originator. */
                 @JsonProperty("originator_to_beneficiary_information_line1")
                 @ExcludeMissing
@@ -20167,6 +20305,7 @@ private constructor(
                         originatorAddressLine2()
                         originatorAddressLine3()
                         originatorName()
+                        originatorRoutingNumber()
                         originatorToBeneficiaryInformationLine1()
                         originatorToBeneficiaryInformationLine2()
                         originatorToBeneficiaryInformationLine3()
@@ -20197,6 +20336,7 @@ private constructor(
                         this.originatorAddressLine2 == other.originatorAddressLine2 &&
                         this.originatorAddressLine3 == other.originatorAddressLine3 &&
                         this.originatorName == other.originatorName &&
+                        this.originatorRoutingNumber == other.originatorRoutingNumber &&
                         this.originatorToBeneficiaryInformationLine1 ==
                             other.originatorToBeneficiaryInformationLine1 &&
                         this.originatorToBeneficiaryInformationLine2 ==
@@ -20226,6 +20366,7 @@ private constructor(
                                 originatorAddressLine2,
                                 originatorAddressLine3,
                                 originatorName,
+                                originatorRoutingNumber,
                                 originatorToBeneficiaryInformationLine1,
                                 originatorToBeneficiaryInformationLine2,
                                 originatorToBeneficiaryInformationLine3,
@@ -20238,7 +20379,7 @@ private constructor(
                 }
 
                 override fun toString() =
-                    "InboundWireTransfer{amount=$amount, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, beneficiaryName=$beneficiaryName, beneficiaryReference=$beneficiaryReference, description=$description, inputMessageAccountabilityData=$inputMessageAccountabilityData, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, originatorToBeneficiaryInformationLine1=$originatorToBeneficiaryInformationLine1, originatorToBeneficiaryInformationLine2=$originatorToBeneficiaryInformationLine2, originatorToBeneficiaryInformationLine3=$originatorToBeneficiaryInformationLine3, originatorToBeneficiaryInformationLine4=$originatorToBeneficiaryInformationLine4, originatorToBeneficiaryInformation=$originatorToBeneficiaryInformation, additionalProperties=$additionalProperties}"
+                    "InboundWireTransfer{amount=$amount, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, beneficiaryName=$beneficiaryName, beneficiaryReference=$beneficiaryReference, description=$description, inputMessageAccountabilityData=$inputMessageAccountabilityData, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, originatorRoutingNumber=$originatorRoutingNumber, originatorToBeneficiaryInformationLine1=$originatorToBeneficiaryInformationLine1, originatorToBeneficiaryInformationLine2=$originatorToBeneficiaryInformationLine2, originatorToBeneficiaryInformationLine3=$originatorToBeneficiaryInformationLine3, originatorToBeneficiaryInformationLine4=$originatorToBeneficiaryInformationLine4, originatorToBeneficiaryInformation=$originatorToBeneficiaryInformation, additionalProperties=$additionalProperties}"
 
                 companion object {
 
@@ -20259,6 +20400,7 @@ private constructor(
                     private var originatorAddressLine2: JsonField<String> = JsonMissing.of()
                     private var originatorAddressLine3: JsonField<String> = JsonMissing.of()
                     private var originatorName: JsonField<String> = JsonMissing.of()
+                    private var originatorRoutingNumber: JsonField<String> = JsonMissing.of()
                     private var originatorToBeneficiaryInformationLine1: JsonField<String> =
                         JsonMissing.of()
                     private var originatorToBeneficiaryInformationLine2: JsonField<String> =
@@ -20285,6 +20427,7 @@ private constructor(
                         this.originatorAddressLine2 = inboundWireTransfer.originatorAddressLine2
                         this.originatorAddressLine3 = inboundWireTransfer.originatorAddressLine3
                         this.originatorName = inboundWireTransfer.originatorName
+                        this.originatorRoutingNumber = inboundWireTransfer.originatorRoutingNumber
                         this.originatorToBeneficiaryInformationLine1 =
                             inboundWireTransfer.originatorToBeneficiaryInformationLine1
                         this.originatorToBeneficiaryInformationLine2 =
@@ -20447,6 +20590,24 @@ private constructor(
                         this.originatorName = originatorName
                     }
 
+                    /**
+                     * The American Banking Association (ABA) routing number of the bank originating
+                     * the transfer.
+                     */
+                    fun originatorRoutingNumber(originatorRoutingNumber: String) =
+                        originatorRoutingNumber(JsonField.of(originatorRoutingNumber))
+
+                    /**
+                     * The American Banking Association (ABA) routing number of the bank originating
+                     * the transfer.
+                     */
+                    @JsonProperty("originator_routing_number")
+                    @ExcludeMissing
+                    fun originatorRoutingNumber(originatorRoutingNumber: JsonField<String>) =
+                        apply {
+                            this.originatorRoutingNumber = originatorRoutingNumber
+                        }
+
                     /** A free-form message set by the wire originator. */
                     fun originatorToBeneficiaryInformationLine1(
                         originatorToBeneficiaryInformationLine1: String
@@ -20565,6 +20726,7 @@ private constructor(
                             originatorAddressLine2,
                             originatorAddressLine3,
                             originatorName,
+                            originatorRoutingNumber,
                             originatorToBeneficiaryInformationLine1,
                             originatorToBeneficiaryInformationLine2,
                             originatorToBeneficiaryInformationLine3,
