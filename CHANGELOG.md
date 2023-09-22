@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.9.3 (2023-09-22)
+
+Full Changelog: [v0.9.2...v0.9.3](https://github.com/increase/increase-kotlin/compare/v0.9.2...v0.9.3)
+
+### Features
+
+* **api:** add inbound checks, originating routing number and new event types ([#98](https://github.com/increase/increase-kotlin/issues/98)) ([f23f447](https://github.com/increase/increase-kotlin/commit/f23f447676695c9a6810b22d80a83ad184e6ebb4))
+
 ## 0.9.2 (2023-09-20)
 
 Full Changelog: [v0.9.1...v0.9.2](https://github.com/Increase/increase-kotlin/compare/v0.9.1...v0.9.2)
