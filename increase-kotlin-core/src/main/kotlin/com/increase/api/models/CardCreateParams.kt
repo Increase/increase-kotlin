@@ -79,7 +79,10 @@ constructor(
          */
         @JsonProperty("digital_wallet") fun digitalWallet(): DigitalWallet? = digitalWallet
 
-        /** The Entity the card should belong to. */
+        /**
+         * The Entity the card belongs to. You only need to supply this in rare situations when the
+         * card is not for the Account holder.
+         */
         @JsonProperty("entity_id") fun entityId(): String? = entityId
 
         @JsonAnyGetter
@@ -169,7 +172,10 @@ constructor(
                 this.digitalWallet = digitalWallet
             }
 
-            /** The Entity the card should belong to. */
+            /**
+             * The Entity the card belongs to. You only need to supply this in rare situations when
+             * the card is not for the Account holder.
+             */
             @JsonProperty("entity_id")
             fun entityId(entityId: String) = apply { this.entityId = entityId }
 
@@ -288,7 +294,10 @@ constructor(
             this.digitalWallet = digitalWallet
         }
 
-        /** The Entity the card should belong to. */
+        /**
+         * The Entity the card belongs to. You only need to supply this in rare situations when the
+         * card is not for the Account holder.
+         */
         fun entityId(entityId: String) = apply { this.entityId = entityId }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
