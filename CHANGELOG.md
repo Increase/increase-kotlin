@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.9.4 (2023-09-29)
+
+Full Changelog: [v0.9.3...v0.9.4](https://github.com/Increase/increase-kotlin/compare/v0.9.3...v0.9.4)
+
+### Features
+
+* **api:** add card payments endpoints ([#102](https://github.com/Increase/increase-kotlin/issues/102)) ([fd6be05](https://github.com/Increase/increase-kotlin/commit/fd6be05cfda7ed049af6d472b52cd1f96ddd4b04))
+* **api:** add physical cards endpoints ([#100](https://github.com/Increase/increase-kotlin/issues/100)) ([e6a53a8](https://github.com/Increase/increase-kotlin/commit/e6a53a8d9e4e8faacf88589e6d12c94596e75810))
+
 ## 0.9.3 (2023-09-22)
 
 Full Changelog: [v0.9.2...v0.9.3](https://github.com/increase/increase-kotlin/compare/v0.9.2...v0.9.3)
