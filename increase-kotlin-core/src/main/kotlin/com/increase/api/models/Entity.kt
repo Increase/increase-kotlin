@@ -32,7 +32,7 @@ private constructor(
     private val trust: JsonField<Trust>,
     private val type: JsonField<Type>,
     private val description: JsonField<String>,
-    private val relationship: JsonField<Relationship>,
+    private val status: JsonField<Status>,
     private val supplementalDocuments: JsonField<List<SupplementalDocument>>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
@@ -70,8 +70,8 @@ private constructor(
     /** The entity's description for display purposes. */
     fun description(): String? = description.getNullable("description")
 
-    /** The relationship between your group and the entity. */
-    fun relationship(): Relationship? = relationship.getNullable("relationship")
+    /** The status of the entity. */
+    fun status(): Status = status.getRequired("status")
 
     /**
      * Additional documentation associated with the entity. This is limited to the first 10
@@ -110,8 +110,8 @@ private constructor(
     /** The entity's description for display purposes. */
     @JsonProperty("description") @ExcludeMissing fun _description() = description
 
-    /** The relationship between your group and the entity. */
-    @JsonProperty("relationship") @ExcludeMissing fun _relationship() = relationship
+    /** The status of the entity. */
+    @JsonProperty("status") @ExcludeMissing fun _status() = status
 
     /**
      * Additional documentation associated with the entity. This is limited to the first 10
@@ -136,7 +136,7 @@ private constructor(
             trust()?.validate()
             type()
             description()
-            relationship()
+            status()
             supplementalDocuments().forEach { it.validate() }
             validated = true
         }
@@ -158,7 +158,7 @@ private constructor(
             this.trust == other.trust &&
             this.type == other.type &&
             this.description == other.description &&
-            this.relationship == other.relationship &&
+            this.status == other.status &&
             this.supplementalDocuments == other.supplementalDocuments &&
             this.additionalProperties == other.additionalProperties
     }
@@ -175,7 +175,7 @@ private constructor(
                     trust,
                     type,
                     description,
-                    relationship,
+                    status,
                     supplementalDocuments,
                     additionalProperties,
                 )
@@ -184,7 +184,7 @@ private constructor(
     }
 
     override fun toString() =
-        "Entity{id=$id, structure=$structure, corporation=$corporation, naturalPerson=$naturalPerson, joint=$joint, trust=$trust, type=$type, description=$description, relationship=$relationship, supplementalDocuments=$supplementalDocuments, additionalProperties=$additionalProperties}"
+        "Entity{id=$id, structure=$structure, corporation=$corporation, naturalPerson=$naturalPerson, joint=$joint, trust=$trust, type=$type, description=$description, status=$status, supplementalDocuments=$supplementalDocuments, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -201,7 +201,7 @@ private constructor(
         private var trust: JsonField<Trust> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
         private var description: JsonField<String> = JsonMissing.of()
-        private var relationship: JsonField<Relationship> = JsonMissing.of()
+        private var status: JsonField<Status> = JsonMissing.of()
         private var supplementalDocuments: JsonField<List<SupplementalDocument>> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -214,7 +214,7 @@ private constructor(
             this.trust = entity.trust
             this.type = entity.type
             this.description = entity.description
-            this.relationship = entity.relationship
+            this.status = entity.status
             this.supplementalDocuments = entity.supplementalDocuments
             additionalProperties(entity.additionalProperties)
         }
@@ -301,15 +301,13 @@ private constructor(
         @ExcludeMissing
         fun description(description: JsonField<String>) = apply { this.description = description }
 
-        /** The relationship between your group and the entity. */
-        fun relationship(relationship: Relationship) = relationship(JsonField.of(relationship))
+        /** The status of the entity. */
+        fun status(status: Status) = status(JsonField.of(status))
 
-        /** The relationship between your group and the entity. */
-        @JsonProperty("relationship")
+        /** The status of the entity. */
+        @JsonProperty("status")
         @ExcludeMissing
-        fun relationship(relationship: JsonField<Relationship>) = apply {
-            this.relationship = relationship
-        }
+        fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /**
          * Additional documentation associated with the entity. This is limited to the first 10
@@ -355,7 +353,7 @@ private constructor(
                 trust,
                 type,
                 description,
-                relationship,
+                status,
                 supplementalDocuments.map { it.toUnmodifiable() },
                 additionalProperties.toUnmodifiable(),
             )
@@ -2914,7 +2912,7 @@ private constructor(
         }
     }
 
-    class Relationship
+    class Status
     @JsonCreator
     private constructor(
         private val value: JsonField<String>,
@@ -2927,7 +2925,7 @@ private constructor(
                 return true
             }
 
-            return other is Relationship && this.value == other.value
+            return other is Status && this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -2936,42 +2934,42 @@ private constructor(
 
         companion object {
 
-            val AFFILIATED = Relationship(JsonField.of("affiliated"))
+            val ACTIVE = Status(JsonField.of("active"))
 
-            val INFORMATIONAL = Relationship(JsonField.of("informational"))
+            val ARCHIVED = Status(JsonField.of("archived"))
 
-            val UNAFFILIATED = Relationship(JsonField.of("unaffiliated"))
+            val DISABLED = Status(JsonField.of("disabled"))
 
-            fun of(value: String) = Relationship(JsonField.of(value))
+            fun of(value: String) = Status(JsonField.of(value))
         }
 
         enum class Known {
-            AFFILIATED,
-            INFORMATIONAL,
-            UNAFFILIATED,
+            ACTIVE,
+            ARCHIVED,
+            DISABLED,
         }
 
         enum class Value {
-            AFFILIATED,
-            INFORMATIONAL,
-            UNAFFILIATED,
+            ACTIVE,
+            ARCHIVED,
+            DISABLED,
             _UNKNOWN,
         }
 
         fun value(): Value =
             when (this) {
-                AFFILIATED -> Value.AFFILIATED
-                INFORMATIONAL -> Value.INFORMATIONAL
-                UNAFFILIATED -> Value.UNAFFILIATED
+                ACTIVE -> Value.ACTIVE
+                ARCHIVED -> Value.ARCHIVED
+                DISABLED -> Value.DISABLED
                 else -> Value._UNKNOWN
             }
 
         fun known(): Known =
             when (this) {
-                AFFILIATED -> Known.AFFILIATED
-                INFORMATIONAL -> Known.INFORMATIONAL
-                UNAFFILIATED -> Known.UNAFFILIATED
-                else -> throw IncreaseInvalidDataException("Unknown Relationship: $value")
+                ACTIVE -> Known.ACTIVE
+                ARCHIVED -> Known.ARCHIVED
+                DISABLED -> Known.DISABLED
+                else -> throw IncreaseInvalidDataException("Unknown Status: $value")
             }
 
         fun asString(): String = _value().asStringOrThrow()
