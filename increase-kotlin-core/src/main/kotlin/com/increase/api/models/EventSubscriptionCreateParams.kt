@@ -360,6 +360,12 @@ constructor(
 
             val ACH_TRANSFER_UPDATED = SelectedEventCategory(JsonField.of("ach_transfer.updated"))
 
+            val BOOKKEEPING_ACCOUNT_CREATED =
+                SelectedEventCategory(JsonField.of("bookkeeping_account.created"))
+
+            val BOOKKEEPING_ENTRY_SET_UPDATED =
+                SelectedEventCategory(JsonField.of("bookkeeping_entry_set.updated"))
+
             val CARD_CREATED = SelectedEventCategory(JsonField.of("card.created"))
 
             val CARD_UPDATED = SelectedEventCategory(JsonField.of("card.updated"))
@@ -401,12 +407,21 @@ constructor(
 
             val ENTITY_UPDATED = SelectedEventCategory(JsonField.of("entity.updated"))
 
+            val EVENT_SUBSCRIPTION_CREATED =
+                SelectedEventCategory(JsonField.of("event_subscription.created"))
+
+            val EVENT_SUBSCRIPTION_UPDATED =
+                SelectedEventCategory(JsonField.of("event_subscription.updated"))
+
             val EXPORT_CREATED = SelectedEventCategory(JsonField.of("export.created"))
 
             val EXPORT_UPDATED = SelectedEventCategory(JsonField.of("export.updated"))
 
             val EXTERNAL_ACCOUNT_CREATED =
                 SelectedEventCategory(JsonField.of("external_account.created"))
+
+            val EXTERNAL_ACCOUNT_UPDATED =
+                SelectedEventCategory(JsonField.of("external_account.updated"))
 
             val FILE_CREATED = SelectedEventCategory(JsonField.of("file.created"))
 
@@ -515,6 +530,8 @@ constructor(
             ACH_PRENOTIFICATION_UPDATED,
             ACH_TRANSFER_CREATED,
             ACH_TRANSFER_UPDATED,
+            BOOKKEEPING_ACCOUNT_CREATED,
+            BOOKKEEPING_ENTRY_SET_UPDATED,
             CARD_CREATED,
             CARD_UPDATED,
             CARD_PAYMENT_CREATED,
@@ -533,9 +550,12 @@ constructor(
             DOCUMENT_CREATED,
             ENTITY_CREATED,
             ENTITY_UPDATED,
+            EVENT_SUBSCRIPTION_CREATED,
+            EVENT_SUBSCRIPTION_UPDATED,
             EXPORT_CREATED,
             EXPORT_UPDATED,
             EXTERNAL_ACCOUNT_CREATED,
+            EXTERNAL_ACCOUNT_UPDATED,
             FILE_CREATED,
             GROUP_UPDATED,
             GROUP_HEARTBEAT,
@@ -580,6 +600,8 @@ constructor(
             ACH_PRENOTIFICATION_UPDATED,
             ACH_TRANSFER_CREATED,
             ACH_TRANSFER_UPDATED,
+            BOOKKEEPING_ACCOUNT_CREATED,
+            BOOKKEEPING_ENTRY_SET_UPDATED,
             CARD_CREATED,
             CARD_UPDATED,
             CARD_PAYMENT_CREATED,
@@ -598,9 +620,12 @@ constructor(
             DOCUMENT_CREATED,
             ENTITY_CREATED,
             ENTITY_UPDATED,
+            EVENT_SUBSCRIPTION_CREATED,
+            EVENT_SUBSCRIPTION_UPDATED,
             EXPORT_CREATED,
             EXPORT_UPDATED,
             EXTERNAL_ACCOUNT_CREATED,
+            EXTERNAL_ACCOUNT_UPDATED,
             FILE_CREATED,
             GROUP_UPDATED,
             GROUP_HEARTBEAT,
@@ -647,6 +672,8 @@ constructor(
                 ACH_PRENOTIFICATION_UPDATED -> Value.ACH_PRENOTIFICATION_UPDATED
                 ACH_TRANSFER_CREATED -> Value.ACH_TRANSFER_CREATED
                 ACH_TRANSFER_UPDATED -> Value.ACH_TRANSFER_UPDATED
+                BOOKKEEPING_ACCOUNT_CREATED -> Value.BOOKKEEPING_ACCOUNT_CREATED
+                BOOKKEEPING_ENTRY_SET_UPDATED -> Value.BOOKKEEPING_ENTRY_SET_UPDATED
                 CARD_CREATED -> Value.CARD_CREATED
                 CARD_UPDATED -> Value.CARD_UPDATED
                 CARD_PAYMENT_CREATED -> Value.CARD_PAYMENT_CREATED
@@ -665,9 +692,12 @@ constructor(
                 DOCUMENT_CREATED -> Value.DOCUMENT_CREATED
                 ENTITY_CREATED -> Value.ENTITY_CREATED
                 ENTITY_UPDATED -> Value.ENTITY_UPDATED
+                EVENT_SUBSCRIPTION_CREATED -> Value.EVENT_SUBSCRIPTION_CREATED
+                EVENT_SUBSCRIPTION_UPDATED -> Value.EVENT_SUBSCRIPTION_UPDATED
                 EXPORT_CREATED -> Value.EXPORT_CREATED
                 EXPORT_UPDATED -> Value.EXPORT_UPDATED
                 EXTERNAL_ACCOUNT_CREATED -> Value.EXTERNAL_ACCOUNT_CREATED
+                EXTERNAL_ACCOUNT_UPDATED -> Value.EXTERNAL_ACCOUNT_UPDATED
                 FILE_CREATED -> Value.FILE_CREATED
                 GROUP_UPDATED -> Value.GROUP_UPDATED
                 GROUP_HEARTBEAT -> Value.GROUP_HEARTBEAT
@@ -719,6 +749,8 @@ constructor(
                 ACH_PRENOTIFICATION_UPDATED -> Known.ACH_PRENOTIFICATION_UPDATED
                 ACH_TRANSFER_CREATED -> Known.ACH_TRANSFER_CREATED
                 ACH_TRANSFER_UPDATED -> Known.ACH_TRANSFER_UPDATED
+                BOOKKEEPING_ACCOUNT_CREATED -> Known.BOOKKEEPING_ACCOUNT_CREATED
+                BOOKKEEPING_ENTRY_SET_UPDATED -> Known.BOOKKEEPING_ENTRY_SET_UPDATED
                 CARD_CREATED -> Known.CARD_CREATED
                 CARD_UPDATED -> Known.CARD_UPDATED
                 CARD_PAYMENT_CREATED -> Known.CARD_PAYMENT_CREATED
@@ -737,9 +769,12 @@ constructor(
                 DOCUMENT_CREATED -> Known.DOCUMENT_CREATED
                 ENTITY_CREATED -> Known.ENTITY_CREATED
                 ENTITY_UPDATED -> Known.ENTITY_UPDATED
+                EVENT_SUBSCRIPTION_CREATED -> Known.EVENT_SUBSCRIPTION_CREATED
+                EVENT_SUBSCRIPTION_UPDATED -> Known.EVENT_SUBSCRIPTION_UPDATED
                 EXPORT_CREATED -> Known.EXPORT_CREATED
                 EXPORT_UPDATED -> Known.EXPORT_UPDATED
                 EXTERNAL_ACCOUNT_CREATED -> Known.EXTERNAL_ACCOUNT_CREATED
+                EXTERNAL_ACCOUNT_UPDATED -> Known.EXTERNAL_ACCOUNT_UPDATED
                 FILE_CREATED -> Known.FILE_CREATED
                 GROUP_UPDATED -> Known.GROUP_UPDATED
                 GROUP_HEARTBEAT -> Known.GROUP_HEARTBEAT
