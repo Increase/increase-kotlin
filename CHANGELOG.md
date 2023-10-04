@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.9.5 (2023-10-04)
+
+Full Changelog: [v0.9.4...v0.9.5](https://github.com/increase/increase-kotlin/compare/v0.9.4...v0.9.5)
+
+### Features
+
+* **api:** expand event categories and Entity status options ([#106](https://github.com/increase/increase-kotlin/issues/106)) ([634ba9d](https://github.com/increase/increase-kotlin/commit/634ba9d2d3e5d7e551a6e15418832dc63f70920e))
+
+
+### Chores
+
+* **internal:** add a top-level generated comment to each file ([#107](https://github.com/increase/increase-kotlin/issues/107)) ([370211c](https://github.com/increase/increase-kotlin/commit/370211c91d94d2439e86ec7a052f779b98162f2b))
+
 ## 0.9.4 (2023-09-29)
 
 Full Changelog: [v0.9.3...v0.9.4](https://github.com/Increase/increase-kotlin/compare/v0.9.3...v0.9.4)
