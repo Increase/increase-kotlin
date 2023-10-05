@@ -4,7 +4,7 @@ plugins {
 
 allprojects {
     group = "com.increase.api"
-    version = "0.9.5" // x-release-please-version
+    version = "0.9.6" // x-release-please-version
 }
 
 nexusPublishing {

@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.9.6 (2023-10-05)
+
+Full Changelog: [v0.9.5...v0.9.6](https://github.com/increase/increase-kotlin/compare/v0.9.5...v0.9.6)
+
+### Features
+
+* **api:** add direction property to CardAuthorization ([#108](https://github.com/increase/increase-kotlin/issues/108)) ([1994b5c](https://github.com/increase/increase-kotlin/commit/1994b5c0d65b44f0689050235a021668071a7cde))
+
 ## 0.9.5 (2023-10-04)
 
 Full Changelog: [v0.9.4...v0.9.5](https://github.com/increase/increase-kotlin/compare/v0.9.4...v0.9.5)
