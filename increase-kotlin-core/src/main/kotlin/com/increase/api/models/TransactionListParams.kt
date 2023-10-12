@@ -15,36 +15,36 @@ import java.util.Objects
 
 class TransactionListParams
 constructor(
+    private val accountId: String?,
+    private val category: Category?,
+    private val createdAt: CreatedAt?,
     private val cursor: String?,
     private val limit: Long?,
-    private val accountId: String?,
     private val routeId: String?,
-    private val createdAt: CreatedAt?,
-    private val category: Category?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
 ) {
+
+    fun accountId(): String? = accountId
+
+    fun category(): Category? = category
+
+    fun createdAt(): CreatedAt? = createdAt
 
     fun cursor(): String? = cursor
 
     fun limit(): Long? = limit
 
-    fun accountId(): String? = accountId
-
     fun routeId(): String? = routeId
-
-    fun createdAt(): CreatedAt? = createdAt
-
-    fun category(): Category? = category
 
     internal fun getQueryParams(): Map<String, List<String>> {
         val params = mutableMapOf<String, List<String>>()
+        this.accountId?.let { params.put("account_id", listOf(it.toString())) }
+        this.category?.forEachQueryParam { key, values -> params.put("category.$key", values) }
+        this.createdAt?.forEachQueryParam { key, values -> params.put("created_at.$key", values) }
         this.cursor?.let { params.put("cursor", listOf(it.toString())) }
         this.limit?.let { params.put("limit", listOf(it.toString())) }
-        this.accountId?.let { params.put("account_id", listOf(it.toString())) }
         this.routeId?.let { params.put("route_id", listOf(it.toString())) }
-        this.createdAt?.forEachQueryParam { key, values -> params.put("created_at.$key", values) }
-        this.category?.forEachQueryParam { key, values -> params.put("category.$key", values) }
         params.putAll(additionalQueryParams)
         return params.toUnmodifiable()
     }
@@ -61,31 +61,31 @@ constructor(
         }
 
         return other is TransactionListParams &&
+            this.accountId == other.accountId &&
+            this.category == other.category &&
+            this.createdAt == other.createdAt &&
             this.cursor == other.cursor &&
             this.limit == other.limit &&
-            this.accountId == other.accountId &&
             this.routeId == other.routeId &&
-            this.createdAt == other.createdAt &&
-            this.category == other.category &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders
     }
 
     override fun hashCode(): Int {
         return Objects.hash(
+            accountId,
+            category,
+            createdAt,
             cursor,
             limit,
-            accountId,
             routeId,
-            createdAt,
-            category,
             additionalQueryParams,
             additionalHeaders,
         )
     }
 
     override fun toString() =
-        "TransactionListParams{cursor=$cursor, limit=$limit, accountId=$accountId, routeId=$routeId, createdAt=$createdAt, category=$category, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+        "TransactionListParams{accountId=$accountId, category=$category, createdAt=$createdAt, cursor=$cursor, limit=$limit, routeId=$routeId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -97,25 +97,32 @@ constructor(
     @NoAutoDetect
     class Builder {
 
+        private var accountId: String? = null
+        private var category: Category? = null
+        private var createdAt: CreatedAt? = null
         private var cursor: String? = null
         private var limit: Long? = null
-        private var accountId: String? = null
         private var routeId: String? = null
-        private var createdAt: CreatedAt? = null
-        private var category: Category? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
 
         internal fun from(transactionListParams: TransactionListParams) = apply {
+            this.accountId = transactionListParams.accountId
+            this.category = transactionListParams.category
+            this.createdAt = transactionListParams.createdAt
             this.cursor = transactionListParams.cursor
             this.limit = transactionListParams.limit
-            this.accountId = transactionListParams.accountId
             this.routeId = transactionListParams.routeId
-            this.createdAt = transactionListParams.createdAt
-            this.category = transactionListParams.category
             additionalQueryParams(transactionListParams.additionalQueryParams)
             additionalHeaders(transactionListParams.additionalHeaders)
         }
+
+        /** Filter Transactions for those belonging to the specified Account. */
+        fun accountId(accountId: String) = apply { this.accountId = accountId }
+
+        fun category(category: Category) = apply { this.category = category }
+
+        fun createdAt(createdAt: CreatedAt) = apply { this.createdAt = createdAt }
 
         /** Return the page of entries after this one. */
         fun cursor(cursor: String) = apply { this.cursor = cursor }
@@ -125,18 +132,11 @@ constructor(
          */
         fun limit(limit: Long) = apply { this.limit = limit }
 
-        /** Filter Transactions for those belonging to the specified Account. */
-        fun accountId(accountId: String) = apply { this.accountId = accountId }
-
         /**
          * Filter Transactions for those belonging to the specified route. This could be a Card ID
          * or an Account Number ID.
          */
         fun routeId(routeId: String) = apply { this.routeId = routeId }
-
-        fun createdAt(createdAt: CreatedAt) = apply { this.createdAt = createdAt }
-
-        fun category(category: Category) = apply { this.category = category }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -180,12 +180,12 @@ constructor(
 
         fun build(): TransactionListParams =
             TransactionListParams(
+                accountId,
+                category,
+                createdAt,
                 cursor,
                 limit,
-                accountId,
                 routeId,
-                createdAt,
-                category,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
             )

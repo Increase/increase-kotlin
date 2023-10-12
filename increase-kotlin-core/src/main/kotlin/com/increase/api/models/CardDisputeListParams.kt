@@ -15,27 +15,27 @@ import java.util.Objects
 
 class CardDisputeListParams
 constructor(
+    private val createdAt: CreatedAt?,
     private val cursor: String?,
     private val limit: Long?,
-    private val createdAt: CreatedAt?,
     private val status: Status?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
 ) {
 
+    fun createdAt(): CreatedAt? = createdAt
+
     fun cursor(): String? = cursor
 
     fun limit(): Long? = limit
-
-    fun createdAt(): CreatedAt? = createdAt
 
     fun status(): Status? = status
 
     internal fun getQueryParams(): Map<String, List<String>> {
         val params = mutableMapOf<String, List<String>>()
+        this.createdAt?.forEachQueryParam { key, values -> params.put("created_at.$key", values) }
         this.cursor?.let { params.put("cursor", listOf(it.toString())) }
         this.limit?.let { params.put("limit", listOf(it.toString())) }
-        this.createdAt?.forEachQueryParam { key, values -> params.put("created_at.$key", values) }
         this.status?.forEachQueryParam { key, values -> params.put("status.$key", values) }
         params.putAll(additionalQueryParams)
         return params.toUnmodifiable()
@@ -53,9 +53,9 @@ constructor(
         }
 
         return other is CardDisputeListParams &&
+            this.createdAt == other.createdAt &&
             this.cursor == other.cursor &&
             this.limit == other.limit &&
-            this.createdAt == other.createdAt &&
             this.status == other.status &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders
@@ -63,9 +63,9 @@ constructor(
 
     override fun hashCode(): Int {
         return Objects.hash(
+            createdAt,
             cursor,
             limit,
-            createdAt,
             status,
             additionalQueryParams,
             additionalHeaders,
@@ -73,7 +73,7 @@ constructor(
     }
 
     override fun toString() =
-        "CardDisputeListParams{cursor=$cursor, limit=$limit, createdAt=$createdAt, status=$status, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+        "CardDisputeListParams{createdAt=$createdAt, cursor=$cursor, limit=$limit, status=$status, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -85,21 +85,23 @@ constructor(
     @NoAutoDetect
     class Builder {
 
+        private var createdAt: CreatedAt? = null
         private var cursor: String? = null
         private var limit: Long? = null
-        private var createdAt: CreatedAt? = null
         private var status: Status? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
 
         internal fun from(cardDisputeListParams: CardDisputeListParams) = apply {
+            this.createdAt = cardDisputeListParams.createdAt
             this.cursor = cardDisputeListParams.cursor
             this.limit = cardDisputeListParams.limit
-            this.createdAt = cardDisputeListParams.createdAt
             this.status = cardDisputeListParams.status
             additionalQueryParams(cardDisputeListParams.additionalQueryParams)
             additionalHeaders(cardDisputeListParams.additionalHeaders)
         }
+
+        fun createdAt(createdAt: CreatedAt) = apply { this.createdAt = createdAt }
 
         /** Return the page of entries after this one. */
         fun cursor(cursor: String) = apply { this.cursor = cursor }
@@ -108,8 +110,6 @@ constructor(
          * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
          */
         fun limit(limit: Long) = apply { this.limit = limit }
-
-        fun createdAt(createdAt: CreatedAt) = apply { this.createdAt = createdAt }
 
         fun status(status: Status) = apply { this.status = status }
 
@@ -155,9 +155,9 @@ constructor(
 
         fun build(): CardDisputeListParams =
             CardDisputeListParams(
+                createdAt,
                 cursor,
                 limit,
-                createdAt,
                 status,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
