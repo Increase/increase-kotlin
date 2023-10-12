@@ -11,36 +11,36 @@ import java.util.Objects
 
 class WireTransferListParams
 constructor(
-    private val cursor: String?,
-    private val limit: Long?,
     private val accountId: String?,
-    private val externalAccountId: String?,
-    private val uniqueIdentifier: String?,
     private val createdAt: CreatedAt?,
+    private val cursor: String?,
+    private val externalAccountId: String?,
+    private val limit: Long?,
+    private val uniqueIdentifier: String?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
 ) {
 
-    fun cursor(): String? = cursor
-
-    fun limit(): Long? = limit
-
     fun accountId(): String? = accountId
-
-    fun externalAccountId(): String? = externalAccountId
-
-    fun uniqueIdentifier(): String? = uniqueIdentifier
 
     fun createdAt(): CreatedAt? = createdAt
 
+    fun cursor(): String? = cursor
+
+    fun externalAccountId(): String? = externalAccountId
+
+    fun limit(): Long? = limit
+
+    fun uniqueIdentifier(): String? = uniqueIdentifier
+
     internal fun getQueryParams(): Map<String, List<String>> {
         val params = mutableMapOf<String, List<String>>()
-        this.cursor?.let { params.put("cursor", listOf(it.toString())) }
-        this.limit?.let { params.put("limit", listOf(it.toString())) }
         this.accountId?.let { params.put("account_id", listOf(it.toString())) }
-        this.externalAccountId?.let { params.put("external_account_id", listOf(it.toString())) }
-        this.uniqueIdentifier?.let { params.put("unique_identifier", listOf(it.toString())) }
         this.createdAt?.forEachQueryParam { key, values -> params.put("created_at.$key", values) }
+        this.cursor?.let { params.put("cursor", listOf(it.toString())) }
+        this.externalAccountId?.let { params.put("external_account_id", listOf(it.toString())) }
+        this.limit?.let { params.put("limit", listOf(it.toString())) }
+        this.uniqueIdentifier?.let { params.put("unique_identifier", listOf(it.toString())) }
         params.putAll(additionalQueryParams)
         return params.toUnmodifiable()
     }
@@ -57,31 +57,31 @@ constructor(
         }
 
         return other is WireTransferListParams &&
-            this.cursor == other.cursor &&
-            this.limit == other.limit &&
             this.accountId == other.accountId &&
-            this.externalAccountId == other.externalAccountId &&
-            this.uniqueIdentifier == other.uniqueIdentifier &&
             this.createdAt == other.createdAt &&
+            this.cursor == other.cursor &&
+            this.externalAccountId == other.externalAccountId &&
+            this.limit == other.limit &&
+            this.uniqueIdentifier == other.uniqueIdentifier &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders
     }
 
     override fun hashCode(): Int {
         return Objects.hash(
-            cursor,
-            limit,
             accountId,
-            externalAccountId,
-            uniqueIdentifier,
             createdAt,
+            cursor,
+            externalAccountId,
+            limit,
+            uniqueIdentifier,
             additionalQueryParams,
             additionalHeaders,
         )
     }
 
     override fun toString() =
-        "WireTransferListParams{cursor=$cursor, limit=$limit, accountId=$accountId, externalAccountId=$externalAccountId, uniqueIdentifier=$uniqueIdentifier, createdAt=$createdAt, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+        "WireTransferListParams{accountId=$accountId, createdAt=$createdAt, cursor=$cursor, externalAccountId=$externalAccountId, limit=$limit, uniqueIdentifier=$uniqueIdentifier, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -93,48 +93,48 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var cursor: String? = null
-        private var limit: Long? = null
         private var accountId: String? = null
-        private var externalAccountId: String? = null
-        private var uniqueIdentifier: String? = null
         private var createdAt: CreatedAt? = null
+        private var cursor: String? = null
+        private var externalAccountId: String? = null
+        private var limit: Long? = null
+        private var uniqueIdentifier: String? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
 
         internal fun from(wireTransferListParams: WireTransferListParams) = apply {
-            this.cursor = wireTransferListParams.cursor
-            this.limit = wireTransferListParams.limit
             this.accountId = wireTransferListParams.accountId
-            this.externalAccountId = wireTransferListParams.externalAccountId
-            this.uniqueIdentifier = wireTransferListParams.uniqueIdentifier
             this.createdAt = wireTransferListParams.createdAt
+            this.cursor = wireTransferListParams.cursor
+            this.externalAccountId = wireTransferListParams.externalAccountId
+            this.limit = wireTransferListParams.limit
+            this.uniqueIdentifier = wireTransferListParams.uniqueIdentifier
             additionalQueryParams(wireTransferListParams.additionalQueryParams)
             additionalHeaders(wireTransferListParams.additionalHeaders)
         }
 
-        /** Return the page of entries after this one. */
-        fun cursor(cursor: String) = apply { this.cursor = cursor }
-
-        /**
-         * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
-         */
-        fun limit(limit: Long) = apply { this.limit = limit }
-
         /** Filter Wire Transfers to those belonging to the specified Account. */
         fun accountId(accountId: String) = apply { this.accountId = accountId }
+
+        fun createdAt(createdAt: CreatedAt) = apply { this.createdAt = createdAt }
+
+        /** Return the page of entries after this one. */
+        fun cursor(cursor: String) = apply { this.cursor = cursor }
 
         /** Filter Wire Transfers to those made to the specified External Account. */
         fun externalAccountId(externalAccountId: String) = apply {
             this.externalAccountId = externalAccountId
         }
 
+        /**
+         * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
+         */
+        fun limit(limit: Long) = apply { this.limit = limit }
+
         /** Filter Wire Transfers to the one with the specified unique identifier. */
         fun uniqueIdentifier(uniqueIdentifier: String) = apply {
             this.uniqueIdentifier = uniqueIdentifier
         }
-
-        fun createdAt(createdAt: CreatedAt) = apply { this.createdAt = createdAt }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -178,12 +178,12 @@ constructor(
 
         fun build(): WireTransferListParams =
             WireTransferListParams(
-                cursor,
-                limit,
                 accountId,
-                externalAccountId,
-                uniqueIdentifier,
                 createdAt,
+                cursor,
+                externalAccountId,
+                limit,
+                uniqueIdentifier,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
             )
