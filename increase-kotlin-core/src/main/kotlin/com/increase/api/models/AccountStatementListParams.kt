@@ -11,27 +11,27 @@ import java.util.Objects
 
 class AccountStatementListParams
 constructor(
+    private val accountId: String?,
     private val cursor: String?,
     private val limit: Long?,
-    private val accountId: String?,
     private val statementPeriodStart: StatementPeriodStart?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
 ) {
 
+    fun accountId(): String? = accountId
+
     fun cursor(): String? = cursor
 
     fun limit(): Long? = limit
-
-    fun accountId(): String? = accountId
 
     fun statementPeriodStart(): StatementPeriodStart? = statementPeriodStart
 
     internal fun getQueryParams(): Map<String, List<String>> {
         val params = mutableMapOf<String, List<String>>()
+        this.accountId?.let { params.put("account_id", listOf(it.toString())) }
         this.cursor?.let { params.put("cursor", listOf(it.toString())) }
         this.limit?.let { params.put("limit", listOf(it.toString())) }
-        this.accountId?.let { params.put("account_id", listOf(it.toString())) }
         this.statementPeriodStart?.forEachQueryParam { key, values ->
             params.put("statement_period_start.$key", values)
         }
@@ -51,9 +51,9 @@ constructor(
         }
 
         return other is AccountStatementListParams &&
+            this.accountId == other.accountId &&
             this.cursor == other.cursor &&
             this.limit == other.limit &&
-            this.accountId == other.accountId &&
             this.statementPeriodStart == other.statementPeriodStart &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders
@@ -61,9 +61,9 @@ constructor(
 
     override fun hashCode(): Int {
         return Objects.hash(
+            accountId,
             cursor,
             limit,
-            accountId,
             statementPeriodStart,
             additionalQueryParams,
             additionalHeaders,
@@ -71,7 +71,7 @@ constructor(
     }
 
     override fun toString() =
-        "AccountStatementListParams{cursor=$cursor, limit=$limit, accountId=$accountId, statementPeriodStart=$statementPeriodStart, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+        "AccountStatementListParams{accountId=$accountId, cursor=$cursor, limit=$limit, statementPeriodStart=$statementPeriodStart, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -83,21 +83,24 @@ constructor(
     @NoAutoDetect
     class Builder {
 
+        private var accountId: String? = null
         private var cursor: String? = null
         private var limit: Long? = null
-        private var accountId: String? = null
         private var statementPeriodStart: StatementPeriodStart? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
 
         internal fun from(accountStatementListParams: AccountStatementListParams) = apply {
+            this.accountId = accountStatementListParams.accountId
             this.cursor = accountStatementListParams.cursor
             this.limit = accountStatementListParams.limit
-            this.accountId = accountStatementListParams.accountId
             this.statementPeriodStart = accountStatementListParams.statementPeriodStart
             additionalQueryParams(accountStatementListParams.additionalQueryParams)
             additionalHeaders(accountStatementListParams.additionalHeaders)
         }
+
+        /** Filter Account Statements to those belonging to the specified Account. */
+        fun accountId(accountId: String) = apply { this.accountId = accountId }
 
         /** Return the page of entries after this one. */
         fun cursor(cursor: String) = apply { this.cursor = cursor }
@@ -106,9 +109,6 @@ constructor(
          * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
          */
         fun limit(limit: Long) = apply { this.limit = limit }
-
-        /** Filter Account Statements to those belonging to the specified Account. */
-        fun accountId(accountId: String) = apply { this.accountId = accountId }
 
         fun statementPeriodStart(statementPeriodStart: StatementPeriodStart) = apply {
             this.statementPeriodStart = statementPeriodStart
@@ -156,9 +156,9 @@ constructor(
 
         fun build(): AccountStatementListParams =
             AccountStatementListParams(
+                accountId,
                 cursor,
                 limit,
-                accountId,
                 statementPeriodStart,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
