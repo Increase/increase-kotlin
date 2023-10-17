@@ -20383,6 +20383,7 @@ private constructor(
                 private val frontImageFileId: JsonField<String>,
                 private val backImageFileId: JsonField<String>,
                 private val bankOfFirstDepositRoutingNumber: JsonField<String>,
+                private val transferId: JsonField<String>,
                 private val type: JsonField<Type>,
                 private val additionalProperties: Map<String, JsonValue>,
             ) {
@@ -20421,6 +20422,9 @@ private constructor(
                     bankOfFirstDepositRoutingNumber.getNullable(
                         "bank_of_first_deposit_routing_number"
                     )
+
+                /** The identifier of the Check Transfer object that was deposited. */
+                fun transferId(): String = transferId.getRequired("transfer_id")
 
                 /**
                  * A constant representing the object's type. For this resource it will always be
@@ -20461,6 +20465,9 @@ private constructor(
                 @ExcludeMissing
                 fun _bankOfFirstDepositRoutingNumber() = bankOfFirstDepositRoutingNumber
 
+                /** The identifier of the Check Transfer object that was deposited. */
+                @JsonProperty("transfer_id") @ExcludeMissing fun _transferId() = transferId
+
                 /**
                  * A constant representing the object's type. For this resource it will always be
                  * `check_transfer_deposit`.
@@ -20478,6 +20485,7 @@ private constructor(
                         frontImageFileId()
                         backImageFileId()
                         bankOfFirstDepositRoutingNumber()
+                        transferId()
                         type()
                         validated = true
                     }
@@ -20497,6 +20505,7 @@ private constructor(
                         this.backImageFileId == other.backImageFileId &&
                         this.bankOfFirstDepositRoutingNumber ==
                             other.bankOfFirstDepositRoutingNumber &&
+                        this.transferId == other.transferId &&
                         this.type == other.type &&
                         this.additionalProperties == other.additionalProperties
                 }
@@ -20510,6 +20519,7 @@ private constructor(
                                 frontImageFileId,
                                 backImageFileId,
                                 bankOfFirstDepositRoutingNumber,
+                                transferId,
                                 type,
                                 additionalProperties,
                             )
@@ -20518,7 +20528,7 @@ private constructor(
                 }
 
                 override fun toString() =
-                    "CheckTransferDeposit{depositedAt=$depositedAt, transactionId=$transactionId, frontImageFileId=$frontImageFileId, backImageFileId=$backImageFileId, bankOfFirstDepositRoutingNumber=$bankOfFirstDepositRoutingNumber, type=$type, additionalProperties=$additionalProperties}"
+                    "CheckTransferDeposit{depositedAt=$depositedAt, transactionId=$transactionId, frontImageFileId=$frontImageFileId, backImageFileId=$backImageFileId, bankOfFirstDepositRoutingNumber=$bankOfFirstDepositRoutingNumber, transferId=$transferId, type=$type, additionalProperties=$additionalProperties}"
 
                 companion object {
 
@@ -20533,6 +20543,7 @@ private constructor(
                     private var backImageFileId: JsonField<String> = JsonMissing.of()
                     private var bankOfFirstDepositRoutingNumber: JsonField<String> =
                         JsonMissing.of()
+                    private var transferId: JsonField<String> = JsonMissing.of()
                     private var type: JsonField<Type> = JsonMissing.of()
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -20543,6 +20554,7 @@ private constructor(
                         this.backImageFileId = checkTransferDeposit.backImageFileId
                         this.bankOfFirstDepositRoutingNumber =
                             checkTransferDeposit.bankOfFirstDepositRoutingNumber
+                        this.transferId = checkTransferDeposit.transferId
                         this.type = checkTransferDeposit.type
                         additionalProperties(checkTransferDeposit.additionalProperties)
                     }
@@ -20632,6 +20644,16 @@ private constructor(
                         this.bankOfFirstDepositRoutingNumber = bankOfFirstDepositRoutingNumber
                     }
 
+                    /** The identifier of the Check Transfer object that was deposited. */
+                    fun transferId(transferId: String) = transferId(JsonField.of(transferId))
+
+                    /** The identifier of the Check Transfer object that was deposited. */
+                    @JsonProperty("transfer_id")
+                    @ExcludeMissing
+                    fun transferId(transferId: JsonField<String>) = apply {
+                        this.transferId = transferId
+                    }
+
                     /**
                      * A constant representing the object's type. For this resource it will always
                      * be `check_transfer_deposit`.
@@ -20668,6 +20690,7 @@ private constructor(
                             frontImageFileId,
                             backImageFileId,
                             bankOfFirstDepositRoutingNumber,
+                            transferId,
                             type,
                             additionalProperties.toUnmodifiable(),
                         )
