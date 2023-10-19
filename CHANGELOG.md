@@ -1,5 +1,27 @@
 # Changelog
 
+## 0.10.0 (2023-10-19)
+
+Full Changelog: [v0.9.6...v0.10.0](https://github.com/increase/increase-kotlin/compare/v0.9.6...v0.10.0)
+
+### Features
+
+* **api:** add addenda details for ACH transfers ([#117](https://github.com/increase/increase-kotlin/issues/117)) ([4a5ef35](https://github.com/increase/increase-kotlin/commit/4a5ef3508591d484ba95abc2cd081fec3129b841))
+* **api:** updates ([#118](https://github.com/increase/increase-kotlin/issues/118)) ([3f7ac5a](https://github.com/increase/increase-kotlin/commit/3f7ac5a744e9f66b0b676e8879d8e37d218b7ce7))
+
+
+### Chores
+
+* add case insensitive get header function ([#115](https://github.com/increase/increase-kotlin/issues/115)) ([6a72f5c](https://github.com/increase/increase-kotlin/commit/6a72f5c192f2905024f96b46f842f1a00acf548d))
+* **internal:** minor reformatting ([#113](https://github.com/increase/increase-kotlin/issues/113)) ([5990110](https://github.com/increase/increase-kotlin/commit/59901103402b6ff1a1efc9dfd0bf2941bd7016e0))
+* **internal:** rearrange client arguments ([#112](https://github.com/increase/increase-kotlin/issues/112)) ([e0775a4](https://github.com/increase/increase-kotlin/commit/e0775a41505fcbf3835c0d52b242ecf6a36c137e))
+* update README ([#110](https://github.com/increase/increase-kotlin/issues/110)) ([4184ebf](https://github.com/increase/increase-kotlin/commit/4184ebf0061e0f959bd8ec5734052c8435ac5791))
+
+
+### Documentation
+
+* organisation -&gt; organization (UK to US English) ([#116](https://github.com/increase/increase-kotlin/issues/116)) ([a3eccf4](https://github.com/increase/increase-kotlin/commit/a3eccf4c736be666450d7c8136daa125ac4e212f))
+
 ## 0.9.6 (2023-10-05)
 
 Full Changelog: [v0.9.5...v0.9.6](https://github.com/increase/increase-kotlin/compare/v0.9.5...v0.9.6)
