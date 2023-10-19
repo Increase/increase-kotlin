@@ -309,6 +309,9 @@ private constructor(
             val BOOKKEEPING_ACCOUNT_CREATED =
                 SelectedEventCategory(JsonField.of("bookkeeping_account.created"))
 
+            val BOOKKEEPING_ACCOUNT_UPDATED =
+                SelectedEventCategory(JsonField.of("bookkeeping_account.updated"))
+
             val BOOKKEEPING_ENTRY_SET_UPDATED =
                 SelectedEventCategory(JsonField.of("bookkeeping_entry_set.updated"))
 
@@ -477,6 +480,7 @@ private constructor(
             ACH_TRANSFER_CREATED,
             ACH_TRANSFER_UPDATED,
             BOOKKEEPING_ACCOUNT_CREATED,
+            BOOKKEEPING_ACCOUNT_UPDATED,
             BOOKKEEPING_ENTRY_SET_UPDATED,
             CARD_CREATED,
             CARD_UPDATED,
@@ -547,6 +551,7 @@ private constructor(
             ACH_TRANSFER_CREATED,
             ACH_TRANSFER_UPDATED,
             BOOKKEEPING_ACCOUNT_CREATED,
+            BOOKKEEPING_ACCOUNT_UPDATED,
             BOOKKEEPING_ENTRY_SET_UPDATED,
             CARD_CREATED,
             CARD_UPDATED,
@@ -619,6 +624,7 @@ private constructor(
                 ACH_TRANSFER_CREATED -> Value.ACH_TRANSFER_CREATED
                 ACH_TRANSFER_UPDATED -> Value.ACH_TRANSFER_UPDATED
                 BOOKKEEPING_ACCOUNT_CREATED -> Value.BOOKKEEPING_ACCOUNT_CREATED
+                BOOKKEEPING_ACCOUNT_UPDATED -> Value.BOOKKEEPING_ACCOUNT_UPDATED
                 BOOKKEEPING_ENTRY_SET_UPDATED -> Value.BOOKKEEPING_ENTRY_SET_UPDATED
                 CARD_CREATED -> Value.CARD_CREATED
                 CARD_UPDATED -> Value.CARD_UPDATED
@@ -696,6 +702,7 @@ private constructor(
                 ACH_TRANSFER_CREATED -> Known.ACH_TRANSFER_CREATED
                 ACH_TRANSFER_UPDATED -> Known.ACH_TRANSFER_UPDATED
                 BOOKKEEPING_ACCOUNT_CREATED -> Known.BOOKKEEPING_ACCOUNT_CREATED
+                BOOKKEEPING_ACCOUNT_UPDATED -> Known.BOOKKEEPING_ACCOUNT_UPDATED
                 BOOKKEEPING_ENTRY_SET_UPDATED -> Known.BOOKKEEPING_ENTRY_SET_UPDATED
                 CARD_CREATED -> Known.CARD_CREATED
                 CARD_UPDATED -> Known.CARD_UPDATED

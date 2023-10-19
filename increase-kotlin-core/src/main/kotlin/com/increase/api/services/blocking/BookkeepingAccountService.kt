@@ -9,12 +9,19 @@ import com.increase.api.models.BookkeepingAccount
 import com.increase.api.models.BookkeepingAccountCreateParams
 import com.increase.api.models.BookkeepingAccountListPage
 import com.increase.api.models.BookkeepingAccountListParams
+import com.increase.api.models.BookkeepingAccountUpdateParams
 
 interface BookkeepingAccountService {
 
     /** Create a Bookkeeping Account */
     fun create(
         params: BookkeepingAccountCreateParams,
+        requestOptions: RequestOptions = RequestOptions.none()
+    ): BookkeepingAccount
+
+    /** Update a Bookkeeping Account */
+    fun update(
+        params: BookkeepingAccountUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): BookkeepingAccount
 
