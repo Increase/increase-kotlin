@@ -293,6 +293,8 @@ constructor(
 
         companion object {
 
+            val RETURNED_PER_ODFI_REQUEST = Reason(JsonField.of("returned_per_odfi_request"))
+
             val AUTHORIZATION_REVOKED_BY_CUSTOMER =
                 Reason(JsonField.of("authorization_revoked_by_customer"))
 
@@ -325,6 +327,7 @@ constructor(
         }
 
         enum class Known {
+            RETURNED_PER_ODFI_REQUEST,
             AUTHORIZATION_REVOKED_BY_CUSTOMER,
             PAYMENT_STOPPED,
             CUSTOMER_ADVISED_UNAUTHORIZED_IMPROPER_INELIGIBLE_OR_INCOMPLETE,
@@ -336,6 +339,7 @@ constructor(
         }
 
         enum class Value {
+            RETURNED_PER_ODFI_REQUEST,
             AUTHORIZATION_REVOKED_BY_CUSTOMER,
             PAYMENT_STOPPED,
             CUSTOMER_ADVISED_UNAUTHORIZED_IMPROPER_INELIGIBLE_OR_INCOMPLETE,
@@ -349,6 +353,7 @@ constructor(
 
         fun value(): Value =
             when (this) {
+                RETURNED_PER_ODFI_REQUEST -> Value.RETURNED_PER_ODFI_REQUEST
                 AUTHORIZATION_REVOKED_BY_CUSTOMER -> Value.AUTHORIZATION_REVOKED_BY_CUSTOMER
                 PAYMENT_STOPPED -> Value.PAYMENT_STOPPED
                 CUSTOMER_ADVISED_UNAUTHORIZED_IMPROPER_INELIGIBLE_OR_INCOMPLETE ->
@@ -366,6 +371,7 @@ constructor(
 
         fun known(): Known =
             when (this) {
+                RETURNED_PER_ODFI_REQUEST -> Known.RETURNED_PER_ODFI_REQUEST
                 AUTHORIZATION_REVOKED_BY_CUSTOMER -> Known.AUTHORIZATION_REVOKED_BY_CUSTOMER
                 PAYMENT_STOPPED -> Known.PAYMENT_STOPPED
                 CUSTOMER_ADVISED_UNAUTHORIZED_IMPROPER_INELIGIBLE_OR_INCOMPLETE ->
