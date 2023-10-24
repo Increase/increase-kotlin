@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.11.0 (2023-10-24)
+
+Full Changelog: [v0.10.0...v0.11.0](https://github.com/increase/increase-kotlin/compare/v0.10.0...v0.11.0)
+
+### Features
+
+* **api:** add fuel confirmation functionality ([#124](https://github.com/increase/increase-kotlin/issues/124)) ([35d3a3b](https://github.com/increase/increase-kotlin/commit/35d3a3b2ed905795bd56cd367eb39dd0e980f6ac))
+* **api:** add returned_per_odfi_request enum ([#123](https://github.com/increase/increase-kotlin/issues/123)) ([5b3a1a1](https://github.com/increase/increase-kotlin/commit/5b3a1a12253231c3554f2e248a13492361445519))
+* **api:** updates ([#121](https://github.com/increase/increase-kotlin/issues/121)) ([3fa6d84](https://github.com/increase/increase-kotlin/commit/3fa6d841267ff44ce6e1d35c8d5ce68c69d40f10))
+* **api:** updates ([#122](https://github.com/increase/increase-kotlin/issues/122)) ([37cedb7](https://github.com/increase/increase-kotlin/commit/37cedb77f6c3ad1cb90e2c604610fbcfa77e688c))
+* **client:** adjust retry behavior ([#125](https://github.com/increase/increase-kotlin/issues/125)) ([e809e51](https://github.com/increase/increase-kotlin/commit/e809e51088b7940c6fb5a34e60fe290b0c5e14c0))
+
 ## 0.10.0 (2023-10-19)
 
 Full Changelog: [v0.9.6...v0.10.0](https://github.com/increase/increase-kotlin/compare/v0.9.6...v0.10.0)
