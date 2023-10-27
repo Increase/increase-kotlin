@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.13.0 (2023-10-27)
+
+Full Changelog: [v0.12.0...v0.13.0](https://github.com/increase/increase-kotlin/compare/v0.12.0...v0.13.0)
+
+### Features
+
+* **api:** add network identifiers and effective date ([#130](https://github.com/increase/increase-kotlin/issues/130)) ([6cecffb](https://github.com/increase/increase-kotlin/commit/6cecffbd7a62bd7b4e2117c4e290162fe7986e7b))
+
 ## 0.12.0 (2023-10-26)
 
 Full Changelog: [v0.11.0...v0.12.0](https://github.com/increase/increase-kotlin/compare/v0.11.0...v0.12.0)
