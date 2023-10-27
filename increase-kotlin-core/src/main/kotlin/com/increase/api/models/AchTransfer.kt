@@ -2932,6 +2932,7 @@ private constructor(
         private val traceNumber: JsonField<String>,
         private val submittedAt: JsonField<OffsetDateTime>,
         private val expectedFundsSettlementAt: JsonField<OffsetDateTime>,
+        private val effectiveDate: JsonField<LocalDate>,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -2960,6 +2961,13 @@ private constructor(
             expectedFundsSettlementAt.getRequired("expected_funds_settlement_at")
 
         /**
+         * The ACH's effective date sent to the receiving bank. If `effective_date` is configured in
+         * the ACH transfer, this will match the value there. Otherwise, it will the date that the
+         * ACH transfer was processed, which is usually the current or subsequent business day.
+         */
+        fun effectiveDate(): LocalDate = effectiveDate.getRequired("effective_date")
+
+        /**
          * A 15 digit number recorded in the Nacha file and transmitted to the receiving bank. Along
          * with the amount, date, and originating routing number, this can be used to identify the
          * ACH transfer at the receiving bank. ACH trace numbers are not unique, but are
@@ -2980,6 +2988,13 @@ private constructor(
         @ExcludeMissing
         fun _expectedFundsSettlementAt() = expectedFundsSettlementAt
 
+        /**
+         * The ACH's effective date sent to the receiving bank. If `effective_date` is configured in
+         * the ACH transfer, this will match the value there. Otherwise, it will the date that the
+         * ACH transfer was processed, which is usually the current or subsequent business day.
+         */
+        @JsonProperty("effective_date") @ExcludeMissing fun _effectiveDate() = effectiveDate
+
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -2989,6 +3004,7 @@ private constructor(
                 traceNumber()
                 submittedAt()
                 expectedFundsSettlementAt()
+                effectiveDate()
                 validated = true
             }
         }
@@ -3004,6 +3020,7 @@ private constructor(
                 this.traceNumber == other.traceNumber &&
                 this.submittedAt == other.submittedAt &&
                 this.expectedFundsSettlementAt == other.expectedFundsSettlementAt &&
+                this.effectiveDate == other.effectiveDate &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -3014,6 +3031,7 @@ private constructor(
                         traceNumber,
                         submittedAt,
                         expectedFundsSettlementAt,
+                        effectiveDate,
                         additionalProperties,
                     )
             }
@@ -3021,7 +3039,7 @@ private constructor(
         }
 
         override fun toString() =
-            "Submission{traceNumber=$traceNumber, submittedAt=$submittedAt, expectedFundsSettlementAt=$expectedFundsSettlementAt, additionalProperties=$additionalProperties}"
+            "Submission{traceNumber=$traceNumber, submittedAt=$submittedAt, expectedFundsSettlementAt=$expectedFundsSettlementAt, effectiveDate=$effectiveDate, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -3033,12 +3051,14 @@ private constructor(
             private var traceNumber: JsonField<String> = JsonMissing.of()
             private var submittedAt: JsonField<OffsetDateTime> = JsonMissing.of()
             private var expectedFundsSettlementAt: JsonField<OffsetDateTime> = JsonMissing.of()
+            private var effectiveDate: JsonField<LocalDate> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(submission: Submission) = apply {
                 this.traceNumber = submission.traceNumber
                 this.submittedAt = submission.submittedAt
                 this.expectedFundsSettlementAt = submission.expectedFundsSettlementAt
+                this.effectiveDate = submission.effectiveDate
                 additionalProperties(submission.additionalProperties)
             }
 
@@ -3096,6 +3116,26 @@ private constructor(
                     this.expectedFundsSettlementAt = expectedFundsSettlementAt
                 }
 
+            /**
+             * The ACH's effective date sent to the receiving bank. If `effective_date` is
+             * configured in the ACH transfer, this will match the value there. Otherwise, it will
+             * the date that the ACH transfer was processed, which is usually the current or
+             * subsequent business day.
+             */
+            fun effectiveDate(effectiveDate: LocalDate) = effectiveDate(JsonField.of(effectiveDate))
+
+            /**
+             * The ACH's effective date sent to the receiving bank. If `effective_date` is
+             * configured in the ACH transfer, this will match the value there. Otherwise, it will
+             * the date that the ACH transfer was processed, which is usually the current or
+             * subsequent business day.
+             */
+            @JsonProperty("effective_date")
+            @ExcludeMissing
+            fun effectiveDate(effectiveDate: JsonField<LocalDate>) = apply {
+                this.effectiveDate = effectiveDate
+            }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 this.additionalProperties.putAll(additionalProperties)
@@ -3115,6 +3155,7 @@ private constructor(
                     traceNumber,
                     submittedAt,
                     expectedFundsSettlementAt,
+                    effectiveDate,
                     additionalProperties.toUnmodifiable(),
                 )
         }
