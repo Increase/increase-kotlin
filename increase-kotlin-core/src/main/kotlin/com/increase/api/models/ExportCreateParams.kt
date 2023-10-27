@@ -22,6 +22,7 @@ constructor(
     private val category: Category,
     private val accountStatementOfx: AccountStatementOfx?,
     private val balanceCsv: BalanceCsv?,
+    private val bookkeepingAccountBalanceCsv: BookkeepingAccountBalanceCsv?,
     private val transactionCsv: TransactionCsv?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
@@ -34,6 +35,8 @@ constructor(
 
     fun balanceCsv(): BalanceCsv? = balanceCsv
 
+    fun bookkeepingAccountBalanceCsv(): BookkeepingAccountBalanceCsv? = bookkeepingAccountBalanceCsv
+
     fun transactionCsv(): TransactionCsv? = transactionCsv
 
     internal fun getBody(): ExportCreateBody {
@@ -41,6 +44,7 @@ constructor(
             category,
             accountStatementOfx,
             balanceCsv,
+            bookkeepingAccountBalanceCsv,
             transactionCsv,
             additionalBodyProperties,
         )
@@ -57,6 +61,7 @@ constructor(
         private val category: Category?,
         private val accountStatementOfx: AccountStatementOfx?,
         private val balanceCsv: BalanceCsv?,
+        private val bookkeepingAccountBalanceCsv: BookkeepingAccountBalanceCsv?,
         private val transactionCsv: TransactionCsv?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
@@ -76,6 +81,14 @@ constructor(
         /** Options for the created export. Required if `category` is equal to `balance_csv`. */
         @JsonProperty("balance_csv") fun balanceCsv(): BalanceCsv? = balanceCsv
 
+        /**
+         * Options for the created export. Required if `category` is equal to
+         * `bookkeeping_account_balance_csv`.
+         */
+        @JsonProperty("bookkeeping_account_balance_csv")
+        fun bookkeepingAccountBalanceCsv(): BookkeepingAccountBalanceCsv? =
+            bookkeepingAccountBalanceCsv
+
         /** Options for the created export. Required if `category` is equal to `transaction_csv`. */
         @JsonProperty("transaction_csv") fun transactionCsv(): TransactionCsv? = transactionCsv
 
@@ -94,6 +107,7 @@ constructor(
                 this.category == other.category &&
                 this.accountStatementOfx == other.accountStatementOfx &&
                 this.balanceCsv == other.balanceCsv &&
+                this.bookkeepingAccountBalanceCsv == other.bookkeepingAccountBalanceCsv &&
                 this.transactionCsv == other.transactionCsv &&
                 this.additionalProperties == other.additionalProperties
         }
@@ -105,6 +119,7 @@ constructor(
                         category,
                         accountStatementOfx,
                         balanceCsv,
+                        bookkeepingAccountBalanceCsv,
                         transactionCsv,
                         additionalProperties,
                     )
@@ -113,7 +128,7 @@ constructor(
         }
 
         override fun toString() =
-            "ExportCreateBody{category=$category, accountStatementOfx=$accountStatementOfx, balanceCsv=$balanceCsv, transactionCsv=$transactionCsv, additionalProperties=$additionalProperties}"
+            "ExportCreateBody{category=$category, accountStatementOfx=$accountStatementOfx, balanceCsv=$balanceCsv, bookkeepingAccountBalanceCsv=$bookkeepingAccountBalanceCsv, transactionCsv=$transactionCsv, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -125,6 +140,7 @@ constructor(
             private var category: Category? = null
             private var accountStatementOfx: AccountStatementOfx? = null
             private var balanceCsv: BalanceCsv? = null
+            private var bookkeepingAccountBalanceCsv: BookkeepingAccountBalanceCsv? = null
             private var transactionCsv: TransactionCsv? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -132,6 +148,7 @@ constructor(
                 this.category = exportCreateBody.category
                 this.accountStatementOfx = exportCreateBody.accountStatementOfx
                 this.balanceCsv = exportCreateBody.balanceCsv
+                this.bookkeepingAccountBalanceCsv = exportCreateBody.bookkeepingAccountBalanceCsv
                 this.transactionCsv = exportCreateBody.transactionCsv
                 additionalProperties(exportCreateBody.additionalProperties)
             }
@@ -152,6 +169,15 @@ constructor(
             /** Options for the created export. Required if `category` is equal to `balance_csv`. */
             @JsonProperty("balance_csv")
             fun balanceCsv(balanceCsv: BalanceCsv) = apply { this.balanceCsv = balanceCsv }
+
+            /**
+             * Options for the created export. Required if `category` is equal to
+             * `bookkeeping_account_balance_csv`.
+             */
+            @JsonProperty("bookkeeping_account_balance_csv")
+            fun bookkeepingAccountBalanceCsv(
+                bookkeepingAccountBalanceCsv: BookkeepingAccountBalanceCsv
+            ) = apply { this.bookkeepingAccountBalanceCsv = bookkeepingAccountBalanceCsv }
 
             /**
              * Options for the created export. Required if `category` is equal to `transaction_csv`.
@@ -180,6 +206,7 @@ constructor(
                     checkNotNull(category) { "`category` is required but was not set" },
                     accountStatementOfx,
                     balanceCsv,
+                    bookkeepingAccountBalanceCsv,
                     transactionCsv,
                     additionalProperties.toUnmodifiable(),
                 )
@@ -201,6 +228,7 @@ constructor(
             this.category == other.category &&
             this.accountStatementOfx == other.accountStatementOfx &&
             this.balanceCsv == other.balanceCsv &&
+            this.bookkeepingAccountBalanceCsv == other.bookkeepingAccountBalanceCsv &&
             this.transactionCsv == other.transactionCsv &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders &&
@@ -212,6 +240,7 @@ constructor(
             category,
             accountStatementOfx,
             balanceCsv,
+            bookkeepingAccountBalanceCsv,
             transactionCsv,
             additionalQueryParams,
             additionalHeaders,
@@ -220,7 +249,7 @@ constructor(
     }
 
     override fun toString() =
-        "ExportCreateParams{category=$category, accountStatementOfx=$accountStatementOfx, balanceCsv=$balanceCsv, transactionCsv=$transactionCsv, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "ExportCreateParams{category=$category, accountStatementOfx=$accountStatementOfx, balanceCsv=$balanceCsv, bookkeepingAccountBalanceCsv=$bookkeepingAccountBalanceCsv, transactionCsv=$transactionCsv, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -235,6 +264,7 @@ constructor(
         private var category: Category? = null
         private var accountStatementOfx: AccountStatementOfx? = null
         private var balanceCsv: BalanceCsv? = null
+        private var bookkeepingAccountBalanceCsv: BookkeepingAccountBalanceCsv? = null
         private var transactionCsv: TransactionCsv? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
@@ -244,6 +274,7 @@ constructor(
             this.category = exportCreateParams.category
             this.accountStatementOfx = exportCreateParams.accountStatementOfx
             this.balanceCsv = exportCreateParams.balanceCsv
+            this.bookkeepingAccountBalanceCsv = exportCreateParams.bookkeepingAccountBalanceCsv
             this.transactionCsv = exportCreateParams.transactionCsv
             additionalQueryParams(exportCreateParams.additionalQueryParams)
             additionalHeaders(exportCreateParams.additionalHeaders)
@@ -263,6 +294,14 @@ constructor(
 
         /** Options for the created export. Required if `category` is equal to `balance_csv`. */
         fun balanceCsv(balanceCsv: BalanceCsv) = apply { this.balanceCsv = balanceCsv }
+
+        /**
+         * Options for the created export. Required if `category` is equal to
+         * `bookkeeping_account_balance_csv`.
+         */
+        fun bookkeepingAccountBalanceCsv(
+            bookkeepingAccountBalanceCsv: BookkeepingAccountBalanceCsv
+        ) = apply { this.bookkeepingAccountBalanceCsv = bookkeepingAccountBalanceCsv }
 
         /** Options for the created export. Required if `category` is equal to `transaction_csv`. */
         fun transactionCsv(transactionCsv: TransactionCsv) = apply {
@@ -328,6 +367,7 @@ constructor(
                 checkNotNull(category) { "`category` is required but was not set" },
                 accountStatementOfx,
                 balanceCsv,
+                bookkeepingAccountBalanceCsv,
                 transactionCsv,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
@@ -363,6 +403,9 @@ constructor(
 
             val BALANCE_CSV = Category(JsonField.of("balance_csv"))
 
+            val BOOKKEEPING_ACCOUNT_BALANCE_CSV =
+                Category(JsonField.of("bookkeeping_account_balance_csv"))
+
             fun of(value: String) = Category(JsonField.of(value))
         }
 
@@ -370,12 +413,14 @@ constructor(
             ACCOUNT_STATEMENT_OFX,
             TRANSACTION_CSV,
             BALANCE_CSV,
+            BOOKKEEPING_ACCOUNT_BALANCE_CSV,
         }
 
         enum class Value {
             ACCOUNT_STATEMENT_OFX,
             TRANSACTION_CSV,
             BALANCE_CSV,
+            BOOKKEEPING_ACCOUNT_BALANCE_CSV,
             _UNKNOWN,
         }
 
@@ -384,6 +429,7 @@ constructor(
                 ACCOUNT_STATEMENT_OFX -> Value.ACCOUNT_STATEMENT_OFX
                 TRANSACTION_CSV -> Value.TRANSACTION_CSV
                 BALANCE_CSV -> Value.BALANCE_CSV
+                BOOKKEEPING_ACCOUNT_BALANCE_CSV -> Value.BOOKKEEPING_ACCOUNT_BALANCE_CSV
                 else -> Value._UNKNOWN
             }
 
@@ -392,6 +438,7 @@ constructor(
                 ACCOUNT_STATEMENT_OFX -> Known.ACCOUNT_STATEMENT_OFX
                 TRANSACTION_CSV -> Known.TRANSACTION_CSV
                 BALANCE_CSV -> Known.BALANCE_CSV
+                BOOKKEEPING_ACCOUNT_BALANCE_CSV -> Known.BOOKKEEPING_ACCOUNT_BALANCE_CSV
                 else -> throw IncreaseInvalidDataException("Unknown Category: $value")
             }
 
@@ -739,6 +786,259 @@ constructor(
             fun build(): BalanceCsv =
                 BalanceCsv(
                     accountId,
+                    createdAt,
+                    additionalProperties.toUnmodifiable(),
+                )
+        }
+
+        /** Filter results by time range on the `created_at` attribute. */
+        @JsonDeserialize(builder = CreatedAt.Builder::class)
+        @NoAutoDetect
+        class CreatedAt
+        private constructor(
+            private val after: OffsetDateTime?,
+            private val before: OffsetDateTime?,
+            private val onOrAfter: OffsetDateTime?,
+            private val onOrBefore: OffsetDateTime?,
+            private val additionalProperties: Map<String, JsonValue>,
+        ) {
+
+            private var hashCode: Int = 0
+
+            /**
+             * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+             * timestamp.
+             */
+            @JsonProperty("after") fun after(): OffsetDateTime? = after
+
+            /**
+             * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+             * timestamp.
+             */
+            @JsonProperty("before") fun before(): OffsetDateTime? = before
+
+            /**
+             * Return results on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+             * timestamp.
+             */
+            @JsonProperty("on_or_after") fun onOrAfter(): OffsetDateTime? = onOrAfter
+
+            /**
+             * Return results on or before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+             * timestamp.
+             */
+            @JsonProperty("on_or_before") fun onOrBefore(): OffsetDateTime? = onOrBefore
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+            fun toBuilder() = Builder().from(this)
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is CreatedAt &&
+                    this.after == other.after &&
+                    this.before == other.before &&
+                    this.onOrAfter == other.onOrAfter &&
+                    this.onOrBefore == other.onOrBefore &&
+                    this.additionalProperties == other.additionalProperties
+            }
+
+            override fun hashCode(): Int {
+                if (hashCode == 0) {
+                    hashCode =
+                        Objects.hash(
+                            after,
+                            before,
+                            onOrAfter,
+                            onOrBefore,
+                            additionalProperties,
+                        )
+                }
+                return hashCode
+            }
+
+            override fun toString() =
+                "CreatedAt{after=$after, before=$before, onOrAfter=$onOrAfter, onOrBefore=$onOrBefore, additionalProperties=$additionalProperties}"
+
+            companion object {
+
+                fun builder() = Builder()
+            }
+
+            class Builder {
+
+                private var after: OffsetDateTime? = null
+                private var before: OffsetDateTime? = null
+                private var onOrAfter: OffsetDateTime? = null
+                private var onOrBefore: OffsetDateTime? = null
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                internal fun from(createdAt: CreatedAt) = apply {
+                    this.after = createdAt.after
+                    this.before = createdAt.before
+                    this.onOrAfter = createdAt.onOrAfter
+                    this.onOrBefore = createdAt.onOrBefore
+                    additionalProperties(createdAt.additionalProperties)
+                }
+
+                /**
+                 * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+                 * timestamp.
+                 */
+                @JsonProperty("after")
+                fun after(after: OffsetDateTime) = apply { this.after = after }
+
+                /**
+                 * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+                 * timestamp.
+                 */
+                @JsonProperty("before")
+                fun before(before: OffsetDateTime) = apply { this.before = before }
+
+                /**
+                 * Return results on or after this
+                 * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
+                 */
+                @JsonProperty("on_or_after")
+                fun onOrAfter(onOrAfter: OffsetDateTime) = apply { this.onOrAfter = onOrAfter }
+
+                /**
+                 * Return results on or before this
+                 * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
+                 */
+                @JsonProperty("on_or_before")
+                fun onOrBefore(onOrBefore: OffsetDateTime) = apply { this.onOrBefore = onOrBefore }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+                @JsonAnySetter
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    this.additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun build(): CreatedAt =
+                    CreatedAt(
+                        after,
+                        before,
+                        onOrAfter,
+                        onOrBefore,
+                        additionalProperties.toUnmodifiable(),
+                    )
+            }
+        }
+    }
+
+    /**
+     * Options for the created export. Required if `category` is equal to
+     * `bookkeeping_account_balance_csv`.
+     */
+    @JsonDeserialize(builder = BookkeepingAccountBalanceCsv.Builder::class)
+    @NoAutoDetect
+    class BookkeepingAccountBalanceCsv
+    private constructor(
+        private val bookkeepingAccountId: String?,
+        private val createdAt: CreatedAt?,
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
+
+        private var hashCode: Int = 0
+
+        /** Filter exported Transactions to the specified BookkeepingAccount. */
+        @JsonProperty("bookkeeping_account_id")
+        fun bookkeepingAccountId(): String? = bookkeepingAccountId
+
+        /** Filter results by time range on the `created_at` attribute. */
+        @JsonProperty("created_at") fun createdAt(): CreatedAt? = createdAt
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun toBuilder() = Builder().from(this)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is BookkeepingAccountBalanceCsv &&
+                this.bookkeepingAccountId == other.bookkeepingAccountId &&
+                this.createdAt == other.createdAt &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        bookkeepingAccountId,
+                        createdAt,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "BookkeepingAccountBalanceCsv{bookkeepingAccountId=$bookkeepingAccountId, createdAt=$createdAt, additionalProperties=$additionalProperties}"
+
+        companion object {
+
+            fun builder() = Builder()
+        }
+
+        class Builder {
+
+            private var bookkeepingAccountId: String? = null
+            private var createdAt: CreatedAt? = null
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            internal fun from(bookkeepingAccountBalanceCsv: BookkeepingAccountBalanceCsv) = apply {
+                this.bookkeepingAccountId = bookkeepingAccountBalanceCsv.bookkeepingAccountId
+                this.createdAt = bookkeepingAccountBalanceCsv.createdAt
+                additionalProperties(bookkeepingAccountBalanceCsv.additionalProperties)
+            }
+
+            /** Filter exported Transactions to the specified BookkeepingAccount. */
+            @JsonProperty("bookkeeping_account_id")
+            fun bookkeepingAccountId(bookkeepingAccountId: String) = apply {
+                this.bookkeepingAccountId = bookkeepingAccountId
+            }
+
+            /** Filter results by time range on the `created_at` attribute. */
+            @JsonProperty("created_at")
+            fun createdAt(createdAt: CreatedAt) = apply { this.createdAt = createdAt }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            @JsonAnySetter
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun build(): BookkeepingAccountBalanceCsv =
+                BookkeepingAccountBalanceCsv(
+                    bookkeepingAccountId,
                     createdAt,
                     additionalProperties.toUnmodifiable(),
                 )
