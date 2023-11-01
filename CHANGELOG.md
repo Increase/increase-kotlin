@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.14.0 (2023-11-01)
+
+Full Changelog: [v0.13.0...v0.14.0](https://github.com/increase/increase-kotlin/compare/v0.13.0...v0.14.0)
+
+### Features
+
+* **api:** add failed to export status enum ([#134](https://github.com/increase/increase-kotlin/issues/134)) ([2cd100a](https://github.com/increase/increase-kotlin/commit/2cd100aab6ee8f0e67ed34a229f77f76aad1971d))
+* **github:** include a devcontainer setup ([#132](https://github.com/increase/increase-kotlin/issues/132)) ([e6f911e](https://github.com/increase/increase-kotlin/commit/e6f911e161f8e15237f6727a95f28ea45b86791a))
+
 ## 0.13.0 (2023-10-27)
 
 Full Changelog: [v0.12.0...v0.13.0](https://github.com/increase/increase-kotlin/compare/v0.12.0...v0.13.0)
