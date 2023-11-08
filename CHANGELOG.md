@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.15.0 (2023-11-08)
+
+Full Changelog: [v0.14.0...v0.15.0](https://github.com/increase/increase-kotlin/compare/v0.14.0...v0.15.0)
+
+### Features
+
+* **api:** restructure balance lookups ([#138](https://github.com/increase/increase-kotlin/issues/138)) ([73a3af6](https://github.com/increase/increase-kotlin/commit/73a3af6d8b6f10d1a3f83d5252d7a999c0ed0a4d))
+* **client:** allow binary returns ([#135](https://github.com/increase/increase-kotlin/issues/135)) ([543c00e](https://github.com/increase/increase-kotlin/commit/543c00eff7759b28e8e21647cf069d9b62c9781a))
+
+
+### Chores
+
+* remove bad tests ([#137](https://github.com/increase/increase-kotlin/issues/137)) ([0a17bd3](https://github.com/increase/increase-kotlin/commit/0a17bd3f8a2a5e9d595a045933cf12317a4727e1))
+
 ## 0.14.0 (2023-11-01)
 
 Full Changelog: [v0.13.0...v0.14.0](https://github.com/increase/increase-kotlin/compare/v0.13.0...v0.14.0)
