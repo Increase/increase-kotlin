@@ -6,12 +6,14 @@ package com.increase.api.services.async
 
 import com.increase.api.core.RequestOptions
 import com.increase.api.models.Account
+import com.increase.api.models.AccountBalanceParams
 import com.increase.api.models.AccountCloseParams
 import com.increase.api.models.AccountCreateParams
 import com.increase.api.models.AccountListPageAsync
 import com.increase.api.models.AccountListParams
 import com.increase.api.models.AccountRetrieveParams
 import com.increase.api.models.AccountUpdateParams
+import com.increase.api.models.BalanceLookup
 
 interface AccountServiceAsync {
 
@@ -38,6 +40,12 @@ interface AccountServiceAsync {
         params: AccountListParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): AccountListPageAsync
+
+    /** Retrieve an Account Balance */
+    suspend fun balance(
+        params: AccountBalanceParams,
+        requestOptions: RequestOptions = RequestOptions.none()
+    ): BalanceLookup
 
     /** Close an Account */
     suspend fun close(
