@@ -14,23 +14,16 @@ import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.toUnmodifiable
 import com.increase.api.errors.IncreaseInvalidDataException
-import java.time.OffsetDateTime
 import java.util.Objects
 
-/**
- * Entries are T-account entries recording debits and credits. Your compliance setup might require
- * annotating money movements using this API. Learn more in our
- * [guide to Bookkeeping](https://increase.com/documentation/bookkeeping#bookkeeping).
- */
-@JsonDeserialize(builder = BookkeepingEntry.Builder::class)
+/** Represents a request to lookup the balance of an Account at a given point in time. */
+@JsonDeserialize(builder = BalanceLookup.Builder::class)
 @NoAutoDetect
-class BookkeepingEntry
+class BalanceLookup
 private constructor(
     private val accountId: JsonField<String>,
-    private val amount: JsonField<Long>,
-    private val entrySetId: JsonField<String>,
-    private val id: JsonField<String>,
-    private val createdAt: JsonField<OffsetDateTime>,
+    private val currentBalance: JsonField<Long>,
+    private val availableBalance: JsonField<Long>,
     private val type: JsonField<Type>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
@@ -39,49 +32,45 @@ private constructor(
 
     private var hashCode: Int = 0
 
-    /** The identifier for the Account the Entry belongs to. */
+    /** The identifier for the account for which the balance was queried. */
     fun accountId(): String = accountId.getRequired("account_id")
 
     /**
-     * The Entry amount in the minor unit of its currency. For dollars, for example, this is cents.
+     * The Account's current balance, representing the sum of all posted Transactions on the
+     * Account.
      */
-    fun amount(): Long = amount.getRequired("amount")
+    fun currentBalance(): Long = currentBalance.getRequired("current_balance")
 
-    /** The identifier for the Account the Entry belongs to. */
-    fun entrySetId(): String = entrySetId.getRequired("entry_set_id")
-
-    /** The entry identifier. */
-    fun id(): String = id.getRequired("id")
-
-    /** When the entry set was created. */
-    fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
+    /**
+     * The Account's available balance, representing the current balance less any open Pending
+     * Transactions on the Account.
+     */
+    fun availableBalance(): Long = availableBalance.getRequired("available_balance")
 
     /**
      * A constant representing the object's type. For this resource it will always be
-     * `bookkeeping_entry`.
+     * `balance_lookup`.
      */
     fun type(): Type = type.getRequired("type")
 
-    /** The identifier for the Account the Entry belongs to. */
+    /** The identifier for the account for which the balance was queried. */
     @JsonProperty("account_id") @ExcludeMissing fun _accountId() = accountId
 
     /**
-     * The Entry amount in the minor unit of its currency. For dollars, for example, this is cents.
+     * The Account's current balance, representing the sum of all posted Transactions on the
+     * Account.
      */
-    @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
+    @JsonProperty("current_balance") @ExcludeMissing fun _currentBalance() = currentBalance
 
-    /** The identifier for the Account the Entry belongs to. */
-    @JsonProperty("entry_set_id") @ExcludeMissing fun _entrySetId() = entrySetId
-
-    /** The entry identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
-
-    /** When the entry set was created. */
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+    /**
+     * The Account's available balance, representing the current balance less any open Pending
+     * Transactions on the Account.
+     */
+    @JsonProperty("available_balance") @ExcludeMissing fun _availableBalance() = availableBalance
 
     /**
      * A constant representing the object's type. For this resource it will always be
-     * `bookkeeping_entry`.
+     * `balance_lookup`.
      */
     @JsonProperty("type") @ExcludeMissing fun _type() = type
 
@@ -89,13 +78,11 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
-    fun validate(): BookkeepingEntry = apply {
+    fun validate(): BalanceLookup = apply {
         if (!validated) {
             accountId()
-            amount()
-            entrySetId()
-            id()
-            createdAt()
+            currentBalance()
+            availableBalance()
             type()
             validated = true
         }
@@ -108,12 +95,10 @@ private constructor(
             return true
         }
 
-        return other is BookkeepingEntry &&
+        return other is BalanceLookup &&
             this.accountId == other.accountId &&
-            this.amount == other.amount &&
-            this.entrySetId == other.entrySetId &&
-            this.id == other.id &&
-            this.createdAt == other.createdAt &&
+            this.currentBalance == other.currentBalance &&
+            this.availableBalance == other.availableBalance &&
             this.type == other.type &&
             this.additionalProperties == other.additionalProperties
     }
@@ -123,10 +108,8 @@ private constructor(
             hashCode =
                 Objects.hash(
                     accountId,
-                    amount,
-                    entrySetId,
-                    id,
-                    createdAt,
+                    currentBalance,
+                    availableBalance,
                     type,
                     additionalProperties,
                 )
@@ -135,7 +118,7 @@ private constructor(
     }
 
     override fun toString() =
-        "BookkeepingEntry{accountId=$accountId, amount=$amount, entrySetId=$entrySetId, id=$id, createdAt=$createdAt, type=$type, additionalProperties=$additionalProperties}"
+        "BalanceLookup{accountId=$accountId, currentBalance=$currentBalance, availableBalance=$availableBalance, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -145,76 +128,69 @@ private constructor(
     class Builder {
 
         private var accountId: JsonField<String> = JsonMissing.of()
-        private var amount: JsonField<Long> = JsonMissing.of()
-        private var entrySetId: JsonField<String> = JsonMissing.of()
-        private var id: JsonField<String> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var currentBalance: JsonField<Long> = JsonMissing.of()
+        private var availableBalance: JsonField<Long> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-        internal fun from(bookkeepingEntry: BookkeepingEntry) = apply {
-            this.accountId = bookkeepingEntry.accountId
-            this.amount = bookkeepingEntry.amount
-            this.entrySetId = bookkeepingEntry.entrySetId
-            this.id = bookkeepingEntry.id
-            this.createdAt = bookkeepingEntry.createdAt
-            this.type = bookkeepingEntry.type
-            additionalProperties(bookkeepingEntry.additionalProperties)
+        internal fun from(balanceLookup: BalanceLookup) = apply {
+            this.accountId = balanceLookup.accountId
+            this.currentBalance = balanceLookup.currentBalance
+            this.availableBalance = balanceLookup.availableBalance
+            this.type = balanceLookup.type
+            additionalProperties(balanceLookup.additionalProperties)
         }
 
-        /** The identifier for the Account the Entry belongs to. */
+        /** The identifier for the account for which the balance was queried. */
         fun accountId(accountId: String) = accountId(JsonField.of(accountId))
 
-        /** The identifier for the Account the Entry belongs to. */
+        /** The identifier for the account for which the balance was queried. */
         @JsonProperty("account_id")
         @ExcludeMissing
         fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
         /**
-         * The Entry amount in the minor unit of its currency. For dollars, for example, this is
-         * cents.
+         * The Account's current balance, representing the sum of all posted Transactions on the
+         * Account.
          */
-        fun amount(amount: Long) = amount(JsonField.of(amount))
+        fun currentBalance(currentBalance: Long) = currentBalance(JsonField.of(currentBalance))
 
         /**
-         * The Entry amount in the minor unit of its currency. For dollars, for example, this is
-         * cents.
+         * The Account's current balance, representing the sum of all posted Transactions on the
+         * Account.
          */
-        @JsonProperty("amount")
+        @JsonProperty("current_balance")
         @ExcludeMissing
-        fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
+        fun currentBalance(currentBalance: JsonField<Long>) = apply {
+            this.currentBalance = currentBalance
+        }
 
-        /** The identifier for the Account the Entry belongs to. */
-        fun entrySetId(entrySetId: String) = entrySetId(JsonField.of(entrySetId))
+        /**
+         * The Account's available balance, representing the current balance less any open Pending
+         * Transactions on the Account.
+         */
+        fun availableBalance(availableBalance: Long) =
+            availableBalance(JsonField.of(availableBalance))
 
-        /** The identifier for the Account the Entry belongs to. */
-        @JsonProperty("entry_set_id")
+        /**
+         * The Account's available balance, representing the current balance less any open Pending
+         * Transactions on the Account.
+         */
+        @JsonProperty("available_balance")
         @ExcludeMissing
-        fun entrySetId(entrySetId: JsonField<String>) = apply { this.entrySetId = entrySetId }
-
-        /** The entry identifier. */
-        fun id(id: String) = id(JsonField.of(id))
-
-        /** The entry identifier. */
-        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
-
-        /** When the entry set was created. */
-        fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
-
-        /** When the entry set was created. */
-        @JsonProperty("created_at")
-        @ExcludeMissing
-        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
+        fun availableBalance(availableBalance: JsonField<Long>) = apply {
+            this.availableBalance = availableBalance
+        }
 
         /**
          * A constant representing the object's type. For this resource it will always be
-         * `bookkeeping_entry`.
+         * `balance_lookup`.
          */
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
          * A constant representing the object's type. For this resource it will always be
-         * `bookkeeping_entry`.
+         * `balance_lookup`.
          */
         @JsonProperty("type")
         @ExcludeMissing
@@ -234,13 +210,11 @@ private constructor(
             this.additionalProperties.putAll(additionalProperties)
         }
 
-        fun build(): BookkeepingEntry =
-            BookkeepingEntry(
+        fun build(): BalanceLookup =
+            BalanceLookup(
                 accountId,
-                amount,
-                entrySetId,
-                id,
-                createdAt,
+                currentBalance,
+                availableBalance,
                 type,
                 additionalProperties.toUnmodifiable(),
             )
@@ -268,29 +242,29 @@ private constructor(
 
         companion object {
 
-            val BOOKKEEPING_ENTRY = Type(JsonField.of("bookkeeping_entry"))
+            val BALANCE_LOOKUP = Type(JsonField.of("balance_lookup"))
 
             fun of(value: String) = Type(JsonField.of(value))
         }
 
         enum class Known {
-            BOOKKEEPING_ENTRY,
+            BALANCE_LOOKUP,
         }
 
         enum class Value {
-            BOOKKEEPING_ENTRY,
+            BALANCE_LOOKUP,
             _UNKNOWN,
         }
 
         fun value(): Value =
             when (this) {
-                BOOKKEEPING_ENTRY -> Value.BOOKKEEPING_ENTRY
+                BALANCE_LOOKUP -> Value.BALANCE_LOOKUP
                 else -> Value._UNKNOWN
             }
 
         fun known(): Known =
             when (this) {
-                BOOKKEEPING_ENTRY -> Known.BOOKKEEPING_ENTRY
+                BALANCE_LOOKUP -> Known.BALANCE_LOOKUP
                 else -> throw IncreaseInvalidDataException("Unknown Type: $value")
             }
 

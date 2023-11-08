@@ -16,7 +16,11 @@ import com.increase.api.core.toUnmodifiable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
 
-/** Accounts are T-accounts. They can store accounting entries. */
+/**
+ * Accounts are T-accounts. They can store accounting entries. Your compliance setup might require
+ * annotating money movements using this API. Learn more in our
+ * [guide to Bookkeeping](https://increase.com/documentation/bookkeeping#bookkeeping).
+ */
 @JsonDeserialize(builder = BookkeepingAccount.Builder::class)
 @NoAutoDetect
 class BookkeepingAccount
