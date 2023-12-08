@@ -401,6 +401,18 @@ constructor(
 
                 val PHYSICAL_CARD_UPDATED = In(JsonField.of("physical_card.updated"))
 
+                val PROOF_OF_AUTHORIZATION_REQUEST_CREATED =
+                    In(JsonField.of("proof_of_authorization_request.created"))
+
+                val PROOF_OF_AUTHORIZATION_REQUEST_UPDATED =
+                    In(JsonField.of("proof_of_authorization_request.updated"))
+
+                val PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION_CREATED =
+                    In(JsonField.of("proof_of_authorization_request_submission.created"))
+
+                val PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION_UPDATED =
+                    In(JsonField.of("proof_of_authorization_request_submission.updated"))
+
                 val REAL_TIME_DECISION_CARD_AUTHORIZATION_REQUESTED =
                     In(JsonField.of("real_time_decision.card_authorization_requested"))
 
@@ -494,6 +506,10 @@ constructor(
                 PENDING_TRANSACTION_UPDATED,
                 PHYSICAL_CARD_CREATED,
                 PHYSICAL_CARD_UPDATED,
+                PROOF_OF_AUTHORIZATION_REQUEST_CREATED,
+                PROOF_OF_AUTHORIZATION_REQUEST_UPDATED,
+                PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION_CREATED,
+                PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION_UPDATED,
                 REAL_TIME_DECISION_CARD_AUTHORIZATION_REQUESTED,
                 REAL_TIME_DECISION_DIGITAL_WALLET_TOKEN_REQUESTED,
                 REAL_TIME_DECISION_DIGITAL_WALLET_AUTHENTICATION_REQUESTED,
@@ -565,6 +581,10 @@ constructor(
                 PENDING_TRANSACTION_UPDATED,
                 PHYSICAL_CARD_CREATED,
                 PHYSICAL_CARD_UPDATED,
+                PROOF_OF_AUTHORIZATION_REQUEST_CREATED,
+                PROOF_OF_AUTHORIZATION_REQUEST_UPDATED,
+                PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION_CREATED,
+                PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION_UPDATED,
                 REAL_TIME_DECISION_CARD_AUTHORIZATION_REQUESTED,
                 REAL_TIME_DECISION_DIGITAL_WALLET_TOKEN_REQUESTED,
                 REAL_TIME_DECISION_DIGITAL_WALLET_AUTHENTICATION_REQUESTED,
@@ -639,6 +659,14 @@ constructor(
                     PENDING_TRANSACTION_UPDATED -> Value.PENDING_TRANSACTION_UPDATED
                     PHYSICAL_CARD_CREATED -> Value.PHYSICAL_CARD_CREATED
                     PHYSICAL_CARD_UPDATED -> Value.PHYSICAL_CARD_UPDATED
+                    PROOF_OF_AUTHORIZATION_REQUEST_CREATED ->
+                        Value.PROOF_OF_AUTHORIZATION_REQUEST_CREATED
+                    PROOF_OF_AUTHORIZATION_REQUEST_UPDATED ->
+                        Value.PROOF_OF_AUTHORIZATION_REQUEST_UPDATED
+                    PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION_CREATED ->
+                        Value.PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION_CREATED
+                    PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION_UPDATED ->
+                        Value.PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION_UPDATED
                     REAL_TIME_DECISION_CARD_AUTHORIZATION_REQUESTED ->
                         Value.REAL_TIME_DECISION_CARD_AUTHORIZATION_REQUESTED
                     REAL_TIME_DECISION_DIGITAL_WALLET_TOKEN_REQUESTED ->
@@ -718,6 +746,14 @@ constructor(
                     PENDING_TRANSACTION_UPDATED -> Known.PENDING_TRANSACTION_UPDATED
                     PHYSICAL_CARD_CREATED -> Known.PHYSICAL_CARD_CREATED
                     PHYSICAL_CARD_UPDATED -> Known.PHYSICAL_CARD_UPDATED
+                    PROOF_OF_AUTHORIZATION_REQUEST_CREATED ->
+                        Known.PROOF_OF_AUTHORIZATION_REQUEST_CREATED
+                    PROOF_OF_AUTHORIZATION_REQUEST_UPDATED ->
+                        Known.PROOF_OF_AUTHORIZATION_REQUEST_UPDATED
+                    PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION_CREATED ->
+                        Known.PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION_CREATED
+                    PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION_UPDATED ->
+                        Known.PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION_UPDATED
                     REAL_TIME_DECISION_CARD_AUTHORIZATION_REQUESTED ->
                         Known.REAL_TIME_DECISION_CARD_AUTHORIZATION_REQUESTED
                     REAL_TIME_DECISION_DIGITAL_WALLET_TOKEN_REQUESTED ->
