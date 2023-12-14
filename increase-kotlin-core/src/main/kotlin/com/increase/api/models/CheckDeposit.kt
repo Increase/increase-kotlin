@@ -1207,6 +1207,8 @@ private constructor(
                 val MISSING_REQUIRED_DATA_ELEMENTS =
                     Reason(JsonField.of("missing_required_data_elements"))
 
+                val SUSPECTED_FRAUD = Reason(JsonField.of("suspected_fraud"))
+
                 val UNKNOWN = Reason(JsonField.of("unknown"))
 
                 fun of(value: String) = Reason(JsonField.of(value))
@@ -1220,6 +1222,7 @@ private constructor(
                 INCORRECT_RECIPIENT,
                 NOT_ELIGIBLE_FOR_MOBILE_DEPOSIT,
                 MISSING_REQUIRED_DATA_ELEMENTS,
+                SUSPECTED_FRAUD,
                 UNKNOWN,
             }
 
@@ -1231,6 +1234,7 @@ private constructor(
                 INCORRECT_RECIPIENT,
                 NOT_ELIGIBLE_FOR_MOBILE_DEPOSIT,
                 MISSING_REQUIRED_DATA_ELEMENTS,
+                SUSPECTED_FRAUD,
                 UNKNOWN,
                 _UNKNOWN,
             }
@@ -1244,6 +1248,7 @@ private constructor(
                     INCORRECT_RECIPIENT -> Value.INCORRECT_RECIPIENT
                     NOT_ELIGIBLE_FOR_MOBILE_DEPOSIT -> Value.NOT_ELIGIBLE_FOR_MOBILE_DEPOSIT
                     MISSING_REQUIRED_DATA_ELEMENTS -> Value.MISSING_REQUIRED_DATA_ELEMENTS
+                    SUSPECTED_FRAUD -> Value.SUSPECTED_FRAUD
                     UNKNOWN -> Value.UNKNOWN
                     else -> Value._UNKNOWN
                 }
@@ -1257,6 +1262,7 @@ private constructor(
                     INCORRECT_RECIPIENT -> Known.INCORRECT_RECIPIENT
                     NOT_ELIGIBLE_FOR_MOBILE_DEPOSIT -> Known.NOT_ELIGIBLE_FOR_MOBILE_DEPOSIT
                     MISSING_REQUIRED_DATA_ELEMENTS -> Known.MISSING_REQUIRED_DATA_ELEMENTS
+                    SUSPECTED_FRAUD -> Known.SUSPECTED_FRAUD
                     UNKNOWN -> Known.UNKNOWN
                     else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
                 }
