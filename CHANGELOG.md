@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.17.0 (2023-12-14)
+
+Full Changelog: [v0.16.0...v0.17.0](https://github.com/increase/increase-kotlin/compare/v0.16.0...v0.17.0)
+
+### Features
+
+* **api:** add `suspected_fraud` rejection reason ([#144](https://github.com/increase/increase-kotlin/issues/144)) ([dfc60e5](https://github.com/increase/increase-kotlin/commit/dfc60e57bf32e776008addbe76cbe30c6279955f))
+
 ## 0.16.0 (2023-12-08)
 
 Full Changelog: [v0.15.1...v0.16.0](https://github.com/increase/increase-kotlin/compare/v0.15.1...v0.16.0)
