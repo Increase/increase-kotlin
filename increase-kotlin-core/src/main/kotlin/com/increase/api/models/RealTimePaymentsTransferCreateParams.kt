@@ -19,10 +19,13 @@ constructor(
     private val creditorName: String,
     private val remittanceInformation: String,
     private val sourceAccountNumberId: String,
+    private val debtorName: String?,
     private val destinationAccountNumber: String?,
     private val destinationRoutingNumber: String?,
     private val externalAccountId: String?,
     private val requireApproval: Boolean?,
+    private val ultimateCreditorName: String?,
+    private val ultimateDebtorName: String?,
     private val uniqueIdentifier: String?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
@@ -37,6 +40,8 @@ constructor(
 
     fun sourceAccountNumberId(): String = sourceAccountNumberId
 
+    fun debtorName(): String? = debtorName
+
     fun destinationAccountNumber(): String? = destinationAccountNumber
 
     fun destinationRoutingNumber(): String? = destinationRoutingNumber
@@ -44,6 +49,10 @@ constructor(
     fun externalAccountId(): String? = externalAccountId
 
     fun requireApproval(): Boolean? = requireApproval
+
+    fun ultimateCreditorName(): String? = ultimateCreditorName
+
+    fun ultimateDebtorName(): String? = ultimateDebtorName
 
     fun uniqueIdentifier(): String? = uniqueIdentifier
 
@@ -53,10 +62,13 @@ constructor(
             creditorName,
             remittanceInformation,
             sourceAccountNumberId,
+            debtorName,
             destinationAccountNumber,
             destinationRoutingNumber,
             externalAccountId,
             requireApproval,
+            ultimateCreditorName,
+            ultimateDebtorName,
             uniqueIdentifier,
             additionalBodyProperties,
         )
@@ -74,10 +86,13 @@ constructor(
         private val creditorName: String?,
         private val remittanceInformation: String?,
         private val sourceAccountNumberId: String?,
+        private val debtorName: String?,
         private val destinationAccountNumber: String?,
         private val destinationRoutingNumber: String?,
         private val externalAccountId: String?,
         private val requireApproval: Boolean?,
+        private val ultimateCreditorName: String?,
+        private val ultimateDebtorName: String?,
         private val uniqueIdentifier: String?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
@@ -98,6 +113,12 @@ constructor(
         @JsonProperty("source_account_number_id")
         fun sourceAccountNumberId(): String? = sourceAccountNumberId
 
+        /**
+         * The name of the transfer's sender. If not provided, the account's entity name will be
+         * used.
+         */
+        @JsonProperty("debtor_name") fun debtorName(): String? = debtorName
+
         /** The destination account number. */
         @JsonProperty("destination_account_number")
         fun destinationAccountNumber(): String? = destinationAccountNumber
@@ -114,6 +135,13 @@ constructor(
 
         /** Whether the transfer requires explicit approval via the dashboard or API. */
         @JsonProperty("require_approval") fun requireApproval(): Boolean? = requireApproval
+
+        /** The name of the party on whose behalf the creditor is receiving the payment. */
+        @JsonProperty("ultimate_creditor_name")
+        fun ultimateCreditorName(): String? = ultimateCreditorName
+
+        /** The name of the the party on whose behalf the debtor is instructing the payment. */
+        @JsonProperty("ultimate_debtor_name") fun ultimateDebtorName(): String? = ultimateDebtorName
 
         /**
          * A unique identifier you choose for the transfer. Reusing this identifier for another
@@ -138,10 +166,13 @@ constructor(
                 this.creditorName == other.creditorName &&
                 this.remittanceInformation == other.remittanceInformation &&
                 this.sourceAccountNumberId == other.sourceAccountNumberId &&
+                this.debtorName == other.debtorName &&
                 this.destinationAccountNumber == other.destinationAccountNumber &&
                 this.destinationRoutingNumber == other.destinationRoutingNumber &&
                 this.externalAccountId == other.externalAccountId &&
                 this.requireApproval == other.requireApproval &&
+                this.ultimateCreditorName == other.ultimateCreditorName &&
+                this.ultimateDebtorName == other.ultimateDebtorName &&
                 this.uniqueIdentifier == other.uniqueIdentifier &&
                 this.additionalProperties == other.additionalProperties
         }
@@ -154,10 +185,13 @@ constructor(
                         creditorName,
                         remittanceInformation,
                         sourceAccountNumberId,
+                        debtorName,
                         destinationAccountNumber,
                         destinationRoutingNumber,
                         externalAccountId,
                         requireApproval,
+                        ultimateCreditorName,
+                        ultimateDebtorName,
                         uniqueIdentifier,
                         additionalProperties,
                     )
@@ -166,7 +200,7 @@ constructor(
         }
 
         override fun toString() =
-            "RealTimePaymentsTransferCreateBody{amount=$amount, creditorName=$creditorName, remittanceInformation=$remittanceInformation, sourceAccountNumberId=$sourceAccountNumberId, destinationAccountNumber=$destinationAccountNumber, destinationRoutingNumber=$destinationRoutingNumber, externalAccountId=$externalAccountId, requireApproval=$requireApproval, uniqueIdentifier=$uniqueIdentifier, additionalProperties=$additionalProperties}"
+            "RealTimePaymentsTransferCreateBody{amount=$amount, creditorName=$creditorName, remittanceInformation=$remittanceInformation, sourceAccountNumberId=$sourceAccountNumberId, debtorName=$debtorName, destinationAccountNumber=$destinationAccountNumber, destinationRoutingNumber=$destinationRoutingNumber, externalAccountId=$externalAccountId, requireApproval=$requireApproval, ultimateCreditorName=$ultimateCreditorName, ultimateDebtorName=$ultimateDebtorName, uniqueIdentifier=$uniqueIdentifier, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -179,10 +213,13 @@ constructor(
             private var creditorName: String? = null
             private var remittanceInformation: String? = null
             private var sourceAccountNumberId: String? = null
+            private var debtorName: String? = null
             private var destinationAccountNumber: String? = null
             private var destinationRoutingNumber: String? = null
             private var externalAccountId: String? = null
             private var requireApproval: Boolean? = null
+            private var ultimateCreditorName: String? = null
+            private var ultimateDebtorName: String? = null
             private var uniqueIdentifier: String? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -195,12 +232,15 @@ constructor(
                     realTimePaymentsTransferCreateBody.remittanceInformation
                 this.sourceAccountNumberId =
                     realTimePaymentsTransferCreateBody.sourceAccountNumberId
+                this.debtorName = realTimePaymentsTransferCreateBody.debtorName
                 this.destinationAccountNumber =
                     realTimePaymentsTransferCreateBody.destinationAccountNumber
                 this.destinationRoutingNumber =
                     realTimePaymentsTransferCreateBody.destinationRoutingNumber
                 this.externalAccountId = realTimePaymentsTransferCreateBody.externalAccountId
                 this.requireApproval = realTimePaymentsTransferCreateBody.requireApproval
+                this.ultimateCreditorName = realTimePaymentsTransferCreateBody.ultimateCreditorName
+                this.ultimateDebtorName = realTimePaymentsTransferCreateBody.ultimateDebtorName
                 this.uniqueIdentifier = realTimePaymentsTransferCreateBody.uniqueIdentifier
                 additionalProperties(realTimePaymentsTransferCreateBody.additionalProperties)
             }
@@ -225,6 +265,13 @@ constructor(
             fun sourceAccountNumberId(sourceAccountNumberId: String) = apply {
                 this.sourceAccountNumberId = sourceAccountNumberId
             }
+
+            /**
+             * The name of the transfer's sender. If not provided, the account's entity name will be
+             * used.
+             */
+            @JsonProperty("debtor_name")
+            fun debtorName(debtorName: String) = apply { this.debtorName = debtorName }
 
             /** The destination account number. */
             @JsonProperty("destination_account_number")
@@ -252,6 +299,18 @@ constructor(
             @JsonProperty("require_approval")
             fun requireApproval(requireApproval: Boolean) = apply {
                 this.requireApproval = requireApproval
+            }
+
+            /** The name of the party on whose behalf the creditor is receiving the payment. */
+            @JsonProperty("ultimate_creditor_name")
+            fun ultimateCreditorName(ultimateCreditorName: String) = apply {
+                this.ultimateCreditorName = ultimateCreditorName
+            }
+
+            /** The name of the the party on whose behalf the debtor is instructing the payment. */
+            @JsonProperty("ultimate_debtor_name")
+            fun ultimateDebtorName(ultimateDebtorName: String) = apply {
+                this.ultimateDebtorName = ultimateDebtorName
             }
 
             /**
@@ -288,10 +347,13 @@ constructor(
                     checkNotNull(sourceAccountNumberId) {
                         "`sourceAccountNumberId` is required but was not set"
                     },
+                    debtorName,
                     destinationAccountNumber,
                     destinationRoutingNumber,
                     externalAccountId,
                     requireApproval,
+                    ultimateCreditorName,
+                    ultimateDebtorName,
                     uniqueIdentifier,
                     additionalProperties.toUnmodifiable(),
                 )
@@ -314,10 +376,13 @@ constructor(
             this.creditorName == other.creditorName &&
             this.remittanceInformation == other.remittanceInformation &&
             this.sourceAccountNumberId == other.sourceAccountNumberId &&
+            this.debtorName == other.debtorName &&
             this.destinationAccountNumber == other.destinationAccountNumber &&
             this.destinationRoutingNumber == other.destinationRoutingNumber &&
             this.externalAccountId == other.externalAccountId &&
             this.requireApproval == other.requireApproval &&
+            this.ultimateCreditorName == other.ultimateCreditorName &&
+            this.ultimateDebtorName == other.ultimateDebtorName &&
             this.uniqueIdentifier == other.uniqueIdentifier &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders &&
@@ -330,10 +395,13 @@ constructor(
             creditorName,
             remittanceInformation,
             sourceAccountNumberId,
+            debtorName,
             destinationAccountNumber,
             destinationRoutingNumber,
             externalAccountId,
             requireApproval,
+            ultimateCreditorName,
+            ultimateDebtorName,
             uniqueIdentifier,
             additionalQueryParams,
             additionalHeaders,
@@ -342,7 +410,7 @@ constructor(
     }
 
     override fun toString() =
-        "RealTimePaymentsTransferCreateParams{amount=$amount, creditorName=$creditorName, remittanceInformation=$remittanceInformation, sourceAccountNumberId=$sourceAccountNumberId, destinationAccountNumber=$destinationAccountNumber, destinationRoutingNumber=$destinationRoutingNumber, externalAccountId=$externalAccountId, requireApproval=$requireApproval, uniqueIdentifier=$uniqueIdentifier, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "RealTimePaymentsTransferCreateParams{amount=$amount, creditorName=$creditorName, remittanceInformation=$remittanceInformation, sourceAccountNumberId=$sourceAccountNumberId, debtorName=$debtorName, destinationAccountNumber=$destinationAccountNumber, destinationRoutingNumber=$destinationRoutingNumber, externalAccountId=$externalAccountId, requireApproval=$requireApproval, ultimateCreditorName=$ultimateCreditorName, ultimateDebtorName=$ultimateDebtorName, uniqueIdentifier=$uniqueIdentifier, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -358,10 +426,13 @@ constructor(
         private var creditorName: String? = null
         private var remittanceInformation: String? = null
         private var sourceAccountNumberId: String? = null
+        private var debtorName: String? = null
         private var destinationAccountNumber: String? = null
         private var destinationRoutingNumber: String? = null
         private var externalAccountId: String? = null
         private var requireApproval: Boolean? = null
+        private var ultimateCreditorName: String? = null
+        private var ultimateDebtorName: String? = null
         private var uniqueIdentifier: String? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
@@ -374,12 +445,15 @@ constructor(
             this.creditorName = realTimePaymentsTransferCreateParams.creditorName
             this.remittanceInformation = realTimePaymentsTransferCreateParams.remittanceInformation
             this.sourceAccountNumberId = realTimePaymentsTransferCreateParams.sourceAccountNumberId
+            this.debtorName = realTimePaymentsTransferCreateParams.debtorName
             this.destinationAccountNumber =
                 realTimePaymentsTransferCreateParams.destinationAccountNumber
             this.destinationRoutingNumber =
                 realTimePaymentsTransferCreateParams.destinationRoutingNumber
             this.externalAccountId = realTimePaymentsTransferCreateParams.externalAccountId
             this.requireApproval = realTimePaymentsTransferCreateParams.requireApproval
+            this.ultimateCreditorName = realTimePaymentsTransferCreateParams.ultimateCreditorName
+            this.ultimateDebtorName = realTimePaymentsTransferCreateParams.ultimateDebtorName
             this.uniqueIdentifier = realTimePaymentsTransferCreateParams.uniqueIdentifier
             additionalQueryParams(realTimePaymentsTransferCreateParams.additionalQueryParams)
             additionalHeaders(realTimePaymentsTransferCreateParams.additionalHeaders)
@@ -402,6 +476,12 @@ constructor(
             this.sourceAccountNumberId = sourceAccountNumberId
         }
 
+        /**
+         * The name of the transfer's sender. If not provided, the account's entity name will be
+         * used.
+         */
+        fun debtorName(debtorName: String) = apply { this.debtorName = debtorName }
+
         /** The destination account number. */
         fun destinationAccountNumber(destinationAccountNumber: String) = apply {
             this.destinationAccountNumber = destinationAccountNumber
@@ -423,6 +503,16 @@ constructor(
         /** Whether the transfer requires explicit approval via the dashboard or API. */
         fun requireApproval(requireApproval: Boolean) = apply {
             this.requireApproval = requireApproval
+        }
+
+        /** The name of the party on whose behalf the creditor is receiving the payment. */
+        fun ultimateCreditorName(ultimateCreditorName: String) = apply {
+            this.ultimateCreditorName = ultimateCreditorName
+        }
+
+        /** The name of the the party on whose behalf the debtor is instructing the payment. */
+        fun ultimateDebtorName(ultimateDebtorName: String) = apply {
+            this.ultimateDebtorName = ultimateDebtorName
         }
 
         /**
@@ -498,10 +588,13 @@ constructor(
                 checkNotNull(sourceAccountNumberId) {
                     "`sourceAccountNumberId` is required but was not set"
                 },
+                debtorName,
                 destinationAccountNumber,
                 destinationRoutingNumber,
                 externalAccountId,
                 requireApproval,
+                ultimateCreditorName,
+                ultimateDebtorName,
                 uniqueIdentifier,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),

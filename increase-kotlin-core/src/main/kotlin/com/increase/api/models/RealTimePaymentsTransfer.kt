@@ -34,6 +34,9 @@ private constructor(
     private val accountId: JsonField<String>,
     private val externalAccountId: JsonField<String>,
     private val sourceAccountNumberId: JsonField<String>,
+    private val ultimateCreditorName: JsonField<String>,
+    private val ultimateDebtorName: JsonField<String>,
+    private val debtorName: JsonField<String>,
     private val creditorName: JsonField<String>,
     private val remittanceInformation: JsonField<String>,
     private val amount: JsonField<Long>,
@@ -91,6 +94,17 @@ private constructor(
     /** The Account Number the recipient will see as having sent the transfer. */
     fun sourceAccountNumberId(): String =
         sourceAccountNumberId.getRequired("source_account_number_id")
+
+    /** The name of the party on whose behalf the creditor is receiving the payment. */
+    fun ultimateCreditorName(): String? = ultimateCreditorName.getNullable("ultimate_creditor_name")
+
+    /** The name of the the party on whose behalf the debtor is instructing the payment. */
+    fun ultimateDebtorName(): String? = ultimateDebtorName.getNullable("ultimate_debtor_name")
+
+    /**
+     * The name of the transfer's sender. If not provided, the account's entity name will be used.
+     */
+    fun debtorName(): String? = debtorName.getNullable("debtor_name")
 
     /** The name of the transfer's recipient as provided by the sender. */
     fun creditorName(): String = creditorName.getRequired("creditor_name")
@@ -185,6 +199,21 @@ private constructor(
     @ExcludeMissing
     fun _sourceAccountNumberId() = sourceAccountNumberId
 
+    /** The name of the party on whose behalf the creditor is receiving the payment. */
+    @JsonProperty("ultimate_creditor_name")
+    @ExcludeMissing
+    fun _ultimateCreditorName() = ultimateCreditorName
+
+    /** The name of the the party on whose behalf the debtor is instructing the payment. */
+    @JsonProperty("ultimate_debtor_name")
+    @ExcludeMissing
+    fun _ultimateDebtorName() = ultimateDebtorName
+
+    /**
+     * The name of the transfer's sender. If not provided, the account's entity name will be used.
+     */
+    @JsonProperty("debtor_name") @ExcludeMissing fun _debtorName() = debtorName
+
     /** The name of the transfer's recipient as provided by the sender. */
     @JsonProperty("creditor_name") @ExcludeMissing fun _creditorName() = creditorName
 
@@ -255,6 +284,9 @@ private constructor(
             accountId()
             externalAccountId()
             sourceAccountNumberId()
+            ultimateCreditorName()
+            ultimateDebtorName()
+            debtorName()
             creditorName()
             remittanceInformation()
             amount()
@@ -287,6 +319,9 @@ private constructor(
             this.accountId == other.accountId &&
             this.externalAccountId == other.externalAccountId &&
             this.sourceAccountNumberId == other.sourceAccountNumberId &&
+            this.ultimateCreditorName == other.ultimateCreditorName &&
+            this.ultimateDebtorName == other.ultimateDebtorName &&
+            this.debtorName == other.debtorName &&
             this.creditorName == other.creditorName &&
             this.remittanceInformation == other.remittanceInformation &&
             this.amount == other.amount &&
@@ -314,6 +349,9 @@ private constructor(
                     accountId,
                     externalAccountId,
                     sourceAccountNumberId,
+                    ultimateCreditorName,
+                    ultimateDebtorName,
+                    debtorName,
                     creditorName,
                     remittanceInformation,
                     amount,
@@ -332,7 +370,7 @@ private constructor(
     }
 
     override fun toString() =
-        "RealTimePaymentsTransfer{type=$type, id=$id, approval=$approval, cancellation=$cancellation, status=$status, createdAt=$createdAt, accountId=$accountId, externalAccountId=$externalAccountId, sourceAccountNumberId=$sourceAccountNumberId, creditorName=$creditorName, remittanceInformation=$remittanceInformation, amount=$amount, currency=$currency, destinationAccountNumber=$destinationAccountNumber, destinationRoutingNumber=$destinationRoutingNumber, transactionId=$transactionId, pendingTransactionId=$pendingTransactionId, submission=$submission, rejection=$rejection, uniqueIdentifier=$uniqueIdentifier, additionalProperties=$additionalProperties}"
+        "RealTimePaymentsTransfer{type=$type, id=$id, approval=$approval, cancellation=$cancellation, status=$status, createdAt=$createdAt, accountId=$accountId, externalAccountId=$externalAccountId, sourceAccountNumberId=$sourceAccountNumberId, ultimateCreditorName=$ultimateCreditorName, ultimateDebtorName=$ultimateDebtorName, debtorName=$debtorName, creditorName=$creditorName, remittanceInformation=$remittanceInformation, amount=$amount, currency=$currency, destinationAccountNumber=$destinationAccountNumber, destinationRoutingNumber=$destinationRoutingNumber, transactionId=$transactionId, pendingTransactionId=$pendingTransactionId, submission=$submission, rejection=$rejection, uniqueIdentifier=$uniqueIdentifier, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -350,6 +388,9 @@ private constructor(
         private var accountId: JsonField<String> = JsonMissing.of()
         private var externalAccountId: JsonField<String> = JsonMissing.of()
         private var sourceAccountNumberId: JsonField<String> = JsonMissing.of()
+        private var ultimateCreditorName: JsonField<String> = JsonMissing.of()
+        private var ultimateDebtorName: JsonField<String> = JsonMissing.of()
+        private var debtorName: JsonField<String> = JsonMissing.of()
         private var creditorName: JsonField<String> = JsonMissing.of()
         private var remittanceInformation: JsonField<String> = JsonMissing.of()
         private var amount: JsonField<Long> = JsonMissing.of()
@@ -373,6 +414,9 @@ private constructor(
             this.accountId = realTimePaymentsTransfer.accountId
             this.externalAccountId = realTimePaymentsTransfer.externalAccountId
             this.sourceAccountNumberId = realTimePaymentsTransfer.sourceAccountNumberId
+            this.ultimateCreditorName = realTimePaymentsTransfer.ultimateCreditorName
+            this.ultimateDebtorName = realTimePaymentsTransfer.ultimateDebtorName
+            this.debtorName = realTimePaymentsTransfer.debtorName
             this.creditorName = realTimePaymentsTransfer.creditorName
             this.remittanceInformation = realTimePaymentsTransfer.remittanceInformation
             this.amount = realTimePaymentsTransfer.amount
@@ -488,6 +532,42 @@ private constructor(
         fun sourceAccountNumberId(sourceAccountNumberId: JsonField<String>) = apply {
             this.sourceAccountNumberId = sourceAccountNumberId
         }
+
+        /** The name of the party on whose behalf the creditor is receiving the payment. */
+        fun ultimateCreditorName(ultimateCreditorName: String) =
+            ultimateCreditorName(JsonField.of(ultimateCreditorName))
+
+        /** The name of the party on whose behalf the creditor is receiving the payment. */
+        @JsonProperty("ultimate_creditor_name")
+        @ExcludeMissing
+        fun ultimateCreditorName(ultimateCreditorName: JsonField<String>) = apply {
+            this.ultimateCreditorName = ultimateCreditorName
+        }
+
+        /** The name of the the party on whose behalf the debtor is instructing the payment. */
+        fun ultimateDebtorName(ultimateDebtorName: String) =
+            ultimateDebtorName(JsonField.of(ultimateDebtorName))
+
+        /** The name of the the party on whose behalf the debtor is instructing the payment. */
+        @JsonProperty("ultimate_debtor_name")
+        @ExcludeMissing
+        fun ultimateDebtorName(ultimateDebtorName: JsonField<String>) = apply {
+            this.ultimateDebtorName = ultimateDebtorName
+        }
+
+        /**
+         * The name of the transfer's sender. If not provided, the account's entity name will be
+         * used.
+         */
+        fun debtorName(debtorName: String) = debtorName(JsonField.of(debtorName))
+
+        /**
+         * The name of the transfer's sender. If not provided, the account's entity name will be
+         * used.
+         */
+        @JsonProperty("debtor_name")
+        @ExcludeMissing
+        fun debtorName(debtorName: JsonField<String>) = apply { this.debtorName = debtorName }
 
         /** The name of the transfer's recipient as provided by the sender. */
         fun creditorName(creditorName: String) = creditorName(JsonField.of(creditorName))
@@ -649,6 +729,9 @@ private constructor(
                 accountId,
                 externalAccountId,
                 sourceAccountNumberId,
+                ultimateCreditorName,
+                ultimateDebtorName,
+                debtorName,
                 creditorName,
                 remittanceInformation,
                 amount,
