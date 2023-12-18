@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.18.0 (2023-12-18)
+
+Full Changelog: [v0.17.0...v0.18.0](https://github.com/increase/increase-kotlin/compare/v0.17.0...v0.18.0)
+
+### Features
+
+* **api:** add deposit_submission property to check deposit ([#148](https://github.com/increase/increase-kotlin/issues/148)) ([1f9c0da](https://github.com/increase/increase-kotlin/commit/1f9c0da3a92c5c769b9dce9ab016484c23e59f07))
+
+
+### Chores
+
+* **ci:** run release workflow once per day ([#146](https://github.com/increase/increase-kotlin/issues/146)) ([68e90e0](https://github.com/increase/increase-kotlin/commit/68e90e088b75dc7ecccc6a8504da4ae431acbc5c))
+
 ## 0.17.0 (2023-12-14)
 
 Full Changelog: [v0.16.0...v0.17.0](https://github.com/increase/increase-kotlin/compare/v0.16.0...v0.17.0)
