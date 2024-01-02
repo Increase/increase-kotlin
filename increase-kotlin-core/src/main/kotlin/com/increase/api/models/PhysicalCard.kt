@@ -966,6 +966,7 @@ private constructor(
             private val number: JsonField<String>,
             private val shippedAt: JsonField<OffsetDateTime>,
             private val returnReason: JsonField<String>,
+            private val returnNumber: JsonField<String>,
             private val additionalProperties: Map<String, JsonValue>,
         ) {
 
@@ -985,6 +986,9 @@ private constructor(
             /** For returned shipments, this describes why the package was returned. */
             fun returnReason(): String? = returnReason.getNullable("return_reason")
 
+            /** For returned shipments, the tracking number of the return shipment. */
+            fun returnNumber(): String? = returnNumber.getNullable("return_number")
+
             /** The tracking number. */
             @JsonProperty("number") @ExcludeMissing fun _number() = number
 
@@ -997,6 +1001,9 @@ private constructor(
             /** For returned shipments, this describes why the package was returned. */
             @JsonProperty("return_reason") @ExcludeMissing fun _returnReason() = returnReason
 
+            /** For returned shipments, the tracking number of the return shipment. */
+            @JsonProperty("return_number") @ExcludeMissing fun _returnNumber() = returnNumber
+
             @JsonAnyGetter
             @ExcludeMissing
             fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -1006,6 +1013,7 @@ private constructor(
                     number()
                     shippedAt()
                     returnReason()
+                    returnNumber()
                     validated = true
                 }
             }
@@ -1021,6 +1029,7 @@ private constructor(
                     this.number == other.number &&
                     this.shippedAt == other.shippedAt &&
                     this.returnReason == other.returnReason &&
+                    this.returnNumber == other.returnNumber &&
                     this.additionalProperties == other.additionalProperties
             }
 
@@ -1031,6 +1040,7 @@ private constructor(
                             number,
                             shippedAt,
                             returnReason,
+                            returnNumber,
                             additionalProperties,
                         )
                 }
@@ -1038,7 +1048,7 @@ private constructor(
             }
 
             override fun toString() =
-                "Tracking{number=$number, shippedAt=$shippedAt, returnReason=$returnReason, additionalProperties=$additionalProperties}"
+                "Tracking{number=$number, shippedAt=$shippedAt, returnReason=$returnReason, returnNumber=$returnNumber, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -1050,12 +1060,14 @@ private constructor(
                 private var number: JsonField<String> = JsonMissing.of()
                 private var shippedAt: JsonField<OffsetDateTime> = JsonMissing.of()
                 private var returnReason: JsonField<String> = JsonMissing.of()
+                private var returnNumber: JsonField<String> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(tracking: Tracking) = apply {
                     this.number = tracking.number
                     this.shippedAt = tracking.shippedAt
                     this.returnReason = tracking.returnReason
+                    this.returnNumber = tracking.returnNumber
                     additionalProperties(tracking.additionalProperties)
                 }
 
@@ -1095,6 +1107,16 @@ private constructor(
                     this.returnReason = returnReason
                 }
 
+                /** For returned shipments, the tracking number of the return shipment. */
+                fun returnNumber(returnNumber: String) = returnNumber(JsonField.of(returnNumber))
+
+                /** For returned shipments, the tracking number of the return shipment. */
+                @JsonProperty("return_number")
+                @ExcludeMissing
+                fun returnNumber(returnNumber: JsonField<String>) = apply {
+                    this.returnNumber = returnNumber
+                }
+
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
                     this.additionalProperties.putAll(additionalProperties)
@@ -1115,6 +1137,7 @@ private constructor(
                         number,
                         shippedAt,
                         returnReason,
+                        returnNumber,
                         additionalProperties.toUnmodifiable(),
                     )
             }
