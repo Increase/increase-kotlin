@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.19.0 (2024-01-02)
+
+Full Changelog: [v0.18.0...v0.19.0](https://github.com/increase/increase-kotlin/compare/v0.18.0...v0.19.0)
+
+### Features
+
+* **api:** add real-time payments request for payment endpoints ([#151](https://github.com/increase/increase-kotlin/issues/151)) ([10596c4](https://github.com/increase/increase-kotlin/commit/10596c46df7c0f6e2ee79ecd234380f7e94b27e7))
+
+
+### Chores
+
+* **internal:** bump license ([#149](https://github.com/increase/increase-kotlin/issues/149)) ([dabd305](https://github.com/increase/increase-kotlin/commit/dabd305cf3f599598e30827104343038d5373ce7))
+
 ## 0.18.0 (2023-12-18)
 
 Full Changelog: [v0.17.0...v0.18.0](https://github.com/increase/increase-kotlin/compare/v0.17.0...v0.18.0)
