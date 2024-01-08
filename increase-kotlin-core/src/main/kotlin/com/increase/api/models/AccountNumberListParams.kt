@@ -16,6 +16,7 @@ import java.util.Objects
 class AccountNumberListParams
 constructor(
     private val accountId: String?,
+    private val achDebitStatus: AchDebitStatus?,
     private val createdAt: CreatedAt?,
     private val cursor: String?,
     private val limit: Long?,
@@ -25,6 +26,8 @@ constructor(
 ) {
 
     fun accountId(): String? = accountId
+
+    fun achDebitStatus(): AchDebitStatus? = achDebitStatus
 
     fun createdAt(): CreatedAt? = createdAt
 
@@ -37,6 +40,7 @@ constructor(
     internal fun getQueryParams(): Map<String, List<String>> {
         val params = mutableMapOf<String, List<String>>()
         this.accountId?.let { params.put("account_id", listOf(it.toString())) }
+        this.achDebitStatus?.let { params.put("ach_debit_status", listOf(it.toString())) }
         this.createdAt?.forEachQueryParam { key, values -> params.put("created_at.$key", values) }
         this.cursor?.let { params.put("cursor", listOf(it.toString())) }
         this.limit?.let { params.put("limit", listOf(it.toString())) }
@@ -58,6 +62,7 @@ constructor(
 
         return other is AccountNumberListParams &&
             this.accountId == other.accountId &&
+            this.achDebitStatus == other.achDebitStatus &&
             this.createdAt == other.createdAt &&
             this.cursor == other.cursor &&
             this.limit == other.limit &&
@@ -69,6 +74,7 @@ constructor(
     override fun hashCode(): Int {
         return Objects.hash(
             accountId,
+            achDebitStatus,
             createdAt,
             cursor,
             limit,
@@ -79,7 +85,7 @@ constructor(
     }
 
     override fun toString() =
-        "AccountNumberListParams{accountId=$accountId, createdAt=$createdAt, cursor=$cursor, limit=$limit, status=$status, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+        "AccountNumberListParams{accountId=$accountId, achDebitStatus=$achDebitStatus, createdAt=$createdAt, cursor=$cursor, limit=$limit, status=$status, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -92,6 +98,7 @@ constructor(
     class Builder {
 
         private var accountId: String? = null
+        private var achDebitStatus: AchDebitStatus? = null
         private var createdAt: CreatedAt? = null
         private var cursor: String? = null
         private var limit: Long? = null
@@ -101,6 +108,7 @@ constructor(
 
         internal fun from(accountNumberListParams: AccountNumberListParams) = apply {
             this.accountId = accountNumberListParams.accountId
+            this.achDebitStatus = accountNumberListParams.achDebitStatus
             this.createdAt = accountNumberListParams.createdAt
             this.cursor = accountNumberListParams.cursor
             this.limit = accountNumberListParams.limit
@@ -111,6 +119,11 @@ constructor(
 
         /** Filter Account Numbers to those belonging to the specified Account. */
         fun accountId(accountId: String) = apply { this.accountId = accountId }
+
+        /** The ACH Debit status to retrieve Account Numbers for. */
+        fun achDebitStatus(achDebitStatus: AchDebitStatus) = apply {
+            this.achDebitStatus = achDebitStatus
+        }
 
         fun createdAt(createdAt: CreatedAt) = apply { this.createdAt = createdAt }
 
@@ -168,6 +181,7 @@ constructor(
         fun build(): AccountNumberListParams =
             AccountNumberListParams(
                 accountId,
+                achDebitStatus,
                 createdAt,
                 cursor,
                 limit,
@@ -175,6 +189,63 @@ constructor(
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
             )
+    }
+
+    class AchDebitStatus
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is AchDebitStatus && this.value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            val ALLOWED = AchDebitStatus(JsonField.of("allowed"))
+
+            val BLOCKED = AchDebitStatus(JsonField.of("blocked"))
+
+            fun of(value: String) = AchDebitStatus(JsonField.of(value))
+        }
+
+        enum class Known {
+            ALLOWED,
+            BLOCKED,
+        }
+
+        enum class Value {
+            ALLOWED,
+            BLOCKED,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                ALLOWED -> Value.ALLOWED
+                BLOCKED -> Value.BLOCKED
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                ALLOWED -> Known.ALLOWED
+                BLOCKED -> Known.BLOCKED
+                else -> throw IncreaseInvalidDataException("Unknown AchDebitStatus: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
     }
 
     @JsonDeserialize(builder = CreatedAt.Builder::class)
