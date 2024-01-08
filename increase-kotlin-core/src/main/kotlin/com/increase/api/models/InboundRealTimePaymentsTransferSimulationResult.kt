@@ -23363,6 +23363,7 @@ private constructor(
                 private val receiverName: JsonField<String>,
                 private val traceNumber: JsonField<String>,
                 private val transferId: JsonField<String>,
+                private val addenda: JsonField<Addenda>,
                 private val additionalProperties: Map<String, JsonValue>,
             ) {
 
@@ -23426,6 +23427,9 @@ private constructor(
                 /** The inbound ach transfer's identifier. */
                 fun transferId(): String = transferId.getRequired("transfer_id")
 
+                /** Additional information sent from the originator. */
+                fun addenda(): Addenda? = addenda.getNullable("addenda")
+
                 /**
                  * The amount in the minor unit of the destination account currency. For dollars,
                  * for example, this is cents.
@@ -23483,6 +23487,9 @@ private constructor(
                 /** The inbound ach transfer's identifier. */
                 @JsonProperty("transfer_id") @ExcludeMissing fun _transferId() = transferId
 
+                /** Additional information sent from the originator. */
+                @JsonProperty("addenda") @ExcludeMissing fun _addenda() = addenda
+
                 @JsonAnyGetter
                 @ExcludeMissing
                 fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -23499,6 +23506,7 @@ private constructor(
                         receiverName()
                         traceNumber()
                         transferId()
+                        addenda()?.validate()
                         validated = true
                     }
                 }
@@ -23524,6 +23532,7 @@ private constructor(
                         this.receiverName == other.receiverName &&
                         this.traceNumber == other.traceNumber &&
                         this.transferId == other.transferId &&
+                        this.addenda == other.addenda &&
                         this.additionalProperties == other.additionalProperties
                 }
 
@@ -23541,6 +23550,7 @@ private constructor(
                                 receiverName,
                                 traceNumber,
                                 transferId,
+                                addenda,
                                 additionalProperties,
                             )
                     }
@@ -23548,7 +23558,7 @@ private constructor(
                 }
 
                 override fun toString() =
-                    "InboundAchTransfer{amount=$amount, originatorCompanyName=$originatorCompanyName, originatorCompanyDescriptiveDate=$originatorCompanyDescriptiveDate, originatorCompanyDiscretionaryData=$originatorCompanyDiscretionaryData, originatorCompanyEntryDescription=$originatorCompanyEntryDescription, originatorCompanyId=$originatorCompanyId, receiverIdNumber=$receiverIdNumber, receiverName=$receiverName, traceNumber=$traceNumber, transferId=$transferId, additionalProperties=$additionalProperties}"
+                    "InboundAchTransfer{amount=$amount, originatorCompanyName=$originatorCompanyName, originatorCompanyDescriptiveDate=$originatorCompanyDescriptiveDate, originatorCompanyDiscretionaryData=$originatorCompanyDiscretionaryData, originatorCompanyEntryDescription=$originatorCompanyEntryDescription, originatorCompanyId=$originatorCompanyId, receiverIdNumber=$receiverIdNumber, receiverName=$receiverName, traceNumber=$traceNumber, transferId=$transferId, addenda=$addenda, additionalProperties=$additionalProperties}"
 
                 companion object {
 
@@ -23570,6 +23580,7 @@ private constructor(
                     private var receiverName: JsonField<String> = JsonMissing.of()
                     private var traceNumber: JsonField<String> = JsonMissing.of()
                     private var transferId: JsonField<String> = JsonMissing.of()
+                    private var addenda: JsonField<Addenda> = JsonMissing.of()
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                     internal fun from(inboundAchTransfer: InboundAchTransfer) = apply {
@@ -23586,6 +23597,7 @@ private constructor(
                         this.receiverName = inboundAchTransfer.receiverName
                         this.traceNumber = inboundAchTransfer.traceNumber
                         this.transferId = inboundAchTransfer.transferId
+                        this.addenda = inboundAchTransfer.addenda
                         additionalProperties(inboundAchTransfer.additionalProperties)
                     }
 
@@ -23744,6 +23756,14 @@ private constructor(
                         this.transferId = transferId
                     }
 
+                    /** Additional information sent from the originator. */
+                    fun addenda(addenda: Addenda) = addenda(JsonField.of(addenda))
+
+                    /** Additional information sent from the originator. */
+                    @JsonProperty("addenda")
+                    @ExcludeMissing
+                    fun addenda(addenda: JsonField<Addenda>) = apply { this.addenda = addenda }
+
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                         this.additionalProperties.clear()
                         this.additionalProperties.putAll(additionalProperties)
@@ -23771,8 +23791,419 @@ private constructor(
                             receiverName,
                             traceNumber,
                             transferId,
+                            addenda,
                             additionalProperties.toUnmodifiable(),
                         )
+                }
+
+                /** Additional information sent from the originator. */
+                @JsonDeserialize(builder = Addenda.Builder::class)
+                @NoAutoDetect
+                class Addenda
+                private constructor(
+                    private val category: JsonField<Category>,
+                    private val freeform: JsonField<Freeform>,
+                    private val additionalProperties: Map<String, JsonValue>,
+                ) {
+
+                    private var validated: Boolean = false
+
+                    private var hashCode: Int = 0
+
+                    /** The type of addendum. */
+                    fun category(): Category = category.getRequired("category")
+
+                    /**
+                     * Unstructured `payment_related_information` passed through by the originator.
+                     */
+                    fun freeform(): Freeform? = freeform.getNullable("freeform")
+
+                    /** The type of addendum. */
+                    @JsonProperty("category") @ExcludeMissing fun _category() = category
+
+                    /**
+                     * Unstructured `payment_related_information` passed through by the originator.
+                     */
+                    @JsonProperty("freeform") @ExcludeMissing fun _freeform() = freeform
+
+                    @JsonAnyGetter
+                    @ExcludeMissing
+                    fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+                    fun validate(): Addenda = apply {
+                        if (!validated) {
+                            category()
+                            freeform()?.validate()
+                            validated = true
+                        }
+                    }
+
+                    fun toBuilder() = Builder().from(this)
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is Addenda &&
+                            this.category == other.category &&
+                            this.freeform == other.freeform &&
+                            this.additionalProperties == other.additionalProperties
+                    }
+
+                    override fun hashCode(): Int {
+                        if (hashCode == 0) {
+                            hashCode =
+                                Objects.hash(
+                                    category,
+                                    freeform,
+                                    additionalProperties,
+                                )
+                        }
+                        return hashCode
+                    }
+
+                    override fun toString() =
+                        "Addenda{category=$category, freeform=$freeform, additionalProperties=$additionalProperties}"
+
+                    companion object {
+
+                        fun builder() = Builder()
+                    }
+
+                    class Builder {
+
+                        private var category: JsonField<Category> = JsonMissing.of()
+                        private var freeform: JsonField<Freeform> = JsonMissing.of()
+                        private var additionalProperties: MutableMap<String, JsonValue> =
+                            mutableMapOf()
+
+                        internal fun from(addenda: Addenda) = apply {
+                            this.category = addenda.category
+                            this.freeform = addenda.freeform
+                            additionalProperties(addenda.additionalProperties)
+                        }
+
+                        /** The type of addendum. */
+                        fun category(category: Category) = category(JsonField.of(category))
+
+                        /** The type of addendum. */
+                        @JsonProperty("category")
+                        @ExcludeMissing
+                        fun category(category: JsonField<Category>) = apply {
+                            this.category = category
+                        }
+
+                        /**
+                         * Unstructured `payment_related_information` passed through by the
+                         * originator.
+                         */
+                        fun freeform(freeform: Freeform) = freeform(JsonField.of(freeform))
+
+                        /**
+                         * Unstructured `payment_related_information` passed through by the
+                         * originator.
+                         */
+                        @JsonProperty("freeform")
+                        @ExcludeMissing
+                        fun freeform(freeform: JsonField<Freeform>) = apply {
+                            this.freeform = freeform
+                        }
+
+                        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+                            apply {
+                                this.additionalProperties.clear()
+                                this.additionalProperties.putAll(additionalProperties)
+                            }
+
+                        @JsonAnySetter
+                        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                            this.additionalProperties.put(key, value)
+                        }
+
+                        fun putAllAdditionalProperties(
+                            additionalProperties: Map<String, JsonValue>
+                        ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                        fun build(): Addenda =
+                            Addenda(
+                                category,
+                                freeform,
+                                additionalProperties.toUnmodifiable(),
+                            )
+                    }
+
+                    class Category
+                    @JsonCreator
+                    private constructor(
+                        private val value: JsonField<String>,
+                    ) {
+
+                        @com.fasterxml.jackson.annotation.JsonValue
+                        fun _value(): JsonField<String> = value
+
+                        override fun equals(other: Any?): Boolean {
+                            if (this === other) {
+                                return true
+                            }
+
+                            return other is Category && this.value == other.value
+                        }
+
+                        override fun hashCode() = value.hashCode()
+
+                        override fun toString() = value.toString()
+
+                        companion object {
+
+                            val FREEFORM = Category(JsonField.of("freeform"))
+
+                            fun of(value: String) = Category(JsonField.of(value))
+                        }
+
+                        enum class Known {
+                            FREEFORM,
+                        }
+
+                        enum class Value {
+                            FREEFORM,
+                            _UNKNOWN,
+                        }
+
+                        fun value(): Value =
+                            when (this) {
+                                FREEFORM -> Value.FREEFORM
+                                else -> Value._UNKNOWN
+                            }
+
+                        fun known(): Known =
+                            when (this) {
+                                FREEFORM -> Known.FREEFORM
+                                else ->
+                                    throw IncreaseInvalidDataException("Unknown Category: $value")
+                            }
+
+                        fun asString(): String = _value().asStringOrThrow()
+                    }
+
+                    /**
+                     * Unstructured `payment_related_information` passed through by the originator.
+                     */
+                    @JsonDeserialize(builder = Freeform.Builder::class)
+                    @NoAutoDetect
+                    class Freeform
+                    private constructor(
+                        private val entries: JsonField<List<Entry>>,
+                        private val additionalProperties: Map<String, JsonValue>,
+                    ) {
+
+                        private var validated: Boolean = false
+
+                        private var hashCode: Int = 0
+
+                        /** Each entry represents an addendum received from the originator. */
+                        fun entries(): List<Entry> = entries.getRequired("entries")
+
+                        /** Each entry represents an addendum received from the originator. */
+                        @JsonProperty("entries") @ExcludeMissing fun _entries() = entries
+
+                        @JsonAnyGetter
+                        @ExcludeMissing
+                        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+                        fun validate(): Freeform = apply {
+                            if (!validated) {
+                                entries().forEach { it.validate() }
+                                validated = true
+                            }
+                        }
+
+                        fun toBuilder() = Builder().from(this)
+
+                        override fun equals(other: Any?): Boolean {
+                            if (this === other) {
+                                return true
+                            }
+
+                            return other is Freeform &&
+                                this.entries == other.entries &&
+                                this.additionalProperties == other.additionalProperties
+                        }
+
+                        override fun hashCode(): Int {
+                            if (hashCode == 0) {
+                                hashCode = Objects.hash(entries, additionalProperties)
+                            }
+                            return hashCode
+                        }
+
+                        override fun toString() =
+                            "Freeform{entries=$entries, additionalProperties=$additionalProperties}"
+
+                        companion object {
+
+                            fun builder() = Builder()
+                        }
+
+                        class Builder {
+
+                            private var entries: JsonField<List<Entry>> = JsonMissing.of()
+                            private var additionalProperties: MutableMap<String, JsonValue> =
+                                mutableMapOf()
+
+                            internal fun from(freeform: Freeform) = apply {
+                                this.entries = freeform.entries
+                                additionalProperties(freeform.additionalProperties)
+                            }
+
+                            /** Each entry represents an addendum received from the originator. */
+                            fun entries(entries: List<Entry>) = entries(JsonField.of(entries))
+
+                            /** Each entry represents an addendum received from the originator. */
+                            @JsonProperty("entries")
+                            @ExcludeMissing
+                            fun entries(entries: JsonField<List<Entry>>) = apply {
+                                this.entries = entries
+                            }
+
+                            fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+                                apply {
+                                    this.additionalProperties.clear()
+                                    this.additionalProperties.putAll(additionalProperties)
+                                }
+
+                            @JsonAnySetter
+                            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                                this.additionalProperties.put(key, value)
+                            }
+
+                            fun putAllAdditionalProperties(
+                                additionalProperties: Map<String, JsonValue>
+                            ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                            fun build(): Freeform =
+                                Freeform(
+                                    entries.map { it.toUnmodifiable() },
+                                    additionalProperties.toUnmodifiable()
+                                )
+                        }
+
+                        @JsonDeserialize(builder = Entry.Builder::class)
+                        @NoAutoDetect
+                        class Entry
+                        private constructor(
+                            private val paymentRelatedInformation: JsonField<String>,
+                            private val additionalProperties: Map<String, JsonValue>,
+                        ) {
+
+                            private var validated: Boolean = false
+
+                            private var hashCode: Int = 0
+
+                            /** The payment related information passed in the addendum. */
+                            fun paymentRelatedInformation(): String =
+                                paymentRelatedInformation.getRequired("payment_related_information")
+
+                            /** The payment related information passed in the addendum. */
+                            @JsonProperty("payment_related_information")
+                            @ExcludeMissing
+                            fun _paymentRelatedInformation() = paymentRelatedInformation
+
+                            @JsonAnyGetter
+                            @ExcludeMissing
+                            fun _additionalProperties(): Map<String, JsonValue> =
+                                additionalProperties
+
+                            fun validate(): Entry = apply {
+                                if (!validated) {
+                                    paymentRelatedInformation()
+                                    validated = true
+                                }
+                            }
+
+                            fun toBuilder() = Builder().from(this)
+
+                            override fun equals(other: Any?): Boolean {
+                                if (this === other) {
+                                    return true
+                                }
+
+                                return other is Entry &&
+                                    this.paymentRelatedInformation ==
+                                        other.paymentRelatedInformation &&
+                                    this.additionalProperties == other.additionalProperties
+                            }
+
+                            override fun hashCode(): Int {
+                                if (hashCode == 0) {
+                                    hashCode =
+                                        Objects.hash(
+                                            paymentRelatedInformation,
+                                            additionalProperties
+                                        )
+                                }
+                                return hashCode
+                            }
+
+                            override fun toString() =
+                                "Entry{paymentRelatedInformation=$paymentRelatedInformation, additionalProperties=$additionalProperties}"
+
+                            companion object {
+
+                                fun builder() = Builder()
+                            }
+
+                            class Builder {
+
+                                private var paymentRelatedInformation: JsonField<String> =
+                                    JsonMissing.of()
+                                private var additionalProperties: MutableMap<String, JsonValue> =
+                                    mutableMapOf()
+
+                                internal fun from(entry: Entry) = apply {
+                                    this.paymentRelatedInformation = entry.paymentRelatedInformation
+                                    additionalProperties(entry.additionalProperties)
+                                }
+
+                                /** The payment related information passed in the addendum. */
+                                fun paymentRelatedInformation(paymentRelatedInformation: String) =
+                                    paymentRelatedInformation(
+                                        JsonField.of(paymentRelatedInformation)
+                                    )
+
+                                /** The payment related information passed in the addendum. */
+                                @JsonProperty("payment_related_information")
+                                @ExcludeMissing
+                                fun paymentRelatedInformation(
+                                    paymentRelatedInformation: JsonField<String>
+                                ) = apply {
+                                    this.paymentRelatedInformation = paymentRelatedInformation
+                                }
+
+                                fun additionalProperties(
+                                    additionalProperties: Map<String, JsonValue>
+                                ) = apply {
+                                    this.additionalProperties.clear()
+                                    this.additionalProperties.putAll(additionalProperties)
+                                }
+
+                                @JsonAnySetter
+                                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                                    this.additionalProperties.put(key, value)
+                                }
+
+                                fun putAllAdditionalProperties(
+                                    additionalProperties: Map<String, JsonValue>
+                                ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                                fun build(): Entry =
+                                    Entry(
+                                        paymentRelatedInformation,
+                                        additionalProperties.toUnmodifiable()
+                                    )
+                            }
+                        }
+                    }
                 }
             }
 
