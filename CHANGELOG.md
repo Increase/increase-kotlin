@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.20.0 (2024-01-08)
+
+Full Changelog: [v0.19.0...v0.20.0](https://github.com/increase/increase-kotlin/compare/v0.19.0...v0.20.0)
+
+### Features
+
+* **api:** add `ach_debit_status` ([#152](https://github.com/increase/increase-kotlin/issues/152)) ([deb9632](https://github.com/increase/increase-kotlin/commit/deb9632c957fef724c3a7d1134d821ff4db102da))
+
 ## 0.19.0 (2024-01-02)
 
 Full Changelog: [v0.18.0...v0.19.0](https://github.com/increase/increase-kotlin/compare/v0.18.0...v0.19.0)
