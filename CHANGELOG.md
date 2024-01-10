@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.21.0 (2024-01-10)
+
+Full Changelog: [v0.20.0...v0.21.0](https://github.com/increase/increase-kotlin/compare/v0.20.0...v0.21.0)
+
+### Features
+
+* **api:** new methods for handling webhooks ([#157](https://github.com/increase/increase-kotlin/issues/157)) ([b1074e4](https://github.com/increase/increase-kotlin/commit/b1074e4aa83a47a786b736fc989d05b50e1c6fed))
+
+
+### Chores
+
+* add .keep files for examples and custom code directories ([#154](https://github.com/increase/increase-kotlin/issues/154)) ([df4eb2a](https://github.com/increase/increase-kotlin/commit/df4eb2a7217b822a2292c3aed27c4ec4ccef59f2))
+* **internal:** minor improvements to auth code ([#156](https://github.com/increase/increase-kotlin/issues/156)) ([89fa6b7](https://github.com/increase/increase-kotlin/commit/89fa6b7a4ec8fac184d2afa9c0c950fea52471d8))
+
 ## 0.20.0 (2024-01-08)
 
 Full Changelog: [v0.19.0...v0.20.0](https://github.com/increase/increase-kotlin/compare/v0.19.0...v0.20.0)
