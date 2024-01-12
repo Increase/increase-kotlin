@@ -6,7 +6,7 @@ The Increase Kotlin SDK is similar to the Increase Java SDK but with minor diffe
 
 ## Documentation
 
-The API documentation can be found [here](https://increase.com/documentation).
+The REST API documentation can be found [on increase.com](https://increase.com/documentation). The full API of this library can be found in [api.md](https://www.github.com/increase/increase-kotlin/blob/main/api.md).
 
 ---
 
