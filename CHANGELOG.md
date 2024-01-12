@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.22.0 (2024-01-12)
+
+Full Changelog: [v0.21.0...v0.22.0](https://github.com/increase/increase-kotlin/compare/v0.21.0...v0.22.0)
+
+### Features
+
+* **api:** allow webhook unwrapping without providing secret ([#158](https://github.com/increase/increase-kotlin/issues/158)) ([f86b768](https://github.com/increase/increase-kotlin/commit/f86b7687363884b25008d0b8895303f2d231cc82))
+
 ## 0.21.0 (2024-01-10)
 
 Full Changelog: [v0.20.0...v0.21.0](https://github.com/increase/increase-kotlin/compare/v0.20.0...v0.21.0)
