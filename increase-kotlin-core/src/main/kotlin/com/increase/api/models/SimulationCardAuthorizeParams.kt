@@ -19,6 +19,11 @@ constructor(
     private val cardId: String?,
     private val digitalWalletTokenId: String?,
     private val eventSubscriptionId: String?,
+    private val merchantAcceptorId: String?,
+    private val merchantCategoryCode: String?,
+    private val merchantCity: String?,
+    private val merchantCountry: String?,
+    private val merchantDescriptor: String?,
     private val physicalCardId: String?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
@@ -33,6 +38,16 @@ constructor(
 
     fun eventSubscriptionId(): String? = eventSubscriptionId
 
+    fun merchantAcceptorId(): String? = merchantAcceptorId
+
+    fun merchantCategoryCode(): String? = merchantCategoryCode
+
+    fun merchantCity(): String? = merchantCity
+
+    fun merchantCountry(): String? = merchantCountry
+
+    fun merchantDescriptor(): String? = merchantDescriptor
+
     fun physicalCardId(): String? = physicalCardId
 
     internal fun getBody(): SimulationCardAuthorizeBody {
@@ -41,6 +56,11 @@ constructor(
             cardId,
             digitalWalletTokenId,
             eventSubscriptionId,
+            merchantAcceptorId,
+            merchantCategoryCode,
+            merchantCity,
+            merchantCountry,
+            merchantDescriptor,
             physicalCardId,
             additionalBodyProperties,
         )
@@ -58,6 +78,11 @@ constructor(
         private val cardId: String?,
         private val digitalWalletTokenId: String?,
         private val eventSubscriptionId: String?,
+        private val merchantAcceptorId: String?,
+        private val merchantCategoryCode: String?,
+        private val merchantCity: String?,
+        private val merchantCountry: String?,
+        private val merchantDescriptor: String?,
         private val physicalCardId: String?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
@@ -83,6 +108,28 @@ constructor(
         @JsonProperty("event_subscription_id")
         fun eventSubscriptionId(): String? = eventSubscriptionId
 
+        /**
+         * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
+         * transacting with.
+         */
+        @JsonProperty("merchant_acceptor_id") fun merchantAcceptorId(): String? = merchantAcceptorId
+
+        /**
+         * The Merchant Category Code (commonly abbreviated as MCC) of the merchant the card is
+         * transacting with.
+         */
+        @JsonProperty("merchant_category_code")
+        fun merchantCategoryCode(): String? = merchantCategoryCode
+
+        /** The city the merchant resides in. */
+        @JsonProperty("merchant_city") fun merchantCity(): String? = merchantCity
+
+        /** The country the merchant resides in. */
+        @JsonProperty("merchant_country") fun merchantCountry(): String? = merchantCountry
+
+        /** The merchant descriptor of the merchant the card is transacting with. */
+        @JsonProperty("merchant_descriptor") fun merchantDescriptor(): String? = merchantDescriptor
+
         /** The identifier of the Physical Card to be authorized. */
         @JsonProperty("physical_card_id") fun physicalCardId(): String? = physicalCardId
 
@@ -102,6 +149,11 @@ constructor(
                 this.cardId == other.cardId &&
                 this.digitalWalletTokenId == other.digitalWalletTokenId &&
                 this.eventSubscriptionId == other.eventSubscriptionId &&
+                this.merchantAcceptorId == other.merchantAcceptorId &&
+                this.merchantCategoryCode == other.merchantCategoryCode &&
+                this.merchantCity == other.merchantCity &&
+                this.merchantCountry == other.merchantCountry &&
+                this.merchantDescriptor == other.merchantDescriptor &&
                 this.physicalCardId == other.physicalCardId &&
                 this.additionalProperties == other.additionalProperties
         }
@@ -114,6 +166,11 @@ constructor(
                         cardId,
                         digitalWalletTokenId,
                         eventSubscriptionId,
+                        merchantAcceptorId,
+                        merchantCategoryCode,
+                        merchantCity,
+                        merchantCountry,
+                        merchantDescriptor,
                         physicalCardId,
                         additionalProperties,
                     )
@@ -122,7 +179,7 @@ constructor(
         }
 
         override fun toString() =
-            "SimulationCardAuthorizeBody{amount=$amount, cardId=$cardId, digitalWalletTokenId=$digitalWalletTokenId, eventSubscriptionId=$eventSubscriptionId, physicalCardId=$physicalCardId, additionalProperties=$additionalProperties}"
+            "SimulationCardAuthorizeBody{amount=$amount, cardId=$cardId, digitalWalletTokenId=$digitalWalletTokenId, eventSubscriptionId=$eventSubscriptionId, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, physicalCardId=$physicalCardId, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -135,6 +192,11 @@ constructor(
             private var cardId: String? = null
             private var digitalWalletTokenId: String? = null
             private var eventSubscriptionId: String? = null
+            private var merchantAcceptorId: String? = null
+            private var merchantCategoryCode: String? = null
+            private var merchantCity: String? = null
+            private var merchantCountry: String? = null
+            private var merchantDescriptor: String? = null
             private var physicalCardId: String? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -143,6 +205,11 @@ constructor(
                 this.cardId = simulationCardAuthorizeBody.cardId
                 this.digitalWalletTokenId = simulationCardAuthorizeBody.digitalWalletTokenId
                 this.eventSubscriptionId = simulationCardAuthorizeBody.eventSubscriptionId
+                this.merchantAcceptorId = simulationCardAuthorizeBody.merchantAcceptorId
+                this.merchantCategoryCode = simulationCardAuthorizeBody.merchantCategoryCode
+                this.merchantCity = simulationCardAuthorizeBody.merchantCity
+                this.merchantCountry = simulationCardAuthorizeBody.merchantCountry
+                this.merchantDescriptor = simulationCardAuthorizeBody.merchantDescriptor
                 this.physicalCardId = simulationCardAuthorizeBody.physicalCardId
                 additionalProperties(simulationCardAuthorizeBody.additionalProperties)
             }
@@ -168,6 +235,40 @@ constructor(
             @JsonProperty("event_subscription_id")
             fun eventSubscriptionId(eventSubscriptionId: String) = apply {
                 this.eventSubscriptionId = eventSubscriptionId
+            }
+
+            /**
+             * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
+             * transacting with.
+             */
+            @JsonProperty("merchant_acceptor_id")
+            fun merchantAcceptorId(merchantAcceptorId: String) = apply {
+                this.merchantAcceptorId = merchantAcceptorId
+            }
+
+            /**
+             * The Merchant Category Code (commonly abbreviated as MCC) of the merchant the card is
+             * transacting with.
+             */
+            @JsonProperty("merchant_category_code")
+            fun merchantCategoryCode(merchantCategoryCode: String) = apply {
+                this.merchantCategoryCode = merchantCategoryCode
+            }
+
+            /** The city the merchant resides in. */
+            @JsonProperty("merchant_city")
+            fun merchantCity(merchantCity: String) = apply { this.merchantCity = merchantCity }
+
+            /** The country the merchant resides in. */
+            @JsonProperty("merchant_country")
+            fun merchantCountry(merchantCountry: String) = apply {
+                this.merchantCountry = merchantCountry
+            }
+
+            /** The merchant descriptor of the merchant the card is transacting with. */
+            @JsonProperty("merchant_descriptor")
+            fun merchantDescriptor(merchantDescriptor: String) = apply {
+                this.merchantDescriptor = merchantDescriptor
             }
 
             /** The identifier of the Physical Card to be authorized. */
@@ -196,6 +297,11 @@ constructor(
                     cardId,
                     digitalWalletTokenId,
                     eventSubscriptionId,
+                    merchantAcceptorId,
+                    merchantCategoryCode,
+                    merchantCity,
+                    merchantCountry,
+                    merchantDescriptor,
                     physicalCardId,
                     additionalProperties.toUnmodifiable(),
                 )
@@ -218,6 +324,11 @@ constructor(
             this.cardId == other.cardId &&
             this.digitalWalletTokenId == other.digitalWalletTokenId &&
             this.eventSubscriptionId == other.eventSubscriptionId &&
+            this.merchantAcceptorId == other.merchantAcceptorId &&
+            this.merchantCategoryCode == other.merchantCategoryCode &&
+            this.merchantCity == other.merchantCity &&
+            this.merchantCountry == other.merchantCountry &&
+            this.merchantDescriptor == other.merchantDescriptor &&
             this.physicalCardId == other.physicalCardId &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders &&
@@ -230,6 +341,11 @@ constructor(
             cardId,
             digitalWalletTokenId,
             eventSubscriptionId,
+            merchantAcceptorId,
+            merchantCategoryCode,
+            merchantCity,
+            merchantCountry,
+            merchantDescriptor,
             physicalCardId,
             additionalQueryParams,
             additionalHeaders,
@@ -238,7 +354,7 @@ constructor(
     }
 
     override fun toString() =
-        "SimulationCardAuthorizeParams{amount=$amount, cardId=$cardId, digitalWalletTokenId=$digitalWalletTokenId, eventSubscriptionId=$eventSubscriptionId, physicalCardId=$physicalCardId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "SimulationCardAuthorizeParams{amount=$amount, cardId=$cardId, digitalWalletTokenId=$digitalWalletTokenId, eventSubscriptionId=$eventSubscriptionId, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, physicalCardId=$physicalCardId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -254,6 +370,11 @@ constructor(
         private var cardId: String? = null
         private var digitalWalletTokenId: String? = null
         private var eventSubscriptionId: String? = null
+        private var merchantAcceptorId: String? = null
+        private var merchantCategoryCode: String? = null
+        private var merchantCity: String? = null
+        private var merchantCountry: String? = null
+        private var merchantDescriptor: String? = null
         private var physicalCardId: String? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
@@ -264,6 +385,11 @@ constructor(
             this.cardId = simulationCardAuthorizeParams.cardId
             this.digitalWalletTokenId = simulationCardAuthorizeParams.digitalWalletTokenId
             this.eventSubscriptionId = simulationCardAuthorizeParams.eventSubscriptionId
+            this.merchantAcceptorId = simulationCardAuthorizeParams.merchantAcceptorId
+            this.merchantCategoryCode = simulationCardAuthorizeParams.merchantCategoryCode
+            this.merchantCity = simulationCardAuthorizeParams.merchantCity
+            this.merchantCountry = simulationCardAuthorizeParams.merchantCountry
+            this.merchantDescriptor = simulationCardAuthorizeParams.merchantDescriptor
             this.physicalCardId = simulationCardAuthorizeParams.physicalCardId
             additionalQueryParams(simulationCardAuthorizeParams.additionalQueryParams)
             additionalHeaders(simulationCardAuthorizeParams.additionalHeaders)
@@ -289,6 +415,35 @@ constructor(
          */
         fun eventSubscriptionId(eventSubscriptionId: String) = apply {
             this.eventSubscriptionId = eventSubscriptionId
+        }
+
+        /**
+         * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
+         * transacting with.
+         */
+        fun merchantAcceptorId(merchantAcceptorId: String) = apply {
+            this.merchantAcceptorId = merchantAcceptorId
+        }
+
+        /**
+         * The Merchant Category Code (commonly abbreviated as MCC) of the merchant the card is
+         * transacting with.
+         */
+        fun merchantCategoryCode(merchantCategoryCode: String) = apply {
+            this.merchantCategoryCode = merchantCategoryCode
+        }
+
+        /** The city the merchant resides in. */
+        fun merchantCity(merchantCity: String) = apply { this.merchantCity = merchantCity }
+
+        /** The country the merchant resides in. */
+        fun merchantCountry(merchantCountry: String) = apply {
+            this.merchantCountry = merchantCountry
+        }
+
+        /** The merchant descriptor of the merchant the card is transacting with. */
+        fun merchantDescriptor(merchantDescriptor: String) = apply {
+            this.merchantDescriptor = merchantDescriptor
         }
 
         /** The identifier of the Physical Card to be authorized. */
@@ -354,6 +509,11 @@ constructor(
                 cardId,
                 digitalWalletTokenId,
                 eventSubscriptionId,
+                merchantAcceptorId,
+                merchantCategoryCode,
+                merchantCity,
+                merchantCountry,
+                merchantDescriptor,
                 physicalCardId,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
