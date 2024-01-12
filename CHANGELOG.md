@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.23.0 (2024-01-12)
+
+Full Changelog: [v0.22.0...v0.23.0](https://github.com/increase/increase-kotlin/compare/v0.22.0...v0.23.0)
+
+### Features
+
+* **api:** add merchant data to simulation api ([#162](https://github.com/increase/increase-kotlin/issues/162)) ([0efcae7](https://github.com/increase/increase-kotlin/commit/0efcae750c3148b3f85b22e5f1fe88c8fcc9b2d4))
+
+
+### Documentation
+
+* **readme:** improve api reference ([#160](https://github.com/increase/increase-kotlin/issues/160)) ([2fcb06e](https://github.com/increase/increase-kotlin/commit/2fcb06e57358d82de5f7c1127d3cf7294a59c522))
+
 ## 0.22.0 (2024-01-12)
 
 Full Changelog: [v0.21.0...v0.22.0](https://github.com/increase/increase-kotlin/compare/v0.21.0...v0.22.0)
