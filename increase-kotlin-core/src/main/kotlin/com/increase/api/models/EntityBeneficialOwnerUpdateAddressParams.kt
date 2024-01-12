@@ -54,7 +54,10 @@ constructor(
 
         private var hashCode: Int = 0
 
-        /** The individual's physical address. Post Office Boxes are disallowed. */
+        /**
+         * The individual's physical address. Mail receiving locations like PO Boxes and PMB's are
+         * disallowed.
+         */
         @JsonProperty("address") fun address(): Address? = address
 
         /**
@@ -120,7 +123,10 @@ constructor(
                 additionalProperties(entityBeneficialOwnerUpdateAddressBody.additionalProperties)
             }
 
-            /** The individual's physical address. Post Office Boxes are disallowed. */
+            /**
+             * The individual's physical address. Mail receiving locations like PO Boxes and PMB's
+             * are disallowed.
+             */
             @JsonProperty("address")
             fun address(address: Address) = apply { this.address = address }
 
@@ -227,7 +233,10 @@ constructor(
             )
         }
 
-        /** The individual's physical address. Post Office Boxes are disallowed. */
+        /**
+         * The individual's physical address. Mail receiving locations like PO Boxes and PMB's are
+         * disallowed.
+         */
         fun address(address: Address) = apply { this.address = address }
 
         /**
@@ -307,7 +316,10 @@ constructor(
             )
     }
 
-    /** The individual's physical address. Post Office Boxes are disallowed. */
+    /**
+     * The individual's physical address. Mail receiving locations like PO Boxes and PMB's are
+     * disallowed.
+     */
     @JsonDeserialize(builder = Address.Builder::class)
     @NoAutoDetect
     class Address
