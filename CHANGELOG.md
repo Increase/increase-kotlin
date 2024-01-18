@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.23.1 (2024-01-18)
+
+Full Changelog: [v0.23.0...v0.23.1](https://github.com/increase/increase-kotlin/compare/v0.23.0...v0.23.1)
+
+### Bug Fixes
+
+* **ci:** ignore stainless-app edits to release PR title ([#167](https://github.com/increase/increase-kotlin/issues/167)) ([386c3bb](https://github.com/increase/increase-kotlin/commit/386c3bbfde9699f1a69db1c3315894ccbb56bed6))
+
+
+### Chores
+
+* **internal:** speculative retry-after-ms support ([#166](https://github.com/increase/increase-kotlin/issues/166)) ([bf4502f](https://github.com/increase/increase-kotlin/commit/bf4502ff46cab1366d3fb1ad913614fd00393bba))
+* remove Alex Rattray from reviewers ([#165](https://github.com/increase/increase-kotlin/issues/165)) ([6943c69](https://github.com/increase/increase-kotlin/commit/6943c69f203ef528d86e32d1c04cd7e1b707bdf5))
+
+
+### Documentation
+
+* **api:** fix typo ([#163](https://github.com/increase/increase-kotlin/issues/163)) ([57f0e39](https://github.com/increase/increase-kotlin/commit/57f0e39d78ee0c4c14f3451b6bd2fca3309cadbc))
+
 ## 0.23.0 (2024-01-12)
 
 Full Changelog: [v0.22.0...v0.23.0](https://github.com/increase/increase-kotlin/compare/v0.22.0...v0.23.0)
