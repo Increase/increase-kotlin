@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.24.0 (2024-01-19)
+
+Full Changelog: [v0.23.1...v0.24.0](https://github.com/increase/increase-kotlin/compare/v0.23.1...v0.24.0)
+
+### ⚠ BREAKING CHANGES
+
+* fix oauth casing ([#168](https://github.com/increase/increase-kotlin/issues/168))
+
+### Features
+
+* **api:** add oauth token and inbound wire transfer methods ([#170](https://github.com/increase/increase-kotlin/issues/170)) ([67ddbf5](https://github.com/increase/increase-kotlin/commit/67ddbf52fcf12597f61785ca106027529858ed51))
+
+
+### Refactors
+
+* fix oauth casing ([#168](https://github.com/increase/increase-kotlin/issues/168)) ([34466f2](https://github.com/increase/increase-kotlin/commit/34466f2d2ce0a2b359a27846603431345f3c7459))
+
 ## 0.23.1 (2024-01-18)
 
 Full Changelog: [v0.23.0...v0.23.1](https://github.com/increase/increase-kotlin/compare/v0.23.0...v0.23.1)
