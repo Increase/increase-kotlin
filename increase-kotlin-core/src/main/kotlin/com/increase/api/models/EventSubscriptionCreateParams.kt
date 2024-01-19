@@ -400,6 +400,12 @@ constructor(
             val DECLINED_TRANSACTION_CREATED =
                 SelectedEventCategory(JsonField.of("declined_transaction.created"))
 
+            val DIGITAL_CARD_PROFILE_CREATED =
+                SelectedEventCategory(JsonField.of("digital_card_profile.created"))
+
+            val DIGITAL_CARD_PROFILE_UPDATED =
+                SelectedEventCategory(JsonField.of("digital_card_profile.updated"))
+
             val DIGITAL_WALLET_TOKEN_CREATED =
                 SelectedEventCategory(JsonField.of("digital_wallet_token.created"))
 
@@ -476,6 +482,12 @@ constructor(
             val PHYSICAL_CARD_CREATED = SelectedEventCategory(JsonField.of("physical_card.created"))
 
             val PHYSICAL_CARD_UPDATED = SelectedEventCategory(JsonField.of("physical_card.updated"))
+
+            val PHYSICAL_CARD_PROFILE_CREATED =
+                SelectedEventCategory(JsonField.of("physical_card_profile.created"))
+
+            val PHYSICAL_CARD_PROFILE_UPDATED =
+                SelectedEventCategory(JsonField.of("physical_card_profile.updated"))
 
             val PROOF_OF_AUTHORIZATION_REQUEST_CREATED =
                 SelectedEventCategory(JsonField.of("proof_of_authorization_request.created"))
@@ -567,6 +579,8 @@ constructor(
             CHECK_TRANSFER_CREATED,
             CHECK_TRANSFER_UPDATED,
             DECLINED_TRANSACTION_CREATED,
+            DIGITAL_CARD_PROFILE_CREATED,
+            DIGITAL_CARD_PROFILE_UPDATED,
             DIGITAL_WALLET_TOKEN_CREATED,
             DIGITAL_WALLET_TOKEN_UPDATED,
             DOCUMENT_CREATED,
@@ -596,6 +610,8 @@ constructor(
             PENDING_TRANSACTION_UPDATED,
             PHYSICAL_CARD_CREATED,
             PHYSICAL_CARD_UPDATED,
+            PHYSICAL_CARD_PROFILE_CREATED,
+            PHYSICAL_CARD_PROFILE_UPDATED,
             PROOF_OF_AUTHORIZATION_REQUEST_CREATED,
             PROOF_OF_AUTHORIZATION_REQUEST_UPDATED,
             PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION_CREATED,
@@ -642,6 +658,8 @@ constructor(
             CHECK_TRANSFER_CREATED,
             CHECK_TRANSFER_UPDATED,
             DECLINED_TRANSACTION_CREATED,
+            DIGITAL_CARD_PROFILE_CREATED,
+            DIGITAL_CARD_PROFILE_UPDATED,
             DIGITAL_WALLET_TOKEN_CREATED,
             DIGITAL_WALLET_TOKEN_UPDATED,
             DOCUMENT_CREATED,
@@ -671,6 +689,8 @@ constructor(
             PENDING_TRANSACTION_UPDATED,
             PHYSICAL_CARD_CREATED,
             PHYSICAL_CARD_UPDATED,
+            PHYSICAL_CARD_PROFILE_CREATED,
+            PHYSICAL_CARD_PROFILE_UPDATED,
             PROOF_OF_AUTHORIZATION_REQUEST_CREATED,
             PROOF_OF_AUTHORIZATION_REQUEST_UPDATED,
             PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION_CREATED,
@@ -719,6 +739,8 @@ constructor(
                 CHECK_TRANSFER_CREATED -> Value.CHECK_TRANSFER_CREATED
                 CHECK_TRANSFER_UPDATED -> Value.CHECK_TRANSFER_UPDATED
                 DECLINED_TRANSACTION_CREATED -> Value.DECLINED_TRANSACTION_CREATED
+                DIGITAL_CARD_PROFILE_CREATED -> Value.DIGITAL_CARD_PROFILE_CREATED
+                DIGITAL_CARD_PROFILE_UPDATED -> Value.DIGITAL_CARD_PROFILE_UPDATED
                 DIGITAL_WALLET_TOKEN_CREATED -> Value.DIGITAL_WALLET_TOKEN_CREATED
                 DIGITAL_WALLET_TOKEN_UPDATED -> Value.DIGITAL_WALLET_TOKEN_UPDATED
                 DOCUMENT_CREATED -> Value.DOCUMENT_CREATED
@@ -748,6 +770,8 @@ constructor(
                 PENDING_TRANSACTION_UPDATED -> Value.PENDING_TRANSACTION_UPDATED
                 PHYSICAL_CARD_CREATED -> Value.PHYSICAL_CARD_CREATED
                 PHYSICAL_CARD_UPDATED -> Value.PHYSICAL_CARD_UPDATED
+                PHYSICAL_CARD_PROFILE_CREATED -> Value.PHYSICAL_CARD_PROFILE_CREATED
+                PHYSICAL_CARD_PROFILE_UPDATED -> Value.PHYSICAL_CARD_PROFILE_UPDATED
                 PROOF_OF_AUTHORIZATION_REQUEST_CREATED ->
                     Value.PROOF_OF_AUTHORIZATION_REQUEST_CREATED
                 PROOF_OF_AUTHORIZATION_REQUEST_UPDATED ->
@@ -805,6 +829,8 @@ constructor(
                 CHECK_TRANSFER_CREATED -> Known.CHECK_TRANSFER_CREATED
                 CHECK_TRANSFER_UPDATED -> Known.CHECK_TRANSFER_UPDATED
                 DECLINED_TRANSACTION_CREATED -> Known.DECLINED_TRANSACTION_CREATED
+                DIGITAL_CARD_PROFILE_CREATED -> Known.DIGITAL_CARD_PROFILE_CREATED
+                DIGITAL_CARD_PROFILE_UPDATED -> Known.DIGITAL_CARD_PROFILE_UPDATED
                 DIGITAL_WALLET_TOKEN_CREATED -> Known.DIGITAL_WALLET_TOKEN_CREATED
                 DIGITAL_WALLET_TOKEN_UPDATED -> Known.DIGITAL_WALLET_TOKEN_UPDATED
                 DOCUMENT_CREATED -> Known.DOCUMENT_CREATED
@@ -834,6 +860,8 @@ constructor(
                 PENDING_TRANSACTION_UPDATED -> Known.PENDING_TRANSACTION_UPDATED
                 PHYSICAL_CARD_CREATED -> Known.PHYSICAL_CARD_CREATED
                 PHYSICAL_CARD_UPDATED -> Known.PHYSICAL_CARD_UPDATED
+                PHYSICAL_CARD_PROFILE_CREATED -> Known.PHYSICAL_CARD_PROFILE_CREATED
+                PHYSICAL_CARD_PROFILE_UPDATED -> Known.PHYSICAL_CARD_PROFILE_UPDATED
                 PROOF_OF_AUTHORIZATION_REQUEST_CREATED ->
                     Known.PROOF_OF_AUTHORIZATION_REQUEST_CREATED
                 PROOF_OF_AUTHORIZATION_REQUEST_UPDATED ->
