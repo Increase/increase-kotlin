@@ -22,6 +22,7 @@ constructor(
     private val cardProfileId: String,
     private val cardholder: Cardholder,
     private val shipment: Shipment,
+    private val physicalCardProfileId: String?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
     private val additionalBodyProperties: Map<String, JsonValue>,
@@ -35,12 +36,15 @@ constructor(
 
     fun shipment(): Shipment = shipment
 
+    fun physicalCardProfileId(): String? = physicalCardProfileId
+
     internal fun getBody(): PhysicalCardCreateBody {
         return PhysicalCardCreateBody(
             cardId,
             cardProfileId,
             cardholder,
             shipment,
+            physicalCardProfileId,
             additionalBodyProperties,
         )
     }
@@ -57,6 +61,7 @@ constructor(
         private val cardProfileId: String?,
         private val cardholder: Cardholder?,
         private val shipment: Shipment?,
+        private val physicalCardProfileId: String?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -74,6 +79,10 @@ constructor(
         /** The details used to ship this physical card. */
         @JsonProperty("shipment") fun shipment(): Shipment? = shipment
 
+        /** The physical card profile to use for this physical card. */
+        @JsonProperty("physical_card_profile_id")
+        fun physicalCardProfileId(): String? = physicalCardProfileId
+
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -90,6 +99,7 @@ constructor(
                 this.cardProfileId == other.cardProfileId &&
                 this.cardholder == other.cardholder &&
                 this.shipment == other.shipment &&
+                this.physicalCardProfileId == other.physicalCardProfileId &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -101,6 +111,7 @@ constructor(
                         cardProfileId,
                         cardholder,
                         shipment,
+                        physicalCardProfileId,
                         additionalProperties,
                     )
             }
@@ -108,7 +119,7 @@ constructor(
         }
 
         override fun toString() =
-            "PhysicalCardCreateBody{cardId=$cardId, cardProfileId=$cardProfileId, cardholder=$cardholder, shipment=$shipment, additionalProperties=$additionalProperties}"
+            "PhysicalCardCreateBody{cardId=$cardId, cardProfileId=$cardProfileId, cardholder=$cardholder, shipment=$shipment, physicalCardProfileId=$physicalCardProfileId, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -121,6 +132,7 @@ constructor(
             private var cardProfileId: String? = null
             private var cardholder: Cardholder? = null
             private var shipment: Shipment? = null
+            private var physicalCardProfileId: String? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(physicalCardCreateBody: PhysicalCardCreateBody) = apply {
@@ -128,6 +140,7 @@ constructor(
                 this.cardProfileId = physicalCardCreateBody.cardProfileId
                 this.cardholder = physicalCardCreateBody.cardholder
                 this.shipment = physicalCardCreateBody.shipment
+                this.physicalCardProfileId = physicalCardCreateBody.physicalCardProfileId
                 additionalProperties(physicalCardCreateBody.additionalProperties)
             }
 
@@ -145,6 +158,12 @@ constructor(
             /** The details used to ship this physical card. */
             @JsonProperty("shipment")
             fun shipment(shipment: Shipment) = apply { this.shipment = shipment }
+
+            /** The physical card profile to use for this physical card. */
+            @JsonProperty("physical_card_profile_id")
+            fun physicalCardProfileId(physicalCardProfileId: String) = apply {
+                this.physicalCardProfileId = physicalCardProfileId
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -166,6 +185,7 @@ constructor(
                     checkNotNull(cardProfileId) { "`cardProfileId` is required but was not set" },
                     checkNotNull(cardholder) { "`cardholder` is required but was not set" },
                     checkNotNull(shipment) { "`shipment` is required but was not set" },
+                    physicalCardProfileId,
                     additionalProperties.toUnmodifiable(),
                 )
         }
@@ -187,6 +207,7 @@ constructor(
             this.cardProfileId == other.cardProfileId &&
             this.cardholder == other.cardholder &&
             this.shipment == other.shipment &&
+            this.physicalCardProfileId == other.physicalCardProfileId &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders &&
             this.additionalBodyProperties == other.additionalBodyProperties
@@ -198,6 +219,7 @@ constructor(
             cardProfileId,
             cardholder,
             shipment,
+            physicalCardProfileId,
             additionalQueryParams,
             additionalHeaders,
             additionalBodyProperties,
@@ -205,7 +227,7 @@ constructor(
     }
 
     override fun toString() =
-        "PhysicalCardCreateParams{cardId=$cardId, cardProfileId=$cardProfileId, cardholder=$cardholder, shipment=$shipment, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "PhysicalCardCreateParams{cardId=$cardId, cardProfileId=$cardProfileId, cardholder=$cardholder, shipment=$shipment, physicalCardProfileId=$physicalCardProfileId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -221,6 +243,7 @@ constructor(
         private var cardProfileId: String? = null
         private var cardholder: Cardholder? = null
         private var shipment: Shipment? = null
+        private var physicalCardProfileId: String? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -230,6 +253,7 @@ constructor(
             this.cardProfileId = physicalCardCreateParams.cardProfileId
             this.cardholder = physicalCardCreateParams.cardholder
             this.shipment = physicalCardCreateParams.shipment
+            this.physicalCardProfileId = physicalCardCreateParams.physicalCardProfileId
             additionalQueryParams(physicalCardCreateParams.additionalQueryParams)
             additionalHeaders(physicalCardCreateParams.additionalHeaders)
             additionalBodyProperties(physicalCardCreateParams.additionalBodyProperties)
@@ -246,6 +270,11 @@ constructor(
 
         /** The details used to ship this physical card. */
         fun shipment(shipment: Shipment) = apply { this.shipment = shipment }
+
+        /** The physical card profile to use for this physical card. */
+        fun physicalCardProfileId(physicalCardProfileId: String) = apply {
+            this.physicalCardProfileId = physicalCardProfileId
+        }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -307,6 +336,7 @@ constructor(
                 checkNotNull(cardProfileId) { "`cardProfileId` is required but was not set" },
                 checkNotNull(cardholder) { "`cardholder` is required but was not set" },
                 checkNotNull(shipment) { "`shipment` is required but was not set" },
+                physicalCardProfileId,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalBodyProperties.toUnmodifiable(),
