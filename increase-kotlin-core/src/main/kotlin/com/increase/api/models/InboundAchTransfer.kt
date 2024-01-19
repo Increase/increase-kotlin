@@ -50,7 +50,7 @@ private constructor(
 
     private var hashCode: Int = 0
 
-    /** The inbound ach transfer's identifier. */
+    /** The inbound ACH transfer's identifier. */
     fun id(): String = id.getRequired("id")
 
     /** The transfer amount in USD cents. */
@@ -128,7 +128,7 @@ private constructor(
      */
     fun type(): Type = type.getRequired("type")
 
-    /** The inbound ach transfer's identifier. */
+    /** The inbound ACH transfer's identifier. */
     @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /** The transfer amount in USD cents. */
@@ -370,10 +370,10 @@ private constructor(
             additionalProperties(inboundAchTransfer.additionalProperties)
         }
 
-        /** The inbound ach transfer's identifier. */
+        /** The inbound ACH transfer's identifier. */
         fun id(id: String) = id(JsonField.of(id))
 
-        /** The inbound ach transfer's identifier. */
+        /** The inbound ACH transfer's identifier. */
         @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The transfer amount in USD cents. */

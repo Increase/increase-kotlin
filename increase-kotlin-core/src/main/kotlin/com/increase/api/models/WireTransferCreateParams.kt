@@ -24,6 +24,10 @@ constructor(
     private val beneficiaryAddressLine2: String?,
     private val beneficiaryAddressLine3: String?,
     private val externalAccountId: String?,
+    private val originatorAddressLine1: String?,
+    private val originatorAddressLine2: String?,
+    private val originatorAddressLine3: String?,
+    private val originatorName: String?,
     private val requireApproval: Boolean?,
     private val routingNumber: String?,
     private val uniqueIdentifier: String?,
@@ -50,6 +54,14 @@ constructor(
 
     fun externalAccountId(): String? = externalAccountId
 
+    fun originatorAddressLine1(): String? = originatorAddressLine1
+
+    fun originatorAddressLine2(): String? = originatorAddressLine2
+
+    fun originatorAddressLine3(): String? = originatorAddressLine3
+
+    fun originatorName(): String? = originatorName
+
     fun requireApproval(): Boolean? = requireApproval
 
     fun routingNumber(): String? = routingNumber
@@ -67,6 +79,10 @@ constructor(
             beneficiaryAddressLine2,
             beneficiaryAddressLine3,
             externalAccountId,
+            originatorAddressLine1,
+            originatorAddressLine2,
+            originatorAddressLine3,
+            originatorName,
             requireApproval,
             routingNumber,
             uniqueIdentifier,
@@ -91,6 +107,10 @@ constructor(
         private val beneficiaryAddressLine2: String?,
         private val beneficiaryAddressLine3: String?,
         private val externalAccountId: String?,
+        private val originatorAddressLine1: String?,
+        private val originatorAddressLine2: String?,
+        private val originatorAddressLine3: String?,
+        private val originatorName: String?,
         private val requireApproval: Boolean?,
         private val routingNumber: String?,
         private val uniqueIdentifier: String?,
@@ -132,6 +152,33 @@ constructor(
          */
         @JsonProperty("external_account_id") fun externalAccountId(): String? = externalAccountId
 
+        /**
+         * The originator's address line 1. This is only necessary if you're transferring from a
+         * commingled account. Otherwise, we'll use the associated entity's details.
+         */
+        @JsonProperty("originator_address_line1")
+        fun originatorAddressLine1(): String? = originatorAddressLine1
+
+        /**
+         * The originator's address line 2. This is only necessary if you're transferring from a
+         * commingled account. Otherwise, we'll use the associated entity's details.
+         */
+        @JsonProperty("originator_address_line2")
+        fun originatorAddressLine2(): String? = originatorAddressLine2
+
+        /**
+         * The originator's address line 3. This is only necessary if you're transferring from a
+         * commingled account. Otherwise, we'll use the associated entity's details.
+         */
+        @JsonProperty("originator_address_line3")
+        fun originatorAddressLine3(): String? = originatorAddressLine3
+
+        /**
+         * The originator's name. This is only necessary if you're transferring from a commingled
+         * account. Otherwise, we'll use the associated entity's details.
+         */
+        @JsonProperty("originator_name") fun originatorName(): String? = originatorName
+
         /** Whether the transfer requires explicit approval via the dashboard or API. */
         @JsonProperty("require_approval") fun requireApproval(): Boolean? = requireApproval
 
@@ -169,6 +216,10 @@ constructor(
                 this.beneficiaryAddressLine2 == other.beneficiaryAddressLine2 &&
                 this.beneficiaryAddressLine3 == other.beneficiaryAddressLine3 &&
                 this.externalAccountId == other.externalAccountId &&
+                this.originatorAddressLine1 == other.originatorAddressLine1 &&
+                this.originatorAddressLine2 == other.originatorAddressLine2 &&
+                this.originatorAddressLine3 == other.originatorAddressLine3 &&
+                this.originatorName == other.originatorName &&
                 this.requireApproval == other.requireApproval &&
                 this.routingNumber == other.routingNumber &&
                 this.uniqueIdentifier == other.uniqueIdentifier &&
@@ -188,6 +239,10 @@ constructor(
                         beneficiaryAddressLine2,
                         beneficiaryAddressLine3,
                         externalAccountId,
+                        originatorAddressLine1,
+                        originatorAddressLine2,
+                        originatorAddressLine3,
+                        originatorName,
                         requireApproval,
                         routingNumber,
                         uniqueIdentifier,
@@ -198,7 +253,7 @@ constructor(
         }
 
         override fun toString() =
-            "WireTransferCreateBody{accountId=$accountId, amount=$amount, beneficiaryName=$beneficiaryName, messageToRecipient=$messageToRecipient, accountNumber=$accountNumber, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, externalAccountId=$externalAccountId, requireApproval=$requireApproval, routingNumber=$routingNumber, uniqueIdentifier=$uniqueIdentifier, additionalProperties=$additionalProperties}"
+            "WireTransferCreateBody{accountId=$accountId, amount=$amount, beneficiaryName=$beneficiaryName, messageToRecipient=$messageToRecipient, accountNumber=$accountNumber, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, externalAccountId=$externalAccountId, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, requireApproval=$requireApproval, routingNumber=$routingNumber, uniqueIdentifier=$uniqueIdentifier, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -216,6 +271,10 @@ constructor(
             private var beneficiaryAddressLine2: String? = null
             private var beneficiaryAddressLine3: String? = null
             private var externalAccountId: String? = null
+            private var originatorAddressLine1: String? = null
+            private var originatorAddressLine2: String? = null
+            private var originatorAddressLine3: String? = null
+            private var originatorName: String? = null
             private var requireApproval: Boolean? = null
             private var routingNumber: String? = null
             private var uniqueIdentifier: String? = null
@@ -231,6 +290,10 @@ constructor(
                 this.beneficiaryAddressLine2 = wireTransferCreateBody.beneficiaryAddressLine2
                 this.beneficiaryAddressLine3 = wireTransferCreateBody.beneficiaryAddressLine3
                 this.externalAccountId = wireTransferCreateBody.externalAccountId
+                this.originatorAddressLine1 = wireTransferCreateBody.originatorAddressLine1
+                this.originatorAddressLine2 = wireTransferCreateBody.originatorAddressLine2
+                this.originatorAddressLine3 = wireTransferCreateBody.originatorAddressLine3
+                this.originatorName = wireTransferCreateBody.originatorName
                 this.requireApproval = wireTransferCreateBody.requireApproval
                 this.routingNumber = wireTransferCreateBody.routingNumber
                 this.uniqueIdentifier = wireTransferCreateBody.uniqueIdentifier
@@ -287,6 +350,42 @@ constructor(
                 this.externalAccountId = externalAccountId
             }
 
+            /**
+             * The originator's address line 1. This is only necessary if you're transferring from a
+             * commingled account. Otherwise, we'll use the associated entity's details.
+             */
+            @JsonProperty("originator_address_line1")
+            fun originatorAddressLine1(originatorAddressLine1: String) = apply {
+                this.originatorAddressLine1 = originatorAddressLine1
+            }
+
+            /**
+             * The originator's address line 2. This is only necessary if you're transferring from a
+             * commingled account. Otherwise, we'll use the associated entity's details.
+             */
+            @JsonProperty("originator_address_line2")
+            fun originatorAddressLine2(originatorAddressLine2: String) = apply {
+                this.originatorAddressLine2 = originatorAddressLine2
+            }
+
+            /**
+             * The originator's address line 3. This is only necessary if you're transferring from a
+             * commingled account. Otherwise, we'll use the associated entity's details.
+             */
+            @JsonProperty("originator_address_line3")
+            fun originatorAddressLine3(originatorAddressLine3: String) = apply {
+                this.originatorAddressLine3 = originatorAddressLine3
+            }
+
+            /**
+             * The originator's name. This is only necessary if you're transferring from a
+             * commingled account. Otherwise, we'll use the associated entity's details.
+             */
+            @JsonProperty("originator_name")
+            fun originatorName(originatorName: String) = apply {
+                this.originatorName = originatorName
+            }
+
             /** Whether the transfer requires explicit approval via the dashboard or API. */
             @JsonProperty("require_approval")
             fun requireApproval(requireApproval: Boolean) = apply {
@@ -339,6 +438,10 @@ constructor(
                     beneficiaryAddressLine2,
                     beneficiaryAddressLine3,
                     externalAccountId,
+                    originatorAddressLine1,
+                    originatorAddressLine2,
+                    originatorAddressLine3,
+                    originatorName,
                     requireApproval,
                     routingNumber,
                     uniqueIdentifier,
@@ -368,6 +471,10 @@ constructor(
             this.beneficiaryAddressLine2 == other.beneficiaryAddressLine2 &&
             this.beneficiaryAddressLine3 == other.beneficiaryAddressLine3 &&
             this.externalAccountId == other.externalAccountId &&
+            this.originatorAddressLine1 == other.originatorAddressLine1 &&
+            this.originatorAddressLine2 == other.originatorAddressLine2 &&
+            this.originatorAddressLine3 == other.originatorAddressLine3 &&
+            this.originatorName == other.originatorName &&
             this.requireApproval == other.requireApproval &&
             this.routingNumber == other.routingNumber &&
             this.uniqueIdentifier == other.uniqueIdentifier &&
@@ -387,6 +494,10 @@ constructor(
             beneficiaryAddressLine2,
             beneficiaryAddressLine3,
             externalAccountId,
+            originatorAddressLine1,
+            originatorAddressLine2,
+            originatorAddressLine3,
+            originatorName,
             requireApproval,
             routingNumber,
             uniqueIdentifier,
@@ -397,7 +508,7 @@ constructor(
     }
 
     override fun toString() =
-        "WireTransferCreateParams{accountId=$accountId, amount=$amount, beneficiaryName=$beneficiaryName, messageToRecipient=$messageToRecipient, accountNumber=$accountNumber, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, externalAccountId=$externalAccountId, requireApproval=$requireApproval, routingNumber=$routingNumber, uniqueIdentifier=$uniqueIdentifier, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "WireTransferCreateParams{accountId=$accountId, amount=$amount, beneficiaryName=$beneficiaryName, messageToRecipient=$messageToRecipient, accountNumber=$accountNumber, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, externalAccountId=$externalAccountId, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, requireApproval=$requireApproval, routingNumber=$routingNumber, uniqueIdentifier=$uniqueIdentifier, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -418,6 +529,10 @@ constructor(
         private var beneficiaryAddressLine2: String? = null
         private var beneficiaryAddressLine3: String? = null
         private var externalAccountId: String? = null
+        private var originatorAddressLine1: String? = null
+        private var originatorAddressLine2: String? = null
+        private var originatorAddressLine3: String? = null
+        private var originatorName: String? = null
         private var requireApproval: Boolean? = null
         private var routingNumber: String? = null
         private var uniqueIdentifier: String? = null
@@ -435,6 +550,10 @@ constructor(
             this.beneficiaryAddressLine2 = wireTransferCreateParams.beneficiaryAddressLine2
             this.beneficiaryAddressLine3 = wireTransferCreateParams.beneficiaryAddressLine3
             this.externalAccountId = wireTransferCreateParams.externalAccountId
+            this.originatorAddressLine1 = wireTransferCreateParams.originatorAddressLine1
+            this.originatorAddressLine2 = wireTransferCreateParams.originatorAddressLine2
+            this.originatorAddressLine3 = wireTransferCreateParams.originatorAddressLine3
+            this.originatorName = wireTransferCreateParams.originatorName
             this.requireApproval = wireTransferCreateParams.requireApproval
             this.routingNumber = wireTransferCreateParams.routingNumber
             this.uniqueIdentifier = wireTransferCreateParams.uniqueIdentifier
@@ -484,6 +603,36 @@ constructor(
         fun externalAccountId(externalAccountId: String) = apply {
             this.externalAccountId = externalAccountId
         }
+
+        /**
+         * The originator's address line 1. This is only necessary if you're transferring from a
+         * commingled account. Otherwise, we'll use the associated entity's details.
+         */
+        fun originatorAddressLine1(originatorAddressLine1: String) = apply {
+            this.originatorAddressLine1 = originatorAddressLine1
+        }
+
+        /**
+         * The originator's address line 2. This is only necessary if you're transferring from a
+         * commingled account. Otherwise, we'll use the associated entity's details.
+         */
+        fun originatorAddressLine2(originatorAddressLine2: String) = apply {
+            this.originatorAddressLine2 = originatorAddressLine2
+        }
+
+        /**
+         * The originator's address line 3. This is only necessary if you're transferring from a
+         * commingled account. Otherwise, we'll use the associated entity's details.
+         */
+        fun originatorAddressLine3(originatorAddressLine3: String) = apply {
+            this.originatorAddressLine3 = originatorAddressLine3
+        }
+
+        /**
+         * The originator's name. This is only necessary if you're transferring from a commingled
+         * account. Otherwise, we'll use the associated entity's details.
+         */
+        fun originatorName(originatorName: String) = apply { this.originatorName = originatorName }
 
         /** Whether the transfer requires explicit approval via the dashboard or API. */
         fun requireApproval(requireApproval: Boolean) = apply {
@@ -572,6 +721,10 @@ constructor(
                 beneficiaryAddressLine2,
                 beneficiaryAddressLine3,
                 externalAccountId,
+                originatorAddressLine1,
+                originatorAddressLine2,
+                originatorAddressLine3,
+                originatorName,
                 requireApproval,
                 routingNumber,
                 uniqueIdentifier,
