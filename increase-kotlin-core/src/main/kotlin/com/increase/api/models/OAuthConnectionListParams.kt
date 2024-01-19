@@ -7,7 +7,7 @@ import com.increase.api.core.toUnmodifiable
 import com.increase.api.models.*
 import java.util.Objects
 
-class OauthConnectionListParams
+class OAuthConnectionListParams
 constructor(
     private val cursor: String?,
     private val limit: Long?,
@@ -38,7 +38,7 @@ constructor(
             return true
         }
 
-        return other is OauthConnectionListParams &&
+        return other is OAuthConnectionListParams &&
             this.cursor == other.cursor &&
             this.limit == other.limit &&
             this.additionalQueryParams == other.additionalQueryParams &&
@@ -55,7 +55,7 @@ constructor(
     }
 
     override fun toString() =
-        "OauthConnectionListParams{cursor=$cursor, limit=$limit, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+        "OAuthConnectionListParams{cursor=$cursor, limit=$limit, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -72,7 +72,7 @@ constructor(
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
 
-        internal fun from(oauthConnectionListParams: OauthConnectionListParams) = apply {
+        internal fun from(oauthConnectionListParams: OAuthConnectionListParams) = apply {
             this.cursor = oauthConnectionListParams.cursor
             this.limit = oauthConnectionListParams.limit
             additionalQueryParams(oauthConnectionListParams.additionalQueryParams)
@@ -127,8 +127,8 @@ constructor(
 
         fun removeHeader(name: String) = apply { this.additionalHeaders.put(name, mutableListOf()) }
 
-        fun build(): OauthConnectionListParams =
-            OauthConnectionListParams(
+        fun build(): OAuthConnectionListParams =
+            OAuthConnectionListParams(
                 cursor,
                 limit,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),

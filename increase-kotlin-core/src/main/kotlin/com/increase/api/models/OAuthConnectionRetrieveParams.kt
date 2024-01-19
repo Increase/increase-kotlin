@@ -7,7 +7,7 @@ import com.increase.api.core.toUnmodifiable
 import com.increase.api.models.*
 import java.util.Objects
 
-class OauthConnectionRetrieveParams
+class OAuthConnectionRetrieveParams
 constructor(
     private val oauthConnectionId: String,
     private val additionalQueryParams: Map<String, List<String>>,
@@ -36,7 +36,7 @@ constructor(
             return true
         }
 
-        return other is OauthConnectionRetrieveParams &&
+        return other is OAuthConnectionRetrieveParams &&
             this.oauthConnectionId == other.oauthConnectionId &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders
@@ -51,7 +51,7 @@ constructor(
     }
 
     override fun toString() =
-        "OauthConnectionRetrieveParams{oauthConnectionId=$oauthConnectionId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+        "OAuthConnectionRetrieveParams{oauthConnectionId=$oauthConnectionId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -67,7 +67,7 @@ constructor(
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
 
-        internal fun from(oauthConnectionRetrieveParams: OauthConnectionRetrieveParams) = apply {
+        internal fun from(oauthConnectionRetrieveParams: OAuthConnectionRetrieveParams) = apply {
             this.oauthConnectionId = oauthConnectionRetrieveParams.oauthConnectionId
             additionalQueryParams(oauthConnectionRetrieveParams.additionalQueryParams)
             additionalHeaders(oauthConnectionRetrieveParams.additionalHeaders)
@@ -118,8 +118,8 @@ constructor(
 
         fun removeHeader(name: String) = apply { this.additionalHeaders.put(name, mutableListOf()) }
 
-        fun build(): OauthConnectionRetrieveParams =
-            OauthConnectionRetrieveParams(
+        fun build(): OAuthConnectionRetrieveParams =
+            OAuthConnectionRetrieveParams(
                 checkNotNull(oauthConnectionId) {
                     "`oauthConnectionId` is required but was not set"
                 },
