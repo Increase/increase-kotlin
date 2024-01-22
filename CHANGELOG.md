@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.25.0 (2024-01-22)
+
+Full Changelog: [v0.24.0...v0.25.0](https://github.com/increase/increase-kotlin/compare/v0.24.0...v0.25.0)
+
+### Features
+
+* **api:** simplify WireDecline and InboundWireTransfer ([#171](https://github.com/increase/increase-kotlin/issues/171)) ([a7ab754](https://github.com/increase/increase-kotlin/commit/a7ab754ff0b7c7d82fcd43ab4bab5e396cb05e18))
+
 ## 0.24.0 (2024-01-19)
 
 Full Changelog: [v0.23.1...v0.24.0](https://github.com/increase/increase-kotlin/compare/v0.23.1...v0.24.0)
