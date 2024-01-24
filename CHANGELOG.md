@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.26.0 (2024-01-24)
+
+Full Changelog: [v0.25.0...v0.26.0](https://github.com/increase/increase-kotlin/compare/v0.25.0...v0.26.0)
+
+### Features
+
+* **api:** list Inbound Wire Transfers, change transfer simulation return types ([#173](https://github.com/increase/increase-kotlin/issues/173)) ([29ca2b3](https://github.com/increase/increase-kotlin/commit/29ca2b37b5c9d57e564992a264d6a5bb7640b1f4))
+
 ## 0.25.0 (2024-01-22)
 
 Full Changelog: [v0.24.0...v0.25.0](https://github.com/increase/increase-kotlin/compare/v0.24.0...v0.25.0)
