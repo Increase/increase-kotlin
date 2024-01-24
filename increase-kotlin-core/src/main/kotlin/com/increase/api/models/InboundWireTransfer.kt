@@ -23,6 +23,9 @@ class InboundWireTransfer
 private constructor(
     private val id: JsonField<String>,
     private val amount: JsonField<Long>,
+    private val accountId: JsonField<String>,
+    private val accountNumberId: JsonField<String>,
+    private val status: JsonField<Status>,
     private val beneficiaryAddressLine1: JsonField<String>,
     private val beneficiaryAddressLine2: JsonField<String>,
     private val beneficiaryAddressLine3: JsonField<String>,
@@ -53,6 +56,15 @@ private constructor(
 
     /** The amount in USD cents. */
     fun amount(): Long = amount.getRequired("amount")
+
+    /** The Account to which the transfer belongs. */
+    fun accountId(): String = accountId.getRequired("account_id")
+
+    /** The identifier of the Account Number to which this transfer was sent. */
+    fun accountNumberId(): String = accountNumberId.getRequired("account_number_id")
+
+    /** The status of the transfer. */
+    fun status(): Status = status.getRequired("status")
 
     /** A free-form address field set by the sender. */
     fun beneficiaryAddressLine1(): String? =
@@ -143,6 +155,15 @@ private constructor(
 
     /** The amount in USD cents. */
     @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
+
+    /** The Account to which the transfer belongs. */
+    @JsonProperty("account_id") @ExcludeMissing fun _accountId() = accountId
+
+    /** The identifier of the Account Number to which this transfer was sent. */
+    @JsonProperty("account_number_id") @ExcludeMissing fun _accountNumberId() = accountNumberId
+
+    /** The status of the transfer. */
+    @JsonProperty("status") @ExcludeMissing fun _status() = status
 
     /** A free-form address field set by the sender. */
     @JsonProperty("beneficiary_address_line1")
@@ -243,6 +264,9 @@ private constructor(
         if (!validated) {
             id()
             amount()
+            accountId()
+            accountNumberId()
+            status()
             beneficiaryAddressLine1()
             beneficiaryAddressLine2()
             beneficiaryAddressLine3()
@@ -275,6 +299,9 @@ private constructor(
         return other is InboundWireTransfer &&
             this.id == other.id &&
             this.amount == other.amount &&
+            this.accountId == other.accountId &&
+            this.accountNumberId == other.accountNumberId &&
+            this.status == other.status &&
             this.beneficiaryAddressLine1 == other.beneficiaryAddressLine1 &&
             this.beneficiaryAddressLine2 == other.beneficiaryAddressLine2 &&
             this.beneficiaryAddressLine3 == other.beneficiaryAddressLine3 &&
@@ -306,6 +333,9 @@ private constructor(
                 Objects.hash(
                     id,
                     amount,
+                    accountId,
+                    accountNumberId,
+                    status,
                     beneficiaryAddressLine1,
                     beneficiaryAddressLine2,
                     beneficiaryAddressLine3,
@@ -331,7 +361,7 @@ private constructor(
     }
 
     override fun toString() =
-        "InboundWireTransfer{id=$id, amount=$amount, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, beneficiaryName=$beneficiaryName, beneficiaryReference=$beneficiaryReference, description=$description, inputMessageAccountabilityData=$inputMessageAccountabilityData, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, originatorRoutingNumber=$originatorRoutingNumber, originatorToBeneficiaryInformationLine1=$originatorToBeneficiaryInformationLine1, originatorToBeneficiaryInformationLine2=$originatorToBeneficiaryInformationLine2, originatorToBeneficiaryInformationLine3=$originatorToBeneficiaryInformationLine3, originatorToBeneficiaryInformationLine4=$originatorToBeneficiaryInformationLine4, originatorToBeneficiaryInformation=$originatorToBeneficiaryInformation, type=$type, additionalProperties=$additionalProperties}"
+        "InboundWireTransfer{id=$id, amount=$amount, accountId=$accountId, accountNumberId=$accountNumberId, status=$status, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, beneficiaryName=$beneficiaryName, beneficiaryReference=$beneficiaryReference, description=$description, inputMessageAccountabilityData=$inputMessageAccountabilityData, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, originatorRoutingNumber=$originatorRoutingNumber, originatorToBeneficiaryInformationLine1=$originatorToBeneficiaryInformationLine1, originatorToBeneficiaryInformationLine2=$originatorToBeneficiaryInformationLine2, originatorToBeneficiaryInformationLine3=$originatorToBeneficiaryInformationLine3, originatorToBeneficiaryInformationLine4=$originatorToBeneficiaryInformationLine4, originatorToBeneficiaryInformation=$originatorToBeneficiaryInformation, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -342,6 +372,9 @@ private constructor(
 
         private var id: JsonField<String> = JsonMissing.of()
         private var amount: JsonField<Long> = JsonMissing.of()
+        private var accountId: JsonField<String> = JsonMissing.of()
+        private var accountNumberId: JsonField<String> = JsonMissing.of()
+        private var status: JsonField<Status> = JsonMissing.of()
         private var beneficiaryAddressLine1: JsonField<String> = JsonMissing.of()
         private var beneficiaryAddressLine2: JsonField<String> = JsonMissing.of()
         private var beneficiaryAddressLine3: JsonField<String> = JsonMissing.of()
@@ -365,6 +398,9 @@ private constructor(
         internal fun from(inboundWireTransfer: InboundWireTransfer) = apply {
             this.id = inboundWireTransfer.id
             this.amount = inboundWireTransfer.amount
+            this.accountId = inboundWireTransfer.accountId
+            this.accountNumberId = inboundWireTransfer.accountNumberId
+            this.status = inboundWireTransfer.status
             this.beneficiaryAddressLine1 = inboundWireTransfer.beneficiaryAddressLine1
             this.beneficiaryAddressLine2 = inboundWireTransfer.beneficiaryAddressLine2
             this.beneficiaryAddressLine3 = inboundWireTransfer.beneficiaryAddressLine3
@@ -404,6 +440,33 @@ private constructor(
         @JsonProperty("amount")
         @ExcludeMissing
         fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
+
+        /** The Account to which the transfer belongs. */
+        fun accountId(accountId: String) = accountId(JsonField.of(accountId))
+
+        /** The Account to which the transfer belongs. */
+        @JsonProperty("account_id")
+        @ExcludeMissing
+        fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
+
+        /** The identifier of the Account Number to which this transfer was sent. */
+        fun accountNumberId(accountNumberId: String) =
+            accountNumberId(JsonField.of(accountNumberId))
+
+        /** The identifier of the Account Number to which this transfer was sent. */
+        @JsonProperty("account_number_id")
+        @ExcludeMissing
+        fun accountNumberId(accountNumberId: JsonField<String>) = apply {
+            this.accountNumberId = accountNumberId
+        }
+
+        /** The status of the transfer. */
+        fun status(status: Status) = status(JsonField.of(status))
+
+        /** The status of the transfer. */
+        @JsonProperty("status")
+        @ExcludeMissing
+        fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /** A free-form address field set by the sender. */
         fun beneficiaryAddressLine1(beneficiaryAddressLine1: String) =
@@ -659,6 +722,9 @@ private constructor(
             InboundWireTransfer(
                 id,
                 amount,
+                accountId,
+                accountNumberId,
+                status,
                 beneficiaryAddressLine1,
                 beneficiaryAddressLine2,
                 beneficiaryAddressLine3,
@@ -679,6 +745,75 @@ private constructor(
                 type,
                 additionalProperties.toUnmodifiable(),
             )
+    }
+
+    class Status
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Status && this.value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            val PENDING = Status(JsonField.of("pending"))
+
+            val ACCEPTED = Status(JsonField.of("accepted"))
+
+            val DECLINED = Status(JsonField.of("declined"))
+
+            val REVERSED = Status(JsonField.of("reversed"))
+
+            fun of(value: String) = Status(JsonField.of(value))
+        }
+
+        enum class Known {
+            PENDING,
+            ACCEPTED,
+            DECLINED,
+            REVERSED,
+        }
+
+        enum class Value {
+            PENDING,
+            ACCEPTED,
+            DECLINED,
+            REVERSED,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                PENDING -> Value.PENDING
+                ACCEPTED -> Value.ACCEPTED
+                DECLINED -> Value.DECLINED
+                REVERSED -> Value.REVERSED
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                PENDING -> Known.PENDING
+                ACCEPTED -> Known.ACCEPTED
+                DECLINED -> Known.DECLINED
+                REVERSED -> Known.REVERSED
+                else -> throw IncreaseInvalidDataException("Unknown Status: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
     }
 
     class Type

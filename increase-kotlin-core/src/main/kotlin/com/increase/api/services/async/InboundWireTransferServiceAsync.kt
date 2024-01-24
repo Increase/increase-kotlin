@@ -6,6 +6,8 @@ package com.increase.api.services.async
 
 import com.increase.api.core.RequestOptions
 import com.increase.api.models.InboundWireTransfer
+import com.increase.api.models.InboundWireTransferListPageAsync
+import com.increase.api.models.InboundWireTransferListParams
 import com.increase.api.models.InboundWireTransferRetrieveParams
 
 interface InboundWireTransferServiceAsync {
@@ -15,4 +17,10 @@ interface InboundWireTransferServiceAsync {
         params: InboundWireTransferRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): InboundWireTransfer
+
+    /** List Inbound Wire Transfers */
+    suspend fun list(
+        params: InboundWireTransferListParams,
+        requestOptions: RequestOptions = RequestOptions.none()
+    ): InboundWireTransferListPageAsync
 }
