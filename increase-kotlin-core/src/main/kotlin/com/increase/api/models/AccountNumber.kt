@@ -36,6 +36,7 @@ private constructor(
     private val status: JsonField<Status>,
     private val inboundAch: JsonField<InboundAch>,
     private val inboundChecks: JsonField<InboundChecks>,
+    private val uniqueIdentifier: JsonField<String>,
     private val type: JsonField<Type>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
@@ -74,6 +75,9 @@ private constructor(
     /** Properties related to how this Account Number should handle inbound check withdrawals. */
     fun inboundChecks(): InboundChecks = inboundChecks.getRequired("inbound_checks")
 
+    /** The unique identifier you chose for this object. */
+    fun uniqueIdentifier(): String? = uniqueIdentifier.getNullable("unique_identifier")
+
     /**
      * A constant representing the object's type. For this resource it will always be
      * `account_number`.
@@ -110,6 +114,9 @@ private constructor(
     /** Properties related to how this Account Number should handle inbound check withdrawals. */
     @JsonProperty("inbound_checks") @ExcludeMissing fun _inboundChecks() = inboundChecks
 
+    /** The unique identifier you chose for this object. */
+    @JsonProperty("unique_identifier") @ExcludeMissing fun _uniqueIdentifier() = uniqueIdentifier
+
     /**
      * A constant representing the object's type. For this resource it will always be
      * `account_number`.
@@ -131,6 +138,7 @@ private constructor(
             status()
             inboundAch().validate()
             inboundChecks().validate()
+            uniqueIdentifier()
             type()
             validated = true
         }
@@ -153,6 +161,7 @@ private constructor(
             this.status == other.status &&
             this.inboundAch == other.inboundAch &&
             this.inboundChecks == other.inboundChecks &&
+            this.uniqueIdentifier == other.uniqueIdentifier &&
             this.type == other.type &&
             this.additionalProperties == other.additionalProperties
     }
@@ -170,6 +179,7 @@ private constructor(
                     status,
                     inboundAch,
                     inboundChecks,
+                    uniqueIdentifier,
                     type,
                     additionalProperties,
                 )
@@ -178,7 +188,7 @@ private constructor(
     }
 
     override fun toString() =
-        "AccountNumber{accountId=$accountId, accountNumber=$accountNumber, id=$id, createdAt=$createdAt, name=$name, routingNumber=$routingNumber, status=$status, inboundAch=$inboundAch, inboundChecks=$inboundChecks, type=$type, additionalProperties=$additionalProperties}"
+        "AccountNumber{accountId=$accountId, accountNumber=$accountNumber, id=$id, createdAt=$createdAt, name=$name, routingNumber=$routingNumber, status=$status, inboundAch=$inboundAch, inboundChecks=$inboundChecks, uniqueIdentifier=$uniqueIdentifier, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -196,6 +206,7 @@ private constructor(
         private var status: JsonField<Status> = JsonMissing.of()
         private var inboundAch: JsonField<InboundAch> = JsonMissing.of()
         private var inboundChecks: JsonField<InboundChecks> = JsonMissing.of()
+        private var uniqueIdentifier: JsonField<String> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -209,6 +220,7 @@ private constructor(
             this.status = accountNumber.status
             this.inboundAch = accountNumber.inboundAch
             this.inboundChecks = accountNumber.inboundChecks
+            this.uniqueIdentifier = accountNumber.uniqueIdentifier
             this.type = accountNumber.type
             additionalProperties(accountNumber.additionalProperties)
         }
@@ -299,6 +311,17 @@ private constructor(
             this.inboundChecks = inboundChecks
         }
 
+        /** The unique identifier you chose for this object. */
+        fun uniqueIdentifier(uniqueIdentifier: String) =
+            uniqueIdentifier(JsonField.of(uniqueIdentifier))
+
+        /** The unique identifier you chose for this object. */
+        @JsonProperty("unique_identifier")
+        @ExcludeMissing
+        fun uniqueIdentifier(uniqueIdentifier: JsonField<String>) = apply {
+            this.uniqueIdentifier = uniqueIdentifier
+        }
+
         /**
          * A constant representing the object's type. For this resource it will always be
          * `account_number`.
@@ -338,6 +361,7 @@ private constructor(
                 status,
                 inboundAch,
                 inboundChecks,
+                uniqueIdentifier,
                 type,
                 additionalProperties.toUnmodifiable(),
             )

@@ -12,6 +12,8 @@ class InboundWireTransferTest {
         val inboundWireTransfer =
             InboundWireTransfer.builder()
                 .id("string")
+                .accountId("string")
+                .accountNumberId("string")
                 .amount(123L)
                 .beneficiaryAddressLine1("string")
                 .beneficiaryAddressLine2("string")
@@ -30,10 +32,13 @@ class InboundWireTransferTest {
                 .originatorToBeneficiaryInformationLine2("string")
                 .originatorToBeneficiaryInformationLine3("string")
                 .originatorToBeneficiaryInformationLine4("string")
+                .status(InboundWireTransfer.Status.PENDING)
                 .type(InboundWireTransfer.Type.INBOUND_WIRE_TRANSFER)
                 .build()
         assertThat(inboundWireTransfer).isNotNull
         assertThat(inboundWireTransfer.id()).isEqualTo("string")
+        assertThat(inboundWireTransfer.accountId()).isEqualTo("string")
+        assertThat(inboundWireTransfer.accountNumberId()).isEqualTo("string")
         assertThat(inboundWireTransfer.amount()).isEqualTo(123L)
         assertThat(inboundWireTransfer.beneficiaryAddressLine1()).isEqualTo("string")
         assertThat(inboundWireTransfer.beneficiaryAddressLine2()).isEqualTo("string")
@@ -56,6 +61,7 @@ class InboundWireTransferTest {
             .isEqualTo("string")
         assertThat(inboundWireTransfer.originatorToBeneficiaryInformationLine4())
             .isEqualTo("string")
+        assertThat(inboundWireTransfer.status()).isEqualTo(InboundWireTransfer.Status.PENDING)
         assertThat(inboundWireTransfer.type())
             .isEqualTo(InboundWireTransfer.Type.INBOUND_WIRE_TRANSFER)
     }
