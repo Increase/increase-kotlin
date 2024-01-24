@@ -348,6 +348,9 @@ constructor(
 
                 val INBOUND_WIRE_TRANSFER = In(JsonField.of("inbound_wire_transfer"))
 
+                val INBOUND_WIRE_TRANSFER_REVERSAL =
+                    In(JsonField.of("inbound_wire_transfer_reversal"))
+
                 val INTEREST_PAYMENT = In(JsonField.of("interest_payment"))
 
                 val INTERNAL_SOURCE = In(JsonField.of("internal_source"))
@@ -390,6 +393,7 @@ constructor(
                 INBOUND_WIRE_DRAWDOWN_PAYMENT,
                 INBOUND_WIRE_REVERSAL,
                 INBOUND_WIRE_TRANSFER,
+                INBOUND_WIRE_TRANSFER_REVERSAL,
                 INTEREST_PAYMENT,
                 INTERNAL_SOURCE,
                 REAL_TIME_PAYMENTS_TRANSFER_ACKNOWLEDGEMENT,
@@ -423,6 +427,7 @@ constructor(
                 INBOUND_WIRE_DRAWDOWN_PAYMENT,
                 INBOUND_WIRE_REVERSAL,
                 INBOUND_WIRE_TRANSFER,
+                INBOUND_WIRE_TRANSFER_REVERSAL,
                 INTEREST_PAYMENT,
                 INTERNAL_SOURCE,
                 REAL_TIME_PAYMENTS_TRANSFER_ACKNOWLEDGEMENT,
@@ -461,6 +466,7 @@ constructor(
                     INBOUND_WIRE_DRAWDOWN_PAYMENT -> Value.INBOUND_WIRE_DRAWDOWN_PAYMENT
                     INBOUND_WIRE_REVERSAL -> Value.INBOUND_WIRE_REVERSAL
                     INBOUND_WIRE_TRANSFER -> Value.INBOUND_WIRE_TRANSFER
+                    INBOUND_WIRE_TRANSFER_REVERSAL -> Value.INBOUND_WIRE_TRANSFER_REVERSAL
                     INTEREST_PAYMENT -> Value.INTEREST_PAYMENT
                     INTERNAL_SOURCE -> Value.INTERNAL_SOURCE
                     REAL_TIME_PAYMENTS_TRANSFER_ACKNOWLEDGEMENT ->
@@ -500,6 +506,7 @@ constructor(
                     INBOUND_WIRE_DRAWDOWN_PAYMENT -> Known.INBOUND_WIRE_DRAWDOWN_PAYMENT
                     INBOUND_WIRE_REVERSAL -> Known.INBOUND_WIRE_REVERSAL
                     INBOUND_WIRE_TRANSFER -> Known.INBOUND_WIRE_TRANSFER
+                    INBOUND_WIRE_TRANSFER_REVERSAL -> Known.INBOUND_WIRE_TRANSFER_REVERSAL
                     INTEREST_PAYMENT -> Known.INTEREST_PAYMENT
                     INTERNAL_SOURCE -> Known.INTERNAL_SOURCE
                     REAL_TIME_PAYMENTS_TRANSFER_ACKNOWLEDGEMENT ->

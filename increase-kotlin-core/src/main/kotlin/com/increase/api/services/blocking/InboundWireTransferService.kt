@@ -6,6 +6,8 @@ package com.increase.api.services.blocking
 
 import com.increase.api.core.RequestOptions
 import com.increase.api.models.InboundWireTransfer
+import com.increase.api.models.InboundWireTransferListPage
+import com.increase.api.models.InboundWireTransferListParams
 import com.increase.api.models.InboundWireTransferRetrieveParams
 
 interface InboundWireTransferService {
@@ -15,4 +17,10 @@ interface InboundWireTransferService {
         params: InboundWireTransferRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): InboundWireTransfer
+
+    /** List Inbound Wire Transfers */
+    fun list(
+        params: InboundWireTransferListParams,
+        requestOptions: RequestOptions = RequestOptions.none()
+    ): InboundWireTransferListPage
 }
