@@ -192,7 +192,7 @@ private constructor(
     fun standardEntryClassCode(): StandardEntryClassCode =
         standardEntryClassCode.getRequired("standard_entry_class_code")
 
-    /** The unique identifier you chose for this transfer. */
+    /** The unique identifier you chose for this object. */
     fun uniqueIdentifier(): String? = uniqueIdentifier.getNullable("unique_identifier")
 
     /**
@@ -340,7 +340,7 @@ private constructor(
     @ExcludeMissing
     fun _standardEntryClassCode() = standardEntryClassCode
 
-    /** The unique identifier you chose for this transfer. */
+    /** The unique identifier you chose for this object. */
     @JsonProperty("unique_identifier") @ExcludeMissing fun _uniqueIdentifier() = uniqueIdentifier
 
     /**
@@ -900,11 +900,11 @@ private constructor(
                 this.standardEntryClassCode = standardEntryClassCode
             }
 
-        /** The unique identifier you chose for this transfer. */
+        /** The unique identifier you chose for this object. */
         fun uniqueIdentifier(uniqueIdentifier: String) =
             uniqueIdentifier(JsonField.of(uniqueIdentifier))
 
-        /** The unique identifier you chose for this transfer. */
+        /** The unique identifier you chose for this object. */
         @JsonProperty("unique_identifier")
         @ExcludeMissing
         fun uniqueIdentifier(uniqueIdentifier: JsonField<String>) = apply {
