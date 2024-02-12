@@ -39,7 +39,7 @@ implementation("com.increase.api:increase-kotlin:0.27.0")
 Use `IncreaseOkHttpClient.builder()` to configure the client. At a minimum you need to set `.apiKey()`:
 
 ```kotlin
-import com.increase.api.client.IncreaseOkHttpClient
+import com.increase.api.client.IncreaseClient
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
 
 val client = IncreaseOkHttpClient.builder()
