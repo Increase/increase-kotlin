@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.27.1 (2024-02-13)
+
+Full Changelog: [v0.27.0...v0.27.1](https://github.com/Increase/increase-kotlin/compare/v0.27.0...v0.27.1)
+
+### Bug Fixes
+
+* **docs:** wrong client import in readme usage example ([#180](https://github.com/Increase/increase-kotlin/issues/180)) ([37f1a62](https://github.com/Increase/increase-kotlin/commit/37f1a626bfdb8affcc1312cfa57b1c5c38e16355))
+
+
+### Chores
+
+* **interal:** make link to api.md relative ([#179](https://github.com/Increase/increase-kotlin/issues/179)) ([c53ff0f](https://github.com/Increase/increase-kotlin/commit/c53ff0f771046fda9f514e5c177884722844f557))
+* **internal:** support pre-release versioning ([#177](https://github.com/Increase/increase-kotlin/issues/177)) ([a235da3](https://github.com/Increase/increase-kotlin/commit/a235da3a9b64740b358eb9b60da214c603666a15))
+
 ## 0.27.0 (2024-01-26)
 
 Full Changelog: [v0.26.0...v0.27.0](https://github.com/increase/increase-kotlin/compare/v0.26.0...v0.27.0)
