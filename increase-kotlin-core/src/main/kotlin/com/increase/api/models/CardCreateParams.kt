@@ -514,7 +514,6 @@ constructor(
     private constructor(
         private val email: String?,
         private val phone: String?,
-        private val cardProfileId: String?,
         private val digitalCardProfileId: String?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
@@ -531,9 +530,6 @@ constructor(
          * A phone number that can be used to verify the cardholder via one-time passcode over SMS.
          */
         @JsonProperty("phone") fun phone(): String? = phone
-
-        /** The card profile assigned to this digital card. */
-        @JsonProperty("card_profile_id") fun cardProfileId(): String? = cardProfileId
 
         /** The digital card profile assigned to this digital card. */
         @JsonProperty("digital_card_profile_id")
@@ -553,7 +549,6 @@ constructor(
             return other is DigitalWallet &&
                 this.email == other.email &&
                 this.phone == other.phone &&
-                this.cardProfileId == other.cardProfileId &&
                 this.digitalCardProfileId == other.digitalCardProfileId &&
                 this.additionalProperties == other.additionalProperties
         }
@@ -564,7 +559,6 @@ constructor(
                     Objects.hash(
                         email,
                         phone,
-                        cardProfileId,
                         digitalCardProfileId,
                         additionalProperties,
                     )
@@ -573,7 +567,7 @@ constructor(
         }
 
         override fun toString() =
-            "DigitalWallet{email=$email, phone=$phone, cardProfileId=$cardProfileId, digitalCardProfileId=$digitalCardProfileId, additionalProperties=$additionalProperties}"
+            "DigitalWallet{email=$email, phone=$phone, digitalCardProfileId=$digitalCardProfileId, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -584,14 +578,12 @@ constructor(
 
             private var email: String? = null
             private var phone: String? = null
-            private var cardProfileId: String? = null
             private var digitalCardProfileId: String? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(digitalWallet: DigitalWallet) = apply {
                 this.email = digitalWallet.email
                 this.phone = digitalWallet.phone
-                this.cardProfileId = digitalWallet.cardProfileId
                 this.digitalCardProfileId = digitalWallet.digitalCardProfileId
                 additionalProperties(digitalWallet.additionalProperties)
             }
@@ -607,10 +599,6 @@ constructor(
              * SMS.
              */
             @JsonProperty("phone") fun phone(phone: String) = apply { this.phone = phone }
-
-            /** The card profile assigned to this digital card. */
-            @JsonProperty("card_profile_id")
-            fun cardProfileId(cardProfileId: String) = apply { this.cardProfileId = cardProfileId }
 
             /** The digital card profile assigned to this digital card. */
             @JsonProperty("digital_card_profile_id")
@@ -636,7 +624,6 @@ constructor(
                 DigitalWallet(
                     email,
                     phone,
-                    cardProfileId,
                     digitalCardProfileId,
                     additionalProperties.toUnmodifiable(),
                 )

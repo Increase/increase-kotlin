@@ -4,11 +4,16 @@
 
 package com.increase.api.services.async
 
+import com.increase.api.core.RequestOptions
+import com.increase.api.models.CardPayment
+import com.increase.api.models.SimulationCardAuthorizationExpirationsParams
+import com.increase.api.models.SimulationCardFuelConfirmationsParams
+import com.increase.api.models.SimulationCardIncrementsParams
+import com.increase.api.models.SimulationCardReversalsParams
 import com.increase.api.services.async.simulations.AccountStatementServiceAsync
 import com.increase.api.services.async.simulations.AccountTransferServiceAsync
 import com.increase.api.services.async.simulations.AchTransferServiceAsync
 import com.increase.api.services.async.simulations.CardDisputeServiceAsync
-import com.increase.api.services.async.simulations.CardProfileServiceAsync
 import com.increase.api.services.async.simulations.CardRefundServiceAsync
 import com.increase.api.services.async.simulations.CardServiceAsync
 import com.increase.api.services.async.simulations.CheckDepositServiceAsync
@@ -32,8 +37,6 @@ interface SimulationServiceAsync {
     fun achTransfers(): AchTransferServiceAsync
 
     fun cardDisputes(): CardDisputeServiceAsync
-
-    fun cardProfiles(): CardProfileServiceAsync
 
     fun cardRefunds(): CardRefundServiceAsync
 
@@ -60,4 +63,39 @@ interface SimulationServiceAsync {
     fun realTimePaymentsTransfers(): RealTimePaymentsTransferServiceAsync
 
     fun physicalCards(): PhysicalCardServiceAsync
+
+    /** Simulates expiring a card authorization immediately. */
+    suspend fun cardAuthorizationExpirations(
+        params: SimulationCardAuthorizationExpirationsParams,
+        requestOptions: RequestOptions = RequestOptions.none()
+    ): CardPayment
+
+    /**
+     * Simulates the fuel confirmation of an authorization by a card acquirer. This happens
+     * asynchronously right after a fuel pump transaction is completed. A fuel confirmation can only
+     * happen once per authorization.
+     */
+    suspend fun cardFuelConfirmations(
+        params: SimulationCardFuelConfirmationsParams,
+        requestOptions: RequestOptions = RequestOptions.none()
+    ): CardPayment
+
+    /**
+     * Simulates the increment of an authorization by a card acquirer. An authorization can be
+     * incremented multiple times.
+     */
+    suspend fun cardIncrements(
+        params: SimulationCardIncrementsParams,
+        requestOptions: RequestOptions = RequestOptions.none()
+    ): CardPayment
+
+    /**
+     * Simulates the reversal of an authorization by a card acquirer. An authorization can be
+     * partially reversed multiple times, up until the total authorized amount. Marks the pending
+     * transaction as complete if the authorization is fully reversed.
+     */
+    suspend fun cardReversals(
+        params: SimulationCardReversalsParams,
+        requestOptions: RequestOptions = RequestOptions.none()
+    ): CardPayment
 }

@@ -47,7 +47,7 @@ private constructor(
     private val pendingTransactionId: JsonField<String>,
     private val submission: JsonField<Submission>,
     private val rejection: JsonField<Rejection>,
-    private val uniqueIdentifier: JsonField<String>,
+    private val idempotencyKey: JsonField<String>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
@@ -153,8 +153,12 @@ private constructor(
      */
     fun rejection(): Rejection? = rejection.getNullable("rejection")
 
-    /** The unique identifier you chose for this object. */
-    fun uniqueIdentifier(): String? = uniqueIdentifier.getNullable("unique_identifier")
+    /**
+     * The idempotency key you chose for this object. This value is unique across Increase and is
+     * used to ensure that a request is only processed once. Learn more about
+     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     */
+    fun idempotencyKey(): String? = idempotencyKey.getNullable("idempotency_key")
 
     /**
      * A constant representing the object's type. For this resource it will always be
@@ -266,8 +270,12 @@ private constructor(
      */
     @JsonProperty("rejection") @ExcludeMissing fun _rejection() = rejection
 
-    /** The unique identifier you chose for this object. */
-    @JsonProperty("unique_identifier") @ExcludeMissing fun _uniqueIdentifier() = uniqueIdentifier
+    /**
+     * The idempotency key you chose for this object. This value is unique across Increase and is
+     * used to ensure that a request is only processed once. Learn more about
+     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     */
+    @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -297,7 +305,7 @@ private constructor(
             pendingTransactionId()
             submission()?.validate()
             rejection()?.validate()
-            uniqueIdentifier()
+            idempotencyKey()
             validated = true
         }
     }
@@ -332,7 +340,7 @@ private constructor(
             this.pendingTransactionId == other.pendingTransactionId &&
             this.submission == other.submission &&
             this.rejection == other.rejection &&
-            this.uniqueIdentifier == other.uniqueIdentifier &&
+            this.idempotencyKey == other.idempotencyKey &&
             this.additionalProperties == other.additionalProperties
     }
 
@@ -362,7 +370,7 @@ private constructor(
                     pendingTransactionId,
                     submission,
                     rejection,
-                    uniqueIdentifier,
+                    idempotencyKey,
                     additionalProperties,
                 )
         }
@@ -370,7 +378,7 @@ private constructor(
     }
 
     override fun toString() =
-        "RealTimePaymentsTransfer{type=$type, id=$id, approval=$approval, cancellation=$cancellation, status=$status, createdAt=$createdAt, accountId=$accountId, externalAccountId=$externalAccountId, sourceAccountNumberId=$sourceAccountNumberId, ultimateCreditorName=$ultimateCreditorName, ultimateDebtorName=$ultimateDebtorName, debtorName=$debtorName, creditorName=$creditorName, remittanceInformation=$remittanceInformation, amount=$amount, currency=$currency, destinationAccountNumber=$destinationAccountNumber, destinationRoutingNumber=$destinationRoutingNumber, transactionId=$transactionId, pendingTransactionId=$pendingTransactionId, submission=$submission, rejection=$rejection, uniqueIdentifier=$uniqueIdentifier, additionalProperties=$additionalProperties}"
+        "RealTimePaymentsTransfer{type=$type, id=$id, approval=$approval, cancellation=$cancellation, status=$status, createdAt=$createdAt, accountId=$accountId, externalAccountId=$externalAccountId, sourceAccountNumberId=$sourceAccountNumberId, ultimateCreditorName=$ultimateCreditorName, ultimateDebtorName=$ultimateDebtorName, debtorName=$debtorName, creditorName=$creditorName, remittanceInformation=$remittanceInformation, amount=$amount, currency=$currency, destinationAccountNumber=$destinationAccountNumber, destinationRoutingNumber=$destinationRoutingNumber, transactionId=$transactionId, pendingTransactionId=$pendingTransactionId, submission=$submission, rejection=$rejection, idempotencyKey=$idempotencyKey, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -401,7 +409,7 @@ private constructor(
         private var pendingTransactionId: JsonField<String> = JsonMissing.of()
         private var submission: JsonField<Submission> = JsonMissing.of()
         private var rejection: JsonField<Rejection> = JsonMissing.of()
-        private var uniqueIdentifier: JsonField<String> = JsonMissing.of()
+        private var idempotencyKey: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(realTimePaymentsTransfer: RealTimePaymentsTransfer) = apply {
@@ -427,7 +435,7 @@ private constructor(
             this.pendingTransactionId = realTimePaymentsTransfer.pendingTransactionId
             this.submission = realTimePaymentsTransfer.submission
             this.rejection = realTimePaymentsTransfer.rejection
-            this.uniqueIdentifier = realTimePaymentsTransfer.uniqueIdentifier
+            this.idempotencyKey = realTimePaymentsTransfer.idempotencyKey
             additionalProperties(realTimePaymentsTransfer.additionalProperties)
         }
 
@@ -693,15 +701,22 @@ private constructor(
         @ExcludeMissing
         fun rejection(rejection: JsonField<Rejection>) = apply { this.rejection = rejection }
 
-        /** The unique identifier you chose for this object. */
-        fun uniqueIdentifier(uniqueIdentifier: String) =
-            uniqueIdentifier(JsonField.of(uniqueIdentifier))
+        /**
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        fun idempotencyKey(idempotencyKey: String) = idempotencyKey(JsonField.of(idempotencyKey))
 
-        /** The unique identifier you chose for this object. */
-        @JsonProperty("unique_identifier")
+        /**
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        @JsonProperty("idempotency_key")
         @ExcludeMissing
-        fun uniqueIdentifier(uniqueIdentifier: JsonField<String>) = apply {
-            this.uniqueIdentifier = uniqueIdentifier
+        fun idempotencyKey(idempotencyKey: JsonField<String>) = apply {
+            this.idempotencyKey = idempotencyKey
         }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -742,7 +757,7 @@ private constructor(
                 pendingTransactionId,
                 submission,
                 rejection,
-                uniqueIdentifier,
+                idempotencyKey,
                 additionalProperties.toUnmodifiable(),
             )
     }
