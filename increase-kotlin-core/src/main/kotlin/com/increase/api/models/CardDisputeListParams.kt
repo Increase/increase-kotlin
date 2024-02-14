@@ -17,6 +17,7 @@ class CardDisputeListParams
 constructor(
     private val createdAt: CreatedAt?,
     private val cursor: String?,
+    private val idempotencyKey: String?,
     private val limit: Long?,
     private val status: Status?,
     private val additionalQueryParams: Map<String, List<String>>,
@@ -27,6 +28,8 @@ constructor(
 
     fun cursor(): String? = cursor
 
+    fun idempotencyKey(): String? = idempotencyKey
+
     fun limit(): Long? = limit
 
     fun status(): Status? = status
@@ -35,6 +38,7 @@ constructor(
         val params = mutableMapOf<String, List<String>>()
         this.createdAt?.forEachQueryParam { key, values -> params.put("created_at.$key", values) }
         this.cursor?.let { params.put("cursor", listOf(it.toString())) }
+        this.idempotencyKey?.let { params.put("idempotency_key", listOf(it.toString())) }
         this.limit?.let { params.put("limit", listOf(it.toString())) }
         this.status?.forEachQueryParam { key, values -> params.put("status.$key", values) }
         params.putAll(additionalQueryParams)
@@ -55,6 +59,7 @@ constructor(
         return other is CardDisputeListParams &&
             this.createdAt == other.createdAt &&
             this.cursor == other.cursor &&
+            this.idempotencyKey == other.idempotencyKey &&
             this.limit == other.limit &&
             this.status == other.status &&
             this.additionalQueryParams == other.additionalQueryParams &&
@@ -65,6 +70,7 @@ constructor(
         return Objects.hash(
             createdAt,
             cursor,
+            idempotencyKey,
             limit,
             status,
             additionalQueryParams,
@@ -73,7 +79,7 @@ constructor(
     }
 
     override fun toString() =
-        "CardDisputeListParams{createdAt=$createdAt, cursor=$cursor, limit=$limit, status=$status, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+        "CardDisputeListParams{createdAt=$createdAt, cursor=$cursor, idempotencyKey=$idempotencyKey, limit=$limit, status=$status, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -87,6 +93,7 @@ constructor(
 
         private var createdAt: CreatedAt? = null
         private var cursor: String? = null
+        private var idempotencyKey: String? = null
         private var limit: Long? = null
         private var status: Status? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
@@ -95,6 +102,7 @@ constructor(
         internal fun from(cardDisputeListParams: CardDisputeListParams) = apply {
             this.createdAt = cardDisputeListParams.createdAt
             this.cursor = cardDisputeListParams.cursor
+            this.idempotencyKey = cardDisputeListParams.idempotencyKey
             this.limit = cardDisputeListParams.limit
             this.status = cardDisputeListParams.status
             additionalQueryParams(cardDisputeListParams.additionalQueryParams)
@@ -105,6 +113,14 @@ constructor(
 
         /** Return the page of entries after this one. */
         fun cursor(cursor: String) = apply { this.cursor = cursor }
+
+        /**
+         * Filter records to the one with the specified `idempotency_key` you chose for that object.
+         * This value is unique across Increase and is used to ensure that a request is only
+         * processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        fun idempotencyKey(idempotencyKey: String) = apply { this.idempotencyKey = idempotencyKey }
 
         /**
          * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
@@ -157,6 +173,7 @@ constructor(
             CardDisputeListParams(
                 createdAt,
                 cursor,
+                idempotencyKey,
                 limit,
                 status,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),

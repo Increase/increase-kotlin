@@ -31,6 +31,7 @@ private constructor(
     private val createdAt: JsonField<OffsetDateTime>,
     private val updatedAt: JsonField<OffsetDateTime>,
     private val id: JsonField<String>,
+    private val billingAccountId: JsonField<String>,
     private val type: JsonField<Type>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
@@ -56,6 +57,9 @@ private constructor(
     /** The Program identifier. */
     fun id(): String = id.getRequired("id")
 
+    /** The Program billing account. */
+    fun billingAccountId(): String? = billingAccountId.getNullable("billing_account_id")
+
     /** A constant representing the object's type. For this resource it will always be `program`. */
     fun type(): Type = type.getRequired("type")
 
@@ -76,6 +80,9 @@ private constructor(
     /** The Program identifier. */
     @JsonProperty("id") @ExcludeMissing fun _id() = id
 
+    /** The Program billing account. */
+    @JsonProperty("billing_account_id") @ExcludeMissing fun _billingAccountId() = billingAccountId
+
     /** A constant representing the object's type. For this resource it will always be `program`. */
     @JsonProperty("type") @ExcludeMissing fun _type() = type
 
@@ -89,6 +96,7 @@ private constructor(
             createdAt()
             updatedAt()
             id()
+            billingAccountId()
             type()
             validated = true
         }
@@ -106,6 +114,7 @@ private constructor(
             this.createdAt == other.createdAt &&
             this.updatedAt == other.updatedAt &&
             this.id == other.id &&
+            this.billingAccountId == other.billingAccountId &&
             this.type == other.type &&
             this.additionalProperties == other.additionalProperties
     }
@@ -118,6 +127,7 @@ private constructor(
                     createdAt,
                     updatedAt,
                     id,
+                    billingAccountId,
                     type,
                     additionalProperties,
                 )
@@ -126,7 +136,7 @@ private constructor(
     }
 
     override fun toString() =
-        "Program{name=$name, createdAt=$createdAt, updatedAt=$updatedAt, id=$id, type=$type, additionalProperties=$additionalProperties}"
+        "Program{name=$name, createdAt=$createdAt, updatedAt=$updatedAt, id=$id, billingAccountId=$billingAccountId, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -139,6 +149,7 @@ private constructor(
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var id: JsonField<String> = JsonMissing.of()
+        private var billingAccountId: JsonField<String> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -147,6 +158,7 @@ private constructor(
             this.createdAt = program.createdAt
             this.updatedAt = program.updatedAt
             this.id = program.id
+            this.billingAccountId = program.billingAccountId
             this.type = program.type
             additionalProperties(program.additionalProperties)
         }
@@ -193,6 +205,17 @@ private constructor(
         /** The Program identifier. */
         @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
 
+        /** The Program billing account. */
+        fun billingAccountId(billingAccountId: String) =
+            billingAccountId(JsonField.of(billingAccountId))
+
+        /** The Program billing account. */
+        @JsonProperty("billing_account_id")
+        @ExcludeMissing
+        fun billingAccountId(billingAccountId: JsonField<String>) = apply {
+            this.billingAccountId = billingAccountId
+        }
+
         /**
          * A constant representing the object's type. For this resource it will always be `program`.
          */
@@ -225,6 +248,7 @@ private constructor(
                 createdAt,
                 updatedAt,
                 id,
+                billingAccountId,
                 type,
                 additionalProperties.toUnmodifiable(),
             )

@@ -21,6 +21,7 @@ class RealTimePaymentsRequestForPaymentTest {
                 .destinationAccountNumberId("string")
                 .expiresAt(LocalDate.parse("2019-12-27"))
                 .fulfillmentTransactionId("string")
+                .idempotencyKey("string")
                 .refusal(
                     RealTimePaymentsRequestForPayment.Refusal.builder()
                         .refusalReasonCode(
@@ -61,6 +62,7 @@ class RealTimePaymentsRequestForPaymentTest {
         assertThat(realTimePaymentsRequestForPayment.expiresAt())
             .isEqualTo(LocalDate.parse("2019-12-27"))
         assertThat(realTimePaymentsRequestForPayment.fulfillmentTransactionId()).isEqualTo("string")
+        assertThat(realTimePaymentsRequestForPayment.idempotencyKey()).isEqualTo("string")
         assertThat(realTimePaymentsRequestForPayment.refusal())
             .isEqualTo(
                 RealTimePaymentsRequestForPayment.Refusal.builder()

@@ -4179,6 +4179,10 @@ private constructor(
 
                     val NO_ACCOUNT_NUMBER_FOUND = Reason(JsonField.of("no_account_number_found"))
 
+                    val REFER_TO_IMAGE = Reason(JsonField.of("refer_to_image"))
+
+                    val UNABLE_TO_PROCESS = Reason(JsonField.of("unable_to_process"))
+
                     fun of(value: String) = Reason(JsonField.of(value))
                 }
 
@@ -4195,6 +4199,8 @@ private constructor(
                     AMOUNT_MISMATCH,
                     NOT_OUR_ITEM,
                     NO_ACCOUNT_NUMBER_FOUND,
+                    REFER_TO_IMAGE,
+                    UNABLE_TO_PROCESS,
                 }
 
                 enum class Value {
@@ -4210,6 +4216,8 @@ private constructor(
                     AMOUNT_MISMATCH,
                     NOT_OUR_ITEM,
                     NO_ACCOUNT_NUMBER_FOUND,
+                    REFER_TO_IMAGE,
+                    UNABLE_TO_PROCESS,
                     _UNKNOWN,
                 }
 
@@ -4227,6 +4235,8 @@ private constructor(
                         AMOUNT_MISMATCH -> Value.AMOUNT_MISMATCH
                         NOT_OUR_ITEM -> Value.NOT_OUR_ITEM
                         NO_ACCOUNT_NUMBER_FOUND -> Value.NO_ACCOUNT_NUMBER_FOUND
+                        REFER_TO_IMAGE -> Value.REFER_TO_IMAGE
+                        UNABLE_TO_PROCESS -> Value.UNABLE_TO_PROCESS
                         else -> Value._UNKNOWN
                     }
 
@@ -4244,6 +4254,8 @@ private constructor(
                         AMOUNT_MISMATCH -> Known.AMOUNT_MISMATCH
                         NOT_OUR_ITEM -> Known.NOT_OUR_ITEM
                         NO_ACCOUNT_NUMBER_FOUND -> Known.NO_ACCOUNT_NUMBER_FOUND
+                        REFER_TO_IMAGE -> Known.REFER_TO_IMAGE
+                        UNABLE_TO_PROCESS -> Known.UNABLE_TO_PROCESS
                         else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
                     }
 

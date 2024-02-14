@@ -31,6 +31,7 @@ private constructor(
     private val entityId: JsonField<String>,
     private val name: JsonField<String>,
     private val type: JsonField<Type>,
+    private val idempotencyKey: JsonField<String>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
@@ -60,6 +61,13 @@ private constructor(
      */
     fun type(): Type = type.getRequired("type")
 
+    /**
+     * The idempotency key you chose for this object. This value is unique across Increase and is
+     * used to ensure that a request is only processed once. Learn more about
+     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     */
+    fun idempotencyKey(): String? = idempotencyKey.getNullable("idempotency_key")
+
     /** The account identifier. */
     @JsonProperty("id") @ExcludeMissing fun _id() = id
 
@@ -83,6 +91,13 @@ private constructor(
      */
     @JsonProperty("type") @ExcludeMissing fun _type() = type
 
+    /**
+     * The idempotency key you chose for this object. This value is unique across Increase and is
+     * used to ensure that a request is only processed once. Learn more about
+     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     */
+    @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
+
     @JsonAnyGetter
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -95,6 +110,7 @@ private constructor(
             entityId()
             name()
             type()
+            idempotencyKey()
             validated = true
         }
     }
@@ -113,6 +129,7 @@ private constructor(
             this.entityId == other.entityId &&
             this.name == other.name &&
             this.type == other.type &&
+            this.idempotencyKey == other.idempotencyKey &&
             this.additionalProperties == other.additionalProperties
     }
 
@@ -126,6 +143,7 @@ private constructor(
                     entityId,
                     name,
                     type,
+                    idempotencyKey,
                     additionalProperties,
                 )
         }
@@ -133,7 +151,7 @@ private constructor(
     }
 
     override fun toString() =
-        "BookkeepingAccount{id=$id, complianceCategory=$complianceCategory, accountId=$accountId, entityId=$entityId, name=$name, type=$type, additionalProperties=$additionalProperties}"
+        "BookkeepingAccount{id=$id, complianceCategory=$complianceCategory, accountId=$accountId, entityId=$entityId, name=$name, type=$type, idempotencyKey=$idempotencyKey, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -148,6 +166,7 @@ private constructor(
         private var entityId: JsonField<String> = JsonMissing.of()
         private var name: JsonField<String> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
+        private var idempotencyKey: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(bookkeepingAccount: BookkeepingAccount) = apply {
@@ -157,6 +176,7 @@ private constructor(
             this.entityId = bookkeepingAccount.entityId
             this.name = bookkeepingAccount.name
             this.type = bookkeepingAccount.type
+            this.idempotencyKey = bookkeepingAccount.idempotencyKey
             additionalProperties(bookkeepingAccount.additionalProperties)
         }
 
@@ -215,6 +235,24 @@ private constructor(
         @ExcludeMissing
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
+        /**
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        fun idempotencyKey(idempotencyKey: String) = idempotencyKey(JsonField.of(idempotencyKey))
+
+        /**
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        @JsonProperty("idempotency_key")
+        @ExcludeMissing
+        fun idempotencyKey(idempotencyKey: JsonField<String>) = apply {
+            this.idempotencyKey = idempotencyKey
+        }
+
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
             this.additionalProperties.putAll(additionalProperties)
@@ -237,6 +275,7 @@ private constructor(
                 entityId,
                 name,
                 type,
+                idempotencyKey,
                 additionalProperties.toUnmodifiable(),
             )
     }

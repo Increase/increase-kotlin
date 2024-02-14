@@ -10,6 +10,7 @@ import java.util.Objects
 class EventSubscriptionListParams
 constructor(
     private val cursor: String?,
+    private val idempotencyKey: String?,
     private val limit: Long?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
@@ -17,11 +18,14 @@ constructor(
 
     fun cursor(): String? = cursor
 
+    fun idempotencyKey(): String? = idempotencyKey
+
     fun limit(): Long? = limit
 
     internal fun getQueryParams(): Map<String, List<String>> {
         val params = mutableMapOf<String, List<String>>()
         this.cursor?.let { params.put("cursor", listOf(it.toString())) }
+        this.idempotencyKey?.let { params.put("idempotency_key", listOf(it.toString())) }
         this.limit?.let { params.put("limit", listOf(it.toString())) }
         params.putAll(additionalQueryParams)
         return params.toUnmodifiable()
@@ -40,6 +44,7 @@ constructor(
 
         return other is EventSubscriptionListParams &&
             this.cursor == other.cursor &&
+            this.idempotencyKey == other.idempotencyKey &&
             this.limit == other.limit &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders
@@ -48,6 +53,7 @@ constructor(
     override fun hashCode(): Int {
         return Objects.hash(
             cursor,
+            idempotencyKey,
             limit,
             additionalQueryParams,
             additionalHeaders,
@@ -55,7 +61,7 @@ constructor(
     }
 
     override fun toString() =
-        "EventSubscriptionListParams{cursor=$cursor, limit=$limit, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+        "EventSubscriptionListParams{cursor=$cursor, idempotencyKey=$idempotencyKey, limit=$limit, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -68,12 +74,14 @@ constructor(
     class Builder {
 
         private var cursor: String? = null
+        private var idempotencyKey: String? = null
         private var limit: Long? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
 
         internal fun from(eventSubscriptionListParams: EventSubscriptionListParams) = apply {
             this.cursor = eventSubscriptionListParams.cursor
+            this.idempotencyKey = eventSubscriptionListParams.idempotencyKey
             this.limit = eventSubscriptionListParams.limit
             additionalQueryParams(eventSubscriptionListParams.additionalQueryParams)
             additionalHeaders(eventSubscriptionListParams.additionalHeaders)
@@ -81,6 +89,14 @@ constructor(
 
         /** Return the page of entries after this one. */
         fun cursor(cursor: String) = apply { this.cursor = cursor }
+
+        /**
+         * Filter records to the one with the specified `idempotency_key` you chose for that object.
+         * This value is unique across Increase and is used to ensure that a request is only
+         * processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        fun idempotencyKey(idempotencyKey: String) = apply { this.idempotencyKey = idempotencyKey }
 
         /**
          * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
@@ -130,6 +146,7 @@ constructor(
         fun build(): EventSubscriptionListParams =
             EventSubscriptionListParams(
                 cursor,
+                idempotencyKey,
                 limit,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),

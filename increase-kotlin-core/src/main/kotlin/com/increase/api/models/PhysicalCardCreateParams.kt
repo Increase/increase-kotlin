@@ -19,7 +19,6 @@ import java.util.Objects
 class PhysicalCardCreateParams
 constructor(
     private val cardId: String,
-    private val cardProfileId: String,
     private val cardholder: Cardholder,
     private val shipment: Shipment,
     private val physicalCardProfileId: String?,
@@ -30,8 +29,6 @@ constructor(
 
     fun cardId(): String = cardId
 
-    fun cardProfileId(): String = cardProfileId
-
     fun cardholder(): Cardholder = cardholder
 
     fun shipment(): Shipment = shipment
@@ -41,7 +38,6 @@ constructor(
     internal fun getBody(): PhysicalCardCreateBody {
         return PhysicalCardCreateBody(
             cardId,
-            cardProfileId,
             cardholder,
             shipment,
             physicalCardProfileId,
@@ -58,7 +54,6 @@ constructor(
     class PhysicalCardCreateBody
     internal constructor(
         private val cardId: String?,
-        private val cardProfileId: String?,
         private val cardholder: Cardholder?,
         private val shipment: Shipment?,
         private val physicalCardProfileId: String?,
@@ -69,9 +64,6 @@ constructor(
 
         /** The underlying card representing this physical card. */
         @JsonProperty("card_id") fun cardId(): String? = cardId
-
-        /** The card profile to use for this physical card. */
-        @JsonProperty("card_profile_id") fun cardProfileId(): String? = cardProfileId
 
         /** Details about the cardholder, as it will appear on the physical card. */
         @JsonProperty("cardholder") fun cardholder(): Cardholder? = cardholder
@@ -96,7 +88,6 @@ constructor(
 
             return other is PhysicalCardCreateBody &&
                 this.cardId == other.cardId &&
-                this.cardProfileId == other.cardProfileId &&
                 this.cardholder == other.cardholder &&
                 this.shipment == other.shipment &&
                 this.physicalCardProfileId == other.physicalCardProfileId &&
@@ -108,7 +99,6 @@ constructor(
                 hashCode =
                     Objects.hash(
                         cardId,
-                        cardProfileId,
                         cardholder,
                         shipment,
                         physicalCardProfileId,
@@ -119,7 +109,7 @@ constructor(
         }
 
         override fun toString() =
-            "PhysicalCardCreateBody{cardId=$cardId, cardProfileId=$cardProfileId, cardholder=$cardholder, shipment=$shipment, physicalCardProfileId=$physicalCardProfileId, additionalProperties=$additionalProperties}"
+            "PhysicalCardCreateBody{cardId=$cardId, cardholder=$cardholder, shipment=$shipment, physicalCardProfileId=$physicalCardProfileId, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -129,7 +119,6 @@ constructor(
         class Builder {
 
             private var cardId: String? = null
-            private var cardProfileId: String? = null
             private var cardholder: Cardholder? = null
             private var shipment: Shipment? = null
             private var physicalCardProfileId: String? = null
@@ -137,7 +126,6 @@ constructor(
 
             internal fun from(physicalCardCreateBody: PhysicalCardCreateBody) = apply {
                 this.cardId = physicalCardCreateBody.cardId
-                this.cardProfileId = physicalCardCreateBody.cardProfileId
                 this.cardholder = physicalCardCreateBody.cardholder
                 this.shipment = physicalCardCreateBody.shipment
                 this.physicalCardProfileId = physicalCardCreateBody.physicalCardProfileId
@@ -146,10 +134,6 @@ constructor(
 
             /** The underlying card representing this physical card. */
             @JsonProperty("card_id") fun cardId(cardId: String) = apply { this.cardId = cardId }
-
-            /** The card profile to use for this physical card. */
-            @JsonProperty("card_profile_id")
-            fun cardProfileId(cardProfileId: String) = apply { this.cardProfileId = cardProfileId }
 
             /** Details about the cardholder, as it will appear on the physical card. */
             @JsonProperty("cardholder")
@@ -182,7 +166,6 @@ constructor(
             fun build(): PhysicalCardCreateBody =
                 PhysicalCardCreateBody(
                     checkNotNull(cardId) { "`cardId` is required but was not set" },
-                    checkNotNull(cardProfileId) { "`cardProfileId` is required but was not set" },
                     checkNotNull(cardholder) { "`cardholder` is required but was not set" },
                     checkNotNull(shipment) { "`shipment` is required but was not set" },
                     physicalCardProfileId,
@@ -204,7 +187,6 @@ constructor(
 
         return other is PhysicalCardCreateParams &&
             this.cardId == other.cardId &&
-            this.cardProfileId == other.cardProfileId &&
             this.cardholder == other.cardholder &&
             this.shipment == other.shipment &&
             this.physicalCardProfileId == other.physicalCardProfileId &&
@@ -216,7 +198,6 @@ constructor(
     override fun hashCode(): Int {
         return Objects.hash(
             cardId,
-            cardProfileId,
             cardholder,
             shipment,
             physicalCardProfileId,
@@ -227,7 +208,7 @@ constructor(
     }
 
     override fun toString() =
-        "PhysicalCardCreateParams{cardId=$cardId, cardProfileId=$cardProfileId, cardholder=$cardholder, shipment=$shipment, physicalCardProfileId=$physicalCardProfileId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "PhysicalCardCreateParams{cardId=$cardId, cardholder=$cardholder, shipment=$shipment, physicalCardProfileId=$physicalCardProfileId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -240,7 +221,6 @@ constructor(
     class Builder {
 
         private var cardId: String? = null
-        private var cardProfileId: String? = null
         private var cardholder: Cardholder? = null
         private var shipment: Shipment? = null
         private var physicalCardProfileId: String? = null
@@ -250,7 +230,6 @@ constructor(
 
         internal fun from(physicalCardCreateParams: PhysicalCardCreateParams) = apply {
             this.cardId = physicalCardCreateParams.cardId
-            this.cardProfileId = physicalCardCreateParams.cardProfileId
             this.cardholder = physicalCardCreateParams.cardholder
             this.shipment = physicalCardCreateParams.shipment
             this.physicalCardProfileId = physicalCardCreateParams.physicalCardProfileId
@@ -261,9 +240,6 @@ constructor(
 
         /** The underlying card representing this physical card. */
         fun cardId(cardId: String) = apply { this.cardId = cardId }
-
-        /** The card profile to use for this physical card. */
-        fun cardProfileId(cardProfileId: String) = apply { this.cardProfileId = cardProfileId }
 
         /** Details about the cardholder, as it will appear on the physical card. */
         fun cardholder(cardholder: Cardholder) = apply { this.cardholder = cardholder }
@@ -333,7 +309,6 @@ constructor(
         fun build(): PhysicalCardCreateParams =
             PhysicalCardCreateParams(
                 checkNotNull(cardId) { "`cardId` is required but was not set" },
-                checkNotNull(cardProfileId) { "`cardProfileId` is required but was not set" },
                 checkNotNull(cardholder) { "`cardholder` is required but was not set" },
                 checkNotNull(shipment) { "`shipment` is required but was not set" },
                 physicalCardProfileId,
