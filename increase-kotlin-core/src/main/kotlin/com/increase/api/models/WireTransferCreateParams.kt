@@ -30,7 +30,6 @@ constructor(
     private val originatorName: String?,
     private val requireApproval: Boolean?,
     private val routingNumber: String?,
-    private val uniqueIdentifier: String?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
     private val additionalBodyProperties: Map<String, JsonValue>,
@@ -66,8 +65,6 @@ constructor(
 
     fun routingNumber(): String? = routingNumber
 
-    fun uniqueIdentifier(): String? = uniqueIdentifier
-
     internal fun getBody(): WireTransferCreateBody {
         return WireTransferCreateBody(
             accountId,
@@ -85,7 +82,6 @@ constructor(
             originatorName,
             requireApproval,
             routingNumber,
-            uniqueIdentifier,
             additionalBodyProperties,
         )
     }
@@ -113,7 +109,6 @@ constructor(
         private val originatorName: String?,
         private val requireApproval: Boolean?,
         private val routingNumber: String?,
-        private val uniqueIdentifier: String?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -188,13 +183,6 @@ constructor(
          */
         @JsonProperty("routing_number") fun routingNumber(): String? = routingNumber
 
-        /**
-         * A unique identifier you choose for the transfer. Reusing this identifier for another
-         * transfer will result in an error. You can query for the transfer associated with this
-         * identifier using the List endpoint.
-         */
-        @JsonProperty("unique_identifier") fun uniqueIdentifier(): String? = uniqueIdentifier
-
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -222,7 +210,6 @@ constructor(
                 this.originatorName == other.originatorName &&
                 this.requireApproval == other.requireApproval &&
                 this.routingNumber == other.routingNumber &&
-                this.uniqueIdentifier == other.uniqueIdentifier &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -245,7 +232,6 @@ constructor(
                         originatorName,
                         requireApproval,
                         routingNumber,
-                        uniqueIdentifier,
                         additionalProperties,
                     )
             }
@@ -253,7 +239,7 @@ constructor(
         }
 
         override fun toString() =
-            "WireTransferCreateBody{accountId=$accountId, amount=$amount, beneficiaryName=$beneficiaryName, messageToRecipient=$messageToRecipient, accountNumber=$accountNumber, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, externalAccountId=$externalAccountId, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, requireApproval=$requireApproval, routingNumber=$routingNumber, uniqueIdentifier=$uniqueIdentifier, additionalProperties=$additionalProperties}"
+            "WireTransferCreateBody{accountId=$accountId, amount=$amount, beneficiaryName=$beneficiaryName, messageToRecipient=$messageToRecipient, accountNumber=$accountNumber, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, externalAccountId=$externalAccountId, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, requireApproval=$requireApproval, routingNumber=$routingNumber, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -277,7 +263,6 @@ constructor(
             private var originatorName: String? = null
             private var requireApproval: Boolean? = null
             private var routingNumber: String? = null
-            private var uniqueIdentifier: String? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(wireTransferCreateBody: WireTransferCreateBody) = apply {
@@ -296,7 +281,6 @@ constructor(
                 this.originatorName = wireTransferCreateBody.originatorName
                 this.requireApproval = wireTransferCreateBody.requireApproval
                 this.routingNumber = wireTransferCreateBody.routingNumber
-                this.uniqueIdentifier = wireTransferCreateBody.uniqueIdentifier
                 additionalProperties(wireTransferCreateBody.additionalProperties)
             }
 
@@ -399,16 +383,6 @@ constructor(
             @JsonProperty("routing_number")
             fun routingNumber(routingNumber: String) = apply { this.routingNumber = routingNumber }
 
-            /**
-             * A unique identifier you choose for the transfer. Reusing this identifier for another
-             * transfer will result in an error. You can query for the transfer associated with this
-             * identifier using the List endpoint.
-             */
-            @JsonProperty("unique_identifier")
-            fun uniqueIdentifier(uniqueIdentifier: String) = apply {
-                this.uniqueIdentifier = uniqueIdentifier
-            }
-
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 this.additionalProperties.putAll(additionalProperties)
@@ -444,7 +418,6 @@ constructor(
                     originatorName,
                     requireApproval,
                     routingNumber,
-                    uniqueIdentifier,
                     additionalProperties.toUnmodifiable(),
                 )
         }
@@ -477,7 +450,6 @@ constructor(
             this.originatorName == other.originatorName &&
             this.requireApproval == other.requireApproval &&
             this.routingNumber == other.routingNumber &&
-            this.uniqueIdentifier == other.uniqueIdentifier &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders &&
             this.additionalBodyProperties == other.additionalBodyProperties
@@ -500,7 +472,6 @@ constructor(
             originatorName,
             requireApproval,
             routingNumber,
-            uniqueIdentifier,
             additionalQueryParams,
             additionalHeaders,
             additionalBodyProperties,
@@ -508,7 +479,7 @@ constructor(
     }
 
     override fun toString() =
-        "WireTransferCreateParams{accountId=$accountId, amount=$amount, beneficiaryName=$beneficiaryName, messageToRecipient=$messageToRecipient, accountNumber=$accountNumber, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, externalAccountId=$externalAccountId, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, requireApproval=$requireApproval, routingNumber=$routingNumber, uniqueIdentifier=$uniqueIdentifier, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "WireTransferCreateParams{accountId=$accountId, amount=$amount, beneficiaryName=$beneficiaryName, messageToRecipient=$messageToRecipient, accountNumber=$accountNumber, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, externalAccountId=$externalAccountId, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, requireApproval=$requireApproval, routingNumber=$routingNumber, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -535,7 +506,6 @@ constructor(
         private var originatorName: String? = null
         private var requireApproval: Boolean? = null
         private var routingNumber: String? = null
-        private var uniqueIdentifier: String? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -556,7 +526,6 @@ constructor(
             this.originatorName = wireTransferCreateParams.originatorName
             this.requireApproval = wireTransferCreateParams.requireApproval
             this.routingNumber = wireTransferCreateParams.routingNumber
-            this.uniqueIdentifier = wireTransferCreateParams.uniqueIdentifier
             additionalQueryParams(wireTransferCreateParams.additionalQueryParams)
             additionalHeaders(wireTransferCreateParams.additionalHeaders)
             additionalBodyProperties(wireTransferCreateParams.additionalBodyProperties)
@@ -645,15 +614,6 @@ constructor(
          */
         fun routingNumber(routingNumber: String) = apply { this.routingNumber = routingNumber }
 
-        /**
-         * A unique identifier you choose for the transfer. Reusing this identifier for another
-         * transfer will result in an error. You can query for the transfer associated with this
-         * identifier using the List endpoint.
-         */
-        fun uniqueIdentifier(uniqueIdentifier: String) = apply {
-            this.uniqueIdentifier = uniqueIdentifier
-        }
-
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
             putAllQueryParams(additionalQueryParams)
@@ -727,7 +687,6 @@ constructor(
                 originatorName,
                 requireApproval,
                 routingNumber,
-                uniqueIdentifier,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalBodyProperties.toUnmodifiable(),

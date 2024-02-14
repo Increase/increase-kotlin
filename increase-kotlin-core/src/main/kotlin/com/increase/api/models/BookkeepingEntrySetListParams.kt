@@ -10,6 +10,7 @@ import java.util.Objects
 class BookkeepingEntrySetListParams
 constructor(
     private val cursor: String?,
+    private val idempotencyKey: String?,
     private val limit: Long?,
     private val transactionId: String?,
     private val additionalQueryParams: Map<String, List<String>>,
@@ -18,6 +19,8 @@ constructor(
 
     fun cursor(): String? = cursor
 
+    fun idempotencyKey(): String? = idempotencyKey
+
     fun limit(): Long? = limit
 
     fun transactionId(): String? = transactionId
@@ -25,6 +28,7 @@ constructor(
     internal fun getQueryParams(): Map<String, List<String>> {
         val params = mutableMapOf<String, List<String>>()
         this.cursor?.let { params.put("cursor", listOf(it.toString())) }
+        this.idempotencyKey?.let { params.put("idempotency_key", listOf(it.toString())) }
         this.limit?.let { params.put("limit", listOf(it.toString())) }
         this.transactionId?.let { params.put("transaction_id", listOf(it.toString())) }
         params.putAll(additionalQueryParams)
@@ -44,6 +48,7 @@ constructor(
 
         return other is BookkeepingEntrySetListParams &&
             this.cursor == other.cursor &&
+            this.idempotencyKey == other.idempotencyKey &&
             this.limit == other.limit &&
             this.transactionId == other.transactionId &&
             this.additionalQueryParams == other.additionalQueryParams &&
@@ -53,6 +58,7 @@ constructor(
     override fun hashCode(): Int {
         return Objects.hash(
             cursor,
+            idempotencyKey,
             limit,
             transactionId,
             additionalQueryParams,
@@ -61,7 +67,7 @@ constructor(
     }
 
     override fun toString() =
-        "BookkeepingEntrySetListParams{cursor=$cursor, limit=$limit, transactionId=$transactionId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+        "BookkeepingEntrySetListParams{cursor=$cursor, idempotencyKey=$idempotencyKey, limit=$limit, transactionId=$transactionId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -74,6 +80,7 @@ constructor(
     class Builder {
 
         private var cursor: String? = null
+        private var idempotencyKey: String? = null
         private var limit: Long? = null
         private var transactionId: String? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
@@ -81,6 +88,7 @@ constructor(
 
         internal fun from(bookkeepingEntrySetListParams: BookkeepingEntrySetListParams) = apply {
             this.cursor = bookkeepingEntrySetListParams.cursor
+            this.idempotencyKey = bookkeepingEntrySetListParams.idempotencyKey
             this.limit = bookkeepingEntrySetListParams.limit
             this.transactionId = bookkeepingEntrySetListParams.transactionId
             additionalQueryParams(bookkeepingEntrySetListParams.additionalQueryParams)
@@ -89,6 +97,14 @@ constructor(
 
         /** Return the page of entries after this one. */
         fun cursor(cursor: String) = apply { this.cursor = cursor }
+
+        /**
+         * Filter records to the one with the specified `idempotency_key` you chose for that object.
+         * This value is unique across Increase and is used to ensure that a request is only
+         * processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        fun idempotencyKey(idempotencyKey: String) = apply { this.idempotencyKey = idempotencyKey }
 
         /**
          * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
@@ -141,6 +157,7 @@ constructor(
         fun build(): BookkeepingEntrySetListParams =
             BookkeepingEntrySetListParams(
                 cursor,
+                idempotencyKey,
                 limit,
                 transactionId,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),

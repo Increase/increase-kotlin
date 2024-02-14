@@ -21591,6 +21591,8 @@ private constructor(
 
                     val CHECK_ADJUSTMENT = Reason(JsonField.of("check_adjustment"))
 
+                    val COLLECTION_PAYMENT = Reason(JsonField.of("collection_payment"))
+
                     val COLLECTION_RECEIVABLE = Reason(JsonField.of("collection_receivable"))
 
                     val EMPYREAL_ADJUSTMENT = Reason(JsonField.of("empyreal_adjustment"))
@@ -21618,6 +21620,7 @@ private constructor(
                     BANK_MIGRATION,
                     CASHBACK,
                     CHECK_ADJUSTMENT,
+                    COLLECTION_PAYMENT,
                     COLLECTION_RECEIVABLE,
                     EMPYREAL_ADJUSTMENT,
                     ERROR,
@@ -21634,6 +21637,7 @@ private constructor(
                     BANK_MIGRATION,
                     CASHBACK,
                     CHECK_ADJUSTMENT,
+                    COLLECTION_PAYMENT,
                     COLLECTION_RECEIVABLE,
                     EMPYREAL_ADJUSTMENT,
                     ERROR,
@@ -21652,6 +21656,7 @@ private constructor(
                         BANK_MIGRATION -> Value.BANK_MIGRATION
                         CASHBACK -> Value.CASHBACK
                         CHECK_ADJUSTMENT -> Value.CHECK_ADJUSTMENT
+                        COLLECTION_PAYMENT -> Value.COLLECTION_PAYMENT
                         COLLECTION_RECEIVABLE -> Value.COLLECTION_RECEIVABLE
                         EMPYREAL_ADJUSTMENT -> Value.EMPYREAL_ADJUSTMENT
                         ERROR -> Value.ERROR
@@ -21670,6 +21675,7 @@ private constructor(
                         BANK_MIGRATION -> Known.BANK_MIGRATION
                         CASHBACK -> Known.CASHBACK
                         CHECK_ADJUSTMENT -> Known.CHECK_ADJUSTMENT
+                        COLLECTION_PAYMENT -> Known.COLLECTION_PAYMENT
                         COLLECTION_RECEIVABLE -> Known.COLLECTION_RECEIVABLE
                         EMPYREAL_ADJUSTMENT -> Known.EMPYREAL_ADJUSTMENT
                         ERROR -> Known.ERROR

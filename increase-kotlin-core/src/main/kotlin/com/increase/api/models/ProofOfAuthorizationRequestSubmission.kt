@@ -38,6 +38,7 @@ private constructor(
     private val authorizationTerms: JsonField<String>,
     private val proofOfAuthorizationRequestId: JsonField<String>,
     private val status: JsonField<Status>,
+    private val idempotencyKey: JsonField<String>,
     private val type: JsonField<Type>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
@@ -79,6 +80,13 @@ private constructor(
 
     /** Status of the proof of authorization request submission. */
     fun status(): Status = status.getRequired("status")
+
+    /**
+     * The idempotency key you chose for this object. This value is unique across Increase and is
+     * used to ensure that a request is only processed once. Learn more about
+     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     */
+    fun idempotencyKey(): String? = idempotencyKey.getNullable("idempotency_key")
 
     /**
      * A constant representing the object's type. For this resource it will always be
@@ -126,6 +134,13 @@ private constructor(
     @JsonProperty("status") @ExcludeMissing fun _status() = status
 
     /**
+     * The idempotency key you chose for this object. This value is unique across Increase and is
+     * used to ensure that a request is only processed once. Learn more about
+     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     */
+    @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
+
+    /**
      * A constant representing the object's type. For this resource it will always be
      * `proof_of_authorization_request_submission`.
      */
@@ -148,6 +163,7 @@ private constructor(
             authorizationTerms()
             proofOfAuthorizationRequestId()
             status()
+            idempotencyKey()
             type()
             validated = true
         }
@@ -172,6 +188,7 @@ private constructor(
             this.authorizationTerms == other.authorizationTerms &&
             this.proofOfAuthorizationRequestId == other.proofOfAuthorizationRequestId &&
             this.status == other.status &&
+            this.idempotencyKey == other.idempotencyKey &&
             this.type == other.type &&
             this.additionalProperties == other.additionalProperties
     }
@@ -191,6 +208,7 @@ private constructor(
                     authorizationTerms,
                     proofOfAuthorizationRequestId,
                     status,
+                    idempotencyKey,
                     type,
                     additionalProperties,
                 )
@@ -199,7 +217,7 @@ private constructor(
     }
 
     override fun toString() =
-        "ProofOfAuthorizationRequestSubmission{id=$id, createdAt=$createdAt, updatedAt=$updatedAt, authorizerName=$authorizerName, authorizerEmail=$authorizerEmail, authorizerCompany=$authorizerCompany, authorizerIpAddress=$authorizerIpAddress, authorizedAt=$authorizedAt, authorizationTerms=$authorizationTerms, proofOfAuthorizationRequestId=$proofOfAuthorizationRequestId, status=$status, type=$type, additionalProperties=$additionalProperties}"
+        "ProofOfAuthorizationRequestSubmission{id=$id, createdAt=$createdAt, updatedAt=$updatedAt, authorizerName=$authorizerName, authorizerEmail=$authorizerEmail, authorizerCompany=$authorizerCompany, authorizerIpAddress=$authorizerIpAddress, authorizedAt=$authorizedAt, authorizationTerms=$authorizationTerms, proofOfAuthorizationRequestId=$proofOfAuthorizationRequestId, status=$status, idempotencyKey=$idempotencyKey, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -219,6 +237,7 @@ private constructor(
         private var authorizationTerms: JsonField<String> = JsonMissing.of()
         private var proofOfAuthorizationRequestId: JsonField<String> = JsonMissing.of()
         private var status: JsonField<Status> = JsonMissing.of()
+        private var idempotencyKey: JsonField<String> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -237,6 +256,7 @@ private constructor(
             this.proofOfAuthorizationRequestId =
                 proofOfAuthorizationRequestSubmission.proofOfAuthorizationRequestId
             this.status = proofOfAuthorizationRequestSubmission.status
+            this.idempotencyKey = proofOfAuthorizationRequestSubmission.idempotencyKey
             this.type = proofOfAuthorizationRequestSubmission.type
             additionalProperties(proofOfAuthorizationRequestSubmission.additionalProperties)
         }
@@ -348,6 +368,24 @@ private constructor(
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /**
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        fun idempotencyKey(idempotencyKey: String) = idempotencyKey(JsonField.of(idempotencyKey))
+
+        /**
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        @JsonProperty("idempotency_key")
+        @ExcludeMissing
+        fun idempotencyKey(idempotencyKey: JsonField<String>) = apply {
+            this.idempotencyKey = idempotencyKey
+        }
+
+        /**
          * A constant representing the object's type. For this resource it will always be
          * `proof_of_authorization_request_submission`.
          */
@@ -388,6 +426,7 @@ private constructor(
                 authorizationTerms,
                 proofOfAuthorizationRequestId,
                 status,
+                idempotencyKey,
                 type,
                 additionalProperties.toUnmodifiable(),
             )

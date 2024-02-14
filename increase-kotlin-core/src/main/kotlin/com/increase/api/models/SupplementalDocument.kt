@@ -24,6 +24,7 @@ class SupplementalDocument
 private constructor(
     private val fileId: JsonField<String>,
     private val createdAt: JsonField<OffsetDateTime>,
+    private val idempotencyKey: JsonField<String>,
     private val type: JsonField<Type>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
@@ -42,6 +43,13 @@ private constructor(
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
     /**
+     * The idempotency key you chose for this object. This value is unique across Increase and is
+     * used to ensure that a request is only processed once. Learn more about
+     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     */
+    fun idempotencyKey(): String? = idempotencyKey.getNullable("idempotency_key")
+
+    /**
      * A constant representing the object's type. For this resource it will always be
      * `entity_supplemental_document`.
      */
@@ -57,6 +65,13 @@ private constructor(
     @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
 
     /**
+     * The idempotency key you chose for this object. This value is unique across Increase and is
+     * used to ensure that a request is only processed once. Learn more about
+     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     */
+    @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
+
+    /**
      * A constant representing the object's type. For this resource it will always be
      * `entity_supplemental_document`.
      */
@@ -70,6 +85,7 @@ private constructor(
         if (!validated) {
             fileId()
             createdAt()
+            idempotencyKey()
             type()
             validated = true
         }
@@ -85,6 +101,7 @@ private constructor(
         return other is SupplementalDocument &&
             this.fileId == other.fileId &&
             this.createdAt == other.createdAt &&
+            this.idempotencyKey == other.idempotencyKey &&
             this.type == other.type &&
             this.additionalProperties == other.additionalProperties
     }
@@ -95,6 +112,7 @@ private constructor(
                 Objects.hash(
                     fileId,
                     createdAt,
+                    idempotencyKey,
                     type,
                     additionalProperties,
                 )
@@ -103,7 +121,7 @@ private constructor(
     }
 
     override fun toString() =
-        "SupplementalDocument{fileId=$fileId, createdAt=$createdAt, type=$type, additionalProperties=$additionalProperties}"
+        "SupplementalDocument{fileId=$fileId, createdAt=$createdAt, idempotencyKey=$idempotencyKey, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -114,12 +132,14 @@ private constructor(
 
         private var fileId: JsonField<String> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var idempotencyKey: JsonField<String> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(supplementalDocument: SupplementalDocument) = apply {
             this.fileId = supplementalDocument.fileId
             this.createdAt = supplementalDocument.createdAt
+            this.idempotencyKey = supplementalDocument.idempotencyKey
             this.type = supplementalDocument.type
             additionalProperties(supplementalDocument.additionalProperties)
         }
@@ -145,6 +165,24 @@ private constructor(
         @JsonProperty("created_at")
         @ExcludeMissing
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
+
+        /**
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        fun idempotencyKey(idempotencyKey: String) = idempotencyKey(JsonField.of(idempotencyKey))
+
+        /**
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        @JsonProperty("idempotency_key")
+        @ExcludeMissing
+        fun idempotencyKey(idempotencyKey: JsonField<String>) = apply {
+            this.idempotencyKey = idempotencyKey
+        }
 
         /**
          * A constant representing the object's type. For this resource it will always be
@@ -178,6 +216,7 @@ private constructor(
             SupplementalDocument(
                 fileId,
                 createdAt,
+                idempotencyKey,
                 type,
                 additionalProperties.toUnmodifiable(),
             )

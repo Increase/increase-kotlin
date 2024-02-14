@@ -32,7 +32,9 @@ private constructor(
     private val routingNumber: JsonField<String>,
     private val accountNumber: JsonField<String>,
     private val funding: JsonField<Funding>,
+    private val accountHolder: JsonField<AccountHolder>,
     private val verificationStatus: JsonField<VerificationStatus>,
+    private val idempotencyKey: JsonField<String>,
     private val type: JsonField<Type>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
@@ -65,9 +67,19 @@ private constructor(
     /** The type of the account to which the transfer will be sent. */
     fun funding(): Funding = funding.getRequired("funding")
 
+    /** The type of entity that owns the External Account. */
+    fun accountHolder(): AccountHolder = accountHolder.getRequired("account_holder")
+
     /** If you have verified ownership of the External Account. */
     fun verificationStatus(): VerificationStatus =
         verificationStatus.getRequired("verification_status")
+
+    /**
+     * The idempotency key you chose for this object. This value is unique across Increase and is
+     * used to ensure that a request is only processed once. Learn more about
+     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     */
+    fun idempotencyKey(): String? = idempotencyKey.getNullable("idempotency_key")
 
     /**
      * A constant representing the object's type. For this resource it will always be
@@ -99,10 +111,20 @@ private constructor(
     /** The type of the account to which the transfer will be sent. */
     @JsonProperty("funding") @ExcludeMissing fun _funding() = funding
 
+    /** The type of entity that owns the External Account. */
+    @JsonProperty("account_holder") @ExcludeMissing fun _accountHolder() = accountHolder
+
     /** If you have verified ownership of the External Account. */
     @JsonProperty("verification_status")
     @ExcludeMissing
     fun _verificationStatus() = verificationStatus
+
+    /**
+     * The idempotency key you chose for this object. This value is unique across Increase and is
+     * used to ensure that a request is only processed once. Learn more about
+     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     */
+    @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
 
     /**
      * A constant representing the object's type. For this resource it will always be
@@ -123,7 +145,9 @@ private constructor(
             routingNumber()
             accountNumber()
             funding()
+            accountHolder()
             verificationStatus()
+            idempotencyKey()
             type()
             validated = true
         }
@@ -144,7 +168,9 @@ private constructor(
             this.routingNumber == other.routingNumber &&
             this.accountNumber == other.accountNumber &&
             this.funding == other.funding &&
+            this.accountHolder == other.accountHolder &&
             this.verificationStatus == other.verificationStatus &&
+            this.idempotencyKey == other.idempotencyKey &&
             this.type == other.type &&
             this.additionalProperties == other.additionalProperties
     }
@@ -160,7 +186,9 @@ private constructor(
                     routingNumber,
                     accountNumber,
                     funding,
+                    accountHolder,
                     verificationStatus,
+                    idempotencyKey,
                     type,
                     additionalProperties,
                 )
@@ -169,7 +197,7 @@ private constructor(
     }
 
     override fun toString() =
-        "ExternalAccount{id=$id, createdAt=$createdAt, description=$description, status=$status, routingNumber=$routingNumber, accountNumber=$accountNumber, funding=$funding, verificationStatus=$verificationStatus, type=$type, additionalProperties=$additionalProperties}"
+        "ExternalAccount{id=$id, createdAt=$createdAt, description=$description, status=$status, routingNumber=$routingNumber, accountNumber=$accountNumber, funding=$funding, accountHolder=$accountHolder, verificationStatus=$verificationStatus, idempotencyKey=$idempotencyKey, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -185,7 +213,9 @@ private constructor(
         private var routingNumber: JsonField<String> = JsonMissing.of()
         private var accountNumber: JsonField<String> = JsonMissing.of()
         private var funding: JsonField<Funding> = JsonMissing.of()
+        private var accountHolder: JsonField<AccountHolder> = JsonMissing.of()
         private var verificationStatus: JsonField<VerificationStatus> = JsonMissing.of()
+        private var idempotencyKey: JsonField<String> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -197,7 +227,9 @@ private constructor(
             this.routingNumber = externalAccount.routingNumber
             this.accountNumber = externalAccount.accountNumber
             this.funding = externalAccount.funding
+            this.accountHolder = externalAccount.accountHolder
             this.verificationStatus = externalAccount.verificationStatus
+            this.idempotencyKey = externalAccount.idempotencyKey
             this.type = externalAccount.type
             additionalProperties(externalAccount.additionalProperties)
         }
@@ -266,6 +298,16 @@ private constructor(
         @ExcludeMissing
         fun funding(funding: JsonField<Funding>) = apply { this.funding = funding }
 
+        /** The type of entity that owns the External Account. */
+        fun accountHolder(accountHolder: AccountHolder) = accountHolder(JsonField.of(accountHolder))
+
+        /** The type of entity that owns the External Account. */
+        @JsonProperty("account_holder")
+        @ExcludeMissing
+        fun accountHolder(accountHolder: JsonField<AccountHolder>) = apply {
+            this.accountHolder = accountHolder
+        }
+
         /** If you have verified ownership of the External Account. */
         fun verificationStatus(verificationStatus: VerificationStatus) =
             verificationStatus(JsonField.of(verificationStatus))
@@ -275,6 +317,24 @@ private constructor(
         @ExcludeMissing
         fun verificationStatus(verificationStatus: JsonField<VerificationStatus>) = apply {
             this.verificationStatus = verificationStatus
+        }
+
+        /**
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        fun idempotencyKey(idempotencyKey: String) = idempotencyKey(JsonField.of(idempotencyKey))
+
+        /**
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        @JsonProperty("idempotency_key")
+        @ExcludeMissing
+        fun idempotencyKey(idempotencyKey: JsonField<String>) = apply {
+            this.idempotencyKey = idempotencyKey
         }
 
         /**
@@ -314,10 +374,75 @@ private constructor(
                 routingNumber,
                 accountNumber,
                 funding,
+                accountHolder,
                 verificationStatus,
+                idempotencyKey,
                 type,
                 additionalProperties.toUnmodifiable(),
             )
+    }
+
+    class AccountHolder
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is AccountHolder && this.value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            val BUSINESS = AccountHolder(JsonField.of("business"))
+
+            val INDIVIDUAL = AccountHolder(JsonField.of("individual"))
+
+            val UNKNOWN = AccountHolder(JsonField.of("unknown"))
+
+            fun of(value: String) = AccountHolder(JsonField.of(value))
+        }
+
+        enum class Known {
+            BUSINESS,
+            INDIVIDUAL,
+            UNKNOWN,
+        }
+
+        enum class Value {
+            BUSINESS,
+            INDIVIDUAL,
+            UNKNOWN,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                BUSINESS -> Value.BUSINESS
+                INDIVIDUAL -> Value.INDIVIDUAL
+                UNKNOWN -> Value.UNKNOWN
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                BUSINESS -> Known.BUSINESS
+                INDIVIDUAL -> Known.INDIVIDUAL
+                UNKNOWN -> Known.UNKNOWN
+                else -> throw IncreaseInvalidDataException("Unknown AccountHolder: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
     }
 
     class Funding
