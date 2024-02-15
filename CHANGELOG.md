@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.28.0 (2024-02-15)
+
+Full Changelog: [v0.27.1...v0.28.0](https://github.com/Increase/increase-kotlin/compare/v0.27.1...v0.28.0)
+
+### ⚠ BREAKING CHANGES
+
+* **api:** split card profile resource into digital and physical card profile resources ([#183](https://github.com/Increase/increase-kotlin/issues/183))
+
+### Features
+
+* **api:** split card profile resource into digital and physical card profile resources ([#183](https://github.com/Increase/increase-kotlin/issues/183)) ([aab1b0e](https://github.com/Increase/increase-kotlin/commit/aab1b0eb313745119fe92db3a78978135c1b7dff))
+
+
+### Chores
+
+* **ci:** uses Stainless GitHub App for releases ([#181](https://github.com/Increase/increase-kotlin/issues/181)) ([28b1670](https://github.com/Increase/increase-kotlin/commit/28b1670f48a52564866e566401a526f09bda1efa))
+
 ## 0.27.1 (2024-02-13)
 
 Full Changelog: [v0.27.0...v0.27.1](https://github.com/Increase/increase-kotlin/compare/v0.27.0...v0.27.1)
