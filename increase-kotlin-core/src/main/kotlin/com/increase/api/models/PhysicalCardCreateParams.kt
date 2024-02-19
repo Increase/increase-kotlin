@@ -71,7 +71,10 @@ constructor(
         /** The details used to ship this physical card. */
         @JsonProperty("shipment") fun shipment(): Shipment? = shipment
 
-        /** The physical card profile to use for this physical card. */
+        /**
+         * The physical card profile to use for this physical card. The latest default physical card
+         * profile will be used if not provided.
+         */
         @JsonProperty("physical_card_profile_id")
         fun physicalCardProfileId(): String? = physicalCardProfileId
 
@@ -143,7 +146,10 @@ constructor(
             @JsonProperty("shipment")
             fun shipment(shipment: Shipment) = apply { this.shipment = shipment }
 
-            /** The physical card profile to use for this physical card. */
+            /**
+             * The physical card profile to use for this physical card. The latest default physical
+             * card profile will be used if not provided.
+             */
             @JsonProperty("physical_card_profile_id")
             fun physicalCardProfileId(physicalCardProfileId: String) = apply {
                 this.physicalCardProfileId = physicalCardProfileId
@@ -247,7 +253,10 @@ constructor(
         /** The details used to ship this physical card. */
         fun shipment(shipment: Shipment) = apply { this.shipment = shipment }
 
-        /** The physical card profile to use for this physical card. */
+        /**
+         * The physical card profile to use for this physical card. The latest default physical card
+         * profile will be used if not provided.
+         */
         fun physicalCardProfileId(physicalCardProfileId: String) = apply {
             this.physicalCardProfileId = physicalCardProfileId
         }
