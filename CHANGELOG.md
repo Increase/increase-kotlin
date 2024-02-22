@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.29.0 (2024-02-22)
+
+Full Changelog: [v0.28.0...v0.29.0](https://github.com/Increase/increase-kotlin/compare/v0.28.0...v0.29.0)
+
+### Features
+
+* **api:** inbound checks ([#187](https://github.com/Increase/increase-kotlin/issues/187)) ([2373504](https://github.com/Increase/increase-kotlin/commit/2373504efc1923cf6735cea3a612b96979d3d568))
+
+
+### Chores
+
+* **internal:** refactor release environment script ([#184](https://github.com/Increase/increase-kotlin/issues/184)) ([f127c63](https://github.com/Increase/increase-kotlin/commit/f127c6355d7e8588741c9e4e3d1aceb7fc34c98e))
+* update dependency org.apache.httpcomponents.core5:httpcore5 to v5.2.4 ([#188](https://github.com/Increase/increase-kotlin/issues/188)) ([6f89dc9](https://github.com/Increase/increase-kotlin/commit/6f89dc935e675f1a67aafa297433ce0cf80e7a59))
+
 ## 0.28.0 (2024-02-15)
 
 Full Changelog: [v0.27.1...v0.28.0](https://github.com/Increase/increase-kotlin/compare/v0.27.1...v0.28.0)
