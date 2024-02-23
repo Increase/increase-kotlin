@@ -1,5 +1,28 @@
 # Changelog
 
+## 0.30.0 (2024-02-23)
+
+Full Changelog: [v0.29.0...v0.30.0](https://github.com/Increase/increase-kotlin/compare/v0.29.0...v0.30.0)
+
+### Features
+
+* **api:** physical card clone update ([#201](https://github.com/Increase/increase-kotlin/issues/201)) ([ead41f7](https://github.com/Increase/increase-kotlin/commit/ead41f752fcb2f288cf6b391f7112a5cf3adc160))
+
+
+### Chores
+
+* **ci:** update actions/setup-java action to v4 ([#195](https://github.com/Increase/increase-kotlin/issues/195)) ([d630401](https://github.com/Increase/increase-kotlin/commit/d630401841582c3dc91d96cc966058cc5877b775))
+* **internal:** update deps ([#193](https://github.com/Increase/increase-kotlin/issues/193)) ([0b6ebca](https://github.com/Increase/increase-kotlin/commit/0b6ebca4453ebc9dfa634c5d25cfd6ca26a4c82e))
+* update dependency com.diffplug.spotless:spotless-plugin-gradle to v6.25.0 ([#197](https://github.com/Increase/increase-kotlin/issues/197)) ([ca5bed8](https://github.com/Increase/increase-kotlin/commit/ca5bed8a8300ea0c80f6fd8d804e7aa162510686))
+* update dependency com.github.tomakehurst:wiremock-jre8 to v2.35.2 ([#200](https://github.com/Increase/increase-kotlin/issues/200)) ([c6603b8](https://github.com/Increase/increase-kotlin/commit/c6603b8b1c1db791a73bd196535a599249ea786e))
+* update dependency com.google.guava:guava to v33 ([#198](https://github.com/Increase/increase-kotlin/issues/198)) ([d823d5d](https://github.com/Increase/increase-kotlin/commit/d823d5da93694330f5c326dd76e4e27f4bb0e46f))
+* update dependency com.squareup.okhttp3:okhttp to v4.12.0 ([#196](https://github.com/Increase/increase-kotlin/issues/196)) ([344f9fb](https://github.com/Increase/increase-kotlin/commit/344f9fb780c7b049c02173ebb9e0906dbb313a95))
+* update dependency org.apache.httpcomponents.client5:httpclient5 to v5.3.1 ([#194](https://github.com/Increase/increase-kotlin/issues/194)) ([bfef661](https://github.com/Increase/increase-kotlin/commit/bfef661eb5fa6eb8bcb8f5837be4e9f2b7c9b235))
+* update dependency org.assertj:assertj-core to v3.25.3 ([#191](https://github.com/Increase/increase-kotlin/issues/191)) ([b5eb31c](https://github.com/Increase/increase-kotlin/commit/b5eb31c06beae6915d9edfa6cbc400e932393d80))
+* update dependency org.assertj:assertj-guava to v3.25.3 ([#192](https://github.com/Increase/increase-kotlin/issues/192)) ([34e9045](https://github.com/Increase/increase-kotlin/commit/34e904533861f83fd596a880e39afb15ba121091))
+* update dependency org.slf4j:slf4j-simple to v1.7.36 ([#189](https://github.com/Increase/increase-kotlin/issues/189)) ([0d58ba1](https://github.com/Increase/increase-kotlin/commit/0d58ba1f4c8b2fc03f140ab401d5cfc44414cd76))
+* update dependency org.slf4j:slf4j-simple to v2 ([#199](https://github.com/Increase/increase-kotlin/issues/199)) ([04f2c55](https://github.com/Increase/increase-kotlin/commit/04f2c55319cdb622f98254963f6bd24f1057932c))
+
 ## 0.29.0 (2024-02-22)
 
 Full Changelog: [v0.28.0...v0.29.0](https://github.com/Increase/increase-kotlin/compare/v0.28.0...v0.29.0)
