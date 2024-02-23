@@ -9,5 +9,6 @@ constructor(
     cause: Throwable? = null
 ) : IncreaseException(message, cause) {
     abstract fun statusCode(): Int
+
     fun headers(): ListMultimap<String, String> = headers
 }
