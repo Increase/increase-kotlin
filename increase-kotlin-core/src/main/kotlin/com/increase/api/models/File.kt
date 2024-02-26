@@ -467,6 +467,9 @@ private constructor(
 
             val EXPORT = Purpose(JsonField.of("export"))
 
+            val UNUSUAL_ACTIVITY_REPORT_ATTACHMENT =
+                Purpose(JsonField.of("unusual_activity_report_attachment"))
+
             fun of(value: String) = Purpose(JsonField.of(value))
         }
 
@@ -488,6 +491,7 @@ private constructor(
             DOCUMENT_REQUEST,
             ENTITY_SUPPLEMENTAL_DOCUMENT,
             EXPORT,
+            UNUSUAL_ACTIVITY_REPORT_ATTACHMENT,
         }
 
         enum class Value {
@@ -508,6 +512,7 @@ private constructor(
             DOCUMENT_REQUEST,
             ENTITY_SUPPLEMENTAL_DOCUMENT,
             EXPORT,
+            UNUSUAL_ACTIVITY_REPORT_ATTACHMENT,
             _UNKNOWN,
         }
 
@@ -530,6 +535,7 @@ private constructor(
                 DOCUMENT_REQUEST -> Value.DOCUMENT_REQUEST
                 ENTITY_SUPPLEMENTAL_DOCUMENT -> Value.ENTITY_SUPPLEMENTAL_DOCUMENT
                 EXPORT -> Value.EXPORT
+                UNUSUAL_ACTIVITY_REPORT_ATTACHMENT -> Value.UNUSUAL_ACTIVITY_REPORT_ATTACHMENT
                 else -> Value._UNKNOWN
             }
 
@@ -552,6 +558,7 @@ private constructor(
                 DOCUMENT_REQUEST -> Known.DOCUMENT_REQUEST
                 ENTITY_SUPPLEMENTAL_DOCUMENT -> Known.ENTITY_SUPPLEMENTAL_DOCUMENT
                 EXPORT -> Known.EXPORT
+                UNUSUAL_ACTIVITY_REPORT_ATTACHMENT -> Known.UNUSUAL_ACTIVITY_REPORT_ATTACHMENT
                 else -> throw IncreaseInvalidDataException("Unknown Purpose: $value")
             }
 
