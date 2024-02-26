@@ -348,6 +348,9 @@ constructor(
 
             val ENTITY_SUPPLEMENTAL_DOCUMENT = Purpose(JsonField.of("entity_supplemental_document"))
 
+            val UNUSUAL_ACTIVITY_REPORT_ATTACHMENT =
+                Purpose(JsonField.of("unusual_activity_report_attachment"))
+
             fun of(value: String) = Purpose(JsonField.of(value))
         }
 
@@ -365,6 +368,7 @@ constructor(
             PHYSICAL_CARD_CARRIER,
             DOCUMENT_REQUEST,
             ENTITY_SUPPLEMENTAL_DOCUMENT,
+            UNUSUAL_ACTIVITY_REPORT_ATTACHMENT,
         }
 
         enum class Value {
@@ -381,6 +385,7 @@ constructor(
             PHYSICAL_CARD_CARRIER,
             DOCUMENT_REQUEST,
             ENTITY_SUPPLEMENTAL_DOCUMENT,
+            UNUSUAL_ACTIVITY_REPORT_ATTACHMENT,
             _UNKNOWN,
         }
 
@@ -399,6 +404,7 @@ constructor(
                 PHYSICAL_CARD_CARRIER -> Value.PHYSICAL_CARD_CARRIER
                 DOCUMENT_REQUEST -> Value.DOCUMENT_REQUEST
                 ENTITY_SUPPLEMENTAL_DOCUMENT -> Value.ENTITY_SUPPLEMENTAL_DOCUMENT
+                UNUSUAL_ACTIVITY_REPORT_ATTACHMENT -> Value.UNUSUAL_ACTIVITY_REPORT_ATTACHMENT
                 else -> Value._UNKNOWN
             }
 
@@ -417,6 +423,7 @@ constructor(
                 PHYSICAL_CARD_CARRIER -> Known.PHYSICAL_CARD_CARRIER
                 DOCUMENT_REQUEST -> Known.DOCUMENT_REQUEST
                 ENTITY_SUPPLEMENTAL_DOCUMENT -> Known.ENTITY_SUPPLEMENTAL_DOCUMENT
+                UNUSUAL_ACTIVITY_REPORT_ATTACHMENT -> Known.UNUSUAL_ACTIVITY_REPORT_ATTACHMENT
                 else -> throw IncreaseInvalidDataException("Unknown Purpose: $value")
             }
 
