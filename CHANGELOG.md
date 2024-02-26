@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.31.0 (2024-02-26)
+
+Full Changelog: [v0.30.0...v0.31.0](https://github.com/Increase/increase-kotlin/compare/v0.30.0...v0.31.0)
+
+### Features
+
+* **api:** add unusual_activity_report_attachment enum member ([#202](https://github.com/Increase/increase-kotlin/issues/202)) ([5dac697](https://github.com/Increase/increase-kotlin/commit/5dac697b35a81430684865e859457b0b56a32ce5))
+
 ## 0.30.0 (2024-02-23)
 
 Full Changelog: [v0.29.0...v0.30.0](https://github.com/Increase/increase-kotlin/compare/v0.29.0...v0.30.0)
