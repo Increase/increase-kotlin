@@ -540,6 +540,7 @@ constructor(
         private val website: String?,
         private val taxIdentifier: String?,
         private val incorporationState: String?,
+        private val industryCode: String?,
         private val address: Address?,
         private val beneficialOwners: List<BeneficialOwner>?,
         private val additionalProperties: Map<String, JsonValue>,
@@ -561,6 +562,13 @@ constructor(
          * state of incorporation.
          */
         @JsonProperty("incorporation_state") fun incorporationState(): String? = incorporationState
+
+        /**
+         * The North American Industry Classification System (NAICS) code for the corporation's
+         * primary line of business. This is a number, like `5132` for `Software Publishers`. A full
+         * list of classification codes is available at https://www.naics.com.
+         */
+        @JsonProperty("industry_code") fun industryCode(): String? = industryCode
 
         /**
          * The entity's physical address. Mail receiving locations like PO Boxes and PMB's are
@@ -590,6 +598,7 @@ constructor(
                 this.website == other.website &&
                 this.taxIdentifier == other.taxIdentifier &&
                 this.incorporationState == other.incorporationState &&
+                this.industryCode == other.industryCode &&
                 this.address == other.address &&
                 this.beneficialOwners == other.beneficialOwners &&
                 this.additionalProperties == other.additionalProperties
@@ -603,6 +612,7 @@ constructor(
                         website,
                         taxIdentifier,
                         incorporationState,
+                        industryCode,
                         address,
                         beneficialOwners,
                         additionalProperties,
@@ -612,7 +622,7 @@ constructor(
         }
 
         override fun toString() =
-            "Corporation{name=$name, website=$website, taxIdentifier=$taxIdentifier, incorporationState=$incorporationState, address=$address, beneficialOwners=$beneficialOwners, additionalProperties=$additionalProperties}"
+            "Corporation{name=$name, website=$website, taxIdentifier=$taxIdentifier, incorporationState=$incorporationState, industryCode=$industryCode, address=$address, beneficialOwners=$beneficialOwners, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -625,6 +635,7 @@ constructor(
             private var website: String? = null
             private var taxIdentifier: String? = null
             private var incorporationState: String? = null
+            private var industryCode: String? = null
             private var address: Address? = null
             private var beneficialOwners: List<BeneficialOwner>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -634,6 +645,7 @@ constructor(
                 this.website = corporation.website
                 this.taxIdentifier = corporation.taxIdentifier
                 this.incorporationState = corporation.incorporationState
+                this.industryCode = corporation.industryCode
                 this.address = corporation.address
                 this.beneficialOwners = corporation.beneficialOwners
                 additionalProperties(corporation.additionalProperties)
@@ -657,6 +669,14 @@ constructor(
             fun incorporationState(incorporationState: String) = apply {
                 this.incorporationState = incorporationState
             }
+
+            /**
+             * The North American Industry Classification System (NAICS) code for the corporation's
+             * primary line of business. This is a number, like `5132` for `Software Publishers`. A
+             * full list of classification codes is available at https://www.naics.com.
+             */
+            @JsonProperty("industry_code")
+            fun industryCode(industryCode: String) = apply { this.industryCode = industryCode }
 
             /**
              * The entity's physical address. Mail receiving locations like PO Boxes and PMB's are
@@ -694,6 +714,7 @@ constructor(
                     website,
                     checkNotNull(taxIdentifier) { "`taxIdentifier` is required but was not set" },
                     incorporationState,
+                    industryCode,
                     checkNotNull(address) { "`address` is required but was not set" },
                     checkNotNull(beneficialOwners) {
                             "`beneficialOwners` is required but was not set"
