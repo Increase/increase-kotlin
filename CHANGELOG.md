@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.32.0 (2024-02-27)
+
+Full Changelog: [v0.31.0...v0.32.0](https://github.com/Increase/increase-kotlin/compare/v0.31.0...v0.32.0)
+
+### Features
+
+* **api:** add `industry_code` property to methods ([#204](https://github.com/Increase/increase-kotlin/issues/204)) ([1c1c583](https://github.com/Increase/increase-kotlin/commit/1c1c58340d0328d8f3a84d035ac1684d83fde37a))
+
 ## 0.31.0 (2024-02-26)
 
 Full Changelog: [v0.30.0...v0.31.0](https://github.com/Increase/increase-kotlin/compare/v0.30.0...v0.31.0)
