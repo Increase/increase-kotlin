@@ -10,7 +10,7 @@ import com.increase.api.models.EntityIndustryCodeCreateParams
 
 interface IndustryCodeServiceAsync {
 
-    /** Update a Corporation Entity's industry code */
+    /** Update the industry code for a corporate Entity */
     suspend fun create(
         params: EntityIndustryCodeCreateParams,
         requestOptions: RequestOptions = RequestOptions.none()
