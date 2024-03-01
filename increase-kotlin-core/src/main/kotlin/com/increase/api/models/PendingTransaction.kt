@@ -1453,6 +1453,7 @@ private constructor(
             private val amount: JsonField<Long>,
             private val currency: JsonField<Currency>,
             private val direction: JsonField<Direction>,
+            private val actioner: JsonField<Actioner>,
             private val processingCategory: JsonField<ProcessingCategory>,
             private val expiresAt: JsonField<OffsetDateTime>,
             private val realTimeDecisionId: JsonField<String>,
@@ -1534,6 +1535,12 @@ private constructor(
              * to the merchant or from the merchant to the cardholder.
              */
             fun direction(): Direction = direction.getRequired("direction")
+
+            /**
+             * Whether this authorization was approved by Increase, the card network through
+             * stand-in processing, or the user through a real-time decision.
+             */
+            fun actioner(): Actioner = actioner.getRequired("actioner")
 
             /**
              * The processing category describes the intent behind the authorization, such as
@@ -1643,6 +1650,12 @@ private constructor(
             @JsonProperty("direction") @ExcludeMissing fun _direction() = direction
 
             /**
+             * Whether this authorization was approved by Increase, the card network through
+             * stand-in processing, or the user through a real-time decision.
+             */
+            @JsonProperty("actioner") @ExcludeMissing fun _actioner() = actioner
+
+            /**
              * The processing category describes the intent behind the authorization, such as
              * whether it was used for bill payments or an automatic fuel dispenser.
              */
@@ -1695,6 +1708,7 @@ private constructor(
                     amount()
                     currency()
                     direction()
+                    actioner()
                     processingCategory()
                     expiresAt()
                     realTimeDecisionId()
@@ -1727,6 +1741,7 @@ private constructor(
                     this.amount == other.amount &&
                     this.currency == other.currency &&
                     this.direction == other.direction &&
+                    this.actioner == other.actioner &&
                     this.processingCategory == other.processingCategory &&
                     this.expiresAt == other.expiresAt &&
                     this.realTimeDecisionId == other.realTimeDecisionId &&
@@ -1754,6 +1769,7 @@ private constructor(
                             amount,
                             currency,
                             direction,
+                            actioner,
                             processingCategory,
                             expiresAt,
                             realTimeDecisionId,
@@ -1766,7 +1782,7 @@ private constructor(
             }
 
             override fun toString() =
-                "CardAuthorization{id=$id, cardPaymentId=$cardPaymentId, merchantAcceptorId=$merchantAcceptorId, merchantDescriptor=$merchantDescriptor, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, digitalWalletTokenId=$digitalWalletTokenId, physicalCardId=$physicalCardId, verification=$verification, networkIdentifiers=$networkIdentifiers, networkDetails=$networkDetails, amount=$amount, currency=$currency, direction=$direction, processingCategory=$processingCategory, expiresAt=$expiresAt, realTimeDecisionId=$realTimeDecisionId, pendingTransactionId=$pendingTransactionId, type=$type, additionalProperties=$additionalProperties}"
+                "CardAuthorization{id=$id, cardPaymentId=$cardPaymentId, merchantAcceptorId=$merchantAcceptorId, merchantDescriptor=$merchantDescriptor, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, digitalWalletTokenId=$digitalWalletTokenId, physicalCardId=$physicalCardId, verification=$verification, networkIdentifiers=$networkIdentifiers, networkDetails=$networkDetails, amount=$amount, currency=$currency, direction=$direction, actioner=$actioner, processingCategory=$processingCategory, expiresAt=$expiresAt, realTimeDecisionId=$realTimeDecisionId, pendingTransactionId=$pendingTransactionId, type=$type, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -1790,6 +1806,7 @@ private constructor(
                 private var amount: JsonField<Long> = JsonMissing.of()
                 private var currency: JsonField<Currency> = JsonMissing.of()
                 private var direction: JsonField<Direction> = JsonMissing.of()
+                private var actioner: JsonField<Actioner> = JsonMissing.of()
                 private var processingCategory: JsonField<ProcessingCategory> = JsonMissing.of()
                 private var expiresAt: JsonField<OffsetDateTime> = JsonMissing.of()
                 private var realTimeDecisionId: JsonField<String> = JsonMissing.of()
@@ -1813,6 +1830,7 @@ private constructor(
                     this.amount = cardAuthorization.amount
                     this.currency = cardAuthorization.currency
                     this.direction = cardAuthorization.direction
+                    this.actioner = cardAuthorization.actioner
                     this.processingCategory = cardAuthorization.processingCategory
                     this.expiresAt = cardAuthorization.expiresAt
                     this.realTimeDecisionId = cardAuthorization.realTimeDecisionId
@@ -2018,6 +2036,20 @@ private constructor(
                 }
 
                 /**
+                 * Whether this authorization was approved by Increase, the card network through
+                 * stand-in processing, or the user through a real-time decision.
+                 */
+                fun actioner(actioner: Actioner) = actioner(JsonField.of(actioner))
+
+                /**
+                 * Whether this authorization was approved by Increase, the card network through
+                 * stand-in processing, or the user through a real-time decision.
+                 */
+                @JsonProperty("actioner")
+                @ExcludeMissing
+                fun actioner(actioner: JsonField<Actioner>) = apply { this.actioner = actioner }
+
+                /**
                  * The processing category describes the intent behind the authorization, such as
                  * whether it was used for bill payments or an automatic fuel dispenser.
                  */
@@ -2124,6 +2156,7 @@ private constructor(
                         amount,
                         currency,
                         direction,
+                        actioner,
                         processingCategory,
                         expiresAt,
                         realTimeDecisionId,
@@ -2131,6 +2164,69 @@ private constructor(
                         type,
                         additionalProperties.toUnmodifiable(),
                     )
+            }
+
+            class Actioner
+            @JsonCreator
+            private constructor(
+                private val value: JsonField<String>,
+            ) {
+
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is Actioner && this.value == other.value
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+
+                companion object {
+
+                    val USER = Actioner(JsonField.of("user"))
+
+                    val INCREASE = Actioner(JsonField.of("increase"))
+
+                    val NETWORK = Actioner(JsonField.of("network"))
+
+                    fun of(value: String) = Actioner(JsonField.of(value))
+                }
+
+                enum class Known {
+                    USER,
+                    INCREASE,
+                    NETWORK,
+                }
+
+                enum class Value {
+                    USER,
+                    INCREASE,
+                    NETWORK,
+                    _UNKNOWN,
+                }
+
+                fun value(): Value =
+                    when (this) {
+                        USER -> Value.USER
+                        INCREASE -> Value.INCREASE
+                        NETWORK -> Value.NETWORK
+                        else -> Value._UNKNOWN
+                    }
+
+                fun known(): Known =
+                    when (this) {
+                        USER -> Known.USER
+                        INCREASE -> Known.INCREASE
+                        NETWORK -> Known.NETWORK
+                        else -> throw IncreaseInvalidDataException("Unknown Actioner: $value")
+                    }
+
+                fun asString(): String = _value().asStringOrThrow()
             }
 
             class Currency
