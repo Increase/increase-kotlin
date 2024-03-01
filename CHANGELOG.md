@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.33.0 (2024-03-01)
+
+Full Changelog: [v0.32.0...v0.33.0](https://github.com/Increase/increase-kotlin/compare/v0.32.0...v0.33.0)
+
+### Features
+
+* **api:** add post /entities/{entity_id}/industry_code endpoint ([#206](https://github.com/Increase/increase-kotlin/issues/206)) ([406f9c9](https://github.com/Increase/increase-kotlin/commit/406f9c9479e0f79354aa3a368f74298307b2e48d))
+
+
+### Documentation
+
+* change industry code docstring ([#208](https://github.com/Increase/increase-kotlin/issues/208)) ([a12559f](https://github.com/Increase/increase-kotlin/commit/a12559f82d977d3b2cb016ce4a07b8d79750497b))
+
 ## 0.32.0 (2024-02-27)
 
 Full Changelog: [v0.31.0...v0.32.0](https://github.com/Increase/increase-kotlin/compare/v0.31.0...v0.32.0)
