@@ -621,7 +621,7 @@ private constructor(
     private constructor(
         private val email: JsonField<String>,
         private val phone: JsonField<String>,
-        private val cardProfileId: JsonField<String>,
+        private val digitalCardProfileId: JsonField<String>,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -641,10 +641,11 @@ private constructor(
         fun phone(): String? = phone.getNullable("phone")
 
         /**
-         * The card profile assigned to this digital card. Card profiles may also be assigned at the
-         * program level.
+         * The digital card profile assigned to this digital card. Card profiles may also be
+         * assigned at the program level.
          */
-        fun cardProfileId(): String? = cardProfileId.getNullable("card_profile_id")
+        fun digitalCardProfileId(): String? =
+            digitalCardProfileId.getNullable("digital_card_profile_id")
 
         /**
          * An email address that can be used to verify the cardholder via one-time passcode over
@@ -658,10 +659,12 @@ private constructor(
         @JsonProperty("phone") @ExcludeMissing fun _phone() = phone
 
         /**
-         * The card profile assigned to this digital card. Card profiles may also be assigned at the
-         * program level.
+         * The digital card profile assigned to this digital card. Card profiles may also be
+         * assigned at the program level.
          */
-        @JsonProperty("card_profile_id") @ExcludeMissing fun _cardProfileId() = cardProfileId
+        @JsonProperty("digital_card_profile_id")
+        @ExcludeMissing
+        fun _digitalCardProfileId() = digitalCardProfileId
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -671,7 +674,7 @@ private constructor(
             if (!validated) {
                 email()
                 phone()
-                cardProfileId()
+                digitalCardProfileId()
                 validated = true
             }
         }
@@ -686,7 +689,7 @@ private constructor(
             return other is DigitalWallet &&
                 this.email == other.email &&
                 this.phone == other.phone &&
-                this.cardProfileId == other.cardProfileId &&
+                this.digitalCardProfileId == other.digitalCardProfileId &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -696,7 +699,7 @@ private constructor(
                     Objects.hash(
                         email,
                         phone,
-                        cardProfileId,
+                        digitalCardProfileId,
                         additionalProperties,
                     )
             }
@@ -704,7 +707,7 @@ private constructor(
         }
 
         override fun toString() =
-            "DigitalWallet{email=$email, phone=$phone, cardProfileId=$cardProfileId, additionalProperties=$additionalProperties}"
+            "DigitalWallet{email=$email, phone=$phone, digitalCardProfileId=$digitalCardProfileId, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -715,13 +718,13 @@ private constructor(
 
             private var email: JsonField<String> = JsonMissing.of()
             private var phone: JsonField<String> = JsonMissing.of()
-            private var cardProfileId: JsonField<String> = JsonMissing.of()
+            private var digitalCardProfileId: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(digitalWallet: DigitalWallet) = apply {
                 this.email = digitalWallet.email
                 this.phone = digitalWallet.phone
-                this.cardProfileId = digitalWallet.cardProfileId
+                this.digitalCardProfileId = digitalWallet.digitalCardProfileId
                 additionalProperties(digitalWallet.additionalProperties)
             }
 
@@ -754,19 +757,20 @@ private constructor(
             fun phone(phone: JsonField<String>) = apply { this.phone = phone }
 
             /**
-             * The card profile assigned to this digital card. Card profiles may also be assigned at
-             * the program level.
+             * The digital card profile assigned to this digital card. Card profiles may also be
+             * assigned at the program level.
              */
-            fun cardProfileId(cardProfileId: String) = cardProfileId(JsonField.of(cardProfileId))
+            fun digitalCardProfileId(digitalCardProfileId: String) =
+                digitalCardProfileId(JsonField.of(digitalCardProfileId))
 
             /**
-             * The card profile assigned to this digital card. Card profiles may also be assigned at
-             * the program level.
+             * The digital card profile assigned to this digital card. Card profiles may also be
+             * assigned at the program level.
              */
-            @JsonProperty("card_profile_id")
+            @JsonProperty("digital_card_profile_id")
             @ExcludeMissing
-            fun cardProfileId(cardProfileId: JsonField<String>) = apply {
-                this.cardProfileId = cardProfileId
+            fun digitalCardProfileId(digitalCardProfileId: JsonField<String>) = apply {
+                this.digitalCardProfileId = digitalCardProfileId
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -787,7 +791,7 @@ private constructor(
                 DigitalWallet(
                     email,
                     phone,
-                    cardProfileId,
+                    digitalCardProfileId,
                     additionalProperties.toUnmodifiable(),
                 )
         }
