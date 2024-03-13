@@ -1,5 +1,34 @@
 # Changelog
 
+## 0.34.0 (2024-03-13)
+
+Full Changelog: [v0.33.0...v0.34.0](https://github.com/Increase/increase-kotlin/compare/v0.33.0...v0.34.0)
+
+### ⚠ BREAKING CHANGES
+
+* rename card_profile_id -> digital_card_profile_id ([#211](https://github.com/Increase/increase-kotlin/issues/211))
+
+### Features
+
+* add HttpRequestBody.contentLength() ([#215](https://github.com/Increase/increase-kotlin/issues/215)) ([568ee19](https://github.com/Increase/increase-kotlin/commit/568ee191f5800c08d625b972974b1016498679e7))
+* **api:** add actioner properties ([#209](https://github.com/Increase/increase-kotlin/issues/209)) ([8893f45](https://github.com/Increase/increase-kotlin/commit/8893f45e4cac945ecfebfa79a899bcedfdd440dd))
+* **api:** confirm entities ([#214](https://github.com/Increase/increase-kotlin/issues/214)) ([0e7b4a3](https://github.com/Increase/increase-kotlin/commit/0e7b4a3aee0f59c39f8b10b4def6d71af70a1a47))
+
+
+### Bug Fixes
+
+* rename card_profile_id -&gt; digital_card_profile_id ([#211](https://github.com/Increase/increase-kotlin/issues/211)) ([dd8d10d](https://github.com/Increase/increase-kotlin/commit/dd8d10deb889285e4917394e0f27e4d0afa9e528))
+
+
+### Chores
+
+* add api.md ([#212](https://github.com/Increase/increase-kotlin/issues/212)) ([6577e94](https://github.com/Increase/increase-kotlin/commit/6577e94e57db1521d41687d1df98aaa9273853fa))
+
+
+### Documentation
+
+* update docs for digital wallet phone/email ([#213](https://github.com/Increase/increase-kotlin/issues/213)) ([8077cd6](https://github.com/Increase/increase-kotlin/commit/8077cd6c84d2839aa184eeb969ab8e5744f96a19))
+
 ## 0.33.0 (2024-03-01)
 
 Full Changelog: [v0.32.0...v0.33.0](https://github.com/Increase/increase-kotlin/compare/v0.32.0...v0.33.0)
