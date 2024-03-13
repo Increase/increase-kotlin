@@ -38,6 +38,10 @@ private constructor(
     private val authorizationTerms: JsonField<String>,
     private val proofOfAuthorizationRequestId: JsonField<String>,
     private val status: JsonField<Status>,
+    private val validatedAccountOwnershipWithMicrodeposit: JsonField<Boolean>,
+    private val validatedAccountOwnershipWithAccountStatement: JsonField<Boolean>,
+    private val validatedAccountOwnershipViaCredential: JsonField<Boolean>,
+    private val customerHasBeenOffboarded: JsonField<Boolean>,
     private val idempotencyKey: JsonField<String>,
     private val type: JsonField<Type>,
     private val additionalProperties: Map<String, JsonValue>,
@@ -80,6 +84,28 @@ private constructor(
 
     /** Status of the proof of authorization request submission. */
     fun status(): Status = status.getRequired("status")
+
+    /** Whether account ownership was validated with microdeposit. */
+    fun validatedAccountOwnershipWithMicrodeposit(): Boolean? =
+        validatedAccountOwnershipWithMicrodeposit.getNullable(
+            "validated_account_ownership_with_microdeposit"
+        )
+
+    /** Whether account ownership was validated with an account statement. */
+    fun validatedAccountOwnershipWithAccountStatement(): Boolean? =
+        validatedAccountOwnershipWithAccountStatement.getNullable(
+            "validated_account_ownership_with_account_statement"
+        )
+
+    /** Whether account ownership was validated via credential (for instance, Plaid). */
+    fun validatedAccountOwnershipViaCredential(): Boolean? =
+        validatedAccountOwnershipViaCredential.getNullable(
+            "validated_account_ownership_via_credential"
+        )
+
+    /** Whether the customer has been offboarded. */
+    fun customerHasBeenOffboarded(): Boolean? =
+        customerHasBeenOffboarded.getNullable("customer_has_been_offboarded")
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -133,6 +159,27 @@ private constructor(
     /** Status of the proof of authorization request submission. */
     @JsonProperty("status") @ExcludeMissing fun _status() = status
 
+    /** Whether account ownership was validated with microdeposit. */
+    @JsonProperty("validated_account_ownership_with_microdeposit")
+    @ExcludeMissing
+    fun _validatedAccountOwnershipWithMicrodeposit() = validatedAccountOwnershipWithMicrodeposit
+
+    /** Whether account ownership was validated with an account statement. */
+    @JsonProperty("validated_account_ownership_with_account_statement")
+    @ExcludeMissing
+    fun _validatedAccountOwnershipWithAccountStatement() =
+        validatedAccountOwnershipWithAccountStatement
+
+    /** Whether account ownership was validated via credential (for instance, Plaid). */
+    @JsonProperty("validated_account_ownership_via_credential")
+    @ExcludeMissing
+    fun _validatedAccountOwnershipViaCredential() = validatedAccountOwnershipViaCredential
+
+    /** Whether the customer has been offboarded. */
+    @JsonProperty("customer_has_been_offboarded")
+    @ExcludeMissing
+    fun _customerHasBeenOffboarded() = customerHasBeenOffboarded
+
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
      * used to ensure that a request is only processed once. Learn more about
@@ -163,6 +210,10 @@ private constructor(
             authorizationTerms()
             proofOfAuthorizationRequestId()
             status()
+            validatedAccountOwnershipWithMicrodeposit()
+            validatedAccountOwnershipWithAccountStatement()
+            validatedAccountOwnershipViaCredential()
+            customerHasBeenOffboarded()
             idempotencyKey()
             type()
             validated = true
@@ -188,6 +239,13 @@ private constructor(
             this.authorizationTerms == other.authorizationTerms &&
             this.proofOfAuthorizationRequestId == other.proofOfAuthorizationRequestId &&
             this.status == other.status &&
+            this.validatedAccountOwnershipWithMicrodeposit ==
+                other.validatedAccountOwnershipWithMicrodeposit &&
+            this.validatedAccountOwnershipWithAccountStatement ==
+                other.validatedAccountOwnershipWithAccountStatement &&
+            this.validatedAccountOwnershipViaCredential ==
+                other.validatedAccountOwnershipViaCredential &&
+            this.customerHasBeenOffboarded == other.customerHasBeenOffboarded &&
             this.idempotencyKey == other.idempotencyKey &&
             this.type == other.type &&
             this.additionalProperties == other.additionalProperties
@@ -208,6 +266,10 @@ private constructor(
                     authorizationTerms,
                     proofOfAuthorizationRequestId,
                     status,
+                    validatedAccountOwnershipWithMicrodeposit,
+                    validatedAccountOwnershipWithAccountStatement,
+                    validatedAccountOwnershipViaCredential,
+                    customerHasBeenOffboarded,
                     idempotencyKey,
                     type,
                     additionalProperties,
@@ -217,7 +279,7 @@ private constructor(
     }
 
     override fun toString() =
-        "ProofOfAuthorizationRequestSubmission{id=$id, createdAt=$createdAt, updatedAt=$updatedAt, authorizerName=$authorizerName, authorizerEmail=$authorizerEmail, authorizerCompany=$authorizerCompany, authorizerIpAddress=$authorizerIpAddress, authorizedAt=$authorizedAt, authorizationTerms=$authorizationTerms, proofOfAuthorizationRequestId=$proofOfAuthorizationRequestId, status=$status, idempotencyKey=$idempotencyKey, type=$type, additionalProperties=$additionalProperties}"
+        "ProofOfAuthorizationRequestSubmission{id=$id, createdAt=$createdAt, updatedAt=$updatedAt, authorizerName=$authorizerName, authorizerEmail=$authorizerEmail, authorizerCompany=$authorizerCompany, authorizerIpAddress=$authorizerIpAddress, authorizedAt=$authorizedAt, authorizationTerms=$authorizationTerms, proofOfAuthorizationRequestId=$proofOfAuthorizationRequestId, status=$status, validatedAccountOwnershipWithMicrodeposit=$validatedAccountOwnershipWithMicrodeposit, validatedAccountOwnershipWithAccountStatement=$validatedAccountOwnershipWithAccountStatement, validatedAccountOwnershipViaCredential=$validatedAccountOwnershipViaCredential, customerHasBeenOffboarded=$customerHasBeenOffboarded, idempotencyKey=$idempotencyKey, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -237,6 +299,11 @@ private constructor(
         private var authorizationTerms: JsonField<String> = JsonMissing.of()
         private var proofOfAuthorizationRequestId: JsonField<String> = JsonMissing.of()
         private var status: JsonField<Status> = JsonMissing.of()
+        private var validatedAccountOwnershipWithMicrodeposit: JsonField<Boolean> = JsonMissing.of()
+        private var validatedAccountOwnershipWithAccountStatement: JsonField<Boolean> =
+            JsonMissing.of()
+        private var validatedAccountOwnershipViaCredential: JsonField<Boolean> = JsonMissing.of()
+        private var customerHasBeenOffboarded: JsonField<Boolean> = JsonMissing.of()
         private var idempotencyKey: JsonField<String> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -256,6 +323,14 @@ private constructor(
             this.proofOfAuthorizationRequestId =
                 proofOfAuthorizationRequestSubmission.proofOfAuthorizationRequestId
             this.status = proofOfAuthorizationRequestSubmission.status
+            this.validatedAccountOwnershipWithMicrodeposit =
+                proofOfAuthorizationRequestSubmission.validatedAccountOwnershipWithMicrodeposit
+            this.validatedAccountOwnershipWithAccountStatement =
+                proofOfAuthorizationRequestSubmission.validatedAccountOwnershipWithAccountStatement
+            this.validatedAccountOwnershipViaCredential =
+                proofOfAuthorizationRequestSubmission.validatedAccountOwnershipViaCredential
+            this.customerHasBeenOffboarded =
+                proofOfAuthorizationRequestSubmission.customerHasBeenOffboarded
             this.idempotencyKey = proofOfAuthorizationRequestSubmission.idempotencyKey
             this.type = proofOfAuthorizationRequestSubmission.type
             additionalProperties(proofOfAuthorizationRequestSubmission.additionalProperties)
@@ -367,6 +442,70 @@ private constructor(
         @ExcludeMissing
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
+        /** Whether account ownership was validated with microdeposit. */
+        fun validatedAccountOwnershipWithMicrodeposit(
+            validatedAccountOwnershipWithMicrodeposit: Boolean
+        ) =
+            validatedAccountOwnershipWithMicrodeposit(
+                JsonField.of(validatedAccountOwnershipWithMicrodeposit)
+            )
+
+        /** Whether account ownership was validated with microdeposit. */
+        @JsonProperty("validated_account_ownership_with_microdeposit")
+        @ExcludeMissing
+        fun validatedAccountOwnershipWithMicrodeposit(
+            validatedAccountOwnershipWithMicrodeposit: JsonField<Boolean>
+        ) = apply {
+            this.validatedAccountOwnershipWithMicrodeposit =
+                validatedAccountOwnershipWithMicrodeposit
+        }
+
+        /** Whether account ownership was validated with an account statement. */
+        fun validatedAccountOwnershipWithAccountStatement(
+            validatedAccountOwnershipWithAccountStatement: Boolean
+        ) =
+            validatedAccountOwnershipWithAccountStatement(
+                JsonField.of(validatedAccountOwnershipWithAccountStatement)
+            )
+
+        /** Whether account ownership was validated with an account statement. */
+        @JsonProperty("validated_account_ownership_with_account_statement")
+        @ExcludeMissing
+        fun validatedAccountOwnershipWithAccountStatement(
+            validatedAccountOwnershipWithAccountStatement: JsonField<Boolean>
+        ) = apply {
+            this.validatedAccountOwnershipWithAccountStatement =
+                validatedAccountOwnershipWithAccountStatement
+        }
+
+        /** Whether account ownership was validated via credential (for instance, Plaid). */
+        fun validatedAccountOwnershipViaCredential(
+            validatedAccountOwnershipViaCredential: Boolean
+        ) =
+            validatedAccountOwnershipViaCredential(
+                JsonField.of(validatedAccountOwnershipViaCredential)
+            )
+
+        /** Whether account ownership was validated via credential (for instance, Plaid). */
+        @JsonProperty("validated_account_ownership_via_credential")
+        @ExcludeMissing
+        fun validatedAccountOwnershipViaCredential(
+            validatedAccountOwnershipViaCredential: JsonField<Boolean>
+        ) = apply {
+            this.validatedAccountOwnershipViaCredential = validatedAccountOwnershipViaCredential
+        }
+
+        /** Whether the customer has been offboarded. */
+        fun customerHasBeenOffboarded(customerHasBeenOffboarded: Boolean) =
+            customerHasBeenOffboarded(JsonField.of(customerHasBeenOffboarded))
+
+        /** Whether the customer has been offboarded. */
+        @JsonProperty("customer_has_been_offboarded")
+        @ExcludeMissing
+        fun customerHasBeenOffboarded(customerHasBeenOffboarded: JsonField<Boolean>) = apply {
+            this.customerHasBeenOffboarded = customerHasBeenOffboarded
+        }
+
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
          * is used to ensure that a request is only processed once. Learn more about
@@ -426,6 +565,10 @@ private constructor(
                 authorizationTerms,
                 proofOfAuthorizationRequestId,
                 status,
+                validatedAccountOwnershipWithMicrodeposit,
+                validatedAccountOwnershipWithAccountStatement,
+                validatedAccountOwnershipViaCredential,
+                customerHasBeenOffboarded,
                 idempotencyKey,
                 type,
                 additionalProperties.toUnmodifiable(),

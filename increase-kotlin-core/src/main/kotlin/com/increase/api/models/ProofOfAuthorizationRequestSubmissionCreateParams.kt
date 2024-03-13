@@ -20,7 +20,11 @@ constructor(
     private val authorizedAt: OffsetDateTime,
     private val authorizerEmail: String,
     private val authorizerName: String,
+    private val customerHasBeenOffboarded: Boolean,
     private val proofOfAuthorizationRequestId: String,
+    private val validatedAccountOwnershipViaCredential: Boolean,
+    private val validatedAccountOwnershipWithAccountStatement: Boolean,
+    private val validatedAccountOwnershipWithMicrodeposit: Boolean,
     private val authorizerCompany: String?,
     private val authorizerIpAddress: String?,
     private val additionalQueryParams: Map<String, List<String>>,
@@ -36,7 +40,17 @@ constructor(
 
     fun authorizerName(): String = authorizerName
 
+    fun customerHasBeenOffboarded(): Boolean = customerHasBeenOffboarded
+
     fun proofOfAuthorizationRequestId(): String = proofOfAuthorizationRequestId
+
+    fun validatedAccountOwnershipViaCredential(): Boolean = validatedAccountOwnershipViaCredential
+
+    fun validatedAccountOwnershipWithAccountStatement(): Boolean =
+        validatedAccountOwnershipWithAccountStatement
+
+    fun validatedAccountOwnershipWithMicrodeposit(): Boolean =
+        validatedAccountOwnershipWithMicrodeposit
 
     fun authorizerCompany(): String? = authorizerCompany
 
@@ -48,7 +62,11 @@ constructor(
             authorizedAt,
             authorizerEmail,
             authorizerName,
+            customerHasBeenOffboarded,
             proofOfAuthorizationRequestId,
+            validatedAccountOwnershipViaCredential,
+            validatedAccountOwnershipWithAccountStatement,
+            validatedAccountOwnershipWithMicrodeposit,
             authorizerCompany,
             authorizerIpAddress,
             additionalBodyProperties,
@@ -67,7 +85,11 @@ constructor(
         private val authorizedAt: OffsetDateTime?,
         private val authorizerEmail: String?,
         private val authorizerName: String?,
+        private val customerHasBeenOffboarded: Boolean?,
         private val proofOfAuthorizationRequestId: String?,
+        private val validatedAccountOwnershipViaCredential: Boolean?,
+        private val validatedAccountOwnershipWithAccountStatement: Boolean?,
+        private val validatedAccountOwnershipWithMicrodeposit: Boolean?,
         private val authorizerCompany: String?,
         private val authorizerIpAddress: String?,
         private val additionalProperties: Map<String, JsonValue>,
@@ -87,9 +109,28 @@ constructor(
         /** Name of the authorizer. */
         @JsonProperty("authorizer_name") fun authorizerName(): String? = authorizerName
 
+        /** Whether the customer has been offboarded or suspended. */
+        @JsonProperty("customer_has_been_offboarded")
+        fun customerHasBeenOffboarded(): Boolean? = customerHasBeenOffboarded
+
         /** ID of the proof of authorization request. */
         @JsonProperty("proof_of_authorization_request_id")
         fun proofOfAuthorizationRequestId(): String? = proofOfAuthorizationRequestId
+
+        /** Whether the account ownership was validated via credential (e.g. Plaid). */
+        @JsonProperty("validated_account_ownership_via_credential")
+        fun validatedAccountOwnershipViaCredential(): Boolean? =
+            validatedAccountOwnershipViaCredential
+
+        /** Whether the account ownership was validated with an account statement. */
+        @JsonProperty("validated_account_ownership_with_account_statement")
+        fun validatedAccountOwnershipWithAccountStatement(): Boolean? =
+            validatedAccountOwnershipWithAccountStatement
+
+        /** Whether the account ownership was validated with a microdeposit. */
+        @JsonProperty("validated_account_ownership_with_microdeposit")
+        fun validatedAccountOwnershipWithMicrodeposit(): Boolean? =
+            validatedAccountOwnershipWithMicrodeposit
 
         /** Company of the authorizer. */
         @JsonProperty("authorizer_company") fun authorizerCompany(): String? = authorizerCompany
@@ -114,7 +155,14 @@ constructor(
                 this.authorizedAt == other.authorizedAt &&
                 this.authorizerEmail == other.authorizerEmail &&
                 this.authorizerName == other.authorizerName &&
+                this.customerHasBeenOffboarded == other.customerHasBeenOffboarded &&
                 this.proofOfAuthorizationRequestId == other.proofOfAuthorizationRequestId &&
+                this.validatedAccountOwnershipViaCredential ==
+                    other.validatedAccountOwnershipViaCredential &&
+                this.validatedAccountOwnershipWithAccountStatement ==
+                    other.validatedAccountOwnershipWithAccountStatement &&
+                this.validatedAccountOwnershipWithMicrodeposit ==
+                    other.validatedAccountOwnershipWithMicrodeposit &&
                 this.authorizerCompany == other.authorizerCompany &&
                 this.authorizerIpAddress == other.authorizerIpAddress &&
                 this.additionalProperties == other.additionalProperties
@@ -128,7 +176,11 @@ constructor(
                         authorizedAt,
                         authorizerEmail,
                         authorizerName,
+                        customerHasBeenOffboarded,
                         proofOfAuthorizationRequestId,
+                        validatedAccountOwnershipViaCredential,
+                        validatedAccountOwnershipWithAccountStatement,
+                        validatedAccountOwnershipWithMicrodeposit,
                         authorizerCompany,
                         authorizerIpAddress,
                         additionalProperties,
@@ -138,7 +190,7 @@ constructor(
         }
 
         override fun toString() =
-            "ProofOfAuthorizationRequestSubmissionCreateBody{authorizationTerms=$authorizationTerms, authorizedAt=$authorizedAt, authorizerEmail=$authorizerEmail, authorizerName=$authorizerName, proofOfAuthorizationRequestId=$proofOfAuthorizationRequestId, authorizerCompany=$authorizerCompany, authorizerIpAddress=$authorizerIpAddress, additionalProperties=$additionalProperties}"
+            "ProofOfAuthorizationRequestSubmissionCreateBody{authorizationTerms=$authorizationTerms, authorizedAt=$authorizedAt, authorizerEmail=$authorizerEmail, authorizerName=$authorizerName, customerHasBeenOffboarded=$customerHasBeenOffboarded, proofOfAuthorizationRequestId=$proofOfAuthorizationRequestId, validatedAccountOwnershipViaCredential=$validatedAccountOwnershipViaCredential, validatedAccountOwnershipWithAccountStatement=$validatedAccountOwnershipWithAccountStatement, validatedAccountOwnershipWithMicrodeposit=$validatedAccountOwnershipWithMicrodeposit, authorizerCompany=$authorizerCompany, authorizerIpAddress=$authorizerIpAddress, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -151,7 +203,11 @@ constructor(
             private var authorizedAt: OffsetDateTime? = null
             private var authorizerEmail: String? = null
             private var authorizerName: String? = null
+            private var customerHasBeenOffboarded: Boolean? = null
             private var proofOfAuthorizationRequestId: String? = null
+            private var validatedAccountOwnershipViaCredential: Boolean? = null
+            private var validatedAccountOwnershipWithAccountStatement: Boolean? = null
+            private var validatedAccountOwnershipWithMicrodeposit: Boolean? = null
             private var authorizerCompany: String? = null
             private var authorizerIpAddress: String? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -166,8 +222,19 @@ constructor(
                 this.authorizerEmail =
                     proofOfAuthorizationRequestSubmissionCreateBody.authorizerEmail
                 this.authorizerName = proofOfAuthorizationRequestSubmissionCreateBody.authorizerName
+                this.customerHasBeenOffboarded =
+                    proofOfAuthorizationRequestSubmissionCreateBody.customerHasBeenOffboarded
                 this.proofOfAuthorizationRequestId =
                     proofOfAuthorizationRequestSubmissionCreateBody.proofOfAuthorizationRequestId
+                this.validatedAccountOwnershipViaCredential =
+                    proofOfAuthorizationRequestSubmissionCreateBody
+                        .validatedAccountOwnershipViaCredential
+                this.validatedAccountOwnershipWithAccountStatement =
+                    proofOfAuthorizationRequestSubmissionCreateBody
+                        .validatedAccountOwnershipWithAccountStatement
+                this.validatedAccountOwnershipWithMicrodeposit =
+                    proofOfAuthorizationRequestSubmissionCreateBody
+                        .validatedAccountOwnershipWithMicrodeposit
                 this.authorizerCompany =
                     proofOfAuthorizationRequestSubmissionCreateBody.authorizerCompany
                 this.authorizerIpAddress =
@@ -201,10 +268,42 @@ constructor(
                 this.authorizerName = authorizerName
             }
 
+            /** Whether the customer has been offboarded or suspended. */
+            @JsonProperty("customer_has_been_offboarded")
+            fun customerHasBeenOffboarded(customerHasBeenOffboarded: Boolean) = apply {
+                this.customerHasBeenOffboarded = customerHasBeenOffboarded
+            }
+
             /** ID of the proof of authorization request. */
             @JsonProperty("proof_of_authorization_request_id")
             fun proofOfAuthorizationRequestId(proofOfAuthorizationRequestId: String) = apply {
                 this.proofOfAuthorizationRequestId = proofOfAuthorizationRequestId
+            }
+
+            /** Whether the account ownership was validated via credential (e.g. Plaid). */
+            @JsonProperty("validated_account_ownership_via_credential")
+            fun validatedAccountOwnershipViaCredential(
+                validatedAccountOwnershipViaCredential: Boolean
+            ) = apply {
+                this.validatedAccountOwnershipViaCredential = validatedAccountOwnershipViaCredential
+            }
+
+            /** Whether the account ownership was validated with an account statement. */
+            @JsonProperty("validated_account_ownership_with_account_statement")
+            fun validatedAccountOwnershipWithAccountStatement(
+                validatedAccountOwnershipWithAccountStatement: Boolean
+            ) = apply {
+                this.validatedAccountOwnershipWithAccountStatement =
+                    validatedAccountOwnershipWithAccountStatement
+            }
+
+            /** Whether the account ownership was validated with a microdeposit. */
+            @JsonProperty("validated_account_ownership_with_microdeposit")
+            fun validatedAccountOwnershipWithMicrodeposit(
+                validatedAccountOwnershipWithMicrodeposit: Boolean
+            ) = apply {
+                this.validatedAccountOwnershipWithMicrodeposit =
+                    validatedAccountOwnershipWithMicrodeposit
             }
 
             /** Company of the authorizer. */
@@ -243,8 +342,20 @@ constructor(
                         "`authorizerEmail` is required but was not set"
                     },
                     checkNotNull(authorizerName) { "`authorizerName` is required but was not set" },
+                    checkNotNull(customerHasBeenOffboarded) {
+                        "`customerHasBeenOffboarded` is required but was not set"
+                    },
                     checkNotNull(proofOfAuthorizationRequestId) {
                         "`proofOfAuthorizationRequestId` is required but was not set"
+                    },
+                    checkNotNull(validatedAccountOwnershipViaCredential) {
+                        "`validatedAccountOwnershipViaCredential` is required but was not set"
+                    },
+                    checkNotNull(validatedAccountOwnershipWithAccountStatement) {
+                        "`validatedAccountOwnershipWithAccountStatement` is required but was not set"
+                    },
+                    checkNotNull(validatedAccountOwnershipWithMicrodeposit) {
+                        "`validatedAccountOwnershipWithMicrodeposit` is required but was not set"
                     },
                     authorizerCompany,
                     authorizerIpAddress,
@@ -269,7 +380,14 @@ constructor(
             this.authorizedAt == other.authorizedAt &&
             this.authorizerEmail == other.authorizerEmail &&
             this.authorizerName == other.authorizerName &&
+            this.customerHasBeenOffboarded == other.customerHasBeenOffboarded &&
             this.proofOfAuthorizationRequestId == other.proofOfAuthorizationRequestId &&
+            this.validatedAccountOwnershipViaCredential ==
+                other.validatedAccountOwnershipViaCredential &&
+            this.validatedAccountOwnershipWithAccountStatement ==
+                other.validatedAccountOwnershipWithAccountStatement &&
+            this.validatedAccountOwnershipWithMicrodeposit ==
+                other.validatedAccountOwnershipWithMicrodeposit &&
             this.authorizerCompany == other.authorizerCompany &&
             this.authorizerIpAddress == other.authorizerIpAddress &&
             this.additionalQueryParams == other.additionalQueryParams &&
@@ -283,7 +401,11 @@ constructor(
             authorizedAt,
             authorizerEmail,
             authorizerName,
+            customerHasBeenOffboarded,
             proofOfAuthorizationRequestId,
+            validatedAccountOwnershipViaCredential,
+            validatedAccountOwnershipWithAccountStatement,
+            validatedAccountOwnershipWithMicrodeposit,
             authorizerCompany,
             authorizerIpAddress,
             additionalQueryParams,
@@ -293,7 +415,7 @@ constructor(
     }
 
     override fun toString() =
-        "ProofOfAuthorizationRequestSubmissionCreateParams{authorizationTerms=$authorizationTerms, authorizedAt=$authorizedAt, authorizerEmail=$authorizerEmail, authorizerName=$authorizerName, proofOfAuthorizationRequestId=$proofOfAuthorizationRequestId, authorizerCompany=$authorizerCompany, authorizerIpAddress=$authorizerIpAddress, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "ProofOfAuthorizationRequestSubmissionCreateParams{authorizationTerms=$authorizationTerms, authorizedAt=$authorizedAt, authorizerEmail=$authorizerEmail, authorizerName=$authorizerName, customerHasBeenOffboarded=$customerHasBeenOffboarded, proofOfAuthorizationRequestId=$proofOfAuthorizationRequestId, validatedAccountOwnershipViaCredential=$validatedAccountOwnershipViaCredential, validatedAccountOwnershipWithAccountStatement=$validatedAccountOwnershipWithAccountStatement, validatedAccountOwnershipWithMicrodeposit=$validatedAccountOwnershipWithMicrodeposit, authorizerCompany=$authorizerCompany, authorizerIpAddress=$authorizerIpAddress, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -309,7 +431,11 @@ constructor(
         private var authorizedAt: OffsetDateTime? = null
         private var authorizerEmail: String? = null
         private var authorizerName: String? = null
+        private var customerHasBeenOffboarded: Boolean? = null
         private var proofOfAuthorizationRequestId: String? = null
+        private var validatedAccountOwnershipViaCredential: Boolean? = null
+        private var validatedAccountOwnershipWithAccountStatement: Boolean? = null
+        private var validatedAccountOwnershipWithMicrodeposit: Boolean? = null
         private var authorizerCompany: String? = null
         private var authorizerIpAddress: String? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
@@ -325,8 +451,19 @@ constructor(
             this.authorizedAt = proofOfAuthorizationRequestSubmissionCreateParams.authorizedAt
             this.authorizerEmail = proofOfAuthorizationRequestSubmissionCreateParams.authorizerEmail
             this.authorizerName = proofOfAuthorizationRequestSubmissionCreateParams.authorizerName
+            this.customerHasBeenOffboarded =
+                proofOfAuthorizationRequestSubmissionCreateParams.customerHasBeenOffboarded
             this.proofOfAuthorizationRequestId =
                 proofOfAuthorizationRequestSubmissionCreateParams.proofOfAuthorizationRequestId
+            this.validatedAccountOwnershipViaCredential =
+                proofOfAuthorizationRequestSubmissionCreateParams
+                    .validatedAccountOwnershipViaCredential
+            this.validatedAccountOwnershipWithAccountStatement =
+                proofOfAuthorizationRequestSubmissionCreateParams
+                    .validatedAccountOwnershipWithAccountStatement
+            this.validatedAccountOwnershipWithMicrodeposit =
+                proofOfAuthorizationRequestSubmissionCreateParams
+                    .validatedAccountOwnershipWithMicrodeposit
             this.authorizerCompany =
                 proofOfAuthorizationRequestSubmissionCreateParams.authorizerCompany
             this.authorizerIpAddress =
@@ -356,9 +493,37 @@ constructor(
         /** Name of the authorizer. */
         fun authorizerName(authorizerName: String) = apply { this.authorizerName = authorizerName }
 
+        /** Whether the customer has been offboarded or suspended. */
+        fun customerHasBeenOffboarded(customerHasBeenOffboarded: Boolean) = apply {
+            this.customerHasBeenOffboarded = customerHasBeenOffboarded
+        }
+
         /** ID of the proof of authorization request. */
         fun proofOfAuthorizationRequestId(proofOfAuthorizationRequestId: String) = apply {
             this.proofOfAuthorizationRequestId = proofOfAuthorizationRequestId
+        }
+
+        /** Whether the account ownership was validated via credential (e.g. Plaid). */
+        fun validatedAccountOwnershipViaCredential(
+            validatedAccountOwnershipViaCredential: Boolean
+        ) = apply {
+            this.validatedAccountOwnershipViaCredential = validatedAccountOwnershipViaCredential
+        }
+
+        /** Whether the account ownership was validated with an account statement. */
+        fun validatedAccountOwnershipWithAccountStatement(
+            validatedAccountOwnershipWithAccountStatement: Boolean
+        ) = apply {
+            this.validatedAccountOwnershipWithAccountStatement =
+                validatedAccountOwnershipWithAccountStatement
+        }
+
+        /** Whether the account ownership was validated with a microdeposit. */
+        fun validatedAccountOwnershipWithMicrodeposit(
+            validatedAccountOwnershipWithMicrodeposit: Boolean
+        ) = apply {
+            this.validatedAccountOwnershipWithMicrodeposit =
+                validatedAccountOwnershipWithMicrodeposit
         }
 
         /** Company of the authorizer. */
@@ -433,8 +598,20 @@ constructor(
                 checkNotNull(authorizedAt) { "`authorizedAt` is required but was not set" },
                 checkNotNull(authorizerEmail) { "`authorizerEmail` is required but was not set" },
                 checkNotNull(authorizerName) { "`authorizerName` is required but was not set" },
+                checkNotNull(customerHasBeenOffboarded) {
+                    "`customerHasBeenOffboarded` is required but was not set"
+                },
                 checkNotNull(proofOfAuthorizationRequestId) {
                     "`proofOfAuthorizationRequestId` is required but was not set"
+                },
+                checkNotNull(validatedAccountOwnershipViaCredential) {
+                    "`validatedAccountOwnershipViaCredential` is required but was not set"
+                },
+                checkNotNull(validatedAccountOwnershipWithAccountStatement) {
+                    "`validatedAccountOwnershipWithAccountStatement` is required but was not set"
+                },
+                checkNotNull(validatedAccountOwnershipWithMicrodeposit) {
+                    "`validatedAccountOwnershipWithMicrodeposit` is required but was not set"
                 },
                 authorizerCompany,
                 authorizerIpAddress,
