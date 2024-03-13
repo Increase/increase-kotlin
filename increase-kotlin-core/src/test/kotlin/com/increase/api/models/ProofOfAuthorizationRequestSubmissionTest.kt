@@ -20,6 +20,7 @@ class ProofOfAuthorizationRequestSubmissionTest {
                 .authorizerIpAddress("string")
                 .authorizerName("string")
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .customerHasBeenOffboarded(true)
                 .idempotencyKey("string")
                 .proofOfAuthorizationRequestId("string")
                 .status(ProofOfAuthorizationRequestSubmission.Status.PENDING_REVIEW)
@@ -28,6 +29,9 @@ class ProofOfAuthorizationRequestSubmissionTest {
                         .PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION
                 )
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .validatedAccountOwnershipViaCredential(true)
+                .validatedAccountOwnershipWithAccountStatement(true)
+                .validatedAccountOwnershipWithMicrodeposit(true)
                 .build()
         assertThat(proofOfAuthorizationRequestSubmission).isNotNull
         assertThat(proofOfAuthorizationRequestSubmission.id()).isEqualTo("string")
@@ -40,6 +44,8 @@ class ProofOfAuthorizationRequestSubmissionTest {
         assertThat(proofOfAuthorizationRequestSubmission.authorizerName()).isEqualTo("string")
         assertThat(proofOfAuthorizationRequestSubmission.createdAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        assertThat(proofOfAuthorizationRequestSubmission.customerHasBeenOffboarded())
+            .isEqualTo(true)
         assertThat(proofOfAuthorizationRequestSubmission.idempotencyKey()).isEqualTo("string")
         assertThat(proofOfAuthorizationRequestSubmission.proofOfAuthorizationRequestId())
             .isEqualTo("string")
@@ -51,5 +57,16 @@ class ProofOfAuthorizationRequestSubmissionTest {
             )
         assertThat(proofOfAuthorizationRequestSubmission.updatedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        assertThat(proofOfAuthorizationRequestSubmission.validatedAccountOwnershipViaCredential())
+            .isEqualTo(true)
+        assertThat(
+                proofOfAuthorizationRequestSubmission
+                    .validatedAccountOwnershipWithAccountStatement()
+            )
+            .isEqualTo(true)
+        assertThat(
+                proofOfAuthorizationRequestSubmission.validatedAccountOwnershipWithMicrodeposit()
+            )
+            .isEqualTo(true)
     }
 }
