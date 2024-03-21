@@ -23,6 +23,8 @@ constructor(
     private val companyEntryDescription: String?,
     private val companyId: String?,
     private val companyName: String?,
+    private val receiverIdNumber: String?,
+    private val receiverName: String?,
     private val resolveAt: OffsetDateTime?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
@@ -43,6 +45,10 @@ constructor(
 
     fun companyName(): String? = companyName
 
+    fun receiverIdNumber(): String? = receiverIdNumber
+
+    fun receiverName(): String? = receiverName
+
     fun resolveAt(): OffsetDateTime? = resolveAt
 
     internal fun getBody(): SimulationAchTransferCreateInboundBody {
@@ -54,6 +60,8 @@ constructor(
             companyEntryDescription,
             companyId,
             companyName,
+            receiverIdNumber,
+            receiverName,
             resolveAt,
             additionalBodyProperties,
         )
@@ -74,6 +82,8 @@ constructor(
         private val companyEntryDescription: String?,
         private val companyId: String?,
         private val companyName: String?,
+        private val receiverIdNumber: String?,
+        private val receiverName: String?,
         private val resolveAt: OffsetDateTime?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
@@ -102,11 +112,17 @@ constructor(
         @JsonProperty("company_entry_description")
         fun companyEntryDescription(): String? = companyEntryDescription
 
-        /** The sender's company id. */
+        /** The sender's company ID. */
         @JsonProperty("company_id") fun companyId(): String? = companyId
 
         /** The name of the sender. */
         @JsonProperty("company_name") fun companyName(): String? = companyName
+
+        /** The ID of the receiver of the transfer. */
+        @JsonProperty("receiver_id_number") fun receiverIdNumber(): String? = receiverIdNumber
+
+        /** The name of the receiver of the transfer. */
+        @JsonProperty("receiver_name") fun receiverName(): String? = receiverName
 
         /**
          * The time at which the transfer should be resolved. If not provided will resolve
@@ -133,6 +149,8 @@ constructor(
                 this.companyEntryDescription == other.companyEntryDescription &&
                 this.companyId == other.companyId &&
                 this.companyName == other.companyName &&
+                this.receiverIdNumber == other.receiverIdNumber &&
+                this.receiverName == other.receiverName &&
                 this.resolveAt == other.resolveAt &&
                 this.additionalProperties == other.additionalProperties
         }
@@ -148,6 +166,8 @@ constructor(
                         companyEntryDescription,
                         companyId,
                         companyName,
+                        receiverIdNumber,
+                        receiverName,
                         resolveAt,
                         additionalProperties,
                     )
@@ -156,7 +176,7 @@ constructor(
         }
 
         override fun toString() =
-            "SimulationAchTransferCreateInboundBody{accountNumberId=$accountNumberId, amount=$amount, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyId=$companyId, companyName=$companyName, resolveAt=$resolveAt, additionalProperties=$additionalProperties}"
+            "SimulationAchTransferCreateInboundBody{accountNumberId=$accountNumberId, amount=$amount, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyId=$companyId, companyName=$companyName, receiverIdNumber=$receiverIdNumber, receiverName=$receiverName, resolveAt=$resolveAt, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -172,6 +192,8 @@ constructor(
             private var companyEntryDescription: String? = null
             private var companyId: String? = null
             private var companyName: String? = null
+            private var receiverIdNumber: String? = null
+            private var receiverName: String? = null
             private var resolveAt: OffsetDateTime? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -188,6 +210,8 @@ constructor(
                     simulationAchTransferCreateInboundBody.companyEntryDescription
                 this.companyId = simulationAchTransferCreateInboundBody.companyId
                 this.companyName = simulationAchTransferCreateInboundBody.companyName
+                this.receiverIdNumber = simulationAchTransferCreateInboundBody.receiverIdNumber
+                this.receiverName = simulationAchTransferCreateInboundBody.receiverName
                 this.resolveAt = simulationAchTransferCreateInboundBody.resolveAt
                 additionalProperties(simulationAchTransferCreateInboundBody.additionalProperties)
             }
@@ -223,13 +247,23 @@ constructor(
                 this.companyEntryDescription = companyEntryDescription
             }
 
-            /** The sender's company id. */
+            /** The sender's company ID. */
             @JsonProperty("company_id")
             fun companyId(companyId: String) = apply { this.companyId = companyId }
 
             /** The name of the sender. */
             @JsonProperty("company_name")
             fun companyName(companyName: String) = apply { this.companyName = companyName }
+
+            /** The ID of the receiver of the transfer. */
+            @JsonProperty("receiver_id_number")
+            fun receiverIdNumber(receiverIdNumber: String) = apply {
+                this.receiverIdNumber = receiverIdNumber
+            }
+
+            /** The name of the receiver of the transfer. */
+            @JsonProperty("receiver_name")
+            fun receiverName(receiverName: String) = apply { this.receiverName = receiverName }
 
             /**
              * The time at which the transfer should be resolved. If not provided will resolve
@@ -263,6 +297,8 @@ constructor(
                     companyEntryDescription,
                     companyId,
                     companyName,
+                    receiverIdNumber,
+                    receiverName,
                     resolveAt,
                     additionalProperties.toUnmodifiable(),
                 )
@@ -288,6 +324,8 @@ constructor(
             this.companyEntryDescription == other.companyEntryDescription &&
             this.companyId == other.companyId &&
             this.companyName == other.companyName &&
+            this.receiverIdNumber == other.receiverIdNumber &&
+            this.receiverName == other.receiverName &&
             this.resolveAt == other.resolveAt &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders &&
@@ -303,6 +341,8 @@ constructor(
             companyEntryDescription,
             companyId,
             companyName,
+            receiverIdNumber,
+            receiverName,
             resolveAt,
             additionalQueryParams,
             additionalHeaders,
@@ -311,7 +351,7 @@ constructor(
     }
 
     override fun toString() =
-        "SimulationAchTransferCreateInboundParams{accountNumberId=$accountNumberId, amount=$amount, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyId=$companyId, companyName=$companyName, resolveAt=$resolveAt, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "SimulationAchTransferCreateInboundParams{accountNumberId=$accountNumberId, amount=$amount, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyId=$companyId, companyName=$companyName, receiverIdNumber=$receiverIdNumber, receiverName=$receiverName, resolveAt=$resolveAt, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -330,6 +370,8 @@ constructor(
         private var companyEntryDescription: String? = null
         private var companyId: String? = null
         private var companyName: String? = null
+        private var receiverIdNumber: String? = null
+        private var receiverName: String? = null
         private var resolveAt: OffsetDateTime? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
@@ -348,6 +390,8 @@ constructor(
                 simulationAchTransferCreateInboundParams.companyEntryDescription
             this.companyId = simulationAchTransferCreateInboundParams.companyId
             this.companyName = simulationAchTransferCreateInboundParams.companyName
+            this.receiverIdNumber = simulationAchTransferCreateInboundParams.receiverIdNumber
+            this.receiverName = simulationAchTransferCreateInboundParams.receiverName
             this.resolveAt = simulationAchTransferCreateInboundParams.resolveAt
             additionalQueryParams(simulationAchTransferCreateInboundParams.additionalQueryParams)
             additionalHeaders(simulationAchTransferCreateInboundParams.additionalHeaders)
@@ -383,11 +427,19 @@ constructor(
             this.companyEntryDescription = companyEntryDescription
         }
 
-        /** The sender's company id. */
+        /** The sender's company ID. */
         fun companyId(companyId: String) = apply { this.companyId = companyId }
 
         /** The name of the sender. */
         fun companyName(companyName: String) = apply { this.companyName = companyName }
+
+        /** The ID of the receiver of the transfer. */
+        fun receiverIdNumber(receiverIdNumber: String) = apply {
+            this.receiverIdNumber = receiverIdNumber
+        }
+
+        /** The name of the receiver of the transfer. */
+        fun receiverName(receiverName: String) = apply { this.receiverName = receiverName }
 
         /**
          * The time at which the transfer should be resolved. If not provided will resolve
@@ -458,6 +510,8 @@ constructor(
                 companyEntryDescription,
                 companyId,
                 companyName,
+                receiverIdNumber,
+                receiverName,
                 resolveAt,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),

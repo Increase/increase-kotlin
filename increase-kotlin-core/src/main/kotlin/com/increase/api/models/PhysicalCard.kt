@@ -29,7 +29,6 @@ class PhysicalCard
 private constructor(
     private val id: JsonField<String>,
     private val cardId: JsonField<String>,
-    private val cardProfileId: JsonField<String>,
     private val physicalCardProfileId: JsonField<String>,
     private val createdAt: JsonField<OffsetDateTime>,
     private val status: JsonField<Status>,
@@ -49,9 +48,6 @@ private constructor(
 
     /** The identifier for the Card this Physical Card represents. */
     fun cardId(): String = cardId.getRequired("card_id")
-
-    /** The Card Profile used for this Physical Card. */
-    fun cardProfileId(): String? = cardProfileId.getNullable("card_profile_id")
 
     /** The Physical Card Profile used for this Physical Card. */
     fun physicalCardProfileId(): String? =
@@ -90,9 +86,6 @@ private constructor(
 
     /** The identifier for the Card this Physical Card represents. */
     @JsonProperty("card_id") @ExcludeMissing fun _cardId() = cardId
-
-    /** The Card Profile used for this Physical Card. */
-    @JsonProperty("card_profile_id") @ExcludeMissing fun _cardProfileId() = cardProfileId
 
     /** The Physical Card Profile used for this Physical Card. */
     @JsonProperty("physical_card_profile_id")
@@ -135,7 +128,6 @@ private constructor(
         if (!validated) {
             id()
             cardId()
-            cardProfileId()
             physicalCardProfileId()
             createdAt()
             status()
@@ -157,7 +149,6 @@ private constructor(
         return other is PhysicalCard &&
             this.id == other.id &&
             this.cardId == other.cardId &&
-            this.cardProfileId == other.cardProfileId &&
             this.physicalCardProfileId == other.physicalCardProfileId &&
             this.createdAt == other.createdAt &&
             this.status == other.status &&
@@ -174,7 +165,6 @@ private constructor(
                 Objects.hash(
                     id,
                     cardId,
-                    cardProfileId,
                     physicalCardProfileId,
                     createdAt,
                     status,
@@ -189,7 +179,7 @@ private constructor(
     }
 
     override fun toString() =
-        "PhysicalCard{id=$id, cardId=$cardId, cardProfileId=$cardProfileId, physicalCardProfileId=$physicalCardProfileId, createdAt=$createdAt, status=$status, cardholder=$cardholder, shipment=$shipment, idempotencyKey=$idempotencyKey, type=$type, additionalProperties=$additionalProperties}"
+        "PhysicalCard{id=$id, cardId=$cardId, physicalCardProfileId=$physicalCardProfileId, createdAt=$createdAt, status=$status, cardholder=$cardholder, shipment=$shipment, idempotencyKey=$idempotencyKey, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -200,7 +190,6 @@ private constructor(
 
         private var id: JsonField<String> = JsonMissing.of()
         private var cardId: JsonField<String> = JsonMissing.of()
-        private var cardProfileId: JsonField<String> = JsonMissing.of()
         private var physicalCardProfileId: JsonField<String> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var status: JsonField<Status> = JsonMissing.of()
@@ -213,7 +202,6 @@ private constructor(
         internal fun from(physicalCard: PhysicalCard) = apply {
             this.id = physicalCard.id
             this.cardId = physicalCard.cardId
-            this.cardProfileId = physicalCard.cardProfileId
             this.physicalCardProfileId = physicalCard.physicalCardProfileId
             this.createdAt = physicalCard.createdAt
             this.status = physicalCard.status
@@ -237,16 +225,6 @@ private constructor(
         @JsonProperty("card_id")
         @ExcludeMissing
         fun cardId(cardId: JsonField<String>) = apply { this.cardId = cardId }
-
-        /** The Card Profile used for this Physical Card. */
-        fun cardProfileId(cardProfileId: String) = cardProfileId(JsonField.of(cardProfileId))
-
-        /** The Card Profile used for this Physical Card. */
-        @JsonProperty("card_profile_id")
-        @ExcludeMissing
-        fun cardProfileId(cardProfileId: JsonField<String>) = apply {
-            this.cardProfileId = cardProfileId
-        }
 
         /** The Physical Card Profile used for this Physical Card. */
         fun physicalCardProfileId(physicalCardProfileId: String) =
@@ -347,7 +325,6 @@ private constructor(
             PhysicalCard(
                 id,
                 cardId,
-                cardProfileId,
                 physicalCardProfileId,
                 createdAt,
                 status,
