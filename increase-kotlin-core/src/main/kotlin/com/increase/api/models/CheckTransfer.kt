@@ -2243,8 +2243,6 @@ private constructor(
 
             val PENDING_SUBMISSION = Status(JsonField.of("pending_submission"))
 
-            val SUBMITTED = Status(JsonField.of("submitted"))
-
             val PENDING_MAILING = Status(JsonField.of("pending_mailing"))
 
             val MAILED = Status(JsonField.of("mailed"))
@@ -2267,7 +2265,6 @@ private constructor(
         enum class Known {
             PENDING_APPROVAL,
             PENDING_SUBMISSION,
-            SUBMITTED,
             PENDING_MAILING,
             MAILED,
             CANCELED,
@@ -2281,7 +2278,6 @@ private constructor(
         enum class Value {
             PENDING_APPROVAL,
             PENDING_SUBMISSION,
-            SUBMITTED,
             PENDING_MAILING,
             MAILED,
             CANCELED,
@@ -2297,7 +2293,6 @@ private constructor(
             when (this) {
                 PENDING_APPROVAL -> Value.PENDING_APPROVAL
                 PENDING_SUBMISSION -> Value.PENDING_SUBMISSION
-                SUBMITTED -> Value.SUBMITTED
                 PENDING_MAILING -> Value.PENDING_MAILING
                 MAILED -> Value.MAILED
                 CANCELED -> Value.CANCELED
@@ -2313,7 +2308,6 @@ private constructor(
             when (this) {
                 PENDING_APPROVAL -> Known.PENDING_APPROVAL
                 PENDING_SUBMISSION -> Known.PENDING_SUBMISSION
-                SUBMITTED -> Known.SUBMITTED
                 PENDING_MAILING -> Known.PENDING_MAILING
                 MAILED -> Known.MAILED
                 CANCELED -> Known.CANCELED
