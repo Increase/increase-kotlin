@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.35.0 (2024-03-27)
+
+Full Changelog: [v0.34.0...v0.35.0](https://github.com/Increase/increase-kotlin/compare/v0.34.0...v0.35.0)
+
+### Features
+
+* **api:** add `funding` parameter to external account update ([#220](https://github.com/Increase/increase-kotlin/issues/220)) ([fda9499](https://github.com/Increase/increase-kotlin/commit/fda9499e5cc63973f9145f4287b51381e73e5f91))
+* **api:** adding `pending_reviewing` wire transfer state ([ecdc8bf](https://github.com/Increase/increase-kotlin/commit/ecdc8bf491bde2304e613d605f59145cfa3a5334))
+* **api:** introduce `network_risk_score` ([#218](https://github.com/Increase/increase-kotlin/issues/218)) ([ecdc8bf](https://github.com/Increase/increase-kotlin/commit/ecdc8bf491bde2304e613d605f59145cfa3a5334))
+* **api:** remove Card Profile ID properties ([ecdc8bf](https://github.com/Increase/increase-kotlin/commit/ecdc8bf491bde2304e613d605f59145cfa3a5334))
+* **api:** updates ([#219](https://github.com/Increase/increase-kotlin/issues/219)) ([1ae8a9f](https://github.com/Increase/increase-kotlin/commit/1ae8a9fe4a12f2f6c3448acc02a56f088350940d))
+
+
+### Documentation
+
+* **readme:** consistent use of sentence case in headings ([#216](https://github.com/Increase/increase-kotlin/issues/216)) ([99b269e](https://github.com/Increase/increase-kotlin/commit/99b269ee928d8227c7c160b984f1074c0b757047))
+
 ## 0.34.0 (2024-03-13)
 
 Full Changelog: [v0.33.0...v0.34.0](https://github.com/Increase/increase-kotlin/compare/v0.33.0...v0.34.0)
