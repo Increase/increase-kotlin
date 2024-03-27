@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.35.1 (2024-03-27)
+
+Full Changelog: [v0.35.0...v0.35.1](https://github.com/Increase/increase-kotlin/compare/v0.35.0...v0.35.1)
+
+### Chores
+
+* revert temporary commit ([acce7f7](https://github.com/Increase/increase-kotlin/commit/acce7f75a2e6c064bb0ef22d93b46449b90b2425))
+* temporary commit ([#221](https://github.com/Increase/increase-kotlin/issues/221)) ([ae970b9](https://github.com/Increase/increase-kotlin/commit/ae970b94f5efdb58af2ef672b39be4a18826c37e))
+
 ## 0.35.0 (2024-03-27)
 
 Full Changelog: [v0.34.0...v0.35.0](https://github.com/Increase/increase-kotlin/compare/v0.34.0...v0.35.0)
