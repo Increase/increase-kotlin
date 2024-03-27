@@ -19,7 +19,7 @@ The REST API documentation can be found [on increase.com](https://increase.com/
 <!-- x-release-please-start-version -->
 
 ```kotlin
-implementation("com.increase.api:increase-kotlin:0.34.0")
+implementation("com.increase.api:increase-kotlin:0.35.0")
 ```
 
 #### Maven
@@ -28,7 +28,7 @@ implementation("com.increase.api:increase-kotlin:0.34.0")
 <dependency>
     <groupId>com.increase.api</groupId>
     <artifactId>increase-kotlin</artifactId>
-    <version>0.34.0</version>
+    <version>0.35.0</version>
 </dependency>
 ```
 
@@ -298,7 +298,7 @@ val client = IncreaseOkHttpClient.builder()
     .build()
 ```
 
-## Semantic Versioning
+## Semantic versioning
 
 This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) conventions, though certain backwards-incompatible changes may be released as minor versions:
 
