@@ -8,6 +8,7 @@ import com.increase.api.core.RequestOptions
 import com.increase.api.models.AchTransfer
 import com.increase.api.models.InboundAchTransfer
 import com.increase.api.models.SimulationAchTransferCreateInboundParams
+import com.increase.api.models.SimulationAchTransferNotificationOfChangeParams
 import com.increase.api.models.SimulationAchTransferReturnParams
 import com.increase.api.models.SimulationAchTransferSubmitParams
 
@@ -28,6 +29,12 @@ interface AchTransferService {
         params: SimulationAchTransferCreateInboundParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): InboundAchTransfer
+
+    /** Simulates receiving a Notification of Change for an [ACH Transfer](#ach-transfers). */
+    fun notificationOfChange(
+        params: SimulationAchTransferNotificationOfChangeParams,
+        requestOptions: RequestOptions = RequestOptions.none()
+    ): AchTransfer
 
     /**
      * Simulates the return of an [ACH Transfer](#ach-transfers) by the Federal Reserve due to an
