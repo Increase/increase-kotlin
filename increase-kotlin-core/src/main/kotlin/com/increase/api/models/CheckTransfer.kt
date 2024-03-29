@@ -1100,7 +1100,7 @@ private constructor(
             bankOfFirstDepositRoutingNumber.getNullable("bank_of_first_deposit_routing_number")
 
         /** The identifier of the Check Transfer object that was deposited. */
-        fun transferId(): String = transferId.getRequired("transfer_id")
+        fun transferId(): String? = transferId.getNullable("transfer_id")
 
         /**
          * A constant representing the object's type. For this resource it will always be
