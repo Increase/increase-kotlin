@@ -14,6 +14,7 @@ class OAuthConnectionTest {
             OAuthConnection.builder()
                 .id("string")
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .deletedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .groupId("string")
                 .status(OAuthConnection.Status.ACTIVE)
                 .type(OAuthConnection.Type.OAUTH_CONNECTION)
@@ -21,6 +22,8 @@ class OAuthConnectionTest {
         assertThat(oauthConnection).isNotNull
         assertThat(oauthConnection.id()).isEqualTo("string")
         assertThat(oauthConnection.createdAt())
+            .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        assertThat(oauthConnection.deletedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(oauthConnection.groupId()).isEqualTo("string")
         assertThat(oauthConnection.status()).isEqualTo(OAuthConnection.Status.ACTIVE)

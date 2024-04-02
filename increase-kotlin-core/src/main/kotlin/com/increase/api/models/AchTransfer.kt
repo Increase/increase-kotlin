@@ -3767,7 +3767,7 @@ private constructor(
          * A 15 digit number recorded in the Nacha file and transmitted to the receiving bank. Along
          * with the amount, date, and originating routing number, this can be used to identify the
          * ACH transfer at the receiving bank. ACH trace numbers are not unique, but are
-         * [used to correlate returns](https://increase.com/documentation/ach#returns).
+         * [used to correlate returns](https://increase.com/documentation/ach-returns#ach-returns).
          */
         fun traceNumber(): String = traceNumber.getRequired("trace_number")
 
@@ -3793,7 +3793,7 @@ private constructor(
          * A 15 digit number recorded in the Nacha file and transmitted to the receiving bank. Along
          * with the amount, date, and originating routing number, this can be used to identify the
          * ACH transfer at the receiving bank. ACH trace numbers are not unique, but are
-         * [used to correlate returns](https://increase.com/documentation/ach#returns).
+         * [used to correlate returns](https://increase.com/documentation/ach-returns#ach-returns).
          */
         @JsonProperty("trace_number") @ExcludeMissing fun _traceNumber() = traceNumber
 
@@ -3887,7 +3887,8 @@ private constructor(
              * A 15 digit number recorded in the Nacha file and transmitted to the receiving bank.
              * Along with the amount, date, and originating routing number, this can be used to
              * identify the ACH transfer at the receiving bank. ACH trace numbers are not unique,
-             * but are [used to correlate returns](https://increase.com/documentation/ach#returns).
+             * but are
+             * [used to correlate returns](https://increase.com/documentation/ach-returns#ach-returns).
              */
             fun traceNumber(traceNumber: String) = traceNumber(JsonField.of(traceNumber))
 
@@ -3895,7 +3896,8 @@ private constructor(
              * A 15 digit number recorded in the Nacha file and transmitted to the receiving bank.
              * Along with the amount, date, and originating routing number, this can be used to
              * identify the ACH transfer at the receiving bank. ACH trace numbers are not unique,
-             * but are [used to correlate returns](https://increase.com/documentation/ach#returns).
+             * but are
+             * [used to correlate returns](https://increase.com/documentation/ach-returns#ach-returns).
              */
             @JsonProperty("trace_number")
             @ExcludeMissing
