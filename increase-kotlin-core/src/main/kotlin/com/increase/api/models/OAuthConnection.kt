@@ -29,6 +29,7 @@ private constructor(
     private val createdAt: JsonField<OffsetDateTime>,
     private val groupId: JsonField<String>,
     private val status: JsonField<Status>,
+    private val deletedAt: JsonField<OffsetDateTime>,
     private val type: JsonField<Type>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
@@ -53,6 +54,12 @@ private constructor(
     fun status(): Status = status.getRequired("status")
 
     /**
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp when the OAuth Connection
+     * was deleted.
+     */
+    fun deletedAt(): OffsetDateTime? = deletedAt.getNullable("deleted_at")
+
+    /**
      * A constant representing the object's type. For this resource it will always be
      * `oauth_connection`.
      */
@@ -74,6 +81,12 @@ private constructor(
     @JsonProperty("status") @ExcludeMissing fun _status() = status
 
     /**
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp when the OAuth Connection
+     * was deleted.
+     */
+    @JsonProperty("deleted_at") @ExcludeMissing fun _deletedAt() = deletedAt
+
+    /**
      * A constant representing the object's type. For this resource it will always be
      * `oauth_connection`.
      */
@@ -89,6 +102,7 @@ private constructor(
             createdAt()
             groupId()
             status()
+            deletedAt()
             type()
             validated = true
         }
@@ -106,6 +120,7 @@ private constructor(
             this.createdAt == other.createdAt &&
             this.groupId == other.groupId &&
             this.status == other.status &&
+            this.deletedAt == other.deletedAt &&
             this.type == other.type &&
             this.additionalProperties == other.additionalProperties
     }
@@ -118,6 +133,7 @@ private constructor(
                     createdAt,
                     groupId,
                     status,
+                    deletedAt,
                     type,
                     additionalProperties,
                 )
@@ -126,7 +142,7 @@ private constructor(
     }
 
     override fun toString() =
-        "OAuthConnection{id=$id, createdAt=$createdAt, groupId=$groupId, status=$status, type=$type, additionalProperties=$additionalProperties}"
+        "OAuthConnection{id=$id, createdAt=$createdAt, groupId=$groupId, status=$status, deletedAt=$deletedAt, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -139,6 +155,7 @@ private constructor(
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var groupId: JsonField<String> = JsonMissing.of()
         private var status: JsonField<Status> = JsonMissing.of()
+        private var deletedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -147,6 +164,7 @@ private constructor(
             this.createdAt = oauthConnection.createdAt
             this.groupId = oauthConnection.groupId
             this.status = oauthConnection.status
+            this.deletedAt = oauthConnection.deletedAt
             this.type = oauthConnection.type
             additionalProperties(oauthConnection.additionalProperties)
         }
@@ -188,6 +206,20 @@ private constructor(
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp when the OAuth
+         * Connection was deleted.
+         */
+        fun deletedAt(deletedAt: OffsetDateTime) = deletedAt(JsonField.of(deletedAt))
+
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp when the OAuth
+         * Connection was deleted.
+         */
+        @JsonProperty("deleted_at")
+        @ExcludeMissing
+        fun deletedAt(deletedAt: JsonField<OffsetDateTime>) = apply { this.deletedAt = deletedAt }
+
+        /**
          * A constant representing the object's type. For this resource it will always be
          * `oauth_connection`.
          */
@@ -221,6 +253,7 @@ private constructor(
                 createdAt,
                 groupId,
                 status,
+                deletedAt,
                 type,
                 additionalProperties.toUnmodifiable(),
             )
