@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.37.0 (2024-04-02)
+
+Full Changelog: [v0.36.0...v0.37.0](https://github.com/Increase/increase-kotlin/compare/v0.36.0...v0.37.0)
+
+### Features
+
+* **api:** filter OAuth connections by their status ([#225](https://github.com/Increase/increase-kotlin/issues/225)) ([9a0494a](https://github.com/Increase/increase-kotlin/commit/9a0494a801706c0eb609e4bac45c0c7e990f82f0))
+
 ## 0.36.0 (2024-03-29)
 
 Full Changelog: [v0.35.0...v0.36.0](https://github.com/Increase/increase-kotlin/compare/v0.35.0...v0.36.0)
