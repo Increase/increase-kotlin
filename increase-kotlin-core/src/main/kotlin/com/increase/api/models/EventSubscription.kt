@@ -31,6 +31,7 @@ private constructor(
     private val createdAt: JsonField<OffsetDateTime>,
     private val status: JsonField<Status>,
     private val selectedEventCategory: JsonField<SelectedEventCategory>,
+    private val oauthConnectionId: JsonField<String>,
     private val url: JsonField<String>,
     private val idempotencyKey: JsonField<String>,
     private val type: JsonField<Type>,
@@ -56,6 +57,12 @@ private constructor(
      */
     fun selectedEventCategory(): SelectedEventCategory? =
         selectedEventCategory.getNullable("selected_event_category")
+
+    /**
+     * If specified, this subscription will only receive webhooks for Events associated with this
+     * OAuth Connection.
+     */
+    fun oauthConnectionId(): String? = oauthConnectionId.getNullable("oauth_connection_id")
 
     /** The webhook url where we'll send notifications. */
     fun url(): String = url.getRequired("url")
@@ -90,6 +97,14 @@ private constructor(
     @ExcludeMissing
     fun _selectedEventCategory() = selectedEventCategory
 
+    /**
+     * If specified, this subscription will only receive webhooks for Events associated with this
+     * OAuth Connection.
+     */
+    @JsonProperty("oauth_connection_id")
+    @ExcludeMissing
+    fun _oauthConnectionId() = oauthConnectionId
+
     /** The webhook url where we'll send notifications. */
     @JsonProperty("url") @ExcludeMissing fun _url() = url
 
@@ -116,6 +131,7 @@ private constructor(
             createdAt()
             status()
             selectedEventCategory()
+            oauthConnectionId()
             url()
             idempotencyKey()
             type()
@@ -135,6 +151,7 @@ private constructor(
             this.createdAt == other.createdAt &&
             this.status == other.status &&
             this.selectedEventCategory == other.selectedEventCategory &&
+            this.oauthConnectionId == other.oauthConnectionId &&
             this.url == other.url &&
             this.idempotencyKey == other.idempotencyKey &&
             this.type == other.type &&
@@ -149,6 +166,7 @@ private constructor(
                     createdAt,
                     status,
                     selectedEventCategory,
+                    oauthConnectionId,
                     url,
                     idempotencyKey,
                     type,
@@ -159,7 +177,7 @@ private constructor(
     }
 
     override fun toString() =
-        "EventSubscription{id=$id, createdAt=$createdAt, status=$status, selectedEventCategory=$selectedEventCategory, url=$url, idempotencyKey=$idempotencyKey, type=$type, additionalProperties=$additionalProperties}"
+        "EventSubscription{id=$id, createdAt=$createdAt, status=$status, selectedEventCategory=$selectedEventCategory, oauthConnectionId=$oauthConnectionId, url=$url, idempotencyKey=$idempotencyKey, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -172,6 +190,7 @@ private constructor(
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var status: JsonField<Status> = JsonMissing.of()
         private var selectedEventCategory: JsonField<SelectedEventCategory> = JsonMissing.of()
+        private var oauthConnectionId: JsonField<String> = JsonMissing.of()
         private var url: JsonField<String> = JsonMissing.of()
         private var idempotencyKey: JsonField<String> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
@@ -182,6 +201,7 @@ private constructor(
             this.createdAt = eventSubscription.createdAt
             this.status = eventSubscription.status
             this.selectedEventCategory = eventSubscription.selectedEventCategory
+            this.oauthConnectionId = eventSubscription.oauthConnectionId
             this.url = eventSubscription.url
             this.idempotencyKey = eventSubscription.idempotencyKey
             this.type = eventSubscription.type
@@ -225,6 +245,23 @@ private constructor(
         @ExcludeMissing
         fun selectedEventCategory(selectedEventCategory: JsonField<SelectedEventCategory>) = apply {
             this.selectedEventCategory = selectedEventCategory
+        }
+
+        /**
+         * If specified, this subscription will only receive webhooks for Events associated with
+         * this OAuth Connection.
+         */
+        fun oauthConnectionId(oauthConnectionId: String) =
+            oauthConnectionId(JsonField.of(oauthConnectionId))
+
+        /**
+         * If specified, this subscription will only receive webhooks for Events associated with
+         * this OAuth Connection.
+         */
+        @JsonProperty("oauth_connection_id")
+        @ExcludeMissing
+        fun oauthConnectionId(oauthConnectionId: JsonField<String>) = apply {
+            this.oauthConnectionId = oauthConnectionId
         }
 
         /** The webhook url where we'll send notifications. */
@@ -287,6 +324,7 @@ private constructor(
                 createdAt,
                 status,
                 selectedEventCategory,
+                oauthConnectionId,
                 url,
                 idempotencyKey,
                 type,
@@ -434,6 +472,12 @@ private constructor(
 
             val INBOUND_ACH_TRANSFER_RETURN_UPDATED =
                 SelectedEventCategory(JsonField.of("inbound_ach_transfer_return.updated"))
+
+            val INBOUND_MAIL_ITEM_CREATED =
+                SelectedEventCategory(JsonField.of("inbound_mail_item.created"))
+
+            val INBOUND_MAIL_ITEM_UPDATED =
+                SelectedEventCategory(JsonField.of("inbound_mail_item.updated"))
 
             val INBOUND_WIRE_DRAWDOWN_REQUEST_CREATED =
                 SelectedEventCategory(JsonField.of("inbound_wire_drawdown_request.created"))
@@ -588,6 +632,8 @@ private constructor(
             INBOUND_ACH_TRANSFER_UPDATED,
             INBOUND_ACH_TRANSFER_RETURN_CREATED,
             INBOUND_ACH_TRANSFER_RETURN_UPDATED,
+            INBOUND_MAIL_ITEM_CREATED,
+            INBOUND_MAIL_ITEM_UPDATED,
             INBOUND_WIRE_DRAWDOWN_REQUEST_CREATED,
             INBOUND_WIRE_TRANSFER_CREATED,
             INBOUND_WIRE_TRANSFER_UPDATED,
@@ -669,6 +715,8 @@ private constructor(
             INBOUND_ACH_TRANSFER_UPDATED,
             INBOUND_ACH_TRANSFER_RETURN_CREATED,
             INBOUND_ACH_TRANSFER_RETURN_UPDATED,
+            INBOUND_MAIL_ITEM_CREATED,
+            INBOUND_MAIL_ITEM_UPDATED,
             INBOUND_WIRE_DRAWDOWN_REQUEST_CREATED,
             INBOUND_WIRE_TRANSFER_CREATED,
             INBOUND_WIRE_TRANSFER_UPDATED,
@@ -752,6 +800,8 @@ private constructor(
                 INBOUND_ACH_TRANSFER_UPDATED -> Value.INBOUND_ACH_TRANSFER_UPDATED
                 INBOUND_ACH_TRANSFER_RETURN_CREATED -> Value.INBOUND_ACH_TRANSFER_RETURN_CREATED
                 INBOUND_ACH_TRANSFER_RETURN_UPDATED -> Value.INBOUND_ACH_TRANSFER_RETURN_UPDATED
+                INBOUND_MAIL_ITEM_CREATED -> Value.INBOUND_MAIL_ITEM_CREATED
+                INBOUND_MAIL_ITEM_UPDATED -> Value.INBOUND_MAIL_ITEM_UPDATED
                 INBOUND_WIRE_DRAWDOWN_REQUEST_CREATED -> Value.INBOUND_WIRE_DRAWDOWN_REQUEST_CREATED
                 INBOUND_WIRE_TRANSFER_CREATED -> Value.INBOUND_WIRE_TRANSFER_CREATED
                 INBOUND_WIRE_TRANSFER_UPDATED -> Value.INBOUND_WIRE_TRANSFER_UPDATED
@@ -844,6 +894,8 @@ private constructor(
                 INBOUND_ACH_TRANSFER_UPDATED -> Known.INBOUND_ACH_TRANSFER_UPDATED
                 INBOUND_ACH_TRANSFER_RETURN_CREATED -> Known.INBOUND_ACH_TRANSFER_RETURN_CREATED
                 INBOUND_ACH_TRANSFER_RETURN_UPDATED -> Known.INBOUND_ACH_TRANSFER_RETURN_UPDATED
+                INBOUND_MAIL_ITEM_CREATED -> Known.INBOUND_MAIL_ITEM_CREATED
+                INBOUND_MAIL_ITEM_UPDATED -> Known.INBOUND_MAIL_ITEM_UPDATED
                 INBOUND_WIRE_DRAWDOWN_REQUEST_CREATED -> Known.INBOUND_WIRE_DRAWDOWN_REQUEST_CREATED
                 INBOUND_WIRE_TRANSFER_CREATED -> Known.INBOUND_WIRE_TRANSFER_CREATED
                 INBOUND_WIRE_TRANSFER_UPDATED -> Known.INBOUND_WIRE_TRANSFER_UPDATED
