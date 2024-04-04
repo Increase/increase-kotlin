@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.38.0 (2024-04-04)
+
+Full Changelog: [v0.37.0...v0.38.0](https://github.com/Increase/increase-kotlin/compare/v0.37.0...v0.38.0)
+
+### Features
+
+* **api:** remove inbound_check category, rename check_deposit_mail_item, add inbound_mail_item ([#232](https://github.com/Increase/increase-kotlin/issues/232)) ([2991aa8](https://github.com/Increase/increase-kotlin/commit/2991aa8175e2d36a15511c8908330f5cfd3edbc3))
+
+
+### Chores
+
+* **deps:** update jackson to v2.14.3 ([#227](https://github.com/Increase/increase-kotlin/issues/227)) ([f2c94ec](https://github.com/Increase/increase-kotlin/commit/f2c94ec8c98ba0fedc443623cfb42a0687a3fa4d))
+* **deps:** update junit5 to v5.9.3 ([#230](https://github.com/Increase/increase-kotlin/issues/230)) ([1257df0](https://github.com/Increase/increase-kotlin/commit/1257df06a51bd232d99e000a38a8ff383778fd42))
+* **deps:** update kotlin-gradle-plugin to v1.9.23 ([#229](https://github.com/Increase/increase-kotlin/issues/229)) ([fbbeadb](https://github.com/Increase/increase-kotlin/commit/fbbeadb10449fd476b69292be666750f267d20ac))
+* **deps:** update kotlinx-coroutines-core to v1.8.0 ([#231](https://github.com/Increase/increase-kotlin/issues/231)) ([90979c1](https://github.com/Increase/increase-kotlin/commit/90979c16ed354d728a4bcf574ef741241dcbe9d9))
+
 ## 0.37.0 (2024-04-02)
 
 Full Changelog: [v0.36.0...v0.37.0](https://github.com/Increase/increase-kotlin/compare/v0.36.0...v0.37.0)
