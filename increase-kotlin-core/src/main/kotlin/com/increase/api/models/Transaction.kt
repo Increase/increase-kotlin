@@ -12644,6 +12644,9 @@ private constructor(
                 val INBOUND_ACH_TRANSFER_RETURN_INTENTION =
                     Category(JsonField.of("inbound_ach_transfer_return_intention"))
 
+                val INBOUND_CHECK_DEPOSIT_RETURN_INTENTION =
+                    Category(JsonField.of("inbound_check_deposit_return_intention"))
+
                 val INBOUND_INTERNATIONAL_ACH_TRANSFER =
                     Category(JsonField.of("inbound_international_ach_transfer"))
 
@@ -12697,6 +12700,7 @@ private constructor(
                 FEE_PAYMENT,
                 INBOUND_ACH_TRANSFER,
                 INBOUND_ACH_TRANSFER_RETURN_INTENTION,
+                INBOUND_CHECK_DEPOSIT_RETURN_INTENTION,
                 INBOUND_INTERNATIONAL_ACH_TRANSFER,
                 INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION,
                 INBOUND_WIRE_DRAWDOWN_PAYMENT_REVERSAL,
@@ -12729,6 +12733,7 @@ private constructor(
                 FEE_PAYMENT,
                 INBOUND_ACH_TRANSFER,
                 INBOUND_ACH_TRANSFER_RETURN_INTENTION,
+                INBOUND_CHECK_DEPOSIT_RETURN_INTENTION,
                 INBOUND_INTERNATIONAL_ACH_TRANSFER,
                 INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION,
                 INBOUND_WIRE_DRAWDOWN_PAYMENT_REVERSAL,
@@ -12764,6 +12769,8 @@ private constructor(
                     INBOUND_ACH_TRANSFER -> Value.INBOUND_ACH_TRANSFER
                     INBOUND_ACH_TRANSFER_RETURN_INTENTION ->
                         Value.INBOUND_ACH_TRANSFER_RETURN_INTENTION
+                    INBOUND_CHECK_DEPOSIT_RETURN_INTENTION ->
+                        Value.INBOUND_CHECK_DEPOSIT_RETURN_INTENTION
                     INBOUND_INTERNATIONAL_ACH_TRANSFER -> Value.INBOUND_INTERNATIONAL_ACH_TRANSFER
                     INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION ->
                         Value.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION
@@ -12802,6 +12809,8 @@ private constructor(
                     INBOUND_ACH_TRANSFER -> Known.INBOUND_ACH_TRANSFER
                     INBOUND_ACH_TRANSFER_RETURN_INTENTION ->
                         Known.INBOUND_ACH_TRANSFER_RETURN_INTENTION
+                    INBOUND_CHECK_DEPOSIT_RETURN_INTENTION ->
+                        Known.INBOUND_CHECK_DEPOSIT_RETURN_INTENTION
                     INBOUND_INTERNATIONAL_ACH_TRANSFER -> Known.INBOUND_INTERNATIONAL_ACH_TRANSFER
                     INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION ->
                         Known.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION
