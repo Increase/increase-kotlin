@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.39.0 (2024-04-05)
+
+Full Changelog: [v0.38.0...v0.39.0](https://github.com/Increase/increase-kotlin/compare/v0.38.0...v0.39.0)
+
+### Features
+
+* **api:** add inbound check deposit return intention ([#233](https://github.com/Increase/increase-kotlin/issues/233)) ([df24c91](https://github.com/Increase/increase-kotlin/commit/df24c91e79d9f5a8204bc61085fd89d9bb9f965a))
+
 ## 0.38.0 (2024-04-04)
 
 Full Changelog: [v0.37.0...v0.38.0](https://github.com/Increase/increase-kotlin/compare/v0.37.0...v0.38.0)
