@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.40.0 (2024-04-10)
+
+Full Changelog: [v0.39.0...v0.40.0](https://github.com/Increase/increase-kotlin/compare/v0.39.0...v0.40.0)
+
+### Features
+
+* **api:** updates ([#238](https://github.com/Increase/increase-kotlin/issues/238)) ([b0e9371](https://github.com/Increase/increase-kotlin/commit/b0e937167ee18d3a61ffbb34eb94d80ec33a89c4))
+* **client:** implement support for multipart/form-data body requests ([#239](https://github.com/Increase/increase-kotlin/issues/239)) ([8ea0590](https://github.com/Increase/increase-kotlin/commit/8ea059005aa72562848f1bd110926f48c1133ab0))
+
+
+### Chores
+
+* **tests:** import wiremock.client.WireMock.put ([#237](https://github.com/Increase/increase-kotlin/issues/237)) ([1e7a3d2](https://github.com/Increase/increase-kotlin/commit/1e7a3d2c8b0df036c3b7fd73d312262d874dc362))
+
+
+### Documentation
+
+* **api:** update links to NAICS classification codes ([#235](https://github.com/Increase/increase-kotlin/issues/235)) ([7665b3b](https://github.com/Increase/increase-kotlin/commit/7665b3b38fd55ac87562e82035680fcad376ea51))
+
 ## 0.39.0 (2024-04-05)
 
 Full Changelog: [v0.38.0...v0.39.0](https://github.com/Increase/increase-kotlin/compare/v0.38.0...v0.39.0)
