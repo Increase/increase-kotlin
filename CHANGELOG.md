@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.40.1 (2024-04-11)
+
+Full Changelog: [v0.40.0...v0.40.1](https://github.com/Increase/increase-kotlin/compare/v0.40.0...v0.40.1)
+
+### Bug Fixes
+
+* **types:** mark physical card cardholder as required ([#240](https://github.com/Increase/increase-kotlin/issues/240)) ([9e48c3f](https://github.com/Increase/increase-kotlin/commit/9e48c3f44cd62404771e1d21960afd0640af8870))
+
 ## 0.40.0 (2024-04-10)
 
 Full Changelog: [v0.39.0...v0.40.0](https://github.com/Increase/increase-kotlin/compare/v0.39.0...v0.40.0)
