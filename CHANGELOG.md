@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.42.0 (2024-04-16)
+
+Full Changelog: [v0.41.0...v0.42.0](https://github.com/Increase/increase-kotlin/compare/v0.41.0...v0.42.0)
+
+### Features
+
+* **api:** remove deposit field from check transfer ([#247](https://github.com/Increase/increase-kotlin/issues/247)) ([3a251f8](https://github.com/Increase/increase-kotlin/commit/3a251f86851cc5c2d2b9daafe73c66fae46303fa))
+
+
+### Build System
+
+* configure UTF-8 locale in devcontainer ([#245](https://github.com/Increase/increase-kotlin/issues/245)) ([175cb14](https://github.com/Increase/increase-kotlin/commit/175cb14412cff885529d2b2aeec4e666bf834dff))
+
 ## 0.41.0 (2024-04-16)
 
 Full Changelog: [v0.40.1...v0.41.0](https://github.com/Increase/increase-kotlin/compare/v0.40.1...v0.41.0)
