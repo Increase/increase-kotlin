@@ -12665,7 +12665,7 @@ private constructor(
             fun periodEnd(): OffsetDateTime = periodEnd.getRequired("period_end")
 
             /** The card on which the cashback was accrued. */
-            fun accruedOnCardId(): String = accruedOnCardId.getRequired("accrued_on_card_id")
+            fun accruedOnCardId(): String? = accruedOnCardId.getNullable("accrued_on_card_id")
 
             /**
              * The amount in the minor unit of the transaction's currency. For dollars, for example,
@@ -21150,8 +21150,6 @@ private constructor(
 
                     val BANK_MIGRATION = Reason(JsonField.of("bank_migration"))
 
-                    val CASHBACK = Reason(JsonField.of("cashback"))
-
                     val CHECK_ADJUSTMENT = Reason(JsonField.of("check_adjustment"))
 
                     val COLLECTION_PAYMENT = Reason(JsonField.of("collection_payment"))
@@ -21181,7 +21179,6 @@ private constructor(
                 enum class Known {
                     ACCOUNT_CLOSURE,
                     BANK_MIGRATION,
-                    CASHBACK,
                     CHECK_ADJUSTMENT,
                     COLLECTION_PAYMENT,
                     COLLECTION_RECEIVABLE,
@@ -21198,7 +21195,6 @@ private constructor(
                 enum class Value {
                     ACCOUNT_CLOSURE,
                     BANK_MIGRATION,
-                    CASHBACK,
                     CHECK_ADJUSTMENT,
                     COLLECTION_PAYMENT,
                     COLLECTION_RECEIVABLE,
@@ -21217,7 +21213,6 @@ private constructor(
                     when (this) {
                         ACCOUNT_CLOSURE -> Value.ACCOUNT_CLOSURE
                         BANK_MIGRATION -> Value.BANK_MIGRATION
-                        CASHBACK -> Value.CASHBACK
                         CHECK_ADJUSTMENT -> Value.CHECK_ADJUSTMENT
                         COLLECTION_PAYMENT -> Value.COLLECTION_PAYMENT
                         COLLECTION_RECEIVABLE -> Value.COLLECTION_RECEIVABLE
@@ -21236,7 +21231,6 @@ private constructor(
                     when (this) {
                         ACCOUNT_CLOSURE -> Known.ACCOUNT_CLOSURE
                         BANK_MIGRATION -> Known.BANK_MIGRATION
-                        CASHBACK -> Known.CASHBACK
                         CHECK_ADJUSTMENT -> Known.CHECK_ADJUSTMENT
                         COLLECTION_PAYMENT -> Known.COLLECTION_PAYMENT
                         COLLECTION_RECEIVABLE -> Known.COLLECTION_RECEIVABLE
