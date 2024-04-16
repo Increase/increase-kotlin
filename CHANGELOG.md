@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.41.0 (2024-04-16)
+
+Full Changelog: [v0.40.1...v0.41.0](https://github.com/Increase/increase-kotlin/compare/v0.40.1...v0.41.0)
+
+### Features
+
+* **api:** add /inbound_check_deposits endpoints ([#244](https://github.com/Increase/increase-kotlin/issues/244)) ([2860c3b](https://github.com/Increase/increase-kotlin/commit/2860c3b7bdcd045d969c2584dc6d9017858eedb3))
+
+
+### Chores
+
+* **internal:** formatting ([#242](https://github.com/Increase/increase-kotlin/issues/242)) ([2a85379](https://github.com/Increase/increase-kotlin/commit/2a85379ef0c3a3fec196737132254b236d4c98e6))
+
 ## 0.40.1 (2024-04-11)
 
 Full Changelog: [v0.40.0...v0.40.1](https://github.com/Increase/increase-kotlin/compare/v0.40.0...v0.40.1)
