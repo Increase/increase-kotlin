@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.43.0 (2024-04-17)
+
+Full Changelog: [v0.42.0...v0.43.0](https://github.com/Increase/increase-kotlin/compare/v0.42.0...v0.43.0)
+
+### Features
+
+* **api:** add altered_or_fictitious check decline reason ([#248](https://github.com/Increase/increase-kotlin/issues/248)) ([046d638](https://github.com/Increase/increase-kotlin/commit/046d638f6802ef8b4e3e96292b71f77c35eaa051))
+
 ## 0.42.0 (2024-04-16)
 
 Full Changelog: [v0.41.0...v0.42.0](https://github.com/Increase/increase-kotlin/compare/v0.41.0...v0.42.0)
