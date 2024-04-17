@@ -403,6 +403,12 @@ constructor(
                 val INBOUND_ACH_TRANSFER_RETURN_UPDATED =
                     In(JsonField.of("inbound_ach_transfer_return.updated"))
 
+                val INBOUND_CHECK_DEPOSIT_CREATED =
+                    In(JsonField.of("inbound_check_deposit.created"))
+
+                val INBOUND_CHECK_DEPOSIT_UPDATED =
+                    In(JsonField.of("inbound_check_deposit.updated"))
+
                 val INBOUND_MAIL_ITEM_CREATED = In(JsonField.of("inbound_mail_item.created"))
 
                 val INBOUND_MAIL_ITEM_UPDATED = In(JsonField.of("inbound_mail_item.updated"))
@@ -540,6 +546,8 @@ constructor(
                 INBOUND_ACH_TRANSFER_UPDATED,
                 INBOUND_ACH_TRANSFER_RETURN_CREATED,
                 INBOUND_ACH_TRANSFER_RETURN_UPDATED,
+                INBOUND_CHECK_DEPOSIT_CREATED,
+                INBOUND_CHECK_DEPOSIT_UPDATED,
                 INBOUND_MAIL_ITEM_CREATED,
                 INBOUND_MAIL_ITEM_UPDATED,
                 INBOUND_WIRE_DRAWDOWN_REQUEST_CREATED,
@@ -623,6 +631,8 @@ constructor(
                 INBOUND_ACH_TRANSFER_UPDATED,
                 INBOUND_ACH_TRANSFER_RETURN_CREATED,
                 INBOUND_ACH_TRANSFER_RETURN_UPDATED,
+                INBOUND_CHECK_DEPOSIT_CREATED,
+                INBOUND_CHECK_DEPOSIT_UPDATED,
                 INBOUND_MAIL_ITEM_CREATED,
                 INBOUND_MAIL_ITEM_UPDATED,
                 INBOUND_WIRE_DRAWDOWN_REQUEST_CREATED,
@@ -708,6 +718,8 @@ constructor(
                     INBOUND_ACH_TRANSFER_UPDATED -> Value.INBOUND_ACH_TRANSFER_UPDATED
                     INBOUND_ACH_TRANSFER_RETURN_CREATED -> Value.INBOUND_ACH_TRANSFER_RETURN_CREATED
                     INBOUND_ACH_TRANSFER_RETURN_UPDATED -> Value.INBOUND_ACH_TRANSFER_RETURN_UPDATED
+                    INBOUND_CHECK_DEPOSIT_CREATED -> Value.INBOUND_CHECK_DEPOSIT_CREATED
+                    INBOUND_CHECK_DEPOSIT_UPDATED -> Value.INBOUND_CHECK_DEPOSIT_UPDATED
                     INBOUND_MAIL_ITEM_CREATED -> Value.INBOUND_MAIL_ITEM_CREATED
                     INBOUND_MAIL_ITEM_UPDATED -> Value.INBOUND_MAIL_ITEM_UPDATED
                     INBOUND_WIRE_DRAWDOWN_REQUEST_CREATED ->
@@ -803,6 +815,8 @@ constructor(
                     INBOUND_ACH_TRANSFER_UPDATED -> Known.INBOUND_ACH_TRANSFER_UPDATED
                     INBOUND_ACH_TRANSFER_RETURN_CREATED -> Known.INBOUND_ACH_TRANSFER_RETURN_CREATED
                     INBOUND_ACH_TRANSFER_RETURN_UPDATED -> Known.INBOUND_ACH_TRANSFER_RETURN_UPDATED
+                    INBOUND_CHECK_DEPOSIT_CREATED -> Known.INBOUND_CHECK_DEPOSIT_CREATED
+                    INBOUND_CHECK_DEPOSIT_UPDATED -> Known.INBOUND_CHECK_DEPOSIT_UPDATED
                     INBOUND_MAIL_ITEM_CREATED -> Known.INBOUND_MAIL_ITEM_CREATED
                     INBOUND_MAIL_ITEM_UPDATED -> Known.INBOUND_MAIL_ITEM_UPDATED
                     INBOUND_WIRE_DRAWDOWN_REQUEST_CREATED ->

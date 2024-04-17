@@ -4683,6 +4683,8 @@ private constructor(
 
                         val ACH_ROUTE_CANCELED = Reason(JsonField.of("ach_route_canceled"))
 
+                        val ALTERED_OR_FICTITIOUS = Reason(JsonField.of("altered_or_fictitious"))
+
                         val BREACHES_LIMIT = Reason(JsonField.of("breaches_limit"))
 
                         val ENTITY_NOT_ACTIVE = Reason(JsonField.of("entity_not_active"))
@@ -4714,6 +4716,7 @@ private constructor(
                     enum class Known {
                         ACH_ROUTE_DISABLED,
                         ACH_ROUTE_CANCELED,
+                        ALTERED_OR_FICTITIOUS,
                         BREACHES_LIMIT,
                         ENTITY_NOT_ACTIVE,
                         GROUP_LOCKED,
@@ -4731,6 +4734,7 @@ private constructor(
                     enum class Value {
                         ACH_ROUTE_DISABLED,
                         ACH_ROUTE_CANCELED,
+                        ALTERED_OR_FICTITIOUS,
                         BREACHES_LIMIT,
                         ENTITY_NOT_ACTIVE,
                         GROUP_LOCKED,
@@ -4750,6 +4754,7 @@ private constructor(
                         when (this) {
                             ACH_ROUTE_DISABLED -> Value.ACH_ROUTE_DISABLED
                             ACH_ROUTE_CANCELED -> Value.ACH_ROUTE_CANCELED
+                            ALTERED_OR_FICTITIOUS -> Value.ALTERED_OR_FICTITIOUS
                             BREACHES_LIMIT -> Value.BREACHES_LIMIT
                             ENTITY_NOT_ACTIVE -> Value.ENTITY_NOT_ACTIVE
                             GROUP_LOCKED -> Value.GROUP_LOCKED
@@ -4769,6 +4774,7 @@ private constructor(
                         when (this) {
                             ACH_ROUTE_DISABLED -> Known.ACH_ROUTE_DISABLED
                             ACH_ROUTE_CANCELED -> Known.ACH_ROUTE_CANCELED
+                            ALTERED_OR_FICTITIOUS -> Known.ALTERED_OR_FICTITIOUS
                             BREACHES_LIMIT -> Known.BREACHES_LIMIT
                             ENTITY_NOT_ACTIVE -> Known.ENTITY_NOT_ACTIVE
                             GROUP_LOCKED -> Known.GROUP_LOCKED
