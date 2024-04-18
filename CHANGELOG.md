@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.44.0 (2024-04-18)
+
+Full Changelog: [v0.43.0...v0.44.0](https://github.com/Increase/increase-kotlin/compare/v0.43.0...v0.44.0)
+
+### Features
+
+* **api:** add inbound_check_deposits decline endpoint ([#250](https://github.com/Increase/increase-kotlin/issues/250)) ([40b198f](https://github.com/Increase/increase-kotlin/commit/40b198fa804f78610ab237a1d1375d217b7f61bd))
+
 ## 0.43.0 (2024-04-17)
 
 Full Changelog: [v0.42.0...v0.43.0](https://github.com/Increase/increase-kotlin/compare/v0.42.0...v0.43.0)
