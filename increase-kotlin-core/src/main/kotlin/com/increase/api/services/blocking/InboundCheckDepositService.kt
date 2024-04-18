@@ -6,6 +6,7 @@ package com.increase.api.services.blocking
 
 import com.increase.api.core.RequestOptions
 import com.increase.api.models.InboundCheckDeposit
+import com.increase.api.models.InboundCheckDepositDeclineParams
 import com.increase.api.models.InboundCheckDepositListPage
 import com.increase.api.models.InboundCheckDepositListParams
 import com.increase.api.models.InboundCheckDepositRetrieveParams
@@ -23,4 +24,10 @@ interface InboundCheckDepositService {
         params: InboundCheckDepositListParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): InboundCheckDepositListPage
+
+    /** Decline an Inbound Check Deposit */
+    fun decline(
+        params: InboundCheckDepositDeclineParams,
+        requestOptions: RequestOptions = RequestOptions.none()
+    ): InboundCheckDeposit
 }
