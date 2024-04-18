@@ -4408,6 +4408,8 @@ private constructor(
 
                     val UNABLE_TO_PROCESS = Reason(JsonField.of("unable_to_process"))
 
+                    val USER_INITIATED = Reason(JsonField.of("user_initiated"))
+
                     fun of(value: String) = Reason(JsonField.of(value))
                 }
 
@@ -4427,6 +4429,7 @@ private constructor(
                     NO_ACCOUNT_NUMBER_FOUND,
                     REFER_TO_IMAGE,
                     UNABLE_TO_PROCESS,
+                    USER_INITIATED,
                 }
 
                 enum class Value {
@@ -4445,6 +4448,7 @@ private constructor(
                     NO_ACCOUNT_NUMBER_FOUND,
                     REFER_TO_IMAGE,
                     UNABLE_TO_PROCESS,
+                    USER_INITIATED,
                     _UNKNOWN,
                 }
 
@@ -4465,6 +4469,7 @@ private constructor(
                         NO_ACCOUNT_NUMBER_FOUND -> Value.NO_ACCOUNT_NUMBER_FOUND
                         REFER_TO_IMAGE -> Value.REFER_TO_IMAGE
                         UNABLE_TO_PROCESS -> Value.UNABLE_TO_PROCESS
+                        USER_INITIATED -> Value.USER_INITIATED
                         else -> Value._UNKNOWN
                     }
 
@@ -4485,6 +4490,7 @@ private constructor(
                         NO_ACCOUNT_NUMBER_FOUND -> Known.NO_ACCOUNT_NUMBER_FOUND
                         REFER_TO_IMAGE -> Known.REFER_TO_IMAGE
                         UNABLE_TO_PROCESS -> Known.UNABLE_TO_PROCESS
+                        USER_INITIATED -> Known.USER_INITIATED
                         else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
                     }
 
