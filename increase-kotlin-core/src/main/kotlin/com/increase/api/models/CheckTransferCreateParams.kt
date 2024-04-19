@@ -25,6 +25,7 @@ constructor(
     private val fulfillmentMethod: FulfillmentMethod?,
     private val physicalCheck: PhysicalCheck?,
     private val requireApproval: Boolean?,
+    private val thirdParty: ThirdParty?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
     private val additionalBodyProperties: Map<String, JsonValue>,
@@ -42,6 +43,8 @@ constructor(
 
     fun requireApproval(): Boolean? = requireApproval
 
+    fun thirdParty(): ThirdParty? = thirdParty
+
     internal fun getBody(): CheckTransferCreateBody {
         return CheckTransferCreateBody(
             accountId,
@@ -50,6 +53,7 @@ constructor(
             fulfillmentMethod,
             physicalCheck,
             requireApproval,
+            thirdParty,
             additionalBodyProperties,
         )
     }
@@ -68,6 +72,7 @@ constructor(
         private val fulfillmentMethod: FulfillmentMethod?,
         private val physicalCheck: PhysicalCheck?,
         private val requireApproval: Boolean?,
+        private val thirdParty: ThirdParty?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -100,6 +105,13 @@ constructor(
         /** Whether the transfer requires explicit approval via the dashboard or API. */
         @JsonProperty("require_approval") fun requireApproval(): Boolean? = requireApproval
 
+        /**
+         * Details relating to the custom fulfillment you will perform. This is required if
+         * `fulfillment_method` is equal to `third_party`. It must not be included if any other
+         * `fulfillment_method` is provided.
+         */
+        @JsonProperty("third_party") fun thirdParty(): ThirdParty? = thirdParty
+
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -118,6 +130,7 @@ constructor(
                 this.fulfillmentMethod == other.fulfillmentMethod &&
                 this.physicalCheck == other.physicalCheck &&
                 this.requireApproval == other.requireApproval &&
+                this.thirdParty == other.thirdParty &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -131,6 +144,7 @@ constructor(
                         fulfillmentMethod,
                         physicalCheck,
                         requireApproval,
+                        thirdParty,
                         additionalProperties,
                     )
             }
@@ -138,7 +152,7 @@ constructor(
         }
 
         override fun toString() =
-            "CheckTransferCreateBody{accountId=$accountId, amount=$amount, sourceAccountNumberId=$sourceAccountNumberId, fulfillmentMethod=$fulfillmentMethod, physicalCheck=$physicalCheck, requireApproval=$requireApproval, additionalProperties=$additionalProperties}"
+            "CheckTransferCreateBody{accountId=$accountId, amount=$amount, sourceAccountNumberId=$sourceAccountNumberId, fulfillmentMethod=$fulfillmentMethod, physicalCheck=$physicalCheck, requireApproval=$requireApproval, thirdParty=$thirdParty, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -153,6 +167,7 @@ constructor(
             private var fulfillmentMethod: FulfillmentMethod? = null
             private var physicalCheck: PhysicalCheck? = null
             private var requireApproval: Boolean? = null
+            private var thirdParty: ThirdParty? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(checkTransferCreateBody: CheckTransferCreateBody) = apply {
@@ -162,6 +177,7 @@ constructor(
                 this.fulfillmentMethod = checkTransferCreateBody.fulfillmentMethod
                 this.physicalCheck = checkTransferCreateBody.physicalCheck
                 this.requireApproval = checkTransferCreateBody.requireApproval
+                this.thirdParty = checkTransferCreateBody.thirdParty
                 additionalProperties(checkTransferCreateBody.additionalProperties)
             }
 
@@ -203,6 +219,14 @@ constructor(
                 this.requireApproval = requireApproval
             }
 
+            /**
+             * Details relating to the custom fulfillment you will perform. This is required if
+             * `fulfillment_method` is equal to `third_party`. It must not be included if any other
+             * `fulfillment_method` is provided.
+             */
+            @JsonProperty("third_party")
+            fun thirdParty(thirdParty: ThirdParty) = apply { this.thirdParty = thirdParty }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 this.additionalProperties.putAll(additionalProperties)
@@ -227,6 +251,7 @@ constructor(
                     fulfillmentMethod,
                     physicalCheck,
                     requireApproval,
+                    thirdParty,
                     additionalProperties.toUnmodifiable(),
                 )
         }
@@ -250,6 +275,7 @@ constructor(
             this.fulfillmentMethod == other.fulfillmentMethod &&
             this.physicalCheck == other.physicalCheck &&
             this.requireApproval == other.requireApproval &&
+            this.thirdParty == other.thirdParty &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders &&
             this.additionalBodyProperties == other.additionalBodyProperties
@@ -263,6 +289,7 @@ constructor(
             fulfillmentMethod,
             physicalCheck,
             requireApproval,
+            thirdParty,
             additionalQueryParams,
             additionalHeaders,
             additionalBodyProperties,
@@ -270,7 +297,7 @@ constructor(
     }
 
     override fun toString() =
-        "CheckTransferCreateParams{accountId=$accountId, amount=$amount, sourceAccountNumberId=$sourceAccountNumberId, fulfillmentMethod=$fulfillmentMethod, physicalCheck=$physicalCheck, requireApproval=$requireApproval, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "CheckTransferCreateParams{accountId=$accountId, amount=$amount, sourceAccountNumberId=$sourceAccountNumberId, fulfillmentMethod=$fulfillmentMethod, physicalCheck=$physicalCheck, requireApproval=$requireApproval, thirdParty=$thirdParty, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -288,6 +315,7 @@ constructor(
         private var fulfillmentMethod: FulfillmentMethod? = null
         private var physicalCheck: PhysicalCheck? = null
         private var requireApproval: Boolean? = null
+        private var thirdParty: ThirdParty? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -299,6 +327,7 @@ constructor(
             this.fulfillmentMethod = checkTransferCreateParams.fulfillmentMethod
             this.physicalCheck = checkTransferCreateParams.physicalCheck
             this.requireApproval = checkTransferCreateParams.requireApproval
+            this.thirdParty = checkTransferCreateParams.thirdParty
             additionalQueryParams(checkTransferCreateParams.additionalQueryParams)
             additionalHeaders(checkTransferCreateParams.additionalHeaders)
             additionalBodyProperties(checkTransferCreateParams.additionalBodyProperties)
@@ -336,6 +365,13 @@ constructor(
         fun requireApproval(requireApproval: Boolean) = apply {
             this.requireApproval = requireApproval
         }
+
+        /**
+         * Details relating to the custom fulfillment you will perform. This is required if
+         * `fulfillment_method` is equal to `third_party`. It must not be included if any other
+         * `fulfillment_method` is provided.
+         */
+        fun thirdParty(thirdParty: ThirdParty) = apply { this.thirdParty = thirdParty }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -401,6 +437,7 @@ constructor(
                 fulfillmentMethod,
                 physicalCheck,
                 requireApproval,
+                thirdParty,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalBodyProperties.toUnmodifiable(),
@@ -911,6 +948,95 @@ constructor(
                         additionalProperties.toUnmodifiable(),
                     )
             }
+        }
+    }
+
+    /**
+     * Details relating to the custom fulfillment you will perform. This is required if
+     * `fulfillment_method` is equal to `third_party`. It must not be included if any other
+     * `fulfillment_method` is provided.
+     */
+    @JsonDeserialize(builder = ThirdParty.Builder::class)
+    @NoAutoDetect
+    class ThirdParty
+    private constructor(
+        private val checkNumber: String?,
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
+
+        private var hashCode: Int = 0
+
+        /**
+         * The check number you will print on the check. This should not contain leading zeroes. If
+         * this is omitted, Increase will generate a check number for you; you should inspect the
+         * response and use that check number.
+         */
+        @JsonProperty("check_number") fun checkNumber(): String? = checkNumber
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun toBuilder() = Builder().from(this)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is ThirdParty &&
+                this.checkNumber == other.checkNumber &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode = Objects.hash(checkNumber, additionalProperties)
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "ThirdParty{checkNumber=$checkNumber, additionalProperties=$additionalProperties}"
+
+        companion object {
+
+            fun builder() = Builder()
+        }
+
+        class Builder {
+
+            private var checkNumber: String? = null
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            internal fun from(thirdParty: ThirdParty) = apply {
+                this.checkNumber = thirdParty.checkNumber
+                additionalProperties(thirdParty.additionalProperties)
+            }
+
+            /**
+             * The check number you will print on the check. This should not contain leading zeroes.
+             * If this is omitted, Increase will generate a check number for you; you should inspect
+             * the response and use that check number.
+             */
+            @JsonProperty("check_number")
+            fun checkNumber(checkNumber: String) = apply { this.checkNumber = checkNumber }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            @JsonAnySetter
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun build(): ThirdParty = ThirdParty(checkNumber, additionalProperties.toUnmodifiable())
         }
     }
 }
