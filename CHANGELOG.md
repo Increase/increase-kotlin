@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.45.0 (2024-04-19)
+
+Full Changelog: [v0.44.0...v0.45.0](https://github.com/Increase/increase-kotlin/compare/v0.44.0...v0.45.0)
+
+### Features
+
+* **api:** add account_id param to ach_prenotification and third_party to check_transfer ([#252](https://github.com/Increase/increase-kotlin/issues/252)) ([c842d14](https://github.com/Increase/increase-kotlin/commit/c842d1466cdb74d27c5f4d5816e94a9824af73da))
+
 ## 0.44.0 (2024-04-18)
 
 Full Changelog: [v0.43.0...v0.44.0](https://github.com/Increase/increase-kotlin/compare/v0.43.0...v0.44.0)
