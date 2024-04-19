@@ -30,6 +30,7 @@ private constructor(
     private val checkNumber: JsonField<String>,
     private val fulfillmentMethod: JsonField<FulfillmentMethod>,
     private val physicalCheck: JsonField<PhysicalCheck>,
+    private val thirdParty: JsonField<ThirdParty>,
     private val amount: JsonField<Long>,
     private val createdAt: JsonField<OffsetDateTime>,
     private val currency: JsonField<Currency>,
@@ -77,6 +78,12 @@ private constructor(
      * and only if `fulfillment_method` is equal to `physical_check`.
      */
     fun physicalCheck(): PhysicalCheck? = physicalCheck.getNullable("physical_check")
+
+    /**
+     * Details relating to the custom fulfillment you will perform. Will be present if and only if
+     * `fulfillment_method` is equal to `third_party`.
+     */
+    fun thirdParty(): ThirdParty? = thirdParty.getNullable("third_party")
 
     /** The transfer amount in USD cents. */
     fun amount(): Long = amount.getRequired("amount")
@@ -174,6 +181,12 @@ private constructor(
      */
     @JsonProperty("physical_check") @ExcludeMissing fun _physicalCheck() = physicalCheck
 
+    /**
+     * Details relating to the custom fulfillment you will perform. Will be present if and only if
+     * `fulfillment_method` is equal to `third_party`.
+     */
+    @JsonProperty("third_party") @ExcludeMissing fun _thirdParty() = thirdParty
+
     /** The transfer amount in USD cents. */
     @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
 
@@ -259,6 +272,7 @@ private constructor(
             checkNumber()
             fulfillmentMethod()
             physicalCheck()?.validate()
+            thirdParty()?.validate()
             amount()
             createdAt()
             currency()
@@ -292,6 +306,7 @@ private constructor(
             this.checkNumber == other.checkNumber &&
             this.fulfillmentMethod == other.fulfillmentMethod &&
             this.physicalCheck == other.physicalCheck &&
+            this.thirdParty == other.thirdParty &&
             this.amount == other.amount &&
             this.createdAt == other.createdAt &&
             this.currency == other.currency &&
@@ -320,6 +335,7 @@ private constructor(
                     checkNumber,
                     fulfillmentMethod,
                     physicalCheck,
+                    thirdParty,
                     amount,
                     createdAt,
                     currency,
@@ -341,7 +357,7 @@ private constructor(
     }
 
     override fun toString() =
-        "CheckTransfer{accountId=$accountId, sourceAccountNumberId=$sourceAccountNumberId, accountNumber=$accountNumber, routingNumber=$routingNumber, checkNumber=$checkNumber, fulfillmentMethod=$fulfillmentMethod, physicalCheck=$physicalCheck, amount=$amount, createdAt=$createdAt, currency=$currency, approval=$approval, cancellation=$cancellation, id=$id, mailing=$mailing, pendingTransactionId=$pendingTransactionId, status=$status, submission=$submission, stopPaymentRequest=$stopPaymentRequest, approvedInboundCheckDepositId=$approvedInboundCheckDepositId, idempotencyKey=$idempotencyKey, type=$type, additionalProperties=$additionalProperties}"
+        "CheckTransfer{accountId=$accountId, sourceAccountNumberId=$sourceAccountNumberId, accountNumber=$accountNumber, routingNumber=$routingNumber, checkNumber=$checkNumber, fulfillmentMethod=$fulfillmentMethod, physicalCheck=$physicalCheck, thirdParty=$thirdParty, amount=$amount, createdAt=$createdAt, currency=$currency, approval=$approval, cancellation=$cancellation, id=$id, mailing=$mailing, pendingTransactionId=$pendingTransactionId, status=$status, submission=$submission, stopPaymentRequest=$stopPaymentRequest, approvedInboundCheckDepositId=$approvedInboundCheckDepositId, idempotencyKey=$idempotencyKey, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -357,6 +373,7 @@ private constructor(
         private var checkNumber: JsonField<String> = JsonMissing.of()
         private var fulfillmentMethod: JsonField<FulfillmentMethod> = JsonMissing.of()
         private var physicalCheck: JsonField<PhysicalCheck> = JsonMissing.of()
+        private var thirdParty: JsonField<ThirdParty> = JsonMissing.of()
         private var amount: JsonField<Long> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var currency: JsonField<Currency> = JsonMissing.of()
@@ -381,6 +398,7 @@ private constructor(
             this.checkNumber = checkTransfer.checkNumber
             this.fulfillmentMethod = checkTransfer.fulfillmentMethod
             this.physicalCheck = checkTransfer.physicalCheck
+            this.thirdParty = checkTransfer.thirdParty
             this.amount = checkTransfer.amount
             this.createdAt = checkTransfer.createdAt
             this.currency = checkTransfer.currency
@@ -477,6 +495,20 @@ private constructor(
         fun physicalCheck(physicalCheck: JsonField<PhysicalCheck>) = apply {
             this.physicalCheck = physicalCheck
         }
+
+        /**
+         * Details relating to the custom fulfillment you will perform. Will be present if and only
+         * if `fulfillment_method` is equal to `third_party`.
+         */
+        fun thirdParty(thirdParty: ThirdParty) = thirdParty(JsonField.of(thirdParty))
+
+        /**
+         * Details relating to the custom fulfillment you will perform. Will be present if and only
+         * if `fulfillment_method` is equal to `third_party`.
+         */
+        @JsonProperty("third_party")
+        @ExcludeMissing
+        fun thirdParty(thirdParty: JsonField<ThirdParty>) = apply { this.thirdParty = thirdParty }
 
         /** The transfer amount in USD cents. */
         fun amount(amount: Long) = amount(JsonField.of(amount))
@@ -677,6 +709,7 @@ private constructor(
                 checkNumber,
                 fulfillmentMethod,
                 physicalCheck,
+                thirdParty,
                 amount,
                 createdAt,
                 currency,
@@ -2385,6 +2418,104 @@ private constructor(
             }
 
             fun build(): Submission = Submission(submittedAt, additionalProperties.toUnmodifiable())
+        }
+    }
+
+    /**
+     * Details relating to the custom fulfillment you will perform. Will be present if and only if
+     * `fulfillment_method` is equal to `third_party`.
+     */
+    @JsonDeserialize(builder = ThirdParty.Builder::class)
+    @NoAutoDetect
+    class ThirdParty
+    private constructor(
+        private val checkNumber: JsonField<String>,
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
+
+        private var validated: Boolean = false
+
+        private var hashCode: Int = 0
+
+        /** The check number that will be printed on the check. */
+        fun checkNumber(): String? = checkNumber.getNullable("check_number")
+
+        /** The check number that will be printed on the check. */
+        @JsonProperty("check_number") @ExcludeMissing fun _checkNumber() = checkNumber
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun validate(): ThirdParty = apply {
+            if (!validated) {
+                checkNumber()
+                validated = true
+            }
+        }
+
+        fun toBuilder() = Builder().from(this)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is ThirdParty &&
+                this.checkNumber == other.checkNumber &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode = Objects.hash(checkNumber, additionalProperties)
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "ThirdParty{checkNumber=$checkNumber, additionalProperties=$additionalProperties}"
+
+        companion object {
+
+            fun builder() = Builder()
+        }
+
+        class Builder {
+
+            private var checkNumber: JsonField<String> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            internal fun from(thirdParty: ThirdParty) = apply {
+                this.checkNumber = thirdParty.checkNumber
+                additionalProperties(thirdParty.additionalProperties)
+            }
+
+            /** The check number that will be printed on the check. */
+            fun checkNumber(checkNumber: String) = checkNumber(JsonField.of(checkNumber))
+
+            /** The check number that will be printed on the check. */
+            @JsonProperty("check_number")
+            @ExcludeMissing
+            fun checkNumber(checkNumber: JsonField<String>) = apply {
+                this.checkNumber = checkNumber
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            @JsonAnySetter
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun build(): ThirdParty = ThirdParty(checkNumber, additionalProperties.toUnmodifiable())
         }
     }
 
