@@ -362,9 +362,6 @@ constructor(
                 val INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION =
                     In(JsonField.of("inbound_real_time_payments_transfer_confirmation"))
 
-                val INBOUND_WIRE_DRAWDOWN_PAYMENT_REVERSAL =
-                    In(JsonField.of("inbound_wire_drawdown_payment_reversal"))
-
                 val INBOUND_WIRE_DRAWDOWN_PAYMENT =
                     In(JsonField.of("inbound_wire_drawdown_payment"))
 
@@ -413,7 +410,6 @@ constructor(
                 INBOUND_CHECK_DEPOSIT_RETURN_INTENTION,
                 INBOUND_INTERNATIONAL_ACH_TRANSFER,
                 INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION,
-                INBOUND_WIRE_DRAWDOWN_PAYMENT_REVERSAL,
                 INBOUND_WIRE_DRAWDOWN_PAYMENT,
                 INBOUND_WIRE_REVERSAL,
                 INBOUND_WIRE_TRANSFER,
@@ -447,7 +443,6 @@ constructor(
                 INBOUND_CHECK_DEPOSIT_RETURN_INTENTION,
                 INBOUND_INTERNATIONAL_ACH_TRANSFER,
                 INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION,
-                INBOUND_WIRE_DRAWDOWN_PAYMENT_REVERSAL,
                 INBOUND_WIRE_DRAWDOWN_PAYMENT,
                 INBOUND_WIRE_REVERSAL,
                 INBOUND_WIRE_TRANSFER,
@@ -486,8 +481,6 @@ constructor(
                     INBOUND_INTERNATIONAL_ACH_TRANSFER -> Value.INBOUND_INTERNATIONAL_ACH_TRANSFER
                     INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION ->
                         Value.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION
-                    INBOUND_WIRE_DRAWDOWN_PAYMENT_REVERSAL ->
-                        Value.INBOUND_WIRE_DRAWDOWN_PAYMENT_REVERSAL
                     INBOUND_WIRE_DRAWDOWN_PAYMENT -> Value.INBOUND_WIRE_DRAWDOWN_PAYMENT
                     INBOUND_WIRE_REVERSAL -> Value.INBOUND_WIRE_REVERSAL
                     INBOUND_WIRE_TRANSFER -> Value.INBOUND_WIRE_TRANSFER
@@ -527,8 +520,6 @@ constructor(
                     INBOUND_INTERNATIONAL_ACH_TRANSFER -> Known.INBOUND_INTERNATIONAL_ACH_TRANSFER
                     INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION ->
                         Known.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION
-                    INBOUND_WIRE_DRAWDOWN_PAYMENT_REVERSAL ->
-                        Known.INBOUND_WIRE_DRAWDOWN_PAYMENT_REVERSAL
                     INBOUND_WIRE_DRAWDOWN_PAYMENT -> Known.INBOUND_WIRE_DRAWDOWN_PAYMENT
                     INBOUND_WIRE_REVERSAL -> Known.INBOUND_WIRE_REVERSAL
                     INBOUND_WIRE_TRANSFER -> Known.INBOUND_WIRE_TRANSFER
