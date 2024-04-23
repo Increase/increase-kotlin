@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.46.0 (2024-04-23)
+
+Full Changelog: [v0.45.0...v0.46.0](https://github.com/Increase/increase-kotlin/compare/v0.45.0...v0.46.0)
+
+### Features
+
+* **api:** remove inbound_wire_drawdown_payment_reversal ([#257](https://github.com/Increase/increase-kotlin/issues/257)) ([bc82d6a](https://github.com/Increase/increase-kotlin/commit/bc82d6a2b5aea720a455dde206fd14ea02db6338))
+
+
+### Chores
+
+* **ci:** validate Gradle wrapper ([#254](https://github.com/Increase/increase-kotlin/issues/254)) ([47f536d](https://github.com/Increase/increase-kotlin/commit/47f536de3dc61dab48c69d9e0ace42ace0c67aa6))
+* **internal:** gradlew v8.7, use gradle task config avoidance APIs ([#256](https://github.com/Increase/increase-kotlin/issues/256)) ([955eaa1](https://github.com/Increase/increase-kotlin/commit/955eaa19c07f8c830b9dff57d28f342f29dda96d))
+
 ## 0.45.0 (2024-04-19)
 
 Full Changelog: [v0.44.0...v0.45.0](https://github.com/Increase/increase-kotlin/compare/v0.44.0...v0.45.0)
