@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.47.0 (2024-04-25)
+
+Full Changelog: [v0.46.0...v0.47.0](https://github.com/Increase/increase-kotlin/compare/v0.46.0...v0.47.0)
+
+### ⚠ BREAKING CHANGES
+
+* require account ID for creating an ACH prenotification ([#260](https://github.com/Increase/increase-kotlin/issues/260))
+
+### Bug Fixes
+
+* require account ID for creating an ACH prenotification ([#260](https://github.com/Increase/increase-kotlin/issues/260)) ([28f9f66](https://github.com/Increase/increase-kotlin/commit/28f9f665ca8d3ad60de7147e8c483c3469e61858))
+
+
+### Chores
+
+* **internal:** use actions/checkout@v4 for codeflow ([#258](https://github.com/Increase/increase-kotlin/issues/258)) ([b520dc0](https://github.com/Increase/increase-kotlin/commit/b520dc0b772b22ae205be6c56999322f6999a955))
+
 ## 0.46.0 (2024-04-23)
 
 Full Changelog: [v0.45.0...v0.46.0](https://github.com/Increase/increase-kotlin/compare/v0.45.0...v0.46.0)
