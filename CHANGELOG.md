@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.48.0 (2024-05-01)
+
+Full Changelog: [v0.47.0...v0.48.0](https://github.com/Increase/increase-kotlin/compare/v0.47.0...v0.48.0)
+
+### Features
+
+* **api:** updates ([#266](https://github.com/Increase/increase-kotlin/issues/266)) ([698b34e](https://github.com/Increase/increase-kotlin/commit/698b34e1b71e9235f5d55dc434543ffcd10a2ab2))
+
+
+### Bug Fixes
+
+* **client:** do not strip date-time 00 seconds when getQueryParams() is called ([#261](https://github.com/Increase/increase-kotlin/issues/261)) ([f400e5b](https://github.com/Increase/increase-kotlin/commit/f400e5b50e5c6eed1b26f4f6d4d69f186b5116f1))
+
+
+### Chores
+
+* **internal:** add link to openapi spec ([#263](https://github.com/Increase/increase-kotlin/issues/263)) ([d417af7](https://github.com/Increase/increase-kotlin/commit/d417af729dc691658386031d7179d4090244033e))
+* **internal:** add scripts/mock ([#264](https://github.com/Increase/increase-kotlin/issues/264)) ([26650a8](https://github.com/Increase/increase-kotlin/commit/26650a825c53b6ef7c6d8fc6c348ddf8a9dc0491))
+* **internal:** bump mock server version to ~5.8.0 ([#265](https://github.com/Increase/increase-kotlin/issues/265)) ([c609dd5](https://github.com/Increase/increase-kotlin/commit/c609dd56e459d49d35b7e7abeec7d0a7a3cf96de))
+
 ## 0.47.0 (2024-04-25)
 
 Full Changelog: [v0.46.0...v0.47.0](https://github.com/Increase/increase-kotlin/compare/v0.46.0...v0.47.0)
