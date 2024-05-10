@@ -771,6 +771,8 @@ private constructor(
             private val networkRiskScore: JsonField<Long>,
             private val networkDetails: JsonField<NetworkDetails>,
             private val amount: JsonField<Long>,
+            private val presentmentAmount: JsonField<Long>,
+            private val presentmentCurrency: JsonField<String>,
             private val currency: JsonField<Currency>,
             private val direction: JsonField<Direction>,
             private val actioner: JsonField<Actioner>,
@@ -849,6 +851,16 @@ private constructor(
              * example, this is cents.
              */
             fun amount(): Long = amount.getRequired("amount")
+
+            /** The pending amount in the minor unit of the transaction's presentment currency. */
+            fun presentmentAmount(): Long = presentmentAmount.getRequired("presentment_amount")
+
+            /**
+             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's
+             * presentment currency.
+             */
+            fun presentmentCurrency(): String =
+                presentmentCurrency.getRequired("presentment_currency")
 
             /**
              * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's
@@ -971,6 +983,19 @@ private constructor(
              */
             @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
 
+            /** The pending amount in the minor unit of the transaction's presentment currency. */
+            @JsonProperty("presentment_amount")
+            @ExcludeMissing
+            fun _presentmentAmount() = presentmentAmount
+
+            /**
+             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's
+             * presentment currency.
+             */
+            @JsonProperty("presentment_currency")
+            @ExcludeMissing
+            fun _presentmentCurrency() = presentmentCurrency
+
             /**
              * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's
              * currency.
@@ -1041,6 +1066,8 @@ private constructor(
                     networkRiskScore()
                     networkDetails().validate()
                     amount()
+                    presentmentAmount()
+                    presentmentCurrency()
                     currency()
                     direction()
                     actioner()
@@ -1075,6 +1102,8 @@ private constructor(
                     this.networkRiskScore == other.networkRiskScore &&
                     this.networkDetails == other.networkDetails &&
                     this.amount == other.amount &&
+                    this.presentmentAmount == other.presentmentAmount &&
+                    this.presentmentCurrency == other.presentmentCurrency &&
                     this.currency == other.currency &&
                     this.direction == other.direction &&
                     this.actioner == other.actioner &&
@@ -1104,6 +1133,8 @@ private constructor(
                             networkRiskScore,
                             networkDetails,
                             amount,
+                            presentmentAmount,
+                            presentmentCurrency,
                             currency,
                             direction,
                             actioner,
@@ -1119,7 +1150,7 @@ private constructor(
             }
 
             override fun toString() =
-                "CardAuthorization{id=$id, cardPaymentId=$cardPaymentId, merchantAcceptorId=$merchantAcceptorId, merchantDescriptor=$merchantDescriptor, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, digitalWalletTokenId=$digitalWalletTokenId, physicalCardId=$physicalCardId, verification=$verification, networkIdentifiers=$networkIdentifiers, networkRiskScore=$networkRiskScore, networkDetails=$networkDetails, amount=$amount, currency=$currency, direction=$direction, actioner=$actioner, processingCategory=$processingCategory, expiresAt=$expiresAt, realTimeDecisionId=$realTimeDecisionId, pendingTransactionId=$pendingTransactionId, type=$type, additionalProperties=$additionalProperties}"
+                "CardAuthorization{id=$id, cardPaymentId=$cardPaymentId, merchantAcceptorId=$merchantAcceptorId, merchantDescriptor=$merchantDescriptor, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, digitalWalletTokenId=$digitalWalletTokenId, physicalCardId=$physicalCardId, verification=$verification, networkIdentifiers=$networkIdentifiers, networkRiskScore=$networkRiskScore, networkDetails=$networkDetails, amount=$amount, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, currency=$currency, direction=$direction, actioner=$actioner, processingCategory=$processingCategory, expiresAt=$expiresAt, realTimeDecisionId=$realTimeDecisionId, pendingTransactionId=$pendingTransactionId, type=$type, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -1142,6 +1173,8 @@ private constructor(
                 private var networkRiskScore: JsonField<Long> = JsonMissing.of()
                 private var networkDetails: JsonField<NetworkDetails> = JsonMissing.of()
                 private var amount: JsonField<Long> = JsonMissing.of()
+                private var presentmentAmount: JsonField<Long> = JsonMissing.of()
+                private var presentmentCurrency: JsonField<String> = JsonMissing.of()
                 private var currency: JsonField<Currency> = JsonMissing.of()
                 private var direction: JsonField<Direction> = JsonMissing.of()
                 private var actioner: JsonField<Actioner> = JsonMissing.of()
@@ -1167,6 +1200,8 @@ private constructor(
                     this.networkRiskScore = cardAuthorization.networkRiskScore
                     this.networkDetails = cardAuthorization.networkDetails
                     this.amount = cardAuthorization.amount
+                    this.presentmentAmount = cardAuthorization.presentmentAmount
+                    this.presentmentCurrency = cardAuthorization.presentmentCurrency
                     this.currency = cardAuthorization.currency
                     this.direction = cardAuthorization.direction
                     this.actioner = cardAuthorization.actioner
@@ -1362,6 +1397,38 @@ private constructor(
                 fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
                 /**
+                 * The pending amount in the minor unit of the transaction's presentment currency.
+                 */
+                fun presentmentAmount(presentmentAmount: Long) =
+                    presentmentAmount(JsonField.of(presentmentAmount))
+
+                /**
+                 * The pending amount in the minor unit of the transaction's presentment currency.
+                 */
+                @JsonProperty("presentment_amount")
+                @ExcludeMissing
+                fun presentmentAmount(presentmentAmount: JsonField<Long>) = apply {
+                    this.presentmentAmount = presentmentAmount
+                }
+
+                /**
+                 * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's
+                 * presentment currency.
+                 */
+                fun presentmentCurrency(presentmentCurrency: String) =
+                    presentmentCurrency(JsonField.of(presentmentCurrency))
+
+                /**
+                 * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's
+                 * presentment currency.
+                 */
+                @JsonProperty("presentment_currency")
+                @ExcludeMissing
+                fun presentmentCurrency(presentmentCurrency: JsonField<String>) = apply {
+                    this.presentmentCurrency = presentmentCurrency
+                }
+
+                /**
                  * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's
                  * currency.
                  */
@@ -1511,6 +1578,8 @@ private constructor(
                         networkRiskScore,
                         networkDetails,
                         amount,
+                        presentmentAmount,
+                        presentmentCurrency,
                         currency,
                         direction,
                         actioner,
@@ -3741,6 +3810,8 @@ private constructor(
             private val id: JsonField<String>,
             private val cardPaymentId: JsonField<String>,
             private val amount: JsonField<Long>,
+            private val presentmentAmount: JsonField<Long>,
+            private val presentmentCurrency: JsonField<String>,
             private val currency: JsonField<Currency>,
             private val processingCategory: JsonField<ProcessingCategory>,
             private val reason: JsonField<Reason>,
@@ -3817,6 +3888,16 @@ private constructor(
              * dollars, for example, this is cents.
              */
             fun amount(): Long = amount.getRequired("amount")
+
+            /** The declined amount in the minor unit of the transaction's presentment currency. */
+            fun presentmentAmount(): Long = presentmentAmount.getRequired("presentment_amount")
+
+            /**
+             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's
+             * presentment currency.
+             */
+            fun presentmentCurrency(): String =
+                presentmentCurrency.getRequired("presentment_currency")
 
             /**
              * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the destination
@@ -3923,6 +4004,19 @@ private constructor(
              */
             @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
 
+            /** The declined amount in the minor unit of the transaction's presentment currency. */
+            @JsonProperty("presentment_amount")
+            @ExcludeMissing
+            fun _presentmentAmount() = presentmentAmount
+
+            /**
+             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's
+             * presentment currency.
+             */
+            @JsonProperty("presentment_currency")
+            @ExcludeMissing
+            fun _presentmentCurrency() = presentmentCurrency
+
             /**
              * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the destination
              * account currency.
@@ -3976,6 +4070,8 @@ private constructor(
                     id()
                     cardPaymentId()
                     amount()
+                    presentmentAmount()
+                    presentmentCurrency()
                     currency()
                     processingCategory()
                     reason()
@@ -4008,6 +4104,8 @@ private constructor(
                     this.id == other.id &&
                     this.cardPaymentId == other.cardPaymentId &&
                     this.amount == other.amount &&
+                    this.presentmentAmount == other.presentmentAmount &&
+                    this.presentmentCurrency == other.presentmentCurrency &&
                     this.currency == other.currency &&
                     this.processingCategory == other.processingCategory &&
                     this.reason == other.reason &&
@@ -4035,6 +4133,8 @@ private constructor(
                             id,
                             cardPaymentId,
                             amount,
+                            presentmentAmount,
+                            presentmentCurrency,
                             currency,
                             processingCategory,
                             reason,
@@ -4048,7 +4148,7 @@ private constructor(
             }
 
             override fun toString() =
-                "CardDecline{merchantAcceptorId=$merchantAcceptorId, merchantDescriptor=$merchantDescriptor, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, digitalWalletTokenId=$digitalWalletTokenId, physicalCardId=$physicalCardId, verification=$verification, networkIdentifiers=$networkIdentifiers, networkRiskScore=$networkRiskScore, networkDetails=$networkDetails, id=$id, cardPaymentId=$cardPaymentId, amount=$amount, currency=$currency, processingCategory=$processingCategory, reason=$reason, actioner=$actioner, merchantState=$merchantState, realTimeDecisionId=$realTimeDecisionId, additionalProperties=$additionalProperties}"
+                "CardDecline{merchantAcceptorId=$merchantAcceptorId, merchantDescriptor=$merchantDescriptor, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, digitalWalletTokenId=$digitalWalletTokenId, physicalCardId=$physicalCardId, verification=$verification, networkIdentifiers=$networkIdentifiers, networkRiskScore=$networkRiskScore, networkDetails=$networkDetails, id=$id, cardPaymentId=$cardPaymentId, amount=$amount, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, currency=$currency, processingCategory=$processingCategory, reason=$reason, actioner=$actioner, merchantState=$merchantState, realTimeDecisionId=$realTimeDecisionId, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -4071,6 +4171,8 @@ private constructor(
                 private var id: JsonField<String> = JsonMissing.of()
                 private var cardPaymentId: JsonField<String> = JsonMissing.of()
                 private var amount: JsonField<Long> = JsonMissing.of()
+                private var presentmentAmount: JsonField<Long> = JsonMissing.of()
+                private var presentmentCurrency: JsonField<String> = JsonMissing.of()
                 private var currency: JsonField<Currency> = JsonMissing.of()
                 private var processingCategory: JsonField<ProcessingCategory> = JsonMissing.of()
                 private var reason: JsonField<Reason> = JsonMissing.of()
@@ -4094,6 +4196,8 @@ private constructor(
                     this.id = cardDecline.id
                     this.cardPaymentId = cardDecline.cardPaymentId
                     this.amount = cardDecline.amount
+                    this.presentmentAmount = cardDecline.presentmentAmount
+                    this.presentmentCurrency = cardDecline.presentmentCurrency
                     this.currency = cardDecline.currency
                     this.processingCategory = cardDecline.processingCategory
                     this.reason = cardDecline.reason
@@ -4287,6 +4391,38 @@ private constructor(
                 fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
                 /**
+                 * The declined amount in the minor unit of the transaction's presentment currency.
+                 */
+                fun presentmentAmount(presentmentAmount: Long) =
+                    presentmentAmount(JsonField.of(presentmentAmount))
+
+                /**
+                 * The declined amount in the minor unit of the transaction's presentment currency.
+                 */
+                @JsonProperty("presentment_amount")
+                @ExcludeMissing
+                fun presentmentAmount(presentmentAmount: JsonField<Long>) = apply {
+                    this.presentmentAmount = presentmentAmount
+                }
+
+                /**
+                 * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's
+                 * presentment currency.
+                 */
+                fun presentmentCurrency(presentmentCurrency: String) =
+                    presentmentCurrency(JsonField.of(presentmentCurrency))
+
+                /**
+                 * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's
+                 * presentment currency.
+                 */
+                @JsonProperty("presentment_currency")
+                @ExcludeMissing
+                fun presentmentCurrency(presentmentCurrency: JsonField<String>) = apply {
+                    this.presentmentCurrency = presentmentCurrency
+                }
+
+                /**
                  * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the destination
                  * account currency.
                  */
@@ -4398,6 +4534,8 @@ private constructor(
                         id,
                         cardPaymentId,
                         amount,
+                        presentmentAmount,
+                        presentmentCurrency,
                         currency,
                         processingCategory,
                         reason,

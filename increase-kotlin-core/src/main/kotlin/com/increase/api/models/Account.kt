@@ -29,6 +29,7 @@ class Account
 private constructor(
     private val bank: JsonField<Bank>,
     private val createdAt: JsonField<OffsetDateTime>,
+    private val closedAt: JsonField<OffsetDateTime>,
     private val currency: JsonField<Currency>,
     private val entityId: JsonField<String>,
     private val informationalEntityId: JsonField<String>,
@@ -55,6 +56,11 @@ private constructor(
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Account was created.
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
+
+    /**
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Account was closed.
+     */
+    fun closedAt(): OffsetDateTime? = closedAt.getNullable("closed_at")
 
     /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the Account currency. */
     fun currency(): Currency = currency.getRequired("currency")
@@ -119,6 +125,11 @@ private constructor(
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Account was created.
      */
     @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+
+    /**
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Account was closed.
+     */
+    @JsonProperty("closed_at") @ExcludeMissing fun _closedAt() = closedAt
 
     /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the Account currency. */
     @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
@@ -187,6 +198,7 @@ private constructor(
         if (!validated) {
             bank()
             createdAt()
+            closedAt()
             currency()
             entityId()
             informationalEntityId()
@@ -213,6 +225,7 @@ private constructor(
         return other is Account &&
             this.bank == other.bank &&
             this.createdAt == other.createdAt &&
+            this.closedAt == other.closedAt &&
             this.currency == other.currency &&
             this.entityId == other.entityId &&
             this.informationalEntityId == other.informationalEntityId &&
@@ -234,6 +247,7 @@ private constructor(
                 Objects.hash(
                     bank,
                     createdAt,
+                    closedAt,
                     currency,
                     entityId,
                     informationalEntityId,
@@ -253,7 +267,7 @@ private constructor(
     }
 
     override fun toString() =
-        "Account{bank=$bank, createdAt=$createdAt, currency=$currency, entityId=$entityId, informationalEntityId=$informationalEntityId, id=$id, programId=$programId, interestAccrued=$interestAccrued, interestAccruedAt=$interestAccruedAt, interestRate=$interestRate, name=$name, status=$status, type=$type, idempotencyKey=$idempotencyKey, additionalProperties=$additionalProperties}"
+        "Account{bank=$bank, createdAt=$createdAt, closedAt=$closedAt, currency=$currency, entityId=$entityId, informationalEntityId=$informationalEntityId, id=$id, programId=$programId, interestAccrued=$interestAccrued, interestAccruedAt=$interestAccruedAt, interestRate=$interestRate, name=$name, status=$status, type=$type, idempotencyKey=$idempotencyKey, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -264,6 +278,7 @@ private constructor(
 
         private var bank: JsonField<Bank> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var closedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var currency: JsonField<Currency> = JsonMissing.of()
         private var entityId: JsonField<String> = JsonMissing.of()
         private var informationalEntityId: JsonField<String> = JsonMissing.of()
@@ -281,6 +296,7 @@ private constructor(
         internal fun from(account: Account) = apply {
             this.bank = account.bank
             this.createdAt = account.createdAt
+            this.closedAt = account.closedAt
             this.currency = account.currency
             this.entityId = account.entityId
             this.informationalEntityId = account.informationalEntityId
@@ -317,6 +333,20 @@ private constructor(
         @JsonProperty("created_at")
         @ExcludeMissing
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
+
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Account was
+         * closed.
+         */
+        fun closedAt(closedAt: OffsetDateTime) = closedAt(JsonField.of(closedAt))
+
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Account was
+         * closed.
+         */
+        @JsonProperty("closed_at")
+        @ExcludeMissing
+        fun closedAt(closedAt: JsonField<OffsetDateTime>) = apply { this.closedAt = closedAt }
 
         /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the Account currency. */
         fun currency(currency: Currency) = currency(JsonField.of(currency))
@@ -485,6 +515,7 @@ private constructor(
             Account(
                 bank,
                 createdAt,
+                closedAt,
                 currency,
                 entityId,
                 informationalEntityId,
