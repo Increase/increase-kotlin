@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.49.0 (2024-05-10)
+
+Full Changelog: [v0.48.0...v0.49.0](https://github.com/Increase/increase-kotlin/compare/v0.48.0...v0.49.0)
+
+### Features
+
+* **api:** enhance API with extended transaction details and new entity types ([#270](https://github.com/Increase/increase-kotlin/issues/270)) ([a06edc1](https://github.com/Increase/increase-kotlin/commit/a06edc14715565da6d17a92dd0bca9589a5fae77))
+* propagate resource description field from stainless config to SDK docs ([#268](https://github.com/Increase/increase-kotlin/issues/268)) ([45adef6](https://github.com/Increase/increase-kotlin/commit/45adef65a69b421a6749a95799952ccba64c4938))
+
 ## 0.48.0 (2024-05-01)
 
 Full Changelog: [v0.47.0...v0.48.0](https://github.com/Increase/increase-kotlin/compare/v0.47.0...v0.48.0)
