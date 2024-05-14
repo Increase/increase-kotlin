@@ -27,18 +27,18 @@ import java.util.Objects
 @NoAutoDetect
 class PhysicalCardProfile
 private constructor(
-    private val id: JsonField<String>,
-    private val createdAt: JsonField<OffsetDateTime>,
-    private val status: JsonField<Status>,
-    private val description: JsonField<String>,
-    private val isDefault: JsonField<Boolean>,
-    private val creator: JsonField<Creator>,
-    private val contactPhone: JsonField<String>,
-    private val frontImageFileId: JsonField<String>,
     private val backImageFileId: JsonField<String>,
     private val carrierImageFileId: JsonField<String>,
-    private val type: JsonField<Type>,
+    private val contactPhone: JsonField<String>,
+    private val createdAt: JsonField<OffsetDateTime>,
+    private val creator: JsonField<Creator>,
+    private val description: JsonField<String>,
+    private val frontImageFileId: JsonField<String>,
+    private val id: JsonField<String>,
     private val idempotencyKey: JsonField<String>,
+    private val isDefault: JsonField<Boolean>,
+    private val status: JsonField<Status>,
+    private val type: JsonField<Type>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
@@ -46,8 +46,14 @@ private constructor(
 
     private var hashCode: Int = 0
 
-    /** The Card Profile identifier. */
-    fun id(): String = id.getRequired("id")
+    /** The identifier of the File containing the physical card's back image. */
+    fun backImageFileId(): String? = backImageFileId.getNullable("back_image_file_id")
+
+    /** The identifier of the File containing the physical card's carrier image. */
+    fun carrierImageFileId(): String? = carrierImageFileId.getNullable("carrier_image_file_id")
+
+    /** A phone number the user can contact to receive support for their card. */
+    fun contactPhone(): String? = contactPhone.getNullable("contact_phone")
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card
@@ -55,35 +61,17 @@ private constructor(
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
-    /** The status of the Physical Card Profile. */
-    fun status(): Status = status.getRequired("status")
+    /** The creator of this Physical Card Profile. */
+    fun creator(): Creator = creator.getRequired("creator")
 
     /** A description you can use to identify the Physical Card Profile. */
     fun description(): String = description.getRequired("description")
 
-    /** Whether this Physical Card Profile is the default for all cards in its Increase group. */
-    fun isDefault(): Boolean = isDefault.getRequired("is_default")
-
-    /** The creator of this Physical Card Profile. */
-    fun creator(): Creator = creator.getRequired("creator")
-
-    /** A phone number the user can contact to receive support for their card. */
-    fun contactPhone(): String? = contactPhone.getNullable("contact_phone")
-
     /** The identifier of the File containing the physical card's front image. */
     fun frontImageFileId(): String? = frontImageFileId.getNullable("front_image_file_id")
 
-    /** The identifier of the File containing the physical card's back image. */
-    fun backImageFileId(): String? = backImageFileId.getNullable("back_image_file_id")
-
-    /** The identifier of the File containing the physical card's carrier image. */
-    fun carrierImageFileId(): String? = carrierImageFileId.getNullable("carrier_image_file_id")
-
-    /**
-     * A constant representing the object's type. For this resource it will always be
-     * `physical_card_profile`.
-     */
-    fun type(): Type = type.getRequired("type")
+    /** The Card Profile identifier. */
+    fun id(): String = id.getRequired("id")
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -92,32 +80,17 @@ private constructor(
      */
     fun idempotencyKey(): String? = idempotencyKey.getNullable("idempotency_key")
 
-    /** The Card Profile identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
-
-    /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card
-     * Dispute was created.
-     */
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+    /** Whether this Physical Card Profile is the default for all cards in its Increase group. */
+    fun isDefault(): Boolean = isDefault.getRequired("is_default")
 
     /** The status of the Physical Card Profile. */
-    @JsonProperty("status") @ExcludeMissing fun _status() = status
+    fun status(): Status = status.getRequired("status")
 
-    /** A description you can use to identify the Physical Card Profile. */
-    @JsonProperty("description") @ExcludeMissing fun _description() = description
-
-    /** Whether this Physical Card Profile is the default for all cards in its Increase group. */
-    @JsonProperty("is_default") @ExcludeMissing fun _isDefault() = isDefault
-
-    /** The creator of this Physical Card Profile. */
-    @JsonProperty("creator") @ExcludeMissing fun _creator() = creator
-
-    /** A phone number the user can contact to receive support for their card. */
-    @JsonProperty("contact_phone") @ExcludeMissing fun _contactPhone() = contactPhone
-
-    /** The identifier of the File containing the physical card's front image. */
-    @JsonProperty("front_image_file_id") @ExcludeMissing fun _frontImageFileId() = frontImageFileId
+    /**
+     * A constant representing the object's type. For this resource it will always be
+     * `physical_card_profile`.
+     */
+    fun type(): Type = type.getRequired("type")
 
     /** The identifier of the File containing the physical card's back image. */
     @JsonProperty("back_image_file_id") @ExcludeMissing fun _backImageFileId() = backImageFileId
@@ -127,11 +100,26 @@ private constructor(
     @ExcludeMissing
     fun _carrierImageFileId() = carrierImageFileId
 
+    /** A phone number the user can contact to receive support for their card. */
+    @JsonProperty("contact_phone") @ExcludeMissing fun _contactPhone() = contactPhone
+
     /**
-     * A constant representing the object's type. For this resource it will always be
-     * `physical_card_profile`.
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card
+     * Dispute was created.
      */
-    @JsonProperty("type") @ExcludeMissing fun _type() = type
+    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+
+    /** The creator of this Physical Card Profile. */
+    @JsonProperty("creator") @ExcludeMissing fun _creator() = creator
+
+    /** A description you can use to identify the Physical Card Profile. */
+    @JsonProperty("description") @ExcludeMissing fun _description() = description
+
+    /** The identifier of the File containing the physical card's front image. */
+    @JsonProperty("front_image_file_id") @ExcludeMissing fun _frontImageFileId() = frontImageFileId
+
+    /** The Card Profile identifier. */
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -140,24 +128,36 @@ private constructor(
      */
     @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
 
+    /** Whether this Physical Card Profile is the default for all cards in its Increase group. */
+    @JsonProperty("is_default") @ExcludeMissing fun _isDefault() = isDefault
+
+    /** The status of the Physical Card Profile. */
+    @JsonProperty("status") @ExcludeMissing fun _status() = status
+
+    /**
+     * A constant representing the object's type. For this resource it will always be
+     * `physical_card_profile`.
+     */
+    @JsonProperty("type") @ExcludeMissing fun _type() = type
+
     @JsonAnyGetter
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
     fun validate(): PhysicalCardProfile = apply {
         if (!validated) {
-            id()
-            createdAt()
-            status()
-            description()
-            isDefault()
-            creator()
-            contactPhone()
-            frontImageFileId()
             backImageFileId()
             carrierImageFileId()
-            type()
+            contactPhone()
+            createdAt()
+            creator()
+            description()
+            frontImageFileId()
+            id()
             idempotencyKey()
+            isDefault()
+            status()
+            type()
             validated = true
         }
     }
@@ -170,18 +170,18 @@ private constructor(
         }
 
         return other is PhysicalCardProfile &&
-            this.id == other.id &&
-            this.createdAt == other.createdAt &&
-            this.status == other.status &&
-            this.description == other.description &&
-            this.isDefault == other.isDefault &&
-            this.creator == other.creator &&
-            this.contactPhone == other.contactPhone &&
-            this.frontImageFileId == other.frontImageFileId &&
             this.backImageFileId == other.backImageFileId &&
             this.carrierImageFileId == other.carrierImageFileId &&
-            this.type == other.type &&
+            this.contactPhone == other.contactPhone &&
+            this.createdAt == other.createdAt &&
+            this.creator == other.creator &&
+            this.description == other.description &&
+            this.frontImageFileId == other.frontImageFileId &&
+            this.id == other.id &&
             this.idempotencyKey == other.idempotencyKey &&
+            this.isDefault == other.isDefault &&
+            this.status == other.status &&
+            this.type == other.type &&
             this.additionalProperties == other.additionalProperties
     }
 
@@ -189,18 +189,18 @@ private constructor(
         if (hashCode == 0) {
             hashCode =
                 Objects.hash(
-                    id,
-                    createdAt,
-                    status,
-                    description,
-                    isDefault,
-                    creator,
-                    contactPhone,
-                    frontImageFileId,
                     backImageFileId,
                     carrierImageFileId,
-                    type,
+                    contactPhone,
+                    createdAt,
+                    creator,
+                    description,
+                    frontImageFileId,
+                    id,
                     idempotencyKey,
+                    isDefault,
+                    status,
+                    type,
                     additionalProperties,
                 )
         }
@@ -208,7 +208,7 @@ private constructor(
     }
 
     override fun toString() =
-        "PhysicalCardProfile{id=$id, createdAt=$createdAt, status=$status, description=$description, isDefault=$isDefault, creator=$creator, contactPhone=$contactPhone, frontImageFileId=$frontImageFileId, backImageFileId=$backImageFileId, carrierImageFileId=$carrierImageFileId, type=$type, idempotencyKey=$idempotencyKey, additionalProperties=$additionalProperties}"
+        "PhysicalCardProfile{backImageFileId=$backImageFileId, carrierImageFileId=$carrierImageFileId, contactPhone=$contactPhone, createdAt=$createdAt, creator=$creator, description=$description, frontImageFileId=$frontImageFileId, id=$id, idempotencyKey=$idempotencyKey, isDefault=$isDefault, status=$status, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -217,111 +217,34 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var status: JsonField<Status> = JsonMissing.of()
-        private var description: JsonField<String> = JsonMissing.of()
-        private var isDefault: JsonField<Boolean> = JsonMissing.of()
-        private var creator: JsonField<Creator> = JsonMissing.of()
-        private var contactPhone: JsonField<String> = JsonMissing.of()
-        private var frontImageFileId: JsonField<String> = JsonMissing.of()
         private var backImageFileId: JsonField<String> = JsonMissing.of()
         private var carrierImageFileId: JsonField<String> = JsonMissing.of()
-        private var type: JsonField<Type> = JsonMissing.of()
+        private var contactPhone: JsonField<String> = JsonMissing.of()
+        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var creator: JsonField<Creator> = JsonMissing.of()
+        private var description: JsonField<String> = JsonMissing.of()
+        private var frontImageFileId: JsonField<String> = JsonMissing.of()
+        private var id: JsonField<String> = JsonMissing.of()
         private var idempotencyKey: JsonField<String> = JsonMissing.of()
+        private var isDefault: JsonField<Boolean> = JsonMissing.of()
+        private var status: JsonField<Status> = JsonMissing.of()
+        private var type: JsonField<Type> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(physicalCardProfile: PhysicalCardProfile) = apply {
-            this.id = physicalCardProfile.id
-            this.createdAt = physicalCardProfile.createdAt
-            this.status = physicalCardProfile.status
-            this.description = physicalCardProfile.description
-            this.isDefault = physicalCardProfile.isDefault
-            this.creator = physicalCardProfile.creator
-            this.contactPhone = physicalCardProfile.contactPhone
-            this.frontImageFileId = physicalCardProfile.frontImageFileId
             this.backImageFileId = physicalCardProfile.backImageFileId
             this.carrierImageFileId = physicalCardProfile.carrierImageFileId
-            this.type = physicalCardProfile.type
+            this.contactPhone = physicalCardProfile.contactPhone
+            this.createdAt = physicalCardProfile.createdAt
+            this.creator = physicalCardProfile.creator
+            this.description = physicalCardProfile.description
+            this.frontImageFileId = physicalCardProfile.frontImageFileId
+            this.id = physicalCardProfile.id
             this.idempotencyKey = physicalCardProfile.idempotencyKey
+            this.isDefault = physicalCardProfile.isDefault
+            this.status = physicalCardProfile.status
+            this.type = physicalCardProfile.type
             additionalProperties(physicalCardProfile.additionalProperties)
-        }
-
-        /** The Card Profile identifier. */
-        fun id(id: String) = id(JsonField.of(id))
-
-        /** The Card Profile identifier. */
-        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
-
-        /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card
-         * Dispute was created.
-         */
-        fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
-
-        /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card
-         * Dispute was created.
-         */
-        @JsonProperty("created_at")
-        @ExcludeMissing
-        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
-
-        /** The status of the Physical Card Profile. */
-        fun status(status: Status) = status(JsonField.of(status))
-
-        /** The status of the Physical Card Profile. */
-        @JsonProperty("status")
-        @ExcludeMissing
-        fun status(status: JsonField<Status>) = apply { this.status = status }
-
-        /** A description you can use to identify the Physical Card Profile. */
-        fun description(description: String) = description(JsonField.of(description))
-
-        /** A description you can use to identify the Physical Card Profile. */
-        @JsonProperty("description")
-        @ExcludeMissing
-        fun description(description: JsonField<String>) = apply { this.description = description }
-
-        /**
-         * Whether this Physical Card Profile is the default for all cards in its Increase group.
-         */
-        fun isDefault(isDefault: Boolean) = isDefault(JsonField.of(isDefault))
-
-        /**
-         * Whether this Physical Card Profile is the default for all cards in its Increase group.
-         */
-        @JsonProperty("is_default")
-        @ExcludeMissing
-        fun isDefault(isDefault: JsonField<Boolean>) = apply { this.isDefault = isDefault }
-
-        /** The creator of this Physical Card Profile. */
-        fun creator(creator: Creator) = creator(JsonField.of(creator))
-
-        /** The creator of this Physical Card Profile. */
-        @JsonProperty("creator")
-        @ExcludeMissing
-        fun creator(creator: JsonField<Creator>) = apply { this.creator = creator }
-
-        /** A phone number the user can contact to receive support for their card. */
-        fun contactPhone(contactPhone: String) = contactPhone(JsonField.of(contactPhone))
-
-        /** A phone number the user can contact to receive support for their card. */
-        @JsonProperty("contact_phone")
-        @ExcludeMissing
-        fun contactPhone(contactPhone: JsonField<String>) = apply {
-            this.contactPhone = contactPhone
-        }
-
-        /** The identifier of the File containing the physical card's front image. */
-        fun frontImageFileId(frontImageFileId: String) =
-            frontImageFileId(JsonField.of(frontImageFileId))
-
-        /** The identifier of the File containing the physical card's front image. */
-        @JsonProperty("front_image_file_id")
-        @ExcludeMissing
-        fun frontImageFileId(frontImageFileId: JsonField<String>) = apply {
-            this.frontImageFileId = frontImageFileId
         }
 
         /** The identifier of the File containing the physical card's back image. */
@@ -346,19 +269,62 @@ private constructor(
             this.carrierImageFileId = carrierImageFileId
         }
 
-        /**
-         * A constant representing the object's type. For this resource it will always be
-         * `physical_card_profile`.
-         */
-        fun type(type: Type) = type(JsonField.of(type))
+        /** A phone number the user can contact to receive support for their card. */
+        fun contactPhone(contactPhone: String) = contactPhone(JsonField.of(contactPhone))
+
+        /** A phone number the user can contact to receive support for their card. */
+        @JsonProperty("contact_phone")
+        @ExcludeMissing
+        fun contactPhone(contactPhone: JsonField<String>) = apply {
+            this.contactPhone = contactPhone
+        }
 
         /**
-         * A constant representing the object's type. For this resource it will always be
-         * `physical_card_profile`.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card
+         * Dispute was created.
          */
-        @JsonProperty("type")
+        fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
+
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card
+         * Dispute was created.
+         */
+        @JsonProperty("created_at")
         @ExcludeMissing
-        fun type(type: JsonField<Type>) = apply { this.type = type }
+        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
+
+        /** The creator of this Physical Card Profile. */
+        fun creator(creator: Creator) = creator(JsonField.of(creator))
+
+        /** The creator of this Physical Card Profile. */
+        @JsonProperty("creator")
+        @ExcludeMissing
+        fun creator(creator: JsonField<Creator>) = apply { this.creator = creator }
+
+        /** A description you can use to identify the Physical Card Profile. */
+        fun description(description: String) = description(JsonField.of(description))
+
+        /** A description you can use to identify the Physical Card Profile. */
+        @JsonProperty("description")
+        @ExcludeMissing
+        fun description(description: JsonField<String>) = apply { this.description = description }
+
+        /** The identifier of the File containing the physical card's front image. */
+        fun frontImageFileId(frontImageFileId: String) =
+            frontImageFileId(JsonField.of(frontImageFileId))
+
+        /** The identifier of the File containing the physical card's front image. */
+        @JsonProperty("front_image_file_id")
+        @ExcludeMissing
+        fun frontImageFileId(frontImageFileId: JsonField<String>) = apply {
+            this.frontImageFileId = frontImageFileId
+        }
+
+        /** The Card Profile identifier. */
+        fun id(id: String) = id(JsonField.of(id))
+
+        /** The Card Profile identifier. */
+        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -378,6 +344,40 @@ private constructor(
             this.idempotencyKey = idempotencyKey
         }
 
+        /**
+         * Whether this Physical Card Profile is the default for all cards in its Increase group.
+         */
+        fun isDefault(isDefault: Boolean) = isDefault(JsonField.of(isDefault))
+
+        /**
+         * Whether this Physical Card Profile is the default for all cards in its Increase group.
+         */
+        @JsonProperty("is_default")
+        @ExcludeMissing
+        fun isDefault(isDefault: JsonField<Boolean>) = apply { this.isDefault = isDefault }
+
+        /** The status of the Physical Card Profile. */
+        fun status(status: Status) = status(JsonField.of(status))
+
+        /** The status of the Physical Card Profile. */
+        @JsonProperty("status")
+        @ExcludeMissing
+        fun status(status: JsonField<Status>) = apply { this.status = status }
+
+        /**
+         * A constant representing the object's type. For this resource it will always be
+         * `physical_card_profile`.
+         */
+        fun type(type: Type) = type(JsonField.of(type))
+
+        /**
+         * A constant representing the object's type. For this resource it will always be
+         * `physical_card_profile`.
+         */
+        @JsonProperty("type")
+        @ExcludeMissing
+        fun type(type: JsonField<Type>) = apply { this.type = type }
+
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
             this.additionalProperties.putAll(additionalProperties)
@@ -394,18 +394,18 @@ private constructor(
 
         fun build(): PhysicalCardProfile =
             PhysicalCardProfile(
-                id,
-                createdAt,
-                status,
-                description,
-                isDefault,
-                creator,
-                contactPhone,
-                frontImageFileId,
                 backImageFileId,
                 carrierImageFileId,
-                type,
+                contactPhone,
+                createdAt,
+                creator,
+                description,
+                frontImageFileId,
+                id,
                 idempotencyKey,
+                isDefault,
+                status,
+                type,
                 additionalProperties.toUnmodifiable(),
             )
     }

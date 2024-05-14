@@ -27,13 +27,13 @@ import java.util.Objects
 @NoAutoDetect
 class BookkeepingEntrySet
 private constructor(
-    private val id: JsonField<String>,
-    private val transactionId: JsonField<String>,
+    private val createdAt: JsonField<OffsetDateTime>,
     private val date: JsonField<OffsetDateTime>,
     private val entries: JsonField<List<Entry>>,
-    private val createdAt: JsonField<OffsetDateTime>,
-    private val type: JsonField<Type>,
+    private val id: JsonField<String>,
     private val idempotencyKey: JsonField<String>,
+    private val transactionId: JsonField<String>,
+    private val type: JsonField<Type>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
@@ -41,11 +41,8 @@ private constructor(
 
     private var hashCode: Int = 0
 
-    /** The entry set identifier. */
-    fun id(): String = id.getRequired("id")
-
-    /** The transaction identifier, if any. */
-    fun transactionId(): String? = transactionId.getNullable("transaction_id")
+    /** When the entry set was created. */
+    fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
     /** The timestamp of the entry set. */
     fun date(): OffsetDateTime = date.getRequired("date")
@@ -53,14 +50,8 @@ private constructor(
     /** The entries. */
     fun entries(): List<Entry> = entries.getRequired("entries")
 
-    /** When the entry set was created. */
-    fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
-
-    /**
-     * A constant representing the object's type. For this resource it will always be
-     * `bookkeeping_entry_set`.
-     */
-    fun type(): Type = type.getRequired("type")
+    /** The entry set identifier. */
+    fun id(): String = id.getRequired("id")
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -69,11 +60,17 @@ private constructor(
      */
     fun idempotencyKey(): String? = idempotencyKey.getNullable("idempotency_key")
 
-    /** The entry set identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
-
     /** The transaction identifier, if any. */
-    @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
+    fun transactionId(): String? = transactionId.getNullable("transaction_id")
+
+    /**
+     * A constant representing the object's type. For this resource it will always be
+     * `bookkeeping_entry_set`.
+     */
+    fun type(): Type = type.getRequired("type")
+
+    /** When the entry set was created. */
+    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
 
     /** The timestamp of the entry set. */
     @JsonProperty("date") @ExcludeMissing fun _date() = date
@@ -81,14 +78,8 @@ private constructor(
     /** The entries. */
     @JsonProperty("entries") @ExcludeMissing fun _entries() = entries
 
-    /** When the entry set was created. */
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
-
-    /**
-     * A constant representing the object's type. For this resource it will always be
-     * `bookkeeping_entry_set`.
-     */
-    @JsonProperty("type") @ExcludeMissing fun _type() = type
+    /** The entry set identifier. */
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -97,19 +88,28 @@ private constructor(
      */
     @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
 
+    /** The transaction identifier, if any. */
+    @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
+
+    /**
+     * A constant representing the object's type. For this resource it will always be
+     * `bookkeeping_entry_set`.
+     */
+    @JsonProperty("type") @ExcludeMissing fun _type() = type
+
     @JsonAnyGetter
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
     fun validate(): BookkeepingEntrySet = apply {
         if (!validated) {
-            id()
-            transactionId()
+            createdAt()
             date()
             entries().forEach { it.validate() }
-            createdAt()
-            type()
+            id()
             idempotencyKey()
+            transactionId()
+            type()
             validated = true
         }
     }
@@ -122,13 +122,13 @@ private constructor(
         }
 
         return other is BookkeepingEntrySet &&
-            this.id == other.id &&
-            this.transactionId == other.transactionId &&
+            this.createdAt == other.createdAt &&
             this.date == other.date &&
             this.entries == other.entries &&
-            this.createdAt == other.createdAt &&
-            this.type == other.type &&
+            this.id == other.id &&
             this.idempotencyKey == other.idempotencyKey &&
+            this.transactionId == other.transactionId &&
+            this.type == other.type &&
             this.additionalProperties == other.additionalProperties
     }
 
@@ -136,13 +136,13 @@ private constructor(
         if (hashCode == 0) {
             hashCode =
                 Objects.hash(
-                    id,
-                    transactionId,
+                    createdAt,
                     date,
                     entries,
-                    createdAt,
-                    type,
+                    id,
                     idempotencyKey,
+                    transactionId,
+                    type,
                     additionalProperties,
                 )
         }
@@ -150,7 +150,7 @@ private constructor(
     }
 
     override fun toString() =
-        "BookkeepingEntrySet{id=$id, transactionId=$transactionId, date=$date, entries=$entries, createdAt=$createdAt, type=$type, idempotencyKey=$idempotencyKey, additionalProperties=$additionalProperties}"
+        "BookkeepingEntrySet{createdAt=$createdAt, date=$date, entries=$entries, id=$id, idempotencyKey=$idempotencyKey, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -159,41 +159,33 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
-        private var transactionId: JsonField<String> = JsonMissing.of()
+        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var date: JsonField<OffsetDateTime> = JsonMissing.of()
         private var entries: JsonField<List<Entry>> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var type: JsonField<Type> = JsonMissing.of()
+        private var id: JsonField<String> = JsonMissing.of()
         private var idempotencyKey: JsonField<String> = JsonMissing.of()
+        private var transactionId: JsonField<String> = JsonMissing.of()
+        private var type: JsonField<Type> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(bookkeepingEntrySet: BookkeepingEntrySet) = apply {
-            this.id = bookkeepingEntrySet.id
-            this.transactionId = bookkeepingEntrySet.transactionId
+            this.createdAt = bookkeepingEntrySet.createdAt
             this.date = bookkeepingEntrySet.date
             this.entries = bookkeepingEntrySet.entries
-            this.createdAt = bookkeepingEntrySet.createdAt
-            this.type = bookkeepingEntrySet.type
+            this.id = bookkeepingEntrySet.id
             this.idempotencyKey = bookkeepingEntrySet.idempotencyKey
+            this.transactionId = bookkeepingEntrySet.transactionId
+            this.type = bookkeepingEntrySet.type
             additionalProperties(bookkeepingEntrySet.additionalProperties)
         }
 
-        /** The entry set identifier. */
-        fun id(id: String) = id(JsonField.of(id))
+        /** When the entry set was created. */
+        fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
-        /** The entry set identifier. */
-        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
-
-        /** The transaction identifier, if any. */
-        fun transactionId(transactionId: String) = transactionId(JsonField.of(transactionId))
-
-        /** The transaction identifier, if any. */
-        @JsonProperty("transaction_id")
+        /** When the entry set was created. */
+        @JsonProperty("created_at")
         @ExcludeMissing
-        fun transactionId(transactionId: JsonField<String>) = apply {
-            this.transactionId = transactionId
-        }
+        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /** The timestamp of the entry set. */
         fun date(date: OffsetDateTime) = date(JsonField.of(date))
@@ -211,27 +203,11 @@ private constructor(
         @ExcludeMissing
         fun entries(entries: JsonField<List<Entry>>) = apply { this.entries = entries }
 
-        /** When the entry set was created. */
-        fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
+        /** The entry set identifier. */
+        fun id(id: String) = id(JsonField.of(id))
 
-        /** When the entry set was created. */
-        @JsonProperty("created_at")
-        @ExcludeMissing
-        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
-
-        /**
-         * A constant representing the object's type. For this resource it will always be
-         * `bookkeeping_entry_set`.
-         */
-        fun type(type: Type) = type(JsonField.of(type))
-
-        /**
-         * A constant representing the object's type. For this resource it will always be
-         * `bookkeeping_entry_set`.
-         */
-        @JsonProperty("type")
-        @ExcludeMissing
-        fun type(type: JsonField<Type>) = apply { this.type = type }
+        /** The entry set identifier. */
+        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -251,6 +227,30 @@ private constructor(
             this.idempotencyKey = idempotencyKey
         }
 
+        /** The transaction identifier, if any. */
+        fun transactionId(transactionId: String) = transactionId(JsonField.of(transactionId))
+
+        /** The transaction identifier, if any. */
+        @JsonProperty("transaction_id")
+        @ExcludeMissing
+        fun transactionId(transactionId: JsonField<String>) = apply {
+            this.transactionId = transactionId
+        }
+
+        /**
+         * A constant representing the object's type. For this resource it will always be
+         * `bookkeeping_entry_set`.
+         */
+        fun type(type: Type) = type(JsonField.of(type))
+
+        /**
+         * A constant representing the object's type. For this resource it will always be
+         * `bookkeeping_entry_set`.
+         */
+        @JsonProperty("type")
+        @ExcludeMissing
+        fun type(type: JsonField<Type>) = apply { this.type = type }
+
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
             this.additionalProperties.putAll(additionalProperties)
@@ -267,13 +267,13 @@ private constructor(
 
         fun build(): BookkeepingEntrySet =
             BookkeepingEntrySet(
-                id,
-                transactionId,
+                createdAt,
                 date,
                 entries.map { it.toUnmodifiable() },
-                createdAt,
-                type,
+                id,
                 idempotencyKey,
+                transactionId,
+                type,
                 additionalProperties.toUnmodifiable(),
             )
     }

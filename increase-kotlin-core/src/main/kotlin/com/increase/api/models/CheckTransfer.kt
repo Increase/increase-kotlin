@@ -24,26 +24,26 @@ import java.util.Objects
 class CheckTransfer
 private constructor(
     private val accountId: JsonField<String>,
-    private val sourceAccountNumberId: JsonField<String>,
     private val accountNumber: JsonField<String>,
-    private val routingNumber: JsonField<String>,
-    private val checkNumber: JsonField<String>,
-    private val fulfillmentMethod: JsonField<FulfillmentMethod>,
-    private val physicalCheck: JsonField<PhysicalCheck>,
-    private val thirdParty: JsonField<ThirdParty>,
     private val amount: JsonField<Long>,
+    private val approval: JsonField<Approval>,
+    private val approvedInboundCheckDepositId: JsonField<String>,
+    private val cancellation: JsonField<Cancellation>,
+    private val checkNumber: JsonField<String>,
     private val createdAt: JsonField<OffsetDateTime>,
     private val currency: JsonField<Currency>,
-    private val approval: JsonField<Approval>,
-    private val cancellation: JsonField<Cancellation>,
+    private val fulfillmentMethod: JsonField<FulfillmentMethod>,
     private val id: JsonField<String>,
+    private val idempotencyKey: JsonField<String>,
     private val mailing: JsonField<Mailing>,
     private val pendingTransactionId: JsonField<String>,
+    private val physicalCheck: JsonField<PhysicalCheck>,
+    private val routingNumber: JsonField<String>,
+    private val sourceAccountNumberId: JsonField<String>,
     private val status: JsonField<Status>,
-    private val submission: JsonField<Submission>,
     private val stopPaymentRequest: JsonField<StopPaymentRequest>,
-    private val approvedInboundCheckDepositId: JsonField<String>,
-    private val idempotencyKey: JsonField<String>,
+    private val submission: JsonField<Submission>,
+    private val thirdParty: JsonField<ThirdParty>,
     private val type: JsonField<Type>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
@@ -55,38 +55,33 @@ private constructor(
     /** The identifier of the Account from which funds will be transferred. */
     fun accountId(): String = accountId.getRequired("account_id")
 
-    /**
-     * The identifier of the Account Number from which to send the transfer and print on the check.
-     */
-    fun sourceAccountNumberId(): String? =
-        sourceAccountNumberId.getNullable("source_account_number_id")
-
     /** The account number printed on the check. */
     fun accountNumber(): String = accountNumber.getRequired("account_number")
 
-    /** The routing number printed on the check. */
-    fun routingNumber(): String = routingNumber.getRequired("routing_number")
+    /** The transfer amount in USD cents. */
+    fun amount(): Long = amount.getRequired("amount")
+
+    /**
+     * If your account requires approvals for transfers and the transfer was approved, this will
+     * contain details of the approval.
+     */
+    fun approval(): Approval? = approval.getNullable("approval")
+
+    /**
+     * If the Check Transfer was successfully deposited, this will contain the identifier of the
+     * Inbound Check Deposit object with details of the deposit.
+     */
+    fun approvedInboundCheckDepositId(): String? =
+        approvedInboundCheckDepositId.getNullable("approved_inbound_check_deposit_id")
+
+    /**
+     * If your account requires approvals for transfers and the transfer was not approved, this will
+     * contain details of the cancellation.
+     */
+    fun cancellation(): Cancellation? = cancellation.getNullable("cancellation")
 
     /** The check number printed on the check. */
     fun checkNumber(): String = checkNumber.getRequired("check_number")
-
-    /** Whether Increase will print and mail the check or if you will do it yourself. */
-    fun fulfillmentMethod(): FulfillmentMethod = fulfillmentMethod.getRequired("fulfillment_method")
-
-    /**
-     * Details relating to the physical check that Increase will print and mail. Will be present if
-     * and only if `fulfillment_method` is equal to `physical_check`.
-     */
-    fun physicalCheck(): PhysicalCheck? = physicalCheck.getNullable("physical_check")
-
-    /**
-     * Details relating to the custom fulfillment you will perform. Will be present if and only if
-     * `fulfillment_method` is equal to `third_party`.
-     */
-    fun thirdParty(): ThirdParty? = thirdParty.getNullable("third_party")
-
-    /** The transfer amount in USD cents. */
-    fun amount(): Long = amount.getRequired("amount")
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the transfer
@@ -97,20 +92,18 @@ private constructor(
     /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the check's currency. */
     fun currency(): Currency = currency.getRequired("currency")
 
-    /**
-     * If your account requires approvals for transfers and the transfer was approved, this will
-     * contain details of the approval.
-     */
-    fun approval(): Approval? = approval.getNullable("approval")
-
-    /**
-     * If your account requires approvals for transfers and the transfer was not approved, this will
-     * contain details of the cancellation.
-     */
-    fun cancellation(): Cancellation? = cancellation.getNullable("cancellation")
+    /** Whether Increase will print and mail the check or if you will do it yourself. */
+    fun fulfillmentMethod(): FulfillmentMethod = fulfillmentMethod.getRequired("fulfillment_method")
 
     /** The Check transfer's identifier. */
     fun id(): String = id.getRequired("id")
+
+    /**
+     * The idempotency key you chose for this object. This value is unique across Increase and is
+     * used to ensure that a request is only processed once. Learn more about
+     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     */
+    fun idempotencyKey(): String? = idempotencyKey.getNullable("idempotency_key")
 
     /** If the check has been mailed by Increase, this will contain details of the shipment. */
     fun mailing(): Mailing? = mailing.getNullable("mailing")
@@ -123,29 +116,36 @@ private constructor(
      */
     fun pendingTransactionId(): String? = pendingTransactionId.getNullable("pending_transaction_id")
 
+    /**
+     * Details relating to the physical check that Increase will print and mail. Will be present if
+     * and only if `fulfillment_method` is equal to `physical_check`.
+     */
+    fun physicalCheck(): PhysicalCheck? = physicalCheck.getNullable("physical_check")
+
+    /** The routing number printed on the check. */
+    fun routingNumber(): String = routingNumber.getRequired("routing_number")
+
+    /**
+     * The identifier of the Account Number from which to send the transfer and print on the check.
+     */
+    fun sourceAccountNumberId(): String? =
+        sourceAccountNumberId.getNullable("source_account_number_id")
+
     /** The lifecycle status of the transfer. */
     fun status(): Status = status.getRequired("status")
-
-    /** After the transfer is submitted, this will contain supplemental details. */
-    fun submission(): Submission? = submission.getNullable("submission")
 
     /** After a stop-payment is requested on the check, this will contain supplemental details. */
     fun stopPaymentRequest(): StopPaymentRequest? =
         stopPaymentRequest.getNullable("stop_payment_request")
 
-    /**
-     * If the Check Transfer was successfully deposited, this will contain the identifier of the
-     * Inbound Check Deposit object with details of the deposit.
-     */
-    fun approvedInboundCheckDepositId(): String? =
-        approvedInboundCheckDepositId.getNullable("approved_inbound_check_deposit_id")
+    /** After the transfer is submitted, this will contain supplemental details. */
+    fun submission(): Submission? = submission.getNullable("submission")
 
     /**
-     * The idempotency key you chose for this object. This value is unique across Increase and is
-     * used to ensure that a request is only processed once. Learn more about
-     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     * Details relating to the custom fulfillment you will perform. Will be present if and only if
+     * `fulfillment_method` is equal to `third_party`.
      */
-    fun idempotencyKey(): String? = idempotencyKey.getNullable("idempotency_key")
+    fun thirdParty(): ThirdParty? = thirdParty.getNullable("third_party")
 
     /**
      * A constant representing the object's type. For this resource it will always be
@@ -156,39 +156,34 @@ private constructor(
     /** The identifier of the Account from which funds will be transferred. */
     @JsonProperty("account_id") @ExcludeMissing fun _accountId() = accountId
 
-    /**
-     * The identifier of the Account Number from which to send the transfer and print on the check.
-     */
-    @JsonProperty("source_account_number_id")
-    @ExcludeMissing
-    fun _sourceAccountNumberId() = sourceAccountNumberId
-
     /** The account number printed on the check. */
     @JsonProperty("account_number") @ExcludeMissing fun _accountNumber() = accountNumber
 
-    /** The routing number printed on the check. */
-    @JsonProperty("routing_number") @ExcludeMissing fun _routingNumber() = routingNumber
+    /** The transfer amount in USD cents. */
+    @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
+
+    /**
+     * If your account requires approvals for transfers and the transfer was approved, this will
+     * contain details of the approval.
+     */
+    @JsonProperty("approval") @ExcludeMissing fun _approval() = approval
+
+    /**
+     * If the Check Transfer was successfully deposited, this will contain the identifier of the
+     * Inbound Check Deposit object with details of the deposit.
+     */
+    @JsonProperty("approved_inbound_check_deposit_id")
+    @ExcludeMissing
+    fun _approvedInboundCheckDepositId() = approvedInboundCheckDepositId
+
+    /**
+     * If your account requires approvals for transfers and the transfer was not approved, this will
+     * contain details of the cancellation.
+     */
+    @JsonProperty("cancellation") @ExcludeMissing fun _cancellation() = cancellation
 
     /** The check number printed on the check. */
     @JsonProperty("check_number") @ExcludeMissing fun _checkNumber() = checkNumber
-
-    /** Whether Increase will print and mail the check or if you will do it yourself. */
-    @JsonProperty("fulfillment_method") @ExcludeMissing fun _fulfillmentMethod() = fulfillmentMethod
-
-    /**
-     * Details relating to the physical check that Increase will print and mail. Will be present if
-     * and only if `fulfillment_method` is equal to `physical_check`.
-     */
-    @JsonProperty("physical_check") @ExcludeMissing fun _physicalCheck() = physicalCheck
-
-    /**
-     * Details relating to the custom fulfillment you will perform. Will be present if and only if
-     * `fulfillment_method` is equal to `third_party`.
-     */
-    @JsonProperty("third_party") @ExcludeMissing fun _thirdParty() = thirdParty
-
-    /** The transfer amount in USD cents. */
-    @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the transfer
@@ -199,20 +194,18 @@ private constructor(
     /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the check's currency. */
     @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
 
-    /**
-     * If your account requires approvals for transfers and the transfer was approved, this will
-     * contain details of the approval.
-     */
-    @JsonProperty("approval") @ExcludeMissing fun _approval() = approval
-
-    /**
-     * If your account requires approvals for transfers and the transfer was not approved, this will
-     * contain details of the cancellation.
-     */
-    @JsonProperty("cancellation") @ExcludeMissing fun _cancellation() = cancellation
+    /** Whether Increase will print and mail the check or if you will do it yourself. */
+    @JsonProperty("fulfillment_method") @ExcludeMissing fun _fulfillmentMethod() = fulfillmentMethod
 
     /** The Check transfer's identifier. */
     @JsonProperty("id") @ExcludeMissing fun _id() = id
+
+    /**
+     * The idempotency key you chose for this object. This value is unique across Increase and is
+     * used to ensure that a request is only processed once. Learn more about
+     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     */
+    @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
 
     /** If the check has been mailed by Increase, this will contain details of the shipment. */
     @JsonProperty("mailing") @ExcludeMissing fun _mailing() = mailing
@@ -227,31 +220,38 @@ private constructor(
     @ExcludeMissing
     fun _pendingTransactionId() = pendingTransactionId
 
+    /**
+     * Details relating to the physical check that Increase will print and mail. Will be present if
+     * and only if `fulfillment_method` is equal to `physical_check`.
+     */
+    @JsonProperty("physical_check") @ExcludeMissing fun _physicalCheck() = physicalCheck
+
+    /** The routing number printed on the check. */
+    @JsonProperty("routing_number") @ExcludeMissing fun _routingNumber() = routingNumber
+
+    /**
+     * The identifier of the Account Number from which to send the transfer and print on the check.
+     */
+    @JsonProperty("source_account_number_id")
+    @ExcludeMissing
+    fun _sourceAccountNumberId() = sourceAccountNumberId
+
     /** The lifecycle status of the transfer. */
     @JsonProperty("status") @ExcludeMissing fun _status() = status
-
-    /** After the transfer is submitted, this will contain supplemental details. */
-    @JsonProperty("submission") @ExcludeMissing fun _submission() = submission
 
     /** After a stop-payment is requested on the check, this will contain supplemental details. */
     @JsonProperty("stop_payment_request")
     @ExcludeMissing
     fun _stopPaymentRequest() = stopPaymentRequest
 
-    /**
-     * If the Check Transfer was successfully deposited, this will contain the identifier of the
-     * Inbound Check Deposit object with details of the deposit.
-     */
-    @JsonProperty("approved_inbound_check_deposit_id")
-    @ExcludeMissing
-    fun _approvedInboundCheckDepositId() = approvedInboundCheckDepositId
+    /** After the transfer is submitted, this will contain supplemental details. */
+    @JsonProperty("submission") @ExcludeMissing fun _submission() = submission
 
     /**
-     * The idempotency key you chose for this object. This value is unique across Increase and is
-     * used to ensure that a request is only processed once. Learn more about
-     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     * Details relating to the custom fulfillment you will perform. Will be present if and only if
+     * `fulfillment_method` is equal to `third_party`.
      */
-    @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
+    @JsonProperty("third_party") @ExcludeMissing fun _thirdParty() = thirdParty
 
     /**
      * A constant representing the object's type. For this resource it will always be
@@ -266,26 +266,26 @@ private constructor(
     fun validate(): CheckTransfer = apply {
         if (!validated) {
             accountId()
-            sourceAccountNumberId()
             accountNumber()
-            routingNumber()
-            checkNumber()
-            fulfillmentMethod()
-            physicalCheck()?.validate()
-            thirdParty()?.validate()
             amount()
+            approval()?.validate()
+            approvedInboundCheckDepositId()
+            cancellation()?.validate()
+            checkNumber()
             createdAt()
             currency()
-            approval()?.validate()
-            cancellation()?.validate()
+            fulfillmentMethod()
             id()
+            idempotencyKey()
             mailing()?.validate()
             pendingTransactionId()
+            physicalCheck()?.validate()
+            routingNumber()
+            sourceAccountNumberId()
             status()
-            submission()?.validate()
             stopPaymentRequest()?.validate()
-            approvedInboundCheckDepositId()
-            idempotencyKey()
+            submission()?.validate()
+            thirdParty()?.validate()
             type()
             validated = true
         }
@@ -300,26 +300,26 @@ private constructor(
 
         return other is CheckTransfer &&
             this.accountId == other.accountId &&
-            this.sourceAccountNumberId == other.sourceAccountNumberId &&
             this.accountNumber == other.accountNumber &&
-            this.routingNumber == other.routingNumber &&
-            this.checkNumber == other.checkNumber &&
-            this.fulfillmentMethod == other.fulfillmentMethod &&
-            this.physicalCheck == other.physicalCheck &&
-            this.thirdParty == other.thirdParty &&
             this.amount == other.amount &&
+            this.approval == other.approval &&
+            this.approvedInboundCheckDepositId == other.approvedInboundCheckDepositId &&
+            this.cancellation == other.cancellation &&
+            this.checkNumber == other.checkNumber &&
             this.createdAt == other.createdAt &&
             this.currency == other.currency &&
-            this.approval == other.approval &&
-            this.cancellation == other.cancellation &&
+            this.fulfillmentMethod == other.fulfillmentMethod &&
             this.id == other.id &&
+            this.idempotencyKey == other.idempotencyKey &&
             this.mailing == other.mailing &&
             this.pendingTransactionId == other.pendingTransactionId &&
+            this.physicalCheck == other.physicalCheck &&
+            this.routingNumber == other.routingNumber &&
+            this.sourceAccountNumberId == other.sourceAccountNumberId &&
             this.status == other.status &&
-            this.submission == other.submission &&
             this.stopPaymentRequest == other.stopPaymentRequest &&
-            this.approvedInboundCheckDepositId == other.approvedInboundCheckDepositId &&
-            this.idempotencyKey == other.idempotencyKey &&
+            this.submission == other.submission &&
+            this.thirdParty == other.thirdParty &&
             this.type == other.type &&
             this.additionalProperties == other.additionalProperties
     }
@@ -329,26 +329,26 @@ private constructor(
             hashCode =
                 Objects.hash(
                     accountId,
-                    sourceAccountNumberId,
                     accountNumber,
-                    routingNumber,
-                    checkNumber,
-                    fulfillmentMethod,
-                    physicalCheck,
-                    thirdParty,
                     amount,
+                    approval,
+                    approvedInboundCheckDepositId,
+                    cancellation,
+                    checkNumber,
                     createdAt,
                     currency,
-                    approval,
-                    cancellation,
+                    fulfillmentMethod,
                     id,
+                    idempotencyKey,
                     mailing,
                     pendingTransactionId,
+                    physicalCheck,
+                    routingNumber,
+                    sourceAccountNumberId,
                     status,
-                    submission,
                     stopPaymentRequest,
-                    approvedInboundCheckDepositId,
-                    idempotencyKey,
+                    submission,
+                    thirdParty,
                     type,
                     additionalProperties,
                 )
@@ -357,7 +357,7 @@ private constructor(
     }
 
     override fun toString() =
-        "CheckTransfer{accountId=$accountId, sourceAccountNumberId=$sourceAccountNumberId, accountNumber=$accountNumber, routingNumber=$routingNumber, checkNumber=$checkNumber, fulfillmentMethod=$fulfillmentMethod, physicalCheck=$physicalCheck, thirdParty=$thirdParty, amount=$amount, createdAt=$createdAt, currency=$currency, approval=$approval, cancellation=$cancellation, id=$id, mailing=$mailing, pendingTransactionId=$pendingTransactionId, status=$status, submission=$submission, stopPaymentRequest=$stopPaymentRequest, approvedInboundCheckDepositId=$approvedInboundCheckDepositId, idempotencyKey=$idempotencyKey, type=$type, additionalProperties=$additionalProperties}"
+        "CheckTransfer{accountId=$accountId, accountNumber=$accountNumber, amount=$amount, approval=$approval, approvedInboundCheckDepositId=$approvedInboundCheckDepositId, cancellation=$cancellation, checkNumber=$checkNumber, createdAt=$createdAt, currency=$currency, fulfillmentMethod=$fulfillmentMethod, id=$id, idempotencyKey=$idempotencyKey, mailing=$mailing, pendingTransactionId=$pendingTransactionId, physicalCheck=$physicalCheck, routingNumber=$routingNumber, sourceAccountNumberId=$sourceAccountNumberId, status=$status, stopPaymentRequest=$stopPaymentRequest, submission=$submission, thirdParty=$thirdParty, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -367,51 +367,51 @@ private constructor(
     class Builder {
 
         private var accountId: JsonField<String> = JsonMissing.of()
-        private var sourceAccountNumberId: JsonField<String> = JsonMissing.of()
         private var accountNumber: JsonField<String> = JsonMissing.of()
-        private var routingNumber: JsonField<String> = JsonMissing.of()
-        private var checkNumber: JsonField<String> = JsonMissing.of()
-        private var fulfillmentMethod: JsonField<FulfillmentMethod> = JsonMissing.of()
-        private var physicalCheck: JsonField<PhysicalCheck> = JsonMissing.of()
-        private var thirdParty: JsonField<ThirdParty> = JsonMissing.of()
         private var amount: JsonField<Long> = JsonMissing.of()
+        private var approval: JsonField<Approval> = JsonMissing.of()
+        private var approvedInboundCheckDepositId: JsonField<String> = JsonMissing.of()
+        private var cancellation: JsonField<Cancellation> = JsonMissing.of()
+        private var checkNumber: JsonField<String> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var currency: JsonField<Currency> = JsonMissing.of()
-        private var approval: JsonField<Approval> = JsonMissing.of()
-        private var cancellation: JsonField<Cancellation> = JsonMissing.of()
+        private var fulfillmentMethod: JsonField<FulfillmentMethod> = JsonMissing.of()
         private var id: JsonField<String> = JsonMissing.of()
+        private var idempotencyKey: JsonField<String> = JsonMissing.of()
         private var mailing: JsonField<Mailing> = JsonMissing.of()
         private var pendingTransactionId: JsonField<String> = JsonMissing.of()
+        private var physicalCheck: JsonField<PhysicalCheck> = JsonMissing.of()
+        private var routingNumber: JsonField<String> = JsonMissing.of()
+        private var sourceAccountNumberId: JsonField<String> = JsonMissing.of()
         private var status: JsonField<Status> = JsonMissing.of()
-        private var submission: JsonField<Submission> = JsonMissing.of()
         private var stopPaymentRequest: JsonField<StopPaymentRequest> = JsonMissing.of()
-        private var approvedInboundCheckDepositId: JsonField<String> = JsonMissing.of()
-        private var idempotencyKey: JsonField<String> = JsonMissing.of()
+        private var submission: JsonField<Submission> = JsonMissing.of()
+        private var thirdParty: JsonField<ThirdParty> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(checkTransfer: CheckTransfer) = apply {
             this.accountId = checkTransfer.accountId
-            this.sourceAccountNumberId = checkTransfer.sourceAccountNumberId
             this.accountNumber = checkTransfer.accountNumber
-            this.routingNumber = checkTransfer.routingNumber
-            this.checkNumber = checkTransfer.checkNumber
-            this.fulfillmentMethod = checkTransfer.fulfillmentMethod
-            this.physicalCheck = checkTransfer.physicalCheck
-            this.thirdParty = checkTransfer.thirdParty
             this.amount = checkTransfer.amount
+            this.approval = checkTransfer.approval
+            this.approvedInboundCheckDepositId = checkTransfer.approvedInboundCheckDepositId
+            this.cancellation = checkTransfer.cancellation
+            this.checkNumber = checkTransfer.checkNumber
             this.createdAt = checkTransfer.createdAt
             this.currency = checkTransfer.currency
-            this.approval = checkTransfer.approval
-            this.cancellation = checkTransfer.cancellation
+            this.fulfillmentMethod = checkTransfer.fulfillmentMethod
             this.id = checkTransfer.id
+            this.idempotencyKey = checkTransfer.idempotencyKey
             this.mailing = checkTransfer.mailing
             this.pendingTransactionId = checkTransfer.pendingTransactionId
+            this.physicalCheck = checkTransfer.physicalCheck
+            this.routingNumber = checkTransfer.routingNumber
+            this.sourceAccountNumberId = checkTransfer.sourceAccountNumberId
             this.status = checkTransfer.status
-            this.submission = checkTransfer.submission
             this.stopPaymentRequest = checkTransfer.stopPaymentRequest
-            this.approvedInboundCheckDepositId = checkTransfer.approvedInboundCheckDepositId
-            this.idempotencyKey = checkTransfer.idempotencyKey
+            this.submission = checkTransfer.submission
+            this.thirdParty = checkTransfer.thirdParty
             this.type = checkTransfer.type
             additionalProperties(checkTransfer.additionalProperties)
         }
@@ -424,23 +424,6 @@ private constructor(
         @ExcludeMissing
         fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
-        /**
-         * The identifier of the Account Number from which to send the transfer and print on the
-         * check.
-         */
-        fun sourceAccountNumberId(sourceAccountNumberId: String) =
-            sourceAccountNumberId(JsonField.of(sourceAccountNumberId))
-
-        /**
-         * The identifier of the Account Number from which to send the transfer and print on the
-         * check.
-         */
-        @JsonProperty("source_account_number_id")
-        @ExcludeMissing
-        fun sourceAccountNumberId(sourceAccountNumberId: JsonField<String>) = apply {
-            this.sourceAccountNumberId = sourceAccountNumberId
-        }
-
         /** The account number printed on the check. */
         fun accountNumber(accountNumber: String) = accountNumber(JsonField.of(accountNumber))
 
@@ -451,14 +434,60 @@ private constructor(
             this.accountNumber = accountNumber
         }
 
-        /** The routing number printed on the check. */
-        fun routingNumber(routingNumber: String) = routingNumber(JsonField.of(routingNumber))
+        /** The transfer amount in USD cents. */
+        fun amount(amount: Long) = amount(JsonField.of(amount))
 
-        /** The routing number printed on the check. */
-        @JsonProperty("routing_number")
+        /** The transfer amount in USD cents. */
+        @JsonProperty("amount")
         @ExcludeMissing
-        fun routingNumber(routingNumber: JsonField<String>) = apply {
-            this.routingNumber = routingNumber
+        fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
+
+        /**
+         * If your account requires approvals for transfers and the transfer was approved, this will
+         * contain details of the approval.
+         */
+        fun approval(approval: Approval) = approval(JsonField.of(approval))
+
+        /**
+         * If your account requires approvals for transfers and the transfer was approved, this will
+         * contain details of the approval.
+         */
+        @JsonProperty("approval")
+        @ExcludeMissing
+        fun approval(approval: JsonField<Approval>) = apply { this.approval = approval }
+
+        /**
+         * If the Check Transfer was successfully deposited, this will contain the identifier of the
+         * Inbound Check Deposit object with details of the deposit.
+         */
+        fun approvedInboundCheckDepositId(approvedInboundCheckDepositId: String) =
+            approvedInboundCheckDepositId(JsonField.of(approvedInboundCheckDepositId))
+
+        /**
+         * If the Check Transfer was successfully deposited, this will contain the identifier of the
+         * Inbound Check Deposit object with details of the deposit.
+         */
+        @JsonProperty("approved_inbound_check_deposit_id")
+        @ExcludeMissing
+        fun approvedInboundCheckDepositId(approvedInboundCheckDepositId: JsonField<String>) =
+            apply {
+                this.approvedInboundCheckDepositId = approvedInboundCheckDepositId
+            }
+
+        /**
+         * If your account requires approvals for transfers and the transfer was not approved, this
+         * will contain details of the cancellation.
+         */
+        fun cancellation(cancellation: Cancellation) = cancellation(JsonField.of(cancellation))
+
+        /**
+         * If your account requires approvals for transfers and the transfer was not approved, this
+         * will contain details of the cancellation.
+         */
+        @JsonProperty("cancellation")
+        @ExcludeMissing
+        fun cancellation(cancellation: JsonField<Cancellation>) = apply {
+            this.cancellation = cancellation
         }
 
         /** The check number printed on the check. */
@@ -468,55 +497,6 @@ private constructor(
         @JsonProperty("check_number")
         @ExcludeMissing
         fun checkNumber(checkNumber: JsonField<String>) = apply { this.checkNumber = checkNumber }
-
-        /** Whether Increase will print and mail the check or if you will do it yourself. */
-        fun fulfillmentMethod(fulfillmentMethod: FulfillmentMethod) =
-            fulfillmentMethod(JsonField.of(fulfillmentMethod))
-
-        /** Whether Increase will print and mail the check or if you will do it yourself. */
-        @JsonProperty("fulfillment_method")
-        @ExcludeMissing
-        fun fulfillmentMethod(fulfillmentMethod: JsonField<FulfillmentMethod>) = apply {
-            this.fulfillmentMethod = fulfillmentMethod
-        }
-
-        /**
-         * Details relating to the physical check that Increase will print and mail. Will be present
-         * if and only if `fulfillment_method` is equal to `physical_check`.
-         */
-        fun physicalCheck(physicalCheck: PhysicalCheck) = physicalCheck(JsonField.of(physicalCheck))
-
-        /**
-         * Details relating to the physical check that Increase will print and mail. Will be present
-         * if and only if `fulfillment_method` is equal to `physical_check`.
-         */
-        @JsonProperty("physical_check")
-        @ExcludeMissing
-        fun physicalCheck(physicalCheck: JsonField<PhysicalCheck>) = apply {
-            this.physicalCheck = physicalCheck
-        }
-
-        /**
-         * Details relating to the custom fulfillment you will perform. Will be present if and only
-         * if `fulfillment_method` is equal to `third_party`.
-         */
-        fun thirdParty(thirdParty: ThirdParty) = thirdParty(JsonField.of(thirdParty))
-
-        /**
-         * Details relating to the custom fulfillment you will perform. Will be present if and only
-         * if `fulfillment_method` is equal to `third_party`.
-         */
-        @JsonProperty("third_party")
-        @ExcludeMissing
-        fun thirdParty(thirdParty: JsonField<ThirdParty>) = apply { this.thirdParty = thirdParty }
-
-        /** The transfer amount in USD cents. */
-        fun amount(amount: Long) = amount(JsonField.of(amount))
-
-        /** The transfer amount in USD cents. */
-        @JsonProperty("amount")
-        @ExcludeMissing
-        fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
@@ -540,34 +520,15 @@ private constructor(
         @ExcludeMissing
         fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
 
-        /**
-         * If your account requires approvals for transfers and the transfer was approved, this will
-         * contain details of the approval.
-         */
-        fun approval(approval: Approval) = approval(JsonField.of(approval))
+        /** Whether Increase will print and mail the check or if you will do it yourself. */
+        fun fulfillmentMethod(fulfillmentMethod: FulfillmentMethod) =
+            fulfillmentMethod(JsonField.of(fulfillmentMethod))
 
-        /**
-         * If your account requires approvals for transfers and the transfer was approved, this will
-         * contain details of the approval.
-         */
-        @JsonProperty("approval")
+        /** Whether Increase will print and mail the check or if you will do it yourself. */
+        @JsonProperty("fulfillment_method")
         @ExcludeMissing
-        fun approval(approval: JsonField<Approval>) = apply { this.approval = approval }
-
-        /**
-         * If your account requires approvals for transfers and the transfer was not approved, this
-         * will contain details of the cancellation.
-         */
-        fun cancellation(cancellation: Cancellation) = cancellation(JsonField.of(cancellation))
-
-        /**
-         * If your account requires approvals for transfers and the transfer was not approved, this
-         * will contain details of the cancellation.
-         */
-        @JsonProperty("cancellation")
-        @ExcludeMissing
-        fun cancellation(cancellation: JsonField<Cancellation>) = apply {
-            this.cancellation = cancellation
+        fun fulfillmentMethod(fulfillmentMethod: JsonField<FulfillmentMethod>) = apply {
+            this.fulfillmentMethod = fulfillmentMethod
         }
 
         /** The Check transfer's identifier. */
@@ -575,6 +536,24 @@ private constructor(
 
         /** The Check transfer's identifier. */
         @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
+
+        /**
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        fun idempotencyKey(idempotencyKey: String) = idempotencyKey(JsonField.of(idempotencyKey))
+
+        /**
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        @JsonProperty("idempotency_key")
+        @ExcludeMissing
+        fun idempotencyKey(idempotencyKey: JsonField<String>) = apply {
+            this.idempotencyKey = idempotencyKey
+        }
 
         /** If the check has been mailed by Increase, this will contain details of the shipment. */
         fun mailing(mailing: Mailing) = mailing(JsonField.of(mailing))
@@ -605,6 +584,49 @@ private constructor(
             this.pendingTransactionId = pendingTransactionId
         }
 
+        /**
+         * Details relating to the physical check that Increase will print and mail. Will be present
+         * if and only if `fulfillment_method` is equal to `physical_check`.
+         */
+        fun physicalCheck(physicalCheck: PhysicalCheck) = physicalCheck(JsonField.of(physicalCheck))
+
+        /**
+         * Details relating to the physical check that Increase will print and mail. Will be present
+         * if and only if `fulfillment_method` is equal to `physical_check`.
+         */
+        @JsonProperty("physical_check")
+        @ExcludeMissing
+        fun physicalCheck(physicalCheck: JsonField<PhysicalCheck>) = apply {
+            this.physicalCheck = physicalCheck
+        }
+
+        /** The routing number printed on the check. */
+        fun routingNumber(routingNumber: String) = routingNumber(JsonField.of(routingNumber))
+
+        /** The routing number printed on the check. */
+        @JsonProperty("routing_number")
+        @ExcludeMissing
+        fun routingNumber(routingNumber: JsonField<String>) = apply {
+            this.routingNumber = routingNumber
+        }
+
+        /**
+         * The identifier of the Account Number from which to send the transfer and print on the
+         * check.
+         */
+        fun sourceAccountNumberId(sourceAccountNumberId: String) =
+            sourceAccountNumberId(JsonField.of(sourceAccountNumberId))
+
+        /**
+         * The identifier of the Account Number from which to send the transfer and print on the
+         * check.
+         */
+        @JsonProperty("source_account_number_id")
+        @ExcludeMissing
+        fun sourceAccountNumberId(sourceAccountNumberId: JsonField<String>) = apply {
+            this.sourceAccountNumberId = sourceAccountNumberId
+        }
+
         /** The lifecycle status of the transfer. */
         fun status(status: Status) = status(JsonField.of(status))
 
@@ -612,14 +634,6 @@ private constructor(
         @JsonProperty("status")
         @ExcludeMissing
         fun status(status: JsonField<Status>) = apply { this.status = status }
-
-        /** After the transfer is submitted, this will contain supplemental details. */
-        fun submission(submission: Submission) = submission(JsonField.of(submission))
-
-        /** After the transfer is submitted, this will contain supplemental details. */
-        @JsonProperty("submission")
-        @ExcludeMissing
-        fun submission(submission: JsonField<Submission>) = apply { this.submission = submission }
 
         /**
          * After a stop-payment is requested on the check, this will contain supplemental details.
@@ -636,41 +650,27 @@ private constructor(
             this.stopPaymentRequest = stopPaymentRequest
         }
 
-        /**
-         * If the Check Transfer was successfully deposited, this will contain the identifier of the
-         * Inbound Check Deposit object with details of the deposit.
-         */
-        fun approvedInboundCheckDepositId(approvedInboundCheckDepositId: String) =
-            approvedInboundCheckDepositId(JsonField.of(approvedInboundCheckDepositId))
+        /** After the transfer is submitted, this will contain supplemental details. */
+        fun submission(submission: Submission) = submission(JsonField.of(submission))
 
-        /**
-         * If the Check Transfer was successfully deposited, this will contain the identifier of the
-         * Inbound Check Deposit object with details of the deposit.
-         */
-        @JsonProperty("approved_inbound_check_deposit_id")
+        /** After the transfer is submitted, this will contain supplemental details. */
+        @JsonProperty("submission")
         @ExcludeMissing
-        fun approvedInboundCheckDepositId(approvedInboundCheckDepositId: JsonField<String>) =
-            apply {
-                this.approvedInboundCheckDepositId = approvedInboundCheckDepositId
-            }
+        fun submission(submission: JsonField<Submission>) = apply { this.submission = submission }
 
         /**
-         * The idempotency key you chose for this object. This value is unique across Increase and
-         * is used to ensure that a request is only processed once. Learn more about
-         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         * Details relating to the custom fulfillment you will perform. Will be present if and only
+         * if `fulfillment_method` is equal to `third_party`.
          */
-        fun idempotencyKey(idempotencyKey: String) = idempotencyKey(JsonField.of(idempotencyKey))
+        fun thirdParty(thirdParty: ThirdParty) = thirdParty(JsonField.of(thirdParty))
 
         /**
-         * The idempotency key you chose for this object. This value is unique across Increase and
-         * is used to ensure that a request is only processed once. Learn more about
-         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         * Details relating to the custom fulfillment you will perform. Will be present if and only
+         * if `fulfillment_method` is equal to `third_party`.
          */
-        @JsonProperty("idempotency_key")
+        @JsonProperty("third_party")
         @ExcludeMissing
-        fun idempotencyKey(idempotencyKey: JsonField<String>) = apply {
-            this.idempotencyKey = idempotencyKey
-        }
+        fun thirdParty(thirdParty: JsonField<ThirdParty>) = apply { this.thirdParty = thirdParty }
 
         /**
          * A constant representing the object's type. For this resource it will always be
@@ -703,26 +703,26 @@ private constructor(
         fun build(): CheckTransfer =
             CheckTransfer(
                 accountId,
-                sourceAccountNumberId,
                 accountNumber,
-                routingNumber,
-                checkNumber,
-                fulfillmentMethod,
-                physicalCheck,
-                thirdParty,
                 amount,
+                approval,
+                approvedInboundCheckDepositId,
+                cancellation,
+                checkNumber,
                 createdAt,
                 currency,
-                approval,
-                cancellation,
+                fulfillmentMethod,
                 id,
+                idempotencyKey,
                 mailing,
                 pendingTransactionId,
+                physicalCheck,
+                routingNumber,
+                sourceAccountNumberId,
                 status,
-                submission,
                 stopPaymentRequest,
-                approvedInboundCheckDepositId,
-                idempotencyKey,
+                submission,
+                thirdParty,
                 type,
                 additionalProperties.toUnmodifiable(),
             )
@@ -1169,20 +1169,14 @@ private constructor(
     @NoAutoDetect
     class Mailing
     private constructor(
-        private val mailedAt: JsonField<OffsetDateTime>,
         private val imageId: JsonField<String>,
+        private val mailedAt: JsonField<OffsetDateTime>,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         private var validated: Boolean = false
 
         private var hashCode: Int = 0
-
-        /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the check
-         * was mailed.
-         */
-        fun mailedAt(): OffsetDateTime = mailedAt.getRequired("mailed_at")
 
         /**
          * The ID of the file corresponding to an image of the check that was mailed, if available.
@@ -1193,12 +1187,18 @@ private constructor(
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the check
          * was mailed.
          */
-        @JsonProperty("mailed_at") @ExcludeMissing fun _mailedAt() = mailedAt
+        fun mailedAt(): OffsetDateTime = mailedAt.getRequired("mailed_at")
 
         /**
          * The ID of the file corresponding to an image of the check that was mailed, if available.
          */
         @JsonProperty("image_id") @ExcludeMissing fun _imageId() = imageId
+
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the check
+         * was mailed.
+         */
+        @JsonProperty("mailed_at") @ExcludeMissing fun _mailedAt() = mailedAt
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -1206,8 +1206,8 @@ private constructor(
 
         fun validate(): Mailing = apply {
             if (!validated) {
-                mailedAt()
                 imageId()
+                mailedAt()
                 validated = true
             }
         }
@@ -1220,8 +1220,8 @@ private constructor(
             }
 
             return other is Mailing &&
-                this.mailedAt == other.mailedAt &&
                 this.imageId == other.imageId &&
+                this.mailedAt == other.mailedAt &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -1229,8 +1229,8 @@ private constructor(
             if (hashCode == 0) {
                 hashCode =
                     Objects.hash(
-                        mailedAt,
                         imageId,
+                        mailedAt,
                         additionalProperties,
                     )
             }
@@ -1238,7 +1238,7 @@ private constructor(
         }
 
         override fun toString() =
-            "Mailing{mailedAt=$mailedAt, imageId=$imageId, additionalProperties=$additionalProperties}"
+            "Mailing{imageId=$imageId, mailedAt=$mailedAt, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -1247,29 +1247,15 @@ private constructor(
 
         class Builder {
 
-            private var mailedAt: JsonField<OffsetDateTime> = JsonMissing.of()
             private var imageId: JsonField<String> = JsonMissing.of()
+            private var mailedAt: JsonField<OffsetDateTime> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(mailing: Mailing) = apply {
-                this.mailedAt = mailing.mailedAt
                 this.imageId = mailing.imageId
+                this.mailedAt = mailing.mailedAt
                 additionalProperties(mailing.additionalProperties)
             }
-
-            /**
-             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-             * check was mailed.
-             */
-            fun mailedAt(mailedAt: OffsetDateTime) = mailedAt(JsonField.of(mailedAt))
-
-            /**
-             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-             * check was mailed.
-             */
-            @JsonProperty("mailed_at")
-            @ExcludeMissing
-            fun mailedAt(mailedAt: JsonField<OffsetDateTime>) = apply { this.mailedAt = mailedAt }
 
             /**
              * The ID of the file corresponding to an image of the check that was mailed, if
@@ -1284,6 +1270,20 @@ private constructor(
             @JsonProperty("image_id")
             @ExcludeMissing
             fun imageId(imageId: JsonField<String>) = apply { this.imageId = imageId }
+
+            /**
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+             * check was mailed.
+             */
+            fun mailedAt(mailedAt: OffsetDateTime) = mailedAt(JsonField.of(mailedAt))
+
+            /**
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+             * check was mailed.
+             */
+            @JsonProperty("mailed_at")
+            @ExcludeMissing
+            fun mailedAt(mailedAt: JsonField<OffsetDateTime>) = apply { this.mailedAt = mailedAt }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -1301,8 +1301,8 @@ private constructor(
 
             fun build(): Mailing =
                 Mailing(
-                    mailedAt,
                     imageId,
+                    mailedAt,
                     additionalProperties.toUnmodifiable(),
                 )
         }
@@ -1316,10 +1316,10 @@ private constructor(
     @NoAutoDetect
     class PhysicalCheck
     private constructor(
+        private val mailingAddress: JsonField<MailingAddress>,
         private val memo: JsonField<String>,
         private val note: JsonField<String>,
         private val recipientName: JsonField<String>,
-        private val mailingAddress: JsonField<MailingAddress>,
         private val returnAddress: JsonField<ReturnAddress>,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
@@ -1327,6 +1327,9 @@ private constructor(
         private var validated: Boolean = false
 
         private var hashCode: Int = 0
+
+        /** Details for where Increase will mail the check. */
+        fun mailingAddress(): MailingAddress = mailingAddress.getRequired("mailing_address")
 
         /** The descriptor that will be printed on the memo field on the check. */
         fun memo(): String? = memo.getNullable("memo")
@@ -1337,11 +1340,11 @@ private constructor(
         /** The name that will be printed on the check. */
         fun recipientName(): String = recipientName.getRequired("recipient_name")
 
-        /** Details for where Increase will mail the check. */
-        fun mailingAddress(): MailingAddress = mailingAddress.getRequired("mailing_address")
-
         /** The return address to be printed on the check. */
         fun returnAddress(): ReturnAddress? = returnAddress.getNullable("return_address")
+
+        /** Details for where Increase will mail the check. */
+        @JsonProperty("mailing_address") @ExcludeMissing fun _mailingAddress() = mailingAddress
 
         /** The descriptor that will be printed on the memo field on the check. */
         @JsonProperty("memo") @ExcludeMissing fun _memo() = memo
@@ -1352,9 +1355,6 @@ private constructor(
         /** The name that will be printed on the check. */
         @JsonProperty("recipient_name") @ExcludeMissing fun _recipientName() = recipientName
 
-        /** Details for where Increase will mail the check. */
-        @JsonProperty("mailing_address") @ExcludeMissing fun _mailingAddress() = mailingAddress
-
         /** The return address to be printed on the check. */
         @JsonProperty("return_address") @ExcludeMissing fun _returnAddress() = returnAddress
 
@@ -1364,10 +1364,10 @@ private constructor(
 
         fun validate(): PhysicalCheck = apply {
             if (!validated) {
+                mailingAddress().validate()
                 memo()
                 note()
                 recipientName()
-                mailingAddress().validate()
                 returnAddress()?.validate()
                 validated = true
             }
@@ -1381,10 +1381,10 @@ private constructor(
             }
 
             return other is PhysicalCheck &&
+                this.mailingAddress == other.mailingAddress &&
                 this.memo == other.memo &&
                 this.note == other.note &&
                 this.recipientName == other.recipientName &&
-                this.mailingAddress == other.mailingAddress &&
                 this.returnAddress == other.returnAddress &&
                 this.additionalProperties == other.additionalProperties
         }
@@ -1393,10 +1393,10 @@ private constructor(
             if (hashCode == 0) {
                 hashCode =
                     Objects.hash(
+                        mailingAddress,
                         memo,
                         note,
                         recipientName,
-                        mailingAddress,
                         returnAddress,
                         additionalProperties,
                     )
@@ -1405,7 +1405,7 @@ private constructor(
         }
 
         override fun toString() =
-            "PhysicalCheck{memo=$memo, note=$note, recipientName=$recipientName, mailingAddress=$mailingAddress, returnAddress=$returnAddress, additionalProperties=$additionalProperties}"
+            "PhysicalCheck{mailingAddress=$mailingAddress, memo=$memo, note=$note, recipientName=$recipientName, returnAddress=$returnAddress, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -1414,20 +1414,31 @@ private constructor(
 
         class Builder {
 
+            private var mailingAddress: JsonField<MailingAddress> = JsonMissing.of()
             private var memo: JsonField<String> = JsonMissing.of()
             private var note: JsonField<String> = JsonMissing.of()
             private var recipientName: JsonField<String> = JsonMissing.of()
-            private var mailingAddress: JsonField<MailingAddress> = JsonMissing.of()
             private var returnAddress: JsonField<ReturnAddress> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(physicalCheck: PhysicalCheck) = apply {
+                this.mailingAddress = physicalCheck.mailingAddress
                 this.memo = physicalCheck.memo
                 this.note = physicalCheck.note
                 this.recipientName = physicalCheck.recipientName
-                this.mailingAddress = physicalCheck.mailingAddress
                 this.returnAddress = physicalCheck.returnAddress
                 additionalProperties(physicalCheck.additionalProperties)
+            }
+
+            /** Details for where Increase will mail the check. */
+            fun mailingAddress(mailingAddress: MailingAddress) =
+                mailingAddress(JsonField.of(mailingAddress))
+
+            /** Details for where Increase will mail the check. */
+            @JsonProperty("mailing_address")
+            @ExcludeMissing
+            fun mailingAddress(mailingAddress: JsonField<MailingAddress>) = apply {
+                this.mailingAddress = mailingAddress
             }
 
             /** The descriptor that will be printed on the memo field on the check. */
@@ -1454,17 +1465,6 @@ private constructor(
             @ExcludeMissing
             fun recipientName(recipientName: JsonField<String>) = apply {
                 this.recipientName = recipientName
-            }
-
-            /** Details for where Increase will mail the check. */
-            fun mailingAddress(mailingAddress: MailingAddress) =
-                mailingAddress(JsonField.of(mailingAddress))
-
-            /** Details for where Increase will mail the check. */
-            @JsonProperty("mailing_address")
-            @ExcludeMissing
-            fun mailingAddress(mailingAddress: JsonField<MailingAddress>) = apply {
-                this.mailingAddress = mailingAddress
             }
 
             /** The return address to be printed on the check. */
@@ -1494,10 +1494,10 @@ private constructor(
 
             fun build(): PhysicalCheck =
                 PhysicalCheck(
+                    mailingAddress,
                     memo,
                     note,
                     recipientName,
-                    mailingAddress,
                     returnAddress,
                     additionalProperties.toUnmodifiable(),
                 )
@@ -1508,12 +1508,12 @@ private constructor(
         @NoAutoDetect
         class MailingAddress
         private constructor(
-            private val name: JsonField<String>,
+            private val city: JsonField<String>,
             private val line1: JsonField<String>,
             private val line2: JsonField<String>,
-            private val city: JsonField<String>,
-            private val state: JsonField<String>,
+            private val name: JsonField<String>,
             private val postalCode: JsonField<String>,
+            private val state: JsonField<String>,
             private val additionalProperties: Map<String, JsonValue>,
         ) {
 
@@ -1521,8 +1521,8 @@ private constructor(
 
             private var hashCode: Int = 0
 
-            /** The name component of the check's mailing address. */
-            fun name(): String? = name.getNullable("name")
+            /** The city of the check's destination. */
+            fun city(): String? = city.getNullable("city")
 
             /** The street address of the check's destination. */
             fun line1(): String? = line1.getNullable("line1")
@@ -1530,17 +1530,17 @@ private constructor(
             /** The second line of the address of the check's destination. */
             fun line2(): String? = line2.getNullable("line2")
 
-            /** The city of the check's destination. */
-            fun city(): String? = city.getNullable("city")
-
-            /** The state of the check's destination. */
-            fun state(): String? = state.getNullable("state")
+            /** The name component of the check's mailing address. */
+            fun name(): String? = name.getNullable("name")
 
             /** The postal code of the check's destination. */
             fun postalCode(): String? = postalCode.getNullable("postal_code")
 
-            /** The name component of the check's mailing address. */
-            @JsonProperty("name") @ExcludeMissing fun _name() = name
+            /** The state of the check's destination. */
+            fun state(): String? = state.getNullable("state")
+
+            /** The city of the check's destination. */
+            @JsonProperty("city") @ExcludeMissing fun _city() = city
 
             /** The street address of the check's destination. */
             @JsonProperty("line1") @ExcludeMissing fun _line1() = line1
@@ -1548,14 +1548,14 @@ private constructor(
             /** The second line of the address of the check's destination. */
             @JsonProperty("line2") @ExcludeMissing fun _line2() = line2
 
-            /** The city of the check's destination. */
-            @JsonProperty("city") @ExcludeMissing fun _city() = city
-
-            /** The state of the check's destination. */
-            @JsonProperty("state") @ExcludeMissing fun _state() = state
+            /** The name component of the check's mailing address. */
+            @JsonProperty("name") @ExcludeMissing fun _name() = name
 
             /** The postal code of the check's destination. */
             @JsonProperty("postal_code") @ExcludeMissing fun _postalCode() = postalCode
+
+            /** The state of the check's destination. */
+            @JsonProperty("state") @ExcludeMissing fun _state() = state
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -1563,12 +1563,12 @@ private constructor(
 
             fun validate(): MailingAddress = apply {
                 if (!validated) {
-                    name()
+                    city()
                     line1()
                     line2()
-                    city()
-                    state()
+                    name()
                     postalCode()
+                    state()
                     validated = true
                 }
             }
@@ -1581,12 +1581,12 @@ private constructor(
                 }
 
                 return other is MailingAddress &&
-                    this.name == other.name &&
+                    this.city == other.city &&
                     this.line1 == other.line1 &&
                     this.line2 == other.line2 &&
-                    this.city == other.city &&
-                    this.state == other.state &&
+                    this.name == other.name &&
                     this.postalCode == other.postalCode &&
+                    this.state == other.state &&
                     this.additionalProperties == other.additionalProperties
             }
 
@@ -1594,12 +1594,12 @@ private constructor(
                 if (hashCode == 0) {
                     hashCode =
                         Objects.hash(
-                            name,
+                            city,
                             line1,
                             line2,
-                            city,
-                            state,
+                            name,
                             postalCode,
+                            state,
                             additionalProperties,
                         )
                 }
@@ -1607,7 +1607,7 @@ private constructor(
             }
 
             override fun toString() =
-                "MailingAddress{name=$name, line1=$line1, line2=$line2, city=$city, state=$state, postalCode=$postalCode, additionalProperties=$additionalProperties}"
+                "MailingAddress{city=$city, line1=$line1, line2=$line2, name=$name, postalCode=$postalCode, state=$state, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -1616,31 +1616,31 @@ private constructor(
 
             class Builder {
 
-                private var name: JsonField<String> = JsonMissing.of()
+                private var city: JsonField<String> = JsonMissing.of()
                 private var line1: JsonField<String> = JsonMissing.of()
                 private var line2: JsonField<String> = JsonMissing.of()
-                private var city: JsonField<String> = JsonMissing.of()
-                private var state: JsonField<String> = JsonMissing.of()
+                private var name: JsonField<String> = JsonMissing.of()
                 private var postalCode: JsonField<String> = JsonMissing.of()
+                private var state: JsonField<String> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(mailingAddress: MailingAddress) = apply {
-                    this.name = mailingAddress.name
+                    this.city = mailingAddress.city
                     this.line1 = mailingAddress.line1
                     this.line2 = mailingAddress.line2
-                    this.city = mailingAddress.city
-                    this.state = mailingAddress.state
+                    this.name = mailingAddress.name
                     this.postalCode = mailingAddress.postalCode
+                    this.state = mailingAddress.state
                     additionalProperties(mailingAddress.additionalProperties)
                 }
 
-                /** The name component of the check's mailing address. */
-                fun name(name: String) = name(JsonField.of(name))
+                /** The city of the check's destination. */
+                fun city(city: String) = city(JsonField.of(city))
 
-                /** The name component of the check's mailing address. */
-                @JsonProperty("name")
+                /** The city of the check's destination. */
+                @JsonProperty("city")
                 @ExcludeMissing
-                fun name(name: JsonField<String>) = apply { this.name = name }
+                fun city(city: JsonField<String>) = apply { this.city = city }
 
                 /** The street address of the check's destination. */
                 fun line1(line1: String) = line1(JsonField.of(line1))
@@ -1658,21 +1658,13 @@ private constructor(
                 @ExcludeMissing
                 fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
 
-                /** The city of the check's destination. */
-                fun city(city: String) = city(JsonField.of(city))
+                /** The name component of the check's mailing address. */
+                fun name(name: String) = name(JsonField.of(name))
 
-                /** The city of the check's destination. */
-                @JsonProperty("city")
+                /** The name component of the check's mailing address. */
+                @JsonProperty("name")
                 @ExcludeMissing
-                fun city(city: JsonField<String>) = apply { this.city = city }
-
-                /** The state of the check's destination. */
-                fun state(state: String) = state(JsonField.of(state))
-
-                /** The state of the check's destination. */
-                @JsonProperty("state")
-                @ExcludeMissing
-                fun state(state: JsonField<String>) = apply { this.state = state }
+                fun name(name: JsonField<String>) = apply { this.name = name }
 
                 /** The postal code of the check's destination. */
                 fun postalCode(postalCode: String) = postalCode(JsonField.of(postalCode))
@@ -1683,6 +1675,14 @@ private constructor(
                 fun postalCode(postalCode: JsonField<String>) = apply {
                     this.postalCode = postalCode
                 }
+
+                /** The state of the check's destination. */
+                fun state(state: String) = state(JsonField.of(state))
+
+                /** The state of the check's destination. */
+                @JsonProperty("state")
+                @ExcludeMissing
+                fun state(state: JsonField<String>) = apply { this.state = state }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -1701,12 +1701,12 @@ private constructor(
 
                 fun build(): MailingAddress =
                     MailingAddress(
-                        name,
+                        city,
                         line1,
                         line2,
-                        city,
-                        state,
+                        name,
                         postalCode,
+                        state,
                         additionalProperties.toUnmodifiable(),
                     )
             }
@@ -1717,12 +1717,12 @@ private constructor(
         @NoAutoDetect
         class ReturnAddress
         private constructor(
-            private val name: JsonField<String>,
+            private val city: JsonField<String>,
             private val line1: JsonField<String>,
             private val line2: JsonField<String>,
-            private val city: JsonField<String>,
-            private val state: JsonField<String>,
+            private val name: JsonField<String>,
             private val postalCode: JsonField<String>,
+            private val state: JsonField<String>,
             private val additionalProperties: Map<String, JsonValue>,
         ) {
 
@@ -1730,8 +1730,8 @@ private constructor(
 
             private var hashCode: Int = 0
 
-            /** The name component of the check's return address. */
-            fun name(): String? = name.getNullable("name")
+            /** The city of the check's destination. */
+            fun city(): String? = city.getNullable("city")
 
             /** The street address of the check's destination. */
             fun line1(): String? = line1.getNullable("line1")
@@ -1739,17 +1739,17 @@ private constructor(
             /** The second line of the address of the check's destination. */
             fun line2(): String? = line2.getNullable("line2")
 
-            /** The city of the check's destination. */
-            fun city(): String? = city.getNullable("city")
-
-            /** The state of the check's destination. */
-            fun state(): String? = state.getNullable("state")
+            /** The name component of the check's return address. */
+            fun name(): String? = name.getNullable("name")
 
             /** The postal code of the check's destination. */
             fun postalCode(): String? = postalCode.getNullable("postal_code")
 
-            /** The name component of the check's return address. */
-            @JsonProperty("name") @ExcludeMissing fun _name() = name
+            /** The state of the check's destination. */
+            fun state(): String? = state.getNullable("state")
+
+            /** The city of the check's destination. */
+            @JsonProperty("city") @ExcludeMissing fun _city() = city
 
             /** The street address of the check's destination. */
             @JsonProperty("line1") @ExcludeMissing fun _line1() = line1
@@ -1757,14 +1757,14 @@ private constructor(
             /** The second line of the address of the check's destination. */
             @JsonProperty("line2") @ExcludeMissing fun _line2() = line2
 
-            /** The city of the check's destination. */
-            @JsonProperty("city") @ExcludeMissing fun _city() = city
-
-            /** The state of the check's destination. */
-            @JsonProperty("state") @ExcludeMissing fun _state() = state
+            /** The name component of the check's return address. */
+            @JsonProperty("name") @ExcludeMissing fun _name() = name
 
             /** The postal code of the check's destination. */
             @JsonProperty("postal_code") @ExcludeMissing fun _postalCode() = postalCode
+
+            /** The state of the check's destination. */
+            @JsonProperty("state") @ExcludeMissing fun _state() = state
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -1772,12 +1772,12 @@ private constructor(
 
             fun validate(): ReturnAddress = apply {
                 if (!validated) {
-                    name()
+                    city()
                     line1()
                     line2()
-                    city()
-                    state()
+                    name()
                     postalCode()
+                    state()
                     validated = true
                 }
             }
@@ -1790,12 +1790,12 @@ private constructor(
                 }
 
                 return other is ReturnAddress &&
-                    this.name == other.name &&
+                    this.city == other.city &&
                     this.line1 == other.line1 &&
                     this.line2 == other.line2 &&
-                    this.city == other.city &&
-                    this.state == other.state &&
+                    this.name == other.name &&
                     this.postalCode == other.postalCode &&
+                    this.state == other.state &&
                     this.additionalProperties == other.additionalProperties
             }
 
@@ -1803,12 +1803,12 @@ private constructor(
                 if (hashCode == 0) {
                     hashCode =
                         Objects.hash(
-                            name,
+                            city,
                             line1,
                             line2,
-                            city,
-                            state,
+                            name,
                             postalCode,
+                            state,
                             additionalProperties,
                         )
                 }
@@ -1816,7 +1816,7 @@ private constructor(
             }
 
             override fun toString() =
-                "ReturnAddress{name=$name, line1=$line1, line2=$line2, city=$city, state=$state, postalCode=$postalCode, additionalProperties=$additionalProperties}"
+                "ReturnAddress{city=$city, line1=$line1, line2=$line2, name=$name, postalCode=$postalCode, state=$state, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -1825,31 +1825,31 @@ private constructor(
 
             class Builder {
 
-                private var name: JsonField<String> = JsonMissing.of()
+                private var city: JsonField<String> = JsonMissing.of()
                 private var line1: JsonField<String> = JsonMissing.of()
                 private var line2: JsonField<String> = JsonMissing.of()
-                private var city: JsonField<String> = JsonMissing.of()
-                private var state: JsonField<String> = JsonMissing.of()
+                private var name: JsonField<String> = JsonMissing.of()
                 private var postalCode: JsonField<String> = JsonMissing.of()
+                private var state: JsonField<String> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(returnAddress: ReturnAddress) = apply {
-                    this.name = returnAddress.name
+                    this.city = returnAddress.city
                     this.line1 = returnAddress.line1
                     this.line2 = returnAddress.line2
-                    this.city = returnAddress.city
-                    this.state = returnAddress.state
+                    this.name = returnAddress.name
                     this.postalCode = returnAddress.postalCode
+                    this.state = returnAddress.state
                     additionalProperties(returnAddress.additionalProperties)
                 }
 
-                /** The name component of the check's return address. */
-                fun name(name: String) = name(JsonField.of(name))
+                /** The city of the check's destination. */
+                fun city(city: String) = city(JsonField.of(city))
 
-                /** The name component of the check's return address. */
-                @JsonProperty("name")
+                /** The city of the check's destination. */
+                @JsonProperty("city")
                 @ExcludeMissing
-                fun name(name: JsonField<String>) = apply { this.name = name }
+                fun city(city: JsonField<String>) = apply { this.city = city }
 
                 /** The street address of the check's destination. */
                 fun line1(line1: String) = line1(JsonField.of(line1))
@@ -1867,21 +1867,13 @@ private constructor(
                 @ExcludeMissing
                 fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
 
-                /** The city of the check's destination. */
-                fun city(city: String) = city(JsonField.of(city))
+                /** The name component of the check's return address. */
+                fun name(name: String) = name(JsonField.of(name))
 
-                /** The city of the check's destination. */
-                @JsonProperty("city")
+                /** The name component of the check's return address. */
+                @JsonProperty("name")
                 @ExcludeMissing
-                fun city(city: JsonField<String>) = apply { this.city = city }
-
-                /** The state of the check's destination. */
-                fun state(state: String) = state(JsonField.of(state))
-
-                /** The state of the check's destination. */
-                @JsonProperty("state")
-                @ExcludeMissing
-                fun state(state: JsonField<String>) = apply { this.state = state }
+                fun name(name: JsonField<String>) = apply { this.name = name }
 
                 /** The postal code of the check's destination. */
                 fun postalCode(postalCode: String) = postalCode(JsonField.of(postalCode))
@@ -1892,6 +1884,14 @@ private constructor(
                 fun postalCode(postalCode: JsonField<String>) = apply {
                     this.postalCode = postalCode
                 }
+
+                /** The state of the check's destination. */
+                fun state(state: String) = state(JsonField.of(state))
+
+                /** The state of the check's destination. */
+                @JsonProperty("state")
+                @ExcludeMissing
+                fun state(state: JsonField<String>) = apply { this.state = state }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -1910,12 +1910,12 @@ private constructor(
 
                 fun build(): ReturnAddress =
                     ReturnAddress(
-                        name,
+                        city,
                         line1,
                         line2,
-                        city,
-                        state,
+                        name,
                         postalCode,
+                        state,
                         additionalProperties.toUnmodifiable(),
                     )
             }
@@ -2032,9 +2032,9 @@ private constructor(
     @NoAutoDetect
     class StopPaymentRequest
     private constructor(
-        private val transferId: JsonField<String>,
         private val reason: JsonField<Reason>,
         private val requestedAt: JsonField<OffsetDateTime>,
+        private val transferId: JsonField<String>,
         private val type: JsonField<Type>,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
@@ -2043,14 +2043,14 @@ private constructor(
 
         private var hashCode: Int = 0
 
-        /** The ID of the check transfer that was stopped. */
-        fun transferId(): String = transferId.getRequired("transfer_id")
-
         /** The reason why this transfer was stopped. */
         fun reason(): Reason = reason.getRequired("reason")
 
         /** The time the stop-payment was requested. */
         fun requestedAt(): OffsetDateTime = requestedAt.getRequired("requested_at")
+
+        /** The ID of the check transfer that was stopped. */
+        fun transferId(): String = transferId.getRequired("transfer_id")
 
         /**
          * A constant representing the object's type. For this resource it will always be
@@ -2058,14 +2058,14 @@ private constructor(
          */
         fun type(): Type = type.getRequired("type")
 
-        /** The ID of the check transfer that was stopped. */
-        @JsonProperty("transfer_id") @ExcludeMissing fun _transferId() = transferId
-
         /** The reason why this transfer was stopped. */
         @JsonProperty("reason") @ExcludeMissing fun _reason() = reason
 
         /** The time the stop-payment was requested. */
         @JsonProperty("requested_at") @ExcludeMissing fun _requestedAt() = requestedAt
+
+        /** The ID of the check transfer that was stopped. */
+        @JsonProperty("transfer_id") @ExcludeMissing fun _transferId() = transferId
 
         /**
          * A constant representing the object's type. For this resource it will always be
@@ -2079,9 +2079,9 @@ private constructor(
 
         fun validate(): StopPaymentRequest = apply {
             if (!validated) {
-                transferId()
                 reason()
                 requestedAt()
+                transferId()
                 type()
                 validated = true
             }
@@ -2095,9 +2095,9 @@ private constructor(
             }
 
             return other is StopPaymentRequest &&
-                this.transferId == other.transferId &&
                 this.reason == other.reason &&
                 this.requestedAt == other.requestedAt &&
+                this.transferId == other.transferId &&
                 this.type == other.type &&
                 this.additionalProperties == other.additionalProperties
         }
@@ -2106,9 +2106,9 @@ private constructor(
             if (hashCode == 0) {
                 hashCode =
                     Objects.hash(
-                        transferId,
                         reason,
                         requestedAt,
+                        transferId,
                         type,
                         additionalProperties,
                     )
@@ -2117,7 +2117,7 @@ private constructor(
         }
 
         override fun toString() =
-            "StopPaymentRequest{transferId=$transferId, reason=$reason, requestedAt=$requestedAt, type=$type, additionalProperties=$additionalProperties}"
+            "StopPaymentRequest{reason=$reason, requestedAt=$requestedAt, transferId=$transferId, type=$type, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -2126,27 +2126,19 @@ private constructor(
 
         class Builder {
 
-            private var transferId: JsonField<String> = JsonMissing.of()
             private var reason: JsonField<Reason> = JsonMissing.of()
             private var requestedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+            private var transferId: JsonField<String> = JsonMissing.of()
             private var type: JsonField<Type> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(stopPaymentRequest: StopPaymentRequest) = apply {
-                this.transferId = stopPaymentRequest.transferId
                 this.reason = stopPaymentRequest.reason
                 this.requestedAt = stopPaymentRequest.requestedAt
+                this.transferId = stopPaymentRequest.transferId
                 this.type = stopPaymentRequest.type
                 additionalProperties(stopPaymentRequest.additionalProperties)
             }
-
-            /** The ID of the check transfer that was stopped. */
-            fun transferId(transferId: String) = transferId(JsonField.of(transferId))
-
-            /** The ID of the check transfer that was stopped. */
-            @JsonProperty("transfer_id")
-            @ExcludeMissing
-            fun transferId(transferId: JsonField<String>) = apply { this.transferId = transferId }
 
             /** The reason why this transfer was stopped. */
             fun reason(reason: Reason) = reason(JsonField.of(reason))
@@ -2165,6 +2157,14 @@ private constructor(
             fun requestedAt(requestedAt: JsonField<OffsetDateTime>) = apply {
                 this.requestedAt = requestedAt
             }
+
+            /** The ID of the check transfer that was stopped. */
+            fun transferId(transferId: String) = transferId(JsonField.of(transferId))
+
+            /** The ID of the check transfer that was stopped. */
+            @JsonProperty("transfer_id")
+            @ExcludeMissing
+            fun transferId(transferId: JsonField<String>) = apply { this.transferId = transferId }
 
             /**
              * A constant representing the object's type. For this resource it will always be
@@ -2196,9 +2196,9 @@ private constructor(
 
             fun build(): StopPaymentRequest =
                 StopPaymentRequest(
-                    transferId,
                     reason,
                     requestedAt,
+                    transferId,
                     type,
                     additionalProperties.toUnmodifiable(),
                 )

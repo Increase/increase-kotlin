@@ -26,11 +26,11 @@ import java.util.Objects
 @NoAutoDetect
 class OAuthConnection
 private constructor(
-    private val id: JsonField<String>,
     private val createdAt: JsonField<OffsetDateTime>,
-    private val groupId: JsonField<String>,
-    private val status: JsonField<Status>,
     private val deletedAt: JsonField<OffsetDateTime>,
+    private val groupId: JsonField<String>,
+    private val id: JsonField<String>,
+    private val status: JsonField<Status>,
     private val type: JsonField<Type>,
     private val additionalProperties: Map<String, JsonValue>,
 ) {
@@ -39,20 +39,11 @@ private constructor(
 
     private var hashCode: Int = 0
 
-    /** The OAuth Connection's identifier. */
-    fun id(): String = id.getRequired("id")
-
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp when the OAuth Connection
      * was created.
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
-
-    /** The identifier of the Group that has authorized your OAuth application. */
-    fun groupId(): String = groupId.getRequired("group_id")
-
-    /** Whether the connection is active. */
-    fun status(): Status = status.getRequired("status")
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp when the OAuth Connection
@@ -60,14 +51,20 @@ private constructor(
      */
     fun deletedAt(): OffsetDateTime? = deletedAt.getNullable("deleted_at")
 
+    /** The identifier of the Group that has authorized your OAuth application. */
+    fun groupId(): String = groupId.getRequired("group_id")
+
+    /** The OAuth Connection's identifier. */
+    fun id(): String = id.getRequired("id")
+
+    /** Whether the connection is active. */
+    fun status(): Status = status.getRequired("status")
+
     /**
      * A constant representing the object's type. For this resource it will always be
      * `oauth_connection`.
      */
     fun type(): Type = type.getRequired("type")
-
-    /** The OAuth Connection's identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp when the OAuth Connection
@@ -75,17 +72,20 @@ private constructor(
      */
     @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
 
-    /** The identifier of the Group that has authorized your OAuth application. */
-    @JsonProperty("group_id") @ExcludeMissing fun _groupId() = groupId
-
-    /** Whether the connection is active. */
-    @JsonProperty("status") @ExcludeMissing fun _status() = status
-
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp when the OAuth Connection
      * was deleted.
      */
     @JsonProperty("deleted_at") @ExcludeMissing fun _deletedAt() = deletedAt
+
+    /** The identifier of the Group that has authorized your OAuth application. */
+    @JsonProperty("group_id") @ExcludeMissing fun _groupId() = groupId
+
+    /** The OAuth Connection's identifier. */
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
+
+    /** Whether the connection is active. */
+    @JsonProperty("status") @ExcludeMissing fun _status() = status
 
     /**
      * A constant representing the object's type. For this resource it will always be
@@ -99,11 +99,11 @@ private constructor(
 
     fun validate(): OAuthConnection = apply {
         if (!validated) {
-            id()
             createdAt()
-            groupId()
-            status()
             deletedAt()
+            groupId()
+            id()
+            status()
             type()
             validated = true
         }
@@ -117,11 +117,11 @@ private constructor(
         }
 
         return other is OAuthConnection &&
-            this.id == other.id &&
             this.createdAt == other.createdAt &&
-            this.groupId == other.groupId &&
-            this.status == other.status &&
             this.deletedAt == other.deletedAt &&
+            this.groupId == other.groupId &&
+            this.id == other.id &&
+            this.status == other.status &&
             this.type == other.type &&
             this.additionalProperties == other.additionalProperties
     }
@@ -130,11 +130,11 @@ private constructor(
         if (hashCode == 0) {
             hashCode =
                 Objects.hash(
-                    id,
                     createdAt,
-                    groupId,
-                    status,
                     deletedAt,
+                    groupId,
+                    id,
+                    status,
                     type,
                     additionalProperties,
                 )
@@ -143,7 +143,7 @@ private constructor(
     }
 
     override fun toString() =
-        "OAuthConnection{id=$id, createdAt=$createdAt, groupId=$groupId, status=$status, deletedAt=$deletedAt, type=$type, additionalProperties=$additionalProperties}"
+        "OAuthConnection{createdAt=$createdAt, deletedAt=$deletedAt, groupId=$groupId, id=$id, status=$status, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -152,29 +152,23 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var groupId: JsonField<String> = JsonMissing.of()
-        private var status: JsonField<Status> = JsonMissing.of()
         private var deletedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var groupId: JsonField<String> = JsonMissing.of()
+        private var id: JsonField<String> = JsonMissing.of()
+        private var status: JsonField<Status> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(oauthConnection: OAuthConnection) = apply {
-            this.id = oauthConnection.id
             this.createdAt = oauthConnection.createdAt
-            this.groupId = oauthConnection.groupId
-            this.status = oauthConnection.status
             this.deletedAt = oauthConnection.deletedAt
+            this.groupId = oauthConnection.groupId
+            this.id = oauthConnection.id
+            this.status = oauthConnection.status
             this.type = oauthConnection.type
             additionalProperties(oauthConnection.additionalProperties)
         }
-
-        /** The OAuth Connection's identifier. */
-        fun id(id: String) = id(JsonField.of(id))
-
-        /** The OAuth Connection's identifier. */
-        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp when the OAuth
@@ -190,22 +184,6 @@ private constructor(
         @ExcludeMissing
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
-        /** The identifier of the Group that has authorized your OAuth application. */
-        fun groupId(groupId: String) = groupId(JsonField.of(groupId))
-
-        /** The identifier of the Group that has authorized your OAuth application. */
-        @JsonProperty("group_id")
-        @ExcludeMissing
-        fun groupId(groupId: JsonField<String>) = apply { this.groupId = groupId }
-
-        /** Whether the connection is active. */
-        fun status(status: Status) = status(JsonField.of(status))
-
-        /** Whether the connection is active. */
-        @JsonProperty("status")
-        @ExcludeMissing
-        fun status(status: JsonField<Status>) = apply { this.status = status }
-
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp when the OAuth
          * Connection was deleted.
@@ -219,6 +197,28 @@ private constructor(
         @JsonProperty("deleted_at")
         @ExcludeMissing
         fun deletedAt(deletedAt: JsonField<OffsetDateTime>) = apply { this.deletedAt = deletedAt }
+
+        /** The identifier of the Group that has authorized your OAuth application. */
+        fun groupId(groupId: String) = groupId(JsonField.of(groupId))
+
+        /** The identifier of the Group that has authorized your OAuth application. */
+        @JsonProperty("group_id")
+        @ExcludeMissing
+        fun groupId(groupId: JsonField<String>) = apply { this.groupId = groupId }
+
+        /** The OAuth Connection's identifier. */
+        fun id(id: String) = id(JsonField.of(id))
+
+        /** The OAuth Connection's identifier. */
+        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
+
+        /** Whether the connection is active. */
+        fun status(status: Status) = status(JsonField.of(status))
+
+        /** Whether the connection is active. */
+        @JsonProperty("status")
+        @ExcludeMissing
+        fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /**
          * A constant representing the object's type. For this resource it will always be
@@ -250,11 +250,11 @@ private constructor(
 
         fun build(): OAuthConnection =
             OAuthConnection(
-                id,
                 createdAt,
-                groupId,
-                status,
                 deletedAt,
+                groupId,
+                id,
+                status,
                 type,
                 additionalProperties.toUnmodifiable(),
             )
