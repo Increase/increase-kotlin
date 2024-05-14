@@ -374,15 +374,18 @@ constructor(
     @NoAutoDetect
     class BillingAddress
     private constructor(
+        private val city: String?,
         private val line1: String?,
         private val line2: String?,
-        private val city: String?,
-        private val state: String?,
         private val postalCode: String?,
+        private val state: String?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         private var hashCode: Int = 0
+
+        /** The city of the billing address. */
+        @JsonProperty("city") fun city(): String? = city
 
         /** The first line of the billing address. */
         @JsonProperty("line1") fun line1(): String? = line1
@@ -390,14 +393,11 @@ constructor(
         /** The second line of the billing address. */
         @JsonProperty("line2") fun line2(): String? = line2
 
-        /** The city of the billing address. */
-        @JsonProperty("city") fun city(): String? = city
+        /** The postal code of the billing address. */
+        @JsonProperty("postal_code") fun postalCode(): String? = postalCode
 
         /** The US state of the billing address. */
         @JsonProperty("state") fun state(): String? = state
-
-        /** The postal code of the billing address. */
-        @JsonProperty("postal_code") fun postalCode(): String? = postalCode
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -411,11 +411,11 @@ constructor(
             }
 
             return other is BillingAddress &&
+                this.city == other.city &&
                 this.line1 == other.line1 &&
                 this.line2 == other.line2 &&
-                this.city == other.city &&
-                this.state == other.state &&
                 this.postalCode == other.postalCode &&
+                this.state == other.state &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -423,11 +423,11 @@ constructor(
             if (hashCode == 0) {
                 hashCode =
                     Objects.hash(
+                        city,
                         line1,
                         line2,
-                        city,
-                        state,
                         postalCode,
+                        state,
                         additionalProperties,
                     )
             }
@@ -435,7 +435,7 @@ constructor(
         }
 
         override fun toString() =
-            "BillingAddress{line1=$line1, line2=$line2, city=$city, state=$state, postalCode=$postalCode, additionalProperties=$additionalProperties}"
+            "BillingAddress{city=$city, line1=$line1, line2=$line2, postalCode=$postalCode, state=$state, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -444,21 +444,24 @@ constructor(
 
         class Builder {
 
+            private var city: String? = null
             private var line1: String? = null
             private var line2: String? = null
-            private var city: String? = null
-            private var state: String? = null
             private var postalCode: String? = null
+            private var state: String? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(billingAddress: BillingAddress) = apply {
+                this.city = billingAddress.city
                 this.line1 = billingAddress.line1
                 this.line2 = billingAddress.line2
-                this.city = billingAddress.city
-                this.state = billingAddress.state
                 this.postalCode = billingAddress.postalCode
+                this.state = billingAddress.state
                 additionalProperties(billingAddress.additionalProperties)
             }
+
+            /** The city of the billing address. */
+            @JsonProperty("city") fun city(city: String) = apply { this.city = city }
 
             /** The first line of the billing address. */
             @JsonProperty("line1") fun line1(line1: String) = apply { this.line1 = line1 }
@@ -466,15 +469,12 @@ constructor(
             /** The second line of the billing address. */
             @JsonProperty("line2") fun line2(line2: String) = apply { this.line2 = line2 }
 
-            /** The city of the billing address. */
-            @JsonProperty("city") fun city(city: String) = apply { this.city = city }
-
-            /** The US state of the billing address. */
-            @JsonProperty("state") fun state(state: String) = apply { this.state = state }
-
             /** The postal code of the billing address. */
             @JsonProperty("postal_code")
             fun postalCode(postalCode: String) = apply { this.postalCode = postalCode }
+
+            /** The US state of the billing address. */
+            @JsonProperty("state") fun state(state: String) = apply { this.state = state }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -492,11 +492,11 @@ constructor(
 
             fun build(): BillingAddress =
                 BillingAddress(
+                    checkNotNull(city) { "`city` is required but was not set" },
                     checkNotNull(line1) { "`line1` is required but was not set" },
                     line2,
-                    checkNotNull(city) { "`city` is required but was not set" },
-                    checkNotNull(state) { "`state` is required but was not set" },
                     checkNotNull(postalCode) { "`postalCode` is required but was not set" },
+                    checkNotNull(state) { "`state` is required but was not set" },
                     additionalProperties.toUnmodifiable(),
                 )
         }
@@ -512,13 +512,17 @@ constructor(
     @NoAutoDetect
     class DigitalWallet
     private constructor(
+        private val digitalCardProfileId: String?,
         private val email: String?,
         private val phone: String?,
-        private val digitalCardProfileId: String?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         private var hashCode: Int = 0
+
+        /** The digital card profile assigned to this digital card. */
+        @JsonProperty("digital_card_profile_id")
+        fun digitalCardProfileId(): String? = digitalCardProfileId
 
         /**
          * An email address that can be used to contact and verify the cardholder via one-time
@@ -532,10 +536,6 @@ constructor(
          */
         @JsonProperty("phone") fun phone(): String? = phone
 
-        /** The digital card profile assigned to this digital card. */
-        @JsonProperty("digital_card_profile_id")
-        fun digitalCardProfileId(): String? = digitalCardProfileId
-
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -548,9 +548,9 @@ constructor(
             }
 
             return other is DigitalWallet &&
+                this.digitalCardProfileId == other.digitalCardProfileId &&
                 this.email == other.email &&
                 this.phone == other.phone &&
-                this.digitalCardProfileId == other.digitalCardProfileId &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -558,9 +558,9 @@ constructor(
             if (hashCode == 0) {
                 hashCode =
                     Objects.hash(
+                        digitalCardProfileId,
                         email,
                         phone,
-                        digitalCardProfileId,
                         additionalProperties,
                     )
             }
@@ -568,7 +568,7 @@ constructor(
         }
 
         override fun toString() =
-            "DigitalWallet{email=$email, phone=$phone, digitalCardProfileId=$digitalCardProfileId, additionalProperties=$additionalProperties}"
+            "DigitalWallet{digitalCardProfileId=$digitalCardProfileId, email=$email, phone=$phone, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -577,16 +577,22 @@ constructor(
 
         class Builder {
 
+            private var digitalCardProfileId: String? = null
             private var email: String? = null
             private var phone: String? = null
-            private var digitalCardProfileId: String? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(digitalWallet: DigitalWallet) = apply {
+                this.digitalCardProfileId = digitalWallet.digitalCardProfileId
                 this.email = digitalWallet.email
                 this.phone = digitalWallet.phone
-                this.digitalCardProfileId = digitalWallet.digitalCardProfileId
                 additionalProperties(digitalWallet.additionalProperties)
+            }
+
+            /** The digital card profile assigned to this digital card. */
+            @JsonProperty("digital_card_profile_id")
+            fun digitalCardProfileId(digitalCardProfileId: String) = apply {
+                this.digitalCardProfileId = digitalCardProfileId
             }
 
             /**
@@ -600,12 +606,6 @@ constructor(
              * passcode over SMS.
              */
             @JsonProperty("phone") fun phone(phone: String) = apply { this.phone = phone }
-
-            /** The digital card profile assigned to this digital card. */
-            @JsonProperty("digital_card_profile_id")
-            fun digitalCardProfileId(digitalCardProfileId: String) = apply {
-                this.digitalCardProfileId = digitalCardProfileId
-            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -623,9 +623,9 @@ constructor(
 
             fun build(): DigitalWallet =
                 DigitalWallet(
+                    digitalCardProfileId,
                     email,
                     phone,
-                    digitalCardProfileId,
                     additionalProperties.toUnmodifiable(),
                 )
         }
