@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.50.0 (2024-05-15)
+
+Full Changelog: [v0.49.0...v0.50.0](https://github.com/Increase/increase-kotlin/compare/v0.49.0...v0.50.0)
+
+### Features
+
+* **api:** updates ([#275](https://github.com/Increase/increase-kotlin/issues/275)) ([fb64636](https://github.com/Increase/increase-kotlin/commit/fb6463611a0ce47e7ab9f4f9aa82f588005b6d5f))
+
+
+### Chores
+
+* **docs:** add SECURITY.md ([#271](https://github.com/Increase/increase-kotlin/issues/271)) ([3a5a0a1](https://github.com/Increase/increase-kotlin/commit/3a5a0a1713f3e4a10e7b73c1d09eb00933ecbfb0))
+* **internal:** add scripts-to-rule-them-all ([#274](https://github.com/Increase/increase-kotlin/issues/274)) ([9aa17e3](https://github.com/Increase/increase-kotlin/commit/9aa17e33409c773c32f83f09a8f0689702fc0c62))
+
+
+### Documentation
+
+* **api:** update examples & docstrings ([#273](https://github.com/Increase/increase-kotlin/issues/273)) ([157ffb1](https://github.com/Increase/increase-kotlin/commit/157ffb193e9d0ca1660f1363e981068bede10f9b))
+
 ## 0.49.0 (2024-05-10)
 
 Full Changelog: [v0.48.0...v0.49.0](https://github.com/Increase/increase-kotlin/compare/v0.48.0...v0.49.0)
