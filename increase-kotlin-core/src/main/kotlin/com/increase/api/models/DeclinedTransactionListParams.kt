@@ -329,6 +329,8 @@ constructor(
 
                 val WIRE_DECLINE = In(JsonField.of("wire_decline"))
 
+                val CHECK_DEPOSIT_REJECTION = In(JsonField.of("check_deposit_rejection"))
+
                 val OTHER = In(JsonField.of("other"))
 
                 fun of(value: String) = In(JsonField.of(value))
@@ -341,6 +343,7 @@ constructor(
                 INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE,
                 INTERNATIONAL_ACH_DECLINE,
                 WIRE_DECLINE,
+                CHECK_DEPOSIT_REJECTION,
                 OTHER,
             }
 
@@ -351,6 +354,7 @@ constructor(
                 INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE,
                 INTERNATIONAL_ACH_DECLINE,
                 WIRE_DECLINE,
+                CHECK_DEPOSIT_REJECTION,
                 OTHER,
                 _UNKNOWN,
             }
@@ -364,6 +368,7 @@ constructor(
                         Value.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE
                     INTERNATIONAL_ACH_DECLINE -> Value.INTERNATIONAL_ACH_DECLINE
                     WIRE_DECLINE -> Value.WIRE_DECLINE
+                    CHECK_DEPOSIT_REJECTION -> Value.CHECK_DEPOSIT_REJECTION
                     OTHER -> Value.OTHER
                     else -> Value._UNKNOWN
                 }
@@ -377,6 +382,7 @@ constructor(
                         Known.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE
                     INTERNATIONAL_ACH_DECLINE -> Known.INTERNATIONAL_ACH_DECLINE
                     WIRE_DECLINE -> Known.WIRE_DECLINE
+                    CHECK_DEPOSIT_REJECTION -> Known.CHECK_DEPOSIT_REJECTION
                     OTHER -> Known.OTHER
                     else -> throw IncreaseInvalidDataException("Unknown In: $value")
                 }
