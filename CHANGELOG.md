@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.51.0 (2024-05-23)
+
+Full Changelog: [v0.50.0...v0.51.0](https://github.com/Increase/increase-kotlin/compare/v0.50.0...v0.51.0)
+
+### Features
+
+* **api:** realtime decision updates ([#276](https://github.com/Increase/increase-kotlin/issues/276)) ([0c3b14d](https://github.com/Increase/increase-kotlin/commit/0c3b14d284d3188cb0507ad41987f45060b18004))
+
 ## 0.50.0 (2024-05-15)
 
 Full Changelog: [v0.49.0...v0.50.0](https://github.com/Increase/increase-kotlin/compare/v0.49.0...v0.50.0)
