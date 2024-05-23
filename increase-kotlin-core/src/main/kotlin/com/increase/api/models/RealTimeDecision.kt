@@ -348,7 +348,6 @@ private constructor(
     private constructor(
         private val accountId: JsonField<String>,
         private val cardId: JsonField<String>,
-        private val cardPaymentId: JsonField<String>,
         private val decision: JsonField<Decision>,
         private val digitalWalletTokenId: JsonField<String>,
         private val merchantAcceptorId: JsonField<String>,
@@ -366,6 +365,7 @@ private constructor(
         private val requestDetails: JsonField<RequestDetails>,
         private val settlementAmount: JsonField<Long>,
         private val settlementCurrency: JsonField<String>,
+        private val upcomingCardPaymentId: JsonField<String>,
         private val verification: JsonField<Verification>,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
@@ -379,9 +379,6 @@ private constructor(
 
         /** The identifier of the Card that is being authorized. */
         fun cardId(): String = cardId.getRequired("card_id")
-
-        /** The identifier of the Card Payment this authorization belongs to. */
-        fun cardPaymentId(): String = cardPaymentId.getRequired("card_payment_id")
 
         /** Whether or not the authorization was approved. */
         fun decision(): Decision? = decision.getNullable("decision")
@@ -468,6 +465,13 @@ private constructor(
          */
         fun settlementCurrency(): String = settlementCurrency.getRequired("settlement_currency")
 
+        /**
+         * The identifier of the Card Payment this authorization will belong to. Available in the
+         * API once the card authorization has completed.
+         */
+        fun upcomingCardPaymentId(): String =
+            upcomingCardPaymentId.getRequired("upcoming_card_payment_id")
+
         /** Fields related to verification of cardholder-provided values. */
         fun verification(): Verification = verification.getRequired("verification")
 
@@ -476,9 +480,6 @@ private constructor(
 
         /** The identifier of the Card that is being authorized. */
         @JsonProperty("card_id") @ExcludeMissing fun _cardId() = cardId
-
-        /** The identifier of the Card Payment this authorization belongs to. */
-        @JsonProperty("card_payment_id") @ExcludeMissing fun _cardPaymentId() = cardPaymentId
 
         /** Whether or not the authorization was approved. */
         @JsonProperty("decision") @ExcludeMissing fun _decision() = decision
@@ -583,6 +584,14 @@ private constructor(
         @ExcludeMissing
         fun _settlementCurrency() = settlementCurrency
 
+        /**
+         * The identifier of the Card Payment this authorization will belong to. Available in the
+         * API once the card authorization has completed.
+         */
+        @JsonProperty("upcoming_card_payment_id")
+        @ExcludeMissing
+        fun _upcomingCardPaymentId() = upcomingCardPaymentId
+
         /** Fields related to verification of cardholder-provided values. */
         @JsonProperty("verification") @ExcludeMissing fun _verification() = verification
 
@@ -594,7 +603,6 @@ private constructor(
             if (!validated) {
                 accountId()
                 cardId()
-                cardPaymentId()
                 decision()
                 digitalWalletTokenId()
                 merchantAcceptorId()
@@ -612,6 +620,7 @@ private constructor(
                 requestDetails().validate()
                 settlementAmount()
                 settlementCurrency()
+                upcomingCardPaymentId()
                 verification().validate()
                 validated = true
             }
@@ -627,7 +636,6 @@ private constructor(
             return other is CardAuthorization &&
                 this.accountId == other.accountId &&
                 this.cardId == other.cardId &&
-                this.cardPaymentId == other.cardPaymentId &&
                 this.decision == other.decision &&
                 this.digitalWalletTokenId == other.digitalWalletTokenId &&
                 this.merchantAcceptorId == other.merchantAcceptorId &&
@@ -645,6 +653,7 @@ private constructor(
                 this.requestDetails == other.requestDetails &&
                 this.settlementAmount == other.settlementAmount &&
                 this.settlementCurrency == other.settlementCurrency &&
+                this.upcomingCardPaymentId == other.upcomingCardPaymentId &&
                 this.verification == other.verification &&
                 this.additionalProperties == other.additionalProperties
         }
@@ -655,7 +664,6 @@ private constructor(
                     Objects.hash(
                         accountId,
                         cardId,
-                        cardPaymentId,
                         decision,
                         digitalWalletTokenId,
                         merchantAcceptorId,
@@ -673,6 +681,7 @@ private constructor(
                         requestDetails,
                         settlementAmount,
                         settlementCurrency,
+                        upcomingCardPaymentId,
                         verification,
                         additionalProperties,
                     )
@@ -681,7 +690,7 @@ private constructor(
         }
 
         override fun toString() =
-            "CardAuthorization{accountId=$accountId, cardId=$cardId, cardPaymentId=$cardPaymentId, decision=$decision, digitalWalletTokenId=$digitalWalletTokenId, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, networkDetails=$networkDetails, networkIdentifiers=$networkIdentifiers, networkRiskScore=$networkRiskScore, physicalCardId=$physicalCardId, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, processingCategory=$processingCategory, requestDetails=$requestDetails, settlementAmount=$settlementAmount, settlementCurrency=$settlementCurrency, verification=$verification, additionalProperties=$additionalProperties}"
+            "CardAuthorization{accountId=$accountId, cardId=$cardId, decision=$decision, digitalWalletTokenId=$digitalWalletTokenId, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, networkDetails=$networkDetails, networkIdentifiers=$networkIdentifiers, networkRiskScore=$networkRiskScore, physicalCardId=$physicalCardId, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, processingCategory=$processingCategory, requestDetails=$requestDetails, settlementAmount=$settlementAmount, settlementCurrency=$settlementCurrency, upcomingCardPaymentId=$upcomingCardPaymentId, verification=$verification, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -692,7 +701,6 @@ private constructor(
 
             private var accountId: JsonField<String> = JsonMissing.of()
             private var cardId: JsonField<String> = JsonMissing.of()
-            private var cardPaymentId: JsonField<String> = JsonMissing.of()
             private var decision: JsonField<Decision> = JsonMissing.of()
             private var digitalWalletTokenId: JsonField<String> = JsonMissing.of()
             private var merchantAcceptorId: JsonField<String> = JsonMissing.of()
@@ -710,13 +718,13 @@ private constructor(
             private var requestDetails: JsonField<RequestDetails> = JsonMissing.of()
             private var settlementAmount: JsonField<Long> = JsonMissing.of()
             private var settlementCurrency: JsonField<String> = JsonMissing.of()
+            private var upcomingCardPaymentId: JsonField<String> = JsonMissing.of()
             private var verification: JsonField<Verification> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(cardAuthorization: CardAuthorization) = apply {
                 this.accountId = cardAuthorization.accountId
                 this.cardId = cardAuthorization.cardId
-                this.cardPaymentId = cardAuthorization.cardPaymentId
                 this.decision = cardAuthorization.decision
                 this.digitalWalletTokenId = cardAuthorization.digitalWalletTokenId
                 this.merchantAcceptorId = cardAuthorization.merchantAcceptorId
@@ -734,6 +742,7 @@ private constructor(
                 this.requestDetails = cardAuthorization.requestDetails
                 this.settlementAmount = cardAuthorization.settlementAmount
                 this.settlementCurrency = cardAuthorization.settlementCurrency
+                this.upcomingCardPaymentId = cardAuthorization.upcomingCardPaymentId
                 this.verification = cardAuthorization.verification
                 additionalProperties(cardAuthorization.additionalProperties)
             }
@@ -753,16 +762,6 @@ private constructor(
             @JsonProperty("card_id")
             @ExcludeMissing
             fun cardId(cardId: JsonField<String>) = apply { this.cardId = cardId }
-
-            /** The identifier of the Card Payment this authorization belongs to. */
-            fun cardPaymentId(cardPaymentId: String) = cardPaymentId(JsonField.of(cardPaymentId))
-
-            /** The identifier of the Card Payment this authorization belongs to. */
-            @JsonProperty("card_payment_id")
-            @ExcludeMissing
-            fun cardPaymentId(cardPaymentId: JsonField<String>) = apply {
-                this.cardPaymentId = cardPaymentId
-            }
 
             /** Whether or not the authorization was approved. */
             fun decision(decision: Decision) = decision(JsonField.of(decision))
@@ -1009,6 +1008,23 @@ private constructor(
                 this.settlementCurrency = settlementCurrency
             }
 
+            /**
+             * The identifier of the Card Payment this authorization will belong to. Available in
+             * the API once the card authorization has completed.
+             */
+            fun upcomingCardPaymentId(upcomingCardPaymentId: String) =
+                upcomingCardPaymentId(JsonField.of(upcomingCardPaymentId))
+
+            /**
+             * The identifier of the Card Payment this authorization will belong to. Available in
+             * the API once the card authorization has completed.
+             */
+            @JsonProperty("upcoming_card_payment_id")
+            @ExcludeMissing
+            fun upcomingCardPaymentId(upcomingCardPaymentId: JsonField<String>) = apply {
+                this.upcomingCardPaymentId = upcomingCardPaymentId
+            }
+
             /** Fields related to verification of cardholder-provided values. */
             fun verification(verification: Verification) = verification(JsonField.of(verification))
 
@@ -1037,7 +1053,6 @@ private constructor(
                 CardAuthorization(
                     accountId,
                     cardId,
-                    cardPaymentId,
                     decision,
                     digitalWalletTokenId,
                     merchantAcceptorId,
@@ -1055,6 +1070,7 @@ private constructor(
                     requestDetails,
                     settlementAmount,
                     settlementCurrency,
+                    upcomingCardPaymentId,
                     verification,
                     additionalProperties.toUnmodifiable(),
                 )
