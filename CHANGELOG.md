@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.52.0 (2024-06-03)
+
+Full Changelog: [v0.51.0...v0.52.0](https://github.com/Increase/increase-kotlin/compare/v0.51.0...v0.52.0)
+
+### Features
+
+* **api:** add trace number to ach transfer returns ([#280](https://github.com/Increase/increase-kotlin/issues/280)) ([45b8525](https://github.com/Increase/increase-kotlin/commit/45b8525f9538920ab81bcba4fb1ecac90c9621f0))
+* **api:** updates ([#281](https://github.com/Increase/increase-kotlin/issues/281)) ([3b404c1](https://github.com/Increase/increase-kotlin/commit/3b404c1fed9f57b2678a9d2f26dacac87a35774a))
+
+
+### Chores
+
+* **internal:** add dev scripts ([#278](https://github.com/Increase/increase-kotlin/issues/278)) ([682c5b3](https://github.com/Increase/increase-kotlin/commit/682c5b378b9c6615f340fa9e83579c7d1db9fc24))
+
 ## 0.51.0 (2024-05-23)
 
 Full Changelog: [v0.50.0...v0.51.0](https://github.com/Increase/increase-kotlin/compare/v0.50.0...v0.51.0)
