@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.53.0 (2024-06-04)
+
+Full Changelog: [v0.52.0...v0.53.0](https://github.com/Increase/increase-kotlin/compare/v0.52.0...v0.53.0)
+
+### Features
+
+* **api:** add `default_digital_card_profile_id` property ([#282](https://github.com/Increase/increase-kotlin/issues/282)) ([b825118](https://github.com/Increase/increase-kotlin/commit/b825118382e96d63ee54bc454a10f379a1ee12ff))
+
 ## 0.52.0 (2024-06-03)
 
 Full Changelog: [v0.51.0...v0.52.0](https://github.com/Increase/increase-kotlin/compare/v0.51.0...v0.52.0)
