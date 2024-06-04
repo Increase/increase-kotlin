@@ -37,7 +37,6 @@ private constructor(
     private val description: JsonField<String>,
     private val id: JsonField<String>,
     private val idempotencyKey: JsonField<String>,
-    private val isDefault: JsonField<Boolean>,
     private val issuerName: JsonField<String>,
     private val status: JsonField<Status>,
     private val textColor: JsonField<TextColor>,
@@ -86,9 +85,6 @@ private constructor(
      * [idempotency](https://increase.com/documentation/idempotency-keys).
      */
     fun idempotencyKey(): String? = idempotencyKey.getNullable("idempotency_key")
-
-    /** Whether this Digital Card Profile is the default for all cards in its Increase group. */
-    fun isDefault(): Boolean = isDefault.getRequired("is_default")
 
     /** A user-facing description for whoever is issuing the card. */
     fun issuerName(): String = issuerName.getRequired("issuer_name")
@@ -144,9 +140,6 @@ private constructor(
      */
     @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
 
-    /** Whether this Digital Card Profile is the default for all cards in its Increase group. */
-    @JsonProperty("is_default") @ExcludeMissing fun _isDefault() = isDefault
-
     /** A user-facing description for whoever is issuing the card. */
     @JsonProperty("issuer_name") @ExcludeMissing fun _issuerName() = issuerName
 
@@ -178,7 +171,6 @@ private constructor(
             description()
             id()
             idempotencyKey()
-            isDefault()
             issuerName()
             status()
             textColor().validate()
@@ -205,7 +197,6 @@ private constructor(
             this.description == other.description &&
             this.id == other.id &&
             this.idempotencyKey == other.idempotencyKey &&
-            this.isDefault == other.isDefault &&
             this.issuerName == other.issuerName &&
             this.status == other.status &&
             this.textColor == other.textColor &&
@@ -227,7 +218,6 @@ private constructor(
                     description,
                     id,
                     idempotencyKey,
-                    isDefault,
                     issuerName,
                     status,
                     textColor,
@@ -239,7 +229,7 @@ private constructor(
     }
 
     override fun toString() =
-        "DigitalCardProfile{appIconFileId=$appIconFileId, backgroundImageFileId=$backgroundImageFileId, cardDescription=$cardDescription, contactEmail=$contactEmail, contactPhone=$contactPhone, contactWebsite=$contactWebsite, createdAt=$createdAt, description=$description, id=$id, idempotencyKey=$idempotencyKey, isDefault=$isDefault, issuerName=$issuerName, status=$status, textColor=$textColor, type=$type, additionalProperties=$additionalProperties}"
+        "DigitalCardProfile{appIconFileId=$appIconFileId, backgroundImageFileId=$backgroundImageFileId, cardDescription=$cardDescription, contactEmail=$contactEmail, contactPhone=$contactPhone, contactWebsite=$contactWebsite, createdAt=$createdAt, description=$description, id=$id, idempotencyKey=$idempotencyKey, issuerName=$issuerName, status=$status, textColor=$textColor, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -258,7 +248,6 @@ private constructor(
         private var description: JsonField<String> = JsonMissing.of()
         private var id: JsonField<String> = JsonMissing.of()
         private var idempotencyKey: JsonField<String> = JsonMissing.of()
-        private var isDefault: JsonField<Boolean> = JsonMissing.of()
         private var issuerName: JsonField<String> = JsonMissing.of()
         private var status: JsonField<Status> = JsonMissing.of()
         private var textColor: JsonField<TextColor> = JsonMissing.of()
@@ -276,7 +265,6 @@ private constructor(
             this.description = digitalCardProfile.description
             this.id = digitalCardProfile.id
             this.idempotencyKey = digitalCardProfile.idempotencyKey
-            this.isDefault = digitalCardProfile.isDefault
             this.issuerName = digitalCardProfile.issuerName
             this.status = digitalCardProfile.status
             this.textColor = digitalCardProfile.textColor
@@ -392,14 +380,6 @@ private constructor(
             this.idempotencyKey = idempotencyKey
         }
 
-        /** Whether this Digital Card Profile is the default for all cards in its Increase group. */
-        fun isDefault(isDefault: Boolean) = isDefault(JsonField.of(isDefault))
-
-        /** Whether this Digital Card Profile is the default for all cards in its Increase group. */
-        @JsonProperty("is_default")
-        @ExcludeMissing
-        fun isDefault(isDefault: JsonField<Boolean>) = apply { this.isDefault = isDefault }
-
         /** A user-facing description for whoever is issuing the card. */
         fun issuerName(issuerName: String) = issuerName(JsonField.of(issuerName))
 
@@ -464,7 +444,6 @@ private constructor(
                 description,
                 id,
                 idempotencyKey,
-                isDefault,
                 issuerName,
                 status,
                 textColor,
