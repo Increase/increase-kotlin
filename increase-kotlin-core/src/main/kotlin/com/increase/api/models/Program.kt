@@ -30,6 +30,7 @@ class Program
 private constructor(
     private val billingAccountId: JsonField<String>,
     private val createdAt: JsonField<OffsetDateTime>,
+    private val defaultDigitalCardProfileId: JsonField<String>,
     private val id: JsonField<String>,
     private val name: JsonField<String>,
     private val type: JsonField<Type>,
@@ -48,6 +49,10 @@ private constructor(
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Program was created.
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
+
+    /** The default configuration for digital cards attached to this Program. */
+    fun defaultDigitalCardProfileId(): String? =
+        defaultDigitalCardProfileId.getNullable("default_digital_card_profile_id")
 
     /** The Program identifier. */
     fun id(): String = id.getRequired("id")
@@ -72,6 +77,11 @@ private constructor(
      */
     @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
 
+    /** The default configuration for digital cards attached to this Program. */
+    @JsonProperty("default_digital_card_profile_id")
+    @ExcludeMissing
+    fun _defaultDigitalCardProfileId() = defaultDigitalCardProfileId
+
     /** The Program identifier. */
     @JsonProperty("id") @ExcludeMissing fun _id() = id
 
@@ -95,6 +105,7 @@ private constructor(
         if (!validated) {
             billingAccountId()
             createdAt()
+            defaultDigitalCardProfileId()
             id()
             name()
             type()
@@ -113,6 +124,7 @@ private constructor(
         return other is Program &&
             this.billingAccountId == other.billingAccountId &&
             this.createdAt == other.createdAt &&
+            this.defaultDigitalCardProfileId == other.defaultDigitalCardProfileId &&
             this.id == other.id &&
             this.name == other.name &&
             this.type == other.type &&
@@ -126,6 +138,7 @@ private constructor(
                 Objects.hash(
                     billingAccountId,
                     createdAt,
+                    defaultDigitalCardProfileId,
                     id,
                     name,
                     type,
@@ -137,7 +150,7 @@ private constructor(
     }
 
     override fun toString() =
-        "Program{billingAccountId=$billingAccountId, createdAt=$createdAt, id=$id, name=$name, type=$type, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
+        "Program{billingAccountId=$billingAccountId, createdAt=$createdAt, defaultDigitalCardProfileId=$defaultDigitalCardProfileId, id=$id, name=$name, type=$type, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -148,6 +161,7 @@ private constructor(
 
         private var billingAccountId: JsonField<String> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var defaultDigitalCardProfileId: JsonField<String> = JsonMissing.of()
         private var id: JsonField<String> = JsonMissing.of()
         private var name: JsonField<String> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
@@ -157,6 +171,7 @@ private constructor(
         internal fun from(program: Program) = apply {
             this.billingAccountId = program.billingAccountId
             this.createdAt = program.createdAt
+            this.defaultDigitalCardProfileId = program.defaultDigitalCardProfileId
             this.id = program.id
             this.name = program.name
             this.type = program.type
@@ -188,6 +203,17 @@ private constructor(
         @JsonProperty("created_at")
         @ExcludeMissing
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
+
+        /** The default configuration for digital cards attached to this Program. */
+        fun defaultDigitalCardProfileId(defaultDigitalCardProfileId: String) =
+            defaultDigitalCardProfileId(JsonField.of(defaultDigitalCardProfileId))
+
+        /** The default configuration for digital cards attached to this Program. */
+        @JsonProperty("default_digital_card_profile_id")
+        @ExcludeMissing
+        fun defaultDigitalCardProfileId(defaultDigitalCardProfileId: JsonField<String>) = apply {
+            this.defaultDigitalCardProfileId = defaultDigitalCardProfileId
+        }
 
         /** The Program identifier. */
         fun id(id: String) = id(JsonField.of(id))
@@ -247,6 +273,7 @@ private constructor(
             Program(
                 billingAccountId,
                 createdAt,
+                defaultDigitalCardProfileId,
                 id,
                 name,
                 type,
