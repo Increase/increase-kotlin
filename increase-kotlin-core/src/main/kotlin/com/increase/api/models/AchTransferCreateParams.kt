@@ -35,6 +35,7 @@ constructor(
     private val funding: Funding?,
     private val individualId: String?,
     private val individualName: String?,
+    private val preferredEffectiveDate: PreferredEffectiveDate?,
     private val requireApproval: Boolean?,
     private val routingNumber: String?,
     private val standardEntryClassCode: StandardEntryClassCode?,
@@ -73,6 +74,8 @@ constructor(
 
     fun individualName(): String? = individualName
 
+    fun preferredEffectiveDate(): PreferredEffectiveDate? = preferredEffectiveDate
+
     fun requireApproval(): Boolean? = requireApproval
 
     fun routingNumber(): String? = routingNumber
@@ -96,6 +99,7 @@ constructor(
             funding,
             individualId,
             individualName,
+            preferredEffectiveDate,
             requireApproval,
             routingNumber,
             standardEntryClassCode,
@@ -126,6 +130,7 @@ constructor(
         private val funding: Funding?,
         private val individualId: String?,
         private val individualName: String?,
+        private val preferredEffectiveDate: PreferredEffectiveDate?,
         private val requireApproval: Boolean?,
         private val routingNumber: String?,
         private val standardEntryClassCode: StandardEntryClassCode?,
@@ -218,6 +223,15 @@ constructor(
          */
         @JsonProperty("individual_name") fun individualName(): String? = individualName
 
+        /**
+         * Configuration for how the effective date of the transfer will be set. This determines
+         * same-day vs future-dated settlement timing. If not set, defaults to a
+         * `settlement_schedule` of `same_day`. If set, exactly one of the child atributes must be
+         * set.
+         */
+        @JsonProperty("preferred_effective_date")
+        fun preferredEffectiveDate(): PreferredEffectiveDate? = preferredEffectiveDate
+
         /** Whether the transfer requires explicit approval via the dashboard or API. */
         @JsonProperty("require_approval") fun requireApproval(): Boolean? = requireApproval
 
@@ -258,6 +272,7 @@ constructor(
                 this.funding == other.funding &&
                 this.individualId == other.individualId &&
                 this.individualName == other.individualName &&
+                this.preferredEffectiveDate == other.preferredEffectiveDate &&
                 this.requireApproval == other.requireApproval &&
                 this.routingNumber == other.routingNumber &&
                 this.standardEntryClassCode == other.standardEntryClassCode &&
@@ -283,6 +298,7 @@ constructor(
                         funding,
                         individualId,
                         individualName,
+                        preferredEffectiveDate,
                         requireApproval,
                         routingNumber,
                         standardEntryClassCode,
@@ -293,7 +309,7 @@ constructor(
         }
 
         override fun toString() =
-            "AchTransferCreateBody{accountId=$accountId, amount=$amount, statementDescriptor=$statementDescriptor, accountNumber=$accountNumber, addenda=$addenda, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, destinationAccountHolder=$destinationAccountHolder, effectiveDate=$effectiveDate, externalAccountId=$externalAccountId, funding=$funding, individualId=$individualId, individualName=$individualName, requireApproval=$requireApproval, routingNumber=$routingNumber, standardEntryClassCode=$standardEntryClassCode, additionalProperties=$additionalProperties}"
+            "AchTransferCreateBody{accountId=$accountId, amount=$amount, statementDescriptor=$statementDescriptor, accountNumber=$accountNumber, addenda=$addenda, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, destinationAccountHolder=$destinationAccountHolder, effectiveDate=$effectiveDate, externalAccountId=$externalAccountId, funding=$funding, individualId=$individualId, individualName=$individualName, preferredEffectiveDate=$preferredEffectiveDate, requireApproval=$requireApproval, routingNumber=$routingNumber, standardEntryClassCode=$standardEntryClassCode, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -317,6 +333,7 @@ constructor(
             private var funding: Funding? = null
             private var individualId: String? = null
             private var individualName: String? = null
+            private var preferredEffectiveDate: PreferredEffectiveDate? = null
             private var requireApproval: Boolean? = null
             private var routingNumber: String? = null
             private var standardEntryClassCode: StandardEntryClassCode? = null
@@ -338,6 +355,7 @@ constructor(
                 this.funding = achTransferCreateBody.funding
                 this.individualId = achTransferCreateBody.individualId
                 this.individualName = achTransferCreateBody.individualName
+                this.preferredEffectiveDate = achTransferCreateBody.preferredEffectiveDate
                 this.requireApproval = achTransferCreateBody.requireApproval
                 this.routingNumber = achTransferCreateBody.routingNumber
                 this.standardEntryClassCode = achTransferCreateBody.standardEntryClassCode
@@ -455,6 +473,17 @@ constructor(
                 this.individualName = individualName
             }
 
+            /**
+             * Configuration for how the effective date of the transfer will be set. This determines
+             * same-day vs future-dated settlement timing. If not set, defaults to a
+             * `settlement_schedule` of `same_day`. If set, exactly one of the child atributes must
+             * be set.
+             */
+            @JsonProperty("preferred_effective_date")
+            fun preferredEffectiveDate(preferredEffectiveDate: PreferredEffectiveDate) = apply {
+                this.preferredEffectiveDate = preferredEffectiveDate
+            }
+
             /** Whether the transfer requires explicit approval via the dashboard or API. */
             @JsonProperty("require_approval")
             fun requireApproval(requireApproval: Boolean) = apply {
@@ -507,6 +536,7 @@ constructor(
                     funding,
                     individualId,
                     individualName,
+                    preferredEffectiveDate,
                     requireApproval,
                     routingNumber,
                     standardEntryClassCode,
@@ -542,6 +572,7 @@ constructor(
             this.funding == other.funding &&
             this.individualId == other.individualId &&
             this.individualName == other.individualName &&
+            this.preferredEffectiveDate == other.preferredEffectiveDate &&
             this.requireApproval == other.requireApproval &&
             this.routingNumber == other.routingNumber &&
             this.standardEntryClassCode == other.standardEntryClassCode &&
@@ -567,6 +598,7 @@ constructor(
             funding,
             individualId,
             individualName,
+            preferredEffectiveDate,
             requireApproval,
             routingNumber,
             standardEntryClassCode,
@@ -577,7 +609,7 @@ constructor(
     }
 
     override fun toString() =
-        "AchTransferCreateParams{accountId=$accountId, amount=$amount, statementDescriptor=$statementDescriptor, accountNumber=$accountNumber, addenda=$addenda, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, destinationAccountHolder=$destinationAccountHolder, effectiveDate=$effectiveDate, externalAccountId=$externalAccountId, funding=$funding, individualId=$individualId, individualName=$individualName, requireApproval=$requireApproval, routingNumber=$routingNumber, standardEntryClassCode=$standardEntryClassCode, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "AchTransferCreateParams{accountId=$accountId, amount=$amount, statementDescriptor=$statementDescriptor, accountNumber=$accountNumber, addenda=$addenda, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, destinationAccountHolder=$destinationAccountHolder, effectiveDate=$effectiveDate, externalAccountId=$externalAccountId, funding=$funding, individualId=$individualId, individualName=$individualName, preferredEffectiveDate=$preferredEffectiveDate, requireApproval=$requireApproval, routingNumber=$routingNumber, standardEntryClassCode=$standardEntryClassCode, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -604,6 +636,7 @@ constructor(
         private var funding: Funding? = null
         private var individualId: String? = null
         private var individualName: String? = null
+        private var preferredEffectiveDate: PreferredEffectiveDate? = null
         private var requireApproval: Boolean? = null
         private var routingNumber: String? = null
         private var standardEntryClassCode: StandardEntryClassCode? = null
@@ -627,6 +660,7 @@ constructor(
             this.funding = achTransferCreateParams.funding
             this.individualId = achTransferCreateParams.individualId
             this.individualName = achTransferCreateParams.individualName
+            this.preferredEffectiveDate = achTransferCreateParams.preferredEffectiveDate
             this.requireApproval = achTransferCreateParams.requireApproval
             this.routingNumber = achTransferCreateParams.routingNumber
             this.standardEntryClassCode = achTransferCreateParams.standardEntryClassCode
@@ -726,6 +760,16 @@ constructor(
          */
         fun individualName(individualName: String) = apply { this.individualName = individualName }
 
+        /**
+         * Configuration for how the effective date of the transfer will be set. This determines
+         * same-day vs future-dated settlement timing. If not set, defaults to a
+         * `settlement_schedule` of `same_day`. If set, exactly one of the child atributes must be
+         * set.
+         */
+        fun preferredEffectiveDate(preferredEffectiveDate: PreferredEffectiveDate) = apply {
+            this.preferredEffectiveDate = preferredEffectiveDate
+        }
+
         /** Whether the transfer requires explicit approval via the dashboard or API. */
         fun requireApproval(requireApproval: Boolean) = apply {
             this.requireApproval = requireApproval
@@ -815,6 +859,7 @@ constructor(
                 funding,
                 individualId,
                 individualName,
+                preferredEffectiveDate,
                 requireApproval,
                 routingNumber,
                 standardEntryClassCode,
@@ -1501,6 +1546,173 @@ constructor(
             }
 
         fun asString(): String = _value().asStringOrThrow()
+    }
+
+    /**
+     * Configuration for how the effective date of the transfer will be set. This determines
+     * same-day vs future-dated settlement timing. If not set, defaults to a `settlement_schedule`
+     * of `same_day`. If set, exactly one of the child atributes must be set.
+     */
+    @JsonDeserialize(builder = PreferredEffectiveDate.Builder::class)
+    @NoAutoDetect
+    class PreferredEffectiveDate
+    private constructor(
+        private val date: LocalDate?,
+        private val settlementSchedule: SettlementSchedule?,
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
+
+        private var hashCode: Int = 0
+
+        /**
+         * A specific date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format to use as
+         * the effective date when submitting this transfer.
+         */
+        @JsonProperty("date") fun date(): LocalDate? = date
+
+        /** A schedule by which Increase whill choose an effective date for the transfer. */
+        @JsonProperty("settlement_schedule")
+        fun settlementSchedule(): SettlementSchedule? = settlementSchedule
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun toBuilder() = Builder().from(this)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is PreferredEffectiveDate &&
+                this.date == other.date &&
+                this.settlementSchedule == other.settlementSchedule &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        date,
+                        settlementSchedule,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "PreferredEffectiveDate{date=$date, settlementSchedule=$settlementSchedule, additionalProperties=$additionalProperties}"
+
+        companion object {
+
+            fun builder() = Builder()
+        }
+
+        class Builder {
+
+            private var date: LocalDate? = null
+            private var settlementSchedule: SettlementSchedule? = null
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            internal fun from(preferredEffectiveDate: PreferredEffectiveDate) = apply {
+                this.date = preferredEffectiveDate.date
+                this.settlementSchedule = preferredEffectiveDate.settlementSchedule
+                additionalProperties(preferredEffectiveDate.additionalProperties)
+            }
+
+            /**
+             * A specific date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format to use
+             * as the effective date when submitting this transfer.
+             */
+            @JsonProperty("date") fun date(date: LocalDate) = apply { this.date = date }
+
+            /** A schedule by which Increase whill choose an effective date for the transfer. */
+            @JsonProperty("settlement_schedule")
+            fun settlementSchedule(settlementSchedule: SettlementSchedule) = apply {
+                this.settlementSchedule = settlementSchedule
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            @JsonAnySetter
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun build(): PreferredEffectiveDate =
+                PreferredEffectiveDate(
+                    date,
+                    settlementSchedule,
+                    additionalProperties.toUnmodifiable(),
+                )
+        }
+
+        class SettlementSchedule
+        @JsonCreator
+        private constructor(
+            private val value: JsonField<String>,
+        ) : Enum {
+
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is SettlementSchedule && this.value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+
+            companion object {
+
+                val SAME_DAY = SettlementSchedule(JsonField.of("same_day"))
+
+                val FUTURE_DATED = SettlementSchedule(JsonField.of("future_dated"))
+
+                fun of(value: String) = SettlementSchedule(JsonField.of(value))
+            }
+
+            enum class Known {
+                SAME_DAY,
+                FUTURE_DATED,
+            }
+
+            enum class Value {
+                SAME_DAY,
+                FUTURE_DATED,
+                _UNKNOWN,
+            }
+
+            fun value(): Value =
+                when (this) {
+                    SAME_DAY -> Value.SAME_DAY
+                    FUTURE_DATED -> Value.FUTURE_DATED
+                    else -> Value._UNKNOWN
+                }
+
+            fun known(): Known =
+                when (this) {
+                    SAME_DAY -> Known.SAME_DAY
+                    FUTURE_DATED -> Known.FUTURE_DATED
+                    else -> throw IncreaseInvalidDataException("Unknown SettlementSchedule: $value")
+                }
+
+            fun asString(): String = _value().asStringOrThrow()
+        }
     }
 
     class StandardEntryClassCode

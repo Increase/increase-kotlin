@@ -26,6 +26,7 @@ constructor(
     private val bookkeepingAccountBalanceCsv: BookkeepingAccountBalanceCsv?,
     private val entityCsv: EntityCsv?,
     private val transactionCsv: TransactionCsv?,
+    private val vendorCsv: JsonValue?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
     private val additionalBodyProperties: Map<String, JsonValue>,
@@ -43,6 +44,8 @@ constructor(
 
     fun transactionCsv(): TransactionCsv? = transactionCsv
 
+    fun vendorCsv(): JsonValue? = vendorCsv
+
     internal fun getBody(): ExportCreateBody {
         return ExportCreateBody(
             category,
@@ -51,6 +54,7 @@ constructor(
             bookkeepingAccountBalanceCsv,
             entityCsv,
             transactionCsv,
+            vendorCsv,
             additionalBodyProperties,
         )
     }
@@ -69,6 +73,7 @@ constructor(
         private val bookkeepingAccountBalanceCsv: BookkeepingAccountBalanceCsv?,
         private val entityCsv: EntityCsv?,
         private val transactionCsv: TransactionCsv?,
+        private val vendorCsv: JsonValue?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -101,6 +106,9 @@ constructor(
         /** Options for the created export. Required if `category` is equal to `transaction_csv`. */
         @JsonProperty("transaction_csv") fun transactionCsv(): TransactionCsv? = transactionCsv
 
+        /** Options for the created export. Required if `category` is equal to `vendor_csv`. */
+        @JsonProperty("vendor_csv") fun vendorCsv(): JsonValue? = vendorCsv
+
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -119,6 +127,7 @@ constructor(
                 this.bookkeepingAccountBalanceCsv == other.bookkeepingAccountBalanceCsv &&
                 this.entityCsv == other.entityCsv &&
                 this.transactionCsv == other.transactionCsv &&
+                this.vendorCsv == other.vendorCsv &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -132,6 +141,7 @@ constructor(
                         bookkeepingAccountBalanceCsv,
                         entityCsv,
                         transactionCsv,
+                        vendorCsv,
                         additionalProperties,
                     )
             }
@@ -139,7 +149,7 @@ constructor(
         }
 
         override fun toString() =
-            "ExportCreateBody{category=$category, accountStatementOfx=$accountStatementOfx, balanceCsv=$balanceCsv, bookkeepingAccountBalanceCsv=$bookkeepingAccountBalanceCsv, entityCsv=$entityCsv, transactionCsv=$transactionCsv, additionalProperties=$additionalProperties}"
+            "ExportCreateBody{category=$category, accountStatementOfx=$accountStatementOfx, balanceCsv=$balanceCsv, bookkeepingAccountBalanceCsv=$bookkeepingAccountBalanceCsv, entityCsv=$entityCsv, transactionCsv=$transactionCsv, vendorCsv=$vendorCsv, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -154,6 +164,7 @@ constructor(
             private var bookkeepingAccountBalanceCsv: BookkeepingAccountBalanceCsv? = null
             private var entityCsv: EntityCsv? = null
             private var transactionCsv: TransactionCsv? = null
+            private var vendorCsv: JsonValue? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(exportCreateBody: ExportCreateBody) = apply {
@@ -163,6 +174,7 @@ constructor(
                 this.bookkeepingAccountBalanceCsv = exportCreateBody.bookkeepingAccountBalanceCsv
                 this.entityCsv = exportCreateBody.entityCsv
                 this.transactionCsv = exportCreateBody.transactionCsv
+                this.vendorCsv = exportCreateBody.vendorCsv
                 additionalProperties(exportCreateBody.additionalProperties)
             }
 
@@ -204,6 +216,10 @@ constructor(
                 this.transactionCsv = transactionCsv
             }
 
+            /** Options for the created export. Required if `category` is equal to `vendor_csv`. */
+            @JsonProperty("vendor_csv")
+            fun vendorCsv(vendorCsv: JsonValue) = apply { this.vendorCsv = vendorCsv }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 this.additionalProperties.putAll(additionalProperties)
@@ -226,6 +242,7 @@ constructor(
                     bookkeepingAccountBalanceCsv,
                     entityCsv,
                     transactionCsv,
+                    vendorCsv,
                     additionalProperties.toUnmodifiable(),
                 )
         }
@@ -249,6 +266,7 @@ constructor(
             this.bookkeepingAccountBalanceCsv == other.bookkeepingAccountBalanceCsv &&
             this.entityCsv == other.entityCsv &&
             this.transactionCsv == other.transactionCsv &&
+            this.vendorCsv == other.vendorCsv &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders &&
             this.additionalBodyProperties == other.additionalBodyProperties
@@ -262,6 +280,7 @@ constructor(
             bookkeepingAccountBalanceCsv,
             entityCsv,
             transactionCsv,
+            vendorCsv,
             additionalQueryParams,
             additionalHeaders,
             additionalBodyProperties,
@@ -269,7 +288,7 @@ constructor(
     }
 
     override fun toString() =
-        "ExportCreateParams{category=$category, accountStatementOfx=$accountStatementOfx, balanceCsv=$balanceCsv, bookkeepingAccountBalanceCsv=$bookkeepingAccountBalanceCsv, entityCsv=$entityCsv, transactionCsv=$transactionCsv, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "ExportCreateParams{category=$category, accountStatementOfx=$accountStatementOfx, balanceCsv=$balanceCsv, bookkeepingAccountBalanceCsv=$bookkeepingAccountBalanceCsv, entityCsv=$entityCsv, transactionCsv=$transactionCsv, vendorCsv=$vendorCsv, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -287,6 +306,7 @@ constructor(
         private var bookkeepingAccountBalanceCsv: BookkeepingAccountBalanceCsv? = null
         private var entityCsv: EntityCsv? = null
         private var transactionCsv: TransactionCsv? = null
+        private var vendorCsv: JsonValue? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -298,6 +318,7 @@ constructor(
             this.bookkeepingAccountBalanceCsv = exportCreateParams.bookkeepingAccountBalanceCsv
             this.entityCsv = exportCreateParams.entityCsv
             this.transactionCsv = exportCreateParams.transactionCsv
+            this.vendorCsv = exportCreateParams.vendorCsv
             additionalQueryParams(exportCreateParams.additionalQueryParams)
             additionalHeaders(exportCreateParams.additionalHeaders)
             additionalBodyProperties(exportCreateParams.additionalBodyProperties)
@@ -332,6 +353,9 @@ constructor(
         fun transactionCsv(transactionCsv: TransactionCsv) = apply {
             this.transactionCsv = transactionCsv
         }
+
+        /** Options for the created export. Required if `category` is equal to `vendor_csv`. */
+        fun vendorCsv(vendorCsv: JsonValue) = apply { this.vendorCsv = vendorCsv }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -395,6 +419,7 @@ constructor(
                 bookkeepingAccountBalanceCsv,
                 entityCsv,
                 transactionCsv,
+                vendorCsv,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalBodyProperties.toUnmodifiable(),
@@ -434,6 +459,8 @@ constructor(
 
             val ENTITY_CSV = Category(JsonField.of("entity_csv"))
 
+            val VENDOR_CSV = Category(JsonField.of("vendor_csv"))
+
             fun of(value: String) = Category(JsonField.of(value))
         }
 
@@ -443,6 +470,7 @@ constructor(
             BALANCE_CSV,
             BOOKKEEPING_ACCOUNT_BALANCE_CSV,
             ENTITY_CSV,
+            VENDOR_CSV,
         }
 
         enum class Value {
@@ -451,6 +479,7 @@ constructor(
             BALANCE_CSV,
             BOOKKEEPING_ACCOUNT_BALANCE_CSV,
             ENTITY_CSV,
+            VENDOR_CSV,
             _UNKNOWN,
         }
 
@@ -461,6 +490,7 @@ constructor(
                 BALANCE_CSV -> Value.BALANCE_CSV
                 BOOKKEEPING_ACCOUNT_BALANCE_CSV -> Value.BOOKKEEPING_ACCOUNT_BALANCE_CSV
                 ENTITY_CSV -> Value.ENTITY_CSV
+                VENDOR_CSV -> Value.VENDOR_CSV
                 else -> Value._UNKNOWN
             }
 
@@ -471,6 +501,7 @@ constructor(
                 BALANCE_CSV -> Known.BALANCE_CSV
                 BOOKKEEPING_ACCOUNT_BALANCE_CSV -> Known.BOOKKEEPING_ACCOUNT_BALANCE_CSV
                 ENTITY_CSV -> Known.ENTITY_CSV
+                VENDOR_CSV -> Known.VENDOR_CSV
                 else -> throw IncreaseInvalidDataException("Unknown Category: $value")
             }
 

@@ -515,6 +515,7 @@ constructor(
         private val note: String?,
         private val recipientName: String?,
         private val returnAddress: ReturnAddress?,
+        private val signatureText: String?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -538,6 +539,12 @@ constructor(
          */
         @JsonProperty("return_address") fun returnAddress(): ReturnAddress? = returnAddress
 
+        /**
+         * The text that will appear as the signature on the check in cursive font. If not provided,
+         * the check will be printed with 'No signature required'.
+         */
+        @JsonProperty("signature_text") fun signatureText(): String? = signatureText
+
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -555,6 +562,7 @@ constructor(
                 this.note == other.note &&
                 this.recipientName == other.recipientName &&
                 this.returnAddress == other.returnAddress &&
+                this.signatureText == other.signatureText &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -567,6 +575,7 @@ constructor(
                         note,
                         recipientName,
                         returnAddress,
+                        signatureText,
                         additionalProperties,
                     )
             }
@@ -574,7 +583,7 @@ constructor(
         }
 
         override fun toString() =
-            "PhysicalCheck{mailingAddress=$mailingAddress, memo=$memo, note=$note, recipientName=$recipientName, returnAddress=$returnAddress, additionalProperties=$additionalProperties}"
+            "PhysicalCheck{mailingAddress=$mailingAddress, memo=$memo, note=$note, recipientName=$recipientName, returnAddress=$returnAddress, signatureText=$signatureText, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -588,6 +597,7 @@ constructor(
             private var note: String? = null
             private var recipientName: String? = null
             private var returnAddress: ReturnAddress? = null
+            private var signatureText: String? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(physicalCheck: PhysicalCheck) = apply {
@@ -596,6 +606,7 @@ constructor(
                 this.note = physicalCheck.note
                 this.recipientName = physicalCheck.recipientName
                 this.returnAddress = physicalCheck.returnAddress
+                this.signatureText = physicalCheck.signatureText
                 additionalProperties(physicalCheck.additionalProperties)
             }
 
@@ -624,6 +635,13 @@ constructor(
                 this.returnAddress = returnAddress
             }
 
+            /**
+             * The text that will appear as the signature on the check in cursive font. If not
+             * provided, the check will be printed with 'No signature required'.
+             */
+            @JsonProperty("signature_text")
+            fun signatureText(signatureText: String) = apply { this.signatureText = signatureText }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 this.additionalProperties.putAll(additionalProperties)
@@ -645,6 +663,7 @@ constructor(
                     note,
                     checkNotNull(recipientName) { "`recipientName` is required but was not set" },
                     returnAddress,
+                    signatureText,
                     additionalProperties.toUnmodifiable(),
                 )
         }
