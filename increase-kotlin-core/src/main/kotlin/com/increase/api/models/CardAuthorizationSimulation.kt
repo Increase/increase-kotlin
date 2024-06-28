@@ -706,17 +706,21 @@ private constructor(
 
                 val CARD = RouteType(JsonField.of("card"))
 
+                val LOCKBOX = RouteType(JsonField.of("lockbox"))
+
                 fun of(value: String) = RouteType(JsonField.of(value))
             }
 
             enum class Known {
                 ACCOUNT_NUMBER,
                 CARD,
+                LOCKBOX,
             }
 
             enum class Value {
                 ACCOUNT_NUMBER,
                 CARD,
+                LOCKBOX,
                 _UNKNOWN,
             }
 
@@ -724,6 +728,7 @@ private constructor(
                 when (this) {
                     ACCOUNT_NUMBER -> Value.ACCOUNT_NUMBER
                     CARD -> Value.CARD
+                    LOCKBOX -> Value.LOCKBOX
                     else -> Value._UNKNOWN
                 }
 
@@ -731,6 +736,7 @@ private constructor(
                 when (this) {
                     ACCOUNT_NUMBER -> Known.ACCOUNT_NUMBER
                     CARD -> Known.CARD
+                    LOCKBOX -> Known.LOCKBOX
                     else -> throw IncreaseInvalidDataException("Unknown RouteType: $value")
                 }
 
@@ -1601,6 +1607,8 @@ private constructor(
 
                         val ENTITY_NOT_ACTIVE = Reason(JsonField.of("entity_not_active"))
 
+                        val FIELD_ERROR = Reason(JsonField.of("field_error"))
+
                         val GROUP_LOCKED = Reason(JsonField.of("group_locked"))
 
                         val INSUFFICIENT_FUNDS = Reason(JsonField.of("insufficient_funds"))
@@ -1629,6 +1637,7 @@ private constructor(
                         CREDIT_ENTRY_REFUSED_BY_RECEIVER,
                         DUPLICATE_RETURN,
                         ENTITY_NOT_ACTIVE,
+                        FIELD_ERROR,
                         GROUP_LOCKED,
                         INSUFFICIENT_FUNDS,
                         MISROUTED_RETURN,
@@ -1646,6 +1655,7 @@ private constructor(
                         CREDIT_ENTRY_REFUSED_BY_RECEIVER,
                         DUPLICATE_RETURN,
                         ENTITY_NOT_ACTIVE,
+                        FIELD_ERROR,
                         GROUP_LOCKED,
                         INSUFFICIENT_FUNDS,
                         MISROUTED_RETURN,
@@ -1666,6 +1676,7 @@ private constructor(
                                 Value.CREDIT_ENTRY_REFUSED_BY_RECEIVER
                             DUPLICATE_RETURN -> Value.DUPLICATE_RETURN
                             ENTITY_NOT_ACTIVE -> Value.ENTITY_NOT_ACTIVE
+                            FIELD_ERROR -> Value.FIELD_ERROR
                             GROUP_LOCKED -> Value.GROUP_LOCKED
                             INSUFFICIENT_FUNDS -> Value.INSUFFICIENT_FUNDS
                             MISROUTED_RETURN -> Value.MISROUTED_RETURN
@@ -1687,6 +1698,7 @@ private constructor(
                                 Known.CREDIT_ENTRY_REFUSED_BY_RECEIVER
                             DUPLICATE_RETURN -> Known.DUPLICATE_RETURN
                             ENTITY_NOT_ACTIVE -> Known.ENTITY_NOT_ACTIVE
+                            FIELD_ERROR -> Known.FIELD_ERROR
                             GROUP_LOCKED -> Known.GROUP_LOCKED
                             INSUFFICIENT_FUNDS -> Known.INSUFFICIENT_FUNDS
                             MISROUTED_RETURN -> Known.MISROUTED_RETURN
@@ -1767,6 +1779,7 @@ private constructor(
                 private val amount: JsonField<Long>,
                 private val cardPaymentId: JsonField<String>,
                 private val currency: JsonField<Currency>,
+                private val declinedTransactionId: JsonField<String>,
                 private val digitalWalletTokenId: JsonField<String>,
                 private val id: JsonField<String>,
                 private val merchantAcceptorId: JsonField<String>,
@@ -1805,13 +1818,17 @@ private constructor(
                 fun amount(): Long = amount.getRequired("amount")
 
                 /** The ID of the Card Payment this transaction belongs to. */
-                fun cardPaymentId(): String? = cardPaymentId.getNullable("card_payment_id")
+                fun cardPaymentId(): String = cardPaymentId.getRequired("card_payment_id")
 
                 /**
                  * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the destination
                  * account currency.
                  */
                 fun currency(): Currency = currency.getRequired("currency")
+
+                /** The identifier of the declined transaction created for this Card Decline. */
+                fun declinedTransactionId(): String =
+                    declinedTransactionId.getRequired("declined_transaction_id")
 
                 /**
                  * If the authorization was made via a Digital Wallet Token (such as an Apple Pay
@@ -1923,6 +1940,11 @@ private constructor(
                  * account currency.
                  */
                 @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
+
+                /** The identifier of the declined transaction created for this Card Decline. */
+                @JsonProperty("declined_transaction_id")
+                @ExcludeMissing
+                fun _declinedTransactionId() = declinedTransactionId
 
                 /**
                  * If the authorization was made via a Digital Wallet Token (such as an Apple Pay
@@ -2040,6 +2062,7 @@ private constructor(
                         amount()
                         cardPaymentId()
                         currency()
+                        declinedTransactionId()
                         digitalWalletTokenId()
                         id()
                         merchantAcceptorId()
@@ -2074,6 +2097,7 @@ private constructor(
                         this.amount == other.amount &&
                         this.cardPaymentId == other.cardPaymentId &&
                         this.currency == other.currency &&
+                        this.declinedTransactionId == other.declinedTransactionId &&
                         this.digitalWalletTokenId == other.digitalWalletTokenId &&
                         this.id == other.id &&
                         this.merchantAcceptorId == other.merchantAcceptorId &&
@@ -2103,6 +2127,7 @@ private constructor(
                                 amount,
                                 cardPaymentId,
                                 currency,
+                                declinedTransactionId,
                                 digitalWalletTokenId,
                                 id,
                                 merchantAcceptorId,
@@ -2128,7 +2153,7 @@ private constructor(
                 }
 
                 override fun toString() =
-                    "CardDecline{actioner=$actioner, amount=$amount, cardPaymentId=$cardPaymentId, currency=$currency, digitalWalletTokenId=$digitalWalletTokenId, id=$id, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, merchantState=$merchantState, networkDetails=$networkDetails, networkIdentifiers=$networkIdentifiers, networkRiskScore=$networkRiskScore, physicalCardId=$physicalCardId, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, processingCategory=$processingCategory, realTimeDecisionId=$realTimeDecisionId, reason=$reason, verification=$verification, additionalProperties=$additionalProperties}"
+                    "CardDecline{actioner=$actioner, amount=$amount, cardPaymentId=$cardPaymentId, currency=$currency, declinedTransactionId=$declinedTransactionId, digitalWalletTokenId=$digitalWalletTokenId, id=$id, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, merchantState=$merchantState, networkDetails=$networkDetails, networkIdentifiers=$networkIdentifiers, networkRiskScore=$networkRiskScore, physicalCardId=$physicalCardId, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, processingCategory=$processingCategory, realTimeDecisionId=$realTimeDecisionId, reason=$reason, verification=$verification, additionalProperties=$additionalProperties}"
 
                 companion object {
 
@@ -2141,6 +2166,7 @@ private constructor(
                     private var amount: JsonField<Long> = JsonMissing.of()
                     private var cardPaymentId: JsonField<String> = JsonMissing.of()
                     private var currency: JsonField<Currency> = JsonMissing.of()
+                    private var declinedTransactionId: JsonField<String> = JsonMissing.of()
                     private var digitalWalletTokenId: JsonField<String> = JsonMissing.of()
                     private var id: JsonField<String> = JsonMissing.of()
                     private var merchantAcceptorId: JsonField<String> = JsonMissing.of()
@@ -2166,6 +2192,7 @@ private constructor(
                         this.amount = cardDecline.amount
                         this.cardPaymentId = cardDecline.cardPaymentId
                         this.currency = cardDecline.currency
+                        this.declinedTransactionId = cardDecline.declinedTransactionId
                         this.digitalWalletTokenId = cardDecline.digitalWalletTokenId
                         this.id = cardDecline.id
                         this.merchantAcceptorId = cardDecline.merchantAcceptorId
@@ -2239,6 +2266,17 @@ private constructor(
                     @JsonProperty("currency")
                     @ExcludeMissing
                     fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
+
+                    /** The identifier of the declined transaction created for this Card Decline. */
+                    fun declinedTransactionId(declinedTransactionId: String) =
+                        declinedTransactionId(JsonField.of(declinedTransactionId))
+
+                    /** The identifier of the declined transaction created for this Card Decline. */
+                    @JsonProperty("declined_transaction_id")
+                    @ExcludeMissing
+                    fun declinedTransactionId(declinedTransactionId: JsonField<String>) = apply {
+                        this.declinedTransactionId = declinedTransactionId
+                    }
 
                     /**
                      * If the authorization was made via a Digital Wallet Token (such as an Apple
@@ -2509,6 +2547,7 @@ private constructor(
                             amount,
                             cardPaymentId,
                             currency,
+                            declinedTransactionId,
                             digitalWalletTokenId,
                             id,
                             merchantAcceptorId,
@@ -3610,6 +3649,9 @@ private constructor(
 
                         val CVV2_MISMATCH = Reason(JsonField.of("cvv2_mismatch"))
 
+                        val CARD_EXPIRATION_MISMATCH =
+                            Reason(JsonField.of("card_expiration_mismatch"))
+
                         val TRANSACTION_NOT_ALLOWED =
                             Reason(JsonField.of("transaction_not_allowed"))
 
@@ -3639,6 +3681,7 @@ private constructor(
                         GROUP_LOCKED,
                         INSUFFICIENT_FUNDS,
                         CVV2_MISMATCH,
+                        CARD_EXPIRATION_MISMATCH,
                         TRANSACTION_NOT_ALLOWED,
                         BREACHES_LIMIT,
                         WEBHOOK_DECLINED,
@@ -3656,6 +3699,7 @@ private constructor(
                         GROUP_LOCKED,
                         INSUFFICIENT_FUNDS,
                         CVV2_MISMATCH,
+                        CARD_EXPIRATION_MISMATCH,
                         TRANSACTION_NOT_ALLOWED,
                         BREACHES_LIMIT,
                         WEBHOOK_DECLINED,
@@ -3675,6 +3719,7 @@ private constructor(
                             GROUP_LOCKED -> Value.GROUP_LOCKED
                             INSUFFICIENT_FUNDS -> Value.INSUFFICIENT_FUNDS
                             CVV2_MISMATCH -> Value.CVV2_MISMATCH
+                            CARD_EXPIRATION_MISMATCH -> Value.CARD_EXPIRATION_MISMATCH
                             TRANSACTION_NOT_ALLOWED -> Value.TRANSACTION_NOT_ALLOWED
                             BREACHES_LIMIT -> Value.BREACHES_LIMIT
                             WEBHOOK_DECLINED -> Value.WEBHOOK_DECLINED
@@ -3694,6 +3739,7 @@ private constructor(
                             GROUP_LOCKED -> Known.GROUP_LOCKED
                             INSUFFICIENT_FUNDS -> Known.INSUFFICIENT_FUNDS
                             CVV2_MISMATCH -> Known.CVV2_MISMATCH
+                            CARD_EXPIRATION_MISMATCH -> Known.CARD_EXPIRATION_MISMATCH
                             TRANSACTION_NOT_ALLOWED -> Known.TRANSACTION_NOT_ALLOWED
                             BREACHES_LIMIT -> Known.BREACHES_LIMIT
                             WEBHOOK_DECLINED -> Known.WEBHOOK_DECLINED
@@ -5281,6 +5327,8 @@ private constructor(
 
                         val UNKNOWN = Reason(JsonField.of("unknown"))
 
+                        val OPERATOR = Reason(JsonField.of("operator"))
+
                         fun of(value: String) = Reason(JsonField.of(value))
                     }
 
@@ -5295,6 +5343,7 @@ private constructor(
                         SUSPECTED_FRAUD,
                         DEPOSIT_WINDOW_EXPIRED,
                         UNKNOWN,
+                        OPERATOR,
                     }
 
                     enum class Value {
@@ -5308,6 +5357,7 @@ private constructor(
                         SUSPECTED_FRAUD,
                         DEPOSIT_WINDOW_EXPIRED,
                         UNKNOWN,
+                        OPERATOR,
                         _UNKNOWN,
                     }
 
@@ -5323,6 +5373,7 @@ private constructor(
                             SUSPECTED_FRAUD -> Value.SUSPECTED_FRAUD
                             DEPOSIT_WINDOW_EXPIRED -> Value.DEPOSIT_WINDOW_EXPIRED
                             UNKNOWN -> Value.UNKNOWN
+                            OPERATOR -> Value.OPERATOR
                             else -> Value._UNKNOWN
                         }
 
@@ -5338,6 +5389,7 @@ private constructor(
                             SUSPECTED_FRAUD -> Known.SUSPECTED_FRAUD
                             DEPOSIT_WINDOW_EXPIRED -> Known.DEPOSIT_WINDOW_EXPIRED
                             UNKNOWN -> Known.UNKNOWN
+                            OPERATOR -> Known.OPERATOR
                             else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
                         }
 
@@ -8655,17 +8707,21 @@ private constructor(
 
                 val CARD = RouteType(JsonField.of("card"))
 
+                val LOCKBOX = RouteType(JsonField.of("lockbox"))
+
                 fun of(value: String) = RouteType(JsonField.of(value))
             }
 
             enum class Known {
                 ACCOUNT_NUMBER,
                 CARD,
+                LOCKBOX,
             }
 
             enum class Value {
                 ACCOUNT_NUMBER,
                 CARD,
+                LOCKBOX,
                 _UNKNOWN,
             }
 
@@ -8673,6 +8729,7 @@ private constructor(
                 when (this) {
                     ACCOUNT_NUMBER -> Value.ACCOUNT_NUMBER
                     CARD -> Value.CARD
+                    LOCKBOX -> Value.LOCKBOX
                     else -> Value._UNKNOWN
                 }
 
@@ -8680,6 +8737,7 @@ private constructor(
                 when (this) {
                     ACCOUNT_NUMBER -> Known.ACCOUNT_NUMBER
                     CARD -> Known.CARD
+                    LOCKBOX -> Known.LOCKBOX
                     else -> throw IncreaseInvalidDataException("Unknown RouteType: $value")
                 }
 
@@ -9591,7 +9649,7 @@ private constructor(
                 fun amount(): Long = amount.getRequired("amount")
 
                 /** The ID of the Card Payment this transaction belongs to. */
-                fun cardPaymentId(): String? = cardPaymentId.getNullable("card_payment_id")
+                fun cardPaymentId(): String = cardPaymentId.getRequired("card_payment_id")
 
                 /**
                  * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's

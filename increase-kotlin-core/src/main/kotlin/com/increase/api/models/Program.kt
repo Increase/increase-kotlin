@@ -32,6 +32,7 @@ private constructor(
     private val createdAt: JsonField<OffsetDateTime>,
     private val defaultDigitalCardProfileId: JsonField<String>,
     private val id: JsonField<String>,
+    private val interestRate: JsonField<String>,
     private val name: JsonField<String>,
     private val type: JsonField<Type>,
     private val updatedAt: JsonField<OffsetDateTime>,
@@ -56,6 +57,12 @@ private constructor(
 
     /** The Program identifier. */
     fun id(): String = id.getRequired("id")
+
+    /**
+     * The Interest Rate currently being earned on the accounts in this program, as a string
+     * containing a decimal number. For example, a 1% interest rate would be represented as "0.01".
+     */
+    fun interestRate(): String = interestRate.getRequired("interest_rate")
 
     /** The name of the Program. */
     fun name(): String = name.getRequired("name")
@@ -85,6 +92,12 @@ private constructor(
     /** The Program identifier. */
     @JsonProperty("id") @ExcludeMissing fun _id() = id
 
+    /**
+     * The Interest Rate currently being earned on the accounts in this program, as a string
+     * containing a decimal number. For example, a 1% interest rate would be represented as "0.01".
+     */
+    @JsonProperty("interest_rate") @ExcludeMissing fun _interestRate() = interestRate
+
     /** The name of the Program. */
     @JsonProperty("name") @ExcludeMissing fun _name() = name
 
@@ -107,6 +120,7 @@ private constructor(
             createdAt()
             defaultDigitalCardProfileId()
             id()
+            interestRate()
             name()
             type()
             updatedAt()
@@ -126,6 +140,7 @@ private constructor(
             this.createdAt == other.createdAt &&
             this.defaultDigitalCardProfileId == other.defaultDigitalCardProfileId &&
             this.id == other.id &&
+            this.interestRate == other.interestRate &&
             this.name == other.name &&
             this.type == other.type &&
             this.updatedAt == other.updatedAt &&
@@ -140,6 +155,7 @@ private constructor(
                     createdAt,
                     defaultDigitalCardProfileId,
                     id,
+                    interestRate,
                     name,
                     type,
                     updatedAt,
@@ -150,7 +166,7 @@ private constructor(
     }
 
     override fun toString() =
-        "Program{billingAccountId=$billingAccountId, createdAt=$createdAt, defaultDigitalCardProfileId=$defaultDigitalCardProfileId, id=$id, name=$name, type=$type, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
+        "Program{billingAccountId=$billingAccountId, createdAt=$createdAt, defaultDigitalCardProfileId=$defaultDigitalCardProfileId, id=$id, interestRate=$interestRate, name=$name, type=$type, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -163,6 +179,7 @@ private constructor(
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var defaultDigitalCardProfileId: JsonField<String> = JsonMissing.of()
         private var id: JsonField<String> = JsonMissing.of()
+        private var interestRate: JsonField<String> = JsonMissing.of()
         private var name: JsonField<String> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
         private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
@@ -173,6 +190,7 @@ private constructor(
             this.createdAt = program.createdAt
             this.defaultDigitalCardProfileId = program.defaultDigitalCardProfileId
             this.id = program.id
+            this.interestRate = program.interestRate
             this.name = program.name
             this.type = program.type
             this.updatedAt = program.updatedAt
@@ -220,6 +238,24 @@ private constructor(
 
         /** The Program identifier. */
         @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
+
+        /**
+         * The Interest Rate currently being earned on the accounts in this program, as a string
+         * containing a decimal number. For example, a 1% interest rate would be represented as
+         * "0.01".
+         */
+        fun interestRate(interestRate: String) = interestRate(JsonField.of(interestRate))
+
+        /**
+         * The Interest Rate currently being earned on the accounts in this program, as a string
+         * containing a decimal number. For example, a 1% interest rate would be represented as
+         * "0.01".
+         */
+        @JsonProperty("interest_rate")
+        @ExcludeMissing
+        fun interestRate(interestRate: JsonField<String>) = apply {
+            this.interestRate = interestRate
+        }
 
         /** The name of the Program. */
         fun name(name: String) = name(JsonField.of(name))
@@ -275,6 +311,7 @@ private constructor(
                 createdAt,
                 defaultDigitalCardProfileId,
                 id,
+                interestRate,
                 name,
                 type,
                 updatedAt,

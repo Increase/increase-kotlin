@@ -507,6 +507,10 @@ private constructor(
             val INTRAFI_EXCLUSION_UPDATED =
                 SelectedEventCategory(JsonField.of("intrafi_exclusion.updated"))
 
+            val LOCKBOX_CREATED = SelectedEventCategory(JsonField.of("lockbox.created"))
+
+            val LOCKBOX_UPDATED = SelectedEventCategory(JsonField.of("lockbox.updated"))
+
             val OAUTH_CONNECTION_CREATED =
                 SelectedEventCategory(JsonField.of("oauth_connection.created"))
 
@@ -650,6 +654,8 @@ private constructor(
             INTRAFI_ACCOUNT_ENROLLMENT_UPDATED,
             INTRAFI_EXCLUSION_CREATED,
             INTRAFI_EXCLUSION_UPDATED,
+            LOCKBOX_CREATED,
+            LOCKBOX_UPDATED,
             OAUTH_CONNECTION_CREATED,
             OAUTH_CONNECTION_DEACTIVATED,
             PENDING_TRANSACTION_CREATED,
@@ -735,6 +741,8 @@ private constructor(
             INTRAFI_ACCOUNT_ENROLLMENT_UPDATED,
             INTRAFI_EXCLUSION_CREATED,
             INTRAFI_EXCLUSION_UPDATED,
+            LOCKBOX_CREATED,
+            LOCKBOX_UPDATED,
             OAUTH_CONNECTION_CREATED,
             OAUTH_CONNECTION_DEACTIVATED,
             PENDING_TRANSACTION_CREATED,
@@ -822,6 +830,8 @@ private constructor(
                 INTRAFI_ACCOUNT_ENROLLMENT_UPDATED -> Value.INTRAFI_ACCOUNT_ENROLLMENT_UPDATED
                 INTRAFI_EXCLUSION_CREATED -> Value.INTRAFI_EXCLUSION_CREATED
                 INTRAFI_EXCLUSION_UPDATED -> Value.INTRAFI_EXCLUSION_UPDATED
+                LOCKBOX_CREATED -> Value.LOCKBOX_CREATED
+                LOCKBOX_UPDATED -> Value.LOCKBOX_UPDATED
                 OAUTH_CONNECTION_CREATED -> Value.OAUTH_CONNECTION_CREATED
                 OAUTH_CONNECTION_DEACTIVATED -> Value.OAUTH_CONNECTION_DEACTIVATED
                 PENDING_TRANSACTION_CREATED -> Value.PENDING_TRANSACTION_CREATED
@@ -918,6 +928,8 @@ private constructor(
                 INTRAFI_ACCOUNT_ENROLLMENT_UPDATED -> Known.INTRAFI_ACCOUNT_ENROLLMENT_UPDATED
                 INTRAFI_EXCLUSION_CREATED -> Known.INTRAFI_EXCLUSION_CREATED
                 INTRAFI_EXCLUSION_UPDATED -> Known.INTRAFI_EXCLUSION_UPDATED
+                LOCKBOX_CREATED -> Known.LOCKBOX_CREATED
+                LOCKBOX_UPDATED -> Known.LOCKBOX_UPDATED
                 OAUTH_CONNECTION_CREATED -> Known.OAUTH_CONNECTION_CREATED
                 OAUTH_CONNECTION_DEACTIVATED -> Known.OAUTH_CONNECTION_DEACTIVATED
                 PENDING_TRANSACTION_CREATED -> Known.PENDING_TRANSACTION_CREATED
