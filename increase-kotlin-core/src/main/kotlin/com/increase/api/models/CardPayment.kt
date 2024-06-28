@@ -30,8 +30,10 @@ private constructor(
     private val accountId: JsonField<String>,
     private val cardId: JsonField<String>,
     private val createdAt: JsonField<OffsetDateTime>,
+    private val digitalWalletTokenId: JsonField<String>,
     private val elements: JsonField<List<Element>>,
     private val id: JsonField<String>,
+    private val physicalCardId: JsonField<String>,
     private val state: JsonField<State>,
     private val type: JsonField<Type>,
     private val additionalProperties: Map<String, JsonValue>,
@@ -53,11 +55,18 @@ private constructor(
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
+    /** The Digital Wallet Token identifier for this payment. */
+    fun digitalWalletTokenId(): String? =
+        digitalWalletTokenId.getNullable("digital_wallet_token_id")
+
     /** The interactions related to this card payment. */
     fun elements(): List<Element> = elements.getRequired("elements")
 
     /** The Card Payment identifier. */
     fun id(): String = id.getRequired("id")
+
+    /** The Physical Card identifier for this payment. */
+    fun physicalCardId(): String? = physicalCardId.getNullable("physical_card_id")
 
     /** The summarized state of this card payment. */
     fun state(): State = state.getRequired("state")
@@ -80,11 +89,19 @@ private constructor(
      */
     @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
 
+    /** The Digital Wallet Token identifier for this payment. */
+    @JsonProperty("digital_wallet_token_id")
+    @ExcludeMissing
+    fun _digitalWalletTokenId() = digitalWalletTokenId
+
     /** The interactions related to this card payment. */
     @JsonProperty("elements") @ExcludeMissing fun _elements() = elements
 
     /** The Card Payment identifier. */
     @JsonProperty("id") @ExcludeMissing fun _id() = id
+
+    /** The Physical Card identifier for this payment. */
+    @JsonProperty("physical_card_id") @ExcludeMissing fun _physicalCardId() = physicalCardId
 
     /** The summarized state of this card payment. */
     @JsonProperty("state") @ExcludeMissing fun _state() = state
@@ -104,8 +121,10 @@ private constructor(
             accountId()
             cardId()
             createdAt()
+            digitalWalletTokenId()
             elements().forEach { it.validate() }
             id()
+            physicalCardId()
             state().validate()
             type()
             validated = true
@@ -123,8 +142,10 @@ private constructor(
             this.accountId == other.accountId &&
             this.cardId == other.cardId &&
             this.createdAt == other.createdAt &&
+            this.digitalWalletTokenId == other.digitalWalletTokenId &&
             this.elements == other.elements &&
             this.id == other.id &&
+            this.physicalCardId == other.physicalCardId &&
             this.state == other.state &&
             this.type == other.type &&
             this.additionalProperties == other.additionalProperties
@@ -137,8 +158,10 @@ private constructor(
                     accountId,
                     cardId,
                     createdAt,
+                    digitalWalletTokenId,
                     elements,
                     id,
+                    physicalCardId,
                     state,
                     type,
                     additionalProperties,
@@ -148,7 +171,7 @@ private constructor(
     }
 
     override fun toString() =
-        "CardPayment{accountId=$accountId, cardId=$cardId, createdAt=$createdAt, elements=$elements, id=$id, state=$state, type=$type, additionalProperties=$additionalProperties}"
+        "CardPayment{accountId=$accountId, cardId=$cardId, createdAt=$createdAt, digitalWalletTokenId=$digitalWalletTokenId, elements=$elements, id=$id, physicalCardId=$physicalCardId, state=$state, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -160,8 +183,10 @@ private constructor(
         private var accountId: JsonField<String> = JsonMissing.of()
         private var cardId: JsonField<String> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var digitalWalletTokenId: JsonField<String> = JsonMissing.of()
         private var elements: JsonField<List<Element>> = JsonMissing.of()
         private var id: JsonField<String> = JsonMissing.of()
+        private var physicalCardId: JsonField<String> = JsonMissing.of()
         private var state: JsonField<State> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -170,8 +195,10 @@ private constructor(
             this.accountId = cardPayment.accountId
             this.cardId = cardPayment.cardId
             this.createdAt = cardPayment.createdAt
+            this.digitalWalletTokenId = cardPayment.digitalWalletTokenId
             this.elements = cardPayment.elements
             this.id = cardPayment.id
+            this.physicalCardId = cardPayment.physicalCardId
             this.state = cardPayment.state
             this.type = cardPayment.type
             additionalProperties(cardPayment.additionalProperties)
@@ -207,6 +234,17 @@ private constructor(
         @ExcludeMissing
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
+        /** The Digital Wallet Token identifier for this payment. */
+        fun digitalWalletTokenId(digitalWalletTokenId: String) =
+            digitalWalletTokenId(JsonField.of(digitalWalletTokenId))
+
+        /** The Digital Wallet Token identifier for this payment. */
+        @JsonProperty("digital_wallet_token_id")
+        @ExcludeMissing
+        fun digitalWalletTokenId(digitalWalletTokenId: JsonField<String>) = apply {
+            this.digitalWalletTokenId = digitalWalletTokenId
+        }
+
         /** The interactions related to this card payment. */
         fun elements(elements: List<Element>) = elements(JsonField.of(elements))
 
@@ -220,6 +258,16 @@ private constructor(
 
         /** The Card Payment identifier. */
         @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
+
+        /** The Physical Card identifier for this payment. */
+        fun physicalCardId(physicalCardId: String) = physicalCardId(JsonField.of(physicalCardId))
+
+        /** The Physical Card identifier for this payment. */
+        @JsonProperty("physical_card_id")
+        @ExcludeMissing
+        fun physicalCardId(physicalCardId: JsonField<String>) = apply {
+            this.physicalCardId = physicalCardId
+        }
 
         /** The summarized state of this card payment. */
         fun state(state: State) = state(JsonField.of(state))
@@ -262,8 +310,10 @@ private constructor(
                 accountId,
                 cardId,
                 createdAt,
+                digitalWalletTokenId,
                 elements.map { it.toUnmodifiable() },
                 id,
+                physicalCardId,
                 state,
                 type,
                 additionalProperties.toUnmodifiable(),
@@ -801,7 +851,7 @@ private constructor(
             fun amount(): Long = amount.getRequired("amount")
 
             /** The ID of the Card Payment this transaction belongs to. */
-            fun cardPaymentId(): String? = cardPaymentId.getNullable("card_payment_id")
+            fun cardPaymentId(): String = cardPaymentId.getRequired("card_payment_id")
 
             /**
              * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's
@@ -3800,6 +3850,7 @@ private constructor(
             private val amount: JsonField<Long>,
             private val cardPaymentId: JsonField<String>,
             private val currency: JsonField<Currency>,
+            private val declinedTransactionId: JsonField<String>,
             private val digitalWalletTokenId: JsonField<String>,
             private val id: JsonField<String>,
             private val merchantAcceptorId: JsonField<String>,
@@ -3838,13 +3889,17 @@ private constructor(
             fun amount(): Long = amount.getRequired("amount")
 
             /** The ID of the Card Payment this transaction belongs to. */
-            fun cardPaymentId(): String? = cardPaymentId.getNullable("card_payment_id")
+            fun cardPaymentId(): String = cardPaymentId.getRequired("card_payment_id")
 
             /**
              * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the destination
              * account currency.
              */
             fun currency(): Currency = currency.getRequired("currency")
+
+            /** The identifier of the declined transaction created for this Card Decline. */
+            fun declinedTransactionId(): String =
+                declinedTransactionId.getRequired("declined_transaction_id")
 
             /**
              * If the authorization was made via a Digital Wallet Token (such as an Apple Pay
@@ -3950,6 +4005,11 @@ private constructor(
              * account currency.
              */
             @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
+
+            /** The identifier of the declined transaction created for this Card Decline. */
+            @JsonProperty("declined_transaction_id")
+            @ExcludeMissing
+            fun _declinedTransactionId() = declinedTransactionId
 
             /**
              * If the authorization was made via a Digital Wallet Token (such as an Apple Pay
@@ -4060,6 +4120,7 @@ private constructor(
                     amount()
                     cardPaymentId()
                     currency()
+                    declinedTransactionId()
                     digitalWalletTokenId()
                     id()
                     merchantAcceptorId()
@@ -4094,6 +4155,7 @@ private constructor(
                     this.amount == other.amount &&
                     this.cardPaymentId == other.cardPaymentId &&
                     this.currency == other.currency &&
+                    this.declinedTransactionId == other.declinedTransactionId &&
                     this.digitalWalletTokenId == other.digitalWalletTokenId &&
                     this.id == other.id &&
                     this.merchantAcceptorId == other.merchantAcceptorId &&
@@ -4123,6 +4185,7 @@ private constructor(
                             amount,
                             cardPaymentId,
                             currency,
+                            declinedTransactionId,
                             digitalWalletTokenId,
                             id,
                             merchantAcceptorId,
@@ -4148,7 +4211,7 @@ private constructor(
             }
 
             override fun toString() =
-                "CardDecline{actioner=$actioner, amount=$amount, cardPaymentId=$cardPaymentId, currency=$currency, digitalWalletTokenId=$digitalWalletTokenId, id=$id, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, merchantState=$merchantState, networkDetails=$networkDetails, networkIdentifiers=$networkIdentifiers, networkRiskScore=$networkRiskScore, physicalCardId=$physicalCardId, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, processingCategory=$processingCategory, realTimeDecisionId=$realTimeDecisionId, reason=$reason, verification=$verification, additionalProperties=$additionalProperties}"
+                "CardDecline{actioner=$actioner, amount=$amount, cardPaymentId=$cardPaymentId, currency=$currency, declinedTransactionId=$declinedTransactionId, digitalWalletTokenId=$digitalWalletTokenId, id=$id, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, merchantState=$merchantState, networkDetails=$networkDetails, networkIdentifiers=$networkIdentifiers, networkRiskScore=$networkRiskScore, physicalCardId=$physicalCardId, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, processingCategory=$processingCategory, realTimeDecisionId=$realTimeDecisionId, reason=$reason, verification=$verification, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -4161,6 +4224,7 @@ private constructor(
                 private var amount: JsonField<Long> = JsonMissing.of()
                 private var cardPaymentId: JsonField<String> = JsonMissing.of()
                 private var currency: JsonField<Currency> = JsonMissing.of()
+                private var declinedTransactionId: JsonField<String> = JsonMissing.of()
                 private var digitalWalletTokenId: JsonField<String> = JsonMissing.of()
                 private var id: JsonField<String> = JsonMissing.of()
                 private var merchantAcceptorId: JsonField<String> = JsonMissing.of()
@@ -4186,6 +4250,7 @@ private constructor(
                     this.amount = cardDecline.amount
                     this.cardPaymentId = cardDecline.cardPaymentId
                     this.currency = cardDecline.currency
+                    this.declinedTransactionId = cardDecline.declinedTransactionId
                     this.digitalWalletTokenId = cardDecline.digitalWalletTokenId
                     this.id = cardDecline.id
                     this.merchantAcceptorId = cardDecline.merchantAcceptorId
@@ -4259,6 +4324,17 @@ private constructor(
                 @JsonProperty("currency")
                 @ExcludeMissing
                 fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
+
+                /** The identifier of the declined transaction created for this Card Decline. */
+                fun declinedTransactionId(declinedTransactionId: String) =
+                    declinedTransactionId(JsonField.of(declinedTransactionId))
+
+                /** The identifier of the declined transaction created for this Card Decline. */
+                @JsonProperty("declined_transaction_id")
+                @ExcludeMissing
+                fun declinedTransactionId(declinedTransactionId: JsonField<String>) = apply {
+                    this.declinedTransactionId = declinedTransactionId
+                }
 
                 /**
                  * If the authorization was made via a Digital Wallet Token (such as an Apple Pay
@@ -4524,6 +4600,7 @@ private constructor(
                         amount,
                         cardPaymentId,
                         currency,
+                        declinedTransactionId,
                         digitalWalletTokenId,
                         id,
                         merchantAcceptorId,
@@ -5588,6 +5665,8 @@ private constructor(
 
                     val CVV2_MISMATCH = Reason(JsonField.of("cvv2_mismatch"))
 
+                    val CARD_EXPIRATION_MISMATCH = Reason(JsonField.of("card_expiration_mismatch"))
+
                     val TRANSACTION_NOT_ALLOWED = Reason(JsonField.of("transaction_not_allowed"))
 
                     val BREACHES_LIMIT = Reason(JsonField.of("breaches_limit"))
@@ -5616,6 +5695,7 @@ private constructor(
                     GROUP_LOCKED,
                     INSUFFICIENT_FUNDS,
                     CVV2_MISMATCH,
+                    CARD_EXPIRATION_MISMATCH,
                     TRANSACTION_NOT_ALLOWED,
                     BREACHES_LIMIT,
                     WEBHOOK_DECLINED,
@@ -5633,6 +5713,7 @@ private constructor(
                     GROUP_LOCKED,
                     INSUFFICIENT_FUNDS,
                     CVV2_MISMATCH,
+                    CARD_EXPIRATION_MISMATCH,
                     TRANSACTION_NOT_ALLOWED,
                     BREACHES_LIMIT,
                     WEBHOOK_DECLINED,
@@ -5652,6 +5733,7 @@ private constructor(
                         GROUP_LOCKED -> Value.GROUP_LOCKED
                         INSUFFICIENT_FUNDS -> Value.INSUFFICIENT_FUNDS
                         CVV2_MISMATCH -> Value.CVV2_MISMATCH
+                        CARD_EXPIRATION_MISMATCH -> Value.CARD_EXPIRATION_MISMATCH
                         TRANSACTION_NOT_ALLOWED -> Value.TRANSACTION_NOT_ALLOWED
                         BREACHES_LIMIT -> Value.BREACHES_LIMIT
                         WEBHOOK_DECLINED -> Value.WEBHOOK_DECLINED
@@ -5671,6 +5753,7 @@ private constructor(
                         GROUP_LOCKED -> Known.GROUP_LOCKED
                         INSUFFICIENT_FUNDS -> Known.INSUFFICIENT_FUNDS
                         CVV2_MISMATCH -> Known.CVV2_MISMATCH
+                        CARD_EXPIRATION_MISMATCH -> Known.CARD_EXPIRATION_MISMATCH
                         TRANSACTION_NOT_ALLOWED -> Known.TRANSACTION_NOT_ALLOWED
                         BREACHES_LIMIT -> Known.BREACHES_LIMIT
                         WEBHOOK_DECLINED -> Known.WEBHOOK_DECLINED
@@ -7952,6 +8035,8 @@ private constructor(
             private val merchantName: JsonField<String>,
             private val merchantState: JsonField<String>,
             private val networkIdentifiers: JsonField<NetworkIdentifiers>,
+            private val presentmentAmount: JsonField<Long>,
+            private val presentmentCurrency: JsonField<String>,
             private val purchaseDetails: JsonField<PurchaseDetails>,
             private val transactionId: JsonField<String>,
             private val type: JsonField<Type>,
@@ -7963,17 +8048,17 @@ private constructor(
             private var hashCode: Int = 0
 
             /**
-             * The pending amount in the minor unit of the transaction's currency. For dollars, for
-             * example, this is cents.
+             * The amount in the minor unit of the transaction's settlement currency. For dollars,
+             * for example, this is cents.
              */
             fun amount(): Long = amount.getRequired("amount")
 
             /** The ID of the Card Payment this transaction belongs to. */
-            fun cardPaymentId(): String? = cardPaymentId.getNullable("card_payment_id")
+            fun cardPaymentId(): String = cardPaymentId.getRequired("card_payment_id")
 
             /**
              * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's
-             * currency.
+             * settlement currency.
              */
             fun currency(): Currency = currency.getRequired("currency")
 
@@ -8007,6 +8092,16 @@ private constructor(
             fun networkIdentifiers(): NetworkIdentifiers =
                 networkIdentifiers.getRequired("network_identifiers")
 
+            /** The amount in the minor unit of the transaction's presentment currency. */
+            fun presentmentAmount(): Long = presentmentAmount.getRequired("presentment_amount")
+
+            /**
+             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's
+             * presentment currency.
+             */
+            fun presentmentCurrency(): String =
+                presentmentCurrency.getRequired("presentment_currency")
+
             /**
              * Additional details about the card purchase, such as tax and industry-specific fields.
              */
@@ -8023,8 +8118,8 @@ private constructor(
             fun type(): Type = type.getRequired("type")
 
             /**
-             * The pending amount in the minor unit of the transaction's currency. For dollars, for
-             * example, this is cents.
+             * The amount in the minor unit of the transaction's settlement currency. For dollars,
+             * for example, this is cents.
              */
             @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
 
@@ -8033,7 +8128,7 @@ private constructor(
 
             /**
              * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's
-             * currency.
+             * settlement currency.
              */
             @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
 
@@ -8072,6 +8167,19 @@ private constructor(
             @ExcludeMissing
             fun _networkIdentifiers() = networkIdentifiers
 
+            /** The amount in the minor unit of the transaction's presentment currency. */
+            @JsonProperty("presentment_amount")
+            @ExcludeMissing
+            fun _presentmentAmount() = presentmentAmount
+
+            /**
+             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's
+             * presentment currency.
+             */
+            @JsonProperty("presentment_currency")
+            @ExcludeMissing
+            fun _presentmentCurrency() = presentmentCurrency
+
             /**
              * Additional details about the card purchase, such as tax and industry-specific fields.
              */
@@ -8105,6 +8213,8 @@ private constructor(
                     merchantName()
                     merchantState()
                     networkIdentifiers().validate()
+                    presentmentAmount()
+                    presentmentCurrency()
                     purchaseDetails()?.validate()
                     transactionId()
                     type()
@@ -8131,6 +8241,8 @@ private constructor(
                     this.merchantName == other.merchantName &&
                     this.merchantState == other.merchantState &&
                     this.networkIdentifiers == other.networkIdentifiers &&
+                    this.presentmentAmount == other.presentmentAmount &&
+                    this.presentmentCurrency == other.presentmentCurrency &&
                     this.purchaseDetails == other.purchaseDetails &&
                     this.transactionId == other.transactionId &&
                     this.type == other.type &&
@@ -8152,6 +8264,8 @@ private constructor(
                             merchantName,
                             merchantState,
                             networkIdentifiers,
+                            presentmentAmount,
+                            presentmentCurrency,
                             purchaseDetails,
                             transactionId,
                             type,
@@ -8162,7 +8276,7 @@ private constructor(
             }
 
             override fun toString() =
-                "CardRefund{amount=$amount, cardPaymentId=$cardPaymentId, currency=$currency, id=$id, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantName=$merchantName, merchantState=$merchantState, networkIdentifiers=$networkIdentifiers, purchaseDetails=$purchaseDetails, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
+                "CardRefund{amount=$amount, cardPaymentId=$cardPaymentId, currency=$currency, id=$id, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantName=$merchantName, merchantState=$merchantState, networkIdentifiers=$networkIdentifiers, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, purchaseDetails=$purchaseDetails, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -8182,6 +8296,8 @@ private constructor(
                 private var merchantName: JsonField<String> = JsonMissing.of()
                 private var merchantState: JsonField<String> = JsonMissing.of()
                 private var networkIdentifiers: JsonField<NetworkIdentifiers> = JsonMissing.of()
+                private var presentmentAmount: JsonField<Long> = JsonMissing.of()
+                private var presentmentCurrency: JsonField<String> = JsonMissing.of()
                 private var purchaseDetails: JsonField<PurchaseDetails> = JsonMissing.of()
                 private var transactionId: JsonField<String> = JsonMissing.of()
                 private var type: JsonField<Type> = JsonMissing.of()
@@ -8199,6 +8315,8 @@ private constructor(
                     this.merchantName = cardRefund.merchantName
                     this.merchantState = cardRefund.merchantState
                     this.networkIdentifiers = cardRefund.networkIdentifiers
+                    this.presentmentAmount = cardRefund.presentmentAmount
+                    this.presentmentCurrency = cardRefund.presentmentCurrency
                     this.purchaseDetails = cardRefund.purchaseDetails
                     this.transactionId = cardRefund.transactionId
                     this.type = cardRefund.type
@@ -8206,14 +8324,14 @@ private constructor(
                 }
 
                 /**
-                 * The pending amount in the minor unit of the transaction's currency. For dollars,
-                 * for example, this is cents.
+                 * The amount in the minor unit of the transaction's settlement currency. For
+                 * dollars, for example, this is cents.
                  */
                 fun amount(amount: Long) = amount(JsonField.of(amount))
 
                 /**
-                 * The pending amount in the minor unit of the transaction's currency. For dollars,
-                 * for example, this is cents.
+                 * The amount in the minor unit of the transaction's settlement currency. For
+                 * dollars, for example, this is cents.
                  */
                 @JsonProperty("amount")
                 @ExcludeMissing
@@ -8232,13 +8350,13 @@ private constructor(
 
                 /**
                  * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's
-                 * currency.
+                 * settlement currency.
                  */
                 fun currency(currency: Currency) = currency(JsonField.of(currency))
 
                 /**
                  * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's
-                 * currency.
+                 * settlement currency.
                  */
                 @JsonProperty("currency")
                 @ExcludeMissing
@@ -8333,6 +8451,34 @@ private constructor(
                     this.networkIdentifiers = networkIdentifiers
                 }
 
+                /** The amount in the minor unit of the transaction's presentment currency. */
+                fun presentmentAmount(presentmentAmount: Long) =
+                    presentmentAmount(JsonField.of(presentmentAmount))
+
+                /** The amount in the minor unit of the transaction's presentment currency. */
+                @JsonProperty("presentment_amount")
+                @ExcludeMissing
+                fun presentmentAmount(presentmentAmount: JsonField<Long>) = apply {
+                    this.presentmentAmount = presentmentAmount
+                }
+
+                /**
+                 * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's
+                 * presentment currency.
+                 */
+                fun presentmentCurrency(presentmentCurrency: String) =
+                    presentmentCurrency(JsonField.of(presentmentCurrency))
+
+                /**
+                 * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's
+                 * presentment currency.
+                 */
+                @JsonProperty("presentment_currency")
+                @ExcludeMissing
+                fun presentmentCurrency(presentmentCurrency: JsonField<String>) = apply {
+                    this.presentmentCurrency = presentmentCurrency
+                }
+
                 /**
                  * Additional details about the card purchase, such as tax and industry-specific
                  * fields.
@@ -8403,6 +8549,8 @@ private constructor(
                         merchantName,
                         merchantState,
                         networkIdentifiers,
+                        presentmentAmount,
+                        presentmentCurrency,
                         purchaseDetails,
                         transactionId,
                         type,
@@ -13102,7 +13250,7 @@ private constructor(
             fun cardAuthorization(): String? = cardAuthorization.getNullable("card_authorization")
 
             /** The ID of the Card Payment this transaction belongs to. */
-            fun cardPaymentId(): String? = cardPaymentId.getNullable("card_payment_id")
+            fun cardPaymentId(): String = cardPaymentId.getRequired("card_payment_id")
 
             /**
              * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's
@@ -17620,7 +17768,7 @@ private constructor(
             fun actioner(): Actioner = actioner.getRequired("actioner")
 
             /** The ID of the Card Payment this transaction belongs to. */
-            fun cardPaymentId(): String? = cardPaymentId.getNullable("card_payment_id")
+            fun cardPaymentId(): String = cardPaymentId.getRequired("card_payment_id")
 
             /**
              * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's

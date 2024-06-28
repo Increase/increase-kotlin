@@ -310,17 +310,25 @@ constructor(
 
             val REJECTED = Status(JsonField.of("rejected"))
 
+            val LOST = Status(JsonField.of("lost"))
+
+            val WON = Status(JsonField.of("won"))
+
             fun of(value: String) = Status(JsonField.of(value))
         }
 
         enum class Known {
             ACCEPTED,
             REJECTED,
+            LOST,
+            WON,
         }
 
         enum class Value {
             ACCEPTED,
             REJECTED,
+            LOST,
+            WON,
             _UNKNOWN,
         }
 
@@ -328,6 +336,8 @@ constructor(
             when (this) {
                 ACCEPTED -> Value.ACCEPTED
                 REJECTED -> Value.REJECTED
+                LOST -> Value.LOST
+                WON -> Value.WON
                 else -> Value._UNKNOWN
             }
 
@@ -335,6 +345,8 @@ constructor(
             when (this) {
                 ACCEPTED -> Known.ACCEPTED
                 REJECTED -> Known.REJECTED
+                LOST -> Known.LOST
+                WON -> Known.WON
                 else -> throw IncreaseInvalidDataException("Unknown Status: $value")
             }
 

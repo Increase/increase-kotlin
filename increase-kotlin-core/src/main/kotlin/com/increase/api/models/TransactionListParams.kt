@@ -331,6 +331,8 @@ constructor(
 
                 val CARD_DISPUTE_ACCEPTANCE = In(JsonField.of("card_dispute_acceptance"))
 
+                val CARD_DISPUTE_LOSS = In(JsonField.of("card_dispute_loss"))
+
                 val CARD_REFUND = In(JsonField.of("card_refund"))
 
                 val CARD_SETTLEMENT = In(JsonField.of("card_settlement"))
@@ -397,6 +399,7 @@ constructor(
                 ACH_TRANSFER_RETURN,
                 CASHBACK_PAYMENT,
                 CARD_DISPUTE_ACCEPTANCE,
+                CARD_DISPUTE_LOSS,
                 CARD_REFUND,
                 CARD_SETTLEMENT,
                 CARD_REVENUE_PAYMENT,
@@ -430,6 +433,7 @@ constructor(
                 ACH_TRANSFER_RETURN,
                 CASHBACK_PAYMENT,
                 CARD_DISPUTE_ACCEPTANCE,
+                CARD_DISPUTE_LOSS,
                 CARD_REFUND,
                 CARD_SETTLEMENT,
                 CARD_REVENUE_PAYMENT,
@@ -465,6 +469,7 @@ constructor(
                     ACH_TRANSFER_RETURN -> Value.ACH_TRANSFER_RETURN
                     CASHBACK_PAYMENT -> Value.CASHBACK_PAYMENT
                     CARD_DISPUTE_ACCEPTANCE -> Value.CARD_DISPUTE_ACCEPTANCE
+                    CARD_DISPUTE_LOSS -> Value.CARD_DISPUTE_LOSS
                     CARD_REFUND -> Value.CARD_REFUND
                     CARD_SETTLEMENT -> Value.CARD_SETTLEMENT
                     CARD_REVENUE_PAYMENT -> Value.CARD_REVENUE_PAYMENT
@@ -504,6 +509,7 @@ constructor(
                     ACH_TRANSFER_RETURN -> Known.ACH_TRANSFER_RETURN
                     CASHBACK_PAYMENT -> Known.CASHBACK_PAYMENT
                     CARD_DISPUTE_ACCEPTANCE -> Known.CARD_DISPUTE_ACCEPTANCE
+                    CARD_DISPUTE_LOSS -> Known.CARD_DISPUTE_LOSS
                     CARD_REFUND -> Known.CARD_REFUND
                     CARD_SETTLEMENT -> Known.CARD_SETTLEMENT
                     CARD_REVENUE_PAYMENT -> Known.CARD_REVENUE_PAYMENT

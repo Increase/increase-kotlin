@@ -460,6 +460,10 @@ constructor(
 
                 val CHECK_IMAGE_BACK = In(JsonField.of("check_image_back"))
 
+                val PROCESSED_CHECK_IMAGE_FRONT = In(JsonField.of("processed_check_image_front"))
+
+                val PROCESSED_CHECK_IMAGE_BACK = In(JsonField.of("processed_check_image_back"))
+
                 val MAILED_CHECK_IMAGE = In(JsonField.of("mailed_check_image"))
 
                 val INBOUND_MAIL_ITEM = In(JsonField.of("inbound_mail_item"))
@@ -501,6 +505,8 @@ constructor(
             enum class Known {
                 CHECK_IMAGE_FRONT,
                 CHECK_IMAGE_BACK,
+                PROCESSED_CHECK_IMAGE_FRONT,
+                PROCESSED_CHECK_IMAGE_BACK,
                 MAILED_CHECK_IMAGE,
                 INBOUND_MAIL_ITEM,
                 FORM_1099_INT,
@@ -523,6 +529,8 @@ constructor(
             enum class Value {
                 CHECK_IMAGE_FRONT,
                 CHECK_IMAGE_BACK,
+                PROCESSED_CHECK_IMAGE_FRONT,
+                PROCESSED_CHECK_IMAGE_BACK,
                 MAILED_CHECK_IMAGE,
                 INBOUND_MAIL_ITEM,
                 FORM_1099_INT,
@@ -547,6 +555,8 @@ constructor(
                 when (this) {
                     CHECK_IMAGE_FRONT -> Value.CHECK_IMAGE_FRONT
                     CHECK_IMAGE_BACK -> Value.CHECK_IMAGE_BACK
+                    PROCESSED_CHECK_IMAGE_FRONT -> Value.PROCESSED_CHECK_IMAGE_FRONT
+                    PROCESSED_CHECK_IMAGE_BACK -> Value.PROCESSED_CHECK_IMAGE_BACK
                     MAILED_CHECK_IMAGE -> Value.MAILED_CHECK_IMAGE
                     INBOUND_MAIL_ITEM -> Value.INBOUND_MAIL_ITEM
                     FORM_1099_INT -> Value.FORM_1099_INT
@@ -571,6 +581,8 @@ constructor(
                 when (this) {
                     CHECK_IMAGE_FRONT -> Known.CHECK_IMAGE_FRONT
                     CHECK_IMAGE_BACK -> Known.CHECK_IMAGE_BACK
+                    PROCESSED_CHECK_IMAGE_FRONT -> Known.PROCESSED_CHECK_IMAGE_FRONT
+                    PROCESSED_CHECK_IMAGE_BACK -> Known.PROCESSED_CHECK_IMAGE_BACK
                     MAILED_CHECK_IMAGE -> Known.MAILED_CHECK_IMAGE
                     INBOUND_MAIL_ITEM -> Known.INBOUND_MAIL_ITEM
                     FORM_1099_INT -> Known.FORM_1099_INT

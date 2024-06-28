@@ -362,6 +362,8 @@ private constructor(
 
             val ENTITY_CSV = Category(JsonField.of("entity_csv"))
 
+            val VENDOR_CSV = Category(JsonField.of("vendor_csv"))
+
             fun of(value: String) = Category(JsonField.of(value))
         }
 
@@ -371,6 +373,7 @@ private constructor(
             BALANCE_CSV,
             BOOKKEEPING_ACCOUNT_BALANCE_CSV,
             ENTITY_CSV,
+            VENDOR_CSV,
         }
 
         enum class Value {
@@ -379,6 +382,7 @@ private constructor(
             BALANCE_CSV,
             BOOKKEEPING_ACCOUNT_BALANCE_CSV,
             ENTITY_CSV,
+            VENDOR_CSV,
             _UNKNOWN,
         }
 
@@ -389,6 +393,7 @@ private constructor(
                 BALANCE_CSV -> Value.BALANCE_CSV
                 BOOKKEEPING_ACCOUNT_BALANCE_CSV -> Value.BOOKKEEPING_ACCOUNT_BALANCE_CSV
                 ENTITY_CSV -> Value.ENTITY_CSV
+                VENDOR_CSV -> Value.VENDOR_CSV
                 else -> Value._UNKNOWN
             }
 
@@ -399,6 +404,7 @@ private constructor(
                 BALANCE_CSV -> Known.BALANCE_CSV
                 BOOKKEEPING_ACCOUNT_BALANCE_CSV -> Known.BOOKKEEPING_ACCOUNT_BALANCE_CSV
                 ENTITY_CSV -> Known.ENTITY_CSV
+                VENDOR_CSV -> Known.VENDOR_CSV
                 else -> throw IncreaseInvalidDataException("Unknown Category: $value")
             }
 
