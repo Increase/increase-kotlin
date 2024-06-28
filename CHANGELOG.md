@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.54.0 (2024-06-28)
+
+Full Changelog: [v0.53.0...v0.54.0](https://github.com/Increase/increase-kotlin/compare/v0.53.0...v0.54.0)
+
+### Features
+
+* **api:** updates ([#287](https://github.com/Increase/increase-kotlin/issues/287)) ([df79d67](https://github.com/Increase/increase-kotlin/commit/df79d67b27c0a31a90226dc3f28041afdf16313d))
+* **client:** add support for `putQueryParam` on `ClientOptions` ([#284](https://github.com/Increase/increase-kotlin/issues/284)) ([2687a0b](https://github.com/Increase/increase-kotlin/commit/2687a0bef3c1817e8dc50b4d0dd70818285f1f02))
+
+
+### Chores
+
+* gitignore test server logs ([#286](https://github.com/Increase/increase-kotlin/issues/286)) ([a792e41](https://github.com/Increase/increase-kotlin/commit/a792e419ffc8256d2fd30e279577cbe8d53c79ce))
+
 ## 0.53.0 (2024-06-04)
 
 Full Changelog: [v0.52.0...v0.53.0](https://github.com/Increase/increase-kotlin/compare/v0.52.0...v0.53.0)
