@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.55.0 (2024-07-01)
+
+Full Changelog: [v0.54.0...v0.55.0](https://github.com/Increase/increase-kotlin/compare/v0.54.0...v0.55.0)
+
+### Features
+
+* **api:** add method to simulate international ACH transfers ([#288](https://github.com/Increase/increase-kotlin/issues/288)) ([f721922](https://github.com/Increase/increase-kotlin/commit/f7219227079320247fb95c81766156692b5585b5))
+
 ## 0.54.0 (2024-06-28)
 
 Full Changelog: [v0.53.0...v0.54.0](https://github.com/Increase/increase-kotlin/compare/v0.53.0...v0.54.0)
