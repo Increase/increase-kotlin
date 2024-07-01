@@ -5332,8 +5332,6 @@ private constructor(
 
                         val UNKNOWN = Reason(JsonField.of("unknown"))
 
-                        val OPERATOR = Reason(JsonField.of("operator"))
-
                         fun of(value: String) = Reason(JsonField.of(value))
                     }
 
@@ -5348,7 +5346,6 @@ private constructor(
                         SUSPECTED_FRAUD,
                         DEPOSIT_WINDOW_EXPIRED,
                         UNKNOWN,
-                        OPERATOR,
                     }
 
                     enum class Value {
@@ -5362,7 +5359,6 @@ private constructor(
                         SUSPECTED_FRAUD,
                         DEPOSIT_WINDOW_EXPIRED,
                         UNKNOWN,
-                        OPERATOR,
                         _UNKNOWN,
                     }
 
@@ -5378,7 +5374,6 @@ private constructor(
                             SUSPECTED_FRAUD -> Value.SUSPECTED_FRAUD
                             DEPOSIT_WINDOW_EXPIRED -> Value.DEPOSIT_WINDOW_EXPIRED
                             UNKNOWN -> Value.UNKNOWN
-                            OPERATOR -> Value.OPERATOR
                             else -> Value._UNKNOWN
                         }
 
@@ -5394,7 +5389,6 @@ private constructor(
                             SUSPECTED_FRAUD -> Known.SUSPECTED_FRAUD
                             DEPOSIT_WINDOW_EXPIRED -> Known.DEPOSIT_WINDOW_EXPIRED
                             UNKNOWN -> Known.UNKNOWN
-                            OPERATOR -> Known.OPERATOR
                             else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
                         }
 
@@ -24809,6 +24803,7 @@ private constructor(
                     JsonField<ReceivingDepositoryFinancialInstitutionIdQualifier>,
                 private val receivingDepositoryFinancialInstitutionName: JsonField<String>,
                 private val traceNumber: JsonField<String>,
+                private val type: JsonField<Type>,
                 private val additionalProperties: Map<String, JsonValue>,
             ) {
 
@@ -25040,6 +25035,12 @@ private constructor(
                  * [used to correlate returns](https://increase.com/documentation/ach-returns#ach-returns).
                  */
                 fun traceNumber(): String = traceNumber.getRequired("trace_number")
+
+                /**
+                 * A constant representing the object's type. For this resource it will always be
+                 * `inbound_international_ach_transfer`.
+                 */
+                fun type(): Type = type.getRequired("type")
 
                 /**
                  * The amount in the minor unit of the destination account currency. For dollars,
@@ -25284,6 +25285,12 @@ private constructor(
                  */
                 @JsonProperty("trace_number") @ExcludeMissing fun _traceNumber() = traceNumber
 
+                /**
+                 * A constant representing the object's type. For this resource it will always be
+                 * `inbound_international_ach_transfer`.
+                 */
+                @JsonProperty("type") @ExcludeMissing fun _type() = type
+
                 @JsonAnyGetter
                 @ExcludeMissing
                 fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -25326,6 +25333,7 @@ private constructor(
                         receivingDepositoryFinancialInstitutionIdQualifier()
                         receivingDepositoryFinancialInstitutionName()
                         traceNumber()
+                        type()
                         validated = true
                     }
                 }
@@ -25386,6 +25394,7 @@ private constructor(
                         this.receivingDepositoryFinancialInstitutionName ==
                             other.receivingDepositoryFinancialInstitutionName &&
                         this.traceNumber == other.traceNumber &&
+                        this.type == other.type &&
                         this.additionalProperties == other.additionalProperties
                 }
 
@@ -25429,6 +25438,7 @@ private constructor(
                                 receivingDepositoryFinancialInstitutionIdQualifier,
                                 receivingDepositoryFinancialInstitutionName,
                                 traceNumber,
+                                type,
                                 additionalProperties,
                             )
                     }
@@ -25436,7 +25446,7 @@ private constructor(
                 }
 
                 override fun toString() =
-                    "InboundInternationalAchTransfer{amount=$amount, destinationCountryCode=$destinationCountryCode, destinationCurrencyCode=$destinationCurrencyCode, foreignExchangeIndicator=$foreignExchangeIndicator, foreignExchangeReference=$foreignExchangeReference, foreignExchangeReferenceIndicator=$foreignExchangeReferenceIndicator, foreignPaymentAmount=$foreignPaymentAmount, foreignTraceNumber=$foreignTraceNumber, internationalTransactionTypeCode=$internationalTransactionTypeCode, originatingCurrencyCode=$originatingCurrencyCode, originatingDepositoryFinancialInstitutionBranchCountry=$originatingDepositoryFinancialInstitutionBranchCountry, originatingDepositoryFinancialInstitutionId=$originatingDepositoryFinancialInstitutionId, originatingDepositoryFinancialInstitutionIdQualifier=$originatingDepositoryFinancialInstitutionIdQualifier, originatingDepositoryFinancialInstitutionName=$originatingDepositoryFinancialInstitutionName, originatorCity=$originatorCity, originatorCompanyEntryDescription=$originatorCompanyEntryDescription, originatorCountry=$originatorCountry, originatorIdentification=$originatorIdentification, originatorName=$originatorName, originatorPostalCode=$originatorPostalCode, originatorStateOrProvince=$originatorStateOrProvince, originatorStreetAddress=$originatorStreetAddress, paymentRelatedInformation=$paymentRelatedInformation, paymentRelatedInformation2=$paymentRelatedInformation2, receiverCity=$receiverCity, receiverCountry=$receiverCountry, receiverIdentificationNumber=$receiverIdentificationNumber, receiverPostalCode=$receiverPostalCode, receiverStateOrProvince=$receiverStateOrProvince, receiverStreetAddress=$receiverStreetAddress, receivingCompanyOrIndividualName=$receivingCompanyOrIndividualName, receivingDepositoryFinancialInstitutionCountry=$receivingDepositoryFinancialInstitutionCountry, receivingDepositoryFinancialInstitutionId=$receivingDepositoryFinancialInstitutionId, receivingDepositoryFinancialInstitutionIdQualifier=$receivingDepositoryFinancialInstitutionIdQualifier, receivingDepositoryFinancialInstitutionName=$receivingDepositoryFinancialInstitutionName, traceNumber=$traceNumber, additionalProperties=$additionalProperties}"
+                    "InboundInternationalAchTransfer{amount=$amount, destinationCountryCode=$destinationCountryCode, destinationCurrencyCode=$destinationCurrencyCode, foreignExchangeIndicator=$foreignExchangeIndicator, foreignExchangeReference=$foreignExchangeReference, foreignExchangeReferenceIndicator=$foreignExchangeReferenceIndicator, foreignPaymentAmount=$foreignPaymentAmount, foreignTraceNumber=$foreignTraceNumber, internationalTransactionTypeCode=$internationalTransactionTypeCode, originatingCurrencyCode=$originatingCurrencyCode, originatingDepositoryFinancialInstitutionBranchCountry=$originatingDepositoryFinancialInstitutionBranchCountry, originatingDepositoryFinancialInstitutionId=$originatingDepositoryFinancialInstitutionId, originatingDepositoryFinancialInstitutionIdQualifier=$originatingDepositoryFinancialInstitutionIdQualifier, originatingDepositoryFinancialInstitutionName=$originatingDepositoryFinancialInstitutionName, originatorCity=$originatorCity, originatorCompanyEntryDescription=$originatorCompanyEntryDescription, originatorCountry=$originatorCountry, originatorIdentification=$originatorIdentification, originatorName=$originatorName, originatorPostalCode=$originatorPostalCode, originatorStateOrProvince=$originatorStateOrProvince, originatorStreetAddress=$originatorStreetAddress, paymentRelatedInformation=$paymentRelatedInformation, paymentRelatedInformation2=$paymentRelatedInformation2, receiverCity=$receiverCity, receiverCountry=$receiverCountry, receiverIdentificationNumber=$receiverIdentificationNumber, receiverPostalCode=$receiverPostalCode, receiverStateOrProvince=$receiverStateOrProvince, receiverStreetAddress=$receiverStreetAddress, receivingCompanyOrIndividualName=$receivingCompanyOrIndividualName, receivingDepositoryFinancialInstitutionCountry=$receivingDepositoryFinancialInstitutionCountry, receivingDepositoryFinancialInstitutionId=$receivingDepositoryFinancialInstitutionId, receivingDepositoryFinancialInstitutionIdQualifier=$receivingDepositoryFinancialInstitutionIdQualifier, receivingDepositoryFinancialInstitutionName=$receivingDepositoryFinancialInstitutionName, traceNumber=$traceNumber, type=$type, additionalProperties=$additionalProperties}"
 
                 companion object {
 
@@ -25499,6 +25509,7 @@ private constructor(
                     private var receivingDepositoryFinancialInstitutionName: JsonField<String> =
                         JsonMissing.of()
                     private var traceNumber: JsonField<String> = JsonMissing.of()
+                    private var type: JsonField<Type> = JsonMissing.of()
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                     internal fun from(
@@ -25575,6 +25586,7 @@ private constructor(
                             inboundInternationalAchTransfer
                                 .receivingDepositoryFinancialInstitutionName
                         this.traceNumber = inboundInternationalAchTransfer.traceNumber
+                        this.type = inboundInternationalAchTransfer.type
                         additionalProperties(inboundInternationalAchTransfer.additionalProperties)
                     }
 
@@ -26194,6 +26206,20 @@ private constructor(
                         this.traceNumber = traceNumber
                     }
 
+                    /**
+                     * A constant representing the object's type. For this resource it will always
+                     * be `inbound_international_ach_transfer`.
+                     */
+                    fun type(type: Type) = type(JsonField.of(type))
+
+                    /**
+                     * A constant representing the object's type. For this resource it will always
+                     * be `inbound_international_ach_transfer`.
+                     */
+                    @JsonProperty("type")
+                    @ExcludeMissing
+                    fun type(type: JsonField<Type>) = apply { this.type = type }
+
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                         this.additionalProperties.clear()
                         this.additionalProperties.putAll(additionalProperties)
@@ -26247,6 +26273,7 @@ private constructor(
                             receivingDepositoryFinancialInstitutionIdQualifier,
                             receivingDepositoryFinancialInstitutionName,
                             traceNumber,
+                            type,
                             additionalProperties.toUnmodifiable(),
                         )
                 }
@@ -26734,6 +26761,61 @@ private constructor(
                                 throw IncreaseInvalidDataException(
                                     "Unknown ReceivingDepositoryFinancialInstitutionIdQualifier: $value"
                                 )
+                        }
+
+                    fun asString(): String = _value().asStringOrThrow()
+                }
+
+                class Type
+                @JsonCreator
+                private constructor(
+                    private val value: JsonField<String>,
+                ) : Enum {
+
+                    @com.fasterxml.jackson.annotation.JsonValue
+                    fun _value(): JsonField<String> = value
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is Type && this.value == other.value
+                    }
+
+                    override fun hashCode() = value.hashCode()
+
+                    override fun toString() = value.toString()
+
+                    companion object {
+
+                        val INBOUND_INTERNATIONAL_ACH_TRANSFER =
+                            Type(JsonField.of("inbound_international_ach_transfer"))
+
+                        fun of(value: String) = Type(JsonField.of(value))
+                    }
+
+                    enum class Known {
+                        INBOUND_INTERNATIONAL_ACH_TRANSFER,
+                    }
+
+                    enum class Value {
+                        INBOUND_INTERNATIONAL_ACH_TRANSFER,
+                        _UNKNOWN,
+                    }
+
+                    fun value(): Value =
+                        when (this) {
+                            INBOUND_INTERNATIONAL_ACH_TRANSFER ->
+                                Value.INBOUND_INTERNATIONAL_ACH_TRANSFER
+                            else -> Value._UNKNOWN
+                        }
+
+                    fun known(): Known =
+                        when (this) {
+                            INBOUND_INTERNATIONAL_ACH_TRANSFER ->
+                                Known.INBOUND_INTERNATIONAL_ACH_TRANSFER
+                            else -> throw IncreaseInvalidDataException("Unknown Type: $value")
                         }
 
                     fun asString(): String = _value().asStringOrThrow()
