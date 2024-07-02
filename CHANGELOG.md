@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.56.0 (2024-07-02)
+
+Full Changelog: [v0.55.0...v0.56.0](https://github.com/Increase/increase-kotlin/compare/v0.55.0...v0.56.0)
+
+### Features
+
+* **api:** add deposit return property to inbound check deposit model ([#290](https://github.com/Increase/increase-kotlin/issues/290)) ([2826a54](https://github.com/Increase/increase-kotlin/commit/2826a547ee06ce4fa7f5e5b8df7a7edeb97f604d))
+
 ## 0.55.0 (2024-07-01)
 
 Full Changelog: [v0.54.0...v0.55.0](https://github.com/Increase/increase-kotlin/compare/v0.54.0...v0.55.0)
