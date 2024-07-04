@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.57.0 (2024-07-04)
+
+Full Changelog: [v0.56.0...v0.57.0](https://github.com/Increase/increase-kotlin/compare/v0.56.0...v0.57.0)
+
+### Features
+
+* **api:** add property 'receiver identification number' to 'originator company entry description' ([#292](https://github.com/Increase/increase-kotlin/issues/292)) ([d34e6b5](https://github.com/Increase/increase-kotlin/commit/d34e6b5af2e728f588d67159fe9afc4859563f08))
+
 ## 0.56.0 (2024-07-02)
 
 Full Changelog: [v0.55.0...v0.56.0](https://github.com/Increase/increase-kotlin/compare/v0.55.0...v0.56.0)
