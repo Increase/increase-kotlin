@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.57.1 (2024-07-11)
+
+Full Changelog: [v0.57.0...v0.57.1](https://github.com/Increase/increase-kotlin/compare/v0.57.0...v0.57.1)
+
+### Chores
+
+* **ci:** also run workflows for PRs targeting `next` ([#296](https://github.com/Increase/increase-kotlin/issues/296)) ([312565e](https://github.com/Increase/increase-kotlin/commit/312565ebbfa7eb652a520bd0360db71895095fff))
+* **docs:** document minimum Java version (Java 8) in README ([#294](https://github.com/Increase/increase-kotlin/issues/294)) ([fcf6ffe](https://github.com/Increase/increase-kotlin/commit/fcf6ffe4d3d6a560a24f46947f48403308e4dbbd))
+
+
+### Documentation
+
+* **examples:** update example values ([#297](https://github.com/Increase/increase-kotlin/issues/297)) ([8a61c33](https://github.com/Increase/increase-kotlin/commit/8a61c33872d19f9fd99fe5051d33023434740c05))
+
 ## 0.57.0 (2024-07-04)
 
 Full Changelog: [v0.56.0...v0.57.0](https://github.com/Increase/increase-kotlin/compare/v0.56.0...v0.57.0)
