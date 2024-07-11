@@ -11,22 +11,22 @@ class BookkeepingAccountTest {
     fun createBookkeepingAccount() {
         val bookkeepingAccount =
             BookkeepingAccount.builder()
-                .id("string")
-                .accountId("string")
+                .id("id")
+                .accountId("account_id")
                 .complianceCategory(BookkeepingAccount.ComplianceCategory.COMMINGLED_CASH)
-                .entityId("string")
-                .idempotencyKey("string")
-                .name("string")
+                .entityId("entity_id")
+                .idempotencyKey("idempotency_key")
+                .name("name")
                 .type(BookkeepingAccount.Type.BOOKKEEPING_ACCOUNT)
                 .build()
         assertThat(bookkeepingAccount).isNotNull
-        assertThat(bookkeepingAccount.id()).isEqualTo("string")
-        assertThat(bookkeepingAccount.accountId()).isEqualTo("string")
+        assertThat(bookkeepingAccount.id()).isEqualTo("id")
+        assertThat(bookkeepingAccount.accountId()).isEqualTo("account_id")
         assertThat(bookkeepingAccount.complianceCategory())
             .isEqualTo(BookkeepingAccount.ComplianceCategory.COMMINGLED_CASH)
-        assertThat(bookkeepingAccount.entityId()).isEqualTo("string")
-        assertThat(bookkeepingAccount.idempotencyKey()).isEqualTo("string")
-        assertThat(bookkeepingAccount.name()).isEqualTo("string")
+        assertThat(bookkeepingAccount.entityId()).isEqualTo("entity_id")
+        assertThat(bookkeepingAccount.idempotencyKey()).isEqualTo("idempotency_key")
+        assertThat(bookkeepingAccount.name()).isEqualTo("name")
         assertThat(bookkeepingAccount.type()).isEqualTo(BookkeepingAccount.Type.BOOKKEEPING_ACCOUNT)
     }
 }
