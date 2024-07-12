@@ -19,7 +19,7 @@ The REST API documentation can be found [on increase.com](https://increase.com/
 <!-- x-release-please-start-version -->
 
 ```kotlin
-implementation("com.increase.api:increase-kotlin:0.49.0")
+implementation("com.increase.api:increase-kotlin:0.57.0")
 ```
 
 #### Maven
@@ -28,7 +28,7 @@ implementation("com.increase.api:increase-kotlin:0.49.0")
 <dependency>
     <groupId>com.increase.api</groupId>
     <artifactId>increase-kotlin</artifactId>
-    <version>0.49.0</version>
+    <version>0.57.0</version>
 </dependency>
 ```
 
@@ -78,7 +78,9 @@ import com.increase.api.models.Account
 import com.increase.api.models.AccountCreateParams
 
 val params = AccountCreateParams.builder()
-    .name("My First Increase Account")
+    .name("New Account!")
+    .programId("program_i2v2os4mwza1oetokh9i")
+    .entityId("entity_n8y8tnk2p9339ti393yi")
     .build()
 val account = client.accounts().create(params)
 ```

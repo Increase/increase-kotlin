@@ -9,7 +9,7 @@ import com.increase.api.core.http.HttpRequest
 import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.errors.IncreaseError
 import com.increase.api.models.Group
-import com.increase.api.models.GroupRetrieveDetailsParams
+import com.increase.api.models.GroupRetrieveParams
 import com.increase.api.services.errorHandler
 import com.increase.api.services.jsonHandler
 import com.increase.api.services.withErrorHandler
@@ -21,12 +21,12 @@ constructor(
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
-    private val retrieveDetailsHandler: Handler<Group> =
+    private val retrieveHandler: Handler<Group> =
         jsonHandler<Group>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
     /** Returns details for the currently authenticated Group. */
-    override suspend fun retrieveDetails(
-        params: GroupRetrieveDetailsParams,
+    override suspend fun retrieve(
+        params: GroupRetrieveParams,
         requestOptions: RequestOptions
     ): Group {
         val request =
@@ -40,7 +40,7 @@ constructor(
                 .build()
         return clientOptions.httpClient.executeAsync(request, requestOptions).let { response ->
             response
-                .use { retrieveDetailsHandler.handle(it) }
+                .use { retrieveHandler.handle(it) }
                 .apply {
                     if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
                         validate()
