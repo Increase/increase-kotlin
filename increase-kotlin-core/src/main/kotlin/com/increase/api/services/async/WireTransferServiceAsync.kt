@@ -12,8 +12,6 @@ import com.increase.api.models.WireTransferCreateParams
 import com.increase.api.models.WireTransferListPageAsync
 import com.increase.api.models.WireTransferListParams
 import com.increase.api.models.WireTransferRetrieveParams
-import com.increase.api.models.WireTransferReverseParams
-import com.increase.api.models.WireTransferSubmitParams
 
 interface WireTransferServiceAsync {
 
@@ -44,25 +42,6 @@ interface WireTransferServiceAsync {
     /** Cancel a pending Wire Transfer */
     suspend fun cancel(
         params: WireTransferCancelParams,
-        requestOptions: RequestOptions = RequestOptions.none()
-    ): WireTransfer
-
-    /**
-     * Simulates the reversal of a [Wire Transfer](#wire-transfers) by the Federal Reserve due to
-     * error conditions. This will also create a [Transaction](#transaction) to account for the
-     * returned funds. This Wire Transfer must first have a `status` of `complete`.
-     */
-    suspend fun reverse(
-        params: WireTransferReverseParams,
-        requestOptions: RequestOptions = RequestOptions.none()
-    ): WireTransfer
-
-    /**
-     * Simulates the submission of a [Wire Transfer](#wire-transfers) to the Federal Reserve. This
-     * transfer must first have a `status` of `pending_approval` or `pending_creating`.
-     */
-    suspend fun submit(
-        params: WireTransferSubmitParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): WireTransfer
 }

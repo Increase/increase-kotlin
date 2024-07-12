@@ -5,8 +5,8 @@
 package com.increase.api.services.async.simulations
 
 import com.increase.api.core.RequestOptions
-import com.increase.api.models.InboundFundsHoldReleaseResponse
 import com.increase.api.models.SimulationInboundFundsHoldReleaseParams
+import com.increase.api.models.SimulationInboundFundsHoldReleaseResponse
 
 interface InboundFundsHoldServiceAsync {
 
@@ -17,5 +17,5 @@ interface InboundFundsHoldServiceAsync {
     suspend fun release(
         params: SimulationInboundFundsHoldReleaseParams,
         requestOptions: RequestOptions = RequestOptions.none()
-    ): InboundFundsHoldReleaseResponse
+    ): SimulationInboundFundsHoldReleaseResponse
 }

@@ -6,10 +6,10 @@ package com.increase.api.services.async
 
 import com.increase.api.core.RequestOptions
 import com.increase.api.models.InboundAchTransfer
+import com.increase.api.models.InboundAchTransferCreateNotificationOfChangeParams
 import com.increase.api.models.InboundAchTransferDeclineParams
 import com.increase.api.models.InboundAchTransferListPageAsync
 import com.increase.api.models.InboundAchTransferListParams
-import com.increase.api.models.InboundAchTransferNotificationOfChangeParams
 import com.increase.api.models.InboundAchTransferRetrieveParams
 import com.increase.api.models.InboundAchTransferTransferReturnParams
 
@@ -27,15 +27,15 @@ interface InboundAchTransferServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none()
     ): InboundAchTransferListPageAsync
 
-    /** Decline an Inbound ACH Transfer */
-    suspend fun decline(
-        params: InboundAchTransferDeclineParams,
+    /** Create a notification of change for an Inbound ACH Transfer */
+    suspend fun createNotificationOfChange(
+        params: InboundAchTransferCreateNotificationOfChangeParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): InboundAchTransfer
 
-    /** Create a notification of change for an Inbound ACH Transfer */
-    suspend fun notificationOfChange(
-        params: InboundAchTransferNotificationOfChangeParams,
+    /** Decline an Inbound ACH Transfer */
+    suspend fun decline(
+        params: InboundAchTransferDeclineParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): InboundAchTransfer
 

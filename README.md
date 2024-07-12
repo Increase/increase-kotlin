@@ -78,7 +78,9 @@ import com.increase.api.models.Account
 import com.increase.api.models.AccountCreateParams
 
 val params = AccountCreateParams.builder()
-    .name("My First Increase Account")
+    .name("New Account!")
+    .programId("program_i2v2os4mwza1oetokh9i")
+    .entityId("entity_n8y8tnk2p9339ti393yi")
     .build()
 val account = client.accounts().create(params)
 ```

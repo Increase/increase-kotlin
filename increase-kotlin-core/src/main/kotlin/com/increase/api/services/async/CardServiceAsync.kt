@@ -8,10 +8,10 @@ import com.increase.api.core.RequestOptions
 import com.increase.api.models.Card
 import com.increase.api.models.CardCreateParams
 import com.increase.api.models.CardDetails
+import com.increase.api.models.CardDetailsParams
 import com.increase.api.models.CardListPageAsync
 import com.increase.api.models.CardListParams
 import com.increase.api.models.CardRetrieveParams
-import com.increase.api.models.CardRetrieveSensitiveDetailsParams
 import com.increase.api.models.CardUpdateParams
 
 interface CardServiceAsync {
@@ -41,8 +41,8 @@ interface CardServiceAsync {
     ): CardListPageAsync
 
     /** Retrieve sensitive details for a Card */
-    suspend fun retrieveSensitiveDetails(
-        params: CardRetrieveSensitiveDetailsParams,
+    suspend fun details(
+        params: CardDetailsParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): CardDetails
 }

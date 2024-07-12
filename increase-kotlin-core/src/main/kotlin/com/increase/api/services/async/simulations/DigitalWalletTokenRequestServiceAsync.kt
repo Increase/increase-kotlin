@@ -5,8 +5,8 @@
 package com.increase.api.services.async.simulations
 
 import com.increase.api.core.RequestOptions
-import com.increase.api.models.DigitalWalletTokenRequestCreateResponse
 import com.increase.api.models.SimulationDigitalWalletTokenRequestCreateParams
+import com.increase.api.models.SimulationDigitalWalletTokenRequestCreateResponse
 
 interface DigitalWalletTokenRequestServiceAsync {
 
@@ -14,5 +14,5 @@ interface DigitalWalletTokenRequestServiceAsync {
     suspend fun create(
         params: SimulationDigitalWalletTokenRequestCreateParams,
         requestOptions: RequestOptions = RequestOptions.none()
-    ): DigitalWalletTokenRequestCreateResponse
+    ): SimulationDigitalWalletTokenRequestCreateResponse
 }
