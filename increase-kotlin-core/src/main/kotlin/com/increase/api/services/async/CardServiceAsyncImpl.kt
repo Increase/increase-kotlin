@@ -11,10 +11,10 @@ import com.increase.api.errors.IncreaseError
 import com.increase.api.models.Card
 import com.increase.api.models.CardCreateParams
 import com.increase.api.models.CardDetails
+import com.increase.api.models.CardDetailsParams
 import com.increase.api.models.CardListPageAsync
 import com.increase.api.models.CardListParams
 import com.increase.api.models.CardRetrieveParams
-import com.increase.api.models.CardRetrieveSensitiveDetailsParams
 import com.increase.api.models.CardUpdateParams
 import com.increase.api.services.errorHandler
 import com.increase.api.services.json
@@ -138,12 +138,12 @@ constructor(
         }
     }
 
-    private val retrieveSensitiveDetailsHandler: Handler<CardDetails> =
+    private val detailsHandler: Handler<CardDetails> =
         jsonHandler<CardDetails>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
     /** Retrieve sensitive details for a Card */
-    override suspend fun retrieveSensitiveDetails(
-        params: CardRetrieveSensitiveDetailsParams,
+    override suspend fun details(
+        params: CardDetailsParams,
         requestOptions: RequestOptions
     ): CardDetails {
         val request =
@@ -157,7 +157,7 @@ constructor(
                 .build()
         return clientOptions.httpClient.executeAsync(request, requestOptions).let { response ->
             response
-                .use { retrieveSensitiveDetailsHandler.handle(it) }
+                .use { detailsHandler.handle(it) }
                 .apply {
                     if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
                         validate()

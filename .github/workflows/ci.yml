@@ -12,7 +12,7 @@ jobs:
   lint:
     name: lint
     runs-on: ubuntu-latest
-    if: github.repository == 'increase/increase-kotlin'
+    
 
     steps:
       - uses: actions/checkout@v4

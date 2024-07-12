@@ -24,7 +24,7 @@ private constructor(
 
     fun response(): Response = response
 
-    fun data(): List<RoutingNumber> = response().data()
+    fun data(): List<RoutingNumberListResponse> = response().data()
 
     fun nextCursor(): String? = response().nextCursor()
 
@@ -93,18 +93,18 @@ private constructor(
     @NoAutoDetect
     class Response
     constructor(
-        private val data: JsonField<List<RoutingNumber>>,
+        private val data: JsonField<List<RoutingNumberListResponse>>,
         private val nextCursor: JsonField<String>,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         private var validated: Boolean = false
 
-        fun data(): List<RoutingNumber> = data.getNullable("data") ?: listOf()
+        fun data(): List<RoutingNumberListResponse> = data.getNullable("data") ?: listOf()
 
         fun nextCursor(): String? = nextCursor.getNullable("next_cursor")
 
-        @JsonProperty("data") fun _data(): JsonField<List<RoutingNumber>>? = data
+        @JsonProperty("data") fun _data(): JsonField<List<RoutingNumberListResponse>>? = data
 
         @JsonProperty("next_cursor") fun _nextCursor(): JsonField<String>? = nextCursor
 
@@ -151,7 +151,7 @@ private constructor(
 
         class Builder {
 
-            private var data: JsonField<List<RoutingNumber>> = JsonMissing.of()
+            private var data: JsonField<List<RoutingNumberListResponse>> = JsonMissing.of()
             private var nextCursor: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -161,10 +161,10 @@ private constructor(
                 this.additionalProperties.putAll(page.additionalProperties)
             }
 
-            fun data(data: List<RoutingNumber>) = data(JsonField.of(data))
+            fun data(data: List<RoutingNumberListResponse>) = data(JsonField.of(data))
 
             @JsonProperty("data")
-            fun data(data: JsonField<List<RoutingNumber>>) = apply { this.data = data }
+            fun data(data: JsonField<List<RoutingNumberListResponse>>) = apply { this.data = data }
 
             fun nextCursor(nextCursor: String) = nextCursor(JsonField.of(nextCursor))
 
@@ -188,9 +188,9 @@ private constructor(
     class AutoPager
     constructor(
         private val firstPage: RoutingNumberListPage,
-    ) : Sequence<RoutingNumber> {
+    ) : Sequence<RoutingNumberListResponse> {
 
-        override fun iterator(): Iterator<RoutingNumber> = iterator {
+        override fun iterator(): Iterator<RoutingNumberListResponse> = iterator {
             var page = firstPage
             var index = 0
             while (true) {

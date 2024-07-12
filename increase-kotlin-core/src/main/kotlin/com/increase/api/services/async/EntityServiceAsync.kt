@@ -6,24 +6,19 @@ package com.increase.api.services.async
 
 import com.increase.api.core.RequestOptions
 import com.increase.api.models.Entity
+import com.increase.api.models.EntityArchiveBeneficialOwnerParams
 import com.increase.api.models.EntityArchiveParams
 import com.increase.api.models.EntityConfirmParams
+import com.increase.api.models.EntityCreateBeneficialOwnerParams
 import com.increase.api.models.EntityCreateParams
 import com.increase.api.models.EntityListPageAsync
 import com.increase.api.models.EntityListParams
 import com.increase.api.models.EntityRetrieveParams
 import com.increase.api.models.EntityUpdateAddressParams
-import com.increase.api.services.async.entities.BeneficialOwnerServiceAsync
-import com.increase.api.services.async.entities.IndustryCodeServiceAsync
-import com.increase.api.services.async.entities.SupplementalDocumentServiceAsync
+import com.increase.api.models.EntityUpdateBeneficialOwnerAddressParams
+import com.increase.api.models.EntityUpdateIndustryCodeParams
 
 interface EntityServiceAsync {
-
-    fun beneficialOwners(): BeneficialOwnerServiceAsync
-
-    fun supplementalDocuments(): SupplementalDocumentServiceAsync
-
-    fun industryCode(): IndustryCodeServiceAsync
 
     /** Create an Entity */
     suspend fun create(
@@ -49,6 +44,12 @@ interface EntityServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none()
     ): Entity
 
+    /** Archive a beneficial owner for a corporate Entity */
+    suspend fun archiveBeneficialOwner(
+        params: EntityArchiveBeneficialOwnerParams,
+        requestOptions: RequestOptions = RequestOptions.none()
+    ): Entity
+
     /**
      * Depending on your program, you may be required to re-confirm an Entity's details on a
      * recurring basis. After making any required updates, call this endpoint to record that your
@@ -59,9 +60,27 @@ interface EntityServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none()
     ): Entity
 
+    /** Create a beneficial owner for a corporate Entity */
+    suspend fun createBeneficialOwner(
+        params: EntityCreateBeneficialOwnerParams,
+        requestOptions: RequestOptions = RequestOptions.none()
+    ): Entity
+
     /** Update a Natural Person or Corporation's address */
     suspend fun updateAddress(
         params: EntityUpdateAddressParams,
+        requestOptions: RequestOptions = RequestOptions.none()
+    ): Entity
+
+    /** Update the address for a beneficial owner belonging to a corporate Entity */
+    suspend fun updateBeneficialOwnerAddress(
+        params: EntityUpdateBeneficialOwnerAddressParams,
+        requestOptions: RequestOptions = RequestOptions.none()
+    ): Entity
+
+    /** Update the industry code for a corporate Entity */
+    suspend fun updateIndustryCode(
+        params: EntityUpdateIndustryCodeParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): Entity
 }

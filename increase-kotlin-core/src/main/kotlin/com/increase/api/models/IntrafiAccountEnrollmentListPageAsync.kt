@@ -12,14 +12,14 @@ import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.toUnmodifiable
-import com.increase.api.services.async.intrafi.AccountEnrollmentServiceAsync
+import com.increase.api.services.async.IntrafiAccountEnrollmentServiceAsync
 import java.util.Objects
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 
 class IntrafiAccountEnrollmentListPageAsync
 private constructor(
-    private val accountEnrollmentsService: AccountEnrollmentServiceAsync,
+    private val intrafiAccountEnrollmentsService: IntrafiAccountEnrollmentServiceAsync,
     private val params: IntrafiAccountEnrollmentListParams,
     private val response: Response,
 ) {
@@ -36,21 +36,21 @@ private constructor(
         }
 
         return other is IntrafiAccountEnrollmentListPageAsync &&
-            this.accountEnrollmentsService == other.accountEnrollmentsService &&
+            this.intrafiAccountEnrollmentsService == other.intrafiAccountEnrollmentsService &&
             this.params == other.params &&
             this.response == other.response
     }
 
     override fun hashCode(): Int {
         return Objects.hash(
-            accountEnrollmentsService,
+            intrafiAccountEnrollmentsService,
             params,
             response,
         )
     }
 
     override fun toString() =
-        "IntrafiAccountEnrollmentListPageAsync{accountEnrollmentsService=$accountEnrollmentsService, params=$params, response=$response}"
+        "IntrafiAccountEnrollmentListPageAsync{intrafiAccountEnrollmentsService=$intrafiAccountEnrollmentsService, params=$params, response=$response}"
 
     fun hasNextPage(): Boolean {
         if (data().isEmpty()) {
@@ -72,7 +72,7 @@ private constructor(
     }
 
     suspend fun getNextPage(): IntrafiAccountEnrollmentListPageAsync? {
-        return getNextPageParams()?.let { accountEnrollmentsService.list(it) }
+        return getNextPageParams()?.let { intrafiAccountEnrollmentsService.list(it) }
     }
 
     fun autoPager(): AutoPager = AutoPager(this)
@@ -80,12 +80,12 @@ private constructor(
     companion object {
 
         fun of(
-            accountEnrollmentsService: AccountEnrollmentServiceAsync,
+            intrafiAccountEnrollmentsService: IntrafiAccountEnrollmentServiceAsync,
             params: IntrafiAccountEnrollmentListParams,
             response: Response
         ) =
             IntrafiAccountEnrollmentListPageAsync(
-                accountEnrollmentsService,
+                intrafiAccountEnrollmentsService,
                 params,
                 response,
             )

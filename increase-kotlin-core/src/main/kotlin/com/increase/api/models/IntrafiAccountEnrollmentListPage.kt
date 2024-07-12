@@ -12,12 +12,12 @@ import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.toUnmodifiable
-import com.increase.api.services.blocking.intrafi.AccountEnrollmentService
+import com.increase.api.services.blocking.IntrafiAccountEnrollmentService
 import java.util.Objects
 
 class IntrafiAccountEnrollmentListPage
 private constructor(
-    private val accountEnrollmentsService: AccountEnrollmentService,
+    private val intrafiAccountEnrollmentsService: IntrafiAccountEnrollmentService,
     private val params: IntrafiAccountEnrollmentListParams,
     private val response: Response,
 ) {
@@ -34,21 +34,21 @@ private constructor(
         }
 
         return other is IntrafiAccountEnrollmentListPage &&
-            this.accountEnrollmentsService == other.accountEnrollmentsService &&
+            this.intrafiAccountEnrollmentsService == other.intrafiAccountEnrollmentsService &&
             this.params == other.params &&
             this.response == other.response
     }
 
     override fun hashCode(): Int {
         return Objects.hash(
-            accountEnrollmentsService,
+            intrafiAccountEnrollmentsService,
             params,
             response,
         )
     }
 
     override fun toString() =
-        "IntrafiAccountEnrollmentListPage{accountEnrollmentsService=$accountEnrollmentsService, params=$params, response=$response}"
+        "IntrafiAccountEnrollmentListPage{intrafiAccountEnrollmentsService=$intrafiAccountEnrollmentsService, params=$params, response=$response}"
 
     fun hasNextPage(): Boolean {
         if (data().isEmpty()) {
@@ -70,7 +70,7 @@ private constructor(
     }
 
     fun getNextPage(): IntrafiAccountEnrollmentListPage? {
-        return getNextPageParams()?.let { accountEnrollmentsService.list(it) }
+        return getNextPageParams()?.let { intrafiAccountEnrollmentsService.list(it) }
     }
 
     fun autoPager(): AutoPager = AutoPager(this)
@@ -78,12 +78,12 @@ private constructor(
     companion object {
 
         fun of(
-            accountEnrollmentsService: AccountEnrollmentService,
+            intrafiAccountEnrollmentsService: IntrafiAccountEnrollmentService,
             params: IntrafiAccountEnrollmentListParams,
             response: Response
         ) =
             IntrafiAccountEnrollmentListPage(
-                accountEnrollmentsService,
+                intrafiAccountEnrollmentsService,
                 params,
                 response,
             )
