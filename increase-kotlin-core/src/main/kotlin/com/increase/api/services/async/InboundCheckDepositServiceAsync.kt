@@ -10,6 +10,7 @@ import com.increase.api.models.InboundCheckDepositDeclineParams
 import com.increase.api.models.InboundCheckDepositListPageAsync
 import com.increase.api.models.InboundCheckDepositListParams
 import com.increase.api.models.InboundCheckDepositRetrieveParams
+import com.increase.api.models.InboundCheckDepositReturnParams
 
 interface InboundCheckDepositServiceAsync {
 
@@ -28,6 +29,12 @@ interface InboundCheckDepositServiceAsync {
     /** Decline an Inbound Check Deposit */
     suspend fun decline(
         params: InboundCheckDepositDeclineParams,
+        requestOptions: RequestOptions = RequestOptions.none()
+    ): InboundCheckDeposit
+
+    /** Return an Inbound Check Deposit */
+    suspend fun return_(
+        params: InboundCheckDepositReturnParams,
         requestOptions: RequestOptions = RequestOptions.none()
     ): InboundCheckDeposit
 }
