@@ -1,5 +1,303 @@
 # Changelog
 
+## 0.58.0 (2024-07-14)
+
+Full Changelog: [v0.57.1...v0.58.0](https://github.com/Increase/increase-kotlin/compare/v0.57.1...v0.58.0)
+
+### Features
+
+* **api:** OpenAPI spec update via Stainless API ([#298](https://github.com/Increase/increase-kotlin/issues/298)) ([4f71f0c](https://github.com/Increase/increase-kotlin/commit/4f71f0c1721b2f8bdc774d57d7b46ab350253c3c))
+* **api:** OpenAPI spec update via Stainless API ([#300](https://github.com/Increase/increase-kotlin/issues/300)) ([92d7a0c](https://github.com/Increase/increase-kotlin/commit/92d7a0c88b0913b0986b1b221770b4f4a7077730))
+* **api:** OpenAPI spec update via Stainless API ([#301](https://github.com/Increase/increase-kotlin/issues/301)) ([ce0a8be](https://github.com/Increase/increase-kotlin/commit/ce0a8be1b2673618916c2625b88ce783d2041d47))
+* **api:** OpenAPI spec update via Stainless API ([#302](https://github.com/Increase/increase-kotlin/issues/302)) ([18965b8](https://github.com/Increase/increase-kotlin/commit/18965b8341e32771f17511f5a661c25ec542abb5))
+* **api:** OpenAPI spec update via Stainless API ([#303](https://github.com/Increase/increase-kotlin/issues/303)) ([5734864](https://github.com/Increase/increase-kotlin/commit/5734864384804623f1ad7aa07312e9d732eba06f))
+* **api:** OpenAPI spec update via Stainless API ([#304](https://github.com/Increase/increase-kotlin/issues/304)) ([4747c0e](https://github.com/Increase/increase-kotlin/commit/4747c0e95fac21a4a06b7462f8ad7346a457f6d2))
+
+## 0.57.1 (2024-07-11)
+
+Full Changelog: [v0.57.0...v0.57.1](https://github.com/Increase/increase-kotlin/compare/v0.57.0...v0.57.1)
+
+### Chores
+
+* **ci:** also run workflows for PRs targeting `next` ([#296](https://github.com/Increase/increase-kotlin/issues/296)) ([312565e](https://github.com/Increase/increase-kotlin/commit/312565ebbfa7eb652a520bd0360db71895095fff))
+* **docs:** document minimum Java version (Java 8) in README ([#294](https://github.com/Increase/increase-kotlin/issues/294)) ([fcf6ffe](https://github.com/Increase/increase-kotlin/commit/fcf6ffe4d3d6a560a24f46947f48403308e4dbbd))
+
+
+### Documentation
+
+* **examples:** update example values ([#297](https://github.com/Increase/increase-kotlin/issues/297)) ([8a61c33](https://github.com/Increase/increase-kotlin/commit/8a61c33872d19f9fd99fe5051d33023434740c05))
+
+## 0.57.0 (2024-07-04)
+
+Full Changelog: [v0.56.0...v0.57.0](https://github.com/Increase/increase-kotlin/compare/v0.56.0...v0.57.0)
+
+### Features
+
+* **api:** add property 'receiver identification number' to 'originator company entry description' ([#292](https://github.com/Increase/increase-kotlin/issues/292)) ([d34e6b5](https://github.com/Increase/increase-kotlin/commit/d34e6b5af2e728f588d67159fe9afc4859563f08))
+
+## 0.56.0 (2024-07-02)
+
+Full Changelog: [v0.55.0...v0.56.0](https://github.com/Increase/increase-kotlin/compare/v0.55.0...v0.56.0)
+
+### Features
+
+* **api:** add deposit return property to inbound check deposit model ([#290](https://github.com/Increase/increase-kotlin/issues/290)) ([2826a54](https://github.com/Increase/increase-kotlin/commit/2826a547ee06ce4fa7f5e5b8df7a7edeb97f604d))
+
+## 0.55.0 (2024-07-01)
+
+Full Changelog: [v0.54.0...v0.55.0](https://github.com/Increase/increase-kotlin/compare/v0.54.0...v0.55.0)
+
+### Features
+
+* **api:** add method to simulate international ACH transfers ([#288](https://github.com/Increase/increase-kotlin/issues/288)) ([f721922](https://github.com/Increase/increase-kotlin/commit/f7219227079320247fb95c81766156692b5585b5))
+
+## 0.54.0 (2024-06-28)
+
+Full Changelog: [v0.53.0...v0.54.0](https://github.com/Increase/increase-kotlin/compare/v0.53.0...v0.54.0)
+
+### Features
+
+* **api:** updates ([#287](https://github.com/Increase/increase-kotlin/issues/287)) ([df79d67](https://github.com/Increase/increase-kotlin/commit/df79d67b27c0a31a90226dc3f28041afdf16313d))
+* **client:** add support for `putQueryParam` on `ClientOptions` ([#284](https://github.com/Increase/increase-kotlin/issues/284)) ([2687a0b](https://github.com/Increase/increase-kotlin/commit/2687a0bef3c1817e8dc50b4d0dd70818285f1f02))
+
+
+### Chores
+
+* gitignore test server logs ([#286](https://github.com/Increase/increase-kotlin/issues/286)) ([a792e41](https://github.com/Increase/increase-kotlin/commit/a792e419ffc8256d2fd30e279577cbe8d53c79ce))
+
+## 0.53.0 (2024-06-04)
+
+Full Changelog: [v0.52.0...v0.53.0](https://github.com/Increase/increase-kotlin/compare/v0.52.0...v0.53.0)
+
+### Features
+
+* **api:** add `default_digital_card_profile_id` property ([#282](https://github.com/Increase/increase-kotlin/issues/282)) ([b825118](https://github.com/Increase/increase-kotlin/commit/b825118382e96d63ee54bc454a10f379a1ee12ff))
+
+## 0.52.0 (2024-06-03)
+
+Full Changelog: [v0.51.0...v0.52.0](https://github.com/Increase/increase-kotlin/compare/v0.51.0...v0.52.0)
+
+### Features
+
+* **api:** add trace number to ach transfer returns ([#280](https://github.com/Increase/increase-kotlin/issues/280)) ([45b8525](https://github.com/Increase/increase-kotlin/commit/45b8525f9538920ab81bcba4fb1ecac90c9621f0))
+* **api:** updates ([#281](https://github.com/Increase/increase-kotlin/issues/281)) ([3b404c1](https://github.com/Increase/increase-kotlin/commit/3b404c1fed9f57b2678a9d2f26dacac87a35774a))
+
+
+### Chores
+
+* **internal:** add dev scripts ([#278](https://github.com/Increase/increase-kotlin/issues/278)) ([682c5b3](https://github.com/Increase/increase-kotlin/commit/682c5b378b9c6615f340fa9e83579c7d1db9fc24))
+
+## 0.51.0 (2024-05-23)
+
+Full Changelog: [v0.50.0...v0.51.0](https://github.com/Increase/increase-kotlin/compare/v0.50.0...v0.51.0)
+
+### Features
+
+* **api:** realtime decision updates ([#276](https://github.com/Increase/increase-kotlin/issues/276)) ([0c3b14d](https://github.com/Increase/increase-kotlin/commit/0c3b14d284d3188cb0507ad41987f45060b18004))
+
+## 0.50.0 (2024-05-15)
+
+Full Changelog: [v0.49.0...v0.50.0](https://github.com/Increase/increase-kotlin/compare/v0.49.0...v0.50.0)
+
+### Features
+
+* **api:** updates ([#275](https://github.com/Increase/increase-kotlin/issues/275)) ([fb64636](https://github.com/Increase/increase-kotlin/commit/fb6463611a0ce47e7ab9f4f9aa82f588005b6d5f))
+
+
+### Chores
+
+* **docs:** add SECURITY.md ([#271](https://github.com/Increase/increase-kotlin/issues/271)) ([3a5a0a1](https://github.com/Increase/increase-kotlin/commit/3a5a0a1713f3e4a10e7b73c1d09eb00933ecbfb0))
+* **internal:** add scripts-to-rule-them-all ([#274](https://github.com/Increase/increase-kotlin/issues/274)) ([9aa17e3](https://github.com/Increase/increase-kotlin/commit/9aa17e33409c773c32f83f09a8f0689702fc0c62))
+
+
+### Documentation
+
+* **api:** update examples & docstrings ([#273](https://github.com/Increase/increase-kotlin/issues/273)) ([157ffb1](https://github.com/Increase/increase-kotlin/commit/157ffb193e9d0ca1660f1363e981068bede10f9b))
+
+## 0.49.0 (2024-05-10)
+
+Full Changelog: [v0.48.0...v0.49.0](https://github.com/Increase/increase-kotlin/compare/v0.48.0...v0.49.0)
+
+### Features
+
+* **api:** enhance API with extended transaction details and new entity types ([#270](https://github.com/Increase/increase-kotlin/issues/270)) ([a06edc1](https://github.com/Increase/increase-kotlin/commit/a06edc14715565da6d17a92dd0bca9589a5fae77))
+* propagate resource description field from stainless config to SDK docs ([#268](https://github.com/Increase/increase-kotlin/issues/268)) ([45adef6](https://github.com/Increase/increase-kotlin/commit/45adef65a69b421a6749a95799952ccba64c4938))
+
+## 0.48.0 (2024-05-01)
+
+Full Changelog: [v0.47.0...v0.48.0](https://github.com/Increase/increase-kotlin/compare/v0.47.0...v0.48.0)
+
+### Features
+
+* **api:** updates ([#266](https://github.com/Increase/increase-kotlin/issues/266)) ([698b34e](https://github.com/Increase/increase-kotlin/commit/698b34e1b71e9235f5d55dc434543ffcd10a2ab2))
+
+
+### Bug Fixes
+
+* **client:** do not strip date-time 00 seconds when getQueryParams() is called ([#261](https://github.com/Increase/increase-kotlin/issues/261)) ([f400e5b](https://github.com/Increase/increase-kotlin/commit/f400e5b50e5c6eed1b26f4f6d4d69f186b5116f1))
+
+
+### Chores
+
+* **internal:** add link to openapi spec ([#263](https://github.com/Increase/increase-kotlin/issues/263)) ([d417af7](https://github.com/Increase/increase-kotlin/commit/d417af729dc691658386031d7179d4090244033e))
+* **internal:** add scripts/mock ([#264](https://github.com/Increase/increase-kotlin/issues/264)) ([26650a8](https://github.com/Increase/increase-kotlin/commit/26650a825c53b6ef7c6d8fc6c348ddf8a9dc0491))
+* **internal:** bump mock server version to ~5.8.0 ([#265](https://github.com/Increase/increase-kotlin/issues/265)) ([c609dd5](https://github.com/Increase/increase-kotlin/commit/c609dd56e459d49d35b7e7abeec7d0a7a3cf96de))
+
+## 0.47.0 (2024-04-25)
+
+Full Changelog: [v0.46.0...v0.47.0](https://github.com/Increase/increase-kotlin/compare/v0.46.0...v0.47.0)
+
+### ⚠ BREAKING CHANGES
+
+* require account ID for creating an ACH prenotification ([#260](https://github.com/Increase/increase-kotlin/issues/260))
+
+### Bug Fixes
+
+* require account ID for creating an ACH prenotification ([#260](https://github.com/Increase/increase-kotlin/issues/260)) ([28f9f66](https://github.com/Increase/increase-kotlin/commit/28f9f665ca8d3ad60de7147e8c483c3469e61858))
+
+
+### Chores
+
+* **internal:** use actions/checkout@v4 for codeflow ([#258](https://github.com/Increase/increase-kotlin/issues/258)) ([b520dc0](https://github.com/Increase/increase-kotlin/commit/b520dc0b772b22ae205be6c56999322f6999a955))
+
+## 0.46.0 (2024-04-23)
+
+Full Changelog: [v0.45.0...v0.46.0](https://github.com/Increase/increase-kotlin/compare/v0.45.0...v0.46.0)
+
+### Features
+
+* **api:** remove inbound_wire_drawdown_payment_reversal ([#257](https://github.com/Increase/increase-kotlin/issues/257)) ([bc82d6a](https://github.com/Increase/increase-kotlin/commit/bc82d6a2b5aea720a455dde206fd14ea02db6338))
+
+
+### Chores
+
+* **ci:** validate Gradle wrapper ([#254](https://github.com/Increase/increase-kotlin/issues/254)) ([47f536d](https://github.com/Increase/increase-kotlin/commit/47f536de3dc61dab48c69d9e0ace42ace0c67aa6))
+* **internal:** gradlew v8.7, use gradle task config avoidance APIs ([#256](https://github.com/Increase/increase-kotlin/issues/256)) ([955eaa1](https://github.com/Increase/increase-kotlin/commit/955eaa19c07f8c830b9dff57d28f342f29dda96d))
+
+## 0.45.0 (2024-04-19)
+
+Full Changelog: [v0.44.0...v0.45.0](https://github.com/Increase/increase-kotlin/compare/v0.44.0...v0.45.0)
+
+### Features
+
+* **api:** add account_id param to ach_prenotification and third_party to check_transfer ([#252](https://github.com/Increase/increase-kotlin/issues/252)) ([c842d14](https://github.com/Increase/increase-kotlin/commit/c842d1466cdb74d27c5f4d5816e94a9824af73da))
+
+## 0.44.0 (2024-04-18)
+
+Full Changelog: [v0.43.0...v0.44.0](https://github.com/Increase/increase-kotlin/compare/v0.43.0...v0.44.0)
+
+### Features
+
+* **api:** add inbound_check_deposits decline endpoint ([#250](https://github.com/Increase/increase-kotlin/issues/250)) ([40b198f](https://github.com/Increase/increase-kotlin/commit/40b198fa804f78610ab237a1d1375d217b7f61bd))
+
+## 0.43.0 (2024-04-17)
+
+Full Changelog: [v0.42.0...v0.43.0](https://github.com/Increase/increase-kotlin/compare/v0.42.0...v0.43.0)
+
+### Features
+
+* **api:** add altered_or_fictitious check decline reason ([#248](https://github.com/Increase/increase-kotlin/issues/248)) ([046d638](https://github.com/Increase/increase-kotlin/commit/046d638f6802ef8b4e3e96292b71f77c35eaa051))
+
+## 0.42.0 (2024-04-16)
+
+Full Changelog: [v0.41.0...v0.42.0](https://github.com/Increase/increase-kotlin/compare/v0.41.0...v0.42.0)
+
+### Features
+
+* **api:** remove deposit field from check transfer ([#247](https://github.com/Increase/increase-kotlin/issues/247)) ([3a251f8](https://github.com/Increase/increase-kotlin/commit/3a251f86851cc5c2d2b9daafe73c66fae46303fa))
+
+
+### Build System
+
+* configure UTF-8 locale in devcontainer ([#245](https://github.com/Increase/increase-kotlin/issues/245)) ([175cb14](https://github.com/Increase/increase-kotlin/commit/175cb14412cff885529d2b2aeec4e666bf834dff))
+
+## 0.41.0 (2024-04-16)
+
+Full Changelog: [v0.40.1...v0.41.0](https://github.com/Increase/increase-kotlin/compare/v0.40.1...v0.41.0)
+
+### Features
+
+* **api:** add /inbound_check_deposits endpoints ([#244](https://github.com/Increase/increase-kotlin/issues/244)) ([2860c3b](https://github.com/Increase/increase-kotlin/commit/2860c3b7bdcd045d969c2584dc6d9017858eedb3))
+
+
+### Chores
+
+* **internal:** formatting ([#242](https://github.com/Increase/increase-kotlin/issues/242)) ([2a85379](https://github.com/Increase/increase-kotlin/commit/2a85379ef0c3a3fec196737132254b236d4c98e6))
+
+## 0.40.1 (2024-04-11)
+
+Full Changelog: [v0.40.0...v0.40.1](https://github.com/Increase/increase-kotlin/compare/v0.40.0...v0.40.1)
+
+### Bug Fixes
+
+* **types:** mark physical card cardholder as required ([#240](https://github.com/Increase/increase-kotlin/issues/240)) ([9e48c3f](https://github.com/Increase/increase-kotlin/commit/9e48c3f44cd62404771e1d21960afd0640af8870))
+
+## 0.40.0 (2024-04-10)
+
+Full Changelog: [v0.39.0...v0.40.0](https://github.com/Increase/increase-kotlin/compare/v0.39.0...v0.40.0)
+
+### Features
+
+* **api:** updates ([#238](https://github.com/Increase/increase-kotlin/issues/238)) ([b0e9371](https://github.com/Increase/increase-kotlin/commit/b0e937167ee18d3a61ffbb34eb94d80ec33a89c4))
+* **client:** implement support for multipart/form-data body requests ([#239](https://github.com/Increase/increase-kotlin/issues/239)) ([8ea0590](https://github.com/Increase/increase-kotlin/commit/8ea059005aa72562848f1bd110926f48c1133ab0))
+
+
+### Chores
+
+* **tests:** import wiremock.client.WireMock.put ([#237](https://github.com/Increase/increase-kotlin/issues/237)) ([1e7a3d2](https://github.com/Increase/increase-kotlin/commit/1e7a3d2c8b0df036c3b7fd73d312262d874dc362))
+
+
+### Documentation
+
+* **api:** update links to NAICS classification codes ([#235](https://github.com/Increase/increase-kotlin/issues/235)) ([7665b3b](https://github.com/Increase/increase-kotlin/commit/7665b3b38fd55ac87562e82035680fcad376ea51))
+
+## 0.39.0 (2024-04-05)
+
+Full Changelog: [v0.38.0...v0.39.0](https://github.com/Increase/increase-kotlin/compare/v0.38.0...v0.39.0)
+
+### Features
+
+* **api:** add inbound check deposit return intention ([#233](https://github.com/Increase/increase-kotlin/issues/233)) ([df24c91](https://github.com/Increase/increase-kotlin/commit/df24c91e79d9f5a8204bc61085fd89d9bb9f965a))
+
+## 0.38.0 (2024-04-04)
+
+Full Changelog: [v0.37.0...v0.38.0](https://github.com/Increase/increase-kotlin/compare/v0.37.0...v0.38.0)
+
+### Features
+
+* **api:** remove inbound_check category, rename check_deposit_mail_item, add inbound_mail_item ([#232](https://github.com/Increase/increase-kotlin/issues/232)) ([2991aa8](https://github.com/Increase/increase-kotlin/commit/2991aa8175e2d36a15511c8908330f5cfd3edbc3))
+
+
+### Chores
+
+* **deps:** update jackson to v2.14.3 ([#227](https://github.com/Increase/increase-kotlin/issues/227)) ([f2c94ec](https://github.com/Increase/increase-kotlin/commit/f2c94ec8c98ba0fedc443623cfb42a0687a3fa4d))
+* **deps:** update junit5 to v5.9.3 ([#230](https://github.com/Increase/increase-kotlin/issues/230)) ([1257df0](https://github.com/Increase/increase-kotlin/commit/1257df06a51bd232d99e000a38a8ff383778fd42))
+* **deps:** update kotlin-gradle-plugin to v1.9.23 ([#229](https://github.com/Increase/increase-kotlin/issues/229)) ([fbbeadb](https://github.com/Increase/increase-kotlin/commit/fbbeadb10449fd476b69292be666750f267d20ac))
+* **deps:** update kotlinx-coroutines-core to v1.8.0 ([#231](https://github.com/Increase/increase-kotlin/issues/231)) ([90979c1](https://github.com/Increase/increase-kotlin/commit/90979c16ed354d728a4bcf574ef741241dcbe9d9))
+
+## 0.37.0 (2024-04-02)
+
+Full Changelog: [v0.36.0...v0.37.0](https://github.com/Increase/increase-kotlin/compare/v0.36.0...v0.37.0)
+
+### Features
+
+* **api:** filter OAuth connections by their status ([#225](https://github.com/Increase/increase-kotlin/issues/225)) ([9a0494a](https://github.com/Increase/increase-kotlin/commit/9a0494a801706c0eb609e4bac45c0c7e990f82f0))
+
+## 0.36.0 (2024-03-29)
+
+Full Changelog: [v0.35.0...v0.36.0](https://github.com/Increase/increase-kotlin/compare/v0.35.0...v0.36.0)
+
+### Features
+
+* **api:** remove check transfer intention ([#224](https://github.com/Increase/increase-kotlin/issues/224)) ([b2538bd](https://github.com/Increase/increase-kotlin/commit/b2538bde03b56e9a6eb74c6663a454d26bc294ec))
+* **api:** updates ([#223](https://github.com/Increase/increase-kotlin/issues/223)) ([0d44975](https://github.com/Increase/increase-kotlin/commit/0d449753442b2b06d84a9ea863ebd15b78458db8))
+
+
+### Chores
+
+* revert temporary commit ([acce7f7](https://github.com/Increase/increase-kotlin/commit/acce7f75a2e6c064bb0ef22d93b46449b90b2425))
+* temporary commit ([#221](https://github.com/Increase/increase-kotlin/issues/221)) ([ae970b9](https://github.com/Increase/increase-kotlin/commit/ae970b94f5efdb58af2ef672b39be4a18826c37e))
+
 ## 0.35.0 (2024-03-27)
 
 Full Changelog: [v0.34.0...v0.35.0](https://github.com/Increase/increase-kotlin/compare/v0.34.0...v0.35.0)
