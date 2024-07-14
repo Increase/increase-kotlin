@@ -159,7 +159,6 @@ constructor(
 
     private val eventSubscriptions: EventSubscriptionServiceAsync by lazy {
         EventSubscriptionServiceAsyncImpl(clientOptions)
-    }
 
     private val realTimeDecisions: RealTimeDecisionServiceAsync by lazy {
         RealTimeDecisionServiceAsyncImpl(clientOptions)
