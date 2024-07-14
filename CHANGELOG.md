@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.58.0 (2024-07-14)
+
+Full Changelog: [v0.57.1...v0.58.0](https://github.com/Increase/increase-kotlin/compare/v0.57.1...v0.58.0)
+
+### Features
+
+* **api:** OpenAPI spec update via Stainless API ([#298](https://github.com/Increase/increase-kotlin/issues/298)) ([4f71f0c](https://github.com/Increase/increase-kotlin/commit/4f71f0c1721b2f8bdc774d57d7b46ab350253c3c))
+* **api:** OpenAPI spec update via Stainless API ([#300](https://github.com/Increase/increase-kotlin/issues/300)) ([92d7a0c](https://github.com/Increase/increase-kotlin/commit/92d7a0c88b0913b0986b1b221770b4f4a7077730))
+* **api:** OpenAPI spec update via Stainless API ([#301](https://github.com/Increase/increase-kotlin/issues/301)) ([ce0a8be](https://github.com/Increase/increase-kotlin/commit/ce0a8be1b2673618916c2625b88ce783d2041d47))
+* **api:** OpenAPI spec update via Stainless API ([#302](https://github.com/Increase/increase-kotlin/issues/302)) ([18965b8](https://github.com/Increase/increase-kotlin/commit/18965b8341e32771f17511f5a661c25ec542abb5))
+* **api:** OpenAPI spec update via Stainless API ([#303](https://github.com/Increase/increase-kotlin/issues/303)) ([5734864](https://github.com/Increase/increase-kotlin/commit/5734864384804623f1ad7aa07312e9d732eba06f))
+* **api:** OpenAPI spec update via Stainless API ([#304](https://github.com/Increase/increase-kotlin/issues/304)) ([4747c0e](https://github.com/Increase/increase-kotlin/commit/4747c0e95fac21a4a06b7462f8ad7346a457f6d2))
+
 ## 0.57.1 (2024-07-11)
 
 Full Changelog: [v0.57.0...v0.57.1](https://github.com/Increase/increase-kotlin/compare/v0.57.0...v0.57.1)
