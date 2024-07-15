@@ -31,7 +31,6 @@ constructor(
     private val originatorToBeneficiaryInformationLine2: String?,
     private val originatorToBeneficiaryInformationLine3: String?,
     private val originatorToBeneficiaryInformationLine4: String?,
-    private val senderReference: String?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
     private val additionalBodyProperties: Map<String, JsonValue>,
@@ -69,8 +68,6 @@ constructor(
 
     fun originatorToBeneficiaryInformationLine4(): String? = originatorToBeneficiaryInformationLine4
 
-    fun senderReference(): String? = senderReference
-
     internal fun getBody(): SimulationInboundWireTransferCreateBody {
         return SimulationInboundWireTransferCreateBody(
             accountNumberId,
@@ -89,7 +86,6 @@ constructor(
             originatorToBeneficiaryInformationLine2,
             originatorToBeneficiaryInformationLine3,
             originatorToBeneficiaryInformationLine4,
-            senderReference,
             additionalBodyProperties,
         )
     }
@@ -118,7 +114,6 @@ constructor(
         private val originatorToBeneficiaryInformationLine2: String?,
         private val originatorToBeneficiaryInformationLine3: String?,
         private val originatorToBeneficiaryInformationLine4: String?,
-        private val senderReference: String?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -229,12 +224,6 @@ constructor(
         fun originatorToBeneficiaryInformationLine4(): String? =
             originatorToBeneficiaryInformationLine4
 
-        /**
-         * The sending bank will set sender_reference in production. You can simulate any value
-         * here.
-         */
-        @JsonProperty("sender_reference") fun senderReference(): String? = senderReference
-
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -267,7 +256,6 @@ constructor(
                     other.originatorToBeneficiaryInformationLine3 &&
                 this.originatorToBeneficiaryInformationLine4 ==
                     other.originatorToBeneficiaryInformationLine4 &&
-                this.senderReference == other.senderReference &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -291,7 +279,6 @@ constructor(
                         originatorToBeneficiaryInformationLine2,
                         originatorToBeneficiaryInformationLine3,
                         originatorToBeneficiaryInformationLine4,
-                        senderReference,
                         additionalProperties,
                     )
             }
@@ -299,7 +286,7 @@ constructor(
         }
 
         override fun toString() =
-            "SimulationInboundWireTransferCreateBody{accountNumberId=$accountNumberId, amount=$amount, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, beneficiaryName=$beneficiaryName, beneficiaryReference=$beneficiaryReference, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, originatorRoutingNumber=$originatorRoutingNumber, originatorToBeneficiaryInformationLine1=$originatorToBeneficiaryInformationLine1, originatorToBeneficiaryInformationLine2=$originatorToBeneficiaryInformationLine2, originatorToBeneficiaryInformationLine3=$originatorToBeneficiaryInformationLine3, originatorToBeneficiaryInformationLine4=$originatorToBeneficiaryInformationLine4, senderReference=$senderReference, additionalProperties=$additionalProperties}"
+            "SimulationInboundWireTransferCreateBody{accountNumberId=$accountNumberId, amount=$amount, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, beneficiaryName=$beneficiaryName, beneficiaryReference=$beneficiaryReference, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, originatorRoutingNumber=$originatorRoutingNumber, originatorToBeneficiaryInformationLine1=$originatorToBeneficiaryInformationLine1, originatorToBeneficiaryInformationLine2=$originatorToBeneficiaryInformationLine2, originatorToBeneficiaryInformationLine3=$originatorToBeneficiaryInformationLine3, originatorToBeneficiaryInformationLine4=$originatorToBeneficiaryInformationLine4, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -324,7 +311,6 @@ constructor(
             private var originatorToBeneficiaryInformationLine2: String? = null
             private var originatorToBeneficiaryInformationLine3: String? = null
             private var originatorToBeneficiaryInformationLine4: String? = null
-            private var senderReference: String? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(
@@ -358,7 +344,6 @@ constructor(
                     simulationInboundWireTransferCreateBody.originatorToBeneficiaryInformationLine3
                 this.originatorToBeneficiaryInformationLine4 =
                     simulationInboundWireTransferCreateBody.originatorToBeneficiaryInformationLine4
-                this.senderReference = simulationInboundWireTransferCreateBody.senderReference
                 additionalProperties(simulationInboundWireTransferCreateBody.additionalProperties)
             }
 
@@ -509,15 +494,6 @@ constructor(
                     originatorToBeneficiaryInformationLine4
             }
 
-            /**
-             * The sending bank will set sender_reference in production. You can simulate any value
-             * here.
-             */
-            @JsonProperty("sender_reference")
-            fun senderReference(senderReference: String) = apply {
-                this.senderReference = senderReference
-            }
-
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 this.additionalProperties.putAll(additionalProperties)
@@ -552,7 +528,6 @@ constructor(
                     originatorToBeneficiaryInformationLine2,
                     originatorToBeneficiaryInformationLine3,
                     originatorToBeneficiaryInformationLine4,
-                    senderReference,
                     additionalProperties.toUnmodifiable(),
                 )
         }
@@ -590,7 +565,6 @@ constructor(
                 other.originatorToBeneficiaryInformationLine3 &&
             this.originatorToBeneficiaryInformationLine4 ==
                 other.originatorToBeneficiaryInformationLine4 &&
-            this.senderReference == other.senderReference &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders &&
             this.additionalBodyProperties == other.additionalBodyProperties
@@ -614,7 +588,6 @@ constructor(
             originatorToBeneficiaryInformationLine2,
             originatorToBeneficiaryInformationLine3,
             originatorToBeneficiaryInformationLine4,
-            senderReference,
             additionalQueryParams,
             additionalHeaders,
             additionalBodyProperties,
@@ -622,7 +595,7 @@ constructor(
     }
 
     override fun toString() =
-        "SimulationInboundWireTransferCreateParams{accountNumberId=$accountNumberId, amount=$amount, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, beneficiaryName=$beneficiaryName, beneficiaryReference=$beneficiaryReference, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, originatorRoutingNumber=$originatorRoutingNumber, originatorToBeneficiaryInformationLine1=$originatorToBeneficiaryInformationLine1, originatorToBeneficiaryInformationLine2=$originatorToBeneficiaryInformationLine2, originatorToBeneficiaryInformationLine3=$originatorToBeneficiaryInformationLine3, originatorToBeneficiaryInformationLine4=$originatorToBeneficiaryInformationLine4, senderReference=$senderReference, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "SimulationInboundWireTransferCreateParams{accountNumberId=$accountNumberId, amount=$amount, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, beneficiaryName=$beneficiaryName, beneficiaryReference=$beneficiaryReference, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, originatorRoutingNumber=$originatorRoutingNumber, originatorToBeneficiaryInformationLine1=$originatorToBeneficiaryInformationLine1, originatorToBeneficiaryInformationLine2=$originatorToBeneficiaryInformationLine2, originatorToBeneficiaryInformationLine3=$originatorToBeneficiaryInformationLine3, originatorToBeneficiaryInformationLine4=$originatorToBeneficiaryInformationLine4, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -650,7 +623,6 @@ constructor(
         private var originatorToBeneficiaryInformationLine2: String? = null
         private var originatorToBeneficiaryInformationLine3: String? = null
         private var originatorToBeneficiaryInformationLine4: String? = null
-        private var senderReference: String? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -686,7 +658,6 @@ constructor(
                 simulationInboundWireTransferCreateParams.originatorToBeneficiaryInformationLine3
             this.originatorToBeneficiaryInformationLine4 =
                 simulationInboundWireTransferCreateParams.originatorToBeneficiaryInformationLine4
-            this.senderReference = simulationInboundWireTransferCreateParams.senderReference
             additionalQueryParams(simulationInboundWireTransferCreateParams.additionalQueryParams)
             additionalHeaders(simulationInboundWireTransferCreateParams.additionalHeaders)
             additionalBodyProperties(
@@ -819,14 +790,6 @@ constructor(
             this.originatorToBeneficiaryInformationLine4 = originatorToBeneficiaryInformationLine4
         }
 
-        /**
-         * The sending bank will set sender_reference in production. You can simulate any value
-         * here.
-         */
-        fun senderReference(senderReference: String) = apply {
-            this.senderReference = senderReference
-        }
-
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
             putAllQueryParams(additionalQueryParams)
@@ -899,7 +862,6 @@ constructor(
                 originatorToBeneficiaryInformationLine2,
                 originatorToBeneficiaryInformationLine3,
                 originatorToBeneficiaryInformationLine4,
-                senderReference,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalBodyProperties.toUnmodifiable(),
