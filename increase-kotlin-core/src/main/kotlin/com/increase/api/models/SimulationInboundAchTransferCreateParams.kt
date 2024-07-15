@@ -4,16 +4,12 @@ package com.increase.api.models
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
-import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
-import com.increase.api.core.JsonField
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.toUnmodifiable
-import com.increase.api.errors.IncreaseInvalidDataException
 import com.increase.api.models.*
 import java.time.OffsetDateTime
 import java.util.Objects
@@ -30,7 +26,6 @@ constructor(
     private val receiverIdNumber: String?,
     private val receiverName: String?,
     private val resolveAt: OffsetDateTime?,
-    private val standardEntryClassCode: StandardEntryClassCode?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
     private val additionalBodyProperties: Map<String, JsonValue>,
@@ -56,8 +51,6 @@ constructor(
 
     fun resolveAt(): OffsetDateTime? = resolveAt
 
-    fun standardEntryClassCode(): StandardEntryClassCode? = standardEntryClassCode
-
     internal fun getBody(): SimulationInboundAchTransferCreateBody {
         return SimulationInboundAchTransferCreateBody(
             accountNumberId,
@@ -70,7 +63,6 @@ constructor(
             receiverIdNumber,
             receiverName,
             resolveAt,
-            standardEntryClassCode,
             additionalBodyProperties,
         )
     }
@@ -93,7 +85,6 @@ constructor(
         private val receiverIdNumber: String?,
         private val receiverName: String?,
         private val resolveAt: OffsetDateTime?,
-        private val standardEntryClassCode: StandardEntryClassCode?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -139,10 +130,6 @@ constructor(
          */
         @JsonProperty("resolve_at") fun resolveAt(): OffsetDateTime? = resolveAt
 
-        /** The standard entry class code for the transfer. */
-        @JsonProperty("standard_entry_class_code")
-        fun standardEntryClassCode(): StandardEntryClassCode? = standardEntryClassCode
-
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -165,7 +152,6 @@ constructor(
                 this.receiverIdNumber == other.receiverIdNumber &&
                 this.receiverName == other.receiverName &&
                 this.resolveAt == other.resolveAt &&
-                this.standardEntryClassCode == other.standardEntryClassCode &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -183,7 +169,6 @@ constructor(
                         receiverIdNumber,
                         receiverName,
                         resolveAt,
-                        standardEntryClassCode,
                         additionalProperties,
                     )
             }
@@ -191,7 +176,7 @@ constructor(
         }
 
         override fun toString() =
-            "SimulationInboundAchTransferCreateBody{accountNumberId=$accountNumberId, amount=$amount, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyId=$companyId, companyName=$companyName, receiverIdNumber=$receiverIdNumber, receiverName=$receiverName, resolveAt=$resolveAt, standardEntryClassCode=$standardEntryClassCode, additionalProperties=$additionalProperties}"
+            "SimulationInboundAchTransferCreateBody{accountNumberId=$accountNumberId, amount=$amount, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyId=$companyId, companyName=$companyName, receiverIdNumber=$receiverIdNumber, receiverName=$receiverName, resolveAt=$resolveAt, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -210,7 +195,6 @@ constructor(
             private var receiverIdNumber: String? = null
             private var receiverName: String? = null
             private var resolveAt: OffsetDateTime? = null
-            private var standardEntryClassCode: StandardEntryClassCode? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(
@@ -229,8 +213,6 @@ constructor(
                 this.receiverIdNumber = simulationInboundAchTransferCreateBody.receiverIdNumber
                 this.receiverName = simulationInboundAchTransferCreateBody.receiverName
                 this.resolveAt = simulationInboundAchTransferCreateBody.resolveAt
-                this.standardEntryClassCode =
-                    simulationInboundAchTransferCreateBody.standardEntryClassCode
                 additionalProperties(simulationInboundAchTransferCreateBody.additionalProperties)
             }
 
@@ -290,12 +272,6 @@ constructor(
             @JsonProperty("resolve_at")
             fun resolveAt(resolveAt: OffsetDateTime) = apply { this.resolveAt = resolveAt }
 
-            /** The standard entry class code for the transfer. */
-            @JsonProperty("standard_entry_class_code")
-            fun standardEntryClassCode(standardEntryClassCode: StandardEntryClassCode) = apply {
-                this.standardEntryClassCode = standardEntryClassCode
-            }
-
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 this.additionalProperties.putAll(additionalProperties)
@@ -324,7 +300,6 @@ constructor(
                     receiverIdNumber,
                     receiverName,
                     resolveAt,
-                    standardEntryClassCode,
                     additionalProperties.toUnmodifiable(),
                 )
         }
@@ -352,7 +327,6 @@ constructor(
             this.receiverIdNumber == other.receiverIdNumber &&
             this.receiverName == other.receiverName &&
             this.resolveAt == other.resolveAt &&
-            this.standardEntryClassCode == other.standardEntryClassCode &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders &&
             this.additionalBodyProperties == other.additionalBodyProperties
@@ -370,7 +344,6 @@ constructor(
             receiverIdNumber,
             receiverName,
             resolveAt,
-            standardEntryClassCode,
             additionalQueryParams,
             additionalHeaders,
             additionalBodyProperties,
@@ -378,7 +351,7 @@ constructor(
     }
 
     override fun toString() =
-        "SimulationInboundAchTransferCreateParams{accountNumberId=$accountNumberId, amount=$amount, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyId=$companyId, companyName=$companyName, receiverIdNumber=$receiverIdNumber, receiverName=$receiverName, resolveAt=$resolveAt, standardEntryClassCode=$standardEntryClassCode, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "SimulationInboundAchTransferCreateParams{accountNumberId=$accountNumberId, amount=$amount, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyId=$companyId, companyName=$companyName, receiverIdNumber=$receiverIdNumber, receiverName=$receiverName, resolveAt=$resolveAt, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -400,7 +373,6 @@ constructor(
         private var receiverIdNumber: String? = null
         private var receiverName: String? = null
         private var resolveAt: OffsetDateTime? = null
-        private var standardEntryClassCode: StandardEntryClassCode? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -421,8 +393,6 @@ constructor(
             this.receiverIdNumber = simulationInboundAchTransferCreateParams.receiverIdNumber
             this.receiverName = simulationInboundAchTransferCreateParams.receiverName
             this.resolveAt = simulationInboundAchTransferCreateParams.resolveAt
-            this.standardEntryClassCode =
-                simulationInboundAchTransferCreateParams.standardEntryClassCode
             additionalQueryParams(simulationInboundAchTransferCreateParams.additionalQueryParams)
             additionalHeaders(simulationInboundAchTransferCreateParams.additionalHeaders)
             additionalBodyProperties(
@@ -476,11 +446,6 @@ constructor(
          * immediately.
          */
         fun resolveAt(resolveAt: OffsetDateTime) = apply { this.resolveAt = resolveAt }
-
-        /** The standard entry class code for the transfer. */
-        fun standardEntryClassCode(standardEntryClassCode: StandardEntryClassCode) = apply {
-            this.standardEntryClassCode = standardEntryClassCode
-        }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -548,157 +513,9 @@ constructor(
                 receiverIdNumber,
                 receiverName,
                 resolveAt,
-                standardEntryClassCode,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalBodyProperties.toUnmodifiable(),
             )
-    }
-
-    class StandardEntryClassCode
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
-
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is StandardEntryClassCode && this.value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-
-        companion object {
-
-            val CORPORATE_CREDIT_OR_DEBIT =
-                StandardEntryClassCode(JsonField.of("corporate_credit_or_debit"))
-
-            val CORPORATE_TRADE_EXCHANGE =
-                StandardEntryClassCode(JsonField.of("corporate_trade_exchange"))
-
-            val PREARRANGED_PAYMENTS_AND_DEPOSIT =
-                StandardEntryClassCode(JsonField.of("prearranged_payments_and_deposit"))
-
-            val INTERNET_INITIATED = StandardEntryClassCode(JsonField.of("internet_initiated"))
-
-            val POINT_OF_SALE = StandardEntryClassCode(JsonField.of("point_of_sale"))
-
-            val TELEPHONE_INITIATED = StandardEntryClassCode(JsonField.of("telephone_initiated"))
-
-            val CUSTOMER_INITIATED = StandardEntryClassCode(JsonField.of("customer_initiated"))
-
-            val ACCOUNTS_RECEIVABLE = StandardEntryClassCode(JsonField.of("accounts_receivable"))
-
-            val MACHINE_TRANSFER = StandardEntryClassCode(JsonField.of("machine_transfer"))
-
-            val SHARED_NETWORK_TRANSACTION =
-                StandardEntryClassCode(JsonField.of("shared_network_transaction"))
-
-            val REPRESENTED_CHECK = StandardEntryClassCode(JsonField.of("represented_check"))
-
-            val BACK_OFFICE_CONVERSION =
-                StandardEntryClassCode(JsonField.of("back_office_conversion"))
-
-            val POINT_OF_PURCHASE = StandardEntryClassCode(JsonField.of("point_of_purchase"))
-
-            val CHECK_TRUNCATION = StandardEntryClassCode(JsonField.of("check_truncation"))
-
-            val DESTROYED_CHECK = StandardEntryClassCode(JsonField.of("destroyed_check"))
-
-            val INTERNATIONAL_ACH_TRANSACTION =
-                StandardEntryClassCode(JsonField.of("international_ach_transaction"))
-
-            fun of(value: String) = StandardEntryClassCode(JsonField.of(value))
-        }
-
-        enum class Known {
-            CORPORATE_CREDIT_OR_DEBIT,
-            CORPORATE_TRADE_EXCHANGE,
-            PREARRANGED_PAYMENTS_AND_DEPOSIT,
-            INTERNET_INITIATED,
-            POINT_OF_SALE,
-            TELEPHONE_INITIATED,
-            CUSTOMER_INITIATED,
-            ACCOUNTS_RECEIVABLE,
-            MACHINE_TRANSFER,
-            SHARED_NETWORK_TRANSACTION,
-            REPRESENTED_CHECK,
-            BACK_OFFICE_CONVERSION,
-            POINT_OF_PURCHASE,
-            CHECK_TRUNCATION,
-            DESTROYED_CHECK,
-            INTERNATIONAL_ACH_TRANSACTION,
-        }
-
-        enum class Value {
-            CORPORATE_CREDIT_OR_DEBIT,
-            CORPORATE_TRADE_EXCHANGE,
-            PREARRANGED_PAYMENTS_AND_DEPOSIT,
-            INTERNET_INITIATED,
-            POINT_OF_SALE,
-            TELEPHONE_INITIATED,
-            CUSTOMER_INITIATED,
-            ACCOUNTS_RECEIVABLE,
-            MACHINE_TRANSFER,
-            SHARED_NETWORK_TRANSACTION,
-            REPRESENTED_CHECK,
-            BACK_OFFICE_CONVERSION,
-            POINT_OF_PURCHASE,
-            CHECK_TRUNCATION,
-            DESTROYED_CHECK,
-            INTERNATIONAL_ACH_TRANSACTION,
-            _UNKNOWN,
-        }
-
-        fun value(): Value =
-            when (this) {
-                CORPORATE_CREDIT_OR_DEBIT -> Value.CORPORATE_CREDIT_OR_DEBIT
-                CORPORATE_TRADE_EXCHANGE -> Value.CORPORATE_TRADE_EXCHANGE
-                PREARRANGED_PAYMENTS_AND_DEPOSIT -> Value.PREARRANGED_PAYMENTS_AND_DEPOSIT
-                INTERNET_INITIATED -> Value.INTERNET_INITIATED
-                POINT_OF_SALE -> Value.POINT_OF_SALE
-                TELEPHONE_INITIATED -> Value.TELEPHONE_INITIATED
-                CUSTOMER_INITIATED -> Value.CUSTOMER_INITIATED
-                ACCOUNTS_RECEIVABLE -> Value.ACCOUNTS_RECEIVABLE
-                MACHINE_TRANSFER -> Value.MACHINE_TRANSFER
-                SHARED_NETWORK_TRANSACTION -> Value.SHARED_NETWORK_TRANSACTION
-                REPRESENTED_CHECK -> Value.REPRESENTED_CHECK
-                BACK_OFFICE_CONVERSION -> Value.BACK_OFFICE_CONVERSION
-                POINT_OF_PURCHASE -> Value.POINT_OF_PURCHASE
-                CHECK_TRUNCATION -> Value.CHECK_TRUNCATION
-                DESTROYED_CHECK -> Value.DESTROYED_CHECK
-                INTERNATIONAL_ACH_TRANSACTION -> Value.INTERNATIONAL_ACH_TRANSACTION
-                else -> Value._UNKNOWN
-            }
-
-        fun known(): Known =
-            when (this) {
-                CORPORATE_CREDIT_OR_DEBIT -> Known.CORPORATE_CREDIT_OR_DEBIT
-                CORPORATE_TRADE_EXCHANGE -> Known.CORPORATE_TRADE_EXCHANGE
-                PREARRANGED_PAYMENTS_AND_DEPOSIT -> Known.PREARRANGED_PAYMENTS_AND_DEPOSIT
-                INTERNET_INITIATED -> Known.INTERNET_INITIATED
-                POINT_OF_SALE -> Known.POINT_OF_SALE
-                TELEPHONE_INITIATED -> Known.TELEPHONE_INITIATED
-                CUSTOMER_INITIATED -> Known.CUSTOMER_INITIATED
-                ACCOUNTS_RECEIVABLE -> Known.ACCOUNTS_RECEIVABLE
-                MACHINE_TRANSFER -> Known.MACHINE_TRANSFER
-                SHARED_NETWORK_TRANSACTION -> Known.SHARED_NETWORK_TRANSACTION
-                REPRESENTED_CHECK -> Known.REPRESENTED_CHECK
-                BACK_OFFICE_CONVERSION -> Known.BACK_OFFICE_CONVERSION
-                POINT_OF_PURCHASE -> Known.POINT_OF_PURCHASE
-                CHECK_TRUNCATION -> Known.CHECK_TRUNCATION
-                DESTROYED_CHECK -> Known.DESTROYED_CHECK
-                INTERNATIONAL_ACH_TRANSACTION -> Known.INTERNATIONAL_ACH_TRANSACTION
-                else -> throw IncreaseInvalidDataException("Unknown StandardEntryClassCode: $value")
-            }
-
-        fun asString(): String = _value().asStringOrThrow()
     }
 }
