@@ -325,8 +325,6 @@ constructor(
                 val INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE =
                     In(JsonField.of("inbound_real_time_payments_transfer_decline"))
 
-                val INTERNATIONAL_ACH_DECLINE = In(JsonField.of("international_ach_decline"))
-
                 val WIRE_DECLINE = In(JsonField.of("wire_decline"))
 
                 val CHECK_DEPOSIT_REJECTION = In(JsonField.of("check_deposit_rejection"))
@@ -341,7 +339,6 @@ constructor(
                 CARD_DECLINE,
                 CHECK_DECLINE,
                 INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE,
-                INTERNATIONAL_ACH_DECLINE,
                 WIRE_DECLINE,
                 CHECK_DEPOSIT_REJECTION,
                 OTHER,
@@ -352,7 +349,6 @@ constructor(
                 CARD_DECLINE,
                 CHECK_DECLINE,
                 INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE,
-                INTERNATIONAL_ACH_DECLINE,
                 WIRE_DECLINE,
                 CHECK_DEPOSIT_REJECTION,
                 OTHER,
@@ -366,7 +362,6 @@ constructor(
                     CHECK_DECLINE -> Value.CHECK_DECLINE
                     INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE ->
                         Value.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE
-                    INTERNATIONAL_ACH_DECLINE -> Value.INTERNATIONAL_ACH_DECLINE
                     WIRE_DECLINE -> Value.WIRE_DECLINE
                     CHECK_DEPOSIT_REJECTION -> Value.CHECK_DEPOSIT_REJECTION
                     OTHER -> Value.OTHER
@@ -380,7 +375,6 @@ constructor(
                     CHECK_DECLINE -> Known.CHECK_DECLINE
                     INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE ->
                         Known.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE
-                    INTERNATIONAL_ACH_DECLINE -> Known.INTERNATIONAL_ACH_DECLINE
                     WIRE_DECLINE -> Known.WIRE_DECLINE
                     CHECK_DEPOSIT_REJECTION -> Known.CHECK_DEPOSIT_REJECTION
                     OTHER -> Known.OTHER
