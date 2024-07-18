@@ -873,6 +873,8 @@ private constructor(
 
                 val DUPLICATE_PRESENTMENT = Reason(JsonField.of("duplicate_presentment"))
 
+                val ENDORSEMENT_MISSING = Reason(JsonField.of("endorsement_missing"))
+
                 fun of(value: String) = Reason(JsonField.of(value))
             }
 
@@ -880,12 +882,14 @@ private constructor(
                 ALTERED_OR_FICTITIOUS,
                 NOT_AUTHORIZED,
                 DUPLICATE_PRESENTMENT,
+                ENDORSEMENT_MISSING,
             }
 
             enum class Value {
                 ALTERED_OR_FICTITIOUS,
                 NOT_AUTHORIZED,
                 DUPLICATE_PRESENTMENT,
+                ENDORSEMENT_MISSING,
                 _UNKNOWN,
             }
 
@@ -894,6 +898,7 @@ private constructor(
                     ALTERED_OR_FICTITIOUS -> Value.ALTERED_OR_FICTITIOUS
                     NOT_AUTHORIZED -> Value.NOT_AUTHORIZED
                     DUPLICATE_PRESENTMENT -> Value.DUPLICATE_PRESENTMENT
+                    ENDORSEMENT_MISSING -> Value.ENDORSEMENT_MISSING
                     else -> Value._UNKNOWN
                 }
 
@@ -902,6 +907,7 @@ private constructor(
                     ALTERED_OR_FICTITIOUS -> Known.ALTERED_OR_FICTITIOUS
                     NOT_AUTHORIZED -> Known.NOT_AUTHORIZED
                     DUPLICATE_PRESENTMENT -> Known.DUPLICATE_PRESENTMENT
+                    ENDORSEMENT_MISSING -> Known.ENDORSEMENT_MISSING
                     else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
                 }
 
