@@ -183,6 +183,8 @@ constructor(
         OAuthConnectionServiceAsyncImpl(clientOptions)
     }
 
+    private val webhooks: WebhookServiceAsync by lazy { WebhookServiceAsyncImpl(clientOptions) }
+
     private val oauthTokens: OAuthTokenServiceAsync by lazy {
         OAuthTokenServiceAsyncImpl(clientOptions)
     }
@@ -318,6 +320,8 @@ constructor(
 
     override fun realTimePaymentsRequestForPayments():
         RealTimePaymentsRequestForPaymentServiceAsync = realTimePaymentsRequestForPayments
+
+    override fun webhooks(): WebhookServiceAsync = webhooks
 
     override fun simulations(): SimulationServiceAsync = simulations
 }
