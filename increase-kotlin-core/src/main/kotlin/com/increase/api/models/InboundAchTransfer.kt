@@ -1251,18 +1251,15 @@ private constructor(
     @NoAutoDetect
     class Decline
     private constructor(
-        private val reason: JsonField<Reason>,
         private val declinedAt: JsonField<OffsetDateTime>,
         private val declinedTransactionId: JsonField<String>,
+        private val reason: JsonField<Reason>,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         private var validated: Boolean = false
 
         private var hashCode: Int = 0
-
-        /** The reason for the transfer decline. */
-        fun reason(): Reason = reason.getRequired("reason")
 
         /** The time at which the transfer was declined. */
         fun declinedAt(): OffsetDateTime = declinedAt.getRequired("declined_at")
@@ -1272,7 +1269,7 @@ private constructor(
             declinedTransactionId.getRequired("declined_transaction_id")
 
         /** The reason for the transfer decline. */
-        @JsonProperty("reason") @ExcludeMissing fun _reason() = reason
+        fun reason(): Reason = reason.getRequired("reason")
 
         /** The time at which the transfer was declined. */
         @JsonProperty("declined_at") @ExcludeMissing fun _declinedAt() = declinedAt
@@ -1282,15 +1279,18 @@ private constructor(
         @ExcludeMissing
         fun _declinedTransactionId() = declinedTransactionId
 
+        /** The reason for the transfer decline. */
+        @JsonProperty("reason") @ExcludeMissing fun _reason() = reason
+
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
         fun validate(): Decline = apply {
             if (!validated) {
-                reason()
                 declinedAt()
                 declinedTransactionId()
+                reason()
                 validated = true
             }
         }
@@ -1303,9 +1303,9 @@ private constructor(
             }
 
             return other is Decline &&
-                this.reason == other.reason &&
                 this.declinedAt == other.declinedAt &&
                 this.declinedTransactionId == other.declinedTransactionId &&
+                this.reason == other.reason &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -1313,9 +1313,9 @@ private constructor(
             if (hashCode == 0) {
                 hashCode =
                     Objects.hash(
-                        reason,
                         declinedAt,
                         declinedTransactionId,
+                        reason,
                         additionalProperties,
                     )
             }
@@ -1323,7 +1323,7 @@ private constructor(
         }
 
         override fun toString() =
-            "Decline{reason=$reason, declinedAt=$declinedAt, declinedTransactionId=$declinedTransactionId, additionalProperties=$additionalProperties}"
+            "Decline{declinedAt=$declinedAt, declinedTransactionId=$declinedTransactionId, reason=$reason, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -1332,25 +1332,17 @@ private constructor(
 
         class Builder {
 
-            private var reason: JsonField<Reason> = JsonMissing.of()
             private var declinedAt: JsonField<OffsetDateTime> = JsonMissing.of()
             private var declinedTransactionId: JsonField<String> = JsonMissing.of()
+            private var reason: JsonField<Reason> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(decline: Decline) = apply {
-                this.reason = decline.reason
                 this.declinedAt = decline.declinedAt
                 this.declinedTransactionId = decline.declinedTransactionId
+                this.reason = decline.reason
                 additionalProperties(decline.additionalProperties)
             }
-
-            /** The reason for the transfer decline. */
-            fun reason(reason: Reason) = reason(JsonField.of(reason))
-
-            /** The reason for the transfer decline. */
-            @JsonProperty("reason")
-            @ExcludeMissing
-            fun reason(reason: JsonField<Reason>) = apply { this.reason = reason }
 
             /** The time at which the transfer was declined. */
             fun declinedAt(declinedAt: OffsetDateTime) = declinedAt(JsonField.of(declinedAt))
@@ -1373,6 +1365,14 @@ private constructor(
                 this.declinedTransactionId = declinedTransactionId
             }
 
+            /** The reason for the transfer decline. */
+            fun reason(reason: Reason) = reason(JsonField.of(reason))
+
+            /** The reason for the transfer decline. */
+            @JsonProperty("reason")
+            @ExcludeMissing
+            fun reason(reason: JsonField<Reason>) = apply { this.reason = reason }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 this.additionalProperties.putAll(additionalProperties)
@@ -1389,9 +1389,9 @@ private constructor(
 
             fun build(): Decline =
                 Decline(
-                    reason,
                     declinedAt,
                     declinedTransactionId,
+                    reason,
                     additionalProperties.toUnmodifiable(),
                 )
         }
@@ -1659,65 +1659,47 @@ private constructor(
     @NoAutoDetect
     class InternationalAddenda
     private constructor(
-        private val foreignExchangeIndicator: JsonField<ForeignExchangeIndicator>,
-        private val foreignExchangeReferenceIndicator: JsonField<ForeignExchangeReferenceIndicator>,
-        private val foreignExchangeReference: JsonField<String>,
         private val destinationCountryCode: JsonField<String>,
         private val destinationCurrencyCode: JsonField<String>,
+        private val foreignExchangeIndicator: JsonField<ForeignExchangeIndicator>,
+        private val foreignExchangeReference: JsonField<String>,
+        private val foreignExchangeReferenceIndicator: JsonField<ForeignExchangeReferenceIndicator>,
         private val foreignPaymentAmount: JsonField<Long>,
         private val foreignTraceNumber: JsonField<String>,
         private val internationalTransactionTypeCode: JsonField<InternationalTransactionTypeCode>,
         private val originatingCurrencyCode: JsonField<String>,
-        private val originatingDepositoryFinancialInstitutionName: JsonField<String>,
+        private val originatingDepositoryFinancialInstitutionBranchCountry: JsonField<String>,
+        private val originatingDepositoryFinancialInstitutionId: JsonField<String>,
         private val originatingDepositoryFinancialInstitutionIdQualifier:
             JsonField<OriginatingDepositoryFinancialInstitutionIdQualifier>,
-        private val originatingDepositoryFinancialInstitutionId: JsonField<String>,
-        private val originatingDepositoryFinancialInstitutionBranchCountry: JsonField<String>,
-        private val originatorName: JsonField<String>,
-        private val originatorStreetAddress: JsonField<String>,
+        private val originatingDepositoryFinancialInstitutionName: JsonField<String>,
         private val originatorCity: JsonField<String>,
-        private val originatorStateOrProvince: JsonField<String>,
-        private val originatorPostalCode: JsonField<String>,
         private val originatorCountry: JsonField<String>,
         private val originatorIdentification: JsonField<String>,
+        private val originatorName: JsonField<String>,
+        private val originatorPostalCode: JsonField<String>,
+        private val originatorStateOrProvince: JsonField<String>,
+        private val originatorStreetAddress: JsonField<String>,
         private val paymentRelatedInformation: JsonField<String>,
         private val paymentRelatedInformation2: JsonField<String>,
-        private val receiverIdentificationNumber: JsonField<String>,
-        private val receiverStreetAddress: JsonField<String>,
         private val receiverCity: JsonField<String>,
-        private val receiverStateOrProvince: JsonField<String>,
         private val receiverCountry: JsonField<String>,
+        private val receiverIdentificationNumber: JsonField<String>,
         private val receiverPostalCode: JsonField<String>,
+        private val receiverStateOrProvince: JsonField<String>,
+        private val receiverStreetAddress: JsonField<String>,
         private val receivingCompanyOrIndividualName: JsonField<String>,
-        private val receivingDepositoryFinancialInstitutionName: JsonField<String>,
+        private val receivingDepositoryFinancialInstitutionCountry: JsonField<String>,
+        private val receivingDepositoryFinancialInstitutionId: JsonField<String>,
         private val receivingDepositoryFinancialInstitutionIdQualifier:
             JsonField<ReceivingDepositoryFinancialInstitutionIdQualifier>,
-        private val receivingDepositoryFinancialInstitutionId: JsonField<String>,
-        private val receivingDepositoryFinancialInstitutionCountry: JsonField<String>,
+        private val receivingDepositoryFinancialInstitutionName: JsonField<String>,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         private var validated: Boolean = false
 
         private var hashCode: Int = 0
-
-        /** A description of how the foreign exchange rate was calculated. */
-        fun foreignExchangeIndicator(): ForeignExchangeIndicator =
-            foreignExchangeIndicator.getRequired("foreign_exchange_indicator")
-
-        /**
-         * An instruction of how to interpret the `foreign_exchange_reference` field for this
-         * Transaction.
-         */
-        fun foreignExchangeReferenceIndicator(): ForeignExchangeReferenceIndicator =
-            foreignExchangeReferenceIndicator.getRequired("foreign_exchange_reference_indicator")
-
-        /**
-         * Depending on the `foreign_exchange_reference_indicator`, an exchange rate or a reference
-         * to a well-known rate.
-         */
-        fun foreignExchangeReference(): String? =
-            foreignExchangeReference.getNullable("foreign_exchange_reference")
 
         /**
          * The [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2), Alpha-2 country code of
@@ -1732,6 +1714,24 @@ private constructor(
          */
         fun destinationCurrencyCode(): String =
             destinationCurrencyCode.getRequired("destination_currency_code")
+
+        /** A description of how the foreign exchange rate was calculated. */
+        fun foreignExchangeIndicator(): ForeignExchangeIndicator =
+            foreignExchangeIndicator.getRequired("foreign_exchange_indicator")
+
+        /**
+         * Depending on the `foreign_exchange_reference_indicator`, an exchange rate or a reference
+         * to a well-known rate.
+         */
+        fun foreignExchangeReference(): String? =
+            foreignExchangeReference.getNullable("foreign_exchange_reference")
+
+        /**
+         * An instruction of how to interpret the `foreign_exchange_reference` field for this
+         * Transaction.
+         */
+        fun foreignExchangeReferenceIndicator(): ForeignExchangeReferenceIndicator =
+            foreignExchangeReferenceIndicator.getRequired("foreign_exchange_reference_indicator")
 
         /**
          * The amount in the minor unit of the foreign payment currency. For dollars, for example,
@@ -1755,22 +1755,12 @@ private constructor(
             originatingCurrencyCode.getRequired("originating_currency_code")
 
         /**
-         * The name of the originating bank. Sometimes this will refer to an American bank and
-         * obscure the correspondent foreign bank.
+         * The [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2), Alpha-2 country code of
+         * the originating branch country.
          */
-        fun originatingDepositoryFinancialInstitutionName(): String =
-            originatingDepositoryFinancialInstitutionName.getRequired(
-                "originating_depository_financial_institution_name"
-            )
-
-        /**
-         * An instruction of how to interpret the `originating_depository_financial_institution_id`
-         * field for this Transaction.
-         */
-        fun originatingDepositoryFinancialInstitutionIdQualifier():
-            OriginatingDepositoryFinancialInstitutionIdQualifier =
-            originatingDepositoryFinancialInstitutionIdQualifier.getRequired(
-                "originating_depository_financial_institution_id_qualifier"
+        fun originatingDepositoryFinancialInstitutionBranchCountry(): String =
+            originatingDepositoryFinancialInstitutionBranchCountry.getRequired(
+                "originating_depository_financial_institution_branch_country"
             )
 
         /**
@@ -1784,31 +1774,26 @@ private constructor(
             )
 
         /**
-         * The [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2), Alpha-2 country code of
-         * the originating branch country.
+         * An instruction of how to interpret the `originating_depository_financial_institution_id`
+         * field for this Transaction.
          */
-        fun originatingDepositoryFinancialInstitutionBranchCountry(): String =
-            originatingDepositoryFinancialInstitutionBranchCountry.getRequired(
-                "originating_depository_financial_institution_branch_country"
+        fun originatingDepositoryFinancialInstitutionIdQualifier():
+            OriginatingDepositoryFinancialInstitutionIdQualifier =
+            originatingDepositoryFinancialInstitutionIdQualifier.getRequired(
+                "originating_depository_financial_institution_id_qualifier"
             )
 
-        /** Either the name of the originator or an intermediary money transmitter. */
-        fun originatorName(): String = originatorName.getRequired("originator_name")
-
-        /** A portion of the originator address. This may be incomplete. */
-        fun originatorStreetAddress(): String =
-            originatorStreetAddress.getRequired("originator_street_address")
+        /**
+         * The name of the originating bank. Sometimes this will refer to an American bank and
+         * obscure the correspondent foreign bank.
+         */
+        fun originatingDepositoryFinancialInstitutionName(): String =
+            originatingDepositoryFinancialInstitutionName.getRequired(
+                "originating_depository_financial_institution_name"
+            )
 
         /** A portion of the originator address. This may be incomplete. */
         fun originatorCity(): String = originatorCity.getRequired("originator_city")
-
-        /** A portion of the originator address. This may be incomplete. */
-        fun originatorStateOrProvince(): String? =
-            originatorStateOrProvince.getNullable("originator_state_or_province")
-
-        /** A portion of the originator address. This may be incomplete. */
-        fun originatorPostalCode(): String? =
-            originatorPostalCode.getNullable("originator_postal_code")
 
         /**
          * A portion of the originator address. The
@@ -1824,6 +1809,21 @@ private constructor(
         fun originatorIdentification(): String =
             originatorIdentification.getRequired("originator_identification")
 
+        /** Either the name of the originator or an intermediary money transmitter. */
+        fun originatorName(): String = originatorName.getRequired("originator_name")
+
+        /** A portion of the originator address. This may be incomplete. */
+        fun originatorPostalCode(): String? =
+            originatorPostalCode.getNullable("originator_postal_code")
+
+        /** A portion of the originator address. This may be incomplete. */
+        fun originatorStateOrProvince(): String? =
+            originatorStateOrProvince.getNullable("originator_state_or_province")
+
+        /** A portion of the originator address. This may be incomplete. */
+        fun originatorStreetAddress(): String =
+            originatorStreetAddress.getRequired("originator_street_address")
+
         /** A description field set by the originator. */
         fun paymentRelatedInformation(): String? =
             paymentRelatedInformation.getNullable("payment_related_information")
@@ -1832,20 +1832,8 @@ private constructor(
         fun paymentRelatedInformation2(): String? =
             paymentRelatedInformation2.getNullable("payment_related_information2")
 
-        /** An identification number the originator uses for the receiver. */
-        fun receiverIdentificationNumber(): String? =
-            receiverIdentificationNumber.getNullable("receiver_identification_number")
-
-        /** A portion of the receiver address. This may be incomplete. */
-        fun receiverStreetAddress(): String =
-            receiverStreetAddress.getRequired("receiver_street_address")
-
         /** A portion of the receiver address. This may be incomplete. */
         fun receiverCity(): String = receiverCity.getRequired("receiver_city")
-
-        /** A portion of the receiver address. This may be incomplete. */
-        fun receiverStateOrProvince(): String? =
-            receiverStateOrProvince.getNullable("receiver_state_or_province")
 
         /**
          * A portion of the receiver address. The
@@ -1854,27 +1842,32 @@ private constructor(
          */
         fun receiverCountry(): String = receiverCountry.getRequired("receiver_country")
 
+        /** An identification number the originator uses for the receiver. */
+        fun receiverIdentificationNumber(): String? =
+            receiverIdentificationNumber.getNullable("receiver_identification_number")
+
         /** A portion of the receiver address. This may be incomplete. */
         fun receiverPostalCode(): String? = receiverPostalCode.getNullable("receiver_postal_code")
+
+        /** A portion of the receiver address. This may be incomplete. */
+        fun receiverStateOrProvince(): String? =
+            receiverStateOrProvince.getNullable("receiver_state_or_province")
+
+        /** A portion of the receiver address. This may be incomplete. */
+        fun receiverStreetAddress(): String =
+            receiverStreetAddress.getRequired("receiver_street_address")
 
         /** The name of the receiver of the transfer. This is not verified by Increase. */
         fun receivingCompanyOrIndividualName(): String =
             receivingCompanyOrIndividualName.getRequired("receiving_company_or_individual_name")
 
-        /** The name of the receiving bank, as set by the sending financial institution. */
-        fun receivingDepositoryFinancialInstitutionName(): String =
-            receivingDepositoryFinancialInstitutionName.getRequired(
-                "receiving_depository_financial_institution_name"
-            )
-
         /**
-         * An instruction of how to interpret the `receiving_depository_financial_institution_id`
-         * field for this Transaction.
+         * The [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2), Alpha-2 country code of
+         * the receiving bank country.
          */
-        fun receivingDepositoryFinancialInstitutionIdQualifier():
-            ReceivingDepositoryFinancialInstitutionIdQualifier =
-            receivingDepositoryFinancialInstitutionIdQualifier.getRequired(
-                "receiving_depository_financial_institution_id_qualifier"
+        fun receivingDepositoryFinancialInstitutionCountry(): String =
+            receivingDepositoryFinancialInstitutionCountry.getRequired(
+                "receiving_depository_financial_institution_country"
             )
 
         /**
@@ -1888,34 +1881,20 @@ private constructor(
             )
 
         /**
-         * The [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2), Alpha-2 country code of
-         * the receiving bank country.
+         * An instruction of how to interpret the `receiving_depository_financial_institution_id`
+         * field for this Transaction.
          */
-        fun receivingDepositoryFinancialInstitutionCountry(): String =
-            receivingDepositoryFinancialInstitutionCountry.getRequired(
-                "receiving_depository_financial_institution_country"
+        fun receivingDepositoryFinancialInstitutionIdQualifier():
+            ReceivingDepositoryFinancialInstitutionIdQualifier =
+            receivingDepositoryFinancialInstitutionIdQualifier.getRequired(
+                "receiving_depository_financial_institution_id_qualifier"
             )
 
-        /** A description of how the foreign exchange rate was calculated. */
-        @JsonProperty("foreign_exchange_indicator")
-        @ExcludeMissing
-        fun _foreignExchangeIndicator() = foreignExchangeIndicator
-
-        /**
-         * An instruction of how to interpret the `foreign_exchange_reference` field for this
-         * Transaction.
-         */
-        @JsonProperty("foreign_exchange_reference_indicator")
-        @ExcludeMissing
-        fun _foreignExchangeReferenceIndicator() = foreignExchangeReferenceIndicator
-
-        /**
-         * Depending on the `foreign_exchange_reference_indicator`, an exchange rate or a reference
-         * to a well-known rate.
-         */
-        @JsonProperty("foreign_exchange_reference")
-        @ExcludeMissing
-        fun _foreignExchangeReference() = foreignExchangeReference
+        /** The name of the receiving bank, as set by the sending financial institution. */
+        fun receivingDepositoryFinancialInstitutionName(): String =
+            receivingDepositoryFinancialInstitutionName.getRequired(
+                "receiving_depository_financial_institution_name"
+            )
 
         /**
          * The [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2), Alpha-2 country code of
@@ -1932,6 +1911,27 @@ private constructor(
         @JsonProperty("destination_currency_code")
         @ExcludeMissing
         fun _destinationCurrencyCode() = destinationCurrencyCode
+
+        /** A description of how the foreign exchange rate was calculated. */
+        @JsonProperty("foreign_exchange_indicator")
+        @ExcludeMissing
+        fun _foreignExchangeIndicator() = foreignExchangeIndicator
+
+        /**
+         * Depending on the `foreign_exchange_reference_indicator`, an exchange rate or a reference
+         * to a well-known rate.
+         */
+        @JsonProperty("foreign_exchange_reference")
+        @ExcludeMissing
+        fun _foreignExchangeReference() = foreignExchangeReference
+
+        /**
+         * An instruction of how to interpret the `foreign_exchange_reference` field for this
+         * Transaction.
+         */
+        @JsonProperty("foreign_exchange_reference_indicator")
+        @ExcludeMissing
+        fun _foreignExchangeReferenceIndicator() = foreignExchangeReferenceIndicator
 
         /**
          * The amount in the minor unit of the foreign payment currency. For dollars, for example,
@@ -1960,22 +1960,13 @@ private constructor(
         fun _originatingCurrencyCode() = originatingCurrencyCode
 
         /**
-         * The name of the originating bank. Sometimes this will refer to an American bank and
-         * obscure the correspondent foreign bank.
+         * The [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2), Alpha-2 country code of
+         * the originating branch country.
          */
-        @JsonProperty("originating_depository_financial_institution_name")
+        @JsonProperty("originating_depository_financial_institution_branch_country")
         @ExcludeMissing
-        fun _originatingDepositoryFinancialInstitutionName() =
-            originatingDepositoryFinancialInstitutionName
-
-        /**
-         * An instruction of how to interpret the `originating_depository_financial_institution_id`
-         * field for this Transaction.
-         */
-        @JsonProperty("originating_depository_financial_institution_id_qualifier")
-        @ExcludeMissing
-        fun _originatingDepositoryFinancialInstitutionIdQualifier() =
-            originatingDepositoryFinancialInstitutionIdQualifier
+        fun _originatingDepositoryFinancialInstitutionBranchCountry() =
+            originatingDepositoryFinancialInstitutionBranchCountry
 
         /**
          * An identifier for the originating bank. One of an International Bank Account Number
@@ -1988,34 +1979,25 @@ private constructor(
             originatingDepositoryFinancialInstitutionId
 
         /**
-         * The [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2), Alpha-2 country code of
-         * the originating branch country.
+         * An instruction of how to interpret the `originating_depository_financial_institution_id`
+         * field for this Transaction.
          */
-        @JsonProperty("originating_depository_financial_institution_branch_country")
+        @JsonProperty("originating_depository_financial_institution_id_qualifier")
         @ExcludeMissing
-        fun _originatingDepositoryFinancialInstitutionBranchCountry() =
-            originatingDepositoryFinancialInstitutionBranchCountry
+        fun _originatingDepositoryFinancialInstitutionIdQualifier() =
+            originatingDepositoryFinancialInstitutionIdQualifier
 
-        /** Either the name of the originator or an intermediary money transmitter. */
-        @JsonProperty("originator_name") @ExcludeMissing fun _originatorName() = originatorName
-
-        /** A portion of the originator address. This may be incomplete. */
-        @JsonProperty("originator_street_address")
+        /**
+         * The name of the originating bank. Sometimes this will refer to an American bank and
+         * obscure the correspondent foreign bank.
+         */
+        @JsonProperty("originating_depository_financial_institution_name")
         @ExcludeMissing
-        fun _originatorStreetAddress() = originatorStreetAddress
+        fun _originatingDepositoryFinancialInstitutionName() =
+            originatingDepositoryFinancialInstitutionName
 
         /** A portion of the originator address. This may be incomplete. */
         @JsonProperty("originator_city") @ExcludeMissing fun _originatorCity() = originatorCity
-
-        /** A portion of the originator address. This may be incomplete. */
-        @JsonProperty("originator_state_or_province")
-        @ExcludeMissing
-        fun _originatorStateOrProvince() = originatorStateOrProvince
-
-        /** A portion of the originator address. This may be incomplete. */
-        @JsonProperty("originator_postal_code")
-        @ExcludeMissing
-        fun _originatorPostalCode() = originatorPostalCode
 
         /**
          * A portion of the originator address. The
@@ -2034,6 +2016,24 @@ private constructor(
         @ExcludeMissing
         fun _originatorIdentification() = originatorIdentification
 
+        /** Either the name of the originator or an intermediary money transmitter. */
+        @JsonProperty("originator_name") @ExcludeMissing fun _originatorName() = originatorName
+
+        /** A portion of the originator address. This may be incomplete. */
+        @JsonProperty("originator_postal_code")
+        @ExcludeMissing
+        fun _originatorPostalCode() = originatorPostalCode
+
+        /** A portion of the originator address. This may be incomplete. */
+        @JsonProperty("originator_state_or_province")
+        @ExcludeMissing
+        fun _originatorStateOrProvince() = originatorStateOrProvince
+
+        /** A portion of the originator address. This may be incomplete. */
+        @JsonProperty("originator_street_address")
+        @ExcludeMissing
+        fun _originatorStreetAddress() = originatorStreetAddress
+
         /** A description field set by the originator. */
         @JsonProperty("payment_related_information")
         @ExcludeMissing
@@ -2044,23 +2044,8 @@ private constructor(
         @ExcludeMissing
         fun _paymentRelatedInformation2() = paymentRelatedInformation2
 
-        /** An identification number the originator uses for the receiver. */
-        @JsonProperty("receiver_identification_number")
-        @ExcludeMissing
-        fun _receiverIdentificationNumber() = receiverIdentificationNumber
-
-        /** A portion of the receiver address. This may be incomplete. */
-        @JsonProperty("receiver_street_address")
-        @ExcludeMissing
-        fun _receiverStreetAddress() = receiverStreetAddress
-
         /** A portion of the receiver address. This may be incomplete. */
         @JsonProperty("receiver_city") @ExcludeMissing fun _receiverCity() = receiverCity
-
-        /** A portion of the receiver address. This may be incomplete. */
-        @JsonProperty("receiver_state_or_province")
-        @ExcludeMissing
-        fun _receiverStateOrProvince() = receiverStateOrProvince
 
         /**
          * A portion of the receiver address. The
@@ -2069,30 +2054,39 @@ private constructor(
          */
         @JsonProperty("receiver_country") @ExcludeMissing fun _receiverCountry() = receiverCountry
 
+        /** An identification number the originator uses for the receiver. */
+        @JsonProperty("receiver_identification_number")
+        @ExcludeMissing
+        fun _receiverIdentificationNumber() = receiverIdentificationNumber
+
         /** A portion of the receiver address. This may be incomplete. */
         @JsonProperty("receiver_postal_code")
         @ExcludeMissing
         fun _receiverPostalCode() = receiverPostalCode
+
+        /** A portion of the receiver address. This may be incomplete. */
+        @JsonProperty("receiver_state_or_province")
+        @ExcludeMissing
+        fun _receiverStateOrProvince() = receiverStateOrProvince
+
+        /** A portion of the receiver address. This may be incomplete. */
+        @JsonProperty("receiver_street_address")
+        @ExcludeMissing
+        fun _receiverStreetAddress() = receiverStreetAddress
 
         /** The name of the receiver of the transfer. This is not verified by Increase. */
         @JsonProperty("receiving_company_or_individual_name")
         @ExcludeMissing
         fun _receivingCompanyOrIndividualName() = receivingCompanyOrIndividualName
 
-        /** The name of the receiving bank, as set by the sending financial institution. */
-        @JsonProperty("receiving_depository_financial_institution_name")
-        @ExcludeMissing
-        fun _receivingDepositoryFinancialInstitutionName() =
-            receivingDepositoryFinancialInstitutionName
-
         /**
-         * An instruction of how to interpret the `receiving_depository_financial_institution_id`
-         * field for this Transaction.
+         * The [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2), Alpha-2 country code of
+         * the receiving bank country.
          */
-        @JsonProperty("receiving_depository_financial_institution_id_qualifier")
+        @JsonProperty("receiving_depository_financial_institution_country")
         @ExcludeMissing
-        fun _receivingDepositoryFinancialInstitutionIdQualifier() =
-            receivingDepositoryFinancialInstitutionIdQualifier
+        fun _receivingDepositoryFinancialInstitutionCountry() =
+            receivingDepositoryFinancialInstitutionCountry
 
         /**
          * An identifier for the receiving bank. One of an International Bank Account Number (IBAN)
@@ -2104,13 +2098,19 @@ private constructor(
         fun _receivingDepositoryFinancialInstitutionId() = receivingDepositoryFinancialInstitutionId
 
         /**
-         * The [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2), Alpha-2 country code of
-         * the receiving bank country.
+         * An instruction of how to interpret the `receiving_depository_financial_institution_id`
+         * field for this Transaction.
          */
-        @JsonProperty("receiving_depository_financial_institution_country")
+        @JsonProperty("receiving_depository_financial_institution_id_qualifier")
         @ExcludeMissing
-        fun _receivingDepositoryFinancialInstitutionCountry() =
-            receivingDepositoryFinancialInstitutionCountry
+        fun _receivingDepositoryFinancialInstitutionIdQualifier() =
+            receivingDepositoryFinancialInstitutionIdQualifier
+
+        /** The name of the receiving bank, as set by the sending financial institution. */
+        @JsonProperty("receiving_depository_financial_institution_name")
+        @ExcludeMissing
+        fun _receivingDepositoryFinancialInstitutionName() =
+            receivingDepositoryFinancialInstitutionName
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -2118,39 +2118,39 @@ private constructor(
 
         fun validate(): InternationalAddenda = apply {
             if (!validated) {
-                foreignExchangeIndicator()
-                foreignExchangeReferenceIndicator()
-                foreignExchangeReference()
                 destinationCountryCode()
                 destinationCurrencyCode()
+                foreignExchangeIndicator()
+                foreignExchangeReference()
+                foreignExchangeReferenceIndicator()
                 foreignPaymentAmount()
                 foreignTraceNumber()
                 internationalTransactionTypeCode()
                 originatingCurrencyCode()
-                originatingDepositoryFinancialInstitutionName()
-                originatingDepositoryFinancialInstitutionIdQualifier()
-                originatingDepositoryFinancialInstitutionId()
                 originatingDepositoryFinancialInstitutionBranchCountry()
-                originatorName()
-                originatorStreetAddress()
+                originatingDepositoryFinancialInstitutionId()
+                originatingDepositoryFinancialInstitutionIdQualifier()
+                originatingDepositoryFinancialInstitutionName()
                 originatorCity()
-                originatorStateOrProvince()
-                originatorPostalCode()
                 originatorCountry()
                 originatorIdentification()
+                originatorName()
+                originatorPostalCode()
+                originatorStateOrProvince()
+                originatorStreetAddress()
                 paymentRelatedInformation()
                 paymentRelatedInformation2()
-                receiverIdentificationNumber()
-                receiverStreetAddress()
                 receiverCity()
-                receiverStateOrProvince()
                 receiverCountry()
+                receiverIdentificationNumber()
                 receiverPostalCode()
+                receiverStateOrProvince()
+                receiverStreetAddress()
                 receivingCompanyOrIndividualName()
-                receivingDepositoryFinancialInstitutionName()
-                receivingDepositoryFinancialInstitutionIdQualifier()
-                receivingDepositoryFinancialInstitutionId()
                 receivingDepositoryFinancialInstitutionCountry()
+                receivingDepositoryFinancialInstitutionId()
+                receivingDepositoryFinancialInstitutionIdQualifier()
+                receivingDepositoryFinancialInstitutionName()
                 validated = true
             }
         }
@@ -2163,47 +2163,47 @@ private constructor(
             }
 
             return other is InternationalAddenda &&
-                this.foreignExchangeIndicator == other.foreignExchangeIndicator &&
-                this.foreignExchangeReferenceIndicator == other.foreignExchangeReferenceIndicator &&
-                this.foreignExchangeReference == other.foreignExchangeReference &&
                 this.destinationCountryCode == other.destinationCountryCode &&
                 this.destinationCurrencyCode == other.destinationCurrencyCode &&
+                this.foreignExchangeIndicator == other.foreignExchangeIndicator &&
+                this.foreignExchangeReference == other.foreignExchangeReference &&
+                this.foreignExchangeReferenceIndicator == other.foreignExchangeReferenceIndicator &&
                 this.foreignPaymentAmount == other.foreignPaymentAmount &&
                 this.foreignTraceNumber == other.foreignTraceNumber &&
                 this.internationalTransactionTypeCode == other.internationalTransactionTypeCode &&
                 this.originatingCurrencyCode == other.originatingCurrencyCode &&
-                this.originatingDepositoryFinancialInstitutionName ==
-                    other.originatingDepositoryFinancialInstitutionName &&
-                this.originatingDepositoryFinancialInstitutionIdQualifier ==
-                    other.originatingDepositoryFinancialInstitutionIdQualifier &&
-                this.originatingDepositoryFinancialInstitutionId ==
-                    other.originatingDepositoryFinancialInstitutionId &&
                 this.originatingDepositoryFinancialInstitutionBranchCountry ==
                     other.originatingDepositoryFinancialInstitutionBranchCountry &&
-                this.originatorName == other.originatorName &&
-                this.originatorStreetAddress == other.originatorStreetAddress &&
+                this.originatingDepositoryFinancialInstitutionId ==
+                    other.originatingDepositoryFinancialInstitutionId &&
+                this.originatingDepositoryFinancialInstitutionIdQualifier ==
+                    other.originatingDepositoryFinancialInstitutionIdQualifier &&
+                this.originatingDepositoryFinancialInstitutionName ==
+                    other.originatingDepositoryFinancialInstitutionName &&
                 this.originatorCity == other.originatorCity &&
-                this.originatorStateOrProvince == other.originatorStateOrProvince &&
-                this.originatorPostalCode == other.originatorPostalCode &&
                 this.originatorCountry == other.originatorCountry &&
                 this.originatorIdentification == other.originatorIdentification &&
+                this.originatorName == other.originatorName &&
+                this.originatorPostalCode == other.originatorPostalCode &&
+                this.originatorStateOrProvince == other.originatorStateOrProvince &&
+                this.originatorStreetAddress == other.originatorStreetAddress &&
                 this.paymentRelatedInformation == other.paymentRelatedInformation &&
                 this.paymentRelatedInformation2 == other.paymentRelatedInformation2 &&
-                this.receiverIdentificationNumber == other.receiverIdentificationNumber &&
-                this.receiverStreetAddress == other.receiverStreetAddress &&
                 this.receiverCity == other.receiverCity &&
-                this.receiverStateOrProvince == other.receiverStateOrProvince &&
                 this.receiverCountry == other.receiverCountry &&
+                this.receiverIdentificationNumber == other.receiverIdentificationNumber &&
                 this.receiverPostalCode == other.receiverPostalCode &&
+                this.receiverStateOrProvince == other.receiverStateOrProvince &&
+                this.receiverStreetAddress == other.receiverStreetAddress &&
                 this.receivingCompanyOrIndividualName == other.receivingCompanyOrIndividualName &&
-                this.receivingDepositoryFinancialInstitutionName ==
-                    other.receivingDepositoryFinancialInstitutionName &&
-                this.receivingDepositoryFinancialInstitutionIdQualifier ==
-                    other.receivingDepositoryFinancialInstitutionIdQualifier &&
-                this.receivingDepositoryFinancialInstitutionId ==
-                    other.receivingDepositoryFinancialInstitutionId &&
                 this.receivingDepositoryFinancialInstitutionCountry ==
                     other.receivingDepositoryFinancialInstitutionCountry &&
+                this.receivingDepositoryFinancialInstitutionId ==
+                    other.receivingDepositoryFinancialInstitutionId &&
+                this.receivingDepositoryFinancialInstitutionIdQualifier ==
+                    other.receivingDepositoryFinancialInstitutionIdQualifier &&
+                this.receivingDepositoryFinancialInstitutionName ==
+                    other.receivingDepositoryFinancialInstitutionName &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -2211,39 +2211,39 @@ private constructor(
             if (hashCode == 0) {
                 hashCode =
                     Objects.hash(
-                        foreignExchangeIndicator,
-                        foreignExchangeReferenceIndicator,
-                        foreignExchangeReference,
                         destinationCountryCode,
                         destinationCurrencyCode,
+                        foreignExchangeIndicator,
+                        foreignExchangeReference,
+                        foreignExchangeReferenceIndicator,
                         foreignPaymentAmount,
                         foreignTraceNumber,
                         internationalTransactionTypeCode,
                         originatingCurrencyCode,
-                        originatingDepositoryFinancialInstitutionName,
-                        originatingDepositoryFinancialInstitutionIdQualifier,
-                        originatingDepositoryFinancialInstitutionId,
                         originatingDepositoryFinancialInstitutionBranchCountry,
-                        originatorName,
-                        originatorStreetAddress,
+                        originatingDepositoryFinancialInstitutionId,
+                        originatingDepositoryFinancialInstitutionIdQualifier,
+                        originatingDepositoryFinancialInstitutionName,
                         originatorCity,
-                        originatorStateOrProvince,
-                        originatorPostalCode,
                         originatorCountry,
                         originatorIdentification,
+                        originatorName,
+                        originatorPostalCode,
+                        originatorStateOrProvince,
+                        originatorStreetAddress,
                         paymentRelatedInformation,
                         paymentRelatedInformation2,
-                        receiverIdentificationNumber,
-                        receiverStreetAddress,
                         receiverCity,
-                        receiverStateOrProvince,
                         receiverCountry,
+                        receiverIdentificationNumber,
                         receiverPostalCode,
+                        receiverStateOrProvince,
+                        receiverStreetAddress,
                         receivingCompanyOrIndividualName,
-                        receivingDepositoryFinancialInstitutionName,
-                        receivingDepositoryFinancialInstitutionIdQualifier,
-                        receivingDepositoryFinancialInstitutionId,
                         receivingDepositoryFinancialInstitutionCountry,
+                        receivingDepositoryFinancialInstitutionId,
+                        receivingDepositoryFinancialInstitutionIdQualifier,
+                        receivingDepositoryFinancialInstitutionName,
                         additionalProperties,
                     )
             }
@@ -2251,7 +2251,7 @@ private constructor(
         }
 
         override fun toString() =
-            "InternationalAddenda{foreignExchangeIndicator=$foreignExchangeIndicator, foreignExchangeReferenceIndicator=$foreignExchangeReferenceIndicator, foreignExchangeReference=$foreignExchangeReference, destinationCountryCode=$destinationCountryCode, destinationCurrencyCode=$destinationCurrencyCode, foreignPaymentAmount=$foreignPaymentAmount, foreignTraceNumber=$foreignTraceNumber, internationalTransactionTypeCode=$internationalTransactionTypeCode, originatingCurrencyCode=$originatingCurrencyCode, originatingDepositoryFinancialInstitutionName=$originatingDepositoryFinancialInstitutionName, originatingDepositoryFinancialInstitutionIdQualifier=$originatingDepositoryFinancialInstitutionIdQualifier, originatingDepositoryFinancialInstitutionId=$originatingDepositoryFinancialInstitutionId, originatingDepositoryFinancialInstitutionBranchCountry=$originatingDepositoryFinancialInstitutionBranchCountry, originatorName=$originatorName, originatorStreetAddress=$originatorStreetAddress, originatorCity=$originatorCity, originatorStateOrProvince=$originatorStateOrProvince, originatorPostalCode=$originatorPostalCode, originatorCountry=$originatorCountry, originatorIdentification=$originatorIdentification, paymentRelatedInformation=$paymentRelatedInformation, paymentRelatedInformation2=$paymentRelatedInformation2, receiverIdentificationNumber=$receiverIdentificationNumber, receiverStreetAddress=$receiverStreetAddress, receiverCity=$receiverCity, receiverStateOrProvince=$receiverStateOrProvince, receiverCountry=$receiverCountry, receiverPostalCode=$receiverPostalCode, receivingCompanyOrIndividualName=$receivingCompanyOrIndividualName, receivingDepositoryFinancialInstitutionName=$receivingDepositoryFinancialInstitutionName, receivingDepositoryFinancialInstitutionIdQualifier=$receivingDepositoryFinancialInstitutionIdQualifier, receivingDepositoryFinancialInstitutionId=$receivingDepositoryFinancialInstitutionId, receivingDepositoryFinancialInstitutionCountry=$receivingDepositoryFinancialInstitutionCountry, additionalProperties=$additionalProperties}"
+            "InternationalAddenda{destinationCountryCode=$destinationCountryCode, destinationCurrencyCode=$destinationCurrencyCode, foreignExchangeIndicator=$foreignExchangeIndicator, foreignExchangeReference=$foreignExchangeReference, foreignExchangeReferenceIndicator=$foreignExchangeReferenceIndicator, foreignPaymentAmount=$foreignPaymentAmount, foreignTraceNumber=$foreignTraceNumber, internationalTransactionTypeCode=$internationalTransactionTypeCode, originatingCurrencyCode=$originatingCurrencyCode, originatingDepositoryFinancialInstitutionBranchCountry=$originatingDepositoryFinancialInstitutionBranchCountry, originatingDepositoryFinancialInstitutionId=$originatingDepositoryFinancialInstitutionId, originatingDepositoryFinancialInstitutionIdQualifier=$originatingDepositoryFinancialInstitutionIdQualifier, originatingDepositoryFinancialInstitutionName=$originatingDepositoryFinancialInstitutionName, originatorCity=$originatorCity, originatorCountry=$originatorCountry, originatorIdentification=$originatorIdentification, originatorName=$originatorName, originatorPostalCode=$originatorPostalCode, originatorStateOrProvince=$originatorStateOrProvince, originatorStreetAddress=$originatorStreetAddress, paymentRelatedInformation=$paymentRelatedInformation, paymentRelatedInformation2=$paymentRelatedInformation2, receiverCity=$receiverCity, receiverCountry=$receiverCountry, receiverIdentificationNumber=$receiverIdentificationNumber, receiverPostalCode=$receiverPostalCode, receiverStateOrProvince=$receiverStateOrProvince, receiverStreetAddress=$receiverStreetAddress, receivingCompanyOrIndividualName=$receivingCompanyOrIndividualName, receivingDepositoryFinancialInstitutionCountry=$receivingDepositoryFinancialInstitutionCountry, receivingDepositoryFinancialInstitutionId=$receivingDepositoryFinancialInstitutionId, receivingDepositoryFinancialInstitutionIdQualifier=$receivingDepositoryFinancialInstitutionIdQualifier, receivingDepositoryFinancialInstitutionName=$receivingDepositoryFinancialInstitutionName, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -2260,149 +2260,103 @@ private constructor(
 
         class Builder {
 
+            private var destinationCountryCode: JsonField<String> = JsonMissing.of()
+            private var destinationCurrencyCode: JsonField<String> = JsonMissing.of()
             private var foreignExchangeIndicator: JsonField<ForeignExchangeIndicator> =
                 JsonMissing.of()
+            private var foreignExchangeReference: JsonField<String> = JsonMissing.of()
             private var foreignExchangeReferenceIndicator:
                 JsonField<ForeignExchangeReferenceIndicator> =
                 JsonMissing.of()
-            private var foreignExchangeReference: JsonField<String> = JsonMissing.of()
-            private var destinationCountryCode: JsonField<String> = JsonMissing.of()
-            private var destinationCurrencyCode: JsonField<String> = JsonMissing.of()
             private var foreignPaymentAmount: JsonField<Long> = JsonMissing.of()
             private var foreignTraceNumber: JsonField<String> = JsonMissing.of()
             private var internationalTransactionTypeCode:
                 JsonField<InternationalTransactionTypeCode> =
                 JsonMissing.of()
             private var originatingCurrencyCode: JsonField<String> = JsonMissing.of()
-            private var originatingDepositoryFinancialInstitutionName: JsonField<String> =
+            private var originatingDepositoryFinancialInstitutionBranchCountry: JsonField<String> =
+                JsonMissing.of()
+            private var originatingDepositoryFinancialInstitutionId: JsonField<String> =
                 JsonMissing.of()
             private var originatingDepositoryFinancialInstitutionIdQualifier:
                 JsonField<OriginatingDepositoryFinancialInstitutionIdQualifier> =
                 JsonMissing.of()
-            private var originatingDepositoryFinancialInstitutionId: JsonField<String> =
+            private var originatingDepositoryFinancialInstitutionName: JsonField<String> =
                 JsonMissing.of()
-            private var originatingDepositoryFinancialInstitutionBranchCountry: JsonField<String> =
-                JsonMissing.of()
-            private var originatorName: JsonField<String> = JsonMissing.of()
-            private var originatorStreetAddress: JsonField<String> = JsonMissing.of()
             private var originatorCity: JsonField<String> = JsonMissing.of()
-            private var originatorStateOrProvince: JsonField<String> = JsonMissing.of()
-            private var originatorPostalCode: JsonField<String> = JsonMissing.of()
             private var originatorCountry: JsonField<String> = JsonMissing.of()
             private var originatorIdentification: JsonField<String> = JsonMissing.of()
+            private var originatorName: JsonField<String> = JsonMissing.of()
+            private var originatorPostalCode: JsonField<String> = JsonMissing.of()
+            private var originatorStateOrProvince: JsonField<String> = JsonMissing.of()
+            private var originatorStreetAddress: JsonField<String> = JsonMissing.of()
             private var paymentRelatedInformation: JsonField<String> = JsonMissing.of()
             private var paymentRelatedInformation2: JsonField<String> = JsonMissing.of()
-            private var receiverIdentificationNumber: JsonField<String> = JsonMissing.of()
-            private var receiverStreetAddress: JsonField<String> = JsonMissing.of()
             private var receiverCity: JsonField<String> = JsonMissing.of()
-            private var receiverStateOrProvince: JsonField<String> = JsonMissing.of()
             private var receiverCountry: JsonField<String> = JsonMissing.of()
+            private var receiverIdentificationNumber: JsonField<String> = JsonMissing.of()
             private var receiverPostalCode: JsonField<String> = JsonMissing.of()
+            private var receiverStateOrProvince: JsonField<String> = JsonMissing.of()
+            private var receiverStreetAddress: JsonField<String> = JsonMissing.of()
             private var receivingCompanyOrIndividualName: JsonField<String> = JsonMissing.of()
-            private var receivingDepositoryFinancialInstitutionName: JsonField<String> =
+            private var receivingDepositoryFinancialInstitutionCountry: JsonField<String> =
+                JsonMissing.of()
+            private var receivingDepositoryFinancialInstitutionId: JsonField<String> =
                 JsonMissing.of()
             private var receivingDepositoryFinancialInstitutionIdQualifier:
                 JsonField<ReceivingDepositoryFinancialInstitutionIdQualifier> =
                 JsonMissing.of()
-            private var receivingDepositoryFinancialInstitutionId: JsonField<String> =
-                JsonMissing.of()
-            private var receivingDepositoryFinancialInstitutionCountry: JsonField<String> =
+            private var receivingDepositoryFinancialInstitutionName: JsonField<String> =
                 JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(internationalAddenda: InternationalAddenda) = apply {
-                this.foreignExchangeIndicator = internationalAddenda.foreignExchangeIndicator
-                this.foreignExchangeReferenceIndicator =
-                    internationalAddenda.foreignExchangeReferenceIndicator
-                this.foreignExchangeReference = internationalAddenda.foreignExchangeReference
                 this.destinationCountryCode = internationalAddenda.destinationCountryCode
                 this.destinationCurrencyCode = internationalAddenda.destinationCurrencyCode
+                this.foreignExchangeIndicator = internationalAddenda.foreignExchangeIndicator
+                this.foreignExchangeReference = internationalAddenda.foreignExchangeReference
+                this.foreignExchangeReferenceIndicator =
+                    internationalAddenda.foreignExchangeReferenceIndicator
                 this.foreignPaymentAmount = internationalAddenda.foreignPaymentAmount
                 this.foreignTraceNumber = internationalAddenda.foreignTraceNumber
                 this.internationalTransactionTypeCode =
                     internationalAddenda.internationalTransactionTypeCode
                 this.originatingCurrencyCode = internationalAddenda.originatingCurrencyCode
-                this.originatingDepositoryFinancialInstitutionName =
-                    internationalAddenda.originatingDepositoryFinancialInstitutionName
-                this.originatingDepositoryFinancialInstitutionIdQualifier =
-                    internationalAddenda.originatingDepositoryFinancialInstitutionIdQualifier
-                this.originatingDepositoryFinancialInstitutionId =
-                    internationalAddenda.originatingDepositoryFinancialInstitutionId
                 this.originatingDepositoryFinancialInstitutionBranchCountry =
                     internationalAddenda.originatingDepositoryFinancialInstitutionBranchCountry
-                this.originatorName = internationalAddenda.originatorName
-                this.originatorStreetAddress = internationalAddenda.originatorStreetAddress
+                this.originatingDepositoryFinancialInstitutionId =
+                    internationalAddenda.originatingDepositoryFinancialInstitutionId
+                this.originatingDepositoryFinancialInstitutionIdQualifier =
+                    internationalAddenda.originatingDepositoryFinancialInstitutionIdQualifier
+                this.originatingDepositoryFinancialInstitutionName =
+                    internationalAddenda.originatingDepositoryFinancialInstitutionName
                 this.originatorCity = internationalAddenda.originatorCity
-                this.originatorStateOrProvince = internationalAddenda.originatorStateOrProvince
-                this.originatorPostalCode = internationalAddenda.originatorPostalCode
                 this.originatorCountry = internationalAddenda.originatorCountry
                 this.originatorIdentification = internationalAddenda.originatorIdentification
+                this.originatorName = internationalAddenda.originatorName
+                this.originatorPostalCode = internationalAddenda.originatorPostalCode
+                this.originatorStateOrProvince = internationalAddenda.originatorStateOrProvince
+                this.originatorStreetAddress = internationalAddenda.originatorStreetAddress
                 this.paymentRelatedInformation = internationalAddenda.paymentRelatedInformation
                 this.paymentRelatedInformation2 = internationalAddenda.paymentRelatedInformation2
+                this.receiverCity = internationalAddenda.receiverCity
+                this.receiverCountry = internationalAddenda.receiverCountry
                 this.receiverIdentificationNumber =
                     internationalAddenda.receiverIdentificationNumber
-                this.receiverStreetAddress = internationalAddenda.receiverStreetAddress
-                this.receiverCity = internationalAddenda.receiverCity
-                this.receiverStateOrProvince = internationalAddenda.receiverStateOrProvince
-                this.receiverCountry = internationalAddenda.receiverCountry
                 this.receiverPostalCode = internationalAddenda.receiverPostalCode
+                this.receiverStateOrProvince = internationalAddenda.receiverStateOrProvince
+                this.receiverStreetAddress = internationalAddenda.receiverStreetAddress
                 this.receivingCompanyOrIndividualName =
                     internationalAddenda.receivingCompanyOrIndividualName
-                this.receivingDepositoryFinancialInstitutionName =
-                    internationalAddenda.receivingDepositoryFinancialInstitutionName
-                this.receivingDepositoryFinancialInstitutionIdQualifier =
-                    internationalAddenda.receivingDepositoryFinancialInstitutionIdQualifier
-                this.receivingDepositoryFinancialInstitutionId =
-                    internationalAddenda.receivingDepositoryFinancialInstitutionId
                 this.receivingDepositoryFinancialInstitutionCountry =
                     internationalAddenda.receivingDepositoryFinancialInstitutionCountry
+                this.receivingDepositoryFinancialInstitutionId =
+                    internationalAddenda.receivingDepositoryFinancialInstitutionId
+                this.receivingDepositoryFinancialInstitutionIdQualifier =
+                    internationalAddenda.receivingDepositoryFinancialInstitutionIdQualifier
+                this.receivingDepositoryFinancialInstitutionName =
+                    internationalAddenda.receivingDepositoryFinancialInstitutionName
                 additionalProperties(internationalAddenda.additionalProperties)
-            }
-
-            /** A description of how the foreign exchange rate was calculated. */
-            fun foreignExchangeIndicator(foreignExchangeIndicator: ForeignExchangeIndicator) =
-                foreignExchangeIndicator(JsonField.of(foreignExchangeIndicator))
-
-            /** A description of how the foreign exchange rate was calculated. */
-            @JsonProperty("foreign_exchange_indicator")
-            @ExcludeMissing
-            fun foreignExchangeIndicator(
-                foreignExchangeIndicator: JsonField<ForeignExchangeIndicator>
-            ) = apply { this.foreignExchangeIndicator = foreignExchangeIndicator }
-
-            /**
-             * An instruction of how to interpret the `foreign_exchange_reference` field for this
-             * Transaction.
-             */
-            fun foreignExchangeReferenceIndicator(
-                foreignExchangeReferenceIndicator: ForeignExchangeReferenceIndicator
-            ) = foreignExchangeReferenceIndicator(JsonField.of(foreignExchangeReferenceIndicator))
-
-            /**
-             * An instruction of how to interpret the `foreign_exchange_reference` field for this
-             * Transaction.
-             */
-            @JsonProperty("foreign_exchange_reference_indicator")
-            @ExcludeMissing
-            fun foreignExchangeReferenceIndicator(
-                foreignExchangeReferenceIndicator: JsonField<ForeignExchangeReferenceIndicator>
-            ) = apply { this.foreignExchangeReferenceIndicator = foreignExchangeReferenceIndicator }
-
-            /**
-             * Depending on the `foreign_exchange_reference_indicator`, an exchange rate or a
-             * reference to a well-known rate.
-             */
-            fun foreignExchangeReference(foreignExchangeReference: String) =
-                foreignExchangeReference(JsonField.of(foreignExchangeReference))
-
-            /**
-             * Depending on the `foreign_exchange_reference_indicator`, an exchange rate or a
-             * reference to a well-known rate.
-             */
-            @JsonProperty("foreign_exchange_reference")
-            @ExcludeMissing
-            fun foreignExchangeReference(foreignExchangeReference: JsonField<String>) = apply {
-                this.foreignExchangeReference = foreignExchangeReference
             }
 
             /**
@@ -2438,6 +2392,52 @@ private constructor(
             fun destinationCurrencyCode(destinationCurrencyCode: JsonField<String>) = apply {
                 this.destinationCurrencyCode = destinationCurrencyCode
             }
+
+            /** A description of how the foreign exchange rate was calculated. */
+            fun foreignExchangeIndicator(foreignExchangeIndicator: ForeignExchangeIndicator) =
+                foreignExchangeIndicator(JsonField.of(foreignExchangeIndicator))
+
+            /** A description of how the foreign exchange rate was calculated. */
+            @JsonProperty("foreign_exchange_indicator")
+            @ExcludeMissing
+            fun foreignExchangeIndicator(
+                foreignExchangeIndicator: JsonField<ForeignExchangeIndicator>
+            ) = apply { this.foreignExchangeIndicator = foreignExchangeIndicator }
+
+            /**
+             * Depending on the `foreign_exchange_reference_indicator`, an exchange rate or a
+             * reference to a well-known rate.
+             */
+            fun foreignExchangeReference(foreignExchangeReference: String) =
+                foreignExchangeReference(JsonField.of(foreignExchangeReference))
+
+            /**
+             * Depending on the `foreign_exchange_reference_indicator`, an exchange rate or a
+             * reference to a well-known rate.
+             */
+            @JsonProperty("foreign_exchange_reference")
+            @ExcludeMissing
+            fun foreignExchangeReference(foreignExchangeReference: JsonField<String>) = apply {
+                this.foreignExchangeReference = foreignExchangeReference
+            }
+
+            /**
+             * An instruction of how to interpret the `foreign_exchange_reference` field for this
+             * Transaction.
+             */
+            fun foreignExchangeReferenceIndicator(
+                foreignExchangeReferenceIndicator: ForeignExchangeReferenceIndicator
+            ) = foreignExchangeReferenceIndicator(JsonField.of(foreignExchangeReferenceIndicator))
+
+            /**
+             * An instruction of how to interpret the `foreign_exchange_reference` field for this
+             * Transaction.
+             */
+            @JsonProperty("foreign_exchange_reference_indicator")
+            @ExcludeMissing
+            fun foreignExchangeReferenceIndicator(
+                foreignExchangeReferenceIndicator: JsonField<ForeignExchangeReferenceIndicator>
+            ) = apply { this.foreignExchangeReferenceIndicator = foreignExchangeReferenceIndicator }
 
             /**
              * The amount in the minor unit of the foreign payment currency. For dollars, for
@@ -2497,53 +2497,27 @@ private constructor(
             }
 
             /**
-             * The name of the originating bank. Sometimes this will refer to an American bank and
-             * obscure the correspondent foreign bank.
+             * The [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2), Alpha-2 country
+             * code of the originating branch country.
              */
-            fun originatingDepositoryFinancialInstitutionName(
-                originatingDepositoryFinancialInstitutionName: String
+            fun originatingDepositoryFinancialInstitutionBranchCountry(
+                originatingDepositoryFinancialInstitutionBranchCountry: String
             ) =
-                originatingDepositoryFinancialInstitutionName(
-                    JsonField.of(originatingDepositoryFinancialInstitutionName)
+                originatingDepositoryFinancialInstitutionBranchCountry(
+                    JsonField.of(originatingDepositoryFinancialInstitutionBranchCountry)
                 )
 
             /**
-             * The name of the originating bank. Sometimes this will refer to an American bank and
-             * obscure the correspondent foreign bank.
+             * The [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2), Alpha-2 country
+             * code of the originating branch country.
              */
-            @JsonProperty("originating_depository_financial_institution_name")
+            @JsonProperty("originating_depository_financial_institution_branch_country")
             @ExcludeMissing
-            fun originatingDepositoryFinancialInstitutionName(
-                originatingDepositoryFinancialInstitutionName: JsonField<String>
+            fun originatingDepositoryFinancialInstitutionBranchCountry(
+                originatingDepositoryFinancialInstitutionBranchCountry: JsonField<String>
             ) = apply {
-                this.originatingDepositoryFinancialInstitutionName =
-                    originatingDepositoryFinancialInstitutionName
-            }
-
-            /**
-             * An instruction of how to interpret the
-             * `originating_depository_financial_institution_id` field for this Transaction.
-             */
-            fun originatingDepositoryFinancialInstitutionIdQualifier(
-                originatingDepositoryFinancialInstitutionIdQualifier:
-                    OriginatingDepositoryFinancialInstitutionIdQualifier
-            ) =
-                originatingDepositoryFinancialInstitutionIdQualifier(
-                    JsonField.of(originatingDepositoryFinancialInstitutionIdQualifier)
-                )
-
-            /**
-             * An instruction of how to interpret the
-             * `originating_depository_financial_institution_id` field for this Transaction.
-             */
-            @JsonProperty("originating_depository_financial_institution_id_qualifier")
-            @ExcludeMissing
-            fun originatingDepositoryFinancialInstitutionIdQualifier(
-                originatingDepositoryFinancialInstitutionIdQualifier:
-                    JsonField<OriginatingDepositoryFinancialInstitutionIdQualifier>
-            ) = apply {
-                this.originatingDepositoryFinancialInstitutionIdQualifier =
-                    originatingDepositoryFinancialInstitutionIdQualifier
+                this.originatingDepositoryFinancialInstitutionBranchCountry =
+                    originatingDepositoryFinancialInstitutionBranchCountry
             }
 
             /**
@@ -2573,49 +2547,53 @@ private constructor(
             }
 
             /**
-             * The [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2), Alpha-2 country
-             * code of the originating branch country.
+             * An instruction of how to interpret the
+             * `originating_depository_financial_institution_id` field for this Transaction.
              */
-            fun originatingDepositoryFinancialInstitutionBranchCountry(
-                originatingDepositoryFinancialInstitutionBranchCountry: String
+            fun originatingDepositoryFinancialInstitutionIdQualifier(
+                originatingDepositoryFinancialInstitutionIdQualifier:
+                    OriginatingDepositoryFinancialInstitutionIdQualifier
             ) =
-                originatingDepositoryFinancialInstitutionBranchCountry(
-                    JsonField.of(originatingDepositoryFinancialInstitutionBranchCountry)
+                originatingDepositoryFinancialInstitutionIdQualifier(
+                    JsonField.of(originatingDepositoryFinancialInstitutionIdQualifier)
                 )
 
             /**
-             * The [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2), Alpha-2 country
-             * code of the originating branch country.
+             * An instruction of how to interpret the
+             * `originating_depository_financial_institution_id` field for this Transaction.
              */
-            @JsonProperty("originating_depository_financial_institution_branch_country")
+            @JsonProperty("originating_depository_financial_institution_id_qualifier")
             @ExcludeMissing
-            fun originatingDepositoryFinancialInstitutionBranchCountry(
-                originatingDepositoryFinancialInstitutionBranchCountry: JsonField<String>
+            fun originatingDepositoryFinancialInstitutionIdQualifier(
+                originatingDepositoryFinancialInstitutionIdQualifier:
+                    JsonField<OriginatingDepositoryFinancialInstitutionIdQualifier>
             ) = apply {
-                this.originatingDepositoryFinancialInstitutionBranchCountry =
-                    originatingDepositoryFinancialInstitutionBranchCountry
+                this.originatingDepositoryFinancialInstitutionIdQualifier =
+                    originatingDepositoryFinancialInstitutionIdQualifier
             }
 
-            /** Either the name of the originator or an intermediary money transmitter. */
-            fun originatorName(originatorName: String) =
-                originatorName(JsonField.of(originatorName))
+            /**
+             * The name of the originating bank. Sometimes this will refer to an American bank and
+             * obscure the correspondent foreign bank.
+             */
+            fun originatingDepositoryFinancialInstitutionName(
+                originatingDepositoryFinancialInstitutionName: String
+            ) =
+                originatingDepositoryFinancialInstitutionName(
+                    JsonField.of(originatingDepositoryFinancialInstitutionName)
+                )
 
-            /** Either the name of the originator or an intermediary money transmitter. */
-            @JsonProperty("originator_name")
+            /**
+             * The name of the originating bank. Sometimes this will refer to an American bank and
+             * obscure the correspondent foreign bank.
+             */
+            @JsonProperty("originating_depository_financial_institution_name")
             @ExcludeMissing
-            fun originatorName(originatorName: JsonField<String>) = apply {
-                this.originatorName = originatorName
-            }
-
-            /** A portion of the originator address. This may be incomplete. */
-            fun originatorStreetAddress(originatorStreetAddress: String) =
-                originatorStreetAddress(JsonField.of(originatorStreetAddress))
-
-            /** A portion of the originator address. This may be incomplete. */
-            @JsonProperty("originator_street_address")
-            @ExcludeMissing
-            fun originatorStreetAddress(originatorStreetAddress: JsonField<String>) = apply {
-                this.originatorStreetAddress = originatorStreetAddress
+            fun originatingDepositoryFinancialInstitutionName(
+                originatingDepositoryFinancialInstitutionName: JsonField<String>
+            ) = apply {
+                this.originatingDepositoryFinancialInstitutionName =
+                    originatingDepositoryFinancialInstitutionName
             }
 
             /** A portion of the originator address. This may be incomplete. */
@@ -2627,28 +2605,6 @@ private constructor(
             @ExcludeMissing
             fun originatorCity(originatorCity: JsonField<String>) = apply {
                 this.originatorCity = originatorCity
-            }
-
-            /** A portion of the originator address. This may be incomplete. */
-            fun originatorStateOrProvince(originatorStateOrProvince: String) =
-                originatorStateOrProvince(JsonField.of(originatorStateOrProvince))
-
-            /** A portion of the originator address. This may be incomplete. */
-            @JsonProperty("originator_state_or_province")
-            @ExcludeMissing
-            fun originatorStateOrProvince(originatorStateOrProvince: JsonField<String>) = apply {
-                this.originatorStateOrProvince = originatorStateOrProvince
-            }
-
-            /** A portion of the originator address. This may be incomplete. */
-            fun originatorPostalCode(originatorPostalCode: String) =
-                originatorPostalCode(JsonField.of(originatorPostalCode))
-
-            /** A portion of the originator address. This may be incomplete. */
-            @JsonProperty("originator_postal_code")
-            @ExcludeMissing
-            fun originatorPostalCode(originatorPostalCode: JsonField<String>) = apply {
-                this.originatorPostalCode = originatorPostalCode
             }
 
             /**
@@ -2687,6 +2643,50 @@ private constructor(
                 this.originatorIdentification = originatorIdentification
             }
 
+            /** Either the name of the originator or an intermediary money transmitter. */
+            fun originatorName(originatorName: String) =
+                originatorName(JsonField.of(originatorName))
+
+            /** Either the name of the originator or an intermediary money transmitter. */
+            @JsonProperty("originator_name")
+            @ExcludeMissing
+            fun originatorName(originatorName: JsonField<String>) = apply {
+                this.originatorName = originatorName
+            }
+
+            /** A portion of the originator address. This may be incomplete. */
+            fun originatorPostalCode(originatorPostalCode: String) =
+                originatorPostalCode(JsonField.of(originatorPostalCode))
+
+            /** A portion of the originator address. This may be incomplete. */
+            @JsonProperty("originator_postal_code")
+            @ExcludeMissing
+            fun originatorPostalCode(originatorPostalCode: JsonField<String>) = apply {
+                this.originatorPostalCode = originatorPostalCode
+            }
+
+            /** A portion of the originator address. This may be incomplete. */
+            fun originatorStateOrProvince(originatorStateOrProvince: String) =
+                originatorStateOrProvince(JsonField.of(originatorStateOrProvince))
+
+            /** A portion of the originator address. This may be incomplete. */
+            @JsonProperty("originator_state_or_province")
+            @ExcludeMissing
+            fun originatorStateOrProvince(originatorStateOrProvince: JsonField<String>) = apply {
+                this.originatorStateOrProvince = originatorStateOrProvince
+            }
+
+            /** A portion of the originator address. This may be incomplete. */
+            fun originatorStreetAddress(originatorStreetAddress: String) =
+                originatorStreetAddress(JsonField.of(originatorStreetAddress))
+
+            /** A portion of the originator address. This may be incomplete. */
+            @JsonProperty("originator_street_address")
+            @ExcludeMissing
+            fun originatorStreetAddress(originatorStreetAddress: JsonField<String>) = apply {
+                this.originatorStreetAddress = originatorStreetAddress
+            }
+
             /** A description field set by the originator. */
             fun paymentRelatedInformation(paymentRelatedInformation: String) =
                 paymentRelatedInformation(JsonField.of(paymentRelatedInformation))
@@ -2709,29 +2709,6 @@ private constructor(
                 this.paymentRelatedInformation2 = paymentRelatedInformation2
             }
 
-            /** An identification number the originator uses for the receiver. */
-            fun receiverIdentificationNumber(receiverIdentificationNumber: String) =
-                receiverIdentificationNumber(JsonField.of(receiverIdentificationNumber))
-
-            /** An identification number the originator uses for the receiver. */
-            @JsonProperty("receiver_identification_number")
-            @ExcludeMissing
-            fun receiverIdentificationNumber(receiverIdentificationNumber: JsonField<String>) =
-                apply {
-                    this.receiverIdentificationNumber = receiverIdentificationNumber
-                }
-
-            /** A portion of the receiver address. This may be incomplete. */
-            fun receiverStreetAddress(receiverStreetAddress: String) =
-                receiverStreetAddress(JsonField.of(receiverStreetAddress))
-
-            /** A portion of the receiver address. This may be incomplete. */
-            @JsonProperty("receiver_street_address")
-            @ExcludeMissing
-            fun receiverStreetAddress(receiverStreetAddress: JsonField<String>) = apply {
-                this.receiverStreetAddress = receiverStreetAddress
-            }
-
             /** A portion of the receiver address. This may be incomplete. */
             fun receiverCity(receiverCity: String) = receiverCity(JsonField.of(receiverCity))
 
@@ -2740,17 +2717,6 @@ private constructor(
             @ExcludeMissing
             fun receiverCity(receiverCity: JsonField<String>) = apply {
                 this.receiverCity = receiverCity
-            }
-
-            /** A portion of the receiver address. This may be incomplete. */
-            fun receiverStateOrProvince(receiverStateOrProvince: String) =
-                receiverStateOrProvince(JsonField.of(receiverStateOrProvince))
-
-            /** A portion of the receiver address. This may be incomplete. */
-            @JsonProperty("receiver_state_or_province")
-            @ExcludeMissing
-            fun receiverStateOrProvince(receiverStateOrProvince: JsonField<String>) = apply {
-                this.receiverStateOrProvince = receiverStateOrProvince
             }
 
             /**
@@ -2772,6 +2738,18 @@ private constructor(
                 this.receiverCountry = receiverCountry
             }
 
+            /** An identification number the originator uses for the receiver. */
+            fun receiverIdentificationNumber(receiverIdentificationNumber: String) =
+                receiverIdentificationNumber(JsonField.of(receiverIdentificationNumber))
+
+            /** An identification number the originator uses for the receiver. */
+            @JsonProperty("receiver_identification_number")
+            @ExcludeMissing
+            fun receiverIdentificationNumber(receiverIdentificationNumber: JsonField<String>) =
+                apply {
+                    this.receiverIdentificationNumber = receiverIdentificationNumber
+                }
+
             /** A portion of the receiver address. This may be incomplete. */
             fun receiverPostalCode(receiverPostalCode: String) =
                 receiverPostalCode(JsonField.of(receiverPostalCode))
@@ -2781,6 +2759,28 @@ private constructor(
             @ExcludeMissing
             fun receiverPostalCode(receiverPostalCode: JsonField<String>) = apply {
                 this.receiverPostalCode = receiverPostalCode
+            }
+
+            /** A portion of the receiver address. This may be incomplete. */
+            fun receiverStateOrProvince(receiverStateOrProvince: String) =
+                receiverStateOrProvince(JsonField.of(receiverStateOrProvince))
+
+            /** A portion of the receiver address. This may be incomplete. */
+            @JsonProperty("receiver_state_or_province")
+            @ExcludeMissing
+            fun receiverStateOrProvince(receiverStateOrProvince: JsonField<String>) = apply {
+                this.receiverStateOrProvince = receiverStateOrProvince
+            }
+
+            /** A portion of the receiver address. This may be incomplete. */
+            fun receiverStreetAddress(receiverStreetAddress: String) =
+                receiverStreetAddress(JsonField.of(receiverStreetAddress))
+
+            /** A portion of the receiver address. This may be incomplete. */
+            @JsonProperty("receiver_street_address")
+            @ExcludeMissing
+            fun receiverStreetAddress(receiverStreetAddress: JsonField<String>) = apply {
+                this.receiverStreetAddress = receiverStreetAddress
             }
 
             /** The name of the receiver of the transfer. This is not verified by Increase. */
@@ -2794,48 +2794,28 @@ private constructor(
                 receivingCompanyOrIndividualName: JsonField<String>
             ) = apply { this.receivingCompanyOrIndividualName = receivingCompanyOrIndividualName }
 
-            /** The name of the receiving bank, as set by the sending financial institution. */
-            fun receivingDepositoryFinancialInstitutionName(
-                receivingDepositoryFinancialInstitutionName: String
-            ) =
-                receivingDepositoryFinancialInstitutionName(
-                    JsonField.of(receivingDepositoryFinancialInstitutionName)
-                )
-
-            /** The name of the receiving bank, as set by the sending financial institution. */
-            @JsonProperty("receiving_depository_financial_institution_name")
-            @ExcludeMissing
-            fun receivingDepositoryFinancialInstitutionName(
-                receivingDepositoryFinancialInstitutionName: JsonField<String>
-            ) = apply {
-                this.receivingDepositoryFinancialInstitutionName =
-                    receivingDepositoryFinancialInstitutionName
-            }
-
             /**
-             * An instruction of how to interpret the
-             * `receiving_depository_financial_institution_id` field for this Transaction.
+             * The [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2), Alpha-2 country
+             * code of the receiving bank country.
              */
-            fun receivingDepositoryFinancialInstitutionIdQualifier(
-                receivingDepositoryFinancialInstitutionIdQualifier:
-                    ReceivingDepositoryFinancialInstitutionIdQualifier
+            fun receivingDepositoryFinancialInstitutionCountry(
+                receivingDepositoryFinancialInstitutionCountry: String
             ) =
-                receivingDepositoryFinancialInstitutionIdQualifier(
-                    JsonField.of(receivingDepositoryFinancialInstitutionIdQualifier)
+                receivingDepositoryFinancialInstitutionCountry(
+                    JsonField.of(receivingDepositoryFinancialInstitutionCountry)
                 )
 
             /**
-             * An instruction of how to interpret the
-             * `receiving_depository_financial_institution_id` field for this Transaction.
+             * The [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2), Alpha-2 country
+             * code of the receiving bank country.
              */
-            @JsonProperty("receiving_depository_financial_institution_id_qualifier")
+            @JsonProperty("receiving_depository_financial_institution_country")
             @ExcludeMissing
-            fun receivingDepositoryFinancialInstitutionIdQualifier(
-                receivingDepositoryFinancialInstitutionIdQualifier:
-                    JsonField<ReceivingDepositoryFinancialInstitutionIdQualifier>
+            fun receivingDepositoryFinancialInstitutionCountry(
+                receivingDepositoryFinancialInstitutionCountry: JsonField<String>
             ) = apply {
-                this.receivingDepositoryFinancialInstitutionIdQualifier =
-                    receivingDepositoryFinancialInstitutionIdQualifier
+                this.receivingDepositoryFinancialInstitutionCountry =
+                    receivingDepositoryFinancialInstitutionCountry
             }
 
             /**
@@ -2865,27 +2845,47 @@ private constructor(
             }
 
             /**
-             * The [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2), Alpha-2 country
-             * code of the receiving bank country.
+             * An instruction of how to interpret the
+             * `receiving_depository_financial_institution_id` field for this Transaction.
              */
-            fun receivingDepositoryFinancialInstitutionCountry(
-                receivingDepositoryFinancialInstitutionCountry: String
+            fun receivingDepositoryFinancialInstitutionIdQualifier(
+                receivingDepositoryFinancialInstitutionIdQualifier:
+                    ReceivingDepositoryFinancialInstitutionIdQualifier
             ) =
-                receivingDepositoryFinancialInstitutionCountry(
-                    JsonField.of(receivingDepositoryFinancialInstitutionCountry)
+                receivingDepositoryFinancialInstitutionIdQualifier(
+                    JsonField.of(receivingDepositoryFinancialInstitutionIdQualifier)
                 )
 
             /**
-             * The [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2), Alpha-2 country
-             * code of the receiving bank country.
+             * An instruction of how to interpret the
+             * `receiving_depository_financial_institution_id` field for this Transaction.
              */
-            @JsonProperty("receiving_depository_financial_institution_country")
+            @JsonProperty("receiving_depository_financial_institution_id_qualifier")
             @ExcludeMissing
-            fun receivingDepositoryFinancialInstitutionCountry(
-                receivingDepositoryFinancialInstitutionCountry: JsonField<String>
+            fun receivingDepositoryFinancialInstitutionIdQualifier(
+                receivingDepositoryFinancialInstitutionIdQualifier:
+                    JsonField<ReceivingDepositoryFinancialInstitutionIdQualifier>
             ) = apply {
-                this.receivingDepositoryFinancialInstitutionCountry =
-                    receivingDepositoryFinancialInstitutionCountry
+                this.receivingDepositoryFinancialInstitutionIdQualifier =
+                    receivingDepositoryFinancialInstitutionIdQualifier
+            }
+
+            /** The name of the receiving bank, as set by the sending financial institution. */
+            fun receivingDepositoryFinancialInstitutionName(
+                receivingDepositoryFinancialInstitutionName: String
+            ) =
+                receivingDepositoryFinancialInstitutionName(
+                    JsonField.of(receivingDepositoryFinancialInstitutionName)
+                )
+
+            /** The name of the receiving bank, as set by the sending financial institution. */
+            @JsonProperty("receiving_depository_financial_institution_name")
+            @ExcludeMissing
+            fun receivingDepositoryFinancialInstitutionName(
+                receivingDepositoryFinancialInstitutionName: JsonField<String>
+            ) = apply {
+                this.receivingDepositoryFinancialInstitutionName =
+                    receivingDepositoryFinancialInstitutionName
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -2904,39 +2904,39 @@ private constructor(
 
             fun build(): InternationalAddenda =
                 InternationalAddenda(
-                    foreignExchangeIndicator,
-                    foreignExchangeReferenceIndicator,
-                    foreignExchangeReference,
                     destinationCountryCode,
                     destinationCurrencyCode,
+                    foreignExchangeIndicator,
+                    foreignExchangeReference,
+                    foreignExchangeReferenceIndicator,
                     foreignPaymentAmount,
                     foreignTraceNumber,
                     internationalTransactionTypeCode,
                     originatingCurrencyCode,
-                    originatingDepositoryFinancialInstitutionName,
-                    originatingDepositoryFinancialInstitutionIdQualifier,
-                    originatingDepositoryFinancialInstitutionId,
                     originatingDepositoryFinancialInstitutionBranchCountry,
-                    originatorName,
-                    originatorStreetAddress,
+                    originatingDepositoryFinancialInstitutionId,
+                    originatingDepositoryFinancialInstitutionIdQualifier,
+                    originatingDepositoryFinancialInstitutionName,
                     originatorCity,
-                    originatorStateOrProvince,
-                    originatorPostalCode,
                     originatorCountry,
                     originatorIdentification,
+                    originatorName,
+                    originatorPostalCode,
+                    originatorStateOrProvince,
+                    originatorStreetAddress,
                     paymentRelatedInformation,
                     paymentRelatedInformation2,
-                    receiverIdentificationNumber,
-                    receiverStreetAddress,
                     receiverCity,
-                    receiverStateOrProvince,
                     receiverCountry,
+                    receiverIdentificationNumber,
                     receiverPostalCode,
+                    receiverStateOrProvince,
+                    receiverStreetAddress,
                     receivingCompanyOrIndividualName,
-                    receivingDepositoryFinancialInstitutionName,
-                    receivingDepositoryFinancialInstitutionIdQualifier,
-                    receivingDepositoryFinancialInstitutionId,
                     receivingDepositoryFinancialInstitutionCountry,
+                    receivingDepositoryFinancialInstitutionId,
+                    receivingDepositoryFinancialInstitutionIdQualifier,
+                    receivingDepositoryFinancialInstitutionName,
                     additionalProperties.toUnmodifiable(),
                 )
         }
