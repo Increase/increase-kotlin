@@ -1123,8 +1123,8 @@ private constructor(
     @NoAutoDetect
     class CreatedBy
     private constructor(
-        private val category: JsonField<Category>,
         private val apiKey: JsonField<ApiKey>,
+        private val category: JsonField<Category>,
         private val oauthApplication: JsonField<OAuthApplication>,
         private val user: JsonField<User>,
         private val additionalProperties: Map<String, JsonValue>,
@@ -1134,11 +1134,11 @@ private constructor(
 
         private var hashCode: Int = 0
 
-        /** The type of object that created this transfer. */
-        fun category(): Category = category.getRequired("category")
-
         /** If present, details about the API key that created the transfer. */
         fun apiKey(): ApiKey? = apiKey.getNullable("api_key")
+
+        /** The type of object that created this transfer. */
+        fun category(): Category = category.getRequired("category")
 
         /** If present, details about the OAuth Application that created the transfer. */
         fun oauthApplication(): OAuthApplication? =
@@ -1147,11 +1147,11 @@ private constructor(
         /** If present, details about the User that created the transfer. */
         fun user(): User? = user.getNullable("user")
 
-        /** The type of object that created this transfer. */
-        @JsonProperty("category") @ExcludeMissing fun _category() = category
-
         /** If present, details about the API key that created the transfer. */
         @JsonProperty("api_key") @ExcludeMissing fun _apiKey() = apiKey
+
+        /** The type of object that created this transfer. */
+        @JsonProperty("category") @ExcludeMissing fun _category() = category
 
         /** If present, details about the OAuth Application that created the transfer. */
         @JsonProperty("oauth_application")
@@ -1167,8 +1167,8 @@ private constructor(
 
         fun validate(): CreatedBy = apply {
             if (!validated) {
-                category()
                 apiKey()?.validate()
+                category()
                 oauthApplication()?.validate()
                 user()?.validate()
                 validated = true
@@ -1183,8 +1183,8 @@ private constructor(
             }
 
             return other is CreatedBy &&
-                this.category == other.category &&
                 this.apiKey == other.apiKey &&
+                this.category == other.category &&
                 this.oauthApplication == other.oauthApplication &&
                 this.user == other.user &&
                 this.additionalProperties == other.additionalProperties
@@ -1194,8 +1194,8 @@ private constructor(
             if (hashCode == 0) {
                 hashCode =
                     Objects.hash(
-                        category,
                         apiKey,
+                        category,
                         oauthApplication,
                         user,
                         additionalProperties,
@@ -1205,7 +1205,7 @@ private constructor(
         }
 
         override fun toString() =
-            "CreatedBy{category=$category, apiKey=$apiKey, oauthApplication=$oauthApplication, user=$user, additionalProperties=$additionalProperties}"
+            "CreatedBy{apiKey=$apiKey, category=$category, oauthApplication=$oauthApplication, user=$user, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -1214,27 +1214,19 @@ private constructor(
 
         class Builder {
 
-            private var category: JsonField<Category> = JsonMissing.of()
             private var apiKey: JsonField<ApiKey> = JsonMissing.of()
+            private var category: JsonField<Category> = JsonMissing.of()
             private var oauthApplication: JsonField<OAuthApplication> = JsonMissing.of()
             private var user: JsonField<User> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(createdBy: CreatedBy) = apply {
-                this.category = createdBy.category
                 this.apiKey = createdBy.apiKey
+                this.category = createdBy.category
                 this.oauthApplication = createdBy.oauthApplication
                 this.user = createdBy.user
                 additionalProperties(createdBy.additionalProperties)
             }
-
-            /** The type of object that created this transfer. */
-            fun category(category: Category) = category(JsonField.of(category))
-
-            /** The type of object that created this transfer. */
-            @JsonProperty("category")
-            @ExcludeMissing
-            fun category(category: JsonField<Category>) = apply { this.category = category }
 
             /** If present, details about the API key that created the transfer. */
             fun apiKey(apiKey: ApiKey) = apiKey(JsonField.of(apiKey))
@@ -1243,6 +1235,14 @@ private constructor(
             @JsonProperty("api_key")
             @ExcludeMissing
             fun apiKey(apiKey: JsonField<ApiKey>) = apply { this.apiKey = apiKey }
+
+            /** The type of object that created this transfer. */
+            fun category(category: Category) = category(JsonField.of(category))
+
+            /** The type of object that created this transfer. */
+            @JsonProperty("category")
+            @ExcludeMissing
+            fun category(category: JsonField<Category>) = apply { this.category = category }
 
             /** If present, details about the OAuth Application that created the transfer. */
             fun oauthApplication(oauthApplication: OAuthApplication) =
@@ -1279,8 +1279,8 @@ private constructor(
 
             fun build(): CreatedBy =
                 CreatedBy(
-                    category,
                     apiKey,
+                    category,
                     oauthApplication,
                     user,
                     additionalProperties.toUnmodifiable(),
@@ -1725,28 +1725,15 @@ private constructor(
     @NoAutoDetect
     class Rejection
     private constructor(
-        private val rejectedAt: JsonField<OffsetDateTime>,
-        private val rejectReasonCode: JsonField<RejectReasonCode>,
         private val rejectReasonAdditionalInformation: JsonField<String>,
+        private val rejectReasonCode: JsonField<RejectReasonCode>,
+        private val rejectedAt: JsonField<OffsetDateTime>,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         private var validated: Boolean = false
 
         private var hashCode: Int = 0
-
-        /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-         * transfer was rejected.
-         */
-        fun rejectedAt(): OffsetDateTime? = rejectedAt.getNullable("rejected_at")
-
-        /**
-         * The reason the transfer was rejected as provided by the recipient bank or the Real-Time
-         * Payments network.
-         */
-        fun rejectReasonCode(): RejectReasonCode =
-            rejectReasonCode.getRequired("reject_reason_code")
 
         /**
          * Additional information about the rejection provided by the recipient bank when the
@@ -1756,10 +1743,25 @@ private constructor(
             rejectReasonAdditionalInformation.getNullable("reject_reason_additional_information")
 
         /**
+         * The reason the transfer was rejected as provided by the recipient bank or the Real-Time
+         * Payments network.
+         */
+        fun rejectReasonCode(): RejectReasonCode =
+            rejectReasonCode.getRequired("reject_reason_code")
+
+        /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
          * transfer was rejected.
          */
-        @JsonProperty("rejected_at") @ExcludeMissing fun _rejectedAt() = rejectedAt
+        fun rejectedAt(): OffsetDateTime? = rejectedAt.getNullable("rejected_at")
+
+        /**
+         * Additional information about the rejection provided by the recipient bank when the
+         * `reject_reason_code` is `NARRATIVE`.
+         */
+        @JsonProperty("reject_reason_additional_information")
+        @ExcludeMissing
+        fun _rejectReasonAdditionalInformation() = rejectReasonAdditionalInformation
 
         /**
          * The reason the transfer was rejected as provided by the recipient bank or the Real-Time
@@ -1770,12 +1772,10 @@ private constructor(
         fun _rejectReasonCode() = rejectReasonCode
 
         /**
-         * Additional information about the rejection provided by the recipient bank when the
-         * `reject_reason_code` is `NARRATIVE`.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+         * transfer was rejected.
          */
-        @JsonProperty("reject_reason_additional_information")
-        @ExcludeMissing
-        fun _rejectReasonAdditionalInformation() = rejectReasonAdditionalInformation
+        @JsonProperty("rejected_at") @ExcludeMissing fun _rejectedAt() = rejectedAt
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -1783,9 +1783,9 @@ private constructor(
 
         fun validate(): Rejection = apply {
             if (!validated) {
-                rejectedAt()
-                rejectReasonCode()
                 rejectReasonAdditionalInformation()
+                rejectReasonCode()
+                rejectedAt()
                 validated = true
             }
         }
@@ -1798,9 +1798,9 @@ private constructor(
             }
 
             return other is Rejection &&
-                this.rejectedAt == other.rejectedAt &&
-                this.rejectReasonCode == other.rejectReasonCode &&
                 this.rejectReasonAdditionalInformation == other.rejectReasonAdditionalInformation &&
+                this.rejectReasonCode == other.rejectReasonCode &&
+                this.rejectedAt == other.rejectedAt &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -1808,9 +1808,9 @@ private constructor(
             if (hashCode == 0) {
                 hashCode =
                     Objects.hash(
-                        rejectedAt,
-                        rejectReasonCode,
                         rejectReasonAdditionalInformation,
+                        rejectReasonCode,
+                        rejectedAt,
                         additionalProperties,
                     )
             }
@@ -1818,7 +1818,7 @@ private constructor(
         }
 
         override fun toString() =
-            "Rejection{rejectedAt=$rejectedAt, rejectReasonCode=$rejectReasonCode, rejectReasonAdditionalInformation=$rejectReasonAdditionalInformation, additionalProperties=$additionalProperties}"
+            "Rejection{rejectReasonAdditionalInformation=$rejectReasonAdditionalInformation, rejectReasonCode=$rejectReasonCode, rejectedAt=$rejectedAt, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -1827,49 +1827,16 @@ private constructor(
 
         class Builder {
 
-            private var rejectedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-            private var rejectReasonCode: JsonField<RejectReasonCode> = JsonMissing.of()
             private var rejectReasonAdditionalInformation: JsonField<String> = JsonMissing.of()
+            private var rejectReasonCode: JsonField<RejectReasonCode> = JsonMissing.of()
+            private var rejectedAt: JsonField<OffsetDateTime> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(rejection: Rejection) = apply {
-                this.rejectedAt = rejection.rejectedAt
-                this.rejectReasonCode = rejection.rejectReasonCode
                 this.rejectReasonAdditionalInformation = rejection.rejectReasonAdditionalInformation
+                this.rejectReasonCode = rejection.rejectReasonCode
+                this.rejectedAt = rejection.rejectedAt
                 additionalProperties(rejection.additionalProperties)
-            }
-
-            /**
-             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-             * transfer was rejected.
-             */
-            fun rejectedAt(rejectedAt: OffsetDateTime) = rejectedAt(JsonField.of(rejectedAt))
-
-            /**
-             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-             * transfer was rejected.
-             */
-            @JsonProperty("rejected_at")
-            @ExcludeMissing
-            fun rejectedAt(rejectedAt: JsonField<OffsetDateTime>) = apply {
-                this.rejectedAt = rejectedAt
-            }
-
-            /**
-             * The reason the transfer was rejected as provided by the recipient bank or the
-             * Real-Time Payments network.
-             */
-            fun rejectReasonCode(rejectReasonCode: RejectReasonCode) =
-                rejectReasonCode(JsonField.of(rejectReasonCode))
-
-            /**
-             * The reason the transfer was rejected as provided by the recipient bank or the
-             * Real-Time Payments network.
-             */
-            @JsonProperty("reject_reason_code")
-            @ExcludeMissing
-            fun rejectReasonCode(rejectReasonCode: JsonField<RejectReasonCode>) = apply {
-                this.rejectReasonCode = rejectReasonCode
             }
 
             /**
@@ -1889,6 +1856,39 @@ private constructor(
                 rejectReasonAdditionalInformation: JsonField<String>
             ) = apply { this.rejectReasonAdditionalInformation = rejectReasonAdditionalInformation }
 
+            /**
+             * The reason the transfer was rejected as provided by the recipient bank or the
+             * Real-Time Payments network.
+             */
+            fun rejectReasonCode(rejectReasonCode: RejectReasonCode) =
+                rejectReasonCode(JsonField.of(rejectReasonCode))
+
+            /**
+             * The reason the transfer was rejected as provided by the recipient bank or the
+             * Real-Time Payments network.
+             */
+            @JsonProperty("reject_reason_code")
+            @ExcludeMissing
+            fun rejectReasonCode(rejectReasonCode: JsonField<RejectReasonCode>) = apply {
+                this.rejectReasonCode = rejectReasonCode
+            }
+
+            /**
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+             * transfer was rejected.
+             */
+            fun rejectedAt(rejectedAt: OffsetDateTime) = rejectedAt(JsonField.of(rejectedAt))
+
+            /**
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+             * transfer was rejected.
+             */
+            @JsonProperty("rejected_at")
+            @ExcludeMissing
+            fun rejectedAt(rejectedAt: JsonField<OffsetDateTime>) = apply {
+                this.rejectedAt = rejectedAt
+            }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 this.additionalProperties.putAll(additionalProperties)
@@ -1905,9 +1905,9 @@ private constructor(
 
             fun build(): Rejection =
                 Rejection(
-                    rejectedAt,
-                    rejectReasonCode,
                     rejectReasonAdditionalInformation,
+                    rejectReasonCode,
+                    rejectedAt,
                     additionalProperties.toUnmodifiable(),
                 )
         }
