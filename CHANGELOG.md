@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.62.0 (2024-07-23)
+
+Full Changelog: [v0.61.0...v0.62.0](https://github.com/Increase/increase-kotlin/compare/v0.61.0...v0.62.0)
+
+### Features
+
+* **api:** OpenAPI spec update via Stainless API ([#323](https://github.com/Increase/increase-kotlin/issues/323)) ([1cb4afa](https://github.com/Increase/increase-kotlin/commit/1cb4afae1c1fe3ca9358b04e8cebb2c08299d314))
+
+
+### Chores
+
+* **tests:** update prism version ([#321](https://github.com/Increase/increase-kotlin/issues/321)) ([5fbee26](https://github.com/Increase/increase-kotlin/commit/5fbee26436bb165fe804437085dadda3d1ae5e85))
+
 ## 0.61.0 (2024-07-23)
 
 Full Changelog: [v0.60.0...v0.61.0](https://github.com/Increase/increase-kotlin/compare/v0.60.0...v0.61.0)
