@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.63.0 (2024-07-25)
+
+Full Changelog: [v0.62.0...v0.63.0](https://github.com/Increase/increase-kotlin/compare/v0.62.0...v0.63.0)
+
+### Features
+
+* **api:** OpenAPI spec update via Stainless API ([#325](https://github.com/Increase/increase-kotlin/issues/325)) ([daab257](https://github.com/Increase/increase-kotlin/commit/daab25798b036e548a8898864fcb2d4edbe377db))
+
 ## 0.62.0 (2024-07-23)
 
 Full Changelog: [v0.61.0...v0.62.0](https://github.com/Increase/increase-kotlin/compare/v0.61.0...v0.62.0)
