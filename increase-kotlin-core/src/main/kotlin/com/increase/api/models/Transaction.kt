@@ -18741,6 +18741,10 @@ private constructor(
 
                     val ACCOUNT_CLOSURE = Reason(JsonField.of("account_closure"))
 
+                    val BANK_DRAWN_CHECK = Reason(JsonField.of("bank_drawn_check"))
+
+                    val BANK_DRAWN_CHECK_CREDIT = Reason(JsonField.of("bank_drawn_check_credit"))
+
                     val BANK_MIGRATION = Reason(JsonField.of("bank_migration"))
 
                     val CHECK_ADJUSTMENT = Reason(JsonField.of("check_adjustment"))
@@ -18771,6 +18775,8 @@ private constructor(
 
                 enum class Known {
                     ACCOUNT_CLOSURE,
+                    BANK_DRAWN_CHECK,
+                    BANK_DRAWN_CHECK_CREDIT,
                     BANK_MIGRATION,
                     CHECK_ADJUSTMENT,
                     COLLECTION_PAYMENT,
@@ -18787,6 +18793,8 @@ private constructor(
 
                 enum class Value {
                     ACCOUNT_CLOSURE,
+                    BANK_DRAWN_CHECK,
+                    BANK_DRAWN_CHECK_CREDIT,
                     BANK_MIGRATION,
                     CHECK_ADJUSTMENT,
                     COLLECTION_PAYMENT,
@@ -18805,6 +18813,8 @@ private constructor(
                 fun value(): Value =
                     when (this) {
                         ACCOUNT_CLOSURE -> Value.ACCOUNT_CLOSURE
+                        BANK_DRAWN_CHECK -> Value.BANK_DRAWN_CHECK
+                        BANK_DRAWN_CHECK_CREDIT -> Value.BANK_DRAWN_CHECK_CREDIT
                         BANK_MIGRATION -> Value.BANK_MIGRATION
                         CHECK_ADJUSTMENT -> Value.CHECK_ADJUSTMENT
                         COLLECTION_PAYMENT -> Value.COLLECTION_PAYMENT
@@ -18823,6 +18833,8 @@ private constructor(
                 fun known(): Known =
                     when (this) {
                         ACCOUNT_CLOSURE -> Known.ACCOUNT_CLOSURE
+                        BANK_DRAWN_CHECK -> Known.BANK_DRAWN_CHECK
+                        BANK_DRAWN_CHECK_CREDIT -> Known.BANK_DRAWN_CHECK_CREDIT
                         BANK_MIGRATION -> Known.BANK_MIGRATION
                         CHECK_ADJUSTMENT -> Known.CHECK_ADJUSTMENT
                         COLLECTION_PAYMENT -> Known.COLLECTION_PAYMENT
