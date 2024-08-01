@@ -32,6 +32,7 @@ private constructor(
     private val description: JsonField<String>,
     private val id: JsonField<String>,
     private val idempotencyKey: JsonField<String>,
+    private val recipientName: JsonField<String>,
     private val status: JsonField<Status>,
     private val type: JsonField<Type>,
     private val additionalProperties: Map<String, JsonValue>,
@@ -65,6 +66,9 @@ private constructor(
      */
     fun idempotencyKey(): String? = idempotencyKey.getNullable("idempotency_key")
 
+    /** The recipient name you choose for the Lockbox. */
+    fun recipientName(): String? = recipientName.getNullable("recipient_name")
+
     /** This indicates if mail can be sent to this address. */
     fun status(): Status = status.getRequired("status")
 
@@ -95,6 +99,9 @@ private constructor(
      */
     @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
 
+    /** The recipient name you choose for the Lockbox. */
+    @JsonProperty("recipient_name") @ExcludeMissing fun _recipientName() = recipientName
+
     /** This indicates if mail can be sent to this address. */
     @JsonProperty("status") @ExcludeMissing fun _status() = status
 
@@ -113,6 +120,7 @@ private constructor(
             description()
             id()
             idempotencyKey()
+            recipientName()
             status()
             type()
             validated = true
@@ -133,6 +141,7 @@ private constructor(
             this.description == other.description &&
             this.id == other.id &&
             this.idempotencyKey == other.idempotencyKey &&
+            this.recipientName == other.recipientName &&
             this.status == other.status &&
             this.type == other.type &&
             this.additionalProperties == other.additionalProperties
@@ -148,6 +157,7 @@ private constructor(
                     description,
                     id,
                     idempotencyKey,
+                    recipientName,
                     status,
                     type,
                     additionalProperties,
@@ -157,7 +167,7 @@ private constructor(
     }
 
     override fun toString() =
-        "Lockbox{accountId=$accountId, address=$address, createdAt=$createdAt, description=$description, id=$id, idempotencyKey=$idempotencyKey, status=$status, type=$type, additionalProperties=$additionalProperties}"
+        "Lockbox{accountId=$accountId, address=$address, createdAt=$createdAt, description=$description, id=$id, idempotencyKey=$idempotencyKey, recipientName=$recipientName, status=$status, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -172,6 +182,7 @@ private constructor(
         private var description: JsonField<String> = JsonMissing.of()
         private var id: JsonField<String> = JsonMissing.of()
         private var idempotencyKey: JsonField<String> = JsonMissing.of()
+        private var recipientName: JsonField<String> = JsonMissing.of()
         private var status: JsonField<Status> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -183,6 +194,7 @@ private constructor(
             this.description = lockbox.description
             this.id = lockbox.id
             this.idempotencyKey = lockbox.idempotencyKey
+            this.recipientName = lockbox.recipientName
             this.status = lockbox.status
             this.type = lockbox.type
             additionalProperties(lockbox.additionalProperties)
@@ -250,6 +262,16 @@ private constructor(
             this.idempotencyKey = idempotencyKey
         }
 
+        /** The recipient name you choose for the Lockbox. */
+        fun recipientName(recipientName: String) = recipientName(JsonField.of(recipientName))
+
+        /** The recipient name you choose for the Lockbox. */
+        @JsonProperty("recipient_name")
+        @ExcludeMissing
+        fun recipientName(recipientName: JsonField<String>) = apply {
+            this.recipientName = recipientName
+        }
+
         /** This indicates if mail can be sent to this address. */
         fun status(status: Status) = status(JsonField.of(status))
 
@@ -292,6 +314,7 @@ private constructor(
                 description,
                 id,
                 idempotencyKey,
+                recipientName,
                 status,
                 type,
                 additionalProperties.toUnmodifiable(),
@@ -307,6 +330,7 @@ private constructor(
         private val line1: JsonField<String>,
         private val line2: JsonField<String>,
         private val postalCode: JsonField<String>,
+        private val recipient: JsonField<String>,
         private val state: JsonField<String>,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
@@ -328,6 +352,13 @@ private constructor(
         fun postalCode(): String = postalCode.getRequired("postal_code")
 
         /**
+         * The recipient line of the address. This will include the recipient name you provide when
+         * creating the address, as well as an ATTN suffix to help route the mail to your lockbox.
+         * Mail senders must include this ATTN line to receive mail at this Lockbox.
+         */
+        fun recipient(): String? = recipient.getNullable("recipient")
+
+        /**
          * The two-letter United States Postal Service (USPS) abbreviation for the state of the
          * address.
          */
@@ -346,6 +377,13 @@ private constructor(
         @JsonProperty("postal_code") @ExcludeMissing fun _postalCode() = postalCode
 
         /**
+         * The recipient line of the address. This will include the recipient name you provide when
+         * creating the address, as well as an ATTN suffix to help route the mail to your lockbox.
+         * Mail senders must include this ATTN line to receive mail at this Lockbox.
+         */
+        @JsonProperty("recipient") @ExcludeMissing fun _recipient() = recipient
+
+        /**
          * The two-letter United States Postal Service (USPS) abbreviation for the state of the
          * address.
          */
@@ -361,6 +399,7 @@ private constructor(
                 line1()
                 line2()
                 postalCode()
+                recipient()
                 state()
                 validated = true
             }
@@ -378,6 +417,7 @@ private constructor(
                 this.line1 == other.line1 &&
                 this.line2 == other.line2 &&
                 this.postalCode == other.postalCode &&
+                this.recipient == other.recipient &&
                 this.state == other.state &&
                 this.additionalProperties == other.additionalProperties
         }
@@ -390,6 +430,7 @@ private constructor(
                         line1,
                         line2,
                         postalCode,
+                        recipient,
                         state,
                         additionalProperties,
                     )
@@ -398,7 +439,7 @@ private constructor(
         }
 
         override fun toString() =
-            "Address{city=$city, line1=$line1, line2=$line2, postalCode=$postalCode, state=$state, additionalProperties=$additionalProperties}"
+            "Address{city=$city, line1=$line1, line2=$line2, postalCode=$postalCode, recipient=$recipient, state=$state, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -411,6 +452,7 @@ private constructor(
             private var line1: JsonField<String> = JsonMissing.of()
             private var line2: JsonField<String> = JsonMissing.of()
             private var postalCode: JsonField<String> = JsonMissing.of()
+            private var recipient: JsonField<String> = JsonMissing.of()
             private var state: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -419,6 +461,7 @@ private constructor(
                 this.line1 = address.line1
                 this.line2 = address.line2
                 this.postalCode = address.postalCode
+                this.recipient = address.recipient
                 this.state = address.state
                 additionalProperties(address.additionalProperties)
             }
@@ -456,6 +499,22 @@ private constructor(
             fun postalCode(postalCode: JsonField<String>) = apply { this.postalCode = postalCode }
 
             /**
+             * The recipient line of the address. This will include the recipient name you provide
+             * when creating the address, as well as an ATTN suffix to help route the mail to your
+             * lockbox. Mail senders must include this ATTN line to receive mail at this Lockbox.
+             */
+            fun recipient(recipient: String) = recipient(JsonField.of(recipient))
+
+            /**
+             * The recipient line of the address. This will include the recipient name you provide
+             * when creating the address, as well as an ATTN suffix to help route the mail to your
+             * lockbox. Mail senders must include this ATTN line to receive mail at this Lockbox.
+             */
+            @JsonProperty("recipient")
+            @ExcludeMissing
+            fun recipient(recipient: JsonField<String>) = apply { this.recipient = recipient }
+
+            /**
              * The two-letter United States Postal Service (USPS) abbreviation for the state of the
              * address.
              */
@@ -489,6 +548,7 @@ private constructor(
                     line1,
                     line2,
                     postalCode,
+                    recipient,
                     state,
                     additionalProperties.toUnmodifiable(),
                 )
