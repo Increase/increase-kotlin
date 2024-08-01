@@ -21,6 +21,7 @@ class LockboxUpdateParams
 constructor(
     private val lockboxId: String,
     private val description: String?,
+    private val recipientName: String?,
     private val status: Status?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
@@ -31,11 +32,14 @@ constructor(
 
     fun description(): String? = description
 
+    fun recipientName(): String? = recipientName
+
     fun status(): Status? = status
 
     internal fun getBody(): LockboxUpdateBody {
         return LockboxUpdateBody(
             description,
+            recipientName,
             status,
             additionalBodyProperties,
         )
@@ -57,6 +61,7 @@ constructor(
     class LockboxUpdateBody
     internal constructor(
         private val description: String?,
+        private val recipientName: String?,
         private val status: Status?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
@@ -65,6 +70,9 @@ constructor(
 
         /** The description you choose for the Lockbox. */
         @JsonProperty("description") fun description(): String? = description
+
+        /** The recipient name you choose for the Lockbox. */
+        @JsonProperty("recipient_name") fun recipientName(): String? = recipientName
 
         /** This indicates if checks can be sent to the Lockbox. */
         @JsonProperty("status") fun status(): Status? = status
@@ -82,6 +90,7 @@ constructor(
 
             return other is LockboxUpdateBody &&
                 this.description == other.description &&
+                this.recipientName == other.recipientName &&
                 this.status == other.status &&
                 this.additionalProperties == other.additionalProperties
         }
@@ -91,6 +100,7 @@ constructor(
                 hashCode =
                     Objects.hash(
                         description,
+                        recipientName,
                         status,
                         additionalProperties,
                     )
@@ -99,7 +109,7 @@ constructor(
         }
 
         override fun toString() =
-            "LockboxUpdateBody{description=$description, status=$status, additionalProperties=$additionalProperties}"
+            "LockboxUpdateBody{description=$description, recipientName=$recipientName, status=$status, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -109,11 +119,13 @@ constructor(
         class Builder {
 
             private var description: String? = null
+            private var recipientName: String? = null
             private var status: Status? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(lockboxUpdateBody: LockboxUpdateBody) = apply {
                 this.description = lockboxUpdateBody.description
+                this.recipientName = lockboxUpdateBody.recipientName
                 this.status = lockboxUpdateBody.status
                 additionalProperties(lockboxUpdateBody.additionalProperties)
             }
@@ -121,6 +133,10 @@ constructor(
             /** The description you choose for the Lockbox. */
             @JsonProperty("description")
             fun description(description: String) = apply { this.description = description }
+
+            /** The recipient name you choose for the Lockbox. */
+            @JsonProperty("recipient_name")
+            fun recipientName(recipientName: String) = apply { this.recipientName = recipientName }
 
             /** This indicates if checks can be sent to the Lockbox. */
             @JsonProperty("status") fun status(status: Status) = apply { this.status = status }
@@ -142,6 +158,7 @@ constructor(
             fun build(): LockboxUpdateBody =
                 LockboxUpdateBody(
                     description,
+                    recipientName,
                     status,
                     additionalProperties.toUnmodifiable(),
                 )
@@ -162,6 +179,7 @@ constructor(
         return other is LockboxUpdateParams &&
             this.lockboxId == other.lockboxId &&
             this.description == other.description &&
+            this.recipientName == other.recipientName &&
             this.status == other.status &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders &&
@@ -172,6 +190,7 @@ constructor(
         return Objects.hash(
             lockboxId,
             description,
+            recipientName,
             status,
             additionalQueryParams,
             additionalHeaders,
@@ -180,7 +199,7 @@ constructor(
     }
 
     override fun toString() =
-        "LockboxUpdateParams{lockboxId=$lockboxId, description=$description, status=$status, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "LockboxUpdateParams{lockboxId=$lockboxId, description=$description, recipientName=$recipientName, status=$status, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -194,6 +213,7 @@ constructor(
 
         private var lockboxId: String? = null
         private var description: String? = null
+        private var recipientName: String? = null
         private var status: Status? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
@@ -202,6 +222,7 @@ constructor(
         internal fun from(lockboxUpdateParams: LockboxUpdateParams) = apply {
             this.lockboxId = lockboxUpdateParams.lockboxId
             this.description = lockboxUpdateParams.description
+            this.recipientName = lockboxUpdateParams.recipientName
             this.status = lockboxUpdateParams.status
             additionalQueryParams(lockboxUpdateParams.additionalQueryParams)
             additionalHeaders(lockboxUpdateParams.additionalHeaders)
@@ -213,6 +234,9 @@ constructor(
 
         /** The description you choose for the Lockbox. */
         fun description(description: String) = apply { this.description = description }
+
+        /** The recipient name you choose for the Lockbox. */
+        fun recipientName(recipientName: String) = apply { this.recipientName = recipientName }
 
         /** This indicates if checks can be sent to the Lockbox. */
         fun status(status: Status) = apply { this.status = status }
@@ -275,6 +299,7 @@ constructor(
             LockboxUpdateParams(
                 checkNotNull(lockboxId) { "`lockboxId` is required but was not set" },
                 description,
+                recipientName,
                 status,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
