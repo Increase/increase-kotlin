@@ -764,6 +764,7 @@ constructor(
     private constructor(
         private val accountId: String?,
         private val createdAt: CreatedAt?,
+        private val programId: String?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -774,6 +775,9 @@ constructor(
 
         /** Filter results by time range on the `created_at` attribute. */
         @JsonProperty("created_at") fun createdAt(): CreatedAt? = createdAt
+
+        /** Filter exported Transactions to the specified Program. */
+        @JsonProperty("program_id") fun programId(): String? = programId
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -789,6 +793,7 @@ constructor(
             return other is BalanceCsv &&
                 this.accountId == other.accountId &&
                 this.createdAt == other.createdAt &&
+                this.programId == other.programId &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -798,6 +803,7 @@ constructor(
                     Objects.hash(
                         accountId,
                         createdAt,
+                        programId,
                         additionalProperties,
                     )
             }
@@ -805,7 +811,7 @@ constructor(
         }
 
         override fun toString() =
-            "BalanceCsv{accountId=$accountId, createdAt=$createdAt, additionalProperties=$additionalProperties}"
+            "BalanceCsv{accountId=$accountId, createdAt=$createdAt, programId=$programId, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -816,11 +822,13 @@ constructor(
 
             private var accountId: String? = null
             private var createdAt: CreatedAt? = null
+            private var programId: String? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(balanceCsv: BalanceCsv) = apply {
                 this.accountId = balanceCsv.accountId
                 this.createdAt = balanceCsv.createdAt
+                this.programId = balanceCsv.programId
                 additionalProperties(balanceCsv.additionalProperties)
             }
 
@@ -831,6 +839,10 @@ constructor(
             /** Filter results by time range on the `created_at` attribute. */
             @JsonProperty("created_at")
             fun createdAt(createdAt: CreatedAt) = apply { this.createdAt = createdAt }
+
+            /** Filter exported Transactions to the specified Program. */
+            @JsonProperty("program_id")
+            fun programId(programId: String) = apply { this.programId = programId }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -850,6 +862,7 @@ constructor(
                 BalanceCsv(
                     accountId,
                     createdAt,
+                    programId,
                     additionalProperties.toUnmodifiable(),
                 )
         }
@@ -1489,6 +1502,7 @@ constructor(
     private constructor(
         private val accountId: String?,
         private val createdAt: CreatedAt?,
+        private val programId: String?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -1499,6 +1513,9 @@ constructor(
 
         /** Filter results by time range on the `created_at` attribute. */
         @JsonProperty("created_at") fun createdAt(): CreatedAt? = createdAt
+
+        /** Filter exported Transactions to the specified Program. */
+        @JsonProperty("program_id") fun programId(): String? = programId
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -1514,6 +1531,7 @@ constructor(
             return other is TransactionCsv &&
                 this.accountId == other.accountId &&
                 this.createdAt == other.createdAt &&
+                this.programId == other.programId &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -1523,6 +1541,7 @@ constructor(
                     Objects.hash(
                         accountId,
                         createdAt,
+                        programId,
                         additionalProperties,
                     )
             }
@@ -1530,7 +1549,7 @@ constructor(
         }
 
         override fun toString() =
-            "TransactionCsv{accountId=$accountId, createdAt=$createdAt, additionalProperties=$additionalProperties}"
+            "TransactionCsv{accountId=$accountId, createdAt=$createdAt, programId=$programId, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -1541,11 +1560,13 @@ constructor(
 
             private var accountId: String? = null
             private var createdAt: CreatedAt? = null
+            private var programId: String? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(transactionCsv: TransactionCsv) = apply {
                 this.accountId = transactionCsv.accountId
                 this.createdAt = transactionCsv.createdAt
+                this.programId = transactionCsv.programId
                 additionalProperties(transactionCsv.additionalProperties)
             }
 
@@ -1556,6 +1577,10 @@ constructor(
             /** Filter results by time range on the `created_at` attribute. */
             @JsonProperty("created_at")
             fun createdAt(createdAt: CreatedAt) = apply { this.createdAt = createdAt }
+
+            /** Filter exported Transactions to the specified Program. */
+            @JsonProperty("program_id")
+            fun programId(programId: String) = apply { this.programId = programId }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -1575,6 +1600,7 @@ constructor(
                 TransactionCsv(
                     accountId,
                     createdAt,
+                    programId,
                     additionalProperties.toUnmodifiable(),
                 )
         }
