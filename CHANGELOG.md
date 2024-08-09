@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.69.0 (2024-08-08)
+
+Full Changelog: [v0.68.0...v0.69.0](https://github.com/Increase/increase-kotlin/compare/v0.68.0...v0.69.0)
+
+### Features
+
+* **api:** api updates ([#347](https://github.com/Increase/increase-kotlin/issues/347)) ([4dd3c83](https://github.com/Increase/increase-kotlin/commit/4dd3c83e416289ddbdd1adc56d8cf982030cdfc4))
+* **api:** OpenAPI spec update via Stainless API ([#349](https://github.com/Increase/increase-kotlin/issues/349)) ([651c9f7](https://github.com/Increase/increase-kotlin/commit/651c9f7e451ce37e6a33e6305887633167e83222))
+* **api:** OpenAPI spec update via Stainless API ([#350](https://github.com/Increase/increase-kotlin/issues/350)) ([0ddfead](https://github.com/Increase/increase-kotlin/commit/0ddfead604552b8fd0026be9e01eef71cf3f22c3))
+* **client:** improve binary return values ([#345](https://github.com/Increase/increase-kotlin/issues/345)) ([338fdca](https://github.com/Increase/increase-kotlin/commit/338fdcada723680dec069ab662e8d9f87640f271))
+
+
+### Chores
+
+* **ci:** run tests in CI ([#346](https://github.com/Increase/increase-kotlin/issues/346)) ([a52c891](https://github.com/Increase/increase-kotlin/commit/a52c89120de815c1c8bb05ad49f94d812cea7716))
+* **internal:** capitalize github org name ([#348](https://github.com/Increase/increase-kotlin/issues/348)) ([34046df](https://github.com/Increase/increase-kotlin/commit/34046df184dde3f2ef1587fd1f80cb35df86c241))
+* **internal:** remove unused test file ([#343](https://github.com/Increase/increase-kotlin/issues/343)) ([33c5417](https://github.com/Increase/increase-kotlin/commit/33c5417daac2a52b8a58ad148854efc20b73c568))
+
 ## 0.68.0 (2024-08-01)
 
 Full Changelog: [v0.67.0...v0.68.0](https://github.com/Increase/increase-kotlin/compare/v0.67.0...v0.68.0)
