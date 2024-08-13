@@ -534,8 +534,8 @@ constructor(
         @JsonProperty("recipient_name") fun recipientName(): String? = recipientName
 
         /**
-         * The return address to be printed on the check. If omitted this will default to the
-         * address of the Entity of the Account used to make the Check Transfer.
+         * The return address to be printed on the check. If omitted this will default to an
+         * Increase-owned address that will mark checks as delivery failed and shred them.
          */
         @JsonProperty("return_address") fun returnAddress(): ReturnAddress? = returnAddress
 
@@ -627,8 +627,8 @@ constructor(
             fun recipientName(recipientName: String) = apply { this.recipientName = recipientName }
 
             /**
-             * The return address to be printed on the check. If omitted this will default to the
-             * address of the Entity of the Account used to make the Check Transfer.
+             * The return address to be printed on the check. If omitted this will default to an
+             * Increase-owned address that will mark checks as delivery failed and shred them.
              */
             @JsonProperty("return_address")
             fun returnAddress(returnAddress: ReturnAddress) = apply {
@@ -821,8 +821,8 @@ constructor(
         }
 
         /**
-         * The return address to be printed on the check. If omitted this will default to the
-         * address of the Entity of the Account used to make the Check Transfer.
+         * The return address to be printed on the check. If omitted this will default to an
+         * Increase-owned address that will mark checks as delivery failed and shred them.
          */
         @JsonDeserialize(builder = ReturnAddress.Builder::class)
         @NoAutoDetect
