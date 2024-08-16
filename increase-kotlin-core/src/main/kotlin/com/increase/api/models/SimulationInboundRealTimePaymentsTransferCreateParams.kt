@@ -4,50 +4,27 @@ package com.increase.api.models
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
-import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.core.JsonGenerator
-import com.fasterxml.jackson.core.ObjectCodec
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.fasterxml.jackson.databind.annotation.JsonSerialize
-import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.SerializerProvider
-import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
-import org.apache.hc.core5.http.ContentType
-import java.time.LocalDate
-import java.time.OffsetDateTime
-import java.time.format.DateTimeFormatter
-import java.util.Objects
-import java.util.Optional
-import java.util.UUID
-import com.increase.api.core.BaseDeserializer
-import com.increase.api.core.BaseSerializer
-import com.increase.api.core.getOrThrow
 import com.increase.api.core.ExcludeMissing
-import com.increase.api.core.JsonField
-import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.MultipartFormValue
-import com.increase.api.core.toUnmodifiable
 import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.Enum
-import com.increase.api.core.ContentTypes
-import com.increase.api.errors.IncreaseInvalidDataException
+import com.increase.api.core.toUnmodifiable
 import com.increase.api.models.*
+import java.util.Objects
 
-class SimulationInboundRealTimePaymentsTransferCreateParams constructor(
-  private val accountNumberId: String,
-  private val amount: Long,
-  private val debtorAccountNumber: String?,
-  private val debtorName: String?,
-  private val debtorRoutingNumber: String?,
-  private val remittanceInformation: String?,
-  private val requestForPaymentId: String?,
-  private val additionalQueryParams: Map<String, List<String>>,
-  private val additionalHeaders: Map<String, List<String>>,
-  private val additionalBodyProperties: Map<String, JsonValue>,
-
+class SimulationInboundRealTimePaymentsTransferCreateParams
+constructor(
+    private val accountNumberId: String,
+    private val amount: Long,
+    private val debtorAccountNumber: String?,
+    private val debtorName: String?,
+    private val debtorRoutingNumber: String?,
+    private val remittanceInformation: String?,
+    private val requestForPaymentId: String?,
+    private val additionalQueryParams: Map<String, List<String>>,
+    private val additionalHeaders: Map<String, List<String>>,
+    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
     fun accountNumberId(): String = accountNumberId
@@ -65,16 +42,16 @@ class SimulationInboundRealTimePaymentsTransferCreateParams constructor(
     fun requestForPaymentId(): String? = requestForPaymentId
 
     internal fun getBody(): SimulationInboundRealTimePaymentsTransferCreateBody {
-      return SimulationInboundRealTimePaymentsTransferCreateBody(
-          accountNumberId,
-          amount,
-          debtorAccountNumber,
-          debtorName,
-          debtorRoutingNumber,
-          remittanceInformation,
-          requestForPaymentId,
-          additionalBodyProperties,
-      )
+        return SimulationInboundRealTimePaymentsTransferCreateBody(
+            accountNumberId,
+            amount,
+            debtorAccountNumber,
+            debtorName,
+            debtorRoutingNumber,
+            remittanceInformation,
+            requestForPaymentId,
+            additionalBodyProperties,
+        )
     }
 
     internal fun getQueryParams(): Map<String, List<String>> = additionalQueryParams
@@ -83,38 +60,32 @@ class SimulationInboundRealTimePaymentsTransferCreateParams constructor(
 
     @JsonDeserialize(builder = SimulationInboundRealTimePaymentsTransferCreateBody.Builder::class)
     @NoAutoDetect
-    class SimulationInboundRealTimePaymentsTransferCreateBody internal constructor(
-      private val accountNumberId: String?,
-      private val amount: Long?,
-      private val debtorAccountNumber: String?,
-      private val debtorName: String?,
-      private val debtorRoutingNumber: String?,
-      private val remittanceInformation: String?,
-      private val requestForPaymentId: String?,
-      private val additionalProperties: Map<String, JsonValue>,
-
+    class SimulationInboundRealTimePaymentsTransferCreateBody
+    internal constructor(
+        private val accountNumberId: String?,
+        private val amount: Long?,
+        private val debtorAccountNumber: String?,
+        private val debtorName: String?,
+        private val debtorRoutingNumber: String?,
+        private val remittanceInformation: String?,
+        private val requestForPaymentId: String?,
+        private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         private var hashCode: Int = 0
 
-        /**
-         * The identifier of the Account Number the inbound Real-Time Payments Transfer is
-         * for.
-         */
-        @JsonProperty("account_number_id")
-        fun accountNumberId(): String? = accountNumberId
+        /** The identifier of the Account Number the inbound Real-Time Payments Transfer is for. */
+        @JsonProperty("account_number_id") fun accountNumberId(): String? = accountNumberId
 
         /** The transfer amount in USD cents. Must be positive. */
-        @JsonProperty("amount")
-        fun amount(): Long? = amount
+        @JsonProperty("amount") fun amount(): Long? = amount
 
         /** The account number of the account that sent the transfer. */
         @JsonProperty("debtor_account_number")
         fun debtorAccountNumber(): String? = debtorAccountNumber
 
         /** The name provided by the sender of the transfer. */
-        @JsonProperty("debtor_name")
-        fun debtorName(): String? = debtorName
+        @JsonProperty("debtor_name") fun debtorName(): String? = debtorName
 
         /** The routing number of the account that sent the transfer. */
         @JsonProperty("debtor_routing_number")
@@ -135,38 +106,40 @@ class SimulationInboundRealTimePaymentsTransferCreateParams constructor(
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is SimulationInboundRealTimePaymentsTransferCreateBody &&
-              this.accountNumberId == other.accountNumberId &&
-              this.amount == other.amount &&
-              this.debtorAccountNumber == other.debtorAccountNumber &&
-              this.debtorName == other.debtorName &&
-              this.debtorRoutingNumber == other.debtorRoutingNumber &&
-              this.remittanceInformation == other.remittanceInformation &&
-              this.requestForPaymentId == other.requestForPaymentId &&
-              this.additionalProperties == other.additionalProperties
+            return other is SimulationInboundRealTimePaymentsTransferCreateBody &&
+                this.accountNumberId == other.accountNumberId &&
+                this.amount == other.amount &&
+                this.debtorAccountNumber == other.debtorAccountNumber &&
+                this.debtorName == other.debtorName &&
+                this.debtorRoutingNumber == other.debtorRoutingNumber &&
+                this.remittanceInformation == other.remittanceInformation &&
+                this.requestForPaymentId == other.requestForPaymentId &&
+                this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-          if (hashCode == 0) {
-            hashCode = Objects.hash(
-                accountNumberId,
-                amount,
-                debtorAccountNumber,
-                debtorName,
-                debtorRoutingNumber,
-                remittanceInformation,
-                requestForPaymentId,
-                additionalProperties,
-            )
-          }
-          return hashCode
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        accountNumberId,
+                        amount,
+                        debtorAccountNumber,
+                        debtorName,
+                        debtorRoutingNumber,
+                        remittanceInformation,
+                        requestForPaymentId,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
         }
 
-        override fun toString() = "SimulationInboundRealTimePaymentsTransferCreateBody{accountNumberId=$accountNumberId, amount=$amount, debtorAccountNumber=$debtorAccountNumber, debtorName=$debtorName, debtorRoutingNumber=$debtorRoutingNumber, remittanceInformation=$remittanceInformation, requestForPaymentId=$requestForPaymentId, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "SimulationInboundRealTimePaymentsTransferCreateBody{accountNumberId=$accountNumberId, amount=$amount, debtorAccountNumber=$debtorAccountNumber, debtorName=$debtorName, debtorRoutingNumber=$debtorRoutingNumber, remittanceInformation=$remittanceInformation, requestForPaymentId=$requestForPaymentId, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -184,20 +157,29 @@ class SimulationInboundRealTimePaymentsTransferCreateParams constructor(
             private var requestForPaymentId: String? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(simulationInboundRealTimePaymentsTransferCreateBody: SimulationInboundRealTimePaymentsTransferCreateBody) = apply {
-                this.accountNumberId = simulationInboundRealTimePaymentsTransferCreateBody.accountNumberId
+            internal fun from(
+                simulationInboundRealTimePaymentsTransferCreateBody:
+                    SimulationInboundRealTimePaymentsTransferCreateBody
+            ) = apply {
+                this.accountNumberId =
+                    simulationInboundRealTimePaymentsTransferCreateBody.accountNumberId
                 this.amount = simulationInboundRealTimePaymentsTransferCreateBody.amount
-                this.debtorAccountNumber = simulationInboundRealTimePaymentsTransferCreateBody.debtorAccountNumber
+                this.debtorAccountNumber =
+                    simulationInboundRealTimePaymentsTransferCreateBody.debtorAccountNumber
                 this.debtorName = simulationInboundRealTimePaymentsTransferCreateBody.debtorName
-                this.debtorRoutingNumber = simulationInboundRealTimePaymentsTransferCreateBody.debtorRoutingNumber
-                this.remittanceInformation = simulationInboundRealTimePaymentsTransferCreateBody.remittanceInformation
-                this.requestForPaymentId = simulationInboundRealTimePaymentsTransferCreateBody.requestForPaymentId
-                additionalProperties(simulationInboundRealTimePaymentsTransferCreateBody.additionalProperties)
+                this.debtorRoutingNumber =
+                    simulationInboundRealTimePaymentsTransferCreateBody.debtorRoutingNumber
+                this.remittanceInformation =
+                    simulationInboundRealTimePaymentsTransferCreateBody.remittanceInformation
+                this.requestForPaymentId =
+                    simulationInboundRealTimePaymentsTransferCreateBody.requestForPaymentId
+                additionalProperties(
+                    simulationInboundRealTimePaymentsTransferCreateBody.additionalProperties
+                )
             }
 
             /**
-             * The identifier of the Account Number the inbound Real-Time Payments Transfer is
-             * for.
+             * The identifier of the Account Number the inbound Real-Time Payments Transfer is for.
              */
             @JsonProperty("account_number_id")
             fun accountNumberId(accountNumberId: String) = apply {
@@ -205,10 +187,7 @@ class SimulationInboundRealTimePaymentsTransferCreateParams constructor(
             }
 
             /** The transfer amount in USD cents. Must be positive. */
-            @JsonProperty("amount")
-            fun amount(amount: Long) = apply {
-                this.amount = amount
-            }
+            @JsonProperty("amount") fun amount(amount: Long) = apply { this.amount = amount }
 
             /** The account number of the account that sent the transfer. */
             @JsonProperty("debtor_account_number")
@@ -218,9 +197,7 @@ class SimulationInboundRealTimePaymentsTransferCreateParams constructor(
 
             /** The name provided by the sender of the transfer. */
             @JsonProperty("debtor_name")
-            fun debtorName(debtorName: String) = apply {
-                this.debtorName = debtorName
-            }
+            fun debtorName(debtorName: String) = apply { this.debtorName = debtorName }
 
             /** The routing number of the account that sent the transfer. */
             @JsonProperty("debtor_routing_number")
@@ -254,20 +231,19 @@ class SimulationInboundRealTimePaymentsTransferCreateParams constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): SimulationInboundRealTimePaymentsTransferCreateBody = SimulationInboundRealTimePaymentsTransferCreateBody(
-                checkNotNull(accountNumberId) {
-                    "`accountNumberId` is required but was not set"
-                },
-                checkNotNull(amount) {
-                    "`amount` is required but was not set"
-                },
-                debtorAccountNumber,
-                debtorName,
-                debtorRoutingNumber,
-                remittanceInformation,
-                requestForPaymentId,
-                additionalProperties.toUnmodifiable(),
-            )
+            fun build(): SimulationInboundRealTimePaymentsTransferCreateBody =
+                SimulationInboundRealTimePaymentsTransferCreateBody(
+                    checkNotNull(accountNumberId) {
+                        "`accountNumberId` is required but was not set"
+                    },
+                    checkNotNull(amount) { "`amount` is required but was not set" },
+                    debtorAccountNumber,
+                    debtorName,
+                    debtorRoutingNumber,
+                    remittanceInformation,
+                    requestForPaymentId,
+                    additionalProperties.toUnmodifiable(),
+                )
         }
     }
 
@@ -278,39 +254,40 @@ class SimulationInboundRealTimePaymentsTransferCreateParams constructor(
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
 
     override fun equals(other: Any?): Boolean {
-      if (this === other) {
-          return true
-      }
+        if (this === other) {
+            return true
+        }
 
-      return other is SimulationInboundRealTimePaymentsTransferCreateParams &&
-          this.accountNumberId == other.accountNumberId &&
-          this.amount == other.amount &&
-          this.debtorAccountNumber == other.debtorAccountNumber &&
-          this.debtorName == other.debtorName &&
-          this.debtorRoutingNumber == other.debtorRoutingNumber &&
-          this.remittanceInformation == other.remittanceInformation &&
-          this.requestForPaymentId == other.requestForPaymentId &&
-          this.additionalQueryParams == other.additionalQueryParams &&
-          this.additionalHeaders == other.additionalHeaders &&
-          this.additionalBodyProperties == other.additionalBodyProperties
+        return other is SimulationInboundRealTimePaymentsTransferCreateParams &&
+            this.accountNumberId == other.accountNumberId &&
+            this.amount == other.amount &&
+            this.debtorAccountNumber == other.debtorAccountNumber &&
+            this.debtorName == other.debtorName &&
+            this.debtorRoutingNumber == other.debtorRoutingNumber &&
+            this.remittanceInformation == other.remittanceInformation &&
+            this.requestForPaymentId == other.requestForPaymentId &&
+            this.additionalQueryParams == other.additionalQueryParams &&
+            this.additionalHeaders == other.additionalHeaders &&
+            this.additionalBodyProperties == other.additionalBodyProperties
     }
 
     override fun hashCode(): Int {
-      return Objects.hash(
-          accountNumberId,
-          amount,
-          debtorAccountNumber,
-          debtorName,
-          debtorRoutingNumber,
-          remittanceInformation,
-          requestForPaymentId,
-          additionalQueryParams,
-          additionalHeaders,
-          additionalBodyProperties,
-      )
+        return Objects.hash(
+            accountNumberId,
+            amount,
+            debtorAccountNumber,
+            debtorName,
+            debtorRoutingNumber,
+            remittanceInformation,
+            requestForPaymentId,
+            additionalQueryParams,
+            additionalHeaders,
+            additionalBodyProperties,
+        )
     }
 
-    override fun toString() = "SimulationInboundRealTimePaymentsTransferCreateParams{accountNumberId=$accountNumberId, amount=$amount, debtorAccountNumber=$debtorAccountNumber, debtorName=$debtorName, debtorRoutingNumber=$debtorRoutingNumber, remittanceInformation=$remittanceInformation, requestForPaymentId=$requestForPaymentId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+    override fun toString() =
+        "SimulationInboundRealTimePaymentsTransferCreateParams{accountNumberId=$accountNumberId, amount=$amount, debtorAccountNumber=$debtorAccountNumber, debtorName=$debtorName, debtorRoutingNumber=$debtorRoutingNumber, remittanceInformation=$remittanceInformation, requestForPaymentId=$requestForPaymentId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -333,31 +310,40 @@ class SimulationInboundRealTimePaymentsTransferCreateParams constructor(
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-        internal fun from(simulationInboundRealTimePaymentsTransferCreateParams: SimulationInboundRealTimePaymentsTransferCreateParams) = apply {
-            this.accountNumberId = simulationInboundRealTimePaymentsTransferCreateParams.accountNumberId
+        internal fun from(
+            simulationInboundRealTimePaymentsTransferCreateParams:
+                SimulationInboundRealTimePaymentsTransferCreateParams
+        ) = apply {
+            this.accountNumberId =
+                simulationInboundRealTimePaymentsTransferCreateParams.accountNumberId
             this.amount = simulationInboundRealTimePaymentsTransferCreateParams.amount
-            this.debtorAccountNumber = simulationInboundRealTimePaymentsTransferCreateParams.debtorAccountNumber
+            this.debtorAccountNumber =
+                simulationInboundRealTimePaymentsTransferCreateParams.debtorAccountNumber
             this.debtorName = simulationInboundRealTimePaymentsTransferCreateParams.debtorName
-            this.debtorRoutingNumber = simulationInboundRealTimePaymentsTransferCreateParams.debtorRoutingNumber
-            this.remittanceInformation = simulationInboundRealTimePaymentsTransferCreateParams.remittanceInformation
-            this.requestForPaymentId = simulationInboundRealTimePaymentsTransferCreateParams.requestForPaymentId
-            additionalQueryParams(simulationInboundRealTimePaymentsTransferCreateParams.additionalQueryParams)
-            additionalHeaders(simulationInboundRealTimePaymentsTransferCreateParams.additionalHeaders)
-            additionalBodyProperties(simulationInboundRealTimePaymentsTransferCreateParams.additionalBodyProperties)
+            this.debtorRoutingNumber =
+                simulationInboundRealTimePaymentsTransferCreateParams.debtorRoutingNumber
+            this.remittanceInformation =
+                simulationInboundRealTimePaymentsTransferCreateParams.remittanceInformation
+            this.requestForPaymentId =
+                simulationInboundRealTimePaymentsTransferCreateParams.requestForPaymentId
+            additionalQueryParams(
+                simulationInboundRealTimePaymentsTransferCreateParams.additionalQueryParams
+            )
+            additionalHeaders(
+                simulationInboundRealTimePaymentsTransferCreateParams.additionalHeaders
+            )
+            additionalBodyProperties(
+                simulationInboundRealTimePaymentsTransferCreateParams.additionalBodyProperties
+            )
         }
 
-        /**
-         * The identifier of the Account Number the inbound Real-Time Payments Transfer is
-         * for.
-         */
+        /** The identifier of the Account Number the inbound Real-Time Payments Transfer is for. */
         fun accountNumberId(accountNumberId: String) = apply {
             this.accountNumberId = accountNumberId
         }
 
         /** The transfer amount in USD cents. Must be positive. */
-        fun amount(amount: Long) = apply {
-            this.amount = amount
-        }
+        fun amount(amount: Long) = apply { this.amount = amount }
 
         /** The account number of the account that sent the transfer. */
         fun debtorAccountNumber(debtorAccountNumber: String) = apply {
@@ -365,9 +351,7 @@ class SimulationInboundRealTimePaymentsTransferCreateParams constructor(
         }
 
         /** The name provided by the sender of the transfer. */
-        fun debtorName(debtorName: String) = apply {
-            this.debtorName = debtorName
-        }
+        fun debtorName(debtorName: String) = apply { this.debtorName = debtorName }
 
         /** The routing number of the account that sent the transfer. */
         fun debtorRoutingNumber(debtorRoutingNumber: String) = apply {
@@ -422,9 +406,7 @@ class SimulationInboundRealTimePaymentsTransferCreateParams constructor(
             additionalHeaders.forEach(this::putHeaders)
         }
 
-        fun removeHeader(name: String) = apply {
-            this.additionalHeaders.put(name, mutableListOf())
-        }
+        fun removeHeader(name: String) = apply { this.additionalHeaders.put(name, mutableListOf()) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             this.additionalBodyProperties.clear()
@@ -435,25 +417,23 @@ class SimulationInboundRealTimePaymentsTransferCreateParams constructor(
             this.additionalBodyProperties.put(key, value)
         }
 
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.putAll(additionalBodyProperties)
-        }
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                this.additionalBodyProperties.putAll(additionalBodyProperties)
+            }
 
-        fun build(): SimulationInboundRealTimePaymentsTransferCreateParams = SimulationInboundRealTimePaymentsTransferCreateParams(
-            checkNotNull(accountNumberId) {
-                "`accountNumberId` is required but was not set"
-            },
-            checkNotNull(amount) {
-                "`amount` is required but was not set"
-            },
-            debtorAccountNumber,
-            debtorName,
-            debtorRoutingNumber,
-            remittanceInformation,
-            requestForPaymentId,
-            additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-            additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-            additionalBodyProperties.toUnmodifiable(),
-        )
+        fun build(): SimulationInboundRealTimePaymentsTransferCreateParams =
+            SimulationInboundRealTimePaymentsTransferCreateParams(
+                checkNotNull(accountNumberId) { "`accountNumberId` is required but was not set" },
+                checkNotNull(amount) { "`amount` is required but was not set" },
+                debtorAccountNumber,
+                debtorName,
+                debtorRoutingNumber,
+                remittanceInformation,
+                requestForPaymentId,
+                additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+                additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+                additionalBodyProperties.toUnmodifiable(),
+            )
     }
 }

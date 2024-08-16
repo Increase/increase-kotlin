@@ -6,31 +6,23 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import java.time.LocalDate
-import java.time.OffsetDateTime
-import java.time.format.DateTimeFormatter
-import java.util.Objects
-import java.util.Optional
-import java.util.Spliterator
-import java.util.Spliterators
-import java.util.UUID
-import java.util.concurrent.CompletableFuture
-import java.util.concurrent.Executor
-import java.util.function.Predicate
-import java.util.stream.Stream
-import java.util.stream.StreamSupport
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.FlowCollector
 import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.JsonField
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.toUnmodifiable
-import com.increase.api.models.Event
 import com.increase.api.services.async.EventServiceAsync
+import java.util.Objects
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.FlowCollector
 
-class EventListPageAsync private constructor(private val eventsService: EventServiceAsync, private val params: EventListParams, private val response: Response, ) {
+class EventListPageAsync
+private constructor(
+    private val eventsService: EventServiceAsync,
+    private val params: EventListParams,
+    private val response: Response,
+) {
 
     fun response(): Response = response
 
@@ -39,62 +31,70 @@ class EventListPageAsync private constructor(private val eventsService: EventSer
     fun nextCursor(): String? = response().nextCursor()
 
     override fun equals(other: Any?): Boolean {
-      if (this === other) {
-          return true
-      }
+        if (this === other) {
+            return true
+        }
 
-      return other is EventListPageAsync &&
-          this.eventsService == other.eventsService &&
-          this.params == other.params &&
-          this.response == other.response
+        return other is EventListPageAsync &&
+            this.eventsService == other.eventsService &&
+            this.params == other.params &&
+            this.response == other.response
     }
 
     override fun hashCode(): Int {
-      return Objects.hash(
-          eventsService,
-          params,
-          response,
-      )
-    }
-
-    override fun toString() = "EventListPageAsync{eventsService=$eventsService, params=$params, response=$response}"
-
-    fun hasNextPage(): Boolean {
-      if (data().isEmpty()) {
-        return false;
-      }
-
-      return nextCursor() != null
-    }
-
-    fun getNextPageParams(): EventListParams? {
-      if (!hasNextPage()) {
-        return null
-      }
-
-      return EventListParams.builder().from(params).apply {nextCursor()?.let{ this.cursor(it) } }.build()
-    }
-
-    suspend fun getNextPage(): EventListPageAsync? {
-      return getNextPageParams()?.let {
-          eventsService.list(it)
-      }
-    }
-
-    fun autoPager(): AutoPager = AutoPager(this)
-
-    companion object {
-
-        fun of(eventsService: EventServiceAsync, params: EventListParams, response: Response) = EventListPageAsync(
+        return Objects.hash(
             eventsService,
             params,
             response,
         )
     }
 
+    override fun toString() =
+        "EventListPageAsync{eventsService=$eventsService, params=$params, response=$response}"
+
+    fun hasNextPage(): Boolean {
+        if (data().isEmpty()) {
+            return false
+        }
+
+        return nextCursor() != null
+    }
+
+    fun getNextPageParams(): EventListParams? {
+        if (!hasNextPage()) {
+            return null
+        }
+
+        return EventListParams.builder()
+            .from(params)
+            .apply { nextCursor()?.let { this.cursor(it) } }
+            .build()
+    }
+
+    suspend fun getNextPage(): EventListPageAsync? {
+        return getNextPageParams()?.let { eventsService.list(it) }
+    }
+
+    fun autoPager(): AutoPager = AutoPager(this)
+
+    companion object {
+
+        fun of(eventsService: EventServiceAsync, params: EventListParams, response: Response) =
+            EventListPageAsync(
+                eventsService,
+                params,
+                response,
+            )
+    }
+
     @JsonDeserialize(builder = Response.Builder::class)
     @NoAutoDetect
-    class Response constructor(private val data: JsonField<List<Event>>, private val nextCursor: JsonField<String>, private val additionalProperties: Map<String, JsonValue>, ) {
+    class Response
+    constructor(
+        private val data: JsonField<List<Event>>,
+        private val nextCursor: JsonField<String>,
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
 
         private var validated: Boolean = false
 
@@ -102,11 +102,9 @@ class EventListPageAsync private constructor(private val eventsService: EventSer
 
         fun nextCursor(): String? = nextCursor.getNullable("next_cursor")
 
-        @JsonProperty("data")
-        fun _data(): JsonField<List<Event>>? = data
+        @JsonProperty("data") fun _data(): JsonField<List<Event>>? = data
 
-        @JsonProperty("next_cursor")
-        fun _nextCursor(): JsonField<String>? = nextCursor
+        @JsonProperty("next_cursor") fun _nextCursor(): JsonField<String>? = nextCursor
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -114,34 +112,35 @@ class EventListPageAsync private constructor(private val eventsService: EventSer
 
         fun validate(): Response = apply {
             if (!validated) {
-              data().map { it.validate() }
-              nextCursor()
-              validated = true
+                data().map { it.validate() }
+                nextCursor()
+                validated = true
             }
         }
 
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is Response &&
-              this.data == other.data &&
-              this.nextCursor == other.nextCursor &&
-              this.additionalProperties == other.additionalProperties
+            return other is Response &&
+                this.data == other.data &&
+                this.nextCursor == other.nextCursor &&
+                this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-          return Objects.hash(
-              data,
-              nextCursor,
-              additionalProperties,
-          )
+            return Objects.hash(
+                data,
+                nextCursor,
+                additionalProperties,
+            )
         }
 
-        override fun toString() = "EventListPageAsync.Response{data=$data, nextCursor=$nextCursor, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "EventListPageAsync.Response{data=$data, nextCursor=$nextCursor, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -175,26 +174,30 @@ class EventListPageAsync private constructor(private val eventsService: EventSer
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() = Response(
-                data,
-                nextCursor,
-                additionalProperties.toUnmodifiable(),
-            )
+            fun build() =
+                Response(
+                    data,
+                    nextCursor,
+                    additionalProperties.toUnmodifiable(),
+                )
         }
     }
 
-    class AutoPager constructor(private val firstPage: EventListPageAsync, ) : Flow<Event> {
+    class AutoPager
+    constructor(
+        private val firstPage: EventListPageAsync,
+    ) : Flow<Event> {
 
         override suspend fun collect(collector: FlowCollector<Event>) {
-          var page = firstPage
-          var index = 0
-          while (true) {
-            while (index < page.data().size) {
-              collector.emit(page.data()[index++])
+            var page = firstPage
+            var index = 0
+            while (true) {
+                while (index < page.data().size) {
+                    collector.emit(page.data()[index++])
+                }
+                page = page.getNextPage() ?: break
+                index = 0
             }
-            page = page.getNextPage() ?: break
-            index = 0
-          }
         }
     }
 }

@@ -2,52 +2,24 @@
 
 package com.increase.api.models
 
-import com.fasterxml.jackson.annotation.JsonAnyGetter
-import com.fasterxml.jackson.annotation.JsonAnySetter
-import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
-import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.core.JsonGenerator
-import com.fasterxml.jackson.core.ObjectCodec
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.fasterxml.jackson.databind.annotation.JsonSerialize
-import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.SerializerProvider
-import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
-import org.apache.hc.core5.http.ContentType
-import java.time.LocalDate
-import java.time.OffsetDateTime
-import java.time.format.DateTimeFormatter
-import java.util.Objects
-import java.util.Optional
-import java.util.UUID
-import com.increase.api.core.BaseDeserializer
-import com.increase.api.core.BaseSerializer
-import com.increase.api.core.getOrThrow
-import com.increase.api.core.ExcludeMissing
-import com.increase.api.core.JsonField
-import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.MultipartFormValue
-import com.increase.api.core.toUnmodifiable
 import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.Enum
-import com.increase.api.core.ContentTypes
-import com.increase.api.errors.IncreaseInvalidDataException
+import com.increase.api.core.toUnmodifiable
 import com.increase.api.models.*
+import java.util.Objects
 
-class SimulationAchTransferSubmitParams constructor(
-  private val achTransferId: String,
-  private val additionalQueryParams: Map<String, List<String>>,
-  private val additionalHeaders: Map<String, List<String>>,
-  private val additionalBodyProperties: Map<String, JsonValue>,
-
+class SimulationAchTransferSubmitParams
+constructor(
+    private val achTransferId: String,
+    private val additionalQueryParams: Map<String, List<String>>,
+    private val additionalHeaders: Map<String, List<String>>,
+    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
     fun achTransferId(): String = achTransferId
 
     internal fun getBody(): Map<String, JsonValue>? {
-      return additionalBodyProperties.ifEmpty { null }
+        return additionalBodyProperties.ifEmpty { null }
     }
 
     internal fun getQueryParams(): Map<String, List<String>> = additionalQueryParams
@@ -55,10 +27,10 @@ class SimulationAchTransferSubmitParams constructor(
     internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
 
     fun getPathParam(index: Int): String {
-      return when (index) {
-          0 -> achTransferId
-          else -> ""
-      }
+        return when (index) {
+            0 -> achTransferId
+            else -> ""
+        }
     }
 
     fun _additionalQueryParams(): Map<String, List<String>> = additionalQueryParams
@@ -68,27 +40,28 @@ class SimulationAchTransferSubmitParams constructor(
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
 
     override fun equals(other: Any?): Boolean {
-      if (this === other) {
-          return true
-      }
+        if (this === other) {
+            return true
+        }
 
-      return other is SimulationAchTransferSubmitParams &&
-          this.achTransferId == other.achTransferId &&
-          this.additionalQueryParams == other.additionalQueryParams &&
-          this.additionalHeaders == other.additionalHeaders &&
-          this.additionalBodyProperties == other.additionalBodyProperties
+        return other is SimulationAchTransferSubmitParams &&
+            this.achTransferId == other.achTransferId &&
+            this.additionalQueryParams == other.additionalQueryParams &&
+            this.additionalHeaders == other.additionalHeaders &&
+            this.additionalBodyProperties == other.additionalBodyProperties
     }
 
     override fun hashCode(): Int {
-      return Objects.hash(
-          achTransferId,
-          additionalQueryParams,
-          additionalHeaders,
-          additionalBodyProperties,
-      )
+        return Objects.hash(
+            achTransferId,
+            additionalQueryParams,
+            additionalHeaders,
+            additionalBodyProperties,
+        )
     }
 
-    override fun toString() = "SimulationAchTransferSubmitParams{achTransferId=$achTransferId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+    override fun toString() =
+        "SimulationAchTransferSubmitParams{achTransferId=$achTransferId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -105,17 +78,16 @@ class SimulationAchTransferSubmitParams constructor(
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-        internal fun from(simulationAchTransferSubmitParams: SimulationAchTransferSubmitParams) = apply {
-            this.achTransferId = simulationAchTransferSubmitParams.achTransferId
-            additionalQueryParams(simulationAchTransferSubmitParams.additionalQueryParams)
-            additionalHeaders(simulationAchTransferSubmitParams.additionalHeaders)
-            additionalBodyProperties(simulationAchTransferSubmitParams.additionalBodyProperties)
-        }
+        internal fun from(simulationAchTransferSubmitParams: SimulationAchTransferSubmitParams) =
+            apply {
+                this.achTransferId = simulationAchTransferSubmitParams.achTransferId
+                additionalQueryParams(simulationAchTransferSubmitParams.additionalQueryParams)
+                additionalHeaders(simulationAchTransferSubmitParams.additionalHeaders)
+                additionalBodyProperties(simulationAchTransferSubmitParams.additionalBodyProperties)
+            }
 
         /** The identifier of the ACH Transfer you wish to submit. */
-        fun achTransferId(achTransferId: String) = apply {
-            this.achTransferId = achTransferId
-        }
+        fun achTransferId(achTransferId: String) = apply { this.achTransferId = achTransferId }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -155,9 +127,7 @@ class SimulationAchTransferSubmitParams constructor(
             additionalHeaders.forEach(this::putHeaders)
         }
 
-        fun removeHeader(name: String) = apply {
-            this.additionalHeaders.put(name, mutableListOf())
-        }
+        fun removeHeader(name: String) = apply { this.additionalHeaders.put(name, mutableListOf()) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             this.additionalBodyProperties.clear()
@@ -168,17 +138,17 @@ class SimulationAchTransferSubmitParams constructor(
             this.additionalBodyProperties.put(key, value)
         }
 
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.putAll(additionalBodyProperties)
-        }
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                this.additionalBodyProperties.putAll(additionalBodyProperties)
+            }
 
-        fun build(): SimulationAchTransferSubmitParams = SimulationAchTransferSubmitParams(
-            checkNotNull(achTransferId) {
-                "`achTransferId` is required but was not set"
-            },
-            additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-            additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-            additionalBodyProperties.toUnmodifiable(),
-        )
+        fun build(): SimulationAchTransferSubmitParams =
+            SimulationAchTransferSubmitParams(
+                checkNotNull(achTransferId) { "`achTransferId` is required but was not set" },
+                additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+                additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+                additionalBodyProperties.toUnmodifiable(),
+            )
     }
 }

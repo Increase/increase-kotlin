@@ -4,22 +4,7 @@
 
 package com.increase.api.services.async
 
-import com.fasterxml.jackson.databind.json.JsonMapper
-import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.annotation.JsonProperty
-import kotlin.LazyThreadSafetyMode.PUBLICATION
-import java.time.LocalDate
-import java.time.Duration
-import java.time.OffsetDateTime
-import java.time.format.DateTimeFormatter
-import java.util.Base64
-import java.util.Optional
-import java.util.UUID
-import java.util.concurrent.CompletableFuture
-import java.util.stream.Stream
-import com.increase.api.core.Enum
-import com.increase.api.core.NoAutoDetect
-import com.increase.api.errors.IncreaseInvalidDataException
+import com.increase.api.core.RequestOptions
 import com.increase.api.models.CheckTransfer
 import com.increase.api.models.CheckTransferApproveParams
 import com.increase.api.models.CheckTransferCancelParams
@@ -28,41 +13,42 @@ import com.increase.api.models.CheckTransferListPageAsync
 import com.increase.api.models.CheckTransferListParams
 import com.increase.api.models.CheckTransferRetrieveParams
 import com.increase.api.models.CheckTransferStopPaymentParams
-import com.increase.api.core.ClientOptions
-import com.increase.api.core.http.HttpMethod
-import com.increase.api.core.http.HttpRequest
-import com.increase.api.core.http.HttpResponse.Handler
-import com.increase.api.core.http.BinaryResponseContent
-import com.increase.api.core.JsonField
-import com.increase.api.core.JsonValue
-import com.increase.api.core.RequestOptions
-import com.increase.api.errors.IncreaseError
-import com.increase.api.services.emptyHandler
-import com.increase.api.services.errorHandler
-import com.increase.api.services.json
-import com.increase.api.services.jsonHandler
-import com.increase.api.services.multipartFormData
-import com.increase.api.services.stringHandler
-import com.increase.api.services.binaryHandler
-import com.increase.api.services.withErrorHandler
 
 interface CheckTransferServiceAsync {
 
     /** Create a Check Transfer */
-    suspend fun create(params: CheckTransferCreateParams, requestOptions: RequestOptions = RequestOptions.none()): CheckTransfer
+    suspend fun create(
+        params: CheckTransferCreateParams,
+        requestOptions: RequestOptions = RequestOptions.none()
+    ): CheckTransfer
 
     /** Retrieve a Check Transfer */
-    suspend fun retrieve(params: CheckTransferRetrieveParams, requestOptions: RequestOptions = RequestOptions.none()): CheckTransfer
+    suspend fun retrieve(
+        params: CheckTransferRetrieveParams,
+        requestOptions: RequestOptions = RequestOptions.none()
+    ): CheckTransfer
 
     /** List Check Transfers */
-    suspend fun list(params: CheckTransferListParams, requestOptions: RequestOptions = RequestOptions.none()): CheckTransferListPageAsync
+    suspend fun list(
+        params: CheckTransferListParams,
+        requestOptions: RequestOptions = RequestOptions.none()
+    ): CheckTransferListPageAsync
 
     /** Approve a Check Transfer */
-    suspend fun approve(params: CheckTransferApproveParams, requestOptions: RequestOptions = RequestOptions.none()): CheckTransfer
+    suspend fun approve(
+        params: CheckTransferApproveParams,
+        requestOptions: RequestOptions = RequestOptions.none()
+    ): CheckTransfer
 
     /** Cancel a pending Check Transfer */
-    suspend fun cancel(params: CheckTransferCancelParams, requestOptions: RequestOptions = RequestOptions.none()): CheckTransfer
+    suspend fun cancel(
+        params: CheckTransferCancelParams,
+        requestOptions: RequestOptions = RequestOptions.none()
+    ): CheckTransfer
 
     /** Request a stop payment on a Check Transfer */
-    suspend fun stopPayment(params: CheckTransferStopPaymentParams, requestOptions: RequestOptions = RequestOptions.none()): CheckTransfer
+    suspend fun stopPayment(
+        params: CheckTransferStopPaymentParams,
+        requestOptions: RequestOptions = RequestOptions.none()
+    ): CheckTransfer
 }

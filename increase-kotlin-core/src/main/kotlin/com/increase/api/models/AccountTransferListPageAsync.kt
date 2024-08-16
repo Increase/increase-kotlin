@@ -6,31 +6,23 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import java.time.LocalDate
-import java.time.OffsetDateTime
-import java.time.format.DateTimeFormatter
-import java.util.Objects
-import java.util.Optional
-import java.util.Spliterator
-import java.util.Spliterators
-import java.util.UUID
-import java.util.concurrent.CompletableFuture
-import java.util.concurrent.Executor
-import java.util.function.Predicate
-import java.util.stream.Stream
-import java.util.stream.StreamSupport
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.FlowCollector
 import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.JsonField
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.toUnmodifiable
-import com.increase.api.models.AccountTransfer
 import com.increase.api.services.async.AccountTransferServiceAsync
+import java.util.Objects
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.FlowCollector
 
-class AccountTransferListPageAsync private constructor(private val accountTransfersService: AccountTransferServiceAsync, private val params: AccountTransferListParams, private val response: Response, ) {
+class AccountTransferListPageAsync
+private constructor(
+    private val accountTransfersService: AccountTransferServiceAsync,
+    private val params: AccountTransferListParams,
+    private val response: Response,
+) {
 
     fun response(): Response = response
 
@@ -39,62 +31,74 @@ class AccountTransferListPageAsync private constructor(private val accountTransf
     fun nextCursor(): String? = response().nextCursor()
 
     override fun equals(other: Any?): Boolean {
-      if (this === other) {
-          return true
-      }
+        if (this === other) {
+            return true
+        }
 
-      return other is AccountTransferListPageAsync &&
-          this.accountTransfersService == other.accountTransfersService &&
-          this.params == other.params &&
-          this.response == other.response
+        return other is AccountTransferListPageAsync &&
+            this.accountTransfersService == other.accountTransfersService &&
+            this.params == other.params &&
+            this.response == other.response
     }
 
     override fun hashCode(): Int {
-      return Objects.hash(
-          accountTransfersService,
-          params,
-          response,
-      )
-    }
-
-    override fun toString() = "AccountTransferListPageAsync{accountTransfersService=$accountTransfersService, params=$params, response=$response}"
-
-    fun hasNextPage(): Boolean {
-      if (data().isEmpty()) {
-        return false;
-      }
-
-      return nextCursor() != null
-    }
-
-    fun getNextPageParams(): AccountTransferListParams? {
-      if (!hasNextPage()) {
-        return null
-      }
-
-      return AccountTransferListParams.builder().from(params).apply {nextCursor()?.let{ this.cursor(it) } }.build()
-    }
-
-    suspend fun getNextPage(): AccountTransferListPageAsync? {
-      return getNextPageParams()?.let {
-          accountTransfersService.list(it)
-      }
-    }
-
-    fun autoPager(): AutoPager = AutoPager(this)
-
-    companion object {
-
-        fun of(accountTransfersService: AccountTransferServiceAsync, params: AccountTransferListParams, response: Response) = AccountTransferListPageAsync(
+        return Objects.hash(
             accountTransfersService,
             params,
             response,
         )
     }
 
+    override fun toString() =
+        "AccountTransferListPageAsync{accountTransfersService=$accountTransfersService, params=$params, response=$response}"
+
+    fun hasNextPage(): Boolean {
+        if (data().isEmpty()) {
+            return false
+        }
+
+        return nextCursor() != null
+    }
+
+    fun getNextPageParams(): AccountTransferListParams? {
+        if (!hasNextPage()) {
+            return null
+        }
+
+        return AccountTransferListParams.builder()
+            .from(params)
+            .apply { nextCursor()?.let { this.cursor(it) } }
+            .build()
+    }
+
+    suspend fun getNextPage(): AccountTransferListPageAsync? {
+        return getNextPageParams()?.let { accountTransfersService.list(it) }
+    }
+
+    fun autoPager(): AutoPager = AutoPager(this)
+
+    companion object {
+
+        fun of(
+            accountTransfersService: AccountTransferServiceAsync,
+            params: AccountTransferListParams,
+            response: Response
+        ) =
+            AccountTransferListPageAsync(
+                accountTransfersService,
+                params,
+                response,
+            )
+    }
+
     @JsonDeserialize(builder = Response.Builder::class)
     @NoAutoDetect
-    class Response constructor(private val data: JsonField<List<AccountTransfer>>, private val nextCursor: JsonField<String>, private val additionalProperties: Map<String, JsonValue>, ) {
+    class Response
+    constructor(
+        private val data: JsonField<List<AccountTransfer>>,
+        private val nextCursor: JsonField<String>,
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
 
         private var validated: Boolean = false
 
@@ -102,11 +106,9 @@ class AccountTransferListPageAsync private constructor(private val accountTransf
 
         fun nextCursor(): String? = nextCursor.getNullable("next_cursor")
 
-        @JsonProperty("data")
-        fun _data(): JsonField<List<AccountTransfer>>? = data
+        @JsonProperty("data") fun _data(): JsonField<List<AccountTransfer>>? = data
 
-        @JsonProperty("next_cursor")
-        fun _nextCursor(): JsonField<String>? = nextCursor
+        @JsonProperty("next_cursor") fun _nextCursor(): JsonField<String>? = nextCursor
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -114,34 +116,35 @@ class AccountTransferListPageAsync private constructor(private val accountTransf
 
         fun validate(): Response = apply {
             if (!validated) {
-              data().map { it.validate() }
-              nextCursor()
-              validated = true
+                data().map { it.validate() }
+                nextCursor()
+                validated = true
             }
         }
 
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is Response &&
-              this.data == other.data &&
-              this.nextCursor == other.nextCursor &&
-              this.additionalProperties == other.additionalProperties
+            return other is Response &&
+                this.data == other.data &&
+                this.nextCursor == other.nextCursor &&
+                this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-          return Objects.hash(
-              data,
-              nextCursor,
-              additionalProperties,
-          )
+            return Objects.hash(
+                data,
+                nextCursor,
+                additionalProperties,
+            )
         }
 
-        override fun toString() = "AccountTransferListPageAsync.Response{data=$data, nextCursor=$nextCursor, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "AccountTransferListPageAsync.Response{data=$data, nextCursor=$nextCursor, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -175,26 +178,30 @@ class AccountTransferListPageAsync private constructor(private val accountTransf
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() = Response(
-                data,
-                nextCursor,
-                additionalProperties.toUnmodifiable(),
-            )
+            fun build() =
+                Response(
+                    data,
+                    nextCursor,
+                    additionalProperties.toUnmodifiable(),
+                )
         }
     }
 
-    class AutoPager constructor(private val firstPage: AccountTransferListPageAsync, ) : Flow<AccountTransfer> {
+    class AutoPager
+    constructor(
+        private val firstPage: AccountTransferListPageAsync,
+    ) : Flow<AccountTransfer> {
 
         override suspend fun collect(collector: FlowCollector<AccountTransfer>) {
-          var page = firstPage
-          var index = 0
-          while (true) {
-            while (index < page.data().size) {
-              collector.emit(page.data()[index++])
+            var page = firstPage
+            var index = 0
+            while (true) {
+                while (index < page.data().size) {
+                    collector.emit(page.data()[index++])
+                }
+                page = page.getNextPage() ?: break
+                index = 0
             }
-            page = page.getNextPage() ?: break
-            index = 0
-          }
         }
     }
 }
