@@ -4539,6 +4539,8 @@ private constructor(
 
                     val BREACHES_LIMIT = Reason(JsonField.of("breaches_limit"))
 
+                    val ENDORSEMENT_IRREGULAR = Reason(JsonField.of("endorsement_irregular"))
+
                     val ENTITY_NOT_ACTIVE = Reason(JsonField.of("entity_not_active"))
 
                     val GROUP_LOCKED = Reason(JsonField.of("group_locked"))
@@ -4571,6 +4573,7 @@ private constructor(
                     ACH_ROUTE_CANCELED,
                     ALTERED_OR_FICTITIOUS,
                     BREACHES_LIMIT,
+                    ENDORSEMENT_IRREGULAR,
                     ENTITY_NOT_ACTIVE,
                     GROUP_LOCKED,
                     INSUFFICIENT_FUNDS,
@@ -4590,6 +4593,7 @@ private constructor(
                     ACH_ROUTE_CANCELED,
                     ALTERED_OR_FICTITIOUS,
                     BREACHES_LIMIT,
+                    ENDORSEMENT_IRREGULAR,
                     ENTITY_NOT_ACTIVE,
                     GROUP_LOCKED,
                     INSUFFICIENT_FUNDS,
@@ -4611,6 +4615,7 @@ private constructor(
                         ACH_ROUTE_CANCELED -> Value.ACH_ROUTE_CANCELED
                         ALTERED_OR_FICTITIOUS -> Value.ALTERED_OR_FICTITIOUS
                         BREACHES_LIMIT -> Value.BREACHES_LIMIT
+                        ENDORSEMENT_IRREGULAR -> Value.ENDORSEMENT_IRREGULAR
                         ENTITY_NOT_ACTIVE -> Value.ENTITY_NOT_ACTIVE
                         GROUP_LOCKED -> Value.GROUP_LOCKED
                         INSUFFICIENT_FUNDS -> Value.INSUFFICIENT_FUNDS
@@ -4632,6 +4637,7 @@ private constructor(
                         ACH_ROUTE_CANCELED -> Known.ACH_ROUTE_CANCELED
                         ALTERED_OR_FICTITIOUS -> Known.ALTERED_OR_FICTITIOUS
                         BREACHES_LIMIT -> Known.BREACHES_LIMIT
+                        ENDORSEMENT_IRREGULAR -> Known.ENDORSEMENT_IRREGULAR
                         ENTITY_NOT_ACTIVE -> Known.ENTITY_NOT_ACTIVE
                         GROUP_LOCKED -> Known.GROUP_LOCKED
                         INSUFFICIENT_FUNDS -> Known.INSUFFICIENT_FUNDS
