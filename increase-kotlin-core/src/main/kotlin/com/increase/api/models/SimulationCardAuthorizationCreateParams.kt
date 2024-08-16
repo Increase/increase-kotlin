@@ -4,30 +4,53 @@ package com.increase.api.models
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
+import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.core.JsonGenerator
+import com.fasterxml.jackson.core.ObjectCodec
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.increase.api.core.ExcludeMissing
-import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.toUnmodifiable
-import com.increase.api.models.*
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import com.fasterxml.jackson.databind.JsonNode
+import com.fasterxml.jackson.databind.SerializerProvider
+import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import org.apache.hc.core5.http.ContentType
+import java.time.LocalDate
+import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
 import java.util.Objects
+import java.util.Optional
+import java.util.UUID
+import com.increase.api.core.BaseDeserializer
+import com.increase.api.core.BaseSerializer
+import com.increase.api.core.getOrThrow
+import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonField
+import com.increase.api.core.JsonMissing
+import com.increase.api.core.JsonValue
+import com.increase.api.core.MultipartFormValue
+import com.increase.api.core.toUnmodifiable
+import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.Enum
+import com.increase.api.core.ContentTypes
+import com.increase.api.errors.IncreaseInvalidDataException
+import com.increase.api.models.*
 
-class SimulationCardAuthorizationCreateParams
-constructor(
-    private val amount: Long,
-    private val cardId: String?,
-    private val digitalWalletTokenId: String?,
-    private val eventSubscriptionId: String?,
-    private val merchantAcceptorId: String?,
-    private val merchantCategoryCode: String?,
-    private val merchantCity: String?,
-    private val merchantCountry: String?,
-    private val merchantDescriptor: String?,
-    private val physicalCardId: String?,
-    private val additionalQueryParams: Map<String, List<String>>,
-    private val additionalHeaders: Map<String, List<String>>,
-    private val additionalBodyProperties: Map<String, JsonValue>,
+class SimulationCardAuthorizationCreateParams constructor(
+  private val amount: Long,
+  private val cardId: String?,
+  private val digitalWalletTokenId: String?,
+  private val eventSubscriptionId: String?,
+  private val merchantAcceptorId: String?,
+  private val merchantCategoryCode: String?,
+  private val merchantCity: String?,
+  private val merchantCountry: String?,
+  private val merchantDescriptor: String?,
+  private val physicalCardId: String?,
+  private val additionalQueryParams: Map<String, List<String>>,
+  private val additionalHeaders: Map<String, List<String>>,
+  private val additionalBodyProperties: Map<String, JsonValue>,
+
 ) {
 
     fun amount(): Long = amount
@@ -51,19 +74,19 @@ constructor(
     fun physicalCardId(): String? = physicalCardId
 
     internal fun getBody(): SimulationCardAuthorizationCreateBody {
-        return SimulationCardAuthorizationCreateBody(
-            amount,
-            cardId,
-            digitalWalletTokenId,
-            eventSubscriptionId,
-            merchantAcceptorId,
-            merchantCategoryCode,
-            merchantCity,
-            merchantCountry,
-            merchantDescriptor,
-            physicalCardId,
-            additionalBodyProperties,
-        )
+      return SimulationCardAuthorizationCreateBody(
+          amount,
+          cardId,
+          digitalWalletTokenId,
+          eventSubscriptionId,
+          merchantAcceptorId,
+          merchantCategoryCode,
+          merchantCity,
+          merchantCountry,
+          merchantDescriptor,
+          physicalCardId,
+          additionalBodyProperties,
+      )
     }
 
     internal fun getQueryParams(): Map<String, List<String>> = additionalQueryParams
@@ -72,66 +95,73 @@ constructor(
 
     @JsonDeserialize(builder = SimulationCardAuthorizationCreateBody.Builder::class)
     @NoAutoDetect
-    class SimulationCardAuthorizationCreateBody
-    internal constructor(
-        private val amount: Long?,
-        private val cardId: String?,
-        private val digitalWalletTokenId: String?,
-        private val eventSubscriptionId: String?,
-        private val merchantAcceptorId: String?,
-        private val merchantCategoryCode: String?,
-        private val merchantCity: String?,
-        private val merchantCountry: String?,
-        private val merchantDescriptor: String?,
-        private val physicalCardId: String?,
-        private val additionalProperties: Map<String, JsonValue>,
+    class SimulationCardAuthorizationCreateBody internal constructor(
+      private val amount: Long?,
+      private val cardId: String?,
+      private val digitalWalletTokenId: String?,
+      private val eventSubscriptionId: String?,
+      private val merchantAcceptorId: String?,
+      private val merchantCategoryCode: String?,
+      private val merchantCity: String?,
+      private val merchantCountry: String?,
+      private val merchantDescriptor: String?,
+      private val physicalCardId: String?,
+      private val additionalProperties: Map<String, JsonValue>,
+
     ) {
 
         private var hashCode: Int = 0
 
         /** The authorization amount in cents. */
-        @JsonProperty("amount") fun amount(): Long? = amount
+        @JsonProperty("amount")
+        fun amount(): Long? = amount
 
         /** The identifier of the Card to be authorized. */
-        @JsonProperty("card_id") fun cardId(): String? = cardId
+        @JsonProperty("card_id")
+        fun cardId(): String? = cardId
 
         /** The identifier of the Digital Wallet Token to be authorized. */
         @JsonProperty("digital_wallet_token_id")
         fun digitalWalletTokenId(): String? = digitalWalletTokenId
 
         /**
-         * The identifier of the Event Subscription to use. If provided, will override the default
-         * real time event subscription. Because you can only create one real time decision event
-         * subscription, you can use this field to route events to any specified event subscription
-         * for testing purposes.
+         * The identifier of the Event Subscription to use. If provided, will override the
+         * default real time event subscription. Because you can only create one real time
+         * decision event subscription, you can use this field to route events to any
+         * specified event subscription for testing purposes.
          */
         @JsonProperty("event_subscription_id")
         fun eventSubscriptionId(): String? = eventSubscriptionId
 
         /**
-         * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
-         * transacting with.
+         * The merchant identifier (commonly abbreviated as MID) of the merchant the card
+         * is transacting with.
          */
-        @JsonProperty("merchant_acceptor_id") fun merchantAcceptorId(): String? = merchantAcceptorId
+        @JsonProperty("merchant_acceptor_id")
+        fun merchantAcceptorId(): String? = merchantAcceptorId
 
         /**
-         * The Merchant Category Code (commonly abbreviated as MCC) of the merchant the card is
-         * transacting with.
+         * The Merchant Category Code (commonly abbreviated as MCC) of the merchant the
+         * card is transacting with.
          */
         @JsonProperty("merchant_category_code")
         fun merchantCategoryCode(): String? = merchantCategoryCode
 
         /** The city the merchant resides in. */
-        @JsonProperty("merchant_city") fun merchantCity(): String? = merchantCity
+        @JsonProperty("merchant_city")
+        fun merchantCity(): String? = merchantCity
 
         /** The country the merchant resides in. */
-        @JsonProperty("merchant_country") fun merchantCountry(): String? = merchantCountry
+        @JsonProperty("merchant_country")
+        fun merchantCountry(): String? = merchantCountry
 
         /** The merchant descriptor of the merchant the card is transacting with. */
-        @JsonProperty("merchant_descriptor") fun merchantDescriptor(): String? = merchantDescriptor
+        @JsonProperty("merchant_descriptor")
+        fun merchantDescriptor(): String? = merchantDescriptor
 
         /** The identifier of the Physical Card to be authorized. */
-        @JsonProperty("physical_card_id") fun physicalCardId(): String? = physicalCardId
+        @JsonProperty("physical_card_id")
+        fun physicalCardId(): String? = physicalCardId
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -140,46 +170,44 @@ constructor(
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is SimulationCardAuthorizationCreateBody &&
-                this.amount == other.amount &&
-                this.cardId == other.cardId &&
-                this.digitalWalletTokenId == other.digitalWalletTokenId &&
-                this.eventSubscriptionId == other.eventSubscriptionId &&
-                this.merchantAcceptorId == other.merchantAcceptorId &&
-                this.merchantCategoryCode == other.merchantCategoryCode &&
-                this.merchantCity == other.merchantCity &&
-                this.merchantCountry == other.merchantCountry &&
-                this.merchantDescriptor == other.merchantDescriptor &&
-                this.physicalCardId == other.physicalCardId &&
-                this.additionalProperties == other.additionalProperties
+          return other is SimulationCardAuthorizationCreateBody &&
+              this.amount == other.amount &&
+              this.cardId == other.cardId &&
+              this.digitalWalletTokenId == other.digitalWalletTokenId &&
+              this.eventSubscriptionId == other.eventSubscriptionId &&
+              this.merchantAcceptorId == other.merchantAcceptorId &&
+              this.merchantCategoryCode == other.merchantCategoryCode &&
+              this.merchantCity == other.merchantCity &&
+              this.merchantCountry == other.merchantCountry &&
+              this.merchantDescriptor == other.merchantDescriptor &&
+              this.physicalCardId == other.physicalCardId &&
+              this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        amount,
-                        cardId,
-                        digitalWalletTokenId,
-                        eventSubscriptionId,
-                        merchantAcceptorId,
-                        merchantCategoryCode,
-                        merchantCity,
-                        merchantCountry,
-                        merchantDescriptor,
-                        physicalCardId,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
+          if (hashCode == 0) {
+            hashCode = Objects.hash(
+                amount,
+                cardId,
+                digitalWalletTokenId,
+                eventSubscriptionId,
+                merchantAcceptorId,
+                merchantCategoryCode,
+                merchantCity,
+                merchantCountry,
+                merchantDescriptor,
+                physicalCardId,
+                additionalProperties,
+            )
+          }
+          return hashCode
         }
 
-        override fun toString() =
-            "SimulationCardAuthorizationCreateBody{amount=$amount, cardId=$cardId, digitalWalletTokenId=$digitalWalletTokenId, eventSubscriptionId=$eventSubscriptionId, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, physicalCardId=$physicalCardId, additionalProperties=$additionalProperties}"
+        override fun toString() = "SimulationCardAuthorizationCreateBody{amount=$amount, cardId=$cardId, digitalWalletTokenId=$digitalWalletTokenId, eventSubscriptionId=$eventSubscriptionId, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, physicalCardId=$physicalCardId, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -200,17 +228,13 @@ constructor(
             private var physicalCardId: String? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(
-                simulationCardAuthorizationCreateBody: SimulationCardAuthorizationCreateBody
-            ) = apply {
+            internal fun from(simulationCardAuthorizationCreateBody: SimulationCardAuthorizationCreateBody) = apply {
                 this.amount = simulationCardAuthorizationCreateBody.amount
                 this.cardId = simulationCardAuthorizationCreateBody.cardId
-                this.digitalWalletTokenId =
-                    simulationCardAuthorizationCreateBody.digitalWalletTokenId
+                this.digitalWalletTokenId = simulationCardAuthorizationCreateBody.digitalWalletTokenId
                 this.eventSubscriptionId = simulationCardAuthorizationCreateBody.eventSubscriptionId
                 this.merchantAcceptorId = simulationCardAuthorizationCreateBody.merchantAcceptorId
-                this.merchantCategoryCode =
-                    simulationCardAuthorizationCreateBody.merchantCategoryCode
+                this.merchantCategoryCode = simulationCardAuthorizationCreateBody.merchantCategoryCode
                 this.merchantCity = simulationCardAuthorizationCreateBody.merchantCity
                 this.merchantCountry = simulationCardAuthorizationCreateBody.merchantCountry
                 this.merchantDescriptor = simulationCardAuthorizationCreateBody.merchantDescriptor
@@ -219,10 +243,16 @@ constructor(
             }
 
             /** The authorization amount in cents. */
-            @JsonProperty("amount") fun amount(amount: Long) = apply { this.amount = amount }
+            @JsonProperty("amount")
+            fun amount(amount: Long) = apply {
+                this.amount = amount
+            }
 
             /** The identifier of the Card to be authorized. */
-            @JsonProperty("card_id") fun cardId(cardId: String) = apply { this.cardId = cardId }
+            @JsonProperty("card_id")
+            fun cardId(cardId: String) = apply {
+                this.cardId = cardId
+            }
 
             /** The identifier of the Digital Wallet Token to be authorized. */
             @JsonProperty("digital_wallet_token_id")
@@ -233,8 +263,8 @@ constructor(
             /**
              * The identifier of the Event Subscription to use. If provided, will override the
              * default real time event subscription. Because you can only create one real time
-             * decision event subscription, you can use this field to route events to any specified
-             * event subscription for testing purposes.
+             * decision event subscription, you can use this field to route events to any
+             * specified event subscription for testing purposes.
              */
             @JsonProperty("event_subscription_id")
             fun eventSubscriptionId(eventSubscriptionId: String) = apply {
@@ -242,8 +272,8 @@ constructor(
             }
 
             /**
-             * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
-             * transacting with.
+             * The merchant identifier (commonly abbreviated as MID) of the merchant the card
+             * is transacting with.
              */
             @JsonProperty("merchant_acceptor_id")
             fun merchantAcceptorId(merchantAcceptorId: String) = apply {
@@ -251,8 +281,8 @@ constructor(
             }
 
             /**
-             * The Merchant Category Code (commonly abbreviated as MCC) of the merchant the card is
-             * transacting with.
+             * The Merchant Category Code (commonly abbreviated as MCC) of the merchant the
+             * card is transacting with.
              */
             @JsonProperty("merchant_category_code")
             fun merchantCategoryCode(merchantCategoryCode: String) = apply {
@@ -261,7 +291,9 @@ constructor(
 
             /** The city the merchant resides in. */
             @JsonProperty("merchant_city")
-            fun merchantCity(merchantCity: String) = apply { this.merchantCity = merchantCity }
+            fun merchantCity(merchantCity: String) = apply {
+                this.merchantCity = merchantCity
+            }
 
             /** The country the merchant resides in. */
             @JsonProperty("merchant_country")
@@ -295,20 +327,21 @@ constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): SimulationCardAuthorizationCreateBody =
-                SimulationCardAuthorizationCreateBody(
-                    checkNotNull(amount) { "`amount` is required but was not set" },
-                    cardId,
-                    digitalWalletTokenId,
-                    eventSubscriptionId,
-                    merchantAcceptorId,
-                    merchantCategoryCode,
-                    merchantCity,
-                    merchantCountry,
-                    merchantDescriptor,
-                    physicalCardId,
-                    additionalProperties.toUnmodifiable(),
-                )
+            fun build(): SimulationCardAuthorizationCreateBody = SimulationCardAuthorizationCreateBody(
+                checkNotNull(amount) {
+                    "`amount` is required but was not set"
+                },
+                cardId,
+                digitalWalletTokenId,
+                eventSubscriptionId,
+                merchantAcceptorId,
+                merchantCategoryCode,
+                merchantCity,
+                merchantCountry,
+                merchantDescriptor,
+                physicalCardId,
+                additionalProperties.toUnmodifiable(),
+            )
         }
     }
 
@@ -319,46 +352,45 @@ constructor(
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
+      if (this === other) {
+          return true
+      }
 
-        return other is SimulationCardAuthorizationCreateParams &&
-            this.amount == other.amount &&
-            this.cardId == other.cardId &&
-            this.digitalWalletTokenId == other.digitalWalletTokenId &&
-            this.eventSubscriptionId == other.eventSubscriptionId &&
-            this.merchantAcceptorId == other.merchantAcceptorId &&
-            this.merchantCategoryCode == other.merchantCategoryCode &&
-            this.merchantCity == other.merchantCity &&
-            this.merchantCountry == other.merchantCountry &&
-            this.merchantDescriptor == other.merchantDescriptor &&
-            this.physicalCardId == other.physicalCardId &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders &&
-            this.additionalBodyProperties == other.additionalBodyProperties
+      return other is SimulationCardAuthorizationCreateParams &&
+          this.amount == other.amount &&
+          this.cardId == other.cardId &&
+          this.digitalWalletTokenId == other.digitalWalletTokenId &&
+          this.eventSubscriptionId == other.eventSubscriptionId &&
+          this.merchantAcceptorId == other.merchantAcceptorId &&
+          this.merchantCategoryCode == other.merchantCategoryCode &&
+          this.merchantCity == other.merchantCity &&
+          this.merchantCountry == other.merchantCountry &&
+          this.merchantDescriptor == other.merchantDescriptor &&
+          this.physicalCardId == other.physicalCardId &&
+          this.additionalQueryParams == other.additionalQueryParams &&
+          this.additionalHeaders == other.additionalHeaders &&
+          this.additionalBodyProperties == other.additionalBodyProperties
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            amount,
-            cardId,
-            digitalWalletTokenId,
-            eventSubscriptionId,
-            merchantAcceptorId,
-            merchantCategoryCode,
-            merchantCity,
-            merchantCountry,
-            merchantDescriptor,
-            physicalCardId,
-            additionalQueryParams,
-            additionalHeaders,
-            additionalBodyProperties,
-        )
+      return Objects.hash(
+          amount,
+          cardId,
+          digitalWalletTokenId,
+          eventSubscriptionId,
+          merchantAcceptorId,
+          merchantCategoryCode,
+          merchantCity,
+          merchantCountry,
+          merchantDescriptor,
+          physicalCardId,
+          additionalQueryParams,
+          additionalHeaders,
+          additionalBodyProperties,
+      )
     }
 
-    override fun toString() =
-        "SimulationCardAuthorizationCreateParams{amount=$amount, cardId=$cardId, digitalWalletTokenId=$digitalWalletTokenId, eventSubscriptionId=$eventSubscriptionId, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, physicalCardId=$physicalCardId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+    override fun toString() = "SimulationCardAuthorizationCreateParams{amount=$amount, cardId=$cardId, digitalWalletTokenId=$digitalWalletTokenId, eventSubscriptionId=$eventSubscriptionId, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, physicalCardId=$physicalCardId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -384,9 +416,7 @@ constructor(
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-        internal fun from(
-            simulationCardAuthorizationCreateParams: SimulationCardAuthorizationCreateParams
-        ) = apply {
+        internal fun from(simulationCardAuthorizationCreateParams: SimulationCardAuthorizationCreateParams) = apply {
             this.amount = simulationCardAuthorizationCreateParams.amount
             this.cardId = simulationCardAuthorizationCreateParams.cardId
             this.digitalWalletTokenId = simulationCardAuthorizationCreateParams.digitalWalletTokenId
@@ -399,16 +429,18 @@ constructor(
             this.physicalCardId = simulationCardAuthorizationCreateParams.physicalCardId
             additionalQueryParams(simulationCardAuthorizationCreateParams.additionalQueryParams)
             additionalHeaders(simulationCardAuthorizationCreateParams.additionalHeaders)
-            additionalBodyProperties(
-                simulationCardAuthorizationCreateParams.additionalBodyProperties
-            )
+            additionalBodyProperties(simulationCardAuthorizationCreateParams.additionalBodyProperties)
         }
 
         /** The authorization amount in cents. */
-        fun amount(amount: Long) = apply { this.amount = amount }
+        fun amount(amount: Long) = apply {
+            this.amount = amount
+        }
 
         /** The identifier of the Card to be authorized. */
-        fun cardId(cardId: String) = apply { this.cardId = cardId }
+        fun cardId(cardId: String) = apply {
+            this.cardId = cardId
+        }
 
         /** The identifier of the Digital Wallet Token to be authorized. */
         fun digitalWalletTokenId(digitalWalletTokenId: String) = apply {
@@ -416,33 +448,35 @@ constructor(
         }
 
         /**
-         * The identifier of the Event Subscription to use. If provided, will override the default
-         * real time event subscription. Because you can only create one real time decision event
-         * subscription, you can use this field to route events to any specified event subscription
-         * for testing purposes.
+         * The identifier of the Event Subscription to use. If provided, will override the
+         * default real time event subscription. Because you can only create one real time
+         * decision event subscription, you can use this field to route events to any
+         * specified event subscription for testing purposes.
          */
         fun eventSubscriptionId(eventSubscriptionId: String) = apply {
             this.eventSubscriptionId = eventSubscriptionId
         }
 
         /**
-         * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
-         * transacting with.
+         * The merchant identifier (commonly abbreviated as MID) of the merchant the card
+         * is transacting with.
          */
         fun merchantAcceptorId(merchantAcceptorId: String) = apply {
             this.merchantAcceptorId = merchantAcceptorId
         }
 
         /**
-         * The Merchant Category Code (commonly abbreviated as MCC) of the merchant the card is
-         * transacting with.
+         * The Merchant Category Code (commonly abbreviated as MCC) of the merchant the
+         * card is transacting with.
          */
         fun merchantCategoryCode(merchantCategoryCode: String) = apply {
             this.merchantCategoryCode = merchantCategoryCode
         }
 
         /** The city the merchant resides in. */
-        fun merchantCity(merchantCity: String) = apply { this.merchantCity = merchantCity }
+        fun merchantCity(merchantCity: String) = apply {
+            this.merchantCity = merchantCity
+        }
 
         /** The country the merchant resides in. */
         fun merchantCountry(merchantCountry: String) = apply {
@@ -455,7 +489,9 @@ constructor(
         }
 
         /** The identifier of the Physical Card to be authorized. */
-        fun physicalCardId(physicalCardId: String) = apply { this.physicalCardId = physicalCardId }
+        fun physicalCardId(physicalCardId: String) = apply {
+            this.physicalCardId = physicalCardId
+        }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -495,7 +531,9 @@ constructor(
             additionalHeaders.forEach(this::putHeaders)
         }
 
-        fun removeHeader(name: String) = apply { this.additionalHeaders.put(name, mutableListOf()) }
+        fun removeHeader(name: String) = apply {
+            this.additionalHeaders.put(name, mutableListOf())
+        }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             this.additionalBodyProperties.clear()
@@ -506,26 +544,26 @@ constructor(
             this.additionalBodyProperties.put(key, value)
         }
 
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
-            }
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            this.additionalBodyProperties.putAll(additionalBodyProperties)
+        }
 
-        fun build(): SimulationCardAuthorizationCreateParams =
-            SimulationCardAuthorizationCreateParams(
-                checkNotNull(amount) { "`amount` is required but was not set" },
-                cardId,
-                digitalWalletTokenId,
-                eventSubscriptionId,
-                merchantAcceptorId,
-                merchantCategoryCode,
-                merchantCity,
-                merchantCountry,
-                merchantDescriptor,
-                physicalCardId,
-                additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-                additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-                additionalBodyProperties.toUnmodifiable(),
-            )
+        fun build(): SimulationCardAuthorizationCreateParams = SimulationCardAuthorizationCreateParams(
+            checkNotNull(amount) {
+                "`amount` is required but was not set"
+            },
+            cardId,
+            digitalWalletTokenId,
+            eventSubscriptionId,
+            merchantAcceptorId,
+            merchantCategoryCode,
+            merchantCity,
+            merchantCountry,
+            merchantDescriptor,
+            physicalCardId,
+            additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+            additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+            additionalBodyProperties.toUnmodifiable(),
+        )
     }
 }
