@@ -4,22 +4,7 @@
 
 package com.increase.api.services.async
 
-import com.fasterxml.jackson.databind.json.JsonMapper
-import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.annotation.JsonProperty
-import kotlin.LazyThreadSafetyMode.PUBLICATION
-import java.time.LocalDate
-import java.time.Duration
-import java.time.OffsetDateTime
-import java.time.format.DateTimeFormatter
-import java.util.Base64
-import java.util.Optional
-import java.util.UUID
-import java.util.concurrent.CompletableFuture
-import java.util.stream.Stream
-import com.increase.api.core.Enum
-import com.increase.api.core.NoAutoDetect
-import com.increase.api.errors.IncreaseInvalidDataException
+import com.increase.api.core.RequestOptions
 import com.increase.api.models.Entity
 import com.increase.api.models.EntityArchiveBeneficialOwnerParams
 import com.increase.api.models.EntityArchiveParams
@@ -32,57 +17,70 @@ import com.increase.api.models.EntityRetrieveParams
 import com.increase.api.models.EntityUpdateAddressParams
 import com.increase.api.models.EntityUpdateBeneficialOwnerAddressParams
 import com.increase.api.models.EntityUpdateIndustryCodeParams
-import com.increase.api.core.ClientOptions
-import com.increase.api.core.http.HttpMethod
-import com.increase.api.core.http.HttpRequest
-import com.increase.api.core.http.HttpResponse.Handler
-import com.increase.api.core.http.BinaryResponseContent
-import com.increase.api.core.JsonField
-import com.increase.api.core.JsonValue
-import com.increase.api.core.RequestOptions
-import com.increase.api.errors.IncreaseError
-import com.increase.api.services.emptyHandler
-import com.increase.api.services.errorHandler
-import com.increase.api.services.json
-import com.increase.api.services.jsonHandler
-import com.increase.api.services.multipartFormData
-import com.increase.api.services.stringHandler
-import com.increase.api.services.binaryHandler
-import com.increase.api.services.withErrorHandler
 
 interface EntityServiceAsync {
 
     /** Create an Entity */
-    suspend fun create(params: EntityCreateParams, requestOptions: RequestOptions = RequestOptions.none()): Entity
+    suspend fun create(
+        params: EntityCreateParams,
+        requestOptions: RequestOptions = RequestOptions.none()
+    ): Entity
 
     /** Retrieve an Entity */
-    suspend fun retrieve(params: EntityRetrieveParams, requestOptions: RequestOptions = RequestOptions.none()): Entity
+    suspend fun retrieve(
+        params: EntityRetrieveParams,
+        requestOptions: RequestOptions = RequestOptions.none()
+    ): Entity
 
     /** List Entities */
-    suspend fun list(params: EntityListParams, requestOptions: RequestOptions = RequestOptions.none()): EntityListPageAsync
+    suspend fun list(
+        params: EntityListParams,
+        requestOptions: RequestOptions = RequestOptions.none()
+    ): EntityListPageAsync
 
     /** Archive an Entity */
-    suspend fun archive(params: EntityArchiveParams, requestOptions: RequestOptions = RequestOptions.none()): Entity
+    suspend fun archive(
+        params: EntityArchiveParams,
+        requestOptions: RequestOptions = RequestOptions.none()
+    ): Entity
 
     /** Archive a beneficial owner for a corporate Entity */
-    suspend fun archiveBeneficialOwner(params: EntityArchiveBeneficialOwnerParams, requestOptions: RequestOptions = RequestOptions.none()): Entity
+    suspend fun archiveBeneficialOwner(
+        params: EntityArchiveBeneficialOwnerParams,
+        requestOptions: RequestOptions = RequestOptions.none()
+    ): Entity
 
     /**
-     * Depending on your program, you may be required to re-confirm an Entity's details
-     * on a recurring basis. After making any required updates, call this endpoint to
-     * record that your user confirmed their details.
+     * Depending on your program, you may be required to re-confirm an Entity's details on a
+     * recurring basis. After making any required updates, call this endpoint to record that your
+     * user confirmed their details.
      */
-    suspend fun confirm(params: EntityConfirmParams, requestOptions: RequestOptions = RequestOptions.none()): Entity
+    suspend fun confirm(
+        params: EntityConfirmParams,
+        requestOptions: RequestOptions = RequestOptions.none()
+    ): Entity
 
     /** Create a beneficial owner for a corporate Entity */
-    suspend fun createBeneficialOwner(params: EntityCreateBeneficialOwnerParams, requestOptions: RequestOptions = RequestOptions.none()): Entity
+    suspend fun createBeneficialOwner(
+        params: EntityCreateBeneficialOwnerParams,
+        requestOptions: RequestOptions = RequestOptions.none()
+    ): Entity
 
     /** Update a Natural Person or Corporation's address */
-    suspend fun updateAddress(params: EntityUpdateAddressParams, requestOptions: RequestOptions = RequestOptions.none()): Entity
+    suspend fun updateAddress(
+        params: EntityUpdateAddressParams,
+        requestOptions: RequestOptions = RequestOptions.none()
+    ): Entity
 
     /** Update the address for a beneficial owner belonging to a corporate Entity */
-    suspend fun updateBeneficialOwnerAddress(params: EntityUpdateBeneficialOwnerAddressParams, requestOptions: RequestOptions = RequestOptions.none()): Entity
+    suspend fun updateBeneficialOwnerAddress(
+        params: EntityUpdateBeneficialOwnerAddressParams,
+        requestOptions: RequestOptions = RequestOptions.none()
+    ): Entity
 
     /** Update the industry code for a corporate Entity */
-    suspend fun updateIndustryCode(params: EntityUpdateIndustryCodeParams, requestOptions: RequestOptions = RequestOptions.none()): Entity
+    suspend fun updateIndustryCode(
+        params: EntityUpdateIndustryCodeParams,
+        requestOptions: RequestOptions = RequestOptions.none()
+    ): Entity
 }

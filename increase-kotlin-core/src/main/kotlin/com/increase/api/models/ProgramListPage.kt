@@ -6,31 +6,21 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import java.time.LocalDate
-import java.time.OffsetDateTime
-import java.time.format.DateTimeFormatter
-import java.util.Objects
-import java.util.Optional
-import java.util.Spliterator
-import java.util.Spliterators
-import java.util.UUID
-import java.util.concurrent.CompletableFuture
-import java.util.concurrent.Executor
-import java.util.function.Predicate
-import java.util.stream.Stream
-import java.util.stream.StreamSupport
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.FlowCollector
 import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.JsonField
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.toUnmodifiable
-import com.increase.api.models.Program
 import com.increase.api.services.blocking.ProgramService
+import java.util.Objects
 
-class ProgramListPage private constructor(private val programsService: ProgramService, private val params: ProgramListParams, private val response: Response, ) {
+class ProgramListPage
+private constructor(
+    private val programsService: ProgramService,
+    private val params: ProgramListParams,
+    private val response: Response,
+) {
 
     fun response(): Response = response
 
@@ -39,62 +29,70 @@ class ProgramListPage private constructor(private val programsService: ProgramSe
     fun nextCursor(): String? = response().nextCursor()
 
     override fun equals(other: Any?): Boolean {
-      if (this === other) {
-          return true
-      }
+        if (this === other) {
+            return true
+        }
 
-      return other is ProgramListPage &&
-          this.programsService == other.programsService &&
-          this.params == other.params &&
-          this.response == other.response
+        return other is ProgramListPage &&
+            this.programsService == other.programsService &&
+            this.params == other.params &&
+            this.response == other.response
     }
 
     override fun hashCode(): Int {
-      return Objects.hash(
-          programsService,
-          params,
-          response,
-      )
-    }
-
-    override fun toString() = "ProgramListPage{programsService=$programsService, params=$params, response=$response}"
-
-    fun hasNextPage(): Boolean {
-      if (data().isEmpty()) {
-        return false;
-      }
-
-      return nextCursor() != null
-    }
-
-    fun getNextPageParams(): ProgramListParams? {
-      if (!hasNextPage()) {
-        return null
-      }
-
-      return ProgramListParams.builder().from(params).apply {nextCursor()?.let{ this.cursor(it) } }.build()
-    }
-
-    fun getNextPage(): ProgramListPage? {
-      return getNextPageParams()?.let {
-          programsService.list(it)
-      }
-    }
-
-    fun autoPager(): AutoPager = AutoPager(this)
-
-    companion object {
-
-        fun of(programsService: ProgramService, params: ProgramListParams, response: Response) = ProgramListPage(
+        return Objects.hash(
             programsService,
             params,
             response,
         )
     }
 
+    override fun toString() =
+        "ProgramListPage{programsService=$programsService, params=$params, response=$response}"
+
+    fun hasNextPage(): Boolean {
+        if (data().isEmpty()) {
+            return false
+        }
+
+        return nextCursor() != null
+    }
+
+    fun getNextPageParams(): ProgramListParams? {
+        if (!hasNextPage()) {
+            return null
+        }
+
+        return ProgramListParams.builder()
+            .from(params)
+            .apply { nextCursor()?.let { this.cursor(it) } }
+            .build()
+    }
+
+    fun getNextPage(): ProgramListPage? {
+        return getNextPageParams()?.let { programsService.list(it) }
+    }
+
+    fun autoPager(): AutoPager = AutoPager(this)
+
+    companion object {
+
+        fun of(programsService: ProgramService, params: ProgramListParams, response: Response) =
+            ProgramListPage(
+                programsService,
+                params,
+                response,
+            )
+    }
+
     @JsonDeserialize(builder = Response.Builder::class)
     @NoAutoDetect
-    class Response constructor(private val data: JsonField<List<Program>>, private val nextCursor: JsonField<String>, private val additionalProperties: Map<String, JsonValue>, ) {
+    class Response
+    constructor(
+        private val data: JsonField<List<Program>>,
+        private val nextCursor: JsonField<String>,
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
 
         private var validated: Boolean = false
 
@@ -102,11 +100,9 @@ class ProgramListPage private constructor(private val programsService: ProgramSe
 
         fun nextCursor(): String? = nextCursor.getNullable("next_cursor")
 
-        @JsonProperty("data")
-        fun _data(): JsonField<List<Program>>? = data
+        @JsonProperty("data") fun _data(): JsonField<List<Program>>? = data
 
-        @JsonProperty("next_cursor")
-        fun _nextCursor(): JsonField<String>? = nextCursor
+        @JsonProperty("next_cursor") fun _nextCursor(): JsonField<String>? = nextCursor
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -114,34 +110,35 @@ class ProgramListPage private constructor(private val programsService: ProgramSe
 
         fun validate(): Response = apply {
             if (!validated) {
-              data().map { it.validate() }
-              nextCursor()
-              validated = true
+                data().map { it.validate() }
+                nextCursor()
+                validated = true
             }
         }
 
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is Response &&
-              this.data == other.data &&
-              this.nextCursor == other.nextCursor &&
-              this.additionalProperties == other.additionalProperties
+            return other is Response &&
+                this.data == other.data &&
+                this.nextCursor == other.nextCursor &&
+                this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-          return Objects.hash(
-              data,
-              nextCursor,
-              additionalProperties,
-          )
+            return Objects.hash(
+                data,
+                nextCursor,
+                additionalProperties,
+            )
         }
 
-        override fun toString() = "ProgramListPage.Response{data=$data, nextCursor=$nextCursor, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "ProgramListPage.Response{data=$data, nextCursor=$nextCursor, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -175,25 +172,29 @@ class ProgramListPage private constructor(private val programsService: ProgramSe
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() = Response(
-                data,
-                nextCursor,
-                additionalProperties.toUnmodifiable(),
-            )
+            fun build() =
+                Response(
+                    data,
+                    nextCursor,
+                    additionalProperties.toUnmodifiable(),
+                )
         }
     }
 
-    class AutoPager constructor(private val firstPage: ProgramListPage, ) : Sequence<Program> {
+    class AutoPager
+    constructor(
+        private val firstPage: ProgramListPage,
+    ) : Sequence<Program> {
 
         override fun iterator(): Iterator<Program> = iterator {
             var page = firstPage
             var index = 0
             while (true) {
-              while (index < page.data().size) {
-                yield(page.data()[index++])
-              }
-              page = page.getNextPage() ?: break
-              index = 0
+                while (index < page.data().size) {
+                    yield(page.data()[index++])
+                }
+                page = page.getNextPage() ?: break
+                index = 0
             }
         }
     }
