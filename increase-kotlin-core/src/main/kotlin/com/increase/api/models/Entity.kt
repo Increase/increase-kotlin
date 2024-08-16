@@ -5,43 +5,57 @@ package com.increase.api.models
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.core.JsonGenerator
+import com.fasterxml.jackson.core.ObjectCodec
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.increase.api.core.Enum
-import com.increase.api.core.ExcludeMissing
-import com.increase.api.core.JsonField
-import com.increase.api.core.JsonMissing
-import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.toUnmodifiable
-import com.increase.api.errors.IncreaseInvalidDataException
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import com.fasterxml.jackson.databind.JsonNode
+import com.fasterxml.jackson.databind.SerializerProvider
+import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import java.time.LocalDate
 import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
 import java.util.Objects
+import java.util.Optional
+import java.util.UUID
+import com.increase.api.core.BaseDeserializer
+import com.increase.api.core.BaseSerializer
+import com.increase.api.core.getOrThrow
+import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonMissing
+import com.increase.api.core.JsonValue
+import com.increase.api.core.JsonNull
+import com.increase.api.core.JsonField
+import com.increase.api.core.Enum
+import com.increase.api.core.toUnmodifiable
+import com.increase.api.core.NoAutoDetect
+import com.increase.api.errors.IncreaseInvalidDataException
 
 /**
- * Entities are the legal entities that own accounts. They can be people, corporations,
- * partnerships, government authorities, or trusts.
+ * Entities are the legal entities that own accounts. They can be people,
+ * corporations, partnerships, government authorities, or trusts.
  */
 @JsonDeserialize(builder = Entity.Builder::class)
 @NoAutoDetect
-class Entity
-private constructor(
-    private val corporation: JsonField<Corporation>,
-    private val createdAt: JsonField<OffsetDateTime>,
-    private val description: JsonField<String>,
-    private val detailsConfirmedAt: JsonField<OffsetDateTime>,
-    private val governmentAuthority: JsonField<GovernmentAuthority>,
-    private val id: JsonField<String>,
-    private val idempotencyKey: JsonField<String>,
-    private val joint: JsonField<Joint>,
-    private val naturalPerson: JsonField<NaturalPerson>,
-    private val status: JsonField<Status>,
-    private val structure: JsonField<Structure>,
-    private val supplementalDocuments: JsonField<List<EntitySupplementalDocument>>,
-    private val trust: JsonField<Trust>,
-    private val type: JsonField<Type>,
-    private val additionalProperties: Map<String, JsonValue>,
+class Entity private constructor(
+  private val corporation: JsonField<Corporation>,
+  private val createdAt: JsonField<OffsetDateTime>,
+  private val description: JsonField<String>,
+  private val detailsConfirmedAt: JsonField<OffsetDateTime>,
+  private val governmentAuthority: JsonField<GovernmentAuthority>,
+  private val id: JsonField<String>,
+  private val idempotencyKey: JsonField<String>,
+  private val joint: JsonField<Joint>,
+  private val naturalPerson: JsonField<NaturalPerson>,
+  private val status: JsonField<Status>,
+  private val structure: JsonField<Structure>,
+  private val supplementalDocuments: JsonField<List<EntitySupplementalDocument>>,
+  private val trust: JsonField<Trust>,
+  private val type: JsonField<Type>,
+  private val additionalProperties: Map<String, JsonValue>,
+
 ) {
 
     private var validated: Boolean = false
@@ -49,12 +63,14 @@ private constructor(
     private var hashCode: Int = 0
 
     /**
-     * Details of the corporation entity. Will be present if `structure` is equal to `corporation`.
+     * Details of the corporation entity. Will be present if `structure` is equal to
+     * `corporation`.
      */
     fun corporation(): Corporation? = corporation.getNullable("corporation")
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Entity was created.
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Entity
+     * was created.
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
@@ -62,26 +78,24 @@ private constructor(
     fun description(): String? = description.getNullable("description")
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Entity's details
-     * were most recently confirmed.
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the
+     * Entity's details were most recently confirmed.
      */
-    fun detailsConfirmedAt(): OffsetDateTime? =
-        detailsConfirmedAt.getNullable("details_confirmed_at")
+    fun detailsConfirmedAt(): OffsetDateTime? = detailsConfirmedAt.getNullable("details_confirmed_at")
 
     /**
-     * Details of the government authority entity. Will be present if `structure` is equal to
-     * `government_authority`.
+     * Details of the government authority entity. Will be present if `structure` is
+     * equal to `government_authority`.
      */
-    fun governmentAuthority(): GovernmentAuthority? =
-        governmentAuthority.getNullable("government_authority")
+    fun governmentAuthority(): GovernmentAuthority? = governmentAuthority.getNullable("government_authority")
 
     /** The entity's identifier. */
     fun id(): String = id.getRequired("id")
 
     /**
-     * The idempotency key you chose for this object. This value is unique across Increase and is
-     * used to ensure that a request is only processed once. Learn more about
-     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     * The idempotency key you chose for this object. This value is unique across
+     * Increase and is used to ensure that a request is only processed once. Learn more
+     * about [idempotency](https://increase.com/documentation/idempotency-keys).
      */
     fun idempotencyKey(): String? = idempotencyKey.getNullable("idempotency_key")
 
@@ -101,87 +115,116 @@ private constructor(
     fun structure(): Structure = structure.getRequired("structure")
 
     /**
-     * Additional documentation associated with the entity. This is limited to the first 10
-     * documents for an entity. If an entity has more than 10 documents, use the GET
-     * /entity_supplemental_documents list endpoint to retrieve them.
+     * Additional documentation associated with the entity. This is limited to the
+     * first 10 documents for an entity. If an entity has more than 10 documents, use
+     * the GET /entity_supplemental_documents list endpoint to retrieve them.
      */
-    fun supplementalDocuments(): List<EntitySupplementalDocument> =
-        supplementalDocuments.getRequired("supplemental_documents")
+    fun supplementalDocuments(): List<EntitySupplementalDocument> = supplementalDocuments.getRequired("supplemental_documents")
 
     /** Details of the trust entity. Will be present if `structure` is equal to `trust`. */
     fun trust(): Trust? = trust.getNullable("trust")
 
-    /** A constant representing the object's type. For this resource it will always be `entity`. */
+    /**
+     * A constant representing the object's type. For this resource it will always be
+     * `entity`.
+     */
     fun type(): Type = type.getRequired("type")
 
     /**
-     * Details of the corporation entity. Will be present if `structure` is equal to `corporation`.
+     * Details of the corporation entity. Will be present if `structure` is equal to
+     * `corporation`.
      */
-    @JsonProperty("corporation") @ExcludeMissing fun _corporation() = corporation
+    @JsonProperty("corporation")
+    @ExcludeMissing
+    fun _corporation() = corporation
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Entity was created.
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Entity
+     * was created.
      */
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    fun _createdAt() = createdAt
 
     /** The entity's description for display purposes. */
-    @JsonProperty("description") @ExcludeMissing fun _description() = description
+    @JsonProperty("description")
+    @ExcludeMissing
+    fun _description() = description
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Entity's details
-     * were most recently confirmed.
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the
+     * Entity's details were most recently confirmed.
      */
     @JsonProperty("details_confirmed_at")
     @ExcludeMissing
     fun _detailsConfirmedAt() = detailsConfirmedAt
 
     /**
-     * Details of the government authority entity. Will be present if `structure` is equal to
-     * `government_authority`.
+     * Details of the government authority entity. Will be present if `structure` is
+     * equal to `government_authority`.
      */
     @JsonProperty("government_authority")
     @ExcludeMissing
     fun _governmentAuthority() = governmentAuthority
 
     /** The entity's identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    @JsonProperty("id")
+    @ExcludeMissing
+    fun _id() = id
 
     /**
-     * The idempotency key you chose for this object. This value is unique across Increase and is
-     * used to ensure that a request is only processed once. Learn more about
-     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     * The idempotency key you chose for this object. This value is unique across
+     * Increase and is used to ensure that a request is only processed once. Learn more
+     * about [idempotency](https://increase.com/documentation/idempotency-keys).
      */
-    @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
+    @JsonProperty("idempotency_key")
+    @ExcludeMissing
+    fun _idempotencyKey() = idempotencyKey
 
     /** Details of the joint entity. Will be present if `structure` is equal to `joint`. */
-    @JsonProperty("joint") @ExcludeMissing fun _joint() = joint
+    @JsonProperty("joint")
+    @ExcludeMissing
+    fun _joint() = joint
 
     /**
      * Details of the natural person entity. Will be present if `structure` is equal to
      * `natural_person`.
      */
-    @JsonProperty("natural_person") @ExcludeMissing fun _naturalPerson() = naturalPerson
+    @JsonProperty("natural_person")
+    @ExcludeMissing
+    fun _naturalPerson() = naturalPerson
 
     /** The status of the entity. */
-    @JsonProperty("status") @ExcludeMissing fun _status() = status
+    @JsonProperty("status")
+    @ExcludeMissing
+    fun _status() = status
 
     /** The entity's legal structure. */
-    @JsonProperty("structure") @ExcludeMissing fun _structure() = structure
+    @JsonProperty("structure")
+    @ExcludeMissing
+    fun _structure() = structure
 
     /**
-     * Additional documentation associated with the entity. This is limited to the first 10
-     * documents for an entity. If an entity has more than 10 documents, use the GET
-     * /entity_supplemental_documents list endpoint to retrieve them.
+     * Additional documentation associated with the entity. This is limited to the
+     * first 10 documents for an entity. If an entity has more than 10 documents, use
+     * the GET /entity_supplemental_documents list endpoint to retrieve them.
      */
     @JsonProperty("supplemental_documents")
     @ExcludeMissing
     fun _supplementalDocuments() = supplementalDocuments
 
     /** Details of the trust entity. Will be present if `structure` is equal to `trust`. */
-    @JsonProperty("trust") @ExcludeMissing fun _trust() = trust
+    @JsonProperty("trust")
+    @ExcludeMissing
+    fun _trust() = trust
 
-    /** A constant representing the object's type. For this resource it will always be `entity`. */
-    @JsonProperty("type") @ExcludeMissing fun _type() = type
+    /**
+     * A constant representing the object's type. For this resource it will always be
+     * `entity`.
+     */
+    @JsonProperty("type")
+    @ExcludeMissing
+    fun _type() = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -189,75 +232,73 @@ private constructor(
 
     fun validate(): Entity = apply {
         if (!validated) {
-            corporation()?.validate()
-            createdAt()
-            description()
-            detailsConfirmedAt()
-            governmentAuthority()?.validate()
-            id()
-            idempotencyKey()
-            joint()?.validate()
-            naturalPerson()?.validate()
-            status()
-            structure()
-            supplementalDocuments().forEach { it.validate() }
-            trust()?.validate()
-            type()
-            validated = true
+          corporation()?.validate()
+          createdAt()
+          description()
+          detailsConfirmedAt()
+          governmentAuthority()?.validate()
+          id()
+          idempotencyKey()
+          joint()?.validate()
+          naturalPerson()?.validate()
+          status()
+          structure()
+          supplementalDocuments().forEach { it.validate() }
+          trust()?.validate()
+          type()
+          validated = true
         }
     }
 
     fun toBuilder() = Builder().from(this)
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
+      if (this === other) {
+          return true
+      }
 
-        return other is Entity &&
-            this.corporation == other.corporation &&
-            this.createdAt == other.createdAt &&
-            this.description == other.description &&
-            this.detailsConfirmedAt == other.detailsConfirmedAt &&
-            this.governmentAuthority == other.governmentAuthority &&
-            this.id == other.id &&
-            this.idempotencyKey == other.idempotencyKey &&
-            this.joint == other.joint &&
-            this.naturalPerson == other.naturalPerson &&
-            this.status == other.status &&
-            this.structure == other.structure &&
-            this.supplementalDocuments == other.supplementalDocuments &&
-            this.trust == other.trust &&
-            this.type == other.type &&
-            this.additionalProperties == other.additionalProperties
+      return other is Entity &&
+          this.corporation == other.corporation &&
+          this.createdAt == other.createdAt &&
+          this.description == other.description &&
+          this.detailsConfirmedAt == other.detailsConfirmedAt &&
+          this.governmentAuthority == other.governmentAuthority &&
+          this.id == other.id &&
+          this.idempotencyKey == other.idempotencyKey &&
+          this.joint == other.joint &&
+          this.naturalPerson == other.naturalPerson &&
+          this.status == other.status &&
+          this.structure == other.structure &&
+          this.supplementalDocuments == other.supplementalDocuments &&
+          this.trust == other.trust &&
+          this.type == other.type &&
+          this.additionalProperties == other.additionalProperties
     }
 
     override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    corporation,
-                    createdAt,
-                    description,
-                    detailsConfirmedAt,
-                    governmentAuthority,
-                    id,
-                    idempotencyKey,
-                    joint,
-                    naturalPerson,
-                    status,
-                    structure,
-                    supplementalDocuments,
-                    trust,
-                    type,
-                    additionalProperties,
-                )
-        }
-        return hashCode
+      if (hashCode == 0) {
+        hashCode = Objects.hash(
+            corporation,
+            createdAt,
+            description,
+            detailsConfirmedAt,
+            governmentAuthority,
+            id,
+            idempotencyKey,
+            joint,
+            naturalPerson,
+            status,
+            structure,
+            supplementalDocuments,
+            trust,
+            type,
+            additionalProperties,
+        )
+      }
+      return hashCode
     }
 
-    override fun toString() =
-        "Entity{corporation=$corporation, createdAt=$createdAt, description=$description, detailsConfirmedAt=$detailsConfirmedAt, governmentAuthority=$governmentAuthority, id=$id, idempotencyKey=$idempotencyKey, joint=$joint, naturalPerson=$naturalPerson, status=$status, structure=$structure, supplementalDocuments=$supplementalDocuments, trust=$trust, type=$type, additionalProperties=$additionalProperties}"
+    override fun toString() = "Entity{corporation=$corporation, createdAt=$createdAt, description=$description, detailsConfirmedAt=$detailsConfirmedAt, governmentAuthority=$governmentAuthority, id=$id, idempotencyKey=$idempotencyKey, joint=$joint, naturalPerson=$naturalPerson, status=$status, structure=$structure, supplementalDocuments=$supplementalDocuments, trust=$trust, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -277,8 +318,7 @@ private constructor(
         private var naturalPerson: JsonField<NaturalPerson> = JsonMissing.of()
         private var status: JsonField<Status> = JsonMissing.of()
         private var structure: JsonField<Structure> = JsonMissing.of()
-        private var supplementalDocuments: JsonField<List<EntitySupplementalDocument>> =
-            JsonMissing.of()
+        private var supplementalDocuments: JsonField<List<EntitySupplementalDocument>> = JsonMissing.of()
         private var trust: JsonField<Trust> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -318,18 +358,20 @@ private constructor(
         }
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Entity was
-         * created.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Entity
+         * was created.
          */
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Entity was
-         * created.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Entity
+         * was created.
          */
         @JsonProperty("created_at")
         @ExcludeMissing
-        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
+        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
+            this.createdAt = createdAt
+        }
 
         /** The entity's description for display purposes. */
         fun description(description: String) = description(JsonField.of(description))
@@ -337,18 +379,19 @@ private constructor(
         /** The entity's description for display purposes. */
         @JsonProperty("description")
         @ExcludeMissing
-        fun description(description: JsonField<String>) = apply { this.description = description }
+        fun description(description: JsonField<String>) = apply {
+            this.description = description
+        }
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Entity's details
-         * were most recently confirmed.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the
+         * Entity's details were most recently confirmed.
          */
-        fun detailsConfirmedAt(detailsConfirmedAt: OffsetDateTime) =
-            detailsConfirmedAt(JsonField.of(detailsConfirmedAt))
+        fun detailsConfirmedAt(detailsConfirmedAt: OffsetDateTime) = detailsConfirmedAt(JsonField.of(detailsConfirmedAt))
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Entity's details
-         * were most recently confirmed.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the
+         * Entity's details were most recently confirmed.
          */
         @JsonProperty("details_confirmed_at")
         @ExcludeMissing
@@ -357,15 +400,14 @@ private constructor(
         }
 
         /**
-         * Details of the government authority entity. Will be present if `structure` is equal to
-         * `government_authority`.
+         * Details of the government authority entity. Will be present if `structure` is
+         * equal to `government_authority`.
          */
-        fun governmentAuthority(governmentAuthority: GovernmentAuthority) =
-            governmentAuthority(JsonField.of(governmentAuthority))
+        fun governmentAuthority(governmentAuthority: GovernmentAuthority) = governmentAuthority(JsonField.of(governmentAuthority))
 
         /**
-         * Details of the government authority entity. Will be present if `structure` is equal to
-         * `government_authority`.
+         * Details of the government authority entity. Will be present if `structure` is
+         * equal to `government_authority`.
          */
         @JsonProperty("government_authority")
         @ExcludeMissing
@@ -377,19 +419,23 @@ private constructor(
         fun id(id: String) = id(JsonField.of(id))
 
         /** The entity's identifier. */
-        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
+        @JsonProperty("id")
+        @ExcludeMissing
+        fun id(id: JsonField<String>) = apply {
+            this.id = id
+        }
 
         /**
-         * The idempotency key you chose for this object. This value is unique across Increase and
-         * is used to ensure that a request is only processed once. Learn more about
-         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         * The idempotency key you chose for this object. This value is unique across
+         * Increase and is used to ensure that a request is only processed once. Learn more
+         * about [idempotency](https://increase.com/documentation/idempotency-keys).
          */
         fun idempotencyKey(idempotencyKey: String) = idempotencyKey(JsonField.of(idempotencyKey))
 
         /**
-         * The idempotency key you chose for this object. This value is unique across Increase and
-         * is used to ensure that a request is only processed once. Learn more about
-         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         * The idempotency key you chose for this object. This value is unique across
+         * Increase and is used to ensure that a request is only processed once. Learn more
+         * about [idempotency](https://increase.com/documentation/idempotency-keys).
          */
         @JsonProperty("idempotency_key")
         @ExcludeMissing
@@ -403,7 +449,9 @@ private constructor(
         /** Details of the joint entity. Will be present if `structure` is equal to `joint`. */
         @JsonProperty("joint")
         @ExcludeMissing
-        fun joint(joint: JsonField<Joint>) = apply { this.joint = joint }
+        fun joint(joint: JsonField<Joint>) = apply {
+            this.joint = joint
+        }
 
         /**
          * Details of the natural person entity. Will be present if `structure` is equal to
@@ -427,7 +475,9 @@ private constructor(
         /** The status of the entity. */
         @JsonProperty("status")
         @ExcludeMissing
-        fun status(status: JsonField<Status>) = apply { this.status = status }
+        fun status(status: JsonField<Status>) = apply {
+            this.status = status
+        }
 
         /** The entity's legal structure. */
         fun structure(structure: Structure) = structure(JsonField.of(structure))
@@ -435,26 +485,27 @@ private constructor(
         /** The entity's legal structure. */
         @JsonProperty("structure")
         @ExcludeMissing
-        fun structure(structure: JsonField<Structure>) = apply { this.structure = structure }
+        fun structure(structure: JsonField<Structure>) = apply {
+            this.structure = structure
+        }
 
         /**
-         * Additional documentation associated with the entity. This is limited to the first 10
-         * documents for an entity. If an entity has more than 10 documents, use the GET
-         * /entity_supplemental_documents list endpoint to retrieve them.
+         * Additional documentation associated with the entity. This is limited to the
+         * first 10 documents for an entity. If an entity has more than 10 documents, use
+         * the GET /entity_supplemental_documents list endpoint to retrieve them.
          */
-        fun supplementalDocuments(supplementalDocuments: List<EntitySupplementalDocument>) =
-            supplementalDocuments(JsonField.of(supplementalDocuments))
+        fun supplementalDocuments(supplementalDocuments: List<EntitySupplementalDocument>) = supplementalDocuments(JsonField.of(supplementalDocuments))
 
         /**
-         * Additional documentation associated with the entity. This is limited to the first 10
-         * documents for an entity. If an entity has more than 10 documents, use the GET
-         * /entity_supplemental_documents list endpoint to retrieve them.
+         * Additional documentation associated with the entity. This is limited to the
+         * first 10 documents for an entity. If an entity has more than 10 documents, use
+         * the GET /entity_supplemental_documents list endpoint to retrieve them.
          */
         @JsonProperty("supplemental_documents")
         @ExcludeMissing
-        fun supplementalDocuments(
-            supplementalDocuments: JsonField<List<EntitySupplementalDocument>>
-        ) = apply { this.supplementalDocuments = supplementalDocuments }
+        fun supplementalDocuments(supplementalDocuments: JsonField<List<EntitySupplementalDocument>>) = apply {
+            this.supplementalDocuments = supplementalDocuments
+        }
 
         /** Details of the trust entity. Will be present if `structure` is equal to `trust`. */
         fun trust(trust: Trust) = trust(JsonField.of(trust))
@@ -462,19 +513,25 @@ private constructor(
         /** Details of the trust entity. Will be present if `structure` is equal to `trust`. */
         @JsonProperty("trust")
         @ExcludeMissing
-        fun trust(trust: JsonField<Trust>) = apply { this.trust = trust }
+        fun trust(trust: JsonField<Trust>) = apply {
+            this.trust = trust
+        }
 
         /**
-         * A constant representing the object's type. For this resource it will always be `entity`.
+         * A constant representing the object's type. For this resource it will always be
+         * `entity`.
          */
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
-         * A constant representing the object's type. For this resource it will always be `entity`.
+         * A constant representing the object's type. For this resource it will always be
+         * `entity`.
          */
         @JsonProperty("type")
         @ExcludeMissing
-        fun type(type: JsonField<Type>) = apply { this.type = type }
+        fun type(type: JsonField<Type>) = apply {
+            this.type = type
+        }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -490,41 +547,41 @@ private constructor(
             this.additionalProperties.putAll(additionalProperties)
         }
 
-        fun build(): Entity =
-            Entity(
-                corporation,
-                createdAt,
-                description,
-                detailsConfirmedAt,
-                governmentAuthority,
-                id,
-                idempotencyKey,
-                joint,
-                naturalPerson,
-                status,
-                structure,
-                supplementalDocuments.map { it.toUnmodifiable() },
-                trust,
-                type,
-                additionalProperties.toUnmodifiable(),
-            )
+        fun build(): Entity = Entity(
+            corporation,
+            createdAt,
+            description,
+            detailsConfirmedAt,
+            governmentAuthority,
+            id,
+            idempotencyKey,
+            joint,
+            naturalPerson,
+            status,
+            structure,
+            supplementalDocuments.map { it.toUnmodifiable() },
+            trust,
+            type,
+            additionalProperties.toUnmodifiable(),
+        )
     }
 
     /**
-     * Details of the corporation entity. Will be present if `structure` is equal to `corporation`.
+     * Details of the corporation entity. Will be present if `structure` is equal to
+     * `corporation`.
      */
     @JsonDeserialize(builder = Corporation.Builder::class)
     @NoAutoDetect
-    class Corporation
-    private constructor(
-        private val address: JsonField<Address>,
-        private val beneficialOwners: JsonField<List<BeneficialOwner>>,
-        private val incorporationState: JsonField<String>,
-        private val industryCode: JsonField<String>,
-        private val name: JsonField<String>,
-        private val taxIdentifier: JsonField<String>,
-        private val website: JsonField<String>,
-        private val additionalProperties: Map<String, JsonValue>,
+    class Corporation private constructor(
+      private val address: JsonField<Address>,
+      private val beneficialOwners: JsonField<List<BeneficialOwner>>,
+      private val incorporationState: JsonField<String>,
+      private val industryCode: JsonField<String>,
+      private val name: JsonField<String>,
+      private val taxIdentifier: JsonField<String>,
+      private val website: JsonField<String>,
+      private val additionalProperties: Map<String, JsonValue>,
+
     ) {
 
         private var validated: Boolean = false
@@ -535,20 +592,20 @@ private constructor(
         fun address(): Address = address.getRequired("address")
 
         /**
-         * The identifying details of anyone controlling or owning 25% or more of the corporation.
+         * The identifying details of anyone controlling or owning 25% or more of the
+         * corporation.
          */
-        fun beneficialOwners(): List<BeneficialOwner> =
-            beneficialOwners.getRequired("beneficial_owners")
+        fun beneficialOwners(): List<BeneficialOwner> = beneficialOwners.getRequired("beneficial_owners")
 
         /**
-         * The two-letter United States Postal Service (USPS) abbreviation for the corporation's
-         * state of incorporation.
+         * The two-letter United States Postal Service (USPS) abbreviation for the
+         * corporation's state of incorporation.
          */
         fun incorporationState(): String? = incorporationState.getNullable("incorporation_state")
 
         /**
-         * The numeric North American Industry Classification System (NAICS) code submitted for the
-         * corporation.
+         * The numeric North American Industry Classification System (NAICS) code submitted
+         * for the corporation.
          */
         fun industryCode(): String? = industryCode.getNullable("industry_code")
 
@@ -562,37 +619,48 @@ private constructor(
         fun website(): String? = website.getNullable("website")
 
         /** The corporation's address. */
-        @JsonProperty("address") @ExcludeMissing fun _address() = address
+        @JsonProperty("address")
+        @ExcludeMissing
+        fun _address() = address
 
         /**
-         * The identifying details of anyone controlling or owning 25% or more of the corporation.
+         * The identifying details of anyone controlling or owning 25% or more of the
+         * corporation.
          */
         @JsonProperty("beneficial_owners")
         @ExcludeMissing
         fun _beneficialOwners() = beneficialOwners
 
         /**
-         * The two-letter United States Postal Service (USPS) abbreviation for the corporation's
-         * state of incorporation.
+         * The two-letter United States Postal Service (USPS) abbreviation for the
+         * corporation's state of incorporation.
          */
         @JsonProperty("incorporation_state")
         @ExcludeMissing
         fun _incorporationState() = incorporationState
 
         /**
-         * The numeric North American Industry Classification System (NAICS) code submitted for the
-         * corporation.
+         * The numeric North American Industry Classification System (NAICS) code submitted
+         * for the corporation.
          */
-        @JsonProperty("industry_code") @ExcludeMissing fun _industryCode() = industryCode
+        @JsonProperty("industry_code")
+        @ExcludeMissing
+        fun _industryCode() = industryCode
 
         /** The legal name of the corporation. */
-        @JsonProperty("name") @ExcludeMissing fun _name() = name
+        @JsonProperty("name")
+        @ExcludeMissing
+        fun _name() = name
 
         /** The Employer Identification Number (EIN) for the corporation. */
-        @JsonProperty("tax_identifier") @ExcludeMissing fun _taxIdentifier() = taxIdentifier
+        @JsonProperty("tax_identifier")
+        @ExcludeMissing
+        fun _taxIdentifier() = taxIdentifier
 
         /** The website of the corporation. */
-        @JsonProperty("website") @ExcludeMissing fun _website() = website
+        @JsonProperty("website")
+        @ExcludeMissing
+        fun _website() = website
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -600,54 +668,52 @@ private constructor(
 
         fun validate(): Corporation = apply {
             if (!validated) {
-                address().validate()
-                beneficialOwners().forEach { it.validate() }
-                incorporationState()
-                industryCode()
-                name()
-                taxIdentifier()
-                website()
-                validated = true
+              address().validate()
+              beneficialOwners().forEach { it.validate() }
+              incorporationState()
+              industryCode()
+              name()
+              taxIdentifier()
+              website()
+              validated = true
             }
         }
 
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is Corporation &&
-                this.address == other.address &&
-                this.beneficialOwners == other.beneficialOwners &&
-                this.incorporationState == other.incorporationState &&
-                this.industryCode == other.industryCode &&
-                this.name == other.name &&
-                this.taxIdentifier == other.taxIdentifier &&
-                this.website == other.website &&
-                this.additionalProperties == other.additionalProperties
+          return other is Corporation &&
+              this.address == other.address &&
+              this.beneficialOwners == other.beneficialOwners &&
+              this.incorporationState == other.incorporationState &&
+              this.industryCode == other.industryCode &&
+              this.name == other.name &&
+              this.taxIdentifier == other.taxIdentifier &&
+              this.website == other.website &&
+              this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        address,
-                        beneficialOwners,
-                        incorporationState,
-                        industryCode,
-                        name,
-                        taxIdentifier,
-                        website,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
+          if (hashCode == 0) {
+            hashCode = Objects.hash(
+                address,
+                beneficialOwners,
+                incorporationState,
+                industryCode,
+                name,
+                taxIdentifier,
+                website,
+                additionalProperties,
+            )
+          }
+          return hashCode
         }
 
-        override fun toString() =
-            "Corporation{address=$address, beneficialOwners=$beneficialOwners, incorporationState=$incorporationState, industryCode=$industryCode, name=$name, taxIdentifier=$taxIdentifier, website=$website, additionalProperties=$additionalProperties}"
+        override fun toString() = "Corporation{address=$address, beneficialOwners=$beneficialOwners, incorporationState=$incorporationState, industryCode=$industryCode, name=$name, taxIdentifier=$taxIdentifier, website=$website, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -682,14 +748,15 @@ private constructor(
             /** The corporation's address. */
             @JsonProperty("address")
             @ExcludeMissing
-            fun address(address: JsonField<Address>) = apply { this.address = address }
+            fun address(address: JsonField<Address>) = apply {
+                this.address = address
+            }
 
             /**
              * The identifying details of anyone controlling or owning 25% or more of the
              * corporation.
              */
-            fun beneficialOwners(beneficialOwners: List<BeneficialOwner>) =
-                beneficialOwners(JsonField.of(beneficialOwners))
+            fun beneficialOwners(beneficialOwners: List<BeneficialOwner>) = beneficialOwners(JsonField.of(beneficialOwners))
 
             /**
              * The identifying details of anyone controlling or owning 25% or more of the
@@ -702,15 +769,14 @@ private constructor(
             }
 
             /**
-             * The two-letter United States Postal Service (USPS) abbreviation for the corporation's
-             * state of incorporation.
+             * The two-letter United States Postal Service (USPS) abbreviation for the
+             * corporation's state of incorporation.
              */
-            fun incorporationState(incorporationState: String) =
-                incorporationState(JsonField.of(incorporationState))
+            fun incorporationState(incorporationState: String) = incorporationState(JsonField.of(incorporationState))
 
             /**
-             * The two-letter United States Postal Service (USPS) abbreviation for the corporation's
-             * state of incorporation.
+             * The two-letter United States Postal Service (USPS) abbreviation for the
+             * corporation's state of incorporation.
              */
             @JsonProperty("incorporation_state")
             @ExcludeMissing
@@ -719,14 +785,14 @@ private constructor(
             }
 
             /**
-             * The numeric North American Industry Classification System (NAICS) code submitted for
-             * the corporation.
+             * The numeric North American Industry Classification System (NAICS) code submitted
+             * for the corporation.
              */
             fun industryCode(industryCode: String) = industryCode(JsonField.of(industryCode))
 
             /**
-             * The numeric North American Industry Classification System (NAICS) code submitted for
-             * the corporation.
+             * The numeric North American Industry Classification System (NAICS) code submitted
+             * for the corporation.
              */
             @JsonProperty("industry_code")
             @ExcludeMissing
@@ -740,7 +806,9 @@ private constructor(
             /** The legal name of the corporation. */
             @JsonProperty("name")
             @ExcludeMissing
-            fun name(name: JsonField<String>) = apply { this.name = name }
+            fun name(name: JsonField<String>) = apply {
+                this.name = name
+            }
 
             /** The Employer Identification Number (EIN) for the corporation. */
             fun taxIdentifier(taxIdentifier: String) = taxIdentifier(JsonField.of(taxIdentifier))
@@ -758,7 +826,9 @@ private constructor(
             /** The website of the corporation. */
             @JsonProperty("website")
             @ExcludeMissing
-            fun website(website: JsonField<String>) = apply { this.website = website }
+            fun website(website: JsonField<String>) = apply {
+                this.website = website
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -774,30 +844,29 @@ private constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): Corporation =
-                Corporation(
-                    address,
-                    beneficialOwners.map { it.toUnmodifiable() },
-                    incorporationState,
-                    industryCode,
-                    name,
-                    taxIdentifier,
-                    website,
-                    additionalProperties.toUnmodifiable(),
-                )
+            fun build(): Corporation = Corporation(
+                address,
+                beneficialOwners.map { it.toUnmodifiable() },
+                incorporationState,
+                industryCode,
+                name,
+                taxIdentifier,
+                website,
+                additionalProperties.toUnmodifiable(),
+            )
         }
 
         /** The corporation's address. */
         @JsonDeserialize(builder = Address.Builder::class)
         @NoAutoDetect
-        class Address
-        private constructor(
-            private val city: JsonField<String>,
-            private val line1: JsonField<String>,
-            private val line2: JsonField<String>,
-            private val state: JsonField<String>,
-            private val zip: JsonField<String>,
-            private val additionalProperties: Map<String, JsonValue>,
+        class Address private constructor(
+          private val city: JsonField<String>,
+          private val line1: JsonField<String>,
+          private val line2: JsonField<String>,
+          private val state: JsonField<String>,
+          private val zip: JsonField<String>,
+          private val additionalProperties: Map<String, JsonValue>,
+
         ) {
 
             private var validated: Boolean = false
@@ -814,8 +883,8 @@ private constructor(
             fun line2(): String? = line2.getNullable("line2")
 
             /**
-             * The two-letter United States Postal Service (USPS) abbreviation for the state of the
-             * address.
+             * The two-letter United States Postal Service (USPS) abbreviation for the state of
+             * the address.
              */
             fun state(): String = state.getRequired("state")
 
@@ -823,22 +892,32 @@ private constructor(
             fun zip(): String = zip.getRequired("zip")
 
             /** The city of the address. */
-            @JsonProperty("city") @ExcludeMissing fun _city() = city
+            @JsonProperty("city")
+            @ExcludeMissing
+            fun _city() = city
 
             /** The first line of the address. */
-            @JsonProperty("line1") @ExcludeMissing fun _line1() = line1
+            @JsonProperty("line1")
+            @ExcludeMissing
+            fun _line1() = line1
 
             /** The second line of the address. */
-            @JsonProperty("line2") @ExcludeMissing fun _line2() = line2
+            @JsonProperty("line2")
+            @ExcludeMissing
+            fun _line2() = line2
 
             /**
-             * The two-letter United States Postal Service (USPS) abbreviation for the state of the
-             * address.
+             * The two-letter United States Postal Service (USPS) abbreviation for the state of
+             * the address.
              */
-            @JsonProperty("state") @ExcludeMissing fun _state() = state
+            @JsonProperty("state")
+            @ExcludeMissing
+            fun _state() = state
 
             /** The ZIP code of the address. */
-            @JsonProperty("zip") @ExcludeMissing fun _zip() = zip
+            @JsonProperty("zip")
+            @ExcludeMissing
+            fun _zip() = zip
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -846,48 +925,46 @@ private constructor(
 
             fun validate(): Address = apply {
                 if (!validated) {
-                    city()
-                    line1()
-                    line2()
-                    state()
-                    zip()
-                    validated = true
+                  city()
+                  line1()
+                  line2()
+                  state()
+                  zip()
+                  validated = true
                 }
             }
 
             fun toBuilder() = Builder().from(this)
 
             override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
+              if (this === other) {
+                  return true
+              }
 
-                return other is Address &&
-                    this.city == other.city &&
-                    this.line1 == other.line1 &&
-                    this.line2 == other.line2 &&
-                    this.state == other.state &&
-                    this.zip == other.zip &&
-                    this.additionalProperties == other.additionalProperties
+              return other is Address &&
+                  this.city == other.city &&
+                  this.line1 == other.line1 &&
+                  this.line2 == other.line2 &&
+                  this.state == other.state &&
+                  this.zip == other.zip &&
+                  this.additionalProperties == other.additionalProperties
             }
 
             override fun hashCode(): Int {
-                if (hashCode == 0) {
-                    hashCode =
-                        Objects.hash(
-                            city,
-                            line1,
-                            line2,
-                            state,
-                            zip,
-                            additionalProperties,
-                        )
-                }
-                return hashCode
+              if (hashCode == 0) {
+                hashCode = Objects.hash(
+                    city,
+                    line1,
+                    line2,
+                    state,
+                    zip,
+                    additionalProperties,
+                )
+              }
+              return hashCode
             }
 
-            override fun toString() =
-                "Address{city=$city, line1=$line1, line2=$line2, state=$state, zip=$zip, additionalProperties=$additionalProperties}"
+            override fun toString() = "Address{city=$city, line1=$line1, line2=$line2, state=$state, zip=$zip, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -918,7 +995,9 @@ private constructor(
                 /** The city of the address. */
                 @JsonProperty("city")
                 @ExcludeMissing
-                fun city(city: JsonField<String>) = apply { this.city = city }
+                fun city(city: JsonField<String>) = apply {
+                    this.city = city
+                }
 
                 /** The first line of the address. */
                 fun line1(line1: String) = line1(JsonField.of(line1))
@@ -926,7 +1005,9 @@ private constructor(
                 /** The first line of the address. */
                 @JsonProperty("line1")
                 @ExcludeMissing
-                fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
+                fun line1(line1: JsonField<String>) = apply {
+                    this.line1 = line1
+                }
 
                 /** The second line of the address. */
                 fun line2(line2: String) = line2(JsonField.of(line2))
@@ -934,7 +1015,9 @@ private constructor(
                 /** The second line of the address. */
                 @JsonProperty("line2")
                 @ExcludeMissing
-                fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
+                fun line2(line2: JsonField<String>) = apply {
+                    this.line2 = line2
+                }
 
                 /**
                  * The two-letter United States Postal Service (USPS) abbreviation for the state of
@@ -948,7 +1031,9 @@ private constructor(
                  */
                 @JsonProperty("state")
                 @ExcludeMissing
-                fun state(state: JsonField<String>) = apply { this.state = state }
+                fun state(state: JsonField<String>) = apply {
+                    this.state = state
+                }
 
                 /** The ZIP code of the address. */
                 fun zip(zip: String) = zip(JsonField.of(zip))
@@ -956,7 +1041,9 @@ private constructor(
                 /** The ZIP code of the address. */
                 @JsonProperty("zip")
                 @ExcludeMissing
-                fun zip(zip: JsonField<String>) = apply { this.zip = zip }
+                fun zip(zip: JsonField<String>) = apply {
+                    this.zip = zip
+                }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -968,32 +1055,30 @@ private constructor(
                     this.additionalProperties.put(key, value)
                 }
 
-                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                    apply {
-                        this.additionalProperties.putAll(additionalProperties)
-                    }
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
 
-                fun build(): Address =
-                    Address(
-                        city,
-                        line1,
-                        line2,
-                        state,
-                        zip,
-                        additionalProperties.toUnmodifiable(),
-                    )
+                fun build(): Address = Address(
+                    city,
+                    line1,
+                    line2,
+                    state,
+                    zip,
+                    additionalProperties.toUnmodifiable(),
+                )
             }
         }
 
         @JsonDeserialize(builder = BeneficialOwner.Builder::class)
         @NoAutoDetect
-        class BeneficialOwner
-        private constructor(
-            private val beneficialOwnerId: JsonField<String>,
-            private val companyTitle: JsonField<String>,
-            private val individual: JsonField<Individual>,
-            private val prong: JsonField<Prong>,
-            private val additionalProperties: Map<String, JsonValue>,
+        class BeneficialOwner private constructor(
+          private val beneficialOwnerId: JsonField<String>,
+          private val companyTitle: JsonField<String>,
+          private val individual: JsonField<Individual>,
+          private val prong: JsonField<Prong>,
+          private val additionalProperties: Map<String, JsonValue>,
+
         ) {
 
             private var validated: Boolean = false
@@ -1018,13 +1103,19 @@ private constructor(
             fun _beneficialOwnerId() = beneficialOwnerId
 
             /** This person's role or title within the entity. */
-            @JsonProperty("company_title") @ExcludeMissing fun _companyTitle() = companyTitle
+            @JsonProperty("company_title")
+            @ExcludeMissing
+            fun _companyTitle() = companyTitle
 
             /** Personal details for the beneficial owner. */
-            @JsonProperty("individual") @ExcludeMissing fun _individual() = individual
+            @JsonProperty("individual")
+            @ExcludeMissing
+            fun _individual() = individual
 
             /** Why this person is considered a beneficial owner of the entity. */
-            @JsonProperty("prong") @ExcludeMissing fun _prong() = prong
+            @JsonProperty("prong")
+            @ExcludeMissing
+            fun _prong() = prong
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -1032,45 +1123,43 @@ private constructor(
 
             fun validate(): BeneficialOwner = apply {
                 if (!validated) {
-                    beneficialOwnerId()
-                    companyTitle()
-                    individual().validate()
-                    prong()
-                    validated = true
+                  beneficialOwnerId()
+                  companyTitle()
+                  individual().validate()
+                  prong()
+                  validated = true
                 }
             }
 
             fun toBuilder() = Builder().from(this)
 
             override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
+              if (this === other) {
+                  return true
+              }
 
-                return other is BeneficialOwner &&
-                    this.beneficialOwnerId == other.beneficialOwnerId &&
-                    this.companyTitle == other.companyTitle &&
-                    this.individual == other.individual &&
-                    this.prong == other.prong &&
-                    this.additionalProperties == other.additionalProperties
+              return other is BeneficialOwner &&
+                  this.beneficialOwnerId == other.beneficialOwnerId &&
+                  this.companyTitle == other.companyTitle &&
+                  this.individual == other.individual &&
+                  this.prong == other.prong &&
+                  this.additionalProperties == other.additionalProperties
             }
 
             override fun hashCode(): Int {
-                if (hashCode == 0) {
-                    hashCode =
-                        Objects.hash(
-                            beneficialOwnerId,
-                            companyTitle,
-                            individual,
-                            prong,
-                            additionalProperties,
-                        )
-                }
-                return hashCode
+              if (hashCode == 0) {
+                hashCode = Objects.hash(
+                    beneficialOwnerId,
+                    companyTitle,
+                    individual,
+                    prong,
+                    additionalProperties,
+                )
+              }
+              return hashCode
             }
 
-            override fun toString() =
-                "BeneficialOwner{beneficialOwnerId=$beneficialOwnerId, companyTitle=$companyTitle, individual=$individual, prong=$prong, additionalProperties=$additionalProperties}"
+            override fun toString() = "BeneficialOwner{beneficialOwnerId=$beneficialOwnerId, companyTitle=$companyTitle, individual=$individual, prong=$prong, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -1094,8 +1183,7 @@ private constructor(
                 }
 
                 /** The identifier of this beneficial owner. */
-                fun beneficialOwnerId(beneficialOwnerId: String) =
-                    beneficialOwnerId(JsonField.of(beneficialOwnerId))
+                fun beneficialOwnerId(beneficialOwnerId: String) = beneficialOwnerId(JsonField.of(beneficialOwnerId))
 
                 /** The identifier of this beneficial owner. */
                 @JsonProperty("beneficial_owner_id")
@@ -1130,7 +1218,9 @@ private constructor(
                 /** Why this person is considered a beneficial owner of the entity. */
                 @JsonProperty("prong")
                 @ExcludeMissing
-                fun prong(prong: JsonField<Prong>) = apply { this.prong = prong }
+                fun prong(prong: JsonField<Prong>) = apply {
+                    this.prong = prong
+                }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -1142,31 +1232,29 @@ private constructor(
                     this.additionalProperties.put(key, value)
                 }
 
-                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                    apply {
-                        this.additionalProperties.putAll(additionalProperties)
-                    }
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
 
-                fun build(): BeneficialOwner =
-                    BeneficialOwner(
-                        beneficialOwnerId,
-                        companyTitle,
-                        individual,
-                        prong,
-                        additionalProperties.toUnmodifiable(),
-                    )
+                fun build(): BeneficialOwner = BeneficialOwner(
+                    beneficialOwnerId,
+                    companyTitle,
+                    individual,
+                    prong,
+                    additionalProperties.toUnmodifiable(),
+                )
             }
 
             /** Personal details for the beneficial owner. */
             @JsonDeserialize(builder = Individual.Builder::class)
             @NoAutoDetect
-            class Individual
-            private constructor(
-                private val address: JsonField<Address>,
-                private val dateOfBirth: JsonField<LocalDate>,
-                private val identification: JsonField<Identification>,
-                private val name: JsonField<String>,
-                private val additionalProperties: Map<String, JsonValue>,
+            class Individual private constructor(
+              private val address: JsonField<Address>,
+              private val dateOfBirth: JsonField<LocalDate>,
+              private val identification: JsonField<Identification>,
+              private val name: JsonField<String>,
+              private val additionalProperties: Map<String, JsonValue>,
+
             ) {
 
                 private var validated: Boolean = false
@@ -1186,10 +1274,14 @@ private constructor(
                 fun name(): String = name.getRequired("name")
 
                 /** The person's address. */
-                @JsonProperty("address") @ExcludeMissing fun _address() = address
+                @JsonProperty("address")
+                @ExcludeMissing
+                fun _address() = address
 
                 /** The person's date of birth in YYYY-MM-DD format. */
-                @JsonProperty("date_of_birth") @ExcludeMissing fun _dateOfBirth() = dateOfBirth
+                @JsonProperty("date_of_birth")
+                @ExcludeMissing
+                fun _dateOfBirth() = dateOfBirth
 
                 /** A means of verifying the person's identity. */
                 @JsonProperty("identification")
@@ -1197,7 +1289,9 @@ private constructor(
                 fun _identification() = identification
 
                 /** The person's legal name. */
-                @JsonProperty("name") @ExcludeMissing fun _name() = name
+                @JsonProperty("name")
+                @ExcludeMissing
+                fun _name() = name
 
                 @JsonAnyGetter
                 @ExcludeMissing
@@ -1205,45 +1299,43 @@ private constructor(
 
                 fun validate(): Individual = apply {
                     if (!validated) {
-                        address().validate()
-                        dateOfBirth()
-                        identification().validate()
-                        name()
-                        validated = true
+                      address().validate()
+                      dateOfBirth()
+                      identification().validate()
+                      name()
+                      validated = true
                     }
                 }
 
                 fun toBuilder() = Builder().from(this)
 
                 override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
+                  if (this === other) {
+                      return true
+                  }
 
-                    return other is Individual &&
-                        this.address == other.address &&
-                        this.dateOfBirth == other.dateOfBirth &&
-                        this.identification == other.identification &&
-                        this.name == other.name &&
-                        this.additionalProperties == other.additionalProperties
+                  return other is Individual &&
+                      this.address == other.address &&
+                      this.dateOfBirth == other.dateOfBirth &&
+                      this.identification == other.identification &&
+                      this.name == other.name &&
+                      this.additionalProperties == other.additionalProperties
                 }
 
                 override fun hashCode(): Int {
-                    if (hashCode == 0) {
-                        hashCode =
-                            Objects.hash(
-                                address,
-                                dateOfBirth,
-                                identification,
-                                name,
-                                additionalProperties,
-                            )
-                    }
-                    return hashCode
+                  if (hashCode == 0) {
+                    hashCode = Objects.hash(
+                        address,
+                        dateOfBirth,
+                        identification,
+                        name,
+                        additionalProperties,
+                    )
+                  }
+                  return hashCode
                 }
 
-                override fun toString() =
-                    "Individual{address=$address, dateOfBirth=$dateOfBirth, identification=$identification, name=$name, additionalProperties=$additionalProperties}"
+                override fun toString() = "Individual{address=$address, dateOfBirth=$dateOfBirth, identification=$identification, name=$name, additionalProperties=$additionalProperties}"
 
                 companion object {
 
@@ -1272,7 +1364,9 @@ private constructor(
                     /** The person's address. */
                     @JsonProperty("address")
                     @ExcludeMissing
-                    fun address(address: JsonField<Address>) = apply { this.address = address }
+                    fun address(address: JsonField<Address>) = apply {
+                        this.address = address
+                    }
 
                     /** The person's date of birth in YYYY-MM-DD format. */
                     fun dateOfBirth(dateOfBirth: LocalDate) = dateOfBirth(JsonField.of(dateOfBirth))
@@ -1285,8 +1379,7 @@ private constructor(
                     }
 
                     /** A means of verifying the person's identity. */
-                    fun identification(identification: Identification) =
-                        identification(JsonField.of(identification))
+                    fun identification(identification: Identification) = identification(JsonField.of(identification))
 
                     /** A means of verifying the person's identity. */
                     @JsonProperty("identification")
@@ -1301,7 +1394,9 @@ private constructor(
                     /** The person's legal name. */
                     @JsonProperty("name")
                     @ExcludeMissing
-                    fun name(name: JsonField<String>) = apply { this.name = name }
+                    fun name(name: JsonField<String>) = apply {
+                        this.name = name
+                    }
 
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                         this.additionalProperties.clear()
@@ -1313,32 +1408,30 @@ private constructor(
                         this.additionalProperties.put(key, value)
                     }
 
-                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                        apply {
-                            this.additionalProperties.putAll(additionalProperties)
-                        }
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
 
-                    fun build(): Individual =
-                        Individual(
-                            address,
-                            dateOfBirth,
-                            identification,
-                            name,
-                            additionalProperties.toUnmodifiable(),
-                        )
+                    fun build(): Individual = Individual(
+                        address,
+                        dateOfBirth,
+                        identification,
+                        name,
+                        additionalProperties.toUnmodifiable(),
+                    )
                 }
 
                 /** The person's address. */
                 @JsonDeserialize(builder = Address.Builder::class)
                 @NoAutoDetect
-                class Address
-                private constructor(
-                    private val city: JsonField<String>,
-                    private val line1: JsonField<String>,
-                    private val line2: JsonField<String>,
-                    private val state: JsonField<String>,
-                    private val zip: JsonField<String>,
-                    private val additionalProperties: Map<String, JsonValue>,
+                class Address private constructor(
+                  private val city: JsonField<String>,
+                  private val line1: JsonField<String>,
+                  private val line2: JsonField<String>,
+                  private val state: JsonField<String>,
+                  private val zip: JsonField<String>,
+                  private val additionalProperties: Map<String, JsonValue>,
+
                 ) {
 
                     private var validated: Boolean = false
@@ -1355,8 +1448,8 @@ private constructor(
                     fun line2(): String? = line2.getNullable("line2")
 
                     /**
-                     * The two-letter United States Postal Service (USPS) abbreviation for the state
-                     * of the address.
+                     * The two-letter United States Postal Service (USPS) abbreviation for the state of
+                     * the address.
                      */
                     fun state(): String = state.getRequired("state")
 
@@ -1364,22 +1457,32 @@ private constructor(
                     fun zip(): String = zip.getRequired("zip")
 
                     /** The city of the address. */
-                    @JsonProperty("city") @ExcludeMissing fun _city() = city
+                    @JsonProperty("city")
+                    @ExcludeMissing
+                    fun _city() = city
 
                     /** The first line of the address. */
-                    @JsonProperty("line1") @ExcludeMissing fun _line1() = line1
+                    @JsonProperty("line1")
+                    @ExcludeMissing
+                    fun _line1() = line1
 
                     /** The second line of the address. */
-                    @JsonProperty("line2") @ExcludeMissing fun _line2() = line2
+                    @JsonProperty("line2")
+                    @ExcludeMissing
+                    fun _line2() = line2
 
                     /**
-                     * The two-letter United States Postal Service (USPS) abbreviation for the state
-                     * of the address.
+                     * The two-letter United States Postal Service (USPS) abbreviation for the state of
+                     * the address.
                      */
-                    @JsonProperty("state") @ExcludeMissing fun _state() = state
+                    @JsonProperty("state")
+                    @ExcludeMissing
+                    fun _state() = state
 
                     /** The ZIP code of the address. */
-                    @JsonProperty("zip") @ExcludeMissing fun _zip() = zip
+                    @JsonProperty("zip")
+                    @ExcludeMissing
+                    fun _zip() = zip
 
                     @JsonAnyGetter
                     @ExcludeMissing
@@ -1387,48 +1490,46 @@ private constructor(
 
                     fun validate(): Address = apply {
                         if (!validated) {
-                            city()
-                            line1()
-                            line2()
-                            state()
-                            zip()
-                            validated = true
+                          city()
+                          line1()
+                          line2()
+                          state()
+                          zip()
+                          validated = true
                         }
                     }
 
                     fun toBuilder() = Builder().from(this)
 
                     override fun equals(other: Any?): Boolean {
-                        if (this === other) {
-                            return true
-                        }
+                      if (this === other) {
+                          return true
+                      }
 
-                        return other is Address &&
-                            this.city == other.city &&
-                            this.line1 == other.line1 &&
-                            this.line2 == other.line2 &&
-                            this.state == other.state &&
-                            this.zip == other.zip &&
-                            this.additionalProperties == other.additionalProperties
+                      return other is Address &&
+                          this.city == other.city &&
+                          this.line1 == other.line1 &&
+                          this.line2 == other.line2 &&
+                          this.state == other.state &&
+                          this.zip == other.zip &&
+                          this.additionalProperties == other.additionalProperties
                     }
 
                     override fun hashCode(): Int {
-                        if (hashCode == 0) {
-                            hashCode =
-                                Objects.hash(
-                                    city,
-                                    line1,
-                                    line2,
-                                    state,
-                                    zip,
-                                    additionalProperties,
-                                )
-                        }
-                        return hashCode
+                      if (hashCode == 0) {
+                        hashCode = Objects.hash(
+                            city,
+                            line1,
+                            line2,
+                            state,
+                            zip,
+                            additionalProperties,
+                        )
+                      }
+                      return hashCode
                     }
 
-                    override fun toString() =
-                        "Address{city=$city, line1=$line1, line2=$line2, state=$state, zip=$zip, additionalProperties=$additionalProperties}"
+                    override fun toString() = "Address{city=$city, line1=$line1, line2=$line2, state=$state, zip=$zip, additionalProperties=$additionalProperties}"
 
                     companion object {
 
@@ -1442,8 +1543,7 @@ private constructor(
                         private var line2: JsonField<String> = JsonMissing.of()
                         private var state: JsonField<String> = JsonMissing.of()
                         private var zip: JsonField<String> = JsonMissing.of()
-                        private var additionalProperties: MutableMap<String, JsonValue> =
-                            mutableMapOf()
+                        private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                         internal fun from(address: Address) = apply {
                             this.city = address.city
@@ -1460,7 +1560,9 @@ private constructor(
                         /** The city of the address. */
                         @JsonProperty("city")
                         @ExcludeMissing
-                        fun city(city: JsonField<String>) = apply { this.city = city }
+                        fun city(city: JsonField<String>) = apply {
+                            this.city = city
+                        }
 
                         /** The first line of the address. */
                         fun line1(line1: String) = line1(JsonField.of(line1))
@@ -1468,7 +1570,9 @@ private constructor(
                         /** The first line of the address. */
                         @JsonProperty("line1")
                         @ExcludeMissing
-                        fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
+                        fun line1(line1: JsonField<String>) = apply {
+                            this.line1 = line1
+                        }
 
                         /** The second line of the address. */
                         fun line2(line2: String) = line2(JsonField.of(line2))
@@ -1476,21 +1580,25 @@ private constructor(
                         /** The second line of the address. */
                         @JsonProperty("line2")
                         @ExcludeMissing
-                        fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
+                        fun line2(line2: JsonField<String>) = apply {
+                            this.line2 = line2
+                        }
 
                         /**
-                         * The two-letter United States Postal Service (USPS) abbreviation for the
-                         * state of the address.
+                         * The two-letter United States Postal Service (USPS) abbreviation for the state of
+                         * the address.
                          */
                         fun state(state: String) = state(JsonField.of(state))
 
                         /**
-                         * The two-letter United States Postal Service (USPS) abbreviation for the
-                         * state of the address.
+                         * The two-letter United States Postal Service (USPS) abbreviation for the state of
+                         * the address.
                          */
                         @JsonProperty("state")
                         @ExcludeMissing
-                        fun state(state: JsonField<String>) = apply { this.state = state }
+                        fun state(state: JsonField<String>) = apply {
+                            this.state = state
+                        }
 
                         /** The ZIP code of the address. */
                         fun zip(zip: String) = zip(JsonField.of(zip))
@@ -1498,44 +1606,39 @@ private constructor(
                         /** The ZIP code of the address. */
                         @JsonProperty("zip")
                         @ExcludeMissing
-                        fun zip(zip: JsonField<String>) = apply { this.zip = zip }
+                        fun zip(zip: JsonField<String>) = apply {
+                            this.zip = zip
+                        }
 
-                        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
-                            apply {
-                                this.additionalProperties.clear()
-                                this.additionalProperties.putAll(additionalProperties)
-                            }
+                        fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                            this.additionalProperties.clear()
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
 
                         @JsonAnySetter
                         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                             this.additionalProperties.put(key, value)
                         }
 
-                        fun putAllAdditionalProperties(
-                            additionalProperties: Map<String, JsonValue>
-                        ) = apply { this.additionalProperties.putAll(additionalProperties) }
+                        fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
 
-                        fun build(): Address =
-                            Address(
-                                city,
-                                line1,
-                                line2,
-                                state,
-                                zip,
-                                additionalProperties.toUnmodifiable(),
-                            )
+                        fun build(): Address = Address(
+                            city,
+                            line1,
+                            line2,
+                            state,
+                            zip,
+                            additionalProperties.toUnmodifiable(),
+                        )
                     }
                 }
 
                 /** A means of verifying the person's identity. */
                 @JsonDeserialize(builder = Identification.Builder::class)
                 @NoAutoDetect
-                class Identification
-                private constructor(
-                    private val method: JsonField<Method>,
-                    private val numberLast4: JsonField<String>,
-                    private val additionalProperties: Map<String, JsonValue>,
-                ) {
+                class Identification private constructor(private val method: JsonField<Method>, private val numberLast4: JsonField<String>, private val additionalProperties: Map<String, JsonValue>, ) {
 
                     private var validated: Boolean = false
 
@@ -1551,13 +1654,17 @@ private constructor(
                     fun numberLast4(): String = numberLast4.getRequired("number_last4")
 
                     /** A method that can be used to verify the individual's identity. */
-                    @JsonProperty("method") @ExcludeMissing fun _method() = method
+                    @JsonProperty("method")
+                    @ExcludeMissing
+                    fun _method() = method
 
                     /**
                      * The last 4 digits of the identification number that can be used to verify the
                      * individual's identity.
                      */
-                    @JsonProperty("number_last4") @ExcludeMissing fun _numberLast4() = numberLast4
+                    @JsonProperty("number_last4")
+                    @ExcludeMissing
+                    fun _numberLast4() = numberLast4
 
                     @JsonAnyGetter
                     @ExcludeMissing
@@ -1565,39 +1672,37 @@ private constructor(
 
                     fun validate(): Identification = apply {
                         if (!validated) {
-                            method()
-                            numberLast4()
-                            validated = true
+                          method()
+                          numberLast4()
+                          validated = true
                         }
                     }
 
                     fun toBuilder() = Builder().from(this)
 
                     override fun equals(other: Any?): Boolean {
-                        if (this === other) {
-                            return true
-                        }
+                      if (this === other) {
+                          return true
+                      }
 
-                        return other is Identification &&
-                            this.method == other.method &&
-                            this.numberLast4 == other.numberLast4 &&
-                            this.additionalProperties == other.additionalProperties
+                      return other is Identification &&
+                          this.method == other.method &&
+                          this.numberLast4 == other.numberLast4 &&
+                          this.additionalProperties == other.additionalProperties
                     }
 
                     override fun hashCode(): Int {
-                        if (hashCode == 0) {
-                            hashCode =
-                                Objects.hash(
-                                    method,
-                                    numberLast4,
-                                    additionalProperties,
-                                )
-                        }
-                        return hashCode
+                      if (hashCode == 0) {
+                        hashCode = Objects.hash(
+                            method,
+                            numberLast4,
+                            additionalProperties,
+                        )
+                      }
+                      return hashCode
                     }
 
-                    override fun toString() =
-                        "Identification{method=$method, numberLast4=$numberLast4, additionalProperties=$additionalProperties}"
+                    override fun toString() = "Identification{method=$method, numberLast4=$numberLast4, additionalProperties=$additionalProperties}"
 
                     companion object {
 
@@ -1608,8 +1713,7 @@ private constructor(
 
                         private var method: JsonField<Method> = JsonMissing.of()
                         private var numberLast4: JsonField<String> = JsonMissing.of()
-                        private var additionalProperties: MutableMap<String, JsonValue> =
-                            mutableMapOf()
+                        private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                         internal fun from(identification: Identification) = apply {
                             this.method = identification.method
@@ -1623,18 +1727,19 @@ private constructor(
                         /** A method that can be used to verify the individual's identity. */
                         @JsonProperty("method")
                         @ExcludeMissing
-                        fun method(method: JsonField<Method>) = apply { this.method = method }
+                        fun method(method: JsonField<Method>) = apply {
+                            this.method = method
+                        }
 
                         /**
-                         * The last 4 digits of the identification number that can be used to verify
-                         * the individual's identity.
+                         * The last 4 digits of the identification number that can be used to verify the
+                         * individual's identity.
                          */
-                        fun numberLast4(numberLast4: String) =
-                            numberLast4(JsonField.of(numberLast4))
+                        fun numberLast4(numberLast4: String) = numberLast4(JsonField.of(numberLast4))
 
                         /**
-                         * The last 4 digits of the identification number that can be used to verify
-                         * the individual's identity.
+                         * The last 4 digits of the identification number that can be used to verify the
+                         * individual's identity.
                          */
                         @JsonProperty("number_last4")
                         @ExcludeMissing
@@ -1642,44 +1747,39 @@ private constructor(
                             this.numberLast4 = numberLast4
                         }
 
-                        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
-                            apply {
-                                this.additionalProperties.clear()
-                                this.additionalProperties.putAll(additionalProperties)
-                            }
+                        fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                            this.additionalProperties.clear()
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
 
                         @JsonAnySetter
                         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                             this.additionalProperties.put(key, value)
                         }
 
-                        fun putAllAdditionalProperties(
-                            additionalProperties: Map<String, JsonValue>
-                        ) = apply { this.additionalProperties.putAll(additionalProperties) }
+                        fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
 
-                        fun build(): Identification =
-                            Identification(
-                                method,
-                                numberLast4,
-                                additionalProperties.toUnmodifiable(),
-                            )
+                        fun build(): Identification = Identification(
+                            method,
+                            numberLast4,
+                            additionalProperties.toUnmodifiable(),
+                        )
                     }
 
-                    class Method
-                    @JsonCreator
-                    private constructor(
-                        private val value: JsonField<String>,
-                    ) : Enum {
+                    class Method @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
 
                         @com.fasterxml.jackson.annotation.JsonValue
                         fun _value(): JsonField<String> = value
 
                         override fun equals(other: Any?): Boolean {
-                            if (this === other) {
-                                return true
-                            }
+                          if (this === other) {
+                              return true
+                          }
 
-                            return other is Method && this.value == other.value
+                          return other is Method &&
+                              this.value == other.value
                         }
 
                         override fun hashCode() = value.hashCode()
@@ -1688,11 +1788,9 @@ private constructor(
 
                         companion object {
 
-                            val SOCIAL_SECURITY_NUMBER =
-                                Method(JsonField.of("social_security_number"))
+                            val SOCIAL_SECURITY_NUMBER = Method(JsonField.of("social_security_number"))
 
-                            val INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER =
-                                Method(JsonField.of("individual_taxpayer_identification_number"))
+                            val INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER = Method(JsonField.of("individual_taxpayer_identification_number"))
 
                             val PASSPORT = Method(JsonField.of("passport"))
 
@@ -1720,47 +1818,41 @@ private constructor(
                             _UNKNOWN,
                         }
 
-                        fun value(): Value =
-                            when (this) {
-                                SOCIAL_SECURITY_NUMBER -> Value.SOCIAL_SECURITY_NUMBER
-                                INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER ->
-                                    Value.INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER
-                                PASSPORT -> Value.PASSPORT
-                                DRIVERS_LICENSE -> Value.DRIVERS_LICENSE
-                                OTHER -> Value.OTHER
-                                else -> Value._UNKNOWN
-                            }
+                        fun value(): Value = when (this) {
+                            SOCIAL_SECURITY_NUMBER -> Value.SOCIAL_SECURITY_NUMBER
+                            INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER -> Value.INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER
+                            PASSPORT -> Value.PASSPORT
+                            DRIVERS_LICENSE -> Value.DRIVERS_LICENSE
+                            OTHER -> Value.OTHER
+                            else -> Value._UNKNOWN
+                        }
 
-                        fun known(): Known =
-                            when (this) {
-                                SOCIAL_SECURITY_NUMBER -> Known.SOCIAL_SECURITY_NUMBER
-                                INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER ->
-                                    Known.INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER
-                                PASSPORT -> Known.PASSPORT
-                                DRIVERS_LICENSE -> Known.DRIVERS_LICENSE
-                                OTHER -> Known.OTHER
-                                else -> throw IncreaseInvalidDataException("Unknown Method: $value")
-                            }
+                        fun known(): Known = when (this) {
+                            SOCIAL_SECURITY_NUMBER -> Known.SOCIAL_SECURITY_NUMBER
+                            INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER -> Known.INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER
+                            PASSPORT -> Known.PASSPORT
+                            DRIVERS_LICENSE -> Known.DRIVERS_LICENSE
+                            OTHER -> Known.OTHER
+                            else -> throw IncreaseInvalidDataException("Unknown Method: $value")
+                        }
 
                         fun asString(): String = _value().asStringOrThrow()
                     }
                 }
             }
 
-            class Prong
-            @JsonCreator
-            private constructor(
-                private val value: JsonField<String>,
-            ) : Enum {
+            class Prong @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
 
-                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+                @com.fasterxml.jackson.annotation.JsonValue
+                fun _value(): JsonField<String> = value
 
                 override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
+                  if (this === other) {
+                      return true
+                  }
 
-                    return other is Prong && this.value == other.value
+                  return other is Prong &&
+                      this.value == other.value
                 }
 
                 override fun hashCode() = value.hashCode()
@@ -1787,19 +1879,17 @@ private constructor(
                     _UNKNOWN,
                 }
 
-                fun value(): Value =
-                    when (this) {
-                        OWNERSHIP -> Value.OWNERSHIP
-                        CONTROL -> Value.CONTROL
-                        else -> Value._UNKNOWN
-                    }
+                fun value(): Value = when (this) {
+                    OWNERSHIP -> Value.OWNERSHIP
+                    CONTROL -> Value.CONTROL
+                    else -> Value._UNKNOWN
+                }
 
-                fun known(): Known =
-                    when (this) {
-                        OWNERSHIP -> Known.OWNERSHIP
-                        CONTROL -> Known.CONTROL
-                        else -> throw IncreaseInvalidDataException("Unknown Prong: $value")
-                    }
+                fun known(): Known = when (this) {
+                    OWNERSHIP -> Known.OWNERSHIP
+                    CONTROL -> Known.CONTROL
+                    else -> throw IncreaseInvalidDataException("Unknown Prong: $value")
+                }
 
                 fun asString(): String = _value().asStringOrThrow()
             }
@@ -1807,20 +1897,20 @@ private constructor(
     }
 
     /**
-     * Details of the government authority entity. Will be present if `structure` is equal to
-     * `government_authority`.
+     * Details of the government authority entity. Will be present if `structure` is
+     * equal to `government_authority`.
      */
     @JsonDeserialize(builder = GovernmentAuthority.Builder::class)
     @NoAutoDetect
-    class GovernmentAuthority
-    private constructor(
-        private val address: JsonField<Address>,
-        private val authorizedPersons: JsonField<List<AuthorizedPerson>>,
-        private val category: JsonField<Category>,
-        private val name: JsonField<String>,
-        private val taxIdentifier: JsonField<String>,
-        private val website: JsonField<String>,
-        private val additionalProperties: Map<String, JsonValue>,
+    class GovernmentAuthority private constructor(
+      private val address: JsonField<Address>,
+      private val authorizedPersons: JsonField<List<AuthorizedPerson>>,
+      private val category: JsonField<Category>,
+      private val name: JsonField<String>,
+      private val taxIdentifier: JsonField<String>,
+      private val website: JsonField<String>,
+      private val additionalProperties: Map<String, JsonValue>,
+
     ) {
 
         private var validated: Boolean = false
@@ -1831,8 +1921,7 @@ private constructor(
         fun address(): Address = address.getRequired("address")
 
         /** The identifying details of authorized persons of the government authority. */
-        fun authorizedPersons(): List<AuthorizedPerson> =
-            authorizedPersons.getRequired("authorized_persons")
+        fun authorizedPersons(): List<AuthorizedPerson> = authorizedPersons.getRequired("authorized_persons")
 
         /** The category of the government authority. */
         fun category(): Category = category.getRequired("category")
@@ -1847,7 +1936,9 @@ private constructor(
         fun website(): String? = website.getNullable("website")
 
         /** The government authority's address. */
-        @JsonProperty("address") @ExcludeMissing fun _address() = address
+        @JsonProperty("address")
+        @ExcludeMissing
+        fun _address() = address
 
         /** The identifying details of authorized persons of the government authority. */
         @JsonProperty("authorized_persons")
@@ -1855,16 +1946,24 @@ private constructor(
         fun _authorizedPersons() = authorizedPersons
 
         /** The category of the government authority. */
-        @JsonProperty("category") @ExcludeMissing fun _category() = category
+        @JsonProperty("category")
+        @ExcludeMissing
+        fun _category() = category
 
         /** The government authority's name. */
-        @JsonProperty("name") @ExcludeMissing fun _name() = name
+        @JsonProperty("name")
+        @ExcludeMissing
+        fun _name() = name
 
         /** The Employer Identification Number (EIN) of the government authority. */
-        @JsonProperty("tax_identifier") @ExcludeMissing fun _taxIdentifier() = taxIdentifier
+        @JsonProperty("tax_identifier")
+        @ExcludeMissing
+        fun _taxIdentifier() = taxIdentifier
 
         /** The government authority's website. */
-        @JsonProperty("website") @ExcludeMissing fun _website() = website
+        @JsonProperty("website")
+        @ExcludeMissing
+        fun _website() = website
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -1872,51 +1971,49 @@ private constructor(
 
         fun validate(): GovernmentAuthority = apply {
             if (!validated) {
-                address().validate()
-                authorizedPersons().forEach { it.validate() }
-                category()
-                name()
-                taxIdentifier()
-                website()
-                validated = true
+              address().validate()
+              authorizedPersons().forEach { it.validate() }
+              category()
+              name()
+              taxIdentifier()
+              website()
+              validated = true
             }
         }
 
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is GovernmentAuthority &&
-                this.address == other.address &&
-                this.authorizedPersons == other.authorizedPersons &&
-                this.category == other.category &&
-                this.name == other.name &&
-                this.taxIdentifier == other.taxIdentifier &&
-                this.website == other.website &&
-                this.additionalProperties == other.additionalProperties
+          return other is GovernmentAuthority &&
+              this.address == other.address &&
+              this.authorizedPersons == other.authorizedPersons &&
+              this.category == other.category &&
+              this.name == other.name &&
+              this.taxIdentifier == other.taxIdentifier &&
+              this.website == other.website &&
+              this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        address,
-                        authorizedPersons,
-                        category,
-                        name,
-                        taxIdentifier,
-                        website,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
+          if (hashCode == 0) {
+            hashCode = Objects.hash(
+                address,
+                authorizedPersons,
+                category,
+                name,
+                taxIdentifier,
+                website,
+                additionalProperties,
+            )
+          }
+          return hashCode
         }
 
-        override fun toString() =
-            "GovernmentAuthority{address=$address, authorizedPersons=$authorizedPersons, category=$category, name=$name, taxIdentifier=$taxIdentifier, website=$website, additionalProperties=$additionalProperties}"
+        override fun toString() = "GovernmentAuthority{address=$address, authorizedPersons=$authorizedPersons, category=$category, name=$name, taxIdentifier=$taxIdentifier, website=$website, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -1949,11 +2046,12 @@ private constructor(
             /** The government authority's address. */
             @JsonProperty("address")
             @ExcludeMissing
-            fun address(address: JsonField<Address>) = apply { this.address = address }
+            fun address(address: JsonField<Address>) = apply {
+                this.address = address
+            }
 
             /** The identifying details of authorized persons of the government authority. */
-            fun authorizedPersons(authorizedPersons: List<AuthorizedPerson>) =
-                authorizedPersons(JsonField.of(authorizedPersons))
+            fun authorizedPersons(authorizedPersons: List<AuthorizedPerson>) = authorizedPersons(JsonField.of(authorizedPersons))
 
             /** The identifying details of authorized persons of the government authority. */
             @JsonProperty("authorized_persons")
@@ -1968,7 +2066,9 @@ private constructor(
             /** The category of the government authority. */
             @JsonProperty("category")
             @ExcludeMissing
-            fun category(category: JsonField<Category>) = apply { this.category = category }
+            fun category(category: JsonField<Category>) = apply {
+                this.category = category
+            }
 
             /** The government authority's name. */
             fun name(name: String) = name(JsonField.of(name))
@@ -1976,7 +2076,9 @@ private constructor(
             /** The government authority's name. */
             @JsonProperty("name")
             @ExcludeMissing
-            fun name(name: JsonField<String>) = apply { this.name = name }
+            fun name(name: JsonField<String>) = apply {
+                this.name = name
+            }
 
             /** The Employer Identification Number (EIN) of the government authority. */
             fun taxIdentifier(taxIdentifier: String) = taxIdentifier(JsonField.of(taxIdentifier))
@@ -1994,7 +2096,9 @@ private constructor(
             /** The government authority's website. */
             @JsonProperty("website")
             @ExcludeMissing
-            fun website(website: JsonField<String>) = apply { this.website = website }
+            fun website(website: JsonField<String>) = apply {
+                this.website = website
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -2010,29 +2114,28 @@ private constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): GovernmentAuthority =
-                GovernmentAuthority(
-                    address,
-                    authorizedPersons.map { it.toUnmodifiable() },
-                    category,
-                    name,
-                    taxIdentifier,
-                    website,
-                    additionalProperties.toUnmodifiable(),
-                )
+            fun build(): GovernmentAuthority = GovernmentAuthority(
+                address,
+                authorizedPersons.map { it.toUnmodifiable() },
+                category,
+                name,
+                taxIdentifier,
+                website,
+                additionalProperties.toUnmodifiable(),
+            )
         }
 
         /** The government authority's address. */
         @JsonDeserialize(builder = Address.Builder::class)
         @NoAutoDetect
-        class Address
-        private constructor(
-            private val city: JsonField<String>,
-            private val line1: JsonField<String>,
-            private val line2: JsonField<String>,
-            private val state: JsonField<String>,
-            private val zip: JsonField<String>,
-            private val additionalProperties: Map<String, JsonValue>,
+        class Address private constructor(
+          private val city: JsonField<String>,
+          private val line1: JsonField<String>,
+          private val line2: JsonField<String>,
+          private val state: JsonField<String>,
+          private val zip: JsonField<String>,
+          private val additionalProperties: Map<String, JsonValue>,
+
         ) {
 
             private var validated: Boolean = false
@@ -2049,8 +2152,8 @@ private constructor(
             fun line2(): String? = line2.getNullable("line2")
 
             /**
-             * The two-letter United States Postal Service (USPS) abbreviation for the state of the
-             * address.
+             * The two-letter United States Postal Service (USPS) abbreviation for the state of
+             * the address.
              */
             fun state(): String = state.getRequired("state")
 
@@ -2058,22 +2161,32 @@ private constructor(
             fun zip(): String = zip.getRequired("zip")
 
             /** The city of the address. */
-            @JsonProperty("city") @ExcludeMissing fun _city() = city
+            @JsonProperty("city")
+            @ExcludeMissing
+            fun _city() = city
 
             /** The first line of the address. */
-            @JsonProperty("line1") @ExcludeMissing fun _line1() = line1
+            @JsonProperty("line1")
+            @ExcludeMissing
+            fun _line1() = line1
 
             /** The second line of the address. */
-            @JsonProperty("line2") @ExcludeMissing fun _line2() = line2
+            @JsonProperty("line2")
+            @ExcludeMissing
+            fun _line2() = line2
 
             /**
-             * The two-letter United States Postal Service (USPS) abbreviation for the state of the
-             * address.
+             * The two-letter United States Postal Service (USPS) abbreviation for the state of
+             * the address.
              */
-            @JsonProperty("state") @ExcludeMissing fun _state() = state
+            @JsonProperty("state")
+            @ExcludeMissing
+            fun _state() = state
 
             /** The ZIP code of the address. */
-            @JsonProperty("zip") @ExcludeMissing fun _zip() = zip
+            @JsonProperty("zip")
+            @ExcludeMissing
+            fun _zip() = zip
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -2081,48 +2194,46 @@ private constructor(
 
             fun validate(): Address = apply {
                 if (!validated) {
-                    city()
-                    line1()
-                    line2()
-                    state()
-                    zip()
-                    validated = true
+                  city()
+                  line1()
+                  line2()
+                  state()
+                  zip()
+                  validated = true
                 }
             }
 
             fun toBuilder() = Builder().from(this)
 
             override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
+              if (this === other) {
+                  return true
+              }
 
-                return other is Address &&
-                    this.city == other.city &&
-                    this.line1 == other.line1 &&
-                    this.line2 == other.line2 &&
-                    this.state == other.state &&
-                    this.zip == other.zip &&
-                    this.additionalProperties == other.additionalProperties
+              return other is Address &&
+                  this.city == other.city &&
+                  this.line1 == other.line1 &&
+                  this.line2 == other.line2 &&
+                  this.state == other.state &&
+                  this.zip == other.zip &&
+                  this.additionalProperties == other.additionalProperties
             }
 
             override fun hashCode(): Int {
-                if (hashCode == 0) {
-                    hashCode =
-                        Objects.hash(
-                            city,
-                            line1,
-                            line2,
-                            state,
-                            zip,
-                            additionalProperties,
-                        )
-                }
-                return hashCode
+              if (hashCode == 0) {
+                hashCode = Objects.hash(
+                    city,
+                    line1,
+                    line2,
+                    state,
+                    zip,
+                    additionalProperties,
+                )
+              }
+              return hashCode
             }
 
-            override fun toString() =
-                "Address{city=$city, line1=$line1, line2=$line2, state=$state, zip=$zip, additionalProperties=$additionalProperties}"
+            override fun toString() = "Address{city=$city, line1=$line1, line2=$line2, state=$state, zip=$zip, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -2153,7 +2264,9 @@ private constructor(
                 /** The city of the address. */
                 @JsonProperty("city")
                 @ExcludeMissing
-                fun city(city: JsonField<String>) = apply { this.city = city }
+                fun city(city: JsonField<String>) = apply {
+                    this.city = city
+                }
 
                 /** The first line of the address. */
                 fun line1(line1: String) = line1(JsonField.of(line1))
@@ -2161,7 +2274,9 @@ private constructor(
                 /** The first line of the address. */
                 @JsonProperty("line1")
                 @ExcludeMissing
-                fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
+                fun line1(line1: JsonField<String>) = apply {
+                    this.line1 = line1
+                }
 
                 /** The second line of the address. */
                 fun line2(line2: String) = line2(JsonField.of(line2))
@@ -2169,7 +2284,9 @@ private constructor(
                 /** The second line of the address. */
                 @JsonProperty("line2")
                 @ExcludeMissing
-                fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
+                fun line2(line2: JsonField<String>) = apply {
+                    this.line2 = line2
+                }
 
                 /**
                  * The two-letter United States Postal Service (USPS) abbreviation for the state of
@@ -2183,7 +2300,9 @@ private constructor(
                  */
                 @JsonProperty("state")
                 @ExcludeMissing
-                fun state(state: JsonField<String>) = apply { this.state = state }
+                fun state(state: JsonField<String>) = apply {
+                    this.state = state
+                }
 
                 /** The ZIP code of the address. */
                 fun zip(zip: String) = zip(JsonField.of(zip))
@@ -2191,7 +2310,9 @@ private constructor(
                 /** The ZIP code of the address. */
                 @JsonProperty("zip")
                 @ExcludeMissing
-                fun zip(zip: JsonField<String>) = apply { this.zip = zip }
+                fun zip(zip: JsonField<String>) = apply {
+                    this.zip = zip
+                }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -2203,39 +2324,31 @@ private constructor(
                     this.additionalProperties.put(key, value)
                 }
 
-                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                    apply {
-                        this.additionalProperties.putAll(additionalProperties)
-                    }
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
 
-                fun build(): Address =
-                    Address(
-                        city,
-                        line1,
-                        line2,
-                        state,
-                        zip,
-                        additionalProperties.toUnmodifiable(),
-                    )
+                fun build(): Address = Address(
+                    city,
+                    line1,
+                    line2,
+                    state,
+                    zip,
+                    additionalProperties.toUnmodifiable(),
+                )
             }
         }
 
         @JsonDeserialize(builder = AuthorizedPerson.Builder::class)
         @NoAutoDetect
-        class AuthorizedPerson
-        private constructor(
-            private val authorizedPersonId: JsonField<String>,
-            private val name: JsonField<String>,
-            private val additionalProperties: Map<String, JsonValue>,
-        ) {
+        class AuthorizedPerson private constructor(private val authorizedPersonId: JsonField<String>, private val name: JsonField<String>, private val additionalProperties: Map<String, JsonValue>, ) {
 
             private var validated: Boolean = false
 
             private var hashCode: Int = 0
 
             /** The identifier of this authorized person. */
-            fun authorizedPersonId(): String =
-                authorizedPersonId.getRequired("authorized_person_id")
+            fun authorizedPersonId(): String = authorizedPersonId.getRequired("authorized_person_id")
 
             /** The person's legal name. */
             fun name(): String = name.getRequired("name")
@@ -2246,7 +2359,9 @@ private constructor(
             fun _authorizedPersonId() = authorizedPersonId
 
             /** The person's legal name. */
-            @JsonProperty("name") @ExcludeMissing fun _name() = name
+            @JsonProperty("name")
+            @ExcludeMissing
+            fun _name() = name
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -2254,39 +2369,37 @@ private constructor(
 
             fun validate(): AuthorizedPerson = apply {
                 if (!validated) {
-                    authorizedPersonId()
-                    name()
-                    validated = true
+                  authorizedPersonId()
+                  name()
+                  validated = true
                 }
             }
 
             fun toBuilder() = Builder().from(this)
 
             override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
+              if (this === other) {
+                  return true
+              }
 
-                return other is AuthorizedPerson &&
-                    this.authorizedPersonId == other.authorizedPersonId &&
-                    this.name == other.name &&
-                    this.additionalProperties == other.additionalProperties
+              return other is AuthorizedPerson &&
+                  this.authorizedPersonId == other.authorizedPersonId &&
+                  this.name == other.name &&
+                  this.additionalProperties == other.additionalProperties
             }
 
             override fun hashCode(): Int {
-                if (hashCode == 0) {
-                    hashCode =
-                        Objects.hash(
-                            authorizedPersonId,
-                            name,
-                            additionalProperties,
-                        )
-                }
-                return hashCode
+              if (hashCode == 0) {
+                hashCode = Objects.hash(
+                    authorizedPersonId,
+                    name,
+                    additionalProperties,
+                )
+              }
+              return hashCode
             }
 
-            override fun toString() =
-                "AuthorizedPerson{authorizedPersonId=$authorizedPersonId, name=$name, additionalProperties=$additionalProperties}"
+            override fun toString() = "AuthorizedPerson{authorizedPersonId=$authorizedPersonId, name=$name, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -2306,8 +2419,7 @@ private constructor(
                 }
 
                 /** The identifier of this authorized person. */
-                fun authorizedPersonId(authorizedPersonId: String) =
-                    authorizedPersonId(JsonField.of(authorizedPersonId))
+                fun authorizedPersonId(authorizedPersonId: String) = authorizedPersonId(JsonField.of(authorizedPersonId))
 
                 /** The identifier of this authorized person. */
                 @JsonProperty("authorized_person_id")
@@ -2322,7 +2434,9 @@ private constructor(
                 /** The person's legal name. */
                 @JsonProperty("name")
                 @ExcludeMissing
-                fun name(name: JsonField<String>) = apply { this.name = name }
+                fun name(name: JsonField<String>) = apply {
+                    this.name = name
+                }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -2334,34 +2448,30 @@ private constructor(
                     this.additionalProperties.put(key, value)
                 }
 
-                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                    apply {
-                        this.additionalProperties.putAll(additionalProperties)
-                    }
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
 
-                fun build(): AuthorizedPerson =
-                    AuthorizedPerson(
-                        authorizedPersonId,
-                        name,
-                        additionalProperties.toUnmodifiable(),
-                    )
+                fun build(): AuthorizedPerson = AuthorizedPerson(
+                    authorizedPersonId,
+                    name,
+                    additionalProperties.toUnmodifiable(),
+                )
             }
         }
 
-        class Category
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        class Category @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
 
-            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+            @com.fasterxml.jackson.annotation.JsonValue
+            fun _value(): JsonField<String> = value
 
             override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
+              if (this === other) {
+                  return true
+              }
 
-                return other is Category && this.value == other.value
+              return other is Category &&
+                  this.value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -2384,17 +2494,15 @@ private constructor(
                 _UNKNOWN,
             }
 
-            fun value(): Value =
-                when (this) {
-                    MUNICIPALITY -> Value.MUNICIPALITY
-                    else -> Value._UNKNOWN
-                }
+            fun value(): Value = when (this) {
+                MUNICIPALITY -> Value.MUNICIPALITY
+                else -> Value._UNKNOWN
+            }
 
-            fun known(): Known =
-                when (this) {
-                    MUNICIPALITY -> Known.MUNICIPALITY
-                    else -> throw IncreaseInvalidDataException("Unknown Category: $value")
-                }
+            fun known(): Known = when (this) {
+                MUNICIPALITY -> Known.MUNICIPALITY
+                else -> throw IncreaseInvalidDataException("Unknown Category: $value")
+            }
 
             fun asString(): String = _value().asStringOrThrow()
         }
@@ -2403,12 +2511,7 @@ private constructor(
     /** Details of the joint entity. Will be present if `structure` is equal to `joint`. */
     @JsonDeserialize(builder = Joint.Builder::class)
     @NoAutoDetect
-    class Joint
-    private constructor(
-        private val individuals: JsonField<List<Individual>>,
-        private val name: JsonField<String>,
-        private val additionalProperties: Map<String, JsonValue>,
-    ) {
+    class Joint private constructor(private val individuals: JsonField<List<Individual>>, private val name: JsonField<String>, private val additionalProperties: Map<String, JsonValue>, ) {
 
         private var validated: Boolean = false
 
@@ -2421,10 +2524,14 @@ private constructor(
         fun name(): String = name.getRequired("name")
 
         /** The two individuals that share control of the entity. */
-        @JsonProperty("individuals") @ExcludeMissing fun _individuals() = individuals
+        @JsonProperty("individuals")
+        @ExcludeMissing
+        fun _individuals() = individuals
 
         /** The entity's name. */
-        @JsonProperty("name") @ExcludeMissing fun _name() = name
+        @JsonProperty("name")
+        @ExcludeMissing
+        fun _name() = name
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -2432,39 +2539,37 @@ private constructor(
 
         fun validate(): Joint = apply {
             if (!validated) {
-                individuals().forEach { it.validate() }
-                name()
-                validated = true
+              individuals().forEach { it.validate() }
+              name()
+              validated = true
             }
         }
 
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is Joint &&
-                this.individuals == other.individuals &&
-                this.name == other.name &&
-                this.additionalProperties == other.additionalProperties
+          return other is Joint &&
+              this.individuals == other.individuals &&
+              this.name == other.name &&
+              this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        individuals,
-                        name,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
+          if (hashCode == 0) {
+            hashCode = Objects.hash(
+                individuals,
+                name,
+                additionalProperties,
+            )
+          }
+          return hashCode
         }
 
-        override fun toString() =
-            "Joint{individuals=$individuals, name=$name, additionalProperties=$additionalProperties}"
+        override fun toString() = "Joint{individuals=$individuals, name=$name, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -2499,7 +2604,9 @@ private constructor(
             /** The entity's name. */
             @JsonProperty("name")
             @ExcludeMissing
-            fun name(name: JsonField<String>) = apply { this.name = name }
+            fun name(name: JsonField<String>) = apply {
+                this.name = name
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -2515,23 +2622,22 @@ private constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): Joint =
-                Joint(
-                    individuals.map { it.toUnmodifiable() },
-                    name,
-                    additionalProperties.toUnmodifiable(),
-                )
+            fun build(): Joint = Joint(
+                individuals.map { it.toUnmodifiable() },
+                name,
+                additionalProperties.toUnmodifiable(),
+            )
         }
 
         @JsonDeserialize(builder = Individual.Builder::class)
         @NoAutoDetect
-        class Individual
-        private constructor(
-            private val address: JsonField<Address>,
-            private val dateOfBirth: JsonField<LocalDate>,
-            private val identification: JsonField<Identification>,
-            private val name: JsonField<String>,
-            private val additionalProperties: Map<String, JsonValue>,
+        class Individual private constructor(
+          private val address: JsonField<Address>,
+          private val dateOfBirth: JsonField<LocalDate>,
+          private val identification: JsonField<Identification>,
+          private val name: JsonField<String>,
+          private val additionalProperties: Map<String, JsonValue>,
+
         ) {
 
             private var validated: Boolean = false
@@ -2551,16 +2657,24 @@ private constructor(
             fun name(): String = name.getRequired("name")
 
             /** The person's address. */
-            @JsonProperty("address") @ExcludeMissing fun _address() = address
+            @JsonProperty("address")
+            @ExcludeMissing
+            fun _address() = address
 
             /** The person's date of birth in YYYY-MM-DD format. */
-            @JsonProperty("date_of_birth") @ExcludeMissing fun _dateOfBirth() = dateOfBirth
+            @JsonProperty("date_of_birth")
+            @ExcludeMissing
+            fun _dateOfBirth() = dateOfBirth
 
             /** A means of verifying the person's identity. */
-            @JsonProperty("identification") @ExcludeMissing fun _identification() = identification
+            @JsonProperty("identification")
+            @ExcludeMissing
+            fun _identification() = identification
 
             /** The person's legal name. */
-            @JsonProperty("name") @ExcludeMissing fun _name() = name
+            @JsonProperty("name")
+            @ExcludeMissing
+            fun _name() = name
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -2568,45 +2682,43 @@ private constructor(
 
             fun validate(): Individual = apply {
                 if (!validated) {
-                    address().validate()
-                    dateOfBirth()
-                    identification().validate()
-                    name()
-                    validated = true
+                  address().validate()
+                  dateOfBirth()
+                  identification().validate()
+                  name()
+                  validated = true
                 }
             }
 
             fun toBuilder() = Builder().from(this)
 
             override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
+              if (this === other) {
+                  return true
+              }
 
-                return other is Individual &&
-                    this.address == other.address &&
-                    this.dateOfBirth == other.dateOfBirth &&
-                    this.identification == other.identification &&
-                    this.name == other.name &&
-                    this.additionalProperties == other.additionalProperties
+              return other is Individual &&
+                  this.address == other.address &&
+                  this.dateOfBirth == other.dateOfBirth &&
+                  this.identification == other.identification &&
+                  this.name == other.name &&
+                  this.additionalProperties == other.additionalProperties
             }
 
             override fun hashCode(): Int {
-                if (hashCode == 0) {
-                    hashCode =
-                        Objects.hash(
-                            address,
-                            dateOfBirth,
-                            identification,
-                            name,
-                            additionalProperties,
-                        )
-                }
-                return hashCode
+              if (hashCode == 0) {
+                hashCode = Objects.hash(
+                    address,
+                    dateOfBirth,
+                    identification,
+                    name,
+                    additionalProperties,
+                )
+              }
+              return hashCode
             }
 
-            override fun toString() =
-                "Individual{address=$address, dateOfBirth=$dateOfBirth, identification=$identification, name=$name, additionalProperties=$additionalProperties}"
+            override fun toString() = "Individual{address=$address, dateOfBirth=$dateOfBirth, identification=$identification, name=$name, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -2635,7 +2747,9 @@ private constructor(
                 /** The person's address. */
                 @JsonProperty("address")
                 @ExcludeMissing
-                fun address(address: JsonField<Address>) = apply { this.address = address }
+                fun address(address: JsonField<Address>) = apply {
+                    this.address = address
+                }
 
                 /** The person's date of birth in YYYY-MM-DD format. */
                 fun dateOfBirth(dateOfBirth: LocalDate) = dateOfBirth(JsonField.of(dateOfBirth))
@@ -2648,8 +2762,7 @@ private constructor(
                 }
 
                 /** A means of verifying the person's identity. */
-                fun identification(identification: Identification) =
-                    identification(JsonField.of(identification))
+                fun identification(identification: Identification) = identification(JsonField.of(identification))
 
                 /** A means of verifying the person's identity. */
                 @JsonProperty("identification")
@@ -2664,7 +2777,9 @@ private constructor(
                 /** The person's legal name. */
                 @JsonProperty("name")
                 @ExcludeMissing
-                fun name(name: JsonField<String>) = apply { this.name = name }
+                fun name(name: JsonField<String>) = apply {
+                    this.name = name
+                }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -2676,32 +2791,30 @@ private constructor(
                     this.additionalProperties.put(key, value)
                 }
 
-                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                    apply {
-                        this.additionalProperties.putAll(additionalProperties)
-                    }
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
 
-                fun build(): Individual =
-                    Individual(
-                        address,
-                        dateOfBirth,
-                        identification,
-                        name,
-                        additionalProperties.toUnmodifiable(),
-                    )
+                fun build(): Individual = Individual(
+                    address,
+                    dateOfBirth,
+                    identification,
+                    name,
+                    additionalProperties.toUnmodifiable(),
+                )
             }
 
             /** The person's address. */
             @JsonDeserialize(builder = Address.Builder::class)
             @NoAutoDetect
-            class Address
-            private constructor(
-                private val city: JsonField<String>,
-                private val line1: JsonField<String>,
-                private val line2: JsonField<String>,
-                private val state: JsonField<String>,
-                private val zip: JsonField<String>,
-                private val additionalProperties: Map<String, JsonValue>,
+            class Address private constructor(
+              private val city: JsonField<String>,
+              private val line1: JsonField<String>,
+              private val line2: JsonField<String>,
+              private val state: JsonField<String>,
+              private val zip: JsonField<String>,
+              private val additionalProperties: Map<String, JsonValue>,
+
             ) {
 
                 private var validated: Boolean = false
@@ -2727,22 +2840,32 @@ private constructor(
                 fun zip(): String = zip.getRequired("zip")
 
                 /** The city of the address. */
-                @JsonProperty("city") @ExcludeMissing fun _city() = city
+                @JsonProperty("city")
+                @ExcludeMissing
+                fun _city() = city
 
                 /** The first line of the address. */
-                @JsonProperty("line1") @ExcludeMissing fun _line1() = line1
+                @JsonProperty("line1")
+                @ExcludeMissing
+                fun _line1() = line1
 
                 /** The second line of the address. */
-                @JsonProperty("line2") @ExcludeMissing fun _line2() = line2
+                @JsonProperty("line2")
+                @ExcludeMissing
+                fun _line2() = line2
 
                 /**
                  * The two-letter United States Postal Service (USPS) abbreviation for the state of
                  * the address.
                  */
-                @JsonProperty("state") @ExcludeMissing fun _state() = state
+                @JsonProperty("state")
+                @ExcludeMissing
+                fun _state() = state
 
                 /** The ZIP code of the address. */
-                @JsonProperty("zip") @ExcludeMissing fun _zip() = zip
+                @JsonProperty("zip")
+                @ExcludeMissing
+                fun _zip() = zip
 
                 @JsonAnyGetter
                 @ExcludeMissing
@@ -2750,48 +2873,46 @@ private constructor(
 
                 fun validate(): Address = apply {
                     if (!validated) {
-                        city()
-                        line1()
-                        line2()
-                        state()
-                        zip()
-                        validated = true
+                      city()
+                      line1()
+                      line2()
+                      state()
+                      zip()
+                      validated = true
                     }
                 }
 
                 fun toBuilder() = Builder().from(this)
 
                 override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
+                  if (this === other) {
+                      return true
+                  }
 
-                    return other is Address &&
-                        this.city == other.city &&
-                        this.line1 == other.line1 &&
-                        this.line2 == other.line2 &&
-                        this.state == other.state &&
-                        this.zip == other.zip &&
-                        this.additionalProperties == other.additionalProperties
+                  return other is Address &&
+                      this.city == other.city &&
+                      this.line1 == other.line1 &&
+                      this.line2 == other.line2 &&
+                      this.state == other.state &&
+                      this.zip == other.zip &&
+                      this.additionalProperties == other.additionalProperties
                 }
 
                 override fun hashCode(): Int {
-                    if (hashCode == 0) {
-                        hashCode =
-                            Objects.hash(
-                                city,
-                                line1,
-                                line2,
-                                state,
-                                zip,
-                                additionalProperties,
-                            )
-                    }
-                    return hashCode
+                  if (hashCode == 0) {
+                    hashCode = Objects.hash(
+                        city,
+                        line1,
+                        line2,
+                        state,
+                        zip,
+                        additionalProperties,
+                    )
+                  }
+                  return hashCode
                 }
 
-                override fun toString() =
-                    "Address{city=$city, line1=$line1, line2=$line2, state=$state, zip=$zip, additionalProperties=$additionalProperties}"
+                override fun toString() = "Address{city=$city, line1=$line1, line2=$line2, state=$state, zip=$zip, additionalProperties=$additionalProperties}"
 
                 companion object {
 
@@ -2822,7 +2943,9 @@ private constructor(
                     /** The city of the address. */
                     @JsonProperty("city")
                     @ExcludeMissing
-                    fun city(city: JsonField<String>) = apply { this.city = city }
+                    fun city(city: JsonField<String>) = apply {
+                        this.city = city
+                    }
 
                     /** The first line of the address. */
                     fun line1(line1: String) = line1(JsonField.of(line1))
@@ -2830,7 +2953,9 @@ private constructor(
                     /** The first line of the address. */
                     @JsonProperty("line1")
                     @ExcludeMissing
-                    fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
+                    fun line1(line1: JsonField<String>) = apply {
+                        this.line1 = line1
+                    }
 
                     /** The second line of the address. */
                     fun line2(line2: String) = line2(JsonField.of(line2))
@@ -2838,21 +2963,25 @@ private constructor(
                     /** The second line of the address. */
                     @JsonProperty("line2")
                     @ExcludeMissing
-                    fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
+                    fun line2(line2: JsonField<String>) = apply {
+                        this.line2 = line2
+                    }
 
                     /**
-                     * The two-letter United States Postal Service (USPS) abbreviation for the state
-                     * of the address.
+                     * The two-letter United States Postal Service (USPS) abbreviation for the state of
+                     * the address.
                      */
                     fun state(state: String) = state(JsonField.of(state))
 
                     /**
-                     * The two-letter United States Postal Service (USPS) abbreviation for the state
-                     * of the address.
+                     * The two-letter United States Postal Service (USPS) abbreviation for the state of
+                     * the address.
                      */
                     @JsonProperty("state")
                     @ExcludeMissing
-                    fun state(state: JsonField<String>) = apply { this.state = state }
+                    fun state(state: JsonField<String>) = apply {
+                        this.state = state
+                    }
 
                     /** The ZIP code of the address. */
                     fun zip(zip: String) = zip(JsonField.of(zip))
@@ -2860,7 +2989,9 @@ private constructor(
                     /** The ZIP code of the address. */
                     @JsonProperty("zip")
                     @ExcludeMissing
-                    fun zip(zip: JsonField<String>) = apply { this.zip = zip }
+                    fun zip(zip: JsonField<String>) = apply {
+                        this.zip = zip
+                    }
 
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                         this.additionalProperties.clear()
@@ -2872,32 +3003,25 @@ private constructor(
                         this.additionalProperties.put(key, value)
                     }
 
-                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                        apply {
-                            this.additionalProperties.putAll(additionalProperties)
-                        }
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
 
-                    fun build(): Address =
-                        Address(
-                            city,
-                            line1,
-                            line2,
-                            state,
-                            zip,
-                            additionalProperties.toUnmodifiable(),
-                        )
+                    fun build(): Address = Address(
+                        city,
+                        line1,
+                        line2,
+                        state,
+                        zip,
+                        additionalProperties.toUnmodifiable(),
+                    )
                 }
             }
 
             /** A means of verifying the person's identity. */
             @JsonDeserialize(builder = Identification.Builder::class)
             @NoAutoDetect
-            class Identification
-            private constructor(
-                private val method: JsonField<Method>,
-                private val numberLast4: JsonField<String>,
-                private val additionalProperties: Map<String, JsonValue>,
-            ) {
+            class Identification private constructor(private val method: JsonField<Method>, private val numberLast4: JsonField<String>, private val additionalProperties: Map<String, JsonValue>, ) {
 
                 private var validated: Boolean = false
 
@@ -2913,13 +3037,17 @@ private constructor(
                 fun numberLast4(): String = numberLast4.getRequired("number_last4")
 
                 /** A method that can be used to verify the individual's identity. */
-                @JsonProperty("method") @ExcludeMissing fun _method() = method
+                @JsonProperty("method")
+                @ExcludeMissing
+                fun _method() = method
 
                 /**
                  * The last 4 digits of the identification number that can be used to verify the
                  * individual's identity.
                  */
-                @JsonProperty("number_last4") @ExcludeMissing fun _numberLast4() = numberLast4
+                @JsonProperty("number_last4")
+                @ExcludeMissing
+                fun _numberLast4() = numberLast4
 
                 @JsonAnyGetter
                 @ExcludeMissing
@@ -2927,39 +3055,37 @@ private constructor(
 
                 fun validate(): Identification = apply {
                     if (!validated) {
-                        method()
-                        numberLast4()
-                        validated = true
+                      method()
+                      numberLast4()
+                      validated = true
                     }
                 }
 
                 fun toBuilder() = Builder().from(this)
 
                 override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
+                  if (this === other) {
+                      return true
+                  }
 
-                    return other is Identification &&
-                        this.method == other.method &&
-                        this.numberLast4 == other.numberLast4 &&
-                        this.additionalProperties == other.additionalProperties
+                  return other is Identification &&
+                      this.method == other.method &&
+                      this.numberLast4 == other.numberLast4 &&
+                      this.additionalProperties == other.additionalProperties
                 }
 
                 override fun hashCode(): Int {
-                    if (hashCode == 0) {
-                        hashCode =
-                            Objects.hash(
-                                method,
-                                numberLast4,
-                                additionalProperties,
-                            )
-                    }
-                    return hashCode
+                  if (hashCode == 0) {
+                    hashCode = Objects.hash(
+                        method,
+                        numberLast4,
+                        additionalProperties,
+                    )
+                  }
+                  return hashCode
                 }
 
-                override fun toString() =
-                    "Identification{method=$method, numberLast4=$numberLast4, additionalProperties=$additionalProperties}"
+                override fun toString() = "Identification{method=$method, numberLast4=$numberLast4, additionalProperties=$additionalProperties}"
 
                 companion object {
 
@@ -2984,7 +3110,9 @@ private constructor(
                     /** A method that can be used to verify the individual's identity. */
                     @JsonProperty("method")
                     @ExcludeMissing
-                    fun method(method: JsonField<Method>) = apply { this.method = method }
+                    fun method(method: JsonField<Method>) = apply {
+                        this.method = method
+                    }
 
                     /**
                      * The last 4 digits of the identification number that can be used to verify the
@@ -3012,34 +3140,29 @@ private constructor(
                         this.additionalProperties.put(key, value)
                     }
 
-                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                        apply {
-                            this.additionalProperties.putAll(additionalProperties)
-                        }
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
 
-                    fun build(): Identification =
-                        Identification(
-                            method,
-                            numberLast4,
-                            additionalProperties.toUnmodifiable(),
-                        )
+                    fun build(): Identification = Identification(
+                        method,
+                        numberLast4,
+                        additionalProperties.toUnmodifiable(),
+                    )
                 }
 
-                class Method
-                @JsonCreator
-                private constructor(
-                    private val value: JsonField<String>,
-                ) : Enum {
+                class Method @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
 
                     @com.fasterxml.jackson.annotation.JsonValue
                     fun _value(): JsonField<String> = value
 
                     override fun equals(other: Any?): Boolean {
-                        if (this === other) {
-                            return true
-                        }
+                      if (this === other) {
+                          return true
+                      }
 
-                        return other is Method && this.value == other.value
+                      return other is Method &&
+                          this.value == other.value
                     }
 
                     override fun hashCode() = value.hashCode()
@@ -3050,8 +3173,7 @@ private constructor(
 
                         val SOCIAL_SECURITY_NUMBER = Method(JsonField.of("social_security_number"))
 
-                        val INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER =
-                            Method(JsonField.of("individual_taxpayer_identification_number"))
+                        val INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER = Method(JsonField.of("individual_taxpayer_identification_number"))
 
                         val PASSPORT = Method(JsonField.of("passport"))
 
@@ -3079,27 +3201,23 @@ private constructor(
                         _UNKNOWN,
                     }
 
-                    fun value(): Value =
-                        when (this) {
-                            SOCIAL_SECURITY_NUMBER -> Value.SOCIAL_SECURITY_NUMBER
-                            INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER ->
-                                Value.INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER
-                            PASSPORT -> Value.PASSPORT
-                            DRIVERS_LICENSE -> Value.DRIVERS_LICENSE
-                            OTHER -> Value.OTHER
-                            else -> Value._UNKNOWN
-                        }
+                    fun value(): Value = when (this) {
+                        SOCIAL_SECURITY_NUMBER -> Value.SOCIAL_SECURITY_NUMBER
+                        INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER -> Value.INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER
+                        PASSPORT -> Value.PASSPORT
+                        DRIVERS_LICENSE -> Value.DRIVERS_LICENSE
+                        OTHER -> Value.OTHER
+                        else -> Value._UNKNOWN
+                    }
 
-                    fun known(): Known =
-                        when (this) {
-                            SOCIAL_SECURITY_NUMBER -> Known.SOCIAL_SECURITY_NUMBER
-                            INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER ->
-                                Known.INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER
-                            PASSPORT -> Known.PASSPORT
-                            DRIVERS_LICENSE -> Known.DRIVERS_LICENSE
-                            OTHER -> Known.OTHER
-                            else -> throw IncreaseInvalidDataException("Unknown Method: $value")
-                        }
+                    fun known(): Known = when (this) {
+                        SOCIAL_SECURITY_NUMBER -> Known.SOCIAL_SECURITY_NUMBER
+                        INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER -> Known.INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER
+                        PASSPORT -> Known.PASSPORT
+                        DRIVERS_LICENSE -> Known.DRIVERS_LICENSE
+                        OTHER -> Known.OTHER
+                        else -> throw IncreaseInvalidDataException("Unknown Method: $value")
+                    }
 
                     fun asString(): String = _value().asStringOrThrow()
                 }
@@ -3113,13 +3231,13 @@ private constructor(
      */
     @JsonDeserialize(builder = NaturalPerson.Builder::class)
     @NoAutoDetect
-    class NaturalPerson
-    private constructor(
-        private val address: JsonField<Address>,
-        private val dateOfBirth: JsonField<LocalDate>,
-        private val identification: JsonField<Identification>,
-        private val name: JsonField<String>,
-        private val additionalProperties: Map<String, JsonValue>,
+    class NaturalPerson private constructor(
+      private val address: JsonField<Address>,
+      private val dateOfBirth: JsonField<LocalDate>,
+      private val identification: JsonField<Identification>,
+      private val name: JsonField<String>,
+      private val additionalProperties: Map<String, JsonValue>,
+
     ) {
 
         private var validated: Boolean = false
@@ -3139,16 +3257,24 @@ private constructor(
         fun name(): String = name.getRequired("name")
 
         /** The person's address. */
-        @JsonProperty("address") @ExcludeMissing fun _address() = address
+        @JsonProperty("address")
+        @ExcludeMissing
+        fun _address() = address
 
         /** The person's date of birth in YYYY-MM-DD format. */
-        @JsonProperty("date_of_birth") @ExcludeMissing fun _dateOfBirth() = dateOfBirth
+        @JsonProperty("date_of_birth")
+        @ExcludeMissing
+        fun _dateOfBirth() = dateOfBirth
 
         /** A means of verifying the person's identity. */
-        @JsonProperty("identification") @ExcludeMissing fun _identification() = identification
+        @JsonProperty("identification")
+        @ExcludeMissing
+        fun _identification() = identification
 
         /** The person's legal name. */
-        @JsonProperty("name") @ExcludeMissing fun _name() = name
+        @JsonProperty("name")
+        @ExcludeMissing
+        fun _name() = name
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -3156,45 +3282,43 @@ private constructor(
 
         fun validate(): NaturalPerson = apply {
             if (!validated) {
-                address().validate()
-                dateOfBirth()
-                identification().validate()
-                name()
-                validated = true
+              address().validate()
+              dateOfBirth()
+              identification().validate()
+              name()
+              validated = true
             }
         }
 
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is NaturalPerson &&
-                this.address == other.address &&
-                this.dateOfBirth == other.dateOfBirth &&
-                this.identification == other.identification &&
-                this.name == other.name &&
-                this.additionalProperties == other.additionalProperties
+          return other is NaturalPerson &&
+              this.address == other.address &&
+              this.dateOfBirth == other.dateOfBirth &&
+              this.identification == other.identification &&
+              this.name == other.name &&
+              this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        address,
-                        dateOfBirth,
-                        identification,
-                        name,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
+          if (hashCode == 0) {
+            hashCode = Objects.hash(
+                address,
+                dateOfBirth,
+                identification,
+                name,
+                additionalProperties,
+            )
+          }
+          return hashCode
         }
 
-        override fun toString() =
-            "NaturalPerson{address=$address, dateOfBirth=$dateOfBirth, identification=$identification, name=$name, additionalProperties=$additionalProperties}"
+        override fun toString() = "NaturalPerson{address=$address, dateOfBirth=$dateOfBirth, identification=$identification, name=$name, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -3223,7 +3347,9 @@ private constructor(
             /** The person's address. */
             @JsonProperty("address")
             @ExcludeMissing
-            fun address(address: JsonField<Address>) = apply { this.address = address }
+            fun address(address: JsonField<Address>) = apply {
+                this.address = address
+            }
 
             /** The person's date of birth in YYYY-MM-DD format. */
             fun dateOfBirth(dateOfBirth: LocalDate) = dateOfBirth(JsonField.of(dateOfBirth))
@@ -3236,8 +3362,7 @@ private constructor(
             }
 
             /** A means of verifying the person's identity. */
-            fun identification(identification: Identification) =
-                identification(JsonField.of(identification))
+            fun identification(identification: Identification) = identification(JsonField.of(identification))
 
             /** A means of verifying the person's identity. */
             @JsonProperty("identification")
@@ -3252,7 +3377,9 @@ private constructor(
             /** The person's legal name. */
             @JsonProperty("name")
             @ExcludeMissing
-            fun name(name: JsonField<String>) = apply { this.name = name }
+            fun name(name: JsonField<String>) = apply {
+                this.name = name
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -3268,27 +3395,26 @@ private constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): NaturalPerson =
-                NaturalPerson(
-                    address,
-                    dateOfBirth,
-                    identification,
-                    name,
-                    additionalProperties.toUnmodifiable(),
-                )
+            fun build(): NaturalPerson = NaturalPerson(
+                address,
+                dateOfBirth,
+                identification,
+                name,
+                additionalProperties.toUnmodifiable(),
+            )
         }
 
         /** The person's address. */
         @JsonDeserialize(builder = Address.Builder::class)
         @NoAutoDetect
-        class Address
-        private constructor(
-            private val city: JsonField<String>,
-            private val line1: JsonField<String>,
-            private val line2: JsonField<String>,
-            private val state: JsonField<String>,
-            private val zip: JsonField<String>,
-            private val additionalProperties: Map<String, JsonValue>,
+        class Address private constructor(
+          private val city: JsonField<String>,
+          private val line1: JsonField<String>,
+          private val line2: JsonField<String>,
+          private val state: JsonField<String>,
+          private val zip: JsonField<String>,
+          private val additionalProperties: Map<String, JsonValue>,
+
         ) {
 
             private var validated: Boolean = false
@@ -3305,8 +3431,8 @@ private constructor(
             fun line2(): String? = line2.getNullable("line2")
 
             /**
-             * The two-letter United States Postal Service (USPS) abbreviation for the state of the
-             * address.
+             * The two-letter United States Postal Service (USPS) abbreviation for the state of
+             * the address.
              */
             fun state(): String = state.getRequired("state")
 
@@ -3314,22 +3440,32 @@ private constructor(
             fun zip(): String = zip.getRequired("zip")
 
             /** The city of the address. */
-            @JsonProperty("city") @ExcludeMissing fun _city() = city
+            @JsonProperty("city")
+            @ExcludeMissing
+            fun _city() = city
 
             /** The first line of the address. */
-            @JsonProperty("line1") @ExcludeMissing fun _line1() = line1
+            @JsonProperty("line1")
+            @ExcludeMissing
+            fun _line1() = line1
 
             /** The second line of the address. */
-            @JsonProperty("line2") @ExcludeMissing fun _line2() = line2
+            @JsonProperty("line2")
+            @ExcludeMissing
+            fun _line2() = line2
 
             /**
-             * The two-letter United States Postal Service (USPS) abbreviation for the state of the
-             * address.
+             * The two-letter United States Postal Service (USPS) abbreviation for the state of
+             * the address.
              */
-            @JsonProperty("state") @ExcludeMissing fun _state() = state
+            @JsonProperty("state")
+            @ExcludeMissing
+            fun _state() = state
 
             /** The ZIP code of the address. */
-            @JsonProperty("zip") @ExcludeMissing fun _zip() = zip
+            @JsonProperty("zip")
+            @ExcludeMissing
+            fun _zip() = zip
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -3337,48 +3473,46 @@ private constructor(
 
             fun validate(): Address = apply {
                 if (!validated) {
-                    city()
-                    line1()
-                    line2()
-                    state()
-                    zip()
-                    validated = true
+                  city()
+                  line1()
+                  line2()
+                  state()
+                  zip()
+                  validated = true
                 }
             }
 
             fun toBuilder() = Builder().from(this)
 
             override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
+              if (this === other) {
+                  return true
+              }
 
-                return other is Address &&
-                    this.city == other.city &&
-                    this.line1 == other.line1 &&
-                    this.line2 == other.line2 &&
-                    this.state == other.state &&
-                    this.zip == other.zip &&
-                    this.additionalProperties == other.additionalProperties
+              return other is Address &&
+                  this.city == other.city &&
+                  this.line1 == other.line1 &&
+                  this.line2 == other.line2 &&
+                  this.state == other.state &&
+                  this.zip == other.zip &&
+                  this.additionalProperties == other.additionalProperties
             }
 
             override fun hashCode(): Int {
-                if (hashCode == 0) {
-                    hashCode =
-                        Objects.hash(
-                            city,
-                            line1,
-                            line2,
-                            state,
-                            zip,
-                            additionalProperties,
-                        )
-                }
-                return hashCode
+              if (hashCode == 0) {
+                hashCode = Objects.hash(
+                    city,
+                    line1,
+                    line2,
+                    state,
+                    zip,
+                    additionalProperties,
+                )
+              }
+              return hashCode
             }
 
-            override fun toString() =
-                "Address{city=$city, line1=$line1, line2=$line2, state=$state, zip=$zip, additionalProperties=$additionalProperties}"
+            override fun toString() = "Address{city=$city, line1=$line1, line2=$line2, state=$state, zip=$zip, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -3409,7 +3543,9 @@ private constructor(
                 /** The city of the address. */
                 @JsonProperty("city")
                 @ExcludeMissing
-                fun city(city: JsonField<String>) = apply { this.city = city }
+                fun city(city: JsonField<String>) = apply {
+                    this.city = city
+                }
 
                 /** The first line of the address. */
                 fun line1(line1: String) = line1(JsonField.of(line1))
@@ -3417,7 +3553,9 @@ private constructor(
                 /** The first line of the address. */
                 @JsonProperty("line1")
                 @ExcludeMissing
-                fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
+                fun line1(line1: JsonField<String>) = apply {
+                    this.line1 = line1
+                }
 
                 /** The second line of the address. */
                 fun line2(line2: String) = line2(JsonField.of(line2))
@@ -3425,7 +3563,9 @@ private constructor(
                 /** The second line of the address. */
                 @JsonProperty("line2")
                 @ExcludeMissing
-                fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
+                fun line2(line2: JsonField<String>) = apply {
+                    this.line2 = line2
+                }
 
                 /**
                  * The two-letter United States Postal Service (USPS) abbreviation for the state of
@@ -3439,7 +3579,9 @@ private constructor(
                  */
                 @JsonProperty("state")
                 @ExcludeMissing
-                fun state(state: JsonField<String>) = apply { this.state = state }
+                fun state(state: JsonField<String>) = apply {
+                    this.state = state
+                }
 
                 /** The ZIP code of the address. */
                 fun zip(zip: String) = zip(JsonField.of(zip))
@@ -3447,7 +3589,9 @@ private constructor(
                 /** The ZIP code of the address. */
                 @JsonProperty("zip")
                 @ExcludeMissing
-                fun zip(zip: JsonField<String>) = apply { this.zip = zip }
+                fun zip(zip: JsonField<String>) = apply {
+                    this.zip = zip
+                }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -3459,32 +3603,25 @@ private constructor(
                     this.additionalProperties.put(key, value)
                 }
 
-                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                    apply {
-                        this.additionalProperties.putAll(additionalProperties)
-                    }
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
 
-                fun build(): Address =
-                    Address(
-                        city,
-                        line1,
-                        line2,
-                        state,
-                        zip,
-                        additionalProperties.toUnmodifiable(),
-                    )
+                fun build(): Address = Address(
+                    city,
+                    line1,
+                    line2,
+                    state,
+                    zip,
+                    additionalProperties.toUnmodifiable(),
+                )
             }
         }
 
         /** A means of verifying the person's identity. */
         @JsonDeserialize(builder = Identification.Builder::class)
         @NoAutoDetect
-        class Identification
-        private constructor(
-            private val method: JsonField<Method>,
-            private val numberLast4: JsonField<String>,
-            private val additionalProperties: Map<String, JsonValue>,
-        ) {
+        class Identification private constructor(private val method: JsonField<Method>, private val numberLast4: JsonField<String>, private val additionalProperties: Map<String, JsonValue>, ) {
 
             private var validated: Boolean = false
 
@@ -3500,13 +3637,17 @@ private constructor(
             fun numberLast4(): String = numberLast4.getRequired("number_last4")
 
             /** A method that can be used to verify the individual's identity. */
-            @JsonProperty("method") @ExcludeMissing fun _method() = method
+            @JsonProperty("method")
+            @ExcludeMissing
+            fun _method() = method
 
             /**
              * The last 4 digits of the identification number that can be used to verify the
              * individual's identity.
              */
-            @JsonProperty("number_last4") @ExcludeMissing fun _numberLast4() = numberLast4
+            @JsonProperty("number_last4")
+            @ExcludeMissing
+            fun _numberLast4() = numberLast4
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -3514,39 +3655,37 @@ private constructor(
 
             fun validate(): Identification = apply {
                 if (!validated) {
-                    method()
-                    numberLast4()
-                    validated = true
+                  method()
+                  numberLast4()
+                  validated = true
                 }
             }
 
             fun toBuilder() = Builder().from(this)
 
             override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
+              if (this === other) {
+                  return true
+              }
 
-                return other is Identification &&
-                    this.method == other.method &&
-                    this.numberLast4 == other.numberLast4 &&
-                    this.additionalProperties == other.additionalProperties
+              return other is Identification &&
+                  this.method == other.method &&
+                  this.numberLast4 == other.numberLast4 &&
+                  this.additionalProperties == other.additionalProperties
             }
 
             override fun hashCode(): Int {
-                if (hashCode == 0) {
-                    hashCode =
-                        Objects.hash(
-                            method,
-                            numberLast4,
-                            additionalProperties,
-                        )
-                }
-                return hashCode
+              if (hashCode == 0) {
+                hashCode = Objects.hash(
+                    method,
+                    numberLast4,
+                    additionalProperties,
+                )
+              }
+              return hashCode
             }
 
-            override fun toString() =
-                "Identification{method=$method, numberLast4=$numberLast4, additionalProperties=$additionalProperties}"
+            override fun toString() = "Identification{method=$method, numberLast4=$numberLast4, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -3571,7 +3710,9 @@ private constructor(
                 /** A method that can be used to verify the individual's identity. */
                 @JsonProperty("method")
                 @ExcludeMissing
-                fun method(method: JsonField<Method>) = apply { this.method = method }
+                fun method(method: JsonField<Method>) = apply {
+                    this.method = method
+                }
 
                 /**
                  * The last 4 digits of the identification number that can be used to verify the
@@ -3599,33 +3740,29 @@ private constructor(
                     this.additionalProperties.put(key, value)
                 }
 
-                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                    apply {
-                        this.additionalProperties.putAll(additionalProperties)
-                    }
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
 
-                fun build(): Identification =
-                    Identification(
-                        method,
-                        numberLast4,
-                        additionalProperties.toUnmodifiable(),
-                    )
+                fun build(): Identification = Identification(
+                    method,
+                    numberLast4,
+                    additionalProperties.toUnmodifiable(),
+                )
             }
 
-            class Method
-            @JsonCreator
-            private constructor(
-                private val value: JsonField<String>,
-            ) : Enum {
+            class Method @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
 
-                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+                @com.fasterxml.jackson.annotation.JsonValue
+                fun _value(): JsonField<String> = value
 
                 override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
+                  if (this === other) {
+                      return true
+                  }
 
-                    return other is Method && this.value == other.value
+                  return other is Method &&
+                      this.value == other.value
                 }
 
                 override fun hashCode() = value.hashCode()
@@ -3636,8 +3773,7 @@ private constructor(
 
                     val SOCIAL_SECURITY_NUMBER = Method(JsonField.of("social_security_number"))
 
-                    val INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER =
-                        Method(JsonField.of("individual_taxpayer_identification_number"))
+                    val INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER = Method(JsonField.of("individual_taxpayer_identification_number"))
 
                     val PASSPORT = Method(JsonField.of("passport"))
 
@@ -3665,47 +3801,41 @@ private constructor(
                     _UNKNOWN,
                 }
 
-                fun value(): Value =
-                    when (this) {
-                        SOCIAL_SECURITY_NUMBER -> Value.SOCIAL_SECURITY_NUMBER
-                        INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER ->
-                            Value.INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER
-                        PASSPORT -> Value.PASSPORT
-                        DRIVERS_LICENSE -> Value.DRIVERS_LICENSE
-                        OTHER -> Value.OTHER
-                        else -> Value._UNKNOWN
-                    }
+                fun value(): Value = when (this) {
+                    SOCIAL_SECURITY_NUMBER -> Value.SOCIAL_SECURITY_NUMBER
+                    INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER -> Value.INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER
+                    PASSPORT -> Value.PASSPORT
+                    DRIVERS_LICENSE -> Value.DRIVERS_LICENSE
+                    OTHER -> Value.OTHER
+                    else -> Value._UNKNOWN
+                }
 
-                fun known(): Known =
-                    when (this) {
-                        SOCIAL_SECURITY_NUMBER -> Known.SOCIAL_SECURITY_NUMBER
-                        INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER ->
-                            Known.INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER
-                        PASSPORT -> Known.PASSPORT
-                        DRIVERS_LICENSE -> Known.DRIVERS_LICENSE
-                        OTHER -> Known.OTHER
-                        else -> throw IncreaseInvalidDataException("Unknown Method: $value")
-                    }
+                fun known(): Known = when (this) {
+                    SOCIAL_SECURITY_NUMBER -> Known.SOCIAL_SECURITY_NUMBER
+                    INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER -> Known.INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER
+                    PASSPORT -> Known.PASSPORT
+                    DRIVERS_LICENSE -> Known.DRIVERS_LICENSE
+                    OTHER -> Known.OTHER
+                    else -> throw IncreaseInvalidDataException("Unknown Method: $value")
+                }
 
                 fun asString(): String = _value().asStringOrThrow()
             }
         }
     }
 
-    class Status
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Status @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
 
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is Status && this.value == other.value
+          return other is Status &&
+              this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -3736,39 +3866,35 @@ private constructor(
             _UNKNOWN,
         }
 
-        fun value(): Value =
-            when (this) {
-                ACTIVE -> Value.ACTIVE
-                ARCHIVED -> Value.ARCHIVED
-                DISABLED -> Value.DISABLED
-                else -> Value._UNKNOWN
-            }
+        fun value(): Value = when (this) {
+            ACTIVE -> Value.ACTIVE
+            ARCHIVED -> Value.ARCHIVED
+            DISABLED -> Value.DISABLED
+            else -> Value._UNKNOWN
+        }
 
-        fun known(): Known =
-            when (this) {
-                ACTIVE -> Known.ACTIVE
-                ARCHIVED -> Known.ARCHIVED
-                DISABLED -> Known.DISABLED
-                else -> throw IncreaseInvalidDataException("Unknown Status: $value")
-            }
+        fun known(): Known = when (this) {
+            ACTIVE -> Known.ACTIVE
+            ARCHIVED -> Known.ARCHIVED
+            DISABLED -> Known.DISABLED
+            else -> throw IncreaseInvalidDataException("Unknown Status: $value")
+        }
 
         fun asString(): String = _value().asStringOrThrow()
     }
 
-    class Structure
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Structure @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
 
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is Structure && this.value == other.value
+          return other is Structure &&
+              this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -3807,25 +3933,23 @@ private constructor(
             _UNKNOWN,
         }
 
-        fun value(): Value =
-            when (this) {
-                CORPORATION -> Value.CORPORATION
-                NATURAL_PERSON -> Value.NATURAL_PERSON
-                JOINT -> Value.JOINT
-                TRUST -> Value.TRUST
-                GOVERNMENT_AUTHORITY -> Value.GOVERNMENT_AUTHORITY
-                else -> Value._UNKNOWN
-            }
+        fun value(): Value = when (this) {
+            CORPORATION -> Value.CORPORATION
+            NATURAL_PERSON -> Value.NATURAL_PERSON
+            JOINT -> Value.JOINT
+            TRUST -> Value.TRUST
+            GOVERNMENT_AUTHORITY -> Value.GOVERNMENT_AUTHORITY
+            else -> Value._UNKNOWN
+        }
 
-        fun known(): Known =
-            when (this) {
-                CORPORATION -> Known.CORPORATION
-                NATURAL_PERSON -> Known.NATURAL_PERSON
-                JOINT -> Known.JOINT
-                TRUST -> Known.TRUST
-                GOVERNMENT_AUTHORITY -> Known.GOVERNMENT_AUTHORITY
-                else -> throw IncreaseInvalidDataException("Unknown Structure: $value")
-            }
+        fun known(): Known = when (this) {
+            CORPORATION -> Known.CORPORATION
+            NATURAL_PERSON -> Known.NATURAL_PERSON
+            JOINT -> Known.JOINT
+            TRUST -> Known.TRUST
+            GOVERNMENT_AUTHORITY -> Known.GOVERNMENT_AUTHORITY
+            else -> throw IncreaseInvalidDataException("Unknown Structure: $value")
+        }
 
         fun asString(): String = _value().asStringOrThrow()
     }
@@ -3833,17 +3957,17 @@ private constructor(
     /** Details of the trust entity. Will be present if `structure` is equal to `trust`. */
     @JsonDeserialize(builder = Trust.Builder::class)
     @NoAutoDetect
-    class Trust
-    private constructor(
-        private val address: JsonField<Address>,
-        private val category: JsonField<Category>,
-        private val formationDocumentFileId: JsonField<String>,
-        private val formationState: JsonField<String>,
-        private val grantor: JsonField<Grantor>,
-        private val name: JsonField<String>,
-        private val taxIdentifier: JsonField<String>,
-        private val trustees: JsonField<List<Trustee>>,
-        private val additionalProperties: Map<String, JsonValue>,
+    class Trust private constructor(
+      private val address: JsonField<Address>,
+      private val category: JsonField<Category>,
+      private val formationDocumentFileId: JsonField<String>,
+      private val formationState: JsonField<String>,
+      private val grantor: JsonField<Grantor>,
+      private val name: JsonField<String>,
+      private val taxIdentifier: JsonField<String>,
+      private val trustees: JsonField<List<Trustee>>,
+      private val additionalProperties: Map<String, JsonValue>,
+
     ) {
 
         private var validated: Boolean = false
@@ -3857,12 +3981,11 @@ private constructor(
         fun category(): Category = category.getRequired("category")
 
         /** The ID for the File containing the formation document of the trust. */
-        fun formationDocumentFileId(): String? =
-            formationDocumentFileId.getNullable("formation_document_file_id")
+        fun formationDocumentFileId(): String? = formationDocumentFileId.getNullable("formation_document_file_id")
 
         /**
-         * The two-letter United States Postal Service (USPS) abbreviation for the state in which
-         * the trust was formed.
+         * The two-letter United States Postal Service (USPS) abbreviation for the state in
+         * which the trust was formed.
          */
         fun formationState(): String? = formationState.getNullable("formation_state")
 
@@ -3879,10 +4002,14 @@ private constructor(
         fun trustees(): List<Trustee> = trustees.getRequired("trustees")
 
         /** The trust's address. */
-        @JsonProperty("address") @ExcludeMissing fun _address() = address
+        @JsonProperty("address")
+        @ExcludeMissing
+        fun _address() = address
 
         /** Whether the trust is `revocable` or `irrevocable`. */
-        @JsonProperty("category") @ExcludeMissing fun _category() = category
+        @JsonProperty("category")
+        @ExcludeMissing
+        fun _category() = category
 
         /** The ID for the File containing the formation document of the trust. */
         @JsonProperty("formation_document_file_id")
@@ -3890,22 +4017,32 @@ private constructor(
         fun _formationDocumentFileId() = formationDocumentFileId
 
         /**
-         * The two-letter United States Postal Service (USPS) abbreviation for the state in which
-         * the trust was formed.
+         * The two-letter United States Postal Service (USPS) abbreviation for the state in
+         * which the trust was formed.
          */
-        @JsonProperty("formation_state") @ExcludeMissing fun _formationState() = formationState
+        @JsonProperty("formation_state")
+        @ExcludeMissing
+        fun _formationState() = formationState
 
         /** The grantor of the trust. Will be present if the `category` is `revocable`. */
-        @JsonProperty("grantor") @ExcludeMissing fun _grantor() = grantor
+        @JsonProperty("grantor")
+        @ExcludeMissing
+        fun _grantor() = grantor
 
         /** The trust's name. */
-        @JsonProperty("name") @ExcludeMissing fun _name() = name
+        @JsonProperty("name")
+        @ExcludeMissing
+        fun _name() = name
 
         /** The Employer Identification Number (EIN) of the trust itself. */
-        @JsonProperty("tax_identifier") @ExcludeMissing fun _taxIdentifier() = taxIdentifier
+        @JsonProperty("tax_identifier")
+        @ExcludeMissing
+        fun _taxIdentifier() = taxIdentifier
 
         /** The trustees of the trust. */
-        @JsonProperty("trustees") @ExcludeMissing fun _trustees() = trustees
+        @JsonProperty("trustees")
+        @ExcludeMissing
+        fun _trustees() = trustees
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -3913,57 +4050,55 @@ private constructor(
 
         fun validate(): Trust = apply {
             if (!validated) {
-                address().validate()
-                category()
-                formationDocumentFileId()
-                formationState()
-                grantor()?.validate()
-                name()
-                taxIdentifier()
-                trustees().forEach { it.validate() }
-                validated = true
+              address().validate()
+              category()
+              formationDocumentFileId()
+              formationState()
+              grantor()?.validate()
+              name()
+              taxIdentifier()
+              trustees().forEach { it.validate() }
+              validated = true
             }
         }
 
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is Trust &&
-                this.address == other.address &&
-                this.category == other.category &&
-                this.formationDocumentFileId == other.formationDocumentFileId &&
-                this.formationState == other.formationState &&
-                this.grantor == other.grantor &&
-                this.name == other.name &&
-                this.taxIdentifier == other.taxIdentifier &&
-                this.trustees == other.trustees &&
-                this.additionalProperties == other.additionalProperties
+          return other is Trust &&
+              this.address == other.address &&
+              this.category == other.category &&
+              this.formationDocumentFileId == other.formationDocumentFileId &&
+              this.formationState == other.formationState &&
+              this.grantor == other.grantor &&
+              this.name == other.name &&
+              this.taxIdentifier == other.taxIdentifier &&
+              this.trustees == other.trustees &&
+              this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        address,
-                        category,
-                        formationDocumentFileId,
-                        formationState,
-                        grantor,
-                        name,
-                        taxIdentifier,
-                        trustees,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
+          if (hashCode == 0) {
+            hashCode = Objects.hash(
+                address,
+                category,
+                formationDocumentFileId,
+                formationState,
+                grantor,
+                name,
+                taxIdentifier,
+                trustees,
+                additionalProperties,
+            )
+          }
+          return hashCode
         }
 
-        override fun toString() =
-            "Trust{address=$address, category=$category, formationDocumentFileId=$formationDocumentFileId, formationState=$formationState, grantor=$grantor, name=$name, taxIdentifier=$taxIdentifier, trustees=$trustees, additionalProperties=$additionalProperties}"
+        override fun toString() = "Trust{address=$address, category=$category, formationDocumentFileId=$formationDocumentFileId, formationState=$formationState, grantor=$grantor, name=$name, taxIdentifier=$taxIdentifier, trustees=$trustees, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -4000,7 +4135,9 @@ private constructor(
             /** The trust's address. */
             @JsonProperty("address")
             @ExcludeMissing
-            fun address(address: JsonField<Address>) = apply { this.address = address }
+            fun address(address: JsonField<Address>) = apply {
+                this.address = address
+            }
 
             /** Whether the trust is `revocable` or `irrevocable`. */
             fun category(category: Category) = category(JsonField.of(category))
@@ -4008,11 +4145,12 @@ private constructor(
             /** Whether the trust is `revocable` or `irrevocable`. */
             @JsonProperty("category")
             @ExcludeMissing
-            fun category(category: JsonField<Category>) = apply { this.category = category }
+            fun category(category: JsonField<Category>) = apply {
+                this.category = category
+            }
 
             /** The ID for the File containing the formation document of the trust. */
-            fun formationDocumentFileId(formationDocumentFileId: String) =
-                formationDocumentFileId(JsonField.of(formationDocumentFileId))
+            fun formationDocumentFileId(formationDocumentFileId: String) = formationDocumentFileId(JsonField.of(formationDocumentFileId))
 
             /** The ID for the File containing the formation document of the trust. */
             @JsonProperty("formation_document_file_id")
@@ -4025,8 +4163,7 @@ private constructor(
              * The two-letter United States Postal Service (USPS) abbreviation for the state in
              * which the trust was formed.
              */
-            fun formationState(formationState: String) =
-                formationState(JsonField.of(formationState))
+            fun formationState(formationState: String) = formationState(JsonField.of(formationState))
 
             /**
              * The two-letter United States Postal Service (USPS) abbreviation for the state in
@@ -4044,7 +4181,9 @@ private constructor(
             /** The grantor of the trust. Will be present if the `category` is `revocable`. */
             @JsonProperty("grantor")
             @ExcludeMissing
-            fun grantor(grantor: JsonField<Grantor>) = apply { this.grantor = grantor }
+            fun grantor(grantor: JsonField<Grantor>) = apply {
+                this.grantor = grantor
+            }
 
             /** The trust's name. */
             fun name(name: String) = name(JsonField.of(name))
@@ -4052,7 +4191,9 @@ private constructor(
             /** The trust's name. */
             @JsonProperty("name")
             @ExcludeMissing
-            fun name(name: JsonField<String>) = apply { this.name = name }
+            fun name(name: JsonField<String>) = apply {
+                this.name = name
+            }
 
             /** The Employer Identification Number (EIN) of the trust itself. */
             fun taxIdentifier(taxIdentifier: String) = taxIdentifier(JsonField.of(taxIdentifier))
@@ -4070,7 +4211,9 @@ private constructor(
             /** The trustees of the trust. */
             @JsonProperty("trustees")
             @ExcludeMissing
-            fun trustees(trustees: JsonField<List<Trustee>>) = apply { this.trustees = trustees }
+            fun trustees(trustees: JsonField<List<Trustee>>) = apply {
+                this.trustees = trustees
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -4086,31 +4229,30 @@ private constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): Trust =
-                Trust(
-                    address,
-                    category,
-                    formationDocumentFileId,
-                    formationState,
-                    grantor,
-                    name,
-                    taxIdentifier,
-                    trustees.map { it.toUnmodifiable() },
-                    additionalProperties.toUnmodifiable(),
-                )
+            fun build(): Trust = Trust(
+                address,
+                category,
+                formationDocumentFileId,
+                formationState,
+                grantor,
+                name,
+                taxIdentifier,
+                trustees.map { it.toUnmodifiable() },
+                additionalProperties.toUnmodifiable(),
+            )
         }
 
         /** The trust's address. */
         @JsonDeserialize(builder = Address.Builder::class)
         @NoAutoDetect
-        class Address
-        private constructor(
-            private val city: JsonField<String>,
-            private val line1: JsonField<String>,
-            private val line2: JsonField<String>,
-            private val state: JsonField<String>,
-            private val zip: JsonField<String>,
-            private val additionalProperties: Map<String, JsonValue>,
+        class Address private constructor(
+          private val city: JsonField<String>,
+          private val line1: JsonField<String>,
+          private val line2: JsonField<String>,
+          private val state: JsonField<String>,
+          private val zip: JsonField<String>,
+          private val additionalProperties: Map<String, JsonValue>,
+
         ) {
 
             private var validated: Boolean = false
@@ -4127,8 +4269,8 @@ private constructor(
             fun line2(): String? = line2.getNullable("line2")
 
             /**
-             * The two-letter United States Postal Service (USPS) abbreviation for the state of the
-             * address.
+             * The two-letter United States Postal Service (USPS) abbreviation for the state of
+             * the address.
              */
             fun state(): String = state.getRequired("state")
 
@@ -4136,22 +4278,32 @@ private constructor(
             fun zip(): String = zip.getRequired("zip")
 
             /** The city of the address. */
-            @JsonProperty("city") @ExcludeMissing fun _city() = city
+            @JsonProperty("city")
+            @ExcludeMissing
+            fun _city() = city
 
             /** The first line of the address. */
-            @JsonProperty("line1") @ExcludeMissing fun _line1() = line1
+            @JsonProperty("line1")
+            @ExcludeMissing
+            fun _line1() = line1
 
             /** The second line of the address. */
-            @JsonProperty("line2") @ExcludeMissing fun _line2() = line2
+            @JsonProperty("line2")
+            @ExcludeMissing
+            fun _line2() = line2
 
             /**
-             * The two-letter United States Postal Service (USPS) abbreviation for the state of the
-             * address.
+             * The two-letter United States Postal Service (USPS) abbreviation for the state of
+             * the address.
              */
-            @JsonProperty("state") @ExcludeMissing fun _state() = state
+            @JsonProperty("state")
+            @ExcludeMissing
+            fun _state() = state
 
             /** The ZIP code of the address. */
-            @JsonProperty("zip") @ExcludeMissing fun _zip() = zip
+            @JsonProperty("zip")
+            @ExcludeMissing
+            fun _zip() = zip
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -4159,48 +4311,46 @@ private constructor(
 
             fun validate(): Address = apply {
                 if (!validated) {
-                    city()
-                    line1()
-                    line2()
-                    state()
-                    zip()
-                    validated = true
+                  city()
+                  line1()
+                  line2()
+                  state()
+                  zip()
+                  validated = true
                 }
             }
 
             fun toBuilder() = Builder().from(this)
 
             override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
+              if (this === other) {
+                  return true
+              }
 
-                return other is Address &&
-                    this.city == other.city &&
-                    this.line1 == other.line1 &&
-                    this.line2 == other.line2 &&
-                    this.state == other.state &&
-                    this.zip == other.zip &&
-                    this.additionalProperties == other.additionalProperties
+              return other is Address &&
+                  this.city == other.city &&
+                  this.line1 == other.line1 &&
+                  this.line2 == other.line2 &&
+                  this.state == other.state &&
+                  this.zip == other.zip &&
+                  this.additionalProperties == other.additionalProperties
             }
 
             override fun hashCode(): Int {
-                if (hashCode == 0) {
-                    hashCode =
-                        Objects.hash(
-                            city,
-                            line1,
-                            line2,
-                            state,
-                            zip,
-                            additionalProperties,
-                        )
-                }
-                return hashCode
+              if (hashCode == 0) {
+                hashCode = Objects.hash(
+                    city,
+                    line1,
+                    line2,
+                    state,
+                    zip,
+                    additionalProperties,
+                )
+              }
+              return hashCode
             }
 
-            override fun toString() =
-                "Address{city=$city, line1=$line1, line2=$line2, state=$state, zip=$zip, additionalProperties=$additionalProperties}"
+            override fun toString() = "Address{city=$city, line1=$line1, line2=$line2, state=$state, zip=$zip, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -4231,7 +4381,9 @@ private constructor(
                 /** The city of the address. */
                 @JsonProperty("city")
                 @ExcludeMissing
-                fun city(city: JsonField<String>) = apply { this.city = city }
+                fun city(city: JsonField<String>) = apply {
+                    this.city = city
+                }
 
                 /** The first line of the address. */
                 fun line1(line1: String) = line1(JsonField.of(line1))
@@ -4239,7 +4391,9 @@ private constructor(
                 /** The first line of the address. */
                 @JsonProperty("line1")
                 @ExcludeMissing
-                fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
+                fun line1(line1: JsonField<String>) = apply {
+                    this.line1 = line1
+                }
 
                 /** The second line of the address. */
                 fun line2(line2: String) = line2(JsonField.of(line2))
@@ -4247,7 +4401,9 @@ private constructor(
                 /** The second line of the address. */
                 @JsonProperty("line2")
                 @ExcludeMissing
-                fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
+                fun line2(line2: JsonField<String>) = apply {
+                    this.line2 = line2
+                }
 
                 /**
                  * The two-letter United States Postal Service (USPS) abbreviation for the state of
@@ -4261,7 +4417,9 @@ private constructor(
                  */
                 @JsonProperty("state")
                 @ExcludeMissing
-                fun state(state: JsonField<String>) = apply { this.state = state }
+                fun state(state: JsonField<String>) = apply {
+                    this.state = state
+                }
 
                 /** The ZIP code of the address. */
                 fun zip(zip: String) = zip(JsonField.of(zip))
@@ -4269,7 +4427,9 @@ private constructor(
                 /** The ZIP code of the address. */
                 @JsonProperty("zip")
                 @ExcludeMissing
-                fun zip(zip: JsonField<String>) = apply { this.zip = zip }
+                fun zip(zip: JsonField<String>) = apply {
+                    this.zip = zip
+                }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -4281,37 +4441,33 @@ private constructor(
                     this.additionalProperties.put(key, value)
                 }
 
-                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                    apply {
-                        this.additionalProperties.putAll(additionalProperties)
-                    }
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
 
-                fun build(): Address =
-                    Address(
-                        city,
-                        line1,
-                        line2,
-                        state,
-                        zip,
-                        additionalProperties.toUnmodifiable(),
-                    )
+                fun build(): Address = Address(
+                    city,
+                    line1,
+                    line2,
+                    state,
+                    zip,
+                    additionalProperties.toUnmodifiable(),
+                )
             }
         }
 
-        class Category
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        class Category @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
 
-            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+            @com.fasterxml.jackson.annotation.JsonValue
+            fun _value(): JsonField<String> = value
 
             override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
+              if (this === other) {
+                  return true
+              }
 
-                return other is Category && this.value == other.value
+              return other is Category &&
+                  this.value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -4338,19 +4494,17 @@ private constructor(
                 _UNKNOWN,
             }
 
-            fun value(): Value =
-                when (this) {
-                    REVOCABLE -> Value.REVOCABLE
-                    IRREVOCABLE -> Value.IRREVOCABLE
-                    else -> Value._UNKNOWN
-                }
+            fun value(): Value = when (this) {
+                REVOCABLE -> Value.REVOCABLE
+                IRREVOCABLE -> Value.IRREVOCABLE
+                else -> Value._UNKNOWN
+            }
 
-            fun known(): Known =
-                when (this) {
-                    REVOCABLE -> Known.REVOCABLE
-                    IRREVOCABLE -> Known.IRREVOCABLE
-                    else -> throw IncreaseInvalidDataException("Unknown Category: $value")
-                }
+            fun known(): Known = when (this) {
+                REVOCABLE -> Known.REVOCABLE
+                IRREVOCABLE -> Known.IRREVOCABLE
+                else -> throw IncreaseInvalidDataException("Unknown Category: $value")
+            }
 
             fun asString(): String = _value().asStringOrThrow()
         }
@@ -4358,13 +4512,13 @@ private constructor(
         /** The grantor of the trust. Will be present if the `category` is `revocable`. */
         @JsonDeserialize(builder = Grantor.Builder::class)
         @NoAutoDetect
-        class Grantor
-        private constructor(
-            private val address: JsonField<Address>,
-            private val dateOfBirth: JsonField<LocalDate>,
-            private val identification: JsonField<Identification>,
-            private val name: JsonField<String>,
-            private val additionalProperties: Map<String, JsonValue>,
+        class Grantor private constructor(
+          private val address: JsonField<Address>,
+          private val dateOfBirth: JsonField<LocalDate>,
+          private val identification: JsonField<Identification>,
+          private val name: JsonField<String>,
+          private val additionalProperties: Map<String, JsonValue>,
+
         ) {
 
             private var validated: Boolean = false
@@ -4384,16 +4538,24 @@ private constructor(
             fun name(): String = name.getRequired("name")
 
             /** The person's address. */
-            @JsonProperty("address") @ExcludeMissing fun _address() = address
+            @JsonProperty("address")
+            @ExcludeMissing
+            fun _address() = address
 
             /** The person's date of birth in YYYY-MM-DD format. */
-            @JsonProperty("date_of_birth") @ExcludeMissing fun _dateOfBirth() = dateOfBirth
+            @JsonProperty("date_of_birth")
+            @ExcludeMissing
+            fun _dateOfBirth() = dateOfBirth
 
             /** A means of verifying the person's identity. */
-            @JsonProperty("identification") @ExcludeMissing fun _identification() = identification
+            @JsonProperty("identification")
+            @ExcludeMissing
+            fun _identification() = identification
 
             /** The person's legal name. */
-            @JsonProperty("name") @ExcludeMissing fun _name() = name
+            @JsonProperty("name")
+            @ExcludeMissing
+            fun _name() = name
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -4401,45 +4563,43 @@ private constructor(
 
             fun validate(): Grantor = apply {
                 if (!validated) {
-                    address().validate()
-                    dateOfBirth()
-                    identification().validate()
-                    name()
-                    validated = true
+                  address().validate()
+                  dateOfBirth()
+                  identification().validate()
+                  name()
+                  validated = true
                 }
             }
 
             fun toBuilder() = Builder().from(this)
 
             override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
+              if (this === other) {
+                  return true
+              }
 
-                return other is Grantor &&
-                    this.address == other.address &&
-                    this.dateOfBirth == other.dateOfBirth &&
-                    this.identification == other.identification &&
-                    this.name == other.name &&
-                    this.additionalProperties == other.additionalProperties
+              return other is Grantor &&
+                  this.address == other.address &&
+                  this.dateOfBirth == other.dateOfBirth &&
+                  this.identification == other.identification &&
+                  this.name == other.name &&
+                  this.additionalProperties == other.additionalProperties
             }
 
             override fun hashCode(): Int {
-                if (hashCode == 0) {
-                    hashCode =
-                        Objects.hash(
-                            address,
-                            dateOfBirth,
-                            identification,
-                            name,
-                            additionalProperties,
-                        )
-                }
-                return hashCode
+              if (hashCode == 0) {
+                hashCode = Objects.hash(
+                    address,
+                    dateOfBirth,
+                    identification,
+                    name,
+                    additionalProperties,
+                )
+              }
+              return hashCode
             }
 
-            override fun toString() =
-                "Grantor{address=$address, dateOfBirth=$dateOfBirth, identification=$identification, name=$name, additionalProperties=$additionalProperties}"
+            override fun toString() = "Grantor{address=$address, dateOfBirth=$dateOfBirth, identification=$identification, name=$name, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -4468,7 +4628,9 @@ private constructor(
                 /** The person's address. */
                 @JsonProperty("address")
                 @ExcludeMissing
-                fun address(address: JsonField<Address>) = apply { this.address = address }
+                fun address(address: JsonField<Address>) = apply {
+                    this.address = address
+                }
 
                 /** The person's date of birth in YYYY-MM-DD format. */
                 fun dateOfBirth(dateOfBirth: LocalDate) = dateOfBirth(JsonField.of(dateOfBirth))
@@ -4481,8 +4643,7 @@ private constructor(
                 }
 
                 /** A means of verifying the person's identity. */
-                fun identification(identification: Identification) =
-                    identification(JsonField.of(identification))
+                fun identification(identification: Identification) = identification(JsonField.of(identification))
 
                 /** A means of verifying the person's identity. */
                 @JsonProperty("identification")
@@ -4497,7 +4658,9 @@ private constructor(
                 /** The person's legal name. */
                 @JsonProperty("name")
                 @ExcludeMissing
-                fun name(name: JsonField<String>) = apply { this.name = name }
+                fun name(name: JsonField<String>) = apply {
+                    this.name = name
+                }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -4509,32 +4672,30 @@ private constructor(
                     this.additionalProperties.put(key, value)
                 }
 
-                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                    apply {
-                        this.additionalProperties.putAll(additionalProperties)
-                    }
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
 
-                fun build(): Grantor =
-                    Grantor(
-                        address,
-                        dateOfBirth,
-                        identification,
-                        name,
-                        additionalProperties.toUnmodifiable(),
-                    )
+                fun build(): Grantor = Grantor(
+                    address,
+                    dateOfBirth,
+                    identification,
+                    name,
+                    additionalProperties.toUnmodifiable(),
+                )
             }
 
             /** The person's address. */
             @JsonDeserialize(builder = Address.Builder::class)
             @NoAutoDetect
-            class Address
-            private constructor(
-                private val city: JsonField<String>,
-                private val line1: JsonField<String>,
-                private val line2: JsonField<String>,
-                private val state: JsonField<String>,
-                private val zip: JsonField<String>,
-                private val additionalProperties: Map<String, JsonValue>,
+            class Address private constructor(
+              private val city: JsonField<String>,
+              private val line1: JsonField<String>,
+              private val line2: JsonField<String>,
+              private val state: JsonField<String>,
+              private val zip: JsonField<String>,
+              private val additionalProperties: Map<String, JsonValue>,
+
             ) {
 
                 private var validated: Boolean = false
@@ -4560,22 +4721,32 @@ private constructor(
                 fun zip(): String = zip.getRequired("zip")
 
                 /** The city of the address. */
-                @JsonProperty("city") @ExcludeMissing fun _city() = city
+                @JsonProperty("city")
+                @ExcludeMissing
+                fun _city() = city
 
                 /** The first line of the address. */
-                @JsonProperty("line1") @ExcludeMissing fun _line1() = line1
+                @JsonProperty("line1")
+                @ExcludeMissing
+                fun _line1() = line1
 
                 /** The second line of the address. */
-                @JsonProperty("line2") @ExcludeMissing fun _line2() = line2
+                @JsonProperty("line2")
+                @ExcludeMissing
+                fun _line2() = line2
 
                 /**
                  * The two-letter United States Postal Service (USPS) abbreviation for the state of
                  * the address.
                  */
-                @JsonProperty("state") @ExcludeMissing fun _state() = state
+                @JsonProperty("state")
+                @ExcludeMissing
+                fun _state() = state
 
                 /** The ZIP code of the address. */
-                @JsonProperty("zip") @ExcludeMissing fun _zip() = zip
+                @JsonProperty("zip")
+                @ExcludeMissing
+                fun _zip() = zip
 
                 @JsonAnyGetter
                 @ExcludeMissing
@@ -4583,48 +4754,46 @@ private constructor(
 
                 fun validate(): Address = apply {
                     if (!validated) {
-                        city()
-                        line1()
-                        line2()
-                        state()
-                        zip()
-                        validated = true
+                      city()
+                      line1()
+                      line2()
+                      state()
+                      zip()
+                      validated = true
                     }
                 }
 
                 fun toBuilder() = Builder().from(this)
 
                 override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
+                  if (this === other) {
+                      return true
+                  }
 
-                    return other is Address &&
-                        this.city == other.city &&
-                        this.line1 == other.line1 &&
-                        this.line2 == other.line2 &&
-                        this.state == other.state &&
-                        this.zip == other.zip &&
-                        this.additionalProperties == other.additionalProperties
+                  return other is Address &&
+                      this.city == other.city &&
+                      this.line1 == other.line1 &&
+                      this.line2 == other.line2 &&
+                      this.state == other.state &&
+                      this.zip == other.zip &&
+                      this.additionalProperties == other.additionalProperties
                 }
 
                 override fun hashCode(): Int {
-                    if (hashCode == 0) {
-                        hashCode =
-                            Objects.hash(
-                                city,
-                                line1,
-                                line2,
-                                state,
-                                zip,
-                                additionalProperties,
-                            )
-                    }
-                    return hashCode
+                  if (hashCode == 0) {
+                    hashCode = Objects.hash(
+                        city,
+                        line1,
+                        line2,
+                        state,
+                        zip,
+                        additionalProperties,
+                    )
+                  }
+                  return hashCode
                 }
 
-                override fun toString() =
-                    "Address{city=$city, line1=$line1, line2=$line2, state=$state, zip=$zip, additionalProperties=$additionalProperties}"
+                override fun toString() = "Address{city=$city, line1=$line1, line2=$line2, state=$state, zip=$zip, additionalProperties=$additionalProperties}"
 
                 companion object {
 
@@ -4655,7 +4824,9 @@ private constructor(
                     /** The city of the address. */
                     @JsonProperty("city")
                     @ExcludeMissing
-                    fun city(city: JsonField<String>) = apply { this.city = city }
+                    fun city(city: JsonField<String>) = apply {
+                        this.city = city
+                    }
 
                     /** The first line of the address. */
                     fun line1(line1: String) = line1(JsonField.of(line1))
@@ -4663,7 +4834,9 @@ private constructor(
                     /** The first line of the address. */
                     @JsonProperty("line1")
                     @ExcludeMissing
-                    fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
+                    fun line1(line1: JsonField<String>) = apply {
+                        this.line1 = line1
+                    }
 
                     /** The second line of the address. */
                     fun line2(line2: String) = line2(JsonField.of(line2))
@@ -4671,21 +4844,25 @@ private constructor(
                     /** The second line of the address. */
                     @JsonProperty("line2")
                     @ExcludeMissing
-                    fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
+                    fun line2(line2: JsonField<String>) = apply {
+                        this.line2 = line2
+                    }
 
                     /**
-                     * The two-letter United States Postal Service (USPS) abbreviation for the state
-                     * of the address.
+                     * The two-letter United States Postal Service (USPS) abbreviation for the state of
+                     * the address.
                      */
                     fun state(state: String) = state(JsonField.of(state))
 
                     /**
-                     * The two-letter United States Postal Service (USPS) abbreviation for the state
-                     * of the address.
+                     * The two-letter United States Postal Service (USPS) abbreviation for the state of
+                     * the address.
                      */
                     @JsonProperty("state")
                     @ExcludeMissing
-                    fun state(state: JsonField<String>) = apply { this.state = state }
+                    fun state(state: JsonField<String>) = apply {
+                        this.state = state
+                    }
 
                     /** The ZIP code of the address. */
                     fun zip(zip: String) = zip(JsonField.of(zip))
@@ -4693,7 +4870,9 @@ private constructor(
                     /** The ZIP code of the address. */
                     @JsonProperty("zip")
                     @ExcludeMissing
-                    fun zip(zip: JsonField<String>) = apply { this.zip = zip }
+                    fun zip(zip: JsonField<String>) = apply {
+                        this.zip = zip
+                    }
 
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                         this.additionalProperties.clear()
@@ -4705,32 +4884,25 @@ private constructor(
                         this.additionalProperties.put(key, value)
                     }
 
-                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                        apply {
-                            this.additionalProperties.putAll(additionalProperties)
-                        }
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
 
-                    fun build(): Address =
-                        Address(
-                            city,
-                            line1,
-                            line2,
-                            state,
-                            zip,
-                            additionalProperties.toUnmodifiable(),
-                        )
+                    fun build(): Address = Address(
+                        city,
+                        line1,
+                        line2,
+                        state,
+                        zip,
+                        additionalProperties.toUnmodifiable(),
+                    )
                 }
             }
 
             /** A means of verifying the person's identity. */
             @JsonDeserialize(builder = Identification.Builder::class)
             @NoAutoDetect
-            class Identification
-            private constructor(
-                private val method: JsonField<Method>,
-                private val numberLast4: JsonField<String>,
-                private val additionalProperties: Map<String, JsonValue>,
-            ) {
+            class Identification private constructor(private val method: JsonField<Method>, private val numberLast4: JsonField<String>, private val additionalProperties: Map<String, JsonValue>, ) {
 
                 private var validated: Boolean = false
 
@@ -4746,13 +4918,17 @@ private constructor(
                 fun numberLast4(): String = numberLast4.getRequired("number_last4")
 
                 /** A method that can be used to verify the individual's identity. */
-                @JsonProperty("method") @ExcludeMissing fun _method() = method
+                @JsonProperty("method")
+                @ExcludeMissing
+                fun _method() = method
 
                 /**
                  * The last 4 digits of the identification number that can be used to verify the
                  * individual's identity.
                  */
-                @JsonProperty("number_last4") @ExcludeMissing fun _numberLast4() = numberLast4
+                @JsonProperty("number_last4")
+                @ExcludeMissing
+                fun _numberLast4() = numberLast4
 
                 @JsonAnyGetter
                 @ExcludeMissing
@@ -4760,39 +4936,37 @@ private constructor(
 
                 fun validate(): Identification = apply {
                     if (!validated) {
-                        method()
-                        numberLast4()
-                        validated = true
+                      method()
+                      numberLast4()
+                      validated = true
                     }
                 }
 
                 fun toBuilder() = Builder().from(this)
 
                 override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
+                  if (this === other) {
+                      return true
+                  }
 
-                    return other is Identification &&
-                        this.method == other.method &&
-                        this.numberLast4 == other.numberLast4 &&
-                        this.additionalProperties == other.additionalProperties
+                  return other is Identification &&
+                      this.method == other.method &&
+                      this.numberLast4 == other.numberLast4 &&
+                      this.additionalProperties == other.additionalProperties
                 }
 
                 override fun hashCode(): Int {
-                    if (hashCode == 0) {
-                        hashCode =
-                            Objects.hash(
-                                method,
-                                numberLast4,
-                                additionalProperties,
-                            )
-                    }
-                    return hashCode
+                  if (hashCode == 0) {
+                    hashCode = Objects.hash(
+                        method,
+                        numberLast4,
+                        additionalProperties,
+                    )
+                  }
+                  return hashCode
                 }
 
-                override fun toString() =
-                    "Identification{method=$method, numberLast4=$numberLast4, additionalProperties=$additionalProperties}"
+                override fun toString() = "Identification{method=$method, numberLast4=$numberLast4, additionalProperties=$additionalProperties}"
 
                 companion object {
 
@@ -4817,7 +4991,9 @@ private constructor(
                     /** A method that can be used to verify the individual's identity. */
                     @JsonProperty("method")
                     @ExcludeMissing
-                    fun method(method: JsonField<Method>) = apply { this.method = method }
+                    fun method(method: JsonField<Method>) = apply {
+                        this.method = method
+                    }
 
                     /**
                      * The last 4 digits of the identification number that can be used to verify the
@@ -4845,34 +5021,29 @@ private constructor(
                         this.additionalProperties.put(key, value)
                     }
 
-                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                        apply {
-                            this.additionalProperties.putAll(additionalProperties)
-                        }
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
 
-                    fun build(): Identification =
-                        Identification(
-                            method,
-                            numberLast4,
-                            additionalProperties.toUnmodifiable(),
-                        )
+                    fun build(): Identification = Identification(
+                        method,
+                        numberLast4,
+                        additionalProperties.toUnmodifiable(),
+                    )
                 }
 
-                class Method
-                @JsonCreator
-                private constructor(
-                    private val value: JsonField<String>,
-                ) : Enum {
+                class Method @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
 
                     @com.fasterxml.jackson.annotation.JsonValue
                     fun _value(): JsonField<String> = value
 
                     override fun equals(other: Any?): Boolean {
-                        if (this === other) {
-                            return true
-                        }
+                      if (this === other) {
+                          return true
+                      }
 
-                        return other is Method && this.value == other.value
+                      return other is Method &&
+                          this.value == other.value
                     }
 
                     override fun hashCode() = value.hashCode()
@@ -4883,8 +5054,7 @@ private constructor(
 
                         val SOCIAL_SECURITY_NUMBER = Method(JsonField.of("social_security_number"))
 
-                        val INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER =
-                            Method(JsonField.of("individual_taxpayer_identification_number"))
+                        val INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER = Method(JsonField.of("individual_taxpayer_identification_number"))
 
                         val PASSPORT = Method(JsonField.of("passport"))
 
@@ -4912,27 +5082,23 @@ private constructor(
                         _UNKNOWN,
                     }
 
-                    fun value(): Value =
-                        when (this) {
-                            SOCIAL_SECURITY_NUMBER -> Value.SOCIAL_SECURITY_NUMBER
-                            INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER ->
-                                Value.INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER
-                            PASSPORT -> Value.PASSPORT
-                            DRIVERS_LICENSE -> Value.DRIVERS_LICENSE
-                            OTHER -> Value.OTHER
-                            else -> Value._UNKNOWN
-                        }
+                    fun value(): Value = when (this) {
+                        SOCIAL_SECURITY_NUMBER -> Value.SOCIAL_SECURITY_NUMBER
+                        INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER -> Value.INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER
+                        PASSPORT -> Value.PASSPORT
+                        DRIVERS_LICENSE -> Value.DRIVERS_LICENSE
+                        OTHER -> Value.OTHER
+                        else -> Value._UNKNOWN
+                    }
 
-                    fun known(): Known =
-                        when (this) {
-                            SOCIAL_SECURITY_NUMBER -> Known.SOCIAL_SECURITY_NUMBER
-                            INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER ->
-                                Known.INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER
-                            PASSPORT -> Known.PASSPORT
-                            DRIVERS_LICENSE -> Known.DRIVERS_LICENSE
-                            OTHER -> Known.OTHER
-                            else -> throw IncreaseInvalidDataException("Unknown Method: $value")
-                        }
+                    fun known(): Known = when (this) {
+                        SOCIAL_SECURITY_NUMBER -> Known.SOCIAL_SECURITY_NUMBER
+                        INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER -> Known.INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER
+                        PASSPORT -> Known.PASSPORT
+                        DRIVERS_LICENSE -> Known.DRIVERS_LICENSE
+                        OTHER -> Known.OTHER
+                        else -> throw IncreaseInvalidDataException("Unknown Method: $value")
+                    }
 
                     fun asString(): String = _value().asStringOrThrow()
                 }
@@ -4941,20 +5107,15 @@ private constructor(
 
         @JsonDeserialize(builder = Trustee.Builder::class)
         @NoAutoDetect
-        class Trustee
-        private constructor(
-            private val individual: JsonField<Individual>,
-            private val structure: JsonField<Structure>,
-            private val additionalProperties: Map<String, JsonValue>,
-        ) {
+        class Trustee private constructor(private val individual: JsonField<Individual>, private val structure: JsonField<Structure>, private val additionalProperties: Map<String, JsonValue>, ) {
 
             private var validated: Boolean = false
 
             private var hashCode: Int = 0
 
             /**
-             * The individual trustee of the trust. Will be present if the trustee's `structure` is
-             * equal to `individual`.
+             * The individual trustee of the trust. Will be present if the trustee's
+             * `structure` is equal to `individual`.
              */
             fun individual(): Individual? = individual.getNullable("individual")
 
@@ -4962,13 +5123,17 @@ private constructor(
             fun structure(): Structure = structure.getRequired("structure")
 
             /**
-             * The individual trustee of the trust. Will be present if the trustee's `structure` is
-             * equal to `individual`.
+             * The individual trustee of the trust. Will be present if the trustee's
+             * `structure` is equal to `individual`.
              */
-            @JsonProperty("individual") @ExcludeMissing fun _individual() = individual
+            @JsonProperty("individual")
+            @ExcludeMissing
+            fun _individual() = individual
 
             /** The structure of the trustee. Will always be equal to `individual`. */
-            @JsonProperty("structure") @ExcludeMissing fun _structure() = structure
+            @JsonProperty("structure")
+            @ExcludeMissing
+            fun _structure() = structure
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -4976,39 +5141,37 @@ private constructor(
 
             fun validate(): Trustee = apply {
                 if (!validated) {
-                    individual()?.validate()
-                    structure()
-                    validated = true
+                  individual()?.validate()
+                  structure()
+                  validated = true
                 }
             }
 
             fun toBuilder() = Builder().from(this)
 
             override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
+              if (this === other) {
+                  return true
+              }
 
-                return other is Trustee &&
-                    this.individual == other.individual &&
-                    this.structure == other.structure &&
-                    this.additionalProperties == other.additionalProperties
+              return other is Trustee &&
+                  this.individual == other.individual &&
+                  this.structure == other.structure &&
+                  this.additionalProperties == other.additionalProperties
             }
 
             override fun hashCode(): Int {
-                if (hashCode == 0) {
-                    hashCode =
-                        Objects.hash(
-                            individual,
-                            structure,
-                            additionalProperties,
-                        )
-                }
-                return hashCode
+              if (hashCode == 0) {
+                hashCode = Objects.hash(
+                    individual,
+                    structure,
+                    additionalProperties,
+                )
+              }
+              return hashCode
             }
 
-            override fun toString() =
-                "Trustee{individual=$individual, structure=$structure, additionalProperties=$additionalProperties}"
+            override fun toString() = "Trustee{individual=$individual, structure=$structure, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -5028,14 +5191,14 @@ private constructor(
                 }
 
                 /**
-                 * The individual trustee of the trust. Will be present if the trustee's `structure`
-                 * is equal to `individual`.
+                 * The individual trustee of the trust. Will be present if the trustee's
+                 * `structure` is equal to `individual`.
                  */
                 fun individual(individual: Individual) = individual(JsonField.of(individual))
 
                 /**
-                 * The individual trustee of the trust. Will be present if the trustee's `structure`
-                 * is equal to `individual`.
+                 * The individual trustee of the trust. Will be present if the trustee's
+                 * `structure` is equal to `individual`.
                  */
                 @JsonProperty("individual")
                 @ExcludeMissing
@@ -5063,32 +5226,30 @@ private constructor(
                     this.additionalProperties.put(key, value)
                 }
 
-                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                    apply {
-                        this.additionalProperties.putAll(additionalProperties)
-                    }
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
 
-                fun build(): Trustee =
-                    Trustee(
-                        individual,
-                        structure,
-                        additionalProperties.toUnmodifiable(),
-                    )
+                fun build(): Trustee = Trustee(
+                    individual,
+                    structure,
+                    additionalProperties.toUnmodifiable(),
+                )
             }
 
             /**
-             * The individual trustee of the trust. Will be present if the trustee's `structure` is
-             * equal to `individual`.
+             * The individual trustee of the trust. Will be present if the trustee's
+             * `structure` is equal to `individual`.
              */
             @JsonDeserialize(builder = Individual.Builder::class)
             @NoAutoDetect
-            class Individual
-            private constructor(
-                private val address: JsonField<Address>,
-                private val dateOfBirth: JsonField<LocalDate>,
-                private val identification: JsonField<Identification>,
-                private val name: JsonField<String>,
-                private val additionalProperties: Map<String, JsonValue>,
+            class Individual private constructor(
+              private val address: JsonField<Address>,
+              private val dateOfBirth: JsonField<LocalDate>,
+              private val identification: JsonField<Identification>,
+              private val name: JsonField<String>,
+              private val additionalProperties: Map<String, JsonValue>,
+
             ) {
 
                 private var validated: Boolean = false
@@ -5108,10 +5269,14 @@ private constructor(
                 fun name(): String = name.getRequired("name")
 
                 /** The person's address. */
-                @JsonProperty("address") @ExcludeMissing fun _address() = address
+                @JsonProperty("address")
+                @ExcludeMissing
+                fun _address() = address
 
                 /** The person's date of birth in YYYY-MM-DD format. */
-                @JsonProperty("date_of_birth") @ExcludeMissing fun _dateOfBirth() = dateOfBirth
+                @JsonProperty("date_of_birth")
+                @ExcludeMissing
+                fun _dateOfBirth() = dateOfBirth
 
                 /** A means of verifying the person's identity. */
                 @JsonProperty("identification")
@@ -5119,7 +5284,9 @@ private constructor(
                 fun _identification() = identification
 
                 /** The person's legal name. */
-                @JsonProperty("name") @ExcludeMissing fun _name() = name
+                @JsonProperty("name")
+                @ExcludeMissing
+                fun _name() = name
 
                 @JsonAnyGetter
                 @ExcludeMissing
@@ -5127,45 +5294,43 @@ private constructor(
 
                 fun validate(): Individual = apply {
                     if (!validated) {
-                        address().validate()
-                        dateOfBirth()
-                        identification().validate()
-                        name()
-                        validated = true
+                      address().validate()
+                      dateOfBirth()
+                      identification().validate()
+                      name()
+                      validated = true
                     }
                 }
 
                 fun toBuilder() = Builder().from(this)
 
                 override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
+                  if (this === other) {
+                      return true
+                  }
 
-                    return other is Individual &&
-                        this.address == other.address &&
-                        this.dateOfBirth == other.dateOfBirth &&
-                        this.identification == other.identification &&
-                        this.name == other.name &&
-                        this.additionalProperties == other.additionalProperties
+                  return other is Individual &&
+                      this.address == other.address &&
+                      this.dateOfBirth == other.dateOfBirth &&
+                      this.identification == other.identification &&
+                      this.name == other.name &&
+                      this.additionalProperties == other.additionalProperties
                 }
 
                 override fun hashCode(): Int {
-                    if (hashCode == 0) {
-                        hashCode =
-                            Objects.hash(
-                                address,
-                                dateOfBirth,
-                                identification,
-                                name,
-                                additionalProperties,
-                            )
-                    }
-                    return hashCode
+                  if (hashCode == 0) {
+                    hashCode = Objects.hash(
+                        address,
+                        dateOfBirth,
+                        identification,
+                        name,
+                        additionalProperties,
+                    )
+                  }
+                  return hashCode
                 }
 
-                override fun toString() =
-                    "Individual{address=$address, dateOfBirth=$dateOfBirth, identification=$identification, name=$name, additionalProperties=$additionalProperties}"
+                override fun toString() = "Individual{address=$address, dateOfBirth=$dateOfBirth, identification=$identification, name=$name, additionalProperties=$additionalProperties}"
 
                 companion object {
 
@@ -5194,7 +5359,9 @@ private constructor(
                     /** The person's address. */
                     @JsonProperty("address")
                     @ExcludeMissing
-                    fun address(address: JsonField<Address>) = apply { this.address = address }
+                    fun address(address: JsonField<Address>) = apply {
+                        this.address = address
+                    }
 
                     /** The person's date of birth in YYYY-MM-DD format. */
                     fun dateOfBirth(dateOfBirth: LocalDate) = dateOfBirth(JsonField.of(dateOfBirth))
@@ -5207,8 +5374,7 @@ private constructor(
                     }
 
                     /** A means of verifying the person's identity. */
-                    fun identification(identification: Identification) =
-                        identification(JsonField.of(identification))
+                    fun identification(identification: Identification) = identification(JsonField.of(identification))
 
                     /** A means of verifying the person's identity. */
                     @JsonProperty("identification")
@@ -5223,7 +5389,9 @@ private constructor(
                     /** The person's legal name. */
                     @JsonProperty("name")
                     @ExcludeMissing
-                    fun name(name: JsonField<String>) = apply { this.name = name }
+                    fun name(name: JsonField<String>) = apply {
+                        this.name = name
+                    }
 
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                         this.additionalProperties.clear()
@@ -5235,32 +5403,30 @@ private constructor(
                         this.additionalProperties.put(key, value)
                     }
 
-                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                        apply {
-                            this.additionalProperties.putAll(additionalProperties)
-                        }
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
 
-                    fun build(): Individual =
-                        Individual(
-                            address,
-                            dateOfBirth,
-                            identification,
-                            name,
-                            additionalProperties.toUnmodifiable(),
-                        )
+                    fun build(): Individual = Individual(
+                        address,
+                        dateOfBirth,
+                        identification,
+                        name,
+                        additionalProperties.toUnmodifiable(),
+                    )
                 }
 
                 /** The person's address. */
                 @JsonDeserialize(builder = Address.Builder::class)
                 @NoAutoDetect
-                class Address
-                private constructor(
-                    private val city: JsonField<String>,
-                    private val line1: JsonField<String>,
-                    private val line2: JsonField<String>,
-                    private val state: JsonField<String>,
-                    private val zip: JsonField<String>,
-                    private val additionalProperties: Map<String, JsonValue>,
+                class Address private constructor(
+                  private val city: JsonField<String>,
+                  private val line1: JsonField<String>,
+                  private val line2: JsonField<String>,
+                  private val state: JsonField<String>,
+                  private val zip: JsonField<String>,
+                  private val additionalProperties: Map<String, JsonValue>,
+
                 ) {
 
                     private var validated: Boolean = false
@@ -5277,8 +5443,8 @@ private constructor(
                     fun line2(): String? = line2.getNullable("line2")
 
                     /**
-                     * The two-letter United States Postal Service (USPS) abbreviation for the state
-                     * of the address.
+                     * The two-letter United States Postal Service (USPS) abbreviation for the state of
+                     * the address.
                      */
                     fun state(): String = state.getRequired("state")
 
@@ -5286,22 +5452,32 @@ private constructor(
                     fun zip(): String = zip.getRequired("zip")
 
                     /** The city of the address. */
-                    @JsonProperty("city") @ExcludeMissing fun _city() = city
+                    @JsonProperty("city")
+                    @ExcludeMissing
+                    fun _city() = city
 
                     /** The first line of the address. */
-                    @JsonProperty("line1") @ExcludeMissing fun _line1() = line1
+                    @JsonProperty("line1")
+                    @ExcludeMissing
+                    fun _line1() = line1
 
                     /** The second line of the address. */
-                    @JsonProperty("line2") @ExcludeMissing fun _line2() = line2
+                    @JsonProperty("line2")
+                    @ExcludeMissing
+                    fun _line2() = line2
 
                     /**
-                     * The two-letter United States Postal Service (USPS) abbreviation for the state
-                     * of the address.
+                     * The two-letter United States Postal Service (USPS) abbreviation for the state of
+                     * the address.
                      */
-                    @JsonProperty("state") @ExcludeMissing fun _state() = state
+                    @JsonProperty("state")
+                    @ExcludeMissing
+                    fun _state() = state
 
                     /** The ZIP code of the address. */
-                    @JsonProperty("zip") @ExcludeMissing fun _zip() = zip
+                    @JsonProperty("zip")
+                    @ExcludeMissing
+                    fun _zip() = zip
 
                     @JsonAnyGetter
                     @ExcludeMissing
@@ -5309,48 +5485,46 @@ private constructor(
 
                     fun validate(): Address = apply {
                         if (!validated) {
-                            city()
-                            line1()
-                            line2()
-                            state()
-                            zip()
-                            validated = true
+                          city()
+                          line1()
+                          line2()
+                          state()
+                          zip()
+                          validated = true
                         }
                     }
 
                     fun toBuilder() = Builder().from(this)
 
                     override fun equals(other: Any?): Boolean {
-                        if (this === other) {
-                            return true
-                        }
+                      if (this === other) {
+                          return true
+                      }
 
-                        return other is Address &&
-                            this.city == other.city &&
-                            this.line1 == other.line1 &&
-                            this.line2 == other.line2 &&
-                            this.state == other.state &&
-                            this.zip == other.zip &&
-                            this.additionalProperties == other.additionalProperties
+                      return other is Address &&
+                          this.city == other.city &&
+                          this.line1 == other.line1 &&
+                          this.line2 == other.line2 &&
+                          this.state == other.state &&
+                          this.zip == other.zip &&
+                          this.additionalProperties == other.additionalProperties
                     }
 
                     override fun hashCode(): Int {
-                        if (hashCode == 0) {
-                            hashCode =
-                                Objects.hash(
-                                    city,
-                                    line1,
-                                    line2,
-                                    state,
-                                    zip,
-                                    additionalProperties,
-                                )
-                        }
-                        return hashCode
+                      if (hashCode == 0) {
+                        hashCode = Objects.hash(
+                            city,
+                            line1,
+                            line2,
+                            state,
+                            zip,
+                            additionalProperties,
+                        )
+                      }
+                      return hashCode
                     }
 
-                    override fun toString() =
-                        "Address{city=$city, line1=$line1, line2=$line2, state=$state, zip=$zip, additionalProperties=$additionalProperties}"
+                    override fun toString() = "Address{city=$city, line1=$line1, line2=$line2, state=$state, zip=$zip, additionalProperties=$additionalProperties}"
 
                     companion object {
 
@@ -5364,8 +5538,7 @@ private constructor(
                         private var line2: JsonField<String> = JsonMissing.of()
                         private var state: JsonField<String> = JsonMissing.of()
                         private var zip: JsonField<String> = JsonMissing.of()
-                        private var additionalProperties: MutableMap<String, JsonValue> =
-                            mutableMapOf()
+                        private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                         internal fun from(address: Address) = apply {
                             this.city = address.city
@@ -5382,7 +5555,9 @@ private constructor(
                         /** The city of the address. */
                         @JsonProperty("city")
                         @ExcludeMissing
-                        fun city(city: JsonField<String>) = apply { this.city = city }
+                        fun city(city: JsonField<String>) = apply {
+                            this.city = city
+                        }
 
                         /** The first line of the address. */
                         fun line1(line1: String) = line1(JsonField.of(line1))
@@ -5390,7 +5565,9 @@ private constructor(
                         /** The first line of the address. */
                         @JsonProperty("line1")
                         @ExcludeMissing
-                        fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
+                        fun line1(line1: JsonField<String>) = apply {
+                            this.line1 = line1
+                        }
 
                         /** The second line of the address. */
                         fun line2(line2: String) = line2(JsonField.of(line2))
@@ -5398,21 +5575,25 @@ private constructor(
                         /** The second line of the address. */
                         @JsonProperty("line2")
                         @ExcludeMissing
-                        fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
+                        fun line2(line2: JsonField<String>) = apply {
+                            this.line2 = line2
+                        }
 
                         /**
-                         * The two-letter United States Postal Service (USPS) abbreviation for the
-                         * state of the address.
+                         * The two-letter United States Postal Service (USPS) abbreviation for the state of
+                         * the address.
                          */
                         fun state(state: String) = state(JsonField.of(state))
 
                         /**
-                         * The two-letter United States Postal Service (USPS) abbreviation for the
-                         * state of the address.
+                         * The two-letter United States Postal Service (USPS) abbreviation for the state of
+                         * the address.
                          */
                         @JsonProperty("state")
                         @ExcludeMissing
-                        fun state(state: JsonField<String>) = apply { this.state = state }
+                        fun state(state: JsonField<String>) = apply {
+                            this.state = state
+                        }
 
                         /** The ZIP code of the address. */
                         fun zip(zip: String) = zip(JsonField.of(zip))
@@ -5420,44 +5601,39 @@ private constructor(
                         /** The ZIP code of the address. */
                         @JsonProperty("zip")
                         @ExcludeMissing
-                        fun zip(zip: JsonField<String>) = apply { this.zip = zip }
+                        fun zip(zip: JsonField<String>) = apply {
+                            this.zip = zip
+                        }
 
-                        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
-                            apply {
-                                this.additionalProperties.clear()
-                                this.additionalProperties.putAll(additionalProperties)
-                            }
+                        fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                            this.additionalProperties.clear()
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
 
                         @JsonAnySetter
                         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                             this.additionalProperties.put(key, value)
                         }
 
-                        fun putAllAdditionalProperties(
-                            additionalProperties: Map<String, JsonValue>
-                        ) = apply { this.additionalProperties.putAll(additionalProperties) }
+                        fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
 
-                        fun build(): Address =
-                            Address(
-                                city,
-                                line1,
-                                line2,
-                                state,
-                                zip,
-                                additionalProperties.toUnmodifiable(),
-                            )
+                        fun build(): Address = Address(
+                            city,
+                            line1,
+                            line2,
+                            state,
+                            zip,
+                            additionalProperties.toUnmodifiable(),
+                        )
                     }
                 }
 
                 /** A means of verifying the person's identity. */
                 @JsonDeserialize(builder = Identification.Builder::class)
                 @NoAutoDetect
-                class Identification
-                private constructor(
-                    private val method: JsonField<Method>,
-                    private val numberLast4: JsonField<String>,
-                    private val additionalProperties: Map<String, JsonValue>,
-                ) {
+                class Identification private constructor(private val method: JsonField<Method>, private val numberLast4: JsonField<String>, private val additionalProperties: Map<String, JsonValue>, ) {
 
                     private var validated: Boolean = false
 
@@ -5473,13 +5649,17 @@ private constructor(
                     fun numberLast4(): String = numberLast4.getRequired("number_last4")
 
                     /** A method that can be used to verify the individual's identity. */
-                    @JsonProperty("method") @ExcludeMissing fun _method() = method
+                    @JsonProperty("method")
+                    @ExcludeMissing
+                    fun _method() = method
 
                     /**
                      * The last 4 digits of the identification number that can be used to verify the
                      * individual's identity.
                      */
-                    @JsonProperty("number_last4") @ExcludeMissing fun _numberLast4() = numberLast4
+                    @JsonProperty("number_last4")
+                    @ExcludeMissing
+                    fun _numberLast4() = numberLast4
 
                     @JsonAnyGetter
                     @ExcludeMissing
@@ -5487,39 +5667,37 @@ private constructor(
 
                     fun validate(): Identification = apply {
                         if (!validated) {
-                            method()
-                            numberLast4()
-                            validated = true
+                          method()
+                          numberLast4()
+                          validated = true
                         }
                     }
 
                     fun toBuilder() = Builder().from(this)
 
                     override fun equals(other: Any?): Boolean {
-                        if (this === other) {
-                            return true
-                        }
+                      if (this === other) {
+                          return true
+                      }
 
-                        return other is Identification &&
-                            this.method == other.method &&
-                            this.numberLast4 == other.numberLast4 &&
-                            this.additionalProperties == other.additionalProperties
+                      return other is Identification &&
+                          this.method == other.method &&
+                          this.numberLast4 == other.numberLast4 &&
+                          this.additionalProperties == other.additionalProperties
                     }
 
                     override fun hashCode(): Int {
-                        if (hashCode == 0) {
-                            hashCode =
-                                Objects.hash(
-                                    method,
-                                    numberLast4,
-                                    additionalProperties,
-                                )
-                        }
-                        return hashCode
+                      if (hashCode == 0) {
+                        hashCode = Objects.hash(
+                            method,
+                            numberLast4,
+                            additionalProperties,
+                        )
+                      }
+                      return hashCode
                     }
 
-                    override fun toString() =
-                        "Identification{method=$method, numberLast4=$numberLast4, additionalProperties=$additionalProperties}"
+                    override fun toString() = "Identification{method=$method, numberLast4=$numberLast4, additionalProperties=$additionalProperties}"
 
                     companion object {
 
@@ -5530,8 +5708,7 @@ private constructor(
 
                         private var method: JsonField<Method> = JsonMissing.of()
                         private var numberLast4: JsonField<String> = JsonMissing.of()
-                        private var additionalProperties: MutableMap<String, JsonValue> =
-                            mutableMapOf()
+                        private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                         internal fun from(identification: Identification) = apply {
                             this.method = identification.method
@@ -5545,18 +5722,19 @@ private constructor(
                         /** A method that can be used to verify the individual's identity. */
                         @JsonProperty("method")
                         @ExcludeMissing
-                        fun method(method: JsonField<Method>) = apply { this.method = method }
+                        fun method(method: JsonField<Method>) = apply {
+                            this.method = method
+                        }
 
                         /**
-                         * The last 4 digits of the identification number that can be used to verify
-                         * the individual's identity.
+                         * The last 4 digits of the identification number that can be used to verify the
+                         * individual's identity.
                          */
-                        fun numberLast4(numberLast4: String) =
-                            numberLast4(JsonField.of(numberLast4))
+                        fun numberLast4(numberLast4: String) = numberLast4(JsonField.of(numberLast4))
 
                         /**
-                         * The last 4 digits of the identification number that can be used to verify
-                         * the individual's identity.
+                         * The last 4 digits of the identification number that can be used to verify the
+                         * individual's identity.
                          */
                         @JsonProperty("number_last4")
                         @ExcludeMissing
@@ -5564,44 +5742,39 @@ private constructor(
                             this.numberLast4 = numberLast4
                         }
 
-                        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
-                            apply {
-                                this.additionalProperties.clear()
-                                this.additionalProperties.putAll(additionalProperties)
-                            }
+                        fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                            this.additionalProperties.clear()
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
 
                         @JsonAnySetter
                         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                             this.additionalProperties.put(key, value)
                         }
 
-                        fun putAllAdditionalProperties(
-                            additionalProperties: Map<String, JsonValue>
-                        ) = apply { this.additionalProperties.putAll(additionalProperties) }
+                        fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
 
-                        fun build(): Identification =
-                            Identification(
-                                method,
-                                numberLast4,
-                                additionalProperties.toUnmodifiable(),
-                            )
+                        fun build(): Identification = Identification(
+                            method,
+                            numberLast4,
+                            additionalProperties.toUnmodifiable(),
+                        )
                     }
 
-                    class Method
-                    @JsonCreator
-                    private constructor(
-                        private val value: JsonField<String>,
-                    ) : Enum {
+                    class Method @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
 
                         @com.fasterxml.jackson.annotation.JsonValue
                         fun _value(): JsonField<String> = value
 
                         override fun equals(other: Any?): Boolean {
-                            if (this === other) {
-                                return true
-                            }
+                          if (this === other) {
+                              return true
+                          }
 
-                            return other is Method && this.value == other.value
+                          return other is Method &&
+                              this.value == other.value
                         }
 
                         override fun hashCode() = value.hashCode()
@@ -5610,11 +5783,9 @@ private constructor(
 
                         companion object {
 
-                            val SOCIAL_SECURITY_NUMBER =
-                                Method(JsonField.of("social_security_number"))
+                            val SOCIAL_SECURITY_NUMBER = Method(JsonField.of("social_security_number"))
 
-                            val INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER =
-                                Method(JsonField.of("individual_taxpayer_identification_number"))
+                            val INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER = Method(JsonField.of("individual_taxpayer_identification_number"))
 
                             val PASSPORT = Method(JsonField.of("passport"))
 
@@ -5642,47 +5813,41 @@ private constructor(
                             _UNKNOWN,
                         }
 
-                        fun value(): Value =
-                            when (this) {
-                                SOCIAL_SECURITY_NUMBER -> Value.SOCIAL_SECURITY_NUMBER
-                                INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER ->
-                                    Value.INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER
-                                PASSPORT -> Value.PASSPORT
-                                DRIVERS_LICENSE -> Value.DRIVERS_LICENSE
-                                OTHER -> Value.OTHER
-                                else -> Value._UNKNOWN
-                            }
+                        fun value(): Value = when (this) {
+                            SOCIAL_SECURITY_NUMBER -> Value.SOCIAL_SECURITY_NUMBER
+                            INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER -> Value.INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER
+                            PASSPORT -> Value.PASSPORT
+                            DRIVERS_LICENSE -> Value.DRIVERS_LICENSE
+                            OTHER -> Value.OTHER
+                            else -> Value._UNKNOWN
+                        }
 
-                        fun known(): Known =
-                            when (this) {
-                                SOCIAL_SECURITY_NUMBER -> Known.SOCIAL_SECURITY_NUMBER
-                                INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER ->
-                                    Known.INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER
-                                PASSPORT -> Known.PASSPORT
-                                DRIVERS_LICENSE -> Known.DRIVERS_LICENSE
-                                OTHER -> Known.OTHER
-                                else -> throw IncreaseInvalidDataException("Unknown Method: $value")
-                            }
+                        fun known(): Known = when (this) {
+                            SOCIAL_SECURITY_NUMBER -> Known.SOCIAL_SECURITY_NUMBER
+                            INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER -> Known.INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER
+                            PASSPORT -> Known.PASSPORT
+                            DRIVERS_LICENSE -> Known.DRIVERS_LICENSE
+                            OTHER -> Known.OTHER
+                            else -> throw IncreaseInvalidDataException("Unknown Method: $value")
+                        }
 
                         fun asString(): String = _value().asStringOrThrow()
                     }
                 }
             }
 
-            class Structure
-            @JsonCreator
-            private constructor(
-                private val value: JsonField<String>,
-            ) : Enum {
+            class Structure @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
 
-                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+                @com.fasterxml.jackson.annotation.JsonValue
+                fun _value(): JsonField<String> = value
 
                 override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
+                  if (this === other) {
+                      return true
+                  }
 
-                    return other is Structure && this.value == other.value
+                  return other is Structure &&
+                      this.value == other.value
                 }
 
                 override fun hashCode() = value.hashCode()
@@ -5705,37 +5870,33 @@ private constructor(
                     _UNKNOWN,
                 }
 
-                fun value(): Value =
-                    when (this) {
-                        INDIVIDUAL -> Value.INDIVIDUAL
-                        else -> Value._UNKNOWN
-                    }
+                fun value(): Value = when (this) {
+                    INDIVIDUAL -> Value.INDIVIDUAL
+                    else -> Value._UNKNOWN
+                }
 
-                fun known(): Known =
-                    when (this) {
-                        INDIVIDUAL -> Known.INDIVIDUAL
-                        else -> throw IncreaseInvalidDataException("Unknown Structure: $value")
-                    }
+                fun known(): Known = when (this) {
+                    INDIVIDUAL -> Known.INDIVIDUAL
+                    else -> throw IncreaseInvalidDataException("Unknown Structure: $value")
+                }
 
                 fun asString(): String = _value().asStringOrThrow()
             }
         }
     }
 
-    class Type
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Type @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
 
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is Type && this.value == other.value
+          return other is Type &&
+              this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -5758,17 +5919,15 @@ private constructor(
             _UNKNOWN,
         }
 
-        fun value(): Value =
-            when (this) {
-                ENTITY -> Value.ENTITY
-                else -> Value._UNKNOWN
-            }
+        fun value(): Value = when (this) {
+            ENTITY -> Value.ENTITY
+            else -> Value._UNKNOWN
+        }
 
-        fun known(): Known =
-            when (this) {
-                ENTITY -> Known.ENTITY
-                else -> throw IncreaseInvalidDataException("Unknown Type: $value")
-            }
+        fun known(): Known = when (this) {
+            ENTITY -> Known.ENTITY
+            else -> throw IncreaseInvalidDataException("Unknown Type: $value")
+        }
 
         fun asString(): String = _value().asStringOrThrow()
     }
