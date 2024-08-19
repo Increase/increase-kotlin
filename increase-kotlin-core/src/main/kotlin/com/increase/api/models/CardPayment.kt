@@ -8130,6 +8130,7 @@ private constructor(
             private val cardPaymentId: JsonField<String>,
             private val currency: JsonField<Currency>,
             private val id: JsonField<String>,
+            private val interchange: JsonField<Interchange>,
             private val merchantAcceptorId: JsonField<String>,
             private val merchantCategoryCode: JsonField<String>,
             private val merchantCity: JsonField<String>,
@@ -8166,6 +8167,9 @@ private constructor(
 
             /** The Card Refund identifier. */
             fun id(): String = id.getRequired("id")
+
+            /** Interchange assessed as a part of this transaciton. */
+            fun interchange(): Interchange? = interchange.getNullable("interchange")
 
             /**
              * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
@@ -8236,6 +8240,9 @@ private constructor(
 
             /** The Card Refund identifier. */
             @JsonProperty("id") @ExcludeMissing fun _id() = id
+
+            /** Interchange assessed as a part of this transaciton. */
+            @JsonProperty("interchange") @ExcludeMissing fun _interchange() = interchange
 
             /**
              * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
@@ -8308,6 +8315,7 @@ private constructor(
                     cardPaymentId()
                     currency()
                     id()
+                    interchange()?.validate()
                     merchantAcceptorId()
                     merchantCategoryCode()
                     merchantCity()
@@ -8336,6 +8344,7 @@ private constructor(
                     this.cardPaymentId == other.cardPaymentId &&
                     this.currency == other.currency &&
                     this.id == other.id &&
+                    this.interchange == other.interchange &&
                     this.merchantAcceptorId == other.merchantAcceptorId &&
                     this.merchantCategoryCode == other.merchantCategoryCode &&
                     this.merchantCity == other.merchantCity &&
@@ -8359,6 +8368,7 @@ private constructor(
                             cardPaymentId,
                             currency,
                             id,
+                            interchange,
                             merchantAcceptorId,
                             merchantCategoryCode,
                             merchantCity,
@@ -8378,7 +8388,7 @@ private constructor(
             }
 
             override fun toString() =
-                "CardRefund{amount=$amount, cardPaymentId=$cardPaymentId, currency=$currency, id=$id, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantName=$merchantName, merchantState=$merchantState, networkIdentifiers=$networkIdentifiers, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, purchaseDetails=$purchaseDetails, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
+                "CardRefund{amount=$amount, cardPaymentId=$cardPaymentId, currency=$currency, id=$id, interchange=$interchange, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantName=$merchantName, merchantState=$merchantState, networkIdentifiers=$networkIdentifiers, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, purchaseDetails=$purchaseDetails, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -8391,6 +8401,7 @@ private constructor(
                 private var cardPaymentId: JsonField<String> = JsonMissing.of()
                 private var currency: JsonField<Currency> = JsonMissing.of()
                 private var id: JsonField<String> = JsonMissing.of()
+                private var interchange: JsonField<Interchange> = JsonMissing.of()
                 private var merchantAcceptorId: JsonField<String> = JsonMissing.of()
                 private var merchantCategoryCode: JsonField<String> = JsonMissing.of()
                 private var merchantCity: JsonField<String> = JsonMissing.of()
@@ -8410,6 +8421,7 @@ private constructor(
                     this.cardPaymentId = cardRefund.cardPaymentId
                     this.currency = cardRefund.currency
                     this.id = cardRefund.id
+                    this.interchange = cardRefund.interchange
                     this.merchantAcceptorId = cardRefund.merchantAcceptorId
                     this.merchantCategoryCode = cardRefund.merchantCategoryCode
                     this.merchantCity = cardRefund.merchantCity
@@ -8471,6 +8483,16 @@ private constructor(
                 @JsonProperty("id")
                 @ExcludeMissing
                 fun id(id: JsonField<String>) = apply { this.id = id }
+
+                /** Interchange assessed as a part of this transaciton. */
+                fun interchange(interchange: Interchange) = interchange(JsonField.of(interchange))
+
+                /** Interchange assessed as a part of this transaciton. */
+                @JsonProperty("interchange")
+                @ExcludeMissing
+                fun interchange(interchange: JsonField<Interchange>) = apply {
+                    this.interchange = interchange
+                }
 
                 /**
                  * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
@@ -8644,6 +8666,7 @@ private constructor(
                         cardPaymentId,
                         currency,
                         id,
+                        interchange,
                         merchantAcceptorId,
                         merchantCategoryCode,
                         merchantCity,
@@ -8739,6 +8762,260 @@ private constructor(
                     }
 
                 fun asString(): String = _value().asStringOrThrow()
+            }
+
+            /** Interchange assessed as a part of this transaciton. */
+            @JsonDeserialize(builder = Interchange.Builder::class)
+            @NoAutoDetect
+            class Interchange
+            private constructor(
+                private val amount: JsonField<String>,
+                private val code: JsonField<String>,
+                private val currency: JsonField<Currency>,
+                private val additionalProperties: Map<String, JsonValue>,
+            ) {
+
+                private var validated: Boolean = false
+
+                private var hashCode: Int = 0
+
+                /**
+                 * The interchange amount given as a string containing a decimal number. The amount
+                 * is a positive number if it is credited to Increase (e.g., settlements) and a
+                 * negative number if it is debited (e.g., refunds).
+                 */
+                fun amount(): String = amount.getRequired("amount")
+
+                /** The card network specific interchange code. */
+                fun code(): String? = code.getNullable("code")
+
+                /**
+                 * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the interchange
+                 * reimbursement.
+                 */
+                fun currency(): Currency = currency.getRequired("currency")
+
+                /**
+                 * The interchange amount given as a string containing a decimal number. The amount
+                 * is a positive number if it is credited to Increase (e.g., settlements) and a
+                 * negative number if it is debited (e.g., refunds).
+                 */
+                @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
+
+                /** The card network specific interchange code. */
+                @JsonProperty("code") @ExcludeMissing fun _code() = code
+
+                /**
+                 * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the interchange
+                 * reimbursement.
+                 */
+                @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+                fun validate(): Interchange = apply {
+                    if (!validated) {
+                        amount()
+                        code()
+                        currency()
+                        validated = true
+                    }
+                }
+
+                fun toBuilder() = Builder().from(this)
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is Interchange &&
+                        this.amount == other.amount &&
+                        this.code == other.code &&
+                        this.currency == other.currency &&
+                        this.additionalProperties == other.additionalProperties
+                }
+
+                override fun hashCode(): Int {
+                    if (hashCode == 0) {
+                        hashCode =
+                            Objects.hash(
+                                amount,
+                                code,
+                                currency,
+                                additionalProperties,
+                            )
+                    }
+                    return hashCode
+                }
+
+                override fun toString() =
+                    "Interchange{amount=$amount, code=$code, currency=$currency, additionalProperties=$additionalProperties}"
+
+                companion object {
+
+                    fun builder() = Builder()
+                }
+
+                class Builder {
+
+                    private var amount: JsonField<String> = JsonMissing.of()
+                    private var code: JsonField<String> = JsonMissing.of()
+                    private var currency: JsonField<Currency> = JsonMissing.of()
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    internal fun from(interchange: Interchange) = apply {
+                        this.amount = interchange.amount
+                        this.code = interchange.code
+                        this.currency = interchange.currency
+                        additionalProperties(interchange.additionalProperties)
+                    }
+
+                    /**
+                     * The interchange amount given as a string containing a decimal number. The
+                     * amount is a positive number if it is credited to Increase (e.g., settlements)
+                     * and a negative number if it is debited (e.g., refunds).
+                     */
+                    fun amount(amount: String) = amount(JsonField.of(amount))
+
+                    /**
+                     * The interchange amount given as a string containing a decimal number. The
+                     * amount is a positive number if it is credited to Increase (e.g., settlements)
+                     * and a negative number if it is debited (e.g., refunds).
+                     */
+                    @JsonProperty("amount")
+                    @ExcludeMissing
+                    fun amount(amount: JsonField<String>) = apply { this.amount = amount }
+
+                    /** The card network specific interchange code. */
+                    fun code(code: String) = code(JsonField.of(code))
+
+                    /** The card network specific interchange code. */
+                    @JsonProperty("code")
+                    @ExcludeMissing
+                    fun code(code: JsonField<String>) = apply { this.code = code }
+
+                    /**
+                     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                     * interchange reimbursement.
+                     */
+                    fun currency(currency: Currency) = currency(JsonField.of(currency))
+
+                    /**
+                     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                     * interchange reimbursement.
+                     */
+                    @JsonProperty("currency")
+                    @ExcludeMissing
+                    fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                    @JsonAnySetter
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        this.additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun build(): Interchange =
+                        Interchange(
+                            amount,
+                            code,
+                            currency,
+                            additionalProperties.toUnmodifiable(),
+                        )
+                }
+
+                class Currency
+                @JsonCreator
+                private constructor(
+                    private val value: JsonField<String>,
+                ) : Enum {
+
+                    @com.fasterxml.jackson.annotation.JsonValue
+                    fun _value(): JsonField<String> = value
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is Currency && this.value == other.value
+                    }
+
+                    override fun hashCode() = value.hashCode()
+
+                    override fun toString() = value.toString()
+
+                    companion object {
+
+                        val CAD = Currency(JsonField.of("CAD"))
+
+                        val CHF = Currency(JsonField.of("CHF"))
+
+                        val EUR = Currency(JsonField.of("EUR"))
+
+                        val GBP = Currency(JsonField.of("GBP"))
+
+                        val JPY = Currency(JsonField.of("JPY"))
+
+                        val USD = Currency(JsonField.of("USD"))
+
+                        fun of(value: String) = Currency(JsonField.of(value))
+                    }
+
+                    enum class Known {
+                        CAD,
+                        CHF,
+                        EUR,
+                        GBP,
+                        JPY,
+                        USD,
+                    }
+
+                    enum class Value {
+                        CAD,
+                        CHF,
+                        EUR,
+                        GBP,
+                        JPY,
+                        USD,
+                        _UNKNOWN,
+                    }
+
+                    fun value(): Value =
+                        when (this) {
+                            CAD -> Value.CAD
+                            CHF -> Value.CHF
+                            EUR -> Value.EUR
+                            GBP -> Value.GBP
+                            JPY -> Value.JPY
+                            USD -> Value.USD
+                            else -> Value._UNKNOWN
+                        }
+
+                    fun known(): Known =
+                        when (this) {
+                            CAD -> Known.CAD
+                            CHF -> Known.CHF
+                            EUR -> Known.EUR
+                            GBP -> Known.GBP
+                            JPY -> Known.JPY
+                            USD -> Known.USD
+                            else -> throw IncreaseInvalidDataException("Unknown Currency: $value")
+                        }
+
+                    fun asString(): String = _value().asStringOrThrow()
+                }
             }
 
             /** Network-specific identifiers for this refund. */
@@ -13320,6 +13597,7 @@ private constructor(
             private val cardPaymentId: JsonField<String>,
             private val currency: JsonField<Currency>,
             private val id: JsonField<String>,
+            private val interchange: JsonField<Interchange>,
             private val merchantAcceptorId: JsonField<String>,
             private val merchantCategoryCode: JsonField<String>,
             private val merchantCity: JsonField<String>,
@@ -13362,6 +13640,9 @@ private constructor(
 
             /** The Card Settlement identifier. */
             fun id(): String = id.getRequired("id")
+
+            /** Interchange assessed as a part of this transaciton. */
+            fun interchange(): Interchange? = interchange.getNullable("interchange")
 
             /**
              * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
@@ -13444,6 +13725,9 @@ private constructor(
             /** The Card Settlement identifier. */
             @JsonProperty("id") @ExcludeMissing fun _id() = id
 
+            /** Interchange assessed as a part of this transaciton. */
+            @JsonProperty("interchange") @ExcludeMissing fun _interchange() = interchange
+
             /**
              * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
              * transacting with.
@@ -13521,6 +13805,7 @@ private constructor(
                     cardPaymentId()
                     currency()
                     id()
+                    interchange()?.validate()
                     merchantAcceptorId()
                     merchantCategoryCode()
                     merchantCity()
@@ -13551,6 +13836,7 @@ private constructor(
                     this.cardPaymentId == other.cardPaymentId &&
                     this.currency == other.currency &&
                     this.id == other.id &&
+                    this.interchange == other.interchange &&
                     this.merchantAcceptorId == other.merchantAcceptorId &&
                     this.merchantCategoryCode == other.merchantCategoryCode &&
                     this.merchantCity == other.merchantCity &&
@@ -13576,6 +13862,7 @@ private constructor(
                             cardPaymentId,
                             currency,
                             id,
+                            interchange,
                             merchantAcceptorId,
                             merchantCategoryCode,
                             merchantCity,
@@ -13596,7 +13883,7 @@ private constructor(
             }
 
             override fun toString() =
-                "CardSettlement{amount=$amount, cardAuthorization=$cardAuthorization, cardPaymentId=$cardPaymentId, currency=$currency, id=$id, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantName=$merchantName, merchantState=$merchantState, networkIdentifiers=$networkIdentifiers, pendingTransactionId=$pendingTransactionId, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, purchaseDetails=$purchaseDetails, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
+                "CardSettlement{amount=$amount, cardAuthorization=$cardAuthorization, cardPaymentId=$cardPaymentId, currency=$currency, id=$id, interchange=$interchange, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantName=$merchantName, merchantState=$merchantState, networkIdentifiers=$networkIdentifiers, pendingTransactionId=$pendingTransactionId, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, purchaseDetails=$purchaseDetails, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -13610,6 +13897,7 @@ private constructor(
                 private var cardPaymentId: JsonField<String> = JsonMissing.of()
                 private var currency: JsonField<Currency> = JsonMissing.of()
                 private var id: JsonField<String> = JsonMissing.of()
+                private var interchange: JsonField<Interchange> = JsonMissing.of()
                 private var merchantAcceptorId: JsonField<String> = JsonMissing.of()
                 private var merchantCategoryCode: JsonField<String> = JsonMissing.of()
                 private var merchantCity: JsonField<String> = JsonMissing.of()
@@ -13631,6 +13919,7 @@ private constructor(
                     this.cardPaymentId = cardSettlement.cardPaymentId
                     this.currency = cardSettlement.currency
                     this.id = cardSettlement.id
+                    this.interchange = cardSettlement.interchange
                     this.merchantAcceptorId = cardSettlement.merchantAcceptorId
                     this.merchantCategoryCode = cardSettlement.merchantCategoryCode
                     this.merchantCity = cardSettlement.merchantCity
@@ -13710,6 +13999,16 @@ private constructor(
                 @JsonProperty("id")
                 @ExcludeMissing
                 fun id(id: JsonField<String>) = apply { this.id = id }
+
+                /** Interchange assessed as a part of this transaciton. */
+                fun interchange(interchange: Interchange) = interchange(JsonField.of(interchange))
+
+                /** Interchange assessed as a part of this transaciton. */
+                @JsonProperty("interchange")
+                @ExcludeMissing
+                fun interchange(interchange: JsonField<Interchange>) = apply {
+                    this.interchange = interchange
+                }
 
                 /**
                  * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
@@ -13895,6 +14194,7 @@ private constructor(
                         cardPaymentId,
                         currency,
                         id,
+                        interchange,
                         merchantAcceptorId,
                         merchantCategoryCode,
                         merchantCity,
@@ -13991,6 +14291,260 @@ private constructor(
                     }
 
                 fun asString(): String = _value().asStringOrThrow()
+            }
+
+            /** Interchange assessed as a part of this transaciton. */
+            @JsonDeserialize(builder = Interchange.Builder::class)
+            @NoAutoDetect
+            class Interchange
+            private constructor(
+                private val amount: JsonField<String>,
+                private val code: JsonField<String>,
+                private val currency: JsonField<Currency>,
+                private val additionalProperties: Map<String, JsonValue>,
+            ) {
+
+                private var validated: Boolean = false
+
+                private var hashCode: Int = 0
+
+                /**
+                 * The interchange amount given as a string containing a decimal number. The amount
+                 * is a positive number if it is credited to Increase (e.g., settlements) and a
+                 * negative number if it is debited (e.g., refunds).
+                 */
+                fun amount(): String = amount.getRequired("amount")
+
+                /** The card network specific interchange code. */
+                fun code(): String? = code.getNullable("code")
+
+                /**
+                 * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the interchange
+                 * reimbursement.
+                 */
+                fun currency(): Currency = currency.getRequired("currency")
+
+                /**
+                 * The interchange amount given as a string containing a decimal number. The amount
+                 * is a positive number if it is credited to Increase (e.g., settlements) and a
+                 * negative number if it is debited (e.g., refunds).
+                 */
+                @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
+
+                /** The card network specific interchange code. */
+                @JsonProperty("code") @ExcludeMissing fun _code() = code
+
+                /**
+                 * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the interchange
+                 * reimbursement.
+                 */
+                @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+                fun validate(): Interchange = apply {
+                    if (!validated) {
+                        amount()
+                        code()
+                        currency()
+                        validated = true
+                    }
+                }
+
+                fun toBuilder() = Builder().from(this)
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is Interchange &&
+                        this.amount == other.amount &&
+                        this.code == other.code &&
+                        this.currency == other.currency &&
+                        this.additionalProperties == other.additionalProperties
+                }
+
+                override fun hashCode(): Int {
+                    if (hashCode == 0) {
+                        hashCode =
+                            Objects.hash(
+                                amount,
+                                code,
+                                currency,
+                                additionalProperties,
+                            )
+                    }
+                    return hashCode
+                }
+
+                override fun toString() =
+                    "Interchange{amount=$amount, code=$code, currency=$currency, additionalProperties=$additionalProperties}"
+
+                companion object {
+
+                    fun builder() = Builder()
+                }
+
+                class Builder {
+
+                    private var amount: JsonField<String> = JsonMissing.of()
+                    private var code: JsonField<String> = JsonMissing.of()
+                    private var currency: JsonField<Currency> = JsonMissing.of()
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    internal fun from(interchange: Interchange) = apply {
+                        this.amount = interchange.amount
+                        this.code = interchange.code
+                        this.currency = interchange.currency
+                        additionalProperties(interchange.additionalProperties)
+                    }
+
+                    /**
+                     * The interchange amount given as a string containing a decimal number. The
+                     * amount is a positive number if it is credited to Increase (e.g., settlements)
+                     * and a negative number if it is debited (e.g., refunds).
+                     */
+                    fun amount(amount: String) = amount(JsonField.of(amount))
+
+                    /**
+                     * The interchange amount given as a string containing a decimal number. The
+                     * amount is a positive number if it is credited to Increase (e.g., settlements)
+                     * and a negative number if it is debited (e.g., refunds).
+                     */
+                    @JsonProperty("amount")
+                    @ExcludeMissing
+                    fun amount(amount: JsonField<String>) = apply { this.amount = amount }
+
+                    /** The card network specific interchange code. */
+                    fun code(code: String) = code(JsonField.of(code))
+
+                    /** The card network specific interchange code. */
+                    @JsonProperty("code")
+                    @ExcludeMissing
+                    fun code(code: JsonField<String>) = apply { this.code = code }
+
+                    /**
+                     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                     * interchange reimbursement.
+                     */
+                    fun currency(currency: Currency) = currency(JsonField.of(currency))
+
+                    /**
+                     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
+                     * interchange reimbursement.
+                     */
+                    @JsonProperty("currency")
+                    @ExcludeMissing
+                    fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                    @JsonAnySetter
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        this.additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun build(): Interchange =
+                        Interchange(
+                            amount,
+                            code,
+                            currency,
+                            additionalProperties.toUnmodifiable(),
+                        )
+                }
+
+                class Currency
+                @JsonCreator
+                private constructor(
+                    private val value: JsonField<String>,
+                ) : Enum {
+
+                    @com.fasterxml.jackson.annotation.JsonValue
+                    fun _value(): JsonField<String> = value
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is Currency && this.value == other.value
+                    }
+
+                    override fun hashCode() = value.hashCode()
+
+                    override fun toString() = value.toString()
+
+                    companion object {
+
+                        val CAD = Currency(JsonField.of("CAD"))
+
+                        val CHF = Currency(JsonField.of("CHF"))
+
+                        val EUR = Currency(JsonField.of("EUR"))
+
+                        val GBP = Currency(JsonField.of("GBP"))
+
+                        val JPY = Currency(JsonField.of("JPY"))
+
+                        val USD = Currency(JsonField.of("USD"))
+
+                        fun of(value: String) = Currency(JsonField.of(value))
+                    }
+
+                    enum class Known {
+                        CAD,
+                        CHF,
+                        EUR,
+                        GBP,
+                        JPY,
+                        USD,
+                    }
+
+                    enum class Value {
+                        CAD,
+                        CHF,
+                        EUR,
+                        GBP,
+                        JPY,
+                        USD,
+                        _UNKNOWN,
+                    }
+
+                    fun value(): Value =
+                        when (this) {
+                            CAD -> Value.CAD
+                            CHF -> Value.CHF
+                            EUR -> Value.EUR
+                            GBP -> Value.GBP
+                            JPY -> Value.JPY
+                            USD -> Value.USD
+                            else -> Value._UNKNOWN
+                        }
+
+                    fun known(): Known =
+                        when (this) {
+                            CAD -> Known.CAD
+                            CHF -> Known.CHF
+                            EUR -> Known.EUR
+                            GBP -> Known.GBP
+                            JPY -> Known.JPY
+                            USD -> Known.USD
+                            else -> throw IncreaseInvalidDataException("Unknown Currency: $value")
+                        }
+
+                    fun asString(): String = _value().asStringOrThrow()
+                }
             }
 
             /** Network-specific identifiers for this refund. */
