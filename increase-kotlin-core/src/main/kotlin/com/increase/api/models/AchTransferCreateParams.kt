@@ -30,7 +30,6 @@ constructor(
     private val companyEntryDescription: String?,
     private val companyName: String?,
     private val destinationAccountHolder: DestinationAccountHolder?,
-    private val effectiveDate: LocalDate?,
     private val externalAccountId: String?,
     private val funding: Funding?,
     private val individualId: String?,
@@ -64,8 +63,6 @@ constructor(
 
     fun destinationAccountHolder(): DestinationAccountHolder? = destinationAccountHolder
 
-    fun effectiveDate(): LocalDate? = effectiveDate
-
     fun externalAccountId(): String? = externalAccountId
 
     fun funding(): Funding? = funding
@@ -94,7 +91,6 @@ constructor(
             companyEntryDescription,
             companyName,
             destinationAccountHolder,
-            effectiveDate,
             externalAccountId,
             funding,
             individualId,
@@ -125,7 +121,6 @@ constructor(
         private val companyEntryDescription: String?,
         private val companyName: String?,
         private val destinationAccountHolder: DestinationAccountHolder?,
-        private val effectiveDate: LocalDate?,
         private val externalAccountId: String?,
         private val funding: Funding?,
         private val individualId: String?,
@@ -201,11 +196,6 @@ constructor(
         fun destinationAccountHolder(): DestinationAccountHolder? = destinationAccountHolder
 
         /**
-         * The transfer effective date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-         */
-        @JsonProperty("effective_date") fun effectiveDate(): LocalDate? = effectiveDate
-
-        /**
          * The ID of an External Account to initiate a transfer to. If this parameter is provided,
          * `account_number`, `routing_number`, and `funding` must be absent.
          */
@@ -267,7 +257,6 @@ constructor(
                 this.companyEntryDescription == other.companyEntryDescription &&
                 this.companyName == other.companyName &&
                 this.destinationAccountHolder == other.destinationAccountHolder &&
-                this.effectiveDate == other.effectiveDate &&
                 this.externalAccountId == other.externalAccountId &&
                 this.funding == other.funding &&
                 this.individualId == other.individualId &&
@@ -293,7 +282,6 @@ constructor(
                         companyEntryDescription,
                         companyName,
                         destinationAccountHolder,
-                        effectiveDate,
                         externalAccountId,
                         funding,
                         individualId,
@@ -309,7 +297,7 @@ constructor(
         }
 
         override fun toString() =
-            "AchTransferCreateBody{accountId=$accountId, amount=$amount, statementDescriptor=$statementDescriptor, accountNumber=$accountNumber, addenda=$addenda, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, destinationAccountHolder=$destinationAccountHolder, effectiveDate=$effectiveDate, externalAccountId=$externalAccountId, funding=$funding, individualId=$individualId, individualName=$individualName, preferredEffectiveDate=$preferredEffectiveDate, requireApproval=$requireApproval, routingNumber=$routingNumber, standardEntryClassCode=$standardEntryClassCode, additionalProperties=$additionalProperties}"
+            "AchTransferCreateBody{accountId=$accountId, amount=$amount, statementDescriptor=$statementDescriptor, accountNumber=$accountNumber, addenda=$addenda, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, destinationAccountHolder=$destinationAccountHolder, externalAccountId=$externalAccountId, funding=$funding, individualId=$individualId, individualName=$individualName, preferredEffectiveDate=$preferredEffectiveDate, requireApproval=$requireApproval, routingNumber=$routingNumber, standardEntryClassCode=$standardEntryClassCode, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -328,7 +316,6 @@ constructor(
             private var companyEntryDescription: String? = null
             private var companyName: String? = null
             private var destinationAccountHolder: DestinationAccountHolder? = null
-            private var effectiveDate: LocalDate? = null
             private var externalAccountId: String? = null
             private var funding: Funding? = null
             private var individualId: String? = null
@@ -350,7 +337,6 @@ constructor(
                 this.companyEntryDescription = achTransferCreateBody.companyEntryDescription
                 this.companyName = achTransferCreateBody.companyName
                 this.destinationAccountHolder = achTransferCreateBody.destinationAccountHolder
-                this.effectiveDate = achTransferCreateBody.effectiveDate
                 this.externalAccountId = achTransferCreateBody.externalAccountId
                 this.funding = achTransferCreateBody.funding
                 this.individualId = achTransferCreateBody.individualId
@@ -439,15 +425,6 @@ constructor(
                 }
 
             /**
-             * The transfer effective date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-             * format.
-             */
-            @JsonProperty("effective_date")
-            fun effectiveDate(effectiveDate: LocalDate) = apply {
-                this.effectiveDate = effectiveDate
-            }
-
-            /**
              * The ID of an External Account to initiate a transfer to. If this parameter is
              * provided, `account_number`, `routing_number`, and `funding` must be absent.
              */
@@ -531,7 +508,6 @@ constructor(
                     companyEntryDescription,
                     companyName,
                     destinationAccountHolder,
-                    effectiveDate,
                     externalAccountId,
                     funding,
                     individualId,
@@ -567,7 +543,6 @@ constructor(
             this.companyEntryDescription == other.companyEntryDescription &&
             this.companyName == other.companyName &&
             this.destinationAccountHolder == other.destinationAccountHolder &&
-            this.effectiveDate == other.effectiveDate &&
             this.externalAccountId == other.externalAccountId &&
             this.funding == other.funding &&
             this.individualId == other.individualId &&
@@ -593,7 +568,6 @@ constructor(
             companyEntryDescription,
             companyName,
             destinationAccountHolder,
-            effectiveDate,
             externalAccountId,
             funding,
             individualId,
@@ -609,7 +583,7 @@ constructor(
     }
 
     override fun toString() =
-        "AchTransferCreateParams{accountId=$accountId, amount=$amount, statementDescriptor=$statementDescriptor, accountNumber=$accountNumber, addenda=$addenda, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, destinationAccountHolder=$destinationAccountHolder, effectiveDate=$effectiveDate, externalAccountId=$externalAccountId, funding=$funding, individualId=$individualId, individualName=$individualName, preferredEffectiveDate=$preferredEffectiveDate, requireApproval=$requireApproval, routingNumber=$routingNumber, standardEntryClassCode=$standardEntryClassCode, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "AchTransferCreateParams{accountId=$accountId, amount=$amount, statementDescriptor=$statementDescriptor, accountNumber=$accountNumber, addenda=$addenda, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, destinationAccountHolder=$destinationAccountHolder, externalAccountId=$externalAccountId, funding=$funding, individualId=$individualId, individualName=$individualName, preferredEffectiveDate=$preferredEffectiveDate, requireApproval=$requireApproval, routingNumber=$routingNumber, standardEntryClassCode=$standardEntryClassCode, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -631,7 +605,6 @@ constructor(
         private var companyEntryDescription: String? = null
         private var companyName: String? = null
         private var destinationAccountHolder: DestinationAccountHolder? = null
-        private var effectiveDate: LocalDate? = null
         private var externalAccountId: String? = null
         private var funding: Funding? = null
         private var individualId: String? = null
@@ -655,7 +628,6 @@ constructor(
             this.companyEntryDescription = achTransferCreateParams.companyEntryDescription
             this.companyName = achTransferCreateParams.companyName
             this.destinationAccountHolder = achTransferCreateParams.destinationAccountHolder
-            this.effectiveDate = achTransferCreateParams.effectiveDate
             this.externalAccountId = achTransferCreateParams.externalAccountId
             this.funding = achTransferCreateParams.funding
             this.individualId = achTransferCreateParams.individualId
@@ -734,11 +706,6 @@ constructor(
         fun destinationAccountHolder(destinationAccountHolder: DestinationAccountHolder) = apply {
             this.destinationAccountHolder = destinationAccountHolder
         }
-
-        /**
-         * The transfer effective date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format.
-         */
-        fun effectiveDate(effectiveDate: LocalDate) = apply { this.effectiveDate = effectiveDate }
 
         /**
          * The ID of an External Account to initiate a transfer to. If this parameter is provided,
@@ -854,7 +821,6 @@ constructor(
                 companyEntryDescription,
                 companyName,
                 destinationAccountHolder,
-                effectiveDate,
                 externalAccountId,
                 funding,
                 individualId,
