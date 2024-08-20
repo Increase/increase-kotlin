@@ -122,7 +122,11 @@ class IncreaseClientAsyncImpl constructor(private val clientOptions: ClientOptio
 
     private val oauthConnections: OAuthConnectionServiceAsync by lazy { OAuthConnectionServiceAsyncImpl(clientOptions) }
 
-    private val oauthTokens: OAuthTokenServiceAsync by lazy { OAuthTokenServiceAsyncImpl(clientOptions) }
+    private val webhooks: WebhookServiceAsync by lazy { WebhookServiceAsyncImpl(clientOptions) }
+
+    private val oauthTokens: OAuthTokenServiceAsync by lazy {
+        OAuthTokenServiceAsyncImpl(clientOptions)
+    }
 
     private val intrafiAccountEnrollments: IntrafiAccountEnrollmentServiceAsync by lazy { IntrafiAccountEnrollmentServiceAsyncImpl(clientOptions) }
 
@@ -237,6 +241,8 @@ class IncreaseClientAsyncImpl constructor(private val clientOptions: ClientOptio
     override fun intrafiExclusions(): IntrafiExclusionServiceAsync = intrafiExclusions
 
     override fun realTimePaymentsRequestForPayments(): RealTimePaymentsRequestForPaymentServiceAsync = realTimePaymentsRequestForPayments
+
+    override fun webhooks(): WebhookServiceAsync = webhooks
 
     override fun simulations(): SimulationServiceAsync = simulations
 }

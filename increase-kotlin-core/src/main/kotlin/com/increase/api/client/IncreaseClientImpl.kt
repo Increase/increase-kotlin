@@ -132,6 +132,8 @@ class IncreaseClientImpl constructor(private val clientOptions: ClientOptions, )
 
     private val realTimePaymentsRequestForPayments: RealTimePaymentsRequestForPaymentService by lazy { RealTimePaymentsRequestForPaymentServiceImpl(clientOptions) }
 
+    private val webhooks: WebhookService by lazy { WebhookServiceImpl(clientOptions) }
+
     private val simulations: SimulationService by lazy { SimulationServiceImpl(clientOptions) }
 
     override fun async(): IncreaseClientAsync = async
@@ -237,6 +239,8 @@ class IncreaseClientImpl constructor(private val clientOptions: ClientOptions, )
     override fun intrafiExclusions(): IntrafiExclusionService = intrafiExclusions
 
     override fun realTimePaymentsRequestForPayments(): RealTimePaymentsRequestForPaymentService = realTimePaymentsRequestForPayments
+
+    override fun webhooks(): WebhookService = webhooks
 
     override fun simulations(): SimulationService = simulations
 }
