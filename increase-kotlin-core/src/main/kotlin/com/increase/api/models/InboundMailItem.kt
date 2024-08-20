@@ -5,34 +5,49 @@ package com.increase.api.models
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.core.JsonGenerator
+import com.fasterxml.jackson.core.ObjectCodec
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.increase.api.core.Enum
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import com.fasterxml.jackson.databind.JsonNode
+import com.fasterxml.jackson.databind.SerializerProvider
+import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import java.time.LocalDate
+import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
+import java.util.Objects
+import java.util.Optional
+import java.util.UUID
+import com.increase.api.core.BaseDeserializer
+import com.increase.api.core.BaseSerializer
+import com.increase.api.core.getOrThrow
 import com.increase.api.core.ExcludeMissing
-import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.JsonNull
+import com.increase.api.core.JsonField
+import com.increase.api.core.Enum
 import com.increase.api.core.toUnmodifiable
+import com.increase.api.core.NoAutoDetect
 import com.increase.api.errors.IncreaseInvalidDataException
-import java.time.OffsetDateTime
-import java.util.Objects
 
 /** Inbound Mail Items represent pieces of physical mail delivered to a Lockbox. */
 @JsonDeserialize(builder = InboundMailItem.Builder::class)
 @NoAutoDetect
-class InboundMailItem
-private constructor(
-    private val createdAt: JsonField<OffsetDateTime>,
-    private val fileId: JsonField<String>,
-    private val id: JsonField<String>,
-    private val lockboxId: JsonField<String>,
-    private val recipientName: JsonField<String>,
-    private val rejectionReason: JsonField<RejectionReason>,
-    private val returnAddress: JsonField<ReturnAddress>,
-    private val status: JsonField<Status>,
-    private val type: JsonField<Type>,
-    private val additionalProperties: Map<String, JsonValue>,
+class InboundMailItem private constructor(
+  private val createdAt: JsonField<OffsetDateTime>,
+  private val fileId: JsonField<String>,
+  private val id: JsonField<String>,
+  private val lockboxId: JsonField<String>,
+  private val recipientName: JsonField<String>,
+  private val rejectionReason: JsonField<RejectionReason>,
+  private val returnAddress: JsonField<ReturnAddress>,
+  private val status: JsonField<Status>,
+  private val type: JsonField<Type>,
+  private val additionalProperties: Map<String, JsonValue>,
+
 ) {
 
     private var validated: Boolean = false
@@ -40,8 +55,8 @@ private constructor(
     private var hashCode: Int = 0
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Inbound Mail Item
-     * was created.
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Inbound
+     * Mail Item was created.
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
@@ -52,8 +67,8 @@ private constructor(
     fun id(): String = id.getRequired("id")
 
     /**
-     * The identifier for the Lockbox that received this mail item. For mail items that could not be
-     * processed due to an invalid address, this will be null.
+     * The identifier for the Lockbox that received this mail item. For mail items that
+     * could not be processed due to an invalid address, this will be null.
      */
     fun lockboxId(): String? = lockboxId.getNullable("lockbox_id")
 
@@ -76,40 +91,58 @@ private constructor(
     fun type(): Type = type.getRequired("type")
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Inbound Mail Item
-     * was created.
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Inbound
+     * Mail Item was created.
      */
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    fun _createdAt() = createdAt
 
     /** The identifier for the File containing the scanned contents of the mail item. */
-    @JsonProperty("file_id") @ExcludeMissing fun _fileId() = fileId
+    @JsonProperty("file_id")
+    @ExcludeMissing
+    fun _fileId() = fileId
 
     /** The Inbound Mail Item identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    @JsonProperty("id")
+    @ExcludeMissing
+    fun _id() = id
 
     /**
-     * The identifier for the Lockbox that received this mail item. For mail items that could not be
-     * processed due to an invalid address, this will be null.
+     * The identifier for the Lockbox that received this mail item. For mail items that
+     * could not be processed due to an invalid address, this will be null.
      */
-    @JsonProperty("lockbox_id") @ExcludeMissing fun _lockboxId() = lockboxId
+    @JsonProperty("lockbox_id")
+    @ExcludeMissing
+    fun _lockboxId() = lockboxId
 
     /** The recipient name as written on the mail item. */
-    @JsonProperty("recipient_name") @ExcludeMissing fun _recipientName() = recipientName
+    @JsonProperty("recipient_name")
+    @ExcludeMissing
+    fun _recipientName() = recipientName
 
     /** If the mail item has been rejected, why it was rejected. */
-    @JsonProperty("rejection_reason") @ExcludeMissing fun _rejectionReason() = rejectionReason
+    @JsonProperty("rejection_reason")
+    @ExcludeMissing
+    fun _rejectionReason() = rejectionReason
 
     /** The return address as written on the mail item. */
-    @JsonProperty("return_address") @ExcludeMissing fun _returnAddress() = returnAddress
+    @JsonProperty("return_address")
+    @ExcludeMissing
+    fun _returnAddress() = returnAddress
 
     /** If the mail item has been processed. */
-    @JsonProperty("status") @ExcludeMissing fun _status() = status
+    @JsonProperty("status")
+    @ExcludeMissing
+    fun _status() = status
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `inbound_mail_item`.
      */
-    @JsonProperty("type") @ExcludeMissing fun _type() = type
+    @JsonProperty("type")
+    @ExcludeMissing
+    fun _type() = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -117,60 +150,58 @@ private constructor(
 
     fun validate(): InboundMailItem = apply {
         if (!validated) {
-            createdAt()
-            fileId()
-            id()
-            lockboxId()
-            recipientName()
-            rejectionReason()
-            returnAddress()?.validate()
-            status()
-            type()
-            validated = true
+          createdAt()
+          fileId()
+          id()
+          lockboxId()
+          recipientName()
+          rejectionReason()
+          returnAddress()?.validate()
+          status()
+          type()
+          validated = true
         }
     }
 
     fun toBuilder() = Builder().from(this)
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
+      if (this === other) {
+          return true
+      }
 
-        return other is InboundMailItem &&
-            this.createdAt == other.createdAt &&
-            this.fileId == other.fileId &&
-            this.id == other.id &&
-            this.lockboxId == other.lockboxId &&
-            this.recipientName == other.recipientName &&
-            this.rejectionReason == other.rejectionReason &&
-            this.returnAddress == other.returnAddress &&
-            this.status == other.status &&
-            this.type == other.type &&
-            this.additionalProperties == other.additionalProperties
+      return other is InboundMailItem &&
+          this.createdAt == other.createdAt &&
+          this.fileId == other.fileId &&
+          this.id == other.id &&
+          this.lockboxId == other.lockboxId &&
+          this.recipientName == other.recipientName &&
+          this.rejectionReason == other.rejectionReason &&
+          this.returnAddress == other.returnAddress &&
+          this.status == other.status &&
+          this.type == other.type &&
+          this.additionalProperties == other.additionalProperties
     }
 
     override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    createdAt,
-                    fileId,
-                    id,
-                    lockboxId,
-                    recipientName,
-                    rejectionReason,
-                    returnAddress,
-                    status,
-                    type,
-                    additionalProperties,
-                )
-        }
-        return hashCode
+      if (hashCode == 0) {
+        hashCode = Objects.hash(
+            createdAt,
+            fileId,
+            id,
+            lockboxId,
+            recipientName,
+            rejectionReason,
+            returnAddress,
+            status,
+            type,
+            additionalProperties,
+        )
+      }
+      return hashCode
     }
 
-    override fun toString() =
-        "InboundMailItem{createdAt=$createdAt, fileId=$fileId, id=$id, lockboxId=$lockboxId, recipientName=$recipientName, rejectionReason=$rejectionReason, returnAddress=$returnAddress, status=$status, type=$type, additionalProperties=$additionalProperties}"
+    override fun toString() = "InboundMailItem{createdAt=$createdAt, fileId=$fileId, id=$id, lockboxId=$lockboxId, recipientName=$recipientName, rejectionReason=$rejectionReason, returnAddress=$returnAddress, status=$status, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -204,18 +235,20 @@ private constructor(
         }
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Inbound Mail
-         * Item was created.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Inbound
+         * Mail Item was created.
          */
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Inbound Mail
-         * Item was created.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Inbound
+         * Mail Item was created.
          */
         @JsonProperty("created_at")
         @ExcludeMissing
-        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
+        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
+            this.createdAt = createdAt
+        }
 
         /** The identifier for the File containing the scanned contents of the mail item. */
         fun fileId(fileId: String) = fileId(JsonField.of(fileId))
@@ -223,27 +256,35 @@ private constructor(
         /** The identifier for the File containing the scanned contents of the mail item. */
         @JsonProperty("file_id")
         @ExcludeMissing
-        fun fileId(fileId: JsonField<String>) = apply { this.fileId = fileId }
+        fun fileId(fileId: JsonField<String>) = apply {
+            this.fileId = fileId
+        }
 
         /** The Inbound Mail Item identifier. */
         fun id(id: String) = id(JsonField.of(id))
 
         /** The Inbound Mail Item identifier. */
-        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
+        @JsonProperty("id")
+        @ExcludeMissing
+        fun id(id: JsonField<String>) = apply {
+            this.id = id
+        }
 
         /**
-         * The identifier for the Lockbox that received this mail item. For mail items that could
-         * not be processed due to an invalid address, this will be null.
+         * The identifier for the Lockbox that received this mail item. For mail items that
+         * could not be processed due to an invalid address, this will be null.
          */
         fun lockboxId(lockboxId: String) = lockboxId(JsonField.of(lockboxId))
 
         /**
-         * The identifier for the Lockbox that received this mail item. For mail items that could
-         * not be processed due to an invalid address, this will be null.
+         * The identifier for the Lockbox that received this mail item. For mail items that
+         * could not be processed due to an invalid address, this will be null.
          */
         @JsonProperty("lockbox_id")
         @ExcludeMissing
-        fun lockboxId(lockboxId: JsonField<String>) = apply { this.lockboxId = lockboxId }
+        fun lockboxId(lockboxId: JsonField<String>) = apply {
+            this.lockboxId = lockboxId
+        }
 
         /** The recipient name as written on the mail item. */
         fun recipientName(recipientName: String) = recipientName(JsonField.of(recipientName))
@@ -256,8 +297,7 @@ private constructor(
         }
 
         /** If the mail item has been rejected, why it was rejected. */
-        fun rejectionReason(rejectionReason: RejectionReason) =
-            rejectionReason(JsonField.of(rejectionReason))
+        fun rejectionReason(rejectionReason: RejectionReason) = rejectionReason(JsonField.of(rejectionReason))
 
         /** If the mail item has been rejected, why it was rejected. */
         @JsonProperty("rejection_reason")
@@ -282,7 +322,9 @@ private constructor(
         /** If the mail item has been processed. */
         @JsonProperty("status")
         @ExcludeMissing
-        fun status(status: JsonField<Status>) = apply { this.status = status }
+        fun status(status: JsonField<Status>) = apply {
+            this.status = status
+        }
 
         /**
          * A constant representing the object's type. For this resource it will always be
@@ -296,7 +338,9 @@ private constructor(
          */
         @JsonProperty("type")
         @ExcludeMissing
-        fun type(type: JsonField<Type>) = apply { this.type = type }
+        fun type(type: JsonField<Type>) = apply {
+            this.type = type
+        }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -312,35 +356,32 @@ private constructor(
             this.additionalProperties.putAll(additionalProperties)
         }
 
-        fun build(): InboundMailItem =
-            InboundMailItem(
-                createdAt,
-                fileId,
-                id,
-                lockboxId,
-                recipientName,
-                rejectionReason,
-                returnAddress,
-                status,
-                type,
-                additionalProperties.toUnmodifiable(),
-            )
+        fun build(): InboundMailItem = InboundMailItem(
+            createdAt,
+            fileId,
+            id,
+            lockboxId,
+            recipientName,
+            rejectionReason,
+            returnAddress,
+            status,
+            type,
+            additionalProperties.toUnmodifiable(),
+        )
     }
 
-    class RejectionReason
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class RejectionReason @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
 
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is RejectionReason && this.value == other.value
+          return other is RejectionReason &&
+              this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -371,21 +412,19 @@ private constructor(
             _UNKNOWN,
         }
 
-        fun value(): Value =
-            when (this) {
-                NO_MATCHING_LOCKBOX -> Value.NO_MATCHING_LOCKBOX
-                NO_CHECK -> Value.NO_CHECK
-                LOCKBOX_NOT_ACTIVE -> Value.LOCKBOX_NOT_ACTIVE
-                else -> Value._UNKNOWN
-            }
+        fun value(): Value = when (this) {
+            NO_MATCHING_LOCKBOX -> Value.NO_MATCHING_LOCKBOX
+            NO_CHECK -> Value.NO_CHECK
+            LOCKBOX_NOT_ACTIVE -> Value.LOCKBOX_NOT_ACTIVE
+            else -> Value._UNKNOWN
+        }
 
-        fun known(): Known =
-            when (this) {
-                NO_MATCHING_LOCKBOX -> Known.NO_MATCHING_LOCKBOX
-                NO_CHECK -> Known.NO_CHECK
-                LOCKBOX_NOT_ACTIVE -> Known.LOCKBOX_NOT_ACTIVE
-                else -> throw IncreaseInvalidDataException("Unknown RejectionReason: $value")
-            }
+        fun known(): Known = when (this) {
+            NO_MATCHING_LOCKBOX -> Known.NO_MATCHING_LOCKBOX
+            NO_CHECK -> Known.NO_CHECK
+            LOCKBOX_NOT_ACTIVE -> Known.LOCKBOX_NOT_ACTIVE
+            else -> throw IncreaseInvalidDataException("Unknown RejectionReason: $value")
+        }
 
         fun asString(): String = _value().asStringOrThrow()
     }
@@ -393,15 +432,15 @@ private constructor(
     /** The return address as written on the mail item. */
     @JsonDeserialize(builder = ReturnAddress.Builder::class)
     @NoAutoDetect
-    class ReturnAddress
-    private constructor(
-        private val city: JsonField<String>,
-        private val line1: JsonField<String>,
-        private val line2: JsonField<String>,
-        private val name: JsonField<String>,
-        private val postalCode: JsonField<String>,
-        private val state: JsonField<String>,
-        private val additionalProperties: Map<String, JsonValue>,
+    class ReturnAddress private constructor(
+      private val city: JsonField<String>,
+      private val line1: JsonField<String>,
+      private val line2: JsonField<String>,
+      private val name: JsonField<String>,
+      private val postalCode: JsonField<String>,
+      private val state: JsonField<String>,
+      private val additionalProperties: Map<String, JsonValue>,
+
     ) {
 
         private var validated: Boolean = false
@@ -427,22 +466,34 @@ private constructor(
         fun state(): String? = state.getNullable("state")
 
         /** The return address city. */
-        @JsonProperty("city") @ExcludeMissing fun _city() = city
+        @JsonProperty("city")
+        @ExcludeMissing
+        fun _city() = city
 
         /** The return address line1. */
-        @JsonProperty("line1") @ExcludeMissing fun _line1() = line1
+        @JsonProperty("line1")
+        @ExcludeMissing
+        fun _line1() = line1
 
         /** The return address line2. */
-        @JsonProperty("line2") @ExcludeMissing fun _line2() = line2
+        @JsonProperty("line2")
+        @ExcludeMissing
+        fun _line2() = line2
 
         /** The return address name. */
-        @JsonProperty("name") @ExcludeMissing fun _name() = name
+        @JsonProperty("name")
+        @ExcludeMissing
+        fun _name() = name
 
         /** The return address postal code. */
-        @JsonProperty("postal_code") @ExcludeMissing fun _postalCode() = postalCode
+        @JsonProperty("postal_code")
+        @ExcludeMissing
+        fun _postalCode() = postalCode
 
         /** The return address state. */
-        @JsonProperty("state") @ExcludeMissing fun _state() = state
+        @JsonProperty("state")
+        @ExcludeMissing
+        fun _state() = state
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -450,51 +501,49 @@ private constructor(
 
         fun validate(): ReturnAddress = apply {
             if (!validated) {
-                city()
-                line1()
-                line2()
-                name()
-                postalCode()
-                state()
-                validated = true
+              city()
+              line1()
+              line2()
+              name()
+              postalCode()
+              state()
+              validated = true
             }
         }
 
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is ReturnAddress &&
-                this.city == other.city &&
-                this.line1 == other.line1 &&
-                this.line2 == other.line2 &&
-                this.name == other.name &&
-                this.postalCode == other.postalCode &&
-                this.state == other.state &&
-                this.additionalProperties == other.additionalProperties
+          return other is ReturnAddress &&
+              this.city == other.city &&
+              this.line1 == other.line1 &&
+              this.line2 == other.line2 &&
+              this.name == other.name &&
+              this.postalCode == other.postalCode &&
+              this.state == other.state &&
+              this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        city,
-                        line1,
-                        line2,
-                        name,
-                        postalCode,
-                        state,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
+          if (hashCode == 0) {
+            hashCode = Objects.hash(
+                city,
+                line1,
+                line2,
+                name,
+                postalCode,
+                state,
+                additionalProperties,
+            )
+          }
+          return hashCode
         }
 
-        override fun toString() =
-            "ReturnAddress{city=$city, line1=$line1, line2=$line2, name=$name, postalCode=$postalCode, state=$state, additionalProperties=$additionalProperties}"
+        override fun toString() = "ReturnAddress{city=$city, line1=$line1, line2=$line2, name=$name, postalCode=$postalCode, state=$state, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -527,7 +576,9 @@ private constructor(
             /** The return address city. */
             @JsonProperty("city")
             @ExcludeMissing
-            fun city(city: JsonField<String>) = apply { this.city = city }
+            fun city(city: JsonField<String>) = apply {
+                this.city = city
+            }
 
             /** The return address line1. */
             fun line1(line1: String) = line1(JsonField.of(line1))
@@ -535,7 +586,9 @@ private constructor(
             /** The return address line1. */
             @JsonProperty("line1")
             @ExcludeMissing
-            fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
+            fun line1(line1: JsonField<String>) = apply {
+                this.line1 = line1
+            }
 
             /** The return address line2. */
             fun line2(line2: String) = line2(JsonField.of(line2))
@@ -543,7 +596,9 @@ private constructor(
             /** The return address line2. */
             @JsonProperty("line2")
             @ExcludeMissing
-            fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
+            fun line2(line2: JsonField<String>) = apply {
+                this.line2 = line2
+            }
 
             /** The return address name. */
             fun name(name: String) = name(JsonField.of(name))
@@ -551,7 +606,9 @@ private constructor(
             /** The return address name. */
             @JsonProperty("name")
             @ExcludeMissing
-            fun name(name: JsonField<String>) = apply { this.name = name }
+            fun name(name: JsonField<String>) = apply {
+                this.name = name
+            }
 
             /** The return address postal code. */
             fun postalCode(postalCode: String) = postalCode(JsonField.of(postalCode))
@@ -559,7 +616,9 @@ private constructor(
             /** The return address postal code. */
             @JsonProperty("postal_code")
             @ExcludeMissing
-            fun postalCode(postalCode: JsonField<String>) = apply { this.postalCode = postalCode }
+            fun postalCode(postalCode: JsonField<String>) = apply {
+                this.postalCode = postalCode
+            }
 
             /** The return address state. */
             fun state(state: String) = state(JsonField.of(state))
@@ -567,7 +626,9 @@ private constructor(
             /** The return address state. */
             @JsonProperty("state")
             @ExcludeMissing
-            fun state(state: JsonField<String>) = apply { this.state = state }
+            fun state(state: JsonField<String>) = apply {
+                this.state = state
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -583,33 +644,30 @@ private constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): ReturnAddress =
-                ReturnAddress(
-                    city,
-                    line1,
-                    line2,
-                    name,
-                    postalCode,
-                    state,
-                    additionalProperties.toUnmodifiable(),
-                )
+            fun build(): ReturnAddress = ReturnAddress(
+                city,
+                line1,
+                line2,
+                name,
+                postalCode,
+                state,
+                additionalProperties.toUnmodifiable(),
+            )
         }
     }
 
-    class Status
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Status @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
 
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is Status && this.value == other.value
+          return other is Status &&
+              this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -640,39 +698,35 @@ private constructor(
             _UNKNOWN,
         }
 
-        fun value(): Value =
-            when (this) {
-                PENDING -> Value.PENDING
-                PROCESSED -> Value.PROCESSED
-                REJECTED -> Value.REJECTED
-                else -> Value._UNKNOWN
-            }
+        fun value(): Value = when (this) {
+            PENDING -> Value.PENDING
+            PROCESSED -> Value.PROCESSED
+            REJECTED -> Value.REJECTED
+            else -> Value._UNKNOWN
+        }
 
-        fun known(): Known =
-            when (this) {
-                PENDING -> Known.PENDING
-                PROCESSED -> Known.PROCESSED
-                REJECTED -> Known.REJECTED
-                else -> throw IncreaseInvalidDataException("Unknown Status: $value")
-            }
+        fun known(): Known = when (this) {
+            PENDING -> Known.PENDING
+            PROCESSED -> Known.PROCESSED
+            REJECTED -> Known.REJECTED
+            else -> throw IncreaseInvalidDataException("Unknown Status: $value")
+        }
 
         fun asString(): String = _value().asStringOrThrow()
     }
 
-    class Type
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Type @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
 
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is Type && this.value == other.value
+          return other is Type &&
+              this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -695,17 +749,15 @@ private constructor(
             _UNKNOWN,
         }
 
-        fun value(): Value =
-            when (this) {
-                INBOUND_MAIL_ITEM -> Value.INBOUND_MAIL_ITEM
-                else -> Value._UNKNOWN
-            }
+        fun value(): Value = when (this) {
+            INBOUND_MAIL_ITEM -> Value.INBOUND_MAIL_ITEM
+            else -> Value._UNKNOWN
+        }
 
-        fun known(): Known =
-            when (this) {
-                INBOUND_MAIL_ITEM -> Known.INBOUND_MAIL_ITEM
-                else -> throw IncreaseInvalidDataException("Unknown Type: $value")
-            }
+        fun known(): Known = when (this) {
+            INBOUND_MAIL_ITEM -> Known.INBOUND_MAIL_ITEM
+            else -> throw IncreaseInvalidDataException("Unknown Type: $value")
+        }
 
         fun asString(): String = _value().asStringOrThrow()
     }

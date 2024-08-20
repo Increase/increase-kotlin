@@ -4,25 +4,47 @@ package com.increase.api.models
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
+import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.core.JsonGenerator
+import com.fasterxml.jackson.core.ObjectCodec
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.increase.api.core.ExcludeMissing
-import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.toUnmodifiable
-import com.increase.api.models.*
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import com.fasterxml.jackson.databind.JsonNode
+import com.fasterxml.jackson.databind.SerializerProvider
+import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import org.apache.hc.core5.http.ContentType
+import java.time.LocalDate
 import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
 import java.util.Objects
+import java.util.Optional
+import java.util.UUID
+import com.increase.api.core.BaseDeserializer
+import com.increase.api.core.BaseSerializer
+import com.increase.api.core.getOrThrow
+import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonField
+import com.increase.api.core.JsonMissing
+import com.increase.api.core.JsonValue
+import com.increase.api.core.MultipartFormValue
+import com.increase.api.core.toUnmodifiable
+import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.Enum
+import com.increase.api.core.ContentTypes
+import com.increase.api.errors.IncreaseInvalidDataException
+import com.increase.api.models.*
 
-class SimulationInterestPaymentCreateParams
-constructor(
-    private val accountId: String,
-    private val amount: Long,
-    private val periodEnd: OffsetDateTime?,
-    private val periodStart: OffsetDateTime?,
-    private val additionalQueryParams: Map<String, List<String>>,
-    private val additionalHeaders: Map<String, List<String>>,
-    private val additionalBodyProperties: Map<String, JsonValue>,
+class SimulationInterestPaymentCreateParams constructor(
+  private val accountId: String,
+  private val amount: Long,
+  private val periodEnd: OffsetDateTime?,
+  private val periodStart: OffsetDateTime?,
+  private val additionalQueryParams: Map<String, List<String>>,
+  private val additionalHeaders: Map<String, List<String>>,
+  private val additionalBodyProperties: Map<String, JsonValue>,
+
 ) {
 
     fun accountId(): String = accountId
@@ -34,13 +56,13 @@ constructor(
     fun periodStart(): OffsetDateTime? = periodStart
 
     internal fun getBody(): SimulationInterestPaymentCreateBody {
-        return SimulationInterestPaymentCreateBody(
-            accountId,
-            amount,
-            periodEnd,
-            periodStart,
-            additionalBodyProperties,
-        )
+      return SimulationInterestPaymentCreateBody(
+          accountId,
+          amount,
+          periodEnd,
+          periodStart,
+          additionalBodyProperties,
+      )
     }
 
     internal fun getQueryParams(): Map<String, List<String>> = additionalQueryParams
@@ -49,28 +71,32 @@ constructor(
 
     @JsonDeserialize(builder = SimulationInterestPaymentCreateBody.Builder::class)
     @NoAutoDetect
-    class SimulationInterestPaymentCreateBody
-    internal constructor(
-        private val accountId: String?,
-        private val amount: Long?,
-        private val periodEnd: OffsetDateTime?,
-        private val periodStart: OffsetDateTime?,
-        private val additionalProperties: Map<String, JsonValue>,
+    class SimulationInterestPaymentCreateBody internal constructor(
+      private val accountId: String?,
+      private val amount: Long?,
+      private val periodEnd: OffsetDateTime?,
+      private val periodStart: OffsetDateTime?,
+      private val additionalProperties: Map<String, JsonValue>,
+
     ) {
 
         private var hashCode: Int = 0
 
         /** The identifier of the Account Number the Interest Payment is for. */
-        @JsonProperty("account_id") fun accountId(): String? = accountId
+        @JsonProperty("account_id")
+        fun accountId(): String? = accountId
 
         /** The interest amount in cents. Must be positive. */
-        @JsonProperty("amount") fun amount(): Long? = amount
+        @JsonProperty("amount")
+        fun amount(): Long? = amount
 
         /** The end of the interest period. If not provided, defaults to the current time. */
-        @JsonProperty("period_end") fun periodEnd(): OffsetDateTime? = periodEnd
+        @JsonProperty("period_end")
+        fun periodEnd(): OffsetDateTime? = periodEnd
 
         /** The start of the interest period. If not provided, defaults to the current time. */
-        @JsonProperty("period_start") fun periodStart(): OffsetDateTime? = periodStart
+        @JsonProperty("period_start")
+        fun periodStart(): OffsetDateTime? = periodStart
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -79,34 +105,32 @@ constructor(
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is SimulationInterestPaymentCreateBody &&
-                this.accountId == other.accountId &&
-                this.amount == other.amount &&
-                this.periodEnd == other.periodEnd &&
-                this.periodStart == other.periodStart &&
-                this.additionalProperties == other.additionalProperties
+          return other is SimulationInterestPaymentCreateBody &&
+              this.accountId == other.accountId &&
+              this.amount == other.amount &&
+              this.periodEnd == other.periodEnd &&
+              this.periodStart == other.periodStart &&
+              this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        accountId,
-                        amount,
-                        periodEnd,
-                        periodStart,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
+          if (hashCode == 0) {
+            hashCode = Objects.hash(
+                accountId,
+                amount,
+                periodEnd,
+                periodStart,
+                additionalProperties,
+            )
+          }
+          return hashCode
         }
 
-        override fun toString() =
-            "SimulationInterestPaymentCreateBody{accountId=$accountId, amount=$amount, periodEnd=$periodEnd, periodStart=$periodStart, additionalProperties=$additionalProperties}"
+        override fun toString() = "SimulationInterestPaymentCreateBody{accountId=$accountId, amount=$amount, periodEnd=$periodEnd, periodStart=$periodStart, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -121,9 +145,7 @@ constructor(
             private var periodStart: OffsetDateTime? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(
-                simulationInterestPaymentCreateBody: SimulationInterestPaymentCreateBody
-            ) = apply {
+            internal fun from(simulationInterestPaymentCreateBody: SimulationInterestPaymentCreateBody) = apply {
                 this.accountId = simulationInterestPaymentCreateBody.accountId
                 this.amount = simulationInterestPaymentCreateBody.amount
                 this.periodEnd = simulationInterestPaymentCreateBody.periodEnd
@@ -133,18 +155,27 @@ constructor(
 
             /** The identifier of the Account Number the Interest Payment is for. */
             @JsonProperty("account_id")
-            fun accountId(accountId: String) = apply { this.accountId = accountId }
+            fun accountId(accountId: String) = apply {
+                this.accountId = accountId
+            }
 
             /** The interest amount in cents. Must be positive. */
-            @JsonProperty("amount") fun amount(amount: Long) = apply { this.amount = amount }
+            @JsonProperty("amount")
+            fun amount(amount: Long) = apply {
+                this.amount = amount
+            }
 
             /** The end of the interest period. If not provided, defaults to the current time. */
             @JsonProperty("period_end")
-            fun periodEnd(periodEnd: OffsetDateTime) = apply { this.periodEnd = periodEnd }
+            fun periodEnd(periodEnd: OffsetDateTime) = apply {
+                this.periodEnd = periodEnd
+            }
 
             /** The start of the interest period. If not provided, defaults to the current time. */
             @JsonProperty("period_start")
-            fun periodStart(periodStart: OffsetDateTime) = apply { this.periodStart = periodStart }
+            fun periodStart(periodStart: OffsetDateTime) = apply {
+                this.periodStart = periodStart
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -160,14 +191,17 @@ constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): SimulationInterestPaymentCreateBody =
-                SimulationInterestPaymentCreateBody(
-                    checkNotNull(accountId) { "`accountId` is required but was not set" },
-                    checkNotNull(amount) { "`amount` is required but was not set" },
-                    periodEnd,
-                    periodStart,
-                    additionalProperties.toUnmodifiable(),
-                )
+            fun build(): SimulationInterestPaymentCreateBody = SimulationInterestPaymentCreateBody(
+                checkNotNull(accountId) {
+                    "`accountId` is required but was not set"
+                },
+                checkNotNull(amount) {
+                    "`amount` is required but was not set"
+                },
+                periodEnd,
+                periodStart,
+                additionalProperties.toUnmodifiable(),
+            )
         }
     }
 
@@ -178,34 +212,33 @@ constructor(
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
+      if (this === other) {
+          return true
+      }
 
-        return other is SimulationInterestPaymentCreateParams &&
-            this.accountId == other.accountId &&
-            this.amount == other.amount &&
-            this.periodEnd == other.periodEnd &&
-            this.periodStart == other.periodStart &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders &&
-            this.additionalBodyProperties == other.additionalBodyProperties
+      return other is SimulationInterestPaymentCreateParams &&
+          this.accountId == other.accountId &&
+          this.amount == other.amount &&
+          this.periodEnd == other.periodEnd &&
+          this.periodStart == other.periodStart &&
+          this.additionalQueryParams == other.additionalQueryParams &&
+          this.additionalHeaders == other.additionalHeaders &&
+          this.additionalBodyProperties == other.additionalBodyProperties
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            accountId,
-            amount,
-            periodEnd,
-            periodStart,
-            additionalQueryParams,
-            additionalHeaders,
-            additionalBodyProperties,
-        )
+      return Objects.hash(
+          accountId,
+          amount,
+          periodEnd,
+          periodStart,
+          additionalQueryParams,
+          additionalHeaders,
+          additionalBodyProperties,
+      )
     }
 
-    override fun toString() =
-        "SimulationInterestPaymentCreateParams{accountId=$accountId, amount=$amount, periodEnd=$periodEnd, periodStart=$periodStart, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+    override fun toString() = "SimulationInterestPaymentCreateParams{accountId=$accountId, amount=$amount, periodEnd=$periodEnd, periodStart=$periodStart, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -225,9 +258,7 @@ constructor(
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-        internal fun from(
-            simulationInterestPaymentCreateParams: SimulationInterestPaymentCreateParams
-        ) = apply {
+        internal fun from(simulationInterestPaymentCreateParams: SimulationInterestPaymentCreateParams) = apply {
             this.accountId = simulationInterestPaymentCreateParams.accountId
             this.amount = simulationInterestPaymentCreateParams.amount
             this.periodEnd = simulationInterestPaymentCreateParams.periodEnd
@@ -238,16 +269,24 @@ constructor(
         }
 
         /** The identifier of the Account Number the Interest Payment is for. */
-        fun accountId(accountId: String) = apply { this.accountId = accountId }
+        fun accountId(accountId: String) = apply {
+            this.accountId = accountId
+        }
 
         /** The interest amount in cents. Must be positive. */
-        fun amount(amount: Long) = apply { this.amount = amount }
+        fun amount(amount: Long) = apply {
+            this.amount = amount
+        }
 
         /** The end of the interest period. If not provided, defaults to the current time. */
-        fun periodEnd(periodEnd: OffsetDateTime) = apply { this.periodEnd = periodEnd }
+        fun periodEnd(periodEnd: OffsetDateTime) = apply {
+            this.periodEnd = periodEnd
+        }
 
         /** The start of the interest period. If not provided, defaults to the current time. */
-        fun periodStart(periodStart: OffsetDateTime) = apply { this.periodStart = periodStart }
+        fun periodStart(periodStart: OffsetDateTime) = apply {
+            this.periodStart = periodStart
+        }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -287,7 +326,9 @@ constructor(
             additionalHeaders.forEach(this::putHeaders)
         }
 
-        fun removeHeader(name: String) = apply { this.additionalHeaders.put(name, mutableListOf()) }
+        fun removeHeader(name: String) = apply {
+            this.additionalHeaders.put(name, mutableListOf())
+        }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             this.additionalBodyProperties.clear()
@@ -298,20 +339,22 @@ constructor(
             this.additionalBodyProperties.put(key, value)
         }
 
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
-            }
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            this.additionalBodyProperties.putAll(additionalBodyProperties)
+        }
 
-        fun build(): SimulationInterestPaymentCreateParams =
-            SimulationInterestPaymentCreateParams(
-                checkNotNull(accountId) { "`accountId` is required but was not set" },
-                checkNotNull(amount) { "`amount` is required but was not set" },
-                periodEnd,
-                periodStart,
-                additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-                additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-                additionalBodyProperties.toUnmodifiable(),
-            )
+        fun build(): SimulationInterestPaymentCreateParams = SimulationInterestPaymentCreateParams(
+            checkNotNull(accountId) {
+                "`accountId` is required but was not set"
+            },
+            checkNotNull(amount) {
+                "`amount` is required but was not set"
+            },
+            periodEnd,
+            periodStart,
+            additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+            additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+            additionalBodyProperties.toUnmodifiable(),
+        )
     }
 }

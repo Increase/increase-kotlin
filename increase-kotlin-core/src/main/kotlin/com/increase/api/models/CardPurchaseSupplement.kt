@@ -5,34 +5,49 @@ package com.increase.api.models
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.core.JsonGenerator
+import com.fasterxml.jackson.core.ObjectCodec
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.increase.api.core.Enum
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import com.fasterxml.jackson.databind.JsonNode
+import com.fasterxml.jackson.databind.SerializerProvider
+import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import java.time.LocalDate
+import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
+import java.util.Objects
+import java.util.Optional
+import java.util.UUID
+import com.increase.api.core.BaseDeserializer
+import com.increase.api.core.BaseSerializer
+import com.increase.api.core.getOrThrow
 import com.increase.api.core.ExcludeMissing
-import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.JsonNull
+import com.increase.api.core.JsonField
+import com.increase.api.core.Enum
 import com.increase.api.core.toUnmodifiable
+import com.increase.api.core.NoAutoDetect
 import com.increase.api.errors.IncreaseInvalidDataException
-import java.time.LocalDate
-import java.util.Objects
 
 /**
- * Additional information about a card purchase (e.g., settlement or refund), such as level 3 line
- * item data.
+ * Additional information about a card purchase (e.g., settlement or refund), such
+ * as level 3 line item data.
  */
 @JsonDeserialize(builder = CardPurchaseSupplement.Builder::class)
 @NoAutoDetect
-class CardPurchaseSupplement
-private constructor(
-    private val cardPaymentId: JsonField<String>,
-    private val id: JsonField<String>,
-    private val invoice: JsonField<Invoice>,
-    private val lineItems: JsonField<List<LineItem>>,
-    private val transactionId: JsonField<String>,
-    private val type: JsonField<Type>,
-    private val additionalProperties: Map<String, JsonValue>,
+class CardPurchaseSupplement private constructor(
+  private val cardPaymentId: JsonField<String>,
+  private val id: JsonField<String>,
+  private val invoice: JsonField<Invoice>,
+  private val lineItems: JsonField<List<LineItem>>,
+  private val transactionId: JsonField<String>,
+  private val type: JsonField<Type>,
+  private val additionalProperties: Map<String, JsonValue>,
+
 ) {
 
     private var validated: Boolean = false
@@ -61,25 +76,37 @@ private constructor(
     fun type(): Type = type.getRequired("type")
 
     /** The ID of the Card Payment this transaction belongs to. */
-    @JsonProperty("card_payment_id") @ExcludeMissing fun _cardPaymentId() = cardPaymentId
+    @JsonProperty("card_payment_id")
+    @ExcludeMissing
+    fun _cardPaymentId() = cardPaymentId
 
     /** The Card Purchase Supplement identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    @JsonProperty("id")
+    @ExcludeMissing
+    fun _id() = id
 
     /** Invoice-level information about the payment. */
-    @JsonProperty("invoice") @ExcludeMissing fun _invoice() = invoice
+    @JsonProperty("invoice")
+    @ExcludeMissing
+    fun _invoice() = invoice
 
     /** Line item information, such as individual products purchased. */
-    @JsonProperty("line_items") @ExcludeMissing fun _lineItems() = lineItems
+    @JsonProperty("line_items")
+    @ExcludeMissing
+    fun _lineItems() = lineItems
 
     /** The ID of the transaction. */
-    @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
+    @JsonProperty("transaction_id")
+    @ExcludeMissing
+    fun _transactionId() = transactionId
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `card_purchase_supplement`.
      */
-    @JsonProperty("type") @ExcludeMissing fun _type() = type
+    @JsonProperty("type")
+    @ExcludeMissing
+    fun _type() = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -87,51 +114,49 @@ private constructor(
 
     fun validate(): CardPurchaseSupplement = apply {
         if (!validated) {
-            cardPaymentId()
-            id()
-            invoice()?.validate()
-            lineItems()?.forEach { it.validate() }
-            transactionId()
-            type()
-            validated = true
+          cardPaymentId()
+          id()
+          invoice()?.validate()
+          lineItems()?.forEach { it.validate() }
+          transactionId()
+          type()
+          validated = true
         }
     }
 
     fun toBuilder() = Builder().from(this)
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
+      if (this === other) {
+          return true
+      }
 
-        return other is CardPurchaseSupplement &&
-            this.cardPaymentId == other.cardPaymentId &&
-            this.id == other.id &&
-            this.invoice == other.invoice &&
-            this.lineItems == other.lineItems &&
-            this.transactionId == other.transactionId &&
-            this.type == other.type &&
-            this.additionalProperties == other.additionalProperties
+      return other is CardPurchaseSupplement &&
+          this.cardPaymentId == other.cardPaymentId &&
+          this.id == other.id &&
+          this.invoice == other.invoice &&
+          this.lineItems == other.lineItems &&
+          this.transactionId == other.transactionId &&
+          this.type == other.type &&
+          this.additionalProperties == other.additionalProperties
     }
 
     override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    cardPaymentId,
-                    id,
-                    invoice,
-                    lineItems,
-                    transactionId,
-                    type,
-                    additionalProperties,
-                )
-        }
-        return hashCode
+      if (hashCode == 0) {
+        hashCode = Objects.hash(
+            cardPaymentId,
+            id,
+            invoice,
+            lineItems,
+            transactionId,
+            type,
+            additionalProperties,
+        )
+      }
+      return hashCode
     }
 
-    override fun toString() =
-        "CardPurchaseSupplement{cardPaymentId=$cardPaymentId, id=$id, invoice=$invoice, lineItems=$lineItems, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
+    override fun toString() = "CardPurchaseSupplement{cardPaymentId=$cardPaymentId, id=$id, invoice=$invoice, lineItems=$lineItems, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -172,7 +197,11 @@ private constructor(
         fun id(id: String) = id(JsonField.of(id))
 
         /** The Card Purchase Supplement identifier. */
-        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
+        @JsonProperty("id")
+        @ExcludeMissing
+        fun id(id: JsonField<String>) = apply {
+            this.id = id
+        }
 
         /** Invoice-level information about the payment. */
         fun invoice(invoice: Invoice) = invoice(JsonField.of(invoice))
@@ -180,7 +209,9 @@ private constructor(
         /** Invoice-level information about the payment. */
         @JsonProperty("invoice")
         @ExcludeMissing
-        fun invoice(invoice: JsonField<Invoice>) = apply { this.invoice = invoice }
+        fun invoice(invoice: JsonField<Invoice>) = apply {
+            this.invoice = invoice
+        }
 
         /** Line item information, such as individual products purchased. */
         fun lineItems(lineItems: List<LineItem>) = lineItems(JsonField.of(lineItems))
@@ -188,7 +219,9 @@ private constructor(
         /** Line item information, such as individual products purchased. */
         @JsonProperty("line_items")
         @ExcludeMissing
-        fun lineItems(lineItems: JsonField<List<LineItem>>) = apply { this.lineItems = lineItems }
+        fun lineItems(lineItems: JsonField<List<LineItem>>) = apply {
+            this.lineItems = lineItems
+        }
 
         /** The ID of the transaction. */
         fun transactionId(transactionId: String) = transactionId(JsonField.of(transactionId))
@@ -212,7 +245,9 @@ private constructor(
          */
         @JsonProperty("type")
         @ExcludeMissing
-        fun type(type: JsonField<Type>) = apply { this.type = type }
+        fun type(type: JsonField<Type>) = apply {
+            this.type = type
+        }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -228,40 +263,39 @@ private constructor(
             this.additionalProperties.putAll(additionalProperties)
         }
 
-        fun build(): CardPurchaseSupplement =
-            CardPurchaseSupplement(
-                cardPaymentId,
-                id,
-                invoice,
-                lineItems.map { it.toUnmodifiable() },
-                transactionId,
-                type,
-                additionalProperties.toUnmodifiable(),
-            )
+        fun build(): CardPurchaseSupplement = CardPurchaseSupplement(
+            cardPaymentId,
+            id,
+            invoice,
+            lineItems.map { it.toUnmodifiable() },
+            transactionId,
+            type,
+            additionalProperties.toUnmodifiable(),
+        )
     }
 
     /** Invoice-level information about the payment. */
     @JsonDeserialize(builder = Invoice.Builder::class)
     @NoAutoDetect
-    class Invoice
-    private constructor(
-        private val discountAmount: JsonField<Long>,
-        private val discountCurrency: JsonField<String>,
-        private val discountTreatmentCode: JsonField<DiscountTreatmentCode>,
-        private val dutyTaxAmount: JsonField<Long>,
-        private val dutyTaxCurrency: JsonField<String>,
-        private val orderDate: JsonField<LocalDate>,
-        private val shippingAmount: JsonField<Long>,
-        private val shippingCurrency: JsonField<String>,
-        private val shippingDestinationCountryCode: JsonField<String>,
-        private val shippingDestinationPostalCode: JsonField<String>,
-        private val shippingSourcePostalCode: JsonField<String>,
-        private val shippingTaxAmount: JsonField<Long>,
-        private val shippingTaxCurrency: JsonField<String>,
-        private val shippingTaxRate: JsonField<String>,
-        private val taxTreatments: JsonField<TaxTreatments>,
-        private val uniqueValueAddedTaxInvoiceReference: JsonField<String>,
-        private val additionalProperties: Map<String, JsonValue>,
+    class Invoice private constructor(
+      private val discountAmount: JsonField<Long>,
+      private val discountCurrency: JsonField<String>,
+      private val discountTreatmentCode: JsonField<DiscountTreatmentCode>,
+      private val dutyTaxAmount: JsonField<Long>,
+      private val dutyTaxCurrency: JsonField<String>,
+      private val orderDate: JsonField<LocalDate>,
+      private val shippingAmount: JsonField<Long>,
+      private val shippingCurrency: JsonField<String>,
+      private val shippingDestinationCountryCode: JsonField<String>,
+      private val shippingDestinationPostalCode: JsonField<String>,
+      private val shippingSourcePostalCode: JsonField<String>,
+      private val shippingTaxAmount: JsonField<Long>,
+      private val shippingTaxCurrency: JsonField<String>,
+      private val shippingTaxRate: JsonField<String>,
+      private val taxTreatments: JsonField<TaxTreatments>,
+      private val uniqueValueAddedTaxInvoiceReference: JsonField<String>,
+      private val additionalProperties: Map<String, JsonValue>,
+
     ) {
 
         private var validated: Boolean = false
@@ -275,8 +309,7 @@ private constructor(
         fun discountCurrency(): String? = discountCurrency.getNullable("discount_currency")
 
         /** Indicates how the merchant applied the discount. */
-        fun discountTreatmentCode(): DiscountTreatmentCode? =
-            discountTreatmentCode.getNullable("discount_treatment_code")
+        fun discountTreatmentCode(): DiscountTreatmentCode? = discountTreatmentCode.getNullable("discount_treatment_code")
 
         /** Amount of duty taxes. */
         fun dutyTaxAmount(): Long? = dutyTaxAmount.getNullable("duty_tax_amount")
@@ -290,27 +323,29 @@ private constructor(
         /** The shipping cost. */
         fun shippingAmount(): Long? = shippingAmount.getNullable("shipping_amount")
 
-        /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the shipping cost. */
+        /**
+         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the shipping
+         * cost.
+         */
         fun shippingCurrency(): String? = shippingCurrency.getNullable("shipping_currency")
 
         /** Country code of the shipping destination. */
-        fun shippingDestinationCountryCode(): String? =
-            shippingDestinationCountryCode.getNullable("shipping_destination_country_code")
+        fun shippingDestinationCountryCode(): String? = shippingDestinationCountryCode.getNullable("shipping_destination_country_code")
 
         /** Postal code of the shipping destination. */
-        fun shippingDestinationPostalCode(): String? =
-            shippingDestinationPostalCode.getNullable("shipping_destination_postal_code")
+        fun shippingDestinationPostalCode(): String? = shippingDestinationPostalCode.getNullable("shipping_destination_postal_code")
 
         /** Postal code of the location being shipped from. */
-        fun shippingSourcePostalCode(): String? =
-            shippingSourcePostalCode.getNullable("shipping_source_postal_code")
+        fun shippingSourcePostalCode(): String? = shippingSourcePostalCode.getNullable("shipping_source_postal_code")
 
         /** Taxes paid for freight and shipping. */
         fun shippingTaxAmount(): Long? = shippingTaxAmount.getNullable("shipping_tax_amount")
 
-        /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the shipping tax. */
-        fun shippingTaxCurrency(): String? =
-            shippingTaxCurrency.getNullable("shipping_tax_currency")
+        /**
+         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the shipping
+         * tax.
+         */
+        fun shippingTaxCurrency(): String? = shippingTaxCurrency.getNullable("shipping_tax_currency")
 
         /** Tax rate for freight and shipping. */
         fun shippingTaxRate(): String? = shippingTaxRate.getNullable("shipping_tax_rate")
@@ -319,13 +354,12 @@ private constructor(
         fun taxTreatments(): TaxTreatments? = taxTreatments.getNullable("tax_treatments")
 
         /** Value added tax invoice reference number. */
-        fun uniqueValueAddedTaxInvoiceReference(): String? =
-            uniqueValueAddedTaxInvoiceReference.getNullable(
-                "unique_value_added_tax_invoice_reference"
-            )
+        fun uniqueValueAddedTaxInvoiceReference(): String? = uniqueValueAddedTaxInvoiceReference.getNullable("unique_value_added_tax_invoice_reference")
 
         /** Discount given to cardholder. */
-        @JsonProperty("discount_amount") @ExcludeMissing fun _discountAmount() = discountAmount
+        @JsonProperty("discount_amount")
+        @ExcludeMissing
+        fun _discountAmount() = discountAmount
 
         /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the discount. */
         @JsonProperty("discount_currency")
@@ -338,18 +372,29 @@ private constructor(
         fun _discountTreatmentCode() = discountTreatmentCode
 
         /** Amount of duty taxes. */
-        @JsonProperty("duty_tax_amount") @ExcludeMissing fun _dutyTaxAmount() = dutyTaxAmount
+        @JsonProperty("duty_tax_amount")
+        @ExcludeMissing
+        fun _dutyTaxAmount() = dutyTaxAmount
 
         /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the duty tax. */
-        @JsonProperty("duty_tax_currency") @ExcludeMissing fun _dutyTaxCurrency() = dutyTaxCurrency
+        @JsonProperty("duty_tax_currency")
+        @ExcludeMissing
+        fun _dutyTaxCurrency() = dutyTaxCurrency
 
         /** Date the order was taken. */
-        @JsonProperty("order_date") @ExcludeMissing fun _orderDate() = orderDate
+        @JsonProperty("order_date")
+        @ExcludeMissing
+        fun _orderDate() = orderDate
 
         /** The shipping cost. */
-        @JsonProperty("shipping_amount") @ExcludeMissing fun _shippingAmount() = shippingAmount
+        @JsonProperty("shipping_amount")
+        @ExcludeMissing
+        fun _shippingAmount() = shippingAmount
 
-        /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the shipping cost. */
+        /**
+         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the shipping
+         * cost.
+         */
         @JsonProperty("shipping_currency")
         @ExcludeMissing
         fun _shippingCurrency() = shippingCurrency
@@ -374,16 +419,23 @@ private constructor(
         @ExcludeMissing
         fun _shippingTaxAmount() = shippingTaxAmount
 
-        /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the shipping tax. */
+        /**
+         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the shipping
+         * tax.
+         */
         @JsonProperty("shipping_tax_currency")
         @ExcludeMissing
         fun _shippingTaxCurrency() = shippingTaxCurrency
 
         /** Tax rate for freight and shipping. */
-        @JsonProperty("shipping_tax_rate") @ExcludeMissing fun _shippingTaxRate() = shippingTaxRate
+        @JsonProperty("shipping_tax_rate")
+        @ExcludeMissing
+        fun _shippingTaxRate() = shippingTaxRate
 
         /** Indicates how the merchant applied taxes. */
-        @JsonProperty("tax_treatments") @ExcludeMissing fun _taxTreatments() = taxTreatments
+        @JsonProperty("tax_treatments")
+        @ExcludeMissing
+        fun _taxTreatments() = taxTreatments
 
         /** Value added tax invoice reference number. */
         @JsonProperty("unique_value_added_tax_invoice_reference")
@@ -396,82 +448,79 @@ private constructor(
 
         fun validate(): Invoice = apply {
             if (!validated) {
-                discountAmount()
-                discountCurrency()
-                discountTreatmentCode()
-                dutyTaxAmount()
-                dutyTaxCurrency()
-                orderDate()
-                shippingAmount()
-                shippingCurrency()
-                shippingDestinationCountryCode()
-                shippingDestinationPostalCode()
-                shippingSourcePostalCode()
-                shippingTaxAmount()
-                shippingTaxCurrency()
-                shippingTaxRate()
-                taxTreatments()
-                uniqueValueAddedTaxInvoiceReference()
-                validated = true
+              discountAmount()
+              discountCurrency()
+              discountTreatmentCode()
+              dutyTaxAmount()
+              dutyTaxCurrency()
+              orderDate()
+              shippingAmount()
+              shippingCurrency()
+              shippingDestinationCountryCode()
+              shippingDestinationPostalCode()
+              shippingSourcePostalCode()
+              shippingTaxAmount()
+              shippingTaxCurrency()
+              shippingTaxRate()
+              taxTreatments()
+              uniqueValueAddedTaxInvoiceReference()
+              validated = true
             }
         }
 
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is Invoice &&
-                this.discountAmount == other.discountAmount &&
-                this.discountCurrency == other.discountCurrency &&
-                this.discountTreatmentCode == other.discountTreatmentCode &&
-                this.dutyTaxAmount == other.dutyTaxAmount &&
-                this.dutyTaxCurrency == other.dutyTaxCurrency &&
-                this.orderDate == other.orderDate &&
-                this.shippingAmount == other.shippingAmount &&
-                this.shippingCurrency == other.shippingCurrency &&
-                this.shippingDestinationCountryCode == other.shippingDestinationCountryCode &&
-                this.shippingDestinationPostalCode == other.shippingDestinationPostalCode &&
-                this.shippingSourcePostalCode == other.shippingSourcePostalCode &&
-                this.shippingTaxAmount == other.shippingTaxAmount &&
-                this.shippingTaxCurrency == other.shippingTaxCurrency &&
-                this.shippingTaxRate == other.shippingTaxRate &&
-                this.taxTreatments == other.taxTreatments &&
-                this.uniqueValueAddedTaxInvoiceReference ==
-                    other.uniqueValueAddedTaxInvoiceReference &&
-                this.additionalProperties == other.additionalProperties
+          return other is Invoice &&
+              this.discountAmount == other.discountAmount &&
+              this.discountCurrency == other.discountCurrency &&
+              this.discountTreatmentCode == other.discountTreatmentCode &&
+              this.dutyTaxAmount == other.dutyTaxAmount &&
+              this.dutyTaxCurrency == other.dutyTaxCurrency &&
+              this.orderDate == other.orderDate &&
+              this.shippingAmount == other.shippingAmount &&
+              this.shippingCurrency == other.shippingCurrency &&
+              this.shippingDestinationCountryCode == other.shippingDestinationCountryCode &&
+              this.shippingDestinationPostalCode == other.shippingDestinationPostalCode &&
+              this.shippingSourcePostalCode == other.shippingSourcePostalCode &&
+              this.shippingTaxAmount == other.shippingTaxAmount &&
+              this.shippingTaxCurrency == other.shippingTaxCurrency &&
+              this.shippingTaxRate == other.shippingTaxRate &&
+              this.taxTreatments == other.taxTreatments &&
+              this.uniqueValueAddedTaxInvoiceReference == other.uniqueValueAddedTaxInvoiceReference &&
+              this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        discountAmount,
-                        discountCurrency,
-                        discountTreatmentCode,
-                        dutyTaxAmount,
-                        dutyTaxCurrency,
-                        orderDate,
-                        shippingAmount,
-                        shippingCurrency,
-                        shippingDestinationCountryCode,
-                        shippingDestinationPostalCode,
-                        shippingSourcePostalCode,
-                        shippingTaxAmount,
-                        shippingTaxCurrency,
-                        shippingTaxRate,
-                        taxTreatments,
-                        uniqueValueAddedTaxInvoiceReference,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
+          if (hashCode == 0) {
+            hashCode = Objects.hash(
+                discountAmount,
+                discountCurrency,
+                discountTreatmentCode,
+                dutyTaxAmount,
+                dutyTaxCurrency,
+                orderDate,
+                shippingAmount,
+                shippingCurrency,
+                shippingDestinationCountryCode,
+                shippingDestinationPostalCode,
+                shippingSourcePostalCode,
+                shippingTaxAmount,
+                shippingTaxCurrency,
+                shippingTaxRate,
+                taxTreatments,
+                uniqueValueAddedTaxInvoiceReference,
+                additionalProperties,
+            )
+          }
+          return hashCode
         }
 
-        override fun toString() =
-            "Invoice{discountAmount=$discountAmount, discountCurrency=$discountCurrency, discountTreatmentCode=$discountTreatmentCode, dutyTaxAmount=$dutyTaxAmount, dutyTaxCurrency=$dutyTaxCurrency, orderDate=$orderDate, shippingAmount=$shippingAmount, shippingCurrency=$shippingCurrency, shippingDestinationCountryCode=$shippingDestinationCountryCode, shippingDestinationPostalCode=$shippingDestinationPostalCode, shippingSourcePostalCode=$shippingSourcePostalCode, shippingTaxAmount=$shippingTaxAmount, shippingTaxCurrency=$shippingTaxCurrency, shippingTaxRate=$shippingTaxRate, taxTreatments=$taxTreatments, uniqueValueAddedTaxInvoiceReference=$uniqueValueAddedTaxInvoiceReference, additionalProperties=$additionalProperties}"
+        override fun toString() = "Invoice{discountAmount=$discountAmount, discountCurrency=$discountCurrency, discountTreatmentCode=$discountTreatmentCode, dutyTaxAmount=$dutyTaxAmount, dutyTaxCurrency=$dutyTaxCurrency, orderDate=$orderDate, shippingAmount=$shippingAmount, shippingCurrency=$shippingCurrency, shippingDestinationCountryCode=$shippingDestinationCountryCode, shippingDestinationPostalCode=$shippingDestinationPostalCode, shippingSourcePostalCode=$shippingSourcePostalCode, shippingTaxAmount=$shippingTaxAmount, shippingTaxCurrency=$shippingTaxCurrency, shippingTaxRate=$shippingTaxRate, taxTreatments=$taxTreatments, uniqueValueAddedTaxInvoiceReference=$uniqueValueAddedTaxInvoiceReference, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -514,8 +563,7 @@ private constructor(
                 this.shippingTaxCurrency = invoice.shippingTaxCurrency
                 this.shippingTaxRate = invoice.shippingTaxRate
                 this.taxTreatments = invoice.taxTreatments
-                this.uniqueValueAddedTaxInvoiceReference =
-                    invoice.uniqueValueAddedTaxInvoiceReference
+                this.uniqueValueAddedTaxInvoiceReference = invoice.uniqueValueAddedTaxInvoiceReference
                 additionalProperties(invoice.additionalProperties)
             }
 
@@ -530,8 +578,7 @@ private constructor(
             }
 
             /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the discount. */
-            fun discountCurrency(discountCurrency: String) =
-                discountCurrency(JsonField.of(discountCurrency))
+            fun discountCurrency(discountCurrency: String) = discountCurrency(JsonField.of(discountCurrency))
 
             /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the discount. */
             @JsonProperty("discount_currency")
@@ -541,16 +588,14 @@ private constructor(
             }
 
             /** Indicates how the merchant applied the discount. */
-            fun discountTreatmentCode(discountTreatmentCode: DiscountTreatmentCode) =
-                discountTreatmentCode(JsonField.of(discountTreatmentCode))
+            fun discountTreatmentCode(discountTreatmentCode: DiscountTreatmentCode) = discountTreatmentCode(JsonField.of(discountTreatmentCode))
 
             /** Indicates how the merchant applied the discount. */
             @JsonProperty("discount_treatment_code")
             @ExcludeMissing
-            fun discountTreatmentCode(discountTreatmentCode: JsonField<DiscountTreatmentCode>) =
-                apply {
-                    this.discountTreatmentCode = discountTreatmentCode
-                }
+            fun discountTreatmentCode(discountTreatmentCode: JsonField<DiscountTreatmentCode>) = apply {
+                this.discountTreatmentCode = discountTreatmentCode
+            }
 
             /** Amount of duty taxes. */
             fun dutyTaxAmount(dutyTaxAmount: Long) = dutyTaxAmount(JsonField.of(dutyTaxAmount))
@@ -563,8 +608,7 @@ private constructor(
             }
 
             /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the duty tax. */
-            fun dutyTaxCurrency(dutyTaxCurrency: String) =
-                dutyTaxCurrency(JsonField.of(dutyTaxCurrency))
+            fun dutyTaxCurrency(dutyTaxCurrency: String) = dutyTaxCurrency(JsonField.of(dutyTaxCurrency))
 
             /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the duty tax. */
             @JsonProperty("duty_tax_currency")
@@ -579,7 +623,9 @@ private constructor(
             /** Date the order was taken. */
             @JsonProperty("order_date")
             @ExcludeMissing
-            fun orderDate(orderDate: JsonField<LocalDate>) = apply { this.orderDate = orderDate }
+            fun orderDate(orderDate: JsonField<LocalDate>) = apply {
+                this.orderDate = orderDate
+            }
 
             /** The shipping cost. */
             fun shippingAmount(shippingAmount: Long) = shippingAmount(JsonField.of(shippingAmount))
@@ -592,13 +638,14 @@ private constructor(
             }
 
             /**
-             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the shipping cost.
+             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the shipping
+             * cost.
              */
-            fun shippingCurrency(shippingCurrency: String) =
-                shippingCurrency(JsonField.of(shippingCurrency))
+            fun shippingCurrency(shippingCurrency: String) = shippingCurrency(JsonField.of(shippingCurrency))
 
             /**
-             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the shipping cost.
+             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the shipping
+             * cost.
              */
             @JsonProperty("shipping_currency")
             @ExcludeMissing
@@ -607,32 +654,27 @@ private constructor(
             }
 
             /** Country code of the shipping destination. */
-            fun shippingDestinationCountryCode(shippingDestinationCountryCode: String) =
-                shippingDestinationCountryCode(JsonField.of(shippingDestinationCountryCode))
+            fun shippingDestinationCountryCode(shippingDestinationCountryCode: String) = shippingDestinationCountryCode(JsonField.of(shippingDestinationCountryCode))
 
             /** Country code of the shipping destination. */
             @JsonProperty("shipping_destination_country_code")
             @ExcludeMissing
-            fun shippingDestinationCountryCode(shippingDestinationCountryCode: JsonField<String>) =
-                apply {
-                    this.shippingDestinationCountryCode = shippingDestinationCountryCode
-                }
+            fun shippingDestinationCountryCode(shippingDestinationCountryCode: JsonField<String>) = apply {
+                this.shippingDestinationCountryCode = shippingDestinationCountryCode
+            }
 
             /** Postal code of the shipping destination. */
-            fun shippingDestinationPostalCode(shippingDestinationPostalCode: String) =
-                shippingDestinationPostalCode(JsonField.of(shippingDestinationPostalCode))
+            fun shippingDestinationPostalCode(shippingDestinationPostalCode: String) = shippingDestinationPostalCode(JsonField.of(shippingDestinationPostalCode))
 
             /** Postal code of the shipping destination. */
             @JsonProperty("shipping_destination_postal_code")
             @ExcludeMissing
-            fun shippingDestinationPostalCode(shippingDestinationPostalCode: JsonField<String>) =
-                apply {
-                    this.shippingDestinationPostalCode = shippingDestinationPostalCode
-                }
+            fun shippingDestinationPostalCode(shippingDestinationPostalCode: JsonField<String>) = apply {
+                this.shippingDestinationPostalCode = shippingDestinationPostalCode
+            }
 
             /** Postal code of the location being shipped from. */
-            fun shippingSourcePostalCode(shippingSourcePostalCode: String) =
-                shippingSourcePostalCode(JsonField.of(shippingSourcePostalCode))
+            fun shippingSourcePostalCode(shippingSourcePostalCode: String) = shippingSourcePostalCode(JsonField.of(shippingSourcePostalCode))
 
             /** Postal code of the location being shipped from. */
             @JsonProperty("shipping_source_postal_code")
@@ -642,8 +684,7 @@ private constructor(
             }
 
             /** Taxes paid for freight and shipping. */
-            fun shippingTaxAmount(shippingTaxAmount: Long) =
-                shippingTaxAmount(JsonField.of(shippingTaxAmount))
+            fun shippingTaxAmount(shippingTaxAmount: Long) = shippingTaxAmount(JsonField.of(shippingTaxAmount))
 
             /** Taxes paid for freight and shipping. */
             @JsonProperty("shipping_tax_amount")
@@ -652,11 +693,16 @@ private constructor(
                 this.shippingTaxAmount = shippingTaxAmount
             }
 
-            /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the shipping tax. */
-            fun shippingTaxCurrency(shippingTaxCurrency: String) =
-                shippingTaxCurrency(JsonField.of(shippingTaxCurrency))
+            /**
+             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the shipping
+             * tax.
+             */
+            fun shippingTaxCurrency(shippingTaxCurrency: String) = shippingTaxCurrency(JsonField.of(shippingTaxCurrency))
 
-            /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the shipping tax. */
+            /**
+             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the shipping
+             * tax.
+             */
             @JsonProperty("shipping_tax_currency")
             @ExcludeMissing
             fun shippingTaxCurrency(shippingTaxCurrency: JsonField<String>) = apply {
@@ -664,8 +710,7 @@ private constructor(
             }
 
             /** Tax rate for freight and shipping. */
-            fun shippingTaxRate(shippingTaxRate: String) =
-                shippingTaxRate(JsonField.of(shippingTaxRate))
+            fun shippingTaxRate(shippingTaxRate: String) = shippingTaxRate(JsonField.of(shippingTaxRate))
 
             /** Tax rate for freight and shipping. */
             @JsonProperty("shipping_tax_rate")
@@ -675,8 +720,7 @@ private constructor(
             }
 
             /** Indicates how the merchant applied taxes. */
-            fun taxTreatments(taxTreatments: TaxTreatments) =
-                taxTreatments(JsonField.of(taxTreatments))
+            fun taxTreatments(taxTreatments: TaxTreatments) = taxTreatments(JsonField.of(taxTreatments))
 
             /** Indicates how the merchant applied taxes. */
             @JsonProperty("tax_treatments")
@@ -686,17 +730,12 @@ private constructor(
             }
 
             /** Value added tax invoice reference number. */
-            fun uniqueValueAddedTaxInvoiceReference(uniqueValueAddedTaxInvoiceReference: String) =
-                uniqueValueAddedTaxInvoiceReference(
-                    JsonField.of(uniqueValueAddedTaxInvoiceReference)
-                )
+            fun uniqueValueAddedTaxInvoiceReference(uniqueValueAddedTaxInvoiceReference: String) = uniqueValueAddedTaxInvoiceReference(JsonField.of(uniqueValueAddedTaxInvoiceReference))
 
             /** Value added tax invoice reference number. */
             @JsonProperty("unique_value_added_tax_invoice_reference")
             @ExcludeMissing
-            fun uniqueValueAddedTaxInvoiceReference(
-                uniqueValueAddedTaxInvoiceReference: JsonField<String>
-            ) = apply {
+            fun uniqueValueAddedTaxInvoiceReference(uniqueValueAddedTaxInvoiceReference: JsonField<String>) = apply {
                 this.uniqueValueAddedTaxInvoiceReference = uniqueValueAddedTaxInvoiceReference
             }
 
@@ -714,42 +753,39 @@ private constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): Invoice =
-                Invoice(
-                    discountAmount,
-                    discountCurrency,
-                    discountTreatmentCode,
-                    dutyTaxAmount,
-                    dutyTaxCurrency,
-                    orderDate,
-                    shippingAmount,
-                    shippingCurrency,
-                    shippingDestinationCountryCode,
-                    shippingDestinationPostalCode,
-                    shippingSourcePostalCode,
-                    shippingTaxAmount,
-                    shippingTaxCurrency,
-                    shippingTaxRate,
-                    taxTreatments,
-                    uniqueValueAddedTaxInvoiceReference,
-                    additionalProperties.toUnmodifiable(),
-                )
+            fun build(): Invoice = Invoice(
+                discountAmount,
+                discountCurrency,
+                discountTreatmentCode,
+                dutyTaxAmount,
+                dutyTaxCurrency,
+                orderDate,
+                shippingAmount,
+                shippingCurrency,
+                shippingDestinationCountryCode,
+                shippingDestinationPostalCode,
+                shippingSourcePostalCode,
+                shippingTaxAmount,
+                shippingTaxCurrency,
+                shippingTaxRate,
+                taxTreatments,
+                uniqueValueAddedTaxInvoiceReference,
+                additionalProperties.toUnmodifiable(),
+            )
         }
 
-        class DiscountTreatmentCode
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        class DiscountTreatmentCode @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
 
-            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+            @com.fasterxml.jackson.annotation.JsonValue
+            fun _value(): JsonField<String> = value
 
             override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
+              if (this === other) {
+                  return true
+              }
 
-                return other is DiscountTreatmentCode && this.value == other.value
+              return other is DiscountTreatmentCode &&
+                  this.value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -758,18 +794,11 @@ private constructor(
 
             companion object {
 
-                val NO_INVOICE_LEVEL_DISCOUNT_PROVIDED =
-                    DiscountTreatmentCode(JsonField.of("no_invoice_level_discount_provided"))
+                val NO_INVOICE_LEVEL_DISCOUNT_PROVIDED = DiscountTreatmentCode(JsonField.of("no_invoice_level_discount_provided"))
 
-                val TAX_CALCULATED_ON_POST_DISCOUNT_INVOICE_TOTAL =
-                    DiscountTreatmentCode(
-                        JsonField.of("tax_calculated_on_post_discount_invoice_total")
-                    )
+                val TAX_CALCULATED_ON_POST_DISCOUNT_INVOICE_TOTAL = DiscountTreatmentCode(JsonField.of("tax_calculated_on_post_discount_invoice_total"))
 
-                val TAX_CALCULATED_ON_PRE_DISCOUNT_INVOICE_TOTAL =
-                    DiscountTreatmentCode(
-                        JsonField.of("tax_calculated_on_pre_discount_invoice_total")
-                    )
+                val TAX_CALCULATED_ON_PRE_DISCOUNT_INVOICE_TOTAL = DiscountTreatmentCode(JsonField.of("tax_calculated_on_pre_discount_invoice_total"))
 
                 fun of(value: String) = DiscountTreatmentCode(JsonField.of(value))
             }
@@ -787,44 +816,35 @@ private constructor(
                 _UNKNOWN,
             }
 
-            fun value(): Value =
-                when (this) {
-                    NO_INVOICE_LEVEL_DISCOUNT_PROVIDED -> Value.NO_INVOICE_LEVEL_DISCOUNT_PROVIDED
-                    TAX_CALCULATED_ON_POST_DISCOUNT_INVOICE_TOTAL ->
-                        Value.TAX_CALCULATED_ON_POST_DISCOUNT_INVOICE_TOTAL
-                    TAX_CALCULATED_ON_PRE_DISCOUNT_INVOICE_TOTAL ->
-                        Value.TAX_CALCULATED_ON_PRE_DISCOUNT_INVOICE_TOTAL
-                    else -> Value._UNKNOWN
-                }
+            fun value(): Value = when (this) {
+                NO_INVOICE_LEVEL_DISCOUNT_PROVIDED -> Value.NO_INVOICE_LEVEL_DISCOUNT_PROVIDED
+                TAX_CALCULATED_ON_POST_DISCOUNT_INVOICE_TOTAL -> Value.TAX_CALCULATED_ON_POST_DISCOUNT_INVOICE_TOTAL
+                TAX_CALCULATED_ON_PRE_DISCOUNT_INVOICE_TOTAL -> Value.TAX_CALCULATED_ON_PRE_DISCOUNT_INVOICE_TOTAL
+                else -> Value._UNKNOWN
+            }
 
-            fun known(): Known =
-                when (this) {
-                    NO_INVOICE_LEVEL_DISCOUNT_PROVIDED -> Known.NO_INVOICE_LEVEL_DISCOUNT_PROVIDED
-                    TAX_CALCULATED_ON_POST_DISCOUNT_INVOICE_TOTAL ->
-                        Known.TAX_CALCULATED_ON_POST_DISCOUNT_INVOICE_TOTAL
-                    TAX_CALCULATED_ON_PRE_DISCOUNT_INVOICE_TOTAL ->
-                        Known.TAX_CALCULATED_ON_PRE_DISCOUNT_INVOICE_TOTAL
-                    else ->
-                        throw IncreaseInvalidDataException("Unknown DiscountTreatmentCode: $value")
-                }
+            fun known(): Known = when (this) {
+                NO_INVOICE_LEVEL_DISCOUNT_PROVIDED -> Known.NO_INVOICE_LEVEL_DISCOUNT_PROVIDED
+                TAX_CALCULATED_ON_POST_DISCOUNT_INVOICE_TOTAL -> Known.TAX_CALCULATED_ON_POST_DISCOUNT_INVOICE_TOTAL
+                TAX_CALCULATED_ON_PRE_DISCOUNT_INVOICE_TOTAL -> Known.TAX_CALCULATED_ON_PRE_DISCOUNT_INVOICE_TOTAL
+                else -> throw IncreaseInvalidDataException("Unknown DiscountTreatmentCode: $value")
+            }
 
             fun asString(): String = _value().asStringOrThrow()
         }
 
-        class TaxTreatments
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        class TaxTreatments @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
 
-            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+            @com.fasterxml.jackson.annotation.JsonValue
+            fun _value(): JsonField<String> = value
 
             override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
+              if (this === other) {
+                  return true
+              }
 
-                return other is TaxTreatments && this.value == other.value
+              return other is TaxTreatments &&
+                  this.value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -835,16 +855,13 @@ private constructor(
 
                 val NO_TAX_APPLIES = TaxTreatments(JsonField.of("no_tax_applies"))
 
-                val NET_PRICE_LINE_ITEM_LEVEL =
-                    TaxTreatments(JsonField.of("net_price_line_item_level"))
+                val NET_PRICE_LINE_ITEM_LEVEL = TaxTreatments(JsonField.of("net_price_line_item_level"))
 
                 val NET_PRICE_INVOICE_LEVEL = TaxTreatments(JsonField.of("net_price_invoice_level"))
 
-                val GROSS_PRICE_LINE_ITEM_LEVEL =
-                    TaxTreatments(JsonField.of("gross_price_line_item_level"))
+                val GROSS_PRICE_LINE_ITEM_LEVEL = TaxTreatments(JsonField.of("gross_price_line_item_level"))
 
-                val GROSS_PRICE_INVOICE_LEVEL =
-                    TaxTreatments(JsonField.of("gross_price_invoice_level"))
+                val GROSS_PRICE_INVOICE_LEVEL = TaxTreatments(JsonField.of("gross_price_invoice_level"))
 
                 fun of(value: String) = TaxTreatments(JsonField.of(value))
             }
@@ -866,25 +883,23 @@ private constructor(
                 _UNKNOWN,
             }
 
-            fun value(): Value =
-                when (this) {
-                    NO_TAX_APPLIES -> Value.NO_TAX_APPLIES
-                    NET_PRICE_LINE_ITEM_LEVEL -> Value.NET_PRICE_LINE_ITEM_LEVEL
-                    NET_PRICE_INVOICE_LEVEL -> Value.NET_PRICE_INVOICE_LEVEL
-                    GROSS_PRICE_LINE_ITEM_LEVEL -> Value.GROSS_PRICE_LINE_ITEM_LEVEL
-                    GROSS_PRICE_INVOICE_LEVEL -> Value.GROSS_PRICE_INVOICE_LEVEL
-                    else -> Value._UNKNOWN
-                }
+            fun value(): Value = when (this) {
+                NO_TAX_APPLIES -> Value.NO_TAX_APPLIES
+                NET_PRICE_LINE_ITEM_LEVEL -> Value.NET_PRICE_LINE_ITEM_LEVEL
+                NET_PRICE_INVOICE_LEVEL -> Value.NET_PRICE_INVOICE_LEVEL
+                GROSS_PRICE_LINE_ITEM_LEVEL -> Value.GROSS_PRICE_LINE_ITEM_LEVEL
+                GROSS_PRICE_INVOICE_LEVEL -> Value.GROSS_PRICE_INVOICE_LEVEL
+                else -> Value._UNKNOWN
+            }
 
-            fun known(): Known =
-                when (this) {
-                    NO_TAX_APPLIES -> Known.NO_TAX_APPLIES
-                    NET_PRICE_LINE_ITEM_LEVEL -> Known.NET_PRICE_LINE_ITEM_LEVEL
-                    NET_PRICE_INVOICE_LEVEL -> Known.NET_PRICE_INVOICE_LEVEL
-                    GROSS_PRICE_LINE_ITEM_LEVEL -> Known.GROSS_PRICE_LINE_ITEM_LEVEL
-                    GROSS_PRICE_INVOICE_LEVEL -> Known.GROSS_PRICE_INVOICE_LEVEL
-                    else -> throw IncreaseInvalidDataException("Unknown TaxTreatments: $value")
-                }
+            fun known(): Known = when (this) {
+                NO_TAX_APPLIES -> Known.NO_TAX_APPLIES
+                NET_PRICE_LINE_ITEM_LEVEL -> Known.NET_PRICE_LINE_ITEM_LEVEL
+                NET_PRICE_INVOICE_LEVEL -> Known.NET_PRICE_INVOICE_LEVEL
+                GROSS_PRICE_LINE_ITEM_LEVEL -> Known.GROSS_PRICE_LINE_ITEM_LEVEL
+                GROSS_PRICE_INVOICE_LEVEL -> Known.GROSS_PRICE_INVOICE_LEVEL
+                else -> throw IncreaseInvalidDataException("Unknown TaxTreatments: $value")
+            }
 
             fun asString(): String = _value().asStringOrThrow()
         }
@@ -892,26 +907,26 @@ private constructor(
 
     @JsonDeserialize(builder = LineItem.Builder::class)
     @NoAutoDetect
-    class LineItem
-    private constructor(
-        private val detailIndicator: JsonField<DetailIndicator>,
-        private val discountAmount: JsonField<Long>,
-        private val discountCurrency: JsonField<String>,
-        private val discountTreatmentCode: JsonField<DiscountTreatmentCode>,
-        private val id: JsonField<String>,
-        private val itemCommodityCode: JsonField<String>,
-        private val itemDescriptor: JsonField<String>,
-        private val itemQuantity: JsonField<String>,
-        private val productCode: JsonField<String>,
-        private val salesTaxAmount: JsonField<Long>,
-        private val salesTaxCurrency: JsonField<String>,
-        private val salesTaxRate: JsonField<String>,
-        private val totalAmount: JsonField<Long>,
-        private val totalAmountCurrency: JsonField<String>,
-        private val unitCost: JsonField<String>,
-        private val unitCostCurrency: JsonField<String>,
-        private val unitOfMeasureCode: JsonField<String>,
-        private val additionalProperties: Map<String, JsonValue>,
+    class LineItem private constructor(
+      private val detailIndicator: JsonField<DetailIndicator>,
+      private val discountAmount: JsonField<Long>,
+      private val discountCurrency: JsonField<String>,
+      private val discountTreatmentCode: JsonField<DiscountTreatmentCode>,
+      private val id: JsonField<String>,
+      private val itemCommodityCode: JsonField<String>,
+      private val itemDescriptor: JsonField<String>,
+      private val itemQuantity: JsonField<String>,
+      private val productCode: JsonField<String>,
+      private val salesTaxAmount: JsonField<Long>,
+      private val salesTaxCurrency: JsonField<String>,
+      private val salesTaxRate: JsonField<String>,
+      private val totalAmount: JsonField<Long>,
+      private val totalAmountCurrency: JsonField<String>,
+      private val unitCost: JsonField<String>,
+      private val unitCostCurrency: JsonField<String>,
+      private val unitOfMeasureCode: JsonField<String>,
+      private val additionalProperties: Map<String, JsonValue>,
+
     ) {
 
         private var validated: Boolean = false
@@ -928,8 +943,7 @@ private constructor(
         fun discountCurrency(): String? = discountCurrency.getNullable("discount_currency")
 
         /** Indicates how the merchant applied the discount for this specific line item. */
-        fun discountTreatmentCode(): DiscountTreatmentCode? =
-            discountTreatmentCode.getNullable("discount_treatment_code")
+        fun discountTreatmentCode(): DiscountTreatmentCode? = discountTreatmentCode.getNullable("discount_treatment_code")
 
         /** The Card Purchase Supplement Line Item identifier. */
         fun id(): String = id.getRequired("id")
@@ -950,7 +964,8 @@ private constructor(
         fun salesTaxAmount(): Long? = salesTaxAmount.getNullable("sales_tax_amount")
 
         /**
-         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the sales tax assessed.
+         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the sales tax
+         * assessed.
          */
         fun salesTaxCurrency(): String? = salesTaxCurrency.getNullable("sales_tax_currency")
 
@@ -960,9 +975,11 @@ private constructor(
         /** Total amount of all line items. */
         fun totalAmount(): Long? = totalAmount.getNullable("total_amount")
 
-        /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the total amount. */
-        fun totalAmountCurrency(): String? =
-            totalAmountCurrency.getNullable("total_amount_currency")
+        /**
+         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the total
+         * amount.
+         */
+        fun totalAmountCurrency(): String? = totalAmountCurrency.getNullable("total_amount_currency")
 
         /** Cost of line item per unit of measure, in major units. */
         fun unitCost(): String? = unitCost.getNullable("unit_cost")
@@ -974,10 +991,14 @@ private constructor(
         fun unitOfMeasureCode(): String? = unitOfMeasureCode.getNullable("unit_of_measure_code")
 
         /** Indicates the type of line item. */
-        @JsonProperty("detail_indicator") @ExcludeMissing fun _detailIndicator() = detailIndicator
+        @JsonProperty("detail_indicator")
+        @ExcludeMissing
+        fun _detailIndicator() = detailIndicator
 
         /** Discount amount for this specific line item. */
-        @JsonProperty("discount_amount") @ExcludeMissing fun _discountAmount() = discountAmount
+        @JsonProperty("discount_amount")
+        @ExcludeMissing
+        fun _discountAmount() = discountAmount
 
         /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the discount. */
         @JsonProperty("discount_currency")
@@ -990,7 +1011,9 @@ private constructor(
         fun _discountTreatmentCode() = discountTreatmentCode
 
         /** The Card Purchase Supplement Line Item identifier. */
-        @JsonProperty("id") @ExcludeMissing fun _id() = id
+        @JsonProperty("id")
+        @ExcludeMissing
+        fun _id() = id
 
         /** Code used to categorize the purchase item. */
         @JsonProperty("item_commodity_code")
@@ -998,37 +1021,55 @@ private constructor(
         fun _itemCommodityCode() = itemCommodityCode
 
         /** Description of the purchase item. */
-        @JsonProperty("item_descriptor") @ExcludeMissing fun _itemDescriptor() = itemDescriptor
+        @JsonProperty("item_descriptor")
+        @ExcludeMissing
+        fun _itemDescriptor() = itemDescriptor
 
         /** The number of units of the product being purchased. */
-        @JsonProperty("item_quantity") @ExcludeMissing fun _itemQuantity() = itemQuantity
+        @JsonProperty("item_quantity")
+        @ExcludeMissing
+        fun _itemQuantity() = itemQuantity
 
         /** Code used to categorize the product being purchased. */
-        @JsonProperty("product_code") @ExcludeMissing fun _productCode() = productCode
+        @JsonProperty("product_code")
+        @ExcludeMissing
+        fun _productCode() = productCode
 
         /** Sales tax amount for this line item. */
-        @JsonProperty("sales_tax_amount") @ExcludeMissing fun _salesTaxAmount() = salesTaxAmount
+        @JsonProperty("sales_tax_amount")
+        @ExcludeMissing
+        fun _salesTaxAmount() = salesTaxAmount
 
         /**
-         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the sales tax assessed.
+         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the sales tax
+         * assessed.
          */
         @JsonProperty("sales_tax_currency")
         @ExcludeMissing
         fun _salesTaxCurrency() = salesTaxCurrency
 
         /** Sales tax rate for this line item. */
-        @JsonProperty("sales_tax_rate") @ExcludeMissing fun _salesTaxRate() = salesTaxRate
+        @JsonProperty("sales_tax_rate")
+        @ExcludeMissing
+        fun _salesTaxRate() = salesTaxRate
 
         /** Total amount of all line items. */
-        @JsonProperty("total_amount") @ExcludeMissing fun _totalAmount() = totalAmount
+        @JsonProperty("total_amount")
+        @ExcludeMissing
+        fun _totalAmount() = totalAmount
 
-        /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the total amount. */
+        /**
+         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the total
+         * amount.
+         */
         @JsonProperty("total_amount_currency")
         @ExcludeMissing
         fun _totalAmountCurrency() = totalAmountCurrency
 
         /** Cost of line item per unit of measure, in major units. */
-        @JsonProperty("unit_cost") @ExcludeMissing fun _unitCost() = unitCost
+        @JsonProperty("unit_cost")
+        @ExcludeMissing
+        fun _unitCost() = unitCost
 
         /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the unit cost. */
         @JsonProperty("unit_cost_currency")
@@ -1046,84 +1087,82 @@ private constructor(
 
         fun validate(): LineItem = apply {
             if (!validated) {
-                detailIndicator()
-                discountAmount()
-                discountCurrency()
-                discountTreatmentCode()
-                id()
-                itemCommodityCode()
-                itemDescriptor()
-                itemQuantity()
-                productCode()
-                salesTaxAmount()
-                salesTaxCurrency()
-                salesTaxRate()
-                totalAmount()
-                totalAmountCurrency()
-                unitCost()
-                unitCostCurrency()
-                unitOfMeasureCode()
-                validated = true
+              detailIndicator()
+              discountAmount()
+              discountCurrency()
+              discountTreatmentCode()
+              id()
+              itemCommodityCode()
+              itemDescriptor()
+              itemQuantity()
+              productCode()
+              salesTaxAmount()
+              salesTaxCurrency()
+              salesTaxRate()
+              totalAmount()
+              totalAmountCurrency()
+              unitCost()
+              unitCostCurrency()
+              unitOfMeasureCode()
+              validated = true
             }
         }
 
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is LineItem &&
-                this.detailIndicator == other.detailIndicator &&
-                this.discountAmount == other.discountAmount &&
-                this.discountCurrency == other.discountCurrency &&
-                this.discountTreatmentCode == other.discountTreatmentCode &&
-                this.id == other.id &&
-                this.itemCommodityCode == other.itemCommodityCode &&
-                this.itemDescriptor == other.itemDescriptor &&
-                this.itemQuantity == other.itemQuantity &&
-                this.productCode == other.productCode &&
-                this.salesTaxAmount == other.salesTaxAmount &&
-                this.salesTaxCurrency == other.salesTaxCurrency &&
-                this.salesTaxRate == other.salesTaxRate &&
-                this.totalAmount == other.totalAmount &&
-                this.totalAmountCurrency == other.totalAmountCurrency &&
-                this.unitCost == other.unitCost &&
-                this.unitCostCurrency == other.unitCostCurrency &&
-                this.unitOfMeasureCode == other.unitOfMeasureCode &&
-                this.additionalProperties == other.additionalProperties
+          return other is LineItem &&
+              this.detailIndicator == other.detailIndicator &&
+              this.discountAmount == other.discountAmount &&
+              this.discountCurrency == other.discountCurrency &&
+              this.discountTreatmentCode == other.discountTreatmentCode &&
+              this.id == other.id &&
+              this.itemCommodityCode == other.itemCommodityCode &&
+              this.itemDescriptor == other.itemDescriptor &&
+              this.itemQuantity == other.itemQuantity &&
+              this.productCode == other.productCode &&
+              this.salesTaxAmount == other.salesTaxAmount &&
+              this.salesTaxCurrency == other.salesTaxCurrency &&
+              this.salesTaxRate == other.salesTaxRate &&
+              this.totalAmount == other.totalAmount &&
+              this.totalAmountCurrency == other.totalAmountCurrency &&
+              this.unitCost == other.unitCost &&
+              this.unitCostCurrency == other.unitCostCurrency &&
+              this.unitOfMeasureCode == other.unitOfMeasureCode &&
+              this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        detailIndicator,
-                        discountAmount,
-                        discountCurrency,
-                        discountTreatmentCode,
-                        id,
-                        itemCommodityCode,
-                        itemDescriptor,
-                        itemQuantity,
-                        productCode,
-                        salesTaxAmount,
-                        salesTaxCurrency,
-                        salesTaxRate,
-                        totalAmount,
-                        totalAmountCurrency,
-                        unitCost,
-                        unitCostCurrency,
-                        unitOfMeasureCode,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
+          if (hashCode == 0) {
+            hashCode = Objects.hash(
+                detailIndicator,
+                discountAmount,
+                discountCurrency,
+                discountTreatmentCode,
+                id,
+                itemCommodityCode,
+                itemDescriptor,
+                itemQuantity,
+                productCode,
+                salesTaxAmount,
+                salesTaxCurrency,
+                salesTaxRate,
+                totalAmount,
+                totalAmountCurrency,
+                unitCost,
+                unitCostCurrency,
+                unitOfMeasureCode,
+                additionalProperties,
+            )
+          }
+          return hashCode
         }
 
-        override fun toString() =
-            "LineItem{detailIndicator=$detailIndicator, discountAmount=$discountAmount, discountCurrency=$discountCurrency, discountTreatmentCode=$discountTreatmentCode, id=$id, itemCommodityCode=$itemCommodityCode, itemDescriptor=$itemDescriptor, itemQuantity=$itemQuantity, productCode=$productCode, salesTaxAmount=$salesTaxAmount, salesTaxCurrency=$salesTaxCurrency, salesTaxRate=$salesTaxRate, totalAmount=$totalAmount, totalAmountCurrency=$totalAmountCurrency, unitCost=$unitCost, unitCostCurrency=$unitCostCurrency, unitOfMeasureCode=$unitOfMeasureCode, additionalProperties=$additionalProperties}"
+        override fun toString() = "LineItem{detailIndicator=$detailIndicator, discountAmount=$discountAmount, discountCurrency=$discountCurrency, discountTreatmentCode=$discountTreatmentCode, id=$id, itemCommodityCode=$itemCommodityCode, itemDescriptor=$itemDescriptor, itemQuantity=$itemQuantity, productCode=$productCode, salesTaxAmount=$salesTaxAmount, salesTaxCurrency=$salesTaxCurrency, salesTaxRate=$salesTaxRate, totalAmount=$totalAmount, totalAmountCurrency=$totalAmountCurrency, unitCost=$unitCost, unitCostCurrency=$unitCostCurrency, unitOfMeasureCode=$unitOfMeasureCode, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -1173,8 +1212,7 @@ private constructor(
             }
 
             /** Indicates the type of line item. */
-            fun detailIndicator(detailIndicator: DetailIndicator) =
-                detailIndicator(JsonField.of(detailIndicator))
+            fun detailIndicator(detailIndicator: DetailIndicator) = detailIndicator(JsonField.of(detailIndicator))
 
             /** Indicates the type of line item. */
             @JsonProperty("detail_indicator")
@@ -1194,8 +1232,7 @@ private constructor(
             }
 
             /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the discount. */
-            fun discountCurrency(discountCurrency: String) =
-                discountCurrency(JsonField.of(discountCurrency))
+            fun discountCurrency(discountCurrency: String) = discountCurrency(JsonField.of(discountCurrency))
 
             /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the discount. */
             @JsonProperty("discount_currency")
@@ -1205,16 +1242,14 @@ private constructor(
             }
 
             /** Indicates how the merchant applied the discount for this specific line item. */
-            fun discountTreatmentCode(discountTreatmentCode: DiscountTreatmentCode) =
-                discountTreatmentCode(JsonField.of(discountTreatmentCode))
+            fun discountTreatmentCode(discountTreatmentCode: DiscountTreatmentCode) = discountTreatmentCode(JsonField.of(discountTreatmentCode))
 
             /** Indicates how the merchant applied the discount for this specific line item. */
             @JsonProperty("discount_treatment_code")
             @ExcludeMissing
-            fun discountTreatmentCode(discountTreatmentCode: JsonField<DiscountTreatmentCode>) =
-                apply {
-                    this.discountTreatmentCode = discountTreatmentCode
-                }
+            fun discountTreatmentCode(discountTreatmentCode: JsonField<DiscountTreatmentCode>) = apply {
+                this.discountTreatmentCode = discountTreatmentCode
+            }
 
             /** The Card Purchase Supplement Line Item identifier. */
             fun id(id: String) = id(JsonField.of(id))
@@ -1222,11 +1257,12 @@ private constructor(
             /** The Card Purchase Supplement Line Item identifier. */
             @JsonProperty("id")
             @ExcludeMissing
-            fun id(id: JsonField<String>) = apply { this.id = id }
+            fun id(id: JsonField<String>) = apply {
+                this.id = id
+            }
 
             /** Code used to categorize the purchase item. */
-            fun itemCommodityCode(itemCommodityCode: String) =
-                itemCommodityCode(JsonField.of(itemCommodityCode))
+            fun itemCommodityCode(itemCommodityCode: String) = itemCommodityCode(JsonField.of(itemCommodityCode))
 
             /** Code used to categorize the purchase item. */
             @JsonProperty("item_commodity_code")
@@ -1236,8 +1272,7 @@ private constructor(
             }
 
             /** Description of the purchase item. */
-            fun itemDescriptor(itemDescriptor: String) =
-                itemDescriptor(JsonField.of(itemDescriptor))
+            fun itemDescriptor(itemDescriptor: String) = itemDescriptor(JsonField.of(itemDescriptor))
 
             /** Description of the purchase item. */
             @JsonProperty("item_descriptor")
@@ -1280,8 +1315,7 @@ private constructor(
              * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the sales tax
              * assessed.
              */
-            fun salesTaxCurrency(salesTaxCurrency: String) =
-                salesTaxCurrency(JsonField.of(salesTaxCurrency))
+            fun salesTaxCurrency(salesTaxCurrency: String) = salesTaxCurrency(JsonField.of(salesTaxCurrency))
 
             /**
              * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the sales tax
@@ -1309,13 +1343,20 @@ private constructor(
             /** Total amount of all line items. */
             @JsonProperty("total_amount")
             @ExcludeMissing
-            fun totalAmount(totalAmount: JsonField<Long>) = apply { this.totalAmount = totalAmount }
+            fun totalAmount(totalAmount: JsonField<Long>) = apply {
+                this.totalAmount = totalAmount
+            }
 
-            /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the total amount. */
-            fun totalAmountCurrency(totalAmountCurrency: String) =
-                totalAmountCurrency(JsonField.of(totalAmountCurrency))
+            /**
+             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the total
+             * amount.
+             */
+            fun totalAmountCurrency(totalAmountCurrency: String) = totalAmountCurrency(JsonField.of(totalAmountCurrency))
 
-            /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the total amount. */
+            /**
+             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the total
+             * amount.
+             */
             @JsonProperty("total_amount_currency")
             @ExcludeMissing
             fun totalAmountCurrency(totalAmountCurrency: JsonField<String>) = apply {
@@ -1328,11 +1369,12 @@ private constructor(
             /** Cost of line item per unit of measure, in major units. */
             @JsonProperty("unit_cost")
             @ExcludeMissing
-            fun unitCost(unitCost: JsonField<String>) = apply { this.unitCost = unitCost }
+            fun unitCost(unitCost: JsonField<String>) = apply {
+                this.unitCost = unitCost
+            }
 
             /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the unit cost. */
-            fun unitCostCurrency(unitCostCurrency: String) =
-                unitCostCurrency(JsonField.of(unitCostCurrency))
+            fun unitCostCurrency(unitCostCurrency: String) = unitCostCurrency(JsonField.of(unitCostCurrency))
 
             /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the unit cost. */
             @JsonProperty("unit_cost_currency")
@@ -1342,8 +1384,7 @@ private constructor(
             }
 
             /** Code indicating unit of measure (gallons, etc.). */
-            fun unitOfMeasureCode(unitOfMeasureCode: String) =
-                unitOfMeasureCode(JsonField.of(unitOfMeasureCode))
+            fun unitOfMeasureCode(unitOfMeasureCode: String) = unitOfMeasureCode(JsonField.of(unitOfMeasureCode))
 
             /** Code indicating unit of measure (gallons, etc.). */
             @JsonProperty("unit_of_measure_code")
@@ -1366,43 +1407,40 @@ private constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): LineItem =
-                LineItem(
-                    detailIndicator,
-                    discountAmount,
-                    discountCurrency,
-                    discountTreatmentCode,
-                    id,
-                    itemCommodityCode,
-                    itemDescriptor,
-                    itemQuantity,
-                    productCode,
-                    salesTaxAmount,
-                    salesTaxCurrency,
-                    salesTaxRate,
-                    totalAmount,
-                    totalAmountCurrency,
-                    unitCost,
-                    unitCostCurrency,
-                    unitOfMeasureCode,
-                    additionalProperties.toUnmodifiable(),
-                )
+            fun build(): LineItem = LineItem(
+                detailIndicator,
+                discountAmount,
+                discountCurrency,
+                discountTreatmentCode,
+                id,
+                itemCommodityCode,
+                itemDescriptor,
+                itemQuantity,
+                productCode,
+                salesTaxAmount,
+                salesTaxCurrency,
+                salesTaxRate,
+                totalAmount,
+                totalAmountCurrency,
+                unitCost,
+                unitCostCurrency,
+                unitOfMeasureCode,
+                additionalProperties.toUnmodifiable(),
+            )
         }
 
-        class DetailIndicator
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        class DetailIndicator @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
 
-            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+            @com.fasterxml.jackson.annotation.JsonValue
+            fun _value(): JsonField<String> = value
 
             override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
+              if (this === other) {
+                  return true
+              }
 
-                return other is DetailIndicator && this.value == other.value
+              return other is DetailIndicator &&
+                  this.value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -1433,39 +1471,35 @@ private constructor(
                 _UNKNOWN,
             }
 
-            fun value(): Value =
-                when (this) {
-                    NORMAL -> Value.NORMAL
-                    CREDIT -> Value.CREDIT
-                    PAYMENT -> Value.PAYMENT
-                    else -> Value._UNKNOWN
-                }
+            fun value(): Value = when (this) {
+                NORMAL -> Value.NORMAL
+                CREDIT -> Value.CREDIT
+                PAYMENT -> Value.PAYMENT
+                else -> Value._UNKNOWN
+            }
 
-            fun known(): Known =
-                when (this) {
-                    NORMAL -> Known.NORMAL
-                    CREDIT -> Known.CREDIT
-                    PAYMENT -> Known.PAYMENT
-                    else -> throw IncreaseInvalidDataException("Unknown DetailIndicator: $value")
-                }
+            fun known(): Known = when (this) {
+                NORMAL -> Known.NORMAL
+                CREDIT -> Known.CREDIT
+                PAYMENT -> Known.PAYMENT
+                else -> throw IncreaseInvalidDataException("Unknown DetailIndicator: $value")
+            }
 
             fun asString(): String = _value().asStringOrThrow()
         }
 
-        class DiscountTreatmentCode
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        class DiscountTreatmentCode @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
 
-            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+            @com.fasterxml.jackson.annotation.JsonValue
+            fun _value(): JsonField<String> = value
 
             override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
+              if (this === other) {
+                  return true
+              }
 
-                return other is DiscountTreatmentCode && this.value == other.value
+              return other is DiscountTreatmentCode &&
+                  this.value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -1474,18 +1508,11 @@ private constructor(
 
             companion object {
 
-                val NO_LINE_ITEM_LEVEL_DISCOUNT_PROVIDED =
-                    DiscountTreatmentCode(JsonField.of("no_line_item_level_discount_provided"))
+                val NO_LINE_ITEM_LEVEL_DISCOUNT_PROVIDED = DiscountTreatmentCode(JsonField.of("no_line_item_level_discount_provided"))
 
-                val TAX_CALCULATED_ON_POST_DISCOUNT_LINE_ITEM_TOTAL =
-                    DiscountTreatmentCode(
-                        JsonField.of("tax_calculated_on_post_discount_line_item_total")
-                    )
+                val TAX_CALCULATED_ON_POST_DISCOUNT_LINE_ITEM_TOTAL = DiscountTreatmentCode(JsonField.of("tax_calculated_on_post_discount_line_item_total"))
 
-                val TAX_CALCULATED_ON_PRE_DISCOUNT_LINE_ITEM_TOTAL =
-                    DiscountTreatmentCode(
-                        JsonField.of("tax_calculated_on_pre_discount_line_item_total")
-                    )
+                val TAX_CALCULATED_ON_PRE_DISCOUNT_LINE_ITEM_TOTAL = DiscountTreatmentCode(JsonField.of("tax_calculated_on_pre_discount_line_item_total"))
 
                 fun of(value: String) = DiscountTreatmentCode(JsonField.of(value))
             }
@@ -1503,47 +1530,36 @@ private constructor(
                 _UNKNOWN,
             }
 
-            fun value(): Value =
-                when (this) {
-                    NO_LINE_ITEM_LEVEL_DISCOUNT_PROVIDED ->
-                        Value.NO_LINE_ITEM_LEVEL_DISCOUNT_PROVIDED
-                    TAX_CALCULATED_ON_POST_DISCOUNT_LINE_ITEM_TOTAL ->
-                        Value.TAX_CALCULATED_ON_POST_DISCOUNT_LINE_ITEM_TOTAL
-                    TAX_CALCULATED_ON_PRE_DISCOUNT_LINE_ITEM_TOTAL ->
-                        Value.TAX_CALCULATED_ON_PRE_DISCOUNT_LINE_ITEM_TOTAL
-                    else -> Value._UNKNOWN
-                }
+            fun value(): Value = when (this) {
+                NO_LINE_ITEM_LEVEL_DISCOUNT_PROVIDED -> Value.NO_LINE_ITEM_LEVEL_DISCOUNT_PROVIDED
+                TAX_CALCULATED_ON_POST_DISCOUNT_LINE_ITEM_TOTAL -> Value.TAX_CALCULATED_ON_POST_DISCOUNT_LINE_ITEM_TOTAL
+                TAX_CALCULATED_ON_PRE_DISCOUNT_LINE_ITEM_TOTAL -> Value.TAX_CALCULATED_ON_PRE_DISCOUNT_LINE_ITEM_TOTAL
+                else -> Value._UNKNOWN
+            }
 
-            fun known(): Known =
-                when (this) {
-                    NO_LINE_ITEM_LEVEL_DISCOUNT_PROVIDED ->
-                        Known.NO_LINE_ITEM_LEVEL_DISCOUNT_PROVIDED
-                    TAX_CALCULATED_ON_POST_DISCOUNT_LINE_ITEM_TOTAL ->
-                        Known.TAX_CALCULATED_ON_POST_DISCOUNT_LINE_ITEM_TOTAL
-                    TAX_CALCULATED_ON_PRE_DISCOUNT_LINE_ITEM_TOTAL ->
-                        Known.TAX_CALCULATED_ON_PRE_DISCOUNT_LINE_ITEM_TOTAL
-                    else ->
-                        throw IncreaseInvalidDataException("Unknown DiscountTreatmentCode: $value")
-                }
+            fun known(): Known = when (this) {
+                NO_LINE_ITEM_LEVEL_DISCOUNT_PROVIDED -> Known.NO_LINE_ITEM_LEVEL_DISCOUNT_PROVIDED
+                TAX_CALCULATED_ON_POST_DISCOUNT_LINE_ITEM_TOTAL -> Known.TAX_CALCULATED_ON_POST_DISCOUNT_LINE_ITEM_TOTAL
+                TAX_CALCULATED_ON_PRE_DISCOUNT_LINE_ITEM_TOTAL -> Known.TAX_CALCULATED_ON_PRE_DISCOUNT_LINE_ITEM_TOTAL
+                else -> throw IncreaseInvalidDataException("Unknown DiscountTreatmentCode: $value")
+            }
 
             fun asString(): String = _value().asStringOrThrow()
         }
     }
 
-    class Type
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Type @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
 
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is Type && this.value == other.value
+          return other is Type &&
+              this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1566,17 +1582,15 @@ private constructor(
             _UNKNOWN,
         }
 
-        fun value(): Value =
-            when (this) {
-                CARD_PURCHASE_SUPPLEMENT -> Value.CARD_PURCHASE_SUPPLEMENT
-                else -> Value._UNKNOWN
-            }
+        fun value(): Value = when (this) {
+            CARD_PURCHASE_SUPPLEMENT -> Value.CARD_PURCHASE_SUPPLEMENT
+            else -> Value._UNKNOWN
+        }
 
-        fun known(): Known =
-            when (this) {
-                CARD_PURCHASE_SUPPLEMENT -> Known.CARD_PURCHASE_SUPPLEMENT
-                else -> throw IncreaseInvalidDataException("Unknown Type: $value")
-            }
+        fun known(): Known = when (this) {
+            CARD_PURCHASE_SUPPLEMENT -> Known.CARD_PURCHASE_SUPPLEMENT
+            else -> throw IncreaseInvalidDataException("Unknown Type: $value")
+        }
 
         fun asString(): String = _value().asStringOrThrow()
     }

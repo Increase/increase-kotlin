@@ -6,23 +6,31 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.increase.api.core.ExcludeMissing
-import com.increase.api.core.JsonField
-import com.increase.api.core.JsonMissing
-import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.toUnmodifiable
-import com.increase.api.services.async.CheckDepositServiceAsync
+import java.time.LocalDate
+import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
 import java.util.Objects
+import java.util.Optional
+import java.util.Spliterator
+import java.util.Spliterators
+import java.util.UUID
+import java.util.concurrent.CompletableFuture
+import java.util.concurrent.Executor
+import java.util.function.Predicate
+import java.util.stream.Stream
+import java.util.stream.StreamSupport
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
+import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonMissing
+import com.increase.api.core.JsonValue
+import com.increase.api.core.JsonField
+import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.toUnmodifiable
+import com.increase.api.models.CheckDeposit
+import com.increase.api.services.async.CheckDepositServiceAsync
 
-class CheckDepositListPageAsync
-private constructor(
-    private val checkDepositsService: CheckDepositServiceAsync,
-    private val params: CheckDepositListParams,
-    private val response: Response,
-) {
+class CheckDepositListPageAsync private constructor(private val checkDepositsService: CheckDepositServiceAsync, private val params: CheckDepositListParams, private val response: Response, ) {
 
     fun response(): Response = response
 
@@ -31,74 +39,62 @@ private constructor(
     fun nextCursor(): String? = response().nextCursor()
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
+      if (this === other) {
+          return true
+      }
 
-        return other is CheckDepositListPageAsync &&
-            this.checkDepositsService == other.checkDepositsService &&
-            this.params == other.params &&
-            this.response == other.response
+      return other is CheckDepositListPageAsync &&
+          this.checkDepositsService == other.checkDepositsService &&
+          this.params == other.params &&
+          this.response == other.response
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            checkDepositsService,
-            params,
-            response,
-        )
+      return Objects.hash(
+          checkDepositsService,
+          params,
+          response,
+      )
     }
 
-    override fun toString() =
-        "CheckDepositListPageAsync{checkDepositsService=$checkDepositsService, params=$params, response=$response}"
+    override fun toString() = "CheckDepositListPageAsync{checkDepositsService=$checkDepositsService, params=$params, response=$response}"
 
     fun hasNextPage(): Boolean {
-        if (data().isEmpty()) {
-            return false
-        }
+      if (data().isEmpty()) {
+        return false;
+      }
 
-        return nextCursor() != null
+      return nextCursor() != null
     }
 
     fun getNextPageParams(): CheckDepositListParams? {
-        if (!hasNextPage()) {
-            return null
-        }
+      if (!hasNextPage()) {
+        return null
+      }
 
-        return CheckDepositListParams.builder()
-            .from(params)
-            .apply { nextCursor()?.let { this.cursor(it) } }
-            .build()
+      return CheckDepositListParams.builder().from(params).apply {nextCursor()?.let{ this.cursor(it) } }.build()
     }
 
     suspend fun getNextPage(): CheckDepositListPageAsync? {
-        return getNextPageParams()?.let { checkDepositsService.list(it) }
+      return getNextPageParams()?.let {
+          checkDepositsService.list(it)
+      }
     }
 
     fun autoPager(): AutoPager = AutoPager(this)
 
     companion object {
 
-        fun of(
-            checkDepositsService: CheckDepositServiceAsync,
-            params: CheckDepositListParams,
-            response: Response
-        ) =
-            CheckDepositListPageAsync(
-                checkDepositsService,
-                params,
-                response,
-            )
+        fun of(checkDepositsService: CheckDepositServiceAsync, params: CheckDepositListParams, response: Response) = CheckDepositListPageAsync(
+            checkDepositsService,
+            params,
+            response,
+        )
     }
 
     @JsonDeserialize(builder = Response.Builder::class)
     @NoAutoDetect
-    class Response
-    constructor(
-        private val data: JsonField<List<CheckDeposit>>,
-        private val nextCursor: JsonField<String>,
-        private val additionalProperties: Map<String, JsonValue>,
-    ) {
+    class Response constructor(private val data: JsonField<List<CheckDeposit>>, private val nextCursor: JsonField<String>, private val additionalProperties: Map<String, JsonValue>, ) {
 
         private var validated: Boolean = false
 
@@ -106,9 +102,11 @@ private constructor(
 
         fun nextCursor(): String? = nextCursor.getNullable("next_cursor")
 
-        @JsonProperty("data") fun _data(): JsonField<List<CheckDeposit>>? = data
+        @JsonProperty("data")
+        fun _data(): JsonField<List<CheckDeposit>>? = data
 
-        @JsonProperty("next_cursor") fun _nextCursor(): JsonField<String>? = nextCursor
+        @JsonProperty("next_cursor")
+        fun _nextCursor(): JsonField<String>? = nextCursor
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -116,35 +114,34 @@ private constructor(
 
         fun validate(): Response = apply {
             if (!validated) {
-                data().map { it.validate() }
-                nextCursor()
-                validated = true
+              data().map { it.validate() }
+              nextCursor()
+              validated = true
             }
         }
 
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return other is Response &&
-                this.data == other.data &&
-                this.nextCursor == other.nextCursor &&
-                this.additionalProperties == other.additionalProperties
+          return other is Response &&
+              this.data == other.data &&
+              this.nextCursor == other.nextCursor &&
+              this.additionalProperties == other.additionalProperties
         }
 
         override fun hashCode(): Int {
-            return Objects.hash(
-                data,
-                nextCursor,
-                additionalProperties,
-            )
+          return Objects.hash(
+              data,
+              nextCursor,
+              additionalProperties,
+          )
         }
 
-        override fun toString() =
-            "CheckDepositListPageAsync.Response{data=$data, nextCursor=$nextCursor, additionalProperties=$additionalProperties}"
+        override fun toString() = "CheckDepositListPageAsync.Response{data=$data, nextCursor=$nextCursor, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -178,30 +175,26 @@ private constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() =
-                Response(
-                    data,
-                    nextCursor,
-                    additionalProperties.toUnmodifiable(),
-                )
+            fun build() = Response(
+                data,
+                nextCursor,
+                additionalProperties.toUnmodifiable(),
+            )
         }
     }
 
-    class AutoPager
-    constructor(
-        private val firstPage: CheckDepositListPageAsync,
-    ) : Flow<CheckDeposit> {
+    class AutoPager constructor(private val firstPage: CheckDepositListPageAsync, ) : Flow<CheckDeposit> {
 
         override suspend fun collect(collector: FlowCollector<CheckDeposit>) {
-            var page = firstPage
-            var index = 0
-            while (true) {
-                while (index < page.data().size) {
-                    collector.emit(page.data()[index++])
-                }
-                page = page.getNextPage() ?: break
-                index = 0
+          var page = firstPage
+          var index = 0
+          while (true) {
+            while (index < page.data().size) {
+              collector.emit(page.data()[index++])
             }
+            page = page.getNextPage() ?: break
+            index = 0
+          }
         }
     }
 }
