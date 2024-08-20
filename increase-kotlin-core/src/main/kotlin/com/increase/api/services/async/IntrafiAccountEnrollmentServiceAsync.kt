@@ -14,7 +14,7 @@ import com.increase.api.models.IntrafiAccountEnrollmentUnenrollParams
 
 interface IntrafiAccountEnrollmentServiceAsync {
 
-    /** Enroll an account in the IntraFi deposit sweep network. */
+    /** Enroll an account in the IntraFi deposit sweep network */
     suspend fun create(
         params: IntrafiAccountEnrollmentCreateParams,
         requestOptions: RequestOptions = RequestOptions.none()
@@ -32,7 +32,7 @@ interface IntrafiAccountEnrollmentServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none()
     ): IntrafiAccountEnrollmentListPageAsync
 
-    /** Unenroll an account from IntraFi. */
+    /** Unenroll an account from IntraFi */
     suspend fun unenroll(
         params: IntrafiAccountEnrollmentUnenrollParams,
         requestOptions: RequestOptions = RequestOptions.none()

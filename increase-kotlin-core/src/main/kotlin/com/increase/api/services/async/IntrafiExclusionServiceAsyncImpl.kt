@@ -87,7 +87,7 @@ constructor(
         jsonHandler<IntrafiExclusionListPageAsync.Response>(clientOptions.jsonMapper)
             .withErrorHandler(errorHandler)
 
-    /** List IntraFi Exclusions. */
+    /** List IntraFi Exclusions */
     override suspend fun list(
         params: IntrafiExclusionListParams,
         requestOptions: RequestOptions

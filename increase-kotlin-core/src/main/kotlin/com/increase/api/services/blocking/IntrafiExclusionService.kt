@@ -26,7 +26,7 @@ interface IntrafiExclusionService {
         requestOptions: RequestOptions = RequestOptions.none()
     ): IntrafiExclusion
 
-    /** List IntraFi Exclusions. */
+    /** List IntraFi Exclusions */
     fun list(
         params: IntrafiExclusionListParams,
         requestOptions: RequestOptions = RequestOptions.none()
