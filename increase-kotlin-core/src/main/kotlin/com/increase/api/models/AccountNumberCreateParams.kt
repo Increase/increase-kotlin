@@ -333,7 +333,8 @@ constructor(
 
         /**
          * Whether ACH debits are allowed against this Account Number. Note that ACH debits will be
-         * declined if this is `allowed` but the Account Number is not active.
+         * declined if this is `allowed` but the Account Number is not active. If you do not specify
+         * this field, the default is `allowed`.
          */
         @JsonProperty("debit_status") fun debitStatus(): DebitStatus? = debitStatus
 
@@ -380,7 +381,8 @@ constructor(
 
             /**
              * Whether ACH debits are allowed against this Account Number. Note that ACH debits will
-             * be declined if this is `allowed` but the Account Number is not active.
+             * be declined if this is `allowed` but the Account Number is not active. If you do not
+             * specify this field, the default is `allowed`.
              */
             @JsonProperty("debit_status")
             fun debitStatus(debitStatus: DebitStatus) = apply { this.debitStatus = debitStatus }
@@ -475,7 +477,10 @@ constructor(
 
         private var hashCode: Int = 0
 
-        /** How Increase should process checks with this account number printed on them. */
+        /**
+         * How Increase should process checks with this account number printed on them. If you do
+         * not specify this field, the default is `check_transfers_only`.
+         */
         @JsonProperty("status") fun status(): Status? = status
 
         @JsonAnyGetter
@@ -519,7 +524,10 @@ constructor(
                 additionalProperties(inboundChecks.additionalProperties)
             }
 
-            /** How Increase should process checks with this account number printed on them. */
+            /**
+             * How Increase should process checks with this account number printed on them. If you
+             * do not specify this field, the default is `check_transfers_only`.
+             */
             @JsonProperty("status") fun status(status: Status) = apply { this.status = status }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
