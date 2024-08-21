@@ -2,46 +2,18 @@
 
 package com.increase.api.models
 
-import com.fasterxml.jackson.annotation.JsonAnyGetter
-import com.fasterxml.jackson.annotation.JsonAnySetter
-import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
-import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.core.JsonGenerator
-import com.fasterxml.jackson.core.ObjectCodec
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.fasterxml.jackson.databind.annotation.JsonSerialize
-import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.SerializerProvider
-import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
-import org.apache.hc.core5.http.ContentType
-import java.time.LocalDate
-import java.time.OffsetDateTime
-import java.time.format.DateTimeFormatter
-import java.util.Objects
-import java.util.Optional
-import java.util.UUID
-import com.increase.api.core.BaseDeserializer
-import com.increase.api.core.BaseSerializer
-import com.increase.api.core.getOrThrow
-import com.increase.api.core.ExcludeMissing
-import com.increase.api.core.JsonField
-import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.MultipartFormValue
-import com.increase.api.core.toUnmodifiable
 import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.Enum
-import com.increase.api.core.ContentTypes
-import com.increase.api.errors.IncreaseInvalidDataException
+import com.increase.api.core.toUnmodifiable
 import com.increase.api.models.*
+import java.util.Objects
 
-class AchPrenotificationRetrieveParams constructor(
-  private val achPrenotificationId: String,
-  private val additionalQueryParams: Map<String, List<String>>,
-  private val additionalHeaders: Map<String, List<String>>,
-  private val additionalBodyProperties: Map<String, JsonValue>,
-
+class AchPrenotificationRetrieveParams
+constructor(
+    private val achPrenotificationId: String,
+    private val additionalQueryParams: Map<String, List<String>>,
+    private val additionalHeaders: Map<String, List<String>>,
+    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
     fun achPrenotificationId(): String = achPrenotificationId
@@ -51,10 +23,10 @@ class AchPrenotificationRetrieveParams constructor(
     internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
 
     fun getPathParam(index: Int): String {
-      return when (index) {
-          0 -> achPrenotificationId
-          else -> ""
-      }
+        return when (index) {
+            0 -> achPrenotificationId
+            else -> ""
+        }
     }
 
     fun _additionalQueryParams(): Map<String, List<String>> = additionalQueryParams
@@ -64,27 +36,28 @@ class AchPrenotificationRetrieveParams constructor(
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
 
     override fun equals(other: Any?): Boolean {
-      if (this === other) {
-          return true
-      }
+        if (this === other) {
+            return true
+        }
 
-      return other is AchPrenotificationRetrieveParams &&
-          this.achPrenotificationId == other.achPrenotificationId &&
-          this.additionalQueryParams == other.additionalQueryParams &&
-          this.additionalHeaders == other.additionalHeaders &&
-          this.additionalBodyProperties == other.additionalBodyProperties
+        return other is AchPrenotificationRetrieveParams &&
+            this.achPrenotificationId == other.achPrenotificationId &&
+            this.additionalQueryParams == other.additionalQueryParams &&
+            this.additionalHeaders == other.additionalHeaders &&
+            this.additionalBodyProperties == other.additionalBodyProperties
     }
 
     override fun hashCode(): Int {
-      return Objects.hash(
-          achPrenotificationId,
-          additionalQueryParams,
-          additionalHeaders,
-          additionalBodyProperties,
-      )
+        return Objects.hash(
+            achPrenotificationId,
+            additionalQueryParams,
+            additionalHeaders,
+            additionalBodyProperties,
+        )
     }
 
-    override fun toString() = "AchPrenotificationRetrieveParams{achPrenotificationId=$achPrenotificationId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+    override fun toString() =
+        "AchPrenotificationRetrieveParams{achPrenotificationId=$achPrenotificationId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -101,12 +74,13 @@ class AchPrenotificationRetrieveParams constructor(
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-        internal fun from(achPrenotificationRetrieveParams: AchPrenotificationRetrieveParams) = apply {
-            this.achPrenotificationId = achPrenotificationRetrieveParams.achPrenotificationId
-            additionalQueryParams(achPrenotificationRetrieveParams.additionalQueryParams)
-            additionalHeaders(achPrenotificationRetrieveParams.additionalHeaders)
-            additionalBodyProperties(achPrenotificationRetrieveParams.additionalBodyProperties)
-        }
+        internal fun from(achPrenotificationRetrieveParams: AchPrenotificationRetrieveParams) =
+            apply {
+                this.achPrenotificationId = achPrenotificationRetrieveParams.achPrenotificationId
+                additionalQueryParams(achPrenotificationRetrieveParams.additionalQueryParams)
+                additionalHeaders(achPrenotificationRetrieveParams.additionalHeaders)
+                additionalBodyProperties(achPrenotificationRetrieveParams.additionalBodyProperties)
+            }
 
         /** The identifier of the ACH Prenotification to retrieve. */
         fun achPrenotificationId(achPrenotificationId: String) = apply {
@@ -151,9 +125,7 @@ class AchPrenotificationRetrieveParams constructor(
             additionalHeaders.forEach(this::putHeaders)
         }
 
-        fun removeHeader(name: String) = apply {
-            this.additionalHeaders.put(name, mutableListOf())
-        }
+        fun removeHeader(name: String) = apply { this.additionalHeaders.put(name, mutableListOf()) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             this.additionalBodyProperties.clear()
@@ -164,17 +136,19 @@ class AchPrenotificationRetrieveParams constructor(
             this.additionalBodyProperties.put(key, value)
         }
 
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.putAll(additionalBodyProperties)
-        }
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                this.additionalBodyProperties.putAll(additionalBodyProperties)
+            }
 
-        fun build(): AchPrenotificationRetrieveParams = AchPrenotificationRetrieveParams(
-            checkNotNull(achPrenotificationId) {
-                "`achPrenotificationId` is required but was not set"
-            },
-            additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-            additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-            additionalBodyProperties.toUnmodifiable(),
-        )
+        fun build(): AchPrenotificationRetrieveParams =
+            AchPrenotificationRetrieveParams(
+                checkNotNull(achPrenotificationId) {
+                    "`achPrenotificationId` is required but was not set"
+                },
+                additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+                additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+                additionalBodyProperties.toUnmodifiable(),
+            )
     }
 }

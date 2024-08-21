@@ -2,47 +2,27 @@
 
 package com.increase.api.models
 
-import com.fasterxml.jackson.annotation.JsonAnyGetter
-import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
-import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.core.JsonGenerator
-import com.fasterxml.jackson.core.ObjectCodec
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.fasterxml.jackson.databind.annotation.JsonSerialize
-import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.SerializerProvider
-import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
-import org.apache.hc.core5.http.ContentType
-import java.time.LocalDate
-import java.time.OffsetDateTime
-import java.time.format.DateTimeFormatter
-import java.util.Objects
-import java.util.Optional
-import java.util.UUID
-import com.increase.api.core.BaseDeserializer
-import com.increase.api.core.BaseSerializer
-import com.increase.api.core.getOrThrow
-import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.ContentTypes
+import com.increase.api.core.Enum
 import com.increase.api.core.JsonField
-import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.MultipartFormValue
-import com.increase.api.core.toUnmodifiable
 import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.Enum
-import com.increase.api.core.ContentTypes
+import com.increase.api.core.toUnmodifiable
 import com.increase.api.errors.IncreaseInvalidDataException
 import com.increase.api.models.*
+import java.util.Objects
+import org.apache.hc.core5.http.ContentType
 
-class FileCreateParams constructor(
-  private val file: MultipartFormValue<ByteArray>,
-  private val purpose: MultipartFormValue<Purpose>,
-  private val description: MultipartFormValue<String>?,
-  private val additionalQueryParams: Map<String, List<String>>,
-  private val additionalHeaders: Map<String, List<String>>,
-
+class FileCreateParams
+constructor(
+    private val file: MultipartFormValue<ByteArray>,
+    private val purpose: MultipartFormValue<Purpose>,
+    private val description: MultipartFormValue<String>?,
+    private val additionalQueryParams: Map<String, List<String>>,
+    private val additionalHeaders: Map<String, List<String>>,
 ) {
 
     fun file(): MultipartFormValue<ByteArray> = file
@@ -52,11 +32,11 @@ class FileCreateParams constructor(
     fun description(): MultipartFormValue<String>? = description
 
     internal fun getBody(): Array<MultipartFormValue<*>?> {
-      return arrayOf(
-          file,
-          purpose,
-          description,
-      )
+        return arrayOf(
+            file,
+            purpose,
+            description,
+        )
     }
 
     internal fun getQueryParams(): Map<String, List<String>> = additionalQueryParams
@@ -65,14 +45,19 @@ class FileCreateParams constructor(
 
     @JsonDeserialize(builder = FileCreateBody.Builder::class)
     @NoAutoDetect
-    class FileCreateBody internal constructor(private val file: ByteArray?, private val purpose: Purpose?, private val description: String?, ) {
+    class FileCreateBody
+    internal constructor(
+        private val file: ByteArray?,
+        private val purpose: Purpose?,
+        private val description: String?,
+    ) {
 
         private var hashCode: Int = 0
 
         /**
          * The file contents. This should follow the specifications of
-         * [RFC 7578](https://datatracker.ietf.org/doc/html/rfc7578) which defines file
-         * transfers for the multipart/form-data protocol.
+         * [RFC 7578](https://datatracker.ietf.org/doc/html/rfc7578) which defines file transfers
+         * for the multipart/form-data protocol.
          */
         fun file(): ByteArray? = file
 
@@ -85,28 +70,30 @@ class FileCreateParams constructor(
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is FileCreateBody &&
-              this.file == other.file &&
-              this.purpose == other.purpose &&
-              this.description == other.description
+            return other is FileCreateBody &&
+                this.file == other.file &&
+                this.purpose == other.purpose &&
+                this.description == other.description
         }
 
         override fun hashCode(): Int {
-          if (hashCode == 0) {
-            hashCode = Objects.hash(
-                file,
-                purpose,
-                description,
-            )
-          }
-          return hashCode
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        file,
+                        purpose,
+                        description,
+                    )
+            }
+            return hashCode
         }
 
-        override fun toString() = "FileCreateBody{file=$file, purpose=$purpose, description=$description}"
+        override fun toString() =
+            "FileCreateBody{file=$file, purpose=$purpose, description=$description}"
 
         companion object {
 
@@ -130,19 +117,13 @@ class FileCreateParams constructor(
              * [RFC 7578](https://datatracker.ietf.org/doc/html/rfc7578) which defines file
              * transfers for the multipart/form-data protocol.
              */
-            fun file(file: ByteArray) = apply {
-                this.file = file
-            }
+            fun file(file: ByteArray) = apply { this.file = file }
 
             /** What the File will be used for in Increase's systems. */
-            fun purpose(purpose: Purpose) = apply {
-                this.purpose = purpose
-            }
+            fun purpose(purpose: Purpose) = apply { this.purpose = purpose }
 
             /** The description you choose to give the File. */
-            fun description(description: String) = apply {
-                this.description = description
-            }
+            fun description(description: String) = apply { this.description = description }
         }
     }
 
@@ -151,29 +132,30 @@ class FileCreateParams constructor(
     fun _additionalHeaders(): Map<String, List<String>> = additionalHeaders
 
     override fun equals(other: Any?): Boolean {
-      if (this === other) {
-          return true
-      }
+        if (this === other) {
+            return true
+        }
 
-      return other is FileCreateParams &&
-          this.file == other.file &&
-          this.purpose == other.purpose &&
-          this.description == other.description &&
-          this.additionalQueryParams == other.additionalQueryParams &&
-          this.additionalHeaders == other.additionalHeaders
+        return other is FileCreateParams &&
+            this.file == other.file &&
+            this.purpose == other.purpose &&
+            this.description == other.description &&
+            this.additionalQueryParams == other.additionalQueryParams &&
+            this.additionalHeaders == other.additionalHeaders
     }
 
     override fun hashCode(): Int {
-      return Objects.hash(
-          file,
-          purpose,
-          description,
-          additionalQueryParams,
-          additionalHeaders,
-      )
+        return Objects.hash(
+            file,
+            purpose,
+            description,
+            additionalQueryParams,
+            additionalHeaders,
+        )
     }
 
-    override fun toString() = "FileCreateParams{file=$file, purpose=$purpose, description=$description, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+    override fun toString() =
+        "FileCreateParams{file=$file, purpose=$purpose, description=$description, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -201,10 +183,14 @@ class FileCreateParams constructor(
 
         /**
          * The file contents. This should follow the specifications of
-         * [RFC 7578](https://datatracker.ietf.org/doc/html/rfc7578) which defines file
-         * transfers for the multipart/form-data protocol.
+         * [RFC 7578](https://datatracker.ietf.org/doc/html/rfc7578) which defines file transfers
+         * for the multipart/form-data protocol.
          */
-        fun file(content: ByteArray, filename: String? = null, contentType: ContentType = ContentTypes.DefaultBinary) = apply {
+        fun file(
+            content: ByteArray,
+            filename: String? = null,
+            contentType: ContentType = ContentTypes.DefaultBinary
+        ) = apply {
             this.file = MultipartFormValue.fromByteArray("file", content, contentType, filename)
         }
 
@@ -214,9 +200,11 @@ class FileCreateParams constructor(
         }
 
         /** The description you choose to give the File. */
-        fun description(description: String, contentType: ContentType = ContentTypes.DefaultText) = apply {
-            this.description = MultipartFormValue.fromString("description", description, contentType)
-        }
+        fun description(description: String, contentType: ContentType = ContentTypes.DefaultText) =
+            apply {
+                this.description =
+                    MultipartFormValue.fromString("description", description, contentType)
+            }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -256,35 +244,32 @@ class FileCreateParams constructor(
             additionalHeaders.forEach(this::putHeaders)
         }
 
-        fun removeHeader(name: String) = apply {
-            this.additionalHeaders.put(name, mutableListOf())
-        }
+        fun removeHeader(name: String) = apply { this.additionalHeaders.put(name, mutableListOf()) }
 
-        fun build(): FileCreateParams = FileCreateParams(
-            checkNotNull(file) {
-                "`file` is required but was not set"
-            },
-            checkNotNull(purpose) {
-                "`purpose` is required but was not set"
-            },
-            description,
-            additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-            additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-        )
+        fun build(): FileCreateParams =
+            FileCreateParams(
+                checkNotNull(file) { "`file` is required but was not set" },
+                checkNotNull(purpose) { "`purpose` is required but was not set" },
+                description,
+                additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+                additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
+            )
     }
 
-    class Purpose @JsonCreator private constructor(private val value: JsonField<String>, ) : Enum {
+    class Purpose
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) : Enum {
 
-        @com.fasterxml.jackson.annotation.JsonValue
-        fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return other is Purpose &&
-              this.value == other.value
+            return other is Purpose && this.value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -319,7 +304,8 @@ class FileCreateParams constructor(
 
             val ENTITY_SUPPLEMENTAL_DOCUMENT = Purpose(JsonField.of("entity_supplemental_document"))
 
-            val UNUSUAL_ACTIVITY_REPORT_ATTACHMENT = Purpose(JsonField.of("unusual_activity_report_attachment"))
+            val UNUSUAL_ACTIVITY_REPORT_ATTACHMENT =
+                Purpose(JsonField.of("unusual_activity_report_attachment"))
 
             fun of(value: String) = Purpose(JsonField.of(value))
         }
@@ -359,41 +345,43 @@ class FileCreateParams constructor(
             _UNKNOWN,
         }
 
-        fun value(): Value = when (this) {
-            CHECK_IMAGE_FRONT -> Value.CHECK_IMAGE_FRONT
-            CHECK_IMAGE_BACK -> Value.CHECK_IMAGE_BACK
-            MAILED_CHECK_IMAGE -> Value.MAILED_CHECK_IMAGE
-            FORM_SS_4 -> Value.FORM_SS_4
-            IDENTITY_DOCUMENT -> Value.IDENTITY_DOCUMENT
-            OTHER -> Value.OTHER
-            TRUST_FORMATION_DOCUMENT -> Value.TRUST_FORMATION_DOCUMENT
-            DIGITAL_WALLET_ARTWORK -> Value.DIGITAL_WALLET_ARTWORK
-            DIGITAL_WALLET_APP_ICON -> Value.DIGITAL_WALLET_APP_ICON
-            PHYSICAL_CARD_FRONT -> Value.PHYSICAL_CARD_FRONT
-            PHYSICAL_CARD_CARRIER -> Value.PHYSICAL_CARD_CARRIER
-            DOCUMENT_REQUEST -> Value.DOCUMENT_REQUEST
-            ENTITY_SUPPLEMENTAL_DOCUMENT -> Value.ENTITY_SUPPLEMENTAL_DOCUMENT
-            UNUSUAL_ACTIVITY_REPORT_ATTACHMENT -> Value.UNUSUAL_ACTIVITY_REPORT_ATTACHMENT
-            else -> Value._UNKNOWN
-        }
+        fun value(): Value =
+            when (this) {
+                CHECK_IMAGE_FRONT -> Value.CHECK_IMAGE_FRONT
+                CHECK_IMAGE_BACK -> Value.CHECK_IMAGE_BACK
+                MAILED_CHECK_IMAGE -> Value.MAILED_CHECK_IMAGE
+                FORM_SS_4 -> Value.FORM_SS_4
+                IDENTITY_DOCUMENT -> Value.IDENTITY_DOCUMENT
+                OTHER -> Value.OTHER
+                TRUST_FORMATION_DOCUMENT -> Value.TRUST_FORMATION_DOCUMENT
+                DIGITAL_WALLET_ARTWORK -> Value.DIGITAL_WALLET_ARTWORK
+                DIGITAL_WALLET_APP_ICON -> Value.DIGITAL_WALLET_APP_ICON
+                PHYSICAL_CARD_FRONT -> Value.PHYSICAL_CARD_FRONT
+                PHYSICAL_CARD_CARRIER -> Value.PHYSICAL_CARD_CARRIER
+                DOCUMENT_REQUEST -> Value.DOCUMENT_REQUEST
+                ENTITY_SUPPLEMENTAL_DOCUMENT -> Value.ENTITY_SUPPLEMENTAL_DOCUMENT
+                UNUSUAL_ACTIVITY_REPORT_ATTACHMENT -> Value.UNUSUAL_ACTIVITY_REPORT_ATTACHMENT
+                else -> Value._UNKNOWN
+            }
 
-        fun known(): Known = when (this) {
-            CHECK_IMAGE_FRONT -> Known.CHECK_IMAGE_FRONT
-            CHECK_IMAGE_BACK -> Known.CHECK_IMAGE_BACK
-            MAILED_CHECK_IMAGE -> Known.MAILED_CHECK_IMAGE
-            FORM_SS_4 -> Known.FORM_SS_4
-            IDENTITY_DOCUMENT -> Known.IDENTITY_DOCUMENT
-            OTHER -> Known.OTHER
-            TRUST_FORMATION_DOCUMENT -> Known.TRUST_FORMATION_DOCUMENT
-            DIGITAL_WALLET_ARTWORK -> Known.DIGITAL_WALLET_ARTWORK
-            DIGITAL_WALLET_APP_ICON -> Known.DIGITAL_WALLET_APP_ICON
-            PHYSICAL_CARD_FRONT -> Known.PHYSICAL_CARD_FRONT
-            PHYSICAL_CARD_CARRIER -> Known.PHYSICAL_CARD_CARRIER
-            DOCUMENT_REQUEST -> Known.DOCUMENT_REQUEST
-            ENTITY_SUPPLEMENTAL_DOCUMENT -> Known.ENTITY_SUPPLEMENTAL_DOCUMENT
-            UNUSUAL_ACTIVITY_REPORT_ATTACHMENT -> Known.UNUSUAL_ACTIVITY_REPORT_ATTACHMENT
-            else -> throw IncreaseInvalidDataException("Unknown Purpose: $value")
-        }
+        fun known(): Known =
+            when (this) {
+                CHECK_IMAGE_FRONT -> Known.CHECK_IMAGE_FRONT
+                CHECK_IMAGE_BACK -> Known.CHECK_IMAGE_BACK
+                MAILED_CHECK_IMAGE -> Known.MAILED_CHECK_IMAGE
+                FORM_SS_4 -> Known.FORM_SS_4
+                IDENTITY_DOCUMENT -> Known.IDENTITY_DOCUMENT
+                OTHER -> Known.OTHER
+                TRUST_FORMATION_DOCUMENT -> Known.TRUST_FORMATION_DOCUMENT
+                DIGITAL_WALLET_ARTWORK -> Known.DIGITAL_WALLET_ARTWORK
+                DIGITAL_WALLET_APP_ICON -> Known.DIGITAL_WALLET_APP_ICON
+                PHYSICAL_CARD_FRONT -> Known.PHYSICAL_CARD_FRONT
+                PHYSICAL_CARD_CARRIER -> Known.PHYSICAL_CARD_CARRIER
+                DOCUMENT_REQUEST -> Known.DOCUMENT_REQUEST
+                ENTITY_SUPPLEMENTAL_DOCUMENT -> Known.ENTITY_SUPPLEMENTAL_DOCUMENT
+                UNUSUAL_ACTIVITY_REPORT_ATTACHMENT -> Known.UNUSUAL_ACTIVITY_REPORT_ATTACHMENT
+                else -> throw IncreaseInvalidDataException("Unknown Purpose: $value")
+            }
 
         fun asString(): String = _value().asStringOrThrow()
     }
