@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.78.0 (2024-08-26)
+
+Full Changelog: [v0.77.0...v0.78.0](https://github.com/Increase/increase-kotlin/compare/v0.77.0...v0.78.0)
+
+### Features
+
+* **api:** OpenAPI spec update via Stainless API ([#388](https://github.com/Increase/increase-kotlin/issues/388)) ([b1899fd](https://github.com/Increase/increase-kotlin/commit/b1899fd08b2d5fda89c05c8d30ee62b0bccefc40))
+
+
+### Bug Fixes
+
+* **docs:** use correct putAdditionalProperty value ([#390](https://github.com/Increase/increase-kotlin/issues/390)) ([3e9601d](https://github.com/Increase/increase-kotlin/commit/3e9601d008d2e04325b2b717ad7192c54b50c46c))
+
 ## 0.77.0 (2024-08-21)
 
 Full Changelog: [v0.76.0...v0.77.0](https://github.com/Increase/increase-kotlin/compare/v0.76.0...v0.77.0)
