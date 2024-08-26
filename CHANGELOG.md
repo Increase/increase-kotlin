@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.80.0 (2024-08-26)
+
+Full Changelog: [v0.79.0...v0.80.0](https://github.com/Increase/increase-kotlin/compare/v0.79.0...v0.80.0)
+
+### Features
+
+* Remove inbound mail simulation ([aa7308e](https://github.com/Increase/increase-kotlin/commit/aa7308e89474884b568ea821db87b51ee7ef83e4))
+
 ## 0.79.0 (2024-08-26)
 
 Full Changelog: [v0.78.0...v0.79.0](https://github.com/Increase/increase-kotlin/compare/v0.78.0...v0.79.0)
