@@ -17,6 +17,7 @@ class SimulationInboundMailItemCreateParams
 constructor(
     private val amount: Long,
     private val lockboxId: String,
+    private val contentsFileId: String?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
     private val additionalBodyProperties: Map<String, JsonValue>,
@@ -26,10 +27,13 @@ constructor(
 
     fun lockboxId(): String = lockboxId
 
+    fun contentsFileId(): String? = contentsFileId
+
     internal fun getBody(): SimulationInboundMailItemCreateBody {
         return SimulationInboundMailItemCreateBody(
             amount,
             lockboxId,
+            contentsFileId,
             additionalBodyProperties,
         )
     }
@@ -44,6 +48,7 @@ constructor(
     internal constructor(
         private val amount: Long?,
         private val lockboxId: String?,
+        private val contentsFileId: String?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -54,6 +59,12 @@ constructor(
 
         /** The identifier of the Lockbox to simulate inbound mail to. */
         @JsonProperty("lockbox_id") fun lockboxId(): String? = lockboxId
+
+        /**
+         * The file containing the PDF contents. If not present, a default check image file will be
+         * used.
+         */
+        @JsonProperty("contents_file_id") fun contentsFileId(): String? = contentsFileId
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -69,6 +80,7 @@ constructor(
             return other is SimulationInboundMailItemCreateBody &&
                 this.amount == other.amount &&
                 this.lockboxId == other.lockboxId &&
+                this.contentsFileId == other.contentsFileId &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -78,6 +90,7 @@ constructor(
                     Objects.hash(
                         amount,
                         lockboxId,
+                        contentsFileId,
                         additionalProperties,
                     )
             }
@@ -85,7 +98,7 @@ constructor(
         }
 
         override fun toString() =
-            "SimulationInboundMailItemCreateBody{amount=$amount, lockboxId=$lockboxId, additionalProperties=$additionalProperties}"
+            "SimulationInboundMailItemCreateBody{amount=$amount, lockboxId=$lockboxId, contentsFileId=$contentsFileId, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -96,6 +109,7 @@ constructor(
 
             private var amount: Long? = null
             private var lockboxId: String? = null
+            private var contentsFileId: String? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(
@@ -103,6 +117,7 @@ constructor(
             ) = apply {
                 this.amount = simulationInboundMailItemCreateBody.amount
                 this.lockboxId = simulationInboundMailItemCreateBody.lockboxId
+                this.contentsFileId = simulationInboundMailItemCreateBody.contentsFileId
                 additionalProperties(simulationInboundMailItemCreateBody.additionalProperties)
             }
 
@@ -112,6 +127,15 @@ constructor(
             /** The identifier of the Lockbox to simulate inbound mail to. */
             @JsonProperty("lockbox_id")
             fun lockboxId(lockboxId: String) = apply { this.lockboxId = lockboxId }
+
+            /**
+             * The file containing the PDF contents. If not present, a default check image file will
+             * be used.
+             */
+            @JsonProperty("contents_file_id")
+            fun contentsFileId(contentsFileId: String) = apply {
+                this.contentsFileId = contentsFileId
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -131,6 +155,7 @@ constructor(
                 SimulationInboundMailItemCreateBody(
                     checkNotNull(amount) { "`amount` is required but was not set" },
                     checkNotNull(lockboxId) { "`lockboxId` is required but was not set" },
+                    contentsFileId,
                     additionalProperties.toUnmodifiable(),
                 )
         }
@@ -150,6 +175,7 @@ constructor(
         return other is SimulationInboundMailItemCreateParams &&
             this.amount == other.amount &&
             this.lockboxId == other.lockboxId &&
+            this.contentsFileId == other.contentsFileId &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders &&
             this.additionalBodyProperties == other.additionalBodyProperties
@@ -159,6 +185,7 @@ constructor(
         return Objects.hash(
             amount,
             lockboxId,
+            contentsFileId,
             additionalQueryParams,
             additionalHeaders,
             additionalBodyProperties,
@@ -166,7 +193,7 @@ constructor(
     }
 
     override fun toString() =
-        "SimulationInboundMailItemCreateParams{amount=$amount, lockboxId=$lockboxId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "SimulationInboundMailItemCreateParams{amount=$amount, lockboxId=$lockboxId, contentsFileId=$contentsFileId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -180,6 +207,7 @@ constructor(
 
         private var amount: Long? = null
         private var lockboxId: String? = null
+        private var contentsFileId: String? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -189,6 +217,7 @@ constructor(
         ) = apply {
             this.amount = simulationInboundMailItemCreateParams.amount
             this.lockboxId = simulationInboundMailItemCreateParams.lockboxId
+            this.contentsFileId = simulationInboundMailItemCreateParams.contentsFileId
             additionalQueryParams(simulationInboundMailItemCreateParams.additionalQueryParams)
             additionalHeaders(simulationInboundMailItemCreateParams.additionalHeaders)
             additionalBodyProperties(simulationInboundMailItemCreateParams.additionalBodyProperties)
@@ -199,6 +228,12 @@ constructor(
 
         /** The identifier of the Lockbox to simulate inbound mail to. */
         fun lockboxId(lockboxId: String) = apply { this.lockboxId = lockboxId }
+
+        /**
+         * The file containing the PDF contents. If not present, a default check image file will be
+         * used.
+         */
+        fun contentsFileId(contentsFileId: String) = apply { this.contentsFileId = contentsFileId }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -258,6 +293,7 @@ constructor(
             SimulationInboundMailItemCreateParams(
                 checkNotNull(amount) { "`amount` is required but was not set" },
                 checkNotNull(lockboxId) { "`lockboxId` is required but was not set" },
+                contentsFileId,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalBodyProperties.toUnmodifiable(),
