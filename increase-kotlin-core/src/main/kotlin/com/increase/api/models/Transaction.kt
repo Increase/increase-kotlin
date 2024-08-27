@@ -14988,7 +14988,7 @@ private constructor(
             fun originatorCompanyName(): String =
                 originatorCompanyName.getRequired("originator_company_name")
 
-            /** The originator's identifier for the transfer receipient. */
+            /** The originator's identifier for the transfer recipient. */
             fun receiverIdNumber(): String? = receiverIdNumber.getNullable("receiver_id_number")
 
             /**
@@ -15046,7 +15046,7 @@ private constructor(
             @ExcludeMissing
             fun _originatorCompanyName() = originatorCompanyName
 
-            /** The originator's identifier for the transfer receipient. */
+            /** The originator's identifier for the transfer recipient. */
             @JsonProperty("receiver_id_number")
             @ExcludeMissing
             fun _receiverIdNumber() = receiverIdNumber
@@ -15270,11 +15270,11 @@ private constructor(
                     this.originatorCompanyName = originatorCompanyName
                 }
 
-                /** The originator's identifier for the transfer receipient. */
+                /** The originator's identifier for the transfer recipient. */
                 fun receiverIdNumber(receiverIdNumber: String) =
                     receiverIdNumber(JsonField.of(receiverIdNumber))
 
-                /** The originator's identifier for the transfer receipient. */
+                /** The originator's identifier for the transfer recipient. */
                 @JsonProperty("receiver_id_number")
                 @ExcludeMissing
                 fun receiverIdNumber(receiverIdNumber: JsonField<String>) = apply {

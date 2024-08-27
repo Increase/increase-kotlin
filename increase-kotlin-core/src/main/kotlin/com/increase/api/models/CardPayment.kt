@@ -869,7 +869,7 @@ private constructor(
                 digitalWalletTokenId.getNullable("digital_wallet_token_id")
 
             /**
-             * The direction descibes the direction the funds will move, either from the cardholder
+             * The direction describes the direction the funds will move, either from the cardholder
              * to the merchant or from the merchant to the cardholder.
              */
             fun direction(): Direction = direction.getRequired("direction")
@@ -1001,7 +1001,7 @@ private constructor(
             fun _digitalWalletTokenId() = digitalWalletTokenId
 
             /**
-             * The direction descibes the direction the funds will move, either from the cardholder
+             * The direction describes the direction the funds will move, either from the cardholder
              * to the merchant or from the merchant to the cardholder.
              */
             @JsonProperty("direction") @ExcludeMissing fun _direction() = direction
@@ -1367,13 +1367,13 @@ private constructor(
                 }
 
                 /**
-                 * The direction descibes the direction the funds will move, either from the
+                 * The direction describes the direction the funds will move, either from the
                  * cardholder to the merchant or from the merchant to the cardholder.
                  */
                 fun direction(direction: Direction) = direction(JsonField.of(direction))
 
                 /**
-                 * The direction descibes the direction the funds will move, either from the
+                 * The direction describes the direction the funds will move, either from the
                  * cardholder to the merchant or from the merchant to the cardholder.
                  */
                 @JsonProperty("direction")
