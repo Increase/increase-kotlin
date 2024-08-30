@@ -12912,8 +12912,8 @@ private constructor(
              * The Merchant Category Code (commonly abbreviated as MCC) of the merchant the card is
              * transacting with.
              */
-            fun merchantCategoryCode(): String? =
-                merchantCategoryCode.getNullable("merchant_category_code")
+            fun merchantCategoryCode(): String =
+                merchantCategoryCode.getRequired("merchant_category_code")
 
             /** The city the merchant resides in. */
             fun merchantCity(): String? = merchantCity.getNullable("merchant_city")
