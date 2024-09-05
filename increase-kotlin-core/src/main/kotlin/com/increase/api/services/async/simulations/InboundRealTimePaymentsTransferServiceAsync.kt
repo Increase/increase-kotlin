@@ -5,8 +5,8 @@
 package com.increase.api.services.async.simulations
 
 import com.increase.api.core.RequestOptions
+import com.increase.api.models.InboundRealTimePaymentsTransfer
 import com.increase.api.models.SimulationInboundRealTimePaymentsTransferCreateParams
-import com.increase.api.models.SimulationInboundRealTimePaymentsTransferCreateResponse
 
 interface InboundRealTimePaymentsTransferServiceAsync {
 
@@ -17,5 +17,5 @@ interface InboundRealTimePaymentsTransferServiceAsync {
     suspend fun create(
         params: SimulationInboundRealTimePaymentsTransferCreateParams,
         requestOptions: RequestOptions = RequestOptions.none()
-    ): SimulationInboundRealTimePaymentsTransferCreateResponse
+    ): InboundRealTimePaymentsTransfer
 }
