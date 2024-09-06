@@ -5118,6 +5118,7 @@ private constructor(
             private val reason: JsonField<Reason>,
             private val remittanceInformation: JsonField<String>,
             private val transactionIdentification: JsonField<String>,
+            private val transferId: JsonField<String>,
             private val additionalProperties: Map<String, JsonValue>,
         ) {
 
@@ -5162,6 +5163,9 @@ private constructor(
             fun transactionIdentification(): String =
                 transactionIdentification.getRequired("transaction_identification")
 
+            /** The identifier of the Real-Time Payments Transfer that led to this Transaction. */
+            fun transferId(): String = transferId.getRequired("transfer_id")
+
             /**
              * The declined amount in the minor unit of the destination account currency. For
              * dollars, for example, this is cents.
@@ -5203,6 +5207,9 @@ private constructor(
             @ExcludeMissing
             fun _transactionIdentification() = transactionIdentification
 
+            /** The identifier of the Real-Time Payments Transfer that led to this Transaction. */
+            @JsonProperty("transfer_id") @ExcludeMissing fun _transferId() = transferId
+
             @JsonAnyGetter
             @ExcludeMissing
             fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -5218,6 +5225,7 @@ private constructor(
                     reason()
                     remittanceInformation()
                     transactionIdentification()
+                    transferId()
                     validated = true
                 }
             }
@@ -5239,6 +5247,7 @@ private constructor(
                     this.reason == other.reason &&
                     this.remittanceInformation == other.remittanceInformation &&
                     this.transactionIdentification == other.transactionIdentification &&
+                    this.transferId == other.transferId &&
                     this.additionalProperties == other.additionalProperties
             }
 
@@ -5255,6 +5264,7 @@ private constructor(
                             reason,
                             remittanceInformation,
                             transactionIdentification,
+                            transferId,
                             additionalProperties,
                         )
                 }
@@ -5262,7 +5272,7 @@ private constructor(
             }
 
             override fun toString() =
-                "InboundRealTimePaymentsTransferDecline{amount=$amount, creditorName=$creditorName, currency=$currency, debtorAccountNumber=$debtorAccountNumber, debtorName=$debtorName, debtorRoutingNumber=$debtorRoutingNumber, reason=$reason, remittanceInformation=$remittanceInformation, transactionIdentification=$transactionIdentification, additionalProperties=$additionalProperties}"
+                "InboundRealTimePaymentsTransferDecline{amount=$amount, creditorName=$creditorName, currency=$currency, debtorAccountNumber=$debtorAccountNumber, debtorName=$debtorName, debtorRoutingNumber=$debtorRoutingNumber, reason=$reason, remittanceInformation=$remittanceInformation, transactionIdentification=$transactionIdentification, transferId=$transferId, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -5280,6 +5290,7 @@ private constructor(
                 private var reason: JsonField<Reason> = JsonMissing.of()
                 private var remittanceInformation: JsonField<String> = JsonMissing.of()
                 private var transactionIdentification: JsonField<String> = JsonMissing.of()
+                private var transferId: JsonField<String> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(
@@ -5298,6 +5309,7 @@ private constructor(
                         inboundRealTimePaymentsTransferDecline.remittanceInformation
                     this.transactionIdentification =
                         inboundRealTimePaymentsTransferDecline.transactionIdentification
+                    this.transferId = inboundRealTimePaymentsTransferDecline.transferId
                     additionalProperties(
                         inboundRealTimePaymentsTransferDecline.additionalProperties
                     )
@@ -5408,6 +5420,20 @@ private constructor(
                         this.transactionIdentification = transactionIdentification
                     }
 
+                /**
+                 * The identifier of the Real-Time Payments Transfer that led to this Transaction.
+                 */
+                fun transferId(transferId: String) = transferId(JsonField.of(transferId))
+
+                /**
+                 * The identifier of the Real-Time Payments Transfer that led to this Transaction.
+                 */
+                @JsonProperty("transfer_id")
+                @ExcludeMissing
+                fun transferId(transferId: JsonField<String>) = apply {
+                    this.transferId = transferId
+                }
+
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
                     this.additionalProperties.putAll(additionalProperties)
@@ -5434,6 +5460,7 @@ private constructor(
                         reason,
                         remittanceInformation,
                         transactionIdentification,
+                        transferId,
                         additionalProperties.toUnmodifiable(),
                     )
             }
