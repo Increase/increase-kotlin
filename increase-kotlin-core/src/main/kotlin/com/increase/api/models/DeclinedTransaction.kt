@@ -4668,6 +4668,7 @@ private constructor(
             private val amount: JsonField<Long>,
             private val checkDepositId: JsonField<String>,
             private val currency: JsonField<Currency>,
+            private val declinedTransactionId: JsonField<String>,
             private val reason: JsonField<Reason>,
             private val rejectedAt: JsonField<OffsetDateTime>,
             private val additionalProperties: Map<String, JsonValue>,
@@ -4690,6 +4691,10 @@ private constructor(
              * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the check's currency.
              */
             fun currency(): Currency = currency.getRequired("currency")
+
+            /** The identifier of the associated declined transaction. */
+            fun declinedTransactionId(): String =
+                declinedTransactionId.getRequired("declined_transaction_id")
 
             /** Why the check deposit was rejected. */
             fun reason(): Reason = reason.getRequired("reason")
@@ -4714,6 +4719,11 @@ private constructor(
              */
             @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
 
+            /** The identifier of the associated declined transaction. */
+            @JsonProperty("declined_transaction_id")
+            @ExcludeMissing
+            fun _declinedTransactionId() = declinedTransactionId
+
             /** Why the check deposit was rejected. */
             @JsonProperty("reason") @ExcludeMissing fun _reason() = reason
 
@@ -4732,6 +4742,7 @@ private constructor(
                     amount()
                     checkDepositId()
                     currency()
+                    declinedTransactionId()
                     reason()
                     rejectedAt()
                     validated = true
@@ -4749,6 +4760,7 @@ private constructor(
                     this.amount == other.amount &&
                     this.checkDepositId == other.checkDepositId &&
                     this.currency == other.currency &&
+                    this.declinedTransactionId == other.declinedTransactionId &&
                     this.reason == other.reason &&
                     this.rejectedAt == other.rejectedAt &&
                     this.additionalProperties == other.additionalProperties
@@ -4761,6 +4773,7 @@ private constructor(
                             amount,
                             checkDepositId,
                             currency,
+                            declinedTransactionId,
                             reason,
                             rejectedAt,
                             additionalProperties,
@@ -4770,7 +4783,7 @@ private constructor(
             }
 
             override fun toString() =
-                "CheckDepositRejection{amount=$amount, checkDepositId=$checkDepositId, currency=$currency, reason=$reason, rejectedAt=$rejectedAt, additionalProperties=$additionalProperties}"
+                "CheckDepositRejection{amount=$amount, checkDepositId=$checkDepositId, currency=$currency, declinedTransactionId=$declinedTransactionId, reason=$reason, rejectedAt=$rejectedAt, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -4782,6 +4795,7 @@ private constructor(
                 private var amount: JsonField<Long> = JsonMissing.of()
                 private var checkDepositId: JsonField<String> = JsonMissing.of()
                 private var currency: JsonField<Currency> = JsonMissing.of()
+                private var declinedTransactionId: JsonField<String> = JsonMissing.of()
                 private var reason: JsonField<Reason> = JsonMissing.of()
                 private var rejectedAt: JsonField<OffsetDateTime> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -4790,6 +4804,7 @@ private constructor(
                     this.amount = checkDepositRejection.amount
                     this.checkDepositId = checkDepositRejection.checkDepositId
                     this.currency = checkDepositRejection.currency
+                    this.declinedTransactionId = checkDepositRejection.declinedTransactionId
                     this.reason = checkDepositRejection.reason
                     this.rejectedAt = checkDepositRejection.rejectedAt
                     additionalProperties(checkDepositRejection.additionalProperties)
@@ -4833,6 +4848,17 @@ private constructor(
                 @JsonProperty("currency")
                 @ExcludeMissing
                 fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
+
+                /** The identifier of the associated declined transaction. */
+                fun declinedTransactionId(declinedTransactionId: String) =
+                    declinedTransactionId(JsonField.of(declinedTransactionId))
+
+                /** The identifier of the associated declined transaction. */
+                @JsonProperty("declined_transaction_id")
+                @ExcludeMissing
+                fun declinedTransactionId(declinedTransactionId: JsonField<String>) = apply {
+                    this.declinedTransactionId = declinedTransactionId
+                }
 
                 /** Why the check deposit was rejected. */
                 fun reason(reason: Reason) = reason(JsonField.of(reason))
@@ -4878,6 +4904,7 @@ private constructor(
                         amount,
                         checkDepositId,
                         currency,
+                        declinedTransactionId,
                         reason,
                         rejectedAt,
                         additionalProperties.toUnmodifiable(),
