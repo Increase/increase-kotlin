@@ -336,6 +336,9 @@ constructor(
                 val INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION =
                     In(JsonField.of("inbound_real_time_payments_transfer_confirmation"))
 
+                val INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE =
+                    In(JsonField.of("inbound_real_time_payments_transfer_decline"))
+
                 val INBOUND_WIRE_REVERSAL = In(JsonField.of("inbound_wire_reversal"))
 
                 val INBOUND_WIRE_TRANSFER = In(JsonField.of("inbound_wire_transfer"))
@@ -380,6 +383,7 @@ constructor(
                 INBOUND_ACH_TRANSFER_RETURN_INTENTION,
                 INBOUND_CHECK_DEPOSIT_RETURN_INTENTION,
                 INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION,
+                INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE,
                 INBOUND_WIRE_REVERSAL,
                 INBOUND_WIRE_TRANSFER,
                 INBOUND_WIRE_TRANSFER_REVERSAL,
@@ -411,6 +415,7 @@ constructor(
                 INBOUND_ACH_TRANSFER_RETURN_INTENTION,
                 INBOUND_CHECK_DEPOSIT_RETURN_INTENTION,
                 INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION,
+                INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE,
                 INBOUND_WIRE_REVERSAL,
                 INBOUND_WIRE_TRANSFER,
                 INBOUND_WIRE_TRANSFER_REVERSAL,
@@ -447,6 +452,8 @@ constructor(
                         Value.INBOUND_CHECK_DEPOSIT_RETURN_INTENTION
                     INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION ->
                         Value.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION
+                    INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE ->
+                        Value.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE
                     INBOUND_WIRE_REVERSAL -> Value.INBOUND_WIRE_REVERSAL
                     INBOUND_WIRE_TRANSFER -> Value.INBOUND_WIRE_TRANSFER
                     INBOUND_WIRE_TRANSFER_REVERSAL -> Value.INBOUND_WIRE_TRANSFER_REVERSAL
@@ -484,6 +491,8 @@ constructor(
                         Known.INBOUND_CHECK_DEPOSIT_RETURN_INTENTION
                     INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION ->
                         Known.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION
+                    INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE ->
+                        Known.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE
                     INBOUND_WIRE_REVERSAL -> Known.INBOUND_WIRE_REVERSAL
                     INBOUND_WIRE_TRANSFER -> Known.INBOUND_WIRE_TRANSFER
                     INBOUND_WIRE_TRANSFER_REVERSAL -> Known.INBOUND_WIRE_TRANSFER_REVERSAL
