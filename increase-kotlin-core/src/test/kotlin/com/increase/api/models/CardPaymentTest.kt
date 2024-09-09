@@ -2,6 +2,7 @@
 
 package com.increase.api.models
 
+import com.increase.api.core.JsonNull
 import java.time.LocalDate
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
@@ -886,6 +887,7 @@ class CardPaymentTest {
                             )
                             .category(CardPayment.Element.Category.CARD_AUTHORIZATION)
                             .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .other(JsonNull.of())
                             .build()
                     )
                 )
@@ -1687,6 +1689,7 @@ class CardPaymentTest {
                     )
                     .category(CardPayment.Element.Category.CARD_AUTHORIZATION)
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .other(JsonNull.of())
                     .build()
             )
         assertThat(cardPayment.physicalCardId()).isEqualTo("physical_card_id")
