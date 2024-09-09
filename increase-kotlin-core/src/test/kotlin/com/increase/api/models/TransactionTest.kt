@@ -2,6 +2,7 @@
 
 package com.increase.api.models
 
+import com.increase.api.core.JsonNull
 import java.time.LocalDate
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
@@ -762,6 +763,7 @@ class TransactionTest {
                                 .reason(Transaction.Source.InternalSource.Reason.ACCOUNT_CLOSURE)
                                 .build()
                         )
+                        .other(JsonNull.of())
                         .realTimePaymentsTransferAcknowledgement(
                             Transaction.Source.RealTimePaymentsTransferAcknowledgement.builder()
                                 .amount(123L)
@@ -1499,6 +1501,7 @@ class TransactionTest {
                             .reason(Transaction.Source.InternalSource.Reason.ACCOUNT_CLOSURE)
                             .build()
                     )
+                    .other(JsonNull.of())
                     .realTimePaymentsTransferAcknowledgement(
                         Transaction.Source.RealTimePaymentsTransferAcknowledgement.builder()
                             .amount(123L)
