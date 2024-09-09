@@ -787,11 +787,6 @@ class TransactionTest {
                                 .transferId("transfer_id")
                                 .build()
                         )
-                        .wireTransferRejection(
-                            Transaction.Source.WireTransferRejection.builder()
-                                .transferId("transfer_id")
-                                .build()
-                        )
                         .build()
                 )
                 .type(Transaction.Type.TRANSACTION)
@@ -1520,11 +1515,6 @@ class TransactionTest {
                             .amount(123L)
                             .messageToRecipient("message_to_recipient")
                             .routingNumber("routing_number")
-                            .transferId("transfer_id")
-                            .build()
-                    )
-                    .wireTransferRejection(
-                        Transaction.Source.WireTransferRejection.builder()
                             .transferId("transfer_id")
                             .build()
                     )
