@@ -574,6 +574,7 @@ private constructor(
         private val inboundWireTransfer: JsonField<InboundWireTransfer>,
         private val interestPayment: JsonField<InterestPayment>,
         private val internalSource: JsonField<InternalSource>,
+        private val other: JsonValue,
         private val realTimePaymentsTransferAcknowledgement:
             JsonField<RealTimePaymentsTransferAcknowledgement>,
         private val sampleFunds: JsonField<SampleFunds>,
@@ -933,6 +934,12 @@ private constructor(
         @JsonProperty("internal_source") @ExcludeMissing fun _internalSource() = internalSource
 
         /**
+         * If the category of this Transaction source is equal to `other`, this field will contain
+         * an empty object, otherwise it will contain null.
+         */
+        @JsonProperty("other") @ExcludeMissing fun _other() = other
+
+        /**
          * A Real-Time Payments Transfer Acknowledgement object. This field will be present in the
          * JSON response if and only if `category` is equal to
          * `real_time_payments_transfer_acknowledgement`.
@@ -1031,6 +1038,7 @@ private constructor(
                 this.inboundWireTransfer == other.inboundWireTransfer &&
                 this.interestPayment == other.interestPayment &&
                 this.internalSource == other.internalSource &&
+                this.other == other.other &&
                 this.realTimePaymentsTransferAcknowledgement ==
                     other.realTimePaymentsTransferAcknowledgement &&
                 this.sampleFunds == other.sampleFunds &&
@@ -1065,6 +1073,7 @@ private constructor(
                         inboundWireTransfer,
                         interestPayment,
                         internalSource,
+                        other,
                         realTimePaymentsTransferAcknowledgement,
                         sampleFunds,
                         wireTransferIntention,
@@ -1076,7 +1085,7 @@ private constructor(
         }
 
         override fun toString() =
-            "Source{accountTransferIntention=$accountTransferIntention, achTransferIntention=$achTransferIntention, achTransferRejection=$achTransferRejection, achTransferReturn=$achTransferReturn, cardDisputeAcceptance=$cardDisputeAcceptance, cardDisputeLoss=$cardDisputeLoss, cardRefund=$cardRefund, cardRevenuePayment=$cardRevenuePayment, cardSettlement=$cardSettlement, cashbackPayment=$cashbackPayment, category=$category, checkDepositAcceptance=$checkDepositAcceptance, checkDepositReturn=$checkDepositReturn, checkTransferDeposit=$checkTransferDeposit, feePayment=$feePayment, inboundAchTransfer=$inboundAchTransfer, inboundRealTimePaymentsTransferConfirmation=$inboundRealTimePaymentsTransferConfirmation, inboundRealTimePaymentsTransferDecline=$inboundRealTimePaymentsTransferDecline, inboundWireReversal=$inboundWireReversal, inboundWireTransfer=$inboundWireTransfer, interestPayment=$interestPayment, internalSource=$internalSource, realTimePaymentsTransferAcknowledgement=$realTimePaymentsTransferAcknowledgement, sampleFunds=$sampleFunds, wireTransferIntention=$wireTransferIntention, wireTransferRejection=$wireTransferRejection, additionalProperties=$additionalProperties}"
+            "Source{accountTransferIntention=$accountTransferIntention, achTransferIntention=$achTransferIntention, achTransferRejection=$achTransferRejection, achTransferReturn=$achTransferReturn, cardDisputeAcceptance=$cardDisputeAcceptance, cardDisputeLoss=$cardDisputeLoss, cardRefund=$cardRefund, cardRevenuePayment=$cardRevenuePayment, cardSettlement=$cardSettlement, cashbackPayment=$cashbackPayment, category=$category, checkDepositAcceptance=$checkDepositAcceptance, checkDepositReturn=$checkDepositReturn, checkTransferDeposit=$checkTransferDeposit, feePayment=$feePayment, inboundAchTransfer=$inboundAchTransfer, inboundRealTimePaymentsTransferConfirmation=$inboundRealTimePaymentsTransferConfirmation, inboundRealTimePaymentsTransferDecline=$inboundRealTimePaymentsTransferDecline, inboundWireReversal=$inboundWireReversal, inboundWireTransfer=$inboundWireTransfer, interestPayment=$interestPayment, internalSource=$internalSource, other=$other, realTimePaymentsTransferAcknowledgement=$realTimePaymentsTransferAcknowledgement, sampleFunds=$sampleFunds, wireTransferIntention=$wireTransferIntention, wireTransferRejection=$wireTransferRejection, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -1112,6 +1121,7 @@ private constructor(
             private var inboundWireTransfer: JsonField<InboundWireTransfer> = JsonMissing.of()
             private var interestPayment: JsonField<InterestPayment> = JsonMissing.of()
             private var internalSource: JsonField<InternalSource> = JsonMissing.of()
+            private var other: JsonValue = JsonMissing.of()
             private var realTimePaymentsTransferAcknowledgement:
                 JsonField<RealTimePaymentsTransferAcknowledgement> =
                 JsonMissing.of()
@@ -1145,6 +1155,7 @@ private constructor(
                 this.inboundWireTransfer = source.inboundWireTransfer
                 this.interestPayment = source.interestPayment
                 this.internalSource = source.internalSource
+                this.other = source.other
                 this.realTimePaymentsTransferAcknowledgement =
                     source.realTimePaymentsTransferAcknowledgement
                 this.sampleFunds = source.sampleFunds
@@ -1548,6 +1559,14 @@ private constructor(
             }
 
             /**
+             * If the category of this Transaction source is equal to `other`, this field will
+             * contain an empty object, otherwise it will contain null.
+             */
+            @JsonProperty("other")
+            @ExcludeMissing
+            fun other(other: JsonValue) = apply { this.other = other }
+
+            /**
              * A Real-Time Payments Transfer Acknowledgement object. This field will be present in
              * the JSON response if and only if `category` is equal to
              * `real_time_payments_transfer_acknowledgement`.
@@ -1664,6 +1683,7 @@ private constructor(
                     inboundWireTransfer,
                     interestPayment,
                     internalSource,
+                    other,
                     realTimePaymentsTransferAcknowledgement,
                     sampleFunds,
                     wireTransferIntention,

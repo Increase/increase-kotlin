@@ -335,6 +335,7 @@ private constructor(
         private val cardValidation: JsonField<CardValidation>,
         private val category: JsonField<Category>,
         private val createdAt: JsonField<OffsetDateTime>,
+        private val other: JsonValue,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -483,6 +484,12 @@ private constructor(
          */
         @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
 
+        /**
+         * If the category of this Transaction source is equal to `other`, this field will contain
+         * an empty object, otherwise it will contain null.
+         */
+        @JsonProperty("other") @ExcludeMissing fun _other() = other
+
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -523,6 +530,7 @@ private constructor(
                 this.cardValidation == other.cardValidation &&
                 this.category == other.category &&
                 this.createdAt == other.createdAt &&
+                this.other == other.other &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -541,6 +549,7 @@ private constructor(
                         cardValidation,
                         category,
                         createdAt,
+                        other,
                         additionalProperties,
                     )
             }
@@ -548,7 +557,7 @@ private constructor(
         }
 
         override fun toString() =
-            "Element{cardAuthorization=$cardAuthorization, cardAuthorizationExpiration=$cardAuthorizationExpiration, cardDecline=$cardDecline, cardFuelConfirmation=$cardFuelConfirmation, cardIncrement=$cardIncrement, cardRefund=$cardRefund, cardReversal=$cardReversal, cardSettlement=$cardSettlement, cardValidation=$cardValidation, category=$category, createdAt=$createdAt, additionalProperties=$additionalProperties}"
+            "Element{cardAuthorization=$cardAuthorization, cardAuthorizationExpiration=$cardAuthorizationExpiration, cardDecline=$cardDecline, cardFuelConfirmation=$cardFuelConfirmation, cardIncrement=$cardIncrement, cardRefund=$cardRefund, cardReversal=$cardReversal, cardSettlement=$cardSettlement, cardValidation=$cardValidation, category=$category, createdAt=$createdAt, other=$other, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -569,6 +578,7 @@ private constructor(
             private var cardValidation: JsonField<CardValidation> = JsonMissing.of()
             private var category: JsonField<Category> = JsonMissing.of()
             private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
+            private var other: JsonValue = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(element: Element) = apply {
@@ -583,6 +593,7 @@ private constructor(
                 this.cardValidation = element.cardValidation
                 this.category = element.category
                 this.createdAt = element.createdAt
+                this.other = element.other
                 additionalProperties(element.additionalProperties)
             }
 
@@ -768,6 +779,14 @@ private constructor(
                 this.createdAt = createdAt
             }
 
+            /**
+             * If the category of this Transaction source is equal to `other`, this field will
+             * contain an empty object, otherwise it will contain null.
+             */
+            @JsonProperty("other")
+            @ExcludeMissing
+            fun other(other: JsonValue) = apply { this.other = other }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 this.additionalProperties.putAll(additionalProperties)
@@ -795,6 +814,7 @@ private constructor(
                     cardValidation,
                     category,
                     createdAt,
+                    other,
                     additionalProperties.toUnmodifiable(),
                 )
         }
