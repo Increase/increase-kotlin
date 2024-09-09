@@ -557,6 +557,7 @@ private constructor(
         private val checkDepositRejection: JsonField<CheckDepositRejection>,
         private val inboundRealTimePaymentsTransferDecline:
             JsonField<InboundRealTimePaymentsTransferDecline>,
+        private val other: JsonValue,
         private val wireDecline: JsonField<WireDecline>,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
@@ -654,6 +655,12 @@ private constructor(
         fun _inboundRealTimePaymentsTransferDecline() = inboundRealTimePaymentsTransferDecline
 
         /**
+         * If the category of this Transaction source is equal to `other`, this field will contain
+         * an empty object, otherwise it will contain null.
+         */
+        @JsonProperty("other") @ExcludeMissing fun _other() = other
+
+        /**
          * A Wire Decline object. This field will be present in the JSON response if and only if
          * `category` is equal to `wire_decline`.
          */
@@ -691,6 +698,7 @@ private constructor(
                 this.checkDepositRejection == other.checkDepositRejection &&
                 this.inboundRealTimePaymentsTransferDecline ==
                     other.inboundRealTimePaymentsTransferDecline &&
+                this.other == other.other &&
                 this.wireDecline == other.wireDecline &&
                 this.additionalProperties == other.additionalProperties
         }
@@ -705,6 +713,7 @@ private constructor(
                         checkDecline,
                         checkDepositRejection,
                         inboundRealTimePaymentsTransferDecline,
+                        other,
                         wireDecline,
                         additionalProperties,
                     )
@@ -713,7 +722,7 @@ private constructor(
         }
 
         override fun toString() =
-            "Source{achDecline=$achDecline, cardDecline=$cardDecline, category=$category, checkDecline=$checkDecline, checkDepositRejection=$checkDepositRejection, inboundRealTimePaymentsTransferDecline=$inboundRealTimePaymentsTransferDecline, wireDecline=$wireDecline, additionalProperties=$additionalProperties}"
+            "Source{achDecline=$achDecline, cardDecline=$cardDecline, category=$category, checkDecline=$checkDecline, checkDepositRejection=$checkDepositRejection, inboundRealTimePaymentsTransferDecline=$inboundRealTimePaymentsTransferDecline, other=$other, wireDecline=$wireDecline, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -730,6 +739,7 @@ private constructor(
             private var inboundRealTimePaymentsTransferDecline:
                 JsonField<InboundRealTimePaymentsTransferDecline> =
                 JsonMissing.of()
+            private var other: JsonValue = JsonMissing.of()
             private var wireDecline: JsonField<WireDecline> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -741,6 +751,7 @@ private constructor(
                 this.checkDepositRejection = source.checkDepositRejection
                 this.inboundRealTimePaymentsTransferDecline =
                     source.inboundRealTimePaymentsTransferDecline
+                this.other = source.other
                 this.wireDecline = source.wireDecline
                 additionalProperties(source.additionalProperties)
             }
@@ -852,6 +863,14 @@ private constructor(
             }
 
             /**
+             * If the category of this Transaction source is equal to `other`, this field will
+             * contain an empty object, otherwise it will contain null.
+             */
+            @JsonProperty("other")
+            @ExcludeMissing
+            fun other(other: JsonValue) = apply { this.other = other }
+
+            /**
              * A Wire Decline object. This field will be present in the JSON response if and only if
              * `category` is equal to `wire_decline`.
              */
@@ -889,6 +908,7 @@ private constructor(
                     checkDecline,
                     checkDepositRejection,
                     inboundRealTimePaymentsTransferDecline,
+                    other,
                     wireDecline,
                     additionalProperties.toUnmodifiable(),
                 )

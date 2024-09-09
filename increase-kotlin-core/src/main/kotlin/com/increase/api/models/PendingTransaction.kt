@@ -611,6 +611,7 @@ private constructor(
         private val checkDepositInstruction: JsonField<CheckDepositInstruction>,
         private val checkTransferInstruction: JsonField<CheckTransferInstruction>,
         private val inboundFundsHold: JsonField<InboundFundsHold>,
+        private val other: JsonValue,
         private val realTimePaymentsTransferInstruction:
             JsonField<RealTimePaymentsTransferInstruction>,
         private val wireTransferInstruction: JsonField<WireTransferInstruction>,
@@ -740,6 +741,12 @@ private constructor(
         fun _inboundFundsHold() = inboundFundsHold
 
         /**
+         * If the category of this Transaction source is equal to `other`, this field will contain
+         * an empty object, otherwise it will contain null.
+         */
+        @JsonProperty("other") @ExcludeMissing fun _other() = other
+
+        /**
          * A Real-Time Payments Transfer Instruction object. This field will be present in the JSON
          * response if and only if `category` is equal to `real_time_payments_transfer_instruction`.
          */
@@ -789,6 +796,7 @@ private constructor(
                 this.checkDepositInstruction == other.checkDepositInstruction &&
                 this.checkTransferInstruction == other.checkTransferInstruction &&
                 this.inboundFundsHold == other.inboundFundsHold &&
+                this.other == other.other &&
                 this.realTimePaymentsTransferInstruction ==
                     other.realTimePaymentsTransferInstruction &&
                 this.wireTransferInstruction == other.wireTransferInstruction &&
@@ -806,6 +814,7 @@ private constructor(
                         checkDepositInstruction,
                         checkTransferInstruction,
                         inboundFundsHold,
+                        other,
                         realTimePaymentsTransferInstruction,
                         wireTransferInstruction,
                         additionalProperties,
@@ -815,7 +824,7 @@ private constructor(
         }
 
         override fun toString() =
-            "Source{accountTransferInstruction=$accountTransferInstruction, achTransferInstruction=$achTransferInstruction, cardAuthorization=$cardAuthorization, category=$category, checkDepositInstruction=$checkDepositInstruction, checkTransferInstruction=$checkTransferInstruction, inboundFundsHold=$inboundFundsHold, realTimePaymentsTransferInstruction=$realTimePaymentsTransferInstruction, wireTransferInstruction=$wireTransferInstruction, additionalProperties=$additionalProperties}"
+            "Source{accountTransferInstruction=$accountTransferInstruction, achTransferInstruction=$achTransferInstruction, cardAuthorization=$cardAuthorization, category=$category, checkDepositInstruction=$checkDepositInstruction, checkTransferInstruction=$checkTransferInstruction, inboundFundsHold=$inboundFundsHold, other=$other, realTimePaymentsTransferInstruction=$realTimePaymentsTransferInstruction, wireTransferInstruction=$wireTransferInstruction, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -834,6 +843,7 @@ private constructor(
             private var checkTransferInstruction: JsonField<CheckTransferInstruction> =
                 JsonMissing.of()
             private var inboundFundsHold: JsonField<InboundFundsHold> = JsonMissing.of()
+            private var other: JsonValue = JsonMissing.of()
             private var realTimePaymentsTransferInstruction:
                 JsonField<RealTimePaymentsTransferInstruction> =
                 JsonMissing.of()
@@ -849,6 +859,7 @@ private constructor(
                 this.checkDepositInstruction = source.checkDepositInstruction
                 this.checkTransferInstruction = source.checkTransferInstruction
                 this.inboundFundsHold = source.inboundFundsHold
+                this.other = source.other
                 this.realTimePaymentsTransferInstruction =
                     source.realTimePaymentsTransferInstruction
                 this.wireTransferInstruction = source.wireTransferInstruction
@@ -973,6 +984,14 @@ private constructor(
             }
 
             /**
+             * If the category of this Transaction source is equal to `other`, this field will
+             * contain an empty object, otherwise it will contain null.
+             */
+            @JsonProperty("other")
+            @ExcludeMissing
+            fun other(other: JsonValue) = apply { this.other = other }
+
+            /**
              * A Real-Time Payments Transfer Instruction object. This field will be present in the
              * JSON response if and only if `category` is equal to
              * `real_time_payments_transfer_instruction`.
@@ -1037,6 +1056,7 @@ private constructor(
                     checkDepositInstruction,
                     checkTransferInstruction,
                     inboundFundsHold,
+                    other,
                     realTimePaymentsTransferInstruction,
                     wireTransferInstruction,
                     additionalProperties.toUnmodifiable(),
