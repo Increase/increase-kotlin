@@ -2,13 +2,20 @@ package com.increase.api.errors
 
 import com.google.common.collect.ListMultimap
 
-abstract class IncreaseServiceException
-constructor(
+abstract class IncreaseServiceException(
+    private val statusCode: Int,
     private val headers: ListMultimap<String, String>,
-    message: String? = null,
+    private val body: String,
+    private val error: IncreaseError,
+    message: String = "$statusCode: $error",
     cause: Throwable? = null
 ) : IncreaseException(message, cause) {
-    abstract fun statusCode(): Int
+
+    fun statusCode(): Int = statusCode
 
     fun headers(): ListMultimap<String, String> = headers
+
+    fun body(): String = body
+
+    fun error(): IncreaseError = error
 }
