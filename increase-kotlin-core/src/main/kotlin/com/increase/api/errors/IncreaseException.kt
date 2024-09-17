@@ -1,4 +1,4 @@
 package com.increase.api.errors
 
-open class IncreaseException constructor(message: String? = null, cause: Throwable? = null) :
+open class IncreaseException(message: String? = null, cause: Throwable? = null) :
     RuntimeException(message, cause)
