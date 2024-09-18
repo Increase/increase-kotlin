@@ -951,6 +951,8 @@ private constructor(
 
             val RETURNED = Status(JsonField.of("returned"))
 
+            val REQUIRES_ATTENTION = Status(JsonField.of("requires_attention"))
+
             fun of(value: String) = Status(JsonField.of(value))
         }
 
@@ -959,6 +961,7 @@ private constructor(
             ACCEPTED,
             DECLINED,
             RETURNED,
+            REQUIRES_ATTENTION,
         }
 
         enum class Value {
@@ -966,6 +969,7 @@ private constructor(
             ACCEPTED,
             DECLINED,
             RETURNED,
+            REQUIRES_ATTENTION,
             _UNKNOWN,
         }
 
@@ -975,6 +979,7 @@ private constructor(
                 ACCEPTED -> Value.ACCEPTED
                 DECLINED -> Value.DECLINED
                 RETURNED -> Value.RETURNED
+                REQUIRES_ATTENTION -> Value.REQUIRES_ATTENTION
                 else -> Value._UNKNOWN
             }
 
@@ -984,6 +989,7 @@ private constructor(
                 ACCEPTED -> Known.ACCEPTED
                 DECLINED -> Known.DECLINED
                 RETURNED -> Known.RETURNED
+                REQUIRES_ATTENTION -> Known.REQUIRES_ATTENTION
                 else -> throw IncreaseInvalidDataException("Unknown Status: $value")
             }
 
