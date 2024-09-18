@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.97.0 (2024-09-18)
+
+Full Changelog: [v0.96.0...v0.97.0](https://github.com/Increase/increase-kotlin/compare/v0.96.0...v0.97.0)
+
+### Features
+
+* **api:** OpenAPI spec update via Stainless API ([#451](https://github.com/Increase/increase-kotlin/issues/451)) ([4c1eebf](https://github.com/Increase/increase-kotlin/commit/4c1eebf4656e74367bea0c74199c87df6d9164c4))
+* **client:** added structured fields to errors ([#449](https://github.com/Increase/increase-kotlin/issues/449)) ([32d0680](https://github.com/Increase/increase-kotlin/commit/32d0680b87386f8b6320adef73bca5758f300257))
+
 ## 0.96.0 (2024-09-17)
 
 Full Changelog: [v0.95.0...v0.96.0](https://github.com/Increase/increase-kotlin/compare/v0.95.0...v0.96.0)
