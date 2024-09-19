@@ -5068,6 +5068,9 @@ private constructor(
 
             val PENDING_APPROVAL = Status(JsonField.of("pending_approval"))
 
+            val PENDING_TRANSFER_SESSION_CONFIRMATION =
+                Status(JsonField.of("pending_transfer_session_confirmation"))
+
             val CANCELED = Status(JsonField.of("canceled"))
 
             val PENDING_REVIEWING = Status(JsonField.of("pending_reviewing"))
@@ -5087,6 +5090,7 @@ private constructor(
 
         enum class Known {
             PENDING_APPROVAL,
+            PENDING_TRANSFER_SESSION_CONFIRMATION,
             CANCELED,
             PENDING_REVIEWING,
             PENDING_SUBMISSION,
@@ -5098,6 +5102,7 @@ private constructor(
 
         enum class Value {
             PENDING_APPROVAL,
+            PENDING_TRANSFER_SESSION_CONFIRMATION,
             CANCELED,
             PENDING_REVIEWING,
             PENDING_SUBMISSION,
@@ -5111,6 +5116,7 @@ private constructor(
         fun value(): Value =
             when (this) {
                 PENDING_APPROVAL -> Value.PENDING_APPROVAL
+                PENDING_TRANSFER_SESSION_CONFIRMATION -> Value.PENDING_TRANSFER_SESSION_CONFIRMATION
                 CANCELED -> Value.CANCELED
                 PENDING_REVIEWING -> Value.PENDING_REVIEWING
                 PENDING_SUBMISSION -> Value.PENDING_SUBMISSION
@@ -5124,6 +5130,7 @@ private constructor(
         fun known(): Known =
             when (this) {
                 PENDING_APPROVAL -> Known.PENDING_APPROVAL
+                PENDING_TRANSFER_SESSION_CONFIRMATION -> Known.PENDING_TRANSFER_SESSION_CONFIRMATION
                 CANCELED -> Known.CANCELED
                 PENDING_REVIEWING -> Known.PENDING_REVIEWING
                 PENDING_SUBMISSION -> Known.PENDING_SUBMISSION
