@@ -17,6 +17,7 @@ class CardDisputeCreateParams
 constructor(
     private val disputedTransactionId: String,
     private val explanation: String,
+    private val amount: Long?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
     private val additionalBodyProperties: Map<String, JsonValue>,
@@ -26,10 +27,13 @@ constructor(
 
     fun explanation(): String = explanation
 
+    fun amount(): Long? = amount
+
     internal fun getBody(): CardDisputeCreateBody {
         return CardDisputeCreateBody(
             disputedTransactionId,
             explanation,
+            amount,
             additionalBodyProperties,
         )
     }
@@ -44,6 +48,7 @@ constructor(
     internal constructor(
         private val disputedTransactionId: String?,
         private val explanation: String?,
+        private val amount: Long?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -59,6 +64,13 @@ constructor(
         /** Why you are disputing this Transaction. */
         @JsonProperty("explanation") fun explanation(): String? = explanation
 
+        /**
+         * The monetary amount of the part of the transaction that is being disputed. This is
+         * optional and will default to the full amount of the transaction if not provided. If
+         * provided, the amount must be less than or equal to the amount of the transaction.
+         */
+        @JsonProperty("amount") fun amount(): Long? = amount
+
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -73,6 +85,7 @@ constructor(
             return other is CardDisputeCreateBody &&
                 this.disputedTransactionId == other.disputedTransactionId &&
                 this.explanation == other.explanation &&
+                this.amount == other.amount &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -82,6 +95,7 @@ constructor(
                     Objects.hash(
                         disputedTransactionId,
                         explanation,
+                        amount,
                         additionalProperties,
                     )
             }
@@ -89,7 +103,7 @@ constructor(
         }
 
         override fun toString() =
-            "CardDisputeCreateBody{disputedTransactionId=$disputedTransactionId, explanation=$explanation, additionalProperties=$additionalProperties}"
+            "CardDisputeCreateBody{disputedTransactionId=$disputedTransactionId, explanation=$explanation, amount=$amount, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -100,11 +114,13 @@ constructor(
 
             private var disputedTransactionId: String? = null
             private var explanation: String? = null
+            private var amount: Long? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(cardDisputeCreateBody: CardDisputeCreateBody) = apply {
                 this.disputedTransactionId = cardDisputeCreateBody.disputedTransactionId
                 this.explanation = cardDisputeCreateBody.explanation
+                this.amount = cardDisputeCreateBody.amount
                 additionalProperties(cardDisputeCreateBody.additionalProperties)
             }
 
@@ -120,6 +136,13 @@ constructor(
             /** Why you are disputing this Transaction. */
             @JsonProperty("explanation")
             fun explanation(explanation: String) = apply { this.explanation = explanation }
+
+            /**
+             * The monetary amount of the part of the transaction that is being disputed. This is
+             * optional and will default to the full amount of the transaction if not provided. If
+             * provided, the amount must be less than or equal to the amount of the transaction.
+             */
+            @JsonProperty("amount") fun amount(amount: Long) = apply { this.amount = amount }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -141,6 +164,7 @@ constructor(
                         "`disputedTransactionId` is required but was not set"
                     },
                     checkNotNull(explanation) { "`explanation` is required but was not set" },
+                    amount,
                     additionalProperties.toUnmodifiable(),
                 )
         }
@@ -160,6 +184,7 @@ constructor(
         return other is CardDisputeCreateParams &&
             this.disputedTransactionId == other.disputedTransactionId &&
             this.explanation == other.explanation &&
+            this.amount == other.amount &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders &&
             this.additionalBodyProperties == other.additionalBodyProperties
@@ -169,6 +194,7 @@ constructor(
         return Objects.hash(
             disputedTransactionId,
             explanation,
+            amount,
             additionalQueryParams,
             additionalHeaders,
             additionalBodyProperties,
@@ -176,7 +202,7 @@ constructor(
     }
 
     override fun toString() =
-        "CardDisputeCreateParams{disputedTransactionId=$disputedTransactionId, explanation=$explanation, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "CardDisputeCreateParams{disputedTransactionId=$disputedTransactionId, explanation=$explanation, amount=$amount, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -190,6 +216,7 @@ constructor(
 
         private var disputedTransactionId: String? = null
         private var explanation: String? = null
+        private var amount: Long? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -197,6 +224,7 @@ constructor(
         internal fun from(cardDisputeCreateParams: CardDisputeCreateParams) = apply {
             this.disputedTransactionId = cardDisputeCreateParams.disputedTransactionId
             this.explanation = cardDisputeCreateParams.explanation
+            this.amount = cardDisputeCreateParams.amount
             additionalQueryParams(cardDisputeCreateParams.additionalQueryParams)
             additionalHeaders(cardDisputeCreateParams.additionalHeaders)
             additionalBodyProperties(cardDisputeCreateParams.additionalBodyProperties)
@@ -212,6 +240,13 @@ constructor(
 
         /** Why you are disputing this Transaction. */
         fun explanation(explanation: String) = apply { this.explanation = explanation }
+
+        /**
+         * The monetary amount of the part of the transaction that is being disputed. This is
+         * optional and will default to the full amount of the transaction if not provided. If
+         * provided, the amount must be less than or equal to the amount of the transaction.
+         */
+        fun amount(amount: Long) = apply { this.amount = amount }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -273,6 +308,7 @@ constructor(
                     "`disputedTransactionId` is required but was not set"
                 },
                 checkNotNull(explanation) { "`explanation` is required but was not set" },
+                amount,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalBodyProperties.toUnmodifiable(),
