@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.104.0 (2024-09-26)
+
+Full Changelog: [v0.103.0...v0.104.0](https://github.com/Increase/increase-kotlin/compare/v0.103.0...v0.104.0)
+
+### Features
+
+* **api:** OpenAPI spec update via Stainless API ([#473](https://github.com/Increase/increase-kotlin/issues/473)) ([e3c6269](https://github.com/Increase/increase-kotlin/commit/e3c62695e7fe5edb9fb18476753c786c2a4a6816))
+
+
+### Chores
+
+* **internal:** codegen related update ([#470](https://github.com/Increase/increase-kotlin/issues/470)) ([2480896](https://github.com/Increase/increase-kotlin/commit/2480896c440ed4d9b775f924d183fa9eba91f5d3))
+
 ## 0.103.0 (2024-09-25)
 
 Full Changelog: [v0.102.0...v0.103.0](https://github.com/Increase/increase-kotlin/compare/v0.102.0...v0.103.0)
