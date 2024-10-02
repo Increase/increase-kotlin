@@ -4,12 +4,16 @@ package com.increase.api.models
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
+import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonField
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.toUnmodifiable
+import com.increase.api.errors.IncreaseInvalidDataException
 import com.increase.api.models.*
 import java.util.Objects
 
@@ -18,6 +22,7 @@ constructor(
     private val amount: Long,
     private val cardId: String?,
     private val digitalWalletTokenId: String?,
+    private val direction: Direction?,
     private val eventSubscriptionId: String?,
     private val merchantAcceptorId: String?,
     private val merchantCategoryCode: String?,
@@ -35,6 +40,8 @@ constructor(
     fun cardId(): String? = cardId
 
     fun digitalWalletTokenId(): String? = digitalWalletTokenId
+
+    fun direction(): Direction? = direction
 
     fun eventSubscriptionId(): String? = eventSubscriptionId
 
@@ -55,6 +62,7 @@ constructor(
             amount,
             cardId,
             digitalWalletTokenId,
+            direction,
             eventSubscriptionId,
             merchantAcceptorId,
             merchantCategoryCode,
@@ -77,6 +85,7 @@ constructor(
         private val amount: Long?,
         private val cardId: String?,
         private val digitalWalletTokenId: String?,
+        private val direction: Direction?,
         private val eventSubscriptionId: String?,
         private val merchantAcceptorId: String?,
         private val merchantCategoryCode: String?,
@@ -98,6 +107,12 @@ constructor(
         /** The identifier of the Digital Wallet Token to be authorized. */
         @JsonProperty("digital_wallet_token_id")
         fun digitalWalletTokenId(): String? = digitalWalletTokenId
+
+        /**
+         * The direction describes the direction the funds will move, either from the cardholder to
+         * the merchant or from the merchant to the cardholder.
+         */
+        @JsonProperty("direction") fun direction(): Direction? = direction
 
         /**
          * The identifier of the Event Subscription to use. If provided, will override the default
@@ -148,6 +163,7 @@ constructor(
                 this.amount == other.amount &&
                 this.cardId == other.cardId &&
                 this.digitalWalletTokenId == other.digitalWalletTokenId &&
+                this.direction == other.direction &&
                 this.eventSubscriptionId == other.eventSubscriptionId &&
                 this.merchantAcceptorId == other.merchantAcceptorId &&
                 this.merchantCategoryCode == other.merchantCategoryCode &&
@@ -165,6 +181,7 @@ constructor(
                         amount,
                         cardId,
                         digitalWalletTokenId,
+                        direction,
                         eventSubscriptionId,
                         merchantAcceptorId,
                         merchantCategoryCode,
@@ -179,7 +196,7 @@ constructor(
         }
 
         override fun toString() =
-            "SimulationCardAuthorizationCreateBody{amount=$amount, cardId=$cardId, digitalWalletTokenId=$digitalWalletTokenId, eventSubscriptionId=$eventSubscriptionId, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, physicalCardId=$physicalCardId, additionalProperties=$additionalProperties}"
+            "SimulationCardAuthorizationCreateBody{amount=$amount, cardId=$cardId, digitalWalletTokenId=$digitalWalletTokenId, direction=$direction, eventSubscriptionId=$eventSubscriptionId, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, physicalCardId=$physicalCardId, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -191,6 +208,7 @@ constructor(
             private var amount: Long? = null
             private var cardId: String? = null
             private var digitalWalletTokenId: String? = null
+            private var direction: Direction? = null
             private var eventSubscriptionId: String? = null
             private var merchantAcceptorId: String? = null
             private var merchantCategoryCode: String? = null
@@ -207,6 +225,7 @@ constructor(
                 this.cardId = simulationCardAuthorizationCreateBody.cardId
                 this.digitalWalletTokenId =
                     simulationCardAuthorizationCreateBody.digitalWalletTokenId
+                this.direction = simulationCardAuthorizationCreateBody.direction
                 this.eventSubscriptionId = simulationCardAuthorizationCreateBody.eventSubscriptionId
                 this.merchantAcceptorId = simulationCardAuthorizationCreateBody.merchantAcceptorId
                 this.merchantCategoryCode =
@@ -229,6 +248,13 @@ constructor(
             fun digitalWalletTokenId(digitalWalletTokenId: String) = apply {
                 this.digitalWalletTokenId = digitalWalletTokenId
             }
+
+            /**
+             * The direction describes the direction the funds will move, either from the cardholder
+             * to the merchant or from the merchant to the cardholder.
+             */
+            @JsonProperty("direction")
+            fun direction(direction: Direction) = apply { this.direction = direction }
 
             /**
              * The identifier of the Event Subscription to use. If provided, will override the
@@ -300,6 +326,7 @@ constructor(
                     checkNotNull(amount) { "`amount` is required but was not set" },
                     cardId,
                     digitalWalletTokenId,
+                    direction,
                     eventSubscriptionId,
                     merchantAcceptorId,
                     merchantCategoryCode,
@@ -327,6 +354,7 @@ constructor(
             this.amount == other.amount &&
             this.cardId == other.cardId &&
             this.digitalWalletTokenId == other.digitalWalletTokenId &&
+            this.direction == other.direction &&
             this.eventSubscriptionId == other.eventSubscriptionId &&
             this.merchantAcceptorId == other.merchantAcceptorId &&
             this.merchantCategoryCode == other.merchantCategoryCode &&
@@ -344,6 +372,7 @@ constructor(
             amount,
             cardId,
             digitalWalletTokenId,
+            direction,
             eventSubscriptionId,
             merchantAcceptorId,
             merchantCategoryCode,
@@ -358,7 +387,7 @@ constructor(
     }
 
     override fun toString() =
-        "SimulationCardAuthorizationCreateParams{amount=$amount, cardId=$cardId, digitalWalletTokenId=$digitalWalletTokenId, eventSubscriptionId=$eventSubscriptionId, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, physicalCardId=$physicalCardId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "SimulationCardAuthorizationCreateParams{amount=$amount, cardId=$cardId, digitalWalletTokenId=$digitalWalletTokenId, direction=$direction, eventSubscriptionId=$eventSubscriptionId, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, physicalCardId=$physicalCardId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -373,6 +402,7 @@ constructor(
         private var amount: Long? = null
         private var cardId: String? = null
         private var digitalWalletTokenId: String? = null
+        private var direction: Direction? = null
         private var eventSubscriptionId: String? = null
         private var merchantAcceptorId: String? = null
         private var merchantCategoryCode: String? = null
@@ -390,6 +420,7 @@ constructor(
             this.amount = simulationCardAuthorizationCreateParams.amount
             this.cardId = simulationCardAuthorizationCreateParams.cardId
             this.digitalWalletTokenId = simulationCardAuthorizationCreateParams.digitalWalletTokenId
+            this.direction = simulationCardAuthorizationCreateParams.direction
             this.eventSubscriptionId = simulationCardAuthorizationCreateParams.eventSubscriptionId
             this.merchantAcceptorId = simulationCardAuthorizationCreateParams.merchantAcceptorId
             this.merchantCategoryCode = simulationCardAuthorizationCreateParams.merchantCategoryCode
@@ -414,6 +445,12 @@ constructor(
         fun digitalWalletTokenId(digitalWalletTokenId: String) = apply {
             this.digitalWalletTokenId = digitalWalletTokenId
         }
+
+        /**
+         * The direction describes the direction the funds will move, either from the cardholder to
+         * the merchant or from the merchant to the cardholder.
+         */
+        fun direction(direction: Direction) = apply { this.direction = direction }
 
         /**
          * The identifier of the Event Subscription to use. If provided, will override the default
@@ -516,6 +553,7 @@ constructor(
                 checkNotNull(amount) { "`amount` is required but was not set" },
                 cardId,
                 digitalWalletTokenId,
+                direction,
                 eventSubscriptionId,
                 merchantAcceptorId,
                 merchantCategoryCode,
@@ -527,5 +565,62 @@ constructor(
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalBodyProperties.toUnmodifiable(),
             )
+    }
+
+    class Direction
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) : Enum {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Direction && this.value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            val SETTLEMENT = Direction(JsonField.of("settlement"))
+
+            val REFUND = Direction(JsonField.of("refund"))
+
+            fun of(value: String) = Direction(JsonField.of(value))
+        }
+
+        enum class Known {
+            SETTLEMENT,
+            REFUND,
+        }
+
+        enum class Value {
+            SETTLEMENT,
+            REFUND,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                SETTLEMENT -> Value.SETTLEMENT
+                REFUND -> Value.REFUND
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                SETTLEMENT -> Known.SETTLEMENT
+                REFUND -> Known.REFUND
+                else -> throw IncreaseInvalidDataException("Unknown Direction: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
     }
 }
