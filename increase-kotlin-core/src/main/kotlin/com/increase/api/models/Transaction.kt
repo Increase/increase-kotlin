@@ -13758,6 +13758,8 @@ private constructor(
                 val INBOUND_CHECK_DEPOSIT_RETURN_INTENTION =
                     Category(JsonField.of("inbound_check_deposit_return_intention"))
 
+                val INBOUND_CHECK_ADJUSTMENT = Category(JsonField.of("inbound_check_adjustment"))
+
                 val INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION =
                     Category(JsonField.of("inbound_real_time_payments_transfer_confirmation"))
 
@@ -13805,6 +13807,7 @@ private constructor(
                 INBOUND_ACH_TRANSFER,
                 INBOUND_ACH_TRANSFER_RETURN_INTENTION,
                 INBOUND_CHECK_DEPOSIT_RETURN_INTENTION,
+                INBOUND_CHECK_ADJUSTMENT,
                 INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION,
                 INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE,
                 INBOUND_WIRE_REVERSAL,
@@ -13836,6 +13839,7 @@ private constructor(
                 INBOUND_ACH_TRANSFER,
                 INBOUND_ACH_TRANSFER_RETURN_INTENTION,
                 INBOUND_CHECK_DEPOSIT_RETURN_INTENTION,
+                INBOUND_CHECK_ADJUSTMENT,
                 INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION,
                 INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE,
                 INBOUND_WIRE_REVERSAL,
@@ -13871,6 +13875,7 @@ private constructor(
                         Value.INBOUND_ACH_TRANSFER_RETURN_INTENTION
                     INBOUND_CHECK_DEPOSIT_RETURN_INTENTION ->
                         Value.INBOUND_CHECK_DEPOSIT_RETURN_INTENTION
+                    INBOUND_CHECK_ADJUSTMENT -> Value.INBOUND_CHECK_ADJUSTMENT
                     INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION ->
                         Value.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION
                     INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE ->
@@ -13909,6 +13914,7 @@ private constructor(
                         Known.INBOUND_ACH_TRANSFER_RETURN_INTENTION
                     INBOUND_CHECK_DEPOSIT_RETURN_INTENTION ->
                         Known.INBOUND_CHECK_DEPOSIT_RETURN_INTENTION
+                    INBOUND_CHECK_ADJUSTMENT -> Known.INBOUND_CHECK_ADJUSTMENT
                     INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION ->
                         Known.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION
                     INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE ->
