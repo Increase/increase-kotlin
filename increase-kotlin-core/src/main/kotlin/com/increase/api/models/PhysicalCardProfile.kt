@@ -44,8 +44,6 @@ private constructor(
 
     private var validated: Boolean = false
 
-    private var hashCode: Int = 0
-
     /** The identifier of the File containing the physical card's back image. */
     fun backImageFileId(): String? = backImageFileId.getNullable("back_image_file_id")
 
@@ -163,52 +161,6 @@ private constructor(
     }
 
     fun toBuilder() = Builder().from(this)
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return other is PhysicalCardProfile &&
-            this.backImageFileId == other.backImageFileId &&
-            this.carrierImageFileId == other.carrierImageFileId &&
-            this.contactPhone == other.contactPhone &&
-            this.createdAt == other.createdAt &&
-            this.creator == other.creator &&
-            this.description == other.description &&
-            this.frontImageFileId == other.frontImageFileId &&
-            this.id == other.id &&
-            this.idempotencyKey == other.idempotencyKey &&
-            this.isDefault == other.isDefault &&
-            this.status == other.status &&
-            this.type == other.type &&
-            this.additionalProperties == other.additionalProperties
-    }
-
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    backImageFileId,
-                    carrierImageFileId,
-                    contactPhone,
-                    createdAt,
-                    creator,
-                    description,
-                    frontImageFileId,
-                    id,
-                    idempotencyKey,
-                    isDefault,
-                    status,
-                    type,
-                    additionalProperties,
-                )
-        }
-        return hashCode
-    }
-
-    override fun toString() =
-        "PhysicalCardProfile{backImageFileId=$backImageFileId, carrierImageFileId=$carrierImageFileId, contactPhone=$contactPhone, createdAt=$createdAt, creator=$creator, description=$description, frontImageFileId=$frontImageFileId, id=$id, idempotencyKey=$idempotencyKey, isDefault=$isDefault, status=$status, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -598,4 +550,52 @@ private constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return other is PhysicalCardProfile &&
+            this.backImageFileId == other.backImageFileId &&
+            this.carrierImageFileId == other.carrierImageFileId &&
+            this.contactPhone == other.contactPhone &&
+            this.createdAt == other.createdAt &&
+            this.creator == other.creator &&
+            this.description == other.description &&
+            this.frontImageFileId == other.frontImageFileId &&
+            this.id == other.id &&
+            this.idempotencyKey == other.idempotencyKey &&
+            this.isDefault == other.isDefault &&
+            this.status == other.status &&
+            this.type == other.type &&
+            this.additionalProperties == other.additionalProperties
+    }
+
+    private var hashCode: Int = 0
+
+    override fun hashCode(): Int {
+        if (hashCode == 0) {
+            hashCode =
+                Objects.hash(
+                    backImageFileId,
+                    carrierImageFileId,
+                    contactPhone,
+                    createdAt,
+                    creator,
+                    description,
+                    frontImageFileId,
+                    id,
+                    idempotencyKey,
+                    isDefault,
+                    status,
+                    type,
+                    additionalProperties,
+                )
+        }
+        return hashCode
+    }
+
+    override fun toString() =
+        "PhysicalCardProfile{backImageFileId=$backImageFileId, carrierImageFileId=$carrierImageFileId, contactPhone=$contactPhone, createdAt=$createdAt, creator=$creator, description=$description, frontImageFileId=$frontImageFileId, id=$id, idempotencyKey=$idempotencyKey, isDefault=$isDefault, status=$status, type=$type, additionalProperties=$additionalProperties}"
 }

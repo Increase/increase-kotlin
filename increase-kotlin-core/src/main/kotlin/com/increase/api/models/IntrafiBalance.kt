@@ -37,8 +37,6 @@ private constructor(
 
     private var validated: Boolean = false
 
-    private var hashCode: Int = 0
-
     /**
      * Each entry represents a balance held at a different bank. IntraFi separates the total balance
      * across many participating banks in the network.
@@ -110,40 +108,6 @@ private constructor(
     }
 
     fun toBuilder() = Builder().from(this)
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return other is IntrafiBalance &&
-            this.balances == other.balances &&
-            this.currency == other.currency &&
-            this.effectiveDate == other.effectiveDate &&
-            this.id == other.id &&
-            this.totalBalance == other.totalBalance &&
-            this.type == other.type &&
-            this.additionalProperties == other.additionalProperties
-    }
-
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    balances,
-                    currency,
-                    effectiveDate,
-                    id,
-                    totalBalance,
-                    type,
-                    additionalProperties,
-                )
-        }
-        return hashCode
-    }
-
-    override fun toString() =
-        "IntrafiBalance{balances=$balances, currency=$currency, effectiveDate=$effectiveDate, id=$id, totalBalance=$totalBalance, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -276,8 +240,6 @@ private constructor(
 
         private var validated: Boolean = false
 
-        private var hashCode: Int = 0
-
         /** The balance, in minor units of `currency`, held with this bank. */
         fun balance(): Long = balance.getRequired("balance")
 
@@ -335,38 +297,6 @@ private constructor(
         }
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Balance &&
-                this.balance == other.balance &&
-                this.bank == other.bank &&
-                this.bankLocation == other.bankLocation &&
-                this.fdicCertificateNumber == other.fdicCertificateNumber &&
-                this.id == other.id &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        balance,
-                        bank,
-                        bankLocation,
-                        fdicCertificateNumber,
-                        id,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "Balance{balance=$balance, bank=$bank, bankLocation=$bankLocation, fdicCertificateNumber=$fdicCertificateNumber, id=$id, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -481,8 +411,6 @@ private constructor(
 
             private var validated: Boolean = false
 
-            private var hashCode: Int = 0
-
             /** The bank's city. */
             fun city(): String = city.getRequired("city")
 
@@ -508,32 +436,6 @@ private constructor(
             }
 
             fun toBuilder() = Builder().from(this)
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is BankLocation &&
-                    this.city == other.city &&
-                    this.state == other.state &&
-                    this.additionalProperties == other.additionalProperties
-            }
-
-            override fun hashCode(): Int {
-                if (hashCode == 0) {
-                    hashCode =
-                        Objects.hash(
-                            city,
-                            state,
-                            additionalProperties,
-                        )
-                }
-                return hashCode
-            }
-
-            override fun toString() =
-                "BankLocation{city=$city, state=$state, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -590,7 +492,69 @@ private constructor(
                         additionalProperties.toUnmodifiable(),
                     )
             }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is BankLocation &&
+                    this.city == other.city &&
+                    this.state == other.state &&
+                    this.additionalProperties == other.additionalProperties
+            }
+
+            private var hashCode: Int = 0
+
+            override fun hashCode(): Int {
+                if (hashCode == 0) {
+                    hashCode =
+                        Objects.hash(
+                            city,
+                            state,
+                            additionalProperties,
+                        )
+                }
+                return hashCode
+            }
+
+            override fun toString() =
+                "BankLocation{city=$city, state=$state, additionalProperties=$additionalProperties}"
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Balance &&
+                this.balance == other.balance &&
+                this.bank == other.bank &&
+                this.bankLocation == other.bankLocation &&
+                this.fdicCertificateNumber == other.fdicCertificateNumber &&
+                this.id == other.id &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        balance,
+                        bank,
+                        bankLocation,
+                        fdicCertificateNumber,
+                        id,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "Balance{balance=$balance, bank=$bank, bankLocation=$bankLocation, fdicCertificateNumber=$fdicCertificateNumber, id=$id, additionalProperties=$additionalProperties}"
     }
 
     class Currency
@@ -724,4 +688,40 @@ private constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return other is IntrafiBalance &&
+            this.balances == other.balances &&
+            this.currency == other.currency &&
+            this.effectiveDate == other.effectiveDate &&
+            this.id == other.id &&
+            this.totalBalance == other.totalBalance &&
+            this.type == other.type &&
+            this.additionalProperties == other.additionalProperties
+    }
+
+    private var hashCode: Int = 0
+
+    override fun hashCode(): Int {
+        if (hashCode == 0) {
+            hashCode =
+                Objects.hash(
+                    balances,
+                    currency,
+                    effectiveDate,
+                    id,
+                    totalBalance,
+                    type,
+                    additionalProperties,
+                )
+        }
+        return hashCode
+    }
+
+    override fun toString() =
+        "IntrafiBalance{balances=$balances, currency=$currency, effectiveDate=$effectiveDate, id=$id, totalBalance=$totalBalance, type=$type, additionalProperties=$additionalProperties}"
 }
