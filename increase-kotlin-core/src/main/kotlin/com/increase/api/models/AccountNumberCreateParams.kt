@@ -61,8 +61,6 @@ constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        private var hashCode: Int = 0
-
         /** The Account the Account Number should belong to. */
         @JsonProperty("account_id") fun accountId(): String? = accountId
 
@@ -80,36 +78,6 @@ constructor(
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is AccountNumberCreateBody &&
-                this.accountId == other.accountId &&
-                this.name == other.name &&
-                this.inboundAch == other.inboundAch &&
-                this.inboundChecks == other.inboundChecks &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        accountId,
-                        name,
-                        inboundAch,
-                        inboundChecks,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "AccountNumberCreateBody{accountId=$accountId, name=$name, inboundAch=$inboundAch, inboundChecks=$inboundChecks, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -174,6 +142,38 @@ constructor(
                     additionalProperties.toUnmodifiable(),
                 )
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is AccountNumberCreateBody &&
+                this.accountId == other.accountId &&
+                this.name == other.name &&
+                this.inboundAch == other.inboundAch &&
+                this.inboundChecks == other.inboundChecks &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        accountId,
+                        name,
+                        inboundAch,
+                        inboundChecks,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "AccountNumberCreateBody{accountId=$accountId, name=$name, inboundAch=$inboundAch, inboundChecks=$inboundChecks, additionalProperties=$additionalProperties}"
     }
 
     fun _additionalQueryParams(): Map<String, List<String>> = additionalQueryParams
@@ -329,8 +329,6 @@ constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        private var hashCode: Int = 0
-
         /**
          * Whether ACH debits are allowed against this Account Number. Note that ACH debits will be
          * declined if this is `allowed` but the Account Number is not active. If you do not specify
@@ -343,26 +341,6 @@ constructor(
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is InboundAch &&
-                this.debitStatus == other.debitStatus &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = Objects.hash(debitStatus, additionalProperties)
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "InboundAch{debitStatus=$debitStatus, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -464,6 +442,28 @@ constructor(
 
             fun asString(): String = _value().asStringOrThrow()
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is InboundAch &&
+                this.debitStatus == other.debitStatus &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode = Objects.hash(debitStatus, additionalProperties)
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "InboundAch{debitStatus=$debitStatus, additionalProperties=$additionalProperties}"
     }
 
     /** Options related to how this Account Number should handle inbound check withdrawals. */
@@ -474,8 +474,6 @@ constructor(
         private val status: Status?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
-
-        private var hashCode: Int = 0
 
         /**
          * How Increase should process checks with this account number printed on them. If you do
@@ -488,26 +486,6 @@ constructor(
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is InboundChecks &&
-                this.status == other.status &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = Objects.hash(status, additionalProperties)
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "InboundChecks{status=$status, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -607,5 +585,27 @@ constructor(
 
             fun asString(): String = _value().asStringOrThrow()
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is InboundChecks &&
+                this.status == other.status &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode = Objects.hash(status, additionalProperties)
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "InboundChecks{status=$status, additionalProperties=$additionalProperties}"
     }
 }

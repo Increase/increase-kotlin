@@ -42,8 +42,6 @@ private constructor(
 
     private var validated: Boolean = false
 
-    private var hashCode: Int = 0
-
     /** The identifier for the Account the Declined Transaction belongs to. */
     fun accountId(): String = accountId.getRequired("account_id")
 
@@ -167,48 +165,6 @@ private constructor(
     }
 
     fun toBuilder() = Builder().from(this)
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return other is DeclinedTransaction &&
-            this.accountId == other.accountId &&
-            this.amount == other.amount &&
-            this.createdAt == other.createdAt &&
-            this.currency == other.currency &&
-            this.description == other.description &&
-            this.id == other.id &&
-            this.routeId == other.routeId &&
-            this.routeType == other.routeType &&
-            this.source == other.source &&
-            this.type == other.type &&
-            this.additionalProperties == other.additionalProperties
-    }
-
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    accountId,
-                    amount,
-                    createdAt,
-                    currency,
-                    description,
-                    id,
-                    routeId,
-                    routeType,
-                    source,
-                    type,
-                    additionalProperties,
-                )
-        }
-        return hashCode
-    }
-
-    override fun toString() =
-        "DeclinedTransaction{accountId=$accountId, amount=$amount, createdAt=$createdAt, currency=$currency, description=$description, id=$id, routeId=$routeId, routeType=$routeType, source=$source, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -564,8 +520,6 @@ private constructor(
 
         private var validated: Boolean = false
 
-        private var hashCode: Int = 0
-
         /**
          * An ACH Decline object. This field will be present in the JSON response if and only if
          * `category` is equal to `ach_decline`.
@@ -684,45 +638,6 @@ private constructor(
         }
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Source &&
-                this.achDecline == other.achDecline &&
-                this.cardDecline == other.cardDecline &&
-                this.category == other.category &&
-                this.checkDecline == other.checkDecline &&
-                this.checkDepositRejection == other.checkDepositRejection &&
-                this.inboundRealTimePaymentsTransferDecline ==
-                    other.inboundRealTimePaymentsTransferDecline &&
-                this.other == other.other &&
-                this.wireDecline == other.wireDecline &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        achDecline,
-                        cardDecline,
-                        category,
-                        checkDecline,
-                        checkDepositRejection,
-                        inboundRealTimePaymentsTransferDecline,
-                        other,
-                        wireDecline,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "Source{achDecline=$achDecline, cardDecline=$cardDecline, category=$category, checkDecline=$checkDecline, checkDepositRejection=$checkDepositRejection, inboundRealTimePaymentsTransferDecline=$inboundRealTimePaymentsTransferDecline, other=$other, wireDecline=$wireDecline, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -939,8 +854,6 @@ private constructor(
 
             private var validated: Boolean = false
 
-            private var hashCode: Int = 0
-
             /**
              * The declined amount in the minor unit of the destination account currency. For
              * dollars, for example, this is cents.
@@ -1067,54 +980,6 @@ private constructor(
             }
 
             fun toBuilder() = Builder().from(this)
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is AchDecline &&
-                    this.amount == other.amount &&
-                    this.id == other.id &&
-                    this.inboundAchTransferId == other.inboundAchTransferId &&
-                    this.originatorCompanyDescriptiveDate ==
-                        other.originatorCompanyDescriptiveDate &&
-                    this.originatorCompanyDiscretionaryData ==
-                        other.originatorCompanyDiscretionaryData &&
-                    this.originatorCompanyId == other.originatorCompanyId &&
-                    this.originatorCompanyName == other.originatorCompanyName &&
-                    this.reason == other.reason &&
-                    this.receiverIdNumber == other.receiverIdNumber &&
-                    this.receiverName == other.receiverName &&
-                    this.traceNumber == other.traceNumber &&
-                    this.type == other.type &&
-                    this.additionalProperties == other.additionalProperties
-            }
-
-            override fun hashCode(): Int {
-                if (hashCode == 0) {
-                    hashCode =
-                        Objects.hash(
-                            amount,
-                            id,
-                            inboundAchTransferId,
-                            originatorCompanyDescriptiveDate,
-                            originatorCompanyDiscretionaryData,
-                            originatorCompanyId,
-                            originatorCompanyName,
-                            reason,
-                            receiverIdNumber,
-                            receiverName,
-                            traceNumber,
-                            type,
-                            additionalProperties,
-                        )
-                }
-                return hashCode
-            }
-
-            override fun toString() =
-                "AchDecline{amount=$amount, id=$id, inboundAchTransferId=$inboundAchTransferId, originatorCompanyDescriptiveDate=$originatorCompanyDescriptiveDate, originatorCompanyDiscretionaryData=$originatorCompanyDiscretionaryData, originatorCompanyId=$originatorCompanyId, originatorCompanyName=$originatorCompanyName, reason=$reason, receiverIdNumber=$receiverIdNumber, receiverName=$receiverName, traceNumber=$traceNumber, type=$type, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -1550,6 +1415,56 @@ private constructor(
 
                 fun asString(): String = _value().asStringOrThrow()
             }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is AchDecline &&
+                    this.amount == other.amount &&
+                    this.id == other.id &&
+                    this.inboundAchTransferId == other.inboundAchTransferId &&
+                    this.originatorCompanyDescriptiveDate ==
+                        other.originatorCompanyDescriptiveDate &&
+                    this.originatorCompanyDiscretionaryData ==
+                        other.originatorCompanyDiscretionaryData &&
+                    this.originatorCompanyId == other.originatorCompanyId &&
+                    this.originatorCompanyName == other.originatorCompanyName &&
+                    this.reason == other.reason &&
+                    this.receiverIdNumber == other.receiverIdNumber &&
+                    this.receiverName == other.receiverName &&
+                    this.traceNumber == other.traceNumber &&
+                    this.type == other.type &&
+                    this.additionalProperties == other.additionalProperties
+            }
+
+            private var hashCode: Int = 0
+
+            override fun hashCode(): Int {
+                if (hashCode == 0) {
+                    hashCode =
+                        Objects.hash(
+                            amount,
+                            id,
+                            inboundAchTransferId,
+                            originatorCompanyDescriptiveDate,
+                            originatorCompanyDiscretionaryData,
+                            originatorCompanyId,
+                            originatorCompanyName,
+                            reason,
+                            receiverIdNumber,
+                            receiverName,
+                            traceNumber,
+                            type,
+                            additionalProperties,
+                        )
+                }
+                return hashCode
+            }
+
+            override fun toString() =
+                "AchDecline{amount=$amount, id=$id, inboundAchTransferId=$inboundAchTransferId, originatorCompanyDescriptiveDate=$originatorCompanyDescriptiveDate, originatorCompanyDiscretionaryData=$originatorCompanyDiscretionaryData, originatorCompanyId=$originatorCompanyId, originatorCompanyName=$originatorCompanyName, reason=$reason, receiverIdNumber=$receiverIdNumber, receiverName=$receiverName, traceNumber=$traceNumber, type=$type, additionalProperties=$additionalProperties}"
         }
 
         /**
@@ -1588,8 +1503,6 @@ private constructor(
         ) {
 
             private var validated: Boolean = false
-
-            private var hashCode: Int = 0
 
             /**
              * Whether this authorization was approved by Increase, the card network through
@@ -1875,76 +1788,6 @@ private constructor(
             }
 
             fun toBuilder() = Builder().from(this)
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is CardDecline &&
-                    this.actioner == other.actioner &&
-                    this.amount == other.amount &&
-                    this.cardPaymentId == other.cardPaymentId &&
-                    this.currency == other.currency &&
-                    this.declinedTransactionId == other.declinedTransactionId &&
-                    this.digitalWalletTokenId == other.digitalWalletTokenId &&
-                    this.id == other.id &&
-                    this.merchantAcceptorId == other.merchantAcceptorId &&
-                    this.merchantCategoryCode == other.merchantCategoryCode &&
-                    this.merchantCity == other.merchantCity &&
-                    this.merchantCountry == other.merchantCountry &&
-                    this.merchantDescriptor == other.merchantDescriptor &&
-                    this.merchantPostalCode == other.merchantPostalCode &&
-                    this.merchantState == other.merchantState &&
-                    this.networkDetails == other.networkDetails &&
-                    this.networkIdentifiers == other.networkIdentifiers &&
-                    this.networkRiskScore == other.networkRiskScore &&
-                    this.physicalCardId == other.physicalCardId &&
-                    this.presentmentAmount == other.presentmentAmount &&
-                    this.presentmentCurrency == other.presentmentCurrency &&
-                    this.processingCategory == other.processingCategory &&
-                    this.realTimeDecisionId == other.realTimeDecisionId &&
-                    this.reason == other.reason &&
-                    this.verification == other.verification &&
-                    this.additionalProperties == other.additionalProperties
-            }
-
-            override fun hashCode(): Int {
-                if (hashCode == 0) {
-                    hashCode =
-                        Objects.hash(
-                            actioner,
-                            amount,
-                            cardPaymentId,
-                            currency,
-                            declinedTransactionId,
-                            digitalWalletTokenId,
-                            id,
-                            merchantAcceptorId,
-                            merchantCategoryCode,
-                            merchantCity,
-                            merchantCountry,
-                            merchantDescriptor,
-                            merchantPostalCode,
-                            merchantState,
-                            networkDetails,
-                            networkIdentifiers,
-                            networkRiskScore,
-                            physicalCardId,
-                            presentmentAmount,
-                            presentmentCurrency,
-                            processingCategory,
-                            realTimeDecisionId,
-                            reason,
-                            verification,
-                            additionalProperties,
-                        )
-                }
-                return hashCode
-            }
-
-            override fun toString() =
-                "CardDecline{actioner=$actioner, amount=$amount, cardPaymentId=$cardPaymentId, currency=$currency, declinedTransactionId=$declinedTransactionId, digitalWalletTokenId=$digitalWalletTokenId, id=$id, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, networkDetails=$networkDetails, networkIdentifiers=$networkIdentifiers, networkRiskScore=$networkRiskScore, physicalCardId=$physicalCardId, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, processingCategory=$processingCategory, realTimeDecisionId=$realTimeDecisionId, reason=$reason, verification=$verification, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -2532,8 +2375,6 @@ private constructor(
 
                 private var validated: Boolean = false
 
-                private var hashCode: Int = 0
-
                 /** The payment network used to process this card authorization. */
                 fun category(): Category = category.getRequired("category")
 
@@ -2559,32 +2400,6 @@ private constructor(
                 }
 
                 fun toBuilder() = Builder().from(this)
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is NetworkDetails &&
-                        this.category == other.category &&
-                        this.visa == other.visa &&
-                        this.additionalProperties == other.additionalProperties
-                }
-
-                override fun hashCode(): Int {
-                    if (hashCode == 0) {
-                        hashCode =
-                            Objects.hash(
-                                category,
-                                visa,
-                                additionalProperties,
-                            )
-                    }
-                    return hashCode
-                }
-
-                override fun toString() =
-                    "NetworkDetails{category=$category, visa=$visa, additionalProperties=$additionalProperties}"
 
                 companion object {
 
@@ -2706,8 +2521,6 @@ private constructor(
 
                     private var validated: Boolean = false
 
-                    private var hashCode: Int = 0
-
                     /**
                      * For electronic commerce transactions, this identifies the level of security
                      * used in obtaining the customer's payment credential. For mail or telephone
@@ -2753,32 +2566,6 @@ private constructor(
                     }
 
                     fun toBuilder() = Builder().from(this)
-
-                    override fun equals(other: Any?): Boolean {
-                        if (this === other) {
-                            return true
-                        }
-
-                        return other is Visa &&
-                            this.electronicCommerceIndicator == other.electronicCommerceIndicator &&
-                            this.pointOfServiceEntryMode == other.pointOfServiceEntryMode &&
-                            this.additionalProperties == other.additionalProperties
-                    }
-
-                    override fun hashCode(): Int {
-                        if (hashCode == 0) {
-                            hashCode =
-                                Objects.hash(
-                                    electronicCommerceIndicator,
-                                    pointOfServiceEntryMode,
-                                    additionalProperties,
-                                )
-                        }
-                        return hashCode
-                    }
-
-                    override fun toString() =
-                        "Visa{electronicCommerceIndicator=$electronicCommerceIndicator, pointOfServiceEntryMode=$pointOfServiceEntryMode, additionalProperties=$additionalProperties}"
 
                     companion object {
 
@@ -3102,7 +2889,63 @@ private constructor(
 
                         fun asString(): String = _value().asStringOrThrow()
                     }
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is Visa &&
+                            this.electronicCommerceIndicator == other.electronicCommerceIndicator &&
+                            this.pointOfServiceEntryMode == other.pointOfServiceEntryMode &&
+                            this.additionalProperties == other.additionalProperties
+                    }
+
+                    private var hashCode: Int = 0
+
+                    override fun hashCode(): Int {
+                        if (hashCode == 0) {
+                            hashCode =
+                                Objects.hash(
+                                    electronicCommerceIndicator,
+                                    pointOfServiceEntryMode,
+                                    additionalProperties,
+                                )
+                        }
+                        return hashCode
+                    }
+
+                    override fun toString() =
+                        "Visa{electronicCommerceIndicator=$electronicCommerceIndicator, pointOfServiceEntryMode=$pointOfServiceEntryMode, additionalProperties=$additionalProperties}"
                 }
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is NetworkDetails &&
+                        this.category == other.category &&
+                        this.visa == other.visa &&
+                        this.additionalProperties == other.additionalProperties
+                }
+
+                private var hashCode: Int = 0
+
+                override fun hashCode(): Int {
+                    if (hashCode == 0) {
+                        hashCode =
+                            Objects.hash(
+                                category,
+                                visa,
+                                additionalProperties,
+                            )
+                    }
+                    return hashCode
+                }
+
+                override fun toString() =
+                    "NetworkDetails{category=$category, visa=$visa, additionalProperties=$additionalProperties}"
             }
 
             /** Network-specific identifiers for a specific request or transaction. */
@@ -3117,8 +2960,6 @@ private constructor(
             ) {
 
                 private var validated: Boolean = false
-
-                private var hashCode: Int = 0
 
                 /**
                  * A life-cycle identifier used across e.g., an authorization and a reversal.
@@ -3175,34 +3016,6 @@ private constructor(
                 }
 
                 fun toBuilder() = Builder().from(this)
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is NetworkIdentifiers &&
-                        this.retrievalReferenceNumber == other.retrievalReferenceNumber &&
-                        this.traceNumber == other.traceNumber &&
-                        this.transactionId == other.transactionId &&
-                        this.additionalProperties == other.additionalProperties
-                }
-
-                override fun hashCode(): Int {
-                    if (hashCode == 0) {
-                        hashCode =
-                            Objects.hash(
-                                retrievalReferenceNumber,
-                                traceNumber,
-                                transactionId,
-                                additionalProperties,
-                            )
-                    }
-                    return hashCode
-                }
-
-                override fun toString() =
-                    "NetworkIdentifiers{retrievalReferenceNumber=$retrievalReferenceNumber, traceNumber=$traceNumber, transactionId=$transactionId, additionalProperties=$additionalProperties}"
 
                 companion object {
 
@@ -3299,6 +3112,36 @@ private constructor(
                             additionalProperties.toUnmodifiable(),
                         )
                 }
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is NetworkIdentifiers &&
+                        this.retrievalReferenceNumber == other.retrievalReferenceNumber &&
+                        this.traceNumber == other.traceNumber &&
+                        this.transactionId == other.transactionId &&
+                        this.additionalProperties == other.additionalProperties
+                }
+
+                private var hashCode: Int = 0
+
+                override fun hashCode(): Int {
+                    if (hashCode == 0) {
+                        hashCode =
+                            Objects.hash(
+                                retrievalReferenceNumber,
+                                traceNumber,
+                                transactionId,
+                                additionalProperties,
+                            )
+                    }
+                    return hashCode
+                }
+
+                override fun toString() =
+                    "NetworkIdentifiers{retrievalReferenceNumber=$retrievalReferenceNumber, traceNumber=$traceNumber, transactionId=$transactionId, additionalProperties=$additionalProperties}"
             }
 
             class ProcessingCategory
@@ -3533,8 +3376,6 @@ private constructor(
 
                 private var validated: Boolean = false
 
-                private var hashCode: Int = 0
-
                 /**
                  * Fields related to verification of the Card Verification Code, a 3-digit code on
                  * the back of the card.
@@ -3578,32 +3419,6 @@ private constructor(
                 }
 
                 fun toBuilder() = Builder().from(this)
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is Verification &&
-                        this.cardVerificationCode == other.cardVerificationCode &&
-                        this.cardholderAddress == other.cardholderAddress &&
-                        this.additionalProperties == other.additionalProperties
-                }
-
-                override fun hashCode(): Int {
-                    if (hashCode == 0) {
-                        hashCode =
-                            Objects.hash(
-                                cardVerificationCode,
-                                cardholderAddress,
-                                additionalProperties,
-                            )
-                    }
-                    return hashCode
-                }
-
-                override fun toString() =
-                    "Verification{cardVerificationCode=$cardVerificationCode, cardholderAddress=$cardholderAddress, additionalProperties=$additionalProperties}"
 
                 companion object {
 
@@ -3694,8 +3509,6 @@ private constructor(
 
                     private var validated: Boolean = false
 
-                    private var hashCode: Int = 0
-
                     /** The result of verifying the Card Verification Code. */
                     fun result(): Result = result.getRequired("result")
 
@@ -3714,26 +3527,6 @@ private constructor(
                     }
 
                     fun toBuilder() = Builder().from(this)
-
-                    override fun equals(other: Any?): Boolean {
-                        if (this === other) {
-                            return true
-                        }
-
-                        return other is CardVerificationCode &&
-                            this.result == other.result &&
-                            this.additionalProperties == other.additionalProperties
-                    }
-
-                    override fun hashCode(): Int {
-                        if (hashCode == 0) {
-                            hashCode = Objects.hash(result, additionalProperties)
-                        }
-                        return hashCode
-                    }
-
-                    override fun toString() =
-                        "CardVerificationCode{result=$result, additionalProperties=$additionalProperties}"
 
                     companion object {
 
@@ -3841,6 +3634,28 @@ private constructor(
 
                         fun asString(): String = _value().asStringOrThrow()
                     }
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is CardVerificationCode &&
+                            this.result == other.result &&
+                            this.additionalProperties == other.additionalProperties
+                    }
+
+                    private var hashCode: Int = 0
+
+                    override fun hashCode(): Int {
+                        if (hashCode == 0) {
+                            hashCode = Objects.hash(result, additionalProperties)
+                        }
+                        return hashCode
+                    }
+
+                    override fun toString() =
+                        "CardVerificationCode{result=$result, additionalProperties=$additionalProperties}"
                 }
 
                 /**
@@ -3860,8 +3675,6 @@ private constructor(
                 ) {
 
                     private var validated: Boolean = false
-
-                    private var hashCode: Int = 0
 
                     /** Line 1 of the address on file for the cardholder. */
                     fun actualLine1(): String? = actualLine1.getNullable("actual_line1")
@@ -3923,38 +3736,6 @@ private constructor(
                     }
 
                     fun toBuilder() = Builder().from(this)
-
-                    override fun equals(other: Any?): Boolean {
-                        if (this === other) {
-                            return true
-                        }
-
-                        return other is CardholderAddress &&
-                            this.actualLine1 == other.actualLine1 &&
-                            this.actualPostalCode == other.actualPostalCode &&
-                            this.providedLine1 == other.providedLine1 &&
-                            this.providedPostalCode == other.providedPostalCode &&
-                            this.result == other.result &&
-                            this.additionalProperties == other.additionalProperties
-                    }
-
-                    override fun hashCode(): Int {
-                        if (hashCode == 0) {
-                            hashCode =
-                                Objects.hash(
-                                    actualLine1,
-                                    actualPostalCode,
-                                    providedLine1,
-                                    providedPostalCode,
-                                    result,
-                                    additionalProperties,
-                                )
-                        }
-                        return hashCode
-                    }
-
-                    override fun toString() =
-                        "CardholderAddress{actualLine1=$actualLine1, actualPostalCode=$actualPostalCode, providedLine1=$providedLine1, providedPostalCode=$providedPostalCode, result=$result, additionalProperties=$additionalProperties}"
 
                     companion object {
 
@@ -4158,8 +3939,142 @@ private constructor(
 
                         fun asString(): String = _value().asStringOrThrow()
                     }
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is CardholderAddress &&
+                            this.actualLine1 == other.actualLine1 &&
+                            this.actualPostalCode == other.actualPostalCode &&
+                            this.providedLine1 == other.providedLine1 &&
+                            this.providedPostalCode == other.providedPostalCode &&
+                            this.result == other.result &&
+                            this.additionalProperties == other.additionalProperties
+                    }
+
+                    private var hashCode: Int = 0
+
+                    override fun hashCode(): Int {
+                        if (hashCode == 0) {
+                            hashCode =
+                                Objects.hash(
+                                    actualLine1,
+                                    actualPostalCode,
+                                    providedLine1,
+                                    providedPostalCode,
+                                    result,
+                                    additionalProperties,
+                                )
+                        }
+                        return hashCode
+                    }
+
+                    override fun toString() =
+                        "CardholderAddress{actualLine1=$actualLine1, actualPostalCode=$actualPostalCode, providedLine1=$providedLine1, providedPostalCode=$providedPostalCode, result=$result, additionalProperties=$additionalProperties}"
                 }
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is Verification &&
+                        this.cardVerificationCode == other.cardVerificationCode &&
+                        this.cardholderAddress == other.cardholderAddress &&
+                        this.additionalProperties == other.additionalProperties
+                }
+
+                private var hashCode: Int = 0
+
+                override fun hashCode(): Int {
+                    if (hashCode == 0) {
+                        hashCode =
+                            Objects.hash(
+                                cardVerificationCode,
+                                cardholderAddress,
+                                additionalProperties,
+                            )
+                    }
+                    return hashCode
+                }
+
+                override fun toString() =
+                    "Verification{cardVerificationCode=$cardVerificationCode, cardholderAddress=$cardholderAddress, additionalProperties=$additionalProperties}"
             }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is CardDecline &&
+                    this.actioner == other.actioner &&
+                    this.amount == other.amount &&
+                    this.cardPaymentId == other.cardPaymentId &&
+                    this.currency == other.currency &&
+                    this.declinedTransactionId == other.declinedTransactionId &&
+                    this.digitalWalletTokenId == other.digitalWalletTokenId &&
+                    this.id == other.id &&
+                    this.merchantAcceptorId == other.merchantAcceptorId &&
+                    this.merchantCategoryCode == other.merchantCategoryCode &&
+                    this.merchantCity == other.merchantCity &&
+                    this.merchantCountry == other.merchantCountry &&
+                    this.merchantDescriptor == other.merchantDescriptor &&
+                    this.merchantPostalCode == other.merchantPostalCode &&
+                    this.merchantState == other.merchantState &&
+                    this.networkDetails == other.networkDetails &&
+                    this.networkIdentifiers == other.networkIdentifiers &&
+                    this.networkRiskScore == other.networkRiskScore &&
+                    this.physicalCardId == other.physicalCardId &&
+                    this.presentmentAmount == other.presentmentAmount &&
+                    this.presentmentCurrency == other.presentmentCurrency &&
+                    this.processingCategory == other.processingCategory &&
+                    this.realTimeDecisionId == other.realTimeDecisionId &&
+                    this.reason == other.reason &&
+                    this.verification == other.verification &&
+                    this.additionalProperties == other.additionalProperties
+            }
+
+            private var hashCode: Int = 0
+
+            override fun hashCode(): Int {
+                if (hashCode == 0) {
+                    hashCode =
+                        Objects.hash(
+                            actioner,
+                            amount,
+                            cardPaymentId,
+                            currency,
+                            declinedTransactionId,
+                            digitalWalletTokenId,
+                            id,
+                            merchantAcceptorId,
+                            merchantCategoryCode,
+                            merchantCity,
+                            merchantCountry,
+                            merchantDescriptor,
+                            merchantPostalCode,
+                            merchantState,
+                            networkDetails,
+                            networkIdentifiers,
+                            networkRiskScore,
+                            physicalCardId,
+                            presentmentAmount,
+                            presentmentCurrency,
+                            processingCategory,
+                            realTimeDecisionId,
+                            reason,
+                            verification,
+                            additionalProperties,
+                        )
+                }
+                return hashCode
+            }
+
+            override fun toString() =
+                "CardDecline{actioner=$actioner, amount=$amount, cardPaymentId=$cardPaymentId, currency=$currency, declinedTransactionId=$declinedTransactionId, digitalWalletTokenId=$digitalWalletTokenId, id=$id, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, networkDetails=$networkDetails, networkIdentifiers=$networkIdentifiers, networkRiskScore=$networkRiskScore, physicalCardId=$physicalCardId, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, processingCategory=$processingCategory, realTimeDecisionId=$realTimeDecisionId, reason=$reason, verification=$verification, additionalProperties=$additionalProperties}"
         }
 
         class Category
@@ -4272,8 +4187,6 @@ private constructor(
 
             private var validated: Boolean = false
 
-            private var hashCode: Int = 0
-
             /**
              * The declined amount in the minor unit of the destination account currency. For
              * dollars, for example, this is cents.
@@ -4369,42 +4282,6 @@ private constructor(
             }
 
             fun toBuilder() = Builder().from(this)
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is CheckDecline &&
-                    this.amount == other.amount &&
-                    this.auxiliaryOnUs == other.auxiliaryOnUs &&
-                    this.backImageFileId == other.backImageFileId &&
-                    this.checkTransferId == other.checkTransferId &&
-                    this.frontImageFileId == other.frontImageFileId &&
-                    this.inboundCheckDepositId == other.inboundCheckDepositId &&
-                    this.reason == other.reason &&
-                    this.additionalProperties == other.additionalProperties
-            }
-
-            override fun hashCode(): Int {
-                if (hashCode == 0) {
-                    hashCode =
-                        Objects.hash(
-                            amount,
-                            auxiliaryOnUs,
-                            backImageFileId,
-                            checkTransferId,
-                            frontImageFileId,
-                            inboundCheckDepositId,
-                            reason,
-                            additionalProperties,
-                        )
-                }
-                return hashCode
-            }
-
-            override fun toString() =
-                "CheckDecline{amount=$amount, auxiliaryOnUs=$auxiliaryOnUs, backImageFileId=$backImageFileId, checkTransferId=$checkTransferId, frontImageFileId=$frontImageFileId, inboundCheckDepositId=$inboundCheckDepositId, reason=$reason, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -4708,6 +4585,44 @@ private constructor(
 
                 fun asString(): String = _value().asStringOrThrow()
             }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is CheckDecline &&
+                    this.amount == other.amount &&
+                    this.auxiliaryOnUs == other.auxiliaryOnUs &&
+                    this.backImageFileId == other.backImageFileId &&
+                    this.checkTransferId == other.checkTransferId &&
+                    this.frontImageFileId == other.frontImageFileId &&
+                    this.inboundCheckDepositId == other.inboundCheckDepositId &&
+                    this.reason == other.reason &&
+                    this.additionalProperties == other.additionalProperties
+            }
+
+            private var hashCode: Int = 0
+
+            override fun hashCode(): Int {
+                if (hashCode == 0) {
+                    hashCode =
+                        Objects.hash(
+                            amount,
+                            auxiliaryOnUs,
+                            backImageFileId,
+                            checkTransferId,
+                            frontImageFileId,
+                            inboundCheckDepositId,
+                            reason,
+                            additionalProperties,
+                        )
+                }
+                return hashCode
+            }
+
+            override fun toString() =
+                "CheckDecline{amount=$amount, auxiliaryOnUs=$auxiliaryOnUs, backImageFileId=$backImageFileId, checkTransferId=$checkTransferId, frontImageFileId=$frontImageFileId, inboundCheckDepositId=$inboundCheckDepositId, reason=$reason, additionalProperties=$additionalProperties}"
         }
 
         /**
@@ -4728,8 +4643,6 @@ private constructor(
         ) {
 
             private var validated: Boolean = false
-
-            private var hashCode: Int = 0
 
             /**
              * The rejected amount in the minor unit of check's currency. For dollars, for example,
@@ -4803,40 +4716,6 @@ private constructor(
             }
 
             fun toBuilder() = Builder().from(this)
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is CheckDepositRejection &&
-                    this.amount == other.amount &&
-                    this.checkDepositId == other.checkDepositId &&
-                    this.currency == other.currency &&
-                    this.declinedTransactionId == other.declinedTransactionId &&
-                    this.reason == other.reason &&
-                    this.rejectedAt == other.rejectedAt &&
-                    this.additionalProperties == other.additionalProperties
-            }
-
-            override fun hashCode(): Int {
-                if (hashCode == 0) {
-                    hashCode =
-                        Objects.hash(
-                            amount,
-                            checkDepositId,
-                            currency,
-                            declinedTransactionId,
-                            reason,
-                            rejectedAt,
-                            additionalProperties,
-                        )
-                }
-                return hashCode
-            }
-
-            override fun toString() =
-                "CheckDepositRejection{amount=$amount, checkDepositId=$checkDepositId, currency=$currency, declinedTransactionId=$declinedTransactionId, reason=$reason, rejectedAt=$rejectedAt, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -5151,6 +5030,42 @@ private constructor(
 
                 fun asString(): String = _value().asStringOrThrow()
             }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is CheckDepositRejection &&
+                    this.amount == other.amount &&
+                    this.checkDepositId == other.checkDepositId &&
+                    this.currency == other.currency &&
+                    this.declinedTransactionId == other.declinedTransactionId &&
+                    this.reason == other.reason &&
+                    this.rejectedAt == other.rejectedAt &&
+                    this.additionalProperties == other.additionalProperties
+            }
+
+            private var hashCode: Int = 0
+
+            override fun hashCode(): Int {
+                if (hashCode == 0) {
+                    hashCode =
+                        Objects.hash(
+                            amount,
+                            checkDepositId,
+                            currency,
+                            declinedTransactionId,
+                            reason,
+                            rejectedAt,
+                            additionalProperties,
+                        )
+                }
+                return hashCode
+            }
+
+            override fun toString() =
+                "CheckDepositRejection{amount=$amount, checkDepositId=$checkDepositId, currency=$currency, declinedTransactionId=$declinedTransactionId, reason=$reason, rejectedAt=$rejectedAt, additionalProperties=$additionalProperties}"
         }
 
         /**
@@ -5176,8 +5091,6 @@ private constructor(
         ) {
 
             private var validated: Boolean = false
-
-            private var hashCode: Int = 0
 
             /**
              * The declined amount in the minor unit of the destination account currency. For
@@ -5284,48 +5197,6 @@ private constructor(
             }
 
             fun toBuilder() = Builder().from(this)
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is InboundRealTimePaymentsTransferDecline &&
-                    this.amount == other.amount &&
-                    this.creditorName == other.creditorName &&
-                    this.currency == other.currency &&
-                    this.debtorAccountNumber == other.debtorAccountNumber &&
-                    this.debtorName == other.debtorName &&
-                    this.debtorRoutingNumber == other.debtorRoutingNumber &&
-                    this.reason == other.reason &&
-                    this.remittanceInformation == other.remittanceInformation &&
-                    this.transactionIdentification == other.transactionIdentification &&
-                    this.transferId == other.transferId &&
-                    this.additionalProperties == other.additionalProperties
-            }
-
-            override fun hashCode(): Int {
-                if (hashCode == 0) {
-                    hashCode =
-                        Objects.hash(
-                            amount,
-                            creditorName,
-                            currency,
-                            debtorAccountNumber,
-                            debtorName,
-                            debtorRoutingNumber,
-                            reason,
-                            remittanceInformation,
-                            transactionIdentification,
-                            transferId,
-                            additionalProperties,
-                        )
-                }
-                return hashCode
-            }
-
-            override fun toString() =
-                "InboundRealTimePaymentsTransferDecline{amount=$amount, creditorName=$creditorName, currency=$currency, debtorAccountNumber=$debtorAccountNumber, debtorName=$debtorName, debtorRoutingNumber=$debtorRoutingNumber, reason=$reason, remittanceInformation=$remittanceInformation, transactionIdentification=$transactionIdentification, transferId=$transferId, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -5680,6 +5551,50 @@ private constructor(
 
                 fun asString(): String = _value().asStringOrThrow()
             }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is InboundRealTimePaymentsTransferDecline &&
+                    this.amount == other.amount &&
+                    this.creditorName == other.creditorName &&
+                    this.currency == other.currency &&
+                    this.debtorAccountNumber == other.debtorAccountNumber &&
+                    this.debtorName == other.debtorName &&
+                    this.debtorRoutingNumber == other.debtorRoutingNumber &&
+                    this.reason == other.reason &&
+                    this.remittanceInformation == other.remittanceInformation &&
+                    this.transactionIdentification == other.transactionIdentification &&
+                    this.transferId == other.transferId &&
+                    this.additionalProperties == other.additionalProperties
+            }
+
+            private var hashCode: Int = 0
+
+            override fun hashCode(): Int {
+                if (hashCode == 0) {
+                    hashCode =
+                        Objects.hash(
+                            amount,
+                            creditorName,
+                            currency,
+                            debtorAccountNumber,
+                            debtorName,
+                            debtorRoutingNumber,
+                            reason,
+                            remittanceInformation,
+                            transactionIdentification,
+                            transferId,
+                            additionalProperties,
+                        )
+                }
+                return hashCode
+            }
+
+            override fun toString() =
+                "InboundRealTimePaymentsTransferDecline{amount=$amount, creditorName=$creditorName, currency=$currency, debtorAccountNumber=$debtorAccountNumber, debtorName=$debtorName, debtorRoutingNumber=$debtorRoutingNumber, reason=$reason, remittanceInformation=$remittanceInformation, transactionIdentification=$transactionIdentification, transferId=$transferId, additionalProperties=$additionalProperties}"
         }
 
         /**
@@ -5696,8 +5611,6 @@ private constructor(
         ) {
 
             private var validated: Boolean = false
-
-            private var hashCode: Int = 0
 
             /** The identifier of the Inbound Wire Transfer that was declined. */
             fun inboundWireTransferId(): String =
@@ -5727,32 +5640,6 @@ private constructor(
             }
 
             fun toBuilder() = Builder().from(this)
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is WireDecline &&
-                    this.inboundWireTransferId == other.inboundWireTransferId &&
-                    this.reason == other.reason &&
-                    this.additionalProperties == other.additionalProperties
-            }
-
-            override fun hashCode(): Int {
-                if (hashCode == 0) {
-                    hashCode =
-                        Objects.hash(
-                            inboundWireTransferId,
-                            reason,
-                            additionalProperties,
-                        )
-                }
-                return hashCode
-            }
-
-            override fun toString() =
-                "WireDecline{inboundWireTransferId=$inboundWireTransferId, reason=$reason, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -5893,7 +5780,76 @@ private constructor(
 
                 fun asString(): String = _value().asStringOrThrow()
             }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is WireDecline &&
+                    this.inboundWireTransferId == other.inboundWireTransferId &&
+                    this.reason == other.reason &&
+                    this.additionalProperties == other.additionalProperties
+            }
+
+            private var hashCode: Int = 0
+
+            override fun hashCode(): Int {
+                if (hashCode == 0) {
+                    hashCode =
+                        Objects.hash(
+                            inboundWireTransferId,
+                            reason,
+                            additionalProperties,
+                        )
+                }
+                return hashCode
+            }
+
+            override fun toString() =
+                "WireDecline{inboundWireTransferId=$inboundWireTransferId, reason=$reason, additionalProperties=$additionalProperties}"
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Source &&
+                this.achDecline == other.achDecline &&
+                this.cardDecline == other.cardDecline &&
+                this.category == other.category &&
+                this.checkDecline == other.checkDecline &&
+                this.checkDepositRejection == other.checkDepositRejection &&
+                this.inboundRealTimePaymentsTransferDecline ==
+                    other.inboundRealTimePaymentsTransferDecline &&
+                this.other == other.other &&
+                this.wireDecline == other.wireDecline &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        achDecline,
+                        cardDecline,
+                        category,
+                        checkDecline,
+                        checkDepositRejection,
+                        inboundRealTimePaymentsTransferDecline,
+                        other,
+                        wireDecline,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "Source{achDecline=$achDecline, cardDecline=$cardDecline, category=$category, checkDecline=$checkDecline, checkDepositRejection=$checkDepositRejection, inboundRealTimePaymentsTransferDecline=$inboundRealTimePaymentsTransferDecline, other=$other, wireDecline=$wireDecline, additionalProperties=$additionalProperties}"
     }
 
     class Type
@@ -5946,4 +5902,48 @@ private constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return other is DeclinedTransaction &&
+            this.accountId == other.accountId &&
+            this.amount == other.amount &&
+            this.createdAt == other.createdAt &&
+            this.currency == other.currency &&
+            this.description == other.description &&
+            this.id == other.id &&
+            this.routeId == other.routeId &&
+            this.routeType == other.routeType &&
+            this.source == other.source &&
+            this.type == other.type &&
+            this.additionalProperties == other.additionalProperties
+    }
+
+    private var hashCode: Int = 0
+
+    override fun hashCode(): Int {
+        if (hashCode == 0) {
+            hashCode =
+                Objects.hash(
+                    accountId,
+                    amount,
+                    createdAt,
+                    currency,
+                    description,
+                    id,
+                    routeId,
+                    routeType,
+                    source,
+                    type,
+                    additionalProperties,
+                )
+        }
+        return hashCode
+    }
+
+    override fun toString() =
+        "DeclinedTransaction{accountId=$accountId, amount=$amount, createdAt=$createdAt, currency=$currency, description=$description, id=$id, routeId=$routeId, routeType=$routeType, source=$source, type=$type, additionalProperties=$additionalProperties}"
 }

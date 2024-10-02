@@ -50,8 +50,6 @@ private constructor(
 
     private var validated: Boolean = false
 
-    private var hashCode: Int = 0
-
     /**
      * The Account Number to which the recipient of this request is being requested to send funds.
      */
@@ -266,68 +264,6 @@ private constructor(
     }
 
     fun toBuilder() = Builder().from(this)
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return other is WireDrawdownRequest &&
-            this.accountNumberId == other.accountNumberId &&
-            this.amount == other.amount &&
-            this.currency == other.currency &&
-            this.fulfillmentInboundWireTransferId == other.fulfillmentInboundWireTransferId &&
-            this.id == other.id &&
-            this.idempotencyKey == other.idempotencyKey &&
-            this.messageToRecipient == other.messageToRecipient &&
-            this.originatorAddressLine1 == other.originatorAddressLine1 &&
-            this.originatorAddressLine2 == other.originatorAddressLine2 &&
-            this.originatorAddressLine3 == other.originatorAddressLine3 &&
-            this.originatorName == other.originatorName &&
-            this.recipientAccountNumber == other.recipientAccountNumber &&
-            this.recipientAddressLine1 == other.recipientAddressLine1 &&
-            this.recipientAddressLine2 == other.recipientAddressLine2 &&
-            this.recipientAddressLine3 == other.recipientAddressLine3 &&
-            this.recipientName == other.recipientName &&
-            this.recipientRoutingNumber == other.recipientRoutingNumber &&
-            this.status == other.status &&
-            this.submission == other.submission &&
-            this.type == other.type &&
-            this.additionalProperties == other.additionalProperties
-    }
-
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    accountNumberId,
-                    amount,
-                    currency,
-                    fulfillmentInboundWireTransferId,
-                    id,
-                    idempotencyKey,
-                    messageToRecipient,
-                    originatorAddressLine1,
-                    originatorAddressLine2,
-                    originatorAddressLine3,
-                    originatorName,
-                    recipientAccountNumber,
-                    recipientAddressLine1,
-                    recipientAddressLine2,
-                    recipientAddressLine3,
-                    recipientName,
-                    recipientRoutingNumber,
-                    status,
-                    submission,
-                    type,
-                    additionalProperties,
-                )
-        }
-        return hashCode
-    }
-
-    override fun toString() =
-        "WireDrawdownRequest{accountNumberId=$accountNumberId, amount=$amount, currency=$currency, fulfillmentInboundWireTransferId=$fulfillmentInboundWireTransferId, id=$id, idempotencyKey=$idempotencyKey, messageToRecipient=$messageToRecipient, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, recipientAccountNumber=$recipientAccountNumber, recipientAddressLine1=$recipientAddressLine1, recipientAddressLine2=$recipientAddressLine2, recipientAddressLine3=$recipientAddressLine3, recipientName=$recipientName, recipientRoutingNumber=$recipientRoutingNumber, status=$status, submission=$submission, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -741,8 +677,6 @@ private constructor(
 
         private var validated: Boolean = false
 
-        private var hashCode: Int = 0
-
         /**
          * The input message accountability data (IMAD) uniquely identifying the submission with
          * Fedwire.
@@ -770,26 +704,6 @@ private constructor(
         }
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Submission &&
-                this.inputMessageAccountabilityData == other.inputMessageAccountabilityData &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = Objects.hash(inputMessageAccountabilityData, additionalProperties)
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "Submission{inputMessageAccountabilityData=$inputMessageAccountabilityData, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -841,6 +755,28 @@ private constructor(
             fun build(): Submission =
                 Submission(inputMessageAccountabilityData, additionalProperties.toUnmodifiable())
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Submission &&
+                this.inputMessageAccountabilityData == other.inputMessageAccountabilityData &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode = Objects.hash(inputMessageAccountabilityData, additionalProperties)
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "Submission{inputMessageAccountabilityData=$inputMessageAccountabilityData, additionalProperties=$additionalProperties}"
     }
 
     class Type
@@ -893,4 +829,68 @@ private constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return other is WireDrawdownRequest &&
+            this.accountNumberId == other.accountNumberId &&
+            this.amount == other.amount &&
+            this.currency == other.currency &&
+            this.fulfillmentInboundWireTransferId == other.fulfillmentInboundWireTransferId &&
+            this.id == other.id &&
+            this.idempotencyKey == other.idempotencyKey &&
+            this.messageToRecipient == other.messageToRecipient &&
+            this.originatorAddressLine1 == other.originatorAddressLine1 &&
+            this.originatorAddressLine2 == other.originatorAddressLine2 &&
+            this.originatorAddressLine3 == other.originatorAddressLine3 &&
+            this.originatorName == other.originatorName &&
+            this.recipientAccountNumber == other.recipientAccountNumber &&
+            this.recipientAddressLine1 == other.recipientAddressLine1 &&
+            this.recipientAddressLine2 == other.recipientAddressLine2 &&
+            this.recipientAddressLine3 == other.recipientAddressLine3 &&
+            this.recipientName == other.recipientName &&
+            this.recipientRoutingNumber == other.recipientRoutingNumber &&
+            this.status == other.status &&
+            this.submission == other.submission &&
+            this.type == other.type &&
+            this.additionalProperties == other.additionalProperties
+    }
+
+    private var hashCode: Int = 0
+
+    override fun hashCode(): Int {
+        if (hashCode == 0) {
+            hashCode =
+                Objects.hash(
+                    accountNumberId,
+                    amount,
+                    currency,
+                    fulfillmentInboundWireTransferId,
+                    id,
+                    idempotencyKey,
+                    messageToRecipient,
+                    originatorAddressLine1,
+                    originatorAddressLine2,
+                    originatorAddressLine3,
+                    originatorName,
+                    recipientAccountNumber,
+                    recipientAddressLine1,
+                    recipientAddressLine2,
+                    recipientAddressLine3,
+                    recipientName,
+                    recipientRoutingNumber,
+                    status,
+                    submission,
+                    type,
+                    additionalProperties,
+                )
+        }
+        return hashCode
+    }
+
+    override fun toString() =
+        "WireDrawdownRequest{accountNumberId=$accountNumberId, amount=$amount, currency=$currency, fulfillmentInboundWireTransferId=$fulfillmentInboundWireTransferId, id=$id, idempotencyKey=$idempotencyKey, messageToRecipient=$messageToRecipient, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, recipientAccountNumber=$recipientAccountNumber, recipientAddressLine1=$recipientAddressLine1, recipientAddressLine2=$recipientAddressLine2, recipientAddressLine3=$recipientAddressLine3, recipientName=$recipientName, recipientRoutingNumber=$recipientRoutingNumber, status=$status, submission=$submission, type=$type, additionalProperties=$additionalProperties}"
 }

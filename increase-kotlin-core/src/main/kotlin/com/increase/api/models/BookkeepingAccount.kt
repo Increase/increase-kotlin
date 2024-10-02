@@ -38,8 +38,6 @@ private constructor(
 
     private var validated: Boolean = false
 
-    private var hashCode: Int = 0
-
     /** The API Account associated with this bookkeeping account. */
     fun accountId(): String? = accountId.getNullable("account_id")
 
@@ -117,42 +115,6 @@ private constructor(
     }
 
     fun toBuilder() = Builder().from(this)
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return other is BookkeepingAccount &&
-            this.accountId == other.accountId &&
-            this.complianceCategory == other.complianceCategory &&
-            this.entityId == other.entityId &&
-            this.id == other.id &&
-            this.idempotencyKey == other.idempotencyKey &&
-            this.name == other.name &&
-            this.type == other.type &&
-            this.additionalProperties == other.additionalProperties
-    }
-
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    accountId,
-                    complianceCategory,
-                    entityId,
-                    id,
-                    idempotencyKey,
-                    name,
-                    type,
-                    additionalProperties,
-                )
-        }
-        return hashCode
-    }
-
-    override fun toString() =
-        "BookkeepingAccount{accountId=$accountId, complianceCategory=$complianceCategory, entityId=$entityId, id=$id, idempotencyKey=$idempotencyKey, name=$name, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -388,4 +350,42 @@ private constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return other is BookkeepingAccount &&
+            this.accountId == other.accountId &&
+            this.complianceCategory == other.complianceCategory &&
+            this.entityId == other.entityId &&
+            this.id == other.id &&
+            this.idempotencyKey == other.idempotencyKey &&
+            this.name == other.name &&
+            this.type == other.type &&
+            this.additionalProperties == other.additionalProperties
+    }
+
+    private var hashCode: Int = 0
+
+    override fun hashCode(): Int {
+        if (hashCode == 0) {
+            hashCode =
+                Objects.hash(
+                    accountId,
+                    complianceCategory,
+                    entityId,
+                    id,
+                    idempotencyKey,
+                    name,
+                    type,
+                    additionalProperties,
+                )
+        }
+        return hashCode
+    }
+
+    override fun toString() =
+        "BookkeepingAccount{accountId=$accountId, complianceCategory=$complianceCategory, entityId=$entityId, id=$id, idempotencyKey=$idempotencyKey, name=$name, type=$type, additionalProperties=$additionalProperties}"
 }

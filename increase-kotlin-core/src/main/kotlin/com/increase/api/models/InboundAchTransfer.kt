@@ -53,8 +53,6 @@ private constructor(
 
     private var validated: Boolean = false
 
-    private var hashCode: Int = 0
-
     /** If your transfer is accepted, this will contain details of the acceptance. */
     fun acceptance(): Acceptance? = acceptance.getNullable("acceptance")
 
@@ -295,78 +293,6 @@ private constructor(
     }
 
     fun toBuilder() = Builder().from(this)
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return other is InboundAchTransfer &&
-            this.acceptance == other.acceptance &&
-            this.accountId == other.accountId &&
-            this.accountNumberId == other.accountNumberId &&
-            this.addenda == other.addenda &&
-            this.amount == other.amount &&
-            this.automaticallyResolvesAt == other.automaticallyResolvesAt &&
-            this.decline == other.decline &&
-            this.direction == other.direction &&
-            this.expectedSettlementSchedule == other.expectedSettlementSchedule &&
-            this.id == other.id &&
-            this.internationalAddenda == other.internationalAddenda &&
-            this.notificationOfChange == other.notificationOfChange &&
-            this.originatorCompanyDescriptiveDate == other.originatorCompanyDescriptiveDate &&
-            this.originatorCompanyDiscretionaryData == other.originatorCompanyDiscretionaryData &&
-            this.originatorCompanyEntryDescription == other.originatorCompanyEntryDescription &&
-            this.originatorCompanyId == other.originatorCompanyId &&
-            this.originatorCompanyName == other.originatorCompanyName &&
-            this.originatorRoutingNumber == other.originatorRoutingNumber &&
-            this.receiverIdNumber == other.receiverIdNumber &&
-            this.receiverName == other.receiverName &&
-            this.standardEntryClassCode == other.standardEntryClassCode &&
-            this.status == other.status &&
-            this.traceNumber == other.traceNumber &&
-            this.transferReturn == other.transferReturn &&
-            this.type == other.type &&
-            this.additionalProperties == other.additionalProperties
-    }
-
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    acceptance,
-                    accountId,
-                    accountNumberId,
-                    addenda,
-                    amount,
-                    automaticallyResolvesAt,
-                    decline,
-                    direction,
-                    expectedSettlementSchedule,
-                    id,
-                    internationalAddenda,
-                    notificationOfChange,
-                    originatorCompanyDescriptiveDate,
-                    originatorCompanyDiscretionaryData,
-                    originatorCompanyEntryDescription,
-                    originatorCompanyId,
-                    originatorCompanyName,
-                    originatorRoutingNumber,
-                    receiverIdNumber,
-                    receiverName,
-                    standardEntryClassCode,
-                    status,
-                    traceNumber,
-                    transferReturn,
-                    type,
-                    additionalProperties,
-                )
-        }
-        return hashCode
-    }
-
-    override fun toString() =
-        "InboundAchTransfer{acceptance=$acceptance, accountId=$accountId, accountNumberId=$accountNumberId, addenda=$addenda, amount=$amount, automaticallyResolvesAt=$automaticallyResolvesAt, decline=$decline, direction=$direction, expectedSettlementSchedule=$expectedSettlementSchedule, id=$id, internationalAddenda=$internationalAddenda, notificationOfChange=$notificationOfChange, originatorCompanyDescriptiveDate=$originatorCompanyDescriptiveDate, originatorCompanyDiscretionaryData=$originatorCompanyDiscretionaryData, originatorCompanyEntryDescription=$originatorCompanyEntryDescription, originatorCompanyId=$originatorCompanyId, originatorCompanyName=$originatorCompanyName, originatorRoutingNumber=$originatorRoutingNumber, receiverIdNumber=$receiverIdNumber, receiverName=$receiverName, standardEntryClassCode=$standardEntryClassCode, status=$status, traceNumber=$traceNumber, transferReturn=$transferReturn, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -760,8 +686,6 @@ private constructor(
 
         private var validated: Boolean = false
 
-        private var hashCode: Int = 0
-
         /** The time at which the transfer was accepted. */
         fun acceptedAt(): OffsetDateTime = acceptedAt.getRequired("accepted_at")
 
@@ -787,32 +711,6 @@ private constructor(
         }
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Acceptance &&
-                this.acceptedAt == other.acceptedAt &&
-                this.transactionId == other.transactionId &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        acceptedAt,
-                        transactionId,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "Acceptance{acceptedAt=$acceptedAt, transactionId=$transactionId, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -872,6 +770,34 @@ private constructor(
                     additionalProperties.toUnmodifiable(),
                 )
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Acceptance &&
+                this.acceptedAt == other.acceptedAt &&
+                this.transactionId == other.transactionId &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        acceptedAt,
+                        transactionId,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "Acceptance{acceptedAt=$acceptedAt, transactionId=$transactionId, additionalProperties=$additionalProperties}"
     }
 
     /** Additional information sent from the originator. */
@@ -885,8 +811,6 @@ private constructor(
     ) {
 
         private var validated: Boolean = false
-
-        private var hashCode: Int = 0
 
         /** The type of addendum. */
         fun category(): Category = category.getRequired("category")
@@ -913,32 +837,6 @@ private constructor(
         }
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Addenda &&
-                this.category == other.category &&
-                this.freeform == other.freeform &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        category,
-                        freeform,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "Addenda{category=$category, freeform=$freeform, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -1057,8 +955,6 @@ private constructor(
 
             private var validated: Boolean = false
 
-            private var hashCode: Int = 0
-
             /** Each entry represents an addendum received from the originator. */
             fun entries(): List<Entry> = entries.getRequired("entries")
 
@@ -1077,26 +973,6 @@ private constructor(
             }
 
             fun toBuilder() = Builder().from(this)
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is Freeform &&
-                    this.entries == other.entries &&
-                    this.additionalProperties == other.additionalProperties
-            }
-
-            override fun hashCode(): Int {
-                if (hashCode == 0) {
-                    hashCode = Objects.hash(entries, additionalProperties)
-                }
-                return hashCode
-            }
-
-            override fun toString() =
-                "Freeform{entries=$entries, additionalProperties=$additionalProperties}"
 
             companion object {
 
@@ -1153,8 +1029,6 @@ private constructor(
 
                 private var validated: Boolean = false
 
-                private var hashCode: Int = 0
-
                 /** The payment related information passed in the addendum. */
                 fun paymentRelatedInformation(): String =
                     paymentRelatedInformation.getRequired("payment_related_information")
@@ -1176,26 +1050,6 @@ private constructor(
                 }
 
                 fun toBuilder() = Builder().from(this)
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is Entry &&
-                        this.paymentRelatedInformation == other.paymentRelatedInformation &&
-                        this.additionalProperties == other.additionalProperties
-                }
-
-                override fun hashCode(): Int {
-                    if (hashCode == 0) {
-                        hashCode = Objects.hash(paymentRelatedInformation, additionalProperties)
-                    }
-                    return hashCode
-                }
-
-                override fun toString() =
-                    "Entry{paymentRelatedInformation=$paymentRelatedInformation, additionalProperties=$additionalProperties}"
 
                 companion object {
 
@@ -1242,8 +1096,80 @@ private constructor(
                     fun build(): Entry =
                         Entry(paymentRelatedInformation, additionalProperties.toUnmodifiable())
                 }
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is Entry &&
+                        this.paymentRelatedInformation == other.paymentRelatedInformation &&
+                        this.additionalProperties == other.additionalProperties
+                }
+
+                private var hashCode: Int = 0
+
+                override fun hashCode(): Int {
+                    if (hashCode == 0) {
+                        hashCode = Objects.hash(paymentRelatedInformation, additionalProperties)
+                    }
+                    return hashCode
+                }
+
+                override fun toString() =
+                    "Entry{paymentRelatedInformation=$paymentRelatedInformation, additionalProperties=$additionalProperties}"
             }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Freeform &&
+                    this.entries == other.entries &&
+                    this.additionalProperties == other.additionalProperties
+            }
+
+            private var hashCode: Int = 0
+
+            override fun hashCode(): Int {
+                if (hashCode == 0) {
+                    hashCode = Objects.hash(entries, additionalProperties)
+                }
+                return hashCode
+            }
+
+            override fun toString() =
+                "Freeform{entries=$entries, additionalProperties=$additionalProperties}"
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Addenda &&
+                this.category == other.category &&
+                this.freeform == other.freeform &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        category,
+                        freeform,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "Addenda{category=$category, freeform=$freeform, additionalProperties=$additionalProperties}"
     }
 
     /** If your transfer is declined, this will contain details of the decline. */
@@ -1258,8 +1184,6 @@ private constructor(
     ) {
 
         private var validated: Boolean = false
-
-        private var hashCode: Int = 0
 
         /** The time at which the transfer was declined. */
         fun declinedAt(): OffsetDateTime = declinedAt.getRequired("declined_at")
@@ -1296,34 +1220,6 @@ private constructor(
         }
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Decline &&
-                this.declinedAt == other.declinedAt &&
-                this.declinedTransactionId == other.declinedTransactionId &&
-                this.reason == other.reason &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        declinedAt,
-                        declinedTransactionId,
-                        reason,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "Decline{declinedAt=$declinedAt, declinedTransactionId=$declinedTransactionId, reason=$reason, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -1564,6 +1460,36 @@ private constructor(
 
             fun asString(): String = _value().asStringOrThrow()
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Decline &&
+                this.declinedAt == other.declinedAt &&
+                this.declinedTransactionId == other.declinedTransactionId &&
+                this.reason == other.reason &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        declinedAt,
+                        declinedTransactionId,
+                        reason,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "Decline{declinedAt=$declinedAt, declinedTransactionId=$declinedTransactionId, reason=$reason, additionalProperties=$additionalProperties}"
     }
 
     class Direction
@@ -1728,8 +1654,6 @@ private constructor(
     ) {
 
         private var validated: Boolean = false
-
-        private var hashCode: Int = 0
 
         /**
          * The [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2), Alpha-2 country code of
@@ -2186,102 +2110,6 @@ private constructor(
         }
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is InternationalAddenda &&
-                this.destinationCountryCode == other.destinationCountryCode &&
-                this.destinationCurrencyCode == other.destinationCurrencyCode &&
-                this.foreignExchangeIndicator == other.foreignExchangeIndicator &&
-                this.foreignExchangeReference == other.foreignExchangeReference &&
-                this.foreignExchangeReferenceIndicator == other.foreignExchangeReferenceIndicator &&
-                this.foreignPaymentAmount == other.foreignPaymentAmount &&
-                this.foreignTraceNumber == other.foreignTraceNumber &&
-                this.internationalTransactionTypeCode == other.internationalTransactionTypeCode &&
-                this.originatingCurrencyCode == other.originatingCurrencyCode &&
-                this.originatingDepositoryFinancialInstitutionBranchCountry ==
-                    other.originatingDepositoryFinancialInstitutionBranchCountry &&
-                this.originatingDepositoryFinancialInstitutionId ==
-                    other.originatingDepositoryFinancialInstitutionId &&
-                this.originatingDepositoryFinancialInstitutionIdQualifier ==
-                    other.originatingDepositoryFinancialInstitutionIdQualifier &&
-                this.originatingDepositoryFinancialInstitutionName ==
-                    other.originatingDepositoryFinancialInstitutionName &&
-                this.originatorCity == other.originatorCity &&
-                this.originatorCountry == other.originatorCountry &&
-                this.originatorIdentification == other.originatorIdentification &&
-                this.originatorName == other.originatorName &&
-                this.originatorPostalCode == other.originatorPostalCode &&
-                this.originatorStateOrProvince == other.originatorStateOrProvince &&
-                this.originatorStreetAddress == other.originatorStreetAddress &&
-                this.paymentRelatedInformation == other.paymentRelatedInformation &&
-                this.paymentRelatedInformation2 == other.paymentRelatedInformation2 &&
-                this.receiverCity == other.receiverCity &&
-                this.receiverCountry == other.receiverCountry &&
-                this.receiverIdentificationNumber == other.receiverIdentificationNumber &&
-                this.receiverPostalCode == other.receiverPostalCode &&
-                this.receiverStateOrProvince == other.receiverStateOrProvince &&
-                this.receiverStreetAddress == other.receiverStreetAddress &&
-                this.receivingCompanyOrIndividualName == other.receivingCompanyOrIndividualName &&
-                this.receivingDepositoryFinancialInstitutionCountry ==
-                    other.receivingDepositoryFinancialInstitutionCountry &&
-                this.receivingDepositoryFinancialInstitutionId ==
-                    other.receivingDepositoryFinancialInstitutionId &&
-                this.receivingDepositoryFinancialInstitutionIdQualifier ==
-                    other.receivingDepositoryFinancialInstitutionIdQualifier &&
-                this.receivingDepositoryFinancialInstitutionName ==
-                    other.receivingDepositoryFinancialInstitutionName &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        destinationCountryCode,
-                        destinationCurrencyCode,
-                        foreignExchangeIndicator,
-                        foreignExchangeReference,
-                        foreignExchangeReferenceIndicator,
-                        foreignPaymentAmount,
-                        foreignTraceNumber,
-                        internationalTransactionTypeCode,
-                        originatingCurrencyCode,
-                        originatingDepositoryFinancialInstitutionBranchCountry,
-                        originatingDepositoryFinancialInstitutionId,
-                        originatingDepositoryFinancialInstitutionIdQualifier,
-                        originatingDepositoryFinancialInstitutionName,
-                        originatorCity,
-                        originatorCountry,
-                        originatorIdentification,
-                        originatorName,
-                        originatorPostalCode,
-                        originatorStateOrProvince,
-                        originatorStreetAddress,
-                        paymentRelatedInformation,
-                        paymentRelatedInformation2,
-                        receiverCity,
-                        receiverCountry,
-                        receiverIdentificationNumber,
-                        receiverPostalCode,
-                        receiverStateOrProvince,
-                        receiverStreetAddress,
-                        receivingCompanyOrIndividualName,
-                        receivingDepositoryFinancialInstitutionCountry,
-                        receivingDepositoryFinancialInstitutionId,
-                        receivingDepositoryFinancialInstitutionIdQualifier,
-                        receivingDepositoryFinancialInstitutionName,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "InternationalAddenda{destinationCountryCode=$destinationCountryCode, destinationCurrencyCode=$destinationCurrencyCode, foreignExchangeIndicator=$foreignExchangeIndicator, foreignExchangeReference=$foreignExchangeReference, foreignExchangeReferenceIndicator=$foreignExchangeReferenceIndicator, foreignPaymentAmount=$foreignPaymentAmount, foreignTraceNumber=$foreignTraceNumber, internationalTransactionTypeCode=$internationalTransactionTypeCode, originatingCurrencyCode=$originatingCurrencyCode, originatingDepositoryFinancialInstitutionBranchCountry=$originatingDepositoryFinancialInstitutionBranchCountry, originatingDepositoryFinancialInstitutionId=$originatingDepositoryFinancialInstitutionId, originatingDepositoryFinancialInstitutionIdQualifier=$originatingDepositoryFinancialInstitutionIdQualifier, originatingDepositoryFinancialInstitutionName=$originatingDepositoryFinancialInstitutionName, originatorCity=$originatorCity, originatorCountry=$originatorCountry, originatorIdentification=$originatorIdentification, originatorName=$originatorName, originatorPostalCode=$originatorPostalCode, originatorStateOrProvince=$originatorStateOrProvince, originatorStreetAddress=$originatorStreetAddress, paymentRelatedInformation=$paymentRelatedInformation, paymentRelatedInformation2=$paymentRelatedInformation2, receiverCity=$receiverCity, receiverCountry=$receiverCountry, receiverIdentificationNumber=$receiverIdentificationNumber, receiverPostalCode=$receiverPostalCode, receiverStateOrProvince=$receiverStateOrProvince, receiverStreetAddress=$receiverStreetAddress, receivingCompanyOrIndividualName=$receivingCompanyOrIndividualName, receivingDepositoryFinancialInstitutionCountry=$receivingDepositoryFinancialInstitutionCountry, receivingDepositoryFinancialInstitutionId=$receivingDepositoryFinancialInstitutionId, receivingDepositoryFinancialInstitutionIdQualifier=$receivingDepositoryFinancialInstitutionIdQualifier, receivingDepositoryFinancialInstitutionName=$receivingDepositoryFinancialInstitutionName, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -3429,6 +3257,104 @@ private constructor(
 
             fun asString(): String = _value().asStringOrThrow()
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is InternationalAddenda &&
+                this.destinationCountryCode == other.destinationCountryCode &&
+                this.destinationCurrencyCode == other.destinationCurrencyCode &&
+                this.foreignExchangeIndicator == other.foreignExchangeIndicator &&
+                this.foreignExchangeReference == other.foreignExchangeReference &&
+                this.foreignExchangeReferenceIndicator == other.foreignExchangeReferenceIndicator &&
+                this.foreignPaymentAmount == other.foreignPaymentAmount &&
+                this.foreignTraceNumber == other.foreignTraceNumber &&
+                this.internationalTransactionTypeCode == other.internationalTransactionTypeCode &&
+                this.originatingCurrencyCode == other.originatingCurrencyCode &&
+                this.originatingDepositoryFinancialInstitutionBranchCountry ==
+                    other.originatingDepositoryFinancialInstitutionBranchCountry &&
+                this.originatingDepositoryFinancialInstitutionId ==
+                    other.originatingDepositoryFinancialInstitutionId &&
+                this.originatingDepositoryFinancialInstitutionIdQualifier ==
+                    other.originatingDepositoryFinancialInstitutionIdQualifier &&
+                this.originatingDepositoryFinancialInstitutionName ==
+                    other.originatingDepositoryFinancialInstitutionName &&
+                this.originatorCity == other.originatorCity &&
+                this.originatorCountry == other.originatorCountry &&
+                this.originatorIdentification == other.originatorIdentification &&
+                this.originatorName == other.originatorName &&
+                this.originatorPostalCode == other.originatorPostalCode &&
+                this.originatorStateOrProvince == other.originatorStateOrProvince &&
+                this.originatorStreetAddress == other.originatorStreetAddress &&
+                this.paymentRelatedInformation == other.paymentRelatedInformation &&
+                this.paymentRelatedInformation2 == other.paymentRelatedInformation2 &&
+                this.receiverCity == other.receiverCity &&
+                this.receiverCountry == other.receiverCountry &&
+                this.receiverIdentificationNumber == other.receiverIdentificationNumber &&
+                this.receiverPostalCode == other.receiverPostalCode &&
+                this.receiverStateOrProvince == other.receiverStateOrProvince &&
+                this.receiverStreetAddress == other.receiverStreetAddress &&
+                this.receivingCompanyOrIndividualName == other.receivingCompanyOrIndividualName &&
+                this.receivingDepositoryFinancialInstitutionCountry ==
+                    other.receivingDepositoryFinancialInstitutionCountry &&
+                this.receivingDepositoryFinancialInstitutionId ==
+                    other.receivingDepositoryFinancialInstitutionId &&
+                this.receivingDepositoryFinancialInstitutionIdQualifier ==
+                    other.receivingDepositoryFinancialInstitutionIdQualifier &&
+                this.receivingDepositoryFinancialInstitutionName ==
+                    other.receivingDepositoryFinancialInstitutionName &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        destinationCountryCode,
+                        destinationCurrencyCode,
+                        foreignExchangeIndicator,
+                        foreignExchangeReference,
+                        foreignExchangeReferenceIndicator,
+                        foreignPaymentAmount,
+                        foreignTraceNumber,
+                        internationalTransactionTypeCode,
+                        originatingCurrencyCode,
+                        originatingDepositoryFinancialInstitutionBranchCountry,
+                        originatingDepositoryFinancialInstitutionId,
+                        originatingDepositoryFinancialInstitutionIdQualifier,
+                        originatingDepositoryFinancialInstitutionName,
+                        originatorCity,
+                        originatorCountry,
+                        originatorIdentification,
+                        originatorName,
+                        originatorPostalCode,
+                        originatorStateOrProvince,
+                        originatorStreetAddress,
+                        paymentRelatedInformation,
+                        paymentRelatedInformation2,
+                        receiverCity,
+                        receiverCountry,
+                        receiverIdentificationNumber,
+                        receiverPostalCode,
+                        receiverStateOrProvince,
+                        receiverStreetAddress,
+                        receivingCompanyOrIndividualName,
+                        receivingDepositoryFinancialInstitutionCountry,
+                        receivingDepositoryFinancialInstitutionId,
+                        receivingDepositoryFinancialInstitutionIdQualifier,
+                        receivingDepositoryFinancialInstitutionName,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "InternationalAddenda{destinationCountryCode=$destinationCountryCode, destinationCurrencyCode=$destinationCurrencyCode, foreignExchangeIndicator=$foreignExchangeIndicator, foreignExchangeReference=$foreignExchangeReference, foreignExchangeReferenceIndicator=$foreignExchangeReferenceIndicator, foreignPaymentAmount=$foreignPaymentAmount, foreignTraceNumber=$foreignTraceNumber, internationalTransactionTypeCode=$internationalTransactionTypeCode, originatingCurrencyCode=$originatingCurrencyCode, originatingDepositoryFinancialInstitutionBranchCountry=$originatingDepositoryFinancialInstitutionBranchCountry, originatingDepositoryFinancialInstitutionId=$originatingDepositoryFinancialInstitutionId, originatingDepositoryFinancialInstitutionIdQualifier=$originatingDepositoryFinancialInstitutionIdQualifier, originatingDepositoryFinancialInstitutionName=$originatingDepositoryFinancialInstitutionName, originatorCity=$originatorCity, originatorCountry=$originatorCountry, originatorIdentification=$originatorIdentification, originatorName=$originatorName, originatorPostalCode=$originatorPostalCode, originatorStateOrProvince=$originatorStateOrProvince, originatorStreetAddress=$originatorStreetAddress, paymentRelatedInformation=$paymentRelatedInformation, paymentRelatedInformation2=$paymentRelatedInformation2, receiverCity=$receiverCity, receiverCountry=$receiverCountry, receiverIdentificationNumber=$receiverIdentificationNumber, receiverPostalCode=$receiverPostalCode, receiverStateOrProvince=$receiverStateOrProvince, receiverStreetAddress=$receiverStreetAddress, receivingCompanyOrIndividualName=$receivingCompanyOrIndividualName, receivingDepositoryFinancialInstitutionCountry=$receivingDepositoryFinancialInstitutionCountry, receivingDepositoryFinancialInstitutionId=$receivingDepositoryFinancialInstitutionId, receivingDepositoryFinancialInstitutionIdQualifier=$receivingDepositoryFinancialInstitutionIdQualifier, receivingDepositoryFinancialInstitutionName=$receivingDepositoryFinancialInstitutionName, additionalProperties=$additionalProperties}"
     }
 
     /**
@@ -3445,8 +3371,6 @@ private constructor(
     ) {
 
         private var validated: Boolean = false
-
-        private var hashCode: Int = 0
 
         /** The new account number provided in the notification of change. */
         fun updatedAccountNumber(): String? =
@@ -3479,32 +3403,6 @@ private constructor(
         }
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is NotificationOfChange &&
-                this.updatedAccountNumber == other.updatedAccountNumber &&
-                this.updatedRoutingNumber == other.updatedRoutingNumber &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        updatedAccountNumber,
-                        updatedRoutingNumber,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "NotificationOfChange{updatedAccountNumber=$updatedAccountNumber, updatedRoutingNumber=$updatedRoutingNumber, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -3566,6 +3464,34 @@ private constructor(
                     additionalProperties.toUnmodifiable(),
                 )
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is NotificationOfChange &&
+                this.updatedAccountNumber == other.updatedAccountNumber &&
+                this.updatedRoutingNumber == other.updatedRoutingNumber &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        updatedAccountNumber,
+                        updatedRoutingNumber,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "NotificationOfChange{updatedAccountNumber=$updatedAccountNumber, updatedRoutingNumber=$updatedRoutingNumber, additionalProperties=$additionalProperties}"
     }
 
     class StandardEntryClassCode
@@ -3797,8 +3723,6 @@ private constructor(
 
         private var validated: Boolean = false
 
-        private var hashCode: Int = 0
-
         /** The reason for the transfer return. */
         fun reason(): Reason = reason.getRequired("reason")
 
@@ -3831,34 +3755,6 @@ private constructor(
         }
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is TransferReturn &&
-                this.reason == other.reason &&
-                this.returnedAt == other.returnedAt &&
-                this.transactionId == other.transactionId &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        reason,
-                        returnedAt,
-                        transactionId,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "TransferReturn{reason=$reason, returnedAt=$returnedAt, transactionId=$transactionId, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -4056,6 +3952,36 @@ private constructor(
 
             fun asString(): String = _value().asStringOrThrow()
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is TransferReturn &&
+                this.reason == other.reason &&
+                this.returnedAt == other.returnedAt &&
+                this.transactionId == other.transactionId &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        reason,
+                        returnedAt,
+                        transactionId,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "TransferReturn{reason=$reason, returnedAt=$returnedAt, transactionId=$transactionId, additionalProperties=$additionalProperties}"
     }
 
     class Type
@@ -4108,4 +4034,78 @@ private constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return other is InboundAchTransfer &&
+            this.acceptance == other.acceptance &&
+            this.accountId == other.accountId &&
+            this.accountNumberId == other.accountNumberId &&
+            this.addenda == other.addenda &&
+            this.amount == other.amount &&
+            this.automaticallyResolvesAt == other.automaticallyResolvesAt &&
+            this.decline == other.decline &&
+            this.direction == other.direction &&
+            this.expectedSettlementSchedule == other.expectedSettlementSchedule &&
+            this.id == other.id &&
+            this.internationalAddenda == other.internationalAddenda &&
+            this.notificationOfChange == other.notificationOfChange &&
+            this.originatorCompanyDescriptiveDate == other.originatorCompanyDescriptiveDate &&
+            this.originatorCompanyDiscretionaryData == other.originatorCompanyDiscretionaryData &&
+            this.originatorCompanyEntryDescription == other.originatorCompanyEntryDescription &&
+            this.originatorCompanyId == other.originatorCompanyId &&
+            this.originatorCompanyName == other.originatorCompanyName &&
+            this.originatorRoutingNumber == other.originatorRoutingNumber &&
+            this.receiverIdNumber == other.receiverIdNumber &&
+            this.receiverName == other.receiverName &&
+            this.standardEntryClassCode == other.standardEntryClassCode &&
+            this.status == other.status &&
+            this.traceNumber == other.traceNumber &&
+            this.transferReturn == other.transferReturn &&
+            this.type == other.type &&
+            this.additionalProperties == other.additionalProperties
+    }
+
+    private var hashCode: Int = 0
+
+    override fun hashCode(): Int {
+        if (hashCode == 0) {
+            hashCode =
+                Objects.hash(
+                    acceptance,
+                    accountId,
+                    accountNumberId,
+                    addenda,
+                    amount,
+                    automaticallyResolvesAt,
+                    decline,
+                    direction,
+                    expectedSettlementSchedule,
+                    id,
+                    internationalAddenda,
+                    notificationOfChange,
+                    originatorCompanyDescriptiveDate,
+                    originatorCompanyDiscretionaryData,
+                    originatorCompanyEntryDescription,
+                    originatorCompanyId,
+                    originatorCompanyName,
+                    originatorRoutingNumber,
+                    receiverIdNumber,
+                    receiverName,
+                    standardEntryClassCode,
+                    status,
+                    traceNumber,
+                    transferReturn,
+                    type,
+                    additionalProperties,
+                )
+        }
+        return hashCode
+    }
+
+    override fun toString() =
+        "InboundAchTransfer{acceptance=$acceptance, accountId=$accountId, accountNumberId=$accountNumberId, addenda=$addenda, amount=$amount, automaticallyResolvesAt=$automaticallyResolvesAt, decline=$decline, direction=$direction, expectedSettlementSchedule=$expectedSettlementSchedule, id=$id, internationalAddenda=$internationalAddenda, notificationOfChange=$notificationOfChange, originatorCompanyDescriptiveDate=$originatorCompanyDescriptiveDate, originatorCompanyDiscretionaryData=$originatorCompanyDiscretionaryData, originatorCompanyEntryDescription=$originatorCompanyEntryDescription, originatorCompanyId=$originatorCompanyId, originatorCompanyName=$originatorCompanyName, originatorRoutingNumber=$originatorRoutingNumber, receiverIdNumber=$receiverIdNumber, receiverName=$receiverName, standardEntryClassCode=$standardEntryClassCode, status=$status, traceNumber=$traceNumber, transferReturn=$transferReturn, type=$type, additionalProperties=$additionalProperties}"
 }
