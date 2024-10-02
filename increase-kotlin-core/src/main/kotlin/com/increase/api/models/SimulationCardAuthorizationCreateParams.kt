@@ -21,6 +21,7 @@ class SimulationCardAuthorizationCreateParams
 constructor(
     private val amount: Long,
     private val cardId: String?,
+    private val declineReason: DeclineReason?,
     private val digitalWalletTokenId: String?,
     private val direction: Direction?,
     private val eventSubscriptionId: String?,
@@ -38,6 +39,8 @@ constructor(
     fun amount(): Long = amount
 
     fun cardId(): String? = cardId
+
+    fun declineReason(): DeclineReason? = declineReason
 
     fun digitalWalletTokenId(): String? = digitalWalletTokenId
 
@@ -61,6 +64,7 @@ constructor(
         return SimulationCardAuthorizationCreateBody(
             amount,
             cardId,
+            declineReason,
             digitalWalletTokenId,
             direction,
             eventSubscriptionId,
@@ -84,6 +88,7 @@ constructor(
     internal constructor(
         private val amount: Long?,
         private val cardId: String?,
+        private val declineReason: DeclineReason?,
         private val digitalWalletTokenId: String?,
         private val direction: Direction?,
         private val eventSubscriptionId: String?,
@@ -101,6 +106,9 @@ constructor(
 
         /** The identifier of the Card to be authorized. */
         @JsonProperty("card_id") fun cardId(): String? = cardId
+
+        /** Forces a card decline with a specific reason. No real time decision will be sent. */
+        @JsonProperty("decline_reason") fun declineReason(): DeclineReason? = declineReason
 
         /** The identifier of the Digital Wallet Token to be authorized. */
         @JsonProperty("digital_wallet_token_id")
@@ -161,6 +169,7 @@ constructor(
 
             private var amount: Long? = null
             private var cardId: String? = null
+            private var declineReason: DeclineReason? = null
             private var digitalWalletTokenId: String? = null
             private var direction: Direction? = null
             private var eventSubscriptionId: String? = null
@@ -177,6 +186,7 @@ constructor(
             ) = apply {
                 this.amount = simulationCardAuthorizationCreateBody.amount
                 this.cardId = simulationCardAuthorizationCreateBody.cardId
+                this.declineReason = simulationCardAuthorizationCreateBody.declineReason
                 this.digitalWalletTokenId =
                     simulationCardAuthorizationCreateBody.digitalWalletTokenId
                 this.direction = simulationCardAuthorizationCreateBody.direction
@@ -196,6 +206,12 @@ constructor(
 
             /** The identifier of the Card to be authorized. */
             @JsonProperty("card_id") fun cardId(cardId: String) = apply { this.cardId = cardId }
+
+            /** Forces a card decline with a specific reason. No real time decision will be sent. */
+            @JsonProperty("decline_reason")
+            fun declineReason(declineReason: DeclineReason) = apply {
+                this.declineReason = declineReason
+            }
 
             /** The identifier of the Digital Wallet Token to be authorized. */
             @JsonProperty("digital_wallet_token_id")
@@ -279,6 +295,7 @@ constructor(
                 SimulationCardAuthorizationCreateBody(
                     checkNotNull(amount) { "`amount` is required but was not set" },
                     cardId,
+                    declineReason,
                     digitalWalletTokenId,
                     direction,
                     eventSubscriptionId,
@@ -300,6 +317,7 @@ constructor(
             return other is SimulationCardAuthorizationCreateBody &&
                 this.amount == other.amount &&
                 this.cardId == other.cardId &&
+                this.declineReason == other.declineReason &&
                 this.digitalWalletTokenId == other.digitalWalletTokenId &&
                 this.direction == other.direction &&
                 this.eventSubscriptionId == other.eventSubscriptionId &&
@@ -320,6 +338,7 @@ constructor(
                     Objects.hash(
                         amount,
                         cardId,
+                        declineReason,
                         digitalWalletTokenId,
                         direction,
                         eventSubscriptionId,
@@ -336,7 +355,7 @@ constructor(
         }
 
         override fun toString() =
-            "SimulationCardAuthorizationCreateBody{amount=$amount, cardId=$cardId, digitalWalletTokenId=$digitalWalletTokenId, direction=$direction, eventSubscriptionId=$eventSubscriptionId, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, physicalCardId=$physicalCardId, additionalProperties=$additionalProperties}"
+            "SimulationCardAuthorizationCreateBody{amount=$amount, cardId=$cardId, declineReason=$declineReason, digitalWalletTokenId=$digitalWalletTokenId, direction=$direction, eventSubscriptionId=$eventSubscriptionId, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, physicalCardId=$physicalCardId, additionalProperties=$additionalProperties}"
     }
 
     fun _additionalQueryParams(): Map<String, List<String>> = additionalQueryParams
@@ -353,6 +372,7 @@ constructor(
         return other is SimulationCardAuthorizationCreateParams &&
             this.amount == other.amount &&
             this.cardId == other.cardId &&
+            this.declineReason == other.declineReason &&
             this.digitalWalletTokenId == other.digitalWalletTokenId &&
             this.direction == other.direction &&
             this.eventSubscriptionId == other.eventSubscriptionId &&
@@ -371,6 +391,7 @@ constructor(
         return Objects.hash(
             amount,
             cardId,
+            declineReason,
             digitalWalletTokenId,
             direction,
             eventSubscriptionId,
@@ -387,7 +408,7 @@ constructor(
     }
 
     override fun toString() =
-        "SimulationCardAuthorizationCreateParams{amount=$amount, cardId=$cardId, digitalWalletTokenId=$digitalWalletTokenId, direction=$direction, eventSubscriptionId=$eventSubscriptionId, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, physicalCardId=$physicalCardId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "SimulationCardAuthorizationCreateParams{amount=$amount, cardId=$cardId, declineReason=$declineReason, digitalWalletTokenId=$digitalWalletTokenId, direction=$direction, eventSubscriptionId=$eventSubscriptionId, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, physicalCardId=$physicalCardId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -401,6 +422,7 @@ constructor(
 
         private var amount: Long? = null
         private var cardId: String? = null
+        private var declineReason: DeclineReason? = null
         private var digitalWalletTokenId: String? = null
         private var direction: Direction? = null
         private var eventSubscriptionId: String? = null
@@ -419,6 +441,7 @@ constructor(
         ) = apply {
             this.amount = simulationCardAuthorizationCreateParams.amount
             this.cardId = simulationCardAuthorizationCreateParams.cardId
+            this.declineReason = simulationCardAuthorizationCreateParams.declineReason
             this.digitalWalletTokenId = simulationCardAuthorizationCreateParams.digitalWalletTokenId
             this.direction = simulationCardAuthorizationCreateParams.direction
             this.eventSubscriptionId = simulationCardAuthorizationCreateParams.eventSubscriptionId
@@ -440,6 +463,11 @@ constructor(
 
         /** The identifier of the Card to be authorized. */
         fun cardId(cardId: String) = apply { this.cardId = cardId }
+
+        /** Forces a card decline with a specific reason. No real time decision will be sent. */
+        fun declineReason(declineReason: DeclineReason) = apply {
+            this.declineReason = declineReason
+        }
 
         /** The identifier of the Digital Wallet Token to be authorized. */
         fun digitalWalletTokenId(digitalWalletTokenId: String) = apply {
@@ -552,6 +580,7 @@ constructor(
             SimulationCardAuthorizationCreateParams(
                 checkNotNull(amount) { "`amount` is required but was not set" },
                 cardId,
+                declineReason,
                 digitalWalletTokenId,
                 direction,
                 eventSubscriptionId,
@@ -565,6 +594,143 @@ constructor(
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalBodyProperties.toUnmodifiable(),
             )
+    }
+
+    class DeclineReason
+    @JsonCreator
+    private constructor(
+        private val value: JsonField<String>,
+    ) : Enum {
+
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is DeclineReason && this.value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+
+        companion object {
+
+            val CARD_NOT_ACTIVE = DeclineReason(JsonField.of("card_not_active"))
+
+            val PHYSICAL_CARD_NOT_ACTIVE = DeclineReason(JsonField.of("physical_card_not_active"))
+
+            val ENTITY_NOT_ACTIVE = DeclineReason(JsonField.of("entity_not_active"))
+
+            val GROUP_LOCKED = DeclineReason(JsonField.of("group_locked"))
+
+            val INSUFFICIENT_FUNDS = DeclineReason(JsonField.of("insufficient_funds"))
+
+            val CVV2_MISMATCH = DeclineReason(JsonField.of("cvv2_mismatch"))
+
+            val CARD_EXPIRATION_MISMATCH = DeclineReason(JsonField.of("card_expiration_mismatch"))
+
+            val TRANSACTION_NOT_ALLOWED = DeclineReason(JsonField.of("transaction_not_allowed"))
+
+            val BREACHES_LIMIT = DeclineReason(JsonField.of("breaches_limit"))
+
+            val WEBHOOK_DECLINED = DeclineReason(JsonField.of("webhook_declined"))
+
+            val WEBHOOK_TIMED_OUT = DeclineReason(JsonField.of("webhook_timed_out"))
+
+            val DECLINED_BY_STAND_IN_PROCESSING =
+                DeclineReason(JsonField.of("declined_by_stand_in_processing"))
+
+            val INVALID_PHYSICAL_CARD = DeclineReason(JsonField.of("invalid_physical_card"))
+
+            val MISSING_ORIGINAL_AUTHORIZATION =
+                DeclineReason(JsonField.of("missing_original_authorization"))
+
+            val SUSPECTED_FRAUD = DeclineReason(JsonField.of("suspected_fraud"))
+
+            fun of(value: String) = DeclineReason(JsonField.of(value))
+        }
+
+        enum class Known {
+            CARD_NOT_ACTIVE,
+            PHYSICAL_CARD_NOT_ACTIVE,
+            ENTITY_NOT_ACTIVE,
+            GROUP_LOCKED,
+            INSUFFICIENT_FUNDS,
+            CVV2_MISMATCH,
+            CARD_EXPIRATION_MISMATCH,
+            TRANSACTION_NOT_ALLOWED,
+            BREACHES_LIMIT,
+            WEBHOOK_DECLINED,
+            WEBHOOK_TIMED_OUT,
+            DECLINED_BY_STAND_IN_PROCESSING,
+            INVALID_PHYSICAL_CARD,
+            MISSING_ORIGINAL_AUTHORIZATION,
+            SUSPECTED_FRAUD,
+        }
+
+        enum class Value {
+            CARD_NOT_ACTIVE,
+            PHYSICAL_CARD_NOT_ACTIVE,
+            ENTITY_NOT_ACTIVE,
+            GROUP_LOCKED,
+            INSUFFICIENT_FUNDS,
+            CVV2_MISMATCH,
+            CARD_EXPIRATION_MISMATCH,
+            TRANSACTION_NOT_ALLOWED,
+            BREACHES_LIMIT,
+            WEBHOOK_DECLINED,
+            WEBHOOK_TIMED_OUT,
+            DECLINED_BY_STAND_IN_PROCESSING,
+            INVALID_PHYSICAL_CARD,
+            MISSING_ORIGINAL_AUTHORIZATION,
+            SUSPECTED_FRAUD,
+            _UNKNOWN,
+        }
+
+        fun value(): Value =
+            when (this) {
+                CARD_NOT_ACTIVE -> Value.CARD_NOT_ACTIVE
+                PHYSICAL_CARD_NOT_ACTIVE -> Value.PHYSICAL_CARD_NOT_ACTIVE
+                ENTITY_NOT_ACTIVE -> Value.ENTITY_NOT_ACTIVE
+                GROUP_LOCKED -> Value.GROUP_LOCKED
+                INSUFFICIENT_FUNDS -> Value.INSUFFICIENT_FUNDS
+                CVV2_MISMATCH -> Value.CVV2_MISMATCH
+                CARD_EXPIRATION_MISMATCH -> Value.CARD_EXPIRATION_MISMATCH
+                TRANSACTION_NOT_ALLOWED -> Value.TRANSACTION_NOT_ALLOWED
+                BREACHES_LIMIT -> Value.BREACHES_LIMIT
+                WEBHOOK_DECLINED -> Value.WEBHOOK_DECLINED
+                WEBHOOK_TIMED_OUT -> Value.WEBHOOK_TIMED_OUT
+                DECLINED_BY_STAND_IN_PROCESSING -> Value.DECLINED_BY_STAND_IN_PROCESSING
+                INVALID_PHYSICAL_CARD -> Value.INVALID_PHYSICAL_CARD
+                MISSING_ORIGINAL_AUTHORIZATION -> Value.MISSING_ORIGINAL_AUTHORIZATION
+                SUSPECTED_FRAUD -> Value.SUSPECTED_FRAUD
+                else -> Value._UNKNOWN
+            }
+
+        fun known(): Known =
+            when (this) {
+                CARD_NOT_ACTIVE -> Known.CARD_NOT_ACTIVE
+                PHYSICAL_CARD_NOT_ACTIVE -> Known.PHYSICAL_CARD_NOT_ACTIVE
+                ENTITY_NOT_ACTIVE -> Known.ENTITY_NOT_ACTIVE
+                GROUP_LOCKED -> Known.GROUP_LOCKED
+                INSUFFICIENT_FUNDS -> Known.INSUFFICIENT_FUNDS
+                CVV2_MISMATCH -> Known.CVV2_MISMATCH
+                CARD_EXPIRATION_MISMATCH -> Known.CARD_EXPIRATION_MISMATCH
+                TRANSACTION_NOT_ALLOWED -> Known.TRANSACTION_NOT_ALLOWED
+                BREACHES_LIMIT -> Known.BREACHES_LIMIT
+                WEBHOOK_DECLINED -> Known.WEBHOOK_DECLINED
+                WEBHOOK_TIMED_OUT -> Known.WEBHOOK_TIMED_OUT
+                DECLINED_BY_STAND_IN_PROCESSING -> Known.DECLINED_BY_STAND_IN_PROCESSING
+                INVALID_PHYSICAL_CARD -> Known.INVALID_PHYSICAL_CARD
+                MISSING_ORIGINAL_AUTHORIZATION -> Known.MISSING_ORIGINAL_AUTHORIZATION
+                SUSPECTED_FRAUD -> Known.SUSPECTED_FRAUD
+                else -> throw IncreaseInvalidDataException("Unknown DeclineReason: $value")
+            }
+
+        fun asString(): String = _value().asStringOrThrow()
     }
 
     class Direction
