@@ -308,6 +308,7 @@ private constructor(
         private val cardId: JsonField<String>,
         private val decision: JsonField<Decision>,
         private val digitalWalletTokenId: JsonField<String>,
+        private val direction: JsonField<Direction>,
         private val merchantAcceptorId: JsonField<String>,
         private val merchantCategoryCode: JsonField<String>,
         private val merchantCity: JsonField<String>,
@@ -347,6 +348,12 @@ private constructor(
          */
         fun digitalWalletTokenId(): String? =
             digitalWalletTokenId.getNullable("digital_wallet_token_id")
+
+        /**
+         * The direction describes the direction the funds will move, either from the cardholder to
+         * the merchant or from the merchant to the cardholder.
+         */
+        fun direction(): Direction = direction.getRequired("direction")
 
         /**
          * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
@@ -458,6 +465,12 @@ private constructor(
         @JsonProperty("digital_wallet_token_id")
         @ExcludeMissing
         fun _digitalWalletTokenId() = digitalWalletTokenId
+
+        /**
+         * The direction describes the direction the funds will move, either from the cardholder to
+         * the merchant or from the merchant to the cardholder.
+         */
+        @JsonProperty("direction") @ExcludeMissing fun _direction() = direction
 
         /**
          * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
@@ -583,6 +596,7 @@ private constructor(
                 cardId()
                 decision()
                 digitalWalletTokenId()
+                direction()
                 merchantAcceptorId()
                 merchantCategoryCode()
                 merchantCity()
@@ -619,6 +633,7 @@ private constructor(
             private var cardId: JsonField<String> = JsonMissing.of()
             private var decision: JsonField<Decision> = JsonMissing.of()
             private var digitalWalletTokenId: JsonField<String> = JsonMissing.of()
+            private var direction: JsonField<Direction> = JsonMissing.of()
             private var merchantAcceptorId: JsonField<String> = JsonMissing.of()
             private var merchantCategoryCode: JsonField<String> = JsonMissing.of()
             private var merchantCity: JsonField<String> = JsonMissing.of()
@@ -645,6 +660,7 @@ private constructor(
                 this.cardId = cardAuthorization.cardId
                 this.decision = cardAuthorization.decision
                 this.digitalWalletTokenId = cardAuthorization.digitalWalletTokenId
+                this.direction = cardAuthorization.direction
                 this.merchantAcceptorId = cardAuthorization.merchantAcceptorId
                 this.merchantCategoryCode = cardAuthorization.merchantCategoryCode
                 this.merchantCity = cardAuthorization.merchantCity
@@ -707,6 +723,20 @@ private constructor(
             fun digitalWalletTokenId(digitalWalletTokenId: JsonField<String>) = apply {
                 this.digitalWalletTokenId = digitalWalletTokenId
             }
+
+            /**
+             * The direction describes the direction the funds will move, either from the cardholder
+             * to the merchant or from the merchant to the cardholder.
+             */
+            fun direction(direction: Direction) = direction(JsonField.of(direction))
+
+            /**
+             * The direction describes the direction the funds will move, either from the cardholder
+             * to the merchant or from the merchant to the cardholder.
+             */
+            @JsonProperty("direction")
+            @ExcludeMissing
+            fun direction(direction: JsonField<Direction>) = apply { this.direction = direction }
 
             /**
              * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
@@ -1002,6 +1032,7 @@ private constructor(
                     cardId,
                     decision,
                     digitalWalletTokenId,
+                    direction,
                     merchantAcceptorId,
                     merchantCategoryCode,
                     merchantCity,
@@ -1077,6 +1108,63 @@ private constructor(
                     APPROVE -> Known.APPROVE
                     DECLINE -> Known.DECLINE
                     else -> throw IncreaseInvalidDataException("Unknown Decision: $value")
+                }
+
+            fun asString(): String = _value().asStringOrThrow()
+        }
+
+        class Direction
+        @JsonCreator
+        private constructor(
+            private val value: JsonField<String>,
+        ) : Enum {
+
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Direction && this.value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+
+            companion object {
+
+                val SETTLEMENT = Direction(JsonField.of("settlement"))
+
+                val REFUND = Direction(JsonField.of("refund"))
+
+                fun of(value: String) = Direction(JsonField.of(value))
+            }
+
+            enum class Known {
+                SETTLEMENT,
+                REFUND,
+            }
+
+            enum class Value {
+                SETTLEMENT,
+                REFUND,
+                _UNKNOWN,
+            }
+
+            fun value(): Value =
+                when (this) {
+                    SETTLEMENT -> Value.SETTLEMENT
+                    REFUND -> Value.REFUND
+                    else -> Value._UNKNOWN
+                }
+
+            fun known(): Known =
+                when (this) {
+                    SETTLEMENT -> Known.SETTLEMENT
+                    REFUND -> Known.REFUND
+                    else -> throw IncreaseInvalidDataException("Unknown Direction: $value")
                 }
 
             fun asString(): String = _value().asStringOrThrow()
@@ -2931,6 +3019,7 @@ private constructor(
                 this.cardId == other.cardId &&
                 this.decision == other.decision &&
                 this.digitalWalletTokenId == other.digitalWalletTokenId &&
+                this.direction == other.direction &&
                 this.merchantAcceptorId == other.merchantAcceptorId &&
                 this.merchantCategoryCode == other.merchantCategoryCode &&
                 this.merchantCity == other.merchantCity &&
@@ -2963,6 +3052,7 @@ private constructor(
                         cardId,
                         decision,
                         digitalWalletTokenId,
+                        direction,
                         merchantAcceptorId,
                         merchantCategoryCode,
                         merchantCity,
@@ -2989,7 +3079,7 @@ private constructor(
         }
 
         override fun toString() =
-            "CardAuthorization{accountId=$accountId, cardId=$cardId, decision=$decision, digitalWalletTokenId=$digitalWalletTokenId, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, networkDetails=$networkDetails, networkIdentifiers=$networkIdentifiers, networkRiskScore=$networkRiskScore, physicalCardId=$physicalCardId, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, processingCategory=$processingCategory, requestDetails=$requestDetails, settlementAmount=$settlementAmount, settlementCurrency=$settlementCurrency, upcomingCardPaymentId=$upcomingCardPaymentId, verification=$verification, additionalProperties=$additionalProperties}"
+            "CardAuthorization{accountId=$accountId, cardId=$cardId, decision=$decision, digitalWalletTokenId=$digitalWalletTokenId, direction=$direction, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, networkDetails=$networkDetails, networkIdentifiers=$networkIdentifiers, networkRiskScore=$networkRiskScore, physicalCardId=$physicalCardId, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, processingCategory=$processingCategory, requestDetails=$requestDetails, settlementAmount=$settlementAmount, settlementCurrency=$settlementCurrency, upcomingCardPaymentId=$upcomingCardPaymentId, verification=$verification, additionalProperties=$additionalProperties}"
     }
 
     class Category
