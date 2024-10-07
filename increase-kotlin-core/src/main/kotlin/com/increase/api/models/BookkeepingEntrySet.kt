@@ -356,24 +356,14 @@ private constructor(
                 return true
             }
 
-            return other is Entry &&
-                this.accountId == other.accountId &&
-                this.amount == other.amount &&
-                this.id == other.id &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is Entry && this.accountId == other.accountId && this.amount == other.amount && this.id == other.id && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        accountId,
-                        amount,
-                        id,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(accountId, amount, id, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -395,7 +385,7 @@ private constructor(
                 return true
             }
 
-            return other is Type && this.value == other.value
+            return /* spotless:off */ other is Type && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -438,32 +428,14 @@ private constructor(
             return true
         }
 
-        return other is BookkeepingEntrySet &&
-            this.createdAt == other.createdAt &&
-            this.date == other.date &&
-            this.entries == other.entries &&
-            this.id == other.id &&
-            this.idempotencyKey == other.idempotencyKey &&
-            this.transactionId == other.transactionId &&
-            this.type == other.type &&
-            this.additionalProperties == other.additionalProperties
+        return /* spotless:off */ other is BookkeepingEntrySet && this.createdAt == other.createdAt && this.date == other.date && this.entries == other.entries && this.id == other.id && this.idempotencyKey == other.idempotencyKey && this.transactionId == other.transactionId && this.type == other.type && this.additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     private var hashCode: Int = 0
 
     override fun hashCode(): Int {
         if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    createdAt,
-                    date,
-                    entries,
-                    id,
-                    idempotencyKey,
-                    transactionId,
-                    type,
-                    additionalProperties,
-                )
+            hashCode = /* spotless:off */ Objects.hash(createdAt, date, entries, id, idempotencyKey, transactionId, type, additionalProperties) /* spotless:on */
         }
         return hashCode
     }

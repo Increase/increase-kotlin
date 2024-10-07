@@ -491,7 +491,7 @@ private constructor(
                 return true
             }
 
-            return other is Bank && this.value == other.value
+            return /* spotless:off */ other is Bank && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -554,7 +554,7 @@ private constructor(
                 return true
             }
 
-            return other is Currency && this.value == other.value
+            return /* spotless:off */ other is Currency && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -635,7 +635,7 @@ private constructor(
                 return true
             }
 
-            return other is Status && this.value == other.value
+            return /* spotless:off */ other is Status && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -692,7 +692,7 @@ private constructor(
                 return true
             }
 
-            return other is Type && this.value == other.value
+            return /* spotless:off */ other is Type && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -735,48 +735,14 @@ private constructor(
             return true
         }
 
-        return other is Account &&
-            this.bank == other.bank &&
-            this.closedAt == other.closedAt &&
-            this.createdAt == other.createdAt &&
-            this.currency == other.currency &&
-            this.entityId == other.entityId &&
-            this.id == other.id &&
-            this.idempotencyKey == other.idempotencyKey &&
-            this.informationalEntityId == other.informationalEntityId &&
-            this.interestAccrued == other.interestAccrued &&
-            this.interestAccruedAt == other.interestAccruedAt &&
-            this.interestRate == other.interestRate &&
-            this.name == other.name &&
-            this.programId == other.programId &&
-            this.status == other.status &&
-            this.type == other.type &&
-            this.additionalProperties == other.additionalProperties
+        return /* spotless:off */ other is Account && this.bank == other.bank && this.closedAt == other.closedAt && this.createdAt == other.createdAt && this.currency == other.currency && this.entityId == other.entityId && this.id == other.id && this.idempotencyKey == other.idempotencyKey && this.informationalEntityId == other.informationalEntityId && this.interestAccrued == other.interestAccrued && this.interestAccruedAt == other.interestAccruedAt && this.interestRate == other.interestRate && this.name == other.name && this.programId == other.programId && this.status == other.status && this.type == other.type && this.additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     private var hashCode: Int = 0
 
     override fun hashCode(): Int {
         if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    bank,
-                    closedAt,
-                    createdAt,
-                    currency,
-                    entityId,
-                    id,
-                    idempotencyKey,
-                    informationalEntityId,
-                    interestAccrued,
-                    interestAccruedAt,
-                    interestRate,
-                    name,
-                    programId,
-                    status,
-                    type,
-                    additionalProperties,
-                )
+            hashCode = /* spotless:off */ Objects.hash(bank, closedAt, createdAt, currency, entityId, id, idempotencyKey, informationalEntityId, interestAccrued, interestAccruedAt, interestRate, name, programId, status, type, additionalProperties) /* spotless:on */
         }
         return hashCode
     }
