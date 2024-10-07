@@ -21,6 +21,7 @@ class RealTimeDecisionActionParams
 constructor(
     private val realTimeDecisionId: String,
     private val cardAuthentication: CardAuthentication?,
+    private val cardAuthenticationChallenge: CardAuthenticationChallenge?,
     private val cardAuthorization: CardAuthorization?,
     private val digitalWalletAuthentication: DigitalWalletAuthentication?,
     private val digitalWalletToken: DigitalWalletToken?,
@@ -33,6 +34,8 @@ constructor(
 
     fun cardAuthentication(): CardAuthentication? = cardAuthentication
 
+    fun cardAuthenticationChallenge(): CardAuthenticationChallenge? = cardAuthenticationChallenge
+
     fun cardAuthorization(): CardAuthorization? = cardAuthorization
 
     fun digitalWalletAuthentication(): DigitalWalletAuthentication? = digitalWalletAuthentication
@@ -42,6 +45,7 @@ constructor(
     internal fun getBody(): RealTimeDecisionActionBody {
         return RealTimeDecisionActionBody(
             cardAuthentication,
+            cardAuthenticationChallenge,
             cardAuthorization,
             digitalWalletAuthentication,
             digitalWalletToken,
@@ -65,6 +69,7 @@ constructor(
     class RealTimeDecisionActionBody
     internal constructor(
         private val cardAuthentication: CardAuthentication?,
+        private val cardAuthenticationChallenge: CardAuthenticationChallenge?,
         private val cardAuthorization: CardAuthorization?,
         private val digitalWalletAuthentication: DigitalWalletAuthentication?,
         private val digitalWalletToken: DigitalWalletToken?,
@@ -77,6 +82,14 @@ constructor(
          */
         @JsonProperty("card_authentication")
         fun cardAuthentication(): CardAuthentication? = cardAuthentication
+
+        /**
+         * If the Real-Time Decision relates to 3DS card authentication challenge delivery, this
+         * object contains your response.
+         */
+        @JsonProperty("card_authentication_challenge")
+        fun cardAuthenticationChallenge(): CardAuthenticationChallenge? =
+            cardAuthenticationChallenge
 
         /**
          * If the Real-Time Decision relates to a card authorization attempt, this object contains
@@ -114,6 +127,7 @@ constructor(
         class Builder {
 
             private var cardAuthentication: CardAuthentication? = null
+            private var cardAuthenticationChallenge: CardAuthenticationChallenge? = null
             private var cardAuthorization: CardAuthorization? = null
             private var digitalWalletAuthentication: DigitalWalletAuthentication? = null
             private var digitalWalletToken: DigitalWalletToken? = null
@@ -121,6 +135,8 @@ constructor(
 
             internal fun from(realTimeDecisionActionBody: RealTimeDecisionActionBody) = apply {
                 this.cardAuthentication = realTimeDecisionActionBody.cardAuthentication
+                this.cardAuthenticationChallenge =
+                    realTimeDecisionActionBody.cardAuthenticationChallenge
                 this.cardAuthorization = realTimeDecisionActionBody.cardAuthorization
                 this.digitalWalletAuthentication =
                     realTimeDecisionActionBody.digitalWalletAuthentication
@@ -136,6 +152,15 @@ constructor(
             fun cardAuthentication(cardAuthentication: CardAuthentication) = apply {
                 this.cardAuthentication = cardAuthentication
             }
+
+            /**
+             * If the Real-Time Decision relates to 3DS card authentication challenge delivery, this
+             * object contains your response.
+             */
+            @JsonProperty("card_authentication_challenge")
+            fun cardAuthenticationChallenge(
+                cardAuthenticationChallenge: CardAuthenticationChallenge
+            ) = apply { this.cardAuthenticationChallenge = cardAuthenticationChallenge }
 
             /**
              * If the Real-Time Decision relates to a card authorization attempt, this object
@@ -181,6 +206,7 @@ constructor(
             fun build(): RealTimeDecisionActionBody =
                 RealTimeDecisionActionBody(
                     cardAuthentication,
+                    cardAuthenticationChallenge,
                     cardAuthorization,
                     digitalWalletAuthentication,
                     digitalWalletToken,
@@ -193,20 +219,20 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is RealTimeDecisionActionBody && this.cardAuthentication == other.cardAuthentication && this.cardAuthorization == other.cardAuthorization && this.digitalWalletAuthentication == other.digitalWalletAuthentication && this.digitalWalletToken == other.digitalWalletToken && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is RealTimeDecisionActionBody && this.cardAuthentication == other.cardAuthentication && this.cardAuthenticationChallenge == other.cardAuthenticationChallenge && this.cardAuthorization == other.cardAuthorization && this.digitalWalletAuthentication == other.digitalWalletAuthentication && this.digitalWalletToken == other.digitalWalletToken && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(cardAuthentication, cardAuthorization, digitalWalletAuthentication, digitalWalletToken, additionalProperties) /* spotless:on */
+                hashCode = /* spotless:off */ Objects.hash(cardAuthentication, cardAuthenticationChallenge, cardAuthorization, digitalWalletAuthentication, digitalWalletToken, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
 
         override fun toString() =
-            "RealTimeDecisionActionBody{cardAuthentication=$cardAuthentication, cardAuthorization=$cardAuthorization, digitalWalletAuthentication=$digitalWalletAuthentication, digitalWalletToken=$digitalWalletToken, additionalProperties=$additionalProperties}"
+            "RealTimeDecisionActionBody{cardAuthentication=$cardAuthentication, cardAuthenticationChallenge=$cardAuthenticationChallenge, cardAuthorization=$cardAuthorization, digitalWalletAuthentication=$digitalWalletAuthentication, digitalWalletToken=$digitalWalletToken, additionalProperties=$additionalProperties}"
     }
 
     fun _additionalQueryParams(): Map<String, List<String>> = additionalQueryParams
@@ -220,15 +246,15 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is RealTimeDecisionActionParams && this.realTimeDecisionId == other.realTimeDecisionId && this.cardAuthentication == other.cardAuthentication && this.cardAuthorization == other.cardAuthorization && this.digitalWalletAuthentication == other.digitalWalletAuthentication && this.digitalWalletToken == other.digitalWalletToken && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is RealTimeDecisionActionParams && this.realTimeDecisionId == other.realTimeDecisionId && this.cardAuthentication == other.cardAuthentication && this.cardAuthenticationChallenge == other.cardAuthenticationChallenge && this.cardAuthorization == other.cardAuthorization && this.digitalWalletAuthentication == other.digitalWalletAuthentication && this.digitalWalletToken == other.digitalWalletToken && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(realTimeDecisionId, cardAuthentication, cardAuthorization, digitalWalletAuthentication, digitalWalletToken, additionalQueryParams, additionalHeaders, additionalBodyProperties) /* spotless:on */
+        return /* spotless:off */ Objects.hash(realTimeDecisionId, cardAuthentication, cardAuthenticationChallenge, cardAuthorization, digitalWalletAuthentication, digitalWalletToken, additionalQueryParams, additionalHeaders, additionalBodyProperties) /* spotless:on */
     }
 
     override fun toString() =
-        "RealTimeDecisionActionParams{realTimeDecisionId=$realTimeDecisionId, cardAuthentication=$cardAuthentication, cardAuthorization=$cardAuthorization, digitalWalletAuthentication=$digitalWalletAuthentication, digitalWalletToken=$digitalWalletToken, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "RealTimeDecisionActionParams{realTimeDecisionId=$realTimeDecisionId, cardAuthentication=$cardAuthentication, cardAuthenticationChallenge=$cardAuthenticationChallenge, cardAuthorization=$cardAuthorization, digitalWalletAuthentication=$digitalWalletAuthentication, digitalWalletToken=$digitalWalletToken, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -242,6 +268,7 @@ constructor(
 
         private var realTimeDecisionId: String? = null
         private var cardAuthentication: CardAuthentication? = null
+        private var cardAuthenticationChallenge: CardAuthenticationChallenge? = null
         private var cardAuthorization: CardAuthorization? = null
         private var digitalWalletAuthentication: DigitalWalletAuthentication? = null
         private var digitalWalletToken: DigitalWalletToken? = null
@@ -252,6 +279,8 @@ constructor(
         internal fun from(realTimeDecisionActionParams: RealTimeDecisionActionParams) = apply {
             this.realTimeDecisionId = realTimeDecisionActionParams.realTimeDecisionId
             this.cardAuthentication = realTimeDecisionActionParams.cardAuthentication
+            this.cardAuthenticationChallenge =
+                realTimeDecisionActionParams.cardAuthenticationChallenge
             this.cardAuthorization = realTimeDecisionActionParams.cardAuthorization
             this.digitalWalletAuthentication =
                 realTimeDecisionActionParams.digitalWalletAuthentication
@@ -273,6 +302,15 @@ constructor(
         fun cardAuthentication(cardAuthentication: CardAuthentication) = apply {
             this.cardAuthentication = cardAuthentication
         }
+
+        /**
+         * If the Real-Time Decision relates to 3DS card authentication challenge delivery, this
+         * object contains your response.
+         */
+        fun cardAuthenticationChallenge(cardAuthenticationChallenge: CardAuthenticationChallenge) =
+            apply {
+                this.cardAuthenticationChallenge = cardAuthenticationChallenge
+            }
 
         /**
          * If the Real-Time Decision relates to a card authorization attempt, this object contains
@@ -359,6 +397,7 @@ constructor(
                     "`realTimeDecisionId` is required but was not set"
                 },
                 cardAuthentication,
+                cardAuthenticationChallenge,
                 cardAuthorization,
                 digitalWalletAuthentication,
                 digitalWalletToken,
@@ -511,6 +550,149 @@ constructor(
 
         override fun toString() =
             "CardAuthentication{decision=$decision, additionalProperties=$additionalProperties}"
+    }
+
+    /**
+     * If the Real-Time Decision relates to 3DS card authentication challenge delivery, this object
+     * contains your response.
+     */
+    @JsonDeserialize(builder = CardAuthenticationChallenge.Builder::class)
+    @NoAutoDetect
+    class CardAuthenticationChallenge
+    private constructor(
+        private val result: Result?,
+        private val additionalProperties: Map<String, JsonValue>,
+    ) {
+
+        /**
+         * Whether the card authentication challenge was successfully delivered to the cardholder.
+         */
+        @JsonProperty("result") fun result(): Result? = result
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            fun builder() = Builder()
+        }
+
+        class Builder {
+
+            private var result: Result? = null
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            internal fun from(cardAuthenticationChallenge: CardAuthenticationChallenge) = apply {
+                this.result = cardAuthenticationChallenge.result
+                additionalProperties(cardAuthenticationChallenge.additionalProperties)
+            }
+
+            /**
+             * Whether the card authentication challenge was successfully delivered to the
+             * cardholder.
+             */
+            @JsonProperty("result") fun result(result: Result) = apply { this.result = result }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            @JsonAnySetter
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                this.additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun build(): CardAuthenticationChallenge =
+                CardAuthenticationChallenge(
+                    checkNotNull(result) { "`result` is required but was not set" },
+                    additionalProperties.toUnmodifiable()
+                )
+        }
+
+        class Result
+        @JsonCreator
+        private constructor(
+            private val value: JsonField<String>,
+        ) : Enum {
+
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return /* spotless:off */ other is Result && this.value == other.value /* spotless:on */
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+
+            companion object {
+
+                val SUCCESS = Result(JsonField.of("success"))
+
+                val FAILURE = Result(JsonField.of("failure"))
+
+                fun of(value: String) = Result(JsonField.of(value))
+            }
+
+            enum class Known {
+                SUCCESS,
+                FAILURE,
+            }
+
+            enum class Value {
+                SUCCESS,
+                FAILURE,
+                _UNKNOWN,
+            }
+
+            fun value(): Value =
+                when (this) {
+                    SUCCESS -> Value.SUCCESS
+                    FAILURE -> Value.FAILURE
+                    else -> Value._UNKNOWN
+                }
+
+            fun known(): Known =
+                when (this) {
+                    SUCCESS -> Known.SUCCESS
+                    FAILURE -> Known.FAILURE
+                    else -> throw IncreaseInvalidDataException("Unknown Result: $value")
+                }
+
+            fun asString(): String = _value().asStringOrThrow()
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return /* spotless:off */ other is CardAuthenticationChallenge && this.result == other.result && this.additionalProperties == other.additionalProperties /* spotless:on */
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode = /* spotless:off */ Objects.hash(result, additionalProperties) /* spotless:on */
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "CardAuthenticationChallenge{result=$result, additionalProperties=$additionalProperties}"
     }
 
     /**
