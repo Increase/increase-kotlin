@@ -350,7 +350,7 @@ private constructor(
                 return true
             }
 
-            return other is AccountHolder && this.value == other.value
+            return /* spotless:off */ other is AccountHolder && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -413,7 +413,7 @@ private constructor(
                 return true
             }
 
-            return other is Funding && this.value == other.value
+            return /* spotless:off */ other is Funding && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -476,7 +476,7 @@ private constructor(
                 return true
             }
 
-            return other is Status && this.value == other.value
+            return /* spotless:off */ other is Status && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -533,7 +533,7 @@ private constructor(
                 return true
             }
 
-            return other is Type && this.value == other.value
+            return /* spotless:off */ other is Type && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -584,7 +584,7 @@ private constructor(
                 return true
             }
 
-            return other is VerificationStatus && this.value == other.value
+            return /* spotless:off */ other is VerificationStatus && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -639,40 +639,14 @@ private constructor(
             return true
         }
 
-        return other is ExternalAccount &&
-            this.accountHolder == other.accountHolder &&
-            this.accountNumber == other.accountNumber &&
-            this.createdAt == other.createdAt &&
-            this.description == other.description &&
-            this.funding == other.funding &&
-            this.id == other.id &&
-            this.idempotencyKey == other.idempotencyKey &&
-            this.routingNumber == other.routingNumber &&
-            this.status == other.status &&
-            this.type == other.type &&
-            this.verificationStatus == other.verificationStatus &&
-            this.additionalProperties == other.additionalProperties
+        return /* spotless:off */ other is ExternalAccount && this.accountHolder == other.accountHolder && this.accountNumber == other.accountNumber && this.createdAt == other.createdAt && this.description == other.description && this.funding == other.funding && this.id == other.id && this.idempotencyKey == other.idempotencyKey && this.routingNumber == other.routingNumber && this.status == other.status && this.type == other.type && this.verificationStatus == other.verificationStatus && this.additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     private var hashCode: Int = 0
 
     override fun hashCode(): Int {
         if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    accountHolder,
-                    accountNumber,
-                    createdAt,
-                    description,
-                    funding,
-                    id,
-                    idempotencyKey,
-                    routingNumber,
-                    status,
-                    type,
-                    verificationStatus,
-                    additionalProperties,
-                )
+            hashCode = /* spotless:off */ Objects.hash(accountHolder, accountNumber, createdAt, description, funding, id, idempotencyKey, routingNumber, status, type, verificationStatus, additionalProperties) /* spotless:on */
         }
         return hashCode
     }

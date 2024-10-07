@@ -214,32 +214,14 @@ constructor(
                 return true
             }
 
-            return other is ExportCreateBody &&
-                this.category == other.category &&
-                this.accountStatementOfx == other.accountStatementOfx &&
-                this.balanceCsv == other.balanceCsv &&
-                this.bookkeepingAccountBalanceCsv == other.bookkeepingAccountBalanceCsv &&
-                this.entityCsv == other.entityCsv &&
-                this.transactionCsv == other.transactionCsv &&
-                this.vendorCsv == other.vendorCsv &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is ExportCreateBody && this.category == other.category && this.accountStatementOfx == other.accountStatementOfx && this.balanceCsv == other.balanceCsv && this.bookkeepingAccountBalanceCsv == other.bookkeepingAccountBalanceCsv && this.entityCsv == other.entityCsv && this.transactionCsv == other.transactionCsv && this.vendorCsv == other.vendorCsv && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        category,
-                        accountStatementOfx,
-                        balanceCsv,
-                        bookkeepingAccountBalanceCsv,
-                        entityCsv,
-                        transactionCsv,
-                        vendorCsv,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(category, accountStatementOfx, balanceCsv, bookkeepingAccountBalanceCsv, entityCsv, transactionCsv, vendorCsv, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -259,32 +241,11 @@ constructor(
             return true
         }
 
-        return other is ExportCreateParams &&
-            this.category == other.category &&
-            this.accountStatementOfx == other.accountStatementOfx &&
-            this.balanceCsv == other.balanceCsv &&
-            this.bookkeepingAccountBalanceCsv == other.bookkeepingAccountBalanceCsv &&
-            this.entityCsv == other.entityCsv &&
-            this.transactionCsv == other.transactionCsv &&
-            this.vendorCsv == other.vendorCsv &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders &&
-            this.additionalBodyProperties == other.additionalBodyProperties
+        return /* spotless:off */ other is ExportCreateParams && this.category == other.category && this.accountStatementOfx == other.accountStatementOfx && this.balanceCsv == other.balanceCsv && this.bookkeepingAccountBalanceCsv == other.bookkeepingAccountBalanceCsv && this.entityCsv == other.entityCsv && this.transactionCsv == other.transactionCsv && this.vendorCsv == other.vendorCsv && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            category,
-            accountStatementOfx,
-            balanceCsv,
-            bookkeepingAccountBalanceCsv,
-            entityCsv,
-            transactionCsv,
-            vendorCsv,
-            additionalQueryParams,
-            additionalHeaders,
-            additionalBodyProperties,
-        )
+        return /* spotless:off */ Objects.hash(category, accountStatementOfx, balanceCsv, bookkeepingAccountBalanceCsv, entityCsv, transactionCsv, vendorCsv, additionalQueryParams, additionalHeaders, additionalBodyProperties) /* spotless:on */
     }
 
     override fun toString() =
@@ -439,7 +400,7 @@ constructor(
                 return true
             }
 
-            return other is Category && this.value == other.value
+            return /* spotless:off */ other is Category && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -700,26 +661,14 @@ constructor(
                     return true
                 }
 
-                return other is CreatedAt &&
-                    this.after == other.after &&
-                    this.before == other.before &&
-                    this.onOrAfter == other.onOrAfter &&
-                    this.onOrBefore == other.onOrBefore &&
-                    this.additionalProperties == other.additionalProperties
+                return /* spotless:off */ other is CreatedAt && this.after == other.after && this.before == other.before && this.onOrAfter == other.onOrAfter && this.onOrBefore == other.onOrBefore && this.additionalProperties == other.additionalProperties /* spotless:on */
             }
 
             private var hashCode: Int = 0
 
             override fun hashCode(): Int {
                 if (hashCode == 0) {
-                    hashCode =
-                        Objects.hash(
-                            after,
-                            before,
-                            onOrAfter,
-                            onOrBefore,
-                            additionalProperties,
-                        )
+                    hashCode = /* spotless:off */ Objects.hash(after, before, onOrAfter, onOrBefore, additionalProperties) /* spotless:on */
                 }
                 return hashCode
             }
@@ -733,22 +682,14 @@ constructor(
                 return true
             }
 
-            return other is AccountStatementOfx &&
-                this.accountId == other.accountId &&
-                this.createdAt == other.createdAt &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is AccountStatementOfx && this.accountId == other.accountId && this.createdAt == other.createdAt && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        accountId,
-                        createdAt,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(accountId, createdAt, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -958,26 +899,14 @@ constructor(
                     return true
                 }
 
-                return other is CreatedAt &&
-                    this.after == other.after &&
-                    this.before == other.before &&
-                    this.onOrAfter == other.onOrAfter &&
-                    this.onOrBefore == other.onOrBefore &&
-                    this.additionalProperties == other.additionalProperties
+                return /* spotless:off */ other is CreatedAt && this.after == other.after && this.before == other.before && this.onOrAfter == other.onOrAfter && this.onOrBefore == other.onOrBefore && this.additionalProperties == other.additionalProperties /* spotless:on */
             }
 
             private var hashCode: Int = 0
 
             override fun hashCode(): Int {
                 if (hashCode == 0) {
-                    hashCode =
-                        Objects.hash(
-                            after,
-                            before,
-                            onOrAfter,
-                            onOrBefore,
-                            additionalProperties,
-                        )
+                    hashCode = /* spotless:off */ Objects.hash(after, before, onOrAfter, onOrBefore, additionalProperties) /* spotless:on */
                 }
                 return hashCode
             }
@@ -991,24 +920,14 @@ constructor(
                 return true
             }
 
-            return other is BalanceCsv &&
-                this.accountId == other.accountId &&
-                this.createdAt == other.createdAt &&
-                this.programId == other.programId &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is BalanceCsv && this.accountId == other.accountId && this.createdAt == other.createdAt && this.programId == other.programId && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        accountId,
-                        createdAt,
-                        programId,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(accountId, createdAt, programId, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -1213,26 +1132,14 @@ constructor(
                     return true
                 }
 
-                return other is CreatedAt &&
-                    this.after == other.after &&
-                    this.before == other.before &&
-                    this.onOrAfter == other.onOrAfter &&
-                    this.onOrBefore == other.onOrBefore &&
-                    this.additionalProperties == other.additionalProperties
+                return /* spotless:off */ other is CreatedAt && this.after == other.after && this.before == other.before && this.onOrAfter == other.onOrAfter && this.onOrBefore == other.onOrBefore && this.additionalProperties == other.additionalProperties /* spotless:on */
             }
 
             private var hashCode: Int = 0
 
             override fun hashCode(): Int {
                 if (hashCode == 0) {
-                    hashCode =
-                        Objects.hash(
-                            after,
-                            before,
-                            onOrAfter,
-                            onOrBefore,
-                            additionalProperties,
-                        )
+                    hashCode = /* spotless:off */ Objects.hash(after, before, onOrAfter, onOrBefore, additionalProperties) /* spotless:on */
                 }
                 return hashCode
             }
@@ -1246,22 +1153,14 @@ constructor(
                 return true
             }
 
-            return other is BookkeepingAccountBalanceCsv &&
-                this.bookkeepingAccountId == other.bookkeepingAccountId &&
-                this.createdAt == other.createdAt &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is BookkeepingAccountBalanceCsv && this.bookkeepingAccountId == other.bookkeepingAccountId && this.createdAt == other.createdAt && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        bookkeepingAccountId,
-                        createdAt,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(bookkeepingAccountId, createdAt, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -1400,7 +1299,7 @@ constructor(
                         return true
                     }
 
-                    return other is In && this.value == other.value
+                    return /* spotless:off */ other is In && this.value == other.value /* spotless:on */
                 }
 
                 override fun hashCode() = value.hashCode()
@@ -1455,16 +1354,14 @@ constructor(
                     return true
                 }
 
-                return other is Status &&
-                    this.in_ == other.in_ &&
-                    this.additionalProperties == other.additionalProperties
+                return /* spotless:off */ other is Status && this.in_ == other.in_ && this.additionalProperties == other.additionalProperties /* spotless:on */
             }
 
             private var hashCode: Int = 0
 
             override fun hashCode(): Int {
                 if (hashCode == 0) {
-                    hashCode = Objects.hash(in_, additionalProperties)
+                    hashCode = /* spotless:off */ Objects.hash(in_, additionalProperties) /* spotless:on */
                 }
                 return hashCode
             }
@@ -1477,16 +1374,14 @@ constructor(
                 return true
             }
 
-            return other is EntityCsv &&
-                this.status == other.status &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is EntityCsv && this.status == other.status && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode = Objects.hash(status, additionalProperties)
+                hashCode = /* spotless:off */ Objects.hash(status, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -1696,26 +1591,14 @@ constructor(
                     return true
                 }
 
-                return other is CreatedAt &&
-                    this.after == other.after &&
-                    this.before == other.before &&
-                    this.onOrAfter == other.onOrAfter &&
-                    this.onOrBefore == other.onOrBefore &&
-                    this.additionalProperties == other.additionalProperties
+                return /* spotless:off */ other is CreatedAt && this.after == other.after && this.before == other.before && this.onOrAfter == other.onOrAfter && this.onOrBefore == other.onOrBefore && this.additionalProperties == other.additionalProperties /* spotless:on */
             }
 
             private var hashCode: Int = 0
 
             override fun hashCode(): Int {
                 if (hashCode == 0) {
-                    hashCode =
-                        Objects.hash(
-                            after,
-                            before,
-                            onOrAfter,
-                            onOrBefore,
-                            additionalProperties,
-                        )
+                    hashCode = /* spotless:off */ Objects.hash(after, before, onOrAfter, onOrBefore, additionalProperties) /* spotless:on */
                 }
                 return hashCode
             }
@@ -1729,24 +1612,14 @@ constructor(
                 return true
             }
 
-            return other is TransactionCsv &&
-                this.accountId == other.accountId &&
-                this.createdAt == other.createdAt &&
-                this.programId == other.programId &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is TransactionCsv && this.accountId == other.accountId && this.createdAt == other.createdAt && this.programId == other.programId && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        accountId,
-                        createdAt,
-                        programId,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(accountId, createdAt, programId, additionalProperties) /* spotless:on */
             }
             return hashCode
         }

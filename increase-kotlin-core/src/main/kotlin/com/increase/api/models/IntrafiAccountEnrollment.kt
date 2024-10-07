@@ -257,7 +257,7 @@ private constructor(
                 return true
             }
 
-            return other is Status && this.value == other.value
+            return /* spotless:off */ other is Status && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -332,7 +332,7 @@ private constructor(
                 return true
             }
 
-            return other is Type && this.value == other.value
+            return /* spotless:off */ other is Type && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -375,30 +375,14 @@ private constructor(
             return true
         }
 
-        return other is IntrafiAccountEnrollment &&
-            this.accountId == other.accountId &&
-            this.id == other.id &&
-            this.idempotencyKey == other.idempotencyKey &&
-            this.intrafiId == other.intrafiId &&
-            this.status == other.status &&
-            this.type == other.type &&
-            this.additionalProperties == other.additionalProperties
+        return /* spotless:off */ other is IntrafiAccountEnrollment && this.accountId == other.accountId && this.id == other.id && this.idempotencyKey == other.idempotencyKey && this.intrafiId == other.intrafiId && this.status == other.status && this.type == other.type && this.additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     private var hashCode: Int = 0
 
     override fun hashCode(): Int {
         if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    accountId,
-                    id,
-                    idempotencyKey,
-                    intrafiId,
-                    status,
-                    type,
-                    additionalProperties,
-                )
+            hashCode = /* spotless:off */ Objects.hash(accountId, id, idempotencyKey, intrafiId, status, type, additionalProperties) /* spotless:on */
         }
         return hashCode
     }

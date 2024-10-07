@@ -306,7 +306,7 @@ private constructor(
                 return true
             }
 
-            return other is SelectedEventCategory && this.value == other.value
+            return /* spotless:off */ other is SelectedEventCategory && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -960,7 +960,7 @@ private constructor(
                 return true
             }
 
-            return other is Status && this.value == other.value
+            return /* spotless:off */ other is Status && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -1029,7 +1029,7 @@ private constructor(
                 return true
             }
 
-            return other is Type && this.value == other.value
+            return /* spotless:off */ other is Type && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -1072,34 +1072,14 @@ private constructor(
             return true
         }
 
-        return other is EventSubscription &&
-            this.createdAt == other.createdAt &&
-            this.id == other.id &&
-            this.idempotencyKey == other.idempotencyKey &&
-            this.oauthConnectionId == other.oauthConnectionId &&
-            this.selectedEventCategory == other.selectedEventCategory &&
-            this.status == other.status &&
-            this.type == other.type &&
-            this.url == other.url &&
-            this.additionalProperties == other.additionalProperties
+        return /* spotless:off */ other is EventSubscription && this.createdAt == other.createdAt && this.id == other.id && this.idempotencyKey == other.idempotencyKey && this.oauthConnectionId == other.oauthConnectionId && this.selectedEventCategory == other.selectedEventCategory && this.status == other.status && this.type == other.type && this.url == other.url && this.additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     private var hashCode: Int = 0
 
     override fun hashCode(): Int {
         if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    createdAt,
-                    id,
-                    idempotencyKey,
-                    oauthConnectionId,
-                    selectedEventCategory,
-                    status,
-                    type,
-                    url,
-                    additionalProperties,
-                )
+            hashCode = /* spotless:off */ Objects.hash(createdAt, id, idempotencyKey, oauthConnectionId, selectedEventCategory, status, type, url, additionalProperties) /* spotless:on */
         }
         return hashCode
     }

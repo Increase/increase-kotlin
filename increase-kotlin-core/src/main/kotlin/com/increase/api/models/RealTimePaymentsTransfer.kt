@@ -873,22 +873,14 @@ private constructor(
                 return true
             }
 
-            return other is Approval &&
-                this.approvedAt == other.approvedAt &&
-                this.approvedBy == other.approvedBy &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is Approval && this.approvedAt == other.approvedAt && this.approvedBy == other.approvedBy && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        approvedAt,
-                        approvedBy,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(approvedAt, approvedBy, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -1022,22 +1014,14 @@ private constructor(
                 return true
             }
 
-            return other is Cancellation &&
-                this.canceledAt == other.canceledAt &&
-                this.canceledBy == other.canceledBy &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is Cancellation && this.canceledAt == other.canceledAt && this.canceledBy == other.canceledBy && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        canceledAt,
-                        canceledBy,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(canceledAt, canceledBy, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -1261,16 +1245,14 @@ private constructor(
                     return true
                 }
 
-                return other is ApiKey &&
-                    this.description == other.description &&
-                    this.additionalProperties == other.additionalProperties
+                return /* spotless:off */ other is ApiKey && this.description == other.description && this.additionalProperties == other.additionalProperties /* spotless:on */
             }
 
             private var hashCode: Int = 0
 
             override fun hashCode(): Int {
                 if (hashCode == 0) {
-                    hashCode = Objects.hash(description, additionalProperties)
+                    hashCode = /* spotless:off */ Objects.hash(description, additionalProperties) /* spotless:on */
                 }
                 return hashCode
             }
@@ -1292,7 +1274,7 @@ private constructor(
                     return true
                 }
 
-                return other is Category && this.value == other.value
+                return /* spotless:off */ other is Category && this.value == other.value /* spotless:on */
             }
 
             override fun hashCode() = value.hashCode()
@@ -1419,16 +1401,14 @@ private constructor(
                     return true
                 }
 
-                return other is OAuthApplication &&
-                    this.name == other.name &&
-                    this.additionalProperties == other.additionalProperties
+                return /* spotless:off */ other is OAuthApplication && this.name == other.name && this.additionalProperties == other.additionalProperties /* spotless:on */
             }
 
             private var hashCode: Int = 0
 
             override fun hashCode(): Int {
                 if (hashCode == 0) {
-                    hashCode = Objects.hash(name, additionalProperties)
+                    hashCode = /* spotless:off */ Objects.hash(name, additionalProperties) /* spotless:on */
                 }
                 return hashCode
             }
@@ -1513,16 +1493,14 @@ private constructor(
                     return true
                 }
 
-                return other is User &&
-                    this.email == other.email &&
-                    this.additionalProperties == other.additionalProperties
+                return /* spotless:off */ other is User && this.email == other.email && this.additionalProperties == other.additionalProperties /* spotless:on */
             }
 
             private var hashCode: Int = 0
 
             override fun hashCode(): Int {
                 if (hashCode == 0) {
-                    hashCode = Objects.hash(email, additionalProperties)
+                    hashCode = /* spotless:off */ Objects.hash(email, additionalProperties) /* spotless:on */
                 }
                 return hashCode
             }
@@ -1536,26 +1514,14 @@ private constructor(
                 return true
             }
 
-            return other is CreatedBy &&
-                this.apiKey == other.apiKey &&
-                this.category == other.category &&
-                this.oauthApplication == other.oauthApplication &&
-                this.user == other.user &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is CreatedBy && this.apiKey == other.apiKey && this.category == other.category && this.oauthApplication == other.oauthApplication && this.user == other.user && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        apiKey,
-                        category,
-                        oauthApplication,
-                        user,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(apiKey, category, oauthApplication, user, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -1577,7 +1543,7 @@ private constructor(
                 return true
             }
 
-            return other is Currency && this.value == other.value
+            return /* spotless:off */ other is Currency && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -1823,7 +1789,7 @@ private constructor(
                     return true
                 }
 
-                return other is RejectReasonCode && this.value == other.value
+                return /* spotless:off */ other is RejectReasonCode && this.value == other.value /* spotless:on */
             }
 
             override fun hashCode() = value.hashCode()
@@ -2001,24 +1967,14 @@ private constructor(
                 return true
             }
 
-            return other is Rejection &&
-                this.rejectReasonAdditionalInformation == other.rejectReasonAdditionalInformation &&
-                this.rejectReasonCode == other.rejectReasonCode &&
-                this.rejectedAt == other.rejectedAt &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is Rejection && this.rejectReasonAdditionalInformation == other.rejectReasonAdditionalInformation && this.rejectReasonCode == other.rejectReasonCode && this.rejectedAt == other.rejectedAt && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        rejectReasonAdditionalInformation,
-                        rejectReasonCode,
-                        rejectedAt,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(rejectReasonAdditionalInformation, rejectReasonCode, rejectedAt, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -2040,7 +1996,7 @@ private constructor(
                 return true
             }
 
-            return other is Status && this.value == other.value
+            return /* spotless:off */ other is Status && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -2241,22 +2197,14 @@ private constructor(
                 return true
             }
 
-            return other is Submission &&
-                this.submittedAt == other.submittedAt &&
-                this.transactionIdentification == other.transactionIdentification &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is Submission && this.submittedAt == other.submittedAt && this.transactionIdentification == other.transactionIdentification && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        submittedAt,
-                        transactionIdentification,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(submittedAt, transactionIdentification, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -2278,7 +2226,7 @@ private constructor(
                 return true
             }
 
-            return other is Type && this.value == other.value
+            return /* spotless:off */ other is Type && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -2321,66 +2269,14 @@ private constructor(
             return true
         }
 
-        return other is RealTimePaymentsTransfer &&
-            this.accountId == other.accountId &&
-            this.amount == other.amount &&
-            this.approval == other.approval &&
-            this.cancellation == other.cancellation &&
-            this.createdAt == other.createdAt &&
-            this.createdBy == other.createdBy &&
-            this.creditorName == other.creditorName &&
-            this.currency == other.currency &&
-            this.debtorName == other.debtorName &&
-            this.destinationAccountNumber == other.destinationAccountNumber &&
-            this.destinationRoutingNumber == other.destinationRoutingNumber &&
-            this.externalAccountId == other.externalAccountId &&
-            this.id == other.id &&
-            this.idempotencyKey == other.idempotencyKey &&
-            this.pendingTransactionId == other.pendingTransactionId &&
-            this.rejection == other.rejection &&
-            this.remittanceInformation == other.remittanceInformation &&
-            this.sourceAccountNumberId == other.sourceAccountNumberId &&
-            this.status == other.status &&
-            this.submission == other.submission &&
-            this.transactionId == other.transactionId &&
-            this.type == other.type &&
-            this.ultimateCreditorName == other.ultimateCreditorName &&
-            this.ultimateDebtorName == other.ultimateDebtorName &&
-            this.additionalProperties == other.additionalProperties
+        return /* spotless:off */ other is RealTimePaymentsTransfer && this.accountId == other.accountId && this.amount == other.amount && this.approval == other.approval && this.cancellation == other.cancellation && this.createdAt == other.createdAt && this.createdBy == other.createdBy && this.creditorName == other.creditorName && this.currency == other.currency && this.debtorName == other.debtorName && this.destinationAccountNumber == other.destinationAccountNumber && this.destinationRoutingNumber == other.destinationRoutingNumber && this.externalAccountId == other.externalAccountId && this.id == other.id && this.idempotencyKey == other.idempotencyKey && this.pendingTransactionId == other.pendingTransactionId && this.rejection == other.rejection && this.remittanceInformation == other.remittanceInformation && this.sourceAccountNumberId == other.sourceAccountNumberId && this.status == other.status && this.submission == other.submission && this.transactionId == other.transactionId && this.type == other.type && this.ultimateCreditorName == other.ultimateCreditorName && this.ultimateDebtorName == other.ultimateDebtorName && this.additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     private var hashCode: Int = 0
 
     override fun hashCode(): Int {
         if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    accountId,
-                    amount,
-                    approval,
-                    cancellation,
-                    createdAt,
-                    createdBy,
-                    creditorName,
-                    currency,
-                    debtorName,
-                    destinationAccountNumber,
-                    destinationRoutingNumber,
-                    externalAccountId,
-                    id,
-                    idempotencyKey,
-                    pendingTransactionId,
-                    rejection,
-                    remittanceInformation,
-                    sourceAccountNumberId,
-                    status,
-                    submission,
-                    transactionId,
-                    type,
-                    ultimateCreditorName,
-                    ultimateDebtorName,
-                    additionalProperties,
-                )
+            hashCode = /* spotless:off */ Objects.hash(accountId, amount, approval, cancellation, createdAt, createdBy, creditorName, currency, debtorName, destinationAccountNumber, destinationRoutingNumber, externalAccountId, id, idempotencyKey, pendingTransactionId, rejection, remittanceInformation, sourceAccountNumberId, status, submission, transactionId, type, ultimateCreditorName, ultimateDebtorName, additionalProperties) /* spotless:on */
         }
         return hashCode
     }
