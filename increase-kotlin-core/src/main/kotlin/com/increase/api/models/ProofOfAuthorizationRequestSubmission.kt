@@ -541,6 +541,8 @@ private constructor(
 
             val REJECTED = Status(JsonField.of("rejected"))
 
+            val CANCELED = Status(JsonField.of("canceled"))
+
             val PENDING_SENDING = Status(JsonField.of("pending_sending"))
 
             val SENT = Status(JsonField.of("sent"))
@@ -551,6 +553,7 @@ private constructor(
         enum class Known {
             PENDING_REVIEW,
             REJECTED,
+            CANCELED,
             PENDING_SENDING,
             SENT,
         }
@@ -558,6 +561,7 @@ private constructor(
         enum class Value {
             PENDING_REVIEW,
             REJECTED,
+            CANCELED,
             PENDING_SENDING,
             SENT,
             _UNKNOWN,
@@ -567,6 +571,7 @@ private constructor(
             when (this) {
                 PENDING_REVIEW -> Value.PENDING_REVIEW
                 REJECTED -> Value.REJECTED
+                CANCELED -> Value.CANCELED
                 PENDING_SENDING -> Value.PENDING_SENDING
                 SENT -> Value.SENT
                 else -> Value._UNKNOWN
@@ -576,6 +581,7 @@ private constructor(
             when (this) {
                 PENDING_REVIEW -> Known.PENDING_REVIEW
                 REJECTED -> Known.REJECTED
+                CANCELED -> Known.CANCELED
                 PENDING_SENDING -> Known.PENDING_SENDING
                 SENT -> Known.SENT
                 else -> throw IncreaseInvalidDataException("Unknown Status: $value")
