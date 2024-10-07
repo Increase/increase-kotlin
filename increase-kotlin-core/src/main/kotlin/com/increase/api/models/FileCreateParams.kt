@@ -103,22 +103,14 @@ constructor(
                 return true
             }
 
-            return other is FileCreateBody &&
-                this.file == other.file &&
-                this.purpose == other.purpose &&
-                this.description == other.description
+            return /* spotless:off */ other is FileCreateBody && this.file == other.file && this.purpose == other.purpose && this.description == other.description /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        file,
-                        purpose,
-                        description,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(file, purpose, description) /* spotless:on */
             }
             return hashCode
         }
@@ -136,22 +128,11 @@ constructor(
             return true
         }
 
-        return other is FileCreateParams &&
-            this.file == other.file &&
-            this.purpose == other.purpose &&
-            this.description == other.description &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders
+        return /* spotless:off */ other is FileCreateParams && this.file == other.file && this.purpose == other.purpose && this.description == other.description && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            file,
-            purpose,
-            description,
-            additionalQueryParams,
-            additionalHeaders,
-        )
+        return /* spotless:off */ Objects.hash(file, purpose, description, additionalQueryParams, additionalHeaders) /* spotless:on */
     }
 
     override fun toString() =
@@ -269,7 +250,7 @@ constructor(
                 return true
             }
 
-            return other is Purpose && this.value == other.value
+            return /* spotless:off */ other is Purpose && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()

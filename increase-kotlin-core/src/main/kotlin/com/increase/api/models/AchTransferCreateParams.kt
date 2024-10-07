@@ -465,54 +465,14 @@ constructor(
                 return true
             }
 
-            return other is AchTransferCreateBody &&
-                this.accountId == other.accountId &&
-                this.amount == other.amount &&
-                this.statementDescriptor == other.statementDescriptor &&
-                this.accountNumber == other.accountNumber &&
-                this.addenda == other.addenda &&
-                this.companyDescriptiveDate == other.companyDescriptiveDate &&
-                this.companyDiscretionaryData == other.companyDiscretionaryData &&
-                this.companyEntryDescription == other.companyEntryDescription &&
-                this.companyName == other.companyName &&
-                this.destinationAccountHolder == other.destinationAccountHolder &&
-                this.externalAccountId == other.externalAccountId &&
-                this.funding == other.funding &&
-                this.individualId == other.individualId &&
-                this.individualName == other.individualName &&
-                this.preferredEffectiveDate == other.preferredEffectiveDate &&
-                this.requireApproval == other.requireApproval &&
-                this.routingNumber == other.routingNumber &&
-                this.standardEntryClassCode == other.standardEntryClassCode &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is AchTransferCreateBody && this.accountId == other.accountId && this.amount == other.amount && this.statementDescriptor == other.statementDescriptor && this.accountNumber == other.accountNumber && this.addenda == other.addenda && this.companyDescriptiveDate == other.companyDescriptiveDate && this.companyDiscretionaryData == other.companyDiscretionaryData && this.companyEntryDescription == other.companyEntryDescription && this.companyName == other.companyName && this.destinationAccountHolder == other.destinationAccountHolder && this.externalAccountId == other.externalAccountId && this.funding == other.funding && this.individualId == other.individualId && this.individualName == other.individualName && this.preferredEffectiveDate == other.preferredEffectiveDate && this.requireApproval == other.requireApproval && this.routingNumber == other.routingNumber && this.standardEntryClassCode == other.standardEntryClassCode && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        accountId,
-                        amount,
-                        statementDescriptor,
-                        accountNumber,
-                        addenda,
-                        companyDescriptiveDate,
-                        companyDiscretionaryData,
-                        companyEntryDescription,
-                        companyName,
-                        destinationAccountHolder,
-                        externalAccountId,
-                        funding,
-                        individualId,
-                        individualName,
-                        preferredEffectiveDate,
-                        requireApproval,
-                        routingNumber,
-                        standardEntryClassCode,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(accountId, amount, statementDescriptor, accountNumber, addenda, companyDescriptiveDate, companyDiscretionaryData, companyEntryDescription, companyName, destinationAccountHolder, externalAccountId, funding, individualId, individualName, preferredEffectiveDate, requireApproval, routingNumber, standardEntryClassCode, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -532,54 +492,11 @@ constructor(
             return true
         }
 
-        return other is AchTransferCreateParams &&
-            this.accountId == other.accountId &&
-            this.amount == other.amount &&
-            this.statementDescriptor == other.statementDescriptor &&
-            this.accountNumber == other.accountNumber &&
-            this.addenda == other.addenda &&
-            this.companyDescriptiveDate == other.companyDescriptiveDate &&
-            this.companyDiscretionaryData == other.companyDiscretionaryData &&
-            this.companyEntryDescription == other.companyEntryDescription &&
-            this.companyName == other.companyName &&
-            this.destinationAccountHolder == other.destinationAccountHolder &&
-            this.externalAccountId == other.externalAccountId &&
-            this.funding == other.funding &&
-            this.individualId == other.individualId &&
-            this.individualName == other.individualName &&
-            this.preferredEffectiveDate == other.preferredEffectiveDate &&
-            this.requireApproval == other.requireApproval &&
-            this.routingNumber == other.routingNumber &&
-            this.standardEntryClassCode == other.standardEntryClassCode &&
-            this.additionalQueryParams == other.additionalQueryParams &&
-            this.additionalHeaders == other.additionalHeaders &&
-            this.additionalBodyProperties == other.additionalBodyProperties
+        return /* spotless:off */ other is AchTransferCreateParams && this.accountId == other.accountId && this.amount == other.amount && this.statementDescriptor == other.statementDescriptor && this.accountNumber == other.accountNumber && this.addenda == other.addenda && this.companyDescriptiveDate == other.companyDescriptiveDate && this.companyDiscretionaryData == other.companyDiscretionaryData && this.companyEntryDescription == other.companyEntryDescription && this.companyName == other.companyName && this.destinationAccountHolder == other.destinationAccountHolder && this.externalAccountId == other.externalAccountId && this.funding == other.funding && this.individualId == other.individualId && this.individualName == other.individualName && this.preferredEffectiveDate == other.preferredEffectiveDate && this.requireApproval == other.requireApproval && this.routingNumber == other.routingNumber && this.standardEntryClassCode == other.standardEntryClassCode && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(
-            accountId,
-            amount,
-            statementDescriptor,
-            accountNumber,
-            addenda,
-            companyDescriptiveDate,
-            companyDiscretionaryData,
-            companyEntryDescription,
-            companyName,
-            destinationAccountHolder,
-            externalAccountId,
-            funding,
-            individualId,
-            individualName,
-            preferredEffectiveDate,
-            requireApproval,
-            routingNumber,
-            standardEntryClassCode,
-            additionalQueryParams,
-            additionalHeaders,
-            additionalBodyProperties,
-        )
+        return /* spotless:off */ Objects.hash(accountId, amount, statementDescriptor, accountNumber, addenda, companyDescriptiveDate, companyDiscretionaryData, companyEntryDescription, companyName, destinationAccountHolder, externalAccountId, funding, individualId, individualName, preferredEffectiveDate, requireApproval, routingNumber, standardEntryClassCode, additionalQueryParams, additionalHeaders, additionalBodyProperties) /* spotless:on */
     }
 
     override fun toString() =
@@ -941,7 +858,7 @@ constructor(
                     return true
                 }
 
-                return other is Category && this.value == other.value
+                return /* spotless:off */ other is Category && this.value == other.value /* spotless:on */
             }
 
             override fun hashCode() = value.hashCode()
@@ -1121,16 +1038,14 @@ constructor(
                         return true
                     }
 
-                    return other is Entry &&
-                        this.paymentRelatedInformation == other.paymentRelatedInformation &&
-                        this.additionalProperties == other.additionalProperties
+                    return /* spotless:off */ other is Entry && this.paymentRelatedInformation == other.paymentRelatedInformation && this.additionalProperties == other.additionalProperties /* spotless:on */
                 }
 
                 private var hashCode: Int = 0
 
                 override fun hashCode(): Int {
                     if (hashCode == 0) {
-                        hashCode = Objects.hash(paymentRelatedInformation, additionalProperties)
+                        hashCode = /* spotless:off */ Objects.hash(paymentRelatedInformation, additionalProperties) /* spotless:on */
                     }
                     return hashCode
                 }
@@ -1144,16 +1059,14 @@ constructor(
                     return true
                 }
 
-                return other is Freeform &&
-                    this.entries == other.entries &&
-                    this.additionalProperties == other.additionalProperties
+                return /* spotless:off */ other is Freeform && this.entries == other.entries && this.additionalProperties == other.additionalProperties /* spotless:on */
             }
 
             private var hashCode: Int = 0
 
             override fun hashCode(): Int {
                 if (hashCode == 0) {
-                    hashCode = Objects.hash(entries, additionalProperties)
+                    hashCode = /* spotless:off */ Objects.hash(entries, additionalProperties) /* spotless:on */
                 }
                 return hashCode
             }
@@ -1315,22 +1228,14 @@ constructor(
                         return true
                     }
 
-                    return other is Invoice &&
-                        this.invoiceNumber == other.invoiceNumber &&
-                        this.paidAmount == other.paidAmount &&
-                        this.additionalProperties == other.additionalProperties
+                    return /* spotless:off */ other is Invoice && this.invoiceNumber == other.invoiceNumber && this.paidAmount == other.paidAmount && this.additionalProperties == other.additionalProperties /* spotless:on */
                 }
 
                 private var hashCode: Int = 0
 
                 override fun hashCode(): Int {
                     if (hashCode == 0) {
-                        hashCode =
-                            Objects.hash(
-                                invoiceNumber,
-                                paidAmount,
-                                additionalProperties,
-                            )
+                        hashCode = /* spotless:off */ Objects.hash(invoiceNumber, paidAmount, additionalProperties) /* spotless:on */
                     }
                     return hashCode
                 }
@@ -1344,16 +1249,14 @@ constructor(
                     return true
                 }
 
-                return other is PaymentOrderRemittanceAdvice &&
-                    this.invoices == other.invoices &&
-                    this.additionalProperties == other.additionalProperties
+                return /* spotless:off */ other is PaymentOrderRemittanceAdvice && this.invoices == other.invoices && this.additionalProperties == other.additionalProperties /* spotless:on */
             }
 
             private var hashCode: Int = 0
 
             override fun hashCode(): Int {
                 if (hashCode == 0) {
-                    hashCode = Objects.hash(invoices, additionalProperties)
+                    hashCode = /* spotless:off */ Objects.hash(invoices, additionalProperties) /* spotless:on */
                 }
                 return hashCode
             }
@@ -1367,24 +1270,14 @@ constructor(
                 return true
             }
 
-            return other is Addenda &&
-                this.category == other.category &&
-                this.freeform == other.freeform &&
-                this.paymentOrderRemittanceAdvice == other.paymentOrderRemittanceAdvice &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is Addenda && this.category == other.category && this.freeform == other.freeform && this.paymentOrderRemittanceAdvice == other.paymentOrderRemittanceAdvice && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        category,
-                        freeform,
-                        paymentOrderRemittanceAdvice,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(category, freeform, paymentOrderRemittanceAdvice, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -1406,7 +1299,7 @@ constructor(
                 return true
             }
 
-            return other is DestinationAccountHolder && this.value == other.value
+            return /* spotless:off */ other is DestinationAccountHolder && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -1470,7 +1363,7 @@ constructor(
                 return true
             }
 
-            return other is Funding && this.value == other.value
+            return /* spotless:off */ other is Funding && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -1608,7 +1501,7 @@ constructor(
                     return true
                 }
 
-                return other is SettlementSchedule && this.value == other.value
+                return /* spotless:off */ other is SettlementSchedule && this.value == other.value /* spotless:on */
             }
 
             override fun hashCode() = value.hashCode()
@@ -1657,22 +1550,14 @@ constructor(
                 return true
             }
 
-            return other is PreferredEffectiveDate &&
-                this.date == other.date &&
-                this.settlementSchedule == other.settlementSchedule &&
-                this.additionalProperties == other.additionalProperties
+            return /* spotless:off */ other is PreferredEffectiveDate && this.date == other.date && this.settlementSchedule == other.settlementSchedule && this.additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         private var hashCode: Int = 0
 
         override fun hashCode(): Int {
             if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        date,
-                        settlementSchedule,
-                        additionalProperties,
-                    )
+                hashCode = /* spotless:off */ Objects.hash(date, settlementSchedule, additionalProperties) /* spotless:on */
             }
             return hashCode
         }
@@ -1694,7 +1579,7 @@ constructor(
                 return true
             }
 
-            return other is StandardEntryClassCode && this.value == other.value
+            return /* spotless:off */ other is StandardEntryClassCode && this.value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
