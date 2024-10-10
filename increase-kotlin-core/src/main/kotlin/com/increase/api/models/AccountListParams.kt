@@ -22,6 +22,7 @@ constructor(
     private val idempotencyKey: String?,
     private val informationalEntityId: String?,
     private val limit: Long?,
+    private val programId: String?,
     private val status: Status?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
@@ -39,6 +40,8 @@ constructor(
 
     fun limit(): Long? = limit
 
+    fun programId(): String? = programId
+
     fun status(): Status? = status
 
     internal fun getQueryParams(): Map<String, List<String>> {
@@ -51,6 +54,7 @@ constructor(
             params.put("informational_entity_id", listOf(it.toString()))
         }
         this.limit?.let { params.put("limit", listOf(it.toString())) }
+        this.programId?.let { params.put("program_id", listOf(it.toString())) }
         this.status?.let { params.put("status", listOf(it.toString())) }
         params.putAll(additionalQueryParams)
         return params.toUnmodifiable()
@@ -67,15 +71,15 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is AccountListParams && this.createdAt == other.createdAt && this.cursor == other.cursor && this.entityId == other.entityId && this.idempotencyKey == other.idempotencyKey && this.informationalEntityId == other.informationalEntityId && this.limit == other.limit && this.status == other.status && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders /* spotless:on */
+        return /* spotless:off */ other is AccountListParams && this.createdAt == other.createdAt && this.cursor == other.cursor && this.entityId == other.entityId && this.idempotencyKey == other.idempotencyKey && this.informationalEntityId == other.informationalEntityId && this.limit == other.limit && this.programId == other.programId && this.status == other.status && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(createdAt, cursor, entityId, idempotencyKey, informationalEntityId, limit, status, additionalQueryParams, additionalHeaders) /* spotless:on */
+        return /* spotless:off */ Objects.hash(createdAt, cursor, entityId, idempotencyKey, informationalEntityId, limit, programId, status, additionalQueryParams, additionalHeaders) /* spotless:on */
     }
 
     override fun toString() =
-        "AccountListParams{createdAt=$createdAt, cursor=$cursor, entityId=$entityId, idempotencyKey=$idempotencyKey, informationalEntityId=$informationalEntityId, limit=$limit, status=$status, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+        "AccountListParams{createdAt=$createdAt, cursor=$cursor, entityId=$entityId, idempotencyKey=$idempotencyKey, informationalEntityId=$informationalEntityId, limit=$limit, programId=$programId, status=$status, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -93,6 +97,7 @@ constructor(
         private var idempotencyKey: String? = null
         private var informationalEntityId: String? = null
         private var limit: Long? = null
+        private var programId: String? = null
         private var status: Status? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
@@ -104,6 +109,7 @@ constructor(
             this.idempotencyKey = accountListParams.idempotencyKey
             this.informationalEntityId = accountListParams.informationalEntityId
             this.limit = accountListParams.limit
+            this.programId = accountListParams.programId
             this.status = accountListParams.status
             additionalQueryParams(accountListParams.additionalQueryParams)
             additionalHeaders(accountListParams.additionalHeaders)
@@ -134,6 +140,9 @@ constructor(
          * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
          */
         fun limit(limit: Long) = apply { this.limit = limit }
+
+        /** Filter Accounts for those in a specific Program. */
+        fun programId(programId: String) = apply { this.programId = programId }
 
         /** Filter Accounts for those with the specified status. */
         fun status(status: Status) = apply { this.status = status }
@@ -186,6 +195,7 @@ constructor(
                 idempotencyKey,
                 informationalEntityId,
                 limit,
+                programId,
                 status,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
