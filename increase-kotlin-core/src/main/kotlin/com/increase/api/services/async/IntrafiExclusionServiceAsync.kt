@@ -26,7 +26,7 @@ interface IntrafiExclusionServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none()
     ): IntrafiExclusion
 
-    /** List IntraFi Exclusions. */
+    /** List IntraFi Exclusions */
     suspend fun list(
         params: IntrafiExclusionListParams,
         requestOptions: RequestOptions = RequestOptions.none()

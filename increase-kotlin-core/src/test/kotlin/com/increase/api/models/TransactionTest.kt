@@ -82,6 +82,15 @@ class TransactionTest {
                                 .amount(123L)
                                 .cardPaymentId("card_payment_id")
                                 .currency(Transaction.Source.CardRefund.Currency.CAD)
+                                .interchange(
+                                    Transaction.Source.CardRefund.Interchange.builder()
+                                        .amount("amount")
+                                        .code("code")
+                                        .currency(
+                                            Transaction.Source.CardRefund.Interchange.Currency.CAD
+                                        )
+                                        .build()
+                                )
                                 .merchantAcceptorId("merchant_acceptor_id")
                                 .merchantCategoryCode("merchant_category_code")
                                 .merchantCity("merchant_city")
@@ -315,6 +324,16 @@ class TransactionTest {
                                 .cardAuthorization("card_authorization")
                                 .cardPaymentId("card_payment_id")
                                 .currency(Transaction.Source.CardSettlement.Currency.CAD)
+                                .interchange(
+                                    Transaction.Source.CardSettlement.Interchange.builder()
+                                        .amount("amount")
+                                        .code("code")
+                                        .currency(
+                                            Transaction.Source.CardSettlement.Interchange.Currency
+                                                .CAD
+                                        )
+                                        .build()
+                                )
                                 .merchantAcceptorId("merchant_acceptor_id")
                                 .merchantCategoryCode("merchant_category_code")
                                 .merchantCity("merchant_city")
@@ -862,6 +881,15 @@ class TransactionTest {
                             .amount(123L)
                             .cardPaymentId("card_payment_id")
                             .currency(Transaction.Source.CardRefund.Currency.CAD)
+                            .interchange(
+                                Transaction.Source.CardRefund.Interchange.builder()
+                                    .amount("amount")
+                                    .code("code")
+                                    .currency(
+                                        Transaction.Source.CardRefund.Interchange.Currency.CAD
+                                    )
+                                    .build()
+                            )
                             .merchantAcceptorId("merchant_acceptor_id")
                             .merchantCategoryCode("merchant_category_code")
                             .merchantCity("merchant_city")
@@ -1077,6 +1105,15 @@ class TransactionTest {
                             .cardAuthorization("card_authorization")
                             .cardPaymentId("card_payment_id")
                             .currency(Transaction.Source.CardSettlement.Currency.CAD)
+                            .interchange(
+                                Transaction.Source.CardSettlement.Interchange.builder()
+                                    .amount("amount")
+                                    .code("code")
+                                    .currency(
+                                        Transaction.Source.CardSettlement.Interchange.Currency.CAD
+                                    )
+                                    .build()
+                            )
                             .merchantAcceptorId("merchant_acceptor_id")
                             .merchantCategoryCode("merchant_category_code")
                             .merchantCity("merchant_city")

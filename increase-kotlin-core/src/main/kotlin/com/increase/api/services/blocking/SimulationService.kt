@@ -22,6 +22,7 @@ import com.increase.api.services.blocking.simulations.DocumentService
 import com.increase.api.services.blocking.simulations.InboundAchTransferService
 import com.increase.api.services.blocking.simulations.InboundCheckDepositService
 import com.increase.api.services.blocking.simulations.InboundFundsHoldService
+import com.increase.api.services.blocking.simulations.InboundMailItemService
 import com.increase.api.services.blocking.simulations.InboundRealTimePaymentsTransferService
 import com.increase.api.services.blocking.simulations.InboundWireDrawdownRequestService
 import com.increase.api.services.blocking.simulations.InboundWireTransferService
@@ -82,6 +83,8 @@ interface SimulationService {
     fun accountStatements(): AccountStatementService
 
     fun documents(): DocumentService
+
+    fun inboundMailItems(): InboundMailItemService
 
     fun programs(): ProgramService
 }
