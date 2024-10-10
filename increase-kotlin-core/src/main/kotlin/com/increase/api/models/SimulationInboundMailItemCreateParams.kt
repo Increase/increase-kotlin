@@ -13,11 +13,11 @@ import com.increase.api.core.toUnmodifiable
 import com.increase.api.models.*
 import java.util.Objects
 
-class SimulationCardIncrementCreateParams
+class SimulationInboundMailItemCreateParams
 constructor(
     private val amount: Long,
-    private val cardPaymentId: String,
-    private val eventSubscriptionId: String?,
+    private val lockboxId: String,
+    private val contentsFileId: String?,
     private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
     private val additionalBodyProperties: Map<String, JsonValue>,
@@ -25,15 +25,15 @@ constructor(
 
     fun amount(): Long = amount
 
-    fun cardPaymentId(): String = cardPaymentId
+    fun lockboxId(): String = lockboxId
 
-    fun eventSubscriptionId(): String? = eventSubscriptionId
+    fun contentsFileId(): String? = contentsFileId
 
-    internal fun getBody(): SimulationCardIncrementCreateBody {
-        return SimulationCardIncrementCreateBody(
+    internal fun getBody(): SimulationInboundMailItemCreateBody {
+        return SimulationInboundMailItemCreateBody(
             amount,
-            cardPaymentId,
-            eventSubscriptionId,
+            lockboxId,
+            contentsFileId,
             additionalBodyProperties,
         )
     }
@@ -42,30 +42,27 @@ constructor(
 
     internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
 
-    @JsonDeserialize(builder = SimulationCardIncrementCreateBody.Builder::class)
+    @JsonDeserialize(builder = SimulationInboundMailItemCreateBody.Builder::class)
     @NoAutoDetect
-    class SimulationCardIncrementCreateBody
+    class SimulationInboundMailItemCreateBody
     internal constructor(
         private val amount: Long?,
-        private val cardPaymentId: String?,
-        private val eventSubscriptionId: String?,
+        private val lockboxId: String?,
+        private val contentsFileId: String?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        /** The amount of the increment in minor units in the card authorization's currency. */
+        /** The amount of the check to be simulated, in cents. */
         @JsonProperty("amount") fun amount(): Long? = amount
 
-        /** The identifier of the Card Payment to create a increment on. */
-        @JsonProperty("card_payment_id") fun cardPaymentId(): String? = cardPaymentId
+        /** The identifier of the Lockbox to simulate inbound mail to. */
+        @JsonProperty("lockbox_id") fun lockboxId(): String? = lockboxId
 
         /**
-         * The identifier of the Event Subscription to use. If provided, will override the default
-         * real time event subscription. Because you can only create one real time decision event
-         * subscription, you can use this field to route events to any specified event subscription
-         * for testing purposes.
+         * The file containing the PDF contents. If not present, a default check image file will be
+         * used.
          */
-        @JsonProperty("event_subscription_id")
-        fun eventSubscriptionId(): String? = eventSubscriptionId
+        @JsonProperty("contents_file_id") fun contentsFileId(): String? = contentsFileId
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -81,35 +78,33 @@ constructor(
         class Builder {
 
             private var amount: Long? = null
-            private var cardPaymentId: String? = null
-            private var eventSubscriptionId: String? = null
+            private var lockboxId: String? = null
+            private var contentsFileId: String? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(
-                simulationCardIncrementCreateBody: SimulationCardIncrementCreateBody
+                simulationInboundMailItemCreateBody: SimulationInboundMailItemCreateBody
             ) = apply {
-                this.amount = simulationCardIncrementCreateBody.amount
-                this.cardPaymentId = simulationCardIncrementCreateBody.cardPaymentId
-                this.eventSubscriptionId = simulationCardIncrementCreateBody.eventSubscriptionId
-                additionalProperties(simulationCardIncrementCreateBody.additionalProperties)
+                this.amount = simulationInboundMailItemCreateBody.amount
+                this.lockboxId = simulationInboundMailItemCreateBody.lockboxId
+                this.contentsFileId = simulationInboundMailItemCreateBody.contentsFileId
+                additionalProperties(simulationInboundMailItemCreateBody.additionalProperties)
             }
 
-            /** The amount of the increment in minor units in the card authorization's currency. */
+            /** The amount of the check to be simulated, in cents. */
             @JsonProperty("amount") fun amount(amount: Long) = apply { this.amount = amount }
 
-            /** The identifier of the Card Payment to create a increment on. */
-            @JsonProperty("card_payment_id")
-            fun cardPaymentId(cardPaymentId: String) = apply { this.cardPaymentId = cardPaymentId }
+            /** The identifier of the Lockbox to simulate inbound mail to. */
+            @JsonProperty("lockbox_id")
+            fun lockboxId(lockboxId: String) = apply { this.lockboxId = lockboxId }
 
             /**
-             * The identifier of the Event Subscription to use. If provided, will override the
-             * default real time event subscription. Because you can only create one real time
-             * decision event subscription, you can use this field to route events to any specified
-             * event subscription for testing purposes.
+             * The file containing the PDF contents. If not present, a default check image file will
+             * be used.
              */
-            @JsonProperty("event_subscription_id")
-            fun eventSubscriptionId(eventSubscriptionId: String) = apply {
-                this.eventSubscriptionId = eventSubscriptionId
+            @JsonProperty("contents_file_id")
+            fun contentsFileId(contentsFileId: String) = apply {
+                this.contentsFileId = contentsFileId
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -126,11 +121,11 @@ constructor(
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun build(): SimulationCardIncrementCreateBody =
-                SimulationCardIncrementCreateBody(
+            fun build(): SimulationInboundMailItemCreateBody =
+                SimulationInboundMailItemCreateBody(
                     checkNotNull(amount) { "`amount` is required but was not set" },
-                    checkNotNull(cardPaymentId) { "`cardPaymentId` is required but was not set" },
-                    eventSubscriptionId,
+                    checkNotNull(lockboxId) { "`lockboxId` is required but was not set" },
+                    contentsFileId,
                     additionalProperties.toUnmodifiable(),
                 )
         }
@@ -140,10 +135,10 @@ constructor(
                 return true
             }
 
-            return other is SimulationCardIncrementCreateBody &&
+            return other is SimulationInboundMailItemCreateBody &&
                 this.amount == other.amount &&
-                this.cardPaymentId == other.cardPaymentId &&
-                this.eventSubscriptionId == other.eventSubscriptionId &&
+                this.lockboxId == other.lockboxId &&
+                this.contentsFileId == other.contentsFileId &&
                 this.additionalProperties == other.additionalProperties
         }
 
@@ -154,8 +149,8 @@ constructor(
                 hashCode =
                     Objects.hash(
                         amount,
-                        cardPaymentId,
-                        eventSubscriptionId,
+                        lockboxId,
+                        contentsFileId,
                         additionalProperties,
                     )
             }
@@ -163,7 +158,7 @@ constructor(
         }
 
         override fun toString() =
-            "SimulationCardIncrementCreateBody{amount=$amount, cardPaymentId=$cardPaymentId, eventSubscriptionId=$eventSubscriptionId, additionalProperties=$additionalProperties}"
+            "SimulationInboundMailItemCreateBody{amount=$amount, lockboxId=$lockboxId, contentsFileId=$contentsFileId, additionalProperties=$additionalProperties}"
     }
 
     fun _additionalQueryParams(): Map<String, List<String>> = additionalQueryParams
@@ -177,10 +172,10 @@ constructor(
             return true
         }
 
-        return other is SimulationCardIncrementCreateParams &&
+        return other is SimulationInboundMailItemCreateParams &&
             this.amount == other.amount &&
-            this.cardPaymentId == other.cardPaymentId &&
-            this.eventSubscriptionId == other.eventSubscriptionId &&
+            this.lockboxId == other.lockboxId &&
+            this.contentsFileId == other.contentsFileId &&
             this.additionalQueryParams == other.additionalQueryParams &&
             this.additionalHeaders == other.additionalHeaders &&
             this.additionalBodyProperties == other.additionalBodyProperties
@@ -189,8 +184,8 @@ constructor(
     override fun hashCode(): Int {
         return Objects.hash(
             amount,
-            cardPaymentId,
-            eventSubscriptionId,
+            lockboxId,
+            contentsFileId,
             additionalQueryParams,
             additionalHeaders,
             additionalBodyProperties,
@@ -198,7 +193,7 @@ constructor(
     }
 
     override fun toString() =
-        "SimulationCardIncrementCreateParams{amount=$amount, cardPaymentId=$cardPaymentId, eventSubscriptionId=$eventSubscriptionId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "SimulationInboundMailItemCreateParams{amount=$amount, lockboxId=$lockboxId, contentsFileId=$contentsFileId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -211,38 +206,34 @@ constructor(
     class Builder {
 
         private var amount: Long? = null
-        private var cardPaymentId: String? = null
-        private var eventSubscriptionId: String? = null
+        private var lockboxId: String? = null
+        private var contentsFileId: String? = null
         private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(
-            simulationCardIncrementCreateParams: SimulationCardIncrementCreateParams
+            simulationInboundMailItemCreateParams: SimulationInboundMailItemCreateParams
         ) = apply {
-            this.amount = simulationCardIncrementCreateParams.amount
-            this.cardPaymentId = simulationCardIncrementCreateParams.cardPaymentId
-            this.eventSubscriptionId = simulationCardIncrementCreateParams.eventSubscriptionId
-            additionalQueryParams(simulationCardIncrementCreateParams.additionalQueryParams)
-            additionalHeaders(simulationCardIncrementCreateParams.additionalHeaders)
-            additionalBodyProperties(simulationCardIncrementCreateParams.additionalBodyProperties)
+            this.amount = simulationInboundMailItemCreateParams.amount
+            this.lockboxId = simulationInboundMailItemCreateParams.lockboxId
+            this.contentsFileId = simulationInboundMailItemCreateParams.contentsFileId
+            additionalQueryParams(simulationInboundMailItemCreateParams.additionalQueryParams)
+            additionalHeaders(simulationInboundMailItemCreateParams.additionalHeaders)
+            additionalBodyProperties(simulationInboundMailItemCreateParams.additionalBodyProperties)
         }
 
-        /** The amount of the increment in minor units in the card authorization's currency. */
+        /** The amount of the check to be simulated, in cents. */
         fun amount(amount: Long) = apply { this.amount = amount }
 
-        /** The identifier of the Card Payment to create a increment on. */
-        fun cardPaymentId(cardPaymentId: String) = apply { this.cardPaymentId = cardPaymentId }
+        /** The identifier of the Lockbox to simulate inbound mail to. */
+        fun lockboxId(lockboxId: String) = apply { this.lockboxId = lockboxId }
 
         /**
-         * The identifier of the Event Subscription to use. If provided, will override the default
-         * real time event subscription. Because you can only create one real time decision event
-         * subscription, you can use this field to route events to any specified event subscription
-         * for testing purposes.
+         * The file containing the PDF contents. If not present, a default check image file will be
+         * used.
          */
-        fun eventSubscriptionId(eventSubscriptionId: String) = apply {
-            this.eventSubscriptionId = eventSubscriptionId
-        }
+        fun contentsFileId(contentsFileId: String) = apply { this.contentsFileId = contentsFileId }
 
         fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
             this.additionalQueryParams.clear()
@@ -298,11 +289,11 @@ constructor(
                 this.additionalBodyProperties.putAll(additionalBodyProperties)
             }
 
-        fun build(): SimulationCardIncrementCreateParams =
-            SimulationCardIncrementCreateParams(
+        fun build(): SimulationInboundMailItemCreateParams =
+            SimulationInboundMailItemCreateParams(
                 checkNotNull(amount) { "`amount` is required but was not set" },
-                checkNotNull(cardPaymentId) { "`cardPaymentId` is required but was not set" },
-                eventSubscriptionId,
+                checkNotNull(lockboxId) { "`lockboxId` is required but was not set" },
+                contentsFileId,
                 additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
                 additionalBodyProperties.toUnmodifiable(),

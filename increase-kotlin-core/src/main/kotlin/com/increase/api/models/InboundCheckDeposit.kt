@@ -50,8 +50,6 @@ private constructor(
 
     private var validated: Boolean = false
 
-    private var hashCode: Int = 0
-
     /**
      * If the Inbound Check Deposit was accepted, the
      * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which this took place.
@@ -258,66 +256,6 @@ private constructor(
     }
 
     fun toBuilder() = Builder().from(this)
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return other is InboundCheckDeposit &&
-            this.acceptedAt == other.acceptedAt &&
-            this.accountId == other.accountId &&
-            this.accountNumberId == other.accountNumberId &&
-            this.adjustments == other.adjustments &&
-            this.amount == other.amount &&
-            this.backImageFileId == other.backImageFileId &&
-            this.bankOfFirstDepositRoutingNumber == other.bankOfFirstDepositRoutingNumber &&
-            this.checkNumber == other.checkNumber &&
-            this.checkTransferId == other.checkTransferId &&
-            this.createdAt == other.createdAt &&
-            this.currency == other.currency &&
-            this.declinedAt == other.declinedAt &&
-            this.declinedTransactionId == other.declinedTransactionId &&
-            this.depositReturn == other.depositReturn &&
-            this.frontImageFileId == other.frontImageFileId &&
-            this.id == other.id &&
-            this.status == other.status &&
-            this.transactionId == other.transactionId &&
-            this.type == other.type &&
-            this.additionalProperties == other.additionalProperties
-    }
-
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    acceptedAt,
-                    accountId,
-                    accountNumberId,
-                    adjustments,
-                    amount,
-                    backImageFileId,
-                    bankOfFirstDepositRoutingNumber,
-                    checkNumber,
-                    checkTransferId,
-                    createdAt,
-                    currency,
-                    declinedAt,
-                    declinedTransactionId,
-                    depositReturn,
-                    frontImageFileId,
-                    id,
-                    status,
-                    transactionId,
-                    type,
-                    additionalProperties,
-                )
-        }
-        return hashCode
-    }
-
-    override fun toString() =
-        "InboundCheckDeposit{acceptedAt=$acceptedAt, accountId=$accountId, accountNumberId=$accountNumberId, adjustments=$adjustments, amount=$amount, backImageFileId=$backImageFileId, bankOfFirstDepositRoutingNumber=$bankOfFirstDepositRoutingNumber, checkNumber=$checkNumber, checkTransferId=$checkTransferId, createdAt=$createdAt, currency=$currency, declinedAt=$declinedAt, declinedTransactionId=$declinedTransactionId, depositReturn=$depositReturn, frontImageFileId=$frontImageFileId, id=$id, status=$status, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
 
     companion object {
 
@@ -666,8 +604,6 @@ private constructor(
 
         private var validated: Boolean = false
 
-        private var hashCode: Int = 0
-
         /** The time at which the return adjustment was received. */
         fun adjustedAt(): OffsetDateTime = adjustedAt.getRequired("adjusted_at")
 
@@ -707,36 +643,6 @@ private constructor(
         }
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Adjustment &&
-                this.adjustedAt == other.adjustedAt &&
-                this.amount == other.amount &&
-                this.reason == other.reason &&
-                this.transactionId == other.transactionId &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        adjustedAt,
-                        amount,
-                        reason,
-                        transactionId,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "Adjustment{adjustedAt=$adjustedAt, amount=$amount, reason=$reason, transactionId=$transactionId, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -869,6 +775,38 @@ private constructor(
 
             fun asString(): String = _value().asStringOrThrow()
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Adjustment &&
+                this.adjustedAt == other.adjustedAt &&
+                this.amount == other.amount &&
+                this.reason == other.reason &&
+                this.transactionId == other.transactionId &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        adjustedAt,
+                        amount,
+                        reason,
+                        transactionId,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "Adjustment{adjustedAt=$adjustedAt, amount=$amount, reason=$reason, transactionId=$transactionId, additionalProperties=$additionalProperties}"
     }
 
     class Currency
@@ -965,8 +903,6 @@ private constructor(
 
         private var validated: Boolean = false
 
-        private var hashCode: Int = 0
-
         /** The reason the deposit was returned. */
         fun reason(): Reason = reason.getRequired("reason")
 
@@ -999,34 +935,6 @@ private constructor(
         }
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is DepositReturn &&
-                this.reason == other.reason &&
-                this.returnedAt == other.returnedAt &&
-                this.transactionId == other.transactionId &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        reason,
-                        returnedAt,
-                        transactionId,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "DepositReturn{reason=$reason, returnedAt=$returnedAt, transactionId=$transactionId, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -1172,6 +1080,36 @@ private constructor(
 
             fun asString(): String = _value().asStringOrThrow()
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is DepositReturn &&
+                this.reason == other.reason &&
+                this.returnedAt == other.returnedAt &&
+                this.transactionId == other.transactionId &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        reason,
+                        returnedAt,
+                        transactionId,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "DepositReturn{reason=$reason, returnedAt=$returnedAt, transactionId=$transactionId, additionalProperties=$additionalProperties}"
     }
 
     class Status
@@ -1299,4 +1237,66 @@ private constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return other is InboundCheckDeposit &&
+            this.acceptedAt == other.acceptedAt &&
+            this.accountId == other.accountId &&
+            this.accountNumberId == other.accountNumberId &&
+            this.adjustments == other.adjustments &&
+            this.amount == other.amount &&
+            this.backImageFileId == other.backImageFileId &&
+            this.bankOfFirstDepositRoutingNumber == other.bankOfFirstDepositRoutingNumber &&
+            this.checkNumber == other.checkNumber &&
+            this.checkTransferId == other.checkTransferId &&
+            this.createdAt == other.createdAt &&
+            this.currency == other.currency &&
+            this.declinedAt == other.declinedAt &&
+            this.declinedTransactionId == other.declinedTransactionId &&
+            this.depositReturn == other.depositReturn &&
+            this.frontImageFileId == other.frontImageFileId &&
+            this.id == other.id &&
+            this.status == other.status &&
+            this.transactionId == other.transactionId &&
+            this.type == other.type &&
+            this.additionalProperties == other.additionalProperties
+    }
+
+    private var hashCode: Int = 0
+
+    override fun hashCode(): Int {
+        if (hashCode == 0) {
+            hashCode =
+                Objects.hash(
+                    acceptedAt,
+                    accountId,
+                    accountNumberId,
+                    adjustments,
+                    amount,
+                    backImageFileId,
+                    bankOfFirstDepositRoutingNumber,
+                    checkNumber,
+                    checkTransferId,
+                    createdAt,
+                    currency,
+                    declinedAt,
+                    declinedTransactionId,
+                    depositReturn,
+                    frontImageFileId,
+                    id,
+                    status,
+                    transactionId,
+                    type,
+                    additionalProperties,
+                )
+        }
+        return hashCode
+    }
+
+    override fun toString() =
+        "InboundCheckDeposit{acceptedAt=$acceptedAt, accountId=$accountId, accountNumberId=$accountNumberId, adjustments=$adjustments, amount=$amount, backImageFileId=$backImageFileId, bankOfFirstDepositRoutingNumber=$bankOfFirstDepositRoutingNumber, checkNumber=$checkNumber, checkTransferId=$checkTransferId, createdAt=$createdAt, currency=$currency, declinedAt=$declinedAt, declinedTransactionId=$declinedTransactionId, depositReturn=$depositReturn, frontImageFileId=$frontImageFileId, id=$id, status=$status, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
 }

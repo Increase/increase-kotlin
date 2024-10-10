@@ -28,7 +28,7 @@ private constructor(
     private val accountNumberId: JsonField<String>,
     private val amount: JsonField<Long>,
     private val currency: JsonField<String>,
-    private val fulfillmentTransactionId: JsonField<String>,
+    private val fulfillmentInboundWireTransferId: JsonField<String>,
     private val id: JsonField<String>,
     private val idempotencyKey: JsonField<String>,
     private val messageToRecipient: JsonField<String>,
@@ -50,8 +50,6 @@ private constructor(
 
     private var validated: Boolean = false
 
-    private var hashCode: Int = 0
-
     /**
      * The Account Number to which the recipient of this request is being requested to send funds.
      */
@@ -70,8 +68,8 @@ private constructor(
      * If the recipient fulfills the drawdown request by sending funds, then this will be the
      * identifier of the corresponding Transaction.
      */
-    fun fulfillmentTransactionId(): String? =
-        fulfillmentTransactionId.getNullable("fulfillment_transaction_id")
+    fun fulfillmentInboundWireTransferId(): String? =
+        fulfillmentInboundWireTransferId.getNullable("fulfillment_inbound_wire_transfer_id")
 
     /** The Wire drawdown request identifier. */
     fun id(): String = id.getRequired("id")
@@ -156,9 +154,9 @@ private constructor(
      * If the recipient fulfills the drawdown request by sending funds, then this will be the
      * identifier of the corresponding Transaction.
      */
-    @JsonProperty("fulfillment_transaction_id")
+    @JsonProperty("fulfillment_inbound_wire_transfer_id")
     @ExcludeMissing
-    fun _fulfillmentTransactionId() = fulfillmentTransactionId
+    fun _fulfillmentInboundWireTransferId() = fulfillmentInboundWireTransferId
 
     /** The Wire drawdown request identifier. */
     @JsonProperty("id") @ExcludeMissing fun _id() = id
@@ -244,7 +242,7 @@ private constructor(
             accountNumberId()
             amount()
             currency()
-            fulfillmentTransactionId()
+            fulfillmentInboundWireTransferId()
             id()
             idempotencyKey()
             messageToRecipient()
@@ -267,68 +265,6 @@ private constructor(
 
     fun toBuilder() = Builder().from(this)
 
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return other is WireDrawdownRequest &&
-            this.accountNumberId == other.accountNumberId &&
-            this.amount == other.amount &&
-            this.currency == other.currency &&
-            this.fulfillmentTransactionId == other.fulfillmentTransactionId &&
-            this.id == other.id &&
-            this.idempotencyKey == other.idempotencyKey &&
-            this.messageToRecipient == other.messageToRecipient &&
-            this.originatorAddressLine1 == other.originatorAddressLine1 &&
-            this.originatorAddressLine2 == other.originatorAddressLine2 &&
-            this.originatorAddressLine3 == other.originatorAddressLine3 &&
-            this.originatorName == other.originatorName &&
-            this.recipientAccountNumber == other.recipientAccountNumber &&
-            this.recipientAddressLine1 == other.recipientAddressLine1 &&
-            this.recipientAddressLine2 == other.recipientAddressLine2 &&
-            this.recipientAddressLine3 == other.recipientAddressLine3 &&
-            this.recipientName == other.recipientName &&
-            this.recipientRoutingNumber == other.recipientRoutingNumber &&
-            this.status == other.status &&
-            this.submission == other.submission &&
-            this.type == other.type &&
-            this.additionalProperties == other.additionalProperties
-    }
-
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode =
-                Objects.hash(
-                    accountNumberId,
-                    amount,
-                    currency,
-                    fulfillmentTransactionId,
-                    id,
-                    idempotencyKey,
-                    messageToRecipient,
-                    originatorAddressLine1,
-                    originatorAddressLine2,
-                    originatorAddressLine3,
-                    originatorName,
-                    recipientAccountNumber,
-                    recipientAddressLine1,
-                    recipientAddressLine2,
-                    recipientAddressLine3,
-                    recipientName,
-                    recipientRoutingNumber,
-                    status,
-                    submission,
-                    type,
-                    additionalProperties,
-                )
-        }
-        return hashCode
-    }
-
-    override fun toString() =
-        "WireDrawdownRequest{accountNumberId=$accountNumberId, amount=$amount, currency=$currency, fulfillmentTransactionId=$fulfillmentTransactionId, id=$id, idempotencyKey=$idempotencyKey, messageToRecipient=$messageToRecipient, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, recipientAccountNumber=$recipientAccountNumber, recipientAddressLine1=$recipientAddressLine1, recipientAddressLine2=$recipientAddressLine2, recipientAddressLine3=$recipientAddressLine3, recipientName=$recipientName, recipientRoutingNumber=$recipientRoutingNumber, status=$status, submission=$submission, type=$type, additionalProperties=$additionalProperties}"
-
     companion object {
 
         fun builder() = Builder()
@@ -339,7 +275,7 @@ private constructor(
         private var accountNumberId: JsonField<String> = JsonMissing.of()
         private var amount: JsonField<Long> = JsonMissing.of()
         private var currency: JsonField<String> = JsonMissing.of()
-        private var fulfillmentTransactionId: JsonField<String> = JsonMissing.of()
+        private var fulfillmentInboundWireTransferId: JsonField<String> = JsonMissing.of()
         private var id: JsonField<String> = JsonMissing.of()
         private var idempotencyKey: JsonField<String> = JsonMissing.of()
         private var messageToRecipient: JsonField<String> = JsonMissing.of()
@@ -362,7 +298,8 @@ private constructor(
             this.accountNumberId = wireDrawdownRequest.accountNumberId
             this.amount = wireDrawdownRequest.amount
             this.currency = wireDrawdownRequest.currency
-            this.fulfillmentTransactionId = wireDrawdownRequest.fulfillmentTransactionId
+            this.fulfillmentInboundWireTransferId =
+                wireDrawdownRequest.fulfillmentInboundWireTransferId
             this.id = wireDrawdownRequest.id
             this.idempotencyKey = wireDrawdownRequest.idempotencyKey
             this.messageToRecipient = wireDrawdownRequest.messageToRecipient
@@ -425,18 +362,19 @@ private constructor(
          * If the recipient fulfills the drawdown request by sending funds, then this will be the
          * identifier of the corresponding Transaction.
          */
-        fun fulfillmentTransactionId(fulfillmentTransactionId: String) =
-            fulfillmentTransactionId(JsonField.of(fulfillmentTransactionId))
+        fun fulfillmentInboundWireTransferId(fulfillmentInboundWireTransferId: String) =
+            fulfillmentInboundWireTransferId(JsonField.of(fulfillmentInboundWireTransferId))
 
         /**
          * If the recipient fulfills the drawdown request by sending funds, then this will be the
          * identifier of the corresponding Transaction.
          */
-        @JsonProperty("fulfillment_transaction_id")
+        @JsonProperty("fulfillment_inbound_wire_transfer_id")
         @ExcludeMissing
-        fun fulfillmentTransactionId(fulfillmentTransactionId: JsonField<String>) = apply {
-            this.fulfillmentTransactionId = fulfillmentTransactionId
-        }
+        fun fulfillmentInboundWireTransferId(fulfillmentInboundWireTransferId: JsonField<String>) =
+            apply {
+                this.fulfillmentInboundWireTransferId = fulfillmentInboundWireTransferId
+            }
 
         /** The Wire drawdown request identifier. */
         fun id(id: String) = id(JsonField.of(id))
@@ -636,7 +574,7 @@ private constructor(
                 accountNumberId,
                 amount,
                 currency,
-                fulfillmentTransactionId,
+                fulfillmentInboundWireTransferId,
                 id,
                 idempotencyKey,
                 messageToRecipient,
@@ -739,8 +677,6 @@ private constructor(
 
         private var validated: Boolean = false
 
-        private var hashCode: Int = 0
-
         /**
          * The input message accountability data (IMAD) uniquely identifying the submission with
          * Fedwire.
@@ -768,26 +704,6 @@ private constructor(
         }
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Submission &&
-                this.inputMessageAccountabilityData == other.inputMessageAccountabilityData &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = Objects.hash(inputMessageAccountabilityData, additionalProperties)
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "Submission{inputMessageAccountabilityData=$inputMessageAccountabilityData, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -839,6 +755,28 @@ private constructor(
             fun build(): Submission =
                 Submission(inputMessageAccountabilityData, additionalProperties.toUnmodifiable())
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Submission &&
+                this.inputMessageAccountabilityData == other.inputMessageAccountabilityData &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode = Objects.hash(inputMessageAccountabilityData, additionalProperties)
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "Submission{inputMessageAccountabilityData=$inputMessageAccountabilityData, additionalProperties=$additionalProperties}"
     }
 
     class Type
@@ -891,4 +829,68 @@ private constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return other is WireDrawdownRequest &&
+            this.accountNumberId == other.accountNumberId &&
+            this.amount == other.amount &&
+            this.currency == other.currency &&
+            this.fulfillmentInboundWireTransferId == other.fulfillmentInboundWireTransferId &&
+            this.id == other.id &&
+            this.idempotencyKey == other.idempotencyKey &&
+            this.messageToRecipient == other.messageToRecipient &&
+            this.originatorAddressLine1 == other.originatorAddressLine1 &&
+            this.originatorAddressLine2 == other.originatorAddressLine2 &&
+            this.originatorAddressLine3 == other.originatorAddressLine3 &&
+            this.originatorName == other.originatorName &&
+            this.recipientAccountNumber == other.recipientAccountNumber &&
+            this.recipientAddressLine1 == other.recipientAddressLine1 &&
+            this.recipientAddressLine2 == other.recipientAddressLine2 &&
+            this.recipientAddressLine3 == other.recipientAddressLine3 &&
+            this.recipientName == other.recipientName &&
+            this.recipientRoutingNumber == other.recipientRoutingNumber &&
+            this.status == other.status &&
+            this.submission == other.submission &&
+            this.type == other.type &&
+            this.additionalProperties == other.additionalProperties
+    }
+
+    private var hashCode: Int = 0
+
+    override fun hashCode(): Int {
+        if (hashCode == 0) {
+            hashCode =
+                Objects.hash(
+                    accountNumberId,
+                    amount,
+                    currency,
+                    fulfillmentInboundWireTransferId,
+                    id,
+                    idempotencyKey,
+                    messageToRecipient,
+                    originatorAddressLine1,
+                    originatorAddressLine2,
+                    originatorAddressLine3,
+                    originatorName,
+                    recipientAccountNumber,
+                    recipientAddressLine1,
+                    recipientAddressLine2,
+                    recipientAddressLine3,
+                    recipientName,
+                    recipientRoutingNumber,
+                    status,
+                    submission,
+                    type,
+                    additionalProperties,
+                )
+        }
+        return hashCode
+    }
+
+    override fun toString() =
+        "WireDrawdownRequest{accountNumberId=$accountNumberId, amount=$amount, currency=$currency, fulfillmentInboundWireTransferId=$fulfillmentInboundWireTransferId, id=$id, idempotencyKey=$idempotencyKey, messageToRecipient=$messageToRecipient, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, recipientAccountNumber=$recipientAccountNumber, recipientAddressLine1=$recipientAddressLine1, recipientAddressLine2=$recipientAddressLine2, recipientAddressLine3=$recipientAddressLine3, recipientName=$recipientName, recipientRoutingNumber=$recipientRoutingNumber, status=$status, submission=$submission, type=$type, additionalProperties=$additionalProperties}"
 }

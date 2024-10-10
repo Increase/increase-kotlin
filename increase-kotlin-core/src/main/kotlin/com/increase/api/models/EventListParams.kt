@@ -187,8 +187,6 @@ constructor(
         private val additionalProperties: Map<String, List<String>>,
     ) {
 
-        private var hashCode: Int = 0
-
         /**
          * Filter Events for those with the specified category or categories. For GET requests, this
          * should be encoded as a comma-delimited string, such as `?in=one,two,three`.
@@ -203,25 +201,6 @@ constructor(
         }
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Category &&
-                this.in_ == other.in_ &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = Objects.hash(in_, additionalProperties)
-            }
-            return hashCode
-        }
-
-        override fun toString() = "Category{in_=$in_, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -873,6 +852,27 @@ constructor(
 
             fun asString(): String = _value().asStringOrThrow()
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Category &&
+                this.in_ == other.in_ &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode = Objects.hash(in_, additionalProperties)
+            }
+            return hashCode
+        }
+
+        override fun toString() = "Category{in_=$in_, additionalProperties=$additionalProperties}"
     }
 
     @JsonDeserialize(builder = CreatedAt.Builder::class)
@@ -885,8 +885,6 @@ constructor(
         private val onOrBefore: OffsetDateTime?,
         private val additionalProperties: Map<String, List<String>>,
     ) {
-
-        private var hashCode: Int = 0
 
         /**
          * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
@@ -921,36 +919,6 @@ constructor(
         }
 
         fun toBuilder() = Builder().from(this)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is CreatedAt &&
-                this.after == other.after &&
-                this.before == other.before &&
-                this.onOrAfter == other.onOrAfter &&
-                this.onOrBefore == other.onOrBefore &&
-                this.additionalProperties == other.additionalProperties
-        }
-
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode =
-                    Objects.hash(
-                        after,
-                        before,
-                        onOrAfter,
-                        onOrBefore,
-                        additionalProperties,
-                    )
-            }
-            return hashCode
-        }
-
-        override fun toString() =
-            "CreatedAt{after=$after, before=$before, onOrAfter=$onOrAfter, onOrBefore=$onOrBefore, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -1020,5 +988,37 @@ constructor(
                     additionalProperties.toUnmodifiable(),
                 )
         }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is CreatedAt &&
+                this.after == other.after &&
+                this.before == other.before &&
+                this.onOrAfter == other.onOrAfter &&
+                this.onOrBefore == other.onOrBefore &&
+                this.additionalProperties == other.additionalProperties
+        }
+
+        private var hashCode: Int = 0
+
+        override fun hashCode(): Int {
+            if (hashCode == 0) {
+                hashCode =
+                    Objects.hash(
+                        after,
+                        before,
+                        onOrAfter,
+                        onOrBefore,
+                        additionalProperties,
+                    )
+            }
+            return hashCode
+        }
+
+        override fun toString() =
+            "CreatedAt{after=$after, before=$before, onOrAfter=$onOrAfter, onOrBefore=$onOrBefore, additionalProperties=$additionalProperties}"
     }
 }
