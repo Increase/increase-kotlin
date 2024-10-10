@@ -19,7 +19,7 @@ The REST API documentation can be found on [increase.com](https://increase.com/
 <!-- x-release-please-start-version -->
 
 ```kotlin
-implementation("com.increase.api:increase-kotlin:0.106.0")
+implementation("com.increase.api:increase-kotlin:0.105.0")
 ```
 
 #### Maven
@@ -28,7 +28,7 @@ implementation("com.increase.api:increase-kotlin:0.106.0")
 <dependency>
     <groupId>com.increase.api</groupId>
     <artifactId>increase-kotlin</artifactId>
-    <version>0.106.0</version>
+    <version>0.105.0</version>
 </dependency>
 ```
 
