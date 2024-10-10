@@ -105,6 +105,8 @@ interface IncreaseClientAsync {
 
     fun oauthConnections(): OAuthConnectionServiceAsync
 
+    fun webhooks(): WebhookServiceAsync
+
     fun oauthTokens(): OAuthTokenServiceAsync
 
     fun intrafiAccountEnrollments(): IntrafiAccountEnrollmentServiceAsync
