@@ -4882,6 +4882,8 @@ private constructor(
 
                     val DEPOSIT_WINDOW_EXPIRED = Reason(JsonField.of("deposit_window_expired"))
 
+                    val REQUESTED_BY_USER = Reason(JsonField.of("requested_by_user"))
+
                     val UNKNOWN = Reason(JsonField.of("unknown"))
 
                     fun of(value: String) = Reason(JsonField.of(value))
@@ -4897,6 +4899,7 @@ private constructor(
                     MISSING_REQUIRED_DATA_ELEMENTS,
                     SUSPECTED_FRAUD,
                     DEPOSIT_WINDOW_EXPIRED,
+                    REQUESTED_BY_USER,
                     UNKNOWN,
                 }
 
@@ -4910,6 +4913,7 @@ private constructor(
                     MISSING_REQUIRED_DATA_ELEMENTS,
                     SUSPECTED_FRAUD,
                     DEPOSIT_WINDOW_EXPIRED,
+                    REQUESTED_BY_USER,
                     UNKNOWN,
                     _UNKNOWN,
                 }
@@ -4925,6 +4929,7 @@ private constructor(
                         MISSING_REQUIRED_DATA_ELEMENTS -> Value.MISSING_REQUIRED_DATA_ELEMENTS
                         SUSPECTED_FRAUD -> Value.SUSPECTED_FRAUD
                         DEPOSIT_WINDOW_EXPIRED -> Value.DEPOSIT_WINDOW_EXPIRED
+                        REQUESTED_BY_USER -> Value.REQUESTED_BY_USER
                         UNKNOWN -> Value.UNKNOWN
                         else -> Value._UNKNOWN
                     }
@@ -4940,6 +4945,7 @@ private constructor(
                         MISSING_REQUIRED_DATA_ELEMENTS -> Known.MISSING_REQUIRED_DATA_ELEMENTS
                         SUSPECTED_FRAUD -> Known.SUSPECTED_FRAUD
                         DEPOSIT_WINDOW_EXPIRED -> Known.DEPOSIT_WINDOW_EXPIRED
+                        REQUESTED_BY_USER -> Known.REQUESTED_BY_USER
                         UNKNOWN -> Known.UNKNOWN
                         else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
                     }
