@@ -3932,6 +3932,9 @@ private constructor(
 
                 val WIRE_TRANSFER_INSTRUCTION = Category(JsonField.of("wire_transfer_instruction"))
 
+                val INBOUND_WIRE_TRANSFER_REVERSAL =
+                    Category(JsonField.of("inbound_wire_transfer_reversal"))
+
                 val OTHER = Category(JsonField.of("other"))
 
                 fun of(value: String) = Category(JsonField.of(value))
@@ -3946,6 +3949,7 @@ private constructor(
                 INBOUND_FUNDS_HOLD,
                 REAL_TIME_PAYMENTS_TRANSFER_INSTRUCTION,
                 WIRE_TRANSFER_INSTRUCTION,
+                INBOUND_WIRE_TRANSFER_REVERSAL,
                 OTHER,
             }
 
@@ -3958,6 +3962,7 @@ private constructor(
                 INBOUND_FUNDS_HOLD,
                 REAL_TIME_PAYMENTS_TRANSFER_INSTRUCTION,
                 WIRE_TRANSFER_INSTRUCTION,
+                INBOUND_WIRE_TRANSFER_REVERSAL,
                 OTHER,
                 _UNKNOWN,
             }
@@ -3973,6 +3978,7 @@ private constructor(
                     REAL_TIME_PAYMENTS_TRANSFER_INSTRUCTION ->
                         Value.REAL_TIME_PAYMENTS_TRANSFER_INSTRUCTION
                     WIRE_TRANSFER_INSTRUCTION -> Value.WIRE_TRANSFER_INSTRUCTION
+                    INBOUND_WIRE_TRANSFER_REVERSAL -> Value.INBOUND_WIRE_TRANSFER_REVERSAL
                     OTHER -> Value.OTHER
                     else -> Value._UNKNOWN
                 }
@@ -3988,6 +3994,7 @@ private constructor(
                     REAL_TIME_PAYMENTS_TRANSFER_INSTRUCTION ->
                         Known.REAL_TIME_PAYMENTS_TRANSFER_INSTRUCTION
                     WIRE_TRANSFER_INSTRUCTION -> Known.WIRE_TRANSFER_INSTRUCTION
+                    INBOUND_WIRE_TRANSFER_REVERSAL -> Known.INBOUND_WIRE_TRANSFER_REVERSAL
                     OTHER -> Known.OTHER
                     else -> throw IncreaseInvalidDataException("Unknown Category: $value")
                 }
