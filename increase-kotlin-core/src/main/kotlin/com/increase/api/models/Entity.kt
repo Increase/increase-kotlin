@@ -3744,27 +3744,33 @@ private constructor(
 
                 val ALLOY = Vendor(JsonField.of("alloy"))
 
+                val MIDDESK = Vendor(JsonField.of("middesk"))
+
                 fun of(value: String) = Vendor(JsonField.of(value))
             }
 
             enum class Known {
                 ALLOY,
+                MIDDESK,
             }
 
             enum class Value {
                 ALLOY,
+                MIDDESK,
                 _UNKNOWN,
             }
 
             fun value(): Value =
                 when (this) {
                     ALLOY -> Value.ALLOY
+                    MIDDESK -> Value.MIDDESK
                     else -> Value._UNKNOWN
                 }
 
             fun known(): Known =
                 when (this) {
                     ALLOY -> Known.ALLOY
+                    MIDDESK -> Known.MIDDESK
                     else -> throw IncreaseInvalidDataException("Unknown Vendor: $value")
                 }
 
