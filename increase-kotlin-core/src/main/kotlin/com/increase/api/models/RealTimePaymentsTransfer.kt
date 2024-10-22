@@ -2011,15 +2011,15 @@ private constructor(
 
             val PENDING_REVIEWING = Status(JsonField.of("pending_reviewing"))
 
+            val REQUIRES_ATTENTION = Status(JsonField.of("requires_attention"))
+
+            val REJECTED = Status(JsonField.of("rejected"))
+
             val PENDING_SUBMISSION = Status(JsonField.of("pending_submission"))
 
             val SUBMITTED = Status(JsonField.of("submitted"))
 
             val COMPLETE = Status(JsonField.of("complete"))
-
-            val REJECTED = Status(JsonField.of("rejected"))
-
-            val REQUIRES_ATTENTION = Status(JsonField.of("requires_attention"))
 
             fun of(value: String) = Status(JsonField.of(value))
         }
@@ -2028,22 +2028,22 @@ private constructor(
             PENDING_APPROVAL,
             CANCELED,
             PENDING_REVIEWING,
+            REQUIRES_ATTENTION,
+            REJECTED,
             PENDING_SUBMISSION,
             SUBMITTED,
             COMPLETE,
-            REJECTED,
-            REQUIRES_ATTENTION,
         }
 
         enum class Value {
             PENDING_APPROVAL,
             CANCELED,
             PENDING_REVIEWING,
+            REQUIRES_ATTENTION,
+            REJECTED,
             PENDING_SUBMISSION,
             SUBMITTED,
             COMPLETE,
-            REJECTED,
-            REQUIRES_ATTENTION,
             _UNKNOWN,
         }
 
@@ -2052,11 +2052,11 @@ private constructor(
                 PENDING_APPROVAL -> Value.PENDING_APPROVAL
                 CANCELED -> Value.CANCELED
                 PENDING_REVIEWING -> Value.PENDING_REVIEWING
+                REQUIRES_ATTENTION -> Value.REQUIRES_ATTENTION
+                REJECTED -> Value.REJECTED
                 PENDING_SUBMISSION -> Value.PENDING_SUBMISSION
                 SUBMITTED -> Value.SUBMITTED
                 COMPLETE -> Value.COMPLETE
-                REJECTED -> Value.REJECTED
-                REQUIRES_ATTENTION -> Value.REQUIRES_ATTENTION
                 else -> Value._UNKNOWN
             }
 
@@ -2065,11 +2065,11 @@ private constructor(
                 PENDING_APPROVAL -> Known.PENDING_APPROVAL
                 CANCELED -> Known.CANCELED
                 PENDING_REVIEWING -> Known.PENDING_REVIEWING
+                REQUIRES_ATTENTION -> Known.REQUIRES_ATTENTION
+                REJECTED -> Known.REJECTED
                 PENDING_SUBMISSION -> Known.PENDING_SUBMISSION
                 SUBMITTED -> Known.SUBMITTED
                 COMPLETE -> Known.COMPLETE
-                REJECTED -> Known.REJECTED
-                REQUIRES_ATTENTION -> Known.REQUIRES_ATTENTION
                 else -> throw IncreaseInvalidDataException("Unknown Status: $value")
             }
 
