@@ -2601,21 +2601,21 @@ private constructor(
 
             val PENDING_APPROVAL = Status(JsonField.of("pending_approval"))
 
+            val CANCELED = Status(JsonField.of("canceled"))
+
             val PENDING_SUBMISSION = Status(JsonField.of("pending_submission"))
+
+            val REQUIRES_ATTENTION = Status(JsonField.of("requires_attention"))
+
+            val REJECTED = Status(JsonField.of("rejected"))
 
             val PENDING_MAILING = Status(JsonField.of("pending_mailing"))
 
             val MAILED = Status(JsonField.of("mailed"))
 
-            val CANCELED = Status(JsonField.of("canceled"))
-
             val DEPOSITED = Status(JsonField.of("deposited"))
 
             val STOPPED = Status(JsonField.of("stopped"))
-
-            val REJECTED = Status(JsonField.of("rejected"))
-
-            val REQUIRES_ATTENTION = Status(JsonField.of("requires_attention"))
 
             val RETURNED = Status(JsonField.of("returned"))
 
@@ -2624,27 +2624,27 @@ private constructor(
 
         enum class Known {
             PENDING_APPROVAL,
+            CANCELED,
             PENDING_SUBMISSION,
+            REQUIRES_ATTENTION,
+            REJECTED,
             PENDING_MAILING,
             MAILED,
-            CANCELED,
             DEPOSITED,
             STOPPED,
-            REJECTED,
-            REQUIRES_ATTENTION,
             RETURNED,
         }
 
         enum class Value {
             PENDING_APPROVAL,
+            CANCELED,
             PENDING_SUBMISSION,
+            REQUIRES_ATTENTION,
+            REJECTED,
             PENDING_MAILING,
             MAILED,
-            CANCELED,
             DEPOSITED,
             STOPPED,
-            REJECTED,
-            REQUIRES_ATTENTION,
             RETURNED,
             _UNKNOWN,
         }
@@ -2652,14 +2652,14 @@ private constructor(
         fun value(): Value =
             when (this) {
                 PENDING_APPROVAL -> Value.PENDING_APPROVAL
+                CANCELED -> Value.CANCELED
                 PENDING_SUBMISSION -> Value.PENDING_SUBMISSION
+                REQUIRES_ATTENTION -> Value.REQUIRES_ATTENTION
+                REJECTED -> Value.REJECTED
                 PENDING_MAILING -> Value.PENDING_MAILING
                 MAILED -> Value.MAILED
-                CANCELED -> Value.CANCELED
                 DEPOSITED -> Value.DEPOSITED
                 STOPPED -> Value.STOPPED
-                REJECTED -> Value.REJECTED
-                REQUIRES_ATTENTION -> Value.REQUIRES_ATTENTION
                 RETURNED -> Value.RETURNED
                 else -> Value._UNKNOWN
             }
@@ -2667,14 +2667,14 @@ private constructor(
         fun known(): Known =
             when (this) {
                 PENDING_APPROVAL -> Known.PENDING_APPROVAL
+                CANCELED -> Known.CANCELED
                 PENDING_SUBMISSION -> Known.PENDING_SUBMISSION
+                REQUIRES_ATTENTION -> Known.REQUIRES_ATTENTION
+                REJECTED -> Known.REJECTED
                 PENDING_MAILING -> Known.PENDING_MAILING
                 MAILED -> Known.MAILED
-                CANCELED -> Known.CANCELED
                 DEPOSITED -> Known.DEPOSITED
                 STOPPED -> Known.STOPPED
-                REJECTED -> Known.REJECTED
-                REQUIRES_ATTENTION -> Known.REQUIRES_ATTENTION
                 RETURNED -> Known.RETURNED
                 else -> throw IncreaseInvalidDataException("Unknown Status: $value")
             }
