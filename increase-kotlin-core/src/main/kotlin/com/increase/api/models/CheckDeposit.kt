@@ -13,7 +13,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.toUnmodifiable
+import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Objects
@@ -550,7 +550,7 @@ private constructor(
                 status,
                 transactionId,
                 type,
-                additionalProperties.toUnmodifiable(),
+                additionalProperties.toImmutable(),
             )
     }
 
@@ -800,7 +800,7 @@ private constructor(
                     currency,
                     routingNumber,
                     serialNumber,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -1112,7 +1112,7 @@ private constructor(
                     declinedTransactionId,
                     reason,
                     rejectedAt,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -1539,7 +1539,7 @@ private constructor(
                     returnReason,
                     returnedAt,
                     transactionId,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -2004,7 +2004,7 @@ private constructor(
                     backFileId,
                     frontFileId,
                     submittedAt,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -2347,7 +2347,7 @@ private constructor(
                     releasedAt,
                     status,
                     type,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 

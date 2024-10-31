@@ -13,7 +13,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.toUnmodifiable
+import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Objects
@@ -559,7 +559,7 @@ private constructor(
                 acceptedAt,
                 accountId,
                 accountNumberId,
-                adjustments.map { it.toUnmodifiable() },
+                adjustments.map { it.toImmutable() },
                 amount,
                 backImageFileId,
                 bankOfFirstDepositRoutingNumber,
@@ -575,7 +575,7 @@ private constructor(
                 status,
                 transactionId,
                 type,
-                additionalProperties.toUnmodifiable(),
+                additionalProperties.toImmutable(),
             )
     }
 
@@ -709,7 +709,7 @@ private constructor(
                     amount,
                     reason,
                     transactionId,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -984,7 +984,7 @@ private constructor(
                     reason,
                     returnedAt,
                     transactionId,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 

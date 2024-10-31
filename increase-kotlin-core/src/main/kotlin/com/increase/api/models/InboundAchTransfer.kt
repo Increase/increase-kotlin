@@ -13,7 +13,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.toUnmodifiable
+import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Objects
@@ -670,7 +670,7 @@ private constructor(
                 traceNumber,
                 transferReturn,
                 type,
-                additionalProperties.toUnmodifiable(),
+                additionalProperties.toImmutable(),
             )
     }
 
@@ -767,7 +767,7 @@ private constructor(
                 Acceptance(
                     acceptedAt,
                     transactionId,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -881,7 +881,7 @@ private constructor(
                 Addenda(
                     category,
                     freeform,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -1005,10 +1005,7 @@ private constructor(
                     }
 
                 fun build(): Freeform =
-                    Freeform(
-                        entries.map { it.toUnmodifiable() },
-                        additionalProperties.toUnmodifiable()
-                    )
+                    Freeform(entries.map { it.toImmutable() }, additionalProperties.toImmutable())
             }
 
             @JsonDeserialize(builder = Entry.Builder::class)
@@ -1086,7 +1083,7 @@ private constructor(
                         }
 
                     fun build(): Entry =
-                        Entry(paymentRelatedInformation, additionalProperties.toUnmodifiable())
+                        Entry(paymentRelatedInformation, additionalProperties.toImmutable())
                 }
 
                 override fun equals(other: Any?): Boolean {
@@ -1268,7 +1265,7 @@ private constructor(
                     declinedAt,
                     declinedTransactionId,
                     reason,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -2765,7 +2762,7 @@ private constructor(
                     receivingDepositoryFinancialInstitutionId,
                     receivingDepositoryFinancialInstitutionIdQualifier,
                     receivingDepositoryFinancialInstitutionName,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -3351,7 +3348,7 @@ private constructor(
                 NotificationOfChange(
                     updatedAccountNumber,
                     updatedRoutingNumber,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -3704,7 +3701,7 @@ private constructor(
                     reason,
                     returnedAt,
                     transactionId,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 

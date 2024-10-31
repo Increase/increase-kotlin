@@ -9,7 +9,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.toUnmodifiable
+import com.increase.api.core.toImmutable
 import com.increase.api.models.*
 import java.util.Objects
 
@@ -168,7 +168,7 @@ constructor(
                     description,
                     frontImageFileId,
                     frontText,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -337,9 +337,9 @@ constructor(
                 description,
                 frontImageFileId,
                 frontText,
-                additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-                additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-                additionalBodyProperties.toUnmodifiable(),
+                additionalQueryParams.mapValues { it.value.toImmutable() }.toImmutable(),
+                additionalHeaders.mapValues { it.value.toImmutable() }.toImmutable(),
+                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -417,7 +417,7 @@ constructor(
                 FrontText(
                     checkNotNull(line1) { "`line1` is required but was not set" },
                     line2,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 

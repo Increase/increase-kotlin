@@ -385,7 +385,7 @@ private constructor(
     override fun toString() = values.toString()
 
     companion object {
-        @JsonCreator fun of(values: List<JsonValue>) = JsonArray(values.toUnmodifiable())
+        @JsonCreator fun of(values: List<JsonValue>) = JsonArray(values.toImmutable())
     }
 }
 
@@ -409,7 +409,7 @@ private constructor(
     override fun toString() = values.toString()
 
     companion object {
-        @JsonCreator fun of(values: Map<String, JsonValue>) = JsonObject(values.toUnmodifiable())
+        @JsonCreator fun of(values: Map<String, JsonValue>) = JsonObject(values.toImmutable())
     }
 }
 

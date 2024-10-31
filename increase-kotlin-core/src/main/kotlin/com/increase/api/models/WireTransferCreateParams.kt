@@ -9,7 +9,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.toUnmodifiable
+import com.increase.api.core.toImmutable
 import com.increase.api.models.*
 import java.util.Objects
 
@@ -382,7 +382,7 @@ constructor(
                     requireApproval,
                     routingNumber,
                     sourceAccountNumberId,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -642,9 +642,9 @@ constructor(
                 requireApproval,
                 routingNumber,
                 sourceAccountNumberId,
-                additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-                additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-                additionalBodyProperties.toUnmodifiable(),
+                additionalQueryParams.mapValues { it.value.toImmutable() }.toImmutable(),
+                additionalHeaders.mapValues { it.value.toImmutable() }.toImmutable(),
+                additionalBodyProperties.toImmutable(),
             )
     }
 }

@@ -12,7 +12,7 @@ import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.toUnmodifiable
+import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import com.increase.api.models.*
 import java.util.Objects
@@ -144,7 +144,7 @@ constructor(
                     checkNotNull(cardholder) { "`cardholder` is required but was not set" },
                     checkNotNull(shipment) { "`shipment` is required but was not set" },
                     physicalCardProfileId,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -295,9 +295,9 @@ constructor(
                 checkNotNull(cardholder) { "`cardholder` is required but was not set" },
                 checkNotNull(shipment) { "`shipment` is required but was not set" },
                 physicalCardProfileId,
-                additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-                additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-                additionalBodyProperties.toUnmodifiable(),
+                additionalQueryParams.mapValues { it.value.toImmutable() }.toImmutable(),
+                additionalHeaders.mapValues { it.value.toImmutable() }.toImmutable(),
+                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -366,7 +366,7 @@ constructor(
                 Cardholder(
                     checkNotNull(firstName) { "`firstName` is required but was not set" },
                     checkNotNull(lastName) { "`lastName` is required but was not set" },
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -455,7 +455,7 @@ constructor(
                 Shipment(
                     checkNotNull(address) { "`address` is required but was not set" },
                     checkNotNull(method) { "`method` is required but was not set" },
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -585,7 +585,7 @@ constructor(
                         phoneNumber,
                         checkNotNull(postalCode) { "`postalCode` is required but was not set" },
                         checkNotNull(state) { "`state` is required but was not set" },
-                        additionalProperties.toUnmodifiable(),
+                        additionalProperties.toImmutable(),
                     )
             }
 
