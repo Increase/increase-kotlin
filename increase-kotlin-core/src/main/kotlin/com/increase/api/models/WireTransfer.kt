@@ -13,7 +13,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.toUnmodifiable
+import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.LocalDate
 import java.time.OffsetDateTime
@@ -790,7 +790,7 @@ private constructor(
                 submission,
                 transactionId,
                 type,
-                additionalProperties.toUnmodifiable(),
+                additionalProperties.toImmutable(),
             )
     }
 
@@ -910,7 +910,7 @@ private constructor(
                 Approval(
                     approvedAt,
                     approvedBy,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -1051,7 +1051,7 @@ private constructor(
                 Cancellation(
                     canceledAt,
                     canceledBy,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -1209,7 +1209,7 @@ private constructor(
                     category,
                     oauthApplication,
                     user,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -1283,7 +1283,7 @@ private constructor(
                         this.additionalProperties.putAll(additionalProperties)
                     }
 
-                fun build(): ApiKey = ApiKey(description, additionalProperties.toUnmodifiable())
+                fun build(): ApiKey = ApiKey(description, additionalProperties.toImmutable())
             }
 
             override fun equals(other: Any?): Boolean {
@@ -1439,7 +1439,7 @@ private constructor(
                     }
 
                 fun build(): OAuthApplication =
-                    OAuthApplication(name, additionalProperties.toUnmodifiable())
+                    OAuthApplication(name, additionalProperties.toImmutable())
             }
 
             override fun equals(other: Any?): Boolean {
@@ -1531,7 +1531,7 @@ private constructor(
                         this.additionalProperties.putAll(additionalProperties)
                     }
 
-                fun build(): User = User(email, additionalProperties.toUnmodifiable())
+                fun build(): User = User(email, additionalProperties.toImmutable())
             }
 
             override fun equals(other: Any?): Boolean {
@@ -2236,7 +2236,7 @@ private constructor(
                     senderReference,
                     transactionId,
                     wireTransferId,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -2458,7 +2458,7 @@ private constructor(
                 Submission(
                     inputMessageAccountabilityData,
                     submittedAt,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 

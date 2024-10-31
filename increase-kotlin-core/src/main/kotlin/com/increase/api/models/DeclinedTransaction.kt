@@ -13,7 +13,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.toUnmodifiable
+import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Objects
@@ -347,7 +347,7 @@ private constructor(
                 routeType,
                 source,
                 type,
-                additionalProperties.toUnmodifiable(),
+                additionalProperties.toImmutable(),
             )
     }
 
@@ -825,7 +825,7 @@ private constructor(
                     inboundRealTimePaymentsTransferDecline,
                     other,
                     wireDecline,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -1177,7 +1177,7 @@ private constructor(
                         receiverName,
                         traceNumber,
                         type,
-                        additionalProperties.toUnmodifiable(),
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -2206,7 +2206,7 @@ private constructor(
                         realTimeDecisionId,
                         reason,
                         verification,
-                        additionalProperties.toUnmodifiable(),
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -2501,7 +2501,7 @@ private constructor(
                         NetworkDetails(
                             category,
                             visa,
-                            additionalProperties.toUnmodifiable(),
+                            additionalProperties.toImmutable(),
                         )
                 }
 
@@ -2695,7 +2695,7 @@ private constructor(
                             Visa(
                                 electronicCommerceIndicator,
                                 pointOfServiceEntryMode,
-                                additionalProperties.toUnmodifiable(),
+                                additionalProperties.toImmutable(),
                             )
                     }
 
@@ -3141,7 +3141,7 @@ private constructor(
                             retrievalReferenceNumber,
                             traceNumber,
                             transactionId,
-                            additionalProperties.toUnmodifiable(),
+                            additionalProperties.toImmutable(),
                         )
                 }
 
@@ -3513,7 +3513,7 @@ private constructor(
                         Verification(
                             cardVerificationCode,
                             cardholderAddress,
-                            additionalProperties.toUnmodifiable(),
+                            additionalProperties.toImmutable(),
                         )
                 }
 
@@ -3590,7 +3590,7 @@ private constructor(
                         ) = apply { this.additionalProperties.putAll(additionalProperties) }
 
                         fun build(): CardVerificationCode =
-                            CardVerificationCode(result, additionalProperties.toUnmodifiable())
+                            CardVerificationCode(result, additionalProperties.toImmutable())
                     }
 
                     class Result
@@ -3865,7 +3865,7 @@ private constructor(
                                 providedLine1,
                                 providedPostalCode,
                                 result,
-                                additionalProperties.toUnmodifiable(),
+                                additionalProperties.toImmutable(),
                             )
                     }
 
@@ -4369,7 +4369,7 @@ private constructor(
                         frontImageFileId,
                         inboundCheckDepositId,
                         reason,
-                        additionalProperties.toUnmodifiable(),
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -4755,7 +4755,7 @@ private constructor(
                         declinedTransactionId,
                         reason,
                         rejectedAt,
-                        additionalProperties.toUnmodifiable(),
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -5291,7 +5291,7 @@ private constructor(
                         remittanceInformation,
                         transactionIdentification,
                         transferId,
-                        additionalProperties.toUnmodifiable(),
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -5578,7 +5578,7 @@ private constructor(
                     WireDecline(
                         inboundWireTransferId,
                         reason,
-                        additionalProperties.toUnmodifiable(),
+                        additionalProperties.toImmutable(),
                     )
             }
 
