@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.123.1 (2024-10-31)
+
+Full Changelog: [v0.123.0...v0.123.1](https://github.com/Increase/increase-kotlin/compare/v0.123.0...v0.123.1)
+
+### Bug Fixes
+
+* erroneous deletion of getRequiredHeader ([#544](https://github.com/Increase/increase-kotlin/issues/544)) ([a397e6d](https://github.com/Increase/increase-kotlin/commit/a397e6df7ffbab5b336dc0e306df954b3eece664))
+
 ## 0.123.0 (2024-10-31)
 
 Full Changelog: [v0.122.0...v0.123.0](https://github.com/Increase/increase-kotlin/compare/v0.122.0...v0.123.0)
