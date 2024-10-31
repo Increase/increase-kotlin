@@ -8,13 +8,8 @@ import com.google.common.collect.Multimaps
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Collections
 
-internal fun <T : Any> T?.getOrThrow(name: String): T {
-    if (this == null) {
-        throw IncreaseInvalidDataException("'${name}' is not present")
-    }
-
-    return this
-}
+internal fun <T : Any> T?.getOrThrow(name: String): T =
+    this ?: throw IncreaseInvalidDataException("`${name}` is not present")
 
 internal fun <T> List<T>.toUnmodifiable(): List<T> {
     if (isEmpty()) {
@@ -38,19 +33,6 @@ internal fun <K, V> ListMultimap<K, V>.toUnmodifiable(): ListMultimap<K, V> {
     }
 
     return Multimaps.unmodifiableListMultimap(this)
-}
-
-internal fun ListMultimap<String, String>.getRequiredHeader(header: String): String {
-    val value =
-        entries()
-            .stream()
-            .filter { entry -> entry.key.equals(header, ignoreCase = true) }
-            .map { entry -> entry.value }
-            .findFirst()
-    if (!value.isPresent) {
-        throw IncreaseInvalidDataException("Could not find $header header")
-    }
-    return value.get()
 }
 
 internal interface Enum
