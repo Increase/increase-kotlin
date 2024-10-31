@@ -9,7 +9,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.toUnmodifiable
+import com.increase.api.core.toImmutable
 import com.increase.api.models.*
 import java.time.OffsetDateTime
 import java.util.Objects
@@ -121,11 +121,10 @@ constructor(
 
             fun build(): BookkeepingEntrySetCreateBody =
                 BookkeepingEntrySetCreateBody(
-                    checkNotNull(entries) { "`entries` is required but was not set" }
-                        .toUnmodifiable(),
+                    checkNotNull(entries) { "`entries` is required but was not set" }.toImmutable(),
                     date,
                     transactionId,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -272,12 +271,12 @@ constructor(
 
         fun build(): BookkeepingEntrySetCreateParams =
             BookkeepingEntrySetCreateParams(
-                checkNotNull(entries) { "`entries` is required but was not set" }.toUnmodifiable(),
+                checkNotNull(entries) { "`entries` is required but was not set" }.toImmutable(),
                 date,
                 transactionId,
-                additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-                additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-                additionalBodyProperties.toUnmodifiable(),
+                additionalQueryParams.mapValues { it.value.toImmutable() }.toImmutable(),
+                additionalHeaders.mapValues { it.value.toImmutable() }.toImmutable(),
+                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -351,7 +350,7 @@ constructor(
                 Entry(
                     checkNotNull(accountId) { "`accountId` is required but was not set" },
                     checkNotNull(amount) { "`amount` is required but was not set" },
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 

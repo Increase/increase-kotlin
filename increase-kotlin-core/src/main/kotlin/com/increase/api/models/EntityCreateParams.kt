@@ -12,7 +12,7 @@ import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.toUnmodifiable
+import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import com.increase.api.models.*
 import java.time.LocalDate
@@ -250,10 +250,10 @@ constructor(
                     governmentAuthority,
                     joint,
                     naturalPerson,
-                    supplementalDocuments?.toUnmodifiable(),
+                    supplementalDocuments?.toImmutable(),
                     thirdPartyVerification,
                     trust,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -454,13 +454,12 @@ constructor(
                 governmentAuthority,
                 joint,
                 naturalPerson,
-                if (supplementalDocuments.size == 0) null
-                else supplementalDocuments.toUnmodifiable(),
+                if (supplementalDocuments.size == 0) null else supplementalDocuments.toImmutable(),
                 thirdPartyVerification,
                 trust,
-                additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-                additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-                additionalBodyProperties.toUnmodifiable(),
+                additionalQueryParams.mapValues { it.value.toImmutable() }.toImmutable(),
+                additionalHeaders.mapValues { it.value.toImmutable() }.toImmutable(),
+                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -689,13 +688,13 @@ constructor(
                     checkNotNull(beneficialOwners) {
                             "`beneficialOwners` is required but was not set"
                         }
-                        .toUnmodifiable(),
+                        .toImmutable(),
                     incorporationState,
                     industryCode,
                     checkNotNull(name) { "`name` is required but was not set" },
                     checkNotNull(taxIdentifier) { "`taxIdentifier` is required but was not set" },
                     website,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -802,7 +801,7 @@ constructor(
                         line2,
                         checkNotNull(state) { "`state` is required but was not set" },
                         checkNotNull(zip) { "`zip` is required but was not set" },
-                        additionalProperties.toUnmodifiable(),
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -911,8 +910,8 @@ constructor(
                         companyTitle,
                         checkNotNull(individual) { "`individual` is required but was not set" },
                         checkNotNull(prongs) { "`prongs` is required but was not set" }
-                            .toUnmodifiable(),
-                        additionalProperties.toUnmodifiable(),
+                            .toImmutable(),
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -1042,7 +1041,7 @@ constructor(
                                 "`identification` is required but was not set"
                             },
                             checkNotNull(name) { "`name` is required but was not set" },
-                            additionalProperties.toUnmodifiable(),
+                            additionalProperties.toImmutable(),
                         )
                 }
 
@@ -1160,7 +1159,7 @@ constructor(
                                 line2,
                                 checkNotNull(state) { "`state` is required but was not set" },
                                 checkNotNull(zip) { "`zip` is required but was not set" },
-                                additionalProperties.toUnmodifiable(),
+                                additionalProperties.toImmutable(),
                             )
                     }
 
@@ -1312,7 +1311,7 @@ constructor(
                                 checkNotNull(number) { "`number` is required but was not set" },
                                 other,
                                 passport,
-                                additionalProperties.toUnmodifiable(),
+                                additionalProperties.toImmutable(),
                             )
                     }
 
@@ -1505,7 +1504,7 @@ constructor(
                                     },
                                     checkNotNull(fileId) { "`fileId` is required but was not set" },
                                     checkNotNull(state) { "`state` is required but was not set" },
-                                    additionalProperties.toUnmodifiable(),
+                                    additionalProperties.toImmutable(),
                                 )
                         }
 
@@ -1656,7 +1655,7 @@ constructor(
                                     },
                                     expirationDate,
                                     checkNotNull(fileId) { "`fileId` is required but was not set" },
-                                    additionalProperties.toUnmodifiable(),
+                                    additionalProperties.toImmutable(),
                                 )
                         }
 
@@ -1769,7 +1768,7 @@ constructor(
                                         "`expirationDate` is required but was not set"
                                     },
                                     checkNotNull(fileId) { "`fileId` is required but was not set" },
-                                    additionalProperties.toUnmodifiable(),
+                                    additionalProperties.toImmutable(),
                                 )
                         }
 
@@ -2052,12 +2051,12 @@ constructor(
                     checkNotNull(authorizedPersons) {
                             "`authorizedPersons` is required but was not set"
                         }
-                        .toUnmodifiable(),
+                        .toImmutable(),
                     checkNotNull(category) { "`category` is required but was not set" },
                     checkNotNull(name) { "`name` is required but was not set" },
                     checkNotNull(taxIdentifier) { "`taxIdentifier` is required but was not set" },
                     website,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -2164,7 +2163,7 @@ constructor(
                         line2,
                         checkNotNull(state) { "`state` is required but was not set" },
                         checkNotNull(zip) { "`zip` is required but was not set" },
-                        additionalProperties.toUnmodifiable(),
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -2242,7 +2241,7 @@ constructor(
                 fun build(): AuthorizedPerson =
                     AuthorizedPerson(
                         checkNotNull(name) { "`name` is required but was not set" },
-                        additionalProperties.toUnmodifiable()
+                        additionalProperties.toImmutable()
                     )
             }
 
@@ -2404,9 +2403,9 @@ constructor(
             fun build(): Joint =
                 Joint(
                     checkNotNull(individuals) { "`individuals` is required but was not set" }
-                        .toUnmodifiable(),
+                        .toImmutable(),
                     name,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -2529,7 +2528,7 @@ constructor(
                             "`identification` is required but was not set"
                         },
                         checkNotNull(name) { "`name` is required but was not set" },
-                        additionalProperties.toUnmodifiable(),
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -2638,7 +2637,7 @@ constructor(
                             line2,
                             checkNotNull(state) { "`state` is required but was not set" },
                             checkNotNull(zip) { "`zip` is required but was not set" },
-                            additionalProperties.toUnmodifiable(),
+                            additionalProperties.toImmutable(),
                         )
                 }
 
@@ -2788,7 +2787,7 @@ constructor(
                             checkNotNull(number) { "`number` is required but was not set" },
                             other,
                             passport,
-                            additionalProperties.toUnmodifiable(),
+                            additionalProperties.toImmutable(),
                         )
                 }
 
@@ -2972,7 +2971,7 @@ constructor(
                                 },
                                 checkNotNull(fileId) { "`fileId` is required but was not set" },
                                 checkNotNull(state) { "`state` is required but was not set" },
-                                additionalProperties.toUnmodifiable(),
+                                additionalProperties.toImmutable(),
                             )
                     }
 
@@ -3119,7 +3118,7 @@ constructor(
                                 },
                                 expirationDate,
                                 checkNotNull(fileId) { "`fileId` is required but was not set" },
-                                additionalProperties.toUnmodifiable(),
+                                additionalProperties.toImmutable(),
                             )
                     }
 
@@ -3230,7 +3229,7 @@ constructor(
                                     "`expirationDate` is required but was not set"
                                 },
                                 checkNotNull(fileId) { "`fileId` is required but was not set" },
-                                additionalProperties.toUnmodifiable(),
+                                additionalProperties.toImmutable(),
                             )
                     }
 
@@ -3438,7 +3437,7 @@ constructor(
                     checkNotNull(dateOfBirth) { "`dateOfBirth` is required but was not set" },
                     checkNotNull(identification) { "`identification` is required but was not set" },
                     checkNotNull(name) { "`name` is required but was not set" },
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -3545,7 +3544,7 @@ constructor(
                         line2,
                         checkNotNull(state) { "`state` is required but was not set" },
                         checkNotNull(zip) { "`zip` is required but was not set" },
-                        additionalProperties.toUnmodifiable(),
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -3692,7 +3691,7 @@ constructor(
                         checkNotNull(number) { "`number` is required but was not set" },
                         other,
                         passport,
-                        additionalProperties.toUnmodifiable(),
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -3868,7 +3867,7 @@ constructor(
                             },
                             checkNotNull(fileId) { "`fileId` is required but was not set" },
                             checkNotNull(state) { "`state` is required but was not set" },
-                            additionalProperties.toUnmodifiable(),
+                            additionalProperties.toImmutable(),
                         )
                 }
 
@@ -4011,7 +4010,7 @@ constructor(
                             },
                             expirationDate,
                             checkNotNull(fileId) { "`fileId` is required but was not set" },
-                            additionalProperties.toUnmodifiable(),
+                            additionalProperties.toImmutable(),
                         )
                 }
 
@@ -4120,7 +4119,7 @@ constructor(
                                 "`expirationDate` is required but was not set"
                             },
                             checkNotNull(fileId) { "`fileId` is required but was not set" },
-                            additionalProperties.toUnmodifiable(),
+                            additionalProperties.toImmutable(),
                         )
                 }
 
@@ -4239,7 +4238,7 @@ constructor(
             fun build(): SupplementalDocument =
                 SupplementalDocument(
                     checkNotNull(fileId) { "`fileId` is required but was not set" },
-                    additionalProperties.toUnmodifiable()
+                    additionalProperties.toImmutable()
                 )
         }
 
@@ -4331,7 +4330,7 @@ constructor(
                 ThirdPartyVerification(
                     checkNotNull(reference) { "`reference` is required but was not set" },
                     checkNotNull(vendor) { "`vendor` is required but was not set" },
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -4574,8 +4573,8 @@ constructor(
                     checkNotNull(name) { "`name` is required but was not set" },
                     taxIdentifier,
                     checkNotNull(trustees) { "`trustees` is required but was not set" }
-                        .toUnmodifiable(),
-                    additionalProperties.toUnmodifiable(),
+                        .toImmutable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -4682,7 +4681,7 @@ constructor(
                         line2,
                         checkNotNull(state) { "`state` is required but was not set" },
                         checkNotNull(zip) { "`zip` is required but was not set" },
-                        additionalProperties.toUnmodifiable(),
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -4835,7 +4834,7 @@ constructor(
                     Trustee(
                         individual,
                         checkNotNull(structure) { "`structure` is required but was not set" },
-                        additionalProperties.toUnmodifiable(),
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -5019,7 +5018,7 @@ constructor(
                                 "`identification` is required but was not set"
                             },
                             checkNotNull(name) { "`name` is required but was not set" },
-                            additionalProperties.toUnmodifiable(),
+                            additionalProperties.toImmutable(),
                         )
                 }
 
@@ -5137,7 +5136,7 @@ constructor(
                                 line2,
                                 checkNotNull(state) { "`state` is required but was not set" },
                                 checkNotNull(zip) { "`zip` is required but was not set" },
-                                additionalProperties.toUnmodifiable(),
+                                additionalProperties.toImmutable(),
                             )
                     }
 
@@ -5289,7 +5288,7 @@ constructor(
                                 checkNotNull(number) { "`number` is required but was not set" },
                                 other,
                                 passport,
-                                additionalProperties.toUnmodifiable(),
+                                additionalProperties.toImmutable(),
                             )
                     }
 
@@ -5482,7 +5481,7 @@ constructor(
                                     },
                                     checkNotNull(fileId) { "`fileId` is required but was not set" },
                                     checkNotNull(state) { "`state` is required but was not set" },
-                                    additionalProperties.toUnmodifiable(),
+                                    additionalProperties.toImmutable(),
                                 )
                         }
 
@@ -5633,7 +5632,7 @@ constructor(
                                     },
                                     expirationDate,
                                     checkNotNull(fileId) { "`fileId` is required but was not set" },
-                                    additionalProperties.toUnmodifiable(),
+                                    additionalProperties.toImmutable(),
                                 )
                         }
 
@@ -5746,7 +5745,7 @@ constructor(
                                         "`expirationDate` is required but was not set"
                                     },
                                     checkNotNull(fileId) { "`fileId` is required but was not set" },
-                                    additionalProperties.toUnmodifiable(),
+                                    additionalProperties.toImmutable(),
                                 )
                         }
 
@@ -5954,7 +5953,7 @@ constructor(
                             "`identification` is required but was not set"
                         },
                         checkNotNull(name) { "`name` is required but was not set" },
-                        additionalProperties.toUnmodifiable(),
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -6063,7 +6062,7 @@ constructor(
                             line2,
                             checkNotNull(state) { "`state` is required but was not set" },
                             checkNotNull(zip) { "`zip` is required but was not set" },
-                            additionalProperties.toUnmodifiable(),
+                            additionalProperties.toImmutable(),
                         )
                 }
 
@@ -6213,7 +6212,7 @@ constructor(
                             checkNotNull(number) { "`number` is required but was not set" },
                             other,
                             passport,
-                            additionalProperties.toUnmodifiable(),
+                            additionalProperties.toImmutable(),
                         )
                 }
 
@@ -6397,7 +6396,7 @@ constructor(
                                 },
                                 checkNotNull(fileId) { "`fileId` is required but was not set" },
                                 checkNotNull(state) { "`state` is required but was not set" },
-                                additionalProperties.toUnmodifiable(),
+                                additionalProperties.toImmutable(),
                             )
                     }
 
@@ -6544,7 +6543,7 @@ constructor(
                                 },
                                 expirationDate,
                                 checkNotNull(fileId) { "`fileId` is required but was not set" },
-                                additionalProperties.toUnmodifiable(),
+                                additionalProperties.toImmutable(),
                             )
                     }
 
@@ -6655,7 +6654,7 @@ constructor(
                                     "`expirationDate` is required but was not set"
                                 },
                                 checkNotNull(fileId) { "`fileId` is required but was not set" },
-                                additionalProperties.toUnmodifiable(),
+                                additionalProperties.toImmutable(),
                             )
                     }
 

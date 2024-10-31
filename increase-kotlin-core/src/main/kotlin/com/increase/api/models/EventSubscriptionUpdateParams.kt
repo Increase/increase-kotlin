@@ -12,7 +12,7 @@ import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.toUnmodifiable
+import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import com.increase.api.models.*
 import java.util.Objects
@@ -95,7 +95,7 @@ constructor(
             }
 
             fun build(): EventSubscriptionUpdateBody =
-                EventSubscriptionUpdateBody(status, additionalProperties.toUnmodifiable())
+                EventSubscriptionUpdateBody(status, additionalProperties.toImmutable())
         }
 
         override fun equals(other: Any?): Boolean {
@@ -232,9 +232,9 @@ constructor(
                     "`eventSubscriptionId` is required but was not set"
                 },
                 status,
-                additionalQueryParams.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-                additionalHeaders.mapValues { it.value.toUnmodifiable() }.toUnmodifiable(),
-                additionalBodyProperties.toUnmodifiable(),
+                additionalQueryParams.mapValues { it.value.toImmutable() }.toImmutable(),
+                additionalHeaders.mapValues { it.value.toImmutable() }.toImmutable(),
+                additionalBodyProperties.toImmutable(),
             )
     }
 

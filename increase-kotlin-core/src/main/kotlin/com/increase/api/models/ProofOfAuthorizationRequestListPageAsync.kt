@@ -11,7 +11,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.toUnmodifiable
+import com.increase.api.core.toImmutable
 import com.increase.api.services.async.ProofOfAuthorizationRequestServiceAsync
 import java.util.Objects
 import kotlinx.coroutines.flow.Flow
@@ -170,7 +170,7 @@ private constructor(
                 Response(
                     data,
                     nextCursor,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
     }
