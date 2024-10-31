@@ -11,7 +11,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.toUnmodifiable
+import com.increase.api.core.toImmutable
 import com.increase.api.services.blocking.LockboxService
 import java.util.Objects
 
@@ -162,7 +162,7 @@ private constructor(
                 Response(
                     data,
                     nextCursor,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
     }

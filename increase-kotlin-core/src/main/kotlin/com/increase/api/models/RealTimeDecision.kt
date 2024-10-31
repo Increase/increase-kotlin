@@ -13,7 +13,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.toUnmodifiable
+import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Objects
@@ -346,7 +346,7 @@ private constructor(
                 status,
                 timeoutAt,
                 type,
-                additionalProperties.toUnmodifiable(),
+                additionalProperties.toImmutable(),
             )
     }
 
@@ -495,7 +495,7 @@ private constructor(
                     cardId,
                     decision,
                     upcomingCardPaymentId,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -737,7 +737,7 @@ private constructor(
                     cardPaymentId,
                     oneTimeCode,
                     result,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -1572,7 +1572,7 @@ private constructor(
                     settlementCurrency,
                     upcomingCardPaymentId,
                     verification,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -1780,7 +1780,7 @@ private constructor(
                     NetworkDetails(
                         category,
                         visa,
-                        additionalProperties.toUnmodifiable(),
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -1969,7 +1969,7 @@ private constructor(
                         Visa(
                             electronicCommerceIndicator,
                             pointOfServiceEntryMode,
-                            additionalProperties.toUnmodifiable(),
+                            additionalProperties.toImmutable(),
                         )
                 }
 
@@ -2403,7 +2403,7 @@ private constructor(
                         retrievalReferenceNumber,
                         traceNumber,
                         transactionId,
-                        additionalProperties.toUnmodifiable(),
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -2635,7 +2635,7 @@ private constructor(
                         category,
                         incrementalAuthorization,
                         initialAuthorization,
-                        additionalProperties.toUnmodifiable(),
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -2809,7 +2809,7 @@ private constructor(
                         IncrementalAuthorization(
                             cardPaymentId,
                             originalCardAuthorizationId,
-                            additionalProperties.toUnmodifiable(),
+                            additionalProperties.toImmutable(),
                         )
                 }
 
@@ -2982,7 +2982,7 @@ private constructor(
                     Verification(
                         cardVerificationCode,
                         cardholderAddress,
-                        additionalProperties.toUnmodifiable(),
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -3058,7 +3058,7 @@ private constructor(
                         }
 
                     fun build(): CardVerificationCode =
-                        CardVerificationCode(result, additionalProperties.toUnmodifiable())
+                        CardVerificationCode(result, additionalProperties.toImmutable())
                 }
 
                 class Result
@@ -3324,7 +3324,7 @@ private constructor(
                             providedLine1,
                             providedPostalCode,
                             result,
-                            additionalProperties.toUnmodifiable(),
+                            additionalProperties.toImmutable(),
                         )
                 }
 
@@ -3756,7 +3756,7 @@ private constructor(
                     oneTimePasscode,
                     phone,
                     result,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -4124,7 +4124,7 @@ private constructor(
                     cardProfileId,
                     decision,
                     digitalWallet,
-                    additionalProperties.toUnmodifiable(),
+                    additionalProperties.toImmutable(),
                 )
         }
 
