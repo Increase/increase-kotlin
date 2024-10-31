@@ -6,11 +6,13 @@ import com.fasterxml.jackson.databind.json.JsonMapper
 import com.google.common.collect.ArrayListMultimap
 import com.google.common.collect.ListMultimap
 import com.increase.api.core.http.HttpClient
+import com.increase.api.core.http.PhantomReachableClosingHttpClient
 import com.increase.api.core.http.RetryingHttpClient
 import java.time.Clock
 
 class ClientOptions
 private constructor(
+    private val originalHttpClient: HttpClient,
     val httpClient: HttpClient,
     val jsonMapper: JsonMapper,
     val clock: Clock,
@@ -20,7 +22,10 @@ private constructor(
     val headers: ListMultimap<String, String>,
     val queryParams: ListMultimap<String, String>,
     val responseValidation: Boolean,
+    val maxRetries: Int,
 ) {
+
+    fun toBuilder() = Builder().from(this)
 
     companion object {
 
@@ -45,6 +50,25 @@ private constructor(
         private var maxRetries: Int = 2
         private var apiKey: String? = null
         private var webhookSecret: String? = null
+
+        internal fun from(clientOptions: ClientOptions) = apply {
+            httpClient = clientOptions.originalHttpClient
+            jsonMapper = clientOptions.jsonMapper
+            clock = clientOptions.clock
+            baseUrl = clientOptions.baseUrl
+            headers =
+                clientOptions.headers.asMap().mapValuesTo(mutableMapOf()) { (_, value) ->
+                    value.toMutableList()
+                }
+            queryParams =
+                clientOptions.queryParams.asMap().mapValuesTo(mutableMapOf()) { (_, value) ->
+                    value.toMutableList()
+                }
+            responseValidation = clientOptions.responseValidation
+            maxRetries = clientOptions.maxRetries
+            apiKey = clientOptions.apiKey
+            webhookSecret = clientOptions.webhookSecret
+        }
 
         fun httpClient(httpClient: HttpClient) = apply { this.httpClient = httpClient }
 
@@ -118,6 +142,7 @@ private constructor(
             headers.put("X-Stainless-OS", getOsName())
             headers.put("X-Stainless-OS-Version", getOsVersion())
             headers.put("X-Stainless-Package-Version", getPackageVersion())
+            headers.put("X-Stainless-Runtime", "JRE")
             headers.put("X-Stainless-Runtime-Version", getJavaVersion())
             if (!apiKey.isNullOrEmpty()) {
                 headers.put("Authorization", "Bearer ${apiKey}")
@@ -126,12 +151,15 @@ private constructor(
             this.queryParams.forEach(queryParams::replaceValues)
 
             return ClientOptions(
-                RetryingHttpClient.builder()
-                    .httpClient(httpClient!!)
-                    .clock(clock)
-                    .maxRetries(maxRetries)
-                    .idempotencyHeader("Idempotency-Key")
-                    .build(),
+                httpClient!!,
+                PhantomReachableClosingHttpClient(
+                    RetryingHttpClient.builder()
+                        .httpClient(httpClient!!)
+                        .clock(clock)
+                        .maxRetries(maxRetries)
+                        .idempotencyHeader("Idempotency-Key")
+                        .build()
+                ),
                 jsonMapper ?: jsonMapper(),
                 clock,
                 baseUrl,
@@ -140,6 +168,7 @@ private constructor(
                 headers.toUnmodifiable(),
                 queryParams.toUnmodifiable(),
                 responseValidation,
+                maxRetries,
             )
         }
     }
