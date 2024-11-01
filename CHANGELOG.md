@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.124.1 (2024-11-01)
+
+Full Changelog: [v0.124.0...v0.124.1](https://github.com/Increase/increase-kotlin/compare/v0.124.0...v0.124.1)
+
+### Bug Fixes
+
+* error handler import ([#551](https://github.com/Increase/increase-kotlin/issues/551)) ([d1aeb9e](https://github.com/Increase/increase-kotlin/commit/d1aeb9e4fff8c1df311f2f9f4fde37a51a35685f))
+
+
+### Chores
+
+* **internal:** version bump ([#546](https://github.com/Increase/increase-kotlin/issues/546)) ([28686ca](https://github.com/Increase/increase-kotlin/commit/28686cae8fbf3923ffd65fdf04728b08488b4fc9))
+
 ## 0.124.0 (2024-11-01)
 
 Full Changelog: [v0.123.1...v0.124.0](https://github.com/Increase/increase-kotlin/compare/v0.123.1...v0.124.0)
