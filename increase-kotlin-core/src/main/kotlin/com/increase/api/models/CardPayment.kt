@@ -1913,6 +1913,7 @@ private constructor(
                 private constructor(
                     private val electronicCommerceIndicator: JsonField<ElectronicCommerceIndicator>,
                     private val pointOfServiceEntryMode: JsonField<PointOfServiceEntryMode>,
+                    private val standInProcessingReason: JsonField<StandInProcessingReason>,
                     private val additionalProperties: Map<String, JsonValue>,
                 ) {
 
@@ -1934,6 +1935,13 @@ private constructor(
                         pointOfServiceEntryMode.getNullable("point_of_service_entry_mode")
 
                     /**
+                     * Only present when `actioner: network`. Describes why a card authorization was
+                     * approved or declined by Visa through stand-in processing.
+                     */
+                    fun standInProcessingReason(): StandInProcessingReason? =
+                        standInProcessingReason.getNullable("stand_in_processing_reason")
+
+                    /**
                      * For electronic commerce transactions, this identifies the level of security
                      * used in obtaining the customer's payment credential. For mail or telephone
                      * order transactions, identifies the type of mail or telephone order.
@@ -1950,6 +1958,14 @@ private constructor(
                     @ExcludeMissing
                     fun _pointOfServiceEntryMode() = pointOfServiceEntryMode
 
+                    /**
+                     * Only present when `actioner: network`. Describes why a card authorization was
+                     * approved or declined by Visa through stand-in processing.
+                     */
+                    @JsonProperty("stand_in_processing_reason")
+                    @ExcludeMissing
+                    fun _standInProcessingReason() = standInProcessingReason
+
                     @JsonAnyGetter
                     @ExcludeMissing
                     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -1958,6 +1974,7 @@ private constructor(
                         if (!validated) {
                             electronicCommerceIndicator()
                             pointOfServiceEntryMode()
+                            standInProcessingReason()
                             validated = true
                         }
                     }
@@ -1976,12 +1993,15 @@ private constructor(
                             JsonMissing.of()
                         private var pointOfServiceEntryMode: JsonField<PointOfServiceEntryMode> =
                             JsonMissing.of()
+                        private var standInProcessingReason: JsonField<StandInProcessingReason> =
+                            JsonMissing.of()
                         private var additionalProperties: MutableMap<String, JsonValue> =
                             mutableMapOf()
 
                         internal fun from(visa: Visa) = apply {
                             this.electronicCommerceIndicator = visa.electronicCommerceIndicator
                             this.pointOfServiceEntryMode = visa.pointOfServiceEntryMode
+                            this.standInProcessingReason = visa.standInProcessingReason
                             additionalProperties(visa.additionalProperties)
                         }
 
@@ -2025,6 +2045,24 @@ private constructor(
                             pointOfServiceEntryMode: JsonField<PointOfServiceEntryMode>
                         ) = apply { this.pointOfServiceEntryMode = pointOfServiceEntryMode }
 
+                        /**
+                         * Only present when `actioner: network`. Describes why a card authorization
+                         * was approved or declined by Visa through stand-in processing.
+                         */
+                        fun standInProcessingReason(
+                            standInProcessingReason: StandInProcessingReason
+                        ) = standInProcessingReason(JsonField.of(standInProcessingReason))
+
+                        /**
+                         * Only present when `actioner: network`. Describes why a card authorization
+                         * was approved or declined by Visa through stand-in processing.
+                         */
+                        @JsonProperty("stand_in_processing_reason")
+                        @ExcludeMissing
+                        fun standInProcessingReason(
+                            standInProcessingReason: JsonField<StandInProcessingReason>
+                        ) = apply { this.standInProcessingReason = standInProcessingReason }
+
                         fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
                             apply {
                                 this.additionalProperties.clear()
@@ -2044,6 +2082,7 @@ private constructor(
                             Visa(
                                 electronicCommerceIndicator,
                                 pointOfServiceEntryMode,
+                                standInProcessingReason,
                                 additionalProperties.toImmutable(),
                             )
                     }
@@ -2287,25 +2326,128 @@ private constructor(
                         fun asString(): String = _value().asStringOrThrow()
                     }
 
+                    class StandInProcessingReason
+                    @JsonCreator
+                    private constructor(
+                        private val value: JsonField<String>,
+                    ) : Enum {
+
+                        @com.fasterxml.jackson.annotation.JsonValue
+                        fun _value(): JsonField<String> = value
+
+                        override fun equals(other: Any?): Boolean {
+                            if (this === other) {
+                                return true
+                            }
+
+                            return /* spotless:off */ other is StandInProcessingReason && this.value == other.value /* spotless:on */
+                        }
+
+                        override fun hashCode() = value.hashCode()
+
+                        override fun toString() = value.toString()
+
+                        companion object {
+
+                            val ISSUER_ERROR = StandInProcessingReason(JsonField.of("issuer_error"))
+
+                            val INVALID_PHYSICAL_CARD =
+                                StandInProcessingReason(JsonField.of("invalid_physical_card"))
+
+                            val INVALID_CARDHOLDER_AUTHENTICATION_VERIFICATION_VALUE =
+                                StandInProcessingReason(
+                                    JsonField.of(
+                                        "invalid_cardholder_authentication_verification_value"
+                                    )
+                                )
+
+                            val INTERNAL_VISA_ERROR =
+                                StandInProcessingReason(JsonField.of("internal_visa_error"))
+
+                            val MERCHANT_TRANSACTION_ADVISORY_SERVICE_AUTHENTICATION_REQUIRED =
+                                StandInProcessingReason(
+                                    JsonField.of(
+                                        "merchant_transaction_advisory_service_authentication_required"
+                                    )
+                                )
+
+                            val OTHER = StandInProcessingReason(JsonField.of("other"))
+
+                            fun of(value: String) = StandInProcessingReason(JsonField.of(value))
+                        }
+
+                        enum class Known {
+                            ISSUER_ERROR,
+                            INVALID_PHYSICAL_CARD,
+                            INVALID_CARDHOLDER_AUTHENTICATION_VERIFICATION_VALUE,
+                            INTERNAL_VISA_ERROR,
+                            MERCHANT_TRANSACTION_ADVISORY_SERVICE_AUTHENTICATION_REQUIRED,
+                            OTHER,
+                        }
+
+                        enum class Value {
+                            ISSUER_ERROR,
+                            INVALID_PHYSICAL_CARD,
+                            INVALID_CARDHOLDER_AUTHENTICATION_VERIFICATION_VALUE,
+                            INTERNAL_VISA_ERROR,
+                            MERCHANT_TRANSACTION_ADVISORY_SERVICE_AUTHENTICATION_REQUIRED,
+                            OTHER,
+                            _UNKNOWN,
+                        }
+
+                        fun value(): Value =
+                            when (this) {
+                                ISSUER_ERROR -> Value.ISSUER_ERROR
+                                INVALID_PHYSICAL_CARD -> Value.INVALID_PHYSICAL_CARD
+                                INVALID_CARDHOLDER_AUTHENTICATION_VERIFICATION_VALUE ->
+                                    Value.INVALID_CARDHOLDER_AUTHENTICATION_VERIFICATION_VALUE
+                                INTERNAL_VISA_ERROR -> Value.INTERNAL_VISA_ERROR
+                                MERCHANT_TRANSACTION_ADVISORY_SERVICE_AUTHENTICATION_REQUIRED ->
+                                    Value
+                                        .MERCHANT_TRANSACTION_ADVISORY_SERVICE_AUTHENTICATION_REQUIRED
+                                OTHER -> Value.OTHER
+                                else -> Value._UNKNOWN
+                            }
+
+                        fun known(): Known =
+                            when (this) {
+                                ISSUER_ERROR -> Known.ISSUER_ERROR
+                                INVALID_PHYSICAL_CARD -> Known.INVALID_PHYSICAL_CARD
+                                INVALID_CARDHOLDER_AUTHENTICATION_VERIFICATION_VALUE ->
+                                    Known.INVALID_CARDHOLDER_AUTHENTICATION_VERIFICATION_VALUE
+                                INTERNAL_VISA_ERROR -> Known.INTERNAL_VISA_ERROR
+                                MERCHANT_TRANSACTION_ADVISORY_SERVICE_AUTHENTICATION_REQUIRED ->
+                                    Known
+                                        .MERCHANT_TRANSACTION_ADVISORY_SERVICE_AUTHENTICATION_REQUIRED
+                                OTHER -> Known.OTHER
+                                else ->
+                                    throw IncreaseInvalidDataException(
+                                        "Unknown StandInProcessingReason: $value"
+                                    )
+                            }
+
+                        fun asString(): String = _value().asStringOrThrow()
+                    }
+
                     override fun equals(other: Any?): Boolean {
                         if (this === other) {
                             return true
                         }
 
-                        return /* spotless:off */ other is Visa && this.electronicCommerceIndicator == other.electronicCommerceIndicator && this.pointOfServiceEntryMode == other.pointOfServiceEntryMode && this.additionalProperties == other.additionalProperties /* spotless:on */
+                        return /* spotless:off */ other is Visa && this.electronicCommerceIndicator == other.electronicCommerceIndicator && this.pointOfServiceEntryMode == other.pointOfServiceEntryMode && this.standInProcessingReason == other.standInProcessingReason && this.additionalProperties == other.additionalProperties /* spotless:on */
                     }
 
                     private var hashCode: Int = 0
 
                     override fun hashCode(): Int {
                         if (hashCode == 0) {
-                            hashCode = /* spotless:off */ Objects.hash(electronicCommerceIndicator, pointOfServiceEntryMode, additionalProperties) /* spotless:on */
+                            hashCode = /* spotless:off */ Objects.hash(electronicCommerceIndicator, pointOfServiceEntryMode, standInProcessingReason, additionalProperties) /* spotless:on */
                         }
                         return hashCode
                     }
 
                     override fun toString() =
-                        "Visa{electronicCommerceIndicator=$electronicCommerceIndicator, pointOfServiceEntryMode=$pointOfServiceEntryMode, additionalProperties=$additionalProperties}"
+                        "Visa{electronicCommerceIndicator=$electronicCommerceIndicator, pointOfServiceEntryMode=$pointOfServiceEntryMode, standInProcessingReason=$standInProcessingReason, additionalProperties=$additionalProperties}"
                 }
 
                 override fun equals(other: Any?): Boolean {
@@ -4848,6 +4990,7 @@ private constructor(
                 private constructor(
                     private val electronicCommerceIndicator: JsonField<ElectronicCommerceIndicator>,
                     private val pointOfServiceEntryMode: JsonField<PointOfServiceEntryMode>,
+                    private val standInProcessingReason: JsonField<StandInProcessingReason>,
                     private val additionalProperties: Map<String, JsonValue>,
                 ) {
 
@@ -4869,6 +5012,13 @@ private constructor(
                         pointOfServiceEntryMode.getNullable("point_of_service_entry_mode")
 
                     /**
+                     * Only present when `actioner: network`. Describes why a card authorization was
+                     * approved or declined by Visa through stand-in processing.
+                     */
+                    fun standInProcessingReason(): StandInProcessingReason? =
+                        standInProcessingReason.getNullable("stand_in_processing_reason")
+
+                    /**
                      * For electronic commerce transactions, this identifies the level of security
                      * used in obtaining the customer's payment credential. For mail or telephone
                      * order transactions, identifies the type of mail or telephone order.
@@ -4885,6 +5035,14 @@ private constructor(
                     @ExcludeMissing
                     fun _pointOfServiceEntryMode() = pointOfServiceEntryMode
 
+                    /**
+                     * Only present when `actioner: network`. Describes why a card authorization was
+                     * approved or declined by Visa through stand-in processing.
+                     */
+                    @JsonProperty("stand_in_processing_reason")
+                    @ExcludeMissing
+                    fun _standInProcessingReason() = standInProcessingReason
+
                     @JsonAnyGetter
                     @ExcludeMissing
                     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -4893,6 +5051,7 @@ private constructor(
                         if (!validated) {
                             electronicCommerceIndicator()
                             pointOfServiceEntryMode()
+                            standInProcessingReason()
                             validated = true
                         }
                     }
@@ -4911,12 +5070,15 @@ private constructor(
                             JsonMissing.of()
                         private var pointOfServiceEntryMode: JsonField<PointOfServiceEntryMode> =
                             JsonMissing.of()
+                        private var standInProcessingReason: JsonField<StandInProcessingReason> =
+                            JsonMissing.of()
                         private var additionalProperties: MutableMap<String, JsonValue> =
                             mutableMapOf()
 
                         internal fun from(visa: Visa) = apply {
                             this.electronicCommerceIndicator = visa.electronicCommerceIndicator
                             this.pointOfServiceEntryMode = visa.pointOfServiceEntryMode
+                            this.standInProcessingReason = visa.standInProcessingReason
                             additionalProperties(visa.additionalProperties)
                         }
 
@@ -4960,6 +5122,24 @@ private constructor(
                             pointOfServiceEntryMode: JsonField<PointOfServiceEntryMode>
                         ) = apply { this.pointOfServiceEntryMode = pointOfServiceEntryMode }
 
+                        /**
+                         * Only present when `actioner: network`. Describes why a card authorization
+                         * was approved or declined by Visa through stand-in processing.
+                         */
+                        fun standInProcessingReason(
+                            standInProcessingReason: StandInProcessingReason
+                        ) = standInProcessingReason(JsonField.of(standInProcessingReason))
+
+                        /**
+                         * Only present when `actioner: network`. Describes why a card authorization
+                         * was approved or declined by Visa through stand-in processing.
+                         */
+                        @JsonProperty("stand_in_processing_reason")
+                        @ExcludeMissing
+                        fun standInProcessingReason(
+                            standInProcessingReason: JsonField<StandInProcessingReason>
+                        ) = apply { this.standInProcessingReason = standInProcessingReason }
+
                         fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
                             apply {
                                 this.additionalProperties.clear()
@@ -4979,6 +5159,7 @@ private constructor(
                             Visa(
                                 electronicCommerceIndicator,
                                 pointOfServiceEntryMode,
+                                standInProcessingReason,
                                 additionalProperties.toImmutable(),
                             )
                     }
@@ -5222,25 +5403,128 @@ private constructor(
                         fun asString(): String = _value().asStringOrThrow()
                     }
 
+                    class StandInProcessingReason
+                    @JsonCreator
+                    private constructor(
+                        private val value: JsonField<String>,
+                    ) : Enum {
+
+                        @com.fasterxml.jackson.annotation.JsonValue
+                        fun _value(): JsonField<String> = value
+
+                        override fun equals(other: Any?): Boolean {
+                            if (this === other) {
+                                return true
+                            }
+
+                            return /* spotless:off */ other is StandInProcessingReason && this.value == other.value /* spotless:on */
+                        }
+
+                        override fun hashCode() = value.hashCode()
+
+                        override fun toString() = value.toString()
+
+                        companion object {
+
+                            val ISSUER_ERROR = StandInProcessingReason(JsonField.of("issuer_error"))
+
+                            val INVALID_PHYSICAL_CARD =
+                                StandInProcessingReason(JsonField.of("invalid_physical_card"))
+
+                            val INVALID_CARDHOLDER_AUTHENTICATION_VERIFICATION_VALUE =
+                                StandInProcessingReason(
+                                    JsonField.of(
+                                        "invalid_cardholder_authentication_verification_value"
+                                    )
+                                )
+
+                            val INTERNAL_VISA_ERROR =
+                                StandInProcessingReason(JsonField.of("internal_visa_error"))
+
+                            val MERCHANT_TRANSACTION_ADVISORY_SERVICE_AUTHENTICATION_REQUIRED =
+                                StandInProcessingReason(
+                                    JsonField.of(
+                                        "merchant_transaction_advisory_service_authentication_required"
+                                    )
+                                )
+
+                            val OTHER = StandInProcessingReason(JsonField.of("other"))
+
+                            fun of(value: String) = StandInProcessingReason(JsonField.of(value))
+                        }
+
+                        enum class Known {
+                            ISSUER_ERROR,
+                            INVALID_PHYSICAL_CARD,
+                            INVALID_CARDHOLDER_AUTHENTICATION_VERIFICATION_VALUE,
+                            INTERNAL_VISA_ERROR,
+                            MERCHANT_TRANSACTION_ADVISORY_SERVICE_AUTHENTICATION_REQUIRED,
+                            OTHER,
+                        }
+
+                        enum class Value {
+                            ISSUER_ERROR,
+                            INVALID_PHYSICAL_CARD,
+                            INVALID_CARDHOLDER_AUTHENTICATION_VERIFICATION_VALUE,
+                            INTERNAL_VISA_ERROR,
+                            MERCHANT_TRANSACTION_ADVISORY_SERVICE_AUTHENTICATION_REQUIRED,
+                            OTHER,
+                            _UNKNOWN,
+                        }
+
+                        fun value(): Value =
+                            when (this) {
+                                ISSUER_ERROR -> Value.ISSUER_ERROR
+                                INVALID_PHYSICAL_CARD -> Value.INVALID_PHYSICAL_CARD
+                                INVALID_CARDHOLDER_AUTHENTICATION_VERIFICATION_VALUE ->
+                                    Value.INVALID_CARDHOLDER_AUTHENTICATION_VERIFICATION_VALUE
+                                INTERNAL_VISA_ERROR -> Value.INTERNAL_VISA_ERROR
+                                MERCHANT_TRANSACTION_ADVISORY_SERVICE_AUTHENTICATION_REQUIRED ->
+                                    Value
+                                        .MERCHANT_TRANSACTION_ADVISORY_SERVICE_AUTHENTICATION_REQUIRED
+                                OTHER -> Value.OTHER
+                                else -> Value._UNKNOWN
+                            }
+
+                        fun known(): Known =
+                            when (this) {
+                                ISSUER_ERROR -> Known.ISSUER_ERROR
+                                INVALID_PHYSICAL_CARD -> Known.INVALID_PHYSICAL_CARD
+                                INVALID_CARDHOLDER_AUTHENTICATION_VERIFICATION_VALUE ->
+                                    Known.INVALID_CARDHOLDER_AUTHENTICATION_VERIFICATION_VALUE
+                                INTERNAL_VISA_ERROR -> Known.INTERNAL_VISA_ERROR
+                                MERCHANT_TRANSACTION_ADVISORY_SERVICE_AUTHENTICATION_REQUIRED ->
+                                    Known
+                                        .MERCHANT_TRANSACTION_ADVISORY_SERVICE_AUTHENTICATION_REQUIRED
+                                OTHER -> Known.OTHER
+                                else ->
+                                    throw IncreaseInvalidDataException(
+                                        "Unknown StandInProcessingReason: $value"
+                                    )
+                            }
+
+                        fun asString(): String = _value().asStringOrThrow()
+                    }
+
                     override fun equals(other: Any?): Boolean {
                         if (this === other) {
                             return true
                         }
 
-                        return /* spotless:off */ other is Visa && this.electronicCommerceIndicator == other.electronicCommerceIndicator && this.pointOfServiceEntryMode == other.pointOfServiceEntryMode && this.additionalProperties == other.additionalProperties /* spotless:on */
+                        return /* spotless:off */ other is Visa && this.electronicCommerceIndicator == other.electronicCommerceIndicator && this.pointOfServiceEntryMode == other.pointOfServiceEntryMode && this.standInProcessingReason == other.standInProcessingReason && this.additionalProperties == other.additionalProperties /* spotless:on */
                     }
 
                     private var hashCode: Int = 0
 
                     override fun hashCode(): Int {
                         if (hashCode == 0) {
-                            hashCode = /* spotless:off */ Objects.hash(electronicCommerceIndicator, pointOfServiceEntryMode, additionalProperties) /* spotless:on */
+                            hashCode = /* spotless:off */ Objects.hash(electronicCommerceIndicator, pointOfServiceEntryMode, standInProcessingReason, additionalProperties) /* spotless:on */
                         }
                         return hashCode
                     }
 
                     override fun toString() =
-                        "Visa{electronicCommerceIndicator=$electronicCommerceIndicator, pointOfServiceEntryMode=$pointOfServiceEntryMode, additionalProperties=$additionalProperties}"
+                        "Visa{electronicCommerceIndicator=$electronicCommerceIndicator, pointOfServiceEntryMode=$pointOfServiceEntryMode, standInProcessingReason=$standInProcessingReason, additionalProperties=$additionalProperties}"
                 }
 
                 override fun equals(other: Any?): Boolean {
@@ -18825,6 +19109,7 @@ private constructor(
                 private constructor(
                     private val electronicCommerceIndicator: JsonField<ElectronicCommerceIndicator>,
                     private val pointOfServiceEntryMode: JsonField<PointOfServiceEntryMode>,
+                    private val standInProcessingReason: JsonField<StandInProcessingReason>,
                     private val additionalProperties: Map<String, JsonValue>,
                 ) {
 
@@ -18846,6 +19131,13 @@ private constructor(
                         pointOfServiceEntryMode.getNullable("point_of_service_entry_mode")
 
                     /**
+                     * Only present when `actioner: network`. Describes why a card authorization was
+                     * approved or declined by Visa through stand-in processing.
+                     */
+                    fun standInProcessingReason(): StandInProcessingReason? =
+                        standInProcessingReason.getNullable("stand_in_processing_reason")
+
+                    /**
                      * For electronic commerce transactions, this identifies the level of security
                      * used in obtaining the customer's payment credential. For mail or telephone
                      * order transactions, identifies the type of mail or telephone order.
@@ -18862,6 +19154,14 @@ private constructor(
                     @ExcludeMissing
                     fun _pointOfServiceEntryMode() = pointOfServiceEntryMode
 
+                    /**
+                     * Only present when `actioner: network`. Describes why a card authorization was
+                     * approved or declined by Visa through stand-in processing.
+                     */
+                    @JsonProperty("stand_in_processing_reason")
+                    @ExcludeMissing
+                    fun _standInProcessingReason() = standInProcessingReason
+
                     @JsonAnyGetter
                     @ExcludeMissing
                     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
@@ -18870,6 +19170,7 @@ private constructor(
                         if (!validated) {
                             electronicCommerceIndicator()
                             pointOfServiceEntryMode()
+                            standInProcessingReason()
                             validated = true
                         }
                     }
@@ -18888,12 +19189,15 @@ private constructor(
                             JsonMissing.of()
                         private var pointOfServiceEntryMode: JsonField<PointOfServiceEntryMode> =
                             JsonMissing.of()
+                        private var standInProcessingReason: JsonField<StandInProcessingReason> =
+                            JsonMissing.of()
                         private var additionalProperties: MutableMap<String, JsonValue> =
                             mutableMapOf()
 
                         internal fun from(visa: Visa) = apply {
                             this.electronicCommerceIndicator = visa.electronicCommerceIndicator
                             this.pointOfServiceEntryMode = visa.pointOfServiceEntryMode
+                            this.standInProcessingReason = visa.standInProcessingReason
                             additionalProperties(visa.additionalProperties)
                         }
 
@@ -18937,6 +19241,24 @@ private constructor(
                             pointOfServiceEntryMode: JsonField<PointOfServiceEntryMode>
                         ) = apply { this.pointOfServiceEntryMode = pointOfServiceEntryMode }
 
+                        /**
+                         * Only present when `actioner: network`. Describes why a card authorization
+                         * was approved or declined by Visa through stand-in processing.
+                         */
+                        fun standInProcessingReason(
+                            standInProcessingReason: StandInProcessingReason
+                        ) = standInProcessingReason(JsonField.of(standInProcessingReason))
+
+                        /**
+                         * Only present when `actioner: network`. Describes why a card authorization
+                         * was approved or declined by Visa through stand-in processing.
+                         */
+                        @JsonProperty("stand_in_processing_reason")
+                        @ExcludeMissing
+                        fun standInProcessingReason(
+                            standInProcessingReason: JsonField<StandInProcessingReason>
+                        ) = apply { this.standInProcessingReason = standInProcessingReason }
+
                         fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
                             apply {
                                 this.additionalProperties.clear()
@@ -18956,6 +19278,7 @@ private constructor(
                             Visa(
                                 electronicCommerceIndicator,
                                 pointOfServiceEntryMode,
+                                standInProcessingReason,
                                 additionalProperties.toImmutable(),
                             )
                     }
@@ -19199,25 +19522,128 @@ private constructor(
                         fun asString(): String = _value().asStringOrThrow()
                     }
 
+                    class StandInProcessingReason
+                    @JsonCreator
+                    private constructor(
+                        private val value: JsonField<String>,
+                    ) : Enum {
+
+                        @com.fasterxml.jackson.annotation.JsonValue
+                        fun _value(): JsonField<String> = value
+
+                        override fun equals(other: Any?): Boolean {
+                            if (this === other) {
+                                return true
+                            }
+
+                            return /* spotless:off */ other is StandInProcessingReason && this.value == other.value /* spotless:on */
+                        }
+
+                        override fun hashCode() = value.hashCode()
+
+                        override fun toString() = value.toString()
+
+                        companion object {
+
+                            val ISSUER_ERROR = StandInProcessingReason(JsonField.of("issuer_error"))
+
+                            val INVALID_PHYSICAL_CARD =
+                                StandInProcessingReason(JsonField.of("invalid_physical_card"))
+
+                            val INVALID_CARDHOLDER_AUTHENTICATION_VERIFICATION_VALUE =
+                                StandInProcessingReason(
+                                    JsonField.of(
+                                        "invalid_cardholder_authentication_verification_value"
+                                    )
+                                )
+
+                            val INTERNAL_VISA_ERROR =
+                                StandInProcessingReason(JsonField.of("internal_visa_error"))
+
+                            val MERCHANT_TRANSACTION_ADVISORY_SERVICE_AUTHENTICATION_REQUIRED =
+                                StandInProcessingReason(
+                                    JsonField.of(
+                                        "merchant_transaction_advisory_service_authentication_required"
+                                    )
+                                )
+
+                            val OTHER = StandInProcessingReason(JsonField.of("other"))
+
+                            fun of(value: String) = StandInProcessingReason(JsonField.of(value))
+                        }
+
+                        enum class Known {
+                            ISSUER_ERROR,
+                            INVALID_PHYSICAL_CARD,
+                            INVALID_CARDHOLDER_AUTHENTICATION_VERIFICATION_VALUE,
+                            INTERNAL_VISA_ERROR,
+                            MERCHANT_TRANSACTION_ADVISORY_SERVICE_AUTHENTICATION_REQUIRED,
+                            OTHER,
+                        }
+
+                        enum class Value {
+                            ISSUER_ERROR,
+                            INVALID_PHYSICAL_CARD,
+                            INVALID_CARDHOLDER_AUTHENTICATION_VERIFICATION_VALUE,
+                            INTERNAL_VISA_ERROR,
+                            MERCHANT_TRANSACTION_ADVISORY_SERVICE_AUTHENTICATION_REQUIRED,
+                            OTHER,
+                            _UNKNOWN,
+                        }
+
+                        fun value(): Value =
+                            when (this) {
+                                ISSUER_ERROR -> Value.ISSUER_ERROR
+                                INVALID_PHYSICAL_CARD -> Value.INVALID_PHYSICAL_CARD
+                                INVALID_CARDHOLDER_AUTHENTICATION_VERIFICATION_VALUE ->
+                                    Value.INVALID_CARDHOLDER_AUTHENTICATION_VERIFICATION_VALUE
+                                INTERNAL_VISA_ERROR -> Value.INTERNAL_VISA_ERROR
+                                MERCHANT_TRANSACTION_ADVISORY_SERVICE_AUTHENTICATION_REQUIRED ->
+                                    Value
+                                        .MERCHANT_TRANSACTION_ADVISORY_SERVICE_AUTHENTICATION_REQUIRED
+                                OTHER -> Value.OTHER
+                                else -> Value._UNKNOWN
+                            }
+
+                        fun known(): Known =
+                            when (this) {
+                                ISSUER_ERROR -> Known.ISSUER_ERROR
+                                INVALID_PHYSICAL_CARD -> Known.INVALID_PHYSICAL_CARD
+                                INVALID_CARDHOLDER_AUTHENTICATION_VERIFICATION_VALUE ->
+                                    Known.INVALID_CARDHOLDER_AUTHENTICATION_VERIFICATION_VALUE
+                                INTERNAL_VISA_ERROR -> Known.INTERNAL_VISA_ERROR
+                                MERCHANT_TRANSACTION_ADVISORY_SERVICE_AUTHENTICATION_REQUIRED ->
+                                    Known
+                                        .MERCHANT_TRANSACTION_ADVISORY_SERVICE_AUTHENTICATION_REQUIRED
+                                OTHER -> Known.OTHER
+                                else ->
+                                    throw IncreaseInvalidDataException(
+                                        "Unknown StandInProcessingReason: $value"
+                                    )
+                            }
+
+                        fun asString(): String = _value().asStringOrThrow()
+                    }
+
                     override fun equals(other: Any?): Boolean {
                         if (this === other) {
                             return true
                         }
 
-                        return /* spotless:off */ other is Visa && this.electronicCommerceIndicator == other.electronicCommerceIndicator && this.pointOfServiceEntryMode == other.pointOfServiceEntryMode && this.additionalProperties == other.additionalProperties /* spotless:on */
+                        return /* spotless:off */ other is Visa && this.electronicCommerceIndicator == other.electronicCommerceIndicator && this.pointOfServiceEntryMode == other.pointOfServiceEntryMode && this.standInProcessingReason == other.standInProcessingReason && this.additionalProperties == other.additionalProperties /* spotless:on */
                     }
 
                     private var hashCode: Int = 0
 
                     override fun hashCode(): Int {
                         if (hashCode == 0) {
-                            hashCode = /* spotless:off */ Objects.hash(electronicCommerceIndicator, pointOfServiceEntryMode, additionalProperties) /* spotless:on */
+                            hashCode = /* spotless:off */ Objects.hash(electronicCommerceIndicator, pointOfServiceEntryMode, standInProcessingReason, additionalProperties) /* spotless:on */
                         }
                         return hashCode
                     }
 
                     override fun toString() =
-                        "Visa{electronicCommerceIndicator=$electronicCommerceIndicator, pointOfServiceEntryMode=$pointOfServiceEntryMode, additionalProperties=$additionalProperties}"
+                        "Visa{electronicCommerceIndicator=$electronicCommerceIndicator, pointOfServiceEntryMode=$pointOfServiceEntryMode, standInProcessingReason=$standInProcessingReason, additionalProperties=$additionalProperties}"
                 }
 
                 override fun equals(other: Any?): Boolean {
