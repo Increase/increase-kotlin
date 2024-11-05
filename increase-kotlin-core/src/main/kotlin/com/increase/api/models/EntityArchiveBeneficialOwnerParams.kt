@@ -6,6 +6,8 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
+import com.google.common.collect.ArrayListMultimap
+import com.google.common.collect.ListMultimap
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
@@ -17,8 +19,8 @@ class EntityArchiveBeneficialOwnerParams
 constructor(
     private val entityId: String,
     private val beneficialOwnerId: String,
-    private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
+    private val additionalQueryParams: Map<String, List<String>>,
     private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
@@ -30,9 +32,9 @@ constructor(
         return EntityArchiveBeneficialOwnerBody(beneficialOwnerId, additionalBodyProperties)
     }
 
-    internal fun getQueryParams(): Map<String, List<String>> = additionalQueryParams
-
     internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
+
+    internal fun getQueryParams(): Map<String, List<String>> = additionalQueryParams
 
     fun getPathParam(index: Int): String {
         return when (index) {
@@ -129,9 +131,9 @@ constructor(
             "EntityArchiveBeneficialOwnerBody{beneficialOwnerId=$beneficialOwnerId, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalQueryParams(): Map<String, List<String>> = additionalQueryParams
-
     fun _additionalHeaders(): Map<String, List<String>> = additionalHeaders
+
+    fun _additionalQueryParams(): Map<String, List<String>> = additionalQueryParams
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
 
@@ -140,15 +142,15 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is EntityArchiveBeneficialOwnerParams && this.entityId == other.entityId && this.beneficialOwnerId == other.beneficialOwnerId && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is EntityArchiveBeneficialOwnerParams && this.entityId == other.entityId && this.beneficialOwnerId == other.beneficialOwnerId && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(entityId, beneficialOwnerId, additionalQueryParams, additionalHeaders, additionalBodyProperties) /* spotless:on */
+        return /* spotless:off */ Objects.hash(entityId, beneficialOwnerId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
     }
 
     override fun toString() =
-        "EntityArchiveBeneficialOwnerParams{entityId=$entityId, beneficialOwnerId=$beneficialOwnerId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders, additionalBodyProperties=$additionalBodyProperties}"
+        "EntityArchiveBeneficialOwnerParams{entityId=$entityId, beneficialOwnerId=$beneficialOwnerId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -162,16 +164,16 @@ constructor(
 
         private var entityId: String? = null
         private var beneficialOwnerId: String? = null
-        private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
-        private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
+        private var additionalHeaders: ListMultimap<String, String> = ArrayListMultimap.create()
+        private var additionalQueryParams: ListMultimap<String, String> = ArrayListMultimap.create()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(entityArchiveBeneficialOwnerParams: EntityArchiveBeneficialOwnerParams) =
             apply {
                 this.entityId = entityArchiveBeneficialOwnerParams.entityId
                 this.beneficialOwnerId = entityArchiveBeneficialOwnerParams.beneficialOwnerId
-                additionalQueryParams(entityArchiveBeneficialOwnerParams.additionalQueryParams)
                 additionalHeaders(entityArchiveBeneficialOwnerParams.additionalHeaders)
+                additionalQueryParams(entityArchiveBeneficialOwnerParams.additionalQueryParams)
                 additionalBodyProperties(
                     entityArchiveBeneficialOwnerParams.additionalBodyProperties
                 )
@@ -189,45 +191,79 @@ constructor(
             this.beneficialOwnerId = beneficialOwnerId
         }
 
-        fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
-            this.additionalQueryParams.clear()
-            putAllQueryParams(additionalQueryParams)
-        }
-
-        fun putQueryParam(name: String, value: String) = apply {
-            this.additionalQueryParams.getOrPut(name) { mutableListOf() }.add(value)
-        }
-
-        fun putQueryParams(name: String, values: Iterable<String>) = apply {
-            this.additionalQueryParams.getOrPut(name) { mutableListOf() }.addAll(values)
-        }
-
-        fun putAllQueryParams(additionalQueryParams: Map<String, Iterable<String>>) = apply {
-            additionalQueryParams.forEach(this::putQueryParams)
-        }
-
-        fun removeQueryParam(name: String) = apply {
-            this.additionalQueryParams.put(name, mutableListOf())
-        }
-
         fun additionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
             this.additionalHeaders.clear()
-            putAllHeaders(additionalHeaders)
+            putAllAdditionalHeaders(additionalHeaders)
         }
 
-        fun putHeader(name: String, value: String) = apply {
-            this.additionalHeaders.getOrPut(name) { mutableListOf() }.add(value)
+        fun putAdditionalHeader(name: String, value: String) = apply {
+            additionalHeaders.put(name, value)
         }
 
-        fun putHeaders(name: String, values: Iterable<String>) = apply {
-            this.additionalHeaders.getOrPut(name) { mutableListOf() }.addAll(values)
+        fun putAdditionalHeaders(name: String, values: Iterable<String>) = apply {
+            additionalHeaders.putAll(name, values)
         }
 
-        fun putAllHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
-            additionalHeaders.forEach(this::putHeaders)
+        fun putAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
+            additionalHeaders.forEach(::putAdditionalHeaders)
         }
 
-        fun removeHeader(name: String) = apply { this.additionalHeaders.put(name, mutableListOf()) }
+        fun replaceAdditionalHeaders(name: String, value: String) = apply {
+            additionalHeaders.replaceValues(name, listOf(value))
+        }
+
+        fun replaceAdditionalHeaders(name: String, values: Iterable<String>) = apply {
+            additionalHeaders.replaceValues(name, values)
+        }
+
+        fun replaceAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
+            additionalHeaders.forEach(::replaceAdditionalHeaders)
+        }
+
+        fun removeAdditionalHeaders(name: String) = apply { additionalHeaders.removeAll(name) }
+
+        fun removeAllAdditionalHeaders(names: Set<String>) = apply {
+            names.forEach(::removeAdditionalHeaders)
+        }
+
+        fun additionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) = apply {
+            this.additionalQueryParams.clear()
+            putAllAdditionalQueryParams(additionalQueryParams)
+        }
+
+        fun putAdditionalQueryParam(key: String, value: String) = apply {
+            additionalQueryParams.put(key, value)
+        }
+
+        fun putAdditionalQueryParams(key: String, values: Iterable<String>) = apply {
+            additionalQueryParams.putAll(key, values)
+        }
+
+        fun putAllAdditionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) =
+            apply {
+                additionalQueryParams.forEach(::putAdditionalQueryParams)
+            }
+
+        fun replaceAdditionalQueryParams(key: String, value: String) = apply {
+            additionalQueryParams.replaceValues(key, listOf(value))
+        }
+
+        fun replaceAdditionalQueryParams(key: String, values: Iterable<String>) = apply {
+            additionalQueryParams.replaceValues(key, values)
+        }
+
+        fun replaceAllAdditionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) =
+            apply {
+                additionalQueryParams.forEach(::replaceAdditionalQueryParams)
+            }
+
+        fun removeAdditionalQueryParams(key: String) = apply {
+            additionalQueryParams.removeAll(key)
+        }
+
+        fun removeAllAdditionalQueryParams(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalQueryParams)
+        }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             this.additionalBodyProperties.clear()
@@ -249,8 +285,14 @@ constructor(
                 checkNotNull(beneficialOwnerId) {
                     "`beneficialOwnerId` is required but was not set"
                 },
-                additionalQueryParams.mapValues { it.value.toImmutable() }.toImmutable(),
-                additionalHeaders.mapValues { it.value.toImmutable() }.toImmutable(),
+                additionalHeaders
+                    .asMap()
+                    .mapValues { it.value.toList().toImmutable() }
+                    .toImmutable(),
+                additionalQueryParams
+                    .asMap()
+                    .mapValues { it.value.toList().toImmutable() }
+                    .toImmutable(),
                 additionalBodyProperties.toImmutable(),
             )
     }

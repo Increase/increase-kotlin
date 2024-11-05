@@ -4,6 +4,8 @@ package com.increase.api.models
 
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
+import com.google.common.collect.ArrayListMultimap
+import com.google.common.collect.ListMultimap
 import com.increase.api.core.Enum
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonValue
@@ -23,8 +25,8 @@ constructor(
     private val cursor: String?,
     private val limit: Long?,
     private val routeId: String?,
-    private val additionalQueryParams: Map<String, List<String>>,
     private val additionalHeaders: Map<String, List<String>>,
+    private val additionalQueryParams: Map<String, List<String>>,
 ) {
 
     fun accountId(): String? = accountId
@@ -39,6 +41,8 @@ constructor(
 
     fun routeId(): String? = routeId
 
+    internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
+
     internal fun getQueryParams(): Map<String, List<String>> {
         val params = mutableMapOf<String, List<String>>()
         this.accountId?.let { params.put("account_id", listOf(it.toString())) }
@@ -51,26 +55,24 @@ constructor(
         return params.toImmutable()
     }
 
-    internal fun getHeaders(): Map<String, List<String>> = additionalHeaders
+    fun _additionalHeaders(): Map<String, List<String>> = additionalHeaders
 
     fun _additionalQueryParams(): Map<String, List<String>> = additionalQueryParams
-
-    fun _additionalHeaders(): Map<String, List<String>> = additionalHeaders
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
             return true
         }
 
-        return /* spotless:off */ other is TransactionListParams && this.accountId == other.accountId && this.category == other.category && this.createdAt == other.createdAt && this.cursor == other.cursor && this.limit == other.limit && this.routeId == other.routeId && this.additionalQueryParams == other.additionalQueryParams && this.additionalHeaders == other.additionalHeaders /* spotless:on */
+        return /* spotless:off */ other is TransactionListParams && this.accountId == other.accountId && this.category == other.category && this.createdAt == other.createdAt && this.cursor == other.cursor && this.limit == other.limit && this.routeId == other.routeId && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
     override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(accountId, category, createdAt, cursor, limit, routeId, additionalQueryParams, additionalHeaders) /* spotless:on */
+        return /* spotless:off */ Objects.hash(accountId, category, createdAt, cursor, limit, routeId, additionalHeaders, additionalQueryParams) /* spotless:on */
     }
 
     override fun toString() =
-        "TransactionListParams{accountId=$accountId, category=$category, createdAt=$createdAt, cursor=$cursor, limit=$limit, routeId=$routeId, additionalQueryParams=$additionalQueryParams, additionalHeaders=$additionalHeaders}"
+        "TransactionListParams{accountId=$accountId, category=$category, createdAt=$createdAt, cursor=$cursor, limit=$limit, routeId=$routeId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -88,8 +90,8 @@ constructor(
         private var cursor: String? = null
         private var limit: Long? = null
         private var routeId: String? = null
-        private var additionalQueryParams: MutableMap<String, MutableList<String>> = mutableMapOf()
-        private var additionalHeaders: MutableMap<String, MutableList<String>> = mutableMapOf()
+        private var additionalHeaders: ListMultimap<String, String> = ArrayListMultimap.create()
+        private var additionalQueryParams: ListMultimap<String, String> = ArrayListMultimap.create()
 
         internal fun from(transactionListParams: TransactionListParams) = apply {
             this.accountId = transactionListParams.accountId
@@ -98,8 +100,8 @@ constructor(
             this.cursor = transactionListParams.cursor
             this.limit = transactionListParams.limit
             this.routeId = transactionListParams.routeId
-            additionalQueryParams(transactionListParams.additionalQueryParams)
             additionalHeaders(transactionListParams.additionalHeaders)
+            additionalQueryParams(transactionListParams.additionalQueryParams)
         }
 
         /** Filter Transactions for those belonging to the specified Account. */
@@ -123,45 +125,79 @@ constructor(
          */
         fun routeId(routeId: String) = apply { this.routeId = routeId }
 
-        fun additionalQueryParams(additionalQueryParams: Map<String, List<String>>) = apply {
-            this.additionalQueryParams.clear()
-            putAllQueryParams(additionalQueryParams)
-        }
-
-        fun putQueryParam(name: String, value: String) = apply {
-            this.additionalQueryParams.getOrPut(name) { mutableListOf() }.add(value)
-        }
-
-        fun putQueryParams(name: String, values: Iterable<String>) = apply {
-            this.additionalQueryParams.getOrPut(name) { mutableListOf() }.addAll(values)
-        }
-
-        fun putAllQueryParams(additionalQueryParams: Map<String, Iterable<String>>) = apply {
-            additionalQueryParams.forEach(this::putQueryParams)
-        }
-
-        fun removeQueryParam(name: String) = apply {
-            this.additionalQueryParams.put(name, mutableListOf())
-        }
-
         fun additionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
             this.additionalHeaders.clear()
-            putAllHeaders(additionalHeaders)
+            putAllAdditionalHeaders(additionalHeaders)
         }
 
-        fun putHeader(name: String, value: String) = apply {
-            this.additionalHeaders.getOrPut(name) { mutableListOf() }.add(value)
+        fun putAdditionalHeader(name: String, value: String) = apply {
+            additionalHeaders.put(name, value)
         }
 
-        fun putHeaders(name: String, values: Iterable<String>) = apply {
-            this.additionalHeaders.getOrPut(name) { mutableListOf() }.addAll(values)
+        fun putAdditionalHeaders(name: String, values: Iterable<String>) = apply {
+            additionalHeaders.putAll(name, values)
         }
 
-        fun putAllHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
-            additionalHeaders.forEach(this::putHeaders)
+        fun putAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
+            additionalHeaders.forEach(::putAdditionalHeaders)
         }
 
-        fun removeHeader(name: String) = apply { this.additionalHeaders.put(name, mutableListOf()) }
+        fun replaceAdditionalHeaders(name: String, value: String) = apply {
+            additionalHeaders.replaceValues(name, listOf(value))
+        }
+
+        fun replaceAdditionalHeaders(name: String, values: Iterable<String>) = apply {
+            additionalHeaders.replaceValues(name, values)
+        }
+
+        fun replaceAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
+            additionalHeaders.forEach(::replaceAdditionalHeaders)
+        }
+
+        fun removeAdditionalHeaders(name: String) = apply { additionalHeaders.removeAll(name) }
+
+        fun removeAllAdditionalHeaders(names: Set<String>) = apply {
+            names.forEach(::removeAdditionalHeaders)
+        }
+
+        fun additionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) = apply {
+            this.additionalQueryParams.clear()
+            putAllAdditionalQueryParams(additionalQueryParams)
+        }
+
+        fun putAdditionalQueryParam(key: String, value: String) = apply {
+            additionalQueryParams.put(key, value)
+        }
+
+        fun putAdditionalQueryParams(key: String, values: Iterable<String>) = apply {
+            additionalQueryParams.putAll(key, values)
+        }
+
+        fun putAllAdditionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) =
+            apply {
+                additionalQueryParams.forEach(::putAdditionalQueryParams)
+            }
+
+        fun replaceAdditionalQueryParams(key: String, value: String) = apply {
+            additionalQueryParams.replaceValues(key, listOf(value))
+        }
+
+        fun replaceAdditionalQueryParams(key: String, values: Iterable<String>) = apply {
+            additionalQueryParams.replaceValues(key, values)
+        }
+
+        fun replaceAllAdditionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) =
+            apply {
+                additionalQueryParams.forEach(::replaceAdditionalQueryParams)
+            }
+
+        fun removeAdditionalQueryParams(key: String) = apply {
+            additionalQueryParams.removeAll(key)
+        }
+
+        fun removeAllAdditionalQueryParams(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalQueryParams)
+        }
 
         fun build(): TransactionListParams =
             TransactionListParams(
@@ -171,8 +207,14 @@ constructor(
                 cursor,
                 limit,
                 routeId,
-                additionalQueryParams.mapValues { it.value.toImmutable() }.toImmutable(),
-                additionalHeaders.mapValues { it.value.toImmutable() }.toImmutable(),
+                additionalHeaders
+                    .asMap()
+                    .mapValues { it.value.toList().toImmutable() }
+                    .toImmutable(),
+                additionalQueryParams
+                    .asMap()
+                    .mapValues { it.value.toList().toImmutable() }
+                    .toImmutable(),
             )
     }
 
