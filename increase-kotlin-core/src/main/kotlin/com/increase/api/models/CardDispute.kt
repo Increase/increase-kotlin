@@ -902,6 +902,8 @@ private constructor(
 
             val PENDING_REVIEWING = Status(JsonField.of("pending_reviewing"))
 
+            val PENDING_USER_INFORMATION = Status(JsonField.of("pending_user_information"))
+
             val ACCEPTED = Status(JsonField.of("accepted"))
 
             val REJECTED = Status(JsonField.of("rejected"))
@@ -915,6 +917,7 @@ private constructor(
 
         enum class Known {
             PENDING_REVIEWING,
+            PENDING_USER_INFORMATION,
             ACCEPTED,
             REJECTED,
             LOST,
@@ -923,6 +926,7 @@ private constructor(
 
         enum class Value {
             PENDING_REVIEWING,
+            PENDING_USER_INFORMATION,
             ACCEPTED,
             REJECTED,
             LOST,
@@ -933,6 +937,7 @@ private constructor(
         fun value(): Value =
             when (this) {
                 PENDING_REVIEWING -> Value.PENDING_REVIEWING
+                PENDING_USER_INFORMATION -> Value.PENDING_USER_INFORMATION
                 ACCEPTED -> Value.ACCEPTED
                 REJECTED -> Value.REJECTED
                 LOST -> Value.LOST
@@ -943,6 +948,7 @@ private constructor(
         fun known(): Known =
             when (this) {
                 PENDING_REVIEWING -> Known.PENDING_REVIEWING
+                PENDING_USER_INFORMATION -> Known.PENDING_USER_INFORMATION
                 ACCEPTED -> Known.ACCEPTED
                 REJECTED -> Known.REJECTED
                 LOST -> Known.LOST

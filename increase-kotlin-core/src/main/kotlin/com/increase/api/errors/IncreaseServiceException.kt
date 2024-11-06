@@ -1,10 +1,10 @@
 package com.increase.api.errors
 
-import com.google.common.collect.ListMultimap
+import com.increase.api.core.http.Headers
 
 abstract class IncreaseServiceException(
     private val statusCode: Int,
-    private val headers: ListMultimap<String, String>,
+    private val headers: Headers,
     private val body: String,
     private val error: IncreaseError,
     message: String = "$statusCode: $error",
@@ -13,7 +13,7 @@ abstract class IncreaseServiceException(
 
     fun statusCode(): Int = statusCode
 
-    fun headers(): ListMultimap<String, String> = headers
+    fun headers(): Headers = headers
 
     fun body(): String = body
 
