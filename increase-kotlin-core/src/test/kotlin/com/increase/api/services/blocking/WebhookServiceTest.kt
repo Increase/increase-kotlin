@@ -2,9 +2,9 @@
 
 package com.increase.api.services.blocking
 
-import com.google.common.collect.ImmutableListMultimap
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
+import com.increase.api.core.http.Headers
 import com.increase.api.errors.IncreaseException
 import com.increase.api.models.*
 import java.time.Clock
@@ -29,10 +29,12 @@ class WebhookServiceTest {
 
         val payload = "{\"id\":\"event_123abc\",\"created_at\":\"2020-01-31T23:59:59Z\"}"
         val headers =
-            ImmutableListMultimap.of(
-                "Increase-Webhook-Signature",
-                "t=2022-01-31T23:59:59Z,v1=3f9c3dcc820ca3adfae8e196d05b09dfef63b91db5ce5ac1407090f2aa424a6f"
-            )
+            Headers.builder()
+                .put(
+                    "Increase-Webhook-Signature",
+                    "t=2022-01-31T23:59:59Z,v1=3f9c3dcc820ca3adfae8e196d05b09dfef63b91db5ce5ac1407090f2aa424a6f"
+                )
+                .build()
 
         val event = client.webhooks().unwrap(payload, headers, null)
 
@@ -49,10 +51,12 @@ class WebhookServiceTest {
 
         val payload = "{\"id\":\"event_123abc\",\"created_at\":\"2020-01-31T23:59:59Z\"}"
         val headers =
-            ImmutableListMultimap.of(
-                "Increase-Webhook-Signature",
-                "t=2022-01-31T23:59:59Z,v1=3f9c3dcc820ca3adfae8e196d05b09dfef63b91db5ce5ac1407090f2aa424a6f"
-            )
+            Headers.builder()
+                .put(
+                    "Increase-Webhook-Signature",
+                    "t=2022-01-31T23:59:59Z,v1=3f9c3dcc820ca3adfae8e196d05b09dfef63b91db5ce5ac1407090f2aa424a6f"
+                )
+                .build()
 
         val event =
             client.webhooks().unwrap(payload, headers, "whsec_zlFsbBZ8Xcodlpcu6NDTdSzZRLSdhkst")
@@ -70,10 +74,12 @@ class WebhookServiceTest {
 
         val payload = "{\"id\":\"event_123abc\",\"created_at\":\"2020-01-31T23:59:59Z\"}"
         val headers =
-            ImmutableListMultimap.of(
-                "Increase-Webhook-Signature",
-                "t=2022-01-31T23:59:59Z,v1=3f9c3dcc820ca3adfae8e196d05b09dfef63b91db5ce5ac1407090f2aa424a6f"
-            )
+            Headers.builder()
+                .put(
+                    "Increase-Webhook-Signature",
+                    "t=2022-01-31T23:59:59Z,v1=3f9c3dcc820ca3adfae8e196d05b09dfef63b91db5ce5ac1407090f2aa424a6f"
+                )
+                .build()
 
         val event = client.webhooks().unwrap(payload, headers, null)
 
@@ -92,10 +98,9 @@ class WebhookServiceTest {
         val webhookTimestamp = "2022-01-31T23:59:59Z"
         val webhookSignature = "bf127c54744439c2890b36028a8c734856776db3ed1e2632fc548e5f834a1f57"
         val headers =
-            ImmutableListMultimap.of(
-                "Increase-Webhook-Signature",
-                "t=$webhookTimestamp,v1=$webhookSignature"
-            )
+            Headers.builder()
+                .put("Increase-Webhook-Signature", "t=$webhookTimestamp,v1=$webhookSignature")
+                .build()
 
         assertThatCode {
                 client

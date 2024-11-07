@@ -3,12 +3,12 @@
 package com.increase.api.services.async
 
 import com.fasterxml.jackson.core.JsonProcessingException
-import com.google.common.collect.ListMultimap
 import com.google.common.io.BaseEncoding
 import com.increase.api.core.ClientOptions
 import com.increase.api.core.JsonValue
 import com.increase.api.core.getRequiredHeader
 import com.increase.api.core.handlers.errorHandler
+import com.increase.api.core.http.Headers
 import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.errors.IncreaseError
 import com.increase.api.errors.IncreaseException
@@ -23,11 +23,7 @@ constructor(
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
-    override suspend fun unwrap(
-        payload: String,
-        headers: ListMultimap<String, String>,
-        secret: String?
-    ): JsonValue {
+    override suspend fun unwrap(payload: String, headers: Headers, secret: String?): JsonValue {
         if (secret != null) {
             verifySignature(payload, headers, secret)
         }
@@ -39,11 +35,7 @@ constructor(
         }
     }
 
-    override suspend fun verifySignature(
-        payload: String,
-        headers: ListMultimap<String, String>,
-        secret: String?
-    ) {
+    override suspend fun verifySignature(payload: String, headers: Headers, secret: String?) {
         val webhookSecret =
             secret
                 ?: clientOptions.webhookSecret

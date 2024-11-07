@@ -4,20 +4,12 @@
 
 package com.increase.api.services.async
 
-import com.google.common.collect.ListMultimap
 import com.increase.api.core.JsonValue
+import com.increase.api.core.http.Headers
 
 interface WebhookServiceAsync {
 
-    suspend fun unwrap(
-        payload: String,
-        headers: ListMultimap<String, String>,
-        secret: String?
-    ): JsonValue
+    suspend fun unwrap(payload: String, headers: Headers, secret: String?): JsonValue
 
-    suspend fun verifySignature(
-        payload: String,
-        headers: ListMultimap<String, String>,
-        secret: String?
-    )
+    suspend fun verifySignature(payload: String, headers: Headers, secret: String?)
 }
