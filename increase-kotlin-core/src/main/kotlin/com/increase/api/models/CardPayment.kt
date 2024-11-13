@@ -8260,7 +8260,7 @@ private constructor(
                 merchantCategoryCode.getRequired("merchant_category_code")
 
             /** The city the merchant resides in. */
-            fun merchantCity(): String? = merchantCity.getNullable("merchant_city")
+            fun merchantCity(): String = merchantCity.getRequired("merchant_city")
 
             /** The country the merchant resides in. */
             fun merchantCountry(): String = merchantCountry.getRequired("merchant_country")
@@ -13833,7 +13833,7 @@ private constructor(
                 merchantCategoryCode.getRequired("merchant_category_code")
 
             /** The city the merchant resides in. */
-            fun merchantCity(): String? = merchantCity.getNullable("merchant_city")
+            fun merchantCity(): String = merchantCity.getRequired("merchant_city")
 
             /** The country the merchant resides in. */
             fun merchantCountry(): String = merchantCountry.getRequired("merchant_country")
