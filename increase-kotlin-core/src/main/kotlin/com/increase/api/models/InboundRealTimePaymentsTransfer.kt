@@ -547,17 +547,14 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Confirmation && this.confirmedAt == other.confirmedAt && this.transactionId == other.transactionId && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Confirmation && confirmedAt == other.confirmedAt && transactionId == other.transactionId && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(confirmedAt, transactionId, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(confirmedAt, transactionId, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "Confirmation{confirmedAt=$confirmedAt, transactionId=$transactionId, additionalProperties=$additionalProperties}"
@@ -576,7 +573,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Currency && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Currency && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -777,7 +774,7 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is Reason && this.value == other.value /* spotless:on */
+                return /* spotless:off */ other is Reason && value == other.value /* spotless:on */
             }
 
             override fun hashCode() = value.hashCode()
@@ -851,17 +848,14 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Decline && this.declinedAt == other.declinedAt && this.declinedTransactionId == other.declinedTransactionId && this.reason == other.reason && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Decline && declinedAt == other.declinedAt && declinedTransactionId == other.declinedTransactionId && reason == other.reason && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(declinedAt, declinedTransactionId, reason, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(declinedAt, declinedTransactionId, reason, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "Decline{declinedAt=$declinedAt, declinedTransactionId=$declinedTransactionId, reason=$reason, additionalProperties=$additionalProperties}"
@@ -880,7 +874,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Status && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -949,7 +943,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Type && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -993,17 +987,14 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is InboundRealTimePaymentsTransfer && this.accountId == other.accountId && this.accountNumberId == other.accountNumberId && this.amount == other.amount && this.confirmation == other.confirmation && this.createdAt == other.createdAt && this.creditorName == other.creditorName && this.currency == other.currency && this.debtorAccountNumber == other.debtorAccountNumber && this.debtorName == other.debtorName && this.debtorRoutingNumber == other.debtorRoutingNumber && this.decline == other.decline && this.id == other.id && this.remittanceInformation == other.remittanceInformation && this.status == other.status && this.transactionIdentification == other.transactionIdentification && this.type == other.type && this.additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is InboundRealTimePaymentsTransfer && accountId == other.accountId && accountNumberId == other.accountNumberId && amount == other.amount && confirmation == other.confirmation && createdAt == other.createdAt && creditorName == other.creditorName && currency == other.currency && debtorAccountNumber == other.debtorAccountNumber && debtorName == other.debtorName && debtorRoutingNumber == other.debtorRoutingNumber && decline == other.decline && id == other.id && remittanceInformation == other.remittanceInformation && status == other.status && transactionIdentification == other.transactionIdentification && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
-    private var hashCode: Int = 0
+    /* spotless:off */
+    private val hashCode: Int by lazy { Objects.hash(accountId, accountNumberId, amount, confirmation, createdAt, creditorName, currency, debtorAccountNumber, debtorName, debtorRoutingNumber, decline, id, remittanceInformation, status, transactionIdentification, type, additionalProperties) }
+    /* spotless:on */
 
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode = /* spotless:off */ Objects.hash(accountId, accountNumberId, amount, confirmation, createdAt, creditorName, currency, debtorAccountNumber, debtorName, debtorRoutingNumber, decline, id, remittanceInformation, status, transactionIdentification, type, additionalProperties) /* spotless:on */
-        }
-        return hashCode
-    }
+    override fun hashCode(): Int = hashCode
 
     override fun toString() =
         "InboundRealTimePaymentsTransfer{accountId=$accountId, accountNumberId=$accountNumberId, amount=$amount, confirmation=$confirmation, createdAt=$createdAt, creditorName=$creditorName, currency=$currency, debtorAccountNumber=$debtorAccountNumber, debtorName=$debtorName, debtorRoutingNumber=$debtorRoutingNumber, decline=$decline, id=$id, remittanceInformation=$remittanceInformation, status=$status, transactionIdentification=$transactionIdentification, type=$type, additionalProperties=$additionalProperties}"
