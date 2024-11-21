@@ -159,7 +159,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is TokenType && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is TokenType && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -210,7 +210,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Type && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -253,17 +253,14 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is OAuthToken && this.accessToken == other.accessToken && this.tokenType == other.tokenType && this.type == other.type && this.additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is OAuthToken && accessToken == other.accessToken && tokenType == other.tokenType && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
-    private var hashCode: Int = 0
+    /* spotless:off */
+    private val hashCode: Int by lazy { Objects.hash(accessToken, tokenType, type, additionalProperties) }
+    /* spotless:on */
 
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode = /* spotless:off */ Objects.hash(accessToken, tokenType, type, additionalProperties) /* spotless:on */
-        }
-        return hashCode
-    }
+    override fun hashCode(): Int = hashCode
 
     override fun toString() =
         "OAuthToken{accessToken=$accessToken, tokenType=$tokenType, type=$type, additionalProperties=$additionalProperties}"
