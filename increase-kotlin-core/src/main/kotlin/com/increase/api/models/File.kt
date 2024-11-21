@@ -324,7 +324,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Direction && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Direction && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -381,7 +381,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Purpose && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Purpose && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -566,7 +566,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Type && this.value == other.value /* spotless:on */
+            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -609,17 +609,14 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is File && this.createdAt == other.createdAt && this.description == other.description && this.direction == other.direction && this.downloadUrl == other.downloadUrl && this.filename == other.filename && this.id == other.id && this.idempotencyKey == other.idempotencyKey && this.mimeType == other.mimeType && this.purpose == other.purpose && this.type == other.type && this.additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is File && createdAt == other.createdAt && description == other.description && direction == other.direction && downloadUrl == other.downloadUrl && filename == other.filename && id == other.id && idempotencyKey == other.idempotencyKey && mimeType == other.mimeType && purpose == other.purpose && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
-    private var hashCode: Int = 0
+    /* spotless:off */
+    private val hashCode: Int by lazy { Objects.hash(createdAt, description, direction, downloadUrl, filename, id, idempotencyKey, mimeType, purpose, type, additionalProperties) }
+    /* spotless:on */
 
-    override fun hashCode(): Int {
-        if (hashCode == 0) {
-            hashCode = /* spotless:off */ Objects.hash(createdAt, description, direction, downloadUrl, filename, id, idempotencyKey, mimeType, purpose, type, additionalProperties) /* spotless:on */
-        }
-        return hashCode
-    }
+    override fun hashCode(): Int = hashCode
 
     override fun toString() =
         "File{createdAt=$createdAt, description=$description, direction=$direction, downloadUrl=$downloadUrl, filename=$filename, id=$id, idempotencyKey=$idempotencyKey, mimeType=$mimeType, purpose=$purpose, type=$type, additionalProperties=$additionalProperties}"

@@ -221,17 +221,14 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is RealTimeDecisionActionBody && this.cardAuthentication == other.cardAuthentication && this.cardAuthenticationChallenge == other.cardAuthenticationChallenge && this.cardAuthorization == other.cardAuthorization && this.digitalWalletAuthentication == other.digitalWalletAuthentication && this.digitalWalletToken == other.digitalWalletToken && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is RealTimeDecisionActionBody && cardAuthentication == other.cardAuthentication && cardAuthenticationChallenge == other.cardAuthenticationChallenge && cardAuthorization == other.cardAuthorization && digitalWalletAuthentication == other.digitalWalletAuthentication && digitalWalletToken == other.digitalWalletToken && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(cardAuthentication, cardAuthenticationChallenge, cardAuthorization, digitalWalletAuthentication, digitalWalletToken, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(cardAuthentication, cardAuthenticationChallenge, cardAuthorization, digitalWalletAuthentication, digitalWalletToken, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "RealTimeDecisionActionBody{cardAuthentication=$cardAuthentication, cardAuthenticationChallenge=$cardAuthenticationChallenge, cardAuthorization=$cardAuthorization, digitalWalletAuthentication=$digitalWalletAuthentication, digitalWalletToken=$digitalWalletToken, additionalProperties=$additionalProperties}"
@@ -248,12 +245,10 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is RealTimeDecisionActionParams && this.realTimeDecisionId == other.realTimeDecisionId && this.cardAuthentication == other.cardAuthentication && this.cardAuthenticationChallenge == other.cardAuthenticationChallenge && this.cardAuthorization == other.cardAuthorization && this.digitalWalletAuthentication == other.digitalWalletAuthentication && this.digitalWalletToken == other.digitalWalletToken && this.additionalHeaders == other.additionalHeaders && this.additionalQueryParams == other.additionalQueryParams && this.additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is RealTimeDecisionActionParams && realTimeDecisionId == other.realTimeDecisionId && cardAuthentication == other.cardAuthentication && cardAuthenticationChallenge == other.cardAuthenticationChallenge && cardAuthorization == other.cardAuthorization && digitalWalletAuthentication == other.digitalWalletAuthentication && digitalWalletToken == other.digitalWalletToken && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
     }
 
-    override fun hashCode(): Int {
-        return /* spotless:off */ Objects.hash(realTimeDecisionId, cardAuthentication, cardAuthenticationChallenge, cardAuthorization, digitalWalletAuthentication, digitalWalletToken, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-    }
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(realTimeDecisionId, cardAuthentication, cardAuthenticationChallenge, cardAuthorization, digitalWalletAuthentication, digitalWalletToken, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
 
     override fun toString() =
         "RealTimeDecisionActionParams{realTimeDecisionId=$realTimeDecisionId, cardAuthentication=$cardAuthentication, cardAuthenticationChallenge=$cardAuthenticationChallenge, cardAuthorization=$cardAuthorization, digitalWalletAuthentication=$digitalWalletAuthentication, digitalWalletToken=$digitalWalletToken, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
@@ -549,7 +544,7 @@ constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is Decision && this.value == other.value /* spotless:on */
+                return /* spotless:off */ other is Decision && value == other.value /* spotless:on */
             }
 
             override fun hashCode() = value.hashCode()
@@ -604,17 +599,14 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is CardAuthentication && this.decision == other.decision && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is CardAuthentication && decision == other.decision && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(decision, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(decision, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "CardAuthentication{decision=$decision, additionalProperties=$additionalProperties}"
@@ -698,7 +690,7 @@ constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is Result && this.value == other.value /* spotless:on */
+                return /* spotless:off */ other is Result && value == other.value /* spotless:on */
             }
 
             override fun hashCode() = value.hashCode()
@@ -747,17 +739,14 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is CardAuthenticationChallenge && this.result == other.result && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is CardAuthenticationChallenge && result == other.result && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(result, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(result, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "CardAuthenticationChallenge{result=$result, additionalProperties=$additionalProperties}"
@@ -856,7 +845,7 @@ constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is Decision && this.value == other.value /* spotless:on */
+                return /* spotless:off */ other is Decision && value == other.value /* spotless:on */
             }
 
             override fun hashCode() = value.hashCode()
@@ -913,7 +902,7 @@ constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is DeclineReason && this.value == other.value /* spotless:on */
+                return /* spotless:off */ other is DeclineReason && value == other.value /* spotless:on */
             }
 
             override fun hashCode() = value.hashCode()
@@ -988,17 +977,14 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is CardAuthorization && this.decision == other.decision && this.declineReason == other.declineReason && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is CardAuthorization && decision == other.decision && declineReason == other.declineReason && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(decision, declineReason, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(decision, declineReason, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "CardAuthorization{decision=$decision, declineReason=$declineReason, additionalProperties=$additionalProperties}"
@@ -1086,7 +1072,7 @@ constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is Result && this.value == other.value /* spotless:on */
+                return /* spotless:off */ other is Result && value == other.value /* spotless:on */
             }
 
             override fun hashCode() = value.hashCode()
@@ -1210,17 +1196,14 @@ constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is Success && this.email == other.email && this.phone == other.phone && this.additionalProperties == other.additionalProperties /* spotless:on */
+                return /* spotless:off */ other is Success && email == other.email && phone == other.phone && additionalProperties == other.additionalProperties /* spotless:on */
             }
 
-            private var hashCode: Int = 0
+            /* spotless:off */
+            private val hashCode: Int by lazy { Objects.hash(email, phone, additionalProperties) }
+            /* spotless:on */
 
-            override fun hashCode(): Int {
-                if (hashCode == 0) {
-                    hashCode = /* spotless:off */ Objects.hash(email, phone, additionalProperties) /* spotless:on */
-                }
-                return hashCode
-            }
+            override fun hashCode(): Int = hashCode
 
             override fun toString() =
                 "Success{email=$email, phone=$phone, additionalProperties=$additionalProperties}"
@@ -1231,17 +1214,14 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is DigitalWalletAuthentication && this.result == other.result && this.success == other.success && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is DigitalWalletAuthentication && result == other.result && success == other.success && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(result, success, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(result, success, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "DigitalWalletAuthentication{result=$result, success=$success, additionalProperties=$additionalProperties}"
@@ -1415,17 +1395,14 @@ constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is Approval && this.email == other.email && this.phone == other.phone && this.additionalProperties == other.additionalProperties /* spotless:on */
+                return /* spotless:off */ other is Approval && email == other.email && phone == other.phone && additionalProperties == other.additionalProperties /* spotless:on */
             }
 
-            private var hashCode: Int = 0
+            /* spotless:off */
+            private val hashCode: Int by lazy { Objects.hash(email, phone, additionalProperties) }
+            /* spotless:on */
 
-            override fun hashCode(): Int {
-                if (hashCode == 0) {
-                    hashCode = /* spotless:off */ Objects.hash(email, phone, additionalProperties) /* spotless:on */
-                }
-                return hashCode
-            }
+            override fun hashCode(): Int = hashCode
 
             override fun toString() =
                 "Approval{email=$email, phone=$phone, additionalProperties=$additionalProperties}"
@@ -1499,17 +1476,14 @@ constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is Decline && this.reason == other.reason && this.additionalProperties == other.additionalProperties /* spotless:on */
+                return /* spotless:off */ other is Decline && reason == other.reason && additionalProperties == other.additionalProperties /* spotless:on */
             }
 
-            private var hashCode: Int = 0
+            /* spotless:off */
+            private val hashCode: Int by lazy { Objects.hash(reason, additionalProperties) }
+            /* spotless:on */
 
-            override fun hashCode(): Int {
-                if (hashCode == 0) {
-                    hashCode = /* spotless:off */ Objects.hash(reason, additionalProperties) /* spotless:on */
-                }
-                return hashCode
-            }
+            override fun hashCode(): Int = hashCode
 
             override fun toString() =
                 "Decline{reason=$reason, additionalProperties=$additionalProperties}"
@@ -1520,17 +1494,14 @@ constructor(
                 return true
             }
 
-            return /* spotless:off */ other is DigitalWalletToken && this.approval == other.approval && this.decline == other.decline && this.additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is DigitalWalletToken && approval == other.approval && decline == other.decline && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
-        private var hashCode: Int = 0
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(approval, decline, additionalProperties) }
+        /* spotless:on */
 
-        override fun hashCode(): Int {
-            if (hashCode == 0) {
-                hashCode = /* spotless:off */ Objects.hash(approval, decline, additionalProperties) /* spotless:on */
-            }
-            return hashCode
-        }
+        override fun hashCode(): Int = hashCode
 
         override fun toString() =
             "DigitalWalletToken{approval=$approval, decline=$decline, additionalProperties=$additionalProperties}"
