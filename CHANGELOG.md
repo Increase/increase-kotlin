@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.143.0 (2024-11-22)
+
+Full Changelog: [v0.142.0...v0.143.0](https://github.com/Increase/increase-kotlin/compare/v0.142.0...v0.143.0)
+
+### Features
+
+* **api:** api update ([#618](https://github.com/Increase/increase-kotlin/issues/618)) ([c73bdd9](https://github.com/Increase/increase-kotlin/commit/c73bdd9f4135c7a4efb0620c314209f2c077c437))
+
+
+### Chores
+
+* **deps:** bump jackson to 2.18.1 ([#616](https://github.com/Increase/increase-kotlin/issues/616)) ([5fa3c28](https://github.com/Increase/increase-kotlin/commit/5fa3c28e1250326967161b53779c4b9cae429575))
+* **internal:** codegen related update ([#617](https://github.com/Increase/increase-kotlin/issues/617)) ([c5d3129](https://github.com/Increase/increase-kotlin/commit/c5d31298f90e8a4e09aa665fcdad6d7c2232e03c))
+* rebuild project due to codegen change ([#614](https://github.com/Increase/increase-kotlin/issues/614)) ([97cfccc](https://github.com/Increase/increase-kotlin/commit/97cfccc7683c0a0eeb3e567bbe293de07080ca6e))
+
 ## 0.142.0 (2024-11-14)
 
 Full Changelog: [v0.141.0...v0.142.0](https://github.com/Increase/increase-kotlin/compare/v0.141.0...v0.142.0)
