@@ -301,6 +301,22 @@ val client = IncreaseOkHttpClient.builder()
     .build()
 ```
 
+## Logging
+
+We use the standard [OkHttp logging interceptor](https://github.com/square/okhttp/tree/master/okhttp-logging-interceptor).
+
+You can enable logging by setting the environment variable `INCREASE_LOG` to `info`.
+
+```sh
+$ export INCREASE_LOG=info
+```
+
+Or to `debug` for more verbose logging.
+
+```sh
+$ export INCREASE_LOG=debug
+```
+
 ## Semantic versioning
 
 This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) conventions, though certain backwards-incompatible changes may be released as minor versions:
