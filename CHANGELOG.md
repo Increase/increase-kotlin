@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.145.0 (2024-11-26)
+
+Full Changelog: [v0.144.0...v0.145.0](https://github.com/Increase/increase-kotlin/compare/v0.144.0...v0.145.0)
+
+### Features
+
+* **client:** add logging when debug env is set ([#626](https://github.com/Increase/increase-kotlin/issues/626)) ([b163198](https://github.com/Increase/increase-kotlin/commit/b16319822d5bbdf5fd3ce0efe82792b41bfc84e8))
+* derive gpg release key's id via gpg itself ([#629](https://github.com/Increase/increase-kotlin/issues/629)) ([d4cd273](https://github.com/Increase/increase-kotlin/commit/d4cd2734e02225b16081c34fa46a1458097bd499))
+
+
+### Chores
+
+* **internal:** update example values ([#628](https://github.com/Increase/increase-kotlin/issues/628)) ([85f2f32](https://github.com/Increase/increase-kotlin/commit/85f2f32c560db0546a5626223d76eca5eaf588c9))
+
 ## 0.144.0 (2024-11-26)
 
 Full Changelog: [v0.143.0...v0.144.0](https://github.com/Increase/increase-kotlin/compare/v0.143.0...v0.144.0)
