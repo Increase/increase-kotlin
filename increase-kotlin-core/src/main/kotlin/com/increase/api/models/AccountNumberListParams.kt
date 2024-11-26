@@ -44,6 +44,10 @@ constructor(
 
     fun status(): Status? = status
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     internal fun getHeaders(): Headers = additionalHeaders
 
     internal fun getQueryParams(): QueryParams {
@@ -60,23 +64,6 @@ constructor(
         queryParams.putAll(additionalQueryParams)
         return queryParams.build()
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is AccountNumberListParams && accountId == other.accountId && achDebitStatus == other.achDebitStatus && createdAt == other.createdAt && cursor == other.cursor && idempotencyKey == other.idempotencyKey && limit == other.limit && status == other.status && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, achDebitStatus, createdAt, cursor, idempotencyKey, limit, status, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "AccountNumberListParams{accountId=$accountId, achDebitStatus=$achDebitStatus, createdAt=$createdAt, cursor=$cursor, idempotencyKey=$idempotencyKey, limit=$limit, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -99,15 +86,15 @@ constructor(
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         internal fun from(accountNumberListParams: AccountNumberListParams) = apply {
-            this.accountId = accountNumberListParams.accountId
-            this.achDebitStatus = accountNumberListParams.achDebitStatus
-            this.createdAt = accountNumberListParams.createdAt
-            this.cursor = accountNumberListParams.cursor
-            this.idempotencyKey = accountNumberListParams.idempotencyKey
-            this.limit = accountNumberListParams.limit
-            this.status = accountNumberListParams.status
-            additionalHeaders(accountNumberListParams.additionalHeaders)
-            additionalQueryParams(accountNumberListParams.additionalQueryParams)
+            accountId = accountNumberListParams.accountId
+            achDebitStatus = accountNumberListParams.achDebitStatus
+            createdAt = accountNumberListParams.createdAt
+            cursor = accountNumberListParams.cursor
+            idempotencyKey = accountNumberListParams.idempotencyKey
+            limit = accountNumberListParams.limit
+            status = accountNumberListParams.status
+            additionalHeaders = accountNumberListParams.additionalHeaders.toBuilder()
+            additionalQueryParams = accountNumberListParams.additionalQueryParams.toBuilder()
         }
 
         /** Filter Account Numbers to those belonging to the specified Account. */
@@ -510,4 +497,17 @@ constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is AccountNumberListParams && accountId == other.accountId && achDebitStatus == other.achDebitStatus && createdAt == other.createdAt && cursor == other.cursor && idempotencyKey == other.idempotencyKey && limit == other.limit && status == other.status && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, achDebitStatus, createdAt, cursor, idempotencyKey, limit, status, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "AccountNumberListParams{accountId=$accountId, achDebitStatus=$achDebitStatus, createdAt=$createdAt, cursor=$cursor, idempotencyKey=$idempotencyKey, limit=$limit, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

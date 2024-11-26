@@ -41,6 +41,12 @@ constructor(
 
     fun status(): Status? = status
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     internal fun getBody(): ExternalAccountUpdateBody {
         return ExternalAccountUpdateBody(
             accountHolder,
@@ -171,25 +177,6 @@ constructor(
             "ExternalAccountUpdateBody{accountHolder=$accountHolder, description=$description, funding=$funding, status=$status, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is ExternalAccountUpdateParams && externalAccountId == other.externalAccountId && accountHolder == other.accountHolder && description == other.description && funding == other.funding && status == other.status && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(externalAccountId, accountHolder, description, funding, status, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "ExternalAccountUpdateParams{externalAccountId=$externalAccountId, accountHolder=$accountHolder, description=$description, funding=$funding, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -210,14 +197,15 @@ constructor(
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(externalAccountUpdateParams: ExternalAccountUpdateParams) = apply {
-            this.externalAccountId = externalAccountUpdateParams.externalAccountId
-            this.accountHolder = externalAccountUpdateParams.accountHolder
-            this.description = externalAccountUpdateParams.description
-            this.funding = externalAccountUpdateParams.funding
-            this.status = externalAccountUpdateParams.status
-            additionalHeaders(externalAccountUpdateParams.additionalHeaders)
-            additionalQueryParams(externalAccountUpdateParams.additionalQueryParams)
-            additionalBodyProperties(externalAccountUpdateParams.additionalBodyProperties)
+            externalAccountId = externalAccountUpdateParams.externalAccountId
+            accountHolder = externalAccountUpdateParams.accountHolder
+            description = externalAccountUpdateParams.description
+            funding = externalAccountUpdateParams.funding
+            status = externalAccountUpdateParams.status
+            additionalHeaders = externalAccountUpdateParams.additionalHeaders.toBuilder()
+            additionalQueryParams = externalAccountUpdateParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                externalAccountUpdateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The external account identifier. */
@@ -550,4 +538,17 @@ constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is ExternalAccountUpdateParams && externalAccountId == other.externalAccountId && accountHolder == other.accountHolder && description == other.description && funding == other.funding && status == other.status && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(externalAccountId, accountHolder, description, funding, status, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "ExternalAccountUpdateParams{externalAccountId=$externalAccountId, accountHolder=$accountHolder, description=$description, funding=$funding, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

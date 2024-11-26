@@ -30,6 +30,10 @@ constructor(
 
     fun limit(): Long? = limit
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     internal fun getHeaders(): Headers = additionalHeaders
 
     internal fun getQueryParams(): QueryParams {
@@ -43,23 +47,6 @@ constructor(
         queryParams.putAll(additionalQueryParams)
         return queryParams.build()
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is CardPurchaseSupplementListParams && cardPaymentId == other.cardPaymentId && createdAt == other.createdAt && cursor == other.cursor && limit == other.limit && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(cardPaymentId, createdAt, cursor, limit, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "CardPurchaseSupplementListParams{cardPaymentId=$cardPaymentId, createdAt=$createdAt, cursor=$cursor, limit=$limit, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -80,12 +67,13 @@ constructor(
 
         internal fun from(cardPurchaseSupplementListParams: CardPurchaseSupplementListParams) =
             apply {
-                this.cardPaymentId = cardPurchaseSupplementListParams.cardPaymentId
-                this.createdAt = cardPurchaseSupplementListParams.createdAt
-                this.cursor = cardPurchaseSupplementListParams.cursor
-                this.limit = cardPurchaseSupplementListParams.limit
-                additionalHeaders(cardPurchaseSupplementListParams.additionalHeaders)
-                additionalQueryParams(cardPurchaseSupplementListParams.additionalQueryParams)
+                cardPaymentId = cardPurchaseSupplementListParams.cardPaymentId
+                createdAt = cardPurchaseSupplementListParams.createdAt
+                cursor = cardPurchaseSupplementListParams.cursor
+                limit = cardPurchaseSupplementListParams.limit
+                additionalHeaders = cardPurchaseSupplementListParams.additionalHeaders.toBuilder()
+                additionalQueryParams =
+                    cardPurchaseSupplementListParams.additionalQueryParams.toBuilder()
             }
 
         /** Filter Card Purchase Supplements to ones belonging to the specified Card Payment. */
@@ -349,4 +337,17 @@ constructor(
         override fun toString() =
             "CreatedAt{after=$after, before=$before, onOrAfter=$onOrAfter, onOrBefore=$onOrBefore, additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is CardPurchaseSupplementListParams && cardPaymentId == other.cardPaymentId && createdAt == other.createdAt && cursor == other.cursor && limit == other.limit && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(cardPaymentId, createdAt, cursor, limit, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "CardPurchaseSupplementListParams{cardPaymentId=$cardPaymentId, createdAt=$createdAt, cursor=$cursor, limit=$limit, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

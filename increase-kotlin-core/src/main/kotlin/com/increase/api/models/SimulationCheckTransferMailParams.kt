@@ -20,6 +20,12 @@ constructor(
 
     fun checkTransferId(): String = checkTransferId
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     internal fun getBody(): Map<String, JsonValue>? {
         return additionalBodyProperties.ifEmpty { null }
     }
@@ -34,25 +40,6 @@ constructor(
             else -> ""
         }
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is SimulationCheckTransferMailParams && checkTransferId == other.checkTransferId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(checkTransferId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "SimulationCheckTransferMailParams{checkTransferId=$checkTransferId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -71,10 +58,12 @@ constructor(
 
         internal fun from(simulationCheckTransferMailParams: SimulationCheckTransferMailParams) =
             apply {
-                this.checkTransferId = simulationCheckTransferMailParams.checkTransferId
-                additionalHeaders(simulationCheckTransferMailParams.additionalHeaders)
-                additionalQueryParams(simulationCheckTransferMailParams.additionalQueryParams)
-                additionalBodyProperties(simulationCheckTransferMailParams.additionalBodyProperties)
+                checkTransferId = simulationCheckTransferMailParams.checkTransferId
+                additionalHeaders = simulationCheckTransferMailParams.additionalHeaders.toBuilder()
+                additionalQueryParams =
+                    simulationCheckTransferMailParams.additionalQueryParams.toBuilder()
+                additionalBodyProperties =
+                    simulationCheckTransferMailParams.additionalBodyProperties.toMutableMap()
             }
 
         /** The identifier of the Check Transfer you wish to mail. */
@@ -210,4 +199,17 @@ constructor(
                 additionalBodyProperties.toImmutable(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is SimulationCheckTransferMailParams && checkTransferId == other.checkTransferId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(checkTransferId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "SimulationCheckTransferMailParams{checkTransferId=$checkTransferId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

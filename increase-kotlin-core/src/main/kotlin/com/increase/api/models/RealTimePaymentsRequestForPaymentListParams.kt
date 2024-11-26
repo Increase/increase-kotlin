@@ -33,6 +33,10 @@ constructor(
 
     fun limit(): Long? = limit
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     internal fun getHeaders(): Headers = additionalHeaders
 
     internal fun getQueryParams(): QueryParams {
@@ -47,23 +51,6 @@ constructor(
         queryParams.putAll(additionalQueryParams)
         return queryParams.build()
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is RealTimePaymentsRequestForPaymentListParams && accountId == other.accountId && createdAt == other.createdAt && cursor == other.cursor && idempotencyKey == other.idempotencyKey && limit == other.limit && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, createdAt, cursor, idempotencyKey, limit, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "RealTimePaymentsRequestForPaymentListParams{accountId=$accountId, createdAt=$createdAt, cursor=$cursor, idempotencyKey=$idempotencyKey, limit=$limit, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -86,13 +73,15 @@ constructor(
         internal fun from(
             realTimePaymentsRequestForPaymentListParams: RealTimePaymentsRequestForPaymentListParams
         ) = apply {
-            this.accountId = realTimePaymentsRequestForPaymentListParams.accountId
-            this.createdAt = realTimePaymentsRequestForPaymentListParams.createdAt
-            this.cursor = realTimePaymentsRequestForPaymentListParams.cursor
-            this.idempotencyKey = realTimePaymentsRequestForPaymentListParams.idempotencyKey
-            this.limit = realTimePaymentsRequestForPaymentListParams.limit
-            additionalHeaders(realTimePaymentsRequestForPaymentListParams.additionalHeaders)
-            additionalQueryParams(realTimePaymentsRequestForPaymentListParams.additionalQueryParams)
+            accountId = realTimePaymentsRequestForPaymentListParams.accountId
+            createdAt = realTimePaymentsRequestForPaymentListParams.createdAt
+            cursor = realTimePaymentsRequestForPaymentListParams.cursor
+            idempotencyKey = realTimePaymentsRequestForPaymentListParams.idempotencyKey
+            limit = realTimePaymentsRequestForPaymentListParams.limit
+            additionalHeaders =
+                realTimePaymentsRequestForPaymentListParams.additionalHeaders.toBuilder()
+            additionalQueryParams =
+                realTimePaymentsRequestForPaymentListParams.additionalQueryParams.toBuilder()
         }
 
         /**
@@ -368,4 +357,17 @@ constructor(
         override fun toString() =
             "CreatedAt{after=$after, before=$before, onOrAfter=$onOrAfter, onOrBefore=$onOrBefore, additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is RealTimePaymentsRequestForPaymentListParams && accountId == other.accountId && createdAt == other.createdAt && cursor == other.cursor && idempotencyKey == other.idempotencyKey && limit == other.limit && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, createdAt, cursor, idempotencyKey, limit, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "RealTimePaymentsRequestForPaymentListParams{accountId=$accountId, createdAt=$createdAt, cursor=$cursor, idempotencyKey=$idempotencyKey, limit=$limit, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

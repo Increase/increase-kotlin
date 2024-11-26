@@ -17,6 +17,10 @@ constructor(
 
     fun proofOfAuthorizationRequestSubmissionId(): String = proofOfAuthorizationRequestSubmissionId
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     internal fun getHeaders(): Headers = additionalHeaders
 
     internal fun getQueryParams(): QueryParams = additionalQueryParams
@@ -27,23 +31,6 @@ constructor(
             else -> ""
         }
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is ProofOfAuthorizationRequestSubmissionRetrieveParams && proofOfAuthorizationRequestSubmissionId == other.proofOfAuthorizationRequestSubmissionId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(proofOfAuthorizationRequestSubmissionId, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "ProofOfAuthorizationRequestSubmissionRetrieveParams{proofOfAuthorizationRequestSubmissionId=$proofOfAuthorizationRequestSubmissionId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -63,13 +50,14 @@ constructor(
             proofOfAuthorizationRequestSubmissionRetrieveParams:
                 ProofOfAuthorizationRequestSubmissionRetrieveParams
         ) = apply {
-            this.proofOfAuthorizationRequestSubmissionId =
+            proofOfAuthorizationRequestSubmissionId =
                 proofOfAuthorizationRequestSubmissionRetrieveParams
                     .proofOfAuthorizationRequestSubmissionId
-            additionalHeaders(proofOfAuthorizationRequestSubmissionRetrieveParams.additionalHeaders)
-            additionalQueryParams(
+            additionalHeaders =
+                proofOfAuthorizationRequestSubmissionRetrieveParams.additionalHeaders.toBuilder()
+            additionalQueryParams =
                 proofOfAuthorizationRequestSubmissionRetrieveParams.additionalQueryParams
-            )
+                    .toBuilder()
         }
 
         /** The identifier of the Proof of Authorization Request Submission. */
@@ -186,4 +174,17 @@ constructor(
                 additionalQueryParams.build(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is ProofOfAuthorizationRequestSubmissionRetrieveParams && proofOfAuthorizationRequestSubmissionId == other.proofOfAuthorizationRequestSubmissionId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(proofOfAuthorizationRequestSubmissionId, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "ProofOfAuthorizationRequestSubmissionRetrieveParams{proofOfAuthorizationRequestSubmissionId=$proofOfAuthorizationRequestSubmissionId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }
