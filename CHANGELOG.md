@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.144.0 (2024-11-26)
+
+Full Changelog: [v0.143.0...v0.144.0](https://github.com/Increase/increase-kotlin/compare/v0.143.0...v0.144.0)
+
+### Features
+
+* **api:** api update ([#623](https://github.com/Increase/increase-kotlin/issues/623)) ([971c24f](https://github.com/Increase/increase-kotlin/commit/971c24f9609cdd093ff5d056ff31acf8ad9e0012))
+
+
+### Chores
+
+* **internal:** codegen related update ([#622](https://github.com/Increase/increase-kotlin/issues/622)) ([2be8b66](https://github.com/Increase/increase-kotlin/commit/2be8b66944d8fef44613cdd4b0d9b828ef567bbb))
+* publish to maven central portal ([#620](https://github.com/Increase/increase-kotlin/issues/620)) ([c053f9c](https://github.com/Increase/increase-kotlin/commit/c053f9c22f33bd36d886221664458100b45f474c))
+
 ## 0.143.0 (2024-11-22)
 
 Full Changelog: [v0.142.0...v0.143.0](https://github.com/Increase/increase-kotlin/compare/v0.142.0...v0.143.0)
