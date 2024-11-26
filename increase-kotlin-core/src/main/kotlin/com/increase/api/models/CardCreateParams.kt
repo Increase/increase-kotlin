@@ -37,6 +37,12 @@ constructor(
 
     fun entityId(): String? = entityId
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     internal fun getBody(): CardCreateBody {
         return CardCreateBody(
             accountId,
@@ -192,25 +198,6 @@ constructor(
             "CardCreateBody{accountId=$accountId, billingAddress=$billingAddress, description=$description, digitalWallet=$digitalWallet, entityId=$entityId, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is CardCreateParams && accountId == other.accountId && billingAddress == other.billingAddress && description == other.description && digitalWallet == other.digitalWallet && entityId == other.entityId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, billingAddress, description, digitalWallet, entityId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "CardCreateParams{accountId=$accountId, billingAddress=$billingAddress, description=$description, digitalWallet=$digitalWallet, entityId=$entityId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -231,14 +218,14 @@ constructor(
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(cardCreateParams: CardCreateParams) = apply {
-            this.accountId = cardCreateParams.accountId
-            this.billingAddress = cardCreateParams.billingAddress
-            this.description = cardCreateParams.description
-            this.digitalWallet = cardCreateParams.digitalWallet
-            this.entityId = cardCreateParams.entityId
-            additionalHeaders(cardCreateParams.additionalHeaders)
-            additionalQueryParams(cardCreateParams.additionalQueryParams)
-            additionalBodyProperties(cardCreateParams.additionalBodyProperties)
+            accountId = cardCreateParams.accountId
+            billingAddress = cardCreateParams.billingAddress
+            description = cardCreateParams.description
+            digitalWallet = cardCreateParams.digitalWallet
+            entityId = cardCreateParams.entityId
+            additionalHeaders = cardCreateParams.additionalHeaders.toBuilder()
+            additionalQueryParams = cardCreateParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties = cardCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The Account the card should belong to. */
@@ -632,4 +619,17 @@ constructor(
         override fun toString() =
             "DigitalWallet{digitalCardProfileId=$digitalCardProfileId, email=$email, phone=$phone, additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is CardCreateParams && accountId == other.accountId && billingAddress == other.billingAddress && description == other.description && digitalWallet == other.digitalWallet && entityId == other.entityId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, billingAddress, description, digitalWallet, entityId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "CardCreateParams{accountId=$accountId, billingAddress=$billingAddress, description=$description, digitalWallet=$digitalWallet, entityId=$entityId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

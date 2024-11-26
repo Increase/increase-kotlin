@@ -32,6 +32,12 @@ constructor(
 
     fun rejection(): Rejection? = rejection
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     internal fun getBody(): SimulationRealTimePaymentsTransferCompleteBody {
         return SimulationRealTimePaymentsTransferCompleteBody(rejection, additionalBodyProperties)
     }
@@ -127,25 +133,6 @@ constructor(
             "SimulationRealTimePaymentsTransferCompleteBody{rejection=$rejection, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is SimulationRealTimePaymentsTransferCompleteParams && realTimePaymentsTransferId == other.realTimePaymentsTransferId && rejection == other.rejection && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(realTimePaymentsTransferId, rejection, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "SimulationRealTimePaymentsTransferCompleteParams{realTimePaymentsTransferId=$realTimePaymentsTransferId, rejection=$rejection, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -166,16 +153,16 @@ constructor(
             simulationRealTimePaymentsTransferCompleteParams:
                 SimulationRealTimePaymentsTransferCompleteParams
         ) = apply {
-            this.realTimePaymentsTransferId =
+            realTimePaymentsTransferId =
                 simulationRealTimePaymentsTransferCompleteParams.realTimePaymentsTransferId
-            this.rejection = simulationRealTimePaymentsTransferCompleteParams.rejection
-            additionalHeaders(simulationRealTimePaymentsTransferCompleteParams.additionalHeaders)
-            additionalQueryParams(
-                simulationRealTimePaymentsTransferCompleteParams.additionalQueryParams
-            )
-            additionalBodyProperties(
+            rejection = simulationRealTimePaymentsTransferCompleteParams.rejection
+            additionalHeaders =
+                simulationRealTimePaymentsTransferCompleteParams.additionalHeaders.toBuilder()
+            additionalQueryParams =
+                simulationRealTimePaymentsTransferCompleteParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
                 simulationRealTimePaymentsTransferCompleteParams.additionalBodyProperties
-            )
+                    .toMutableMap()
         }
 
         /** The identifier of the Real-Time Payments Transfer you wish to complete. */
@@ -584,4 +571,17 @@ constructor(
         override fun toString() =
             "Rejection{rejectReasonCode=$rejectReasonCode, additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is SimulationRealTimePaymentsTransferCompleteParams && realTimePaymentsTransferId == other.realTimePaymentsTransferId && rejection == other.rejection && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(realTimePaymentsTransferId, rejection, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "SimulationRealTimePaymentsTransferCompleteParams{realTimePaymentsTransferId=$realTimePaymentsTransferId, rejection=$rejection, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

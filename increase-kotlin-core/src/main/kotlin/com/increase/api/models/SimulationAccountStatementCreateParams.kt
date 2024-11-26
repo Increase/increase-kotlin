@@ -25,6 +25,12 @@ constructor(
 
     fun accountId(): String = accountId
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     internal fun getBody(): SimulationAccountStatementCreateBody {
         return SimulationAccountStatementCreateBody(accountId, additionalBodyProperties)
     }
@@ -110,25 +116,6 @@ constructor(
             "SimulationAccountStatementCreateBody{accountId=$accountId, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is SimulationAccountStatementCreateParams && accountId == other.accountId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "SimulationAccountStatementCreateParams{accountId=$accountId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -147,12 +134,12 @@ constructor(
         internal fun from(
             simulationAccountStatementCreateParams: SimulationAccountStatementCreateParams
         ) = apply {
-            this.accountId = simulationAccountStatementCreateParams.accountId
-            additionalHeaders(simulationAccountStatementCreateParams.additionalHeaders)
-            additionalQueryParams(simulationAccountStatementCreateParams.additionalQueryParams)
-            additionalBodyProperties(
-                simulationAccountStatementCreateParams.additionalBodyProperties
-            )
+            accountId = simulationAccountStatementCreateParams.accountId
+            additionalHeaders = simulationAccountStatementCreateParams.additionalHeaders.toBuilder()
+            additionalQueryParams =
+                simulationAccountStatementCreateParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                simulationAccountStatementCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The identifier of the Account the statement is for. */
@@ -286,4 +273,17 @@ constructor(
                 additionalBodyProperties.toImmutable(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is SimulationAccountStatementCreateParams && accountId == other.accountId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "SimulationAccountStatementCreateParams{accountId=$accountId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

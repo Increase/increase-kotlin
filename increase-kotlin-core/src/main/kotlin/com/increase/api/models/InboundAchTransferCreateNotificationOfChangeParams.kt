@@ -31,6 +31,12 @@ constructor(
 
     fun updatedRoutingNumber(): String? = updatedRoutingNumber
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     internal fun getBody(): InboundAchTransferCreateNotificationOfChangeBody {
         return InboundAchTransferCreateNotificationOfChangeBody(
             updatedAccountNumber,
@@ -149,25 +155,6 @@ constructor(
             "InboundAchTransferCreateNotificationOfChangeBody{updatedAccountNumber=$updatedAccountNumber, updatedRoutingNumber=$updatedRoutingNumber, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is InboundAchTransferCreateNotificationOfChangeParams && inboundAchTransferId == other.inboundAchTransferId && updatedAccountNumber == other.updatedAccountNumber && updatedRoutingNumber == other.updatedRoutingNumber && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(inboundAchTransferId, updatedAccountNumber, updatedRoutingNumber, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "InboundAchTransferCreateNotificationOfChangeParams{inboundAchTransferId=$inboundAchTransferId, updatedAccountNumber=$updatedAccountNumber, updatedRoutingNumber=$updatedRoutingNumber, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -189,19 +176,19 @@ constructor(
             inboundAchTransferCreateNotificationOfChangeParams:
                 InboundAchTransferCreateNotificationOfChangeParams
         ) = apply {
-            this.inboundAchTransferId =
+            inboundAchTransferId =
                 inboundAchTransferCreateNotificationOfChangeParams.inboundAchTransferId
-            this.updatedAccountNumber =
+            updatedAccountNumber =
                 inboundAchTransferCreateNotificationOfChangeParams.updatedAccountNumber
-            this.updatedRoutingNumber =
+            updatedRoutingNumber =
                 inboundAchTransferCreateNotificationOfChangeParams.updatedRoutingNumber
-            additionalHeaders(inboundAchTransferCreateNotificationOfChangeParams.additionalHeaders)
-            additionalQueryParams(
-                inboundAchTransferCreateNotificationOfChangeParams.additionalQueryParams
-            )
-            additionalBodyProperties(
+            additionalHeaders =
+                inboundAchTransferCreateNotificationOfChangeParams.additionalHeaders.toBuilder()
+            additionalQueryParams =
+                inboundAchTransferCreateNotificationOfChangeParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
                 inboundAchTransferCreateNotificationOfChangeParams.additionalBodyProperties
-            )
+                    .toMutableMap()
         }
 
         /**
@@ -353,4 +340,17 @@ constructor(
                 additionalBodyProperties.toImmutable(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is InboundAchTransferCreateNotificationOfChangeParams && inboundAchTransferId == other.inboundAchTransferId && updatedAccountNumber == other.updatedAccountNumber && updatedRoutingNumber == other.updatedRoutingNumber && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(inboundAchTransferId, updatedAccountNumber, updatedRoutingNumber, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "InboundAchTransferCreateNotificationOfChangeParams{inboundAchTransferId=$inboundAchTransferId, updatedAccountNumber=$updatedAccountNumber, updatedRoutingNumber=$updatedRoutingNumber, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

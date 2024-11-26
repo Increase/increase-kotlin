@@ -20,6 +20,12 @@ constructor(
 
     fun digitalCardProfileId(): String = digitalCardProfileId
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     internal fun getBody(): Map<String, JsonValue>? {
         return additionalBodyProperties.ifEmpty { null }
     }
@@ -34,25 +40,6 @@ constructor(
             else -> ""
         }
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is DigitalCardProfileArchiveParams && digitalCardProfileId == other.digitalCardProfileId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(digitalCardProfileId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "DigitalCardProfileArchiveParams{digitalCardProfileId=$digitalCardProfileId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -71,10 +58,12 @@ constructor(
 
         internal fun from(digitalCardProfileArchiveParams: DigitalCardProfileArchiveParams) =
             apply {
-                this.digitalCardProfileId = digitalCardProfileArchiveParams.digitalCardProfileId
-                additionalHeaders(digitalCardProfileArchiveParams.additionalHeaders)
-                additionalQueryParams(digitalCardProfileArchiveParams.additionalQueryParams)
-                additionalBodyProperties(digitalCardProfileArchiveParams.additionalBodyProperties)
+                digitalCardProfileId = digitalCardProfileArchiveParams.digitalCardProfileId
+                additionalHeaders = digitalCardProfileArchiveParams.additionalHeaders.toBuilder()
+                additionalQueryParams =
+                    digitalCardProfileArchiveParams.additionalQueryParams.toBuilder()
+                additionalBodyProperties =
+                    digitalCardProfileArchiveParams.additionalBodyProperties.toMutableMap()
             }
 
         /** The identifier of the Digital Card Profile to archive. */
@@ -212,4 +201,17 @@ constructor(
                 additionalBodyProperties.toImmutable(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is DigitalCardProfileArchiveParams && digitalCardProfileId == other.digitalCardProfileId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(digitalCardProfileId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "DigitalCardProfileArchiveParams{digitalCardProfileId=$digitalCardProfileId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

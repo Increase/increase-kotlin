@@ -28,6 +28,12 @@ constructor(
 
     fun beneficialOwnerId(): String = beneficialOwnerId
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     internal fun getBody(): EntityArchiveBeneficialOwnerBody {
         return EntityArchiveBeneficialOwnerBody(beneficialOwnerId, additionalBodyProperties)
     }
@@ -128,25 +134,6 @@ constructor(
             "EntityArchiveBeneficialOwnerBody{beneficialOwnerId=$beneficialOwnerId, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is EntityArchiveBeneficialOwnerParams && entityId == other.entityId && beneficialOwnerId == other.beneficialOwnerId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(entityId, beneficialOwnerId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "EntityArchiveBeneficialOwnerParams{entityId=$entityId, beneficialOwnerId=$beneficialOwnerId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -165,13 +152,13 @@ constructor(
 
         internal fun from(entityArchiveBeneficialOwnerParams: EntityArchiveBeneficialOwnerParams) =
             apply {
-                this.entityId = entityArchiveBeneficialOwnerParams.entityId
-                this.beneficialOwnerId = entityArchiveBeneficialOwnerParams.beneficialOwnerId
-                additionalHeaders(entityArchiveBeneficialOwnerParams.additionalHeaders)
-                additionalQueryParams(entityArchiveBeneficialOwnerParams.additionalQueryParams)
-                additionalBodyProperties(
-                    entityArchiveBeneficialOwnerParams.additionalBodyProperties
-                )
+                entityId = entityArchiveBeneficialOwnerParams.entityId
+                beneficialOwnerId = entityArchiveBeneficialOwnerParams.beneficialOwnerId
+                additionalHeaders = entityArchiveBeneficialOwnerParams.additionalHeaders.toBuilder()
+                additionalQueryParams =
+                    entityArchiveBeneficialOwnerParams.additionalQueryParams.toBuilder()
+                additionalBodyProperties =
+                    entityArchiveBeneficialOwnerParams.additionalBodyProperties.toMutableMap()
             }
 
         /**
@@ -317,4 +304,17 @@ constructor(
                 additionalBodyProperties.toImmutable(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is EntityArchiveBeneficialOwnerParams && entityId == other.entityId && beneficialOwnerId == other.beneficialOwnerId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(entityId, beneficialOwnerId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "EntityArchiveBeneficialOwnerParams{entityId=$entityId, beneficialOwnerId=$beneficialOwnerId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

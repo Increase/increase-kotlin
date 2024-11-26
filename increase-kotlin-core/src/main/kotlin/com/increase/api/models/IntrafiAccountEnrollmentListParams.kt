@@ -36,6 +36,10 @@ constructor(
 
     fun status(): Status? = status
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     internal fun getHeaders(): Headers = additionalHeaders
 
     internal fun getQueryParams(): QueryParams {
@@ -48,23 +52,6 @@ constructor(
         queryParams.putAll(additionalQueryParams)
         return queryParams.build()
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is IntrafiAccountEnrollmentListParams && accountId == other.accountId && cursor == other.cursor && idempotencyKey == other.idempotencyKey && limit == other.limit && status == other.status && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, cursor, idempotencyKey, limit, status, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "IntrafiAccountEnrollmentListParams{accountId=$accountId, cursor=$cursor, idempotencyKey=$idempotencyKey, limit=$limit, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -86,13 +73,14 @@ constructor(
 
         internal fun from(intrafiAccountEnrollmentListParams: IntrafiAccountEnrollmentListParams) =
             apply {
-                this.accountId = intrafiAccountEnrollmentListParams.accountId
-                this.cursor = intrafiAccountEnrollmentListParams.cursor
-                this.idempotencyKey = intrafiAccountEnrollmentListParams.idempotencyKey
-                this.limit = intrafiAccountEnrollmentListParams.limit
-                this.status = intrafiAccountEnrollmentListParams.status
-                additionalHeaders(intrafiAccountEnrollmentListParams.additionalHeaders)
-                additionalQueryParams(intrafiAccountEnrollmentListParams.additionalQueryParams)
+                accountId = intrafiAccountEnrollmentListParams.accountId
+                cursor = intrafiAccountEnrollmentListParams.cursor
+                idempotencyKey = intrafiAccountEnrollmentListParams.idempotencyKey
+                limit = intrafiAccountEnrollmentListParams.limit
+                status = intrafiAccountEnrollmentListParams.status
+                additionalHeaders = intrafiAccountEnrollmentListParams.additionalHeaders.toBuilder()
+                additionalQueryParams =
+                    intrafiAccountEnrollmentListParams.additionalQueryParams.toBuilder()
             }
 
         /** Filter IntraFi Account Enrollments to the one belonging to an account. */
@@ -380,4 +368,17 @@ constructor(
 
         override fun toString() = "Status{in_=$in_, additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is IntrafiAccountEnrollmentListParams && accountId == other.accountId && cursor == other.cursor && idempotencyKey == other.idempotencyKey && limit == other.limit && status == other.status && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, cursor, idempotencyKey, limit, status, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "IntrafiAccountEnrollmentListParams{accountId=$accountId, cursor=$cursor, idempotencyKey=$idempotencyKey, limit=$limit, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

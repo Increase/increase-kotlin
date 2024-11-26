@@ -29,6 +29,12 @@ constructor(
 
     fun confirmedAt(): OffsetDateTime? = confirmedAt
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     internal fun getBody(): EntityConfirmBody {
         return EntityConfirmBody(confirmedAt, additionalBodyProperties)
     }
@@ -122,25 +128,6 @@ constructor(
             "EntityConfirmBody{confirmedAt=$confirmedAt, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is EntityConfirmParams && entityId == other.entityId && confirmedAt == other.confirmedAt && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(entityId, confirmedAt, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "EntityConfirmParams{entityId=$entityId, confirmedAt=$confirmedAt, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -158,11 +145,11 @@ constructor(
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(entityConfirmParams: EntityConfirmParams) = apply {
-            this.entityId = entityConfirmParams.entityId
-            this.confirmedAt = entityConfirmParams.confirmedAt
-            additionalHeaders(entityConfirmParams.additionalHeaders)
-            additionalQueryParams(entityConfirmParams.additionalQueryParams)
-            additionalBodyProperties(entityConfirmParams.additionalBodyProperties)
+            entityId = entityConfirmParams.entityId
+            confirmedAt = entityConfirmParams.confirmedAt
+            additionalHeaders = entityConfirmParams.additionalHeaders.toBuilder()
+            additionalQueryParams = entityConfirmParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties = entityConfirmParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The identifier of the Entity to confirm the details of. */
@@ -303,4 +290,17 @@ constructor(
                 additionalBodyProperties.toImmutable(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is EntityConfirmParams && entityId == other.entityId && confirmedAt == other.confirmedAt && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(entityId, confirmedAt, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "EntityConfirmParams{entityId=$entityId, confirmedAt=$confirmedAt, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

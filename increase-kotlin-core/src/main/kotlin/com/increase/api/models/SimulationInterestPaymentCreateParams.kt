@@ -35,6 +35,12 @@ constructor(
 
     fun periodStart(): OffsetDateTime? = periodStart
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     internal fun getBody(): SimulationInterestPaymentCreateBody {
         return SimulationInterestPaymentCreateBody(
             accountId,
@@ -158,25 +164,6 @@ constructor(
             "SimulationInterestPaymentCreateBody{accountId=$accountId, amount=$amount, periodEnd=$periodEnd, periodStart=$periodStart, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is SimulationInterestPaymentCreateParams && accountId == other.accountId && amount == other.amount && periodEnd == other.periodEnd && periodStart == other.periodStart && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, amount, periodEnd, periodStart, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "SimulationInterestPaymentCreateParams{accountId=$accountId, amount=$amount, periodEnd=$periodEnd, periodStart=$periodStart, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -198,13 +185,15 @@ constructor(
         internal fun from(
             simulationInterestPaymentCreateParams: SimulationInterestPaymentCreateParams
         ) = apply {
-            this.accountId = simulationInterestPaymentCreateParams.accountId
-            this.amount = simulationInterestPaymentCreateParams.amount
-            this.periodEnd = simulationInterestPaymentCreateParams.periodEnd
-            this.periodStart = simulationInterestPaymentCreateParams.periodStart
-            additionalHeaders(simulationInterestPaymentCreateParams.additionalHeaders)
-            additionalQueryParams(simulationInterestPaymentCreateParams.additionalQueryParams)
-            additionalBodyProperties(simulationInterestPaymentCreateParams.additionalBodyProperties)
+            accountId = simulationInterestPaymentCreateParams.accountId
+            amount = simulationInterestPaymentCreateParams.amount
+            periodEnd = simulationInterestPaymentCreateParams.periodEnd
+            periodStart = simulationInterestPaymentCreateParams.periodStart
+            additionalHeaders = simulationInterestPaymentCreateParams.additionalHeaders.toBuilder()
+            additionalQueryParams =
+                simulationInterestPaymentCreateParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                simulationInterestPaymentCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The identifier of the Account Number the Interest Payment is for. */
@@ -350,4 +339,17 @@ constructor(
                 additionalBodyProperties.toImmutable(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is SimulationInterestPaymentCreateParams && accountId == other.accountId && amount == other.amount && periodEnd == other.periodEnd && periodStart == other.periodStart && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, amount, periodEnd, periodStart, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "SimulationInterestPaymentCreateParams{accountId=$accountId, amount=$amount, periodEnd=$periodEnd, periodStart=$periodStart, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }
