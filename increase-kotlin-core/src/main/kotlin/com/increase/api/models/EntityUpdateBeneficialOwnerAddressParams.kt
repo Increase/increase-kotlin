@@ -31,6 +31,12 @@ constructor(
 
     fun beneficialOwnerId(): String = beneficialOwnerId
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     internal fun getBody(): EntityUpdateBeneficialOwnerAddressBody {
         return EntityUpdateBeneficialOwnerAddressBody(
             address,
@@ -153,25 +159,6 @@ constructor(
             "EntityUpdateBeneficialOwnerAddressBody{address=$address, beneficialOwnerId=$beneficialOwnerId, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is EntityUpdateBeneficialOwnerAddressParams && entityId == other.entityId && address == other.address && beneficialOwnerId == other.beneficialOwnerId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(entityId, address, beneficialOwnerId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "EntityUpdateBeneficialOwnerAddressParams{entityId=$entityId, address=$address, beneficialOwnerId=$beneficialOwnerId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -192,14 +179,15 @@ constructor(
         internal fun from(
             entityUpdateBeneficialOwnerAddressParams: EntityUpdateBeneficialOwnerAddressParams
         ) = apply {
-            this.entityId = entityUpdateBeneficialOwnerAddressParams.entityId
-            this.address = entityUpdateBeneficialOwnerAddressParams.address
-            this.beneficialOwnerId = entityUpdateBeneficialOwnerAddressParams.beneficialOwnerId
-            additionalHeaders(entityUpdateBeneficialOwnerAddressParams.additionalHeaders)
-            additionalQueryParams(entityUpdateBeneficialOwnerAddressParams.additionalQueryParams)
-            additionalBodyProperties(
-                entityUpdateBeneficialOwnerAddressParams.additionalBodyProperties
-            )
+            entityId = entityUpdateBeneficialOwnerAddressParams.entityId
+            address = entityUpdateBeneficialOwnerAddressParams.address
+            beneficialOwnerId = entityUpdateBeneficialOwnerAddressParams.beneficialOwnerId
+            additionalHeaders =
+                entityUpdateBeneficialOwnerAddressParams.additionalHeaders.toBuilder()
+            additionalQueryParams =
+                entityUpdateBeneficialOwnerAddressParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                entityUpdateBeneficialOwnerAddressParams.additionalBodyProperties.toMutableMap()
         }
 
         /**
@@ -477,4 +465,17 @@ constructor(
         override fun toString() =
             "Address{city=$city, line1=$line1, line2=$line2, state=$state, zip=$zip, additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is EntityUpdateBeneficialOwnerAddressParams && entityId == other.entityId && address == other.address && beneficialOwnerId == other.beneficialOwnerId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(entityId, address, beneficialOwnerId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "EntityUpdateBeneficialOwnerAddressParams{entityId=$entityId, address=$address, beneficialOwnerId=$beneficialOwnerId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

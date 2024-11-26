@@ -20,6 +20,12 @@ constructor(
 
     fun achTransferId(): String = achTransferId
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     internal fun getBody(): Map<String, JsonValue>? {
         return additionalBodyProperties.ifEmpty { null }
     }
@@ -34,25 +40,6 @@ constructor(
             else -> ""
         }
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is SimulationAchTransferSubmitParams && achTransferId == other.achTransferId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(achTransferId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "SimulationAchTransferSubmitParams{achTransferId=$achTransferId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -71,10 +58,12 @@ constructor(
 
         internal fun from(simulationAchTransferSubmitParams: SimulationAchTransferSubmitParams) =
             apply {
-                this.achTransferId = simulationAchTransferSubmitParams.achTransferId
-                additionalHeaders(simulationAchTransferSubmitParams.additionalHeaders)
-                additionalQueryParams(simulationAchTransferSubmitParams.additionalQueryParams)
-                additionalBodyProperties(simulationAchTransferSubmitParams.additionalBodyProperties)
+                achTransferId = simulationAchTransferSubmitParams.achTransferId
+                additionalHeaders = simulationAchTransferSubmitParams.additionalHeaders.toBuilder()
+                additionalQueryParams =
+                    simulationAchTransferSubmitParams.additionalQueryParams.toBuilder()
+                additionalBodyProperties =
+                    simulationAchTransferSubmitParams.additionalBodyProperties.toMutableMap()
             }
 
         /** The identifier of the ACH Transfer you wish to submit. */
@@ -208,4 +197,17 @@ constructor(
                 additionalBodyProperties.toImmutable(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is SimulationAchTransferSubmitParams && achTransferId == other.achTransferId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(achTransferId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "SimulationAchTransferSubmitParams{achTransferId=$achTransferId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

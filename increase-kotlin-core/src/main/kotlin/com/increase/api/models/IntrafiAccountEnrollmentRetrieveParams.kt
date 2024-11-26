@@ -17,6 +17,10 @@ constructor(
 
     fun intrafiAccountEnrollmentId(): String = intrafiAccountEnrollmentId
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     internal fun getHeaders(): Headers = additionalHeaders
 
     internal fun getQueryParams(): QueryParams = additionalQueryParams
@@ -27,23 +31,6 @@ constructor(
             else -> ""
         }
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is IntrafiAccountEnrollmentRetrieveParams && intrafiAccountEnrollmentId == other.intrafiAccountEnrollmentId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(intrafiAccountEnrollmentId, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "IntrafiAccountEnrollmentRetrieveParams{intrafiAccountEnrollmentId=$intrafiAccountEnrollmentId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -62,10 +49,11 @@ constructor(
         internal fun from(
             intrafiAccountEnrollmentRetrieveParams: IntrafiAccountEnrollmentRetrieveParams
         ) = apply {
-            this.intrafiAccountEnrollmentId =
+            intrafiAccountEnrollmentId =
                 intrafiAccountEnrollmentRetrieveParams.intrafiAccountEnrollmentId
-            additionalHeaders(intrafiAccountEnrollmentRetrieveParams.additionalHeaders)
-            additionalQueryParams(intrafiAccountEnrollmentRetrieveParams.additionalQueryParams)
+            additionalHeaders = intrafiAccountEnrollmentRetrieveParams.additionalHeaders.toBuilder()
+            additionalQueryParams =
+                intrafiAccountEnrollmentRetrieveParams.additionalQueryParams.toBuilder()
         }
 
         /** The identifier of the IntraFi Account Enrollment to retrieve. */
@@ -180,4 +168,17 @@ constructor(
                 additionalQueryParams.build(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is IntrafiAccountEnrollmentRetrieveParams && intrafiAccountEnrollmentId == other.intrafiAccountEnrollmentId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(intrafiAccountEnrollmentId, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "IntrafiAccountEnrollmentRetrieveParams{intrafiAccountEnrollmentId=$intrafiAccountEnrollmentId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

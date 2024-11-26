@@ -38,6 +38,10 @@ constructor(
 
     fun limit(): Long? = limit
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     internal fun getHeaders(): Headers = additionalHeaders
 
     internal fun getQueryParams(): QueryParams {
@@ -54,23 +58,6 @@ constructor(
         queryParams.putAll(additionalQueryParams)
         return queryParams.build()
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is EventListParams && associatedObjectId == other.associatedObjectId && category == other.category && createdAt == other.createdAt && cursor == other.cursor && limit == other.limit && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(associatedObjectId, category, createdAt, cursor, limit, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "EventListParams{associatedObjectId=$associatedObjectId, category=$category, createdAt=$createdAt, cursor=$cursor, limit=$limit, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -91,13 +78,13 @@ constructor(
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         internal fun from(eventListParams: EventListParams) = apply {
-            this.associatedObjectId = eventListParams.associatedObjectId
-            this.category = eventListParams.category
-            this.createdAt = eventListParams.createdAt
-            this.cursor = eventListParams.cursor
-            this.limit = eventListParams.limit
-            additionalHeaders(eventListParams.additionalHeaders)
-            additionalQueryParams(eventListParams.additionalQueryParams)
+            associatedObjectId = eventListParams.associatedObjectId
+            category = eventListParams.category
+            createdAt = eventListParams.createdAt
+            cursor = eventListParams.cursor
+            limit = eventListParams.limit
+            additionalHeaders = eventListParams.additionalHeaders.toBuilder()
+            additionalQueryParams = eventListParams.additionalQueryParams.toBuilder()
         }
 
         /** Filter Events to those belonging to the object with the provided identifier. */
@@ -1074,4 +1061,17 @@ constructor(
         override fun toString() =
             "CreatedAt{after=$after, before=$before, onOrAfter=$onOrAfter, onOrBefore=$onOrBefore, additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is EventListParams && associatedObjectId == other.associatedObjectId && category == other.category && createdAt == other.createdAt && cursor == other.cursor && limit == other.limit && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(associatedObjectId, category, createdAt, cursor, limit, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "EventListParams{associatedObjectId=$associatedObjectId, category=$category, createdAt=$createdAt, cursor=$cursor, limit=$limit, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

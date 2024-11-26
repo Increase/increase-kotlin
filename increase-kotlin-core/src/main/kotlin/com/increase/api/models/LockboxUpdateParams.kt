@@ -38,6 +38,12 @@ constructor(
 
     fun status(): Status? = status
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     internal fun getBody(): LockboxUpdateBody {
         return LockboxUpdateBody(
             description,
@@ -154,25 +160,6 @@ constructor(
             "LockboxUpdateBody{description=$description, recipientName=$recipientName, status=$status, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is LockboxUpdateParams && lockboxId == other.lockboxId && description == other.description && recipientName == other.recipientName && status == other.status && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(lockboxId, description, recipientName, status, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "LockboxUpdateParams{lockboxId=$lockboxId, description=$description, recipientName=$recipientName, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -192,13 +179,13 @@ constructor(
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(lockboxUpdateParams: LockboxUpdateParams) = apply {
-            this.lockboxId = lockboxUpdateParams.lockboxId
-            this.description = lockboxUpdateParams.description
-            this.recipientName = lockboxUpdateParams.recipientName
-            this.status = lockboxUpdateParams.status
-            additionalHeaders(lockboxUpdateParams.additionalHeaders)
-            additionalQueryParams(lockboxUpdateParams.additionalQueryParams)
-            additionalBodyProperties(lockboxUpdateParams.additionalBodyProperties)
+            lockboxId = lockboxUpdateParams.lockboxId
+            description = lockboxUpdateParams.description
+            recipientName = lockboxUpdateParams.recipientName
+            status = lockboxUpdateParams.status
+            additionalHeaders = lockboxUpdateParams.additionalHeaders.toBuilder()
+            additionalQueryParams = lockboxUpdateParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties = lockboxUpdateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The identifier of the Lockbox. */
@@ -401,4 +388,17 @@ constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is LockboxUpdateParams && lockboxId == other.lockboxId && description == other.description && recipientName == other.recipientName && status == other.status && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(lockboxId, description, recipientName, status, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "LockboxUpdateParams{lockboxId=$lockboxId, description=$description, recipientName=$recipientName, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

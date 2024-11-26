@@ -32,6 +32,12 @@ constructor(
 
     fun status(): Status = status
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     internal fun getBody(): PhysicalCardUpdateBody {
         return PhysicalCardUpdateBody(status, additionalBodyProperties)
     }
@@ -121,25 +127,6 @@ constructor(
             "PhysicalCardUpdateBody{status=$status, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is PhysicalCardUpdateParams && physicalCardId == other.physicalCardId && status == other.status && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(physicalCardId, status, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "PhysicalCardUpdateParams{physicalCardId=$physicalCardId, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -157,11 +144,12 @@ constructor(
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(physicalCardUpdateParams: PhysicalCardUpdateParams) = apply {
-            this.physicalCardId = physicalCardUpdateParams.physicalCardId
-            this.status = physicalCardUpdateParams.status
-            additionalHeaders(physicalCardUpdateParams.additionalHeaders)
-            additionalQueryParams(physicalCardUpdateParams.additionalQueryParams)
-            additionalBodyProperties(physicalCardUpdateParams.additionalBodyProperties)
+            physicalCardId = physicalCardUpdateParams.physicalCardId
+            status = physicalCardUpdateParams.status
+            additionalHeaders = physicalCardUpdateParams.additionalHeaders.toBuilder()
+            additionalQueryParams = physicalCardUpdateParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                physicalCardUpdateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The Physical Card identifier. */
@@ -362,4 +350,17 @@ constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is PhysicalCardUpdateParams && physicalCardId == other.physicalCardId && status == other.status && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(physicalCardId, status, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "PhysicalCardUpdateParams{physicalCardId=$physicalCardId, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

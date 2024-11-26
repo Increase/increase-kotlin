@@ -17,6 +17,10 @@ constructor(
 
     fun realTimeDecisionId(): String = realTimeDecisionId
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     internal fun getHeaders(): Headers = additionalHeaders
 
     internal fun getQueryParams(): QueryParams = additionalQueryParams
@@ -27,23 +31,6 @@ constructor(
             else -> ""
         }
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is RealTimeDecisionRetrieveParams && realTimeDecisionId == other.realTimeDecisionId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(realTimeDecisionId, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "RealTimeDecisionRetrieveParams{realTimeDecisionId=$realTimeDecisionId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -60,9 +47,9 @@ constructor(
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         internal fun from(realTimeDecisionRetrieveParams: RealTimeDecisionRetrieveParams) = apply {
-            this.realTimeDecisionId = realTimeDecisionRetrieveParams.realTimeDecisionId
-            additionalHeaders(realTimeDecisionRetrieveParams.additionalHeaders)
-            additionalQueryParams(realTimeDecisionRetrieveParams.additionalQueryParams)
+            realTimeDecisionId = realTimeDecisionRetrieveParams.realTimeDecisionId
+            additionalHeaders = realTimeDecisionRetrieveParams.additionalHeaders.toBuilder()
+            additionalQueryParams = realTimeDecisionRetrieveParams.additionalQueryParams.toBuilder()
         }
 
         /** The identifier of the Real-Time Decision. */
@@ -177,4 +164,17 @@ constructor(
                 additionalQueryParams.build(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is RealTimeDecisionRetrieveParams && realTimeDecisionId == other.realTimeDecisionId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(realTimeDecisionId, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "RealTimeDecisionRetrieveParams{realTimeDecisionId=$realTimeDecisionId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

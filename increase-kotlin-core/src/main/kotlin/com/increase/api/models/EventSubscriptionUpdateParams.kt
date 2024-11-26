@@ -32,6 +32,12 @@ constructor(
 
     fun status(): Status? = status
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     internal fun getBody(): EventSubscriptionUpdateBody {
         return EventSubscriptionUpdateBody(status, additionalBodyProperties)
     }
@@ -118,25 +124,6 @@ constructor(
             "EventSubscriptionUpdateBody{status=$status, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is EventSubscriptionUpdateParams && eventSubscriptionId == other.eventSubscriptionId && status == other.status && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(eventSubscriptionId, status, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "EventSubscriptionUpdateParams{eventSubscriptionId=$eventSubscriptionId, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -154,11 +141,12 @@ constructor(
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(eventSubscriptionUpdateParams: EventSubscriptionUpdateParams) = apply {
-            this.eventSubscriptionId = eventSubscriptionUpdateParams.eventSubscriptionId
-            this.status = eventSubscriptionUpdateParams.status
-            additionalHeaders(eventSubscriptionUpdateParams.additionalHeaders)
-            additionalQueryParams(eventSubscriptionUpdateParams.additionalQueryParams)
-            additionalBodyProperties(eventSubscriptionUpdateParams.additionalBodyProperties)
+            eventSubscriptionId = eventSubscriptionUpdateParams.eventSubscriptionId
+            status = eventSubscriptionUpdateParams.status
+            additionalHeaders = eventSubscriptionUpdateParams.additionalHeaders.toBuilder()
+            additionalQueryParams = eventSubscriptionUpdateParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                eventSubscriptionUpdateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The identifier of the Event Subscription. */
@@ -363,4 +351,17 @@ constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is EventSubscriptionUpdateParams && eventSubscriptionId == other.eventSubscriptionId && status == other.status && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(eventSubscriptionId, status, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "EventSubscriptionUpdateParams{eventSubscriptionId=$eventSubscriptionId, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

@@ -30,6 +30,10 @@ constructor(
 
     fun limit(): Long? = limit
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     internal fun getHeaders(): Headers = additionalHeaders
 
     internal fun getQueryParams(): QueryParams {
@@ -43,23 +47,6 @@ constructor(
         queryParams.putAll(additionalQueryParams)
         return queryParams.build()
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is DigitalWalletTokenListParams && cardId == other.cardId && createdAt == other.createdAt && cursor == other.cursor && limit == other.limit && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(cardId, createdAt, cursor, limit, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "DigitalWalletTokenListParams{cardId=$cardId, createdAt=$createdAt, cursor=$cursor, limit=$limit, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -79,12 +66,12 @@ constructor(
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         internal fun from(digitalWalletTokenListParams: DigitalWalletTokenListParams) = apply {
-            this.cardId = digitalWalletTokenListParams.cardId
-            this.createdAt = digitalWalletTokenListParams.createdAt
-            this.cursor = digitalWalletTokenListParams.cursor
-            this.limit = digitalWalletTokenListParams.limit
-            additionalHeaders(digitalWalletTokenListParams.additionalHeaders)
-            additionalQueryParams(digitalWalletTokenListParams.additionalQueryParams)
+            cardId = digitalWalletTokenListParams.cardId
+            createdAt = digitalWalletTokenListParams.createdAt
+            cursor = digitalWalletTokenListParams.cursor
+            limit = digitalWalletTokenListParams.limit
+            additionalHeaders = digitalWalletTokenListParams.additionalHeaders.toBuilder()
+            additionalQueryParams = digitalWalletTokenListParams.additionalQueryParams.toBuilder()
         }
 
         /** Filter Digital Wallet Tokens to ones belonging to the specified Card. */
@@ -348,4 +335,17 @@ constructor(
         override fun toString() =
             "CreatedAt{after=$after, before=$before, onOrAfter=$onOrAfter, onOrBefore=$onOrBefore, additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is DigitalWalletTokenListParams && cardId == other.cardId && createdAt == other.createdAt && cursor == other.cursor && limit == other.limit && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(cardId, createdAt, cursor, limit, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "DigitalWalletTokenListParams{cardId=$cardId, createdAt=$createdAt, cursor=$cursor, limit=$limit, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

@@ -30,6 +30,10 @@ constructor(
 
     fun limit(): Long? = limit
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     internal fun getHeaders(): Headers = additionalHeaders
 
     internal fun getQueryParams(): QueryParams {
@@ -43,23 +47,6 @@ constructor(
         queryParams.putAll(additionalQueryParams)
         return queryParams.build()
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is AchPrenotificationListParams && createdAt == other.createdAt && cursor == other.cursor && idempotencyKey == other.idempotencyKey && limit == other.limit && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(createdAt, cursor, idempotencyKey, limit, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "AchPrenotificationListParams{createdAt=$createdAt, cursor=$cursor, idempotencyKey=$idempotencyKey, limit=$limit, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -79,12 +66,12 @@ constructor(
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         internal fun from(achPrenotificationListParams: AchPrenotificationListParams) = apply {
-            this.createdAt = achPrenotificationListParams.createdAt
-            this.cursor = achPrenotificationListParams.cursor
-            this.idempotencyKey = achPrenotificationListParams.idempotencyKey
-            this.limit = achPrenotificationListParams.limit
-            additionalHeaders(achPrenotificationListParams.additionalHeaders)
-            additionalQueryParams(achPrenotificationListParams.additionalQueryParams)
+            createdAt = achPrenotificationListParams.createdAt
+            cursor = achPrenotificationListParams.cursor
+            idempotencyKey = achPrenotificationListParams.idempotencyKey
+            limit = achPrenotificationListParams.limit
+            additionalHeaders = achPrenotificationListParams.additionalHeaders.toBuilder()
+            additionalQueryParams = achPrenotificationListParams.additionalQueryParams.toBuilder()
         }
 
         fun createdAt(createdAt: CreatedAt) = apply { this.createdAt = createdAt }
@@ -353,4 +340,17 @@ constructor(
         override fun toString() =
             "CreatedAt{after=$after, before=$before, onOrAfter=$onOrAfter, onOrBefore=$onOrBefore, additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is AchPrenotificationListParams && createdAt == other.createdAt && cursor == other.cursor && idempotencyKey == other.idempotencyKey && limit == other.limit && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(createdAt, cursor, idempotencyKey, limit, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "AchPrenotificationListParams{createdAt=$createdAt, cursor=$cursor, idempotencyKey=$idempotencyKey, limit=$limit, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

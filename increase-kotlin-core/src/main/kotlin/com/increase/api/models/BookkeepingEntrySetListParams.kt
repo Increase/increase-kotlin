@@ -26,6 +26,10 @@ constructor(
 
     fun transactionId(): String? = transactionId
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     internal fun getHeaders(): Headers = additionalHeaders
 
     internal fun getQueryParams(): QueryParams {
@@ -37,23 +41,6 @@ constructor(
         queryParams.putAll(additionalQueryParams)
         return queryParams.build()
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is BookkeepingEntrySetListParams && cursor == other.cursor && idempotencyKey == other.idempotencyKey && limit == other.limit && transactionId == other.transactionId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(cursor, idempotencyKey, limit, transactionId, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "BookkeepingEntrySetListParams{cursor=$cursor, idempotencyKey=$idempotencyKey, limit=$limit, transactionId=$transactionId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -73,12 +60,12 @@ constructor(
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         internal fun from(bookkeepingEntrySetListParams: BookkeepingEntrySetListParams) = apply {
-            this.cursor = bookkeepingEntrySetListParams.cursor
-            this.idempotencyKey = bookkeepingEntrySetListParams.idempotencyKey
-            this.limit = bookkeepingEntrySetListParams.limit
-            this.transactionId = bookkeepingEntrySetListParams.transactionId
-            additionalHeaders(bookkeepingEntrySetListParams.additionalHeaders)
-            additionalQueryParams(bookkeepingEntrySetListParams.additionalQueryParams)
+            cursor = bookkeepingEntrySetListParams.cursor
+            idempotencyKey = bookkeepingEntrySetListParams.idempotencyKey
+            limit = bookkeepingEntrySetListParams.limit
+            transactionId = bookkeepingEntrySetListParams.transactionId
+            additionalHeaders = bookkeepingEntrySetListParams.additionalHeaders.toBuilder()
+            additionalQueryParams = bookkeepingEntrySetListParams.additionalQueryParams.toBuilder()
         }
 
         /** Return the page of entries after this one. */
@@ -208,4 +195,17 @@ constructor(
                 additionalQueryParams.build(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is BookkeepingEntrySetListParams && cursor == other.cursor && idempotencyKey == other.idempotencyKey && limit == other.limit && transactionId == other.transactionId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(cursor, idempotencyKey, limit, transactionId, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "BookkeepingEntrySetListParams{cursor=$cursor, idempotencyKey=$idempotencyKey, limit=$limit, transactionId=$transactionId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

@@ -17,6 +17,10 @@ constructor(
 
     fun digitalCardProfileId(): String = digitalCardProfileId
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     internal fun getHeaders(): Headers = additionalHeaders
 
     internal fun getQueryParams(): QueryParams = additionalQueryParams
@@ -27,23 +31,6 @@ constructor(
             else -> ""
         }
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is DigitalCardProfileRetrieveParams && digitalCardProfileId == other.digitalCardProfileId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(digitalCardProfileId, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "DigitalCardProfileRetrieveParams{digitalCardProfileId=$digitalCardProfileId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -61,9 +48,10 @@ constructor(
 
         internal fun from(digitalCardProfileRetrieveParams: DigitalCardProfileRetrieveParams) =
             apply {
-                this.digitalCardProfileId = digitalCardProfileRetrieveParams.digitalCardProfileId
-                additionalHeaders(digitalCardProfileRetrieveParams.additionalHeaders)
-                additionalQueryParams(digitalCardProfileRetrieveParams.additionalQueryParams)
+                digitalCardProfileId = digitalCardProfileRetrieveParams.digitalCardProfileId
+                additionalHeaders = digitalCardProfileRetrieveParams.additionalHeaders.toBuilder()
+                additionalQueryParams =
+                    digitalCardProfileRetrieveParams.additionalQueryParams.toBuilder()
             }
 
         /** The identifier of the Digital Card Profile. */
@@ -178,4 +166,17 @@ constructor(
                 additionalQueryParams.build(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is DigitalCardProfileRetrieveParams && digitalCardProfileId == other.digitalCardProfileId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(digitalCardProfileId, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "DigitalCardProfileRetrieveParams{digitalCardProfileId=$digitalCardProfileId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }
