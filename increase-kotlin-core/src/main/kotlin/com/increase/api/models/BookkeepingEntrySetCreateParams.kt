@@ -32,6 +32,12 @@ constructor(
 
     fun transactionId(): String? = transactionId
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     internal fun getBody(): BookkeepingEntrySetCreateBody {
         return BookkeepingEntrySetCreateBody(
             entries,
@@ -148,25 +154,6 @@ constructor(
             "BookkeepingEntrySetCreateBody{entries=$entries, date=$date, transactionId=$transactionId, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is BookkeepingEntrySetCreateParams && entries == other.entries && date == other.date && transactionId == other.transactionId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(entries, date, transactionId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "BookkeepingEntrySetCreateParams{entries=$entries, date=$date, transactionId=$transactionId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -186,12 +173,14 @@ constructor(
 
         internal fun from(bookkeepingEntrySetCreateParams: BookkeepingEntrySetCreateParams) =
             apply {
-                this.entries(bookkeepingEntrySetCreateParams.entries)
-                this.date = bookkeepingEntrySetCreateParams.date
-                this.transactionId = bookkeepingEntrySetCreateParams.transactionId
-                additionalHeaders(bookkeepingEntrySetCreateParams.additionalHeaders)
-                additionalQueryParams(bookkeepingEntrySetCreateParams.additionalQueryParams)
-                additionalBodyProperties(bookkeepingEntrySetCreateParams.additionalBodyProperties)
+                entries = bookkeepingEntrySetCreateParams.entries.toMutableList()
+                date = bookkeepingEntrySetCreateParams.date
+                transactionId = bookkeepingEntrySetCreateParams.transactionId
+                additionalHeaders = bookkeepingEntrySetCreateParams.additionalHeaders.toBuilder()
+                additionalQueryParams =
+                    bookkeepingEntrySetCreateParams.additionalQueryParams.toBuilder()
+                additionalBodyProperties =
+                    bookkeepingEntrySetCreateParams.additionalBodyProperties.toMutableMap()
             }
 
         /** The bookkeeping entries. */
@@ -334,7 +323,7 @@ constructor(
 
         fun build(): BookkeepingEntrySetCreateParams =
             BookkeepingEntrySetCreateParams(
-                checkNotNull(entries) { "`entries` is required but was not set" }.toImmutable(),
+                entries.toImmutable(),
                 date,
                 transactionId,
                 additionalHeaders.build(),
@@ -434,4 +423,17 @@ constructor(
         override fun toString() =
             "Entry{accountId=$accountId, amount=$amount, additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is BookkeepingEntrySetCreateParams && entries == other.entries && date == other.date && transactionId == other.transactionId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(entries, date, transactionId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "BookkeepingEntrySetCreateParams{entries=$entries, date=$date, transactionId=$transactionId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

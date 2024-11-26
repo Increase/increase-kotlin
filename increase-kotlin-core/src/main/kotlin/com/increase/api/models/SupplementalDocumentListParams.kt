@@ -26,6 +26,10 @@ constructor(
 
     fun limit(): Long? = limit
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     internal fun getHeaders(): Headers = additionalHeaders
 
     internal fun getQueryParams(): QueryParams {
@@ -37,23 +41,6 @@ constructor(
         queryParams.putAll(additionalQueryParams)
         return queryParams.build()
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is SupplementalDocumentListParams && entityId == other.entityId && cursor == other.cursor && idempotencyKey == other.idempotencyKey && limit == other.limit && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(entityId, cursor, idempotencyKey, limit, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "SupplementalDocumentListParams{entityId=$entityId, cursor=$cursor, idempotencyKey=$idempotencyKey, limit=$limit, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -73,12 +60,12 @@ constructor(
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         internal fun from(supplementalDocumentListParams: SupplementalDocumentListParams) = apply {
-            this.entityId = supplementalDocumentListParams.entityId
-            this.cursor = supplementalDocumentListParams.cursor
-            this.idempotencyKey = supplementalDocumentListParams.idempotencyKey
-            this.limit = supplementalDocumentListParams.limit
-            additionalHeaders(supplementalDocumentListParams.additionalHeaders)
-            additionalQueryParams(supplementalDocumentListParams.additionalQueryParams)
+            entityId = supplementalDocumentListParams.entityId
+            cursor = supplementalDocumentListParams.cursor
+            idempotencyKey = supplementalDocumentListParams.idempotencyKey
+            limit = supplementalDocumentListParams.limit
+            additionalHeaders = supplementalDocumentListParams.additionalHeaders.toBuilder()
+            additionalQueryParams = supplementalDocumentListParams.additionalQueryParams.toBuilder()
         }
 
         /** The identifier of the Entity to list supplemental documents for. */
@@ -208,4 +195,17 @@ constructor(
                 additionalQueryParams.build(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is SupplementalDocumentListParams && entityId == other.entityId && cursor == other.cursor && idempotencyKey == other.idempotencyKey && limit == other.limit && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(entityId, cursor, idempotencyKey, limit, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "SupplementalDocumentListParams{entityId=$entityId, cursor=$cursor, idempotencyKey=$idempotencyKey, limit=$limit, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

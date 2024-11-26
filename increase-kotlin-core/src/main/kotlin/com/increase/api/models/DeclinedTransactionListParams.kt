@@ -41,6 +41,10 @@ constructor(
 
     fun routeId(): String? = routeId
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     internal fun getHeaders(): Headers = additionalHeaders
 
     internal fun getQueryParams(): QueryParams {
@@ -56,23 +60,6 @@ constructor(
         queryParams.putAll(additionalQueryParams)
         return queryParams.build()
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is DeclinedTransactionListParams && accountId == other.accountId && category == other.category && createdAt == other.createdAt && cursor == other.cursor && limit == other.limit && routeId == other.routeId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, category, createdAt, cursor, limit, routeId, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "DeclinedTransactionListParams{accountId=$accountId, category=$category, createdAt=$createdAt, cursor=$cursor, limit=$limit, routeId=$routeId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -94,14 +81,14 @@ constructor(
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         internal fun from(declinedTransactionListParams: DeclinedTransactionListParams) = apply {
-            this.accountId = declinedTransactionListParams.accountId
-            this.category = declinedTransactionListParams.category
-            this.createdAt = declinedTransactionListParams.createdAt
-            this.cursor = declinedTransactionListParams.cursor
-            this.limit = declinedTransactionListParams.limit
-            this.routeId = declinedTransactionListParams.routeId
-            additionalHeaders(declinedTransactionListParams.additionalHeaders)
-            additionalQueryParams(declinedTransactionListParams.additionalQueryParams)
+            accountId = declinedTransactionListParams.accountId
+            category = declinedTransactionListParams.category
+            createdAt = declinedTransactionListParams.createdAt
+            cursor = declinedTransactionListParams.cursor
+            limit = declinedTransactionListParams.limit
+            routeId = declinedTransactionListParams.routeId
+            additionalHeaders = declinedTransactionListParams.additionalHeaders.toBuilder()
+            additionalQueryParams = declinedTransactionListParams.additionalQueryParams.toBuilder()
         }
 
         /** Filter Declined Transactions to ones belonging to the specified Account. */
@@ -540,4 +527,17 @@ constructor(
         override fun toString() =
             "CreatedAt{after=$after, before=$before, onOrAfter=$onOrAfter, onOrBefore=$onOrBefore, additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is DeclinedTransactionListParams && accountId == other.accountId && category == other.category && createdAt == other.createdAt && cursor == other.cursor && limit == other.limit && routeId == other.routeId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, category, createdAt, cursor, limit, routeId, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "DeclinedTransactionListParams{accountId=$accountId, category=$category, createdAt=$createdAt, cursor=$cursor, limit=$limit, routeId=$routeId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

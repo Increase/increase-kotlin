@@ -17,6 +17,10 @@ constructor(
 
     fun cardId(): String = cardId
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     internal fun getHeaders(): Headers = additionalHeaders
 
     internal fun getQueryParams(): QueryParams = additionalQueryParams
@@ -27,23 +31,6 @@ constructor(
             else -> ""
         }
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is CardDetailsParams && cardId == other.cardId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(cardId, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "CardDetailsParams{cardId=$cardId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -60,9 +47,9 @@ constructor(
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         internal fun from(cardDetailsParams: CardDetailsParams) = apply {
-            this.cardId = cardDetailsParams.cardId
-            additionalHeaders(cardDetailsParams.additionalHeaders)
-            additionalQueryParams(cardDetailsParams.additionalQueryParams)
+            cardId = cardDetailsParams.cardId
+            additionalHeaders = cardDetailsParams.additionalHeaders.toBuilder()
+            additionalQueryParams = cardDetailsParams.additionalQueryParams.toBuilder()
         }
 
         /** The identifier of the Card to retrieve details for. */
@@ -173,4 +160,17 @@ constructor(
                 additionalQueryParams.build(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is CardDetailsParams && cardId == other.cardId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(cardId, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "CardDetailsParams{cardId=$cardId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

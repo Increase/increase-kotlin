@@ -37,6 +37,12 @@ constructor(
 
     fun requireApproval(): Boolean? = requireApproval
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     internal fun getBody(): AccountTransferCreateBody {
         return AccountTransferCreateBody(
             accountId,
@@ -183,25 +189,6 @@ constructor(
             "AccountTransferCreateBody{accountId=$accountId, amount=$amount, description=$description, destinationAccountId=$destinationAccountId, requireApproval=$requireApproval, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is AccountTransferCreateParams && accountId == other.accountId && amount == other.amount && description == other.description && destinationAccountId == other.destinationAccountId && requireApproval == other.requireApproval && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, amount, description, destinationAccountId, requireApproval, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "AccountTransferCreateParams{accountId=$accountId, amount=$amount, description=$description, destinationAccountId=$destinationAccountId, requireApproval=$requireApproval, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -222,14 +209,15 @@ constructor(
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(accountTransferCreateParams: AccountTransferCreateParams) = apply {
-            this.accountId = accountTransferCreateParams.accountId
-            this.amount = accountTransferCreateParams.amount
-            this.description = accountTransferCreateParams.description
-            this.destinationAccountId = accountTransferCreateParams.destinationAccountId
-            this.requireApproval = accountTransferCreateParams.requireApproval
-            additionalHeaders(accountTransferCreateParams.additionalHeaders)
-            additionalQueryParams(accountTransferCreateParams.additionalQueryParams)
-            additionalBodyProperties(accountTransferCreateParams.additionalBodyProperties)
+            accountId = accountTransferCreateParams.accountId
+            amount = accountTransferCreateParams.amount
+            description = accountTransferCreateParams.description
+            destinationAccountId = accountTransferCreateParams.destinationAccountId
+            requireApproval = accountTransferCreateParams.requireApproval
+            additionalHeaders = accountTransferCreateParams.additionalHeaders.toBuilder()
+            additionalQueryParams = accountTransferCreateParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                accountTransferCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The identifier for the account that will send the transfer. */
@@ -388,4 +376,17 @@ constructor(
                 additionalBodyProperties.toImmutable(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is AccountTransferCreateParams && accountId == other.accountId && amount == other.amount && description == other.description && destinationAccountId == other.destinationAccountId && requireApproval == other.requireApproval && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, amount, description, destinationAccountId, requireApproval, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "AccountTransferCreateParams{accountId=$accountId, amount=$amount, description=$description, destinationAccountId=$destinationAccountId, requireApproval=$requireApproval, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

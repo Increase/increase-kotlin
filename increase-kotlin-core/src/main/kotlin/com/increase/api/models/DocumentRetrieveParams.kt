@@ -17,6 +17,10 @@ constructor(
 
     fun documentId(): String = documentId
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     internal fun getHeaders(): Headers = additionalHeaders
 
     internal fun getQueryParams(): QueryParams = additionalQueryParams
@@ -27,23 +31,6 @@ constructor(
             else -> ""
         }
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is DocumentRetrieveParams && documentId == other.documentId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(documentId, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "DocumentRetrieveParams{documentId=$documentId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -60,9 +47,9 @@ constructor(
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         internal fun from(documentRetrieveParams: DocumentRetrieveParams) = apply {
-            this.documentId = documentRetrieveParams.documentId
-            additionalHeaders(documentRetrieveParams.additionalHeaders)
-            additionalQueryParams(documentRetrieveParams.additionalQueryParams)
+            documentId = documentRetrieveParams.documentId
+            additionalHeaders = documentRetrieveParams.additionalHeaders.toBuilder()
+            additionalQueryParams = documentRetrieveParams.additionalQueryParams.toBuilder()
         }
 
         /** The identifier of the Document to retrieve. */
@@ -173,4 +160,17 @@ constructor(
                 additionalQueryParams.build(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is DocumentRetrieveParams && documentId == other.documentId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(documentId, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "DocumentRetrieveParams{documentId=$documentId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

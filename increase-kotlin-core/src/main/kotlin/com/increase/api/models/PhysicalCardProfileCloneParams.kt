@@ -40,6 +40,12 @@ constructor(
 
     fun frontText(): FrontText? = frontText
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     internal fun getBody(): PhysicalCardProfileCloneBody {
         return PhysicalCardProfileCloneBody(
             carrierImageFileId,
@@ -192,25 +198,6 @@ constructor(
             "PhysicalCardProfileCloneBody{carrierImageFileId=$carrierImageFileId, contactPhone=$contactPhone, description=$description, frontImageFileId=$frontImageFileId, frontText=$frontText, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is PhysicalCardProfileCloneParams && physicalCardProfileId == other.physicalCardProfileId && carrierImageFileId == other.carrierImageFileId && contactPhone == other.contactPhone && description == other.description && frontImageFileId == other.frontImageFileId && frontText == other.frontText && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(physicalCardProfileId, carrierImageFileId, contactPhone, description, frontImageFileId, frontText, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "PhysicalCardProfileCloneParams{physicalCardProfileId=$physicalCardProfileId, carrierImageFileId=$carrierImageFileId, contactPhone=$contactPhone, description=$description, frontImageFileId=$frontImageFileId, frontText=$frontText, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -232,15 +219,16 @@ constructor(
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(physicalCardProfileCloneParams: PhysicalCardProfileCloneParams) = apply {
-            this.physicalCardProfileId = physicalCardProfileCloneParams.physicalCardProfileId
-            this.carrierImageFileId = physicalCardProfileCloneParams.carrierImageFileId
-            this.contactPhone = physicalCardProfileCloneParams.contactPhone
-            this.description = physicalCardProfileCloneParams.description
-            this.frontImageFileId = physicalCardProfileCloneParams.frontImageFileId
-            this.frontText = physicalCardProfileCloneParams.frontText
-            additionalHeaders(physicalCardProfileCloneParams.additionalHeaders)
-            additionalQueryParams(physicalCardProfileCloneParams.additionalQueryParams)
-            additionalBodyProperties(physicalCardProfileCloneParams.additionalBodyProperties)
+            physicalCardProfileId = physicalCardProfileCloneParams.physicalCardProfileId
+            carrierImageFileId = physicalCardProfileCloneParams.carrierImageFileId
+            contactPhone = physicalCardProfileCloneParams.contactPhone
+            description = physicalCardProfileCloneParams.description
+            frontImageFileId = physicalCardProfileCloneParams.frontImageFileId
+            frontText = physicalCardProfileCloneParams.frontText
+            additionalHeaders = physicalCardProfileCloneParams.additionalHeaders.toBuilder()
+            additionalQueryParams = physicalCardProfileCloneParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                physicalCardProfileCloneParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The identifier of the Physical Card Profile to clone. */
@@ -501,4 +489,17 @@ constructor(
         override fun toString() =
             "FrontText{line1=$line1, line2=$line2, additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is PhysicalCardProfileCloneParams && physicalCardProfileId == other.physicalCardProfileId && carrierImageFileId == other.carrierImageFileId && contactPhone == other.contactPhone && description == other.description && frontImageFileId == other.frontImageFileId && frontText == other.frontText && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(physicalCardProfileId, carrierImageFileId, contactPhone, description, frontImageFileId, frontText, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "PhysicalCardProfileCloneParams{physicalCardProfileId=$physicalCardProfileId, carrierImageFileId=$carrierImageFileId, contactPhone=$contactPhone, description=$description, frontImageFileId=$frontImageFileId, frontText=$frontText, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

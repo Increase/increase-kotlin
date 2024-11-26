@@ -28,6 +28,12 @@ constructor(
 
     fun cardPaymentId(): String = cardPaymentId
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     internal fun getBody(): SimulationCardFuelConfirmationCreateBody {
         return SimulationCardFuelConfirmationCreateBody(
             amount,
@@ -132,25 +138,6 @@ constructor(
             "SimulationCardFuelConfirmationCreateBody{amount=$amount, cardPaymentId=$cardPaymentId, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is SimulationCardFuelConfirmationCreateParams && amount == other.amount && cardPaymentId == other.cardPaymentId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(amount, cardPaymentId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "SimulationCardFuelConfirmationCreateParams{amount=$amount, cardPaymentId=$cardPaymentId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -170,13 +157,14 @@ constructor(
         internal fun from(
             simulationCardFuelConfirmationCreateParams: SimulationCardFuelConfirmationCreateParams
         ) = apply {
-            this.amount = simulationCardFuelConfirmationCreateParams.amount
-            this.cardPaymentId = simulationCardFuelConfirmationCreateParams.cardPaymentId
-            additionalHeaders(simulationCardFuelConfirmationCreateParams.additionalHeaders)
-            additionalQueryParams(simulationCardFuelConfirmationCreateParams.additionalQueryParams)
-            additionalBodyProperties(
-                simulationCardFuelConfirmationCreateParams.additionalBodyProperties
-            )
+            amount = simulationCardFuelConfirmationCreateParams.amount
+            cardPaymentId = simulationCardFuelConfirmationCreateParams.cardPaymentId
+            additionalHeaders =
+                simulationCardFuelConfirmationCreateParams.additionalHeaders.toBuilder()
+            additionalQueryParams =
+                simulationCardFuelConfirmationCreateParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                simulationCardFuelConfirmationCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /**
@@ -316,4 +304,17 @@ constructor(
                 additionalBodyProperties.toImmutable(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is SimulationCardFuelConfirmationCreateParams && amount == other.amount && cardPaymentId == other.cardPaymentId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(amount, cardPaymentId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "SimulationCardFuelConfirmationCreateParams{amount=$amount, cardPaymentId=$cardPaymentId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

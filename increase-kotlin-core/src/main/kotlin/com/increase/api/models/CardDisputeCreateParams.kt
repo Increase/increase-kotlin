@@ -31,6 +31,12 @@ constructor(
 
     fun amount(): Long? = amount
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     internal fun getBody(): CardDisputeCreateBody {
         return CardDisputeCreateBody(
             disputedTransactionId,
@@ -159,25 +165,6 @@ constructor(
             "CardDisputeCreateBody{disputedTransactionId=$disputedTransactionId, explanation=$explanation, amount=$amount, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is CardDisputeCreateParams && disputedTransactionId == other.disputedTransactionId && explanation == other.explanation && amount == other.amount && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(disputedTransactionId, explanation, amount, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "CardDisputeCreateParams{disputedTransactionId=$disputedTransactionId, explanation=$explanation, amount=$amount, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -196,12 +183,13 @@ constructor(
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(cardDisputeCreateParams: CardDisputeCreateParams) = apply {
-            this.disputedTransactionId = cardDisputeCreateParams.disputedTransactionId
-            this.explanation = cardDisputeCreateParams.explanation
-            this.amount = cardDisputeCreateParams.amount
-            additionalHeaders(cardDisputeCreateParams.additionalHeaders)
-            additionalQueryParams(cardDisputeCreateParams.additionalQueryParams)
-            additionalBodyProperties(cardDisputeCreateParams.additionalBodyProperties)
+            disputedTransactionId = cardDisputeCreateParams.disputedTransactionId
+            explanation = cardDisputeCreateParams.explanation
+            amount = cardDisputeCreateParams.amount
+            additionalHeaders = cardDisputeCreateParams.additionalHeaders.toBuilder()
+            additionalQueryParams = cardDisputeCreateParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                cardDisputeCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /**
@@ -354,4 +342,17 @@ constructor(
                 additionalBodyProperties.toImmutable(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is CardDisputeCreateParams && disputedTransactionId == other.disputedTransactionId && explanation == other.explanation && amount == other.amount && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(disputedTransactionId, explanation, amount, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "CardDisputeCreateParams{disputedTransactionId=$disputedTransactionId, explanation=$explanation, amount=$amount, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

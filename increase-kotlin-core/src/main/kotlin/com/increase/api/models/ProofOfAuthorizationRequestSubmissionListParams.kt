@@ -26,6 +26,10 @@ constructor(
 
     fun proofOfAuthorizationRequestId(): String? = proofOfAuthorizationRequestId
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     internal fun getHeaders(): Headers = additionalHeaders
 
     internal fun getQueryParams(): QueryParams {
@@ -39,23 +43,6 @@ constructor(
         queryParams.putAll(additionalQueryParams)
         return queryParams.build()
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is ProofOfAuthorizationRequestSubmissionListParams && cursor == other.cursor && idempotencyKey == other.idempotencyKey && limit == other.limit && proofOfAuthorizationRequestId == other.proofOfAuthorizationRequestId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(cursor, idempotencyKey, limit, proofOfAuthorizationRequestId, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "ProofOfAuthorizationRequestSubmissionListParams{cursor=$cursor, idempotencyKey=$idempotencyKey, limit=$limit, proofOfAuthorizationRequestId=$proofOfAuthorizationRequestId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -78,15 +65,15 @@ constructor(
             proofOfAuthorizationRequestSubmissionListParams:
                 ProofOfAuthorizationRequestSubmissionListParams
         ) = apply {
-            this.cursor = proofOfAuthorizationRequestSubmissionListParams.cursor
-            this.idempotencyKey = proofOfAuthorizationRequestSubmissionListParams.idempotencyKey
-            this.limit = proofOfAuthorizationRequestSubmissionListParams.limit
-            this.proofOfAuthorizationRequestId =
+            cursor = proofOfAuthorizationRequestSubmissionListParams.cursor
+            idempotencyKey = proofOfAuthorizationRequestSubmissionListParams.idempotencyKey
+            limit = proofOfAuthorizationRequestSubmissionListParams.limit
+            proofOfAuthorizationRequestId =
                 proofOfAuthorizationRequestSubmissionListParams.proofOfAuthorizationRequestId
-            additionalHeaders(proofOfAuthorizationRequestSubmissionListParams.additionalHeaders)
-            additionalQueryParams(
-                proofOfAuthorizationRequestSubmissionListParams.additionalQueryParams
-            )
+            additionalHeaders =
+                proofOfAuthorizationRequestSubmissionListParams.additionalHeaders.toBuilder()
+            additionalQueryParams =
+                proofOfAuthorizationRequestSubmissionListParams.additionalQueryParams.toBuilder()
         }
 
         /** Return the page of entries after this one. */
@@ -218,4 +205,17 @@ constructor(
                 additionalQueryParams.build(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is ProofOfAuthorizationRequestSubmissionListParams && cursor == other.cursor && idempotencyKey == other.idempotencyKey && limit == other.limit && proofOfAuthorizationRequestId == other.proofOfAuthorizationRequestId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(cursor, idempotencyKey, limit, proofOfAuthorizationRequestId, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "ProofOfAuthorizationRequestSubmissionListParams{cursor=$cursor, idempotencyKey=$idempotencyKey, limit=$limit, proofOfAuthorizationRequestId=$proofOfAuthorizationRequestId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

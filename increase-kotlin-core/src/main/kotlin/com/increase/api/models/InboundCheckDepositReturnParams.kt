@@ -32,6 +32,12 @@ constructor(
 
     fun reason(): Reason = reason
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     internal fun getBody(): InboundCheckDepositReturnBody {
         return InboundCheckDepositReturnBody(reason, additionalBodyProperties)
     }
@@ -122,25 +128,6 @@ constructor(
             "InboundCheckDepositReturnBody{reason=$reason, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is InboundCheckDepositReturnParams && inboundCheckDepositId == other.inboundCheckDepositId && reason == other.reason && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(inboundCheckDepositId, reason, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "InboundCheckDepositReturnParams{inboundCheckDepositId=$inboundCheckDepositId, reason=$reason, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -159,11 +146,13 @@ constructor(
 
         internal fun from(inboundCheckDepositReturnParams: InboundCheckDepositReturnParams) =
             apply {
-                this.inboundCheckDepositId = inboundCheckDepositReturnParams.inboundCheckDepositId
-                this.reason = inboundCheckDepositReturnParams.reason
-                additionalHeaders(inboundCheckDepositReturnParams.additionalHeaders)
-                additionalQueryParams(inboundCheckDepositReturnParams.additionalQueryParams)
-                additionalBodyProperties(inboundCheckDepositReturnParams.additionalBodyProperties)
+                inboundCheckDepositId = inboundCheckDepositReturnParams.inboundCheckDepositId
+                reason = inboundCheckDepositReturnParams.reason
+                additionalHeaders = inboundCheckDepositReturnParams.additionalHeaders.toBuilder()
+                additionalQueryParams =
+                    inboundCheckDepositReturnParams.additionalQueryParams.toBuilder()
+                additionalBodyProperties =
+                    inboundCheckDepositReturnParams.additionalBodyProperties.toMutableMap()
             }
 
         /** The identifier of the Inbound Check Deposit to return. */
@@ -380,4 +369,17 @@ constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is InboundCheckDepositReturnParams && inboundCheckDepositId == other.inboundCheckDepositId && reason == other.reason && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(inboundCheckDepositId, reason, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "InboundCheckDepositReturnParams{inboundCheckDepositId=$inboundCheckDepositId, reason=$reason, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

@@ -33,6 +33,10 @@ constructor(
 
     fun status(): Status? = status
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     internal fun getHeaders(): Headers = additionalHeaders
 
     internal fun getQueryParams(): QueryParams {
@@ -44,23 +48,6 @@ constructor(
         queryParams.putAll(additionalQueryParams)
         return queryParams.build()
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is DigitalCardProfileListParams && cursor == other.cursor && idempotencyKey == other.idempotencyKey && limit == other.limit && status == other.status && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(cursor, idempotencyKey, limit, status, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "DigitalCardProfileListParams{cursor=$cursor, idempotencyKey=$idempotencyKey, limit=$limit, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -80,12 +67,12 @@ constructor(
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         internal fun from(digitalCardProfileListParams: DigitalCardProfileListParams) = apply {
-            this.cursor = digitalCardProfileListParams.cursor
-            this.idempotencyKey = digitalCardProfileListParams.idempotencyKey
-            this.limit = digitalCardProfileListParams.limit
-            this.status = digitalCardProfileListParams.status
-            additionalHeaders(digitalCardProfileListParams.additionalHeaders)
-            additionalQueryParams(digitalCardProfileListParams.additionalQueryParams)
+            cursor = digitalCardProfileListParams.cursor
+            idempotencyKey = digitalCardProfileListParams.idempotencyKey
+            limit = digitalCardProfileListParams.limit
+            status = digitalCardProfileListParams.status
+            additionalHeaders = digitalCardProfileListParams.additionalHeaders.toBuilder()
+            additionalQueryParams = digitalCardProfileListParams.additionalQueryParams.toBuilder()
         }
 
         /** Return the page of entries after this one. */
@@ -363,4 +350,17 @@ constructor(
 
         override fun toString() = "Status{in_=$in_, additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is DigitalCardProfileListParams && cursor == other.cursor && idempotencyKey == other.idempotencyKey && limit == other.limit && status == other.status && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(cursor, idempotencyKey, limit, status, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "DigitalCardProfileListParams{cursor=$cursor, idempotencyKey=$idempotencyKey, limit=$limit, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

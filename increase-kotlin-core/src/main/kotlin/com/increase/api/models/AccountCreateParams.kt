@@ -34,6 +34,12 @@ constructor(
 
     fun programId(): String? = programId
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     internal fun getBody(): AccountCreateBody {
         return AccountCreateBody(
             name,
@@ -170,25 +176,6 @@ constructor(
             "AccountCreateBody{name=$name, entityId=$entityId, informationalEntityId=$informationalEntityId, programId=$programId, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is AccountCreateParams && name == other.name && entityId == other.entityId && informationalEntityId == other.informationalEntityId && programId == other.programId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(name, entityId, informationalEntityId, programId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "AccountCreateParams{name=$name, entityId=$entityId, informationalEntityId=$informationalEntityId, programId=$programId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -208,13 +195,13 @@ constructor(
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(accountCreateParams: AccountCreateParams) = apply {
-            this.name = accountCreateParams.name
-            this.entityId = accountCreateParams.entityId
-            this.informationalEntityId = accountCreateParams.informationalEntityId
-            this.programId = accountCreateParams.programId
-            additionalHeaders(accountCreateParams.additionalHeaders)
-            additionalQueryParams(accountCreateParams.additionalQueryParams)
-            additionalBodyProperties(accountCreateParams.additionalBodyProperties)
+            name = accountCreateParams.name
+            entityId = accountCreateParams.entityId
+            informationalEntityId = accountCreateParams.informationalEntityId
+            programId = accountCreateParams.programId
+            additionalHeaders = accountCreateParams.additionalHeaders.toBuilder()
+            additionalQueryParams = accountCreateParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties = accountCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The name you choose for the Account. */
@@ -368,4 +355,17 @@ constructor(
                 additionalBodyProperties.toImmutable(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is AccountCreateParams && name == other.name && entityId == other.entityId && informationalEntityId == other.informationalEntityId && programId == other.programId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(name, entityId, informationalEntityId, programId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "AccountCreateParams{name=$name, entityId=$entityId, informationalEntityId=$informationalEntityId, programId=$programId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

@@ -41,6 +41,12 @@ constructor(
 
     fun status(): Status? = status
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     internal fun getBody(): AccountNumberUpdateBody {
         return AccountNumberUpdateBody(
             inboundAch,
@@ -172,25 +178,6 @@ constructor(
             "AccountNumberUpdateBody{inboundAch=$inboundAch, inboundChecks=$inboundChecks, name=$name, status=$status, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is AccountNumberUpdateParams && accountNumberId == other.accountNumberId && inboundAch == other.inboundAch && inboundChecks == other.inboundChecks && name == other.name && status == other.status && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountNumberId, inboundAch, inboundChecks, name, status, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "AccountNumberUpdateParams{accountNumberId=$accountNumberId, inboundAch=$inboundAch, inboundChecks=$inboundChecks, name=$name, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -211,14 +198,15 @@ constructor(
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(accountNumberUpdateParams: AccountNumberUpdateParams) = apply {
-            this.accountNumberId = accountNumberUpdateParams.accountNumberId
-            this.inboundAch = accountNumberUpdateParams.inboundAch
-            this.inboundChecks = accountNumberUpdateParams.inboundChecks
-            this.name = accountNumberUpdateParams.name
-            this.status = accountNumberUpdateParams.status
-            additionalHeaders(accountNumberUpdateParams.additionalHeaders)
-            additionalQueryParams(accountNumberUpdateParams.additionalQueryParams)
-            additionalBodyProperties(accountNumberUpdateParams.additionalBodyProperties)
+            accountNumberId = accountNumberUpdateParams.accountNumberId
+            inboundAch = accountNumberUpdateParams.inboundAch
+            inboundChecks = accountNumberUpdateParams.inboundChecks
+            name = accountNumberUpdateParams.name
+            status = accountNumberUpdateParams.status
+            additionalHeaders = accountNumberUpdateParams.additionalHeaders.toBuilder()
+            additionalQueryParams = accountNumberUpdateParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                accountNumberUpdateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The identifier of the Account Number. */
@@ -702,4 +690,17 @@ constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is AccountNumberUpdateParams && accountNumberId == other.accountNumberId && inboundAch == other.inboundAch && inboundChecks == other.inboundChecks && name == other.name && status == other.status && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountNumberId, inboundAch, inboundChecks, name, status, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "AccountNumberUpdateParams{accountNumberId=$accountNumberId, inboundAch=$inboundAch, inboundChecks=$inboundChecks, name=$name, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

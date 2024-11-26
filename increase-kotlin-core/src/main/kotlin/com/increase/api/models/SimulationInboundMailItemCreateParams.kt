@@ -31,6 +31,12 @@ constructor(
 
     fun contentsFileId(): String? = contentsFileId
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     internal fun getBody(): SimulationInboundMailItemCreateBody {
         return SimulationInboundMailItemCreateBody(
             amount,
@@ -150,25 +156,6 @@ constructor(
             "SimulationInboundMailItemCreateBody{amount=$amount, lockboxId=$lockboxId, contentsFileId=$contentsFileId, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is SimulationInboundMailItemCreateParams && amount == other.amount && lockboxId == other.lockboxId && contentsFileId == other.contentsFileId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(amount, lockboxId, contentsFileId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "SimulationInboundMailItemCreateParams{amount=$amount, lockboxId=$lockboxId, contentsFileId=$contentsFileId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -189,12 +176,14 @@ constructor(
         internal fun from(
             simulationInboundMailItemCreateParams: SimulationInboundMailItemCreateParams
         ) = apply {
-            this.amount = simulationInboundMailItemCreateParams.amount
-            this.lockboxId = simulationInboundMailItemCreateParams.lockboxId
-            this.contentsFileId = simulationInboundMailItemCreateParams.contentsFileId
-            additionalHeaders(simulationInboundMailItemCreateParams.additionalHeaders)
-            additionalQueryParams(simulationInboundMailItemCreateParams.additionalQueryParams)
-            additionalBodyProperties(simulationInboundMailItemCreateParams.additionalBodyProperties)
+            amount = simulationInboundMailItemCreateParams.amount
+            lockboxId = simulationInboundMailItemCreateParams.lockboxId
+            contentsFileId = simulationInboundMailItemCreateParams.contentsFileId
+            additionalHeaders = simulationInboundMailItemCreateParams.additionalHeaders.toBuilder()
+            additionalQueryParams =
+                simulationInboundMailItemCreateParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                simulationInboundMailItemCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The amount of the check to be simulated, in cents. */
@@ -339,4 +328,17 @@ constructor(
                 additionalBodyProperties.toImmutable(),
             )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is SimulationInboundMailItemCreateParams && amount == other.amount && lockboxId == other.lockboxId && contentsFileId == other.contentsFileId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(amount, lockboxId, contentsFileId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "SimulationInboundMailItemCreateParams{amount=$amount, lockboxId=$lockboxId, contentsFileId=$contentsFileId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

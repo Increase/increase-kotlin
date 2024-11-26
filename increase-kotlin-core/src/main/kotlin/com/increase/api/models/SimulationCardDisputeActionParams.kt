@@ -35,6 +35,12 @@ constructor(
 
     fun explanation(): String? = explanation
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     internal fun getBody(): SimulationCardDisputeActionBody {
         return SimulationCardDisputeActionBody(
             status,
@@ -140,25 +146,6 @@ constructor(
             "SimulationCardDisputeActionBody{status=$status, explanation=$explanation, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is SimulationCardDisputeActionParams && cardDisputeId == other.cardDisputeId && status == other.status && explanation == other.explanation && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(cardDisputeId, status, explanation, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "SimulationCardDisputeActionParams{cardDisputeId=$cardDisputeId, status=$status, explanation=$explanation, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -178,12 +165,14 @@ constructor(
 
         internal fun from(simulationCardDisputeActionParams: SimulationCardDisputeActionParams) =
             apply {
-                this.cardDisputeId = simulationCardDisputeActionParams.cardDisputeId
-                this.status = simulationCardDisputeActionParams.status
-                this.explanation = simulationCardDisputeActionParams.explanation
-                additionalHeaders(simulationCardDisputeActionParams.additionalHeaders)
-                additionalQueryParams(simulationCardDisputeActionParams.additionalQueryParams)
-                additionalBodyProperties(simulationCardDisputeActionParams.additionalBodyProperties)
+                cardDisputeId = simulationCardDisputeActionParams.cardDisputeId
+                status = simulationCardDisputeActionParams.status
+                explanation = simulationCardDisputeActionParams.explanation
+                additionalHeaders = simulationCardDisputeActionParams.additionalHeaders.toBuilder()
+                additionalQueryParams =
+                    simulationCardDisputeActionParams.additionalQueryParams.toBuilder()
+                additionalBodyProperties =
+                    simulationCardDisputeActionParams.additionalBodyProperties.toMutableMap()
             }
 
         /** The dispute you would like to action. */
@@ -400,4 +389,17 @@ constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is SimulationCardDisputeActionParams && cardDisputeId == other.cardDisputeId && status == other.status && explanation == other.explanation && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(cardDisputeId, status, explanation, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "SimulationCardDisputeActionParams{cardDisputeId=$cardDisputeId, status=$status, explanation=$explanation, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

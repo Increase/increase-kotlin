@@ -41,6 +41,10 @@ constructor(
 
     fun status(): Status? = status
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     internal fun getHeaders(): Headers = additionalHeaders
 
     internal fun getQueryParams(): QueryParams {
@@ -56,23 +60,6 @@ constructor(
         queryParams.putAll(additionalQueryParams)
         return queryParams.build()
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is ExportListParams && category == other.category && createdAt == other.createdAt && cursor == other.cursor && idempotencyKey == other.idempotencyKey && limit == other.limit && status == other.status && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(category, createdAt, cursor, idempotencyKey, limit, status, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "ExportListParams{category=$category, createdAt=$createdAt, cursor=$cursor, idempotencyKey=$idempotencyKey, limit=$limit, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -94,14 +81,14 @@ constructor(
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         internal fun from(exportListParams: ExportListParams) = apply {
-            this.category = exportListParams.category
-            this.createdAt = exportListParams.createdAt
-            this.cursor = exportListParams.cursor
-            this.idempotencyKey = exportListParams.idempotencyKey
-            this.limit = exportListParams.limit
-            this.status = exportListParams.status
-            additionalHeaders(exportListParams.additionalHeaders)
-            additionalQueryParams(exportListParams.additionalQueryParams)
+            category = exportListParams.category
+            createdAt = exportListParams.createdAt
+            cursor = exportListParams.cursor
+            idempotencyKey = exportListParams.idempotencyKey
+            limit = exportListParams.limit
+            status = exportListParams.status
+            additionalHeaders = exportListParams.additionalHeaders.toBuilder()
+            additionalQueryParams = exportListParams.additionalQueryParams.toBuilder()
         }
 
         fun category(category: Category) = apply { this.category = category }
@@ -677,4 +664,17 @@ constructor(
 
         override fun toString() = "Status{in_=$in_, additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is ExportListParams && category == other.category && createdAt == other.createdAt && cursor == other.cursor && idempotencyKey == other.idempotencyKey && limit == other.limit && status == other.status && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(category, createdAt, cursor, idempotencyKey, limit, status, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "ExportListParams{category=$category, createdAt=$createdAt, cursor=$cursor, idempotencyKey=$idempotencyKey, limit=$limit, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

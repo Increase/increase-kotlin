@@ -33,6 +33,10 @@ constructor(
 
     fun limit(): Long? = limit
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
     internal fun getHeaders(): Headers = additionalHeaders
 
     internal fun getQueryParams(): QueryParams {
@@ -47,23 +51,6 @@ constructor(
         queryParams.putAll(additionalQueryParams)
         return queryParams.build()
     }
-
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is CheckDepositListParams && accountId == other.accountId && createdAt == other.createdAt && cursor == other.cursor && idempotencyKey == other.idempotencyKey && limit == other.limit && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, createdAt, cursor, idempotencyKey, limit, additionalHeaders, additionalQueryParams) /* spotless:on */
-
-    override fun toString() =
-        "CheckDepositListParams{accountId=$accountId, createdAt=$createdAt, cursor=$cursor, idempotencyKey=$idempotencyKey, limit=$limit, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 
     fun toBuilder() = Builder().from(this)
 
@@ -84,13 +71,13 @@ constructor(
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         internal fun from(checkDepositListParams: CheckDepositListParams) = apply {
-            this.accountId = checkDepositListParams.accountId
-            this.createdAt = checkDepositListParams.createdAt
-            this.cursor = checkDepositListParams.cursor
-            this.idempotencyKey = checkDepositListParams.idempotencyKey
-            this.limit = checkDepositListParams.limit
-            additionalHeaders(checkDepositListParams.additionalHeaders)
-            additionalQueryParams(checkDepositListParams.additionalQueryParams)
+            accountId = checkDepositListParams.accountId
+            createdAt = checkDepositListParams.createdAt
+            cursor = checkDepositListParams.cursor
+            idempotencyKey = checkDepositListParams.idempotencyKey
+            limit = checkDepositListParams.limit
+            additionalHeaders = checkDepositListParams.additionalHeaders.toBuilder()
+            additionalQueryParams = checkDepositListParams.additionalQueryParams.toBuilder()
         }
 
         /** Filter Check Deposits to those belonging to the specified Account. */
@@ -363,4 +350,17 @@ constructor(
         override fun toString() =
             "CreatedAt{after=$after, before=$before, onOrAfter=$onOrAfter, onOrBefore=$onOrBefore, additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is CheckDepositListParams && accountId == other.accountId && createdAt == other.createdAt && cursor == other.cursor && idempotencyKey == other.idempotencyKey && limit == other.limit && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, createdAt, cursor, idempotencyKey, limit, additionalHeaders, additionalQueryParams) /* spotless:on */
+
+    override fun toString() =
+        "CheckDepositListParams{accountId=$accountId, createdAt=$createdAt, cursor=$cursor, idempotencyKey=$idempotencyKey, limit=$limit, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

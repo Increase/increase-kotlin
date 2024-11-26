@@ -48,6 +48,12 @@ constructor(
 
     fun vendorCsv(): JsonValue? = vendorCsv
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     internal fun getBody(): ExportCreateBody {
         return ExportCreateBody(
             category,
@@ -229,25 +235,6 @@ constructor(
             "ExportCreateBody{category=$category, accountStatementOfx=$accountStatementOfx, balanceCsv=$balanceCsv, bookkeepingAccountBalanceCsv=$bookkeepingAccountBalanceCsv, entityCsv=$entityCsv, transactionCsv=$transactionCsv, vendorCsv=$vendorCsv, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is ExportCreateParams && category == other.category && accountStatementOfx == other.accountStatementOfx && balanceCsv == other.balanceCsv && bookkeepingAccountBalanceCsv == other.bookkeepingAccountBalanceCsv && entityCsv == other.entityCsv && transactionCsv == other.transactionCsv && vendorCsv == other.vendorCsv && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(category, accountStatementOfx, balanceCsv, bookkeepingAccountBalanceCsv, entityCsv, transactionCsv, vendorCsv, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "ExportCreateParams{category=$category, accountStatementOfx=$accountStatementOfx, balanceCsv=$balanceCsv, bookkeepingAccountBalanceCsv=$bookkeepingAccountBalanceCsv, entityCsv=$entityCsv, transactionCsv=$transactionCsv, vendorCsv=$vendorCsv, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -270,16 +257,16 @@ constructor(
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(exportCreateParams: ExportCreateParams) = apply {
-            this.category = exportCreateParams.category
-            this.accountStatementOfx = exportCreateParams.accountStatementOfx
-            this.balanceCsv = exportCreateParams.balanceCsv
-            this.bookkeepingAccountBalanceCsv = exportCreateParams.bookkeepingAccountBalanceCsv
-            this.entityCsv = exportCreateParams.entityCsv
-            this.transactionCsv = exportCreateParams.transactionCsv
-            this.vendorCsv = exportCreateParams.vendorCsv
-            additionalHeaders(exportCreateParams.additionalHeaders)
-            additionalQueryParams(exportCreateParams.additionalQueryParams)
-            additionalBodyProperties(exportCreateParams.additionalBodyProperties)
+            category = exportCreateParams.category
+            accountStatementOfx = exportCreateParams.accountStatementOfx
+            balanceCsv = exportCreateParams.balanceCsv
+            bookkeepingAccountBalanceCsv = exportCreateParams.bookkeepingAccountBalanceCsv
+            entityCsv = exportCreateParams.entityCsv
+            transactionCsv = exportCreateParams.transactionCsv
+            vendorCsv = exportCreateParams.vendorCsv
+            additionalHeaders = exportCreateParams.additionalHeaders.toBuilder()
+            additionalQueryParams = exportCreateParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties = exportCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The type of Export to create. */
@@ -1660,4 +1647,17 @@ constructor(
         override fun toString() =
             "TransactionCsv{accountId=$accountId, createdAt=$createdAt, programId=$programId, additionalProperties=$additionalProperties}"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is ExportCreateParams && category == other.category && accountStatementOfx == other.accountStatementOfx && balanceCsv == other.balanceCsv && bookkeepingAccountBalanceCsv == other.bookkeepingAccountBalanceCsv && entityCsv == other.entityCsv && transactionCsv == other.transactionCsv && vendorCsv == other.vendorCsv && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(category, accountStatementOfx, balanceCsv, bookkeepingAccountBalanceCsv, entityCsv, transactionCsv, vendorCsv, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "ExportCreateParams{category=$category, accountStatementOfx=$accountStatementOfx, balanceCsv=$balanceCsv, bookkeepingAccountBalanceCsv=$bookkeepingAccountBalanceCsv, entityCsv=$entityCsv, transactionCsv=$transactionCsv, vendorCsv=$vendorCsv, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

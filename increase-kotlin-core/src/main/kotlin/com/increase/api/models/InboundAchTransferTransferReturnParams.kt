@@ -32,6 +32,12 @@ constructor(
 
     fun reason(): Reason = reason
 
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+
     internal fun getBody(): InboundAchTransferTransferReturnBody {
         return InboundAchTransferTransferReturnBody(reason, additionalBodyProperties)
     }
@@ -129,25 +135,6 @@ constructor(
             "InboundAchTransferTransferReturnBody{reason=$reason, additionalProperties=$additionalProperties}"
     }
 
-    fun _additionalHeaders(): Headers = additionalHeaders
-
-    fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is InboundAchTransferTransferReturnParams && inboundAchTransferId == other.inboundAchTransferId && reason == other.reason && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(inboundAchTransferId, reason, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
-
-    override fun toString() =
-        "InboundAchTransferTransferReturnParams{inboundAchTransferId=$inboundAchTransferId, reason=$reason, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -167,13 +154,13 @@ constructor(
         internal fun from(
             inboundAchTransferTransferReturnParams: InboundAchTransferTransferReturnParams
         ) = apply {
-            this.inboundAchTransferId = inboundAchTransferTransferReturnParams.inboundAchTransferId
-            this.reason = inboundAchTransferTransferReturnParams.reason
-            additionalHeaders(inboundAchTransferTransferReturnParams.additionalHeaders)
-            additionalQueryParams(inboundAchTransferTransferReturnParams.additionalQueryParams)
-            additionalBodyProperties(
-                inboundAchTransferTransferReturnParams.additionalBodyProperties
-            )
+            inboundAchTransferId = inboundAchTransferTransferReturnParams.inboundAchTransferId
+            reason = inboundAchTransferTransferReturnParams.reason
+            additionalHeaders = inboundAchTransferTransferReturnParams.additionalHeaders.toBuilder()
+            additionalQueryParams =
+                inboundAchTransferTransferReturnParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                inboundAchTransferTransferReturnParams.additionalBodyProperties.toMutableMap()
         }
 
         /**
@@ -446,4 +433,17 @@ constructor(
 
         fun asString(): String = _value().asStringOrThrow()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is InboundAchTransferTransferReturnParams && inboundAchTransferId == other.inboundAchTransferId && reason == other.reason && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(inboundAchTransferId, reason, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+
+    override fun toString() =
+        "InboundAchTransferTransferReturnParams{inboundAchTransferId=$inboundAchTransferId, reason=$reason, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }
