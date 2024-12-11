@@ -317,15 +317,15 @@ constructor(
 
         companion object {
 
-            val ALTERED_OR_FICTITIOUS = Reason(JsonField.of("altered_or_fictitious"))
+            val ALTERED_OR_FICTITIOUS = of("altered_or_fictitious")
 
-            val NOT_AUTHORIZED = Reason(JsonField.of("not_authorized"))
+            val NOT_AUTHORIZED = of("not_authorized")
 
-            val DUPLICATE_PRESENTMENT = Reason(JsonField.of("duplicate_presentment"))
+            val DUPLICATE_PRESENTMENT = of("duplicate_presentment")
 
-            val ENDORSEMENT_MISSING = Reason(JsonField.of("endorsement_missing"))
+            val ENDORSEMENT_MISSING = of("endorsement_missing")
 
-            val ENDORSEMENT_IRREGULAR = Reason(JsonField.of("endorsement_irregular"))
+            val ENDORSEMENT_IRREGULAR = of("endorsement_irregular")
 
             fun of(value: String) = Reason(JsonField.of(value))
         }

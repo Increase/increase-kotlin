@@ -665,18 +665,13 @@ private constructor(
 
             companion object {
 
-                val NO_INVOICE_LEVEL_DISCOUNT_PROVIDED =
-                    DiscountTreatmentCode(JsonField.of("no_invoice_level_discount_provided"))
+                val NO_INVOICE_LEVEL_DISCOUNT_PROVIDED = of("no_invoice_level_discount_provided")
 
                 val TAX_CALCULATED_ON_POST_DISCOUNT_INVOICE_TOTAL =
-                    DiscountTreatmentCode(
-                        JsonField.of("tax_calculated_on_post_discount_invoice_total")
-                    )
+                    of("tax_calculated_on_post_discount_invoice_total")
 
                 val TAX_CALCULATED_ON_PRE_DISCOUNT_INVOICE_TOTAL =
-                    DiscountTreatmentCode(
-                        JsonField.of("tax_calculated_on_pre_discount_invoice_total")
-                    )
+                    of("tax_calculated_on_pre_discount_invoice_total")
 
                 fun of(value: String) = DiscountTreatmentCode(JsonField.of(value))
             }
@@ -740,18 +735,15 @@ private constructor(
 
             companion object {
 
-                val NO_TAX_APPLIES = TaxTreatments(JsonField.of("no_tax_applies"))
+                val NO_TAX_APPLIES = of("no_tax_applies")
 
-                val NET_PRICE_LINE_ITEM_LEVEL =
-                    TaxTreatments(JsonField.of("net_price_line_item_level"))
+                val NET_PRICE_LINE_ITEM_LEVEL = of("net_price_line_item_level")
 
-                val NET_PRICE_INVOICE_LEVEL = TaxTreatments(JsonField.of("net_price_invoice_level"))
+                val NET_PRICE_INVOICE_LEVEL = of("net_price_invoice_level")
 
-                val GROSS_PRICE_LINE_ITEM_LEVEL =
-                    TaxTreatments(JsonField.of("gross_price_line_item_level"))
+                val GROSS_PRICE_LINE_ITEM_LEVEL = of("gross_price_line_item_level")
 
-                val GROSS_PRICE_INVOICE_LEVEL =
-                    TaxTreatments(JsonField.of("gross_price_invoice_level"))
+                val GROSS_PRICE_INVOICE_LEVEL = of("gross_price_invoice_level")
 
                 fun of(value: String) = TaxTreatments(JsonField.of(value))
             }
@@ -1277,11 +1269,11 @@ private constructor(
 
             companion object {
 
-                val NORMAL = DetailIndicator(JsonField.of("normal"))
+                val NORMAL = of("normal")
 
-                val CREDIT = DetailIndicator(JsonField.of("credit"))
+                val CREDIT = of("credit")
 
-                val PAYMENT = DetailIndicator(JsonField.of("payment"))
+                val PAYMENT = of("payment")
 
                 fun of(value: String) = DetailIndicator(JsonField.of(value))
             }
@@ -1341,17 +1333,13 @@ private constructor(
             companion object {
 
                 val NO_LINE_ITEM_LEVEL_DISCOUNT_PROVIDED =
-                    DiscountTreatmentCode(JsonField.of("no_line_item_level_discount_provided"))
+                    of("no_line_item_level_discount_provided")
 
                 val TAX_CALCULATED_ON_POST_DISCOUNT_LINE_ITEM_TOTAL =
-                    DiscountTreatmentCode(
-                        JsonField.of("tax_calculated_on_post_discount_line_item_total")
-                    )
+                    of("tax_calculated_on_post_discount_line_item_total")
 
                 val TAX_CALCULATED_ON_PRE_DISCOUNT_LINE_ITEM_TOTAL =
-                    DiscountTreatmentCode(
-                        JsonField.of("tax_calculated_on_pre_discount_line_item_total")
-                    )
+                    of("tax_calculated_on_pre_discount_line_item_total")
 
                 fun of(value: String) = DiscountTreatmentCode(JsonField.of(value))
             }
@@ -1435,7 +1423,7 @@ private constructor(
 
         companion object {
 
-            val CARD_PURCHASE_SUPPLEMENT = Type(JsonField.of("card_purchase_supplement"))
+            val CARD_PURCHASE_SUPPLEMENT = of("card_purchase_supplement")
 
             fun of(value: String) = Type(JsonField.of(value))
         }

@@ -537,15 +537,15 @@ private constructor(
 
         companion object {
 
-            val PENDING_REVIEW = Status(JsonField.of("pending_review"))
+            val PENDING_REVIEW = of("pending_review")
 
-            val REJECTED = Status(JsonField.of("rejected"))
+            val REJECTED = of("rejected")
 
-            val CANCELED = Status(JsonField.of("canceled"))
+            val CANCELED = of("canceled")
 
-            val PENDING_SENDING = Status(JsonField.of("pending_sending"))
+            val PENDING_SENDING = of("pending_sending")
 
-            val SENT = Status(JsonField.of("sent"))
+            val SENT = of("sent")
 
             fun of(value: String) = Status(JsonField.of(value))
         }
@@ -613,7 +613,7 @@ private constructor(
         companion object {
 
             val PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION =
-                Type(JsonField.of("proof_of_authorization_request_submission"))
+                of("proof_of_authorization_request_submission")
 
             fun of(value: String) = Type(JsonField.of(value))
         }

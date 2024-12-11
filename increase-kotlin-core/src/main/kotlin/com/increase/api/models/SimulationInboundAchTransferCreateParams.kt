@@ -571,43 +571,37 @@ constructor(
 
         companion object {
 
-            val CORPORATE_CREDIT_OR_DEBIT =
-                StandardEntryClassCode(JsonField.of("corporate_credit_or_debit"))
+            val CORPORATE_CREDIT_OR_DEBIT = of("corporate_credit_or_debit")
 
-            val CORPORATE_TRADE_EXCHANGE =
-                StandardEntryClassCode(JsonField.of("corporate_trade_exchange"))
+            val CORPORATE_TRADE_EXCHANGE = of("corporate_trade_exchange")
 
-            val PREARRANGED_PAYMENTS_AND_DEPOSIT =
-                StandardEntryClassCode(JsonField.of("prearranged_payments_and_deposit"))
+            val PREARRANGED_PAYMENTS_AND_DEPOSIT = of("prearranged_payments_and_deposit")
 
-            val INTERNET_INITIATED = StandardEntryClassCode(JsonField.of("internet_initiated"))
+            val INTERNET_INITIATED = of("internet_initiated")
 
-            val POINT_OF_SALE = StandardEntryClassCode(JsonField.of("point_of_sale"))
+            val POINT_OF_SALE = of("point_of_sale")
 
-            val TELEPHONE_INITIATED = StandardEntryClassCode(JsonField.of("telephone_initiated"))
+            val TELEPHONE_INITIATED = of("telephone_initiated")
 
-            val CUSTOMER_INITIATED = StandardEntryClassCode(JsonField.of("customer_initiated"))
+            val CUSTOMER_INITIATED = of("customer_initiated")
 
-            val ACCOUNTS_RECEIVABLE = StandardEntryClassCode(JsonField.of("accounts_receivable"))
+            val ACCOUNTS_RECEIVABLE = of("accounts_receivable")
 
-            val MACHINE_TRANSFER = StandardEntryClassCode(JsonField.of("machine_transfer"))
+            val MACHINE_TRANSFER = of("machine_transfer")
 
-            val SHARED_NETWORK_TRANSACTION =
-                StandardEntryClassCode(JsonField.of("shared_network_transaction"))
+            val SHARED_NETWORK_TRANSACTION = of("shared_network_transaction")
 
-            val REPRESENTED_CHECK = StandardEntryClassCode(JsonField.of("represented_check"))
+            val REPRESENTED_CHECK = of("represented_check")
 
-            val BACK_OFFICE_CONVERSION =
-                StandardEntryClassCode(JsonField.of("back_office_conversion"))
+            val BACK_OFFICE_CONVERSION = of("back_office_conversion")
 
-            val POINT_OF_PURCHASE = StandardEntryClassCode(JsonField.of("point_of_purchase"))
+            val POINT_OF_PURCHASE = of("point_of_purchase")
 
-            val CHECK_TRUNCATION = StandardEntryClassCode(JsonField.of("check_truncation"))
+            val CHECK_TRUNCATION = of("check_truncation")
 
-            val DESTROYED_CHECK = StandardEntryClassCode(JsonField.of("destroyed_check"))
+            val DESTROYED_CHECK = of("destroyed_check")
 
-            val INTERNATIONAL_ACH_TRANSACTION =
-                StandardEntryClassCode(JsonField.of("international_ach_transaction"))
+            val INTERNATIONAL_ACH_TRANSACTION = of("international_ach_transaction")
 
             fun of(value: String) = StandardEntryClassCode(JsonField.of(value))
         }

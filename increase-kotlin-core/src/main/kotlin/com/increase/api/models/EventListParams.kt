@@ -297,210 +297,195 @@ constructor(
 
             companion object {
 
-                val ACCOUNT_CREATED = In(JsonField.of("account.created"))
+                val ACCOUNT_CREATED = of("account.created")
 
-                val ACCOUNT_UPDATED = In(JsonField.of("account.updated"))
+                val ACCOUNT_UPDATED = of("account.updated")
 
-                val ACCOUNT_NUMBER_CREATED = In(JsonField.of("account_number.created"))
+                val ACCOUNT_NUMBER_CREATED = of("account_number.created")
 
-                val ACCOUNT_NUMBER_UPDATED = In(JsonField.of("account_number.updated"))
+                val ACCOUNT_NUMBER_UPDATED = of("account_number.updated")
 
-                val ACCOUNT_STATEMENT_CREATED = In(JsonField.of("account_statement.created"))
+                val ACCOUNT_STATEMENT_CREATED = of("account_statement.created")
 
-                val ACCOUNT_TRANSFER_CREATED = In(JsonField.of("account_transfer.created"))
+                val ACCOUNT_TRANSFER_CREATED = of("account_transfer.created")
 
-                val ACCOUNT_TRANSFER_UPDATED = In(JsonField.of("account_transfer.updated"))
+                val ACCOUNT_TRANSFER_UPDATED = of("account_transfer.updated")
 
-                val ACH_PRENOTIFICATION_CREATED = In(JsonField.of("ach_prenotification.created"))
+                val ACH_PRENOTIFICATION_CREATED = of("ach_prenotification.created")
 
-                val ACH_PRENOTIFICATION_UPDATED = In(JsonField.of("ach_prenotification.updated"))
+                val ACH_PRENOTIFICATION_UPDATED = of("ach_prenotification.updated")
 
-                val ACH_TRANSFER_CREATED = In(JsonField.of("ach_transfer.created"))
+                val ACH_TRANSFER_CREATED = of("ach_transfer.created")
 
-                val ACH_TRANSFER_UPDATED = In(JsonField.of("ach_transfer.updated"))
+                val ACH_TRANSFER_UPDATED = of("ach_transfer.updated")
 
-                val BOOKKEEPING_ACCOUNT_CREATED = In(JsonField.of("bookkeeping_account.created"))
+                val BOOKKEEPING_ACCOUNT_CREATED = of("bookkeeping_account.created")
 
-                val BOOKKEEPING_ACCOUNT_UPDATED = In(JsonField.of("bookkeeping_account.updated"))
+                val BOOKKEEPING_ACCOUNT_UPDATED = of("bookkeeping_account.updated")
 
-                val BOOKKEEPING_ENTRY_SET_UPDATED =
-                    In(JsonField.of("bookkeeping_entry_set.updated"))
+                val BOOKKEEPING_ENTRY_SET_UPDATED = of("bookkeeping_entry_set.updated")
 
-                val CARD_CREATED = In(JsonField.of("card.created"))
+                val CARD_CREATED = of("card.created")
 
-                val CARD_UPDATED = In(JsonField.of("card.updated"))
+                val CARD_UPDATED = of("card.updated")
 
-                val CARD_PAYMENT_CREATED = In(JsonField.of("card_payment.created"))
+                val CARD_PAYMENT_CREATED = of("card_payment.created")
 
-                val CARD_PAYMENT_UPDATED = In(JsonField.of("card_payment.updated"))
+                val CARD_PAYMENT_UPDATED = of("card_payment.updated")
 
-                val CARD_PROFILE_CREATED = In(JsonField.of("card_profile.created"))
+                val CARD_PROFILE_CREATED = of("card_profile.created")
 
-                val CARD_PROFILE_UPDATED = In(JsonField.of("card_profile.updated"))
+                val CARD_PROFILE_UPDATED = of("card_profile.updated")
 
-                val CARD_DISPUTE_CREATED = In(JsonField.of("card_dispute.created"))
+                val CARD_DISPUTE_CREATED = of("card_dispute.created")
 
-                val CARD_DISPUTE_UPDATED = In(JsonField.of("card_dispute.updated"))
+                val CARD_DISPUTE_UPDATED = of("card_dispute.updated")
 
-                val CHECK_DEPOSIT_CREATED = In(JsonField.of("check_deposit.created"))
+                val CHECK_DEPOSIT_CREATED = of("check_deposit.created")
 
-                val CHECK_DEPOSIT_UPDATED = In(JsonField.of("check_deposit.updated"))
+                val CHECK_DEPOSIT_UPDATED = of("check_deposit.updated")
 
-                val CHECK_TRANSFER_CREATED = In(JsonField.of("check_transfer.created"))
+                val CHECK_TRANSFER_CREATED = of("check_transfer.created")
 
-                val CHECK_TRANSFER_UPDATED = In(JsonField.of("check_transfer.updated"))
+                val CHECK_TRANSFER_UPDATED = of("check_transfer.updated")
 
-                val DECLINED_TRANSACTION_CREATED = In(JsonField.of("declined_transaction.created"))
+                val DECLINED_TRANSACTION_CREATED = of("declined_transaction.created")
 
-                val DIGITAL_CARD_PROFILE_CREATED = In(JsonField.of("digital_card_profile.created"))
+                val DIGITAL_CARD_PROFILE_CREATED = of("digital_card_profile.created")
 
-                val DIGITAL_CARD_PROFILE_UPDATED = In(JsonField.of("digital_card_profile.updated"))
+                val DIGITAL_CARD_PROFILE_UPDATED = of("digital_card_profile.updated")
 
-                val DIGITAL_WALLET_TOKEN_CREATED = In(JsonField.of("digital_wallet_token.created"))
+                val DIGITAL_WALLET_TOKEN_CREATED = of("digital_wallet_token.created")
 
-                val DIGITAL_WALLET_TOKEN_UPDATED = In(JsonField.of("digital_wallet_token.updated"))
+                val DIGITAL_WALLET_TOKEN_UPDATED = of("digital_wallet_token.updated")
 
-                val DOCUMENT_CREATED = In(JsonField.of("document.created"))
+                val DOCUMENT_CREATED = of("document.created")
 
-                val ENTITY_CREATED = In(JsonField.of("entity.created"))
+                val ENTITY_CREATED = of("entity.created")
 
-                val ENTITY_UPDATED = In(JsonField.of("entity.updated"))
+                val ENTITY_UPDATED = of("entity.updated")
 
-                val EVENT_SUBSCRIPTION_CREATED = In(JsonField.of("event_subscription.created"))
+                val EVENT_SUBSCRIPTION_CREATED = of("event_subscription.created")
 
-                val EVENT_SUBSCRIPTION_UPDATED = In(JsonField.of("event_subscription.updated"))
+                val EVENT_SUBSCRIPTION_UPDATED = of("event_subscription.updated")
 
-                val EXPORT_CREATED = In(JsonField.of("export.created"))
+                val EXPORT_CREATED = of("export.created")
 
-                val EXPORT_UPDATED = In(JsonField.of("export.updated"))
+                val EXPORT_UPDATED = of("export.updated")
 
-                val EXTERNAL_ACCOUNT_CREATED = In(JsonField.of("external_account.created"))
+                val EXTERNAL_ACCOUNT_CREATED = of("external_account.created")
 
-                val EXTERNAL_ACCOUNT_UPDATED = In(JsonField.of("external_account.updated"))
+                val EXTERNAL_ACCOUNT_UPDATED = of("external_account.updated")
 
-                val FILE_CREATED = In(JsonField.of("file.created"))
+                val FILE_CREATED = of("file.created")
 
-                val GROUP_UPDATED = In(JsonField.of("group.updated"))
+                val GROUP_UPDATED = of("group.updated")
 
-                val GROUP_HEARTBEAT = In(JsonField.of("group.heartbeat"))
+                val GROUP_HEARTBEAT = of("group.heartbeat")
 
-                val INBOUND_ACH_TRANSFER_CREATED = In(JsonField.of("inbound_ach_transfer.created"))
+                val INBOUND_ACH_TRANSFER_CREATED = of("inbound_ach_transfer.created")
 
-                val INBOUND_ACH_TRANSFER_UPDATED = In(JsonField.of("inbound_ach_transfer.updated"))
+                val INBOUND_ACH_TRANSFER_UPDATED = of("inbound_ach_transfer.updated")
 
-                val INBOUND_ACH_TRANSFER_RETURN_CREATED =
-                    In(JsonField.of("inbound_ach_transfer_return.created"))
+                val INBOUND_ACH_TRANSFER_RETURN_CREATED = of("inbound_ach_transfer_return.created")
 
-                val INBOUND_ACH_TRANSFER_RETURN_UPDATED =
-                    In(JsonField.of("inbound_ach_transfer_return.updated"))
+                val INBOUND_ACH_TRANSFER_RETURN_UPDATED = of("inbound_ach_transfer_return.updated")
 
-                val INBOUND_CHECK_DEPOSIT_CREATED =
-                    In(JsonField.of("inbound_check_deposit.created"))
+                val INBOUND_CHECK_DEPOSIT_CREATED = of("inbound_check_deposit.created")
 
-                val INBOUND_CHECK_DEPOSIT_UPDATED =
-                    In(JsonField.of("inbound_check_deposit.updated"))
+                val INBOUND_CHECK_DEPOSIT_UPDATED = of("inbound_check_deposit.updated")
 
-                val INBOUND_MAIL_ITEM_CREATED = In(JsonField.of("inbound_mail_item.created"))
+                val INBOUND_MAIL_ITEM_CREATED = of("inbound_mail_item.created")
 
-                val INBOUND_MAIL_ITEM_UPDATED = In(JsonField.of("inbound_mail_item.updated"))
+                val INBOUND_MAIL_ITEM_UPDATED = of("inbound_mail_item.updated")
 
                 val INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CREATED =
-                    In(JsonField.of("inbound_real_time_payments_transfer.created"))
+                    of("inbound_real_time_payments_transfer.created")
 
                 val INBOUND_REAL_TIME_PAYMENTS_TRANSFER_UPDATED =
-                    In(JsonField.of("inbound_real_time_payments_transfer.updated"))
+                    of("inbound_real_time_payments_transfer.updated")
 
                 val INBOUND_WIRE_DRAWDOWN_REQUEST_CREATED =
-                    In(JsonField.of("inbound_wire_drawdown_request.created"))
+                    of("inbound_wire_drawdown_request.created")
 
-                val INBOUND_WIRE_TRANSFER_CREATED =
-                    In(JsonField.of("inbound_wire_transfer.created"))
+                val INBOUND_WIRE_TRANSFER_CREATED = of("inbound_wire_transfer.created")
 
-                val INBOUND_WIRE_TRANSFER_UPDATED =
-                    In(JsonField.of("inbound_wire_transfer.updated"))
+                val INBOUND_WIRE_TRANSFER_UPDATED = of("inbound_wire_transfer.updated")
 
-                val INTRAFI_ACCOUNT_ENROLLMENT_CREATED =
-                    In(JsonField.of("intrafi_account_enrollment.created"))
+                val INTRAFI_ACCOUNT_ENROLLMENT_CREATED = of("intrafi_account_enrollment.created")
 
-                val INTRAFI_ACCOUNT_ENROLLMENT_UPDATED =
-                    In(JsonField.of("intrafi_account_enrollment.updated"))
+                val INTRAFI_ACCOUNT_ENROLLMENT_UPDATED = of("intrafi_account_enrollment.updated")
 
-                val INTRAFI_EXCLUSION_CREATED = In(JsonField.of("intrafi_exclusion.created"))
+                val INTRAFI_EXCLUSION_CREATED = of("intrafi_exclusion.created")
 
-                val INTRAFI_EXCLUSION_UPDATED = In(JsonField.of("intrafi_exclusion.updated"))
+                val INTRAFI_EXCLUSION_UPDATED = of("intrafi_exclusion.updated")
 
-                val LOCKBOX_CREATED = In(JsonField.of("lockbox.created"))
+                val LOCKBOX_CREATED = of("lockbox.created")
 
-                val LOCKBOX_UPDATED = In(JsonField.of("lockbox.updated"))
+                val LOCKBOX_UPDATED = of("lockbox.updated")
 
-                val OAUTH_CONNECTION_CREATED = In(JsonField.of("oauth_connection.created"))
+                val OAUTH_CONNECTION_CREATED = of("oauth_connection.created")
 
-                val OAUTH_CONNECTION_DEACTIVATED = In(JsonField.of("oauth_connection.deactivated"))
+                val OAUTH_CONNECTION_DEACTIVATED = of("oauth_connection.deactivated")
 
-                val PENDING_TRANSACTION_CREATED = In(JsonField.of("pending_transaction.created"))
+                val PENDING_TRANSACTION_CREATED = of("pending_transaction.created")
 
-                val PENDING_TRANSACTION_UPDATED = In(JsonField.of("pending_transaction.updated"))
+                val PENDING_TRANSACTION_UPDATED = of("pending_transaction.updated")
 
-                val PHYSICAL_CARD_CREATED = In(JsonField.of("physical_card.created"))
+                val PHYSICAL_CARD_CREATED = of("physical_card.created")
 
-                val PHYSICAL_CARD_UPDATED = In(JsonField.of("physical_card.updated"))
+                val PHYSICAL_CARD_UPDATED = of("physical_card.updated")
 
-                val PHYSICAL_CARD_PROFILE_CREATED =
-                    In(JsonField.of("physical_card_profile.created"))
+                val PHYSICAL_CARD_PROFILE_CREATED = of("physical_card_profile.created")
 
-                val PHYSICAL_CARD_PROFILE_UPDATED =
-                    In(JsonField.of("physical_card_profile.updated"))
+                val PHYSICAL_CARD_PROFILE_UPDATED = of("physical_card_profile.updated")
 
                 val PROOF_OF_AUTHORIZATION_REQUEST_CREATED =
-                    In(JsonField.of("proof_of_authorization_request.created"))
+                    of("proof_of_authorization_request.created")
 
                 val PROOF_OF_AUTHORIZATION_REQUEST_UPDATED =
-                    In(JsonField.of("proof_of_authorization_request.updated"))
+                    of("proof_of_authorization_request.updated")
 
                 val PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION_CREATED =
-                    In(JsonField.of("proof_of_authorization_request_submission.created"))
+                    of("proof_of_authorization_request_submission.created")
 
                 val PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION_UPDATED =
-                    In(JsonField.of("proof_of_authorization_request_submission.updated"))
+                    of("proof_of_authorization_request_submission.updated")
 
                 val REAL_TIME_DECISION_CARD_AUTHORIZATION_REQUESTED =
-                    In(JsonField.of("real_time_decision.card_authorization_requested"))
+                    of("real_time_decision.card_authorization_requested")
 
                 val REAL_TIME_DECISION_DIGITAL_WALLET_TOKEN_REQUESTED =
-                    In(JsonField.of("real_time_decision.digital_wallet_token_requested"))
+                    of("real_time_decision.digital_wallet_token_requested")
 
                 val REAL_TIME_DECISION_DIGITAL_WALLET_AUTHENTICATION_REQUESTED =
-                    In(JsonField.of("real_time_decision.digital_wallet_authentication_requested"))
+                    of("real_time_decision.digital_wallet_authentication_requested")
 
                 val REAL_TIME_DECISION_CARD_AUTHENTICATION_REQUESTED =
-                    In(JsonField.of("real_time_decision.card_authentication_requested"))
+                    of("real_time_decision.card_authentication_requested")
 
                 val REAL_TIME_DECISION_CARD_AUTHENTICATION_CHALLENGE_REQUESTED =
-                    In(JsonField.of("real_time_decision.card_authentication_challenge_requested"))
+                    of("real_time_decision.card_authentication_challenge_requested")
 
-                val REAL_TIME_PAYMENTS_TRANSFER_CREATED =
-                    In(JsonField.of("real_time_payments_transfer.created"))
+                val REAL_TIME_PAYMENTS_TRANSFER_CREATED = of("real_time_payments_transfer.created")
 
-                val REAL_TIME_PAYMENTS_TRANSFER_UPDATED =
-                    In(JsonField.of("real_time_payments_transfer.updated"))
+                val REAL_TIME_PAYMENTS_TRANSFER_UPDATED = of("real_time_payments_transfer.updated")
 
                 val REAL_TIME_PAYMENTS_REQUEST_FOR_PAYMENT_CREATED =
-                    In(JsonField.of("real_time_payments_request_for_payment.created"))
+                    of("real_time_payments_request_for_payment.created")
 
                 val REAL_TIME_PAYMENTS_REQUEST_FOR_PAYMENT_UPDATED =
-                    In(JsonField.of("real_time_payments_request_for_payment.updated"))
+                    of("real_time_payments_request_for_payment.updated")
 
-                val TRANSACTION_CREATED = In(JsonField.of("transaction.created"))
+                val TRANSACTION_CREATED = of("transaction.created")
 
-                val WIRE_DRAWDOWN_REQUEST_CREATED =
-                    In(JsonField.of("wire_drawdown_request.created"))
+                val WIRE_DRAWDOWN_REQUEST_CREATED = of("wire_drawdown_request.created")
 
-                val WIRE_DRAWDOWN_REQUEST_UPDATED =
-                    In(JsonField.of("wire_drawdown_request.updated"))
+                val WIRE_DRAWDOWN_REQUEST_UPDATED = of("wire_drawdown_request.updated")
 
-                val WIRE_TRANSFER_CREATED = In(JsonField.of("wire_transfer.created"))
+                val WIRE_TRANSFER_CREATED = of("wire_transfer.created")
 
-                val WIRE_TRANSFER_UPDATED = In(JsonField.of("wire_transfer.updated"))
+                val WIRE_TRANSFER_UPDATED = of("wire_transfer.updated")
 
                 fun of(value: String) = In(JsonField.of(value))
             }

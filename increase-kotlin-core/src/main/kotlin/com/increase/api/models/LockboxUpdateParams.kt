@@ -354,9 +354,9 @@ constructor(
 
         companion object {
 
-            val ACTIVE = Status(JsonField.of("active"))
+            val ACTIVE = of("active")
 
-            val INACTIVE = Status(JsonField.of("inactive"))
+            val INACTIVE = of("inactive")
 
             fun of(value: String) = Status(JsonField.of(value))
         }

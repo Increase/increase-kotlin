@@ -354,17 +354,17 @@ private constructor(
 
         companion object {
 
-            val CAD = Currency(JsonField.of("CAD"))
+            val CAD = of("CAD")
 
-            val CHF = Currency(JsonField.of("CHF"))
+            val CHF = of("CHF")
 
-            val EUR = Currency(JsonField.of("EUR"))
+            val EUR = of("EUR")
 
-            val GBP = Currency(JsonField.of("GBP"))
+            val GBP = of("GBP")
 
-            val JPY = Currency(JsonField.of("JPY"))
+            val JPY = of("JPY")
 
-            val USD = Currency(JsonField.of("USD"))
+            val USD = of("USD")
 
             fun of(value: String) = Currency(JsonField.of(value))
         }
@@ -435,9 +435,9 @@ private constructor(
 
         companion object {
 
-            val HELD = Status(JsonField.of("held"))
+            val HELD = of("held")
 
-            val COMPLETE = Status(JsonField.of("complete"))
+            val COMPLETE = of("complete")
 
             fun of(value: String) = Status(JsonField.of(value))
         }
@@ -492,7 +492,7 @@ private constructor(
 
         companion object {
 
-            val INBOUND_FUNDS_HOLD = Type(JsonField.of("inbound_funds_hold"))
+            val INBOUND_FUNDS_HOLD = of("inbound_funds_hold")
 
             fun of(value: String) = Type(JsonField.of(value))
         }

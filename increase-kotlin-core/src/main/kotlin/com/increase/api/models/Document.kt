@@ -232,11 +232,11 @@ private constructor(
 
         companion object {
 
-            val FORM_1099_INT = Category(JsonField.of("form_1099_int"))
+            val FORM_1099_INT = of("form_1099_int")
 
-            val PROOF_OF_AUTHORIZATION = Category(JsonField.of("proof_of_authorization"))
+            val PROOF_OF_AUTHORIZATION = of("proof_of_authorization")
 
-            val COMPANY_INFORMATION = Category(JsonField.of("company_information"))
+            val COMPANY_INFORMATION = of("company_information")
 
             fun of(value: String) = Category(JsonField.of(value))
         }
@@ -295,7 +295,7 @@ private constructor(
 
         companion object {
 
-            val DOCUMENT = Type(JsonField.of("document"))
+            val DOCUMENT = of("document")
 
             fun of(value: String) = Type(JsonField.of(value))
         }

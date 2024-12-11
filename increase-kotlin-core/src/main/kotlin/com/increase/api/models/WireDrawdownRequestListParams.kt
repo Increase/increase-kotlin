@@ -223,13 +223,13 @@ constructor(
 
         companion object {
 
-            val PENDING_SUBMISSION = Status(JsonField.of("pending_submission"))
+            val PENDING_SUBMISSION = of("pending_submission")
 
-            val PENDING_RESPONSE = Status(JsonField.of("pending_response"))
+            val PENDING_RESPONSE = of("pending_response")
 
-            val FULFILLED = Status(JsonField.of("fulfilled"))
+            val FULFILLED = of("fulfilled")
 
-            val REFUSED = Status(JsonField.of("refused"))
+            val REFUSED = of("refused")
 
             fun of(value: String) = Status(JsonField.of(value))
         }

@@ -438,53 +438,51 @@ constructor(
 
             companion object {
 
-                val CHECK_IMAGE_FRONT = In(JsonField.of("check_image_front"))
+                val CHECK_IMAGE_FRONT = of("check_image_front")
 
-                val CHECK_IMAGE_BACK = In(JsonField.of("check_image_back"))
+                val CHECK_IMAGE_BACK = of("check_image_back")
 
-                val PROCESSED_CHECK_IMAGE_FRONT = In(JsonField.of("processed_check_image_front"))
+                val PROCESSED_CHECK_IMAGE_FRONT = of("processed_check_image_front")
 
-                val PROCESSED_CHECK_IMAGE_BACK = In(JsonField.of("processed_check_image_back"))
+                val PROCESSED_CHECK_IMAGE_BACK = of("processed_check_image_back")
 
-                val MAILED_CHECK_IMAGE = In(JsonField.of("mailed_check_image"))
+                val MAILED_CHECK_IMAGE = of("mailed_check_image")
 
-                val CHECK_VOUCHER_IMAGE = In(JsonField.of("check_voucher_image"))
+                val CHECK_VOUCHER_IMAGE = of("check_voucher_image")
 
-                val INBOUND_MAIL_ITEM = In(JsonField.of("inbound_mail_item"))
+                val INBOUND_MAIL_ITEM = of("inbound_mail_item")
 
-                val FORM_1099_INT = In(JsonField.of("form_1099_int"))
+                val FORM_1099_INT = of("form_1099_int")
 
-                val FORM_SS_4 = In(JsonField.of("form_ss_4"))
+                val FORM_SS_4 = of("form_ss_4")
 
-                val IDENTITY_DOCUMENT = In(JsonField.of("identity_document"))
+                val IDENTITY_DOCUMENT = of("identity_document")
 
-                val INCREASE_STATEMENT = In(JsonField.of("increase_statement"))
+                val INCREASE_STATEMENT = of("increase_statement")
 
-                val OTHER = In(JsonField.of("other"))
+                val OTHER = of("other")
 
-                val TRUST_FORMATION_DOCUMENT = In(JsonField.of("trust_formation_document"))
+                val TRUST_FORMATION_DOCUMENT = of("trust_formation_document")
 
-                val DIGITAL_WALLET_ARTWORK = In(JsonField.of("digital_wallet_artwork"))
+                val DIGITAL_WALLET_ARTWORK = of("digital_wallet_artwork")
 
-                val DIGITAL_WALLET_APP_ICON = In(JsonField.of("digital_wallet_app_icon"))
+                val DIGITAL_WALLET_APP_ICON = of("digital_wallet_app_icon")
 
-                val PHYSICAL_CARD_FRONT = In(JsonField.of("physical_card_front"))
+                val PHYSICAL_CARD_FRONT = of("physical_card_front")
 
-                val PHYSICAL_CARD_BACK = In(JsonField.of("physical_card_back"))
+                val PHYSICAL_CARD_BACK = of("physical_card_back")
 
-                val PHYSICAL_CARD_CARRIER = In(JsonField.of("physical_card_carrier"))
+                val PHYSICAL_CARD_CARRIER = of("physical_card_carrier")
 
-                val DOCUMENT_REQUEST = In(JsonField.of("document_request"))
+                val DOCUMENT_REQUEST = of("document_request")
 
-                val ENTITY_SUPPLEMENTAL_DOCUMENT = In(JsonField.of("entity_supplemental_document"))
+                val ENTITY_SUPPLEMENTAL_DOCUMENT = of("entity_supplemental_document")
 
-                val EXPORT = In(JsonField.of("export"))
+                val EXPORT = of("export")
 
-                val UNUSUAL_ACTIVITY_REPORT_ATTACHMENT =
-                    In(JsonField.of("unusual_activity_report_attachment"))
+                val UNUSUAL_ACTIVITY_REPORT_ATTACHMENT = of("unusual_activity_report_attachment")
 
-                val DEPOSIT_ACCOUNT_CONTROL_AGREEMENT =
-                    In(JsonField.of("deposit_account_control_agreement"))
+                val DEPOSIT_ACCOUNT_CONTROL_AGREEMENT = of("deposit_account_control_agreement")
 
                 fun of(value: String) = In(JsonField.of(value))
             }

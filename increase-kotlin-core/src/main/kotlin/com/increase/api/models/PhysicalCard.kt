@@ -768,11 +768,11 @@ private constructor(
 
             companion object {
 
-                val USPS = Method(JsonField.of("usps"))
+                val USPS = of("usps")
 
-                val FEDEX_PRIORITY_OVERNIGHT = Method(JsonField.of("fedex_priority_overnight"))
+                val FEDEX_PRIORITY_OVERNIGHT = of("fedex_priority_overnight")
 
-                val FEDEX_2_DAY = Method(JsonField.of("fedex_2_day"))
+                val FEDEX_2_DAY = of("fedex_2_day")
 
                 fun of(value: String) = Method(JsonField.of(value))
             }
@@ -831,19 +831,19 @@ private constructor(
 
             companion object {
 
-                val PENDING = Status(JsonField.of("pending"))
+                val PENDING = of("pending")
 
-                val CANCELED = Status(JsonField.of("canceled"))
+                val CANCELED = of("canceled")
 
-                val SUBMITTED = Status(JsonField.of("submitted"))
+                val SUBMITTED = of("submitted")
 
-                val ACKNOWLEDGED = Status(JsonField.of("acknowledged"))
+                val ACKNOWLEDGED = of("acknowledged")
 
-                val REJECTED = Status(JsonField.of("rejected"))
+                val REJECTED = of("rejected")
 
-                val SHIPPED = Status(JsonField.of("shipped"))
+                val SHIPPED = of("shipped")
 
-                val RETURNED = Status(JsonField.of("returned"))
+                val RETURNED = of("returned")
 
                 fun of(value: String) = Status(JsonField.of(value))
             }
@@ -1106,11 +1106,11 @@ private constructor(
 
         companion object {
 
-            val ACTIVE = Status(JsonField.of("active"))
+            val ACTIVE = of("active")
 
-            val DISABLED = Status(JsonField.of("disabled"))
+            val DISABLED = of("disabled")
 
-            val CANCELED = Status(JsonField.of("canceled"))
+            val CANCELED = of("canceled")
 
             fun of(value: String) = Status(JsonField.of(value))
         }
@@ -1169,7 +1169,7 @@ private constructor(
 
         companion object {
 
-            val PHYSICAL_CARD = Type(JsonField.of("physical_card"))
+            val PHYSICAL_CARD = of("physical_card")
 
             fun of(value: String) = Type(JsonField.of(value))
         }

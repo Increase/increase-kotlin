@@ -311,18 +311,17 @@ private constructor(
 
         companion object {
 
-            val ACCOUNT_STATEMENT_OFX = Category(JsonField.of("account_statement_ofx"))
+            val ACCOUNT_STATEMENT_OFX = of("account_statement_ofx")
 
-            val TRANSACTION_CSV = Category(JsonField.of("transaction_csv"))
+            val TRANSACTION_CSV = of("transaction_csv")
 
-            val BALANCE_CSV = Category(JsonField.of("balance_csv"))
+            val BALANCE_CSV = of("balance_csv")
 
-            val BOOKKEEPING_ACCOUNT_BALANCE_CSV =
-                Category(JsonField.of("bookkeeping_account_balance_csv"))
+            val BOOKKEEPING_ACCOUNT_BALANCE_CSV = of("bookkeeping_account_balance_csv")
 
-            val ENTITY_CSV = Category(JsonField.of("entity_csv"))
+            val ENTITY_CSV = of("entity_csv")
 
-            val VENDOR_CSV = Category(JsonField.of("vendor_csv"))
+            val VENDOR_CSV = of("vendor_csv")
 
             fun of(value: String) = Category(JsonField.of(value))
         }
@@ -393,11 +392,11 @@ private constructor(
 
         companion object {
 
-            val PENDING = Status(JsonField.of("pending"))
+            val PENDING = of("pending")
 
-            val COMPLETE = Status(JsonField.of("complete"))
+            val COMPLETE = of("complete")
 
-            val FAILED = Status(JsonField.of("failed"))
+            val FAILED = of("failed")
 
             fun of(value: String) = Status(JsonField.of(value))
         }
@@ -456,7 +455,7 @@ private constructor(
 
         companion object {
 
-            val EXPORT = Type(JsonField.of("export"))
+            val EXPORT = of("export")
 
             fun of(value: String) = Type(JsonField.of(value))
         }

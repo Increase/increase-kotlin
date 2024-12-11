@@ -311,11 +311,11 @@ constructor(
 
         companion object {
 
-            val ACTIVE = Status(JsonField.of("active"))
+            val ACTIVE = of("active")
 
-            val DISABLED = Status(JsonField.of("disabled"))
+            val DISABLED = of("disabled")
 
-            val DELETED = Status(JsonField.of("deleted"))
+            val DELETED = of("deleted")
 
             fun of(value: String) = Status(JsonField.of(value))
         }

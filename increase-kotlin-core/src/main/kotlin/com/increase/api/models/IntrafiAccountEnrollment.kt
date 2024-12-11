@@ -266,15 +266,15 @@ private constructor(
 
         companion object {
 
-            val PENDING_ENROLLING = Status(JsonField.of("pending_enrolling"))
+            val PENDING_ENROLLING = of("pending_enrolling")
 
-            val ENROLLED = Status(JsonField.of("enrolled"))
+            val ENROLLED = of("enrolled")
 
-            val PENDING_UNENROLLING = Status(JsonField.of("pending_unenrolling"))
+            val PENDING_UNENROLLING = of("pending_unenrolling")
 
-            val UNENROLLED = Status(JsonField.of("unenrolled"))
+            val UNENROLLED = of("unenrolled")
 
-            val REQUIRES_ATTENTION = Status(JsonField.of("requires_attention"))
+            val REQUIRES_ATTENTION = of("requires_attention")
 
             fun of(value: String) = Status(JsonField.of(value))
         }
@@ -341,7 +341,7 @@ private constructor(
 
         companion object {
 
-            val INTRAFI_ACCOUNT_ENROLLMENT = Type(JsonField.of("intrafi_account_enrollment"))
+            val INTRAFI_ACCOUNT_ENROLLMENT = of("intrafi_account_enrollment")
 
             fun of(value: String) = Type(JsonField.of(value))
         }

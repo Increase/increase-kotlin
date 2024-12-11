@@ -938,7 +938,7 @@ private constructor(
 
             companion object {
 
-                val FREEFORM = Category(JsonField.of("freeform"))
+                val FREEFORM = of("freeform")
 
                 fun of(value: String) = Category(JsonField.of(value))
             }
@@ -1313,53 +1313,43 @@ private constructor(
 
             companion object {
 
-                val ACH_ROUTE_CANCELED = Reason(JsonField.of("ach_route_canceled"))
+                val ACH_ROUTE_CANCELED = of("ach_route_canceled")
 
-                val ACH_ROUTE_DISABLED = Reason(JsonField.of("ach_route_disabled"))
+                val ACH_ROUTE_DISABLED = of("ach_route_disabled")
 
-                val BREACHES_LIMIT = Reason(JsonField.of("breaches_limit"))
+                val BREACHES_LIMIT = of("breaches_limit")
 
-                val ENTITY_NOT_ACTIVE = Reason(JsonField.of("entity_not_active"))
+                val ENTITY_NOT_ACTIVE = of("entity_not_active")
 
-                val GROUP_LOCKED = Reason(JsonField.of("group_locked"))
+                val GROUP_LOCKED = of("group_locked")
 
-                val TRANSACTION_NOT_ALLOWED = Reason(JsonField.of("transaction_not_allowed"))
+                val TRANSACTION_NOT_ALLOWED = of("transaction_not_allowed")
 
-                val USER_INITIATED = Reason(JsonField.of("user_initiated"))
+                val USER_INITIATED = of("user_initiated")
 
-                val INSUFFICIENT_FUNDS = Reason(JsonField.of("insufficient_funds"))
+                val INSUFFICIENT_FUNDS = of("insufficient_funds")
 
-                val RETURNED_PER_ODFI_REQUEST = Reason(JsonField.of("returned_per_odfi_request"))
+                val RETURNED_PER_ODFI_REQUEST = of("returned_per_odfi_request")
 
-                val AUTHORIZATION_REVOKED_BY_CUSTOMER =
-                    Reason(JsonField.of("authorization_revoked_by_customer"))
+                val AUTHORIZATION_REVOKED_BY_CUSTOMER = of("authorization_revoked_by_customer")
 
-                val PAYMENT_STOPPED = Reason(JsonField.of("payment_stopped"))
+                val PAYMENT_STOPPED = of("payment_stopped")
 
                 val CUSTOMER_ADVISED_UNAUTHORIZED_IMPROPER_INELIGIBLE_OR_INCOMPLETE =
-                    Reason(
-                        JsonField.of(
-                            "customer_advised_unauthorized_improper_ineligible_or_incomplete"
-                        )
-                    )
+                    of("customer_advised_unauthorized_improper_ineligible_or_incomplete")
 
                 val REPRESENTATIVE_PAYEE_DECEASED_OR_UNABLE_TO_CONTINUE_IN_THAT_CAPACITY =
-                    Reason(
-                        JsonField.of(
-                            "representative_payee_deceased_or_unable_to_continue_in_that_capacity"
-                        )
-                    )
+                    of("representative_payee_deceased_or_unable_to_continue_in_that_capacity")
 
                 val BENEFICIARY_OR_ACCOUNT_HOLDER_DECEASED =
-                    Reason(JsonField.of("beneficiary_or_account_holder_deceased"))
+                    of("beneficiary_or_account_holder_deceased")
 
-                val CREDIT_ENTRY_REFUSED_BY_RECEIVER =
-                    Reason(JsonField.of("credit_entry_refused_by_receiver"))
+                val CREDIT_ENTRY_REFUSED_BY_RECEIVER = of("credit_entry_refused_by_receiver")
 
-                val DUPLICATE_ENTRY = Reason(JsonField.of("duplicate_entry"))
+                val DUPLICATE_ENTRY = of("duplicate_entry")
 
                 val CORPORATE_CUSTOMER_ADVISED_NOT_AUTHORIZED =
-                    Reason(JsonField.of("corporate_customer_advised_not_authorized"))
+                    of("corporate_customer_advised_not_authorized")
 
                 fun of(value: String) = Reason(JsonField.of(value))
             }
@@ -1500,9 +1490,9 @@ private constructor(
 
         companion object {
 
-            val CREDIT = Direction(JsonField.of("credit"))
+            val CREDIT = of("credit")
 
-            val DEBIT = Direction(JsonField.of("debit"))
+            val DEBIT = of("debit")
 
             fun of(value: String) = Direction(JsonField.of(value))
         }
@@ -1557,9 +1547,9 @@ private constructor(
 
         companion object {
 
-            val SAME_DAY = ExpectedSettlementSchedule(JsonField.of("same_day"))
+            val SAME_DAY = of("same_day")
 
-            val FUTURE_DATED = ExpectedSettlementSchedule(JsonField.of("future_dated"))
+            val FUTURE_DATED = of("future_dated")
 
             fun of(value: String) = ExpectedSettlementSchedule(JsonField.of(value))
         }
@@ -2807,11 +2797,11 @@ private constructor(
 
             companion object {
 
-                val FIXED_TO_VARIABLE = ForeignExchangeIndicator(JsonField.of("fixed_to_variable"))
+                val FIXED_TO_VARIABLE = of("fixed_to_variable")
 
-                val VARIABLE_TO_FIXED = ForeignExchangeIndicator(JsonField.of("variable_to_fixed"))
+                val VARIABLE_TO_FIXED = of("variable_to_fixed")
 
-                val FIXED_TO_FIXED = ForeignExchangeIndicator(JsonField.of("fixed_to_fixed"))
+                val FIXED_TO_FIXED = of("fixed_to_fixed")
 
                 fun of(value: String) = ForeignExchangeIndicator(JsonField.of(value))
             }
@@ -2873,15 +2863,11 @@ private constructor(
 
             companion object {
 
-                val FOREIGN_EXCHANGE_RATE =
-                    ForeignExchangeReferenceIndicator(JsonField.of("foreign_exchange_rate"))
+                val FOREIGN_EXCHANGE_RATE = of("foreign_exchange_rate")
 
-                val FOREIGN_EXCHANGE_REFERENCE_NUMBER =
-                    ForeignExchangeReferenceIndicator(
-                        JsonField.of("foreign_exchange_reference_number")
-                    )
+                val FOREIGN_EXCHANGE_REFERENCE_NUMBER = of("foreign_exchange_reference_number")
 
-                val BLANK = ForeignExchangeReferenceIndicator(JsonField.of("blank"))
+                val BLANK = of("blank")
 
                 fun of(value: String) = ForeignExchangeReferenceIndicator(JsonField.of(value))
             }
@@ -2943,55 +2929,45 @@ private constructor(
 
             companion object {
 
-                val ANNUITY = InternationalTransactionTypeCode(JsonField.of("annuity"))
+                val ANNUITY = of("annuity")
 
-                val BUSINESS_OR_COMMERCIAL =
-                    InternationalTransactionTypeCode(JsonField.of("business_or_commercial"))
+                val BUSINESS_OR_COMMERCIAL = of("business_or_commercial")
 
-                val DEPOSIT = InternationalTransactionTypeCode(JsonField.of("deposit"))
+                val DEPOSIT = of("deposit")
 
-                val LOAN = InternationalTransactionTypeCode(JsonField.of("loan"))
+                val LOAN = of("loan")
 
-                val MISCELLANEOUS = InternationalTransactionTypeCode(JsonField.of("miscellaneous"))
+                val MISCELLANEOUS = of("miscellaneous")
 
-                val MORTGAGE = InternationalTransactionTypeCode(JsonField.of("mortgage"))
+                val MORTGAGE = of("mortgage")
 
-                val PENSION = InternationalTransactionTypeCode(JsonField.of("pension"))
+                val PENSION = of("pension")
 
-                val REMITTANCE = InternationalTransactionTypeCode(JsonField.of("remittance"))
+                val REMITTANCE = of("remittance")
 
-                val RENT_OR_LEASE = InternationalTransactionTypeCode(JsonField.of("rent_or_lease"))
+                val RENT_OR_LEASE = of("rent_or_lease")
 
-                val SALARY_OR_PAYROLL =
-                    InternationalTransactionTypeCode(JsonField.of("salary_or_payroll"))
+                val SALARY_OR_PAYROLL = of("salary_or_payroll")
 
-                val TAX = InternationalTransactionTypeCode(JsonField.of("tax"))
+                val TAX = of("tax")
 
-                val ACCOUNTS_RECEIVABLE =
-                    InternationalTransactionTypeCode(JsonField.of("accounts_receivable"))
+                val ACCOUNTS_RECEIVABLE = of("accounts_receivable")
 
-                val BACK_OFFICE_CONVERSION =
-                    InternationalTransactionTypeCode(JsonField.of("back_office_conversion"))
+                val BACK_OFFICE_CONVERSION = of("back_office_conversion")
 
-                val MACHINE_TRANSFER =
-                    InternationalTransactionTypeCode(JsonField.of("machine_transfer"))
+                val MACHINE_TRANSFER = of("machine_transfer")
 
-                val POINT_OF_PURCHASE =
-                    InternationalTransactionTypeCode(JsonField.of("point_of_purchase"))
+                val POINT_OF_PURCHASE = of("point_of_purchase")
 
-                val POINT_OF_SALE = InternationalTransactionTypeCode(JsonField.of("point_of_sale"))
+                val POINT_OF_SALE = of("point_of_sale")
 
-                val REPRESENTED_CHECK =
-                    InternationalTransactionTypeCode(JsonField.of("represented_check"))
+                val REPRESENTED_CHECK = of("represented_check")
 
-                val SHARED_NETWORK_TRANSACTION =
-                    InternationalTransactionTypeCode(JsonField.of("shared_network_transaction"))
+                val SHARED_NETWORK_TRANSACTION = of("shared_network_transaction")
 
-                val TELPHONE_INITIATED =
-                    InternationalTransactionTypeCode(JsonField.of("telphone_initiated"))
+                val TELPHONE_INITIATED = of("telphone_initiated")
 
-                val INTERNET_INITIATED =
-                    InternationalTransactionTypeCode(JsonField.of("internet_initiated"))
+                val INTERNET_INITIATED = of("internet_initiated")
 
                 fun of(value: String) = InternationalTransactionTypeCode(JsonField.of(value))
             }
@@ -3121,16 +3097,11 @@ private constructor(
 
             companion object {
 
-                val NATIONAL_CLEARING_SYSTEM_NUMBER =
-                    OriginatingDepositoryFinancialInstitutionIdQualifier(
-                        JsonField.of("national_clearing_system_number")
-                    )
+                val NATIONAL_CLEARING_SYSTEM_NUMBER = of("national_clearing_system_number")
 
-                val BIC_CODE =
-                    OriginatingDepositoryFinancialInstitutionIdQualifier(JsonField.of("bic_code"))
+                val BIC_CODE = of("bic_code")
 
-                val IBAN =
-                    OriginatingDepositoryFinancialInstitutionIdQualifier(JsonField.of("iban"))
+                val IBAN = of("iban")
 
                 fun of(value: String) =
                     OriginatingDepositoryFinancialInstitutionIdQualifier(JsonField.of(value))
@@ -3193,15 +3164,11 @@ private constructor(
 
             companion object {
 
-                val NATIONAL_CLEARING_SYSTEM_NUMBER =
-                    ReceivingDepositoryFinancialInstitutionIdQualifier(
-                        JsonField.of("national_clearing_system_number")
-                    )
+                val NATIONAL_CLEARING_SYSTEM_NUMBER = of("national_clearing_system_number")
 
-                val BIC_CODE =
-                    ReceivingDepositoryFinancialInstitutionIdQualifier(JsonField.of("bic_code"))
+                val BIC_CODE = of("bic_code")
 
-                val IBAN = ReceivingDepositoryFinancialInstitutionIdQualifier(JsonField.of("iban"))
+                val IBAN = of("iban")
 
                 fun of(value: String) =
                     ReceivingDepositoryFinancialInstitutionIdQualifier(JsonField.of(value))
@@ -3408,43 +3375,37 @@ private constructor(
 
         companion object {
 
-            val CORPORATE_CREDIT_OR_DEBIT =
-                StandardEntryClassCode(JsonField.of("corporate_credit_or_debit"))
+            val CORPORATE_CREDIT_OR_DEBIT = of("corporate_credit_or_debit")
 
-            val CORPORATE_TRADE_EXCHANGE =
-                StandardEntryClassCode(JsonField.of("corporate_trade_exchange"))
+            val CORPORATE_TRADE_EXCHANGE = of("corporate_trade_exchange")
 
-            val PREARRANGED_PAYMENTS_AND_DEPOSIT =
-                StandardEntryClassCode(JsonField.of("prearranged_payments_and_deposit"))
+            val PREARRANGED_PAYMENTS_AND_DEPOSIT = of("prearranged_payments_and_deposit")
 
-            val INTERNET_INITIATED = StandardEntryClassCode(JsonField.of("internet_initiated"))
+            val INTERNET_INITIATED = of("internet_initiated")
 
-            val POINT_OF_SALE = StandardEntryClassCode(JsonField.of("point_of_sale"))
+            val POINT_OF_SALE = of("point_of_sale")
 
-            val TELEPHONE_INITIATED = StandardEntryClassCode(JsonField.of("telephone_initiated"))
+            val TELEPHONE_INITIATED = of("telephone_initiated")
 
-            val CUSTOMER_INITIATED = StandardEntryClassCode(JsonField.of("customer_initiated"))
+            val CUSTOMER_INITIATED = of("customer_initiated")
 
-            val ACCOUNTS_RECEIVABLE = StandardEntryClassCode(JsonField.of("accounts_receivable"))
+            val ACCOUNTS_RECEIVABLE = of("accounts_receivable")
 
-            val MACHINE_TRANSFER = StandardEntryClassCode(JsonField.of("machine_transfer"))
+            val MACHINE_TRANSFER = of("machine_transfer")
 
-            val SHARED_NETWORK_TRANSACTION =
-                StandardEntryClassCode(JsonField.of("shared_network_transaction"))
+            val SHARED_NETWORK_TRANSACTION = of("shared_network_transaction")
 
-            val REPRESENTED_CHECK = StandardEntryClassCode(JsonField.of("represented_check"))
+            val REPRESENTED_CHECK = of("represented_check")
 
-            val BACK_OFFICE_CONVERSION =
-                StandardEntryClassCode(JsonField.of("back_office_conversion"))
+            val BACK_OFFICE_CONVERSION = of("back_office_conversion")
 
-            val POINT_OF_PURCHASE = StandardEntryClassCode(JsonField.of("point_of_purchase"))
+            val POINT_OF_PURCHASE = of("point_of_purchase")
 
-            val CHECK_TRUNCATION = StandardEntryClassCode(JsonField.of("check_truncation"))
+            val CHECK_TRUNCATION = of("check_truncation")
 
-            val DESTROYED_CHECK = StandardEntryClassCode(JsonField.of("destroyed_check"))
+            val DESTROYED_CHECK = of("destroyed_check")
 
-            val INTERNATIONAL_ACH_TRANSACTION =
-                StandardEntryClassCode(JsonField.of("international_ach_transaction"))
+            val INTERNATIONAL_ACH_TRANSACTION = of("international_ach_transaction")
 
             fun of(value: String) = StandardEntryClassCode(JsonField.of(value))
         }
@@ -3555,13 +3516,13 @@ private constructor(
 
         companion object {
 
-            val PENDING = Status(JsonField.of("pending"))
+            val PENDING = of("pending")
 
-            val DECLINED = Status(JsonField.of("declined"))
+            val DECLINED = of("declined")
 
-            val ACCEPTED = Status(JsonField.of("accepted"))
+            val ACCEPTED = of("accepted")
 
-            val RETURNED = Status(JsonField.of("returned"))
+            val RETURNED = of("returned")
 
             fun of(value: String) = Status(JsonField.of(value))
         }
@@ -3740,39 +3701,29 @@ private constructor(
 
             companion object {
 
-                val INSUFFICIENT_FUNDS = Reason(JsonField.of("insufficient_funds"))
+                val INSUFFICIENT_FUNDS = of("insufficient_funds")
 
-                val RETURNED_PER_ODFI_REQUEST = Reason(JsonField.of("returned_per_odfi_request"))
+                val RETURNED_PER_ODFI_REQUEST = of("returned_per_odfi_request")
 
-                val AUTHORIZATION_REVOKED_BY_CUSTOMER =
-                    Reason(JsonField.of("authorization_revoked_by_customer"))
+                val AUTHORIZATION_REVOKED_BY_CUSTOMER = of("authorization_revoked_by_customer")
 
-                val PAYMENT_STOPPED = Reason(JsonField.of("payment_stopped"))
+                val PAYMENT_STOPPED = of("payment_stopped")
 
                 val CUSTOMER_ADVISED_UNAUTHORIZED_IMPROPER_INELIGIBLE_OR_INCOMPLETE =
-                    Reason(
-                        JsonField.of(
-                            "customer_advised_unauthorized_improper_ineligible_or_incomplete"
-                        )
-                    )
+                    of("customer_advised_unauthorized_improper_ineligible_or_incomplete")
 
                 val REPRESENTATIVE_PAYEE_DECEASED_OR_UNABLE_TO_CONTINUE_IN_THAT_CAPACITY =
-                    Reason(
-                        JsonField.of(
-                            "representative_payee_deceased_or_unable_to_continue_in_that_capacity"
-                        )
-                    )
+                    of("representative_payee_deceased_or_unable_to_continue_in_that_capacity")
 
                 val BENEFICIARY_OR_ACCOUNT_HOLDER_DECEASED =
-                    Reason(JsonField.of("beneficiary_or_account_holder_deceased"))
+                    of("beneficiary_or_account_holder_deceased")
 
-                val CREDIT_ENTRY_REFUSED_BY_RECEIVER =
-                    Reason(JsonField.of("credit_entry_refused_by_receiver"))
+                val CREDIT_ENTRY_REFUSED_BY_RECEIVER = of("credit_entry_refused_by_receiver")
 
-                val DUPLICATE_ENTRY = Reason(JsonField.of("duplicate_entry"))
+                val DUPLICATE_ENTRY = of("duplicate_entry")
 
                 val CORPORATE_CUSTOMER_ADVISED_NOT_AUTHORIZED =
-                    Reason(JsonField.of("corporate_customer_advised_not_authorized"))
+                    of("corporate_customer_advised_not_authorized")
 
                 fun of(value: String) = Reason(JsonField.of(value))
             }
@@ -3885,7 +3836,7 @@ private constructor(
 
         companion object {
 
-            val INBOUND_ACH_TRANSFER = Type(JsonField.of("inbound_ach_transfer"))
+            val INBOUND_ACH_TRANSFER = of("inbound_ach_transfer")
 
             fun of(value: String) = Type(JsonField.of(value))
         }

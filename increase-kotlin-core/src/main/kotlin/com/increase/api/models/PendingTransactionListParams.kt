@@ -312,27 +312,26 @@ constructor(
 
             companion object {
 
-                val ACCOUNT_TRANSFER_INSTRUCTION = In(JsonField.of("account_transfer_instruction"))
+                val ACCOUNT_TRANSFER_INSTRUCTION = of("account_transfer_instruction")
 
-                val ACH_TRANSFER_INSTRUCTION = In(JsonField.of("ach_transfer_instruction"))
+                val ACH_TRANSFER_INSTRUCTION = of("ach_transfer_instruction")
 
-                val CARD_AUTHORIZATION = In(JsonField.of("card_authorization"))
+                val CARD_AUTHORIZATION = of("card_authorization")
 
-                val CHECK_DEPOSIT_INSTRUCTION = In(JsonField.of("check_deposit_instruction"))
+                val CHECK_DEPOSIT_INSTRUCTION = of("check_deposit_instruction")
 
-                val CHECK_TRANSFER_INSTRUCTION = In(JsonField.of("check_transfer_instruction"))
+                val CHECK_TRANSFER_INSTRUCTION = of("check_transfer_instruction")
 
-                val INBOUND_FUNDS_HOLD = In(JsonField.of("inbound_funds_hold"))
+                val INBOUND_FUNDS_HOLD = of("inbound_funds_hold")
 
                 val REAL_TIME_PAYMENTS_TRANSFER_INSTRUCTION =
-                    In(JsonField.of("real_time_payments_transfer_instruction"))
+                    of("real_time_payments_transfer_instruction")
 
-                val WIRE_TRANSFER_INSTRUCTION = In(JsonField.of("wire_transfer_instruction"))
+                val WIRE_TRANSFER_INSTRUCTION = of("wire_transfer_instruction")
 
-                val INBOUND_WIRE_TRANSFER_REVERSAL =
-                    In(JsonField.of("inbound_wire_transfer_reversal"))
+                val INBOUND_WIRE_TRANSFER_REVERSAL = of("inbound_wire_transfer_reversal")
 
-                val OTHER = In(JsonField.of("other"))
+                val OTHER = of("other")
 
                 fun of(value: String) = In(JsonField.of(value))
             }
@@ -641,9 +640,9 @@ constructor(
 
             companion object {
 
-                val PENDING = In(JsonField.of("pending"))
+                val PENDING = of("pending")
 
-                val COMPLETE = In(JsonField.of("complete"))
+                val COMPLETE = of("complete")
 
                 fun of(value: String) = In(JsonField.of(value))
             }

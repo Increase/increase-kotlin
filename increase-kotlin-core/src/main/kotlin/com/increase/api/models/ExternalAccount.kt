@@ -359,11 +359,11 @@ private constructor(
 
         companion object {
 
-            val BUSINESS = AccountHolder(JsonField.of("business"))
+            val BUSINESS = of("business")
 
-            val INDIVIDUAL = AccountHolder(JsonField.of("individual"))
+            val INDIVIDUAL = of("individual")
 
-            val UNKNOWN = AccountHolder(JsonField.of("unknown"))
+            val UNKNOWN = of("unknown")
 
             fun of(value: String) = AccountHolder(JsonField.of(value))
         }
@@ -422,11 +422,11 @@ private constructor(
 
         companion object {
 
-            val CHECKING = Funding(JsonField.of("checking"))
+            val CHECKING = of("checking")
 
-            val SAVINGS = Funding(JsonField.of("savings"))
+            val SAVINGS = of("savings")
 
-            val OTHER = Funding(JsonField.of("other"))
+            val OTHER = of("other")
 
             fun of(value: String) = Funding(JsonField.of(value))
         }
@@ -485,9 +485,9 @@ private constructor(
 
         companion object {
 
-            val ACTIVE = Status(JsonField.of("active"))
+            val ACTIVE = of("active")
 
-            val ARCHIVED = Status(JsonField.of("archived"))
+            val ARCHIVED = of("archived")
 
             fun of(value: String) = Status(JsonField.of(value))
         }
@@ -542,7 +542,7 @@ private constructor(
 
         companion object {
 
-            val EXTERNAL_ACCOUNT = Type(JsonField.of("external_account"))
+            val EXTERNAL_ACCOUNT = of("external_account")
 
             fun of(value: String) = Type(JsonField.of(value))
         }
@@ -593,11 +593,11 @@ private constructor(
 
         companion object {
 
-            val UNVERIFIED = VerificationStatus(JsonField.of("unverified"))
+            val UNVERIFIED = of("unverified")
 
-            val PENDING = VerificationStatus(JsonField.of("pending"))
+            val PENDING = of("pending")
 
-            val VERIFIED = VerificationStatus(JsonField.of("verified"))
+            val VERIFIED = of("verified")
 
             fun of(value: String) = VerificationStatus(JsonField.of(value))
         }
