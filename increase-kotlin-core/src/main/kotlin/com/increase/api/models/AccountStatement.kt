@@ -331,7 +331,7 @@ private constructor(
 
         companion object {
 
-            val ACCOUNT_STATEMENT = Type(JsonField.of("account_statement"))
+            val ACCOUNT_STATEMENT = of("account_statement")
 
             fun of(value: String) = Type(JsonField.of(value))
         }

@@ -315,258 +315,194 @@ private constructor(
 
         companion object {
 
-            val ACCOUNT_CREATED = SelectedEventCategory(JsonField.of("account.created"))
+            val ACCOUNT_CREATED = of("account.created")
 
-            val ACCOUNT_UPDATED = SelectedEventCategory(JsonField.of("account.updated"))
+            val ACCOUNT_UPDATED = of("account.updated")
 
-            val ACCOUNT_NUMBER_CREATED =
-                SelectedEventCategory(JsonField.of("account_number.created"))
+            val ACCOUNT_NUMBER_CREATED = of("account_number.created")
 
-            val ACCOUNT_NUMBER_UPDATED =
-                SelectedEventCategory(JsonField.of("account_number.updated"))
+            val ACCOUNT_NUMBER_UPDATED = of("account_number.updated")
 
-            val ACCOUNT_STATEMENT_CREATED =
-                SelectedEventCategory(JsonField.of("account_statement.created"))
+            val ACCOUNT_STATEMENT_CREATED = of("account_statement.created")
 
-            val ACCOUNT_TRANSFER_CREATED =
-                SelectedEventCategory(JsonField.of("account_transfer.created"))
+            val ACCOUNT_TRANSFER_CREATED = of("account_transfer.created")
 
-            val ACCOUNT_TRANSFER_UPDATED =
-                SelectedEventCategory(JsonField.of("account_transfer.updated"))
+            val ACCOUNT_TRANSFER_UPDATED = of("account_transfer.updated")
 
-            val ACH_PRENOTIFICATION_CREATED =
-                SelectedEventCategory(JsonField.of("ach_prenotification.created"))
+            val ACH_PRENOTIFICATION_CREATED = of("ach_prenotification.created")
 
-            val ACH_PRENOTIFICATION_UPDATED =
-                SelectedEventCategory(JsonField.of("ach_prenotification.updated"))
+            val ACH_PRENOTIFICATION_UPDATED = of("ach_prenotification.updated")
 
-            val ACH_TRANSFER_CREATED = SelectedEventCategory(JsonField.of("ach_transfer.created"))
+            val ACH_TRANSFER_CREATED = of("ach_transfer.created")
 
-            val ACH_TRANSFER_UPDATED = SelectedEventCategory(JsonField.of("ach_transfer.updated"))
+            val ACH_TRANSFER_UPDATED = of("ach_transfer.updated")
 
-            val BOOKKEEPING_ACCOUNT_CREATED =
-                SelectedEventCategory(JsonField.of("bookkeeping_account.created"))
+            val BOOKKEEPING_ACCOUNT_CREATED = of("bookkeeping_account.created")
 
-            val BOOKKEEPING_ACCOUNT_UPDATED =
-                SelectedEventCategory(JsonField.of("bookkeeping_account.updated"))
+            val BOOKKEEPING_ACCOUNT_UPDATED = of("bookkeeping_account.updated")
 
-            val BOOKKEEPING_ENTRY_SET_UPDATED =
-                SelectedEventCategory(JsonField.of("bookkeeping_entry_set.updated"))
+            val BOOKKEEPING_ENTRY_SET_UPDATED = of("bookkeeping_entry_set.updated")
 
-            val CARD_CREATED = SelectedEventCategory(JsonField.of("card.created"))
+            val CARD_CREATED = of("card.created")
 
-            val CARD_UPDATED = SelectedEventCategory(JsonField.of("card.updated"))
+            val CARD_UPDATED = of("card.updated")
 
-            val CARD_PAYMENT_CREATED = SelectedEventCategory(JsonField.of("card_payment.created"))
+            val CARD_PAYMENT_CREATED = of("card_payment.created")
 
-            val CARD_PAYMENT_UPDATED = SelectedEventCategory(JsonField.of("card_payment.updated"))
+            val CARD_PAYMENT_UPDATED = of("card_payment.updated")
 
-            val CARD_PROFILE_CREATED = SelectedEventCategory(JsonField.of("card_profile.created"))
+            val CARD_PROFILE_CREATED = of("card_profile.created")
 
-            val CARD_PROFILE_UPDATED = SelectedEventCategory(JsonField.of("card_profile.updated"))
+            val CARD_PROFILE_UPDATED = of("card_profile.updated")
 
-            val CARD_DISPUTE_CREATED = SelectedEventCategory(JsonField.of("card_dispute.created"))
+            val CARD_DISPUTE_CREATED = of("card_dispute.created")
 
-            val CARD_DISPUTE_UPDATED = SelectedEventCategory(JsonField.of("card_dispute.updated"))
+            val CARD_DISPUTE_UPDATED = of("card_dispute.updated")
 
-            val CHECK_DEPOSIT_CREATED = SelectedEventCategory(JsonField.of("check_deposit.created"))
+            val CHECK_DEPOSIT_CREATED = of("check_deposit.created")
 
-            val CHECK_DEPOSIT_UPDATED = SelectedEventCategory(JsonField.of("check_deposit.updated"))
+            val CHECK_DEPOSIT_UPDATED = of("check_deposit.updated")
 
-            val CHECK_TRANSFER_CREATED =
-                SelectedEventCategory(JsonField.of("check_transfer.created"))
+            val CHECK_TRANSFER_CREATED = of("check_transfer.created")
 
-            val CHECK_TRANSFER_UPDATED =
-                SelectedEventCategory(JsonField.of("check_transfer.updated"))
+            val CHECK_TRANSFER_UPDATED = of("check_transfer.updated")
 
-            val DECLINED_TRANSACTION_CREATED =
-                SelectedEventCategory(JsonField.of("declined_transaction.created"))
+            val DECLINED_TRANSACTION_CREATED = of("declined_transaction.created")
 
-            val DIGITAL_CARD_PROFILE_CREATED =
-                SelectedEventCategory(JsonField.of("digital_card_profile.created"))
+            val DIGITAL_CARD_PROFILE_CREATED = of("digital_card_profile.created")
 
-            val DIGITAL_CARD_PROFILE_UPDATED =
-                SelectedEventCategory(JsonField.of("digital_card_profile.updated"))
+            val DIGITAL_CARD_PROFILE_UPDATED = of("digital_card_profile.updated")
 
-            val DIGITAL_WALLET_TOKEN_CREATED =
-                SelectedEventCategory(JsonField.of("digital_wallet_token.created"))
+            val DIGITAL_WALLET_TOKEN_CREATED = of("digital_wallet_token.created")
 
-            val DIGITAL_WALLET_TOKEN_UPDATED =
-                SelectedEventCategory(JsonField.of("digital_wallet_token.updated"))
+            val DIGITAL_WALLET_TOKEN_UPDATED = of("digital_wallet_token.updated")
 
-            val DOCUMENT_CREATED = SelectedEventCategory(JsonField.of("document.created"))
+            val DOCUMENT_CREATED = of("document.created")
 
-            val ENTITY_CREATED = SelectedEventCategory(JsonField.of("entity.created"))
+            val ENTITY_CREATED = of("entity.created")
 
-            val ENTITY_UPDATED = SelectedEventCategory(JsonField.of("entity.updated"))
+            val ENTITY_UPDATED = of("entity.updated")
 
-            val EVENT_SUBSCRIPTION_CREATED =
-                SelectedEventCategory(JsonField.of("event_subscription.created"))
+            val EVENT_SUBSCRIPTION_CREATED = of("event_subscription.created")
 
-            val EVENT_SUBSCRIPTION_UPDATED =
-                SelectedEventCategory(JsonField.of("event_subscription.updated"))
+            val EVENT_SUBSCRIPTION_UPDATED = of("event_subscription.updated")
 
-            val EXPORT_CREATED = SelectedEventCategory(JsonField.of("export.created"))
+            val EXPORT_CREATED = of("export.created")
 
-            val EXPORT_UPDATED = SelectedEventCategory(JsonField.of("export.updated"))
+            val EXPORT_UPDATED = of("export.updated")
 
-            val EXTERNAL_ACCOUNT_CREATED =
-                SelectedEventCategory(JsonField.of("external_account.created"))
+            val EXTERNAL_ACCOUNT_CREATED = of("external_account.created")
 
-            val EXTERNAL_ACCOUNT_UPDATED =
-                SelectedEventCategory(JsonField.of("external_account.updated"))
+            val EXTERNAL_ACCOUNT_UPDATED = of("external_account.updated")
 
-            val FILE_CREATED = SelectedEventCategory(JsonField.of("file.created"))
+            val FILE_CREATED = of("file.created")
 
-            val GROUP_UPDATED = SelectedEventCategory(JsonField.of("group.updated"))
+            val GROUP_UPDATED = of("group.updated")
 
-            val GROUP_HEARTBEAT = SelectedEventCategory(JsonField.of("group.heartbeat"))
+            val GROUP_HEARTBEAT = of("group.heartbeat")
 
-            val INBOUND_ACH_TRANSFER_CREATED =
-                SelectedEventCategory(JsonField.of("inbound_ach_transfer.created"))
+            val INBOUND_ACH_TRANSFER_CREATED = of("inbound_ach_transfer.created")
 
-            val INBOUND_ACH_TRANSFER_UPDATED =
-                SelectedEventCategory(JsonField.of("inbound_ach_transfer.updated"))
+            val INBOUND_ACH_TRANSFER_UPDATED = of("inbound_ach_transfer.updated")
 
-            val INBOUND_ACH_TRANSFER_RETURN_CREATED =
-                SelectedEventCategory(JsonField.of("inbound_ach_transfer_return.created"))
+            val INBOUND_ACH_TRANSFER_RETURN_CREATED = of("inbound_ach_transfer_return.created")
 
-            val INBOUND_ACH_TRANSFER_RETURN_UPDATED =
-                SelectedEventCategory(JsonField.of("inbound_ach_transfer_return.updated"))
+            val INBOUND_ACH_TRANSFER_RETURN_UPDATED = of("inbound_ach_transfer_return.updated")
 
-            val INBOUND_CHECK_DEPOSIT_CREATED =
-                SelectedEventCategory(JsonField.of("inbound_check_deposit.created"))
+            val INBOUND_CHECK_DEPOSIT_CREATED = of("inbound_check_deposit.created")
 
-            val INBOUND_CHECK_DEPOSIT_UPDATED =
-                SelectedEventCategory(JsonField.of("inbound_check_deposit.updated"))
+            val INBOUND_CHECK_DEPOSIT_UPDATED = of("inbound_check_deposit.updated")
 
-            val INBOUND_MAIL_ITEM_CREATED =
-                SelectedEventCategory(JsonField.of("inbound_mail_item.created"))
+            val INBOUND_MAIL_ITEM_CREATED = of("inbound_mail_item.created")
 
-            val INBOUND_MAIL_ITEM_UPDATED =
-                SelectedEventCategory(JsonField.of("inbound_mail_item.updated"))
+            val INBOUND_MAIL_ITEM_UPDATED = of("inbound_mail_item.updated")
 
             val INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CREATED =
-                SelectedEventCategory(JsonField.of("inbound_real_time_payments_transfer.created"))
+                of("inbound_real_time_payments_transfer.created")
 
             val INBOUND_REAL_TIME_PAYMENTS_TRANSFER_UPDATED =
-                SelectedEventCategory(JsonField.of("inbound_real_time_payments_transfer.updated"))
+                of("inbound_real_time_payments_transfer.updated")
 
-            val INBOUND_WIRE_DRAWDOWN_REQUEST_CREATED =
-                SelectedEventCategory(JsonField.of("inbound_wire_drawdown_request.created"))
+            val INBOUND_WIRE_DRAWDOWN_REQUEST_CREATED = of("inbound_wire_drawdown_request.created")
 
-            val INBOUND_WIRE_TRANSFER_CREATED =
-                SelectedEventCategory(JsonField.of("inbound_wire_transfer.created"))
+            val INBOUND_WIRE_TRANSFER_CREATED = of("inbound_wire_transfer.created")
 
-            val INBOUND_WIRE_TRANSFER_UPDATED =
-                SelectedEventCategory(JsonField.of("inbound_wire_transfer.updated"))
+            val INBOUND_WIRE_TRANSFER_UPDATED = of("inbound_wire_transfer.updated")
 
-            val INTRAFI_ACCOUNT_ENROLLMENT_CREATED =
-                SelectedEventCategory(JsonField.of("intrafi_account_enrollment.created"))
+            val INTRAFI_ACCOUNT_ENROLLMENT_CREATED = of("intrafi_account_enrollment.created")
 
-            val INTRAFI_ACCOUNT_ENROLLMENT_UPDATED =
-                SelectedEventCategory(JsonField.of("intrafi_account_enrollment.updated"))
+            val INTRAFI_ACCOUNT_ENROLLMENT_UPDATED = of("intrafi_account_enrollment.updated")
 
-            val INTRAFI_EXCLUSION_CREATED =
-                SelectedEventCategory(JsonField.of("intrafi_exclusion.created"))
+            val INTRAFI_EXCLUSION_CREATED = of("intrafi_exclusion.created")
 
-            val INTRAFI_EXCLUSION_UPDATED =
-                SelectedEventCategory(JsonField.of("intrafi_exclusion.updated"))
+            val INTRAFI_EXCLUSION_UPDATED = of("intrafi_exclusion.updated")
 
-            val LOCKBOX_CREATED = SelectedEventCategory(JsonField.of("lockbox.created"))
+            val LOCKBOX_CREATED = of("lockbox.created")
 
-            val LOCKBOX_UPDATED = SelectedEventCategory(JsonField.of("lockbox.updated"))
+            val LOCKBOX_UPDATED = of("lockbox.updated")
 
-            val OAUTH_CONNECTION_CREATED =
-                SelectedEventCategory(JsonField.of("oauth_connection.created"))
+            val OAUTH_CONNECTION_CREATED = of("oauth_connection.created")
 
-            val OAUTH_CONNECTION_DEACTIVATED =
-                SelectedEventCategory(JsonField.of("oauth_connection.deactivated"))
+            val OAUTH_CONNECTION_DEACTIVATED = of("oauth_connection.deactivated")
 
-            val PENDING_TRANSACTION_CREATED =
-                SelectedEventCategory(JsonField.of("pending_transaction.created"))
+            val PENDING_TRANSACTION_CREATED = of("pending_transaction.created")
 
-            val PENDING_TRANSACTION_UPDATED =
-                SelectedEventCategory(JsonField.of("pending_transaction.updated"))
+            val PENDING_TRANSACTION_UPDATED = of("pending_transaction.updated")
 
-            val PHYSICAL_CARD_CREATED = SelectedEventCategory(JsonField.of("physical_card.created"))
+            val PHYSICAL_CARD_CREATED = of("physical_card.created")
 
-            val PHYSICAL_CARD_UPDATED = SelectedEventCategory(JsonField.of("physical_card.updated"))
+            val PHYSICAL_CARD_UPDATED = of("physical_card.updated")
 
-            val PHYSICAL_CARD_PROFILE_CREATED =
-                SelectedEventCategory(JsonField.of("physical_card_profile.created"))
+            val PHYSICAL_CARD_PROFILE_CREATED = of("physical_card_profile.created")
 
-            val PHYSICAL_CARD_PROFILE_UPDATED =
-                SelectedEventCategory(JsonField.of("physical_card_profile.updated"))
+            val PHYSICAL_CARD_PROFILE_UPDATED = of("physical_card_profile.updated")
 
             val PROOF_OF_AUTHORIZATION_REQUEST_CREATED =
-                SelectedEventCategory(JsonField.of("proof_of_authorization_request.created"))
+                of("proof_of_authorization_request.created")
 
             val PROOF_OF_AUTHORIZATION_REQUEST_UPDATED =
-                SelectedEventCategory(JsonField.of("proof_of_authorization_request.updated"))
+                of("proof_of_authorization_request.updated")
 
             val PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION_CREATED =
-                SelectedEventCategory(
-                    JsonField.of("proof_of_authorization_request_submission.created")
-                )
+                of("proof_of_authorization_request_submission.created")
 
             val PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION_UPDATED =
-                SelectedEventCategory(
-                    JsonField.of("proof_of_authorization_request_submission.updated")
-                )
+                of("proof_of_authorization_request_submission.updated")
 
             val REAL_TIME_DECISION_CARD_AUTHORIZATION_REQUESTED =
-                SelectedEventCategory(
-                    JsonField.of("real_time_decision.card_authorization_requested")
-                )
+                of("real_time_decision.card_authorization_requested")
 
             val REAL_TIME_DECISION_DIGITAL_WALLET_TOKEN_REQUESTED =
-                SelectedEventCategory(
-                    JsonField.of("real_time_decision.digital_wallet_token_requested")
-                )
+                of("real_time_decision.digital_wallet_token_requested")
 
             val REAL_TIME_DECISION_DIGITAL_WALLET_AUTHENTICATION_REQUESTED =
-                SelectedEventCategory(
-                    JsonField.of("real_time_decision.digital_wallet_authentication_requested")
-                )
+                of("real_time_decision.digital_wallet_authentication_requested")
 
             val REAL_TIME_DECISION_CARD_AUTHENTICATION_REQUESTED =
-                SelectedEventCategory(
-                    JsonField.of("real_time_decision.card_authentication_requested")
-                )
+                of("real_time_decision.card_authentication_requested")
 
             val REAL_TIME_DECISION_CARD_AUTHENTICATION_CHALLENGE_REQUESTED =
-                SelectedEventCategory(
-                    JsonField.of("real_time_decision.card_authentication_challenge_requested")
-                )
+                of("real_time_decision.card_authentication_challenge_requested")
 
-            val REAL_TIME_PAYMENTS_TRANSFER_CREATED =
-                SelectedEventCategory(JsonField.of("real_time_payments_transfer.created"))
+            val REAL_TIME_PAYMENTS_TRANSFER_CREATED = of("real_time_payments_transfer.created")
 
-            val REAL_TIME_PAYMENTS_TRANSFER_UPDATED =
-                SelectedEventCategory(JsonField.of("real_time_payments_transfer.updated"))
+            val REAL_TIME_PAYMENTS_TRANSFER_UPDATED = of("real_time_payments_transfer.updated")
 
             val REAL_TIME_PAYMENTS_REQUEST_FOR_PAYMENT_CREATED =
-                SelectedEventCategory(
-                    JsonField.of("real_time_payments_request_for_payment.created")
-                )
+                of("real_time_payments_request_for_payment.created")
 
             val REAL_TIME_PAYMENTS_REQUEST_FOR_PAYMENT_UPDATED =
-                SelectedEventCategory(
-                    JsonField.of("real_time_payments_request_for_payment.updated")
-                )
+                of("real_time_payments_request_for_payment.updated")
 
-            val TRANSACTION_CREATED = SelectedEventCategory(JsonField.of("transaction.created"))
+            val TRANSACTION_CREATED = of("transaction.created")
 
-            val WIRE_DRAWDOWN_REQUEST_CREATED =
-                SelectedEventCategory(JsonField.of("wire_drawdown_request.created"))
+            val WIRE_DRAWDOWN_REQUEST_CREATED = of("wire_drawdown_request.created")
 
-            val WIRE_DRAWDOWN_REQUEST_UPDATED =
-                SelectedEventCategory(JsonField.of("wire_drawdown_request.updated"))
+            val WIRE_DRAWDOWN_REQUEST_UPDATED = of("wire_drawdown_request.updated")
 
-            val WIRE_TRANSFER_CREATED = SelectedEventCategory(JsonField.of("wire_transfer.created"))
+            val WIRE_TRANSFER_CREATED = of("wire_transfer.created")
 
-            val WIRE_TRANSFER_UPDATED = SelectedEventCategory(JsonField.of("wire_transfer.updated"))
+            val WIRE_TRANSFER_UPDATED = of("wire_transfer.updated")
 
             fun of(value: String) = SelectedEventCategory(JsonField.of(value))
         }
@@ -991,13 +927,13 @@ private constructor(
 
         companion object {
 
-            val ACTIVE = Status(JsonField.of("active"))
+            val ACTIVE = of("active")
 
-            val DISABLED = Status(JsonField.of("disabled"))
+            val DISABLED = of("disabled")
 
-            val DELETED = Status(JsonField.of("deleted"))
+            val DELETED = of("deleted")
 
-            val REQUIRES_ATTENTION = Status(JsonField.of("requires_attention"))
+            val REQUIRES_ATTENTION = of("requires_attention")
 
             fun of(value: String) = Status(JsonField.of(value))
         }
@@ -1060,7 +996,7 @@ private constructor(
 
         companion object {
 
-            val EVENT_SUBSCRIPTION = Type(JsonField.of("event_subscription"))
+            val EVENT_SUBSCRIPTION = of("event_subscription")
 
             fun of(value: String) = Type(JsonField.of(value))
         }

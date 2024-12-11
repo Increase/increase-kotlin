@@ -718,13 +718,13 @@ private constructor(
 
         companion object {
 
-            val PENDING = Status(JsonField.of("pending"))
+            val PENDING = of("pending")
 
-            val ACCEPTED = Status(JsonField.of("accepted"))
+            val ACCEPTED = of("accepted")
 
-            val DECLINED = Status(JsonField.of("declined"))
+            val DECLINED = of("declined")
 
-            val REVERSED = Status(JsonField.of("reversed"))
+            val REVERSED = of("reversed")
 
             fun of(value: String) = Status(JsonField.of(value))
         }
@@ -787,7 +787,7 @@ private constructor(
 
         companion object {
 
-            val INBOUND_WIRE_TRANSFER = Type(JsonField.of("inbound_wire_transfer"))
+            val INBOUND_WIRE_TRANSFER = of("inbound_wire_transfer")
 
             fun of(value: String) = Type(JsonField.of(value))
         }

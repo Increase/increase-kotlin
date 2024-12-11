@@ -286,17 +286,17 @@ constructor(
 
             companion object {
 
-                val PENDING_CREATING = In(JsonField.of("pending_creating"))
+                val PENDING_CREATING = of("pending_creating")
 
-                val PENDING_REVIEWING = In(JsonField.of("pending_reviewing"))
+                val PENDING_REVIEWING = of("pending_reviewing")
 
-                val REJECTED = In(JsonField.of("rejected"))
+                val REJECTED = of("rejected")
 
-                val PENDING_SUBMITTING = In(JsonField.of("pending_submitting"))
+                val PENDING_SUBMITTING = of("pending_submitting")
 
-                val ACTIVE = In(JsonField.of("active"))
+                val ACTIVE = of("active")
 
-                val ARCHIVED = In(JsonField.of("archived"))
+                val ARCHIVED = of("archived")
 
                 fun of(value: String) = In(JsonField.of(value))
             }

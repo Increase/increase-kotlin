@@ -265,9 +265,9 @@ private constructor(
 
         companion object {
 
-            val COMMINGLED_CASH = ComplianceCategory(JsonField.of("commingled_cash"))
+            val COMMINGLED_CASH = of("commingled_cash")
 
-            val CUSTOMER_BALANCE = ComplianceCategory(JsonField.of("customer_balance"))
+            val CUSTOMER_BALANCE = of("customer_balance")
 
             fun of(value: String) = ComplianceCategory(JsonField.of(value))
         }
@@ -322,7 +322,7 @@ private constructor(
 
         companion object {
 
-            val BOOKKEEPING_ACCOUNT = Type(JsonField.of("bookkeeping_account"))
+            val BOOKKEEPING_ACCOUNT = of("bookkeeping_account")
 
             fun of(value: String) = Type(JsonField.of(value))
         }

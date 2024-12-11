@@ -582,17 +582,17 @@ private constructor(
 
         companion object {
 
-            val CAD = Currency(JsonField.of("CAD"))
+            val CAD = of("CAD")
 
-            val CHF = Currency(JsonField.of("CHF"))
+            val CHF = of("CHF")
 
-            val EUR = Currency(JsonField.of("EUR"))
+            val EUR = of("EUR")
 
-            val GBP = Currency(JsonField.of("GBP"))
+            val GBP = of("GBP")
 
-            val JPY = Currency(JsonField.of("JPY"))
+            val JPY = of("JPY")
 
-            val USD = Currency(JsonField.of("USD"))
+            val USD = of("USD")
 
             fun of(value: String) = Currency(JsonField.of(value))
         }
@@ -783,18 +783,17 @@ private constructor(
 
             companion object {
 
-                val ACCOUNT_NUMBER_CANCELED = Reason(JsonField.of("account_number_canceled"))
+                val ACCOUNT_NUMBER_CANCELED = of("account_number_canceled")
 
-                val ACCOUNT_NUMBER_DISABLED = Reason(JsonField.of("account_number_disabled"))
+                val ACCOUNT_NUMBER_DISABLED = of("account_number_disabled")
 
-                val ACCOUNT_RESTRICTED = Reason(JsonField.of("account_restricted"))
+                val ACCOUNT_RESTRICTED = of("account_restricted")
 
-                val GROUP_LOCKED = Reason(JsonField.of("group_locked"))
+                val GROUP_LOCKED = of("group_locked")
 
-                val ENTITY_NOT_ACTIVE = Reason(JsonField.of("entity_not_active"))
+                val ENTITY_NOT_ACTIVE = of("entity_not_active")
 
-                val REAL_TIME_PAYMENTS_NOT_ENABLED =
-                    Reason(JsonField.of("real_time_payments_not_enabled"))
+                val REAL_TIME_PAYMENTS_NOT_ENABLED = of("real_time_payments_not_enabled")
 
                 fun of(value: String) = Reason(JsonField.of(value))
             }
@@ -883,13 +882,13 @@ private constructor(
 
         companion object {
 
-            val PENDING_CONFIRMING = Status(JsonField.of("pending_confirming"))
+            val PENDING_CONFIRMING = of("pending_confirming")
 
-            val TIMED_OUT = Status(JsonField.of("timed_out"))
+            val TIMED_OUT = of("timed_out")
 
-            val CONFIRMED = Status(JsonField.of("confirmed"))
+            val CONFIRMED = of("confirmed")
 
-            val DECLINED = Status(JsonField.of("declined"))
+            val DECLINED = of("declined")
 
             fun of(value: String) = Status(JsonField.of(value))
         }
@@ -952,8 +951,7 @@ private constructor(
 
         companion object {
 
-            val INBOUND_REAL_TIME_PAYMENTS_TRANSFER =
-                Type(JsonField.of("inbound_real_time_payments_transfer"))
+            val INBOUND_REAL_TIME_PAYMENTS_TRANSFER = of("inbound_real_time_payments_transfer")
 
             fun of(value: String) = Type(JsonField.of(value))
         }

@@ -211,7 +211,7 @@ private constructor(
 
         companion object {
 
-            val BALANCE_LOOKUP = Type(JsonField.of("balance_lookup"))
+            val BALANCE_LOOKUP = of("balance_lookup")
 
             fun of(value: String) = Type(JsonField.of(value))
         }

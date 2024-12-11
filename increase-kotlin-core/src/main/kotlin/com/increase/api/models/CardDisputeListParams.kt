@@ -439,17 +439,17 @@ constructor(
 
             companion object {
 
-                val PENDING_REVIEWING = In(JsonField.of("pending_reviewing"))
+                val PENDING_REVIEWING = of("pending_reviewing")
 
-                val PENDING_USER_INFORMATION = In(JsonField.of("pending_user_information"))
+                val PENDING_USER_INFORMATION = of("pending_user_information")
 
-                val ACCEPTED = In(JsonField.of("accepted"))
+                val ACCEPTED = of("accepted")
 
-                val REJECTED = In(JsonField.of("rejected"))
+                val REJECTED = of("rejected")
 
-                val LOST = In(JsonField.of("lost"))
+                val LOST = of("lost")
 
-                val WON = In(JsonField.of("won"))
+                val WON = of("won")
 
                 fun of(value: String) = In(JsonField.of(value))
             }

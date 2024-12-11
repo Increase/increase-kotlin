@@ -536,15 +536,15 @@ constructor(
 
         companion object {
 
-            val CORPORATION = Structure(JsonField.of("corporation"))
+            val CORPORATION = of("corporation")
 
-            val NATURAL_PERSON = Structure(JsonField.of("natural_person"))
+            val NATURAL_PERSON = of("natural_person")
 
-            val JOINT = Structure(JsonField.of("joint"))
+            val JOINT = of("joint")
 
-            val TRUST = Structure(JsonField.of("trust"))
+            val TRUST = of("trust")
 
-            val GOVERNMENT_AUTHORITY = Structure(JsonField.of("government_authority"))
+            val GOVERNMENT_AUTHORITY = of("government_authority")
 
             fun of(value: String) = Structure(JsonField.of(value))
         }
@@ -1383,17 +1383,16 @@ constructor(
 
                         companion object {
 
-                            val SOCIAL_SECURITY_NUMBER =
-                                Method(JsonField.of("social_security_number"))
+                            val SOCIAL_SECURITY_NUMBER = of("social_security_number")
 
                             val INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER =
-                                Method(JsonField.of("individual_taxpayer_identification_number"))
+                                of("individual_taxpayer_identification_number")
 
-                            val PASSPORT = Method(JsonField.of("passport"))
+                            val PASSPORT = of("passport")
 
-                            val DRIVERS_LICENSE = Method(JsonField.of("drivers_license"))
+                            val DRIVERS_LICENSE = of("drivers_license")
 
-                            val OTHER = Method(JsonField.of("other"))
+                            val OTHER = of("other")
 
                             fun of(value: String) = Method(JsonField.of(value))
                         }
@@ -1887,9 +1886,9 @@ constructor(
 
                 companion object {
 
-                    val OWNERSHIP = Prong(JsonField.of("ownership"))
+                    val OWNERSHIP = of("ownership")
 
-                    val CONTROL = Prong(JsonField.of("control"))
+                    val CONTROL = of("control")
 
                     fun of(value: String) = Prong(JsonField.of(value))
                 }
@@ -2306,7 +2305,7 @@ constructor(
 
             companion object {
 
-                val MUNICIPALITY = Category(JsonField.of("municipality"))
+                val MUNICIPALITY = of("municipality")
 
                 fun of(value: String) = Category(JsonField.of(value))
             }
@@ -2826,16 +2825,16 @@ constructor(
 
                     companion object {
 
-                        val SOCIAL_SECURITY_NUMBER = Method(JsonField.of("social_security_number"))
+                        val SOCIAL_SECURITY_NUMBER = of("social_security_number")
 
                         val INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER =
-                            Method(JsonField.of("individual_taxpayer_identification_number"))
+                            of("individual_taxpayer_identification_number")
 
-                        val PASSPORT = Method(JsonField.of("passport"))
+                        val PASSPORT = of("passport")
 
-                        val DRIVERS_LICENSE = Method(JsonField.of("drivers_license"))
+                        val DRIVERS_LICENSE = of("drivers_license")
 
-                        val OTHER = Method(JsonField.of("other"))
+                        val OTHER = of("other")
 
                         fun of(value: String) = Method(JsonField.of(value))
                     }
@@ -3708,16 +3707,16 @@ constructor(
 
                 companion object {
 
-                    val SOCIAL_SECURITY_NUMBER = Method(JsonField.of("social_security_number"))
+                    val SOCIAL_SECURITY_NUMBER = of("social_security_number")
 
                     val INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER =
-                        Method(JsonField.of("individual_taxpayer_identification_number"))
+                        of("individual_taxpayer_identification_number")
 
-                    val PASSPORT = Method(JsonField.of("passport"))
+                    val PASSPORT = of("passport")
 
-                    val DRIVERS_LICENSE = Method(JsonField.of("drivers_license"))
+                    val DRIVERS_LICENSE = of("drivers_license")
 
-                    val OTHER = Method(JsonField.of("other"))
+                    val OTHER = of("other")
 
                     fun of(value: String) = Method(JsonField.of(value))
                 }
@@ -4329,9 +4328,9 @@ constructor(
 
             companion object {
 
-                val ALLOY = Vendor(JsonField.of("alloy"))
+                val ALLOY = of("alloy")
 
-                val MIDDESK = Vendor(JsonField.of("middesk"))
+                val MIDDESK = of("middesk")
 
                 fun of(value: String) = Vendor(JsonField.of(value))
             }
@@ -4695,9 +4694,9 @@ constructor(
 
             companion object {
 
-                val REVOCABLE = Category(JsonField.of("revocable"))
+                val REVOCABLE = of("revocable")
 
-                val IRREVOCABLE = Category(JsonField.of("irrevocable"))
+                val IRREVOCABLE = of("irrevocable")
 
                 fun of(value: String) = Category(JsonField.of(value))
             }
@@ -4827,7 +4826,7 @@ constructor(
 
                 companion object {
 
-                    val INDIVIDUAL = Structure(JsonField.of("individual"))
+                    val INDIVIDUAL = of("individual")
 
                     fun of(value: String) = Structure(JsonField.of(value))
                 }
@@ -5279,17 +5278,16 @@ constructor(
 
                         companion object {
 
-                            val SOCIAL_SECURITY_NUMBER =
-                                Method(JsonField.of("social_security_number"))
+                            val SOCIAL_SECURITY_NUMBER = of("social_security_number")
 
                             val INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER =
-                                Method(JsonField.of("individual_taxpayer_identification_number"))
+                                of("individual_taxpayer_identification_number")
 
-                            val PASSPORT = Method(JsonField.of("passport"))
+                            val PASSPORT = of("passport")
 
-                            val DRIVERS_LICENSE = Method(JsonField.of("drivers_license"))
+                            val DRIVERS_LICENSE = of("drivers_license")
 
-                            val OTHER = Method(JsonField.of("other"))
+                            val OTHER = of("other")
 
                             fun of(value: String) = Method(JsonField.of(value))
                         }
@@ -6182,16 +6180,16 @@ constructor(
 
                     companion object {
 
-                        val SOCIAL_SECURITY_NUMBER = Method(JsonField.of("social_security_number"))
+                        val SOCIAL_SECURITY_NUMBER = of("social_security_number")
 
                         val INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER =
-                            Method(JsonField.of("individual_taxpayer_identification_number"))
+                            of("individual_taxpayer_identification_number")
 
-                        val PASSPORT = Method(JsonField.of("passport"))
+                        val PASSPORT = of("passport")
 
-                        val DRIVERS_LICENSE = Method(JsonField.of("drivers_license"))
+                        val DRIVERS_LICENSE = of("drivers_license")
 
-                        val OTHER = Method(JsonField.of("other"))
+                        val OTHER = of("other")
 
                         fun of(value: String) = Method(JsonField.of(value))
                     }

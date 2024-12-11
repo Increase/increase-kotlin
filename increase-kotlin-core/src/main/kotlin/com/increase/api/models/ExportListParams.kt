@@ -307,18 +307,17 @@ constructor(
 
             companion object {
 
-                val ACCOUNT_STATEMENT_OFX = In(JsonField.of("account_statement_ofx"))
+                val ACCOUNT_STATEMENT_OFX = of("account_statement_ofx")
 
-                val TRANSACTION_CSV = In(JsonField.of("transaction_csv"))
+                val TRANSACTION_CSV = of("transaction_csv")
 
-                val BALANCE_CSV = In(JsonField.of("balance_csv"))
+                val BALANCE_CSV = of("balance_csv")
 
-                val BOOKKEEPING_ACCOUNT_BALANCE_CSV =
-                    In(JsonField.of("bookkeeping_account_balance_csv"))
+                val BOOKKEEPING_ACCOUNT_BALANCE_CSV = of("bookkeeping_account_balance_csv")
 
-                val ENTITY_CSV = In(JsonField.of("entity_csv"))
+                val ENTITY_CSV = of("entity_csv")
 
-                val VENDOR_CSV = In(JsonField.of("vendor_csv"))
+                val VENDOR_CSV = of("vendor_csv")
 
                 fun of(value: String) = In(JsonField.of(value))
             }
@@ -607,11 +606,11 @@ constructor(
 
             companion object {
 
-                val PENDING = In(JsonField.of("pending"))
+                val PENDING = of("pending")
 
-                val COMPLETE = In(JsonField.of("complete"))
+                val COMPLETE = of("complete")
 
-                val FAILED = In(JsonField.of("failed"))
+                val FAILED = of("failed")
 
                 fun of(value: String) = In(JsonField.of(value))
             }

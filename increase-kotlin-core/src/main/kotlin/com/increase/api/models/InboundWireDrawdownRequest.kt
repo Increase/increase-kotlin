@@ -731,7 +731,7 @@ private constructor(
 
         companion object {
 
-            val INBOUND_WIRE_DRAWDOWN_REQUEST = Type(JsonField.of("inbound_wire_drawdown_request"))
+            val INBOUND_WIRE_DRAWDOWN_REQUEST = of("inbound_wire_drawdown_request")
 
             fun of(value: String) = Type(JsonField.of(value))
         }

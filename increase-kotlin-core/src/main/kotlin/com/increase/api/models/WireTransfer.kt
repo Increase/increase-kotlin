@@ -1320,11 +1320,11 @@ private constructor(
 
             companion object {
 
-                val API_KEY = Category(JsonField.of("api_key"))
+                val API_KEY = of("api_key")
 
-                val OAUTH_APPLICATION = Category(JsonField.of("oauth_application"))
+                val OAUTH_APPLICATION = of("oauth_application")
 
-                val USER = Category(JsonField.of("user"))
+                val USER = of("user")
 
                 fun of(value: String) = Category(JsonField.of(value))
             }
@@ -1580,17 +1580,17 @@ private constructor(
 
         companion object {
 
-            val CAD = Currency(JsonField.of("CAD"))
+            val CAD = of("CAD")
 
-            val CHF = Currency(JsonField.of("CHF"))
+            val CHF = of("CHF")
 
-            val EUR = Currency(JsonField.of("EUR"))
+            val EUR = of("EUR")
 
-            val GBP = Currency(JsonField.of("GBP"))
+            val GBP = of("GBP")
 
-            val JPY = Currency(JsonField.of("JPY"))
+            val JPY = of("JPY")
 
-            val USD = Currency(JsonField.of("USD"))
+            val USD = of("USD")
 
             fun of(value: String) = Currency(JsonField.of(value))
         }
@@ -1661,7 +1661,7 @@ private constructor(
 
         companion object {
 
-            val WIRE = Network(JsonField.of("wire"))
+            val WIRE = of("wire")
 
             fun of(value: String) = Network(JsonField.of(value))
         }
@@ -2262,23 +2262,23 @@ private constructor(
 
         companion object {
 
-            val PENDING_APPROVAL = Status(JsonField.of("pending_approval"))
+            val PENDING_APPROVAL = of("pending_approval")
 
-            val CANCELED = Status(JsonField.of("canceled"))
+            val CANCELED = of("canceled")
 
-            val PENDING_REVIEWING = Status(JsonField.of("pending_reviewing"))
+            val PENDING_REVIEWING = of("pending_reviewing")
 
-            val REJECTED = Status(JsonField.of("rejected"))
+            val REJECTED = of("rejected")
 
-            val REQUIRES_ATTENTION = Status(JsonField.of("requires_attention"))
+            val REQUIRES_ATTENTION = of("requires_attention")
 
-            val PENDING_CREATING = Status(JsonField.of("pending_creating"))
+            val PENDING_CREATING = of("pending_creating")
 
-            val REVERSED = Status(JsonField.of("reversed"))
+            val REVERSED = of("reversed")
 
-            val SUBMITTED = Status(JsonField.of("submitted"))
+            val SUBMITTED = of("submitted")
 
-            val COMPLETE = Status(JsonField.of("complete"))
+            val COMPLETE = of("complete")
 
             fun of(value: String) = Status(JsonField.of(value))
         }
@@ -2481,7 +2481,7 @@ private constructor(
 
         companion object {
 
-            val WIRE_TRANSFER = Type(JsonField.of("wire_transfer"))
+            val WIRE_TRANSFER = of("wire_transfer")
 
             fun of(value: String) = Type(JsonField.of(value))
         }

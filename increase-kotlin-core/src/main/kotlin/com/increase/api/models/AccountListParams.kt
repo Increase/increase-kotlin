@@ -412,9 +412,9 @@ constructor(
 
         companion object {
 
-            val CLOSED = Status(JsonField.of("closed"))
+            val CLOSED = of("closed")
 
-            val OPEN = Status(JsonField.of("open"))
+            val OPEN = of("open")
 
             fun of(value: String) = Status(JsonField.of(value))
         }

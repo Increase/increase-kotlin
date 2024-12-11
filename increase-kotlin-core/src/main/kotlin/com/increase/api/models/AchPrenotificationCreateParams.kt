@@ -606,9 +606,9 @@ constructor(
 
         companion object {
 
-            val CREDIT = CreditDebitIndicator(JsonField.of("credit"))
+            val CREDIT = of("credit")
 
-            val DEBIT = CreditDebitIndicator(JsonField.of("debit"))
+            val DEBIT = of("debit")
 
             fun of(value: String) = CreditDebitIndicator(JsonField.of(value))
         }
@@ -663,16 +663,13 @@ constructor(
 
         companion object {
 
-            val CORPORATE_CREDIT_OR_DEBIT =
-                StandardEntryClassCode(JsonField.of("corporate_credit_or_debit"))
+            val CORPORATE_CREDIT_OR_DEBIT = of("corporate_credit_or_debit")
 
-            val CORPORATE_TRADE_EXCHANGE =
-                StandardEntryClassCode(JsonField.of("corporate_trade_exchange"))
+            val CORPORATE_TRADE_EXCHANGE = of("corporate_trade_exchange")
 
-            val PREARRANGED_PAYMENTS_AND_DEPOSIT =
-                StandardEntryClassCode(JsonField.of("prearranged_payments_and_deposit"))
+            val PREARRANGED_PAYMENTS_AND_DEPOSIT = of("prearranged_payments_and_deposit")
 
-            val INTERNET_INITIATED = StandardEntryClassCode(JsonField.of("internet_initiated"))
+            val INTERNET_INITIATED = of("internet_initiated")
 
             fun of(value: String) = StandardEntryClassCode(JsonField.of(value))
         }

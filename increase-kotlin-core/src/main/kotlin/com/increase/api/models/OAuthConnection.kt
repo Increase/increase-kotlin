@@ -246,9 +246,9 @@ private constructor(
 
         companion object {
 
-            val ACTIVE = Status(JsonField.of("active"))
+            val ACTIVE = of("active")
 
-            val INACTIVE = Status(JsonField.of("inactive"))
+            val INACTIVE = of("inactive")
 
             fun of(value: String) = Status(JsonField.of(value))
         }
@@ -303,7 +303,7 @@ private constructor(
 
         companion object {
 
-            val OAUTH_CONNECTION = Type(JsonField.of("oauth_connection"))
+            val OAUTH_CONNECTION = of("oauth_connection")
 
             fun of(value: String) = Type(JsonField.of(value))
         }

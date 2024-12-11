@@ -438,11 +438,11 @@ constructor(
 
             companion object {
 
-                val ACTIVE = In(JsonField.of("active"))
+                val ACTIVE = of("active")
 
-                val ARCHIVED = In(JsonField.of("archived"))
+                val ARCHIVED = of("archived")
 
-                val DISABLED = In(JsonField.of("disabled"))
+                val DISABLED = of("disabled")
 
                 fun of(value: String) = In(JsonField.of(value))
             }
