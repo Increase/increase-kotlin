@@ -698,37 +698,35 @@ constructor(
 
         companion object {
 
-            val CARD_NOT_ACTIVE = DeclineReason(JsonField.of("card_not_active"))
+            val CARD_NOT_ACTIVE = of("card_not_active")
 
-            val PHYSICAL_CARD_NOT_ACTIVE = DeclineReason(JsonField.of("physical_card_not_active"))
+            val PHYSICAL_CARD_NOT_ACTIVE = of("physical_card_not_active")
 
-            val ENTITY_NOT_ACTIVE = DeclineReason(JsonField.of("entity_not_active"))
+            val ENTITY_NOT_ACTIVE = of("entity_not_active")
 
-            val GROUP_LOCKED = DeclineReason(JsonField.of("group_locked"))
+            val GROUP_LOCKED = of("group_locked")
 
-            val INSUFFICIENT_FUNDS = DeclineReason(JsonField.of("insufficient_funds"))
+            val INSUFFICIENT_FUNDS = of("insufficient_funds")
 
-            val CVV2_MISMATCH = DeclineReason(JsonField.of("cvv2_mismatch"))
+            val CVV2_MISMATCH = of("cvv2_mismatch")
 
-            val CARD_EXPIRATION_MISMATCH = DeclineReason(JsonField.of("card_expiration_mismatch"))
+            val CARD_EXPIRATION_MISMATCH = of("card_expiration_mismatch")
 
-            val TRANSACTION_NOT_ALLOWED = DeclineReason(JsonField.of("transaction_not_allowed"))
+            val TRANSACTION_NOT_ALLOWED = of("transaction_not_allowed")
 
-            val BREACHES_LIMIT = DeclineReason(JsonField.of("breaches_limit"))
+            val BREACHES_LIMIT = of("breaches_limit")
 
-            val WEBHOOK_DECLINED = DeclineReason(JsonField.of("webhook_declined"))
+            val WEBHOOK_DECLINED = of("webhook_declined")
 
-            val WEBHOOK_TIMED_OUT = DeclineReason(JsonField.of("webhook_timed_out"))
+            val WEBHOOK_TIMED_OUT = of("webhook_timed_out")
 
-            val DECLINED_BY_STAND_IN_PROCESSING =
-                DeclineReason(JsonField.of("declined_by_stand_in_processing"))
+            val DECLINED_BY_STAND_IN_PROCESSING = of("declined_by_stand_in_processing")
 
-            val INVALID_PHYSICAL_CARD = DeclineReason(JsonField.of("invalid_physical_card"))
+            val INVALID_PHYSICAL_CARD = of("invalid_physical_card")
 
-            val MISSING_ORIGINAL_AUTHORIZATION =
-                DeclineReason(JsonField.of("missing_original_authorization"))
+            val MISSING_ORIGINAL_AUTHORIZATION = of("missing_original_authorization")
 
-            val SUSPECTED_FRAUD = DeclineReason(JsonField.of("suspected_fraud"))
+            val SUSPECTED_FRAUD = of("suspected_fraud")
 
             fun of(value: String) = DeclineReason(JsonField.of(value))
         }
@@ -835,9 +833,9 @@ constructor(
 
         companion object {
 
-            val SETTLEMENT = Direction(JsonField.of("settlement"))
+            val SETTLEMENT = of("settlement")
 
-            val REFUND = Direction(JsonField.of("refund"))
+            val REFUND = of("refund")
 
             fun of(value: String) = Direction(JsonField.of(value))
         }

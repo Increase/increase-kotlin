@@ -299,15 +299,15 @@ constructor(
 
             companion object {
 
-                val PENDING_ENROLLING = In(JsonField.of("pending_enrolling"))
+                val PENDING_ENROLLING = of("pending_enrolling")
 
-                val ENROLLED = In(JsonField.of("enrolled"))
+                val ENROLLED = of("enrolled")
 
-                val PENDING_UNENROLLING = In(JsonField.of("pending_unenrolling"))
+                val PENDING_UNENROLLING = of("pending_unenrolling")
 
-                val UNENROLLED = In(JsonField.of("unenrolled"))
+                val UNENROLLED = of("unenrolled")
 
-                val REQUIRES_ATTENTION = In(JsonField.of("requires_attention"))
+                val REQUIRES_ATTENTION = of("requires_attention")
 
                 fun of(value: String) = In(JsonField.of(value))
             }

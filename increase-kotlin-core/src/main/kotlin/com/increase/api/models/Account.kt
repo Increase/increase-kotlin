@@ -500,11 +500,11 @@ private constructor(
 
         companion object {
 
-            val BLUE_RIDGE_BANK = Bank(JsonField.of("blue_ridge_bank"))
+            val BLUE_RIDGE_BANK = of("blue_ridge_bank")
 
-            val FIRST_INTERNET_BANK = Bank(JsonField.of("first_internet_bank"))
+            val FIRST_INTERNET_BANK = of("first_internet_bank")
 
-            val GRASSHOPPER_BANK = Bank(JsonField.of("grasshopper_bank"))
+            val GRASSHOPPER_BANK = of("grasshopper_bank")
 
             fun of(value: String) = Bank(JsonField.of(value))
         }
@@ -563,17 +563,17 @@ private constructor(
 
         companion object {
 
-            val CAD = Currency(JsonField.of("CAD"))
+            val CAD = of("CAD")
 
-            val CHF = Currency(JsonField.of("CHF"))
+            val CHF = of("CHF")
 
-            val EUR = Currency(JsonField.of("EUR"))
+            val EUR = of("EUR")
 
-            val GBP = Currency(JsonField.of("GBP"))
+            val GBP = of("GBP")
 
-            val JPY = Currency(JsonField.of("JPY"))
+            val JPY = of("JPY")
 
-            val USD = Currency(JsonField.of("USD"))
+            val USD = of("USD")
 
             fun of(value: String) = Currency(JsonField.of(value))
         }
@@ -644,9 +644,9 @@ private constructor(
 
         companion object {
 
-            val CLOSED = Status(JsonField.of("closed"))
+            val CLOSED = of("closed")
 
-            val OPEN = Status(JsonField.of("open"))
+            val OPEN = of("open")
 
             fun of(value: String) = Status(JsonField.of(value))
         }
@@ -701,7 +701,7 @@ private constructor(
 
         companion object {
 
-            val ACCOUNT = Type(JsonField.of("account"))
+            val ACCOUNT = of("account")
 
             fun of(value: String) = Type(JsonField.of(value))
         }

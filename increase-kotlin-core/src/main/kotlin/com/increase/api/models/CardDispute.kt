@@ -891,17 +891,17 @@ private constructor(
 
         companion object {
 
-            val PENDING_REVIEWING = Status(JsonField.of("pending_reviewing"))
+            val PENDING_REVIEWING = of("pending_reviewing")
 
-            val PENDING_USER_INFORMATION = Status(JsonField.of("pending_user_information"))
+            val PENDING_USER_INFORMATION = of("pending_user_information")
 
-            val ACCEPTED = Status(JsonField.of("accepted"))
+            val ACCEPTED = of("accepted")
 
-            val REJECTED = Status(JsonField.of("rejected"))
+            val REJECTED = of("rejected")
 
-            val LOST = Status(JsonField.of("lost"))
+            val LOST = of("lost")
 
-            val WON = Status(JsonField.of("won"))
+            val WON = of("won")
 
             fun of(value: String) = Status(JsonField.of(value))
         }
@@ -972,7 +972,7 @@ private constructor(
 
         companion object {
 
-            val CARD_DISPUTE = Type(JsonField.of("card_dispute"))
+            val CARD_DISPUTE = of("card_dispute")
 
             fun of(value: String) = Type(JsonField.of(value))
         }

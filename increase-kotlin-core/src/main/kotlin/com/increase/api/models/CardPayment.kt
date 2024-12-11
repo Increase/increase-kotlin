@@ -1614,11 +1614,11 @@ private constructor(
 
                 companion object {
 
-                    val USER = Actioner(JsonField.of("user"))
+                    val USER = of("user")
 
-                    val INCREASE = Actioner(JsonField.of("increase"))
+                    val INCREASE = of("increase")
 
-                    val NETWORK = Actioner(JsonField.of("network"))
+                    val NETWORK = of("network")
 
                     fun of(value: String) = Actioner(JsonField.of(value))
                 }
@@ -1677,17 +1677,17 @@ private constructor(
 
                 companion object {
 
-                    val CAD = Currency(JsonField.of("CAD"))
+                    val CAD = of("CAD")
 
-                    val CHF = Currency(JsonField.of("CHF"))
+                    val CHF = of("CHF")
 
-                    val EUR = Currency(JsonField.of("EUR"))
+                    val EUR = of("EUR")
 
-                    val GBP = Currency(JsonField.of("GBP"))
+                    val GBP = of("GBP")
 
-                    val JPY = Currency(JsonField.of("JPY"))
+                    val JPY = of("JPY")
 
-                    val USD = Currency(JsonField.of("USD"))
+                    val USD = of("USD")
 
                     fun of(value: String) = Currency(JsonField.of(value))
                 }
@@ -1758,9 +1758,9 @@ private constructor(
 
                 companion object {
 
-                    val SETTLEMENT = Direction(JsonField.of("settlement"))
+                    val SETTLEMENT = of("settlement")
 
-                    val REFUND = Direction(JsonField.of("refund"))
+                    val REFUND = of("refund")
 
                     fun of(value: String) = Direction(JsonField.of(value))
                 }
@@ -1910,7 +1910,7 @@ private constructor(
 
                     companion object {
 
-                        val VISA = Category(JsonField.of("visa"))
+                        val VISA = of("visa")
 
                         fun of(value: String) = Category(JsonField.of(value))
                     }
@@ -2143,38 +2143,23 @@ private constructor(
 
                         companion object {
 
-                            val MAIL_PHONE_ORDER =
-                                ElectronicCommerceIndicator(JsonField.of("mail_phone_order"))
+                            val MAIL_PHONE_ORDER = of("mail_phone_order")
 
-                            val RECURRING = ElectronicCommerceIndicator(JsonField.of("recurring"))
+                            val RECURRING = of("recurring")
 
-                            val INSTALLMENT =
-                                ElectronicCommerceIndicator(JsonField.of("installment"))
+                            val INSTALLMENT = of("installment")
 
-                            val UNKNOWN_MAIL_PHONE_ORDER =
-                                ElectronicCommerceIndicator(
-                                    JsonField.of("unknown_mail_phone_order")
-                                )
+                            val UNKNOWN_MAIL_PHONE_ORDER = of("unknown_mail_phone_order")
 
-                            val SECURE_ELECTRONIC_COMMERCE =
-                                ElectronicCommerceIndicator(
-                                    JsonField.of("secure_electronic_commerce")
-                                )
+                            val SECURE_ELECTRONIC_COMMERCE = of("secure_electronic_commerce")
 
                             val NON_AUTHENTICATED_SECURITY_TRANSACTION_AT_3DS_CAPABLE_MERCHANT =
-                                ElectronicCommerceIndicator(
-                                    JsonField.of(
-                                        "non_authenticated_security_transaction_at_3ds_capable_merchant"
-                                    )
-                                )
+                                of("non_authenticated_security_transaction_at_3ds_capable_merchant")
 
                             val NON_AUTHENTICATED_SECURITY_TRANSACTION =
-                                ElectronicCommerceIndicator(
-                                    JsonField.of("non_authenticated_security_transaction")
-                                )
+                                of("non_authenticated_security_transaction")
 
-                            val NON_SECURE_TRANSACTION =
-                                ElectronicCommerceIndicator(JsonField.of("non_secure_transaction"))
+                            val NON_SECURE_TRANSACTION = of("non_secure_transaction")
 
                             fun of(value: String) = ElectronicCommerceIndicator(JsonField.of(value))
                         }
@@ -2263,33 +2248,26 @@ private constructor(
 
                         companion object {
 
-                            val UNKNOWN = PointOfServiceEntryMode(JsonField.of("unknown"))
+                            val UNKNOWN = of("unknown")
 
-                            val MANUAL = PointOfServiceEntryMode(JsonField.of("manual"))
+                            val MANUAL = of("manual")
 
-                            val MAGNETIC_STRIPE_NO_CVV =
-                                PointOfServiceEntryMode(JsonField.of("magnetic_stripe_no_cvv"))
+                            val MAGNETIC_STRIPE_NO_CVV = of("magnetic_stripe_no_cvv")
 
-                            val OPTICAL_CODE = PointOfServiceEntryMode(JsonField.of("optical_code"))
+                            val OPTICAL_CODE = of("optical_code")
 
-                            val INTEGRATED_CIRCUIT_CARD =
-                                PointOfServiceEntryMode(JsonField.of("integrated_circuit_card"))
+                            val INTEGRATED_CIRCUIT_CARD = of("integrated_circuit_card")
 
-                            val CONTACTLESS = PointOfServiceEntryMode(JsonField.of("contactless"))
+                            val CONTACTLESS = of("contactless")
 
-                            val CREDENTIAL_ON_FILE =
-                                PointOfServiceEntryMode(JsonField.of("credential_on_file"))
+                            val CREDENTIAL_ON_FILE = of("credential_on_file")
 
-                            val MAGNETIC_STRIPE =
-                                PointOfServiceEntryMode(JsonField.of("magnetic_stripe"))
+                            val MAGNETIC_STRIPE = of("magnetic_stripe")
 
-                            val CONTACTLESS_MAGNETIC_STRIPE =
-                                PointOfServiceEntryMode(JsonField.of("contactless_magnetic_stripe"))
+                            val CONTACTLESS_MAGNETIC_STRIPE = of("contactless_magnetic_stripe")
 
                             val INTEGRATED_CIRCUIT_CARD_NO_CVV =
-                                PointOfServiceEntryMode(
-                                    JsonField.of("integrated_circuit_card_no_cvv")
-                                )
+                                of("integrated_circuit_card_no_cvv")
 
                             fun of(value: String) = PointOfServiceEntryMode(JsonField.of(value))
                         }
@@ -2382,29 +2360,19 @@ private constructor(
 
                         companion object {
 
-                            val ISSUER_ERROR = StandInProcessingReason(JsonField.of("issuer_error"))
+                            val ISSUER_ERROR = of("issuer_error")
 
-                            val INVALID_PHYSICAL_CARD =
-                                StandInProcessingReason(JsonField.of("invalid_physical_card"))
+                            val INVALID_PHYSICAL_CARD = of("invalid_physical_card")
 
                             val INVALID_CARDHOLDER_AUTHENTICATION_VERIFICATION_VALUE =
-                                StandInProcessingReason(
-                                    JsonField.of(
-                                        "invalid_cardholder_authentication_verification_value"
-                                    )
-                                )
+                                of("invalid_cardholder_authentication_verification_value")
 
-                            val INTERNAL_VISA_ERROR =
-                                StandInProcessingReason(JsonField.of("internal_visa_error"))
+                            val INTERNAL_VISA_ERROR = of("internal_visa_error")
 
                             val MERCHANT_TRANSACTION_ADVISORY_SERVICE_AUTHENTICATION_REQUIRED =
-                                StandInProcessingReason(
-                                    JsonField.of(
-                                        "merchant_transaction_advisory_service_authentication_required"
-                                    )
-                                )
+                                of("merchant_transaction_advisory_service_authentication_required")
 
-                            val OTHER = StandInProcessingReason(JsonField.of("other"))
+                            val OTHER = of("other")
 
                             fun of(value: String) = StandInProcessingReason(JsonField.of(value))
                         }
@@ -2703,18 +2671,17 @@ private constructor(
 
                 companion object {
 
-                    val ACCOUNT_FUNDING = ProcessingCategory(JsonField.of("account_funding"))
+                    val ACCOUNT_FUNDING = of("account_funding")
 
-                    val AUTOMATIC_FUEL_DISPENSER =
-                        ProcessingCategory(JsonField.of("automatic_fuel_dispenser"))
+                    val AUTOMATIC_FUEL_DISPENSER = of("automatic_fuel_dispenser")
 
-                    val BILL_PAYMENT = ProcessingCategory(JsonField.of("bill_payment"))
+                    val BILL_PAYMENT = of("bill_payment")
 
-                    val PURCHASE = ProcessingCategory(JsonField.of("purchase"))
+                    val PURCHASE = of("purchase")
 
-                    val QUASI_CASH = ProcessingCategory(JsonField.of("quasi_cash"))
+                    val QUASI_CASH = of("quasi_cash")
 
-                    val REFUND = ProcessingCategory(JsonField.of("refund"))
+                    val REFUND = of("refund")
 
                     fun of(value: String) = ProcessingCategory(JsonField.of(value))
                 }
@@ -2786,7 +2753,7 @@ private constructor(
 
                 companion object {
 
-                    val CARD_AUTHORIZATION = Type(JsonField.of("card_authorization"))
+                    val CARD_AUTHORIZATION = of("card_authorization")
 
                     fun of(value: String) = Type(JsonField.of(value))
                 }
@@ -3045,11 +3012,11 @@ private constructor(
 
                         companion object {
 
-                            val NOT_CHECKED = Result(JsonField.of("not_checked"))
+                            val NOT_CHECKED = of("not_checked")
 
-                            val MATCH = Result(JsonField.of("match"))
+                            val MATCH = of("match")
 
-                            val NO_MATCH = Result(JsonField.of("no_match"))
+                            val NO_MATCH = of("no_match")
 
                             fun of(value: String) = Result(JsonField.of(value))
                         }
@@ -3318,20 +3285,20 @@ private constructor(
 
                         companion object {
 
-                            val NOT_CHECKED = Result(JsonField.of("not_checked"))
+                            val NOT_CHECKED = of("not_checked")
 
                             val POSTAL_CODE_MATCH_ADDRESS_NOT_CHECKED =
-                                Result(JsonField.of("postal_code_match_address_not_checked"))
+                                of("postal_code_match_address_not_checked")
 
                             val POSTAL_CODE_MATCH_ADDRESS_NO_MATCH =
-                                Result(JsonField.of("postal_code_match_address_no_match"))
+                                of("postal_code_match_address_no_match")
 
                             val POSTAL_CODE_NO_MATCH_ADDRESS_MATCH =
-                                Result(JsonField.of("postal_code_no_match_address_match"))
+                                of("postal_code_no_match_address_match")
 
-                            val MATCH = Result(JsonField.of("match"))
+                            val MATCH = of("match")
 
-                            val NO_MATCH = Result(JsonField.of("no_match"))
+                            val NO_MATCH = of("no_match")
 
                             fun of(value: String) = Result(JsonField.of(value))
                         }
@@ -3680,17 +3647,17 @@ private constructor(
 
                 companion object {
 
-                    val CAD = Currency(JsonField.of("CAD"))
+                    val CAD = of("CAD")
 
-                    val CHF = Currency(JsonField.of("CHF"))
+                    val CHF = of("CHF")
 
-                    val EUR = Currency(JsonField.of("EUR"))
+                    val EUR = of("EUR")
 
-                    val GBP = Currency(JsonField.of("GBP"))
+                    val GBP = of("GBP")
 
-                    val JPY = Currency(JsonField.of("JPY"))
+                    val JPY = of("JPY")
 
-                    val USD = Currency(JsonField.of("USD"))
+                    val USD = of("USD")
 
                     fun of(value: String) = Currency(JsonField.of(value))
                 }
@@ -3761,7 +3728,7 @@ private constructor(
 
                 companion object {
 
-                    val VISA = Network(JsonField.of("visa"))
+                    val VISA = of("visa")
 
                     fun of(value: String) = Network(JsonField.of(value))
                 }
@@ -3812,8 +3779,7 @@ private constructor(
 
                 companion object {
 
-                    val CARD_AUTHORIZATION_EXPIRATION =
-                        Type(JsonField.of("card_authorization_expiration"))
+                    val CARD_AUTHORIZATION_EXPIRATION = of("card_authorization_expiration")
 
                     fun of(value: String) = Type(JsonField.of(value))
                 }
@@ -4730,11 +4696,11 @@ private constructor(
 
                 companion object {
 
-                    val USER = Actioner(JsonField.of("user"))
+                    val USER = of("user")
 
-                    val INCREASE = Actioner(JsonField.of("increase"))
+                    val INCREASE = of("increase")
 
-                    val NETWORK = Actioner(JsonField.of("network"))
+                    val NETWORK = of("network")
 
                     fun of(value: String) = Actioner(JsonField.of(value))
                 }
@@ -4793,17 +4759,17 @@ private constructor(
 
                 companion object {
 
-                    val CAD = Currency(JsonField.of("CAD"))
+                    val CAD = of("CAD")
 
-                    val CHF = Currency(JsonField.of("CHF"))
+                    val CHF = of("CHF")
 
-                    val EUR = Currency(JsonField.of("EUR"))
+                    val EUR = of("EUR")
 
-                    val GBP = Currency(JsonField.of("GBP"))
+                    val GBP = of("GBP")
 
-                    val JPY = Currency(JsonField.of("JPY"))
+                    val JPY = of("JPY")
 
-                    val USD = Currency(JsonField.of("USD"))
+                    val USD = of("USD")
 
                     fun of(value: String) = Currency(JsonField.of(value))
                 }
@@ -4874,9 +4840,9 @@ private constructor(
 
                 companion object {
 
-                    val SETTLEMENT = Direction(JsonField.of("settlement"))
+                    val SETTLEMENT = of("settlement")
 
-                    val REFUND = Direction(JsonField.of("refund"))
+                    val REFUND = of("refund")
 
                     fun of(value: String) = Direction(JsonField.of(value))
                 }
@@ -5026,7 +4992,7 @@ private constructor(
 
                     companion object {
 
-                        val VISA = Category(JsonField.of("visa"))
+                        val VISA = of("visa")
 
                         fun of(value: String) = Category(JsonField.of(value))
                     }
@@ -5259,38 +5225,23 @@ private constructor(
 
                         companion object {
 
-                            val MAIL_PHONE_ORDER =
-                                ElectronicCommerceIndicator(JsonField.of("mail_phone_order"))
+                            val MAIL_PHONE_ORDER = of("mail_phone_order")
 
-                            val RECURRING = ElectronicCommerceIndicator(JsonField.of("recurring"))
+                            val RECURRING = of("recurring")
 
-                            val INSTALLMENT =
-                                ElectronicCommerceIndicator(JsonField.of("installment"))
+                            val INSTALLMENT = of("installment")
 
-                            val UNKNOWN_MAIL_PHONE_ORDER =
-                                ElectronicCommerceIndicator(
-                                    JsonField.of("unknown_mail_phone_order")
-                                )
+                            val UNKNOWN_MAIL_PHONE_ORDER = of("unknown_mail_phone_order")
 
-                            val SECURE_ELECTRONIC_COMMERCE =
-                                ElectronicCommerceIndicator(
-                                    JsonField.of("secure_electronic_commerce")
-                                )
+                            val SECURE_ELECTRONIC_COMMERCE = of("secure_electronic_commerce")
 
                             val NON_AUTHENTICATED_SECURITY_TRANSACTION_AT_3DS_CAPABLE_MERCHANT =
-                                ElectronicCommerceIndicator(
-                                    JsonField.of(
-                                        "non_authenticated_security_transaction_at_3ds_capable_merchant"
-                                    )
-                                )
+                                of("non_authenticated_security_transaction_at_3ds_capable_merchant")
 
                             val NON_AUTHENTICATED_SECURITY_TRANSACTION =
-                                ElectronicCommerceIndicator(
-                                    JsonField.of("non_authenticated_security_transaction")
-                                )
+                                of("non_authenticated_security_transaction")
 
-                            val NON_SECURE_TRANSACTION =
-                                ElectronicCommerceIndicator(JsonField.of("non_secure_transaction"))
+                            val NON_SECURE_TRANSACTION = of("non_secure_transaction")
 
                             fun of(value: String) = ElectronicCommerceIndicator(JsonField.of(value))
                         }
@@ -5379,33 +5330,26 @@ private constructor(
 
                         companion object {
 
-                            val UNKNOWN = PointOfServiceEntryMode(JsonField.of("unknown"))
+                            val UNKNOWN = of("unknown")
 
-                            val MANUAL = PointOfServiceEntryMode(JsonField.of("manual"))
+                            val MANUAL = of("manual")
 
-                            val MAGNETIC_STRIPE_NO_CVV =
-                                PointOfServiceEntryMode(JsonField.of("magnetic_stripe_no_cvv"))
+                            val MAGNETIC_STRIPE_NO_CVV = of("magnetic_stripe_no_cvv")
 
-                            val OPTICAL_CODE = PointOfServiceEntryMode(JsonField.of("optical_code"))
+                            val OPTICAL_CODE = of("optical_code")
 
-                            val INTEGRATED_CIRCUIT_CARD =
-                                PointOfServiceEntryMode(JsonField.of("integrated_circuit_card"))
+                            val INTEGRATED_CIRCUIT_CARD = of("integrated_circuit_card")
 
-                            val CONTACTLESS = PointOfServiceEntryMode(JsonField.of("contactless"))
+                            val CONTACTLESS = of("contactless")
 
-                            val CREDENTIAL_ON_FILE =
-                                PointOfServiceEntryMode(JsonField.of("credential_on_file"))
+                            val CREDENTIAL_ON_FILE = of("credential_on_file")
 
-                            val MAGNETIC_STRIPE =
-                                PointOfServiceEntryMode(JsonField.of("magnetic_stripe"))
+                            val MAGNETIC_STRIPE = of("magnetic_stripe")
 
-                            val CONTACTLESS_MAGNETIC_STRIPE =
-                                PointOfServiceEntryMode(JsonField.of("contactless_magnetic_stripe"))
+                            val CONTACTLESS_MAGNETIC_STRIPE = of("contactless_magnetic_stripe")
 
                             val INTEGRATED_CIRCUIT_CARD_NO_CVV =
-                                PointOfServiceEntryMode(
-                                    JsonField.of("integrated_circuit_card_no_cvv")
-                                )
+                                of("integrated_circuit_card_no_cvv")
 
                             fun of(value: String) = PointOfServiceEntryMode(JsonField.of(value))
                         }
@@ -5498,29 +5442,19 @@ private constructor(
 
                         companion object {
 
-                            val ISSUER_ERROR = StandInProcessingReason(JsonField.of("issuer_error"))
+                            val ISSUER_ERROR = of("issuer_error")
 
-                            val INVALID_PHYSICAL_CARD =
-                                StandInProcessingReason(JsonField.of("invalid_physical_card"))
+                            val INVALID_PHYSICAL_CARD = of("invalid_physical_card")
 
                             val INVALID_CARDHOLDER_AUTHENTICATION_VERIFICATION_VALUE =
-                                StandInProcessingReason(
-                                    JsonField.of(
-                                        "invalid_cardholder_authentication_verification_value"
-                                    )
-                                )
+                                of("invalid_cardholder_authentication_verification_value")
 
-                            val INTERNAL_VISA_ERROR =
-                                StandInProcessingReason(JsonField.of("internal_visa_error"))
+                            val INTERNAL_VISA_ERROR = of("internal_visa_error")
 
                             val MERCHANT_TRANSACTION_ADVISORY_SERVICE_AUTHENTICATION_REQUIRED =
-                                StandInProcessingReason(
-                                    JsonField.of(
-                                        "merchant_transaction_advisory_service_authentication_required"
-                                    )
-                                )
+                                of("merchant_transaction_advisory_service_authentication_required")
 
-                            val OTHER = StandInProcessingReason(JsonField.of("other"))
+                            val OTHER = of("other")
 
                             fun of(value: String) = StandInProcessingReason(JsonField.of(value))
                         }
@@ -5819,18 +5753,17 @@ private constructor(
 
                 companion object {
 
-                    val ACCOUNT_FUNDING = ProcessingCategory(JsonField.of("account_funding"))
+                    val ACCOUNT_FUNDING = of("account_funding")
 
-                    val AUTOMATIC_FUEL_DISPENSER =
-                        ProcessingCategory(JsonField.of("automatic_fuel_dispenser"))
+                    val AUTOMATIC_FUEL_DISPENSER = of("automatic_fuel_dispenser")
 
-                    val BILL_PAYMENT = ProcessingCategory(JsonField.of("bill_payment"))
+                    val BILL_PAYMENT = of("bill_payment")
 
-                    val PURCHASE = ProcessingCategory(JsonField.of("purchase"))
+                    val PURCHASE = of("purchase")
 
-                    val QUASI_CASH = ProcessingCategory(JsonField.of("quasi_cash"))
+                    val QUASI_CASH = of("quasi_cash")
 
-                    val REFUND = ProcessingCategory(JsonField.of("refund"))
+                    val REFUND = of("refund")
 
                     fun of(value: String) = ProcessingCategory(JsonField.of(value))
                 }
@@ -5902,21 +5835,17 @@ private constructor(
 
                 companion object {
 
-                    val INSUFFICIENT_FUNDS =
-                        RealTimeDecisionReason(JsonField.of("insufficient_funds"))
+                    val INSUFFICIENT_FUNDS = of("insufficient_funds")
 
-                    val TRANSACTION_NEVER_ALLOWED =
-                        RealTimeDecisionReason(JsonField.of("transaction_never_allowed"))
+                    val TRANSACTION_NEVER_ALLOWED = of("transaction_never_allowed")
 
-                    val EXCEEDS_APPROVAL_LIMIT =
-                        RealTimeDecisionReason(JsonField.of("exceeds_approval_limit"))
+                    val EXCEEDS_APPROVAL_LIMIT = of("exceeds_approval_limit")
 
-                    val CARD_TEMPORARILY_DISABLED =
-                        RealTimeDecisionReason(JsonField.of("card_temporarily_disabled"))
+                    val CARD_TEMPORARILY_DISABLED = of("card_temporarily_disabled")
 
-                    val SUSPECTED_FRAUD = RealTimeDecisionReason(JsonField.of("suspected_fraud"))
+                    val SUSPECTED_FRAUD = of("suspected_fraud")
 
-                    val OTHER = RealTimeDecisionReason(JsonField.of("other"))
+                    val OTHER = of("other")
 
                     fun of(value: String) = RealTimeDecisionReason(JsonField.of(value))
                 }
@@ -5990,37 +5919,35 @@ private constructor(
 
                 companion object {
 
-                    val CARD_NOT_ACTIVE = Reason(JsonField.of("card_not_active"))
+                    val CARD_NOT_ACTIVE = of("card_not_active")
 
-                    val PHYSICAL_CARD_NOT_ACTIVE = Reason(JsonField.of("physical_card_not_active"))
+                    val PHYSICAL_CARD_NOT_ACTIVE = of("physical_card_not_active")
 
-                    val ENTITY_NOT_ACTIVE = Reason(JsonField.of("entity_not_active"))
+                    val ENTITY_NOT_ACTIVE = of("entity_not_active")
 
-                    val GROUP_LOCKED = Reason(JsonField.of("group_locked"))
+                    val GROUP_LOCKED = of("group_locked")
 
-                    val INSUFFICIENT_FUNDS = Reason(JsonField.of("insufficient_funds"))
+                    val INSUFFICIENT_FUNDS = of("insufficient_funds")
 
-                    val CVV2_MISMATCH = Reason(JsonField.of("cvv2_mismatch"))
+                    val CVV2_MISMATCH = of("cvv2_mismatch")
 
-                    val CARD_EXPIRATION_MISMATCH = Reason(JsonField.of("card_expiration_mismatch"))
+                    val CARD_EXPIRATION_MISMATCH = of("card_expiration_mismatch")
 
-                    val TRANSACTION_NOT_ALLOWED = Reason(JsonField.of("transaction_not_allowed"))
+                    val TRANSACTION_NOT_ALLOWED = of("transaction_not_allowed")
 
-                    val BREACHES_LIMIT = Reason(JsonField.of("breaches_limit"))
+                    val BREACHES_LIMIT = of("breaches_limit")
 
-                    val WEBHOOK_DECLINED = Reason(JsonField.of("webhook_declined"))
+                    val WEBHOOK_DECLINED = of("webhook_declined")
 
-                    val WEBHOOK_TIMED_OUT = Reason(JsonField.of("webhook_timed_out"))
+                    val WEBHOOK_TIMED_OUT = of("webhook_timed_out")
 
-                    val DECLINED_BY_STAND_IN_PROCESSING =
-                        Reason(JsonField.of("declined_by_stand_in_processing"))
+                    val DECLINED_BY_STAND_IN_PROCESSING = of("declined_by_stand_in_processing")
 
-                    val INVALID_PHYSICAL_CARD = Reason(JsonField.of("invalid_physical_card"))
+                    val INVALID_PHYSICAL_CARD = of("invalid_physical_card")
 
-                    val MISSING_ORIGINAL_AUTHORIZATION =
-                        Reason(JsonField.of("missing_original_authorization"))
+                    val MISSING_ORIGINAL_AUTHORIZATION = of("missing_original_authorization")
 
-                    val SUSPECTED_FRAUD = Reason(JsonField.of("suspected_fraud"))
+                    val SUSPECTED_FRAUD = of("suspected_fraud")
 
                     fun of(value: String) = Reason(JsonField.of(value))
                 }
@@ -6335,11 +6262,11 @@ private constructor(
 
                         companion object {
 
-                            val NOT_CHECKED = Result(JsonField.of("not_checked"))
+                            val NOT_CHECKED = of("not_checked")
 
-                            val MATCH = Result(JsonField.of("match"))
+                            val MATCH = of("match")
 
-                            val NO_MATCH = Result(JsonField.of("no_match"))
+                            val NO_MATCH = of("no_match")
 
                             fun of(value: String) = Result(JsonField.of(value))
                         }
@@ -6608,20 +6535,20 @@ private constructor(
 
                         companion object {
 
-                            val NOT_CHECKED = Result(JsonField.of("not_checked"))
+                            val NOT_CHECKED = of("not_checked")
 
                             val POSTAL_CODE_MATCH_ADDRESS_NOT_CHECKED =
-                                Result(JsonField.of("postal_code_match_address_not_checked"))
+                                of("postal_code_match_address_not_checked")
 
                             val POSTAL_CODE_MATCH_ADDRESS_NO_MATCH =
-                                Result(JsonField.of("postal_code_match_address_no_match"))
+                                of("postal_code_match_address_no_match")
 
                             val POSTAL_CODE_NO_MATCH_ADDRESS_MATCH =
-                                Result(JsonField.of("postal_code_no_match_address_match"))
+                                of("postal_code_no_match_address_match")
 
-                            val MATCH = Result(JsonField.of("match"))
+                            val MATCH = of("match")
 
-                            val NO_MATCH = Result(JsonField.of("no_match"))
+                            val NO_MATCH = of("no_match")
 
                             fun of(value: String) = Result(JsonField.of(value))
                         }
@@ -7037,17 +6964,17 @@ private constructor(
 
                 companion object {
 
-                    val CAD = Currency(JsonField.of("CAD"))
+                    val CAD = of("CAD")
 
-                    val CHF = Currency(JsonField.of("CHF"))
+                    val CHF = of("CHF")
 
-                    val EUR = Currency(JsonField.of("EUR"))
+                    val EUR = of("EUR")
 
-                    val GBP = Currency(JsonField.of("GBP"))
+                    val GBP = of("GBP")
 
-                    val JPY = Currency(JsonField.of("JPY"))
+                    val JPY = of("JPY")
 
-                    val USD = Currency(JsonField.of("USD"))
+                    val USD = of("USD")
 
                     fun of(value: String) = Currency(JsonField.of(value))
                 }
@@ -7118,7 +7045,7 @@ private constructor(
 
                 companion object {
 
-                    val VISA = Network(JsonField.of("visa"))
+                    val VISA = of("visa")
 
                     fun of(value: String) = Network(JsonField.of(value))
                 }
@@ -7352,7 +7279,7 @@ private constructor(
 
                 companion object {
 
-                    val CARD_FUEL_CONFIRMATION = Type(JsonField.of("card_fuel_confirmation"))
+                    val CARD_FUEL_CONFIRMATION = of("card_fuel_confirmation")
 
                     fun of(value: String) = Type(JsonField.of(value))
                 }
@@ -7832,11 +7759,11 @@ private constructor(
 
                 companion object {
 
-                    val USER = Actioner(JsonField.of("user"))
+                    val USER = of("user")
 
-                    val INCREASE = Actioner(JsonField.of("increase"))
+                    val INCREASE = of("increase")
 
-                    val NETWORK = Actioner(JsonField.of("network"))
+                    val NETWORK = of("network")
 
                     fun of(value: String) = Actioner(JsonField.of(value))
                 }
@@ -7895,17 +7822,17 @@ private constructor(
 
                 companion object {
 
-                    val CAD = Currency(JsonField.of("CAD"))
+                    val CAD = of("CAD")
 
-                    val CHF = Currency(JsonField.of("CHF"))
+                    val CHF = of("CHF")
 
-                    val EUR = Currency(JsonField.of("EUR"))
+                    val EUR = of("EUR")
 
-                    val GBP = Currency(JsonField.of("GBP"))
+                    val GBP = of("GBP")
 
-                    val JPY = Currency(JsonField.of("JPY"))
+                    val JPY = of("JPY")
 
-                    val USD = Currency(JsonField.of("USD"))
+                    val USD = of("USD")
 
                     fun of(value: String) = Currency(JsonField.of(value))
                 }
@@ -7976,7 +7903,7 @@ private constructor(
 
                 companion object {
 
-                    val VISA = Network(JsonField.of("visa"))
+                    val VISA = of("visa")
 
                     fun of(value: String) = Network(JsonField.of(value))
                 }
@@ -8210,7 +8137,7 @@ private constructor(
 
                 companion object {
 
-                    val CARD_INCREMENT = Type(JsonField.of("card_increment"))
+                    val CARD_INCREMENT = of("card_increment")
 
                     fun of(value: String) = Type(JsonField.of(value))
                 }
@@ -8815,17 +8742,17 @@ private constructor(
 
                 companion object {
 
-                    val CAD = Currency(JsonField.of("CAD"))
+                    val CAD = of("CAD")
 
-                    val CHF = Currency(JsonField.of("CHF"))
+                    val CHF = of("CHF")
 
-                    val EUR = Currency(JsonField.of("EUR"))
+                    val EUR = of("EUR")
 
-                    val GBP = Currency(JsonField.of("GBP"))
+                    val GBP = of("GBP")
 
-                    val JPY = Currency(JsonField.of("JPY"))
+                    val JPY = of("JPY")
 
-                    val USD = Currency(JsonField.of("USD"))
+                    val USD = of("USD")
 
                     fun of(value: String) = Currency(JsonField.of(value))
                 }
@@ -9038,17 +8965,17 @@ private constructor(
 
                     companion object {
 
-                        val CAD = Currency(JsonField.of("CAD"))
+                        val CAD = of("CAD")
 
-                        val CHF = Currency(JsonField.of("CHF"))
+                        val CHF = of("CHF")
 
-                        val EUR = Currency(JsonField.of("EUR"))
+                        val EUR = of("EUR")
 
-                        val GBP = Currency(JsonField.of("GBP"))
+                        val GBP = of("GBP")
 
-                        val JPY = Currency(JsonField.of("JPY"))
+                        val JPY = of("JPY")
 
-                        val USD = Currency(JsonField.of("USD"))
+                        val USD = of("USD")
 
                         fun of(value: String) = Currency(JsonField.of(value))
                     }
@@ -10189,18 +10116,17 @@ private constructor(
 
                         companion object {
 
-                            val NO_EXTRA_CHARGE = ExtraCharges(JsonField.of("no_extra_charge"))
+                            val NO_EXTRA_CHARGE = of("no_extra_charge")
 
-                            val GAS = ExtraCharges(JsonField.of("gas"))
+                            val GAS = of("gas")
 
-                            val EXTRA_MILEAGE = ExtraCharges(JsonField.of("extra_mileage"))
+                            val EXTRA_MILEAGE = of("extra_mileage")
 
-                            val LATE_RETURN = ExtraCharges(JsonField.of("late_return"))
+                            val LATE_RETURN = of("late_return")
 
-                            val ONE_WAY_SERVICE_FEE =
-                                ExtraCharges(JsonField.of("one_way_service_fee"))
+                            val ONE_WAY_SERVICE_FEE = of("one_way_service_fee")
 
-                            val PARKING_VIOLATION = ExtraCharges(JsonField.of("parking_violation"))
+                            val PARKING_VIOLATION = of("parking_violation")
 
                             fun of(value: String) = ExtraCharges(JsonField.of(value))
                         }
@@ -10275,10 +10201,10 @@ private constructor(
 
                         companion object {
 
-                            val NOT_APPLICABLE = NoShowIndicator(JsonField.of("not_applicable"))
+                            val NOT_APPLICABLE = of("not_applicable")
 
                             val NO_SHOW_FOR_SPECIALIZED_VEHICLE =
-                                NoShowIndicator(JsonField.of("no_show_for_specialized_vehicle"))
+                                of("no_show_for_specialized_vehicle")
 
                             fun of(value: String) = NoShowIndicator(JsonField.of(value))
                         }
@@ -10894,19 +10820,19 @@ private constructor(
 
                         companion object {
 
-                            val NO_EXTRA_CHARGE = ExtraCharges(JsonField.of("no_extra_charge"))
+                            val NO_EXTRA_CHARGE = of("no_extra_charge")
 
-                            val RESTAURANT = ExtraCharges(JsonField.of("restaurant"))
+                            val RESTAURANT = of("restaurant")
 
-                            val GIFT_SHOP = ExtraCharges(JsonField.of("gift_shop"))
+                            val GIFT_SHOP = of("gift_shop")
 
-                            val MINI_BAR = ExtraCharges(JsonField.of("mini_bar"))
+                            val MINI_BAR = of("mini_bar")
 
-                            val TELEPHONE = ExtraCharges(JsonField.of("telephone"))
+                            val TELEPHONE = of("telephone")
 
-                            val OTHER = ExtraCharges(JsonField.of("other"))
+                            val OTHER = of("other")
 
-                            val LAUNDRY = ExtraCharges(JsonField.of("laundry"))
+                            val LAUNDRY = of("laundry")
 
                             fun of(value: String) = ExtraCharges(JsonField.of(value))
                         }
@@ -10985,9 +10911,9 @@ private constructor(
 
                         companion object {
 
-                            val NOT_APPLICABLE = NoShowIndicator(JsonField.of("not_applicable"))
+                            val NOT_APPLICABLE = of("not_applicable")
 
-                            val NO_SHOW = NoShowIndicator(JsonField.of("no_show"))
+                            val NO_SHOW = of("no_show")
 
                             fun of(value: String) = NoShowIndicator(JsonField.of(value))
                         }
@@ -11064,18 +10990,15 @@ private constructor(
 
                     companion object {
 
-                        val FREE_TEXT = PurchaseIdentifierFormat(JsonField.of("free_text"))
+                        val FREE_TEXT = of("free_text")
 
-                        val ORDER_NUMBER = PurchaseIdentifierFormat(JsonField.of("order_number"))
+                        val ORDER_NUMBER = of("order_number")
 
-                        val RENTAL_AGREEMENT_NUMBER =
-                            PurchaseIdentifierFormat(JsonField.of("rental_agreement_number"))
+                        val RENTAL_AGREEMENT_NUMBER = of("rental_agreement_number")
 
-                        val HOTEL_FOLIO_NUMBER =
-                            PurchaseIdentifierFormat(JsonField.of("hotel_folio_number"))
+                        val HOTEL_FOLIO_NUMBER = of("hotel_folio_number")
 
-                        val INVOICE_NUMBER =
-                            PurchaseIdentifierFormat(JsonField.of("invoice_number"))
+                        val INVOICE_NUMBER = of("invoice_number")
 
                         fun of(value: String) = PurchaseIdentifierFormat(JsonField.of(value))
                     }
@@ -11728,23 +11651,17 @@ private constructor(
 
                             companion object {
 
-                                val NO_CREDIT = CreditReasonIndicator(JsonField.of("no_credit"))
+                                val NO_CREDIT = of("no_credit")
 
                                 val PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION =
-                                    CreditReasonIndicator(
-                                        JsonField.of(
-                                            "passenger_transport_ancillary_purchase_cancellation"
-                                        )
-                                    )
+                                    of("passenger_transport_ancillary_purchase_cancellation")
 
                                 val AIRLINE_TICKET_AND_PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION =
-                                    CreditReasonIndicator(
-                                        JsonField.of(
-                                            "airline_ticket_and_passenger_transport_ancillary_purchase_cancellation"
-                                        )
+                                    of(
+                                        "airline_ticket_and_passenger_transport_ancillary_purchase_cancellation"
                                     )
 
-                                val OTHER = CreditReasonIndicator(JsonField.of("other"))
+                                val OTHER = of("other")
 
                                 fun of(value: String) = CreditReasonIndicator(JsonField.of(value))
                             }
@@ -11920,57 +11837,53 @@ private constructor(
 
                                 companion object {
 
-                                    val NONE = Category(JsonField.of("none"))
+                                    val NONE = of("none")
 
-                                    val BUNDLED_SERVICE = Category(JsonField.of("bundled_service"))
+                                    val BUNDLED_SERVICE = of("bundled_service")
 
-                                    val BAGGAGE_FEE = Category(JsonField.of("baggage_fee"))
+                                    val BAGGAGE_FEE = of("baggage_fee")
 
-                                    val CHANGE_FEE = Category(JsonField.of("change_fee"))
+                                    val CHANGE_FEE = of("change_fee")
 
-                                    val CARGO = Category(JsonField.of("cargo"))
+                                    val CARGO = of("cargo")
 
-                                    val CARBON_OFFSET = Category(JsonField.of("carbon_offset"))
+                                    val CARBON_OFFSET = of("carbon_offset")
 
-                                    val FREQUENT_FLYER = Category(JsonField.of("frequent_flyer"))
+                                    val FREQUENT_FLYER = of("frequent_flyer")
 
-                                    val GIFT_CARD = Category(JsonField.of("gift_card"))
+                                    val GIFT_CARD = of("gift_card")
 
-                                    val GROUND_TRANSPORT =
-                                        Category(JsonField.of("ground_transport"))
+                                    val GROUND_TRANSPORT = of("ground_transport")
 
-                                    val IN_FLIGHT_ENTERTAINMENT =
-                                        Category(JsonField.of("in_flight_entertainment"))
+                                    val IN_FLIGHT_ENTERTAINMENT = of("in_flight_entertainment")
 
-                                    val LOUNGE = Category(JsonField.of("lounge"))
+                                    val LOUNGE = of("lounge")
 
-                                    val MEDICAL = Category(JsonField.of("medical"))
+                                    val MEDICAL = of("medical")
 
-                                    val MEAL_BEVERAGE = Category(JsonField.of("meal_beverage"))
+                                    val MEAL_BEVERAGE = of("meal_beverage")
 
-                                    val OTHER = Category(JsonField.of("other"))
+                                    val OTHER = of("other")
 
-                                    val PASSENGER_ASSIST_FEE =
-                                        Category(JsonField.of("passenger_assist_fee"))
+                                    val PASSENGER_ASSIST_FEE = of("passenger_assist_fee")
 
-                                    val PETS = Category(JsonField.of("pets"))
+                                    val PETS = of("pets")
 
-                                    val SEAT_FEES = Category(JsonField.of("seat_fees"))
+                                    val SEAT_FEES = of("seat_fees")
 
-                                    val STANDBY = Category(JsonField.of("standby"))
+                                    val STANDBY = of("standby")
 
-                                    val SERVICE_FEE = Category(JsonField.of("service_fee"))
+                                    val SERVICE_FEE = of("service_fee")
 
-                                    val STORE = Category(JsonField.of("store"))
+                                    val STORE = of("store")
 
-                                    val TRAVEL_SERVICE = Category(JsonField.of("travel_service"))
+                                    val TRAVEL_SERVICE = of("travel_service")
 
-                                    val UNACCOMPANIED_TRAVEL =
-                                        Category(JsonField.of("unaccompanied_travel"))
+                                    val UNACCOMPANIED_TRAVEL = of("unaccompanied_travel")
 
-                                    val UPGRADES = Category(JsonField.of("upgrades"))
+                                    val UPGRADES = of("upgrades")
 
-                                    val WIFI = Category(JsonField.of("wifi"))
+                                    val WIFI = of("wifi")
 
                                     fun of(value: String) = Category(JsonField.of(value))
                                 }
@@ -12153,31 +12066,22 @@ private constructor(
 
                         companion object {
 
-                            val NO_CREDIT = CreditReasonIndicator(JsonField.of("no_credit"))
+                            val NO_CREDIT = of("no_credit")
 
                             val PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION =
-                                CreditReasonIndicator(
-                                    JsonField.of(
-                                        "passenger_transport_ancillary_purchase_cancellation"
-                                    )
-                                )
+                                of("passenger_transport_ancillary_purchase_cancellation")
 
                             val AIRLINE_TICKET_AND_PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION =
-                                CreditReasonIndicator(
-                                    JsonField.of(
-                                        "airline_ticket_and_passenger_transport_ancillary_purchase_cancellation"
-                                    )
+                                of(
+                                    "airline_ticket_and_passenger_transport_ancillary_purchase_cancellation"
                                 )
 
-                            val AIRLINE_TICKET_CANCELLATION =
-                                CreditReasonIndicator(JsonField.of("airline_ticket_cancellation"))
+                            val AIRLINE_TICKET_CANCELLATION = of("airline_ticket_cancellation")
 
-                            val OTHER = CreditReasonIndicator(JsonField.of("other"))
+                            val OTHER = of("other")
 
                             val PARTIAL_REFUND_OF_AIRLINE_TICKET =
-                                CreditReasonIndicator(
-                                    JsonField.of("partial_refund_of_airline_ticket")
-                                )
+                                of("partial_refund_of_airline_ticket")
 
                             fun of(value: String) = CreditReasonIndicator(JsonField.of(value))
                         }
@@ -12260,13 +12164,10 @@ private constructor(
 
                         companion object {
 
-                            val NO_RESTRICTIONS =
-                                RestrictedTicketIndicator(JsonField.of("no_restrictions"))
+                            val NO_RESTRICTIONS = of("no_restrictions")
 
                             val RESTRICTED_NON_REFUNDABLE_TICKET =
-                                RestrictedTicketIndicator(
-                                    JsonField.of("restricted_non_refundable_ticket")
-                                )
+                                of("restricted_non_refundable_ticket")
 
                             fun of(value: String) = RestrictedTicketIndicator(JsonField.of(value))
                         }
@@ -12327,12 +12228,11 @@ private constructor(
 
                         companion object {
 
-                            val NONE = TicketChangeIndicator(JsonField.of("none"))
+                            val NONE = of("none")
 
-                            val CHANGE_TO_EXISTING_TICKET =
-                                TicketChangeIndicator(JsonField.of("change_to_existing_ticket"))
+                            val CHANGE_TO_EXISTING_TICKET = of("change_to_existing_ticket")
 
-                            val NEW_TICKET = TicketChangeIndicator(JsonField.of("new_ticket"))
+                            val NEW_TICKET = of("new_ticket")
 
                             fun of(value: String) = TicketChangeIndicator(JsonField.of(value))
                         }
@@ -12600,13 +12500,11 @@ private constructor(
 
                             companion object {
 
-                                val NONE = StopOverCode(JsonField.of("none"))
+                                val NONE = of("none")
 
-                                val STOP_OVER_ALLOWED =
-                                    StopOverCode(JsonField.of("stop_over_allowed"))
+                                val STOP_OVER_ALLOWED = of("stop_over_allowed")
 
-                                val STOP_OVER_NOT_ALLOWED =
-                                    StopOverCode(JsonField.of("stop_over_not_allowed"))
+                                val STOP_OVER_NOT_ALLOWED = of("stop_over_not_allowed")
 
                                 fun of(value: String) = StopOverCode(JsonField.of(value))
                             }
@@ -12722,7 +12620,7 @@ private constructor(
 
                 companion object {
 
-                    val CARD_REFUND = Type(JsonField.of("card_refund"))
+                    val CARD_REFUND = of("card_refund")
 
                     fun of(value: String) = Type(JsonField.of(value))
                 }
@@ -13354,17 +13252,17 @@ private constructor(
 
                 companion object {
 
-                    val CAD = Currency(JsonField.of("CAD"))
+                    val CAD = of("CAD")
 
-                    val CHF = Currency(JsonField.of("CHF"))
+                    val CHF = of("CHF")
 
-                    val EUR = Currency(JsonField.of("EUR"))
+                    val EUR = of("EUR")
 
-                    val GBP = Currency(JsonField.of("GBP"))
+                    val GBP = of("GBP")
 
-                    val JPY = Currency(JsonField.of("JPY"))
+                    val JPY = of("JPY")
 
-                    val USD = Currency(JsonField.of("USD"))
+                    val USD = of("USD")
 
                     fun of(value: String) = Currency(JsonField.of(value))
                 }
@@ -13435,7 +13333,7 @@ private constructor(
 
                 companion object {
 
-                    val VISA = Network(JsonField.of("visa"))
+                    val VISA = of("visa")
 
                     fun of(value: String) = Network(JsonField.of(value))
                 }
@@ -13669,15 +13567,13 @@ private constructor(
 
                 companion object {
 
-                    val REVERSED_BY_CUSTOMER = ReversalReason(JsonField.of("reversed_by_customer"))
+                    val REVERSED_BY_CUSTOMER = of("reversed_by_customer")
 
-                    val REVERSED_BY_NETWORK_OR_ACQUIRER =
-                        ReversalReason(JsonField.of("reversed_by_network_or_acquirer"))
+                    val REVERSED_BY_NETWORK_OR_ACQUIRER = of("reversed_by_network_or_acquirer")
 
-                    val REVERSED_BY_POINT_OF_SALE =
-                        ReversalReason(JsonField.of("reversed_by_point_of_sale"))
+                    val REVERSED_BY_POINT_OF_SALE = of("reversed_by_point_of_sale")
 
-                    val PARTIAL_REVERSAL = ReversalReason(JsonField.of("partial_reversal"))
+                    val PARTIAL_REVERSAL = of("partial_reversal")
 
                     fun of(value: String) = ReversalReason(JsonField.of(value))
                 }
@@ -13740,7 +13636,7 @@ private constructor(
 
                 companion object {
 
-                    val CARD_REVERSAL = Type(JsonField.of("card_reversal"))
+                    val CARD_REVERSAL = of("card_reversal")
 
                     fun of(value: String) = Type(JsonField.of(value))
                 }
@@ -14404,17 +14300,17 @@ private constructor(
 
                 companion object {
 
-                    val CAD = Currency(JsonField.of("CAD"))
+                    val CAD = of("CAD")
 
-                    val CHF = Currency(JsonField.of("CHF"))
+                    val CHF = of("CHF")
 
-                    val EUR = Currency(JsonField.of("EUR"))
+                    val EUR = of("EUR")
 
-                    val GBP = Currency(JsonField.of("GBP"))
+                    val GBP = of("GBP")
 
-                    val JPY = Currency(JsonField.of("JPY"))
+                    val JPY = of("JPY")
 
-                    val USD = Currency(JsonField.of("USD"))
+                    val USD = of("USD")
 
                     fun of(value: String) = Currency(JsonField.of(value))
                 }
@@ -14627,17 +14523,17 @@ private constructor(
 
                     companion object {
 
-                        val CAD = Currency(JsonField.of("CAD"))
+                        val CAD = of("CAD")
 
-                        val CHF = Currency(JsonField.of("CHF"))
+                        val CHF = of("CHF")
 
-                        val EUR = Currency(JsonField.of("EUR"))
+                        val EUR = of("EUR")
 
-                        val GBP = Currency(JsonField.of("GBP"))
+                        val GBP = of("GBP")
 
-                        val JPY = Currency(JsonField.of("JPY"))
+                        val JPY = of("JPY")
 
-                        val USD = Currency(JsonField.of("USD"))
+                        val USD = of("USD")
 
                         fun of(value: String) = Currency(JsonField.of(value))
                     }
@@ -15778,18 +15674,17 @@ private constructor(
 
                         companion object {
 
-                            val NO_EXTRA_CHARGE = ExtraCharges(JsonField.of("no_extra_charge"))
+                            val NO_EXTRA_CHARGE = of("no_extra_charge")
 
-                            val GAS = ExtraCharges(JsonField.of("gas"))
+                            val GAS = of("gas")
 
-                            val EXTRA_MILEAGE = ExtraCharges(JsonField.of("extra_mileage"))
+                            val EXTRA_MILEAGE = of("extra_mileage")
 
-                            val LATE_RETURN = ExtraCharges(JsonField.of("late_return"))
+                            val LATE_RETURN = of("late_return")
 
-                            val ONE_WAY_SERVICE_FEE =
-                                ExtraCharges(JsonField.of("one_way_service_fee"))
+                            val ONE_WAY_SERVICE_FEE = of("one_way_service_fee")
 
-                            val PARKING_VIOLATION = ExtraCharges(JsonField.of("parking_violation"))
+                            val PARKING_VIOLATION = of("parking_violation")
 
                             fun of(value: String) = ExtraCharges(JsonField.of(value))
                         }
@@ -15864,10 +15759,10 @@ private constructor(
 
                         companion object {
 
-                            val NOT_APPLICABLE = NoShowIndicator(JsonField.of("not_applicable"))
+                            val NOT_APPLICABLE = of("not_applicable")
 
                             val NO_SHOW_FOR_SPECIALIZED_VEHICLE =
-                                NoShowIndicator(JsonField.of("no_show_for_specialized_vehicle"))
+                                of("no_show_for_specialized_vehicle")
 
                             fun of(value: String) = NoShowIndicator(JsonField.of(value))
                         }
@@ -16483,19 +16378,19 @@ private constructor(
 
                         companion object {
 
-                            val NO_EXTRA_CHARGE = ExtraCharges(JsonField.of("no_extra_charge"))
+                            val NO_EXTRA_CHARGE = of("no_extra_charge")
 
-                            val RESTAURANT = ExtraCharges(JsonField.of("restaurant"))
+                            val RESTAURANT = of("restaurant")
 
-                            val GIFT_SHOP = ExtraCharges(JsonField.of("gift_shop"))
+                            val GIFT_SHOP = of("gift_shop")
 
-                            val MINI_BAR = ExtraCharges(JsonField.of("mini_bar"))
+                            val MINI_BAR = of("mini_bar")
 
-                            val TELEPHONE = ExtraCharges(JsonField.of("telephone"))
+                            val TELEPHONE = of("telephone")
 
-                            val OTHER = ExtraCharges(JsonField.of("other"))
+                            val OTHER = of("other")
 
-                            val LAUNDRY = ExtraCharges(JsonField.of("laundry"))
+                            val LAUNDRY = of("laundry")
 
                             fun of(value: String) = ExtraCharges(JsonField.of(value))
                         }
@@ -16574,9 +16469,9 @@ private constructor(
 
                         companion object {
 
-                            val NOT_APPLICABLE = NoShowIndicator(JsonField.of("not_applicable"))
+                            val NOT_APPLICABLE = of("not_applicable")
 
-                            val NO_SHOW = NoShowIndicator(JsonField.of("no_show"))
+                            val NO_SHOW = of("no_show")
 
                             fun of(value: String) = NoShowIndicator(JsonField.of(value))
                         }
@@ -16653,18 +16548,15 @@ private constructor(
 
                     companion object {
 
-                        val FREE_TEXT = PurchaseIdentifierFormat(JsonField.of("free_text"))
+                        val FREE_TEXT = of("free_text")
 
-                        val ORDER_NUMBER = PurchaseIdentifierFormat(JsonField.of("order_number"))
+                        val ORDER_NUMBER = of("order_number")
 
-                        val RENTAL_AGREEMENT_NUMBER =
-                            PurchaseIdentifierFormat(JsonField.of("rental_agreement_number"))
+                        val RENTAL_AGREEMENT_NUMBER = of("rental_agreement_number")
 
-                        val HOTEL_FOLIO_NUMBER =
-                            PurchaseIdentifierFormat(JsonField.of("hotel_folio_number"))
+                        val HOTEL_FOLIO_NUMBER = of("hotel_folio_number")
 
-                        val INVOICE_NUMBER =
-                            PurchaseIdentifierFormat(JsonField.of("invoice_number"))
+                        val INVOICE_NUMBER = of("invoice_number")
 
                         fun of(value: String) = PurchaseIdentifierFormat(JsonField.of(value))
                     }
@@ -17317,23 +17209,17 @@ private constructor(
 
                             companion object {
 
-                                val NO_CREDIT = CreditReasonIndicator(JsonField.of("no_credit"))
+                                val NO_CREDIT = of("no_credit")
 
                                 val PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION =
-                                    CreditReasonIndicator(
-                                        JsonField.of(
-                                            "passenger_transport_ancillary_purchase_cancellation"
-                                        )
-                                    )
+                                    of("passenger_transport_ancillary_purchase_cancellation")
 
                                 val AIRLINE_TICKET_AND_PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION =
-                                    CreditReasonIndicator(
-                                        JsonField.of(
-                                            "airline_ticket_and_passenger_transport_ancillary_purchase_cancellation"
-                                        )
+                                    of(
+                                        "airline_ticket_and_passenger_transport_ancillary_purchase_cancellation"
                                     )
 
-                                val OTHER = CreditReasonIndicator(JsonField.of("other"))
+                                val OTHER = of("other")
 
                                 fun of(value: String) = CreditReasonIndicator(JsonField.of(value))
                             }
@@ -17509,57 +17395,53 @@ private constructor(
 
                                 companion object {
 
-                                    val NONE = Category(JsonField.of("none"))
+                                    val NONE = of("none")
 
-                                    val BUNDLED_SERVICE = Category(JsonField.of("bundled_service"))
+                                    val BUNDLED_SERVICE = of("bundled_service")
 
-                                    val BAGGAGE_FEE = Category(JsonField.of("baggage_fee"))
+                                    val BAGGAGE_FEE = of("baggage_fee")
 
-                                    val CHANGE_FEE = Category(JsonField.of("change_fee"))
+                                    val CHANGE_FEE = of("change_fee")
 
-                                    val CARGO = Category(JsonField.of("cargo"))
+                                    val CARGO = of("cargo")
 
-                                    val CARBON_OFFSET = Category(JsonField.of("carbon_offset"))
+                                    val CARBON_OFFSET = of("carbon_offset")
 
-                                    val FREQUENT_FLYER = Category(JsonField.of("frequent_flyer"))
+                                    val FREQUENT_FLYER = of("frequent_flyer")
 
-                                    val GIFT_CARD = Category(JsonField.of("gift_card"))
+                                    val GIFT_CARD = of("gift_card")
 
-                                    val GROUND_TRANSPORT =
-                                        Category(JsonField.of("ground_transport"))
+                                    val GROUND_TRANSPORT = of("ground_transport")
 
-                                    val IN_FLIGHT_ENTERTAINMENT =
-                                        Category(JsonField.of("in_flight_entertainment"))
+                                    val IN_FLIGHT_ENTERTAINMENT = of("in_flight_entertainment")
 
-                                    val LOUNGE = Category(JsonField.of("lounge"))
+                                    val LOUNGE = of("lounge")
 
-                                    val MEDICAL = Category(JsonField.of("medical"))
+                                    val MEDICAL = of("medical")
 
-                                    val MEAL_BEVERAGE = Category(JsonField.of("meal_beverage"))
+                                    val MEAL_BEVERAGE = of("meal_beverage")
 
-                                    val OTHER = Category(JsonField.of("other"))
+                                    val OTHER = of("other")
 
-                                    val PASSENGER_ASSIST_FEE =
-                                        Category(JsonField.of("passenger_assist_fee"))
+                                    val PASSENGER_ASSIST_FEE = of("passenger_assist_fee")
 
-                                    val PETS = Category(JsonField.of("pets"))
+                                    val PETS = of("pets")
 
-                                    val SEAT_FEES = Category(JsonField.of("seat_fees"))
+                                    val SEAT_FEES = of("seat_fees")
 
-                                    val STANDBY = Category(JsonField.of("standby"))
+                                    val STANDBY = of("standby")
 
-                                    val SERVICE_FEE = Category(JsonField.of("service_fee"))
+                                    val SERVICE_FEE = of("service_fee")
 
-                                    val STORE = Category(JsonField.of("store"))
+                                    val STORE = of("store")
 
-                                    val TRAVEL_SERVICE = Category(JsonField.of("travel_service"))
+                                    val TRAVEL_SERVICE = of("travel_service")
 
-                                    val UNACCOMPANIED_TRAVEL =
-                                        Category(JsonField.of("unaccompanied_travel"))
+                                    val UNACCOMPANIED_TRAVEL = of("unaccompanied_travel")
 
-                                    val UPGRADES = Category(JsonField.of("upgrades"))
+                                    val UPGRADES = of("upgrades")
 
-                                    val WIFI = Category(JsonField.of("wifi"))
+                                    val WIFI = of("wifi")
 
                                     fun of(value: String) = Category(JsonField.of(value))
                                 }
@@ -17742,31 +17624,22 @@ private constructor(
 
                         companion object {
 
-                            val NO_CREDIT = CreditReasonIndicator(JsonField.of("no_credit"))
+                            val NO_CREDIT = of("no_credit")
 
                             val PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION =
-                                CreditReasonIndicator(
-                                    JsonField.of(
-                                        "passenger_transport_ancillary_purchase_cancellation"
-                                    )
-                                )
+                                of("passenger_transport_ancillary_purchase_cancellation")
 
                             val AIRLINE_TICKET_AND_PASSENGER_TRANSPORT_ANCILLARY_PURCHASE_CANCELLATION =
-                                CreditReasonIndicator(
-                                    JsonField.of(
-                                        "airline_ticket_and_passenger_transport_ancillary_purchase_cancellation"
-                                    )
+                                of(
+                                    "airline_ticket_and_passenger_transport_ancillary_purchase_cancellation"
                                 )
 
-                            val AIRLINE_TICKET_CANCELLATION =
-                                CreditReasonIndicator(JsonField.of("airline_ticket_cancellation"))
+                            val AIRLINE_TICKET_CANCELLATION = of("airline_ticket_cancellation")
 
-                            val OTHER = CreditReasonIndicator(JsonField.of("other"))
+                            val OTHER = of("other")
 
                             val PARTIAL_REFUND_OF_AIRLINE_TICKET =
-                                CreditReasonIndicator(
-                                    JsonField.of("partial_refund_of_airline_ticket")
-                                )
+                                of("partial_refund_of_airline_ticket")
 
                             fun of(value: String) = CreditReasonIndicator(JsonField.of(value))
                         }
@@ -17849,13 +17722,10 @@ private constructor(
 
                         companion object {
 
-                            val NO_RESTRICTIONS =
-                                RestrictedTicketIndicator(JsonField.of("no_restrictions"))
+                            val NO_RESTRICTIONS = of("no_restrictions")
 
                             val RESTRICTED_NON_REFUNDABLE_TICKET =
-                                RestrictedTicketIndicator(
-                                    JsonField.of("restricted_non_refundable_ticket")
-                                )
+                                of("restricted_non_refundable_ticket")
 
                             fun of(value: String) = RestrictedTicketIndicator(JsonField.of(value))
                         }
@@ -17916,12 +17786,11 @@ private constructor(
 
                         companion object {
 
-                            val NONE = TicketChangeIndicator(JsonField.of("none"))
+                            val NONE = of("none")
 
-                            val CHANGE_TO_EXISTING_TICKET =
-                                TicketChangeIndicator(JsonField.of("change_to_existing_ticket"))
+                            val CHANGE_TO_EXISTING_TICKET = of("change_to_existing_ticket")
 
-                            val NEW_TICKET = TicketChangeIndicator(JsonField.of("new_ticket"))
+                            val NEW_TICKET = of("new_ticket")
 
                             fun of(value: String) = TicketChangeIndicator(JsonField.of(value))
                         }
@@ -18189,13 +18058,11 @@ private constructor(
 
                             companion object {
 
-                                val NONE = StopOverCode(JsonField.of("none"))
+                                val NONE = of("none")
 
-                                val STOP_OVER_ALLOWED =
-                                    StopOverCode(JsonField.of("stop_over_allowed"))
+                                val STOP_OVER_ALLOWED = of("stop_over_allowed")
 
-                                val STOP_OVER_NOT_ALLOWED =
-                                    StopOverCode(JsonField.of("stop_over_not_allowed"))
+                                val STOP_OVER_NOT_ALLOWED = of("stop_over_not_allowed")
 
                                 fun of(value: String) = StopOverCode(JsonField.of(value))
                             }
@@ -18311,7 +18178,7 @@ private constructor(
 
                 companion object {
 
-                    val CARD_SETTLEMENT = Type(JsonField.of("card_settlement"))
+                    val CARD_SETTLEMENT = of("card_settlement")
 
                     fun of(value: String) = Type(JsonField.of(value))
                 }
@@ -19019,11 +18886,11 @@ private constructor(
 
                 companion object {
 
-                    val USER = Actioner(JsonField.of("user"))
+                    val USER = of("user")
 
-                    val INCREASE = Actioner(JsonField.of("increase"))
+                    val INCREASE = of("increase")
 
-                    val NETWORK = Actioner(JsonField.of("network"))
+                    val NETWORK = of("network")
 
                     fun of(value: String) = Actioner(JsonField.of(value))
                 }
@@ -19082,17 +18949,17 @@ private constructor(
 
                 companion object {
 
-                    val CAD = Currency(JsonField.of("CAD"))
+                    val CAD = of("CAD")
 
-                    val CHF = Currency(JsonField.of("CHF"))
+                    val CHF = of("CHF")
 
-                    val EUR = Currency(JsonField.of("EUR"))
+                    val EUR = of("EUR")
 
-                    val GBP = Currency(JsonField.of("GBP"))
+                    val GBP = of("GBP")
 
-                    val JPY = Currency(JsonField.of("JPY"))
+                    val JPY = of("JPY")
 
-                    val USD = Currency(JsonField.of("USD"))
+                    val USD = of("USD")
 
                     fun of(value: String) = Currency(JsonField.of(value))
                 }
@@ -19258,7 +19125,7 @@ private constructor(
 
                     companion object {
 
-                        val VISA = Category(JsonField.of("visa"))
+                        val VISA = of("visa")
 
                         fun of(value: String) = Category(JsonField.of(value))
                     }
@@ -19491,38 +19358,23 @@ private constructor(
 
                         companion object {
 
-                            val MAIL_PHONE_ORDER =
-                                ElectronicCommerceIndicator(JsonField.of("mail_phone_order"))
+                            val MAIL_PHONE_ORDER = of("mail_phone_order")
 
-                            val RECURRING = ElectronicCommerceIndicator(JsonField.of("recurring"))
+                            val RECURRING = of("recurring")
 
-                            val INSTALLMENT =
-                                ElectronicCommerceIndicator(JsonField.of("installment"))
+                            val INSTALLMENT = of("installment")
 
-                            val UNKNOWN_MAIL_PHONE_ORDER =
-                                ElectronicCommerceIndicator(
-                                    JsonField.of("unknown_mail_phone_order")
-                                )
+                            val UNKNOWN_MAIL_PHONE_ORDER = of("unknown_mail_phone_order")
 
-                            val SECURE_ELECTRONIC_COMMERCE =
-                                ElectronicCommerceIndicator(
-                                    JsonField.of("secure_electronic_commerce")
-                                )
+                            val SECURE_ELECTRONIC_COMMERCE = of("secure_electronic_commerce")
 
                             val NON_AUTHENTICATED_SECURITY_TRANSACTION_AT_3DS_CAPABLE_MERCHANT =
-                                ElectronicCommerceIndicator(
-                                    JsonField.of(
-                                        "non_authenticated_security_transaction_at_3ds_capable_merchant"
-                                    )
-                                )
+                                of("non_authenticated_security_transaction_at_3ds_capable_merchant")
 
                             val NON_AUTHENTICATED_SECURITY_TRANSACTION =
-                                ElectronicCommerceIndicator(
-                                    JsonField.of("non_authenticated_security_transaction")
-                                )
+                                of("non_authenticated_security_transaction")
 
-                            val NON_SECURE_TRANSACTION =
-                                ElectronicCommerceIndicator(JsonField.of("non_secure_transaction"))
+                            val NON_SECURE_TRANSACTION = of("non_secure_transaction")
 
                             fun of(value: String) = ElectronicCommerceIndicator(JsonField.of(value))
                         }
@@ -19611,33 +19463,26 @@ private constructor(
 
                         companion object {
 
-                            val UNKNOWN = PointOfServiceEntryMode(JsonField.of("unknown"))
+                            val UNKNOWN = of("unknown")
 
-                            val MANUAL = PointOfServiceEntryMode(JsonField.of("manual"))
+                            val MANUAL = of("manual")
 
-                            val MAGNETIC_STRIPE_NO_CVV =
-                                PointOfServiceEntryMode(JsonField.of("magnetic_stripe_no_cvv"))
+                            val MAGNETIC_STRIPE_NO_CVV = of("magnetic_stripe_no_cvv")
 
-                            val OPTICAL_CODE = PointOfServiceEntryMode(JsonField.of("optical_code"))
+                            val OPTICAL_CODE = of("optical_code")
 
-                            val INTEGRATED_CIRCUIT_CARD =
-                                PointOfServiceEntryMode(JsonField.of("integrated_circuit_card"))
+                            val INTEGRATED_CIRCUIT_CARD = of("integrated_circuit_card")
 
-                            val CONTACTLESS = PointOfServiceEntryMode(JsonField.of("contactless"))
+                            val CONTACTLESS = of("contactless")
 
-                            val CREDENTIAL_ON_FILE =
-                                PointOfServiceEntryMode(JsonField.of("credential_on_file"))
+                            val CREDENTIAL_ON_FILE = of("credential_on_file")
 
-                            val MAGNETIC_STRIPE =
-                                PointOfServiceEntryMode(JsonField.of("magnetic_stripe"))
+                            val MAGNETIC_STRIPE = of("magnetic_stripe")
 
-                            val CONTACTLESS_MAGNETIC_STRIPE =
-                                PointOfServiceEntryMode(JsonField.of("contactless_magnetic_stripe"))
+                            val CONTACTLESS_MAGNETIC_STRIPE = of("contactless_magnetic_stripe")
 
                             val INTEGRATED_CIRCUIT_CARD_NO_CVV =
-                                PointOfServiceEntryMode(
-                                    JsonField.of("integrated_circuit_card_no_cvv")
-                                )
+                                of("integrated_circuit_card_no_cvv")
 
                             fun of(value: String) = PointOfServiceEntryMode(JsonField.of(value))
                         }
@@ -19730,29 +19575,19 @@ private constructor(
 
                         companion object {
 
-                            val ISSUER_ERROR = StandInProcessingReason(JsonField.of("issuer_error"))
+                            val ISSUER_ERROR = of("issuer_error")
 
-                            val INVALID_PHYSICAL_CARD =
-                                StandInProcessingReason(JsonField.of("invalid_physical_card"))
+                            val INVALID_PHYSICAL_CARD = of("invalid_physical_card")
 
                             val INVALID_CARDHOLDER_AUTHENTICATION_VERIFICATION_VALUE =
-                                StandInProcessingReason(
-                                    JsonField.of(
-                                        "invalid_cardholder_authentication_verification_value"
-                                    )
-                                )
+                                of("invalid_cardholder_authentication_verification_value")
 
-                            val INTERNAL_VISA_ERROR =
-                                StandInProcessingReason(JsonField.of("internal_visa_error"))
+                            val INTERNAL_VISA_ERROR = of("internal_visa_error")
 
                             val MERCHANT_TRANSACTION_ADVISORY_SERVICE_AUTHENTICATION_REQUIRED =
-                                StandInProcessingReason(
-                                    JsonField.of(
-                                        "merchant_transaction_advisory_service_authentication_required"
-                                    )
-                                )
+                                of("merchant_transaction_advisory_service_authentication_required")
 
-                            val OTHER = StandInProcessingReason(JsonField.of("other"))
+                            val OTHER = of("other")
 
                             fun of(value: String) = StandInProcessingReason(JsonField.of(value))
                         }
@@ -20051,7 +19886,7 @@ private constructor(
 
                 companion object {
 
-                    val CARD_VALIDATION = Type(JsonField.of("card_validation"))
+                    val CARD_VALIDATION = of("card_validation")
 
                     fun of(value: String) = Type(JsonField.of(value))
                 }
@@ -20310,11 +20145,11 @@ private constructor(
 
                         companion object {
 
-                            val NOT_CHECKED = Result(JsonField.of("not_checked"))
+                            val NOT_CHECKED = of("not_checked")
 
-                            val MATCH = Result(JsonField.of("match"))
+                            val MATCH = of("match")
 
-                            val NO_MATCH = Result(JsonField.of("no_match"))
+                            val NO_MATCH = of("no_match")
 
                             fun of(value: String) = Result(JsonField.of(value))
                         }
@@ -20583,20 +20418,20 @@ private constructor(
 
                         companion object {
 
-                            val NOT_CHECKED = Result(JsonField.of("not_checked"))
+                            val NOT_CHECKED = of("not_checked")
 
                             val POSTAL_CODE_MATCH_ADDRESS_NOT_CHECKED =
-                                Result(JsonField.of("postal_code_match_address_not_checked"))
+                                of("postal_code_match_address_not_checked")
 
                             val POSTAL_CODE_MATCH_ADDRESS_NO_MATCH =
-                                Result(JsonField.of("postal_code_match_address_no_match"))
+                                of("postal_code_match_address_no_match")
 
                             val POSTAL_CODE_NO_MATCH_ADDRESS_MATCH =
-                                Result(JsonField.of("postal_code_no_match_address_match"))
+                                of("postal_code_no_match_address_match")
 
-                            val MATCH = Result(JsonField.of("match"))
+                            val MATCH = of("match")
 
-                            val NO_MATCH = Result(JsonField.of("no_match"))
+                            val NO_MATCH = of("no_match")
 
                             fun of(value: String) = Result(JsonField.of(value))
                         }
@@ -20727,28 +20562,27 @@ private constructor(
 
             companion object {
 
-                val CARD_AUTHORIZATION = Category(JsonField.of("card_authorization"))
+                val CARD_AUTHORIZATION = of("card_authorization")
 
-                val CARD_AUTHENTICATION = Category(JsonField.of("card_authentication"))
+                val CARD_AUTHENTICATION = of("card_authentication")
 
-                val CARD_VALIDATION = Category(JsonField.of("card_validation"))
+                val CARD_VALIDATION = of("card_validation")
 
-                val CARD_DECLINE = Category(JsonField.of("card_decline"))
+                val CARD_DECLINE = of("card_decline")
 
-                val CARD_REVERSAL = Category(JsonField.of("card_reversal"))
+                val CARD_REVERSAL = of("card_reversal")
 
-                val CARD_AUTHORIZATION_EXPIRATION =
-                    Category(JsonField.of("card_authorization_expiration"))
+                val CARD_AUTHORIZATION_EXPIRATION = of("card_authorization_expiration")
 
-                val CARD_INCREMENT = Category(JsonField.of("card_increment"))
+                val CARD_INCREMENT = of("card_increment")
 
-                val CARD_SETTLEMENT = Category(JsonField.of("card_settlement"))
+                val CARD_SETTLEMENT = of("card_settlement")
 
-                val CARD_REFUND = Category(JsonField.of("card_refund"))
+                val CARD_REFUND = of("card_refund")
 
-                val CARD_FUEL_CONFIRMATION = Category(JsonField.of("card_fuel_confirmation"))
+                val CARD_FUEL_CONFIRMATION = of("card_fuel_confirmation")
 
-                val OTHER = Category(JsonField.of("other"))
+                val OTHER = of("other")
 
                 fun of(value: String) = Category(JsonField.of(value))
             }
@@ -21104,7 +20938,7 @@ private constructor(
 
         companion object {
 
-            val CARD_PAYMENT = Type(JsonField.of("card_payment"))
+            val CARD_PAYMENT = of("card_payment")
 
             fun of(value: String) = Type(JsonField.of(value))
         }

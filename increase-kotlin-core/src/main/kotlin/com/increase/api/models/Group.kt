@@ -212,9 +212,9 @@ private constructor(
 
         companion object {
 
-            val DISABLED = AchDebitStatus(JsonField.of("disabled"))
+            val DISABLED = of("disabled")
 
-            val ENABLED = AchDebitStatus(JsonField.of("enabled"))
+            val ENABLED = of("enabled")
 
             fun of(value: String) = AchDebitStatus(JsonField.of(value))
         }
@@ -269,9 +269,9 @@ private constructor(
 
         companion object {
 
-            val UNACTIVATED = ActivationStatus(JsonField.of("unactivated"))
+            val UNACTIVATED = of("unactivated")
 
-            val ACTIVATED = ActivationStatus(JsonField.of("activated"))
+            val ACTIVATED = of("activated")
 
             fun of(value: String) = ActivationStatus(JsonField.of(value))
         }
@@ -326,7 +326,7 @@ private constructor(
 
         companion object {
 
-            val GROUP = Type(JsonField.of("group"))
+            val GROUP = of("group")
 
             fun of(value: String) = Type(JsonField.of(value))
         }

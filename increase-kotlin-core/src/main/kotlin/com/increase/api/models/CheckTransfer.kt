@@ -1205,11 +1205,11 @@ private constructor(
 
             companion object {
 
-                val API_KEY = Category(JsonField.of("api_key"))
+                val API_KEY = of("api_key")
 
-                val OAUTH_APPLICATION = Category(JsonField.of("oauth_application"))
+                val OAUTH_APPLICATION = of("oauth_application")
 
-                val USER = Category(JsonField.of("user"))
+                val USER = of("user")
 
                 fun of(value: String) = Category(JsonField.of(value))
             }
@@ -1465,17 +1465,17 @@ private constructor(
 
         companion object {
 
-            val CAD = Currency(JsonField.of("CAD"))
+            val CAD = of("CAD")
 
-            val CHF = Currency(JsonField.of("CHF"))
+            val CHF = of("CHF")
 
-            val EUR = Currency(JsonField.of("EUR"))
+            val EUR = of("EUR")
 
-            val GBP = Currency(JsonField.of("GBP"))
+            val GBP = of("GBP")
 
-            val JPY = Currency(JsonField.of("JPY"))
+            val JPY = of("JPY")
 
-            val USD = Currency(JsonField.of("USD"))
+            val USD = of("USD")
 
             fun of(value: String) = Currency(JsonField.of(value))
         }
@@ -1546,9 +1546,9 @@ private constructor(
 
         companion object {
 
-            val PHYSICAL_CHECK = FulfillmentMethod(JsonField.of("physical_check"))
+            val PHYSICAL_CHECK = of("physical_check")
 
-            val THIRD_PARTY = FulfillmentMethod(JsonField.of("third_party"))
+            val THIRD_PARTY = of("third_party")
 
             fun of(value: String) = FulfillmentMethod(JsonField.of(value))
         }
@@ -2461,13 +2461,13 @@ private constructor(
 
                 companion object {
 
-                    val IN_TRANSIT = Category(JsonField.of("in_transit"))
+                    val IN_TRANSIT = of("in_transit")
 
-                    val PROCESSED_FOR_DELIVERY = Category(JsonField.of("processed_for_delivery"))
+                    val PROCESSED_FOR_DELIVERY = of("processed_for_delivery")
 
-                    val DELIVERED = Category(JsonField.of("delivered"))
+                    val DELIVERED = of("delivered")
 
-                    val RETURNED_TO_SENDER = Category(JsonField.of("returned_to_sender"))
+                    val RETURNED_TO_SENDER = of("returned_to_sender")
 
                     fun of(value: String) = Category(JsonField.of(value))
                 }
@@ -2566,25 +2566,25 @@ private constructor(
 
         companion object {
 
-            val PENDING_APPROVAL = Status(JsonField.of("pending_approval"))
+            val PENDING_APPROVAL = of("pending_approval")
 
-            val CANCELED = Status(JsonField.of("canceled"))
+            val CANCELED = of("canceled")
 
-            val PENDING_SUBMISSION = Status(JsonField.of("pending_submission"))
+            val PENDING_SUBMISSION = of("pending_submission")
 
-            val REQUIRES_ATTENTION = Status(JsonField.of("requires_attention"))
+            val REQUIRES_ATTENTION = of("requires_attention")
 
-            val REJECTED = Status(JsonField.of("rejected"))
+            val REJECTED = of("rejected")
 
-            val PENDING_MAILING = Status(JsonField.of("pending_mailing"))
+            val PENDING_MAILING = of("pending_mailing")
 
-            val MAILED = Status(JsonField.of("mailed"))
+            val MAILED = of("mailed")
 
-            val DEPOSITED = Status(JsonField.of("deposited"))
+            val DEPOSITED = of("deposited")
 
-            val STOPPED = Status(JsonField.of("stopped"))
+            val STOPPED = of("stopped")
 
-            val RETURNED = Status(JsonField.of("returned"))
+            val RETURNED = of("returned")
 
             fun of(value: String) = Status(JsonField.of(value))
         }
@@ -2816,13 +2816,13 @@ private constructor(
 
             companion object {
 
-                val MAIL_DELIVERY_FAILED = Reason(JsonField.of("mail_delivery_failed"))
+                val MAIL_DELIVERY_FAILED = of("mail_delivery_failed")
 
-                val REJECTED_BY_INCREASE = Reason(JsonField.of("rejected_by_increase"))
+                val REJECTED_BY_INCREASE = of("rejected_by_increase")
 
-                val NOT_AUTHORIZED = Reason(JsonField.of("not_authorized"))
+                val NOT_AUTHORIZED = of("not_authorized")
 
-                val UNKNOWN = Reason(JsonField.of("unknown"))
+                val UNKNOWN = of("unknown")
 
                 fun of(value: String) = Reason(JsonField.of(value))
             }
@@ -2885,8 +2885,7 @@ private constructor(
 
             companion object {
 
-                val CHECK_TRANSFER_STOP_PAYMENT_REQUEST =
-                    Type(JsonField.of("check_transfer_stop_payment_request"))
+                val CHECK_TRANSFER_STOP_PAYMENT_REQUEST = of("check_transfer_stop_payment_request")
 
                 fun of(value: String) = Type(JsonField.of(value))
             }
@@ -3138,7 +3137,7 @@ private constructor(
 
         companion object {
 
-            val CHECK_TRANSFER = Type(JsonField.of("check_transfer"))
+            val CHECK_TRANSFER = of("check_transfer")
 
             fun of(value: String) = Type(JsonField.of(value))
         }

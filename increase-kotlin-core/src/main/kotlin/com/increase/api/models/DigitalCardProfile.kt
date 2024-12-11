@@ -422,13 +422,13 @@ private constructor(
 
         companion object {
 
-            val PENDING = Status(JsonField.of("pending"))
+            val PENDING = of("pending")
 
-            val REJECTED = Status(JsonField.of("rejected"))
+            val REJECTED = of("rejected")
 
-            val ACTIVE = Status(JsonField.of("active"))
+            val ACTIVE = of("active")
 
-            val ARCHIVED = Status(JsonField.of("archived"))
+            val ARCHIVED = of("archived")
 
             fun of(value: String) = Status(JsonField.of(value))
         }
@@ -621,7 +621,7 @@ private constructor(
 
         companion object {
 
-            val DIGITAL_CARD_PROFILE = Type(JsonField.of("digital_card_profile"))
+            val DIGITAL_CARD_PROFILE = of("digital_card_profile")
 
             fun of(value: String) = Type(JsonField.of(value))
         }

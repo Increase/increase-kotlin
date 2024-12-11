@@ -1403,11 +1403,11 @@ private constructor(
 
             companion object {
 
-                val API_KEY = Category(JsonField.of("api_key"))
+                val API_KEY = of("api_key")
 
-                val OAUTH_APPLICATION = Category(JsonField.of("oauth_application"))
+                val OAUTH_APPLICATION = of("oauth_application")
 
-                val USER = Category(JsonField.of("user"))
+                val USER = of("user")
 
                 fun of(value: String) = Category(JsonField.of(value))
             }
@@ -1663,17 +1663,17 @@ private constructor(
 
         companion object {
 
-            val CAD = Currency(JsonField.of("CAD"))
+            val CAD = of("CAD")
 
-            val CHF = Currency(JsonField.of("CHF"))
+            val CHF = of("CHF")
 
-            val EUR = Currency(JsonField.of("EUR"))
+            val EUR = of("EUR")
 
-            val GBP = Currency(JsonField.of("GBP"))
+            val GBP = of("GBP")
 
-            val JPY = Currency(JsonField.of("JPY"))
+            val JPY = of("JPY")
 
-            val USD = Currency(JsonField.of("USD"))
+            val USD = of("USD")
 
             fun of(value: String) = Currency(JsonField.of(value))
         }
@@ -1909,60 +1909,48 @@ private constructor(
 
             companion object {
 
-                val ACCOUNT_CLOSED = RejectReasonCode(JsonField.of("account_closed"))
+                val ACCOUNT_CLOSED = of("account_closed")
 
-                val ACCOUNT_BLOCKED = RejectReasonCode(JsonField.of("account_blocked"))
+                val ACCOUNT_BLOCKED = of("account_blocked")
 
-                val INVALID_CREDITOR_ACCOUNT_TYPE =
-                    RejectReasonCode(JsonField.of("invalid_creditor_account_type"))
+                val INVALID_CREDITOR_ACCOUNT_TYPE = of("invalid_creditor_account_type")
 
-                val INVALID_CREDITOR_ACCOUNT_NUMBER =
-                    RejectReasonCode(JsonField.of("invalid_creditor_account_number"))
+                val INVALID_CREDITOR_ACCOUNT_NUMBER = of("invalid_creditor_account_number")
 
                 val INVALID_CREDITOR_FINANCIAL_INSTITUTION_IDENTIFIER =
-                    RejectReasonCode(
-                        JsonField.of("invalid_creditor_financial_institution_identifier")
-                    )
+                    of("invalid_creditor_financial_institution_identifier")
 
-                val END_CUSTOMER_DECEASED = RejectReasonCode(JsonField.of("end_customer_deceased"))
+                val END_CUSTOMER_DECEASED = of("end_customer_deceased")
 
-                val NARRATIVE = RejectReasonCode(JsonField.of("narrative"))
+                val NARRATIVE = of("narrative")
 
-                val TRANSACTION_FORBIDDEN = RejectReasonCode(JsonField.of("transaction_forbidden"))
+                val TRANSACTION_FORBIDDEN = of("transaction_forbidden")
 
-                val TRANSACTION_TYPE_NOT_SUPPORTED =
-                    RejectReasonCode(JsonField.of("transaction_type_not_supported"))
+                val TRANSACTION_TYPE_NOT_SUPPORTED = of("transaction_type_not_supported")
 
-                val UNEXPECTED_AMOUNT = RejectReasonCode(JsonField.of("unexpected_amount"))
+                val UNEXPECTED_AMOUNT = of("unexpected_amount")
 
-                val AMOUNT_EXCEEDS_BANK_LIMITS =
-                    RejectReasonCode(JsonField.of("amount_exceeds_bank_limits"))
+                val AMOUNT_EXCEEDS_BANK_LIMITS = of("amount_exceeds_bank_limits")
 
-                val INVALID_CREDITOR_ADDRESS =
-                    RejectReasonCode(JsonField.of("invalid_creditor_address"))
+                val INVALID_CREDITOR_ADDRESS = of("invalid_creditor_address")
 
-                val UNKNOWN_END_CUSTOMER = RejectReasonCode(JsonField.of("unknown_end_customer"))
+                val UNKNOWN_END_CUSTOMER = of("unknown_end_customer")
 
-                val INVALID_DEBTOR_ADDRESS =
-                    RejectReasonCode(JsonField.of("invalid_debtor_address"))
+                val INVALID_DEBTOR_ADDRESS = of("invalid_debtor_address")
 
-                val TIMEOUT = RejectReasonCode(JsonField.of("timeout"))
+                val TIMEOUT = of("timeout")
 
-                val UNSUPPORTED_MESSAGE_FOR_RECIPIENT =
-                    RejectReasonCode(JsonField.of("unsupported_message_for_recipient"))
+                val UNSUPPORTED_MESSAGE_FOR_RECIPIENT = of("unsupported_message_for_recipient")
 
-                val RECIPIENT_CONNECTION_NOT_AVAILABLE =
-                    RejectReasonCode(JsonField.of("recipient_connection_not_available"))
+                val RECIPIENT_CONNECTION_NOT_AVAILABLE = of("recipient_connection_not_available")
 
-                val REAL_TIME_PAYMENTS_SUSPENDED =
-                    RejectReasonCode(JsonField.of("real_time_payments_suspended"))
+                val REAL_TIME_PAYMENTS_SUSPENDED = of("real_time_payments_suspended")
 
-                val INSTRUCTED_AGENT_SIGNED_OFF =
-                    RejectReasonCode(JsonField.of("instructed_agent_signed_off"))
+                val INSTRUCTED_AGENT_SIGNED_OFF = of("instructed_agent_signed_off")
 
-                val PROCESSING_ERROR = RejectReasonCode(JsonField.of("processing_error"))
+                val PROCESSING_ERROR = of("processing_error")
 
-                val OTHER = RejectReasonCode(JsonField.of("other"))
+                val OTHER = of("other")
 
                 fun of(value: String) = RejectReasonCode(JsonField.of(value))
             }
@@ -2113,21 +2101,21 @@ private constructor(
 
         companion object {
 
-            val PENDING_APPROVAL = Status(JsonField.of("pending_approval"))
+            val PENDING_APPROVAL = of("pending_approval")
 
-            val CANCELED = Status(JsonField.of("canceled"))
+            val CANCELED = of("canceled")
 
-            val PENDING_REVIEWING = Status(JsonField.of("pending_reviewing"))
+            val PENDING_REVIEWING = of("pending_reviewing")
 
-            val REQUIRES_ATTENTION = Status(JsonField.of("requires_attention"))
+            val REQUIRES_ATTENTION = of("requires_attention")
 
-            val REJECTED = Status(JsonField.of("rejected"))
+            val REJECTED = of("rejected")
 
-            val PENDING_SUBMISSION = Status(JsonField.of("pending_submission"))
+            val PENDING_SUBMISSION = of("pending_submission")
 
-            val SUBMITTED = Status(JsonField.of("submitted"))
+            val SUBMITTED = of("submitted")
 
-            val COMPLETE = Status(JsonField.of("complete"))
+            val COMPLETE = of("complete")
 
             fun of(value: String) = Status(JsonField.of(value))
         }
@@ -2340,7 +2328,7 @@ private constructor(
 
         companion object {
 
-            val REAL_TIME_PAYMENTS_TRANSFER = Type(JsonField.of("real_time_payments_transfer"))
+            val REAL_TIME_PAYMENTS_TRANSFER = of("real_time_payments_transfer")
 
             fun of(value: String) = Type(JsonField.of(value))
         }

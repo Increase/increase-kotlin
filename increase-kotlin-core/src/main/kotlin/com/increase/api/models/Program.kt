@@ -320,11 +320,11 @@ private constructor(
 
         companion object {
 
-            val BLUE_RIDGE_BANK = Bank(JsonField.of("blue_ridge_bank"))
+            val BLUE_RIDGE_BANK = of("blue_ridge_bank")
 
-            val FIRST_INTERNET_BANK = Bank(JsonField.of("first_internet_bank"))
+            val FIRST_INTERNET_BANK = of("first_internet_bank")
 
-            val GRASSHOPPER_BANK = Bank(JsonField.of("grasshopper_bank"))
+            val GRASSHOPPER_BANK = of("grasshopper_bank")
 
             fun of(value: String) = Bank(JsonField.of(value))
         }
@@ -383,7 +383,7 @@ private constructor(
 
         companion object {
 
-            val PROGRAM = Type(JsonField.of("program"))
+            val PROGRAM = of("program")
 
             fun of(value: String) = Type(JsonField.of(value))
         }

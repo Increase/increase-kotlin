@@ -772,11 +772,11 @@ private constructor(
 
             companion object {
 
-                val LATE_RETURN = Reason(JsonField.of("late_return"))
+                val LATE_RETURN = of("late_return")
 
-                val WRONG_PAYEE_CREDIT = Reason(JsonField.of("wrong_payee_credit"))
+                val WRONG_PAYEE_CREDIT = of("wrong_payee_credit")
 
-                val ADJUSTED_AMOUNT = Reason(JsonField.of("adjusted_amount"))
+                val ADJUSTED_AMOUNT = of("adjusted_amount")
 
                 fun of(value: String) = Reason(JsonField.of(value))
             }
@@ -853,17 +853,17 @@ private constructor(
 
         companion object {
 
-            val CAD = Currency(JsonField.of("CAD"))
+            val CAD = of("CAD")
 
-            val CHF = Currency(JsonField.of("CHF"))
+            val CHF = of("CHF")
 
-            val EUR = Currency(JsonField.of("EUR"))
+            val EUR = of("EUR")
 
-            val GBP = Currency(JsonField.of("GBP"))
+            val GBP = of("GBP")
 
-            val JPY = Currency(JsonField.of("JPY"))
+            val JPY = of("JPY")
 
-            val USD = Currency(JsonField.of("USD"))
+            val USD = of("USD")
 
             fun of(value: String) = Currency(JsonField.of(value))
         }
@@ -1050,15 +1050,15 @@ private constructor(
 
             companion object {
 
-                val ALTERED_OR_FICTITIOUS = Reason(JsonField.of("altered_or_fictitious"))
+                val ALTERED_OR_FICTITIOUS = of("altered_or_fictitious")
 
-                val NOT_AUTHORIZED = Reason(JsonField.of("not_authorized"))
+                val NOT_AUTHORIZED = of("not_authorized")
 
-                val DUPLICATE_PRESENTMENT = Reason(JsonField.of("duplicate_presentment"))
+                val DUPLICATE_PRESENTMENT = of("duplicate_presentment")
 
-                val ENDORSEMENT_MISSING = Reason(JsonField.of("endorsement_missing"))
+                val ENDORSEMENT_MISSING = of("endorsement_missing")
 
-                val ENDORSEMENT_IRREGULAR = Reason(JsonField.of("endorsement_irregular"))
+                val ENDORSEMENT_IRREGULAR = of("endorsement_irregular")
 
                 fun of(value: String) = Reason(JsonField.of(value))
             }
@@ -1143,11 +1143,11 @@ private constructor(
 
         companion object {
 
-            val NAME_MATCHES = PayeeNameAnalysis(JsonField.of("name_matches"))
+            val NAME_MATCHES = of("name_matches")
 
-            val DOES_NOT_MATCH = PayeeNameAnalysis(JsonField.of("does_not_match"))
+            val DOES_NOT_MATCH = of("does_not_match")
 
-            val NOT_EVALUATED = PayeeNameAnalysis(JsonField.of("not_evaluated"))
+            val NOT_EVALUATED = of("not_evaluated")
 
             fun of(value: String) = PayeeNameAnalysis(JsonField.of(value))
         }
@@ -1206,15 +1206,15 @@ private constructor(
 
         companion object {
 
-            val PENDING = Status(JsonField.of("pending"))
+            val PENDING = of("pending")
 
-            val ACCEPTED = Status(JsonField.of("accepted"))
+            val ACCEPTED = of("accepted")
 
-            val DECLINED = Status(JsonField.of("declined"))
+            val DECLINED = of("declined")
 
-            val RETURNED = Status(JsonField.of("returned"))
+            val RETURNED = of("returned")
 
-            val REQUIRES_ATTENTION = Status(JsonField.of("requires_attention"))
+            val REQUIRES_ATTENTION = of("requires_attention")
 
             fun of(value: String) = Status(JsonField.of(value))
         }
@@ -1281,7 +1281,7 @@ private constructor(
 
         companion object {
 
-            val INBOUND_CHECK_DEPOSIT = Type(JsonField.of("inbound_check_deposit"))
+            val INBOUND_CHECK_DEPOSIT = of("inbound_check_deposit")
 
             fun of(value: String) = Type(JsonField.of(value))
         }

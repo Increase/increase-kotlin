@@ -294,11 +294,11 @@ constructor(
 
             companion object {
 
-                val FORM_1099_INT = In(JsonField.of("form_1099_int"))
+                val FORM_1099_INT = of("form_1099_int")
 
-                val PROOF_OF_AUTHORIZATION = In(JsonField.of("proof_of_authorization"))
+                val PROOF_OF_AUTHORIZATION = of("proof_of_authorization")
 
-                val COMPANY_INFORMATION = In(JsonField.of("company_information"))
+                val COMPANY_INFORMATION = of("company_information")
 
                 fun of(value: String) = In(JsonField.of(value))
             }

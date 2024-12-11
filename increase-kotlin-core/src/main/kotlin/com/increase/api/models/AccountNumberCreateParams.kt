@@ -432,9 +432,9 @@ constructor(
 
             companion object {
 
-                val ALLOWED = DebitStatus(JsonField.of("allowed"))
+                val ALLOWED = of("allowed")
 
-                val BLOCKED = DebitStatus(JsonField.of("blocked"))
+                val BLOCKED = of("blocked")
 
                 fun of(value: String) = DebitStatus(JsonField.of(value))
             }
@@ -570,9 +570,9 @@ constructor(
 
             companion object {
 
-                val ALLOWED = Status(JsonField.of("allowed"))
+                val ALLOWED = of("allowed")
 
-                val CHECK_TRANSFERS_ONLY = Status(JsonField.of("check_transfers_only"))
+                val CHECK_TRANSFERS_ONLY = of("check_transfers_only")
 
                 fun of(value: String) = Status(JsonField.of(value))
             }

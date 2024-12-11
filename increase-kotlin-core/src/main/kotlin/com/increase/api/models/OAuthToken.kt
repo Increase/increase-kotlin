@@ -168,7 +168,7 @@ private constructor(
 
         companion object {
 
-            val BEARER = TokenType(JsonField.of("bearer"))
+            val BEARER = of("bearer")
 
             fun of(value: String) = TokenType(JsonField.of(value))
         }
@@ -219,7 +219,7 @@ private constructor(
 
         companion object {
 
-            val OAUTH_TOKEN = Type(JsonField.of("oauth_token"))
+            val OAUTH_TOKEN = of("oauth_token")
 
             fun of(value: String) = Type(JsonField.of(value))
         }

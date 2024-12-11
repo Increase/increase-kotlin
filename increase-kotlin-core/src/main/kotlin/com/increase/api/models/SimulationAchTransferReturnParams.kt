@@ -319,187 +319,163 @@ constructor(
 
         companion object {
 
-            val INSUFFICIENT_FUND = Reason(JsonField.of("insufficient_fund"))
+            val INSUFFICIENT_FUND = of("insufficient_fund")
 
-            val NO_ACCOUNT = Reason(JsonField.of("no_account"))
+            val NO_ACCOUNT = of("no_account")
 
-            val ACCOUNT_CLOSED = Reason(JsonField.of("account_closed"))
+            val ACCOUNT_CLOSED = of("account_closed")
 
-            val INVALID_ACCOUNT_NUMBER_STRUCTURE =
-                Reason(JsonField.of("invalid_account_number_structure"))
+            val INVALID_ACCOUNT_NUMBER_STRUCTURE = of("invalid_account_number_structure")
 
             val ACCOUNT_FROZEN_ENTRY_RETURNED_PER_OFAC_INSTRUCTION =
-                Reason(JsonField.of("account_frozen_entry_returned_per_ofac_instruction"))
+                of("account_frozen_entry_returned_per_ofac_instruction")
 
-            val CREDIT_ENTRY_REFUSED_BY_RECEIVER =
-                Reason(JsonField.of("credit_entry_refused_by_receiver"))
+            val CREDIT_ENTRY_REFUSED_BY_RECEIVER = of("credit_entry_refused_by_receiver")
 
             val UNAUTHORIZED_DEBIT_TO_CONSUMER_ACCOUNT_USING_CORPORATE_SEC_CODE =
-                Reason(
-                    JsonField.of("unauthorized_debit_to_consumer_account_using_corporate_sec_code")
-                )
+                of("unauthorized_debit_to_consumer_account_using_corporate_sec_code")
 
             val CORPORATE_CUSTOMER_ADVISED_NOT_AUTHORIZED =
-                Reason(JsonField.of("corporate_customer_advised_not_authorized"))
+                of("corporate_customer_advised_not_authorized")
 
-            val PAYMENT_STOPPED = Reason(JsonField.of("payment_stopped"))
+            val PAYMENT_STOPPED = of("payment_stopped")
 
-            val NON_TRANSACTION_ACCOUNT = Reason(JsonField.of("non_transaction_account"))
+            val NON_TRANSACTION_ACCOUNT = of("non_transaction_account")
 
-            val UNCOLLECTED_FUNDS = Reason(JsonField.of("uncollected_funds"))
+            val UNCOLLECTED_FUNDS = of("uncollected_funds")
 
-            val ROUTING_NUMBER_CHECK_DIGIT_ERROR =
-                Reason(JsonField.of("routing_number_check_digit_error"))
+            val ROUTING_NUMBER_CHECK_DIGIT_ERROR = of("routing_number_check_digit_error")
 
             val CUSTOMER_ADVISED_UNAUTHORIZED_IMPROPER_INELIGIBLE_OR_INCOMPLETE =
-                Reason(
-                    JsonField.of("customer_advised_unauthorized_improper_ineligible_or_incomplete")
-                )
+                of("customer_advised_unauthorized_improper_ineligible_or_incomplete")
 
-            val AMOUNT_FIELD_ERROR = Reason(JsonField.of("amount_field_error"))
+            val AMOUNT_FIELD_ERROR = of("amount_field_error")
 
-            val AUTHORIZATION_REVOKED_BY_CUSTOMER =
-                Reason(JsonField.of("authorization_revoked_by_customer"))
+            val AUTHORIZATION_REVOKED_BY_CUSTOMER = of("authorization_revoked_by_customer")
 
-            val INVALID_ACH_ROUTING_NUMBER = Reason(JsonField.of("invalid_ach_routing_number"))
+            val INVALID_ACH_ROUTING_NUMBER = of("invalid_ach_routing_number")
 
-            val FILE_RECORD_EDIT_CRITERIA = Reason(JsonField.of("file_record_edit_criteria"))
+            val FILE_RECORD_EDIT_CRITERIA = of("file_record_edit_criteria")
 
-            val ENR_INVALID_INDIVIDUAL_NAME = Reason(JsonField.of("enr_invalid_individual_name"))
+            val ENR_INVALID_INDIVIDUAL_NAME = of("enr_invalid_individual_name")
 
-            val RETURNED_PER_ODFI_REQUEST = Reason(JsonField.of("returned_per_odfi_request"))
+            val RETURNED_PER_ODFI_REQUEST = of("returned_per_odfi_request")
 
-            val LIMITED_PARTICIPATION_DFI = Reason(JsonField.of("limited_participation_dfi"))
+            val LIMITED_PARTICIPATION_DFI = of("limited_participation_dfi")
 
             val INCORRECTLY_CODED_OUTBOUND_INTERNATIONAL_PAYMENT =
-                Reason(JsonField.of("incorrectly_coded_outbound_international_payment"))
+                of("incorrectly_coded_outbound_international_payment")
 
-            val ACCOUNT_SOLD_TO_ANOTHER_DFI = Reason(JsonField.of("account_sold_to_another_dfi"))
+            val ACCOUNT_SOLD_TO_ANOTHER_DFI = of("account_sold_to_another_dfi")
 
-            val ADDENDA_ERROR = Reason(JsonField.of("addenda_error"))
+            val ADDENDA_ERROR = of("addenda_error")
 
             val BENEFICIARY_OR_ACCOUNT_HOLDER_DECEASED =
-                Reason(JsonField.of("beneficiary_or_account_holder_deceased"))
+                of("beneficiary_or_account_holder_deceased")
 
             val CUSTOMER_ADVISED_NOT_WITHIN_AUTHORIZATION_TERMS =
-                Reason(JsonField.of("customer_advised_not_within_authorization_terms"))
+                of("customer_advised_not_within_authorization_terms")
 
-            val CORRECTED_RETURN = Reason(JsonField.of("corrected_return"))
+            val CORRECTED_RETURN = of("corrected_return")
 
-            val DUPLICATE_ENTRY = Reason(JsonField.of("duplicate_entry"))
+            val DUPLICATE_ENTRY = of("duplicate_entry")
 
-            val DUPLICATE_RETURN = Reason(JsonField.of("duplicate_return"))
+            val DUPLICATE_RETURN = of("duplicate_return")
 
-            val ENR_DUPLICATE_ENROLLMENT = Reason(JsonField.of("enr_duplicate_enrollment"))
+            val ENR_DUPLICATE_ENROLLMENT = of("enr_duplicate_enrollment")
 
-            val ENR_INVALID_DFI_ACCOUNT_NUMBER =
-                Reason(JsonField.of("enr_invalid_dfi_account_number"))
+            val ENR_INVALID_DFI_ACCOUNT_NUMBER = of("enr_invalid_dfi_account_number")
 
-            val ENR_INVALID_INDIVIDUAL_ID_NUMBER =
-                Reason(JsonField.of("enr_invalid_individual_id_number"))
+            val ENR_INVALID_INDIVIDUAL_ID_NUMBER = of("enr_invalid_individual_id_number")
 
             val ENR_INVALID_REPRESENTATIVE_PAYEE_INDICATOR =
-                Reason(JsonField.of("enr_invalid_representative_payee_indicator"))
+                of("enr_invalid_representative_payee_indicator")
 
-            val ENR_INVALID_TRANSACTION_CODE = Reason(JsonField.of("enr_invalid_transaction_code"))
+            val ENR_INVALID_TRANSACTION_CODE = of("enr_invalid_transaction_code")
 
-            val ENR_RETURN_OF_ENR_ENTRY = Reason(JsonField.of("enr_return_of_enr_entry"))
+            val ENR_RETURN_OF_ENR_ENTRY = of("enr_return_of_enr_entry")
 
-            val ENR_ROUTING_NUMBER_CHECK_DIGIT_ERROR =
-                Reason(JsonField.of("enr_routing_number_check_digit_error"))
+            val ENR_ROUTING_NUMBER_CHECK_DIGIT_ERROR = of("enr_routing_number_check_digit_error")
 
-            val ENTRY_NOT_PROCESSED_BY_GATEWAY =
-                Reason(JsonField.of("entry_not_processed_by_gateway"))
+            val ENTRY_NOT_PROCESSED_BY_GATEWAY = of("entry_not_processed_by_gateway")
 
-            val FIELD_ERROR = Reason(JsonField.of("field_error"))
+            val FIELD_ERROR = of("field_error")
 
             val FOREIGN_RECEIVING_DFI_UNABLE_TO_SETTLE =
-                Reason(JsonField.of("foreign_receiving_dfi_unable_to_settle"))
+                of("foreign_receiving_dfi_unable_to_settle")
 
-            val IAT_ENTRY_CODING_ERROR = Reason(JsonField.of("iat_entry_coding_error"))
+            val IAT_ENTRY_CODING_ERROR = of("iat_entry_coding_error")
 
-            val IMPROPER_EFFECTIVE_ENTRY_DATE =
-                Reason(JsonField.of("improper_effective_entry_date"))
+            val IMPROPER_EFFECTIVE_ENTRY_DATE = of("improper_effective_entry_date")
 
             val IMPROPER_SOURCE_DOCUMENT_SOURCE_DOCUMENT_PRESENTED =
-                Reason(JsonField.of("improper_source_document_source_document_presented"))
+                of("improper_source_document_source_document_presented")
 
-            val INVALID_COMPANY_ID = Reason(JsonField.of("invalid_company_id"))
+            val INVALID_COMPANY_ID = of("invalid_company_id")
 
             val INVALID_FOREIGN_RECEIVING_DFI_IDENTIFICATION =
-                Reason(JsonField.of("invalid_foreign_receiving_dfi_identification"))
+                of("invalid_foreign_receiving_dfi_identification")
 
-            val INVALID_INDIVIDUAL_ID_NUMBER = Reason(JsonField.of("invalid_individual_id_number"))
+            val INVALID_INDIVIDUAL_ID_NUMBER = of("invalid_individual_id_number")
 
             val ITEM_AND_RCK_ENTRY_PRESENTED_FOR_PAYMENT =
-                Reason(JsonField.of("item_and_rck_entry_presented_for_payment"))
+                of("item_and_rck_entry_presented_for_payment")
 
             val ITEM_RELATED_TO_RCK_ENTRY_IS_INELIGIBLE =
-                Reason(JsonField.of("item_related_to_rck_entry_is_ineligible"))
+                of("item_related_to_rck_entry_is_ineligible")
 
-            val MANDATORY_FIELD_ERROR = Reason(JsonField.of("mandatory_field_error"))
+            val MANDATORY_FIELD_ERROR = of("mandatory_field_error")
 
-            val MISROUTED_DISHONORED_RETURN = Reason(JsonField.of("misrouted_dishonored_return"))
+            val MISROUTED_DISHONORED_RETURN = of("misrouted_dishonored_return")
 
-            val MISROUTED_RETURN = Reason(JsonField.of("misrouted_return"))
+            val MISROUTED_RETURN = of("misrouted_return")
 
-            val NO_ERRORS_FOUND = Reason(JsonField.of("no_errors_found"))
+            val NO_ERRORS_FOUND = of("no_errors_found")
 
             val NON_ACCEPTANCE_OF_R62_DISHONORED_RETURN =
-                Reason(JsonField.of("non_acceptance_of_r62_dishonored_return"))
+                of("non_acceptance_of_r62_dishonored_return")
 
-            val NON_PARTICIPANT_IN_IAT_PROGRAM =
-                Reason(JsonField.of("non_participant_in_iat_program"))
+            val NON_PARTICIPANT_IN_IAT_PROGRAM = of("non_participant_in_iat_program")
 
-            val PERMISSIBLE_RETURN_ENTRY = Reason(JsonField.of("permissible_return_entry"))
+            val PERMISSIBLE_RETURN_ENTRY = of("permissible_return_entry")
 
-            val PERMISSIBLE_RETURN_ENTRY_NOT_ACCEPTED =
-                Reason(JsonField.of("permissible_return_entry_not_accepted"))
+            val PERMISSIBLE_RETURN_ENTRY_NOT_ACCEPTED = of("permissible_return_entry_not_accepted")
 
-            val RDFI_NON_SETTLEMENT = Reason(JsonField.of("rdfi_non_settlement"))
+            val RDFI_NON_SETTLEMENT = of("rdfi_non_settlement")
 
             val RDFI_PARTICIPANT_IN_CHECK_TRUNCATION_PROGRAM =
-                Reason(JsonField.of("rdfi_participant_in_check_truncation_program"))
+                of("rdfi_participant_in_check_truncation_program")
 
             val REPRESENTATIVE_PAYEE_DECEASED_OR_UNABLE_TO_CONTINUE_IN_THAT_CAPACITY =
-                Reason(
-                    JsonField.of(
-                        "representative_payee_deceased_or_unable_to_continue_in_that_capacity"
-                    )
-                )
+                of("representative_payee_deceased_or_unable_to_continue_in_that_capacity")
 
-            val RETURN_NOT_A_DUPLICATE = Reason(JsonField.of("return_not_a_duplicate"))
+            val RETURN_NOT_A_DUPLICATE = of("return_not_a_duplicate")
 
             val RETURN_OF_ERRONEOUS_OR_REVERSING_DEBIT =
-                Reason(JsonField.of("return_of_erroneous_or_reversing_debit"))
+                of("return_of_erroneous_or_reversing_debit")
 
-            val RETURN_OF_IMPROPER_CREDIT_ENTRY =
-                Reason(JsonField.of("return_of_improper_credit_entry"))
+            val RETURN_OF_IMPROPER_CREDIT_ENTRY = of("return_of_improper_credit_entry")
 
-            val RETURN_OF_IMPROPER_DEBIT_ENTRY =
-                Reason(JsonField.of("return_of_improper_debit_entry"))
+            val RETURN_OF_IMPROPER_DEBIT_ENTRY = of("return_of_improper_debit_entry")
 
-            val RETURN_OF_XCK_ENTRY = Reason(JsonField.of("return_of_xck_entry"))
+            val RETURN_OF_XCK_ENTRY = of("return_of_xck_entry")
 
-            val SOURCE_DOCUMENT_PRESENTED_FOR_PAYMENT =
-                Reason(JsonField.of("source_document_presented_for_payment"))
+            val SOURCE_DOCUMENT_PRESENTED_FOR_PAYMENT = of("source_document_presented_for_payment")
 
-            val STATE_LAW_AFFECTING_RCK_ACCEPTANCE =
-                Reason(JsonField.of("state_law_affecting_rck_acceptance"))
+            val STATE_LAW_AFFECTING_RCK_ACCEPTANCE = of("state_law_affecting_rck_acceptance")
 
             val STOP_PAYMENT_ON_ITEM_RELATED_TO_RCK_ENTRY =
-                Reason(JsonField.of("stop_payment_on_item_related_to_rck_entry"))
+                of("stop_payment_on_item_related_to_rck_entry")
 
-            val STOP_PAYMENT_ON_SOURCE_DOCUMENT =
-                Reason(JsonField.of("stop_payment_on_source_document"))
+            val STOP_PAYMENT_ON_SOURCE_DOCUMENT = of("stop_payment_on_source_document")
 
-            val TIMELY_ORIGINAL_RETURN = Reason(JsonField.of("timely_original_return"))
+            val TIMELY_ORIGINAL_RETURN = of("timely_original_return")
 
-            val TRACE_NUMBER_ERROR = Reason(JsonField.of("trace_number_error"))
+            val TRACE_NUMBER_ERROR = of("trace_number_error")
 
-            val UNTIMELY_DISHONORED_RETURN = Reason(JsonField.of("untimely_dishonored_return"))
+            val UNTIMELY_DISHONORED_RETURN = of("untimely_dishonored_return")
 
-            val UNTIMELY_RETURN = Reason(JsonField.of("untimely_return"))
+            val UNTIMELY_RETURN = of("untimely_return")
 
             fun of(value: String) = Reason(JsonField.of(value))
         }

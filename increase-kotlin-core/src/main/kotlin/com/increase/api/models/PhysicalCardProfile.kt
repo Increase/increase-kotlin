@@ -384,9 +384,9 @@ private constructor(
 
         companion object {
 
-            val INCREASE = Creator(JsonField.of("increase"))
+            val INCREASE = of("increase")
 
-            val USER = Creator(JsonField.of("user"))
+            val USER = of("user")
 
             fun of(value: String) = Creator(JsonField.of(value))
         }
@@ -441,17 +441,17 @@ private constructor(
 
         companion object {
 
-            val PENDING_CREATING = Status(JsonField.of("pending_creating"))
+            val PENDING_CREATING = of("pending_creating")
 
-            val PENDING_REVIEWING = Status(JsonField.of("pending_reviewing"))
+            val PENDING_REVIEWING = of("pending_reviewing")
 
-            val REJECTED = Status(JsonField.of("rejected"))
+            val REJECTED = of("rejected")
 
-            val PENDING_SUBMITTING = Status(JsonField.of("pending_submitting"))
+            val PENDING_SUBMITTING = of("pending_submitting")
 
-            val ACTIVE = Status(JsonField.of("active"))
+            val ACTIVE = of("active")
 
-            val ARCHIVED = Status(JsonField.of("archived"))
+            val ARCHIVED = of("archived")
 
             fun of(value: String) = Status(JsonField.of(value))
         }
@@ -522,7 +522,7 @@ private constructor(
 
         companion object {
 
-            val PHYSICAL_CARD_PROFILE = Type(JsonField.of("physical_card_profile"))
+            val PHYSICAL_CARD_PROFILE = of("physical_card_profile")
 
             fun of(value: String) = Type(JsonField.of(value))
         }

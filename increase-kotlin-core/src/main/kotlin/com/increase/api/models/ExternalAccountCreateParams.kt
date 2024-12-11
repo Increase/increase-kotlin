@@ -395,11 +395,11 @@ constructor(
 
         companion object {
 
-            val BUSINESS = AccountHolder(JsonField.of("business"))
+            val BUSINESS = of("business")
 
-            val INDIVIDUAL = AccountHolder(JsonField.of("individual"))
+            val INDIVIDUAL = of("individual")
 
-            val UNKNOWN = AccountHolder(JsonField.of("unknown"))
+            val UNKNOWN = of("unknown")
 
             fun of(value: String) = AccountHolder(JsonField.of(value))
         }
@@ -458,11 +458,11 @@ constructor(
 
         companion object {
 
-            val CHECKING = Funding(JsonField.of("checking"))
+            val CHECKING = of("checking")
 
-            val SAVINGS = Funding(JsonField.of("savings"))
+            val SAVINGS = of("savings")
 
-            val OTHER = Funding(JsonField.of("other"))
+            val OTHER = of("other")
 
             fun of(value: String) = Funding(JsonField.of(value))
         }

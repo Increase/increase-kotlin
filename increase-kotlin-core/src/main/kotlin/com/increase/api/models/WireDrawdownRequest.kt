@@ -617,13 +617,13 @@ private constructor(
 
         companion object {
 
-            val PENDING_SUBMISSION = Status(JsonField.of("pending_submission"))
+            val PENDING_SUBMISSION = of("pending_submission")
 
-            val PENDING_RESPONSE = Status(JsonField.of("pending_response"))
+            val PENDING_RESPONSE = of("pending_response")
 
-            val FULFILLED = Status(JsonField.of("fulfilled"))
+            val FULFILLED = of("fulfilled")
 
-            val REFUSED = Status(JsonField.of("refused"))
+            val REFUSED = of("refused")
 
             fun of(value: String) = Status(JsonField.of(value))
         }
@@ -796,7 +796,7 @@ private constructor(
 
         companion object {
 
-            val WIRE_DRAWDOWN_REQUEST = Type(JsonField.of("wire_drawdown_request"))
+            val WIRE_DRAWDOWN_REQUEST = of("wire_drawdown_request")
 
             fun of(value: String) = Type(JsonField.of(value))
         }

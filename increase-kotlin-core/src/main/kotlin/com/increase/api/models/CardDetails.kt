@@ -244,7 +244,7 @@ private constructor(
 
         companion object {
 
-            val CARD_DETAILS = Type(JsonField.of("card_details"))
+            val CARD_DETAILS = of("card_details")
 
             fun of(value: String) = Type(JsonField.of(value))
         }
