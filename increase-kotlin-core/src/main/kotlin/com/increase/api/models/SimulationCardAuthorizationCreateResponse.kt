@@ -208,7 +208,7 @@ private constructor(
         companion object {
 
             val INBOUND_CARD_AUTHORIZATION_SIMULATION_RESULT =
-                Type(JsonField.of("inbound_card_authorization_simulation_result"))
+                of("inbound_card_authorization_simulation_result")
 
             fun of(value: String) = Type(JsonField.of(value))
         }

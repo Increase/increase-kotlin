@@ -740,11 +740,11 @@ private constructor(
 
         companion object {
 
-            val ACTIVE = Status(JsonField.of("active"))
+            val ACTIVE = of("active")
 
-            val DISABLED = Status(JsonField.of("disabled"))
+            val DISABLED = of("disabled")
 
-            val CANCELED = Status(JsonField.of("canceled"))
+            val CANCELED = of("canceled")
 
             fun of(value: String) = Status(JsonField.of(value))
         }
@@ -803,7 +803,7 @@ private constructor(
 
         companion object {
 
-            val CARD = Type(JsonField.of("card"))
+            val CARD = of("card")
 
             fun of(value: String) = Type(JsonField.of(value))
         }

@@ -306,69 +306,68 @@ constructor(
 
             companion object {
 
-                val ACCOUNT_TRANSFER_INTENTION = In(JsonField.of("account_transfer_intention"))
+                val ACCOUNT_TRANSFER_INTENTION = of("account_transfer_intention")
 
-                val ACH_TRANSFER_INTENTION = In(JsonField.of("ach_transfer_intention"))
+                val ACH_TRANSFER_INTENTION = of("ach_transfer_intention")
 
-                val ACH_TRANSFER_REJECTION = In(JsonField.of("ach_transfer_rejection"))
+                val ACH_TRANSFER_REJECTION = of("ach_transfer_rejection")
 
-                val ACH_TRANSFER_RETURN = In(JsonField.of("ach_transfer_return"))
+                val ACH_TRANSFER_RETURN = of("ach_transfer_return")
 
-                val CASHBACK_PAYMENT = In(JsonField.of("cashback_payment"))
+                val CASHBACK_PAYMENT = of("cashback_payment")
 
-                val CARD_DISPUTE_ACCEPTANCE = In(JsonField.of("card_dispute_acceptance"))
+                val CARD_DISPUTE_ACCEPTANCE = of("card_dispute_acceptance")
 
-                val CARD_DISPUTE_LOSS = In(JsonField.of("card_dispute_loss"))
+                val CARD_DISPUTE_LOSS = of("card_dispute_loss")
 
-                val CARD_REFUND = In(JsonField.of("card_refund"))
+                val CARD_REFUND = of("card_refund")
 
-                val CARD_SETTLEMENT = In(JsonField.of("card_settlement"))
+                val CARD_SETTLEMENT = of("card_settlement")
 
-                val CARD_REVENUE_PAYMENT = In(JsonField.of("card_revenue_payment"))
+                val CARD_REVENUE_PAYMENT = of("card_revenue_payment")
 
-                val CHECK_DEPOSIT_ACCEPTANCE = In(JsonField.of("check_deposit_acceptance"))
+                val CHECK_DEPOSIT_ACCEPTANCE = of("check_deposit_acceptance")
 
-                val CHECK_DEPOSIT_RETURN = In(JsonField.of("check_deposit_return"))
+                val CHECK_DEPOSIT_RETURN = of("check_deposit_return")
 
-                val CHECK_TRANSFER_DEPOSIT = In(JsonField.of("check_transfer_deposit"))
+                val CHECK_TRANSFER_DEPOSIT = of("check_transfer_deposit")
 
-                val FEE_PAYMENT = In(JsonField.of("fee_payment"))
+                val FEE_PAYMENT = of("fee_payment")
 
-                val INBOUND_ACH_TRANSFER = In(JsonField.of("inbound_ach_transfer"))
+                val INBOUND_ACH_TRANSFER = of("inbound_ach_transfer")
 
                 val INBOUND_ACH_TRANSFER_RETURN_INTENTION =
-                    In(JsonField.of("inbound_ach_transfer_return_intention"))
+                    of("inbound_ach_transfer_return_intention")
 
                 val INBOUND_CHECK_DEPOSIT_RETURN_INTENTION =
-                    In(JsonField.of("inbound_check_deposit_return_intention"))
+                    of("inbound_check_deposit_return_intention")
 
-                val INBOUND_CHECK_ADJUSTMENT = In(JsonField.of("inbound_check_adjustment"))
+                val INBOUND_CHECK_ADJUSTMENT = of("inbound_check_adjustment")
 
                 val INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION =
-                    In(JsonField.of("inbound_real_time_payments_transfer_confirmation"))
+                    of("inbound_real_time_payments_transfer_confirmation")
 
                 val INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE =
-                    In(JsonField.of("inbound_real_time_payments_transfer_decline"))
+                    of("inbound_real_time_payments_transfer_decline")
 
-                val INBOUND_WIRE_REVERSAL = In(JsonField.of("inbound_wire_reversal"))
+                val INBOUND_WIRE_REVERSAL = of("inbound_wire_reversal")
 
-                val INBOUND_WIRE_TRANSFER = In(JsonField.of("inbound_wire_transfer"))
+                val INBOUND_WIRE_TRANSFER = of("inbound_wire_transfer")
 
-                val INBOUND_WIRE_TRANSFER_REVERSAL =
-                    In(JsonField.of("inbound_wire_transfer_reversal"))
+                val INBOUND_WIRE_TRANSFER_REVERSAL = of("inbound_wire_transfer_reversal")
 
-                val INTEREST_PAYMENT = In(JsonField.of("interest_payment"))
+                val INTEREST_PAYMENT = of("interest_payment")
 
-                val INTERNAL_SOURCE = In(JsonField.of("internal_source"))
+                val INTERNAL_SOURCE = of("internal_source")
 
                 val REAL_TIME_PAYMENTS_TRANSFER_ACKNOWLEDGEMENT =
-                    In(JsonField.of("real_time_payments_transfer_acknowledgement"))
+                    of("real_time_payments_transfer_acknowledgement")
 
-                val SAMPLE_FUNDS = In(JsonField.of("sample_funds"))
+                val SAMPLE_FUNDS = of("sample_funds")
 
-                val WIRE_TRANSFER_INTENTION = In(JsonField.of("wire_transfer_intention"))
+                val WIRE_TRANSFER_INTENTION = of("wire_transfer_intention")
 
-                val OTHER = In(JsonField.of("other"))
+                val OTHER = of("other")
 
                 fun of(value: String) = In(JsonField.of(value))
             }

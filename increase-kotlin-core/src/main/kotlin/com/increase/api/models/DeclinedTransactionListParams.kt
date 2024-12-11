@@ -303,20 +303,20 @@ constructor(
 
             companion object {
 
-                val ACH_DECLINE = In(JsonField.of("ach_decline"))
+                val ACH_DECLINE = of("ach_decline")
 
-                val CARD_DECLINE = In(JsonField.of("card_decline"))
+                val CARD_DECLINE = of("card_decline")
 
-                val CHECK_DECLINE = In(JsonField.of("check_decline"))
+                val CHECK_DECLINE = of("check_decline")
 
                 val INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE =
-                    In(JsonField.of("inbound_real_time_payments_transfer_decline"))
+                    of("inbound_real_time_payments_transfer_decline")
 
-                val WIRE_DECLINE = In(JsonField.of("wire_decline"))
+                val WIRE_DECLINE = of("wire_decline")
 
-                val CHECK_DEPOSIT_REJECTION = In(JsonField.of("check_deposit_rejection"))
+                val CHECK_DEPOSIT_REJECTION = of("check_deposit_rejection")
 
-                val OTHER = In(JsonField.of("other"))
+                val OTHER = of("other")
 
                 fun of(value: String) = In(JsonField.of(value))
             }

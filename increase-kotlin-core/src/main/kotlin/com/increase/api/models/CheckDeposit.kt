@@ -826,17 +826,17 @@ private constructor(
 
             companion object {
 
-                val CAD = Currency(JsonField.of("CAD"))
+                val CAD = of("CAD")
 
-                val CHF = Currency(JsonField.of("CHF"))
+                val CHF = of("CHF")
 
-                val EUR = Currency(JsonField.of("EUR"))
+                val EUR = of("EUR")
 
-                val GBP = Currency(JsonField.of("GBP"))
+                val GBP = of("GBP")
 
-                val JPY = Currency(JsonField.of("JPY"))
+                val JPY = of("JPY")
 
-                val USD = Currency(JsonField.of("USD"))
+                val USD = of("USD")
 
                 fun of(value: String) = Currency(JsonField.of(value))
             }
@@ -1135,17 +1135,17 @@ private constructor(
 
             companion object {
 
-                val CAD = Currency(JsonField.of("CAD"))
+                val CAD = of("CAD")
 
-                val CHF = Currency(JsonField.of("CHF"))
+                val CHF = of("CHF")
 
-                val EUR = Currency(JsonField.of("EUR"))
+                val EUR = of("EUR")
 
-                val GBP = Currency(JsonField.of("GBP"))
+                val GBP = of("GBP")
 
-                val JPY = Currency(JsonField.of("JPY"))
+                val JPY = of("JPY")
 
-                val USD = Currency(JsonField.of("USD"))
+                val USD = of("USD")
 
                 fun of(value: String) = Currency(JsonField.of(value))
             }
@@ -1216,29 +1216,27 @@ private constructor(
 
             companion object {
 
-                val INCOMPLETE_IMAGE = Reason(JsonField.of("incomplete_image"))
+                val INCOMPLETE_IMAGE = of("incomplete_image")
 
-                val DUPLICATE = Reason(JsonField.of("duplicate"))
+                val DUPLICATE = of("duplicate")
 
-                val POOR_IMAGE_QUALITY = Reason(JsonField.of("poor_image_quality"))
+                val POOR_IMAGE_QUALITY = of("poor_image_quality")
 
-                val INCORRECT_AMOUNT = Reason(JsonField.of("incorrect_amount"))
+                val INCORRECT_AMOUNT = of("incorrect_amount")
 
-                val INCORRECT_RECIPIENT = Reason(JsonField.of("incorrect_recipient"))
+                val INCORRECT_RECIPIENT = of("incorrect_recipient")
 
-                val NOT_ELIGIBLE_FOR_MOBILE_DEPOSIT =
-                    Reason(JsonField.of("not_eligible_for_mobile_deposit"))
+                val NOT_ELIGIBLE_FOR_MOBILE_DEPOSIT = of("not_eligible_for_mobile_deposit")
 
-                val MISSING_REQUIRED_DATA_ELEMENTS =
-                    Reason(JsonField.of("missing_required_data_elements"))
+                val MISSING_REQUIRED_DATA_ELEMENTS = of("missing_required_data_elements")
 
-                val SUSPECTED_FRAUD = Reason(JsonField.of("suspected_fraud"))
+                val SUSPECTED_FRAUD = of("suspected_fraud")
 
-                val DEPOSIT_WINDOW_EXPIRED = Reason(JsonField.of("deposit_window_expired"))
+                val DEPOSIT_WINDOW_EXPIRED = of("deposit_window_expired")
 
-                val REQUESTED_BY_USER = Reason(JsonField.of("requested_by_user"))
+                val REQUESTED_BY_USER = of("requested_by_user")
 
-                val UNKNOWN = Reason(JsonField.of("unknown"))
+                val UNKNOWN = of("unknown")
 
                 fun of(value: String) = Reason(JsonField.of(value))
             }
@@ -1559,17 +1557,17 @@ private constructor(
 
             companion object {
 
-                val CAD = Currency(JsonField.of("CAD"))
+                val CAD = of("CAD")
 
-                val CHF = Currency(JsonField.of("CHF"))
+                val CHF = of("CHF")
 
-                val EUR = Currency(JsonField.of("EUR"))
+                val EUR = of("EUR")
 
-                val GBP = Currency(JsonField.of("GBP"))
+                val GBP = of("GBP")
 
-                val JPY = Currency(JsonField.of("JPY"))
+                val JPY = of("JPY")
 
-                val USD = Currency(JsonField.of("USD"))
+                val USD = of("USD")
 
                 fun of(value: String) = Currency(JsonField.of(value))
             }
@@ -1640,62 +1638,57 @@ private constructor(
 
             companion object {
 
-                val ACH_CONVERSION_NOT_SUPPORTED =
-                    ReturnReason(JsonField.of("ach_conversion_not_supported"))
+                val ACH_CONVERSION_NOT_SUPPORTED = of("ach_conversion_not_supported")
 
-                val CLOSED_ACCOUNT = ReturnReason(JsonField.of("closed_account"))
+                val CLOSED_ACCOUNT = of("closed_account")
 
-                val DUPLICATE_SUBMISSION = ReturnReason(JsonField.of("duplicate_submission"))
+                val DUPLICATE_SUBMISSION = of("duplicate_submission")
 
-                val INSUFFICIENT_FUNDS = ReturnReason(JsonField.of("insufficient_funds"))
+                val INSUFFICIENT_FUNDS = of("insufficient_funds")
 
-                val NO_ACCOUNT = ReturnReason(JsonField.of("no_account"))
+                val NO_ACCOUNT = of("no_account")
 
-                val NOT_AUTHORIZED = ReturnReason(JsonField.of("not_authorized"))
+                val NOT_AUTHORIZED = of("not_authorized")
 
-                val STALE_DATED = ReturnReason(JsonField.of("stale_dated"))
+                val STALE_DATED = of("stale_dated")
 
-                val STOP_PAYMENT = ReturnReason(JsonField.of("stop_payment"))
+                val STOP_PAYMENT = of("stop_payment")
 
-                val UNKNOWN_REASON = ReturnReason(JsonField.of("unknown_reason"))
+                val UNKNOWN_REASON = of("unknown_reason")
 
-                val UNMATCHED_DETAILS = ReturnReason(JsonField.of("unmatched_details"))
+                val UNMATCHED_DETAILS = of("unmatched_details")
 
-                val UNREADABLE_IMAGE = ReturnReason(JsonField.of("unreadable_image"))
+                val UNREADABLE_IMAGE = of("unreadable_image")
 
-                val ENDORSEMENT_IRREGULAR = ReturnReason(JsonField.of("endorsement_irregular"))
+                val ENDORSEMENT_IRREGULAR = of("endorsement_irregular")
 
-                val ALTERED_OR_FICTITIOUS_ITEM =
-                    ReturnReason(JsonField.of("altered_or_fictitious_item"))
+                val ALTERED_OR_FICTITIOUS_ITEM = of("altered_or_fictitious_item")
 
-                val FROZEN_OR_BLOCKED_ACCOUNT =
-                    ReturnReason(JsonField.of("frozen_or_blocked_account"))
+                val FROZEN_OR_BLOCKED_ACCOUNT = of("frozen_or_blocked_account")
 
-                val POST_DATED = ReturnReason(JsonField.of("post_dated"))
+                val POST_DATED = of("post_dated")
 
-                val ENDORSEMENT_MISSING = ReturnReason(JsonField.of("endorsement_missing"))
+                val ENDORSEMENT_MISSING = of("endorsement_missing")
 
-                val SIGNATURE_MISSING = ReturnReason(JsonField.of("signature_missing"))
+                val SIGNATURE_MISSING = of("signature_missing")
 
-                val STOP_PAYMENT_SUSPECT = ReturnReason(JsonField.of("stop_payment_suspect"))
+                val STOP_PAYMENT_SUSPECT = of("stop_payment_suspect")
 
-                val UNUSABLE_IMAGE = ReturnReason(JsonField.of("unusable_image"))
+                val UNUSABLE_IMAGE = of("unusable_image")
 
-                val IMAGE_FAILS_SECURITY_CHECK =
-                    ReturnReason(JsonField.of("image_fails_security_check"))
+                val IMAGE_FAILS_SECURITY_CHECK = of("image_fails_security_check")
 
-                val CANNOT_DETERMINE_AMOUNT = ReturnReason(JsonField.of("cannot_determine_amount"))
+                val CANNOT_DETERMINE_AMOUNT = of("cannot_determine_amount")
 
-                val SIGNATURE_IRREGULAR = ReturnReason(JsonField.of("signature_irregular"))
+                val SIGNATURE_IRREGULAR = of("signature_irregular")
 
-                val NON_CASH_ITEM = ReturnReason(JsonField.of("non_cash_item"))
+                val NON_CASH_ITEM = of("non_cash_item")
 
-                val UNABLE_TO_PROCESS = ReturnReason(JsonField.of("unable_to_process"))
+                val UNABLE_TO_PROCESS = of("unable_to_process")
 
-                val ITEM_EXCEEDS_DOLLAR_LIMIT =
-                    ReturnReason(JsonField.of("item_exceeds_dollar_limit"))
+                val ITEM_EXCEEDS_DOLLAR_LIMIT = of("item_exceeds_dollar_limit")
 
-                val BRANCH_OR_ACCOUNT_SOLD = ReturnReason(JsonField.of("branch_or_account_sold"))
+                val BRANCH_OR_ACCOUNT_SOLD = of("branch_or_account_sold")
 
                 fun of(value: String) = ReturnReason(JsonField.of(value))
             }
@@ -2361,17 +2354,17 @@ private constructor(
 
             companion object {
 
-                val CAD = Currency(JsonField.of("CAD"))
+                val CAD = of("CAD")
 
-                val CHF = Currency(JsonField.of("CHF"))
+                val CHF = of("CHF")
 
-                val EUR = Currency(JsonField.of("EUR"))
+                val EUR = of("EUR")
 
-                val GBP = Currency(JsonField.of("GBP"))
+                val GBP = of("GBP")
 
-                val JPY = Currency(JsonField.of("JPY"))
+                val JPY = of("JPY")
 
-                val USD = Currency(JsonField.of("USD"))
+                val USD = of("USD")
 
                 fun of(value: String) = Currency(JsonField.of(value))
             }
@@ -2442,9 +2435,9 @@ private constructor(
 
             companion object {
 
-                val HELD = Status(JsonField.of("held"))
+                val HELD = of("held")
 
-                val COMPLETE = Status(JsonField.of("complete"))
+                val COMPLETE = of("complete")
 
                 fun of(value: String) = Status(JsonField.of(value))
             }
@@ -2499,7 +2492,7 @@ private constructor(
 
             companion object {
 
-                val INBOUND_FUNDS_HOLD = Type(JsonField.of("inbound_funds_hold"))
+                val INBOUND_FUNDS_HOLD = of("inbound_funds_hold")
 
                 fun of(value: String) = Type(JsonField.of(value))
             }
@@ -2568,13 +2561,13 @@ private constructor(
 
         companion object {
 
-            val PENDING = Status(JsonField.of("pending"))
+            val PENDING = of("pending")
 
-            val SUBMITTED = Status(JsonField.of("submitted"))
+            val SUBMITTED = of("submitted")
 
-            val REJECTED = Status(JsonField.of("rejected"))
+            val REJECTED = of("rejected")
 
-            val RETURNED = Status(JsonField.of("returned"))
+            val RETURNED = of("returned")
 
             fun of(value: String) = Status(JsonField.of(value))
         }
@@ -2637,7 +2630,7 @@ private constructor(
 
         companion object {
 
-            val CHECK_DEPOSIT = Type(JsonField.of("check_deposit"))
+            val CHECK_DEPOSIT = of("check_deposit")
 
             fun of(value: String) = Type(JsonField.of(value))
         }

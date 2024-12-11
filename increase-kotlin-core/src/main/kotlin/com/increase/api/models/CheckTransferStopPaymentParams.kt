@@ -309,11 +309,11 @@ constructor(
 
         companion object {
 
-            val MAIL_DELIVERY_FAILED = Reason(JsonField.of("mail_delivery_failed"))
+            val MAIL_DELIVERY_FAILED = of("mail_delivery_failed")
 
-            val NOT_AUTHORIZED = Reason(JsonField.of("not_authorized"))
+            val NOT_AUTHORIZED = of("not_authorized")
 
-            val UNKNOWN = Reason(JsonField.of("unknown"))
+            val UNKNOWN = of("unknown")
 
             fun of(value: String) = Reason(JsonField.of(value))
         }

@@ -286,11 +286,11 @@ private constructor(
 
         companion object {
 
-            val NO_MATCHING_LOCKBOX = RejectionReason(JsonField.of("no_matching_lockbox"))
+            val NO_MATCHING_LOCKBOX = of("no_matching_lockbox")
 
-            val NO_CHECK = RejectionReason(JsonField.of("no_check"))
+            val NO_CHECK = of("no_check")
 
-            val LOCKBOX_NOT_ACTIVE = RejectionReason(JsonField.of("lockbox_not_active"))
+            val LOCKBOX_NOT_ACTIVE = of("lockbox_not_active")
 
             fun of(value: String) = RejectionReason(JsonField.of(value))
         }
@@ -349,11 +349,11 @@ private constructor(
 
         companion object {
 
-            val PENDING = Status(JsonField.of("pending"))
+            val PENDING = of("pending")
 
-            val PROCESSED = Status(JsonField.of("processed"))
+            val PROCESSED = of("processed")
 
-            val REJECTED = Status(JsonField.of("rejected"))
+            val REJECTED = of("rejected")
 
             fun of(value: String) = Status(JsonField.of(value))
         }
@@ -412,7 +412,7 @@ private constructor(
 
         companion object {
 
-            val INBOUND_MAIL_ITEM = Type(JsonField.of("inbound_mail_item"))
+            val INBOUND_MAIL_ITEM = of("inbound_mail_item")
 
             fun of(value: String) = Type(JsonField.of(value))
         }

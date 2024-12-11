@@ -232,7 +232,7 @@ private constructor(
 
         companion object {
 
-            val ENTITY_SUPPLEMENTAL_DOCUMENT = Type(JsonField.of("entity_supplemental_document"))
+            val ENTITY_SUPPLEMENTAL_DOCUMENT = of("entity_supplemental_document")
 
             fun of(value: String) = Type(JsonField.of(value))
         }

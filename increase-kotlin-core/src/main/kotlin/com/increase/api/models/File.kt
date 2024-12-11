@@ -333,9 +333,9 @@ private constructor(
 
         companion object {
 
-            val TO_INCREASE = Direction(JsonField.of("to_increase"))
+            val TO_INCREASE = of("to_increase")
 
-            val FROM_INCREASE = Direction(JsonField.of("from_increase"))
+            val FROM_INCREASE = of("from_increase")
 
             fun of(value: String) = Direction(JsonField.of(value))
         }
@@ -390,53 +390,51 @@ private constructor(
 
         companion object {
 
-            val CHECK_IMAGE_FRONT = Purpose(JsonField.of("check_image_front"))
+            val CHECK_IMAGE_FRONT = of("check_image_front")
 
-            val CHECK_IMAGE_BACK = Purpose(JsonField.of("check_image_back"))
+            val CHECK_IMAGE_BACK = of("check_image_back")
 
-            val PROCESSED_CHECK_IMAGE_FRONT = Purpose(JsonField.of("processed_check_image_front"))
+            val PROCESSED_CHECK_IMAGE_FRONT = of("processed_check_image_front")
 
-            val PROCESSED_CHECK_IMAGE_BACK = Purpose(JsonField.of("processed_check_image_back"))
+            val PROCESSED_CHECK_IMAGE_BACK = of("processed_check_image_back")
 
-            val MAILED_CHECK_IMAGE = Purpose(JsonField.of("mailed_check_image"))
+            val MAILED_CHECK_IMAGE = of("mailed_check_image")
 
-            val CHECK_VOUCHER_IMAGE = Purpose(JsonField.of("check_voucher_image"))
+            val CHECK_VOUCHER_IMAGE = of("check_voucher_image")
 
-            val INBOUND_MAIL_ITEM = Purpose(JsonField.of("inbound_mail_item"))
+            val INBOUND_MAIL_ITEM = of("inbound_mail_item")
 
-            val FORM_1099_INT = Purpose(JsonField.of("form_1099_int"))
+            val FORM_1099_INT = of("form_1099_int")
 
-            val FORM_SS_4 = Purpose(JsonField.of("form_ss_4"))
+            val FORM_SS_4 = of("form_ss_4")
 
-            val IDENTITY_DOCUMENT = Purpose(JsonField.of("identity_document"))
+            val IDENTITY_DOCUMENT = of("identity_document")
 
-            val INCREASE_STATEMENT = Purpose(JsonField.of("increase_statement"))
+            val INCREASE_STATEMENT = of("increase_statement")
 
-            val OTHER = Purpose(JsonField.of("other"))
+            val OTHER = of("other")
 
-            val TRUST_FORMATION_DOCUMENT = Purpose(JsonField.of("trust_formation_document"))
+            val TRUST_FORMATION_DOCUMENT = of("trust_formation_document")
 
-            val DIGITAL_WALLET_ARTWORK = Purpose(JsonField.of("digital_wallet_artwork"))
+            val DIGITAL_WALLET_ARTWORK = of("digital_wallet_artwork")
 
-            val DIGITAL_WALLET_APP_ICON = Purpose(JsonField.of("digital_wallet_app_icon"))
+            val DIGITAL_WALLET_APP_ICON = of("digital_wallet_app_icon")
 
-            val PHYSICAL_CARD_FRONT = Purpose(JsonField.of("physical_card_front"))
+            val PHYSICAL_CARD_FRONT = of("physical_card_front")
 
-            val PHYSICAL_CARD_BACK = Purpose(JsonField.of("physical_card_back"))
+            val PHYSICAL_CARD_BACK = of("physical_card_back")
 
-            val PHYSICAL_CARD_CARRIER = Purpose(JsonField.of("physical_card_carrier"))
+            val PHYSICAL_CARD_CARRIER = of("physical_card_carrier")
 
-            val DOCUMENT_REQUEST = Purpose(JsonField.of("document_request"))
+            val DOCUMENT_REQUEST = of("document_request")
 
-            val ENTITY_SUPPLEMENTAL_DOCUMENT = Purpose(JsonField.of("entity_supplemental_document"))
+            val ENTITY_SUPPLEMENTAL_DOCUMENT = of("entity_supplemental_document")
 
-            val EXPORT = Purpose(JsonField.of("export"))
+            val EXPORT = of("export")
 
-            val UNUSUAL_ACTIVITY_REPORT_ATTACHMENT =
-                Purpose(JsonField.of("unusual_activity_report_attachment"))
+            val UNUSUAL_ACTIVITY_REPORT_ATTACHMENT = of("unusual_activity_report_attachment")
 
-            val DEPOSIT_ACCOUNT_CONTROL_AGREEMENT =
-                Purpose(JsonField.of("deposit_account_control_agreement"))
+            val DEPOSIT_ACCOUNT_CONTROL_AGREEMENT = of("deposit_account_control_agreement")
 
             fun of(value: String) = Purpose(JsonField.of(value))
         }
@@ -575,7 +573,7 @@ private constructor(
 
         companion object {
 
-            val FILE = Type(JsonField.of("file"))
+            val FILE = of("file")
 
             fun of(value: String) = Type(JsonField.of(value))
         }

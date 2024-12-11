@@ -385,13 +385,13 @@ constructor(
 
         companion object {
 
-            val PENDING = Status(JsonField.of("pending"))
+            val PENDING = of("pending")
 
-            val ACCEPTED = Status(JsonField.of("accepted"))
+            val ACCEPTED = of("accepted")
 
-            val DECLINED = Status(JsonField.of("declined"))
+            val DECLINED = of("declined")
 
-            val REVERSED = Status(JsonField.of("reversed"))
+            val REVERSED = of("reversed")
 
             fun of(value: String) = Status(JsonField.of(value))
         }

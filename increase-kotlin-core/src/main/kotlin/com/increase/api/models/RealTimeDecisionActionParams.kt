@@ -539,11 +539,11 @@ constructor(
 
             companion object {
 
-                val APPROVE = Decision(JsonField.of("approve"))
+                val APPROVE = of("approve")
 
-                val CHALLENGE = Decision(JsonField.of("challenge"))
+                val CHALLENGE = of("challenge")
 
-                val DENY = Decision(JsonField.of("deny"))
+                val DENY = of("deny")
 
                 fun of(value: String) = Decision(JsonField.of(value))
             }
@@ -685,9 +685,9 @@ constructor(
 
             companion object {
 
-                val SUCCESS = Result(JsonField.of("success"))
+                val SUCCESS = of("success")
 
-                val FAILURE = Result(JsonField.of("failure"))
+                val FAILURE = of("failure")
 
                 fun of(value: String) = Result(JsonField.of(value))
             }
@@ -840,9 +840,9 @@ constructor(
 
             companion object {
 
-                val APPROVE = Decision(JsonField.of("approve"))
+                val APPROVE = of("approve")
 
-                val DECLINE = Decision(JsonField.of("decline"))
+                val DECLINE = of("decline")
 
                 fun of(value: String) = Decision(JsonField.of(value))
             }
@@ -897,19 +897,17 @@ constructor(
 
             companion object {
 
-                val INSUFFICIENT_FUNDS = DeclineReason(JsonField.of("insufficient_funds"))
+                val INSUFFICIENT_FUNDS = of("insufficient_funds")
 
-                val TRANSACTION_NEVER_ALLOWED =
-                    DeclineReason(JsonField.of("transaction_never_allowed"))
+                val TRANSACTION_NEVER_ALLOWED = of("transaction_never_allowed")
 
-                val EXCEEDS_APPROVAL_LIMIT = DeclineReason(JsonField.of("exceeds_approval_limit"))
+                val EXCEEDS_APPROVAL_LIMIT = of("exceeds_approval_limit")
 
-                val CARD_TEMPORARILY_DISABLED =
-                    DeclineReason(JsonField.of("card_temporarily_disabled"))
+                val CARD_TEMPORARILY_DISABLED = of("card_temporarily_disabled")
 
-                val SUSPECTED_FRAUD = DeclineReason(JsonField.of("suspected_fraud"))
+                val SUSPECTED_FRAUD = of("suspected_fraud")
 
-                val OTHER = DeclineReason(JsonField.of("other"))
+                val OTHER = of("other")
 
                 fun of(value: String) = DeclineReason(JsonField.of(value))
             }
@@ -1067,9 +1065,9 @@ constructor(
 
             companion object {
 
-                val SUCCESS = Result(JsonField.of("success"))
+                val SUCCESS = of("success")
 
-                val FAILURE = Result(JsonField.of("failure"))
+                val FAILURE = of("failure")
 
                 fun of(value: String) = Result(JsonField.of(value))
             }

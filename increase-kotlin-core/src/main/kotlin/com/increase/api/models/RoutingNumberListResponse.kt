@@ -233,9 +233,9 @@ private constructor(
 
         companion object {
 
-            val SUPPORTED = AchTransfers(JsonField.of("supported"))
+            val SUPPORTED = of("supported")
 
-            val NOT_SUPPORTED = AchTransfers(JsonField.of("not_supported"))
+            val NOT_SUPPORTED = of("not_supported")
 
             fun of(value: String) = AchTransfers(JsonField.of(value))
         }
@@ -290,9 +290,9 @@ private constructor(
 
         companion object {
 
-            val SUPPORTED = RealTimePaymentsTransfers(JsonField.of("supported"))
+            val SUPPORTED = of("supported")
 
-            val NOT_SUPPORTED = RealTimePaymentsTransfers(JsonField.of("not_supported"))
+            val NOT_SUPPORTED = of("not_supported")
 
             fun of(value: String) = RealTimePaymentsTransfers(JsonField.of(value))
         }
@@ -348,7 +348,7 @@ private constructor(
 
         companion object {
 
-            val ROUTING_NUMBER = Type(JsonField.of("routing_number"))
+            val ROUTING_NUMBER = of("routing_number")
 
             fun of(value: String) = Type(JsonField.of(value))
         }
@@ -399,9 +399,9 @@ private constructor(
 
         companion object {
 
-            val SUPPORTED = WireTransfers(JsonField.of("supported"))
+            val SUPPORTED = of("supported")
 
-            val NOT_SUPPORTED = WireTransfers(JsonField.of("not_supported"))
+            val NOT_SUPPORTED = of("not_supported")
 
             fun of(value: String) = WireTransfers(JsonField.of(value))
         }

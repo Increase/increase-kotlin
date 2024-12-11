@@ -944,10 +944,9 @@ constructor(
 
             companion object {
 
-                val FREEFORM = Category(JsonField.of("freeform"))
+                val FREEFORM = of("freeform")
 
-                val PAYMENT_ORDER_REMITTANCE_ADVICE =
-                    Category(JsonField.of("payment_order_remittance_advice"))
+                val PAYMENT_ORDER_REMITTANCE_ADVICE = of("payment_order_remittance_advice")
 
                 fun of(value: String) = Category(JsonField.of(value))
             }
@@ -1370,11 +1369,11 @@ constructor(
 
         companion object {
 
-            val BUSINESS = DestinationAccountHolder(JsonField.of("business"))
+            val BUSINESS = of("business")
 
-            val INDIVIDUAL = DestinationAccountHolder(JsonField.of("individual"))
+            val INDIVIDUAL = of("individual")
 
-            val UNKNOWN = DestinationAccountHolder(JsonField.of("unknown"))
+            val UNKNOWN = of("unknown")
 
             fun of(value: String) = DestinationAccountHolder(JsonField.of(value))
         }
@@ -1434,9 +1433,9 @@ constructor(
 
         companion object {
 
-            val CHECKING = Funding(JsonField.of("checking"))
+            val CHECKING = of("checking")
 
-            val SAVINGS = Funding(JsonField.of("savings"))
+            val SAVINGS = of("savings")
 
             fun of(value: String) = Funding(JsonField.of(value))
         }
@@ -1572,9 +1571,9 @@ constructor(
 
             companion object {
 
-                val SAME_DAY = SettlementSchedule(JsonField.of("same_day"))
+                val SAME_DAY = of("same_day")
 
-                val FUTURE_DATED = SettlementSchedule(JsonField.of("future_dated"))
+                val FUTURE_DATED = of("future_dated")
 
                 fun of(value: String) = SettlementSchedule(JsonField.of(value))
             }
@@ -1647,16 +1646,13 @@ constructor(
 
         companion object {
 
-            val CORPORATE_CREDIT_OR_DEBIT =
-                StandardEntryClassCode(JsonField.of("corporate_credit_or_debit"))
+            val CORPORATE_CREDIT_OR_DEBIT = of("corporate_credit_or_debit")
 
-            val CORPORATE_TRADE_EXCHANGE =
-                StandardEntryClassCode(JsonField.of("corporate_trade_exchange"))
+            val CORPORATE_TRADE_EXCHANGE = of("corporate_trade_exchange")
 
-            val PREARRANGED_PAYMENTS_AND_DEPOSIT =
-                StandardEntryClassCode(JsonField.of("prearranged_payments_and_deposit"))
+            val PREARRANGED_PAYMENTS_AND_DEPOSIT = of("prearranged_payments_and_deposit")
 
-            val INTERNET_INITIATED = StandardEntryClassCode(JsonField.of("internet_initiated"))
+            val INTERNET_INITIATED = of("internet_initiated")
 
             fun of(value: String) = StandardEntryClassCode(JsonField.of(value))
         }
@@ -1719,9 +1715,9 @@ constructor(
 
         companion object {
 
-            val SYNCHRONOUS = TransactionTiming(JsonField.of("synchronous"))
+            val SYNCHRONOUS = of("synchronous")
 
-            val ASYNCHRONOUS = TransactionTiming(JsonField.of("asynchronous"))
+            val ASYNCHRONOUS = of("asynchronous")
 
             fun of(value: String) = TransactionTiming(JsonField.of(value))
         }

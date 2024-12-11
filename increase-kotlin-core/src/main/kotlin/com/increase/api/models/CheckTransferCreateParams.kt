@@ -478,9 +478,9 @@ constructor(
 
         companion object {
 
-            val PHYSICAL_CHECK = FulfillmentMethod(JsonField.of("physical_check"))
+            val PHYSICAL_CHECK = of("physical_check")
 
-            val THIRD_PARTY = FulfillmentMethod(JsonField.of("third_party"))
+            val THIRD_PARTY = of("third_party")
 
             fun of(value: String) = FulfillmentMethod(JsonField.of(value))
         }

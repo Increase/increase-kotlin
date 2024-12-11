@@ -796,16 +796,16 @@ constructor(
 
                     companion object {
 
-                        val SOCIAL_SECURITY_NUMBER = Method(JsonField.of("social_security_number"))
+                        val SOCIAL_SECURITY_NUMBER = of("social_security_number")
 
                         val INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER =
-                            Method(JsonField.of("individual_taxpayer_identification_number"))
+                            of("individual_taxpayer_identification_number")
 
-                        val PASSPORT = Method(JsonField.of("passport"))
+                        val PASSPORT = of("passport")
 
-                        val DRIVERS_LICENSE = Method(JsonField.of("drivers_license"))
+                        val DRIVERS_LICENSE = of("drivers_license")
 
-                        val OTHER = Method(JsonField.of("other"))
+                        val OTHER = of("other")
 
                         fun of(value: String) = Method(JsonField.of(value))
                     }
@@ -1285,9 +1285,9 @@ constructor(
 
             companion object {
 
-                val OWNERSHIP = Prong(JsonField.of("ownership"))
+                val OWNERSHIP = of("ownership")
 
-                val CONTROL = Prong(JsonField.of("control"))
+                val CONTROL = of("control")
 
                 fun of(value: String) = Prong(JsonField.of(value))
             }

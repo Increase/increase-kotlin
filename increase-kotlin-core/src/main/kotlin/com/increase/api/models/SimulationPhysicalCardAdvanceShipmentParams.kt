@@ -321,19 +321,19 @@ constructor(
 
         companion object {
 
-            val PENDING = ShipmentStatus(JsonField.of("pending"))
+            val PENDING = of("pending")
 
-            val CANCELED = ShipmentStatus(JsonField.of("canceled"))
+            val CANCELED = of("canceled")
 
-            val SUBMITTED = ShipmentStatus(JsonField.of("submitted"))
+            val SUBMITTED = of("submitted")
 
-            val ACKNOWLEDGED = ShipmentStatus(JsonField.of("acknowledged"))
+            val ACKNOWLEDGED = of("acknowledged")
 
-            val REJECTED = ShipmentStatus(JsonField.of("rejected"))
+            val REJECTED = of("rejected")
 
-            val SHIPPED = ShipmentStatus(JsonField.of("shipped"))
+            val SHIPPED = of("shipped")
 
-            val RETURNED = ShipmentStatus(JsonField.of("returned"))
+            val RETURNED = of("returned")
 
             fun of(value: String) = ShipmentStatus(JsonField.of(value))
         }
