@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.149.0 (2024-12-12)
+
+Full Changelog: [v0.148.0...v0.149.0](https://github.com/Increase/increase-kotlin/compare/v0.148.0...v0.149.0)
+
+### Features
+
+* **api:** api update ([#645](https://github.com/Increase/increase-kotlin/issues/645)) ([90d2524](https://github.com/Increase/increase-kotlin/commit/90d2524d338701b5d56f5bbb0940b224d5b6b884))
+
+
+### Chores
+
+* **internal:** remove unused imports ([#644](https://github.com/Increase/increase-kotlin/issues/644)) ([b901332](https://github.com/Increase/increase-kotlin/commit/b90133272ec9931a971b4782373f45714863a061))
+* update example values in tests and docs ([#640](https://github.com/Increase/increase-kotlin/issues/640)) ([3c9e8fa](https://github.com/Increase/increase-kotlin/commit/3c9e8faf3820d469c1eac64e8fa4b7556bfab2ae))
+
+
+### Styles
+
+* **internal:** make enum value definitions less verbose ([#642](https://github.com/Increase/increase-kotlin/issues/642)) ([92589bc](https://github.com/Increase/increase-kotlin/commit/92589bc33c2603142a512d7b27d2408d15010112))
+* **internal:** move enum identity methods to bottom of class ([#643](https://github.com/Increase/increase-kotlin/issues/643)) ([bda8338](https://github.com/Increase/increase-kotlin/commit/bda83382938db0b0ff231d6ff4e89c016625e5f5))
+
 ## 0.148.0 (2024-12-09)
 
 Full Changelog: [v0.147.0...v0.148.0](https://github.com/Increase/increase-kotlin/compare/v0.147.0...v0.148.0)
