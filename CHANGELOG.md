@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.150.0 (2024-12-15)
+
+Full Changelog: [v0.149.0...v0.150.0](https://github.com/Increase/increase-kotlin/compare/v0.149.0...v0.150.0)
+
+### Features
+
+* **api:** api update ([#652](https://github.com/Increase/increase-kotlin/issues/652)) ([ec789b3](https://github.com/Increase/increase-kotlin/commit/ec789b32aed14fd5c2295329ebec8d7fe2313899))
+
+
+### Chores
+
+* **internal:** remove unused and expand used wildcard imports ([#650](https://github.com/Increase/increase-kotlin/issues/650)) ([bd5ba0d](https://github.com/Increase/increase-kotlin/commit/bd5ba0de821273b60888b4e2a60ad84fe1a43d32))
+* **internal:** remove unused and expand used wildcard imports ([#651](https://github.com/Increase/increase-kotlin/issues/651)) ([3a4b70c](https://github.com/Increase/increase-kotlin/commit/3a4b70cbe8fac995b03fcdc88f64970f8c3ca197))
+* **test:** remove unused imports ([#647](https://github.com/Increase/increase-kotlin/issues/647)) ([9f179aa](https://github.com/Increase/increase-kotlin/commit/9f179aaca6c12fe98abba3f602f9d699d8074d93))
+* **test:** use `JsonValue` instead of `JsonString` ([#649](https://github.com/Increase/increase-kotlin/issues/649)) ([01a5e47](https://github.com/Increase/increase-kotlin/commit/01a5e473bb0d00e533da92f324fcbf0f12d0d458))
+
 ## 0.149.0 (2024-12-12)
 
 Full Changelog: [v0.148.0...v0.149.0](https://github.com/Increase/increase-kotlin/compare/v0.148.0...v0.149.0)
