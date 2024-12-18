@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.150.1 (2024-12-18)
+
+Full Changelog: [v0.150.0...v0.150.1](https://github.com/Increase/increase-kotlin/compare/v0.150.0...v0.150.1)
+
+### Bug Fixes
+
+* add missing imports ([cb81ec1](https://github.com/Increase/increase-kotlin/commit/cb81ec180dc2fba4ebf776d8ad17edbf478c0523))
+
 ## 0.150.0 (2024-12-15)
 
 Full Changelog: [v0.149.0...v0.150.0](https://github.com/Increase/increase-kotlin/compare/v0.149.0...v0.150.0)
