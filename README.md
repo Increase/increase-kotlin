@@ -50,6 +50,9 @@ val client = IncreaseOkHttpClient.builder()
 Alternately, set the environment with `INCREASE_API_KEY` or `INCREASE_WEBHOOK_SECRET`, and use `IncreaseOkHttpClient.fromEnv()` to read from the environment.
 
 ```kotlin
+import com.increase.api.client.IncreaseClient
+import com.increase.api.client.okhttp.IncreaseOkHttpClient
+
 val client = IncreaseOkHttpClient.fromEnv()
 
 // Note: you can also call fromEnv() from the client builder, for example if you need to set additional properties
@@ -70,8 +73,7 @@ Read the documentation for more configuration options.
 
 ### Example: creating a resource
 
-To create a new account, first use the `AccountCreateParams` builder to specify attributes,
-then pass that to the `create` method of the `accounts` service.
+To create a new account, first use the `AccountCreateParams` builder to specify attributes, then pass that to the `create` method of the `accounts` service.
 
 ```kotlin
 import com.increase.api.models.Account
@@ -87,12 +89,11 @@ val account = client.accounts().create(params)
 
 ### Example: listing resources
 
-The Increase API provides a `list` method to get a paginated list of accounts.
-You can retrieve the first page by:
+The Increase API provides a `list` method to get a paginated list of accounts. You can retrieve the first page by:
 
 ```kotlin
 import com.increase.api.models.Account
-import com.increase.api.models.Page
+import com.increase.api.models.AccountListPage
 
 val page = client.accounts().list()
 for (account: Account in page.data()) {
@@ -103,7 +104,11 @@ for (account: Account in page.data()) {
 Use the `AccountListParams` builder to set parameters:
 
 ```kotlin
-AccountListParams params = AccountListParams.builder()
+import com.increase.api.models.AccountListPage
+import com.increase.api.models.AccountListParams
+import java.time.OffsetDateTime
+
+val params = AccountListParams.builder()
     .createdAt(AccountListParams.CreatedAt.builder()
         .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -117,7 +122,7 @@ AccountListParams params = AccountListParams.builder()
     .limit(1L)
     .programId("program_id")
     .status(AccountListParams.Status.CLOSED)
-    .build();
+    .build()
 val page1 = client.accounts().list(params)
 
 // Using the `from` method of the builder you can reuse previous params values:
@@ -140,14 +145,14 @@ See [Pagination](#pagination) below for more information on transparently workin
 
 To make a request to the Increase API, you generally build an instance of the appropriate `Params` class.
 
-In [Example: creating a resource](#example-creating-a-resource) above, we used the `AccountCreateParams.builder()` to pass to
-the `create` method of the `accounts` service.
+In [Example: creating a resource](#example-creating-a-resource) above, we used the `AccountCreateParams.builder()` to pass to the `create` method of the `accounts` service.
 
-Sometimes, the API may support other properties that are not yet supported in the Kotlin SDK types. In that case,
-you can attach them using the `putAdditionalProperty` method.
+Sometimes, the API may support other properties that are not yet supported in the Kotlin SDK types. In that case, you can attach them using the `putAdditionalProperty` method.
 
 ```kotlin
-import com.increase.api.models.core.JsonValue
+import com.increase.api.core.JsonValue
+import com.increase.api.models.AccountCreateParams
+
 val params = AccountCreateParams.builder()
     // ... normal properties
     .putAdditionalProperty("secret_param", JsonValue.from("4242"))
@@ -161,15 +166,19 @@ val params = AccountCreateParams.builder()
 When receiving a response, the Increase Kotlin SDK will deserialize it into instances of the typed model classes. In rare cases, the API may return a response property that doesn't match the expected Kotlin type. If you directly access the mistaken property, the SDK will throw an unchecked `IncreaseInvalidDataException` at runtime. If you would prefer to check in advance that that response is completely well-typed, call `.validate()` on the returned model.
 
 ```kotlin
+import com.increase.api.models.Account
+
 val account = client.accounts().create().validate()
 ```
 
 ### Response properties as JSON
 
-In rare cases, you may want to access the underlying JSON value for a response property rather than using the typed version provided by
-this SDK. Each model property has a corresponding JSON version, with an underscore before the method name, which returns a `JsonField` value.
+In rare cases, you may want to access the underlying JSON value for a response property rather than using the typed version provided by this SDK. Each model property has a corresponding JSON version, with an underscore before the method name, which returns a `JsonField` value.
 
 ```kotlin
+import com.increase.api.core.JsonField
+import java.util.Optional
+
 val field = responseObj._field
 
 if (field.isMissing()) {
@@ -191,6 +200,8 @@ if (field.isMissing()) {
 Sometimes, the server response may include additional properties that are not yet available in this library's types. You can access them using the model's `_additionalProperties` method:
 
 ```kotlin
+import com.increase.api.core.JsonValue
+
 val secret = account._additionalProperties().get("secret_field")
 ```
 
@@ -198,17 +209,18 @@ val secret = account._additionalProperties().get("secret_field")
 
 ## Pagination
 
-For methods that return a paginated list of results, this library provides convenient ways access
-the results either one page at a time, or item-by-item across all pages.
+For methods that return a paginated list of results, this library provides convenient ways access the results either one page at a time, or item-by-item across all pages.
 
 ### Auto-pagination
 
-To iterate through all results across all pages, you can use `autoPager`,
-which automatically handles fetching more pages for you:
+To iterate through all results across all pages, you can use `autoPager`, which automatically handles fetching more pages for you:
 
 ### Synchronous
 
 ```kotlin
+import com.increase.api.models.Account
+import com.increase.api.models.AccountListPage
+
 // As a Sequence:
 client.accounts().list(params).autoPager()
     .take(50)
@@ -226,12 +238,12 @@ asyncClient.accounts().list(params).autoPager()
 
 ### Manual pagination
 
-If none of the above helpers meet your needs, you can also manually request pages one-by-one.
-A page of results has a `data()` method to fetch the list of objects, as well as top-level
-`response` and other methods to fetch top-level data about the page. It also has methods
-`hasNextPage`, `getNextPage`, and `getNextPageParams` methods to help with pagination.
+If none of the above helpers meet your needs, you can also manually request pages one-by-one. A page of results has a `data()` method to fetch the list of objects, as well as top-level `response` and other methods to fetch top-level data about the page. It also has methods `hasNextPage`, `getNextPage`, and `getNextPageParams` methods to help with pagination.
 
 ```kotlin
+import com.increase.api.models.Account
+import com.increase.api.models.AccountListPage
+
 val page = client.accounts().list(params)
 while (page != null) {
     for (account in page.data) {
@@ -250,31 +262,33 @@ This library throws exceptions in a single hierarchy for easy handling:
 
 - **`IncreaseException`** - Base exception for all exceptions
 
-  - **`IncreaseServiceException`** - HTTP errors with a well-formed response body we were able to parse. The exception message and the `.debuggingRequestId()` will be set by the server.
+- **`IncreaseServiceException`** - HTTP errors with a well-formed response body we were able to parse. The exception message and the `.debuggingRequestId()` will be set by the server.
 
-    | 400    | BadRequestException           |
-    | ------ | ----------------------------- |
-    | 401    | AuthenticationException       |
-    | 403    | PermissionDeniedException     |
-    | 404    | NotFoundException             |
-    | 422    | UnprocessableEntityException  |
-    | 429    | RateLimitException            |
-    | 5xx    | InternalServerException       |
-    | others | UnexpectedStatusCodeException |
+  | 400    | BadRequestException           |
+  | ------ | ----------------------------- |
+  | 401    | AuthenticationException       |
+  | 403    | PermissionDeniedException     |
+  | 404    | NotFoundException             |
+  | 422    | UnprocessableEntityException  |
+  | 429    | RateLimitException            |
+  | 5xx    | InternalServerException       |
+  | others | UnexpectedStatusCodeException |
 
-  - **`IncreaseIoException`** - I/O networking errors
-  - **`IncreaseInvalidDataException`** - any other exceptions on the client side, e.g.:
-    - We failed to serialize the request body
-    - We failed to parse the response body (has access to response code and body)
+- **`IncreaseIoException`** - I/O networking errors
+- **`IncreaseInvalidDataException`** - any other exceptions on the client side, e.g.:
+  - We failed to serialize the request body
+  - We failed to parse the response body (has access to response code and body)
 
 ## Network options
 
 ### Retries
 
-Requests that experience certain errors are automatically retried 2 times by default, with a short exponential backoff. Connection errors (for example, due to a network connectivity problem), 408 Request Timeout, 409 Conflict, 429 Rate Limit, and >=500 Internal errors will all be retried by default.
-You can provide a `maxRetries` on the client builder to configure this:
+Requests that experience certain errors are automatically retried 2 times by default, with a short exponential backoff. Connection errors (for example, due to a network connectivity problem), 408 Request Timeout, 409 Conflict, 429 Rate Limit, and >=500 Internal errors will all be retried by default. You can provide a `maxRetries` on the client builder to configure this:
 
 ```kotlin
+import com.increase.api.client.IncreaseClient
+import com.increase.api.client.okhttp.IncreaseOkHttpClient
+
 val client = IncreaseOkHttpClient.builder()
     .fromEnv()
     .maxRetries(4)
@@ -286,6 +300,10 @@ val client = IncreaseOkHttpClient.builder()
 Requests time out after 1 minute by default. You can configure this on the client builder:
 
 ```kotlin
+import com.increase.api.client.IncreaseClient
+import com.increase.api.client.okhttp.IncreaseOkHttpClient
+import java.time.Duration
+
 val client = IncreaseOkHttpClient.builder()
     .fromEnv()
     .timeout(Duration.ofSeconds(30))
@@ -297,12 +315,14 @@ val client = IncreaseOkHttpClient.builder()
 Requests can be routed through a proxy. You can configure this on the client builder:
 
 ```kotlin
+import com.increase.api.client.IncreaseClient
+import com.increase.api.client.okhttp.IncreaseOkHttpClient
+import java.net.InetSocketAddress
+import java.net.Proxy
+
 val client = IncreaseOkHttpClient.builder()
     .fromEnv()
-    .proxy(new Proxy(
-        Type.HTTP,
-        new InetSocketAddress("proxy.com", 8080)
-    ))
+    .proxy(Proxy(Proxy.Type.HTTP, InetSocketAddress("example.com", 8080)))
     .build()
 ```
 
@@ -311,6 +331,9 @@ val client = IncreaseOkHttpClient.builder()
 Requests are made to the production environment by default. You can connect to other environments, like `sandbox`, via the client builder:
 
 ```kotlin
+import com.increase.api.client.IncreaseClient
+import com.increase.api.client.okhttp.IncreaseOkHttpClient
+
 val client = IncreaseOkHttpClient.builder()
     .fromEnv()
     .sandbox()
