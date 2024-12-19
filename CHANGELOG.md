@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.150.2 (2024-12-19)
+
+Full Changelog: [v0.150.1...v0.150.2](https://github.com/Increase/increase-kotlin/compare/v0.150.1...v0.150.2)
+
+### Chores
+
+* **docs:** add example project ([#660](https://github.com/Increase/increase-kotlin/issues/660)) ([b7be68b](https://github.com/Increase/increase-kotlin/commit/b7be68beaa4964f298d19622fe8c0dac3892359b))
+* **docs:** update readme ([#659](https://github.com/Increase/increase-kotlin/issues/659)) ([4f2caee](https://github.com/Increase/increase-kotlin/commit/4f2caeea03e86190d70d27b9110b9276053768a1))
+* update parameter examples in tests and docs ([#657](https://github.com/Increase/increase-kotlin/issues/657)) ([ccf91f7](https://github.com/Increase/increase-kotlin/commit/ccf91f702c5ab6af70f262af7bf2e080a2a9dd56))
+
 ## 0.150.1 (2024-12-18)
 
 Full Changelog: [v0.150.0...v0.150.1](https://github.com/Increase/increase-kotlin/compare/v0.150.0...v0.150.1)
