@@ -42,7 +42,7 @@ Use `IncreaseOkHttpClient.builder()` to configure the client. At a minimum you n
 import com.increase.api.client.IncreaseClient
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
 
-val client = IncreaseOkHttpClient.builder()
+val client: IncreaseClient = IncreaseOkHttpClient.builder()
     .apiKey("My API Key")
     .build()
 ```
@@ -53,10 +53,10 @@ Alternately, set the environment with `INCREASE_API_KEY` or `INCREASE_WEBHOOK_SE
 import com.increase.api.client.IncreaseClient
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
 
-val client = IncreaseOkHttpClient.fromEnv()
+val client: IncreaseClient = IncreaseOkHttpClient.fromEnv()
 
 // Note: you can also call fromEnv() from the client builder, for example if you need to set additional properties
-val client = IncreaseOkHttpClient.builder()
+val client: IncreaseClient = IncreaseOkHttpClient.builder()
     .fromEnv()
     // ... set properties on the builder
     .build()
@@ -79,12 +79,12 @@ To create a new account, first use the `AccountCreateParams` builder to specify 
 import com.increase.api.models.Account
 import com.increase.api.models.AccountCreateParams
 
-val params = AccountCreateParams.builder()
+val params: AccountCreateParams = AccountCreateParams.builder()
     .name("New Account!")
     .entityId("entity_n8y8tnk2p9339ti393yi")
     .programId("program_i2v2os4mwza1oetokh9i")
     .build()
-val account = client.accounts().create(params)
+val account: Account = client.accounts().create(params)
 ```
 
 ### Example: listing resources
@@ -95,7 +95,7 @@ The Increase API provides a `list` method to get a paginated list of accounts. Y
 import com.increase.api.models.Account
 import com.increase.api.models.AccountListPage
 
-val page = client.accounts().list()
+val page: AccountListPage = client.accounts().list()
 for (account: Account in page.data()) {
     print(account)
 }
@@ -108,7 +108,7 @@ import com.increase.api.models.AccountListPage
 import com.increase.api.models.AccountListParams
 import java.time.OffsetDateTime
 
-val params = AccountListParams.builder()
+val params: AccountListParams = AccountListParams.builder()
     .createdAt(AccountListParams.CreatedAt.builder()
         .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -123,16 +123,16 @@ val params = AccountListParams.builder()
     .programId("program_id")
     .status(AccountListParams.Status.CLOSED)
     .build()
-val page1 = client.accounts().list(params)
+val page1: AccountListPage = client.accounts().list(params)
 
 // Using the `from` method of the builder you can reuse previous params values:
-val page2 = client.accounts().list(AccountListParams.builder()
+val page2: AccountListPage = client.accounts().list(AccountListParams.builder()
     .from(params)
     .nextCursor("abc123...")
     .build())
 
 // Or easily get params for the next page by using the helper `getNextPageParams`:
-val page3 = client.accounts().list(params.getNextPageParams(page2))
+val page3: AccountListPage = client.accounts().list(params.getNextPageParams(page2))
 ```
 
 See [Pagination](#pagination) below for more information on transparently working with lists of objects without worrying about fetching each page.
@@ -153,7 +153,7 @@ Sometimes, the API may support other properties that are not yet supported in th
 import com.increase.api.core.JsonValue
 import com.increase.api.models.AccountCreateParams
 
-val params = AccountCreateParams.builder()
+val params: AccountCreateParams = AccountCreateParams.builder()
     // ... normal properties
     .putAdditionalProperty("secret_param", JsonValue.from("4242"))
     .build()
@@ -168,7 +168,7 @@ When receiving a response, the Increase Kotlin SDK will deserialize it into inst
 ```kotlin
 import com.increase.api.models.Account
 
-val account = client.accounts().create().validate()
+val account: Account = client.accounts().create().validate()
 ```
 
 ### Response properties as JSON
@@ -179,7 +179,7 @@ In rare cases, you may want to access the underlying JSON value for a response p
 import com.increase.api.core.JsonField
 import java.util.Optional
 
-val field = responseObj._field
+val field: JsonField = responseObj._field
 
 if (field.isMissing()) {
   // Value was not specified in the JSON response
@@ -191,7 +191,7 @@ if (field.isMissing()) {
 
   // If the value given by the API did not match the shape that the SDK expects
   // you can deserialise into a custom type
-  val myObj = responseObj._field.asUnknown()?.convert(MyClass.class)
+  val myObj: MyClass = responseObj._field.asUnknown()?.convert(MyClass.class)
 }
 ```
 
@@ -202,7 +202,7 @@ Sometimes, the server response may include additional properties that are not ye
 ```kotlin
 import com.increase.api.core.JsonValue
 
-val secret = account._additionalProperties().get("secret_field")
+val secret: JsonValue = account._additionalProperties().get("secret_field")
 ```
 
 ---
@@ -303,7 +303,7 @@ Requests that experience certain errors are automatically retried 2 times by def
 import com.increase.api.client.IncreaseClient
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
 
-val client = IncreaseOkHttpClient.builder()
+val client: IncreaseClient = IncreaseOkHttpClient.builder()
     .fromEnv()
     .maxRetries(4)
     .build()
@@ -318,7 +318,7 @@ import com.increase.api.client.IncreaseClient
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
 import java.time.Duration
 
-val client = IncreaseOkHttpClient.builder()
+val client: IncreaseClient = IncreaseOkHttpClient.builder()
     .fromEnv()
     .timeout(Duration.ofSeconds(30))
     .build()
@@ -334,7 +334,7 @@ import com.increase.api.client.okhttp.IncreaseOkHttpClient
 import java.net.InetSocketAddress
 import java.net.Proxy
 
-val client = IncreaseOkHttpClient.builder()
+val client: IncreaseClient = IncreaseOkHttpClient.builder()
     .fromEnv()
     .proxy(Proxy(Proxy.Type.HTTP, InetSocketAddress("example.com", 8080)))
     .build()
@@ -348,7 +348,7 @@ Requests are made to the production environment by default. You can connect to o
 import com.increase.api.client.IncreaseClient
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
 
-val client = IncreaseOkHttpClient.builder()
+val client: IncreaseClient = IncreaseOkHttpClient.builder()
     .fromEnv()
     .sandbox()
     .build()
