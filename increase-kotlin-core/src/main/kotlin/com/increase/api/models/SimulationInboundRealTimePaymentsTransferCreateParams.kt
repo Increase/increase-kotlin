@@ -69,8 +69,8 @@ constructor(
     @NoAutoDetect
     class SimulationInboundRealTimePaymentsTransferCreateBody
     internal constructor(
-        private val accountNumberId: String?,
-        private val amount: Long?,
+        private val accountNumberId: String,
+        private val amount: Long,
         private val debtorAccountNumber: String?,
         private val debtorName: String?,
         private val debtorRoutingNumber: String?,
@@ -80,10 +80,10 @@ constructor(
     ) {
 
         /** The identifier of the Account Number the inbound Real-Time Payments Transfer is for. */
-        @JsonProperty("account_number_id") fun accountNumberId(): String? = accountNumberId
+        @JsonProperty("account_number_id") fun accountNumberId(): String = accountNumberId
 
         /** The transfer amount in USD cents. Must be positive. */
-        @JsonProperty("amount") fun amount(): Long? = amount
+        @JsonProperty("amount") fun amount(): Long = amount
 
         /** The account number of the account that sent the transfer. */
         @JsonProperty("debtor_account_number")
@@ -130,21 +130,21 @@ constructor(
                 simulationInboundRealTimePaymentsTransferCreateBody:
                     SimulationInboundRealTimePaymentsTransferCreateBody
             ) = apply {
-                this.accountNumberId =
+                accountNumberId =
                     simulationInboundRealTimePaymentsTransferCreateBody.accountNumberId
-                this.amount = simulationInboundRealTimePaymentsTransferCreateBody.amount
-                this.debtorAccountNumber =
+                amount = simulationInboundRealTimePaymentsTransferCreateBody.amount
+                debtorAccountNumber =
                     simulationInboundRealTimePaymentsTransferCreateBody.debtorAccountNumber
-                this.debtorName = simulationInboundRealTimePaymentsTransferCreateBody.debtorName
-                this.debtorRoutingNumber =
+                debtorName = simulationInboundRealTimePaymentsTransferCreateBody.debtorName
+                debtorRoutingNumber =
                     simulationInboundRealTimePaymentsTransferCreateBody.debtorRoutingNumber
-                this.remittanceInformation =
+                remittanceInformation =
                     simulationInboundRealTimePaymentsTransferCreateBody.remittanceInformation
-                this.requestForPaymentId =
+                requestForPaymentId =
                     simulationInboundRealTimePaymentsTransferCreateBody.requestForPaymentId
-                additionalProperties(
+                additionalProperties =
                     simulationInboundRealTimePaymentsTransferCreateBody.additionalProperties
-                )
+                        .toMutableMap()
             }
 
             /**
@@ -160,44 +160,50 @@ constructor(
 
             /** The account number of the account that sent the transfer. */
             @JsonProperty("debtor_account_number")
-            fun debtorAccountNumber(debtorAccountNumber: String) = apply {
+            fun debtorAccountNumber(debtorAccountNumber: String?) = apply {
                 this.debtorAccountNumber = debtorAccountNumber
             }
 
             /** The name provided by the sender of the transfer. */
             @JsonProperty("debtor_name")
-            fun debtorName(debtorName: String) = apply { this.debtorName = debtorName }
+            fun debtorName(debtorName: String?) = apply { this.debtorName = debtorName }
 
             /** The routing number of the account that sent the transfer. */
             @JsonProperty("debtor_routing_number")
-            fun debtorRoutingNumber(debtorRoutingNumber: String) = apply {
+            fun debtorRoutingNumber(debtorRoutingNumber: String?) = apply {
                 this.debtorRoutingNumber = debtorRoutingNumber
             }
 
             /** Additional information included with the transfer. */
             @JsonProperty("remittance_information")
-            fun remittanceInformation(remittanceInformation: String) = apply {
+            fun remittanceInformation(remittanceInformation: String?) = apply {
                 this.remittanceInformation = remittanceInformation
             }
 
             /** The identifier of a pending Request for Payment that this transfer will fulfill. */
             @JsonProperty("request_for_payment_id")
-            fun requestForPaymentId(requestForPaymentId: String) = apply {
+            fun requestForPaymentId(requestForPaymentId: String?) = apply {
                 this.requestForPaymentId = requestForPaymentId
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): SimulationInboundRealTimePaymentsTransferCreateBody =

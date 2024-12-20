@@ -61,21 +61,21 @@ constructor(
     @NoAutoDetect
     class PhysicalCardCreateBody
     internal constructor(
-        private val cardId: String?,
-        private val cardholder: Cardholder?,
-        private val shipment: Shipment?,
+        private val cardId: String,
+        private val cardholder: Cardholder,
+        private val shipment: Shipment,
         private val physicalCardProfileId: String?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         /** The underlying card representing this physical card. */
-        @JsonProperty("card_id") fun cardId(): String? = cardId
+        @JsonProperty("card_id") fun cardId(): String = cardId
 
         /** Details about the cardholder, as it will appear on the physical card. */
-        @JsonProperty("cardholder") fun cardholder(): Cardholder? = cardholder
+        @JsonProperty("cardholder") fun cardholder(): Cardholder = cardholder
 
         /** The details used to ship this physical card. */
-        @JsonProperty("shipment") fun shipment(): Shipment? = shipment
+        @JsonProperty("shipment") fun shipment(): Shipment = shipment
 
         /**
          * The physical card profile to use for this physical card. The latest default physical card
@@ -104,11 +104,11 @@ constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(physicalCardCreateBody: PhysicalCardCreateBody) = apply {
-                this.cardId = physicalCardCreateBody.cardId
-                this.cardholder = physicalCardCreateBody.cardholder
-                this.shipment = physicalCardCreateBody.shipment
-                this.physicalCardProfileId = physicalCardCreateBody.physicalCardProfileId
-                additionalProperties(physicalCardCreateBody.additionalProperties)
+                cardId = physicalCardCreateBody.cardId
+                cardholder = physicalCardCreateBody.cardholder
+                shipment = physicalCardCreateBody.shipment
+                physicalCardProfileId = physicalCardCreateBody.physicalCardProfileId
+                additionalProperties = physicalCardCreateBody.additionalProperties.toMutableMap()
             }
 
             /** The underlying card representing this physical card. */
@@ -127,22 +127,28 @@ constructor(
              * card profile will be used if not provided.
              */
             @JsonProperty("physical_card_profile_id")
-            fun physicalCardProfileId(physicalCardProfileId: String) = apply {
+            fun physicalCardProfileId(physicalCardProfileId: String?) = apply {
                 this.physicalCardProfileId = physicalCardProfileId
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): PhysicalCardCreateBody =
@@ -356,16 +362,16 @@ constructor(
     @NoAutoDetect
     class Cardholder
     private constructor(
-        private val firstName: String?,
-        private val lastName: String?,
+        private val firstName: String,
+        private val lastName: String,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         /** The cardholder's first name. */
-        @JsonProperty("first_name") fun firstName(): String? = firstName
+        @JsonProperty("first_name") fun firstName(): String = firstName
 
         /** The cardholder's last name. */
-        @JsonProperty("last_name") fun lastName(): String? = lastName
+        @JsonProperty("last_name") fun lastName(): String = lastName
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -385,9 +391,9 @@ constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(cardholder: Cardholder) = apply {
-                this.firstName = cardholder.firstName
-                this.lastName = cardholder.lastName
-                additionalProperties(cardholder.additionalProperties)
+                firstName = cardholder.firstName
+                lastName = cardholder.lastName
+                additionalProperties = cardholder.additionalProperties.toMutableMap()
             }
 
             /** The cardholder's first name. */
@@ -400,16 +406,22 @@ constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): Cardholder =
@@ -443,16 +455,16 @@ constructor(
     @NoAutoDetect
     class Shipment
     private constructor(
-        private val address: Address?,
-        private val method: Method?,
+        private val address: Address,
+        private val method: Method,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         /** The address to where the card should be shipped. */
-        @JsonProperty("address") fun address(): Address? = address
+        @JsonProperty("address") fun address(): Address = address
 
         /** The shipping method to use. */
-        @JsonProperty("method") fun method(): Method? = method
+        @JsonProperty("method") fun method(): Method = method
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -472,9 +484,9 @@ constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(shipment: Shipment) = apply {
-                this.address = shipment.address
-                this.method = shipment.method
-                additionalProperties(shipment.additionalProperties)
+                address = shipment.address
+                method = shipment.method
+                additionalProperties = shipment.additionalProperties.toMutableMap()
             }
 
             /** The address to where the card should be shipped. */
@@ -486,16 +498,22 @@ constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): Shipment =
@@ -511,22 +529,22 @@ constructor(
         @NoAutoDetect
         class Address
         private constructor(
-            private val city: String?,
-            private val line1: String?,
+            private val city: String,
+            private val line1: String,
             private val line2: String?,
             private val line3: String?,
-            private val name: String?,
+            private val name: String,
             private val phoneNumber: String?,
-            private val postalCode: String?,
-            private val state: String?,
+            private val postalCode: String,
+            private val state: String,
             private val additionalProperties: Map<String, JsonValue>,
         ) {
 
             /** The city of the shipping address. */
-            @JsonProperty("city") fun city(): String? = city
+            @JsonProperty("city") fun city(): String = city
 
             /** The first line of the shipping address. */
-            @JsonProperty("line1") fun line1(): String? = line1
+            @JsonProperty("line1") fun line1(): String = line1
 
             /** The second line of the shipping address. */
             @JsonProperty("line2") fun line2(): String? = line2
@@ -535,16 +553,16 @@ constructor(
             @JsonProperty("line3") fun line3(): String? = line3
 
             /** The name of the recipient. */
-            @JsonProperty("name") fun name(): String? = name
+            @JsonProperty("name") fun name(): String = name
 
             /** The phone number of the recipient. */
             @JsonProperty("phone_number") fun phoneNumber(): String? = phoneNumber
 
             /** The postal code of the shipping address. */
-            @JsonProperty("postal_code") fun postalCode(): String? = postalCode
+            @JsonProperty("postal_code") fun postalCode(): String = postalCode
 
             /** The US state of the shipping address. */
-            @JsonProperty("state") fun state(): String? = state
+            @JsonProperty("state") fun state(): String = state
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -570,15 +588,15 @@ constructor(
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(address: Address) = apply {
-                    this.city = address.city
-                    this.line1 = address.line1
-                    this.line2 = address.line2
-                    this.line3 = address.line3
-                    this.name = address.name
-                    this.phoneNumber = address.phoneNumber
-                    this.postalCode = address.postalCode
-                    this.state = address.state
-                    additionalProperties(address.additionalProperties)
+                    city = address.city
+                    line1 = address.line1
+                    line2 = address.line2
+                    line3 = address.line3
+                    name = address.name
+                    phoneNumber = address.phoneNumber
+                    postalCode = address.postalCode
+                    state = address.state
+                    additionalProperties = address.additionalProperties.toMutableMap()
                 }
 
                 /** The city of the shipping address. */
@@ -588,17 +606,17 @@ constructor(
                 @JsonProperty("line1") fun line1(line1: String) = apply { this.line1 = line1 }
 
                 /** The second line of the shipping address. */
-                @JsonProperty("line2") fun line2(line2: String) = apply { this.line2 = line2 }
+                @JsonProperty("line2") fun line2(line2: String?) = apply { this.line2 = line2 }
 
                 /** The third line of the shipping address. */
-                @JsonProperty("line3") fun line3(line3: String) = apply { this.line3 = line3 }
+                @JsonProperty("line3") fun line3(line3: String?) = apply { this.line3 = line3 }
 
                 /** The name of the recipient. */
                 @JsonProperty("name") fun name(name: String) = apply { this.name = name }
 
                 /** The phone number of the recipient. */
                 @JsonProperty("phone_number")
-                fun phoneNumber(phoneNumber: String) = apply { this.phoneNumber = phoneNumber }
+                fun phoneNumber(phoneNumber: String?) = apply { this.phoneNumber = phoneNumber }
 
                 /** The postal code of the shipping address. */
                 @JsonProperty("postal_code")
@@ -609,18 +627,26 @@ constructor(
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
-                    this.additionalProperties.putAll(additionalProperties)
+                    putAllAdditionalProperties(additionalProperties)
                 }
 
                 @JsonAnySetter
                 fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    this.additionalProperties.put(key, value)
+                    additionalProperties.put(key, value)
                 }
 
                 fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                     apply {
                         this.additionalProperties.putAll(additionalProperties)
                     }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
 
                 fun build(): Address =
                     Address(

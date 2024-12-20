@@ -105,10 +105,10 @@ constructor(
     @NoAutoDetect
     class WireTransferCreateBody
     internal constructor(
-        private val accountId: String?,
-        private val amount: Long?,
-        private val beneficiaryName: String?,
-        private val messageToRecipient: String?,
+        private val accountId: String,
+        private val amount: Long,
+        private val beneficiaryName: String,
+        private val messageToRecipient: String,
         private val accountNumber: String?,
         private val beneficiaryAddressLine1: String?,
         private val beneficiaryAddressLine2: String?,
@@ -125,16 +125,16 @@ constructor(
     ) {
 
         /** The identifier for the account that will send the transfer. */
-        @JsonProperty("account_id") fun accountId(): String? = accountId
+        @JsonProperty("account_id") fun accountId(): String = accountId
 
         /** The transfer amount in USD cents. */
-        @JsonProperty("amount") fun amount(): Long? = amount
+        @JsonProperty("amount") fun amount(): Long = amount
 
         /** The beneficiary's name. */
-        @JsonProperty("beneficiary_name") fun beneficiaryName(): String? = beneficiaryName
+        @JsonProperty("beneficiary_name") fun beneficiaryName(): String = beneficiaryName
 
         /** The message that will show on the recipient's bank statement. */
-        @JsonProperty("message_to_recipient") fun messageToRecipient(): String? = messageToRecipient
+        @JsonProperty("message_to_recipient") fun messageToRecipient(): String = messageToRecipient
 
         /** The account number for the destination account. */
         @JsonProperty("account_number") fun accountNumber(): String? = accountNumber
@@ -229,23 +229,23 @@ constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(wireTransferCreateBody: WireTransferCreateBody) = apply {
-                this.accountId = wireTransferCreateBody.accountId
-                this.amount = wireTransferCreateBody.amount
-                this.beneficiaryName = wireTransferCreateBody.beneficiaryName
-                this.messageToRecipient = wireTransferCreateBody.messageToRecipient
-                this.accountNumber = wireTransferCreateBody.accountNumber
-                this.beneficiaryAddressLine1 = wireTransferCreateBody.beneficiaryAddressLine1
-                this.beneficiaryAddressLine2 = wireTransferCreateBody.beneficiaryAddressLine2
-                this.beneficiaryAddressLine3 = wireTransferCreateBody.beneficiaryAddressLine3
-                this.externalAccountId = wireTransferCreateBody.externalAccountId
-                this.originatorAddressLine1 = wireTransferCreateBody.originatorAddressLine1
-                this.originatorAddressLine2 = wireTransferCreateBody.originatorAddressLine2
-                this.originatorAddressLine3 = wireTransferCreateBody.originatorAddressLine3
-                this.originatorName = wireTransferCreateBody.originatorName
-                this.requireApproval = wireTransferCreateBody.requireApproval
-                this.routingNumber = wireTransferCreateBody.routingNumber
-                this.sourceAccountNumberId = wireTransferCreateBody.sourceAccountNumberId
-                additionalProperties(wireTransferCreateBody.additionalProperties)
+                accountId = wireTransferCreateBody.accountId
+                amount = wireTransferCreateBody.amount
+                beneficiaryName = wireTransferCreateBody.beneficiaryName
+                messageToRecipient = wireTransferCreateBody.messageToRecipient
+                accountNumber = wireTransferCreateBody.accountNumber
+                beneficiaryAddressLine1 = wireTransferCreateBody.beneficiaryAddressLine1
+                beneficiaryAddressLine2 = wireTransferCreateBody.beneficiaryAddressLine2
+                beneficiaryAddressLine3 = wireTransferCreateBody.beneficiaryAddressLine3
+                externalAccountId = wireTransferCreateBody.externalAccountId
+                originatorAddressLine1 = wireTransferCreateBody.originatorAddressLine1
+                originatorAddressLine2 = wireTransferCreateBody.originatorAddressLine2
+                originatorAddressLine3 = wireTransferCreateBody.originatorAddressLine3
+                originatorName = wireTransferCreateBody.originatorName
+                requireApproval = wireTransferCreateBody.requireApproval
+                routingNumber = wireTransferCreateBody.routingNumber
+                sourceAccountNumberId = wireTransferCreateBody.sourceAccountNumberId
+                additionalProperties = wireTransferCreateBody.additionalProperties.toMutableMap()
             }
 
             /** The identifier for the account that will send the transfer. */
@@ -269,23 +269,23 @@ constructor(
 
             /** The account number for the destination account. */
             @JsonProperty("account_number")
-            fun accountNumber(accountNumber: String) = apply { this.accountNumber = accountNumber }
+            fun accountNumber(accountNumber: String?) = apply { this.accountNumber = accountNumber }
 
             /** The beneficiary's address line 1. */
             @JsonProperty("beneficiary_address_line1")
-            fun beneficiaryAddressLine1(beneficiaryAddressLine1: String) = apply {
+            fun beneficiaryAddressLine1(beneficiaryAddressLine1: String?) = apply {
                 this.beneficiaryAddressLine1 = beneficiaryAddressLine1
             }
 
             /** The beneficiary's address line 2. */
             @JsonProperty("beneficiary_address_line2")
-            fun beneficiaryAddressLine2(beneficiaryAddressLine2: String) = apply {
+            fun beneficiaryAddressLine2(beneficiaryAddressLine2: String?) = apply {
                 this.beneficiaryAddressLine2 = beneficiaryAddressLine2
             }
 
             /** The beneficiary's address line 3. */
             @JsonProperty("beneficiary_address_line3")
-            fun beneficiaryAddressLine3(beneficiaryAddressLine3: String) = apply {
+            fun beneficiaryAddressLine3(beneficiaryAddressLine3: String?) = apply {
                 this.beneficiaryAddressLine3 = beneficiaryAddressLine3
             }
 
@@ -294,7 +294,7 @@ constructor(
              * provided, `account_number` and `routing_number` must be absent.
              */
             @JsonProperty("external_account_id")
-            fun externalAccountId(externalAccountId: String) = apply {
+            fun externalAccountId(externalAccountId: String?) = apply {
                 this.externalAccountId = externalAccountId
             }
 
@@ -303,7 +303,7 @@ constructor(
              * commingled account. Otherwise, we'll use the associated entity's details.
              */
             @JsonProperty("originator_address_line1")
-            fun originatorAddressLine1(originatorAddressLine1: String) = apply {
+            fun originatorAddressLine1(originatorAddressLine1: String?) = apply {
                 this.originatorAddressLine1 = originatorAddressLine1
             }
 
@@ -312,7 +312,7 @@ constructor(
              * commingled account. Otherwise, we'll use the associated entity's details.
              */
             @JsonProperty("originator_address_line2")
-            fun originatorAddressLine2(originatorAddressLine2: String) = apply {
+            fun originatorAddressLine2(originatorAddressLine2: String?) = apply {
                 this.originatorAddressLine2 = originatorAddressLine2
             }
 
@@ -321,7 +321,7 @@ constructor(
              * commingled account. Otherwise, we'll use the associated entity's details.
              */
             @JsonProperty("originator_address_line3")
-            fun originatorAddressLine3(originatorAddressLine3: String) = apply {
+            fun originatorAddressLine3(originatorAddressLine3: String?) = apply {
                 this.originatorAddressLine3 = originatorAddressLine3
             }
 
@@ -330,13 +330,13 @@ constructor(
              * commingled account. Otherwise, we'll use the associated entity's details.
              */
             @JsonProperty("originator_name")
-            fun originatorName(originatorName: String) = apply {
+            fun originatorName(originatorName: String?) = apply {
                 this.originatorName = originatorName
             }
 
             /** Whether the transfer requires explicit approval via the dashboard or API. */
             @JsonProperty("require_approval")
-            fun requireApproval(requireApproval: Boolean) = apply {
+            fun requireApproval(requireApproval: Boolean?) = apply {
                 this.requireApproval = requireApproval
             }
 
@@ -345,26 +345,32 @@ constructor(
              * destination account.
              */
             @JsonProperty("routing_number")
-            fun routingNumber(routingNumber: String) = apply { this.routingNumber = routingNumber }
+            fun routingNumber(routingNumber: String?) = apply { this.routingNumber = routingNumber }
 
             /** The ID of an Account Number that will be passed to the wire's recipient */
             @JsonProperty("source_account_number_id")
-            fun sourceAccountNumberId(sourceAccountNumberId: String) = apply {
+            fun sourceAccountNumberId(sourceAccountNumberId: String?) = apply {
                 this.sourceAccountNumberId = sourceAccountNumberId
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): WireTransferCreateBody =

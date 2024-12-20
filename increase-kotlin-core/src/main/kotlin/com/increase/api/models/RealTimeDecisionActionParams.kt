@@ -141,14 +141,13 @@ constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(realTimeDecisionActionBody: RealTimeDecisionActionBody) = apply {
-                this.cardAuthentication = realTimeDecisionActionBody.cardAuthentication
-                this.cardAuthenticationChallenge =
-                    realTimeDecisionActionBody.cardAuthenticationChallenge
-                this.cardAuthorization = realTimeDecisionActionBody.cardAuthorization
-                this.digitalWalletAuthentication =
-                    realTimeDecisionActionBody.digitalWalletAuthentication
-                this.digitalWalletToken = realTimeDecisionActionBody.digitalWalletToken
-                additionalProperties(realTimeDecisionActionBody.additionalProperties)
+                cardAuthentication = realTimeDecisionActionBody.cardAuthentication
+                cardAuthenticationChallenge = realTimeDecisionActionBody.cardAuthenticationChallenge
+                cardAuthorization = realTimeDecisionActionBody.cardAuthorization
+                digitalWalletAuthentication = realTimeDecisionActionBody.digitalWalletAuthentication
+                digitalWalletToken = realTimeDecisionActionBody.digitalWalletToken
+                additionalProperties =
+                    realTimeDecisionActionBody.additionalProperties.toMutableMap()
             }
 
             /**
@@ -156,7 +155,7 @@ constructor(
              * contains your response to the authentication.
              */
             @JsonProperty("card_authentication")
-            fun cardAuthentication(cardAuthentication: CardAuthentication) = apply {
+            fun cardAuthentication(cardAuthentication: CardAuthentication?) = apply {
                 this.cardAuthentication = cardAuthentication
             }
 
@@ -166,7 +165,7 @@ constructor(
              */
             @JsonProperty("card_authentication_challenge")
             fun cardAuthenticationChallenge(
-                cardAuthenticationChallenge: CardAuthenticationChallenge
+                cardAuthenticationChallenge: CardAuthenticationChallenge?
             ) = apply { this.cardAuthenticationChallenge = cardAuthenticationChallenge }
 
             /**
@@ -174,7 +173,7 @@ constructor(
              * contains your response to the authorization.
              */
             @JsonProperty("card_authorization")
-            fun cardAuthorization(cardAuthorization: CardAuthorization) = apply {
+            fun cardAuthorization(cardAuthorization: CardAuthorization?) = apply {
                 this.cardAuthorization = cardAuthorization
             }
 
@@ -184,7 +183,7 @@ constructor(
              */
             @JsonProperty("digital_wallet_authentication")
             fun digitalWalletAuthentication(
-                digitalWalletAuthentication: DigitalWalletAuthentication
+                digitalWalletAuthentication: DigitalWalletAuthentication?
             ) = apply { this.digitalWalletAuthentication = digitalWalletAuthentication }
 
             /**
@@ -192,22 +191,28 @@ constructor(
              * this object contains your response to the attempt.
              */
             @JsonProperty("digital_wallet_token")
-            fun digitalWalletToken(digitalWalletToken: DigitalWalletToken) = apply {
+            fun digitalWalletToken(digitalWalletToken: DigitalWalletToken?) = apply {
                 this.digitalWalletToken = digitalWalletToken
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): RealTimeDecisionActionBody =
@@ -463,12 +468,12 @@ constructor(
     @NoAutoDetect
     class CardAuthentication
     private constructor(
-        private val decision: Decision?,
+        private val decision: Decision,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         /** Whether the card authentication attempt should be approved or declined. */
-        @JsonProperty("decision") fun decision(): Decision? = decision
+        @JsonProperty("decision") fun decision(): Decision = decision
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -487,8 +492,8 @@ constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(cardAuthentication: CardAuthentication) = apply {
-                this.decision = cardAuthentication.decision
-                additionalProperties(cardAuthentication.additionalProperties)
+                decision = cardAuthentication.decision
+                additionalProperties = cardAuthentication.additionalProperties.toMutableMap()
             }
 
             /** Whether the card authentication attempt should be approved or declined. */
@@ -497,16 +502,22 @@ constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): CardAuthentication =
@@ -605,14 +616,14 @@ constructor(
     @NoAutoDetect
     class CardAuthenticationChallenge
     private constructor(
-        private val result: Result?,
+        private val result: Result,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         /**
          * Whether the card authentication challenge was successfully delivered to the cardholder.
          */
-        @JsonProperty("result") fun result(): Result? = result
+        @JsonProperty("result") fun result(): Result = result
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -631,8 +642,9 @@ constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(cardAuthenticationChallenge: CardAuthenticationChallenge) = apply {
-                this.result = cardAuthenticationChallenge.result
-                additionalProperties(cardAuthenticationChallenge.additionalProperties)
+                result = cardAuthenticationChallenge.result
+                additionalProperties =
+                    cardAuthenticationChallenge.additionalProperties.toMutableMap()
             }
 
             /**
@@ -643,16 +655,22 @@ constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): CardAuthenticationChallenge =
@@ -745,13 +763,13 @@ constructor(
     @NoAutoDetect
     class CardAuthorization
     private constructor(
-        private val decision: Decision?,
+        private val decision: Decision,
         private val declineReason: DeclineReason?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         /** Whether the card authorization should be approved or declined. */
-        @JsonProperty("decision") fun decision(): Decision? = decision
+        @JsonProperty("decision") fun decision(): Decision = decision
 
         /**
          * The reason the card authorization was declined. This translates to a specific decline
@@ -777,9 +795,9 @@ constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(cardAuthorization: CardAuthorization) = apply {
-                this.decision = cardAuthorization.decision
-                this.declineReason = cardAuthorization.declineReason
-                additionalProperties(cardAuthorization.additionalProperties)
+                decision = cardAuthorization.decision
+                declineReason = cardAuthorization.declineReason
+                additionalProperties = cardAuthorization.additionalProperties.toMutableMap()
             }
 
             /** Whether the card authorization should be approved or declined. */
@@ -791,22 +809,28 @@ constructor(
              * code that is sent to the card network.
              */
             @JsonProperty("decline_reason")
-            fun declineReason(declineReason: DeclineReason) = apply {
+            fun declineReason(declineReason: DeclineReason?) = apply {
                 this.declineReason = declineReason
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): CardAuthorization =
@@ -981,13 +1005,13 @@ constructor(
     @NoAutoDetect
     class DigitalWalletAuthentication
     private constructor(
-        private val result: Result?,
+        private val result: Result,
         private val success: Success?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         /** Whether your application was able to deliver the one-time passcode. */
-        @JsonProperty("result") fun result(): Result? = result
+        @JsonProperty("result") fun result(): Result = result
 
         @JsonProperty("success") fun success(): Success? = success
 
@@ -1009,29 +1033,36 @@ constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(digitalWalletAuthentication: DigitalWalletAuthentication) = apply {
-                this.result = digitalWalletAuthentication.result
-                this.success = digitalWalletAuthentication.success
-                additionalProperties(digitalWalletAuthentication.additionalProperties)
+                result = digitalWalletAuthentication.result
+                success = digitalWalletAuthentication.success
+                additionalProperties =
+                    digitalWalletAuthentication.additionalProperties.toMutableMap()
             }
 
             /** Whether your application was able to deliver the one-time passcode. */
             @JsonProperty("result") fun result(result: Result) = apply { this.result = result }
 
             @JsonProperty("success")
-            fun success(success: Success) = apply { this.success = success }
+            fun success(success: Success?) = apply { this.success = success }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): DigitalWalletAuthentication =
@@ -1135,36 +1166,44 @@ constructor(
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(success: Success) = apply {
-                    this.email = success.email
-                    this.phone = success.phone
-                    additionalProperties(success.additionalProperties)
+                    email = success.email
+                    phone = success.phone
+                    additionalProperties = success.additionalProperties.toMutableMap()
                 }
 
                 /**
                  * The email address that was used to verify the cardholder via one-time passcode.
                  */
-                @JsonProperty("email") fun email(email: String) = apply { this.email = email }
+                @JsonProperty("email") fun email(email: String?) = apply { this.email = email }
 
                 /**
                  * The phone number that was used to verify the cardholder via one-time passcode
                  * over SMS.
                  */
-                @JsonProperty("phone") fun phone(phone: String) = apply { this.phone = phone }
+                @JsonProperty("phone") fun phone(phone: String?) = apply { this.phone = phone }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
-                    this.additionalProperties.putAll(additionalProperties)
+                    putAllAdditionalProperties(additionalProperties)
                 }
 
                 @JsonAnySetter
                 fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    this.additionalProperties.put(key, value)
+                    additionalProperties.put(key, value)
                 }
 
                 fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                     apply {
                         this.additionalProperties.putAll(additionalProperties)
                     }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
 
                 fun build(): Success =
                     Success(
@@ -1253,9 +1292,9 @@ constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(digitalWalletToken: DigitalWalletToken) = apply {
-                this.approval = digitalWalletToken.approval
-                this.decline = digitalWalletToken.decline
-                additionalProperties(digitalWalletToken.additionalProperties)
+                approval = digitalWalletToken.approval
+                decline = digitalWalletToken.decline
+                additionalProperties = digitalWalletToken.additionalProperties.toMutableMap()
             }
 
             /**
@@ -1263,27 +1302,33 @@ constructor(
              * the digital wallet token that will be generated.
              */
             @JsonProperty("approval")
-            fun approval(approval: Approval) = apply { this.approval = approval }
+            fun approval(approval: Approval?) = apply { this.approval = approval }
 
             /**
              * If your application declines the provisioning attempt, this contains details about
              * the decline.
              */
             @JsonProperty("decline")
-            fun decline(decline: Decline) = apply { this.decline = decline }
+            fun decline(decline: Decline?) = apply { this.decline = decline }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): DigitalWalletToken =
@@ -1334,36 +1379,44 @@ constructor(
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(approval: Approval) = apply {
-                    this.email = approval.email
-                    this.phone = approval.phone
-                    additionalProperties(approval.additionalProperties)
+                    email = approval.email
+                    phone = approval.phone
+                    additionalProperties = approval.additionalProperties.toMutableMap()
                 }
 
                 /**
                  * An email address that can be used to verify the cardholder via one-time passcode.
                  */
-                @JsonProperty("email") fun email(email: String) = apply { this.email = email }
+                @JsonProperty("email") fun email(email: String?) = apply { this.email = email }
 
                 /**
                  * A phone number that can be used to verify the cardholder via one-time passcode
                  * over SMS.
                  */
-                @JsonProperty("phone") fun phone(phone: String) = apply { this.phone = phone }
+                @JsonProperty("phone") fun phone(phone: String?) = apply { this.phone = phone }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
-                    this.additionalProperties.putAll(additionalProperties)
+                    putAllAdditionalProperties(additionalProperties)
                 }
 
                 @JsonAnySetter
                 fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    this.additionalProperties.put(key, value)
+                    additionalProperties.put(key, value)
                 }
 
                 fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                     apply {
                         this.additionalProperties.putAll(additionalProperties)
                     }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
 
                 fun build(): Approval =
                     Approval(
@@ -1426,30 +1479,38 @@ constructor(
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(decline: Decline) = apply {
-                    this.reason = decline.reason
-                    additionalProperties(decline.additionalProperties)
+                    reason = decline.reason
+                    additionalProperties = decline.additionalProperties.toMutableMap()
                 }
 
                 /**
                  * Why the tokenization attempt was declined. This is for logging purposes only and
                  * is not displayed to the end-user.
                  */
-                @JsonProperty("reason") fun reason(reason: String) = apply { this.reason = reason }
+                @JsonProperty("reason") fun reason(reason: String?) = apply { this.reason = reason }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
-                    this.additionalProperties.putAll(additionalProperties)
+                    putAllAdditionalProperties(additionalProperties)
                 }
 
                 @JsonAnySetter
                 fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    this.additionalProperties.put(key, value)
+                    additionalProperties.put(key, value)
                 }
 
                 fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                     apply {
                         this.additionalProperties.putAll(additionalProperties)
                     }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
 
                 fun build(): Decline = Decline(reason, additionalProperties.toImmutable())
             }

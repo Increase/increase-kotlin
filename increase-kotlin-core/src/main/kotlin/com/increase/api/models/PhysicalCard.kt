@@ -40,8 +40,6 @@ private constructor(
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
-    private var validated: Boolean = false
-
     /** The identifier for the Card this Physical Card represents. */
     fun cardId(): String = cardId.getRequired("card_id")
 
@@ -123,6 +121,8 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+    private var validated: Boolean = false
+
     fun validate(): PhysicalCard = apply {
         if (!validated) {
             cardId()
@@ -159,16 +159,16 @@ private constructor(
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(physicalCard: PhysicalCard) = apply {
-            this.cardId = physicalCard.cardId
-            this.cardholder = physicalCard.cardholder
-            this.createdAt = physicalCard.createdAt
-            this.id = physicalCard.id
-            this.idempotencyKey = physicalCard.idempotencyKey
-            this.physicalCardProfileId = physicalCard.physicalCardProfileId
-            this.shipment = physicalCard.shipment
-            this.status = physicalCard.status
-            this.type = physicalCard.type
-            additionalProperties(physicalCard.additionalProperties)
+            cardId = physicalCard.cardId
+            cardholder = physicalCard.cardholder
+            createdAt = physicalCard.createdAt
+            id = physicalCard.id
+            idempotencyKey = physicalCard.idempotencyKey
+            physicalCardProfileId = physicalCard.physicalCardProfileId
+            shipment = physicalCard.shipment
+            status = physicalCard.status
+            type = physicalCard.type
+            additionalProperties = physicalCard.additionalProperties.toMutableMap()
         }
 
         /** The identifier for the Card this Physical Card represents. */
@@ -268,16 +268,22 @@ private constructor(
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
-            this.additionalProperties.putAll(additionalProperties)
+            putAllAdditionalProperties(additionalProperties)
         }
 
         @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            this.additionalProperties.put(key, value)
+            additionalProperties.put(key, value)
         }
 
         fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.putAll(additionalProperties)
+        }
+
+        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalProperty)
         }
 
         fun build(): PhysicalCard =
@@ -305,8 +311,6 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        private var validated: Boolean = false
-
         /** The cardholder's first name. */
         fun firstName(): String = firstName.getRequired("first_name")
 
@@ -322,6 +326,8 @@ private constructor(
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
 
         fun validate(): Cardholder = apply {
             if (!validated) {
@@ -345,9 +351,9 @@ private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(cardholder: Cardholder) = apply {
-                this.firstName = cardholder.firstName
-                this.lastName = cardholder.lastName
-                additionalProperties(cardholder.additionalProperties)
+                firstName = cardholder.firstName
+                lastName = cardholder.lastName
+                additionalProperties = cardholder.additionalProperties.toMutableMap()
             }
 
             /** The cardholder's first name. */
@@ -368,16 +374,22 @@ private constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): Cardholder =
@@ -418,8 +430,6 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        private var validated: Boolean = false
-
         /** The location to where the card's packing label is addressed. */
         fun address(): Address = address.getRequired("address")
 
@@ -448,6 +458,8 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+        private var validated: Boolean = false
+
         fun validate(): Shipment = apply {
             if (!validated) {
                 address().validate()
@@ -474,11 +486,11 @@ private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(shipment: Shipment) = apply {
-                this.address = shipment.address
-                this.method = shipment.method
-                this.status = shipment.status
-                this.tracking = shipment.tracking
-                additionalProperties(shipment.additionalProperties)
+                address = shipment.address
+                method = shipment.method
+                status = shipment.status
+                tracking = shipment.tracking
+                additionalProperties = shipment.additionalProperties.toMutableMap()
             }
 
             /** The location to where the card's packing label is addressed. */
@@ -515,16 +527,22 @@ private constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): Shipment =
@@ -551,8 +569,6 @@ private constructor(
             private val state: JsonField<String>,
             private val additionalProperties: Map<String, JsonValue>,
         ) {
-
-            private var validated: Boolean = false
 
             /** The city of the shipping address. */
             fun city(): String = city.getRequired("city")
@@ -600,6 +616,8 @@ private constructor(
             @ExcludeMissing
             fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+            private var validated: Boolean = false
+
             fun validate(): Address = apply {
                 if (!validated) {
                     city()
@@ -632,14 +650,14 @@ private constructor(
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(address: Address) = apply {
-                    this.city = address.city
-                    this.line1 = address.line1
-                    this.line2 = address.line2
-                    this.line3 = address.line3
-                    this.name = address.name
-                    this.postalCode = address.postalCode
-                    this.state = address.state
-                    additionalProperties(address.additionalProperties)
+                    city = address.city
+                    line1 = address.line1
+                    line2 = address.line2
+                    line3 = address.line3
+                    name = address.name
+                    postalCode = address.postalCode
+                    state = address.state
+                    additionalProperties = address.additionalProperties.toMutableMap()
                 }
 
                 /** The city of the shipping address. */
@@ -702,18 +720,26 @@ private constructor(
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
-                    this.additionalProperties.putAll(additionalProperties)
+                    putAllAdditionalProperties(additionalProperties)
                 }
 
                 @JsonAnySetter
                 fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    this.additionalProperties.put(key, value)
+                    additionalProperties.put(key, value)
                 }
 
                 fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                     apply {
                         this.additionalProperties.putAll(additionalProperties)
                     }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
 
                 fun build(): Address =
                     Address(
@@ -908,8 +934,6 @@ private constructor(
             private val additionalProperties: Map<String, JsonValue>,
         ) {
 
-            private var validated: Boolean = false
-
             /** The tracking number. */
             fun number(): String = number.getRequired("number")
 
@@ -944,6 +968,8 @@ private constructor(
             @ExcludeMissing
             fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+            private var validated: Boolean = false
+
             fun validate(): Tracking = apply {
                 if (!validated) {
                     number()
@@ -970,11 +996,11 @@ private constructor(
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(tracking: Tracking) = apply {
-                    this.number = tracking.number
-                    this.returnNumber = tracking.returnNumber
-                    this.returnReason = tracking.returnReason
-                    this.shippedAt = tracking.shippedAt
-                    additionalProperties(tracking.additionalProperties)
+                    number = tracking.number
+                    returnNumber = tracking.returnNumber
+                    returnReason = tracking.returnReason
+                    shippedAt = tracking.shippedAt
+                    additionalProperties = tracking.additionalProperties.toMutableMap()
                 }
 
                 /** The tracking number. */
@@ -1025,18 +1051,26 @@ private constructor(
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
-                    this.additionalProperties.putAll(additionalProperties)
+                    putAllAdditionalProperties(additionalProperties)
                 }
 
                 @JsonAnySetter
                 fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    this.additionalProperties.put(key, value)
+                    additionalProperties.put(key, value)
                 }
 
                 fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                     apply {
                         this.additionalProperties.putAll(additionalProperties)
                     }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
 
                 fun build(): Tracking =
                     Tracking(

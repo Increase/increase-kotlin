@@ -49,16 +49,16 @@ constructor(
     @NoAutoDetect
     class SupplementalDocumentCreateBody
     internal constructor(
-        private val entityId: String?,
-        private val fileId: String?,
+        private val entityId: String,
+        private val fileId: String,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         /** The identifier of the Entity to associate with the supplemental document. */
-        @JsonProperty("entity_id") fun entityId(): String? = entityId
+        @JsonProperty("entity_id") fun entityId(): String = entityId
 
         /** The identifier of the File containing the document. */
-        @JsonProperty("file_id") fun fileId(): String? = fileId
+        @JsonProperty("file_id") fun fileId(): String = fileId
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -79,9 +79,10 @@ constructor(
 
             internal fun from(supplementalDocumentCreateBody: SupplementalDocumentCreateBody) =
                 apply {
-                    this.entityId = supplementalDocumentCreateBody.entityId
-                    this.fileId = supplementalDocumentCreateBody.fileId
-                    additionalProperties(supplementalDocumentCreateBody.additionalProperties)
+                    entityId = supplementalDocumentCreateBody.entityId
+                    fileId = supplementalDocumentCreateBody.fileId
+                    additionalProperties =
+                        supplementalDocumentCreateBody.additionalProperties.toMutableMap()
                 }
 
             /** The identifier of the Entity to associate with the supplemental document. */
@@ -93,16 +94,22 @@ constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): SupplementalDocumentCreateBody =
