@@ -152,72 +152,79 @@ constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(digitalCardProfileCloneBody: DigitalCardProfileCloneBody) = apply {
-                this.appIconFileId = digitalCardProfileCloneBody.appIconFileId
-                this.backgroundImageFileId = digitalCardProfileCloneBody.backgroundImageFileId
-                this.cardDescription = digitalCardProfileCloneBody.cardDescription
-                this.contactEmail = digitalCardProfileCloneBody.contactEmail
-                this.contactPhone = digitalCardProfileCloneBody.contactPhone
-                this.contactWebsite = digitalCardProfileCloneBody.contactWebsite
-                this.description = digitalCardProfileCloneBody.description
-                this.issuerName = digitalCardProfileCloneBody.issuerName
-                this.textColor = digitalCardProfileCloneBody.textColor
-                additionalProperties(digitalCardProfileCloneBody.additionalProperties)
+                appIconFileId = digitalCardProfileCloneBody.appIconFileId
+                backgroundImageFileId = digitalCardProfileCloneBody.backgroundImageFileId
+                cardDescription = digitalCardProfileCloneBody.cardDescription
+                contactEmail = digitalCardProfileCloneBody.contactEmail
+                contactPhone = digitalCardProfileCloneBody.contactPhone
+                contactWebsite = digitalCardProfileCloneBody.contactWebsite
+                description = digitalCardProfileCloneBody.description
+                issuerName = digitalCardProfileCloneBody.issuerName
+                textColor = digitalCardProfileCloneBody.textColor
+                additionalProperties =
+                    digitalCardProfileCloneBody.additionalProperties.toMutableMap()
             }
 
             /** The identifier of the File containing the card's icon image. */
             @JsonProperty("app_icon_file_id")
-            fun appIconFileId(appIconFileId: String) = apply { this.appIconFileId = appIconFileId }
+            fun appIconFileId(appIconFileId: String?) = apply { this.appIconFileId = appIconFileId }
 
             /** The identifier of the File containing the card's front image. */
             @JsonProperty("background_image_file_id")
-            fun backgroundImageFileId(backgroundImageFileId: String) = apply {
+            fun backgroundImageFileId(backgroundImageFileId: String?) = apply {
                 this.backgroundImageFileId = backgroundImageFileId
             }
 
             /** A user-facing description for the card itself. */
             @JsonProperty("card_description")
-            fun cardDescription(cardDescription: String) = apply {
+            fun cardDescription(cardDescription: String?) = apply {
                 this.cardDescription = cardDescription
             }
 
             /** An email address the user can contact to receive support for their card. */
             @JsonProperty("contact_email")
-            fun contactEmail(contactEmail: String) = apply { this.contactEmail = contactEmail }
+            fun contactEmail(contactEmail: String?) = apply { this.contactEmail = contactEmail }
 
             /** A phone number the user can contact to receive support for their card. */
             @JsonProperty("contact_phone")
-            fun contactPhone(contactPhone: String) = apply { this.contactPhone = contactPhone }
+            fun contactPhone(contactPhone: String?) = apply { this.contactPhone = contactPhone }
 
             /** A website the user can visit to view and receive support for their card. */
             @JsonProperty("contact_website")
-            fun contactWebsite(contactWebsite: String) = apply {
+            fun contactWebsite(contactWebsite: String?) = apply {
                 this.contactWebsite = contactWebsite
             }
 
             /** A description you can use to identify the Card Profile. */
             @JsonProperty("description")
-            fun description(description: String) = apply { this.description = description }
+            fun description(description: String?) = apply { this.description = description }
 
             /** A user-facing description for whoever is issuing the card. */
             @JsonProperty("issuer_name")
-            fun issuerName(issuerName: String) = apply { this.issuerName = issuerName }
+            fun issuerName(issuerName: String?) = apply { this.issuerName = issuerName }
 
             /** The Card's text color, specified as an RGB triple. The default is white. */
             @JsonProperty("text_color")
-            fun textColor(textColor: TextColor) = apply { this.textColor = textColor }
+            fun textColor(textColor: TextColor?) = apply { this.textColor = textColor }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): DigitalCardProfileCloneBody =
@@ -475,20 +482,20 @@ constructor(
     @NoAutoDetect
     class TextColor
     private constructor(
-        private val blue: Long?,
-        private val green: Long?,
-        private val red: Long?,
+        private val blue: Long,
+        private val green: Long,
+        private val red: Long,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         /** The value of the blue channel in the RGB color. */
-        @JsonProperty("blue") fun blue(): Long? = blue
+        @JsonProperty("blue") fun blue(): Long = blue
 
         /** The value of the green channel in the RGB color. */
-        @JsonProperty("green") fun green(): Long? = green
+        @JsonProperty("green") fun green(): Long = green
 
         /** The value of the red channel in the RGB color. */
-        @JsonProperty("red") fun red(): Long? = red
+        @JsonProperty("red") fun red(): Long = red
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -509,10 +516,10 @@ constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(textColor: TextColor) = apply {
-                this.blue = textColor.blue
-                this.green = textColor.green
-                this.red = textColor.red
-                additionalProperties(textColor.additionalProperties)
+                blue = textColor.blue
+                green = textColor.green
+                red = textColor.red
+                additionalProperties = textColor.additionalProperties.toMutableMap()
             }
 
             /** The value of the blue channel in the RGB color. */
@@ -526,16 +533,22 @@ constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): TextColor =

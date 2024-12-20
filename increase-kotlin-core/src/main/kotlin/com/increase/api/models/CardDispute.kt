@@ -41,8 +41,6 @@ private constructor(
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
-    private var validated: Boolean = false
-
     /**
      * If the Card Dispute's status is `accepted`, this will contain details of the successful
      * dispute.
@@ -154,6 +152,8 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+    private var validated: Boolean = false
+
     fun validate(): CardDispute = apply {
         if (!validated) {
             acceptance()?.validate()
@@ -196,19 +196,19 @@ private constructor(
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(cardDispute: CardDispute) = apply {
-            this.acceptance = cardDispute.acceptance
-            this.amount = cardDispute.amount
-            this.createdAt = cardDispute.createdAt
-            this.disputedTransactionId = cardDispute.disputedTransactionId
-            this.explanation = cardDispute.explanation
-            this.id = cardDispute.id
-            this.idempotencyKey = cardDispute.idempotencyKey
-            this.loss = cardDispute.loss
-            this.rejection = cardDispute.rejection
-            this.status = cardDispute.status
-            this.type = cardDispute.type
-            this.win = cardDispute.win
-            additionalProperties(cardDispute.additionalProperties)
+            acceptance = cardDispute.acceptance
+            amount = cardDispute.amount
+            createdAt = cardDispute.createdAt
+            disputedTransactionId = cardDispute.disputedTransactionId
+            explanation = cardDispute.explanation
+            id = cardDispute.id
+            idempotencyKey = cardDispute.idempotencyKey
+            loss = cardDispute.loss
+            rejection = cardDispute.rejection
+            status = cardDispute.status
+            type = cardDispute.type
+            win = cardDispute.win
+            additionalProperties = cardDispute.additionalProperties.toMutableMap()
         }
 
         /**
@@ -346,16 +346,22 @@ private constructor(
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
-            this.additionalProperties.putAll(additionalProperties)
+            putAllAdditionalProperties(additionalProperties)
         }
 
         @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            this.additionalProperties.put(key, value)
+            additionalProperties.put(key, value)
         }
 
         fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.putAll(additionalProperties)
+        }
+
+        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalProperty)
         }
 
         fun build(): CardDispute =
@@ -389,8 +395,6 @@ private constructor(
         private val transactionId: JsonField<String>,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
-
-        private var validated: Boolean = false
 
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card
@@ -426,6 +430,8 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+        private var validated: Boolean = false
+
         fun validate(): Acceptance = apply {
             if (!validated) {
                 acceptedAt()
@@ -450,10 +456,10 @@ private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(acceptance: Acceptance) = apply {
-                this.acceptedAt = acceptance.acceptedAt
-                this.cardDisputeId = acceptance.cardDisputeId
-                this.transactionId = acceptance.transactionId
-                additionalProperties(acceptance.additionalProperties)
+                acceptedAt = acceptance.acceptedAt
+                cardDisputeId = acceptance.cardDisputeId
+                transactionId = acceptance.transactionId
+                additionalProperties = acceptance.additionalProperties.toMutableMap()
             }
 
             /**
@@ -500,16 +506,22 @@ private constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): Acceptance =
@@ -551,8 +563,6 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        private var validated: Boolean = false
-
         /** The identifier of the Card Dispute that was lost. */
         fun cardDisputeId(): String = cardDisputeId.getRequired("card_dispute_id")
 
@@ -593,6 +603,8 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+        private var validated: Boolean = false
+
         fun validate(): Loss = apply {
             if (!validated) {
                 cardDisputeId()
@@ -619,11 +631,11 @@ private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(loss: Loss) = apply {
-                this.cardDisputeId = loss.cardDisputeId
-                this.explanation = loss.explanation
-                this.lostAt = loss.lostAt
-                this.transactionId = loss.transactionId
-                additionalProperties(loss.additionalProperties)
+                cardDisputeId = loss.cardDisputeId
+                explanation = loss.explanation
+                lostAt = loss.lostAt
+                transactionId = loss.transactionId
+                additionalProperties = loss.additionalProperties.toMutableMap()
             }
 
             /** The identifier of the Card Dispute that was lost. */
@@ -678,16 +690,22 @@ private constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): Loss =
@@ -732,8 +750,6 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        private var validated: Boolean = false
-
         /** The identifier of the Card Dispute that was rejected. */
         fun cardDisputeId(): String = cardDisputeId.getRequired("card_dispute_id")
 
@@ -762,6 +778,8 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+        private var validated: Boolean = false
+
         fun validate(): Rejection = apply {
             if (!validated) {
                 cardDisputeId()
@@ -786,10 +804,10 @@ private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(rejection: Rejection) = apply {
-                this.cardDisputeId = rejection.cardDisputeId
-                this.explanation = rejection.explanation
-                this.rejectedAt = rejection.rejectedAt
-                additionalProperties(rejection.additionalProperties)
+                cardDisputeId = rejection.cardDisputeId
+                explanation = rejection.explanation
+                rejectedAt = rejection.rejectedAt
+                additionalProperties = rejection.additionalProperties.toMutableMap()
             }
 
             /** The identifier of the Card Dispute that was rejected. */
@@ -830,16 +848,22 @@ private constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): Rejection =
@@ -1011,8 +1035,6 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        private var validated: Boolean = false
-
         /** The identifier of the Card Dispute that was won. */
         fun cardDisputeId(): String = cardDisputeId.getRequired("card_dispute_id")
 
@@ -1034,6 +1056,8 @@ private constructor(
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
 
         fun validate(): Win = apply {
             if (!validated) {
@@ -1057,9 +1081,9 @@ private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(win: Win) = apply {
-                this.cardDisputeId = win.cardDisputeId
-                this.wonAt = win.wonAt
-                additionalProperties(win.additionalProperties)
+                cardDisputeId = win.cardDisputeId
+                wonAt = win.wonAt
+                additionalProperties = win.additionalProperties.toMutableMap()
             }
 
             /** The identifier of the Card Dispute that was won. */
@@ -1088,16 +1112,22 @@ private constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): Win =

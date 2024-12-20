@@ -61,18 +61,18 @@ constructor(
     @NoAutoDetect
     class AccountNumberCreateBody
     internal constructor(
-        private val accountId: String?,
-        private val name: String?,
+        private val accountId: String,
+        private val name: String,
         private val inboundAch: InboundAch?,
         private val inboundChecks: InboundChecks?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         /** The Account the Account Number should belong to. */
-        @JsonProperty("account_id") fun accountId(): String? = accountId
+        @JsonProperty("account_id") fun accountId(): String = accountId
 
         /** The name you choose for the Account Number. */
-        @JsonProperty("name") fun name(): String? = name
+        @JsonProperty("name") fun name(): String = name
 
         /** Options related to how this Account Number should handle inbound ACH transfers. */
         @JsonProperty("inbound_ach") fun inboundAch(): InboundAch? = inboundAch
@@ -100,11 +100,11 @@ constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(accountNumberCreateBody: AccountNumberCreateBody) = apply {
-                this.accountId = accountNumberCreateBody.accountId
-                this.name = accountNumberCreateBody.name
-                this.inboundAch = accountNumberCreateBody.inboundAch
-                this.inboundChecks = accountNumberCreateBody.inboundChecks
-                additionalProperties(accountNumberCreateBody.additionalProperties)
+                accountId = accountNumberCreateBody.accountId
+                name = accountNumberCreateBody.name
+                inboundAch = accountNumberCreateBody.inboundAch
+                inboundChecks = accountNumberCreateBody.inboundChecks
+                additionalProperties = accountNumberCreateBody.additionalProperties.toMutableMap()
             }
 
             /** The Account the Account Number should belong to. */
@@ -116,28 +116,34 @@ constructor(
 
             /** Options related to how this Account Number should handle inbound ACH transfers. */
             @JsonProperty("inbound_ach")
-            fun inboundAch(inboundAch: InboundAch) = apply { this.inboundAch = inboundAch }
+            fun inboundAch(inboundAch: InboundAch?) = apply { this.inboundAch = inboundAch }
 
             /**
              * Options related to how this Account Number should handle inbound check withdrawals.
              */
             @JsonProperty("inbound_checks")
-            fun inboundChecks(inboundChecks: InboundChecks) = apply {
+            fun inboundChecks(inboundChecks: InboundChecks?) = apply {
                 this.inboundChecks = inboundChecks
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): AccountNumberCreateBody =
@@ -348,7 +354,7 @@ constructor(
     @NoAutoDetect
     class InboundAch
     private constructor(
-        private val debitStatus: DebitStatus?,
+        private val debitStatus: DebitStatus,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -357,7 +363,7 @@ constructor(
          * declined if this is `allowed` but the Account Number is not active. If you do not specify
          * this field, the default is `allowed`.
          */
-        @JsonProperty("debit_status") fun debitStatus(): DebitStatus? = debitStatus
+        @JsonProperty("debit_status") fun debitStatus(): DebitStatus = debitStatus
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -376,8 +382,8 @@ constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(inboundAch: InboundAch) = apply {
-                this.debitStatus = inboundAch.debitStatus
-                additionalProperties(inboundAch.additionalProperties)
+                debitStatus = inboundAch.debitStatus
+                additionalProperties = inboundAch.additionalProperties.toMutableMap()
             }
 
             /**
@@ -390,16 +396,22 @@ constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): InboundAch =
@@ -489,7 +501,7 @@ constructor(
     @NoAutoDetect
     class InboundChecks
     private constructor(
-        private val status: Status?,
+        private val status: Status,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -497,7 +509,7 @@ constructor(
          * How Increase should process checks with this account number printed on them. If you do
          * not specify this field, the default is `check_transfers_only`.
          */
-        @JsonProperty("status") fun status(): Status? = status
+        @JsonProperty("status") fun status(): Status = status
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -516,8 +528,8 @@ constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(inboundChecks: InboundChecks) = apply {
-                this.status = inboundChecks.status
-                additionalProperties(inboundChecks.additionalProperties)
+                status = inboundChecks.status
+                additionalProperties = inboundChecks.additionalProperties.toMutableMap()
             }
 
             /**
@@ -528,16 +540,22 @@ constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): InboundChecks =
