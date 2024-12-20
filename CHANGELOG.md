@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.151.0 (2024-12-20)
+
+Full Changelog: [v0.150.1...v0.151.0](https://github.com/Increase/increase-kotlin/compare/v0.150.1...v0.151.0)
+
+### Features
+
+* **api:** api update ([#662](https://github.com/Increase/increase-kotlin/issues/662)) ([5454e16](https://github.com/Increase/increase-kotlin/commit/5454e1653e1bd074b3130663540429adb1b54ac4))
+
+
+### Chores
+
+* **docs:** add example project ([#660](https://github.com/Increase/increase-kotlin/issues/660)) ([b7be68b](https://github.com/Increase/increase-kotlin/commit/b7be68beaa4964f298d19622fe8c0dac3892359b))
+* **docs:** fix unused import ([#661](https://github.com/Increase/increase-kotlin/issues/661)) ([03994d1](https://github.com/Increase/increase-kotlin/commit/03994d16697ab6797ce3f2925d9a48a9dc52ab20))
+* **docs:** update readme ([#659](https://github.com/Increase/increase-kotlin/issues/659)) ([4f2caee](https://github.com/Increase/increase-kotlin/commit/4f2caeea03e86190d70d27b9110b9276053768a1))
+* update parameter examples in tests and docs ([#657](https://github.com/Increase/increase-kotlin/issues/657)) ([ccf91f7](https://github.com/Increase/increase-kotlin/commit/ccf91f702c5ab6af70f262af7bf2e080a2a9dd56))
+
 ## 0.150.1 (2024-12-18)
 
 Full Changelog: [v0.150.0...v0.150.1](https://github.com/Increase/increase-kotlin/compare/v0.150.0...v0.150.1)
