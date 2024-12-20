@@ -6,13 +6,13 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.LocalDate
@@ -23,43 +23,93 @@ import java.util.Objects
  * Wire transfers move funds between your Increase account and any other account accessible by
  * Fedwire.
  */
-@JsonDeserialize(builder = WireTransfer.Builder::class)
 @NoAutoDetect
 class WireTransfer
+@JsonCreator
 private constructor(
-    private val accountId: JsonField<String>,
-    private val accountNumber: JsonField<String>,
-    private val amount: JsonField<Long>,
-    private val approval: JsonField<Approval>,
-    private val beneficiaryAddressLine1: JsonField<String>,
-    private val beneficiaryAddressLine2: JsonField<String>,
-    private val beneficiaryAddressLine3: JsonField<String>,
-    private val beneficiaryName: JsonField<String>,
-    private val cancellation: JsonField<Cancellation>,
-    private val createdAt: JsonField<OffsetDateTime>,
-    private val createdBy: JsonField<CreatedBy>,
-    private val currency: JsonField<Currency>,
-    private val externalAccountId: JsonField<String>,
-    private val id: JsonField<String>,
-    private val idempotencyKey: JsonField<String>,
-    private val messageToRecipient: JsonField<String>,
-    private val network: JsonField<Network>,
-    private val originatorAddressLine1: JsonField<String>,
-    private val originatorAddressLine2: JsonField<String>,
-    private val originatorAddressLine3: JsonField<String>,
-    private val originatorName: JsonField<String>,
-    private val pendingTransactionId: JsonField<String>,
-    private val reversal: JsonField<Reversal>,
-    private val routingNumber: JsonField<String>,
-    private val sourceAccountNumberId: JsonField<String>,
-    private val status: JsonField<Status>,
-    private val submission: JsonField<Submission>,
-    private val transactionId: JsonField<String>,
-    private val type: JsonField<Type>,
-    private val additionalProperties: Map<String, JsonValue>,
+    @JsonProperty("account_id")
+    @ExcludeMissing
+    private val accountId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("account_number")
+    @ExcludeMissing
+    private val accountNumber: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("amount") @ExcludeMissing private val amount: JsonField<Long> = JsonMissing.of(),
+    @JsonProperty("approval")
+    @ExcludeMissing
+    private val approval: JsonField<Approval> = JsonMissing.of(),
+    @JsonProperty("beneficiary_address_line1")
+    @ExcludeMissing
+    private val beneficiaryAddressLine1: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("beneficiary_address_line2")
+    @ExcludeMissing
+    private val beneficiaryAddressLine2: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("beneficiary_address_line3")
+    @ExcludeMissing
+    private val beneficiaryAddressLine3: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("beneficiary_name")
+    @ExcludeMissing
+    private val beneficiaryName: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("cancellation")
+    @ExcludeMissing
+    private val cancellation: JsonField<Cancellation> = JsonMissing.of(),
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("created_by")
+    @ExcludeMissing
+    private val createdBy: JsonField<CreatedBy> = JsonMissing.of(),
+    @JsonProperty("currency")
+    @ExcludeMissing
+    private val currency: JsonField<Currency> = JsonMissing.of(),
+    @JsonProperty("external_account_id")
+    @ExcludeMissing
+    private val externalAccountId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("idempotency_key")
+    @ExcludeMissing
+    private val idempotencyKey: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("message_to_recipient")
+    @ExcludeMissing
+    private val messageToRecipient: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("network")
+    @ExcludeMissing
+    private val network: JsonField<Network> = JsonMissing.of(),
+    @JsonProperty("originator_address_line1")
+    @ExcludeMissing
+    private val originatorAddressLine1: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("originator_address_line2")
+    @ExcludeMissing
+    private val originatorAddressLine2: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("originator_address_line3")
+    @ExcludeMissing
+    private val originatorAddressLine3: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("originator_name")
+    @ExcludeMissing
+    private val originatorName: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("pending_transaction_id")
+    @ExcludeMissing
+    private val pendingTransactionId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("reversal")
+    @ExcludeMissing
+    private val reversal: JsonField<Reversal> = JsonMissing.of(),
+    @JsonProperty("routing_number")
+    @ExcludeMissing
+    private val routingNumber: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("source_account_number_id")
+    @ExcludeMissing
+    private val sourceAccountNumberId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("status")
+    @ExcludeMissing
+    private val status: JsonField<Status> = JsonMissing.of(),
+    @JsonProperty("submission")
+    @ExcludeMissing
+    private val submission: JsonField<Submission> = JsonMissing.of(),
+    @JsonProperty("transaction_id")
+    @ExcludeMissing
+    private val transactionId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
+    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
-
-    private var validated: Boolean = false
 
     /** The Account to which the transfer belongs. */
     fun accountId(): String = accountId.getRequired("account_id")
@@ -314,6 +364,8 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+    private var validated: Boolean = false
+
     fun validate(): WireTransfer = apply {
         if (!validated) {
             accountId()
@@ -390,52 +442,48 @@ private constructor(
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(wireTransfer: WireTransfer) = apply {
-            this.accountId = wireTransfer.accountId
-            this.accountNumber = wireTransfer.accountNumber
-            this.amount = wireTransfer.amount
-            this.approval = wireTransfer.approval
-            this.beneficiaryAddressLine1 = wireTransfer.beneficiaryAddressLine1
-            this.beneficiaryAddressLine2 = wireTransfer.beneficiaryAddressLine2
-            this.beneficiaryAddressLine3 = wireTransfer.beneficiaryAddressLine3
-            this.beneficiaryName = wireTransfer.beneficiaryName
-            this.cancellation = wireTransfer.cancellation
-            this.createdAt = wireTransfer.createdAt
-            this.createdBy = wireTransfer.createdBy
-            this.currency = wireTransfer.currency
-            this.externalAccountId = wireTransfer.externalAccountId
-            this.id = wireTransfer.id
-            this.idempotencyKey = wireTransfer.idempotencyKey
-            this.messageToRecipient = wireTransfer.messageToRecipient
-            this.network = wireTransfer.network
-            this.originatorAddressLine1 = wireTransfer.originatorAddressLine1
-            this.originatorAddressLine2 = wireTransfer.originatorAddressLine2
-            this.originatorAddressLine3 = wireTransfer.originatorAddressLine3
-            this.originatorName = wireTransfer.originatorName
-            this.pendingTransactionId = wireTransfer.pendingTransactionId
-            this.reversal = wireTransfer.reversal
-            this.routingNumber = wireTransfer.routingNumber
-            this.sourceAccountNumberId = wireTransfer.sourceAccountNumberId
-            this.status = wireTransfer.status
-            this.submission = wireTransfer.submission
-            this.transactionId = wireTransfer.transactionId
-            this.type = wireTransfer.type
-            additionalProperties(wireTransfer.additionalProperties)
+            accountId = wireTransfer.accountId
+            accountNumber = wireTransfer.accountNumber
+            amount = wireTransfer.amount
+            approval = wireTransfer.approval
+            beneficiaryAddressLine1 = wireTransfer.beneficiaryAddressLine1
+            beneficiaryAddressLine2 = wireTransfer.beneficiaryAddressLine2
+            beneficiaryAddressLine3 = wireTransfer.beneficiaryAddressLine3
+            beneficiaryName = wireTransfer.beneficiaryName
+            cancellation = wireTransfer.cancellation
+            createdAt = wireTransfer.createdAt
+            createdBy = wireTransfer.createdBy
+            currency = wireTransfer.currency
+            externalAccountId = wireTransfer.externalAccountId
+            id = wireTransfer.id
+            idempotencyKey = wireTransfer.idempotencyKey
+            messageToRecipient = wireTransfer.messageToRecipient
+            network = wireTransfer.network
+            originatorAddressLine1 = wireTransfer.originatorAddressLine1
+            originatorAddressLine2 = wireTransfer.originatorAddressLine2
+            originatorAddressLine3 = wireTransfer.originatorAddressLine3
+            originatorName = wireTransfer.originatorName
+            pendingTransactionId = wireTransfer.pendingTransactionId
+            reversal = wireTransfer.reversal
+            routingNumber = wireTransfer.routingNumber
+            sourceAccountNumberId = wireTransfer.sourceAccountNumberId
+            status = wireTransfer.status
+            submission = wireTransfer.submission
+            transactionId = wireTransfer.transactionId
+            type = wireTransfer.type
+            additionalProperties = wireTransfer.additionalProperties.toMutableMap()
         }
 
         /** The Account to which the transfer belongs. */
         fun accountId(accountId: String) = accountId(JsonField.of(accountId))
 
         /** The Account to which the transfer belongs. */
-        @JsonProperty("account_id")
-        @ExcludeMissing
         fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
         /** The destination account number. */
         fun accountNumber(accountNumber: String) = accountNumber(JsonField.of(accountNumber))
 
         /** The destination account number. */
-        @JsonProperty("account_number")
-        @ExcludeMissing
         fun accountNumber(accountNumber: JsonField<String>) = apply {
             this.accountNumber = accountNumber
         }
@@ -444,8 +492,6 @@ private constructor(
         fun amount(amount: Long) = amount(JsonField.of(amount))
 
         /** The transfer amount in USD cents. */
-        @JsonProperty("amount")
-        @ExcludeMissing
         fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
         /**
@@ -458,8 +504,6 @@ private constructor(
          * If your account requires approvals for transfers and the transfer was approved, this will
          * contain details of the approval.
          */
-        @JsonProperty("approval")
-        @ExcludeMissing
         fun approval(approval: JsonField<Approval>) = apply { this.approval = approval }
 
         /** The beneficiary's address line 1. */
@@ -467,8 +511,6 @@ private constructor(
             beneficiaryAddressLine1(JsonField.of(beneficiaryAddressLine1))
 
         /** The beneficiary's address line 1. */
-        @JsonProperty("beneficiary_address_line1")
-        @ExcludeMissing
         fun beneficiaryAddressLine1(beneficiaryAddressLine1: JsonField<String>) = apply {
             this.beneficiaryAddressLine1 = beneficiaryAddressLine1
         }
@@ -478,8 +520,6 @@ private constructor(
             beneficiaryAddressLine2(JsonField.of(beneficiaryAddressLine2))
 
         /** The beneficiary's address line 2. */
-        @JsonProperty("beneficiary_address_line2")
-        @ExcludeMissing
         fun beneficiaryAddressLine2(beneficiaryAddressLine2: JsonField<String>) = apply {
             this.beneficiaryAddressLine2 = beneficiaryAddressLine2
         }
@@ -489,8 +529,6 @@ private constructor(
             beneficiaryAddressLine3(JsonField.of(beneficiaryAddressLine3))
 
         /** The beneficiary's address line 3. */
-        @JsonProperty("beneficiary_address_line3")
-        @ExcludeMissing
         fun beneficiaryAddressLine3(beneficiaryAddressLine3: JsonField<String>) = apply {
             this.beneficiaryAddressLine3 = beneficiaryAddressLine3
         }
@@ -500,8 +538,6 @@ private constructor(
             beneficiaryName(JsonField.of(beneficiaryName))
 
         /** The beneficiary's name. */
-        @JsonProperty("beneficiary_name")
-        @ExcludeMissing
         fun beneficiaryName(beneficiaryName: JsonField<String>) = apply {
             this.beneficiaryName = beneficiaryName
         }
@@ -516,8 +552,6 @@ private constructor(
          * If your account requires approvals for transfers and the transfer was not approved, this
          * will contain details of the cancellation.
          */
-        @JsonProperty("cancellation")
-        @ExcludeMissing
         fun cancellation(cancellation: JsonField<Cancellation>) = apply {
             this.cancellation = cancellation
         }
@@ -532,16 +566,12 @@ private constructor(
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
          * transfer was created.
          */
-        @JsonProperty("created_at")
-        @ExcludeMissing
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /** What object created the transfer, either via the API or the dashboard. */
         fun createdBy(createdBy: CreatedBy) = createdBy(JsonField.of(createdBy))
 
         /** What object created the transfer, either via the API or the dashboard. */
-        @JsonProperty("created_by")
-        @ExcludeMissing
         fun createdBy(createdBy: JsonField<CreatedBy>) = apply { this.createdBy = createdBy }
 
         /**
@@ -554,8 +584,6 @@ private constructor(
          * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transfer's currency.
          * For wire transfers this is always equal to `usd`.
          */
-        @JsonProperty("currency")
-        @ExcludeMissing
         fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
 
         /** The identifier of the External Account the transfer was made to, if any. */
@@ -563,8 +591,6 @@ private constructor(
             externalAccountId(JsonField.of(externalAccountId))
 
         /** The identifier of the External Account the transfer was made to, if any. */
-        @JsonProperty("external_account_id")
-        @ExcludeMissing
         fun externalAccountId(externalAccountId: JsonField<String>) = apply {
             this.externalAccountId = externalAccountId
         }
@@ -573,7 +599,7 @@ private constructor(
         fun id(id: String) = id(JsonField.of(id))
 
         /** The wire transfer's identifier. */
-        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -587,8 +613,6 @@ private constructor(
          * is used to ensure that a request is only processed once. Learn more about
          * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
-        @JsonProperty("idempotency_key")
-        @ExcludeMissing
         fun idempotencyKey(idempotencyKey: JsonField<String>) = apply {
             this.idempotencyKey = idempotencyKey
         }
@@ -598,8 +622,6 @@ private constructor(
             messageToRecipient(JsonField.of(messageToRecipient))
 
         /** The message that will show on the recipient's bank statement. */
-        @JsonProperty("message_to_recipient")
-        @ExcludeMissing
         fun messageToRecipient(messageToRecipient: JsonField<String>) = apply {
             this.messageToRecipient = messageToRecipient
         }
@@ -608,8 +630,6 @@ private constructor(
         fun network(network: Network) = network(JsonField.of(network))
 
         /** The transfer's network. */
-        @JsonProperty("network")
-        @ExcludeMissing
         fun network(network: JsonField<Network>) = apply { this.network = network }
 
         /** The originator's address line 1. */
@@ -617,8 +637,6 @@ private constructor(
             originatorAddressLine1(JsonField.of(originatorAddressLine1))
 
         /** The originator's address line 1. */
-        @JsonProperty("originator_address_line1")
-        @ExcludeMissing
         fun originatorAddressLine1(originatorAddressLine1: JsonField<String>) = apply {
             this.originatorAddressLine1 = originatorAddressLine1
         }
@@ -628,8 +646,6 @@ private constructor(
             originatorAddressLine2(JsonField.of(originatorAddressLine2))
 
         /** The originator's address line 2. */
-        @JsonProperty("originator_address_line2")
-        @ExcludeMissing
         fun originatorAddressLine2(originatorAddressLine2: JsonField<String>) = apply {
             this.originatorAddressLine2 = originatorAddressLine2
         }
@@ -639,8 +655,6 @@ private constructor(
             originatorAddressLine3(JsonField.of(originatorAddressLine3))
 
         /** The originator's address line 3. */
-        @JsonProperty("originator_address_line3")
-        @ExcludeMissing
         fun originatorAddressLine3(originatorAddressLine3: JsonField<String>) = apply {
             this.originatorAddressLine3 = originatorAddressLine3
         }
@@ -649,8 +663,6 @@ private constructor(
         fun originatorName(originatorName: String) = originatorName(JsonField.of(originatorName))
 
         /** The originator's name. */
-        @JsonProperty("originator_name")
-        @ExcludeMissing
         fun originatorName(originatorName: JsonField<String>) = apply {
             this.originatorName = originatorName
         }
@@ -670,8 +682,6 @@ private constructor(
          * [requires approval](https://increase.com/documentation/transfer-approvals#transfer-approvals)
          * by someone else in your organization.
          */
-        @JsonProperty("pending_transaction_id")
-        @ExcludeMissing
         fun pendingTransactionId(pendingTransactionId: JsonField<String>) = apply {
             this.pendingTransactionId = pendingTransactionId
         }
@@ -680,16 +690,12 @@ private constructor(
         fun reversal(reversal: Reversal) = reversal(JsonField.of(reversal))
 
         /** If your transfer is reversed, this will contain details of the reversal. */
-        @JsonProperty("reversal")
-        @ExcludeMissing
         fun reversal(reversal: JsonField<Reversal>) = apply { this.reversal = reversal }
 
         /** The American Bankers' Association (ABA) Routing Transit Number (RTN). */
         fun routingNumber(routingNumber: String) = routingNumber(JsonField.of(routingNumber))
 
         /** The American Bankers' Association (ABA) Routing Transit Number (RTN). */
-        @JsonProperty("routing_number")
-        @ExcludeMissing
         fun routingNumber(routingNumber: JsonField<String>) = apply {
             this.routingNumber = routingNumber
         }
@@ -699,8 +705,6 @@ private constructor(
             sourceAccountNumberId(JsonField.of(sourceAccountNumberId))
 
         /** The Account Number that was passed to the wire's recipient. */
-        @JsonProperty("source_account_number_id")
-        @ExcludeMissing
         fun sourceAccountNumberId(sourceAccountNumberId: JsonField<String>) = apply {
             this.sourceAccountNumberId = sourceAccountNumberId
         }
@@ -709,24 +713,18 @@ private constructor(
         fun status(status: Status) = status(JsonField.of(status))
 
         /** The lifecycle status of the transfer. */
-        @JsonProperty("status")
-        @ExcludeMissing
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /** After the transfer is submitted to Fedwire, this will contain supplemental details. */
         fun submission(submission: Submission) = submission(JsonField.of(submission))
 
         /** After the transfer is submitted to Fedwire, this will contain supplemental details. */
-        @JsonProperty("submission")
-        @ExcludeMissing
         fun submission(submission: JsonField<Submission>) = apply { this.submission = submission }
 
         /** The ID for the transaction funding the transfer. */
         fun transactionId(transactionId: String) = transactionId(JsonField.of(transactionId))
 
         /** The ID for the transaction funding the transfer. */
-        @JsonProperty("transaction_id")
-        @ExcludeMissing
         fun transactionId(transactionId: JsonField<String>) = apply {
             this.transactionId = transactionId
         }
@@ -741,22 +739,25 @@ private constructor(
          * A constant representing the object's type. For this resource it will always be
          * `wire_transfer`.
          */
-        @JsonProperty("type")
-        @ExcludeMissing
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
-            this.additionalProperties.putAll(additionalProperties)
+            putAllAdditionalProperties(additionalProperties)
         }
 
-        @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            this.additionalProperties.put(key, value)
+            additionalProperties.put(key, value)
         }
 
         fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.putAll(additionalProperties)
+        }
+
+        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalProperty)
         }
 
         fun build(): WireTransfer =
@@ -798,16 +799,19 @@ private constructor(
      * If your account requires approvals for transfers and the transfer was approved, this will
      * contain details of the approval.
      */
-    @JsonDeserialize(builder = Approval.Builder::class)
     @NoAutoDetect
     class Approval
+    @JsonCreator
     private constructor(
-        private val approvedAt: JsonField<OffsetDateTime>,
-        private val approvedBy: JsonField<String>,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("approved_at")
+        @ExcludeMissing
+        private val approvedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("approved_by")
+        @ExcludeMissing
+        private val approvedBy: JsonField<String> = JsonMissing.of(),
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
-
-        private var validated: Boolean = false
 
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
@@ -835,6 +839,8 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+        private var validated: Boolean = false
+
         fun validate(): Approval = apply {
             if (!validated) {
                 approvedAt()
@@ -857,9 +863,9 @@ private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(approval: Approval) = apply {
-                this.approvedAt = approval.approvedAt
-                this.approvedBy = approval.approvedBy
-                additionalProperties(approval.additionalProperties)
+                approvedAt = approval.approvedAt
+                approvedBy = approval.approvedBy
+                additionalProperties = approval.additionalProperties.toMutableMap()
             }
 
             /**
@@ -872,8 +878,6 @@ private constructor(
              * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
              * transfer was approved.
              */
-            @JsonProperty("approved_at")
-            @ExcludeMissing
             fun approvedAt(approvedAt: JsonField<OffsetDateTime>) = apply {
                 this.approvedAt = approvedAt
             }
@@ -888,22 +892,25 @@ private constructor(
              * If the Transfer was approved by a user in the dashboard, the email address of that
              * user.
              */
-            @JsonProperty("approved_by")
-            @ExcludeMissing
             fun approvedBy(approvedBy: JsonField<String>) = apply { this.approvedBy = approvedBy }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): Approval =
@@ -936,16 +943,19 @@ private constructor(
      * If your account requires approvals for transfers and the transfer was not approved, this will
      * contain details of the cancellation.
      */
-    @JsonDeserialize(builder = Cancellation.Builder::class)
     @NoAutoDetect
     class Cancellation
+    @JsonCreator
     private constructor(
-        private val canceledAt: JsonField<OffsetDateTime>,
-        private val canceledBy: JsonField<String>,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("canceled_at")
+        @ExcludeMissing
+        private val canceledAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("canceled_by")
+        @ExcludeMissing
+        private val canceledBy: JsonField<String> = JsonMissing.of(),
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
-
-        private var validated: Boolean = false
 
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
@@ -973,6 +983,8 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+        private var validated: Boolean = false
+
         fun validate(): Cancellation = apply {
             if (!validated) {
                 canceledAt()
@@ -995,9 +1007,9 @@ private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(cancellation: Cancellation) = apply {
-                this.canceledAt = cancellation.canceledAt
-                this.canceledBy = cancellation.canceledBy
-                additionalProperties(cancellation.additionalProperties)
+                canceledAt = cancellation.canceledAt
+                canceledBy = cancellation.canceledBy
+                additionalProperties = cancellation.additionalProperties.toMutableMap()
             }
 
             /**
@@ -1010,8 +1022,6 @@ private constructor(
              * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
              * Transfer was canceled.
              */
-            @JsonProperty("canceled_at")
-            @ExcludeMissing
             fun canceledAt(canceledAt: JsonField<OffsetDateTime>) = apply {
                 this.canceledAt = canceledAt
             }
@@ -1026,22 +1036,25 @@ private constructor(
              * If the Transfer was canceled by a user in the dashboard, the email address of that
              * user.
              */
-            @JsonProperty("canceled_by")
-            @ExcludeMissing
             fun canceledBy(canceledBy: JsonField<String>) = apply { this.canceledBy = canceledBy }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): Cancellation =
@@ -1071,18 +1084,23 @@ private constructor(
     }
 
     /** What object created the transfer, either via the API or the dashboard. */
-    @JsonDeserialize(builder = CreatedBy.Builder::class)
     @NoAutoDetect
     class CreatedBy
+    @JsonCreator
     private constructor(
-        private val apiKey: JsonField<ApiKey>,
-        private val category: JsonField<Category>,
-        private val oauthApplication: JsonField<OAuthApplication>,
-        private val user: JsonField<User>,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("api_key")
+        @ExcludeMissing
+        private val apiKey: JsonField<ApiKey> = JsonMissing.of(),
+        @JsonProperty("category")
+        @ExcludeMissing
+        private val category: JsonField<Category> = JsonMissing.of(),
+        @JsonProperty("oauth_application")
+        @ExcludeMissing
+        private val oauthApplication: JsonField<OAuthApplication> = JsonMissing.of(),
+        @JsonProperty("user") @ExcludeMissing private val user: JsonField<User> = JsonMissing.of(),
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
-
-        private var validated: Boolean = false
 
         /** If present, details about the API key that created the transfer. */
         fun apiKey(): ApiKey? = apiKey.getNullable("api_key")
@@ -1115,6 +1133,8 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+        private var validated: Boolean = false
+
         fun validate(): CreatedBy = apply {
             if (!validated) {
                 apiKey()?.validate()
@@ -1141,27 +1161,23 @@ private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(createdBy: CreatedBy) = apply {
-                this.apiKey = createdBy.apiKey
-                this.category = createdBy.category
-                this.oauthApplication = createdBy.oauthApplication
-                this.user = createdBy.user
-                additionalProperties(createdBy.additionalProperties)
+                apiKey = createdBy.apiKey
+                category = createdBy.category
+                oauthApplication = createdBy.oauthApplication
+                user = createdBy.user
+                additionalProperties = createdBy.additionalProperties.toMutableMap()
             }
 
             /** If present, details about the API key that created the transfer. */
             fun apiKey(apiKey: ApiKey) = apiKey(JsonField.of(apiKey))
 
             /** If present, details about the API key that created the transfer. */
-            @JsonProperty("api_key")
-            @ExcludeMissing
             fun apiKey(apiKey: JsonField<ApiKey>) = apply { this.apiKey = apiKey }
 
             /** The type of object that created this transfer. */
             fun category(category: Category) = category(JsonField.of(category))
 
             /** The type of object that created this transfer. */
-            @JsonProperty("category")
-            @ExcludeMissing
             fun category(category: JsonField<Category>) = apply { this.category = category }
 
             /** If present, details about the OAuth Application that created the transfer. */
@@ -1169,8 +1185,6 @@ private constructor(
                 oauthApplication(JsonField.of(oauthApplication))
 
             /** If present, details about the OAuth Application that created the transfer. */
-            @JsonProperty("oauth_application")
-            @ExcludeMissing
             fun oauthApplication(oauthApplication: JsonField<OAuthApplication>) = apply {
                 this.oauthApplication = oauthApplication
             }
@@ -1179,22 +1193,25 @@ private constructor(
             fun user(user: User) = user(JsonField.of(user))
 
             /** If present, details about the User that created the transfer. */
-            @JsonProperty("user")
-            @ExcludeMissing
             fun user(user: JsonField<User>) = apply { this.user = user }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): CreatedBy =
@@ -1208,15 +1225,16 @@ private constructor(
         }
 
         /** If present, details about the API key that created the transfer. */
-        @JsonDeserialize(builder = ApiKey.Builder::class)
         @NoAutoDetect
         class ApiKey
+        @JsonCreator
         private constructor(
-            private val description: JsonField<String>,
-            private val additionalProperties: Map<String, JsonValue>,
+            @JsonProperty("description")
+            @ExcludeMissing
+            private val description: JsonField<String> = JsonMissing.of(),
+            @JsonAnySetter
+            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
-
-            private var validated: Boolean = false
 
             /** The description set for the API key when it was created. */
             fun description(): String? = description.getNullable("description")
@@ -1227,6 +1245,8 @@ private constructor(
             @JsonAnyGetter
             @ExcludeMissing
             fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+            private var validated: Boolean = false
 
             fun validate(): ApiKey = apply {
                 if (!validated) {
@@ -1248,34 +1268,39 @@ private constructor(
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(apiKey: ApiKey) = apply {
-                    this.description = apiKey.description
-                    additionalProperties(apiKey.additionalProperties)
+                    description = apiKey.description
+                    additionalProperties = apiKey.additionalProperties.toMutableMap()
                 }
 
                 /** The description set for the API key when it was created. */
                 fun description(description: String) = description(JsonField.of(description))
 
                 /** The description set for the API key when it was created. */
-                @JsonProperty("description")
-                @ExcludeMissing
                 fun description(description: JsonField<String>) = apply {
                     this.description = description
                 }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
-                    this.additionalProperties.putAll(additionalProperties)
+                    putAllAdditionalProperties(additionalProperties)
                 }
 
-                @JsonAnySetter
                 fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    this.additionalProperties.put(key, value)
+                    additionalProperties.put(key, value)
                 }
 
                 fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                     apply {
                         this.additionalProperties.putAll(additionalProperties)
                     }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
 
                 fun build(): ApiKey = ApiKey(description, additionalProperties.toImmutable())
             }
@@ -1362,15 +1387,16 @@ private constructor(
         }
 
         /** If present, details about the OAuth Application that created the transfer. */
-        @JsonDeserialize(builder = OAuthApplication.Builder::class)
         @NoAutoDetect
         class OAuthApplication
+        @JsonCreator
         private constructor(
-            private val name: JsonField<String>,
-            private val additionalProperties: Map<String, JsonValue>,
+            @JsonProperty("name")
+            @ExcludeMissing
+            private val name: JsonField<String> = JsonMissing.of(),
+            @JsonAnySetter
+            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
-
-            private var validated: Boolean = false
 
             /** The name of the OAuth Application. */
             fun name(): String = name.getRequired("name")
@@ -1381,6 +1407,8 @@ private constructor(
             @JsonAnyGetter
             @ExcludeMissing
             fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+            private var validated: Boolean = false
 
             fun validate(): OAuthApplication = apply {
                 if (!validated) {
@@ -1402,32 +1430,37 @@ private constructor(
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(oauthApplication: OAuthApplication) = apply {
-                    this.name = oauthApplication.name
-                    additionalProperties(oauthApplication.additionalProperties)
+                    name = oauthApplication.name
+                    additionalProperties = oauthApplication.additionalProperties.toMutableMap()
                 }
 
                 /** The name of the OAuth Application. */
                 fun name(name: String) = name(JsonField.of(name))
 
                 /** The name of the OAuth Application. */
-                @JsonProperty("name")
-                @ExcludeMissing
                 fun name(name: JsonField<String>) = apply { this.name = name }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
-                    this.additionalProperties.putAll(additionalProperties)
+                    putAllAdditionalProperties(additionalProperties)
                 }
 
-                @JsonAnySetter
                 fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    this.additionalProperties.put(key, value)
+                    additionalProperties.put(key, value)
                 }
 
                 fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                     apply {
                         this.additionalProperties.putAll(additionalProperties)
                     }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
 
                 fun build(): OAuthApplication =
                     OAuthApplication(name, additionalProperties.toImmutable())
@@ -1452,15 +1485,16 @@ private constructor(
         }
 
         /** If present, details about the User that created the transfer. */
-        @JsonDeserialize(builder = User.Builder::class)
         @NoAutoDetect
         class User
+        @JsonCreator
         private constructor(
-            private val email: JsonField<String>,
-            private val additionalProperties: Map<String, JsonValue>,
+            @JsonProperty("email")
+            @ExcludeMissing
+            private val email: JsonField<String> = JsonMissing.of(),
+            @JsonAnySetter
+            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
-
-            private var validated: Boolean = false
 
             /** The email address of the User. */
             fun email(): String = email.getRequired("email")
@@ -1471,6 +1505,8 @@ private constructor(
             @JsonAnyGetter
             @ExcludeMissing
             fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+            private var validated: Boolean = false
 
             fun validate(): User = apply {
                 if (!validated) {
@@ -1492,32 +1528,37 @@ private constructor(
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(user: User) = apply {
-                    this.email = user.email
-                    additionalProperties(user.additionalProperties)
+                    email = user.email
+                    additionalProperties = user.additionalProperties.toMutableMap()
                 }
 
                 /** The email address of the User. */
                 fun email(email: String) = email(JsonField.of(email))
 
                 /** The email address of the User. */
-                @JsonProperty("email")
-                @ExcludeMissing
                 fun email(email: JsonField<String>) = apply { this.email = email }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
-                    this.additionalProperties.putAll(additionalProperties)
+                    putAllAdditionalProperties(additionalProperties)
                 }
 
-                @JsonAnySetter
                 fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    this.additionalProperties.put(key, value)
+                    additionalProperties.put(key, value)
                 }
 
                 fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                     apply {
                         this.additionalProperties.putAll(additionalProperties)
                     }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
 
                 fun build(): User = User(email, additionalProperties.toImmutable())
             }
@@ -1691,31 +1732,66 @@ private constructor(
     }
 
     /** If your transfer is reversed, this will contain details of the reversal. */
-    @JsonDeserialize(builder = Reversal.Builder::class)
     @NoAutoDetect
     class Reversal
+    @JsonCreator
     private constructor(
-        private val amount: JsonField<Long>,
-        private val createdAt: JsonField<OffsetDateTime>,
-        private val description: JsonField<String>,
-        private val financialInstitutionToFinancialInstitutionInformation: JsonField<String>,
-        private val inputCycleDate: JsonField<LocalDate>,
-        private val inputMessageAccountabilityData: JsonField<String>,
-        private val inputSequenceNumber: JsonField<String>,
-        private val inputSource: JsonField<String>,
-        private val originatorRoutingNumber: JsonField<String>,
-        private val previousMessageInputCycleDate: JsonField<LocalDate>,
-        private val previousMessageInputMessageAccountabilityData: JsonField<String>,
-        private val previousMessageInputSequenceNumber: JsonField<String>,
-        private val previousMessageInputSource: JsonField<String>,
-        private val receiverFinancialInstitutionInformation: JsonField<String>,
-        private val senderReference: JsonField<String>,
-        private val transactionId: JsonField<String>,
-        private val wireTransferId: JsonField<String>,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("amount")
+        @ExcludeMissing
+        private val amount: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("description")
+        @ExcludeMissing
+        private val description: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("financial_institution_to_financial_institution_information")
+        @ExcludeMissing
+        private val financialInstitutionToFinancialInstitutionInformation: JsonField<String> =
+            JsonMissing.of(),
+        @JsonProperty("input_cycle_date")
+        @ExcludeMissing
+        private val inputCycleDate: JsonField<LocalDate> = JsonMissing.of(),
+        @JsonProperty("input_message_accountability_data")
+        @ExcludeMissing
+        private val inputMessageAccountabilityData: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("input_sequence_number")
+        @ExcludeMissing
+        private val inputSequenceNumber: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("input_source")
+        @ExcludeMissing
+        private val inputSource: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("originator_routing_number")
+        @ExcludeMissing
+        private val originatorRoutingNumber: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("previous_message_input_cycle_date")
+        @ExcludeMissing
+        private val previousMessageInputCycleDate: JsonField<LocalDate> = JsonMissing.of(),
+        @JsonProperty("previous_message_input_message_accountability_data")
+        @ExcludeMissing
+        private val previousMessageInputMessageAccountabilityData: JsonField<String> =
+            JsonMissing.of(),
+        @JsonProperty("previous_message_input_sequence_number")
+        @ExcludeMissing
+        private val previousMessageInputSequenceNumber: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("previous_message_input_source")
+        @ExcludeMissing
+        private val previousMessageInputSource: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("receiver_financial_institution_information")
+        @ExcludeMissing
+        private val receiverFinancialInstitutionInformation: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("sender_reference")
+        @ExcludeMissing
+        private val senderReference: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("transaction_id")
+        @ExcludeMissing
+        private val transactionId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("wire_transfer_id")
+        @ExcludeMissing
+        private val wireTransferId: JsonField<String> = JsonMissing.of(),
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
-
-        private var validated: Boolean = false
 
         /** The amount that was reversed in USD cents. */
         fun amount(): Long = amount.getRequired("amount")
@@ -1875,6 +1951,8 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+        private var validated: Boolean = false
+
         fun validate(): Reversal = apply {
             if (!validated) {
                 amount()
@@ -1930,36 +2008,33 @@ private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(reversal: Reversal) = apply {
-                this.amount = reversal.amount
-                this.createdAt = reversal.createdAt
-                this.description = reversal.description
-                this.financialInstitutionToFinancialInstitutionInformation =
+                amount = reversal.amount
+                createdAt = reversal.createdAt
+                description = reversal.description
+                financialInstitutionToFinancialInstitutionInformation =
                     reversal.financialInstitutionToFinancialInstitutionInformation
-                this.inputCycleDate = reversal.inputCycleDate
-                this.inputMessageAccountabilityData = reversal.inputMessageAccountabilityData
-                this.inputSequenceNumber = reversal.inputSequenceNumber
-                this.inputSource = reversal.inputSource
-                this.originatorRoutingNumber = reversal.originatorRoutingNumber
-                this.previousMessageInputCycleDate = reversal.previousMessageInputCycleDate
-                this.previousMessageInputMessageAccountabilityData =
+                inputCycleDate = reversal.inputCycleDate
+                inputMessageAccountabilityData = reversal.inputMessageAccountabilityData
+                inputSequenceNumber = reversal.inputSequenceNumber
+                inputSource = reversal.inputSource
+                originatorRoutingNumber = reversal.originatorRoutingNumber
+                previousMessageInputCycleDate = reversal.previousMessageInputCycleDate
+                previousMessageInputMessageAccountabilityData =
                     reversal.previousMessageInputMessageAccountabilityData
-                this.previousMessageInputSequenceNumber =
-                    reversal.previousMessageInputSequenceNumber
-                this.previousMessageInputSource = reversal.previousMessageInputSource
-                this.receiverFinancialInstitutionInformation =
+                previousMessageInputSequenceNumber = reversal.previousMessageInputSequenceNumber
+                previousMessageInputSource = reversal.previousMessageInputSource
+                receiverFinancialInstitutionInformation =
                     reversal.receiverFinancialInstitutionInformation
-                this.senderReference = reversal.senderReference
-                this.transactionId = reversal.transactionId
-                this.wireTransferId = reversal.wireTransferId
-                additionalProperties(reversal.additionalProperties)
+                senderReference = reversal.senderReference
+                transactionId = reversal.transactionId
+                wireTransferId = reversal.wireTransferId
+                additionalProperties = reversal.additionalProperties.toMutableMap()
             }
 
             /** The amount that was reversed in USD cents. */
             fun amount(amount: Long) = amount(JsonField.of(amount))
 
             /** The amount that was reversed in USD cents. */
-            @JsonProperty("amount")
-            @ExcludeMissing
             fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
             /**
@@ -1972,8 +2047,6 @@ private constructor(
              * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
              * reversal was created.
              */
-            @JsonProperty("created_at")
-            @ExcludeMissing
             fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
                 this.createdAt = createdAt
             }
@@ -1982,8 +2055,6 @@ private constructor(
             fun description(description: String) = description(JsonField.of(description))
 
             /** The description on the reversal message from Fedwire, set by the reversing bank. */
-            @JsonProperty("description")
-            @ExcludeMissing
             fun description(description: JsonField<String>) = apply {
                 this.description = description
             }
@@ -1997,8 +2068,6 @@ private constructor(
                 )
 
             /** Additional financial institution information included in the wire reversal. */
-            @JsonProperty("financial_institution_to_financial_institution_information")
-            @ExcludeMissing
             fun financialInstitutionToFinancialInstitutionInformation(
                 financialInstitutionToFinancialInstitutionInformation: JsonField<String>
             ) = apply {
@@ -2017,8 +2086,6 @@ private constructor(
              * The Fedwire cycle date for the wire reversal. The "Fedwire day" begins at 9:00 PM
              * Eastern Time on the evening before the `cycle date`.
              */
-            @JsonProperty("input_cycle_date")
-            @ExcludeMissing
             fun inputCycleDate(inputCycleDate: JsonField<LocalDate>) = apply {
                 this.inputCycleDate = inputCycleDate
             }
@@ -2028,8 +2095,6 @@ private constructor(
                 inputMessageAccountabilityData(JsonField.of(inputMessageAccountabilityData))
 
             /** The Fedwire transaction identifier. */
-            @JsonProperty("input_message_accountability_data")
-            @ExcludeMissing
             fun inputMessageAccountabilityData(inputMessageAccountabilityData: JsonField<String>) =
                 apply {
                     this.inputMessageAccountabilityData = inputMessageAccountabilityData
@@ -2040,8 +2105,6 @@ private constructor(
                 inputSequenceNumber(JsonField.of(inputSequenceNumber))
 
             /** The Fedwire sequence number. */
-            @JsonProperty("input_sequence_number")
-            @ExcludeMissing
             fun inputSequenceNumber(inputSequenceNumber: JsonField<String>) = apply {
                 this.inputSequenceNumber = inputSequenceNumber
             }
@@ -2050,8 +2113,6 @@ private constructor(
             fun inputSource(inputSource: String) = inputSource(JsonField.of(inputSource))
 
             /** The Fedwire input source identifier. */
-            @JsonProperty("input_source")
-            @ExcludeMissing
             fun inputSource(inputSource: JsonField<String>) = apply {
                 this.inputSource = inputSource
             }
@@ -2067,8 +2128,6 @@ private constructor(
              * The American Banking Association (ABA) routing number of the bank originating the
              * transfer.
              */
-            @JsonProperty("originator_routing_number")
-            @ExcludeMissing
             fun originatorRoutingNumber(originatorRoutingNumber: JsonField<String>) = apply {
                 this.originatorRoutingNumber = originatorRoutingNumber
             }
@@ -2082,8 +2141,6 @@ private constructor(
             /**
              * The Fedwire cycle date for the wire transfer that is being reversed by this message.
              */
-            @JsonProperty("previous_message_input_cycle_date")
-            @ExcludeMissing
             fun previousMessageInputCycleDate(previousMessageInputCycleDate: JsonField<LocalDate>) =
                 apply {
                     this.previousMessageInputCycleDate = previousMessageInputCycleDate
@@ -2098,8 +2155,6 @@ private constructor(
                 )
 
             /** The Fedwire transaction identifier for the wire transfer that was reversed. */
-            @JsonProperty("previous_message_input_message_accountability_data")
-            @ExcludeMissing
             fun previousMessageInputMessageAccountabilityData(
                 previousMessageInputMessageAccountabilityData: JsonField<String>
             ) = apply {
@@ -2112,8 +2167,6 @@ private constructor(
                 previousMessageInputSequenceNumber(JsonField.of(previousMessageInputSequenceNumber))
 
             /** The Fedwire sequence number for the wire transfer that was reversed. */
-            @JsonProperty("previous_message_input_sequence_number")
-            @ExcludeMissing
             fun previousMessageInputSequenceNumber(
                 previousMessageInputSequenceNumber: JsonField<String>
             ) = apply {
@@ -2125,8 +2178,6 @@ private constructor(
                 previousMessageInputSource(JsonField.of(previousMessageInputSource))
 
             /** The Fedwire input source identifier for the wire transfer that was reversed. */
-            @JsonProperty("previous_message_input_source")
-            @ExcludeMissing
             fun previousMessageInputSource(previousMessageInputSource: JsonField<String>) = apply {
                 this.previousMessageInputSource = previousMessageInputSource
             }
@@ -2144,8 +2195,6 @@ private constructor(
             /**
              * Information included in the wire reversal for the receiving financial institution.
              */
-            @JsonProperty("receiver_financial_institution_information")
-            @ExcludeMissing
             fun receiverFinancialInstitutionInformation(
                 receiverFinancialInstitutionInformation: JsonField<String>
             ) = apply {
@@ -2158,8 +2207,6 @@ private constructor(
                 senderReference(JsonField.of(senderReference))
 
             /** The sending bank's reference number for the wire reversal. */
-            @JsonProperty("sender_reference")
-            @ExcludeMissing
             fun senderReference(senderReference: JsonField<String>) = apply {
                 this.senderReference = senderReference
             }
@@ -2168,8 +2215,6 @@ private constructor(
             fun transactionId(transactionId: String) = transactionId(JsonField.of(transactionId))
 
             /** The ID for the Transaction associated with the transfer reversal. */
-            @JsonProperty("transaction_id")
-            @ExcludeMissing
             fun transactionId(transactionId: JsonField<String>) = apply {
                 this.transactionId = transactionId
             }
@@ -2179,24 +2224,27 @@ private constructor(
                 wireTransferId(JsonField.of(wireTransferId))
 
             /** The ID for the Wire Transfer that is being reversed. */
-            @JsonProperty("wire_transfer_id")
-            @ExcludeMissing
             fun wireTransferId(wireTransferId: JsonField<String>) = apply {
                 this.wireTransferId = wireTransferId
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): Reversal =
@@ -2340,16 +2388,19 @@ private constructor(
     }
 
     /** After the transfer is submitted to Fedwire, this will contain supplemental details. */
-    @JsonDeserialize(builder = Submission.Builder::class)
     @NoAutoDetect
     class Submission
+    @JsonCreator
     private constructor(
-        private val inputMessageAccountabilityData: JsonField<String>,
-        private val submittedAt: JsonField<OffsetDateTime>,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("input_message_accountability_data")
+        @ExcludeMissing
+        private val inputMessageAccountabilityData: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("submitted_at")
+        @ExcludeMissing
+        private val submittedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
-
-        private var validated: Boolean = false
 
         /** The accountability data for the submission. */
         fun inputMessageAccountabilityData(): String =
@@ -2369,6 +2420,8 @@ private constructor(
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
 
         fun validate(): Submission = apply {
             if (!validated) {
@@ -2392,9 +2445,9 @@ private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(submission: Submission) = apply {
-                this.inputMessageAccountabilityData = submission.inputMessageAccountabilityData
-                this.submittedAt = submission.submittedAt
-                additionalProperties(submission.additionalProperties)
+                inputMessageAccountabilityData = submission.inputMessageAccountabilityData
+                submittedAt = submission.submittedAt
+                additionalProperties = submission.additionalProperties.toMutableMap()
             }
 
             /** The accountability data for the submission. */
@@ -2402,8 +2455,6 @@ private constructor(
                 inputMessageAccountabilityData(JsonField.of(inputMessageAccountabilityData))
 
             /** The accountability data for the submission. */
-            @JsonProperty("input_message_accountability_data")
-            @ExcludeMissing
             fun inputMessageAccountabilityData(inputMessageAccountabilityData: JsonField<String>) =
                 apply {
                     this.inputMessageAccountabilityData = inputMessageAccountabilityData
@@ -2413,24 +2464,27 @@ private constructor(
             fun submittedAt(submittedAt: OffsetDateTime) = submittedAt(JsonField.of(submittedAt))
 
             /** When this wire transfer was submitted to Fedwire. */
-            @JsonProperty("submitted_at")
-            @ExcludeMissing
             fun submittedAt(submittedAt: JsonField<OffsetDateTime>) = apply {
                 this.submittedAt = submittedAt
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): Submission =

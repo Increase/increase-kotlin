@@ -4,13 +4,14 @@ package com.increase.api.models
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import java.util.Objects
 
@@ -55,13 +56,14 @@ constructor(
         }
     }
 
-    @JsonDeserialize(builder = InboundAchTransferCreateNotificationOfChangeBody.Builder::class)
     @NoAutoDetect
     class InboundAchTransferCreateNotificationOfChangeBody
+    @JsonCreator
     internal constructor(
-        private val updatedAccountNumber: String?,
-        private val updatedRoutingNumber: String?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("updated_account_number") private val updatedAccountNumber: String?,
+        @JsonProperty("updated_routing_number") private val updatedRoutingNumber: String?,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The updated account number to send in the notification of change. */
@@ -93,39 +95,42 @@ constructor(
                 inboundAchTransferCreateNotificationOfChangeBody:
                     InboundAchTransferCreateNotificationOfChangeBody
             ) = apply {
-                this.updatedAccountNumber =
+                updatedAccountNumber =
                     inboundAchTransferCreateNotificationOfChangeBody.updatedAccountNumber
-                this.updatedRoutingNumber =
+                updatedRoutingNumber =
                     inboundAchTransferCreateNotificationOfChangeBody.updatedRoutingNumber
-                additionalProperties(
+                additionalProperties =
                     inboundAchTransferCreateNotificationOfChangeBody.additionalProperties
-                )
+                        .toMutableMap()
             }
 
             /** The updated account number to send in the notification of change. */
-            @JsonProperty("updated_account_number")
-            fun updatedAccountNumber(updatedAccountNumber: String) = apply {
+            fun updatedAccountNumber(updatedAccountNumber: String?) = apply {
                 this.updatedAccountNumber = updatedAccountNumber
             }
 
             /** The updated routing number to send in the notification of change. */
-            @JsonProperty("updated_routing_number")
-            fun updatedRoutingNumber(updatedRoutingNumber: String) = apply {
+            fun updatedRoutingNumber(updatedRoutingNumber: String?) = apply {
                 this.updatedRoutingNumber = updatedRoutingNumber
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): InboundAchTransferCreateNotificationOfChangeBody =

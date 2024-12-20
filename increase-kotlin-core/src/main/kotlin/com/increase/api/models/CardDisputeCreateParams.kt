@@ -4,13 +4,14 @@ package com.increase.api.models
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import java.util.Objects
 
@@ -49,14 +50,15 @@ constructor(
 
     internal fun getQueryParams(): QueryParams = additionalQueryParams
 
-    @JsonDeserialize(builder = CardDisputeCreateBody.Builder::class)
     @NoAutoDetect
     class CardDisputeCreateBody
+    @JsonCreator
     internal constructor(
-        private val disputedTransactionId: String?,
-        private val explanation: String?,
-        private val amount: Long?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("disputed_transaction_id") private val disputedTransactionId: String,
+        @JsonProperty("explanation") private val explanation: String,
+        @JsonProperty("amount") private val amount: Long?,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /**
@@ -64,10 +66,10 @@ constructor(
          * `card_settlement`.
          */
         @JsonProperty("disputed_transaction_id")
-        fun disputedTransactionId(): String? = disputedTransactionId
+        fun disputedTransactionId(): String = disputedTransactionId
 
         /** Why you are disputing this Transaction. */
-        @JsonProperty("explanation") fun explanation(): String? = explanation
+        @JsonProperty("explanation") fun explanation(): String = explanation
 
         /**
          * The monetary amount of the part of the transaction that is being disputed. This is
@@ -95,23 +97,21 @@ constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(cardDisputeCreateBody: CardDisputeCreateBody) = apply {
-                this.disputedTransactionId = cardDisputeCreateBody.disputedTransactionId
-                this.explanation = cardDisputeCreateBody.explanation
-                this.amount = cardDisputeCreateBody.amount
-                additionalProperties(cardDisputeCreateBody.additionalProperties)
+                disputedTransactionId = cardDisputeCreateBody.disputedTransactionId
+                explanation = cardDisputeCreateBody.explanation
+                amount = cardDisputeCreateBody.amount
+                additionalProperties = cardDisputeCreateBody.additionalProperties.toMutableMap()
             }
 
             /**
              * The Transaction you wish to dispute. This Transaction must have a `source_type` of
              * `card_settlement`.
              */
-            @JsonProperty("disputed_transaction_id")
             fun disputedTransactionId(disputedTransactionId: String) = apply {
                 this.disputedTransactionId = disputedTransactionId
             }
 
             /** Why you are disputing this Transaction. */
-            @JsonProperty("explanation")
             fun explanation(explanation: String) = apply { this.explanation = explanation }
 
             /**
@@ -119,20 +119,25 @@ constructor(
              * optional and will default to the full amount of the transaction if not provided. If
              * provided, the amount must be less than or equal to the amount of the transaction.
              */
-            @JsonProperty("amount") fun amount(amount: Long) = apply { this.amount = amount }
+            fun amount(amount: Long?) = apply { this.amount = amount }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): CardDisputeCreateBody =

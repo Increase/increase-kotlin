@@ -4,13 +4,14 @@ package com.increase.api.models
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import java.util.Objects
 
@@ -57,20 +58,21 @@ constructor(
 
     internal fun getQueryParams(): QueryParams = additionalQueryParams
 
-    @JsonDeserialize(builder = CardCreateBody.Builder::class)
     @NoAutoDetect
     class CardCreateBody
+    @JsonCreator
     internal constructor(
-        private val accountId: String?,
-        private val billingAddress: BillingAddress?,
-        private val description: String?,
-        private val digitalWallet: DigitalWallet?,
-        private val entityId: String?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("account_id") private val accountId: String,
+        @JsonProperty("billing_address") private val billingAddress: BillingAddress?,
+        @JsonProperty("description") private val description: String?,
+        @JsonProperty("digital_wallet") private val digitalWallet: DigitalWallet?,
+        @JsonProperty("entity_id") private val entityId: String?,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The Account the card should belong to. */
-        @JsonProperty("account_id") fun accountId(): String? = accountId
+        @JsonProperty("account_id") fun accountId(): String = accountId
 
         /** The card's billing address. */
         @JsonProperty("billing_address") fun billingAddress(): BillingAddress? = billingAddress
@@ -113,27 +115,24 @@ constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(cardCreateBody: CardCreateBody) = apply {
-                this.accountId = cardCreateBody.accountId
-                this.billingAddress = cardCreateBody.billingAddress
-                this.description = cardCreateBody.description
-                this.digitalWallet = cardCreateBody.digitalWallet
-                this.entityId = cardCreateBody.entityId
-                additionalProperties(cardCreateBody.additionalProperties)
+                accountId = cardCreateBody.accountId
+                billingAddress = cardCreateBody.billingAddress
+                description = cardCreateBody.description
+                digitalWallet = cardCreateBody.digitalWallet
+                entityId = cardCreateBody.entityId
+                additionalProperties = cardCreateBody.additionalProperties.toMutableMap()
             }
 
             /** The Account the card should belong to. */
-            @JsonProperty("account_id")
             fun accountId(accountId: String) = apply { this.accountId = accountId }
 
             /** The card's billing address. */
-            @JsonProperty("billing_address")
-            fun billingAddress(billingAddress: BillingAddress) = apply {
+            fun billingAddress(billingAddress: BillingAddress?) = apply {
                 this.billingAddress = billingAddress
             }
 
             /** The description you choose to give the card. */
-            @JsonProperty("description")
-            fun description(description: String) = apply { this.description = description }
+            fun description(description: String?) = apply { this.description = description }
 
             /**
              * The contact information used in the two-factor steps for digital wallet card
@@ -142,8 +141,7 @@ constructor(
              * with the category `digital_wallet_token_requested` or
              * `digital_wallet_authentication_requested`.
              */
-            @JsonProperty("digital_wallet")
-            fun digitalWallet(digitalWallet: DigitalWallet) = apply {
+            fun digitalWallet(digitalWallet: DigitalWallet?) = apply {
                 this.digitalWallet = digitalWallet
             }
 
@@ -151,21 +149,25 @@ constructor(
              * The Entity the card belongs to. You only need to supply this in rare situations when
              * the card is not for the Account holder.
              */
-            @JsonProperty("entity_id")
-            fun entityId(entityId: String) = apply { this.entityId = entityId }
+            fun entityId(entityId: String?) = apply { this.entityId = entityId }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): CardCreateBody =
@@ -388,32 +390,33 @@ constructor(
     }
 
     /** The card's billing address. */
-    @JsonDeserialize(builder = BillingAddress.Builder::class)
     @NoAutoDetect
     class BillingAddress
+    @JsonCreator
     private constructor(
-        private val city: String?,
-        private val line1: String?,
-        private val line2: String?,
-        private val postalCode: String?,
-        private val state: String?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("city") private val city: String,
+        @JsonProperty("line1") private val line1: String,
+        @JsonProperty("line2") private val line2: String?,
+        @JsonProperty("postal_code") private val postalCode: String,
+        @JsonProperty("state") private val state: String,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The city of the billing address. */
-        @JsonProperty("city") fun city(): String? = city
+        @JsonProperty("city") fun city(): String = city
 
         /** The first line of the billing address. */
-        @JsonProperty("line1") fun line1(): String? = line1
+        @JsonProperty("line1") fun line1(): String = line1
 
         /** The second line of the billing address. */
         @JsonProperty("line2") fun line2(): String? = line2
 
         /** The postal code of the billing address. */
-        @JsonProperty("postal_code") fun postalCode(): String? = postalCode
+        @JsonProperty("postal_code") fun postalCode(): String = postalCode
 
         /** The US state of the billing address. */
-        @JsonProperty("state") fun state(): String? = state
+        @JsonProperty("state") fun state(): String = state
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -436,42 +439,46 @@ constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(billingAddress: BillingAddress) = apply {
-                this.city = billingAddress.city
-                this.line1 = billingAddress.line1
-                this.line2 = billingAddress.line2
-                this.postalCode = billingAddress.postalCode
-                this.state = billingAddress.state
-                additionalProperties(billingAddress.additionalProperties)
+                city = billingAddress.city
+                line1 = billingAddress.line1
+                line2 = billingAddress.line2
+                postalCode = billingAddress.postalCode
+                state = billingAddress.state
+                additionalProperties = billingAddress.additionalProperties.toMutableMap()
             }
 
             /** The city of the billing address. */
-            @JsonProperty("city") fun city(city: String) = apply { this.city = city }
+            fun city(city: String) = apply { this.city = city }
 
             /** The first line of the billing address. */
-            @JsonProperty("line1") fun line1(line1: String) = apply { this.line1 = line1 }
+            fun line1(line1: String) = apply { this.line1 = line1 }
 
             /** The second line of the billing address. */
-            @JsonProperty("line2") fun line2(line2: String) = apply { this.line2 = line2 }
+            fun line2(line2: String?) = apply { this.line2 = line2 }
 
             /** The postal code of the billing address. */
-            @JsonProperty("postal_code")
             fun postalCode(postalCode: String) = apply { this.postalCode = postalCode }
 
             /** The US state of the billing address. */
-            @JsonProperty("state") fun state(state: String) = apply { this.state = state }
+            fun state(state: String) = apply { this.state = state }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): BillingAddress =
@@ -509,14 +516,15 @@ constructor(
      * Otherwise, subscribe and then action a Real Time Decision with the category
      * `digital_wallet_token_requested` or `digital_wallet_authentication_requested`.
      */
-    @JsonDeserialize(builder = DigitalWallet.Builder::class)
     @NoAutoDetect
     class DigitalWallet
+    @JsonCreator
     private constructor(
-        private val digitalCardProfileId: String?,
-        private val email: String?,
-        private val phone: String?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("digital_card_profile_id") private val digitalCardProfileId: String?,
+        @JsonProperty("email") private val email: String?,
+        @JsonProperty("phone") private val phone: String?,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The digital card profile assigned to this digital card. */
@@ -554,15 +562,14 @@ constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(digitalWallet: DigitalWallet) = apply {
-                this.digitalCardProfileId = digitalWallet.digitalCardProfileId
-                this.email = digitalWallet.email
-                this.phone = digitalWallet.phone
-                additionalProperties(digitalWallet.additionalProperties)
+                digitalCardProfileId = digitalWallet.digitalCardProfileId
+                email = digitalWallet.email
+                phone = digitalWallet.phone
+                additionalProperties = digitalWallet.additionalProperties.toMutableMap()
             }
 
             /** The digital card profile assigned to this digital card. */
-            @JsonProperty("digital_card_profile_id")
-            fun digitalCardProfileId(digitalCardProfileId: String) = apply {
+            fun digitalCardProfileId(digitalCardProfileId: String?) = apply {
                 this.digitalCardProfileId = digitalCardProfileId
             }
 
@@ -570,26 +577,31 @@ constructor(
              * An email address that can be used to contact and verify the cardholder via one-time
              * passcode over email.
              */
-            @JsonProperty("email") fun email(email: String) = apply { this.email = email }
+            fun email(email: String?) = apply { this.email = email }
 
             /**
              * A phone number that can be used to contact and verify the cardholder via one-time
              * passcode over SMS.
              */
-            @JsonProperty("phone") fun phone(phone: String) = apply { this.phone = phone }
+            fun phone(phone: String?) = apply { this.phone = phone }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): DigitalWallet =

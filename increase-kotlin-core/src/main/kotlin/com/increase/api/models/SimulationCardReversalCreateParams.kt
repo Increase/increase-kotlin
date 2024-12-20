@@ -4,13 +4,14 @@ package com.increase.api.models
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import java.util.Objects
 
@@ -45,17 +46,18 @@ constructor(
 
     internal fun getQueryParams(): QueryParams = additionalQueryParams
 
-    @JsonDeserialize(builder = SimulationCardReversalCreateBody.Builder::class)
     @NoAutoDetect
     class SimulationCardReversalCreateBody
+    @JsonCreator
     internal constructor(
-        private val cardPaymentId: String?,
-        private val amount: Long?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("card_payment_id") private val cardPaymentId: String,
+        @JsonProperty("amount") private val amount: Long?,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The identifier of the Card Payment to create a reversal on. */
-        @JsonProperty("card_payment_id") fun cardPaymentId(): String? = cardPaymentId
+        @JsonProperty("card_payment_id") fun cardPaymentId(): String = cardPaymentId
 
         /**
          * The amount of the reversal in minor units in the card authorization's currency. This
@@ -82,33 +84,38 @@ constructor(
 
             internal fun from(simulationCardReversalCreateBody: SimulationCardReversalCreateBody) =
                 apply {
-                    this.cardPaymentId = simulationCardReversalCreateBody.cardPaymentId
-                    this.amount = simulationCardReversalCreateBody.amount
-                    additionalProperties(simulationCardReversalCreateBody.additionalProperties)
+                    cardPaymentId = simulationCardReversalCreateBody.cardPaymentId
+                    amount = simulationCardReversalCreateBody.amount
+                    additionalProperties =
+                        simulationCardReversalCreateBody.additionalProperties.toMutableMap()
                 }
 
             /** The identifier of the Card Payment to create a reversal on. */
-            @JsonProperty("card_payment_id")
             fun cardPaymentId(cardPaymentId: String) = apply { this.cardPaymentId = cardPaymentId }
 
             /**
              * The amount of the reversal in minor units in the card authorization's currency. This
              * defaults to the authorization amount.
              */
-            @JsonProperty("amount") fun amount(amount: Long) = apply { this.amount = amount }
+            fun amount(amount: Long?) = apply { this.amount = amount }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): SimulationCardReversalCreateBody =

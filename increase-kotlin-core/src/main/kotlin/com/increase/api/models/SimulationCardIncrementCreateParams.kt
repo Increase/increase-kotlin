@@ -4,13 +4,14 @@ package com.increase.api.models
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import java.util.Objects
 
@@ -49,21 +50,22 @@ constructor(
 
     internal fun getQueryParams(): QueryParams = additionalQueryParams
 
-    @JsonDeserialize(builder = SimulationCardIncrementCreateBody.Builder::class)
     @NoAutoDetect
     class SimulationCardIncrementCreateBody
+    @JsonCreator
     internal constructor(
-        private val amount: Long?,
-        private val cardPaymentId: String?,
-        private val eventSubscriptionId: String?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("amount") private val amount: Long,
+        @JsonProperty("card_payment_id") private val cardPaymentId: String,
+        @JsonProperty("event_subscription_id") private val eventSubscriptionId: String?,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The amount of the increment in minor units in the card authorization's currency. */
-        @JsonProperty("amount") fun amount(): Long? = amount
+        @JsonProperty("amount") fun amount(): Long = amount
 
         /** The identifier of the Card Payment to create a increment on. */
-        @JsonProperty("card_payment_id") fun cardPaymentId(): String? = cardPaymentId
+        @JsonProperty("card_payment_id") fun cardPaymentId(): String = cardPaymentId
 
         /**
          * The identifier of the Event Subscription to use. If provided, will override the default
@@ -95,17 +97,17 @@ constructor(
             internal fun from(
                 simulationCardIncrementCreateBody: SimulationCardIncrementCreateBody
             ) = apply {
-                this.amount = simulationCardIncrementCreateBody.amount
-                this.cardPaymentId = simulationCardIncrementCreateBody.cardPaymentId
-                this.eventSubscriptionId = simulationCardIncrementCreateBody.eventSubscriptionId
-                additionalProperties(simulationCardIncrementCreateBody.additionalProperties)
+                amount = simulationCardIncrementCreateBody.amount
+                cardPaymentId = simulationCardIncrementCreateBody.cardPaymentId
+                eventSubscriptionId = simulationCardIncrementCreateBody.eventSubscriptionId
+                additionalProperties =
+                    simulationCardIncrementCreateBody.additionalProperties.toMutableMap()
             }
 
             /** The amount of the increment in minor units in the card authorization's currency. */
-            @JsonProperty("amount") fun amount(amount: Long) = apply { this.amount = amount }
+            fun amount(amount: Long) = apply { this.amount = amount }
 
             /** The identifier of the Card Payment to create a increment on. */
-            @JsonProperty("card_payment_id")
             fun cardPaymentId(cardPaymentId: String) = apply { this.cardPaymentId = cardPaymentId }
 
             /**
@@ -114,23 +116,27 @@ constructor(
              * decision event subscription, you can use this field to route events to any specified
              * event subscription for testing purposes.
              */
-            @JsonProperty("event_subscription_id")
-            fun eventSubscriptionId(eventSubscriptionId: String) = apply {
+            fun eventSubscriptionId(eventSubscriptionId: String?) = apply {
                 this.eventSubscriptionId = eventSubscriptionId
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): SimulationCardIncrementCreateBody =
