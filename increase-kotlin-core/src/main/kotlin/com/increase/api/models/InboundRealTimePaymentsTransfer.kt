@@ -6,13 +6,13 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
@@ -22,27 +22,53 @@ import java.util.Objects
  * An Inbound Real-Time Payments Transfer is a Real-Time Payments transfer initiated outside of
  * Increase to your account.
  */
-@JsonDeserialize(builder = InboundRealTimePaymentsTransfer.Builder::class)
 @NoAutoDetect
 class InboundRealTimePaymentsTransfer
+@JsonCreator
 private constructor(
-    private val accountId: JsonField<String>,
-    private val accountNumberId: JsonField<String>,
-    private val amount: JsonField<Long>,
-    private val confirmation: JsonField<Confirmation>,
-    private val createdAt: JsonField<OffsetDateTime>,
-    private val creditorName: JsonField<String>,
-    private val currency: JsonField<Currency>,
-    private val debtorAccountNumber: JsonField<String>,
-    private val debtorName: JsonField<String>,
-    private val debtorRoutingNumber: JsonField<String>,
-    private val decline: JsonField<Decline>,
-    private val id: JsonField<String>,
-    private val remittanceInformation: JsonField<String>,
-    private val status: JsonField<Status>,
-    private val transactionIdentification: JsonField<String>,
-    private val type: JsonField<Type>,
-    private val additionalProperties: Map<String, JsonValue>,
+    @JsonProperty("account_id")
+    @ExcludeMissing
+    private val accountId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("account_number_id")
+    @ExcludeMissing
+    private val accountNumberId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("amount") @ExcludeMissing private val amount: JsonField<Long> = JsonMissing.of(),
+    @JsonProperty("confirmation")
+    @ExcludeMissing
+    private val confirmation: JsonField<Confirmation> = JsonMissing.of(),
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("creditor_name")
+    @ExcludeMissing
+    private val creditorName: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("currency")
+    @ExcludeMissing
+    private val currency: JsonField<Currency> = JsonMissing.of(),
+    @JsonProperty("debtor_account_number")
+    @ExcludeMissing
+    private val debtorAccountNumber: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("debtor_name")
+    @ExcludeMissing
+    private val debtorName: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("debtor_routing_number")
+    @ExcludeMissing
+    private val debtorRoutingNumber: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("decline")
+    @ExcludeMissing
+    private val decline: JsonField<Decline> = JsonMissing.of(),
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("remittance_information")
+    @ExcludeMissing
+    private val remittanceInformation: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("status")
+    @ExcludeMissing
+    private val status: JsonField<Status> = JsonMissing.of(),
+    @JsonProperty("transaction_identification")
+    @ExcludeMissing
+    private val transactionIdentification: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
+    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
     /** The Account to which the transfer was sent. */
@@ -251,8 +277,6 @@ private constructor(
         fun accountId(accountId: String) = accountId(JsonField.of(accountId))
 
         /** The Account to which the transfer was sent. */
-        @JsonProperty("account_id")
-        @ExcludeMissing
         fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
         /** The identifier of the Account Number to which this transfer was sent. */
@@ -260,8 +284,6 @@ private constructor(
             accountNumberId(JsonField.of(accountNumberId))
 
         /** The identifier of the Account Number to which this transfer was sent. */
-        @JsonProperty("account_number_id")
-        @ExcludeMissing
         fun accountNumberId(accountNumberId: JsonField<String>) = apply {
             this.accountNumberId = accountNumberId
         }
@@ -270,16 +292,12 @@ private constructor(
         fun amount(amount: Long) = amount(JsonField.of(amount))
 
         /** The amount in USD cents. */
-        @JsonProperty("amount")
-        @ExcludeMissing
         fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
         /** If your transfer is confirmed, this will contain details of the confirmation. */
         fun confirmation(confirmation: Confirmation) = confirmation(JsonField.of(confirmation))
 
         /** If your transfer is confirmed, this will contain details of the confirmation. */
-        @JsonProperty("confirmation")
-        @ExcludeMissing
         fun confirmation(confirmation: JsonField<Confirmation>) = apply {
             this.confirmation = confirmation
         }
@@ -294,16 +312,12 @@ private constructor(
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
          * transfer was created.
          */
-        @JsonProperty("created_at")
-        @ExcludeMissing
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /** The name the sender of the transfer specified as the recipient of the transfer. */
         fun creditorName(creditorName: String) = creditorName(JsonField.of(creditorName))
 
         /** The name the sender of the transfer specified as the recipient of the transfer. */
-        @JsonProperty("creditor_name")
-        @ExcludeMissing
         fun creditorName(creditorName: JsonField<String>) = apply {
             this.creditorName = creditorName
         }
@@ -318,8 +332,6 @@ private constructor(
          * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code of the transfer's currency.
          * This will always be "USD" for a Real-Time Payments transfer.
          */
-        @JsonProperty("currency")
-        @ExcludeMissing
         fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
 
         /** The account number of the account that sent the transfer. */
@@ -327,8 +339,6 @@ private constructor(
             debtorAccountNumber(JsonField.of(debtorAccountNumber))
 
         /** The account number of the account that sent the transfer. */
-        @JsonProperty("debtor_account_number")
-        @ExcludeMissing
         fun debtorAccountNumber(debtorAccountNumber: JsonField<String>) = apply {
             this.debtorAccountNumber = debtorAccountNumber
         }
@@ -337,8 +347,6 @@ private constructor(
         fun debtorName(debtorName: String) = debtorName(JsonField.of(debtorName))
 
         /** The name provided by the sender of the transfer. */
-        @JsonProperty("debtor_name")
-        @ExcludeMissing
         fun debtorName(debtorName: JsonField<String>) = apply { this.debtorName = debtorName }
 
         /** The routing number of the account that sent the transfer. */
@@ -346,8 +354,6 @@ private constructor(
             debtorRoutingNumber(JsonField.of(debtorRoutingNumber))
 
         /** The routing number of the account that sent the transfer. */
-        @JsonProperty("debtor_routing_number")
-        @ExcludeMissing
         fun debtorRoutingNumber(debtorRoutingNumber: JsonField<String>) = apply {
             this.debtorRoutingNumber = debtorRoutingNumber
         }
@@ -356,23 +362,19 @@ private constructor(
         fun decline(decline: Decline) = decline(JsonField.of(decline))
 
         /** If your transfer is declined, this will contain details of the decline. */
-        @JsonProperty("decline")
-        @ExcludeMissing
         fun decline(decline: JsonField<Decline>) = apply { this.decline = decline }
 
         /** The inbound Real-Time Payments transfer's identifier. */
         fun id(id: String) = id(JsonField.of(id))
 
         /** The inbound Real-Time Payments transfer's identifier. */
-        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** Additional information included with the transfer. */
         fun remittanceInformation(remittanceInformation: String) =
             remittanceInformation(JsonField.of(remittanceInformation))
 
         /** Additional information included with the transfer. */
-        @JsonProperty("remittance_information")
-        @ExcludeMissing
         fun remittanceInformation(remittanceInformation: JsonField<String>) = apply {
             this.remittanceInformation = remittanceInformation
         }
@@ -381,8 +383,6 @@ private constructor(
         fun status(status: Status) = status(JsonField.of(status))
 
         /** The lifecycle status of the transfer. */
-        @JsonProperty("status")
-        @ExcludeMissing
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /** The Real-Time Payments network identification of the transfer. */
@@ -390,8 +390,6 @@ private constructor(
             transactionIdentification(JsonField.of(transactionIdentification))
 
         /** The Real-Time Payments network identification of the transfer. */
-        @JsonProperty("transaction_identification")
-        @ExcludeMissing
         fun transactionIdentification(transactionIdentification: JsonField<String>) = apply {
             this.transactionIdentification = transactionIdentification
         }
@@ -406,8 +404,6 @@ private constructor(
          * A constant representing the object's type. For this resource it will always be
          * `inbound_real_time_payments_transfer`.
          */
-        @JsonProperty("type")
-        @ExcludeMissing
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -415,7 +411,6 @@ private constructor(
             putAllAdditionalProperties(additionalProperties)
         }
 
-        @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
             additionalProperties.put(key, value)
         }
@@ -453,13 +448,18 @@ private constructor(
     }
 
     /** If your transfer is confirmed, this will contain details of the confirmation. */
-    @JsonDeserialize(builder = Confirmation.Builder::class)
     @NoAutoDetect
     class Confirmation
+    @JsonCreator
     private constructor(
-        private val confirmedAt: JsonField<OffsetDateTime>,
-        private val transactionId: JsonField<String>,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("confirmed_at")
+        @ExcludeMissing
+        private val confirmedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("transaction_id")
+        @ExcludeMissing
+        private val transactionId: JsonField<String> = JsonMissing.of(),
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The time at which the transfer was confirmed. */
@@ -511,8 +511,6 @@ private constructor(
             fun confirmedAt(confirmedAt: OffsetDateTime) = confirmedAt(JsonField.of(confirmedAt))
 
             /** The time at which the transfer was confirmed. */
-            @JsonProperty("confirmed_at")
-            @ExcludeMissing
             fun confirmedAt(confirmedAt: JsonField<OffsetDateTime>) = apply {
                 this.confirmedAt = confirmedAt
             }
@@ -521,8 +519,6 @@ private constructor(
             fun transactionId(transactionId: String) = transactionId(JsonField.of(transactionId))
 
             /** The id of the transaction for the confirmed transfer. */
-            @JsonProperty("transaction_id")
-            @ExcludeMissing
             fun transactionId(transactionId: JsonField<String>) = apply {
                 this.transactionId = transactionId
             }
@@ -532,7 +528,6 @@ private constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }
@@ -655,14 +650,21 @@ private constructor(
     }
 
     /** If your transfer is declined, this will contain details of the decline. */
-    @JsonDeserialize(builder = Decline.Builder::class)
     @NoAutoDetect
     class Decline
+    @JsonCreator
     private constructor(
-        private val declinedAt: JsonField<OffsetDateTime>,
-        private val declinedTransactionId: JsonField<String>,
-        private val reason: JsonField<Reason>,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("declined_at")
+        @ExcludeMissing
+        private val declinedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("declined_transaction_id")
+        @ExcludeMissing
+        private val declinedTransactionId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("reason")
+        @ExcludeMissing
+        private val reason: JsonField<Reason> = JsonMissing.of(),
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The time at which the transfer was declined. */
@@ -726,8 +728,6 @@ private constructor(
             fun declinedAt(declinedAt: OffsetDateTime) = declinedAt(JsonField.of(declinedAt))
 
             /** The time at which the transfer was declined. */
-            @JsonProperty("declined_at")
-            @ExcludeMissing
             fun declinedAt(declinedAt: JsonField<OffsetDateTime>) = apply {
                 this.declinedAt = declinedAt
             }
@@ -737,8 +737,6 @@ private constructor(
                 declinedTransactionId(JsonField.of(declinedTransactionId))
 
             /** The id of the transaction for the declined transfer. */
-            @JsonProperty("declined_transaction_id")
-            @ExcludeMissing
             fun declinedTransactionId(declinedTransactionId: JsonField<String>) = apply {
                 this.declinedTransactionId = declinedTransactionId
             }
@@ -747,8 +745,6 @@ private constructor(
             fun reason(reason: Reason) = reason(JsonField.of(reason))
 
             /** The reason for the transfer decline. */
-            @JsonProperty("reason")
-            @ExcludeMissing
             fun reason(reason: JsonField<Reason>) = apply { this.reason = reason }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -756,7 +752,6 @@ private constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }
