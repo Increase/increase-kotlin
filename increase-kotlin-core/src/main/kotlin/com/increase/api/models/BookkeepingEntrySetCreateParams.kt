@@ -4,13 +4,14 @@ package com.increase.api.models
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import java.time.OffsetDateTime
 import java.util.Objects
@@ -50,14 +51,15 @@ constructor(
 
     internal fun getQueryParams(): QueryParams = additionalQueryParams
 
-    @JsonDeserialize(builder = BookkeepingEntrySetCreateBody.Builder::class)
     @NoAutoDetect
     class BookkeepingEntrySetCreateBody
+    @JsonCreator
     internal constructor(
-        private val entries: List<Entry>,
-        private val date: OffsetDateTime?,
-        private val transactionId: String?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("entries") private val entries: List<Entry>,
+        @JsonProperty("date") private val date: OffsetDateTime?,
+        @JsonProperty("transaction_id") private val transactionId: String?,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The bookkeeping entries. */
@@ -100,17 +102,15 @@ constructor(
                 }
 
             /** The bookkeeping entries. */
-            @JsonProperty("entries")
             fun entries(entries: List<Entry>) = apply { this.entries = entries }
 
             /**
              * The date of the transaction. Optional if `transaction_id` is provided, in which case
              * we use the `date` of that transaction. Required otherwise.
              */
-            @JsonProperty("date") fun date(date: OffsetDateTime?) = apply { this.date = date }
+            fun date(date: OffsetDateTime?) = apply { this.date = date }
 
             /** The identifier of the Transaction related to this entry set, if any. */
-            @JsonProperty("transaction_id")
             fun transactionId(transactionId: String?) = apply { this.transactionId = transactionId }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -118,7 +118,6 @@ constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }
@@ -338,13 +337,14 @@ constructor(
             )
     }
 
-    @JsonDeserialize(builder = Entry.Builder::class)
     @NoAutoDetect
     class Entry
+    @JsonCreator
     private constructor(
-        private val accountId: String,
-        private val amount: Long,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("account_id") private val accountId: String,
+        @JsonProperty("amount") private val amount: Long,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The identifier for the Bookkeeping Account impacted by this entry. */
@@ -380,7 +380,6 @@ constructor(
             }
 
             /** The identifier for the Bookkeeping Account impacted by this entry. */
-            @JsonProperty("account_id")
             fun accountId(accountId: String) = apply { this.accountId = accountId }
 
             /**
@@ -388,14 +387,13 @@ constructor(
              * this is cents. Debit entries have positive amounts; credit entries have negative
              * amounts.
              */
-            @JsonProperty("amount") fun amount(amount: Long) = apply { this.amount = amount }
+            fun amount(amount: Long) = apply { this.amount = amount }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }

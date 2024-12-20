@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
@@ -14,6 +13,7 @@ import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.LocalDate
@@ -118,30 +118,34 @@ constructor(
 
     internal fun getQueryParams(): QueryParams = additionalQueryParams
 
-    @JsonDeserialize(builder = AchTransferCreateBody.Builder::class)
     @NoAutoDetect
     class AchTransferCreateBody
+    @JsonCreator
     internal constructor(
-        private val accountId: String,
-        private val amount: Long,
-        private val statementDescriptor: String,
-        private val accountNumber: String?,
-        private val addenda: Addenda?,
-        private val companyDescriptiveDate: String?,
-        private val companyDiscretionaryData: String?,
-        private val companyEntryDescription: String?,
-        private val companyName: String?,
+        @JsonProperty("account_id") private val accountId: String,
+        @JsonProperty("amount") private val amount: Long,
+        @JsonProperty("statement_descriptor") private val statementDescriptor: String,
+        @JsonProperty("account_number") private val accountNumber: String?,
+        @JsonProperty("addenda") private val addenda: Addenda?,
+        @JsonProperty("company_descriptive_date") private val companyDescriptiveDate: String?,
+        @JsonProperty("company_discretionary_data") private val companyDiscretionaryData: String?,
+        @JsonProperty("company_entry_description") private val companyEntryDescription: String?,
+        @JsonProperty("company_name") private val companyName: String?,
+        @JsonProperty("destination_account_holder")
         private val destinationAccountHolder: DestinationAccountHolder?,
-        private val externalAccountId: String?,
-        private val funding: Funding?,
-        private val individualId: String?,
-        private val individualName: String?,
+        @JsonProperty("external_account_id") private val externalAccountId: String?,
+        @JsonProperty("funding") private val funding: Funding?,
+        @JsonProperty("individual_id") private val individualId: String?,
+        @JsonProperty("individual_name") private val individualName: String?,
+        @JsonProperty("preferred_effective_date")
         private val preferredEffectiveDate: PreferredEffectiveDate?,
-        private val requireApproval: Boolean?,
-        private val routingNumber: String?,
+        @JsonProperty("require_approval") private val requireApproval: Boolean?,
+        @JsonProperty("routing_number") private val routingNumber: String?,
+        @JsonProperty("standard_entry_class_code")
         private val standardEntryClassCode: StandardEntryClassCode?,
-        private val transactionTiming: TransactionTiming?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("transaction_timing") private val transactionTiming: TransactionTiming?,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The Increase identifier for the account that will send the transfer. */
@@ -307,7 +311,6 @@ constructor(
             }
 
             /** The Increase identifier for the account that will send the transfer. */
-            @JsonProperty("account_id")
             fun accountId(accountId: String) = apply { this.accountId = accountId }
 
             /**
@@ -315,7 +318,7 @@ constructor(
              * pushing funds to the receiving account. A negative amount originates a debit transfer
              * pulling funds from the receiving account.
              */
-            @JsonProperty("amount") fun amount(amount: Long) = apply { this.amount = amount }
+            fun amount(amount: Long) = apply { this.amount = amount }
 
             /**
              * A description you choose to give the transfer. This will be saved with the transfer
@@ -325,27 +328,23 @@ constructor(
              * transfer. You are highly encouraged to pass `individual_name` and `company_name`
              * instead of relying on this fallback.
              */
-            @JsonProperty("statement_descriptor")
             fun statementDescriptor(statementDescriptor: String) = apply {
                 this.statementDescriptor = statementDescriptor
             }
 
             /** The account number for the destination account. */
-            @JsonProperty("account_number")
             fun accountNumber(accountNumber: String?) = apply { this.accountNumber = accountNumber }
 
             /**
              * Additional information that will be sent to the recipient. This is included in the
              * transfer data sent to the receiving bank.
              */
-            @JsonProperty("addenda")
             fun addenda(addenda: Addenda?) = apply { this.addenda = addenda }
 
             /**
              * The description of the date of the transfer, usually in the format `YYMMDD`. This is
              * included in the transfer data sent to the receiving bank.
              */
-            @JsonProperty("company_descriptive_date")
             fun companyDescriptiveDate(companyDescriptiveDate: String?) = apply {
                 this.companyDescriptiveDate = companyDescriptiveDate
             }
@@ -354,7 +353,6 @@ constructor(
              * The data you choose to associate with the transfer. This is included in the transfer
              * data sent to the receiving bank.
              */
-            @JsonProperty("company_discretionary_data")
             fun companyDiscretionaryData(companyDiscretionaryData: String?) = apply {
                 this.companyDiscretionaryData = companyDiscretionaryData
             }
@@ -363,7 +361,6 @@ constructor(
              * A description of the transfer. This is included in the transfer data sent to the
              * receiving bank.
              */
-            @JsonProperty("company_entry_description")
             fun companyEntryDescription(companyEntryDescription: String?) = apply {
                 this.companyEntryDescription = companyEntryDescription
             }
@@ -372,11 +369,9 @@ constructor(
              * The name by which the recipient knows you. This is included in the transfer data sent
              * to the receiving bank.
              */
-            @JsonProperty("company_name")
             fun companyName(companyName: String?) = apply { this.companyName = companyName }
 
             /** The type of entity that owns the account to which the ACH Transfer is being sent. */
-            @JsonProperty("destination_account_holder")
             fun destinationAccountHolder(destinationAccountHolder: DestinationAccountHolder?) =
                 apply {
                     this.destinationAccountHolder = destinationAccountHolder
@@ -386,24 +381,20 @@ constructor(
              * The ID of an External Account to initiate a transfer to. If this parameter is
              * provided, `account_number`, `routing_number`, and `funding` must be absent.
              */
-            @JsonProperty("external_account_id")
             fun externalAccountId(externalAccountId: String?) = apply {
                 this.externalAccountId = externalAccountId
             }
 
             /** The type of the account to which the transfer will be sent. */
-            @JsonProperty("funding")
             fun funding(funding: Funding?) = apply { this.funding = funding }
 
             /** Your identifier for the transfer recipient. */
-            @JsonProperty("individual_id")
             fun individualId(individualId: String?) = apply { this.individualId = individualId }
 
             /**
              * The name of the transfer recipient. This value is informational and not verified by
              * the recipient's bank.
              */
-            @JsonProperty("individual_name")
             fun individualName(individualName: String?) = apply {
                 this.individualName = individualName
             }
@@ -414,13 +405,11 @@ constructor(
              * `settlement_schedule` of `same_day`. If set, exactly one of the child attributes must
              * be set.
              */
-            @JsonProperty("preferred_effective_date")
             fun preferredEffectiveDate(preferredEffectiveDate: PreferredEffectiveDate?) = apply {
                 this.preferredEffectiveDate = preferredEffectiveDate
             }
 
             /** Whether the transfer requires explicit approval via the dashboard or API. */
-            @JsonProperty("require_approval")
             fun requireApproval(requireApproval: Boolean?) = apply {
                 this.requireApproval = requireApproval
             }
@@ -429,17 +418,14 @@ constructor(
              * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the
              * destination account.
              */
-            @JsonProperty("routing_number")
             fun routingNumber(routingNumber: String?) = apply { this.routingNumber = routingNumber }
 
             /** The Standard Entry Class (SEC) code to use for the transfer. */
-            @JsonProperty("standard_entry_class_code")
             fun standardEntryClassCode(standardEntryClassCode: StandardEntryClassCode?) = apply {
                 this.standardEntryClassCode = standardEntryClassCode
             }
 
             /** The timing of the transaction. */
-            @JsonProperty("transaction_timing")
             fun transactionTiming(transactionTiming: TransactionTiming?) = apply {
                 this.transactionTiming = transactionTiming
             }
@@ -449,7 +435,6 @@ constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }
@@ -838,14 +823,16 @@ constructor(
      * Additional information that will be sent to the recipient. This is included in the transfer
      * data sent to the receiving bank.
      */
-    @JsonDeserialize(builder = Addenda.Builder::class)
     @NoAutoDetect
     class Addenda
+    @JsonCreator
     private constructor(
-        private val category: Category,
-        private val freeform: Freeform?,
+        @JsonProperty("category") private val category: Category,
+        @JsonProperty("freeform") private val freeform: Freeform?,
+        @JsonProperty("payment_order_remittance_advice")
         private val paymentOrderRemittanceAdvice: PaymentOrderRemittanceAdvice?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The type of addenda to pass with the transfer. */
@@ -888,18 +875,15 @@ constructor(
             }
 
             /** The type of addenda to pass with the transfer. */
-            @JsonProperty("category")
             fun category(category: Category) = apply { this.category = category }
 
             /** Unstructured `payment_related_information` passed through with the transfer. */
-            @JsonProperty("freeform")
             fun freeform(freeform: Freeform?) = apply { this.freeform = freeform }
 
             /**
              * Structured ASC X12 820 remittance advice records. Please reach out to
              * [support@increase.com](mailto:support@increase.com) for more information.
              */
-            @JsonProperty("payment_order_remittance_advice")
             fun paymentOrderRemittanceAdvice(
                 paymentOrderRemittanceAdvice: PaymentOrderRemittanceAdvice?
             ) = apply { this.paymentOrderRemittanceAdvice = paymentOrderRemittanceAdvice }
@@ -909,7 +893,6 @@ constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }
@@ -991,12 +974,13 @@ constructor(
         }
 
         /** Unstructured `payment_related_information` passed through with the transfer. */
-        @JsonDeserialize(builder = Freeform.Builder::class)
         @NoAutoDetect
         class Freeform
+        @JsonCreator
         private constructor(
-            private val entries: List<Entry>,
-            private val additionalProperties: Map<String, JsonValue>,
+            @JsonProperty("entries") private val entries: List<Entry>,
+            @JsonAnySetter
+            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
 
             /**
@@ -1031,7 +1015,6 @@ constructor(
                  * [support@increase.com](mailto:support@increase.com) to send more than one
                  * addendum.
                  */
-                @JsonProperty("entries")
                 fun entries(entries: List<Entry>) = apply { this.entries = entries }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -1039,7 +1022,6 @@ constructor(
                     putAllAdditionalProperties(additionalProperties)
                 }
 
-                @JsonAnySetter
                 fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                     additionalProperties.put(key, value)
                 }
@@ -1065,12 +1047,14 @@ constructor(
                     )
             }
 
-            @JsonDeserialize(builder = Entry.Builder::class)
             @NoAutoDetect
             class Entry
+            @JsonCreator
             private constructor(
+                @JsonProperty("payment_related_information")
                 private val paymentRelatedInformation: String,
-                private val additionalProperties: Map<String, JsonValue>,
+                @JsonAnySetter
+                private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
             ) {
 
                 /** The payment related information passed in the addendum. */
@@ -1099,7 +1083,6 @@ constructor(
                     }
 
                     /** The payment related information passed in the addendum. */
-                    @JsonProperty("payment_related_information")
                     fun paymentRelatedInformation(paymentRelatedInformation: String) = apply {
                         this.paymentRelatedInformation = paymentRelatedInformation
                     }
@@ -1109,7 +1092,6 @@ constructor(
                         putAllAdditionalProperties(additionalProperties)
                     }
 
-                    @JsonAnySetter
                     fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                         additionalProperties.put(key, value)
                     }
@@ -1176,12 +1158,13 @@ constructor(
          * Structured ASC X12 820 remittance advice records. Please reach out to
          * [support@increase.com](mailto:support@increase.com) for more information.
          */
-        @JsonDeserialize(builder = PaymentOrderRemittanceAdvice.Builder::class)
         @NoAutoDetect
         class PaymentOrderRemittanceAdvice
+        @JsonCreator
         private constructor(
-            private val invoices: List<Invoice>,
-            private val additionalProperties: Map<String, JsonValue>,
+            @JsonProperty("invoices") private val invoices: List<Invoice>,
+            @JsonAnySetter
+            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
 
             /** ASC X12 RMR records for this specific transfer. */
@@ -1211,7 +1194,6 @@ constructor(
                     }
 
                 /** ASC X12 RMR records for this specific transfer. */
-                @JsonProperty("invoices")
                 fun invoices(invoices: List<Invoice>) = apply { this.invoices = invoices }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -1219,7 +1201,6 @@ constructor(
                     putAllAdditionalProperties(additionalProperties)
                 }
 
-                @JsonAnySetter
                 fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                     additionalProperties.put(key, value)
                 }
@@ -1245,13 +1226,14 @@ constructor(
                     )
             }
 
-            @JsonDeserialize(builder = Invoice.Builder::class)
             @NoAutoDetect
             class Invoice
+            @JsonCreator
             private constructor(
-                private val invoiceNumber: String,
-                private val paidAmount: Long,
-                private val additionalProperties: Map<String, JsonValue>,
+                @JsonProperty("invoice_number") private val invoiceNumber: String,
+                @JsonProperty("paid_amount") private val paidAmount: Long,
+                @JsonAnySetter
+                private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
             ) {
 
                 /**
@@ -1292,7 +1274,6 @@ constructor(
                      * The invoice number for this reference, determined in advance with the
                      * receiver.
                      */
-                    @JsonProperty("invoice_number")
                     fun invoiceNumber(invoiceNumber: String) = apply {
                         this.invoiceNumber = invoiceNumber
                     }
@@ -1301,7 +1282,6 @@ constructor(
                      * The amount that was paid for this invoice in the minor unit of its currency.
                      * For dollars, for example, this is cents.
                      */
-                    @JsonProperty("paid_amount")
                     fun paidAmount(paidAmount: Long) = apply { this.paidAmount = paidAmount }
 
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -1309,7 +1289,6 @@ constructor(
                         putAllAdditionalProperties(additionalProperties)
                     }
 
-                    @JsonAnySetter
                     fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                         additionalProperties.put(key, value)
                     }
@@ -1517,13 +1496,14 @@ constructor(
      * same-day vs future-dated settlement timing. If not set, defaults to a `settlement_schedule`
      * of `same_day`. If set, exactly one of the child attributes must be set.
      */
-    @JsonDeserialize(builder = PreferredEffectiveDate.Builder::class)
     @NoAutoDetect
     class PreferredEffectiveDate
+    @JsonCreator
     private constructor(
-        private val date: LocalDate?,
-        private val settlementSchedule: SettlementSchedule?,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("date") private val date: LocalDate?,
+        @JsonProperty("settlement_schedule") private val settlementSchedule: SettlementSchedule?,
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /**
@@ -1563,10 +1543,9 @@ constructor(
              * A specific date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format to use
              * as the effective date when submitting this transfer.
              */
-            @JsonProperty("date") fun date(date: LocalDate?) = apply { this.date = date }
+            fun date(date: LocalDate?) = apply { this.date = date }
 
             /** A schedule by which Increase will choose an effective date for the transfer. */
-            @JsonProperty("settlement_schedule")
             fun settlementSchedule(settlementSchedule: SettlementSchedule?) = apply {
                 this.settlementSchedule = settlementSchedule
             }
@@ -1576,7 +1555,6 @@ constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }
