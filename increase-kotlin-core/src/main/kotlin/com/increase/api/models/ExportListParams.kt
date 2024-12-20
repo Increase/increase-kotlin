@@ -3,7 +3,6 @@
 package com.increase.api.models
 
 import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.Enum
 import com.increase.api.core.JsonField
 import com.increase.api.core.NoAutoDetect
@@ -222,12 +221,10 @@ constructor(
             )
     }
 
-    @JsonDeserialize(builder = Category.Builder::class)
-    @NoAutoDetect
     class Category
     private constructor(
         private val in_: List<In>?,
-        private val additionalProperties: Map<String, List<String>>,
+        private val additionalProperties: QueryParams,
     ) {
 
         /**
@@ -236,11 +233,11 @@ constructor(
          */
         fun in_(): List<In>? = in_
 
-        fun _additionalProperties(): Map<String, List<String>> = additionalProperties
+        fun _additionalProperties(): QueryParams = additionalProperties
 
         internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
             this.in_?.let { putParam("in", listOf(it.joinToString(separator = ","))) }
-            this.additionalProperties.forEach { key, values -> putParam(key, values) }
+            additionalProperties.keys().forEach { putParam(it, additionalProperties.values(it)) }
         }
 
         fun toBuilder() = Builder().from(this)
@@ -253,34 +250,69 @@ constructor(
         class Builder {
 
             private var in_: List<In>? = null
-            private var additionalProperties: MutableMap<String, List<String>> = mutableMapOf()
+            private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
             internal fun from(category: Category) = apply {
-                this.in_ = category.in_
-                additionalProperties(category.additionalProperties)
+                in_ = category.in_?.toMutableList()
+                additionalProperties = category.additionalProperties.toBuilder()
             }
 
             /**
              * Filter Exports for those with the specified category or categories. For GET requests,
              * this should be encoded as a comma-delimited string, such as `?in=one,two,three`.
              */
-            fun in_(in_: List<In>) = apply { this.in_ = in_ }
+            fun in_(in_: List<In>?) = apply { this.in_ = in_ }
 
-            fun additionalProperties(additionalProperties: Map<String, List<String>>) = apply {
+            fun additionalProperties(additionalProperties: QueryParams) = apply {
                 this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: String) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                additionalProperties.put(key, values)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun putAdditionalProperty(key: String, value: List<String>) = apply {
-                this.additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, List<String>>) =
+            fun putAllAdditionalProperties(additionalProperties: Map<String, Iterable<String>>) =
                 apply {
                     this.additionalProperties.putAll(additionalProperties)
                 }
 
-            fun build(): Category = Category(in_?.toImmutable(), additionalProperties.toImmutable())
+            fun replaceAdditionalProperties(key: String, value: String) = apply {
+                additionalProperties.replace(key, value)
+            }
+
+            fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                additionalProperties.replace(key, values)
+            }
+
+            fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                this.additionalProperties.replaceAll(additionalProperties)
+            }
+
+            fun replaceAllAdditionalProperties(
+                additionalProperties: Map<String, Iterable<String>>
+            ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
+
+            fun removeAdditionalProperties(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                additionalProperties.removeAll(keys)
+            }
+
+            fun build(): Category = Category(in_?.toImmutable(), additionalProperties.build())
         }
 
         class In
@@ -387,15 +419,13 @@ constructor(
         override fun toString() = "Category{in_=$in_, additionalProperties=$additionalProperties}"
     }
 
-    @JsonDeserialize(builder = CreatedAt.Builder::class)
-    @NoAutoDetect
     class CreatedAt
     private constructor(
         private val after: OffsetDateTime?,
         private val before: OffsetDateTime?,
         private val onOrAfter: OffsetDateTime?,
         private val onOrBefore: OffsetDateTime?,
-        private val additionalProperties: Map<String, List<String>>,
+        private val additionalProperties: QueryParams,
     ) {
 
         /**
@@ -420,7 +450,7 @@ constructor(
          */
         fun onOrBefore(): OffsetDateTime? = onOrBefore
 
-        fun _additionalProperties(): Map<String, List<String>> = additionalProperties
+        fun _additionalProperties(): QueryParams = additionalProperties
 
         internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
             this.after?.let {
@@ -435,7 +465,7 @@ constructor(
             this.onOrBefore?.let {
                 putParam("on_or_before", listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it)))
             }
-            this.additionalProperties.forEach { key, values -> putParam(key, values) }
+            additionalProperties.keys().forEach { putParam(it, additionalProperties.values(it)) }
         }
 
         fun toBuilder() = Builder().from(this)
@@ -451,53 +481,88 @@ constructor(
             private var before: OffsetDateTime? = null
             private var onOrAfter: OffsetDateTime? = null
             private var onOrBefore: OffsetDateTime? = null
-            private var additionalProperties: MutableMap<String, List<String>> = mutableMapOf()
+            private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
             internal fun from(createdAt: CreatedAt) = apply {
-                this.after = createdAt.after
-                this.before = createdAt.before
-                this.onOrAfter = createdAt.onOrAfter
-                this.onOrBefore = createdAt.onOrBefore
-                additionalProperties(createdAt.additionalProperties)
+                after = createdAt.after
+                before = createdAt.before
+                onOrAfter = createdAt.onOrAfter
+                onOrBefore = createdAt.onOrBefore
+                additionalProperties = createdAt.additionalProperties.toBuilder()
             }
 
             /**
              * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            fun after(after: OffsetDateTime) = apply { this.after = after }
+            fun after(after: OffsetDateTime?) = apply { this.after = after }
 
             /**
              * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            fun before(before: OffsetDateTime) = apply { this.before = before }
+            fun before(before: OffsetDateTime?) = apply { this.before = before }
 
             /**
              * Return results on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            fun onOrAfter(onOrAfter: OffsetDateTime) = apply { this.onOrAfter = onOrAfter }
+            fun onOrAfter(onOrAfter: OffsetDateTime?) = apply { this.onOrAfter = onOrAfter }
 
             /**
              * Return results on or before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            fun onOrBefore(onOrBefore: OffsetDateTime) = apply { this.onOrBefore = onOrBefore }
+            fun onOrBefore(onOrBefore: OffsetDateTime?) = apply { this.onOrBefore = onOrBefore }
 
-            fun additionalProperties(additionalProperties: Map<String, List<String>>) = apply {
+            fun additionalProperties(additionalProperties: QueryParams) = apply {
                 this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: String) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                additionalProperties.put(key, values)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun putAdditionalProperty(key: String, value: List<String>) = apply {
-                this.additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, List<String>>) =
+            fun putAllAdditionalProperties(additionalProperties: Map<String, Iterable<String>>) =
                 apply {
                     this.additionalProperties.putAll(additionalProperties)
                 }
+
+            fun replaceAdditionalProperties(key: String, value: String) = apply {
+                additionalProperties.replace(key, value)
+            }
+
+            fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                additionalProperties.replace(key, values)
+            }
+
+            fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                this.additionalProperties.replaceAll(additionalProperties)
+            }
+
+            fun replaceAllAdditionalProperties(
+                additionalProperties: Map<String, Iterable<String>>
+            ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
+
+            fun removeAdditionalProperties(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                additionalProperties.removeAll(keys)
+            }
 
             fun build(): CreatedAt =
                 CreatedAt(
@@ -505,7 +570,7 @@ constructor(
                     before,
                     onOrAfter,
                     onOrBefore,
-                    additionalProperties.toImmutable(),
+                    additionalProperties.build(),
                 )
         }
 
@@ -527,12 +592,10 @@ constructor(
             "CreatedAt{after=$after, before=$before, onOrAfter=$onOrAfter, onOrBefore=$onOrBefore, additionalProperties=$additionalProperties}"
     }
 
-    @JsonDeserialize(builder = Status.Builder::class)
-    @NoAutoDetect
     class Status
     private constructor(
         private val in_: List<In>?,
-        private val additionalProperties: Map<String, List<String>>,
+        private val additionalProperties: QueryParams,
     ) {
 
         /**
@@ -541,11 +604,11 @@ constructor(
          */
         fun in_(): List<In>? = in_
 
-        fun _additionalProperties(): Map<String, List<String>> = additionalProperties
+        fun _additionalProperties(): QueryParams = additionalProperties
 
         internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
             this.in_?.let { putParam("in", listOf(it.joinToString(separator = ","))) }
-            this.additionalProperties.forEach { key, values -> putParam(key, values) }
+            additionalProperties.keys().forEach { putParam(it, additionalProperties.values(it)) }
         }
 
         fun toBuilder() = Builder().from(this)
@@ -558,34 +621,69 @@ constructor(
         class Builder {
 
             private var in_: List<In>? = null
-            private var additionalProperties: MutableMap<String, List<String>> = mutableMapOf()
+            private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
             internal fun from(status: Status) = apply {
-                this.in_ = status.in_
-                additionalProperties(status.additionalProperties)
+                in_ = status.in_?.toMutableList()
+                additionalProperties = status.additionalProperties.toBuilder()
             }
 
             /**
              * Filter Exports for those with the specified status or statuses. For GET requests,
              * this should be encoded as a comma-delimited string, such as `?in=one,two,three`.
              */
-            fun in_(in_: List<In>) = apply { this.in_ = in_ }
+            fun in_(in_: List<In>?) = apply { this.in_ = in_ }
 
-            fun additionalProperties(additionalProperties: Map<String, List<String>>) = apply {
+            fun additionalProperties(additionalProperties: QueryParams) = apply {
                 this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: String) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                additionalProperties.put(key, values)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
                 this.additionalProperties.putAll(additionalProperties)
             }
 
-            fun putAdditionalProperty(key: String, value: List<String>) = apply {
-                this.additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, List<String>>) =
+            fun putAllAdditionalProperties(additionalProperties: Map<String, Iterable<String>>) =
                 apply {
                     this.additionalProperties.putAll(additionalProperties)
                 }
 
-            fun build(): Status = Status(in_?.toImmutable(), additionalProperties.toImmutable())
+            fun replaceAdditionalProperties(key: String, value: String) = apply {
+                additionalProperties.replace(key, value)
+            }
+
+            fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                additionalProperties.replace(key, values)
+            }
+
+            fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                this.additionalProperties.replaceAll(additionalProperties)
+            }
+
+            fun replaceAllAdditionalProperties(
+                additionalProperties: Map<String, Iterable<String>>
+            ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
+
+            fun removeAdditionalProperties(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                additionalProperties.removeAll(keys)
+            }
+
+            fun build(): Status = Status(in_?.toImmutable(), additionalProperties.build())
         }
 
         class In

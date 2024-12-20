@@ -63,13 +63,13 @@ constructor(
     @NoAutoDetect
     class SimulationCardDisputeActionBody
     internal constructor(
-        private val status: Status?,
+        private val status: Status,
         private val explanation: String?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         /** The status to move the dispute to. */
-        @JsonProperty("status") fun status(): Status? = status
+        @JsonProperty("status") fun status(): Status = status
 
         /** Why the dispute was rejected. Not required for accepting disputes. */
         @JsonProperty("explanation") fun explanation(): String? = explanation
@@ -93,9 +93,10 @@ constructor(
 
             internal fun from(simulationCardDisputeActionBody: SimulationCardDisputeActionBody) =
                 apply {
-                    this.status = simulationCardDisputeActionBody.status
-                    this.explanation = simulationCardDisputeActionBody.explanation
-                    additionalProperties(simulationCardDisputeActionBody.additionalProperties)
+                    status = simulationCardDisputeActionBody.status
+                    explanation = simulationCardDisputeActionBody.explanation
+                    additionalProperties =
+                        simulationCardDisputeActionBody.additionalProperties.toMutableMap()
                 }
 
             /** The status to move the dispute to. */
@@ -103,20 +104,26 @@ constructor(
 
             /** Why the dispute was rejected. Not required for accepting disputes. */
             @JsonProperty("explanation")
-            fun explanation(explanation: String) = apply { this.explanation = explanation }
+            fun explanation(explanation: String?) = apply { this.explanation = explanation }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): SimulationCardDisputeActionBody =

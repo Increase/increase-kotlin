@@ -42,7 +42,7 @@ constructor(
     @NoAutoDetect
     class SimulationCardRefundCreateBody
     internal constructor(
-        private val transactionId: String?,
+        private val transactionId: String,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
@@ -50,7 +50,7 @@ constructor(
          * The identifier for the Transaction to refund. The Transaction's source must have a
          * category of card_settlement.
          */
-        @JsonProperty("transaction_id") fun transactionId(): String? = transactionId
+        @JsonProperty("transaction_id") fun transactionId(): String = transactionId
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -70,8 +70,9 @@ constructor(
 
             internal fun from(simulationCardRefundCreateBody: SimulationCardRefundCreateBody) =
                 apply {
-                    this.transactionId = simulationCardRefundCreateBody.transactionId
-                    additionalProperties(simulationCardRefundCreateBody.additionalProperties)
+                    transactionId = simulationCardRefundCreateBody.transactionId
+                    additionalProperties =
+                        simulationCardRefundCreateBody.additionalProperties.toMutableMap()
                 }
 
             /**
@@ -83,16 +84,22 @@ constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): SimulationCardRefundCreateBody =

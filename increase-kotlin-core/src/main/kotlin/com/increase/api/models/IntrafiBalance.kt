@@ -35,8 +35,6 @@ private constructor(
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
-    private var validated: Boolean = false
-
     /**
      * Each entry represents a balance held at a different bank. IntraFi separates the total balance
      * across many participating banks in the network.
@@ -95,6 +93,8 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+    private var validated: Boolean = false
+
     fun validate(): IntrafiBalance = apply {
         if (!validated) {
             balances().forEach { it.validate() }
@@ -125,13 +125,13 @@ private constructor(
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(intrafiBalance: IntrafiBalance) = apply {
-            this.balances = intrafiBalance.balances
-            this.currency = intrafiBalance.currency
-            this.effectiveDate = intrafiBalance.effectiveDate
-            this.id = intrafiBalance.id
-            this.totalBalance = intrafiBalance.totalBalance
-            this.type = intrafiBalance.type
-            additionalProperties(intrafiBalance.additionalProperties)
+            balances = intrafiBalance.balances
+            currency = intrafiBalance.currency
+            effectiveDate = intrafiBalance.effectiveDate
+            id = intrafiBalance.id
+            totalBalance = intrafiBalance.totalBalance
+            type = intrafiBalance.type
+            additionalProperties = intrafiBalance.additionalProperties.toMutableMap()
         }
 
         /**
@@ -202,16 +202,22 @@ private constructor(
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
-            this.additionalProperties.putAll(additionalProperties)
+            putAllAdditionalProperties(additionalProperties)
         }
 
         @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            this.additionalProperties.put(key, value)
+            additionalProperties.put(key, value)
         }
 
         fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.putAll(additionalProperties)
+        }
+
+        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalProperty)
         }
 
         fun build(): IntrafiBalance =
@@ -237,8 +243,6 @@ private constructor(
         private val id: JsonField<String>,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
-
-        private var validated: Boolean = false
 
         /** The balance, in minor units of `currency`, held with this bank. */
         fun balance(): Long = balance.getRequired("balance")
@@ -285,6 +289,8 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+        private var validated: Boolean = false
+
         fun validate(): Balance = apply {
             if (!validated) {
                 balance()
@@ -314,11 +320,11 @@ private constructor(
 
             internal fun from(balance: Balance) = apply {
                 this.balance = balance.balance
-                this.bank = balance.bank
-                this.bankLocation = balance.bankLocation
-                this.fdicCertificateNumber = balance.fdicCertificateNumber
-                this.id = balance.id
-                additionalProperties(balance.additionalProperties)
+                bank = balance.bank
+                bankLocation = balance.bankLocation
+                fdicCertificateNumber = balance.fdicCertificateNumber
+                id = balance.id
+                additionalProperties = balance.additionalProperties.toMutableMap()
             }
 
             /** The balance, in minor units of `currency`, held with this bank. */
@@ -376,16 +382,22 @@ private constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): Balance =
@@ -409,8 +421,6 @@ private constructor(
             private val additionalProperties: Map<String, JsonValue>,
         ) {
 
-            private var validated: Boolean = false
-
             /** The bank's city. */
             fun city(): String = city.getRequired("city")
 
@@ -426,6 +436,8 @@ private constructor(
             @JsonAnyGetter
             @ExcludeMissing
             fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+            private var validated: Boolean = false
 
             fun validate(): BankLocation = apply {
                 if (!validated) {
@@ -449,9 +461,9 @@ private constructor(
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(bankLocation: BankLocation) = apply {
-                    this.city = bankLocation.city
-                    this.state = bankLocation.state
-                    additionalProperties(bankLocation.additionalProperties)
+                    city = bankLocation.city
+                    state = bankLocation.state
+                    additionalProperties = bankLocation.additionalProperties.toMutableMap()
                 }
 
                 /** The bank's city. */
@@ -472,18 +484,26 @@ private constructor(
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
-                    this.additionalProperties.putAll(additionalProperties)
+                    putAllAdditionalProperties(additionalProperties)
                 }
 
                 @JsonAnySetter
                 fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    this.additionalProperties.put(key, value)
+                    additionalProperties.put(key, value)
                 }
 
                 fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                     apply {
                         this.additionalProperties.putAll(additionalProperties)
                     }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
 
                 fun build(): BankLocation =
                     BankLocation(

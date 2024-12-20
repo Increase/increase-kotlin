@@ -43,8 +43,6 @@ private constructor(
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
-    private var validated: Boolean = false
-
     /** The identifier for the account this card belongs to. */
     fun accountId(): String = accountId.getRequired("account_id")
 
@@ -147,6 +145,8 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+    private var validated: Boolean = false
+
     fun validate(): Card = apply {
         if (!validated) {
             accountId()
@@ -191,20 +191,20 @@ private constructor(
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(card: Card) = apply {
-            this.accountId = card.accountId
-            this.billingAddress = card.billingAddress
-            this.createdAt = card.createdAt
-            this.description = card.description
-            this.digitalWallet = card.digitalWallet
-            this.entityId = card.entityId
-            this.expirationMonth = card.expirationMonth
-            this.expirationYear = card.expirationYear
-            this.id = card.id
-            this.idempotencyKey = card.idempotencyKey
-            this.last4 = card.last4
-            this.status = card.status
-            this.type = card.type
-            additionalProperties(card.additionalProperties)
+            accountId = card.accountId
+            billingAddress = card.billingAddress
+            createdAt = card.createdAt
+            description = card.description
+            digitalWallet = card.digitalWallet
+            entityId = card.entityId
+            expirationMonth = card.expirationMonth
+            expirationYear = card.expirationYear
+            id = card.id
+            idempotencyKey = card.idempotencyKey
+            last4 = card.last4
+            status = card.status
+            type = card.type
+            additionalProperties = card.additionalProperties.toMutableMap()
         }
 
         /** The identifier for the account this card belongs to. */
@@ -346,16 +346,22 @@ private constructor(
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
-            this.additionalProperties.putAll(additionalProperties)
+            putAllAdditionalProperties(additionalProperties)
         }
 
         @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            this.additionalProperties.put(key, value)
+            additionalProperties.put(key, value)
         }
 
         fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.putAll(additionalProperties)
+        }
+
+        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalProperty)
         }
 
         fun build(): Card =
@@ -389,8 +395,6 @@ private constructor(
         private val state: JsonField<String>,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
-
-        private var validated: Boolean = false
 
         /** The city of the billing address. */
         fun city(): String? = city.getNullable("city")
@@ -426,6 +430,8 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+        private var validated: Boolean = false
+
         fun validate(): BillingAddress = apply {
             if (!validated) {
                 city()
@@ -454,12 +460,12 @@ private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(billingAddress: BillingAddress) = apply {
-                this.city = billingAddress.city
-                this.line1 = billingAddress.line1
-                this.line2 = billingAddress.line2
-                this.postalCode = billingAddress.postalCode
-                this.state = billingAddress.state
-                additionalProperties(billingAddress.additionalProperties)
+                city = billingAddress.city
+                line1 = billingAddress.line1
+                line2 = billingAddress.line2
+                postalCode = billingAddress.postalCode
+                state = billingAddress.state
+                additionalProperties = billingAddress.additionalProperties.toMutableMap()
             }
 
             /** The city of the billing address. */
@@ -504,16 +510,22 @@ private constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): BillingAddress =
@@ -559,8 +571,6 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        private var validated: Boolean = false
-
         /**
          * The digital card profile assigned to this digital card. Card profiles may also be
          * assigned at the program level.
@@ -602,6 +612,8 @@ private constructor(
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+        private var validated: Boolean = false
+
         fun validate(): DigitalWallet = apply {
             if (!validated) {
                 digitalCardProfileId()
@@ -626,10 +638,10 @@ private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(digitalWallet: DigitalWallet) = apply {
-                this.digitalCardProfileId = digitalWallet.digitalCardProfileId
-                this.email = digitalWallet.email
-                this.phone = digitalWallet.phone
-                additionalProperties(digitalWallet.additionalProperties)
+                digitalCardProfileId = digitalWallet.digitalCardProfileId
+                email = digitalWallet.email
+                phone = digitalWallet.phone
+                additionalProperties = digitalWallet.additionalProperties.toMutableMap()
             }
 
             /**
@@ -679,16 +691,22 @@ private constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): DigitalWallet =

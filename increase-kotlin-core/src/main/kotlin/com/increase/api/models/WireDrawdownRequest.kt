@@ -48,8 +48,6 @@ private constructor(
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
-    private var validated: Boolean = false
-
     /**
      * The Account Number to which the recipient of this request is being requested to send funds.
      */
@@ -237,6 +235,8 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+    private var validated: Boolean = false
+
     fun validate(): WireDrawdownRequest = apply {
         if (!validated) {
             accountNumberId()
@@ -295,28 +295,27 @@ private constructor(
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(wireDrawdownRequest: WireDrawdownRequest) = apply {
-            this.accountNumberId = wireDrawdownRequest.accountNumberId
-            this.amount = wireDrawdownRequest.amount
-            this.currency = wireDrawdownRequest.currency
-            this.fulfillmentInboundWireTransferId =
-                wireDrawdownRequest.fulfillmentInboundWireTransferId
-            this.id = wireDrawdownRequest.id
-            this.idempotencyKey = wireDrawdownRequest.idempotencyKey
-            this.messageToRecipient = wireDrawdownRequest.messageToRecipient
-            this.originatorAddressLine1 = wireDrawdownRequest.originatorAddressLine1
-            this.originatorAddressLine2 = wireDrawdownRequest.originatorAddressLine2
-            this.originatorAddressLine3 = wireDrawdownRequest.originatorAddressLine3
-            this.originatorName = wireDrawdownRequest.originatorName
-            this.recipientAccountNumber = wireDrawdownRequest.recipientAccountNumber
-            this.recipientAddressLine1 = wireDrawdownRequest.recipientAddressLine1
-            this.recipientAddressLine2 = wireDrawdownRequest.recipientAddressLine2
-            this.recipientAddressLine3 = wireDrawdownRequest.recipientAddressLine3
-            this.recipientName = wireDrawdownRequest.recipientName
-            this.recipientRoutingNumber = wireDrawdownRequest.recipientRoutingNumber
-            this.status = wireDrawdownRequest.status
-            this.submission = wireDrawdownRequest.submission
-            this.type = wireDrawdownRequest.type
-            additionalProperties(wireDrawdownRequest.additionalProperties)
+            accountNumberId = wireDrawdownRequest.accountNumberId
+            amount = wireDrawdownRequest.amount
+            currency = wireDrawdownRequest.currency
+            fulfillmentInboundWireTransferId = wireDrawdownRequest.fulfillmentInboundWireTransferId
+            id = wireDrawdownRequest.id
+            idempotencyKey = wireDrawdownRequest.idempotencyKey
+            messageToRecipient = wireDrawdownRequest.messageToRecipient
+            originatorAddressLine1 = wireDrawdownRequest.originatorAddressLine1
+            originatorAddressLine2 = wireDrawdownRequest.originatorAddressLine2
+            originatorAddressLine3 = wireDrawdownRequest.originatorAddressLine3
+            originatorName = wireDrawdownRequest.originatorName
+            recipientAccountNumber = wireDrawdownRequest.recipientAccountNumber
+            recipientAddressLine1 = wireDrawdownRequest.recipientAddressLine1
+            recipientAddressLine2 = wireDrawdownRequest.recipientAddressLine2
+            recipientAddressLine3 = wireDrawdownRequest.recipientAddressLine3
+            recipientName = wireDrawdownRequest.recipientName
+            recipientRoutingNumber = wireDrawdownRequest.recipientRoutingNumber
+            status = wireDrawdownRequest.status
+            submission = wireDrawdownRequest.submission
+            type = wireDrawdownRequest.type
+            additionalProperties = wireDrawdownRequest.additionalProperties.toMutableMap()
         }
 
         /**
@@ -557,16 +556,22 @@ private constructor(
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
-            this.additionalProperties.putAll(additionalProperties)
+            putAllAdditionalProperties(additionalProperties)
         }
 
         @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            this.additionalProperties.put(key, value)
+            additionalProperties.put(key, value)
         }
 
         fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.putAll(additionalProperties)
+        }
+
+        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalProperty)
         }
 
         fun build(): WireDrawdownRequest =
@@ -675,8 +680,6 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
-        private var validated: Boolean = false
-
         /**
          * The input message accountability data (IMAD) uniquely identifying the submission with
          * Fedwire.
@@ -695,6 +698,8 @@ private constructor(
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
 
         fun validate(): Submission = apply {
             if (!validated) {
@@ -716,8 +721,8 @@ private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(submission: Submission) = apply {
-                this.inputMessageAccountabilityData = submission.inputMessageAccountabilityData
-                additionalProperties(submission.additionalProperties)
+                inputMessageAccountabilityData = submission.inputMessageAccountabilityData
+                additionalProperties = submission.additionalProperties.toMutableMap()
             }
 
             /**
@@ -740,16 +745,22 @@ private constructor(
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): Submission =

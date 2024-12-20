@@ -90,8 +90,8 @@ constructor(
     @NoAutoDetect
     class SimulationInboundAchTransferCreateBody
     internal constructor(
-        private val accountNumberId: String?,
-        private val amount: Long?,
+        private val accountNumberId: String,
+        private val amount: Long,
         private val companyDescriptiveDate: String?,
         private val companyDiscretionaryData: String?,
         private val companyEntryDescription: String?,
@@ -105,14 +105,14 @@ constructor(
     ) {
 
         /** The identifier of the Account Number the inbound ACH Transfer is for. */
-        @JsonProperty("account_number_id") fun accountNumberId(): String? = accountNumberId
+        @JsonProperty("account_number_id") fun accountNumberId(): String = accountNumberId
 
         /**
          * The transfer amount in cents. A positive amount originates a credit transfer pushing
          * funds to the receiving account. A negative amount originates a debit transfer pulling
          * funds from the receiving account.
          */
-        @JsonProperty("amount") fun amount(): Long? = amount
+        @JsonProperty("amount") fun amount(): Long = amount
 
         /** The description of the date of the transfer. */
         @JsonProperty("company_descriptive_date")
@@ -177,22 +177,23 @@ constructor(
             internal fun from(
                 simulationInboundAchTransferCreateBody: SimulationInboundAchTransferCreateBody
             ) = apply {
-                this.accountNumberId = simulationInboundAchTransferCreateBody.accountNumberId
-                this.amount = simulationInboundAchTransferCreateBody.amount
-                this.companyDescriptiveDate =
+                accountNumberId = simulationInboundAchTransferCreateBody.accountNumberId
+                amount = simulationInboundAchTransferCreateBody.amount
+                companyDescriptiveDate =
                     simulationInboundAchTransferCreateBody.companyDescriptiveDate
-                this.companyDiscretionaryData =
+                companyDiscretionaryData =
                     simulationInboundAchTransferCreateBody.companyDiscretionaryData
-                this.companyEntryDescription =
+                companyEntryDescription =
                     simulationInboundAchTransferCreateBody.companyEntryDescription
-                this.companyId = simulationInboundAchTransferCreateBody.companyId
-                this.companyName = simulationInboundAchTransferCreateBody.companyName
-                this.receiverIdNumber = simulationInboundAchTransferCreateBody.receiverIdNumber
-                this.receiverName = simulationInboundAchTransferCreateBody.receiverName
-                this.resolveAt = simulationInboundAchTransferCreateBody.resolveAt
-                this.standardEntryClassCode =
+                companyId = simulationInboundAchTransferCreateBody.companyId
+                companyName = simulationInboundAchTransferCreateBody.companyName
+                receiverIdNumber = simulationInboundAchTransferCreateBody.receiverIdNumber
+                receiverName = simulationInboundAchTransferCreateBody.receiverName
+                resolveAt = simulationInboundAchTransferCreateBody.resolveAt
+                standardEntryClassCode =
                     simulationInboundAchTransferCreateBody.standardEntryClassCode
-                additionalProperties(simulationInboundAchTransferCreateBody.additionalProperties)
+                additionalProperties =
+                    simulationInboundAchTransferCreateBody.additionalProperties.toMutableMap()
             }
 
             /** The identifier of the Account Number the inbound ACH Transfer is for. */
@@ -210,65 +211,71 @@ constructor(
 
             /** The description of the date of the transfer. */
             @JsonProperty("company_descriptive_date")
-            fun companyDescriptiveDate(companyDescriptiveDate: String) = apply {
+            fun companyDescriptiveDate(companyDescriptiveDate: String?) = apply {
                 this.companyDescriptiveDate = companyDescriptiveDate
             }
 
             /** Data associated with the transfer set by the sender. */
             @JsonProperty("company_discretionary_data")
-            fun companyDiscretionaryData(companyDiscretionaryData: String) = apply {
+            fun companyDiscretionaryData(companyDiscretionaryData: String?) = apply {
                 this.companyDiscretionaryData = companyDiscretionaryData
             }
 
             /** The description of the transfer set by the sender. */
             @JsonProperty("company_entry_description")
-            fun companyEntryDescription(companyEntryDescription: String) = apply {
+            fun companyEntryDescription(companyEntryDescription: String?) = apply {
                 this.companyEntryDescription = companyEntryDescription
             }
 
             /** The sender's company ID. */
             @JsonProperty("company_id")
-            fun companyId(companyId: String) = apply { this.companyId = companyId }
+            fun companyId(companyId: String?) = apply { this.companyId = companyId }
 
             /** The name of the sender. */
             @JsonProperty("company_name")
-            fun companyName(companyName: String) = apply { this.companyName = companyName }
+            fun companyName(companyName: String?) = apply { this.companyName = companyName }
 
             /** The ID of the receiver of the transfer. */
             @JsonProperty("receiver_id_number")
-            fun receiverIdNumber(receiverIdNumber: String) = apply {
+            fun receiverIdNumber(receiverIdNumber: String?) = apply {
                 this.receiverIdNumber = receiverIdNumber
             }
 
             /** The name of the receiver of the transfer. */
             @JsonProperty("receiver_name")
-            fun receiverName(receiverName: String) = apply { this.receiverName = receiverName }
+            fun receiverName(receiverName: String?) = apply { this.receiverName = receiverName }
 
             /**
              * The time at which the transfer should be resolved. If not provided will resolve
              * immediately.
              */
             @JsonProperty("resolve_at")
-            fun resolveAt(resolveAt: OffsetDateTime) = apply { this.resolveAt = resolveAt }
+            fun resolveAt(resolveAt: OffsetDateTime?) = apply { this.resolveAt = resolveAt }
 
             /** The standard entry class code for the transfer. */
             @JsonProperty("standard_entry_class_code")
-            fun standardEntryClassCode(standardEntryClassCode: StandardEntryClassCode) = apply {
+            fun standardEntryClassCode(standardEntryClassCode: StandardEntryClassCode?) = apply {
                 this.standardEntryClassCode = standardEntryClassCode
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): SimulationInboundAchTransferCreateBody =

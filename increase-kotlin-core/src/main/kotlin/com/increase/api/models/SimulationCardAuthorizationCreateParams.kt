@@ -105,7 +105,7 @@ constructor(
     @NoAutoDetect
     class SimulationCardAuthorizationCreateBody
     internal constructor(
-        private val amount: Long?,
+        private val amount: Long,
         private val authenticatedCardPaymentId: String?,
         private val cardId: String?,
         private val declineReason: DeclineReason?,
@@ -124,7 +124,7 @@ constructor(
     ) {
 
         /** The authorization amount in cents. */
-        @JsonProperty("amount") fun amount(): Long? = amount
+        @JsonProperty("amount") fun amount(): Long = amount
 
         /**
          * The identifier of a Card Payment with a `card_authentication` if you want to simulate an
@@ -225,25 +225,24 @@ constructor(
             internal fun from(
                 simulationCardAuthorizationCreateBody: SimulationCardAuthorizationCreateBody
             ) = apply {
-                this.amount = simulationCardAuthorizationCreateBody.amount
-                this.authenticatedCardPaymentId =
+                amount = simulationCardAuthorizationCreateBody.amount
+                authenticatedCardPaymentId =
                     simulationCardAuthorizationCreateBody.authenticatedCardPaymentId
-                this.cardId = simulationCardAuthorizationCreateBody.cardId
-                this.declineReason = simulationCardAuthorizationCreateBody.declineReason
-                this.digitalWalletTokenId =
-                    simulationCardAuthorizationCreateBody.digitalWalletTokenId
-                this.direction = simulationCardAuthorizationCreateBody.direction
-                this.eventSubscriptionId = simulationCardAuthorizationCreateBody.eventSubscriptionId
-                this.merchantAcceptorId = simulationCardAuthorizationCreateBody.merchantAcceptorId
-                this.merchantCategoryCode =
-                    simulationCardAuthorizationCreateBody.merchantCategoryCode
-                this.merchantCity = simulationCardAuthorizationCreateBody.merchantCity
-                this.merchantCountry = simulationCardAuthorizationCreateBody.merchantCountry
-                this.merchantDescriptor = simulationCardAuthorizationCreateBody.merchantDescriptor
-                this.merchantState = simulationCardAuthorizationCreateBody.merchantState
-                this.physicalCardId = simulationCardAuthorizationCreateBody.physicalCardId
-                this.terminalId = simulationCardAuthorizationCreateBody.terminalId
-                additionalProperties(simulationCardAuthorizationCreateBody.additionalProperties)
+                cardId = simulationCardAuthorizationCreateBody.cardId
+                declineReason = simulationCardAuthorizationCreateBody.declineReason
+                digitalWalletTokenId = simulationCardAuthorizationCreateBody.digitalWalletTokenId
+                direction = simulationCardAuthorizationCreateBody.direction
+                eventSubscriptionId = simulationCardAuthorizationCreateBody.eventSubscriptionId
+                merchantAcceptorId = simulationCardAuthorizationCreateBody.merchantAcceptorId
+                merchantCategoryCode = simulationCardAuthorizationCreateBody.merchantCategoryCode
+                merchantCity = simulationCardAuthorizationCreateBody.merchantCity
+                merchantCountry = simulationCardAuthorizationCreateBody.merchantCountry
+                merchantDescriptor = simulationCardAuthorizationCreateBody.merchantDescriptor
+                merchantState = simulationCardAuthorizationCreateBody.merchantState
+                physicalCardId = simulationCardAuthorizationCreateBody.physicalCardId
+                terminalId = simulationCardAuthorizationCreateBody.terminalId
+                additionalProperties =
+                    simulationCardAuthorizationCreateBody.additionalProperties.toMutableMap()
             }
 
             /** The authorization amount in cents. */
@@ -254,22 +253,22 @@ constructor(
              * an authenticated authorization.
              */
             @JsonProperty("authenticated_card_payment_id")
-            fun authenticatedCardPaymentId(authenticatedCardPaymentId: String) = apply {
+            fun authenticatedCardPaymentId(authenticatedCardPaymentId: String?) = apply {
                 this.authenticatedCardPaymentId = authenticatedCardPaymentId
             }
 
             /** The identifier of the Card to be authorized. */
-            @JsonProperty("card_id") fun cardId(cardId: String) = apply { this.cardId = cardId }
+            @JsonProperty("card_id") fun cardId(cardId: String?) = apply { this.cardId = cardId }
 
             /** Forces a card decline with a specific reason. No real time decision will be sent. */
             @JsonProperty("decline_reason")
-            fun declineReason(declineReason: DeclineReason) = apply {
+            fun declineReason(declineReason: DeclineReason?) = apply {
                 this.declineReason = declineReason
             }
 
             /** The identifier of the Digital Wallet Token to be authorized. */
             @JsonProperty("digital_wallet_token_id")
-            fun digitalWalletTokenId(digitalWalletTokenId: String) = apply {
+            fun digitalWalletTokenId(digitalWalletTokenId: String?) = apply {
                 this.digitalWalletTokenId = digitalWalletTokenId
             }
 
@@ -278,7 +277,7 @@ constructor(
              * to the merchant or from the merchant to the cardholder.
              */
             @JsonProperty("direction")
-            fun direction(direction: Direction) = apply { this.direction = direction }
+            fun direction(direction: Direction?) = apply { this.direction = direction }
 
             /**
              * The identifier of the Event Subscription to use. If provided, will override the
@@ -287,7 +286,7 @@ constructor(
              * event subscription for testing purposes.
              */
             @JsonProperty("event_subscription_id")
-            fun eventSubscriptionId(eventSubscriptionId: String) = apply {
+            fun eventSubscriptionId(eventSubscriptionId: String?) = apply {
                 this.eventSubscriptionId = eventSubscriptionId
             }
 
@@ -296,7 +295,7 @@ constructor(
              * transacting with.
              */
             @JsonProperty("merchant_acceptor_id")
-            fun merchantAcceptorId(merchantAcceptorId: String) = apply {
+            fun merchantAcceptorId(merchantAcceptorId: String?) = apply {
                 this.merchantAcceptorId = merchantAcceptorId
             }
 
@@ -305,33 +304,33 @@ constructor(
              * transacting with.
              */
             @JsonProperty("merchant_category_code")
-            fun merchantCategoryCode(merchantCategoryCode: String) = apply {
+            fun merchantCategoryCode(merchantCategoryCode: String?) = apply {
                 this.merchantCategoryCode = merchantCategoryCode
             }
 
             /** The city the merchant resides in. */
             @JsonProperty("merchant_city")
-            fun merchantCity(merchantCity: String) = apply { this.merchantCity = merchantCity }
+            fun merchantCity(merchantCity: String?) = apply { this.merchantCity = merchantCity }
 
             /** The country the merchant resides in. */
             @JsonProperty("merchant_country")
-            fun merchantCountry(merchantCountry: String) = apply {
+            fun merchantCountry(merchantCountry: String?) = apply {
                 this.merchantCountry = merchantCountry
             }
 
             /** The merchant descriptor of the merchant the card is transacting with. */
             @JsonProperty("merchant_descriptor")
-            fun merchantDescriptor(merchantDescriptor: String) = apply {
+            fun merchantDescriptor(merchantDescriptor: String?) = apply {
                 this.merchantDescriptor = merchantDescriptor
             }
 
             /** The state the merchant resides in. */
             @JsonProperty("merchant_state")
-            fun merchantState(merchantState: String) = apply { this.merchantState = merchantState }
+            fun merchantState(merchantState: String?) = apply { this.merchantState = merchantState }
 
             /** The identifier of the Physical Card to be authorized. */
             @JsonProperty("physical_card_id")
-            fun physicalCardId(physicalCardId: String) = apply {
+            fun physicalCardId(physicalCardId: String?) = apply {
                 this.physicalCardId = physicalCardId
             }
 
@@ -340,20 +339,26 @@ constructor(
              * transacting with.
              */
             @JsonProperty("terminal_id")
-            fun terminalId(terminalId: String) = apply { this.terminalId = terminalId }
+            fun terminalId(terminalId: String?) = apply { this.terminalId = terminalId }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): SimulationCardAuthorizationCreateBody =

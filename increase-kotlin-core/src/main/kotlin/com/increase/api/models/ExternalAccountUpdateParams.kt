@@ -110,42 +110,48 @@ constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(externalAccountUpdateBody: ExternalAccountUpdateBody) = apply {
-                this.accountHolder = externalAccountUpdateBody.accountHolder
-                this.description = externalAccountUpdateBody.description
-                this.funding = externalAccountUpdateBody.funding
-                this.status = externalAccountUpdateBody.status
-                additionalProperties(externalAccountUpdateBody.additionalProperties)
+                accountHolder = externalAccountUpdateBody.accountHolder
+                description = externalAccountUpdateBody.description
+                funding = externalAccountUpdateBody.funding
+                status = externalAccountUpdateBody.status
+                additionalProperties = externalAccountUpdateBody.additionalProperties.toMutableMap()
             }
 
             /** The type of entity that owns the External Account. */
             @JsonProperty("account_holder")
-            fun accountHolder(accountHolder: AccountHolder) = apply {
+            fun accountHolder(accountHolder: AccountHolder?) = apply {
                 this.accountHolder = accountHolder
             }
 
             /** The description you choose to give the external account. */
             @JsonProperty("description")
-            fun description(description: String) = apply { this.description = description }
+            fun description(description: String?) = apply { this.description = description }
 
             /** The funding type of the External Account. */
             @JsonProperty("funding")
-            fun funding(funding: Funding) = apply { this.funding = funding }
+            fun funding(funding: Funding?) = apply { this.funding = funding }
 
             /** The status of the External Account. */
-            @JsonProperty("status") fun status(status: Status) = apply { this.status = status }
+            @JsonProperty("status") fun status(status: Status?) = apply { this.status = status }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): ExternalAccountUpdateBody =

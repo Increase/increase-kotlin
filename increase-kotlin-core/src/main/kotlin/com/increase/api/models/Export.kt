@@ -39,8 +39,6 @@ private constructor(
     private val additionalProperties: Map<String, JsonValue>,
 ) {
 
-    private var validated: Boolean = false
-
     /**
      * The category of the Export. We may add additional possible values for this enum over time;
      * your application should be able to handle that gracefully.
@@ -119,6 +117,8 @@ private constructor(
     @ExcludeMissing
     fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
 
+    private var validated: Boolean = false
+
     fun validate(): Export = apply {
         if (!validated) {
             category()
@@ -153,15 +153,15 @@ private constructor(
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(export: Export) = apply {
-            this.category = export.category
-            this.createdAt = export.createdAt
-            this.fileDownloadUrl = export.fileDownloadUrl
-            this.fileId = export.fileId
-            this.id = export.id
-            this.idempotencyKey = export.idempotencyKey
-            this.status = export.status
-            this.type = export.type
-            additionalProperties(export.additionalProperties)
+            category = export.category
+            createdAt = export.createdAt
+            fileDownloadUrl = export.fileDownloadUrl
+            fileId = export.fileId
+            id = export.id
+            idempotencyKey = export.idempotencyKey
+            status = export.status
+            type = export.type
+            additionalProperties = export.additionalProperties.toMutableMap()
         }
 
         /**
@@ -263,16 +263,22 @@ private constructor(
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
-            this.additionalProperties.putAll(additionalProperties)
+            putAllAdditionalProperties(additionalProperties)
         }
 
         @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            this.additionalProperties.put(key, value)
+            additionalProperties.put(key, value)
         }
 
         fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.putAll(additionalProperties)
+        }
+
+        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalProperty)
         }
 
         fun build(): Export =
