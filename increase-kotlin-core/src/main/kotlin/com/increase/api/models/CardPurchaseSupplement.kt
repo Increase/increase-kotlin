@@ -6,13 +6,13 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.LocalDate
@@ -22,17 +22,25 @@ import java.util.Objects
  * Additional information about a card purchase (e.g., settlement or refund), such as level 3 line
  * item data.
  */
-@JsonDeserialize(builder = CardPurchaseSupplement.Builder::class)
 @NoAutoDetect
 class CardPurchaseSupplement
+@JsonCreator
 private constructor(
-    private val cardPaymentId: JsonField<String>,
-    private val id: JsonField<String>,
-    private val invoice: JsonField<Invoice>,
-    private val lineItems: JsonField<List<LineItem>>,
-    private val transactionId: JsonField<String>,
-    private val type: JsonField<Type>,
-    private val additionalProperties: Map<String, JsonValue>,
+    @JsonProperty("card_payment_id")
+    @ExcludeMissing
+    private val cardPaymentId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("invoice")
+    @ExcludeMissing
+    private val invoice: JsonField<Invoice> = JsonMissing.of(),
+    @JsonProperty("line_items")
+    @ExcludeMissing
+    private val lineItems: JsonField<List<LineItem>> = JsonMissing.of(),
+    @JsonProperty("transaction_id")
+    @ExcludeMissing
+    private val transactionId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
+    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
     /** The ID of the Card Payment this transaction belongs to. */
@@ -126,8 +134,6 @@ private constructor(
         fun cardPaymentId(cardPaymentId: String) = cardPaymentId(JsonField.of(cardPaymentId))
 
         /** The ID of the Card Payment this transaction belongs to. */
-        @JsonProperty("card_payment_id")
-        @ExcludeMissing
         fun cardPaymentId(cardPaymentId: JsonField<String>) = apply {
             this.cardPaymentId = cardPaymentId
         }
@@ -136,30 +142,24 @@ private constructor(
         fun id(id: String) = id(JsonField.of(id))
 
         /** The Card Purchase Supplement identifier. */
-        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** Invoice-level information about the payment. */
         fun invoice(invoice: Invoice) = invoice(JsonField.of(invoice))
 
         /** Invoice-level information about the payment. */
-        @JsonProperty("invoice")
-        @ExcludeMissing
         fun invoice(invoice: JsonField<Invoice>) = apply { this.invoice = invoice }
 
         /** Line item information, such as individual products purchased. */
         fun lineItems(lineItems: List<LineItem>) = lineItems(JsonField.of(lineItems))
 
         /** Line item information, such as individual products purchased. */
-        @JsonProperty("line_items")
-        @ExcludeMissing
         fun lineItems(lineItems: JsonField<List<LineItem>>) = apply { this.lineItems = lineItems }
 
         /** The ID of the transaction. */
         fun transactionId(transactionId: String) = transactionId(JsonField.of(transactionId))
 
         /** The ID of the transaction. */
-        @JsonProperty("transaction_id")
-        @ExcludeMissing
         fun transactionId(transactionId: JsonField<String>) = apply {
             this.transactionId = transactionId
         }
@@ -174,8 +174,6 @@ private constructor(
          * A constant representing the object's type. For this resource it will always be
          * `card_purchase_supplement`.
          */
-        @JsonProperty("type")
-        @ExcludeMissing
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -183,7 +181,6 @@ private constructor(
             putAllAdditionalProperties(additionalProperties)
         }
 
-        @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
             additionalProperties.put(key, value)
         }
@@ -211,27 +208,60 @@ private constructor(
     }
 
     /** Invoice-level information about the payment. */
-    @JsonDeserialize(builder = Invoice.Builder::class)
     @NoAutoDetect
     class Invoice
+    @JsonCreator
     private constructor(
-        private val discountAmount: JsonField<Long>,
-        private val discountCurrency: JsonField<String>,
-        private val discountTreatmentCode: JsonField<DiscountTreatmentCode>,
-        private val dutyTaxAmount: JsonField<Long>,
-        private val dutyTaxCurrency: JsonField<String>,
-        private val orderDate: JsonField<LocalDate>,
-        private val shippingAmount: JsonField<Long>,
-        private val shippingCurrency: JsonField<String>,
-        private val shippingDestinationCountryCode: JsonField<String>,
-        private val shippingDestinationPostalCode: JsonField<String>,
-        private val shippingSourcePostalCode: JsonField<String>,
-        private val shippingTaxAmount: JsonField<Long>,
-        private val shippingTaxCurrency: JsonField<String>,
-        private val shippingTaxRate: JsonField<String>,
-        private val taxTreatments: JsonField<TaxTreatments>,
-        private val uniqueValueAddedTaxInvoiceReference: JsonField<String>,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("discount_amount")
+        @ExcludeMissing
+        private val discountAmount: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("discount_currency")
+        @ExcludeMissing
+        private val discountCurrency: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("discount_treatment_code")
+        @ExcludeMissing
+        private val discountTreatmentCode: JsonField<DiscountTreatmentCode> = JsonMissing.of(),
+        @JsonProperty("duty_tax_amount")
+        @ExcludeMissing
+        private val dutyTaxAmount: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("duty_tax_currency")
+        @ExcludeMissing
+        private val dutyTaxCurrency: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("order_date")
+        @ExcludeMissing
+        private val orderDate: JsonField<LocalDate> = JsonMissing.of(),
+        @JsonProperty("shipping_amount")
+        @ExcludeMissing
+        private val shippingAmount: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("shipping_currency")
+        @ExcludeMissing
+        private val shippingCurrency: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("shipping_destination_country_code")
+        @ExcludeMissing
+        private val shippingDestinationCountryCode: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("shipping_destination_postal_code")
+        @ExcludeMissing
+        private val shippingDestinationPostalCode: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("shipping_source_postal_code")
+        @ExcludeMissing
+        private val shippingSourcePostalCode: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("shipping_tax_amount")
+        @ExcludeMissing
+        private val shippingTaxAmount: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("shipping_tax_currency")
+        @ExcludeMissing
+        private val shippingTaxCurrency: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("shipping_tax_rate")
+        @ExcludeMissing
+        private val shippingTaxRate: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("tax_treatments")
+        @ExcludeMissing
+        private val taxTreatments: JsonField<TaxTreatments> = JsonMissing.of(),
+        @JsonProperty("unique_value_added_tax_invoice_reference")
+        @ExcludeMissing
+        private val uniqueValueAddedTaxInvoiceReference: JsonField<String> = JsonMissing.of(),
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** Discount given to cardholder. */
@@ -435,8 +465,6 @@ private constructor(
             fun discountAmount(discountAmount: Long) = discountAmount(JsonField.of(discountAmount))
 
             /** Discount given to cardholder. */
-            @JsonProperty("discount_amount")
-            @ExcludeMissing
             fun discountAmount(discountAmount: JsonField<Long>) = apply {
                 this.discountAmount = discountAmount
             }
@@ -446,8 +474,6 @@ private constructor(
                 discountCurrency(JsonField.of(discountCurrency))
 
             /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the discount. */
-            @JsonProperty("discount_currency")
-            @ExcludeMissing
             fun discountCurrency(discountCurrency: JsonField<String>) = apply {
                 this.discountCurrency = discountCurrency
             }
@@ -457,8 +483,6 @@ private constructor(
                 discountTreatmentCode(JsonField.of(discountTreatmentCode))
 
             /** Indicates how the merchant applied the discount. */
-            @JsonProperty("discount_treatment_code")
-            @ExcludeMissing
             fun discountTreatmentCode(discountTreatmentCode: JsonField<DiscountTreatmentCode>) =
                 apply {
                     this.discountTreatmentCode = discountTreatmentCode
@@ -468,8 +492,6 @@ private constructor(
             fun dutyTaxAmount(dutyTaxAmount: Long) = dutyTaxAmount(JsonField.of(dutyTaxAmount))
 
             /** Amount of duty taxes. */
-            @JsonProperty("duty_tax_amount")
-            @ExcludeMissing
             fun dutyTaxAmount(dutyTaxAmount: JsonField<Long>) = apply {
                 this.dutyTaxAmount = dutyTaxAmount
             }
@@ -479,8 +501,6 @@ private constructor(
                 dutyTaxCurrency(JsonField.of(dutyTaxCurrency))
 
             /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the duty tax. */
-            @JsonProperty("duty_tax_currency")
-            @ExcludeMissing
             fun dutyTaxCurrency(dutyTaxCurrency: JsonField<String>) = apply {
                 this.dutyTaxCurrency = dutyTaxCurrency
             }
@@ -489,16 +509,12 @@ private constructor(
             fun orderDate(orderDate: LocalDate) = orderDate(JsonField.of(orderDate))
 
             /** Date the order was taken. */
-            @JsonProperty("order_date")
-            @ExcludeMissing
             fun orderDate(orderDate: JsonField<LocalDate>) = apply { this.orderDate = orderDate }
 
             /** The shipping cost. */
             fun shippingAmount(shippingAmount: Long) = shippingAmount(JsonField.of(shippingAmount))
 
             /** The shipping cost. */
-            @JsonProperty("shipping_amount")
-            @ExcludeMissing
             fun shippingAmount(shippingAmount: JsonField<Long>) = apply {
                 this.shippingAmount = shippingAmount
             }
@@ -512,8 +528,6 @@ private constructor(
             /**
              * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the shipping cost.
              */
-            @JsonProperty("shipping_currency")
-            @ExcludeMissing
             fun shippingCurrency(shippingCurrency: JsonField<String>) = apply {
                 this.shippingCurrency = shippingCurrency
             }
@@ -523,8 +537,6 @@ private constructor(
                 shippingDestinationCountryCode(JsonField.of(shippingDestinationCountryCode))
 
             /** Country code of the shipping destination. */
-            @JsonProperty("shipping_destination_country_code")
-            @ExcludeMissing
             fun shippingDestinationCountryCode(shippingDestinationCountryCode: JsonField<String>) =
                 apply {
                     this.shippingDestinationCountryCode = shippingDestinationCountryCode
@@ -535,8 +547,6 @@ private constructor(
                 shippingDestinationPostalCode(JsonField.of(shippingDestinationPostalCode))
 
             /** Postal code of the shipping destination. */
-            @JsonProperty("shipping_destination_postal_code")
-            @ExcludeMissing
             fun shippingDestinationPostalCode(shippingDestinationPostalCode: JsonField<String>) =
                 apply {
                     this.shippingDestinationPostalCode = shippingDestinationPostalCode
@@ -547,8 +557,6 @@ private constructor(
                 shippingSourcePostalCode(JsonField.of(shippingSourcePostalCode))
 
             /** Postal code of the location being shipped from. */
-            @JsonProperty("shipping_source_postal_code")
-            @ExcludeMissing
             fun shippingSourcePostalCode(shippingSourcePostalCode: JsonField<String>) = apply {
                 this.shippingSourcePostalCode = shippingSourcePostalCode
             }
@@ -558,8 +566,6 @@ private constructor(
                 shippingTaxAmount(JsonField.of(shippingTaxAmount))
 
             /** Taxes paid for freight and shipping. */
-            @JsonProperty("shipping_tax_amount")
-            @ExcludeMissing
             fun shippingTaxAmount(shippingTaxAmount: JsonField<Long>) = apply {
                 this.shippingTaxAmount = shippingTaxAmount
             }
@@ -569,8 +575,6 @@ private constructor(
                 shippingTaxCurrency(JsonField.of(shippingTaxCurrency))
 
             /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the shipping tax. */
-            @JsonProperty("shipping_tax_currency")
-            @ExcludeMissing
             fun shippingTaxCurrency(shippingTaxCurrency: JsonField<String>) = apply {
                 this.shippingTaxCurrency = shippingTaxCurrency
             }
@@ -580,8 +584,6 @@ private constructor(
                 shippingTaxRate(JsonField.of(shippingTaxRate))
 
             /** Tax rate for freight and shipping. */
-            @JsonProperty("shipping_tax_rate")
-            @ExcludeMissing
             fun shippingTaxRate(shippingTaxRate: JsonField<String>) = apply {
                 this.shippingTaxRate = shippingTaxRate
             }
@@ -591,8 +593,6 @@ private constructor(
                 taxTreatments(JsonField.of(taxTreatments))
 
             /** Indicates how the merchant applied taxes. */
-            @JsonProperty("tax_treatments")
-            @ExcludeMissing
             fun taxTreatments(taxTreatments: JsonField<TaxTreatments>) = apply {
                 this.taxTreatments = taxTreatments
             }
@@ -604,8 +604,6 @@ private constructor(
                 )
 
             /** Value added tax invoice reference number. */
-            @JsonProperty("unique_value_added_tax_invoice_reference")
-            @ExcludeMissing
             fun uniqueValueAddedTaxInvoiceReference(
                 uniqueValueAddedTaxInvoiceReference: JsonField<String>
             ) = apply {
@@ -617,7 +615,6 @@ private constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }
@@ -817,28 +814,61 @@ private constructor(
             "Invoice{discountAmount=$discountAmount, discountCurrency=$discountCurrency, discountTreatmentCode=$discountTreatmentCode, dutyTaxAmount=$dutyTaxAmount, dutyTaxCurrency=$dutyTaxCurrency, orderDate=$orderDate, shippingAmount=$shippingAmount, shippingCurrency=$shippingCurrency, shippingDestinationCountryCode=$shippingDestinationCountryCode, shippingDestinationPostalCode=$shippingDestinationPostalCode, shippingSourcePostalCode=$shippingSourcePostalCode, shippingTaxAmount=$shippingTaxAmount, shippingTaxCurrency=$shippingTaxCurrency, shippingTaxRate=$shippingTaxRate, taxTreatments=$taxTreatments, uniqueValueAddedTaxInvoiceReference=$uniqueValueAddedTaxInvoiceReference, additionalProperties=$additionalProperties}"
     }
 
-    @JsonDeserialize(builder = LineItem.Builder::class)
     @NoAutoDetect
     class LineItem
+    @JsonCreator
     private constructor(
-        private val detailIndicator: JsonField<DetailIndicator>,
-        private val discountAmount: JsonField<Long>,
-        private val discountCurrency: JsonField<String>,
-        private val discountTreatmentCode: JsonField<DiscountTreatmentCode>,
-        private val id: JsonField<String>,
-        private val itemCommodityCode: JsonField<String>,
-        private val itemDescriptor: JsonField<String>,
-        private val itemQuantity: JsonField<String>,
-        private val productCode: JsonField<String>,
-        private val salesTaxAmount: JsonField<Long>,
-        private val salesTaxCurrency: JsonField<String>,
-        private val salesTaxRate: JsonField<String>,
-        private val totalAmount: JsonField<Long>,
-        private val totalAmountCurrency: JsonField<String>,
-        private val unitCost: JsonField<String>,
-        private val unitCostCurrency: JsonField<String>,
-        private val unitOfMeasureCode: JsonField<String>,
-        private val additionalProperties: Map<String, JsonValue>,
+        @JsonProperty("detail_indicator")
+        @ExcludeMissing
+        private val detailIndicator: JsonField<DetailIndicator> = JsonMissing.of(),
+        @JsonProperty("discount_amount")
+        @ExcludeMissing
+        private val discountAmount: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("discount_currency")
+        @ExcludeMissing
+        private val discountCurrency: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("discount_treatment_code")
+        @ExcludeMissing
+        private val discountTreatmentCode: JsonField<DiscountTreatmentCode> = JsonMissing.of(),
+        @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("item_commodity_code")
+        @ExcludeMissing
+        private val itemCommodityCode: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("item_descriptor")
+        @ExcludeMissing
+        private val itemDescriptor: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("item_quantity")
+        @ExcludeMissing
+        private val itemQuantity: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("product_code")
+        @ExcludeMissing
+        private val productCode: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("sales_tax_amount")
+        @ExcludeMissing
+        private val salesTaxAmount: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("sales_tax_currency")
+        @ExcludeMissing
+        private val salesTaxCurrency: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("sales_tax_rate")
+        @ExcludeMissing
+        private val salesTaxRate: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("total_amount")
+        @ExcludeMissing
+        private val totalAmount: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("total_amount_currency")
+        @ExcludeMissing
+        private val totalAmountCurrency: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("unit_cost")
+        @ExcludeMissing
+        private val unitCost: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("unit_cost_currency")
+        @ExcludeMissing
+        private val unitCostCurrency: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("unit_of_measure_code")
+        @ExcludeMissing
+        private val unitOfMeasureCode: JsonField<String> = JsonMissing.of(),
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** Indicates the type of line item. */
@@ -1046,8 +1076,6 @@ private constructor(
                 detailIndicator(JsonField.of(detailIndicator))
 
             /** Indicates the type of line item. */
-            @JsonProperty("detail_indicator")
-            @ExcludeMissing
             fun detailIndicator(detailIndicator: JsonField<DetailIndicator>) = apply {
                 this.detailIndicator = detailIndicator
             }
@@ -1056,8 +1084,6 @@ private constructor(
             fun discountAmount(discountAmount: Long) = discountAmount(JsonField.of(discountAmount))
 
             /** Discount amount for this specific line item. */
-            @JsonProperty("discount_amount")
-            @ExcludeMissing
             fun discountAmount(discountAmount: JsonField<Long>) = apply {
                 this.discountAmount = discountAmount
             }
@@ -1067,8 +1093,6 @@ private constructor(
                 discountCurrency(JsonField.of(discountCurrency))
 
             /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the discount. */
-            @JsonProperty("discount_currency")
-            @ExcludeMissing
             fun discountCurrency(discountCurrency: JsonField<String>) = apply {
                 this.discountCurrency = discountCurrency
             }
@@ -1078,8 +1102,6 @@ private constructor(
                 discountTreatmentCode(JsonField.of(discountTreatmentCode))
 
             /** Indicates how the merchant applied the discount for this specific line item. */
-            @JsonProperty("discount_treatment_code")
-            @ExcludeMissing
             fun discountTreatmentCode(discountTreatmentCode: JsonField<DiscountTreatmentCode>) =
                 apply {
                     this.discountTreatmentCode = discountTreatmentCode
@@ -1089,8 +1111,6 @@ private constructor(
             fun id(id: String) = id(JsonField.of(id))
 
             /** The Card Purchase Supplement Line Item identifier. */
-            @JsonProperty("id")
-            @ExcludeMissing
             fun id(id: JsonField<String>) = apply { this.id = id }
 
             /** Code used to categorize the purchase item. */
@@ -1098,8 +1118,6 @@ private constructor(
                 itemCommodityCode(JsonField.of(itemCommodityCode))
 
             /** Code used to categorize the purchase item. */
-            @JsonProperty("item_commodity_code")
-            @ExcludeMissing
             fun itemCommodityCode(itemCommodityCode: JsonField<String>) = apply {
                 this.itemCommodityCode = itemCommodityCode
             }
@@ -1109,8 +1127,6 @@ private constructor(
                 itemDescriptor(JsonField.of(itemDescriptor))
 
             /** Description of the purchase item. */
-            @JsonProperty("item_descriptor")
-            @ExcludeMissing
             fun itemDescriptor(itemDescriptor: JsonField<String>) = apply {
                 this.itemDescriptor = itemDescriptor
             }
@@ -1119,8 +1135,6 @@ private constructor(
             fun itemQuantity(itemQuantity: String) = itemQuantity(JsonField.of(itemQuantity))
 
             /** The number of units of the product being purchased. */
-            @JsonProperty("item_quantity")
-            @ExcludeMissing
             fun itemQuantity(itemQuantity: JsonField<String>) = apply {
                 this.itemQuantity = itemQuantity
             }
@@ -1129,8 +1143,6 @@ private constructor(
             fun productCode(productCode: String) = productCode(JsonField.of(productCode))
 
             /** Code used to categorize the product being purchased. */
-            @JsonProperty("product_code")
-            @ExcludeMissing
             fun productCode(productCode: JsonField<String>) = apply {
                 this.productCode = productCode
             }
@@ -1139,8 +1151,6 @@ private constructor(
             fun salesTaxAmount(salesTaxAmount: Long) = salesTaxAmount(JsonField.of(salesTaxAmount))
 
             /** Sales tax amount for this line item. */
-            @JsonProperty("sales_tax_amount")
-            @ExcludeMissing
             fun salesTaxAmount(salesTaxAmount: JsonField<Long>) = apply {
                 this.salesTaxAmount = salesTaxAmount
             }
@@ -1156,8 +1166,6 @@ private constructor(
              * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the sales tax
              * assessed.
              */
-            @JsonProperty("sales_tax_currency")
-            @ExcludeMissing
             fun salesTaxCurrency(salesTaxCurrency: JsonField<String>) = apply {
                 this.salesTaxCurrency = salesTaxCurrency
             }
@@ -1166,8 +1174,6 @@ private constructor(
             fun salesTaxRate(salesTaxRate: String) = salesTaxRate(JsonField.of(salesTaxRate))
 
             /** Sales tax rate for this line item. */
-            @JsonProperty("sales_tax_rate")
-            @ExcludeMissing
             fun salesTaxRate(salesTaxRate: JsonField<String>) = apply {
                 this.salesTaxRate = salesTaxRate
             }
@@ -1176,8 +1182,6 @@ private constructor(
             fun totalAmount(totalAmount: Long) = totalAmount(JsonField.of(totalAmount))
 
             /** Total amount of all line items. */
-            @JsonProperty("total_amount")
-            @ExcludeMissing
             fun totalAmount(totalAmount: JsonField<Long>) = apply { this.totalAmount = totalAmount }
 
             /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the total amount. */
@@ -1185,8 +1189,6 @@ private constructor(
                 totalAmountCurrency(JsonField.of(totalAmountCurrency))
 
             /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the total amount. */
-            @JsonProperty("total_amount_currency")
-            @ExcludeMissing
             fun totalAmountCurrency(totalAmountCurrency: JsonField<String>) = apply {
                 this.totalAmountCurrency = totalAmountCurrency
             }
@@ -1195,8 +1197,6 @@ private constructor(
             fun unitCost(unitCost: String) = unitCost(JsonField.of(unitCost))
 
             /** Cost of line item per unit of measure, in major units. */
-            @JsonProperty("unit_cost")
-            @ExcludeMissing
             fun unitCost(unitCost: JsonField<String>) = apply { this.unitCost = unitCost }
 
             /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the unit cost. */
@@ -1204,8 +1204,6 @@ private constructor(
                 unitCostCurrency(JsonField.of(unitCostCurrency))
 
             /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the unit cost. */
-            @JsonProperty("unit_cost_currency")
-            @ExcludeMissing
             fun unitCostCurrency(unitCostCurrency: JsonField<String>) = apply {
                 this.unitCostCurrency = unitCostCurrency
             }
@@ -1215,8 +1213,6 @@ private constructor(
                 unitOfMeasureCode(JsonField.of(unitOfMeasureCode))
 
             /** Code indicating unit of measure (gallons, etc.). */
-            @JsonProperty("unit_of_measure_code")
-            @ExcludeMissing
             fun unitOfMeasureCode(unitOfMeasureCode: JsonField<String>) = apply {
                 this.unitOfMeasureCode = unitOfMeasureCode
             }
@@ -1226,7 +1222,6 @@ private constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }

@@ -6,13 +6,13 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
@@ -23,21 +23,35 @@ import java.util.Objects
  * example, Declined Transactions are caused when your Account has an insufficient balance or your
  * Limits are triggered.
  */
-@JsonDeserialize(builder = DeclinedTransaction.Builder::class)
 @NoAutoDetect
 class DeclinedTransaction
+@JsonCreator
 private constructor(
-    private val accountId: JsonField<String>,
-    private val amount: JsonField<Long>,
-    private val createdAt: JsonField<OffsetDateTime>,
-    private val currency: JsonField<Currency>,
-    private val description: JsonField<String>,
-    private val id: JsonField<String>,
-    private val routeId: JsonField<String>,
-    private val routeType: JsonField<RouteType>,
-    private val source: JsonField<Source>,
-    private val type: JsonField<Type>,
-    private val additionalProperties: Map<String, JsonValue>,
+    @JsonProperty("account_id")
+    @ExcludeMissing
+    private val accountId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("amount") @ExcludeMissing private val amount: JsonField<Long> = JsonMissing.of(),
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("currency")
+    @ExcludeMissing
+    private val currency: JsonField<Currency> = JsonMissing.of(),
+    @JsonProperty("description")
+    @ExcludeMissing
+    private val description: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("route_id")
+    @ExcludeMissing
+    private val routeId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("route_type")
+    @ExcludeMissing
+    private val routeType: JsonField<RouteType> = JsonMissing.of(),
+    @JsonProperty("source")
+    @ExcludeMissing
+    private val source: JsonField<Source> = JsonMissing.of(),
+    @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
+    @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
     /** The identifier for the Account the Declined Transaction belongs to. */
@@ -203,8 +217,6 @@ private constructor(
         fun accountId(accountId: String) = accountId(JsonField.of(accountId))
 
         /** The identifier for the Account the Declined Transaction belongs to. */
-        @JsonProperty("account_id")
-        @ExcludeMissing
         fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
         /**
@@ -217,8 +229,6 @@ private constructor(
          * The Declined Transaction amount in the minor unit of its currency. For dollars, for
          * example, this is cents.
          */
-        @JsonProperty("amount")
-        @ExcludeMissing
         fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
         /**
@@ -231,8 +241,6 @@ private constructor(
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date on which the Transaction
          * occurred.
          */
-        @JsonProperty("created_at")
-        @ExcludeMissing
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /**
@@ -247,23 +255,19 @@ private constructor(
          * Transaction's currency. This will match the currency on the Declined Transaction's
          * Account.
          */
-        @JsonProperty("currency")
-        @ExcludeMissing
         fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
 
         /** This is the description the vendor provides. */
         fun description(description: String) = description(JsonField.of(description))
 
         /** This is the description the vendor provides. */
-        @JsonProperty("description")
-        @ExcludeMissing
         fun description(description: JsonField<String>) = apply { this.description = description }
 
         /** The Declined Transaction identifier. */
         fun id(id: String) = id(JsonField.of(id))
 
         /** The Declined Transaction identifier. */
-        @JsonProperty("id") @ExcludeMissing fun id(id: JsonField<String>) = apply { this.id = id }
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
          * The identifier for the route this Declined Transaction came through. Routes are things
@@ -275,16 +279,12 @@ private constructor(
          * The identifier for the route this Declined Transaction came through. Routes are things
          * like cards and ACH details.
          */
-        @JsonProperty("route_id")
-        @ExcludeMissing
         fun routeId(routeId: JsonField<String>) = apply { this.routeId = routeId }
 
         /** The type of the route this Declined Transaction came through. */
         fun routeType(routeType: RouteType) = routeType(JsonField.of(routeType))
 
         /** The type of the route this Declined Transaction came through. */
-        @JsonProperty("route_type")
-        @ExcludeMissing
         fun routeType(routeType: JsonField<RouteType>) = apply { this.routeType = routeType }
 
         /**
@@ -303,8 +303,6 @@ private constructor(
          * appear in this object. These should be treated as deprecated and will be removed in the
          * future.
          */
-        @JsonProperty("source")
-        @ExcludeMissing
         fun source(source: JsonField<Source>) = apply { this.source = source }
 
         /**
@@ -317,8 +315,6 @@ private constructor(
          * A constant representing the object's type. For this resource it will always be
          * `declined_transaction`.
          */
-        @JsonProperty("type")
-        @ExcludeMissing
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -326,7 +322,6 @@ private constructor(
             putAllAdditionalProperties(additionalProperties)
         }
 
-        @JsonAnySetter
         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
             additionalProperties.put(key, value)
         }
@@ -508,20 +503,36 @@ private constructor(
      * appear in this object. These should be treated as deprecated and will be removed in the
      * future.
      */
-    @JsonDeserialize(builder = Source.Builder::class)
     @NoAutoDetect
     class Source
+    @JsonCreator
     private constructor(
-        private val achDecline: JsonField<AchDecline>,
-        private val cardDecline: JsonField<CardDecline>,
-        private val category: JsonField<Category>,
-        private val checkDecline: JsonField<CheckDecline>,
-        private val checkDepositRejection: JsonField<CheckDepositRejection>,
+        @JsonProperty("ach_decline")
+        @ExcludeMissing
+        private val achDecline: JsonField<AchDecline> = JsonMissing.of(),
+        @JsonProperty("card_decline")
+        @ExcludeMissing
+        private val cardDecline: JsonField<CardDecline> = JsonMissing.of(),
+        @JsonProperty("category")
+        @ExcludeMissing
+        private val category: JsonField<Category> = JsonMissing.of(),
+        @JsonProperty("check_decline")
+        @ExcludeMissing
+        private val checkDecline: JsonField<CheckDecline> = JsonMissing.of(),
+        @JsonProperty("check_deposit_rejection")
+        @ExcludeMissing
+        private val checkDepositRejection: JsonField<CheckDepositRejection> = JsonMissing.of(),
+        @JsonProperty("inbound_real_time_payments_transfer_decline")
+        @ExcludeMissing
         private val inboundRealTimePaymentsTransferDecline:
-            JsonField<InboundRealTimePaymentsTransferDecline>,
-        private val other: JsonValue,
-        private val wireDecline: JsonField<WireDecline>,
-        private val additionalProperties: Map<String, JsonValue>,
+            JsonField<InboundRealTimePaymentsTransferDecline> =
+            JsonMissing.of(),
+        @JsonProperty("other") @ExcludeMissing private val other: JsonValue = JsonMissing.of(),
+        @JsonProperty("wire_decline")
+        @ExcludeMissing
+        private val wireDecline: JsonField<WireDecline> = JsonMissing.of(),
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /**
@@ -687,8 +698,6 @@ private constructor(
              * An ACH Decline object. This field will be present in the JSON response if and only if
              * `category` is equal to `ach_decline`.
              */
-            @JsonProperty("ach_decline")
-            @ExcludeMissing
             fun achDecline(achDecline: JsonField<AchDecline>) = apply {
                 this.achDecline = achDecline
             }
@@ -703,8 +712,6 @@ private constructor(
              * A Card Decline object. This field will be present in the JSON response if and only if
              * `category` is equal to `card_decline`.
              */
-            @JsonProperty("card_decline")
-            @ExcludeMissing
             fun cardDecline(cardDecline: JsonField<CardDecline>) = apply {
                 this.cardDecline = cardDecline
             }
@@ -719,8 +726,6 @@ private constructor(
              * The type of the resource. We may add additional possible values for this enum over
              * time; your application should be able to handle such additions gracefully.
              */
-            @JsonProperty("category")
-            @ExcludeMissing
             fun category(category: JsonField<Category>) = apply { this.category = category }
 
             /**
@@ -733,8 +738,6 @@ private constructor(
              * A Check Decline object. This field will be present in the JSON response if and only
              * if `category` is equal to `check_decline`.
              */
-            @JsonProperty("check_decline")
-            @ExcludeMissing
             fun checkDecline(checkDecline: JsonField<CheckDecline>) = apply {
                 this.checkDecline = checkDecline
             }
@@ -750,8 +753,6 @@ private constructor(
              * A Check Deposit Rejection object. This field will be present in the JSON response if
              * and only if `category` is equal to `check_deposit_rejection`.
              */
-            @JsonProperty("check_deposit_rejection")
-            @ExcludeMissing
             fun checkDepositRejection(checkDepositRejection: JsonField<CheckDepositRejection>) =
                 apply {
                     this.checkDepositRejection = checkDepositRejection
@@ -774,8 +775,6 @@ private constructor(
              * the JSON response if and only if `category` is equal to
              * `inbound_real_time_payments_transfer_decline`.
              */
-            @JsonProperty("inbound_real_time_payments_transfer_decline")
-            @ExcludeMissing
             fun inboundRealTimePaymentsTransferDecline(
                 inboundRealTimePaymentsTransferDecline:
                     JsonField<InboundRealTimePaymentsTransferDecline>
@@ -787,8 +786,6 @@ private constructor(
              * If the category of this Transaction source is equal to `other`, this field will
              * contain an empty object, otherwise it will contain null.
              */
-            @JsonProperty("other")
-            @ExcludeMissing
             fun other(other: JsonValue) = apply { this.other = other }
 
             /**
@@ -801,8 +798,6 @@ private constructor(
              * A Wire Decline object. This field will be present in the JSON response if and only if
              * `category` is equal to `wire_decline`.
              */
-            @JsonProperty("wire_decline")
-            @ExcludeMissing
             fun wireDecline(wireDecline: JsonField<WireDecline>) = apply {
                 this.wireDecline = wireDecline
             }
@@ -812,7 +807,6 @@ private constructor(
                 putAllAdditionalProperties(additionalProperties)
             }
 
-            @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                 additionalProperties.put(key, value)
             }
@@ -845,23 +839,48 @@ private constructor(
          * An ACH Decline object. This field will be present in the JSON response if and only if
          * `category` is equal to `ach_decline`.
          */
-        @JsonDeserialize(builder = AchDecline.Builder::class)
         @NoAutoDetect
         class AchDecline
+        @JsonCreator
         private constructor(
-            private val amount: JsonField<Long>,
-            private val id: JsonField<String>,
-            private val inboundAchTransferId: JsonField<String>,
-            private val originatorCompanyDescriptiveDate: JsonField<String>,
-            private val originatorCompanyDiscretionaryData: JsonField<String>,
-            private val originatorCompanyId: JsonField<String>,
-            private val originatorCompanyName: JsonField<String>,
-            private val reason: JsonField<Reason>,
-            private val receiverIdNumber: JsonField<String>,
-            private val receiverName: JsonField<String>,
-            private val traceNumber: JsonField<String>,
-            private val type: JsonField<Type>,
-            private val additionalProperties: Map<String, JsonValue>,
+            @JsonProperty("amount")
+            @ExcludeMissing
+            private val amount: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("id")
+            @ExcludeMissing
+            private val id: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("inbound_ach_transfer_id")
+            @ExcludeMissing
+            private val inboundAchTransferId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("originator_company_descriptive_date")
+            @ExcludeMissing
+            private val originatorCompanyDescriptiveDate: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("originator_company_discretionary_data")
+            @ExcludeMissing
+            private val originatorCompanyDiscretionaryData: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("originator_company_id")
+            @ExcludeMissing
+            private val originatorCompanyId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("originator_company_name")
+            @ExcludeMissing
+            private val originatorCompanyName: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("reason")
+            @ExcludeMissing
+            private val reason: JsonField<Reason> = JsonMissing.of(),
+            @JsonProperty("receiver_id_number")
+            @ExcludeMissing
+            private val receiverIdNumber: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("receiver_name")
+            @ExcludeMissing
+            private val receiverName: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("trace_number")
+            @ExcludeMissing
+            private val traceNumber: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("type")
+            @ExcludeMissing
+            private val type: JsonField<Type> = JsonMissing.of(),
+            @JsonAnySetter
+            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
 
             /** The declined amount in USD cents. */
@@ -1029,16 +1048,12 @@ private constructor(
                 fun amount(amount: Long) = amount(JsonField.of(amount))
 
                 /** The declined amount in USD cents. */
-                @JsonProperty("amount")
-                @ExcludeMissing
                 fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
                 /** The ACH Decline's identifier. */
                 fun id(id: String) = id(JsonField.of(id))
 
                 /** The ACH Decline's identifier. */
-                @JsonProperty("id")
-                @ExcludeMissing
                 fun id(id: JsonField<String>) = apply { this.id = id }
 
                 /**
@@ -1050,8 +1065,6 @@ private constructor(
                 /**
                  * The identifier of the Inbound ACH Transfer object associated with this decline.
                  */
-                @JsonProperty("inbound_ach_transfer_id")
-                @ExcludeMissing
                 fun inboundAchTransferId(inboundAchTransferId: JsonField<String>) = apply {
                     this.inboundAchTransferId = inboundAchTransferId
                 }
@@ -1061,8 +1074,6 @@ private constructor(
                     originatorCompanyDescriptiveDate(JsonField.of(originatorCompanyDescriptiveDate))
 
                 /** The descriptive date of the transfer. */
-                @JsonProperty("originator_company_descriptive_date")
-                @ExcludeMissing
                 fun originatorCompanyDescriptiveDate(
                     originatorCompanyDescriptiveDate: JsonField<String>
                 ) = apply {
@@ -1076,8 +1087,6 @@ private constructor(
                     )
 
                 /** The additional information included with the transfer. */
-                @JsonProperty("originator_company_discretionary_data")
-                @ExcludeMissing
                 fun originatorCompanyDiscretionaryData(
                     originatorCompanyDiscretionaryData: JsonField<String>
                 ) = apply {
@@ -1089,8 +1098,6 @@ private constructor(
                     originatorCompanyId(JsonField.of(originatorCompanyId))
 
                 /** The identifier of the company that initiated the transfer. */
-                @JsonProperty("originator_company_id")
-                @ExcludeMissing
                 fun originatorCompanyId(originatorCompanyId: JsonField<String>) = apply {
                     this.originatorCompanyId = originatorCompanyId
                 }
@@ -1100,8 +1107,6 @@ private constructor(
                     originatorCompanyName(JsonField.of(originatorCompanyName))
 
                 /** The name of the company that initiated the transfer. */
-                @JsonProperty("originator_company_name")
-                @ExcludeMissing
                 fun originatorCompanyName(originatorCompanyName: JsonField<String>) = apply {
                     this.originatorCompanyName = originatorCompanyName
                 }
@@ -1110,8 +1115,6 @@ private constructor(
                 fun reason(reason: Reason) = reason(JsonField.of(reason))
 
                 /** Why the ACH transfer was declined. */
-                @JsonProperty("reason")
-                @ExcludeMissing
                 fun reason(reason: JsonField<Reason>) = apply { this.reason = reason }
 
                 /** The id of the receiver of the transfer. */
@@ -1119,8 +1122,6 @@ private constructor(
                     receiverIdNumber(JsonField.of(receiverIdNumber))
 
                 /** The id of the receiver of the transfer. */
-                @JsonProperty("receiver_id_number")
-                @ExcludeMissing
                 fun receiverIdNumber(receiverIdNumber: JsonField<String>) = apply {
                     this.receiverIdNumber = receiverIdNumber
                 }
@@ -1129,8 +1130,6 @@ private constructor(
                 fun receiverName(receiverName: String) = receiverName(JsonField.of(receiverName))
 
                 /** The name of the receiver of the transfer. */
-                @JsonProperty("receiver_name")
-                @ExcludeMissing
                 fun receiverName(receiverName: JsonField<String>) = apply {
                     this.receiverName = receiverName
                 }
@@ -1139,8 +1138,6 @@ private constructor(
                 fun traceNumber(traceNumber: String) = traceNumber(JsonField.of(traceNumber))
 
                 /** The trace number of the transfer. */
-                @JsonProperty("trace_number")
-                @ExcludeMissing
                 fun traceNumber(traceNumber: JsonField<String>) = apply {
                     this.traceNumber = traceNumber
                 }
@@ -1155,8 +1152,6 @@ private constructor(
                  * A constant representing the object's type. For this resource it will always be
                  * `ach_decline`.
                  */
-                @JsonProperty("type")
-                @ExcludeMissing
                 fun type(type: JsonField<Type>) = apply { this.type = type }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -1164,7 +1159,6 @@ private constructor(
                     putAllAdditionalProperties(additionalProperties)
                 }
 
-                @JsonAnySetter
                 fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                     additionalProperties.put(key, value)
                 }
@@ -1434,38 +1428,94 @@ private constructor(
          * A Card Decline object. This field will be present in the JSON response if and only if
          * `category` is equal to `card_decline`.
          */
-        @JsonDeserialize(builder = CardDecline.Builder::class)
         @NoAutoDetect
         class CardDecline
+        @JsonCreator
         private constructor(
-            private val actioner: JsonField<Actioner>,
-            private val amount: JsonField<Long>,
-            private val cardPaymentId: JsonField<String>,
-            private val currency: JsonField<Currency>,
-            private val declinedTransactionId: JsonField<String>,
-            private val digitalWalletTokenId: JsonField<String>,
-            private val direction: JsonField<Direction>,
-            private val id: JsonField<String>,
-            private val merchantAcceptorId: JsonField<String>,
-            private val merchantCategoryCode: JsonField<String>,
-            private val merchantCity: JsonField<String>,
-            private val merchantCountry: JsonField<String>,
-            private val merchantDescriptor: JsonField<String>,
-            private val merchantPostalCode: JsonField<String>,
-            private val merchantState: JsonField<String>,
-            private val networkDetails: JsonField<NetworkDetails>,
-            private val networkIdentifiers: JsonField<NetworkIdentifiers>,
-            private val networkRiskScore: JsonField<Long>,
-            private val physicalCardId: JsonField<String>,
-            private val presentmentAmount: JsonField<Long>,
-            private val presentmentCurrency: JsonField<String>,
-            private val processingCategory: JsonField<ProcessingCategory>,
-            private val realTimeDecisionId: JsonField<String>,
-            private val realTimeDecisionReason: JsonField<RealTimeDecisionReason>,
-            private val reason: JsonField<Reason>,
-            private val terminalId: JsonField<String>,
-            private val verification: JsonField<Verification>,
-            private val additionalProperties: Map<String, JsonValue>,
+            @JsonProperty("actioner")
+            @ExcludeMissing
+            private val actioner: JsonField<Actioner> = JsonMissing.of(),
+            @JsonProperty("amount")
+            @ExcludeMissing
+            private val amount: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("card_payment_id")
+            @ExcludeMissing
+            private val cardPaymentId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("currency")
+            @ExcludeMissing
+            private val currency: JsonField<Currency> = JsonMissing.of(),
+            @JsonProperty("declined_transaction_id")
+            @ExcludeMissing
+            private val declinedTransactionId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("digital_wallet_token_id")
+            @ExcludeMissing
+            private val digitalWalletTokenId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("direction")
+            @ExcludeMissing
+            private val direction: JsonField<Direction> = JsonMissing.of(),
+            @JsonProperty("id")
+            @ExcludeMissing
+            private val id: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("merchant_acceptor_id")
+            @ExcludeMissing
+            private val merchantAcceptorId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("merchant_category_code")
+            @ExcludeMissing
+            private val merchantCategoryCode: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("merchant_city")
+            @ExcludeMissing
+            private val merchantCity: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("merchant_country")
+            @ExcludeMissing
+            private val merchantCountry: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("merchant_descriptor")
+            @ExcludeMissing
+            private val merchantDescriptor: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("merchant_postal_code")
+            @ExcludeMissing
+            private val merchantPostalCode: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("merchant_state")
+            @ExcludeMissing
+            private val merchantState: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("network_details")
+            @ExcludeMissing
+            private val networkDetails: JsonField<NetworkDetails> = JsonMissing.of(),
+            @JsonProperty("network_identifiers")
+            @ExcludeMissing
+            private val networkIdentifiers: JsonField<NetworkIdentifiers> = JsonMissing.of(),
+            @JsonProperty("network_risk_score")
+            @ExcludeMissing
+            private val networkRiskScore: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("physical_card_id")
+            @ExcludeMissing
+            private val physicalCardId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("presentment_amount")
+            @ExcludeMissing
+            private val presentmentAmount: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("presentment_currency")
+            @ExcludeMissing
+            private val presentmentCurrency: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("processing_category")
+            @ExcludeMissing
+            private val processingCategory: JsonField<ProcessingCategory> = JsonMissing.of(),
+            @JsonProperty("real_time_decision_id")
+            @ExcludeMissing
+            private val realTimeDecisionId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("real_time_decision_reason")
+            @ExcludeMissing
+            private val realTimeDecisionReason: JsonField<RealTimeDecisionReason> =
+                JsonMissing.of(),
+            @JsonProperty("reason")
+            @ExcludeMissing
+            private val reason: JsonField<Reason> = JsonMissing.of(),
+            @JsonProperty("terminal_id")
+            @ExcludeMissing
+            private val terminalId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("verification")
+            @ExcludeMissing
+            private val verification: JsonField<Verification> = JsonMissing.of(),
+            @JsonAnySetter
+            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
 
             /**
@@ -1869,8 +1919,6 @@ private constructor(
                  * Whether this authorization was approved by Increase, the card network through
                  * stand-in processing, or the user through a real-time decision.
                  */
-                @JsonProperty("actioner")
-                @ExcludeMissing
                 fun actioner(actioner: JsonField<Actioner>) = apply { this.actioner = actioner }
 
                 /**
@@ -1883,8 +1931,6 @@ private constructor(
                  * The declined amount in the minor unit of the destination account currency. For
                  * dollars, for example, this is cents.
                  */
-                @JsonProperty("amount")
-                @ExcludeMissing
                 fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
                 /** The ID of the Card Payment this transaction belongs to. */
@@ -1892,8 +1938,6 @@ private constructor(
                     cardPaymentId(JsonField.of(cardPaymentId))
 
                 /** The ID of the Card Payment this transaction belongs to. */
-                @JsonProperty("card_payment_id")
-                @ExcludeMissing
                 fun cardPaymentId(cardPaymentId: JsonField<String>) = apply {
                     this.cardPaymentId = cardPaymentId
                 }
@@ -1908,8 +1952,6 @@ private constructor(
                  * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the destination
                  * account currency.
                  */
-                @JsonProperty("currency")
-                @ExcludeMissing
                 fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
 
                 /** The identifier of the declined transaction created for this Card Decline. */
@@ -1917,8 +1959,6 @@ private constructor(
                     declinedTransactionId(JsonField.of(declinedTransactionId))
 
                 /** The identifier of the declined transaction created for this Card Decline. */
-                @JsonProperty("declined_transaction_id")
-                @ExcludeMissing
                 fun declinedTransactionId(declinedTransactionId: JsonField<String>) = apply {
                     this.declinedTransactionId = declinedTransactionId
                 }
@@ -1934,8 +1974,6 @@ private constructor(
                  * If the authorization was made via a Digital Wallet Token (such as an Apple Pay
                  * purchase), the identifier of the token that was used.
                  */
-                @JsonProperty("digital_wallet_token_id")
-                @ExcludeMissing
                 fun digitalWalletTokenId(digitalWalletTokenId: JsonField<String>) = apply {
                     this.digitalWalletTokenId = digitalWalletTokenId
                 }
@@ -1950,8 +1988,6 @@ private constructor(
                  * The direction describes the direction the funds will move, either from the
                  * cardholder to the merchant or from the merchant to the cardholder.
                  */
-                @JsonProperty("direction")
-                @ExcludeMissing
                 fun direction(direction: JsonField<Direction>) = apply {
                     this.direction = direction
                 }
@@ -1960,8 +1996,6 @@ private constructor(
                 fun id(id: String) = id(JsonField.of(id))
 
                 /** The Card Decline identifier. */
-                @JsonProperty("id")
-                @ExcludeMissing
                 fun id(id: JsonField<String>) = apply { this.id = id }
 
                 /**
@@ -1975,8 +2009,6 @@ private constructor(
                  * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
                  * transacting with.
                  */
-                @JsonProperty("merchant_acceptor_id")
-                @ExcludeMissing
                 fun merchantAcceptorId(merchantAcceptorId: JsonField<String>) = apply {
                     this.merchantAcceptorId = merchantAcceptorId
                 }
@@ -1992,8 +2024,6 @@ private constructor(
                  * The Merchant Category Code (commonly abbreviated as MCC) of the merchant the card
                  * is transacting with.
                  */
-                @JsonProperty("merchant_category_code")
-                @ExcludeMissing
                 fun merchantCategoryCode(merchantCategoryCode: JsonField<String>) = apply {
                     this.merchantCategoryCode = merchantCategoryCode
                 }
@@ -2002,8 +2032,6 @@ private constructor(
                 fun merchantCity(merchantCity: String) = merchantCity(JsonField.of(merchantCity))
 
                 /** The city the merchant resides in. */
-                @JsonProperty("merchant_city")
-                @ExcludeMissing
                 fun merchantCity(merchantCity: JsonField<String>) = apply {
                     this.merchantCity = merchantCity
                 }
@@ -2013,8 +2041,6 @@ private constructor(
                     merchantCountry(JsonField.of(merchantCountry))
 
                 /** The country the merchant resides in. */
-                @JsonProperty("merchant_country")
-                @ExcludeMissing
                 fun merchantCountry(merchantCountry: JsonField<String>) = apply {
                     this.merchantCountry = merchantCountry
                 }
@@ -2024,8 +2050,6 @@ private constructor(
                     merchantDescriptor(JsonField.of(merchantDescriptor))
 
                 /** The merchant descriptor of the merchant the card is transacting with. */
-                @JsonProperty("merchant_descriptor")
-                @ExcludeMissing
                 fun merchantDescriptor(merchantDescriptor: JsonField<String>) = apply {
                     this.merchantDescriptor = merchantDescriptor
                 }
@@ -2041,8 +2065,6 @@ private constructor(
                  * The merchant's postal code. For US merchants this is either a 5-digit or 9-digit
                  * ZIP code, where the first 5 and last 4 are separated by a dash.
                  */
-                @JsonProperty("merchant_postal_code")
-                @ExcludeMissing
                 fun merchantPostalCode(merchantPostalCode: JsonField<String>) = apply {
                     this.merchantPostalCode = merchantPostalCode
                 }
@@ -2052,8 +2074,6 @@ private constructor(
                     merchantState(JsonField.of(merchantState))
 
                 /** The state the merchant resides in. */
-                @JsonProperty("merchant_state")
-                @ExcludeMissing
                 fun merchantState(merchantState: JsonField<String>) = apply {
                     this.merchantState = merchantState
                 }
@@ -2063,8 +2083,6 @@ private constructor(
                     networkDetails(JsonField.of(networkDetails))
 
                 /** Fields specific to the `network`. */
-                @JsonProperty("network_details")
-                @ExcludeMissing
                 fun networkDetails(networkDetails: JsonField<NetworkDetails>) = apply {
                     this.networkDetails = networkDetails
                 }
@@ -2074,8 +2092,6 @@ private constructor(
                     networkIdentifiers(JsonField.of(networkIdentifiers))
 
                 /** Network-specific identifiers for a specific request or transaction. */
-                @JsonProperty("network_identifiers")
-                @ExcludeMissing
                 fun networkIdentifiers(networkIdentifiers: JsonField<NetworkIdentifiers>) = apply {
                     this.networkIdentifiers = networkIdentifiers
                 }
@@ -2091,8 +2107,6 @@ private constructor(
                  * The risk score generated by the card network. For Visa this is the Visa Advanced
                  * Authorization risk score, from 0 to 99, where 99 is the riskiest.
                  */
-                @JsonProperty("network_risk_score")
-                @ExcludeMissing
                 fun networkRiskScore(networkRiskScore: JsonField<Long>) = apply {
                     this.networkRiskScore = networkRiskScore
                 }
@@ -2108,8 +2122,6 @@ private constructor(
                  * If the authorization was made in-person with a physical card, the Physical Card
                  * that was used.
                  */
-                @JsonProperty("physical_card_id")
-                @ExcludeMissing
                 fun physicalCardId(physicalCardId: JsonField<String>) = apply {
                     this.physicalCardId = physicalCardId
                 }
@@ -2123,8 +2135,6 @@ private constructor(
                 /**
                  * The declined amount in the minor unit of the transaction's presentment currency.
                  */
-                @JsonProperty("presentment_amount")
-                @ExcludeMissing
                 fun presentmentAmount(presentmentAmount: JsonField<Long>) = apply {
                     this.presentmentAmount = presentmentAmount
                 }
@@ -2140,8 +2150,6 @@ private constructor(
                  * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's
                  * presentment currency.
                  */
-                @JsonProperty("presentment_currency")
-                @ExcludeMissing
                 fun presentmentCurrency(presentmentCurrency: JsonField<String>) = apply {
                     this.presentmentCurrency = presentmentCurrency
                 }
@@ -2157,8 +2165,6 @@ private constructor(
                  * The processing category describes the intent behind the authorization, such as
                  * whether it was used for bill payments or an automatic fuel dispenser.
                  */
-                @JsonProperty("processing_category")
-                @ExcludeMissing
                 fun processingCategory(processingCategory: JsonField<ProcessingCategory>) = apply {
                     this.processingCategory = processingCategory
                 }
@@ -2174,8 +2180,6 @@ private constructor(
                  * The identifier of the Real-Time Decision sent to approve or decline this
                  * transaction.
                  */
-                @JsonProperty("real_time_decision_id")
-                @ExcludeMissing
                 fun realTimeDecisionId(realTimeDecisionId: JsonField<String>) = apply {
                     this.realTimeDecisionId = realTimeDecisionId
                 }
@@ -2189,8 +2193,6 @@ private constructor(
                 /**
                  * This is present if a specific decline reason was given in the real-time decision.
                  */
-                @JsonProperty("real_time_decision_reason")
-                @ExcludeMissing
                 fun realTimeDecisionReason(
                     realTimeDecisionReason: JsonField<RealTimeDecisionReason>
                 ) = apply { this.realTimeDecisionReason = realTimeDecisionReason }
@@ -2199,8 +2201,6 @@ private constructor(
                 fun reason(reason: Reason) = reason(JsonField.of(reason))
 
                 /** Why the transaction was declined. */
-                @JsonProperty("reason")
-                @ExcludeMissing
                 fun reason(reason: JsonField<Reason>) = apply { this.reason = reason }
 
                 /**
@@ -2213,8 +2213,6 @@ private constructor(
                  * The terminal identifier (commonly abbreviated as TID) of the terminal the card is
                  * transacting with.
                  */
-                @JsonProperty("terminal_id")
-                @ExcludeMissing
                 fun terminalId(terminalId: JsonField<String>) = apply {
                     this.terminalId = terminalId
                 }
@@ -2224,8 +2222,6 @@ private constructor(
                     verification(JsonField.of(verification))
 
                 /** Fields related to verification of cardholder-provided values. */
-                @JsonProperty("verification")
-                @ExcludeMissing
                 fun verification(verification: JsonField<Verification>) = apply {
                     this.verification = verification
                 }
@@ -2235,7 +2231,6 @@ private constructor(
                     putAllAdditionalProperties(additionalProperties)
                 }
 
-                @JsonAnySetter
                 fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                     additionalProperties.put(key, value)
                 }
@@ -2488,13 +2483,18 @@ private constructor(
             }
 
             /** Fields specific to the `network`. */
-            @JsonDeserialize(builder = NetworkDetails.Builder::class)
             @NoAutoDetect
             class NetworkDetails
+            @JsonCreator
             private constructor(
-                private val category: JsonField<Category>,
-                private val visa: JsonField<Visa>,
-                private val additionalProperties: Map<String, JsonValue>,
+                @JsonProperty("category")
+                @ExcludeMissing
+                private val category: JsonField<Category> = JsonMissing.of(),
+                @JsonProperty("visa")
+                @ExcludeMissing
+                private val visa: JsonField<Visa> = JsonMissing.of(),
+                @JsonAnySetter
+                private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
             ) {
 
                 /** The payment network used to process this card authorization. */
@@ -2546,16 +2546,12 @@ private constructor(
                     fun category(category: Category) = category(JsonField.of(category))
 
                     /** The payment network used to process this card authorization. */
-                    @JsonProperty("category")
-                    @ExcludeMissing
                     fun category(category: JsonField<Category>) = apply { this.category = category }
 
                     /** Fields specific to the `visa` network. */
                     fun visa(visa: Visa) = visa(JsonField.of(visa))
 
                     /** Fields specific to the `visa` network. */
-                    @JsonProperty("visa")
-                    @ExcludeMissing
                     fun visa(visa: JsonField<Visa>) = apply { this.visa = visa }
 
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -2563,7 +2559,6 @@ private constructor(
                         putAllAdditionalProperties(additionalProperties)
                     }
 
-                    @JsonAnySetter
                     fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                         additionalProperties.put(key, value)
                     }
@@ -2642,14 +2637,25 @@ private constructor(
                 }
 
                 /** Fields specific to the `visa` network. */
-                @JsonDeserialize(builder = Visa.Builder::class)
                 @NoAutoDetect
                 class Visa
+                @JsonCreator
                 private constructor(
-                    private val electronicCommerceIndicator: JsonField<ElectronicCommerceIndicator>,
-                    private val pointOfServiceEntryMode: JsonField<PointOfServiceEntryMode>,
-                    private val standInProcessingReason: JsonField<StandInProcessingReason>,
-                    private val additionalProperties: Map<String, JsonValue>,
+                    @JsonProperty("electronic_commerce_indicator")
+                    @ExcludeMissing
+                    private val electronicCommerceIndicator:
+                        JsonField<ElectronicCommerceIndicator> =
+                        JsonMissing.of(),
+                    @JsonProperty("point_of_service_entry_mode")
+                    @ExcludeMissing
+                    private val pointOfServiceEntryMode: JsonField<PointOfServiceEntryMode> =
+                        JsonMissing.of(),
+                    @JsonProperty("stand_in_processing_reason")
+                    @ExcludeMissing
+                    private val standInProcessingReason: JsonField<StandInProcessingReason> =
+                        JsonMissing.of(),
+                    @JsonAnySetter
+                    private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
                 ) {
 
                     /**
@@ -2756,8 +2762,6 @@ private constructor(
                          * telephone order transactions, identifies the type of mail or telephone
                          * order.
                          */
-                        @JsonProperty("electronic_commerce_indicator")
-                        @ExcludeMissing
                         fun electronicCommerceIndicator(
                             electronicCommerceIndicator: JsonField<ElectronicCommerceIndicator>
                         ) = apply { this.electronicCommerceIndicator = electronicCommerceIndicator }
@@ -2774,8 +2778,6 @@ private constructor(
                          * The method used to enter the cardholder's primary account number and card
                          * expiration date.
                          */
-                        @JsonProperty("point_of_service_entry_mode")
-                        @ExcludeMissing
                         fun pointOfServiceEntryMode(
                             pointOfServiceEntryMode: JsonField<PointOfServiceEntryMode>
                         ) = apply { this.pointOfServiceEntryMode = pointOfServiceEntryMode }
@@ -2792,8 +2794,6 @@ private constructor(
                          * Only present when `actioner: network`. Describes why a card authorization
                          * was approved or declined by Visa through stand-in processing.
                          */
-                        @JsonProperty("stand_in_processing_reason")
-                        @ExcludeMissing
                         fun standInProcessingReason(
                             standInProcessingReason: JsonField<StandInProcessingReason>
                         ) = apply { this.standInProcessingReason = standInProcessingReason }
@@ -2804,7 +2804,6 @@ private constructor(
                                 putAllAdditionalProperties(additionalProperties)
                             }
 
-                        @JsonAnySetter
                         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                             additionalProperties.put(key, value)
                         }
@@ -3177,14 +3176,21 @@ private constructor(
             }
 
             /** Network-specific identifiers for a specific request or transaction. */
-            @JsonDeserialize(builder = NetworkIdentifiers.Builder::class)
             @NoAutoDetect
             class NetworkIdentifiers
+            @JsonCreator
             private constructor(
-                private val retrievalReferenceNumber: JsonField<String>,
-                private val traceNumber: JsonField<String>,
-                private val transactionId: JsonField<String>,
-                private val additionalProperties: Map<String, JsonValue>,
+                @JsonProperty("retrieval_reference_number")
+                @ExcludeMissing
+                private val retrievalReferenceNumber: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("trace_number")
+                @ExcludeMissing
+                private val traceNumber: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("transaction_id")
+                @ExcludeMissing
+                private val transactionId: JsonField<String> = JsonMissing.of(),
+                @JsonAnySetter
+                private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
             ) {
 
                 /**
@@ -3278,8 +3284,6 @@ private constructor(
                      * Expected to be unique per acquirer within a window of time. For some card
                      * networks the retrieval reference number includes the trace counter.
                      */
-                    @JsonProperty("retrieval_reference_number")
-                    @ExcludeMissing
                     fun retrievalReferenceNumber(retrievalReferenceNumber: JsonField<String>) =
                         apply {
                             this.retrievalReferenceNumber = retrievalReferenceNumber
@@ -3295,8 +3299,6 @@ private constructor(
                      * A counter used to verify an individual authorization. Expected to be unique
                      * per acquirer within a window of time.
                      */
-                    @JsonProperty("trace_number")
-                    @ExcludeMissing
                     fun traceNumber(traceNumber: JsonField<String>) = apply {
                         this.traceNumber = traceNumber
                     }
@@ -3312,8 +3314,6 @@ private constructor(
                      * A globally unique transaction identifier provided by the card network, used
                      * across multiple life-cycle requests.
                      */
-                    @JsonProperty("transaction_id")
-                    @ExcludeMissing
                     fun transactionId(transactionId: JsonField<String>) = apply {
                         this.transactionId = transactionId
                     }
@@ -3323,7 +3323,6 @@ private constructor(
                         putAllAdditionalProperties(additionalProperties)
                     }
 
-                    @JsonAnySetter
                     fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                         additionalProperties.put(key, value)
                     }
@@ -3670,13 +3669,19 @@ private constructor(
             }
 
             /** Fields related to verification of cardholder-provided values. */
-            @JsonDeserialize(builder = Verification.Builder::class)
             @NoAutoDetect
             class Verification
+            @JsonCreator
             private constructor(
-                private val cardVerificationCode: JsonField<CardVerificationCode>,
-                private val cardholderAddress: JsonField<CardholderAddress>,
-                private val additionalProperties: Map<String, JsonValue>,
+                @JsonProperty("card_verification_code")
+                @ExcludeMissing
+                private val cardVerificationCode: JsonField<CardVerificationCode> =
+                    JsonMissing.of(),
+                @JsonProperty("cardholder_address")
+                @ExcludeMissing
+                private val cardholderAddress: JsonField<CardholderAddress> = JsonMissing.of(),
+                @JsonAnySetter
+                private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
             ) {
 
                 /**
@@ -3754,8 +3759,6 @@ private constructor(
                      * Fields related to verification of the Card Verification Code, a 3-digit code
                      * on the back of the card.
                      */
-                    @JsonProperty("card_verification_code")
-                    @ExcludeMissing
                     fun cardVerificationCode(
                         cardVerificationCode: JsonField<CardVerificationCode>
                     ) = apply { this.cardVerificationCode = cardVerificationCode }
@@ -3771,8 +3774,6 @@ private constructor(
                      * Cardholder address provided in the authorization request and the address on
                      * file we verified it against.
                      */
-                    @JsonProperty("cardholder_address")
-                    @ExcludeMissing
                     fun cardholderAddress(cardholderAddress: JsonField<CardholderAddress>) = apply {
                         this.cardholderAddress = cardholderAddress
                     }
@@ -3782,7 +3783,6 @@ private constructor(
                         putAllAdditionalProperties(additionalProperties)
                     }
 
-                    @JsonAnySetter
                     fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                         additionalProperties.put(key, value)
                     }
@@ -3812,12 +3812,15 @@ private constructor(
                  * Fields related to verification of the Card Verification Code, a 3-digit code on
                  * the back of the card.
                  */
-                @JsonDeserialize(builder = CardVerificationCode.Builder::class)
                 @NoAutoDetect
                 class CardVerificationCode
+                @JsonCreator
                 private constructor(
-                    private val result: JsonField<Result>,
-                    private val additionalProperties: Map<String, JsonValue>,
+                    @JsonProperty("result")
+                    @ExcludeMissing
+                    private val result: JsonField<Result> = JsonMissing.of(),
+                    @JsonAnySetter
+                    private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
                 ) {
 
                     /** The result of verifying the Card Verification Code. */
@@ -3862,8 +3865,6 @@ private constructor(
                         fun result(result: Result) = result(JsonField.of(result))
 
                         /** The result of verifying the Card Verification Code. */
-                        @JsonProperty("result")
-                        @ExcludeMissing
                         fun result(result: JsonField<Result>) = apply { this.result = result }
 
                         fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
@@ -3872,7 +3873,6 @@ private constructor(
                                 putAllAdditionalProperties(additionalProperties)
                             }
 
-                        @JsonAnySetter
                         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                             additionalProperties.put(key, value)
                         }
@@ -3979,16 +3979,27 @@ private constructor(
                  * Cardholder address provided in the authorization request and the address on file
                  * we verified it against.
                  */
-                @JsonDeserialize(builder = CardholderAddress.Builder::class)
                 @NoAutoDetect
                 class CardholderAddress
+                @JsonCreator
                 private constructor(
-                    private val actualLine1: JsonField<String>,
-                    private val actualPostalCode: JsonField<String>,
-                    private val providedLine1: JsonField<String>,
-                    private val providedPostalCode: JsonField<String>,
-                    private val result: JsonField<Result>,
-                    private val additionalProperties: Map<String, JsonValue>,
+                    @JsonProperty("actual_line1")
+                    @ExcludeMissing
+                    private val actualLine1: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("actual_postal_code")
+                    @ExcludeMissing
+                    private val actualPostalCode: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("provided_line1")
+                    @ExcludeMissing
+                    private val providedLine1: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("provided_postal_code")
+                    @ExcludeMissing
+                    private val providedPostalCode: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("result")
+                    @ExcludeMissing
+                    private val result: JsonField<Result> = JsonMissing.of(),
+                    @JsonAnySetter
+                    private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
                 ) {
 
                     /** Line 1 of the address on file for the cardholder. */
@@ -4084,8 +4095,6 @@ private constructor(
                             actualLine1(JsonField.of(actualLine1))
 
                         /** Line 1 of the address on file for the cardholder. */
-                        @JsonProperty("actual_line1")
-                        @ExcludeMissing
                         fun actualLine1(actualLine1: JsonField<String>) = apply {
                             this.actualLine1 = actualLine1
                         }
@@ -4095,8 +4104,6 @@ private constructor(
                             actualPostalCode(JsonField.of(actualPostalCode))
 
                         /** The postal code of the address on file for the cardholder. */
-                        @JsonProperty("actual_postal_code")
-                        @ExcludeMissing
                         fun actualPostalCode(actualPostalCode: JsonField<String>) = apply {
                             this.actualPostalCode = actualPostalCode
                         }
@@ -4112,8 +4119,6 @@ private constructor(
                          * The cardholder address line 1 provided for verification in the
                          * authorization request.
                          */
-                        @JsonProperty("provided_line1")
-                        @ExcludeMissing
                         fun providedLine1(providedLine1: JsonField<String>) = apply {
                             this.providedLine1 = providedLine1
                         }
@@ -4127,8 +4132,6 @@ private constructor(
                         /**
                          * The postal code provided for verification in the authorization request.
                          */
-                        @JsonProperty("provided_postal_code")
-                        @ExcludeMissing
                         fun providedPostalCode(providedPostalCode: JsonField<String>) = apply {
                             this.providedPostalCode = providedPostalCode
                         }
@@ -4137,8 +4140,6 @@ private constructor(
                         fun result(result: Result) = result(JsonField.of(result))
 
                         /** The address verification result returned to the card network. */
-                        @JsonProperty("result")
-                        @ExcludeMissing
                         fun result(result: JsonField<Result>) = apply { this.result = result }
 
                         fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
@@ -4147,7 +4148,6 @@ private constructor(
                                 putAllAdditionalProperties(additionalProperties)
                             }
 
-                        @JsonAnySetter
                         fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                             additionalProperties.put(key, value)
                         }
@@ -4414,18 +4414,33 @@ private constructor(
          * A Check Decline object. This field will be present in the JSON response if and only if
          * `category` is equal to `check_decline`.
          */
-        @JsonDeserialize(builder = CheckDecline.Builder::class)
         @NoAutoDetect
         class CheckDecline
+        @JsonCreator
         private constructor(
-            private val amount: JsonField<Long>,
-            private val auxiliaryOnUs: JsonField<String>,
-            private val backImageFileId: JsonField<String>,
-            private val checkTransferId: JsonField<String>,
-            private val frontImageFileId: JsonField<String>,
-            private val inboundCheckDepositId: JsonField<String>,
-            private val reason: JsonField<Reason>,
-            private val additionalProperties: Map<String, JsonValue>,
+            @JsonProperty("amount")
+            @ExcludeMissing
+            private val amount: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("auxiliary_on_us")
+            @ExcludeMissing
+            private val auxiliaryOnUs: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("back_image_file_id")
+            @ExcludeMissing
+            private val backImageFileId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("check_transfer_id")
+            @ExcludeMissing
+            private val checkTransferId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("front_image_file_id")
+            @ExcludeMissing
+            private val frontImageFileId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("inbound_check_deposit_id")
+            @ExcludeMissing
+            private val inboundCheckDepositId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("reason")
+            @ExcludeMissing
+            private val reason: JsonField<Reason> = JsonMissing.of(),
+            @JsonAnySetter
+            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
 
             /** The declined amount in USD cents. */
@@ -4551,8 +4566,6 @@ private constructor(
                 fun amount(amount: Long) = amount(JsonField.of(amount))
 
                 /** The declined amount in USD cents. */
-                @JsonProperty("amount")
-                @ExcludeMissing
                 fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
                 /**
@@ -4568,8 +4581,6 @@ private constructor(
                  * the check number. This is useful for positive pay checks, but can be unreliably
                  * transmitted by the bank of first deposit.
                  */
-                @JsonProperty("auxiliary_on_us")
-                @ExcludeMissing
                 fun auxiliaryOnUs(auxiliaryOnUs: JsonField<String>) = apply {
                     this.auxiliaryOnUs = auxiliaryOnUs
                 }
@@ -4585,8 +4596,6 @@ private constructor(
                  * The identifier of the API File object containing an image of the back of the
                  * declined check.
                  */
-                @JsonProperty("back_image_file_id")
-                @ExcludeMissing
                 fun backImageFileId(backImageFileId: JsonField<String>) = apply {
                     this.backImageFileId = backImageFileId
                 }
@@ -4596,8 +4605,6 @@ private constructor(
                     checkTransferId(JsonField.of(checkTransferId))
 
                 /** The identifier of the Check Transfer object associated with this decline. */
-                @JsonProperty("check_transfer_id")
-                @ExcludeMissing
                 fun checkTransferId(checkTransferId: JsonField<String>) = apply {
                     this.checkTransferId = checkTransferId
                 }
@@ -4613,8 +4620,6 @@ private constructor(
                  * The identifier of the API File object containing an image of the front of the
                  * declined check.
                  */
-                @JsonProperty("front_image_file_id")
-                @ExcludeMissing
                 fun frontImageFileId(frontImageFileId: JsonField<String>) = apply {
                     this.frontImageFileId = frontImageFileId
                 }
@@ -4628,8 +4633,6 @@ private constructor(
                 /**
                  * The identifier of the Inbound Check Deposit object associated with this decline.
                  */
-                @JsonProperty("inbound_check_deposit_id")
-                @ExcludeMissing
                 fun inboundCheckDepositId(inboundCheckDepositId: JsonField<String>) = apply {
                     this.inboundCheckDepositId = inboundCheckDepositId
                 }
@@ -4638,8 +4641,6 @@ private constructor(
                 fun reason(reason: Reason) = reason(JsonField.of(reason))
 
                 /** Why the check was declined. */
-                @JsonProperty("reason")
-                @ExcludeMissing
                 fun reason(reason: JsonField<Reason>) = apply { this.reason = reason }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -4647,7 +4648,6 @@ private constructor(
                     putAllAdditionalProperties(additionalProperties)
                 }
 
-                @JsonAnySetter
                 fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                     additionalProperties.put(key, value)
                 }
@@ -4847,17 +4847,30 @@ private constructor(
          * A Check Deposit Rejection object. This field will be present in the JSON response if and
          * only if `category` is equal to `check_deposit_rejection`.
          */
-        @JsonDeserialize(builder = CheckDepositRejection.Builder::class)
         @NoAutoDetect
         class CheckDepositRejection
+        @JsonCreator
         private constructor(
-            private val amount: JsonField<Long>,
-            private val checkDepositId: JsonField<String>,
-            private val currency: JsonField<Currency>,
-            private val declinedTransactionId: JsonField<String>,
-            private val reason: JsonField<Reason>,
-            private val rejectedAt: JsonField<OffsetDateTime>,
-            private val additionalProperties: Map<String, JsonValue>,
+            @JsonProperty("amount")
+            @ExcludeMissing
+            private val amount: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("check_deposit_id")
+            @ExcludeMissing
+            private val checkDepositId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("currency")
+            @ExcludeMissing
+            private val currency: JsonField<Currency> = JsonMissing.of(),
+            @JsonProperty("declined_transaction_id")
+            @ExcludeMissing
+            private val declinedTransactionId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("reason")
+            @ExcludeMissing
+            private val reason: JsonField<Reason> = JsonMissing.of(),
+            @JsonProperty("rejected_at")
+            @ExcludeMissing
+            private val rejectedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+            @JsonAnySetter
+            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
 
             /**
@@ -4970,8 +4983,6 @@ private constructor(
                  * The rejected amount in the minor unit of check's currency. For dollars, for
                  * example, this is cents.
                  */
-                @JsonProperty("amount")
-                @ExcludeMissing
                 fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
                 /** The identifier of the Check Deposit that was rejected. */
@@ -4979,8 +4990,6 @@ private constructor(
                     checkDepositId(JsonField.of(checkDepositId))
 
                 /** The identifier of the Check Deposit that was rejected. */
-                @JsonProperty("check_deposit_id")
-                @ExcludeMissing
                 fun checkDepositId(checkDepositId: JsonField<String>) = apply {
                     this.checkDepositId = checkDepositId
                 }
@@ -4995,8 +5004,6 @@ private constructor(
                  * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the check's
                  * currency.
                  */
-                @JsonProperty("currency")
-                @ExcludeMissing
                 fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
 
                 /** The identifier of the associated declined transaction. */
@@ -5004,8 +5011,6 @@ private constructor(
                     declinedTransactionId(JsonField.of(declinedTransactionId))
 
                 /** The identifier of the associated declined transaction. */
-                @JsonProperty("declined_transaction_id")
-                @ExcludeMissing
                 fun declinedTransactionId(declinedTransactionId: JsonField<String>) = apply {
                     this.declinedTransactionId = declinedTransactionId
                 }
@@ -5014,8 +5019,6 @@ private constructor(
                 fun reason(reason: Reason) = reason(JsonField.of(reason))
 
                 /** Why the check deposit was rejected. */
-                @JsonProperty("reason")
-                @ExcludeMissing
                 fun reason(reason: JsonField<Reason>) = apply { this.reason = reason }
 
                 /**
@@ -5028,8 +5031,6 @@ private constructor(
                  * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
                  * check deposit was rejected.
                  */
-                @JsonProperty("rejected_at")
-                @ExcludeMissing
                 fun rejectedAt(rejectedAt: JsonField<OffsetDateTime>) = apply {
                     this.rejectedAt = rejectedAt
                 }
@@ -5039,7 +5040,6 @@ private constructor(
                     putAllAdditionalProperties(additionalProperties)
                 }
 
-                @JsonAnySetter
                 fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                     additionalProperties.put(key, value)
                 }
@@ -5284,21 +5284,42 @@ private constructor(
          * JSON response if and only if `category` is equal to
          * `inbound_real_time_payments_transfer_decline`.
          */
-        @JsonDeserialize(builder = InboundRealTimePaymentsTransferDecline.Builder::class)
         @NoAutoDetect
         class InboundRealTimePaymentsTransferDecline
+        @JsonCreator
         private constructor(
-            private val amount: JsonField<Long>,
-            private val creditorName: JsonField<String>,
-            private val currency: JsonField<Currency>,
-            private val debtorAccountNumber: JsonField<String>,
-            private val debtorName: JsonField<String>,
-            private val debtorRoutingNumber: JsonField<String>,
-            private val reason: JsonField<Reason>,
-            private val remittanceInformation: JsonField<String>,
-            private val transactionIdentification: JsonField<String>,
-            private val transferId: JsonField<String>,
-            private val additionalProperties: Map<String, JsonValue>,
+            @JsonProperty("amount")
+            @ExcludeMissing
+            private val amount: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("creditor_name")
+            @ExcludeMissing
+            private val creditorName: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("currency")
+            @ExcludeMissing
+            private val currency: JsonField<Currency> = JsonMissing.of(),
+            @JsonProperty("debtor_account_number")
+            @ExcludeMissing
+            private val debtorAccountNumber: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("debtor_name")
+            @ExcludeMissing
+            private val debtorName: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("debtor_routing_number")
+            @ExcludeMissing
+            private val debtorRoutingNumber: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("reason")
+            @ExcludeMissing
+            private val reason: JsonField<Reason> = JsonMissing.of(),
+            @JsonProperty("remittance_information")
+            @ExcludeMissing
+            private val remittanceInformation: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("transaction_identification")
+            @ExcludeMissing
+            private val transactionIdentification: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("transfer_id")
+            @ExcludeMissing
+            private val transferId: JsonField<String> = JsonMissing.of(),
+            @JsonAnySetter
+            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
 
             /**
@@ -5457,8 +5478,6 @@ private constructor(
                  * The declined amount in the minor unit of the destination account currency. For
                  * dollars, for example, this is cents.
                  */
-                @JsonProperty("amount")
-                @ExcludeMissing
                 fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
                 /**
@@ -5469,8 +5488,6 @@ private constructor(
                 /**
                  * The name the sender of the transfer specified as the recipient of the transfer.
                  */
-                @JsonProperty("creditor_name")
-                @ExcludeMissing
                 fun creditorName(creditorName: JsonField<String>) = apply {
                     this.creditorName = creditorName
                 }
@@ -5485,8 +5502,6 @@ private constructor(
                  * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code of the declined
                  * transfer's currency. This will always be "USD" for a Real-Time Payments transfer.
                  */
-                @JsonProperty("currency")
-                @ExcludeMissing
                 fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
 
                 /** The account number of the account that sent the transfer. */
@@ -5494,8 +5509,6 @@ private constructor(
                     debtorAccountNumber(JsonField.of(debtorAccountNumber))
 
                 /** The account number of the account that sent the transfer. */
-                @JsonProperty("debtor_account_number")
-                @ExcludeMissing
                 fun debtorAccountNumber(debtorAccountNumber: JsonField<String>) = apply {
                     this.debtorAccountNumber = debtorAccountNumber
                 }
@@ -5504,8 +5517,6 @@ private constructor(
                 fun debtorName(debtorName: String) = debtorName(JsonField.of(debtorName))
 
                 /** The name provided by the sender of the transfer. */
-                @JsonProperty("debtor_name")
-                @ExcludeMissing
                 fun debtorName(debtorName: JsonField<String>) = apply {
                     this.debtorName = debtorName
                 }
@@ -5515,8 +5526,6 @@ private constructor(
                     debtorRoutingNumber(JsonField.of(debtorRoutingNumber))
 
                 /** The routing number of the account that sent the transfer. */
-                @JsonProperty("debtor_routing_number")
-                @ExcludeMissing
                 fun debtorRoutingNumber(debtorRoutingNumber: JsonField<String>) = apply {
                     this.debtorRoutingNumber = debtorRoutingNumber
                 }
@@ -5525,8 +5534,6 @@ private constructor(
                 fun reason(reason: Reason) = reason(JsonField.of(reason))
 
                 /** Why the transfer was declined. */
-                @JsonProperty("reason")
-                @ExcludeMissing
                 fun reason(reason: JsonField<Reason>) = apply { this.reason = reason }
 
                 /** Additional information included with the transfer. */
@@ -5534,8 +5541,6 @@ private constructor(
                     remittanceInformation(JsonField.of(remittanceInformation))
 
                 /** Additional information included with the transfer. */
-                @JsonProperty("remittance_information")
-                @ExcludeMissing
                 fun remittanceInformation(remittanceInformation: JsonField<String>) = apply {
                     this.remittanceInformation = remittanceInformation
                 }
@@ -5545,8 +5550,6 @@ private constructor(
                     transactionIdentification(JsonField.of(transactionIdentification))
 
                 /** The Real-Time Payments network identification of the declined transfer. */
-                @JsonProperty("transaction_identification")
-                @ExcludeMissing
                 fun transactionIdentification(transactionIdentification: JsonField<String>) =
                     apply {
                         this.transactionIdentification = transactionIdentification
@@ -5560,8 +5563,6 @@ private constructor(
                 /**
                  * The identifier of the Real-Time Payments Transfer that led to this Transaction.
                  */
-                @JsonProperty("transfer_id")
-                @ExcludeMissing
                 fun transferId(transferId: JsonField<String>) = apply {
                     this.transferId = transferId
                 }
@@ -5571,7 +5572,6 @@ private constructor(
                     putAllAdditionalProperties(additionalProperties)
                 }
 
-                @JsonAnySetter
                 fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                     additionalProperties.put(key, value)
                 }
@@ -5789,13 +5789,18 @@ private constructor(
          * A Wire Decline object. This field will be present in the JSON response if and only if
          * `category` is equal to `wire_decline`.
          */
-        @JsonDeserialize(builder = WireDecline.Builder::class)
         @NoAutoDetect
         class WireDecline
+        @JsonCreator
         private constructor(
-            private val inboundWireTransferId: JsonField<String>,
-            private val reason: JsonField<Reason>,
-            private val additionalProperties: Map<String, JsonValue>,
+            @JsonProperty("inbound_wire_transfer_id")
+            @ExcludeMissing
+            private val inboundWireTransferId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("reason")
+            @ExcludeMissing
+            private val reason: JsonField<Reason> = JsonMissing.of(),
+            @JsonAnySetter
+            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
 
             /** The identifier of the Inbound Wire Transfer that was declined. */
@@ -5851,8 +5856,6 @@ private constructor(
                     inboundWireTransferId(JsonField.of(inboundWireTransferId))
 
                 /** The identifier of the Inbound Wire Transfer that was declined. */
-                @JsonProperty("inbound_wire_transfer_id")
-                @ExcludeMissing
                 fun inboundWireTransferId(inboundWireTransferId: JsonField<String>) = apply {
                     this.inboundWireTransferId = inboundWireTransferId
                 }
@@ -5861,8 +5864,6 @@ private constructor(
                 fun reason(reason: Reason) = reason(JsonField.of(reason))
 
                 /** Why the wire transfer was declined. */
-                @JsonProperty("reason")
-                @ExcludeMissing
                 fun reason(reason: JsonField<Reason>) = apply { this.reason = reason }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -5870,7 +5871,6 @@ private constructor(
                     putAllAdditionalProperties(additionalProperties)
                 }
 
-                @JsonAnySetter
                 fun putAdditionalProperty(key: String, value: JsonValue) = apply {
                     additionalProperties.put(key, value)
                 }
