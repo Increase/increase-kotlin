@@ -119,31 +119,32 @@ constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(physicalCardProfileCloneBody: PhysicalCardProfileCloneBody) = apply {
-                this.carrierImageFileId = physicalCardProfileCloneBody.carrierImageFileId
-                this.contactPhone = physicalCardProfileCloneBody.contactPhone
-                this.description = physicalCardProfileCloneBody.description
-                this.frontImageFileId = physicalCardProfileCloneBody.frontImageFileId
-                this.frontText = physicalCardProfileCloneBody.frontText
-                additionalProperties(physicalCardProfileCloneBody.additionalProperties)
+                carrierImageFileId = physicalCardProfileCloneBody.carrierImageFileId
+                contactPhone = physicalCardProfileCloneBody.contactPhone
+                description = physicalCardProfileCloneBody.description
+                frontImageFileId = physicalCardProfileCloneBody.frontImageFileId
+                frontText = physicalCardProfileCloneBody.frontText
+                additionalProperties =
+                    physicalCardProfileCloneBody.additionalProperties.toMutableMap()
             }
 
             /** The identifier of the File containing the physical card's carrier image. */
             @JsonProperty("carrier_image_file_id")
-            fun carrierImageFileId(carrierImageFileId: String) = apply {
+            fun carrierImageFileId(carrierImageFileId: String?) = apply {
                 this.carrierImageFileId = carrierImageFileId
             }
 
             /** A phone number the user can contact to receive support for their card. */
             @JsonProperty("contact_phone")
-            fun contactPhone(contactPhone: String) = apply { this.contactPhone = contactPhone }
+            fun contactPhone(contactPhone: String?) = apply { this.contactPhone = contactPhone }
 
             /** A description you can use to identify the Card Profile. */
             @JsonProperty("description")
-            fun description(description: String) = apply { this.description = description }
+            fun description(description: String?) = apply { this.description = description }
 
             /** The identifier of the File containing the physical card's front image. */
             @JsonProperty("front_image_file_id")
-            fun frontImageFileId(frontImageFileId: String) = apply {
+            fun frontImageFileId(frontImageFileId: String?) = apply {
                 this.frontImageFileId = frontImageFileId
             }
 
@@ -152,20 +153,26 @@ constructor(
              * [support@increase.com](mailto:support@increase.com) for more information.
              */
             @JsonProperty("front_text")
-            fun frontText(frontText: FrontText) = apply { this.frontText = frontText }
+            fun frontText(frontText: FrontText?) = apply { this.frontText = frontText }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): PhysicalCardProfileCloneBody =
@@ -401,13 +408,13 @@ constructor(
     @NoAutoDetect
     class FrontText
     private constructor(
-        private val line1: String?,
+        private val line1: String,
         private val line2: String?,
         private val additionalProperties: Map<String, JsonValue>,
     ) {
 
         /** The first line of text on the front of the card. */
-        @JsonProperty("line1") fun line1(): String? = line1
+        @JsonProperty("line1") fun line1(): String = line1
 
         /**
          * The second line of text on the front of the card. Providing a second line moves the first
@@ -434,9 +441,9 @@ constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(frontText: FrontText) = apply {
-                this.line1 = frontText.line1
-                this.line2 = frontText.line2
-                additionalProperties(frontText.additionalProperties)
+                line1 = frontText.line1
+                line2 = frontText.line2
+                additionalProperties = frontText.additionalProperties.toMutableMap()
             }
 
             /** The first line of text on the front of the card. */
@@ -447,20 +454,26 @@ constructor(
              * first line slightly higher and prints the second line in the spot where the first
              * line would have otherwise been printed.
              */
-            @JsonProperty("line2") fun line2(line2: String) = apply { this.line2 = line2 }
+            @JsonProperty("line2") fun line2(line2: String?) = apply { this.line2 = line2 }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): FrontText =

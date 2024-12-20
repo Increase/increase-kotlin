@@ -109,8 +109,8 @@ constructor(
     @NoAutoDetect
     class SimulationInboundWireTransferCreateBody
     internal constructor(
-        private val accountNumberId: String?,
-        private val amount: Long?,
+        private val accountNumberId: String,
+        private val amount: Long,
         private val beneficiaryAddressLine1: String?,
         private val beneficiaryAddressLine2: String?,
         private val beneficiaryAddressLine3: String?,
@@ -130,10 +130,10 @@ constructor(
     ) {
 
         /** The identifier of the Account Number the inbound Wire Transfer is for. */
-        @JsonProperty("account_number_id") fun accountNumberId(): String? = accountNumberId
+        @JsonProperty("account_number_id") fun accountNumberId(): String = accountNumberId
 
         /** The transfer amount in cents. Must be positive. */
-        @JsonProperty("amount") fun amount(): Long? = amount
+        @JsonProperty("amount") fun amount(): Long = amount
 
         /**
          * The sending bank will set beneficiary_address_line1 in production. You can simulate any
@@ -275,36 +275,36 @@ constructor(
             internal fun from(
                 simulationInboundWireTransferCreateBody: SimulationInboundWireTransferCreateBody
             ) = apply {
-                this.accountNumberId = simulationInboundWireTransferCreateBody.accountNumberId
-                this.amount = simulationInboundWireTransferCreateBody.amount
-                this.beneficiaryAddressLine1 =
+                accountNumberId = simulationInboundWireTransferCreateBody.accountNumberId
+                amount = simulationInboundWireTransferCreateBody.amount
+                beneficiaryAddressLine1 =
                     simulationInboundWireTransferCreateBody.beneficiaryAddressLine1
-                this.beneficiaryAddressLine2 =
+                beneficiaryAddressLine2 =
                     simulationInboundWireTransferCreateBody.beneficiaryAddressLine2
-                this.beneficiaryAddressLine3 =
+                beneficiaryAddressLine3 =
                     simulationInboundWireTransferCreateBody.beneficiaryAddressLine3
-                this.beneficiaryName = simulationInboundWireTransferCreateBody.beneficiaryName
-                this.beneficiaryReference =
-                    simulationInboundWireTransferCreateBody.beneficiaryReference
-                this.originatorAddressLine1 =
+                beneficiaryName = simulationInboundWireTransferCreateBody.beneficiaryName
+                beneficiaryReference = simulationInboundWireTransferCreateBody.beneficiaryReference
+                originatorAddressLine1 =
                     simulationInboundWireTransferCreateBody.originatorAddressLine1
-                this.originatorAddressLine2 =
+                originatorAddressLine2 =
                     simulationInboundWireTransferCreateBody.originatorAddressLine2
-                this.originatorAddressLine3 =
+                originatorAddressLine3 =
                     simulationInboundWireTransferCreateBody.originatorAddressLine3
-                this.originatorName = simulationInboundWireTransferCreateBody.originatorName
-                this.originatorRoutingNumber =
+                originatorName = simulationInboundWireTransferCreateBody.originatorName
+                originatorRoutingNumber =
                     simulationInboundWireTransferCreateBody.originatorRoutingNumber
-                this.originatorToBeneficiaryInformationLine1 =
+                originatorToBeneficiaryInformationLine1 =
                     simulationInboundWireTransferCreateBody.originatorToBeneficiaryInformationLine1
-                this.originatorToBeneficiaryInformationLine2 =
+                originatorToBeneficiaryInformationLine2 =
                     simulationInboundWireTransferCreateBody.originatorToBeneficiaryInformationLine2
-                this.originatorToBeneficiaryInformationLine3 =
+                originatorToBeneficiaryInformationLine3 =
                     simulationInboundWireTransferCreateBody.originatorToBeneficiaryInformationLine3
-                this.originatorToBeneficiaryInformationLine4 =
+                originatorToBeneficiaryInformationLine4 =
                     simulationInboundWireTransferCreateBody.originatorToBeneficiaryInformationLine4
-                this.senderReference = simulationInboundWireTransferCreateBody.senderReference
-                additionalProperties(simulationInboundWireTransferCreateBody.additionalProperties)
+                senderReference = simulationInboundWireTransferCreateBody.senderReference
+                additionalProperties =
+                    simulationInboundWireTransferCreateBody.additionalProperties.toMutableMap()
             }
 
             /** The identifier of the Account Number the inbound Wire Transfer is for. */
@@ -321,7 +321,7 @@ constructor(
              * any value here.
              */
             @JsonProperty("beneficiary_address_line1")
-            fun beneficiaryAddressLine1(beneficiaryAddressLine1: String) = apply {
+            fun beneficiaryAddressLine1(beneficiaryAddressLine1: String?) = apply {
                 this.beneficiaryAddressLine1 = beneficiaryAddressLine1
             }
 
@@ -330,7 +330,7 @@ constructor(
              * any value here.
              */
             @JsonProperty("beneficiary_address_line2")
-            fun beneficiaryAddressLine2(beneficiaryAddressLine2: String) = apply {
+            fun beneficiaryAddressLine2(beneficiaryAddressLine2: String?) = apply {
                 this.beneficiaryAddressLine2 = beneficiaryAddressLine2
             }
 
@@ -339,7 +339,7 @@ constructor(
              * any value here.
              */
             @JsonProperty("beneficiary_address_line3")
-            fun beneficiaryAddressLine3(beneficiaryAddressLine3: String) = apply {
+            fun beneficiaryAddressLine3(beneficiaryAddressLine3: String?) = apply {
                 this.beneficiaryAddressLine3 = beneficiaryAddressLine3
             }
 
@@ -348,7 +348,7 @@ constructor(
              * here.
              */
             @JsonProperty("beneficiary_name")
-            fun beneficiaryName(beneficiaryName: String) = apply {
+            fun beneficiaryName(beneficiaryName: String?) = apply {
                 this.beneficiaryName = beneficiaryName
             }
 
@@ -357,7 +357,7 @@ constructor(
              * value here.
              */
             @JsonProperty("beneficiary_reference")
-            fun beneficiaryReference(beneficiaryReference: String) = apply {
+            fun beneficiaryReference(beneficiaryReference: String?) = apply {
                 this.beneficiaryReference = beneficiaryReference
             }
 
@@ -366,7 +366,7 @@ constructor(
              * any value here.
              */
             @JsonProperty("originator_address_line1")
-            fun originatorAddressLine1(originatorAddressLine1: String) = apply {
+            fun originatorAddressLine1(originatorAddressLine1: String?) = apply {
                 this.originatorAddressLine1 = originatorAddressLine1
             }
 
@@ -375,7 +375,7 @@ constructor(
              * any value here.
              */
             @JsonProperty("originator_address_line2")
-            fun originatorAddressLine2(originatorAddressLine2: String) = apply {
+            fun originatorAddressLine2(originatorAddressLine2: String?) = apply {
                 this.originatorAddressLine2 = originatorAddressLine2
             }
 
@@ -384,7 +384,7 @@ constructor(
              * any value here.
              */
             @JsonProperty("originator_address_line3")
-            fun originatorAddressLine3(originatorAddressLine3: String) = apply {
+            fun originatorAddressLine3(originatorAddressLine3: String?) = apply {
                 this.originatorAddressLine3 = originatorAddressLine3
             }
 
@@ -393,7 +393,7 @@ constructor(
              * here.
              */
             @JsonProperty("originator_name")
-            fun originatorName(originatorName: String) = apply {
+            fun originatorName(originatorName: String?) = apply {
                 this.originatorName = originatorName
             }
 
@@ -402,7 +402,7 @@ constructor(
              * any value here.
              */
             @JsonProperty("originator_routing_number")
-            fun originatorRoutingNumber(originatorRoutingNumber: String) = apply {
+            fun originatorRoutingNumber(originatorRoutingNumber: String?) = apply {
                 this.originatorRoutingNumber = originatorRoutingNumber
             }
 
@@ -412,7 +412,7 @@ constructor(
              */
             @JsonProperty("originator_to_beneficiary_information_line1")
             fun originatorToBeneficiaryInformationLine1(
-                originatorToBeneficiaryInformationLine1: String
+                originatorToBeneficiaryInformationLine1: String?
             ) = apply {
                 this.originatorToBeneficiaryInformationLine1 =
                     originatorToBeneficiaryInformationLine1
@@ -424,7 +424,7 @@ constructor(
              */
             @JsonProperty("originator_to_beneficiary_information_line2")
             fun originatorToBeneficiaryInformationLine2(
-                originatorToBeneficiaryInformationLine2: String
+                originatorToBeneficiaryInformationLine2: String?
             ) = apply {
                 this.originatorToBeneficiaryInformationLine2 =
                     originatorToBeneficiaryInformationLine2
@@ -436,7 +436,7 @@ constructor(
              */
             @JsonProperty("originator_to_beneficiary_information_line3")
             fun originatorToBeneficiaryInformationLine3(
-                originatorToBeneficiaryInformationLine3: String
+                originatorToBeneficiaryInformationLine3: String?
             ) = apply {
                 this.originatorToBeneficiaryInformationLine3 =
                     originatorToBeneficiaryInformationLine3
@@ -448,7 +448,7 @@ constructor(
              */
             @JsonProperty("originator_to_beneficiary_information_line4")
             fun originatorToBeneficiaryInformationLine4(
-                originatorToBeneficiaryInformationLine4: String
+                originatorToBeneficiaryInformationLine4: String?
             ) = apply {
                 this.originatorToBeneficiaryInformationLine4 =
                     originatorToBeneficiaryInformationLine4
@@ -459,22 +459,28 @@ constructor(
              * here.
              */
             @JsonProperty("sender_reference")
-            fun senderReference(senderReference: String) = apply {
+            fun senderReference(senderReference: String?) = apply {
                 this.senderReference = senderReference
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): SimulationInboundWireTransferCreateBody =

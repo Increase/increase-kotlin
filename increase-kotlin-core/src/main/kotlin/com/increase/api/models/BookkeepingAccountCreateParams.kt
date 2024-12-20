@@ -61,7 +61,7 @@ constructor(
     @NoAutoDetect
     class BookkeepingAccountCreateBody
     internal constructor(
-        private val name: String?,
+        private val name: String,
         private val accountId: String?,
         private val complianceCategory: ComplianceCategory?,
         private val entityId: String?,
@@ -69,7 +69,7 @@ constructor(
     ) {
 
         /** The name you choose for the account. */
-        @JsonProperty("name") fun name(): String? = name
+        @JsonProperty("name") fun name(): String = name
 
         /** The entity, if `compliance_category` is `commingled_cash`. */
         @JsonProperty("account_id") fun accountId(): String? = accountId
@@ -101,11 +101,12 @@ constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(bookkeepingAccountCreateBody: BookkeepingAccountCreateBody) = apply {
-                this.name = bookkeepingAccountCreateBody.name
-                this.accountId = bookkeepingAccountCreateBody.accountId
-                this.complianceCategory = bookkeepingAccountCreateBody.complianceCategory
-                this.entityId = bookkeepingAccountCreateBody.entityId
-                additionalProperties(bookkeepingAccountCreateBody.additionalProperties)
+                name = bookkeepingAccountCreateBody.name
+                accountId = bookkeepingAccountCreateBody.accountId
+                complianceCategory = bookkeepingAccountCreateBody.complianceCategory
+                entityId = bookkeepingAccountCreateBody.entityId
+                additionalProperties =
+                    bookkeepingAccountCreateBody.additionalProperties.toMutableMap()
             }
 
             /** The name you choose for the account. */
@@ -113,30 +114,36 @@ constructor(
 
             /** The entity, if `compliance_category` is `commingled_cash`. */
             @JsonProperty("account_id")
-            fun accountId(accountId: String) = apply { this.accountId = accountId }
+            fun accountId(accountId: String?) = apply { this.accountId = accountId }
 
             /** The account compliance category. */
             @JsonProperty("compliance_category")
-            fun complianceCategory(complianceCategory: ComplianceCategory) = apply {
+            fun complianceCategory(complianceCategory: ComplianceCategory?) = apply {
                 this.complianceCategory = complianceCategory
             }
 
             /** The entity, if `compliance_category` is `customer_balance`. */
             @JsonProperty("entity_id")
-            fun entityId(entityId: String) = apply { this.entityId = entityId }
+            fun entityId(entityId: String?) = apply { this.entityId = entityId }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
-                this.additionalProperties.putAll(additionalProperties)
+                putAllAdditionalProperties(additionalProperties)
             }
 
             @JsonAnySetter
             fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
+                additionalProperties.put(key, value)
             }
 
             fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
             }
 
             fun build(): BookkeepingAccountCreateBody =
