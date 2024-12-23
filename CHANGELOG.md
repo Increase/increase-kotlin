@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.152.0 (2024-12-23)
+
+Full Changelog: [v0.151.0...v0.152.0](https://github.com/Increase/increase-kotlin/compare/v0.151.0...v0.152.0)
+
+### ⚠ BREAKING CHANGES
+
+* **client:** switch query params objects to use `QueryParams` ([#664](https://github.com/Increase/increase-kotlin/issues/664))
+
+### Features
+
+* **api:** api update ([#667](https://github.com/Increase/increase-kotlin/issues/667)) ([7f06cf1](https://github.com/Increase/increase-kotlin/commit/7f06cf11acce99cb97afa46dfcc4871562a396cc))
+* **api:** api update ([#668](https://github.com/Increase/increase-kotlin/issues/668)) ([e707a7d](https://github.com/Increase/increase-kotlin/commit/e707a7d0ee16039df4eeb5e55c7059b3988b787c))
+* **api:** api update ([#669](https://github.com/Increase/increase-kotlin/issues/669)) ([a92355b](https://github.com/Increase/increase-kotlin/commit/a92355bb63a20dfa3141962588af9df43c911255))
+
+
+### Refactors
+
+* **client:** switch query params objects to use `QueryParams` ([#664](https://github.com/Increase/increase-kotlin/issues/664)) ([b8424eb](https://github.com/Increase/increase-kotlin/commit/b8424ebc7e3fe446fbaf63a036509f9227b60d13))
+* **internal:** use constructor to deserialize json ([#666](https://github.com/Increase/increase-kotlin/issues/666)) ([d08fe13](https://github.com/Increase/increase-kotlin/commit/d08fe130c92a1b0bba21a097c7811c4c502f3d8f))
+
 ## 0.151.0 (2024-12-20)
 
 Full Changelog: [v0.150.1...v0.151.0](https://github.com/Increase/increase-kotlin/compare/v0.150.1...v0.151.0)
