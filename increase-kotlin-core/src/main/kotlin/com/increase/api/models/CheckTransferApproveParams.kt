@@ -17,6 +17,7 @@ constructor(
     private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
+    /** The identifier of the Check Transfer to approve. */
     fun checkTransferId(): String = checkTransferId
 
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -25,9 +26,7 @@ constructor(
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
 
-    internal fun getBody(): Map<String, JsonValue>? {
-        return additionalBodyProperties.ifEmpty { null }
-    }
+    internal fun getBody(): Map<String, JsonValue>? = additionalBodyProperties.ifEmpty { null }
 
     internal fun getHeaders(): Headers = additionalHeaders
 

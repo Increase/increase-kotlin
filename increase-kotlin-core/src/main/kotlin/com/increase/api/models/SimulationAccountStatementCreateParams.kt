@@ -17,23 +17,21 @@ import java.util.Objects
 
 class SimulationAccountStatementCreateParams
 constructor(
-    private val accountId: String,
+    private val body: SimulationAccountStatementCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
-    fun accountId(): String = accountId
+    /** The identifier of the Account the statement is for. */
+    fun accountId(): String = body.accountId()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    internal fun getBody(): SimulationAccountStatementCreateBody {
-        return SimulationAccountStatementCreateBody(accountId, additionalBodyProperties)
-    }
+    internal fun getBody(): SimulationAccountStatementCreateBody = body
 
     internal fun getHeaders(): Headers = additionalHeaders
 
@@ -132,24 +130,22 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var accountId: String? = null
+        private var body: SimulationAccountStatementCreateBody.Builder =
+            SimulationAccountStatementCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(
             simulationAccountStatementCreateParams: SimulationAccountStatementCreateParams
         ) = apply {
-            accountId = simulationAccountStatementCreateParams.accountId
+            body = simulationAccountStatementCreateParams.body.toBuilder()
             additionalHeaders = simulationAccountStatementCreateParams.additionalHeaders.toBuilder()
             additionalQueryParams =
                 simulationAccountStatementCreateParams.additionalQueryParams.toBuilder()
-            additionalBodyProperties =
-                simulationAccountStatementCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The identifier of the Account the statement is for. */
-        fun accountId(accountId: String) = apply { this.accountId = accountId }
+        fun accountId(accountId: String) = apply { body.accountId(accountId) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -250,33 +246,29 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): SimulationAccountStatementCreateParams =
             SimulationAccountStatementCreateParams(
-                checkNotNull(accountId) { "`accountId` is required but was not set" },
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -285,11 +277,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is SimulationAccountStatementCreateParams && accountId == other.accountId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is SimulationAccountStatementCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "SimulationAccountStatementCreateParams{accountId=$accountId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "SimulationAccountStatementCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

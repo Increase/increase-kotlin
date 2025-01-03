@@ -21,50 +21,45 @@ import java.util.Objects
 
 class ExportCreateParams
 constructor(
-    private val category: Category,
-    private val accountStatementOfx: AccountStatementOfx?,
-    private val balanceCsv: BalanceCsv?,
-    private val bookkeepingAccountBalanceCsv: BookkeepingAccountBalanceCsv?,
-    private val entityCsv: EntityCsv?,
-    private val transactionCsv: TransactionCsv?,
-    private val vendorCsv: JsonValue?,
+    private val body: ExportCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
-    fun category(): Category = category
+    /** The type of Export to create. */
+    fun category(): Category = body.category()
 
-    fun accountStatementOfx(): AccountStatementOfx? = accountStatementOfx
+    /**
+     * Options for the created export. Required if `category` is equal to `account_statement_ofx`.
+     */
+    fun accountStatementOfx(): AccountStatementOfx? = body.accountStatementOfx()
 
-    fun balanceCsv(): BalanceCsv? = balanceCsv
+    /** Options for the created export. Required if `category` is equal to `balance_csv`. */
+    fun balanceCsv(): BalanceCsv? = body.balanceCsv()
 
-    fun bookkeepingAccountBalanceCsv(): BookkeepingAccountBalanceCsv? = bookkeepingAccountBalanceCsv
+    /**
+     * Options for the created export. Required if `category` is equal to
+     * `bookkeeping_account_balance_csv`.
+     */
+    fun bookkeepingAccountBalanceCsv(): BookkeepingAccountBalanceCsv? =
+        body.bookkeepingAccountBalanceCsv()
 
-    fun entityCsv(): EntityCsv? = entityCsv
+    /** Options for the created export. Required if `category` is equal to `entity_csv`. */
+    fun entityCsv(): EntityCsv? = body.entityCsv()
 
-    fun transactionCsv(): TransactionCsv? = transactionCsv
+    /** Options for the created export. Required if `category` is equal to `transaction_csv`. */
+    fun transactionCsv(): TransactionCsv? = body.transactionCsv()
 
-    fun vendorCsv(): JsonValue? = vendorCsv
+    /** Options for the created export. Required if `category` is equal to `vendor_csv`. */
+    fun vendorCsv(): JsonValue? = body.vendorCsv()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    internal fun getBody(): ExportCreateBody {
-        return ExportCreateBody(
-            category,
-            accountStatementOfx,
-            balanceCsv,
-            bookkeepingAccountBalanceCsv,
-            entityCsv,
-            transactionCsv,
-            vendorCsv,
-            additionalBodyProperties,
-        )
-    }
+    internal fun getBody(): ExportCreateBody = body
 
     internal fun getHeaders(): Headers = additionalHeaders
 
@@ -157,33 +152,33 @@ constructor(
              * Options for the created export. Required if `category` is equal to
              * `account_statement_ofx`.
              */
-            fun accountStatementOfx(accountStatementOfx: AccountStatementOfx?) = apply {
+            fun accountStatementOfx(accountStatementOfx: AccountStatementOfx) = apply {
                 this.accountStatementOfx = accountStatementOfx
             }
 
             /** Options for the created export. Required if `category` is equal to `balance_csv`. */
-            fun balanceCsv(balanceCsv: BalanceCsv?) = apply { this.balanceCsv = balanceCsv }
+            fun balanceCsv(balanceCsv: BalanceCsv) = apply { this.balanceCsv = balanceCsv }
 
             /**
              * Options for the created export. Required if `category` is equal to
              * `bookkeeping_account_balance_csv`.
              */
             fun bookkeepingAccountBalanceCsv(
-                bookkeepingAccountBalanceCsv: BookkeepingAccountBalanceCsv?
+                bookkeepingAccountBalanceCsv: BookkeepingAccountBalanceCsv
             ) = apply { this.bookkeepingAccountBalanceCsv = bookkeepingAccountBalanceCsv }
 
             /** Options for the created export. Required if `category` is equal to `entity_csv`. */
-            fun entityCsv(entityCsv: EntityCsv?) = apply { this.entityCsv = entityCsv }
+            fun entityCsv(entityCsv: EntityCsv) = apply { this.entityCsv = entityCsv }
 
             /**
              * Options for the created export. Required if `category` is equal to `transaction_csv`.
              */
-            fun transactionCsv(transactionCsv: TransactionCsv?) = apply {
+            fun transactionCsv(transactionCsv: TransactionCsv) = apply {
                 this.transactionCsv = transactionCsv
             }
 
             /** Options for the created export. Required if `category` is equal to `vendor_csv`. */
-            fun vendorCsv(vendorCsv: JsonValue?) = apply { this.vendorCsv = vendorCsv }
+            fun vendorCsv(vendorCsv: JsonValue) = apply { this.vendorCsv = vendorCsv }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -245,43 +240,29 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var category: Category? = null
-        private var accountStatementOfx: AccountStatementOfx? = null
-        private var balanceCsv: BalanceCsv? = null
-        private var bookkeepingAccountBalanceCsv: BookkeepingAccountBalanceCsv? = null
-        private var entityCsv: EntityCsv? = null
-        private var transactionCsv: TransactionCsv? = null
-        private var vendorCsv: JsonValue? = null
+        private var body: ExportCreateBody.Builder = ExportCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(exportCreateParams: ExportCreateParams) = apply {
-            category = exportCreateParams.category
-            accountStatementOfx = exportCreateParams.accountStatementOfx
-            balanceCsv = exportCreateParams.balanceCsv
-            bookkeepingAccountBalanceCsv = exportCreateParams.bookkeepingAccountBalanceCsv
-            entityCsv = exportCreateParams.entityCsv
-            transactionCsv = exportCreateParams.transactionCsv
-            vendorCsv = exportCreateParams.vendorCsv
+            body = exportCreateParams.body.toBuilder()
             additionalHeaders = exportCreateParams.additionalHeaders.toBuilder()
             additionalQueryParams = exportCreateParams.additionalQueryParams.toBuilder()
-            additionalBodyProperties = exportCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The type of Export to create. */
-        fun category(category: Category) = apply { this.category = category }
+        fun category(category: Category) = apply { body.category(category) }
 
         /**
          * Options for the created export. Required if `category` is equal to
          * `account_statement_ofx`.
          */
         fun accountStatementOfx(accountStatementOfx: AccountStatementOfx) = apply {
-            this.accountStatementOfx = accountStatementOfx
+            body.accountStatementOfx(accountStatementOfx)
         }
 
         /** Options for the created export. Required if `category` is equal to `balance_csv`. */
-        fun balanceCsv(balanceCsv: BalanceCsv) = apply { this.balanceCsv = balanceCsv }
+        fun balanceCsv(balanceCsv: BalanceCsv) = apply { body.balanceCsv(balanceCsv) }
 
         /**
          * Options for the created export. Required if `category` is equal to
@@ -289,18 +270,18 @@ constructor(
          */
         fun bookkeepingAccountBalanceCsv(
             bookkeepingAccountBalanceCsv: BookkeepingAccountBalanceCsv
-        ) = apply { this.bookkeepingAccountBalanceCsv = bookkeepingAccountBalanceCsv }
+        ) = apply { body.bookkeepingAccountBalanceCsv(bookkeepingAccountBalanceCsv) }
 
         /** Options for the created export. Required if `category` is equal to `entity_csv`. */
-        fun entityCsv(entityCsv: EntityCsv) = apply { this.entityCsv = entityCsv }
+        fun entityCsv(entityCsv: EntityCsv) = apply { body.entityCsv(entityCsv) }
 
         /** Options for the created export. Required if `category` is equal to `transaction_csv`. */
         fun transactionCsv(transactionCsv: TransactionCsv) = apply {
-            this.transactionCsv = transactionCsv
+            body.transactionCsv(transactionCsv)
         }
 
         /** Options for the created export. Required if `category` is equal to `vendor_csv`. */
-        fun vendorCsv(vendorCsv: JsonValue) = apply { this.vendorCsv = vendorCsv }
+        fun vendorCsv(vendorCsv: JsonValue) = apply { body.vendorCsv(vendorCsv) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -401,39 +382,29 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): ExportCreateParams =
             ExportCreateParams(
-                checkNotNull(category) { "`category` is required but was not set" },
-                accountStatementOfx,
-                balanceCsv,
-                bookkeepingAccountBalanceCsv,
-                entityCsv,
-                transactionCsv,
-                vendorCsv,
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -564,7 +535,7 @@ constructor(
             fun accountId(accountId: String) = apply { this.accountId = accountId }
 
             /** Filter results by time range on the `created_at` attribute. */
-            fun createdAt(createdAt: CreatedAt?) = apply { this.createdAt = createdAt }
+            fun createdAt(createdAt: CreatedAt) = apply { this.createdAt = createdAt }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -661,25 +632,25 @@ constructor(
                  * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
                  * timestamp.
                  */
-                fun after(after: OffsetDateTime?) = apply { this.after = after }
+                fun after(after: OffsetDateTime) = apply { this.after = after }
 
                 /**
                  * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
                  * timestamp.
                  */
-                fun before(before: OffsetDateTime?) = apply { this.before = before }
+                fun before(before: OffsetDateTime) = apply { this.before = before }
 
                 /**
                  * Return results on or after this
                  * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
                  */
-                fun onOrAfter(onOrAfter: OffsetDateTime?) = apply { this.onOrAfter = onOrAfter }
+                fun onOrAfter(onOrAfter: OffsetDateTime) = apply { this.onOrAfter = onOrAfter }
 
                 /**
                  * Return results on or before this
                  * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
                  */
-                fun onOrBefore(onOrBefore: OffsetDateTime?) = apply { this.onOrBefore = onOrBefore }
+                fun onOrBefore(onOrBefore: OffsetDateTime) = apply { this.onOrBefore = onOrBefore }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -796,13 +767,13 @@ constructor(
             }
 
             /** Filter exported Transactions to the specified Account. */
-            fun accountId(accountId: String?) = apply { this.accountId = accountId }
+            fun accountId(accountId: String) = apply { this.accountId = accountId }
 
             /** Filter results by time range on the `created_at` attribute. */
-            fun createdAt(createdAt: CreatedAt?) = apply { this.createdAt = createdAt }
+            fun createdAt(createdAt: CreatedAt) = apply { this.createdAt = createdAt }
 
             /** Filter exported Transactions to the specified Program. */
-            fun programId(programId: String?) = apply { this.programId = programId }
+            fun programId(programId: String) = apply { this.programId = programId }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -900,25 +871,25 @@ constructor(
                  * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
                  * timestamp.
                  */
-                fun after(after: OffsetDateTime?) = apply { this.after = after }
+                fun after(after: OffsetDateTime) = apply { this.after = after }
 
                 /**
                  * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
                  * timestamp.
                  */
-                fun before(before: OffsetDateTime?) = apply { this.before = before }
+                fun before(before: OffsetDateTime) = apply { this.before = before }
 
                 /**
                  * Return results on or after this
                  * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
                  */
-                fun onOrAfter(onOrAfter: OffsetDateTime?) = apply { this.onOrAfter = onOrAfter }
+                fun onOrAfter(onOrAfter: OffsetDateTime) = apply { this.onOrAfter = onOrAfter }
 
                 /**
                  * Return results on or before this
                  * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
                  */
-                fun onOrBefore(onOrBefore: OffsetDateTime?) = apply { this.onOrBefore = onOrBefore }
+                fun onOrBefore(onOrBefore: OffsetDateTime) = apply { this.onOrBefore = onOrBefore }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -1034,12 +1005,12 @@ constructor(
             }
 
             /** Filter exported Transactions to the specified Bookkeeping Account. */
-            fun bookkeepingAccountId(bookkeepingAccountId: String?) = apply {
+            fun bookkeepingAccountId(bookkeepingAccountId: String) = apply {
                 this.bookkeepingAccountId = bookkeepingAccountId
             }
 
             /** Filter results by time range on the `created_at` attribute. */
-            fun createdAt(createdAt: CreatedAt?) = apply { this.createdAt = createdAt }
+            fun createdAt(createdAt: CreatedAt) = apply { this.createdAt = createdAt }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -1136,25 +1107,25 @@ constructor(
                  * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
                  * timestamp.
                  */
-                fun after(after: OffsetDateTime?) = apply { this.after = after }
+                fun after(after: OffsetDateTime) = apply { this.after = after }
 
                 /**
                  * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
                  * timestamp.
                  */
-                fun before(before: OffsetDateTime?) = apply { this.before = before }
+                fun before(before: OffsetDateTime) = apply { this.before = before }
 
                 /**
                  * Return results on or after this
                  * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
                  */
-                fun onOrAfter(onOrAfter: OffsetDateTime?) = apply { this.onOrAfter = onOrAfter }
+                fun onOrAfter(onOrAfter: OffsetDateTime) = apply { this.onOrAfter = onOrAfter }
 
                 /**
                  * Return results on or before this
                  * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
                  */
-                fun onOrBefore(onOrBefore: OffsetDateTime?) = apply { this.onOrBefore = onOrBefore }
+                fun onOrBefore(onOrBefore: OffsetDateTime) = apply { this.onOrBefore = onOrBefore }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -1259,7 +1230,7 @@ constructor(
             }
 
             /** Entity statuses to filter by. */
-            fun status(status: Status?) = apply { this.status = status }
+            fun status(status: Status) = apply { this.status = status }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -1312,7 +1283,7 @@ constructor(
 
             class Builder {
 
-                private var in_: List<In>? = null
+                private var in_: MutableList<In>? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(status: Status) = apply {
@@ -1324,7 +1295,15 @@ constructor(
                  * Entity statuses to filter by. For GET requests, this should be encoded as a
                  * comma-delimited string, such as `?in=one,two,three`.
                  */
-                fun in_(in_: List<In>) = apply { this.in_ = in_ }
+                fun in_(in_: List<In>) = apply { this.in_ = in_.toMutableList() }
+
+                /**
+                 * Entity statuses to filter by. For GET requests, this should be encoded as a
+                 * comma-delimited string, such as `?in=one,two,three`.
+                 */
+                fun addIn(in_: In) = apply {
+                    this.in_ = (this.in_ ?: mutableListOf()).apply { add(in_) }
+                }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -1500,13 +1479,13 @@ constructor(
             }
 
             /** Filter exported Transactions to the specified Account. */
-            fun accountId(accountId: String?) = apply { this.accountId = accountId }
+            fun accountId(accountId: String) = apply { this.accountId = accountId }
 
             /** Filter results by time range on the `created_at` attribute. */
-            fun createdAt(createdAt: CreatedAt?) = apply { this.createdAt = createdAt }
+            fun createdAt(createdAt: CreatedAt) = apply { this.createdAt = createdAt }
 
             /** Filter exported Transactions to the specified Program. */
-            fun programId(programId: String?) = apply { this.programId = programId }
+            fun programId(programId: String) = apply { this.programId = programId }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -1604,25 +1583,25 @@ constructor(
                  * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
                  * timestamp.
                  */
-                fun after(after: OffsetDateTime?) = apply { this.after = after }
+                fun after(after: OffsetDateTime) = apply { this.after = after }
 
                 /**
                  * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
                  * timestamp.
                  */
-                fun before(before: OffsetDateTime?) = apply { this.before = before }
+                fun before(before: OffsetDateTime) = apply { this.before = before }
 
                 /**
                  * Return results on or after this
                  * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
                  */
-                fun onOrAfter(onOrAfter: OffsetDateTime?) = apply { this.onOrAfter = onOrAfter }
+                fun onOrAfter(onOrAfter: OffsetDateTime) = apply { this.onOrAfter = onOrAfter }
 
                 /**
                  * Return results on or before this
                  * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
                  */
-                fun onOrBefore(onOrBefore: OffsetDateTime?) = apply { this.onOrBefore = onOrBefore }
+                fun onOrBefore(onOrBefore: OffsetDateTime) = apply { this.onOrBefore = onOrBefore }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -1697,11 +1676,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is ExportCreateParams && category == other.category && accountStatementOfx == other.accountStatementOfx && balanceCsv == other.balanceCsv && bookkeepingAccountBalanceCsv == other.bookkeepingAccountBalanceCsv && entityCsv == other.entityCsv && transactionCsv == other.transactionCsv && vendorCsv == other.vendorCsv && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is ExportCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(category, accountStatementOfx, balanceCsv, bookkeepingAccountBalanceCsv, entityCsv, transactionCsv, vendorCsv, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "ExportCreateParams{category=$category, accountStatementOfx=$accountStatementOfx, balanceCsv=$balanceCsv, bookkeepingAccountBalanceCsv=$bookkeepingAccountBalanceCsv, entityCsv=$entityCsv, transactionCsv=$transactionCsv, vendorCsv=$vendorCsv, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "ExportCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }
