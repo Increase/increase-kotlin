@@ -21,32 +21,27 @@ import java.util.Objects
 class SimulationCardDisputeActionParams
 constructor(
     private val cardDisputeId: String,
-    private val status: Status,
-    private val explanation: String?,
+    private val body: SimulationCardDisputeActionBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
+    /** The dispute you would like to action. */
     fun cardDisputeId(): String = cardDisputeId
 
-    fun status(): Status = status
+    /** The status to move the dispute to. */
+    fun status(): Status = body.status()
 
-    fun explanation(): String? = explanation
+    /** Why the dispute was rejected. Not required for accepting disputes. */
+    fun explanation(): String? = body.explanation()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    internal fun getBody(): SimulationCardDisputeActionBody {
-        return SimulationCardDisputeActionBody(
-            status,
-            explanation,
-            additionalBodyProperties,
-        )
-    }
+    internal fun getBody(): SimulationCardDisputeActionBody = body
 
     internal fun getHeaders(): Headers = additionalHeaders
 
@@ -104,7 +99,7 @@ constructor(
             fun status(status: Status) = apply { this.status = status }
 
             /** Why the dispute was rejected. Not required for accepting disputes. */
-            fun explanation(explanation: String?) = apply { this.explanation = explanation }
+            fun explanation(explanation: String) = apply { this.explanation = explanation }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -162,32 +157,28 @@ constructor(
     class Builder {
 
         private var cardDisputeId: String? = null
-        private var status: Status? = null
-        private var explanation: String? = null
+        private var body: SimulationCardDisputeActionBody.Builder =
+            SimulationCardDisputeActionBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(simulationCardDisputeActionParams: SimulationCardDisputeActionParams) =
             apply {
                 cardDisputeId = simulationCardDisputeActionParams.cardDisputeId
-                status = simulationCardDisputeActionParams.status
-                explanation = simulationCardDisputeActionParams.explanation
+                body = simulationCardDisputeActionParams.body.toBuilder()
                 additionalHeaders = simulationCardDisputeActionParams.additionalHeaders.toBuilder()
                 additionalQueryParams =
                     simulationCardDisputeActionParams.additionalQueryParams.toBuilder()
-                additionalBodyProperties =
-                    simulationCardDisputeActionParams.additionalBodyProperties.toMutableMap()
             }
 
         /** The dispute you would like to action. */
         fun cardDisputeId(cardDisputeId: String) = apply { this.cardDisputeId = cardDisputeId }
 
         /** The status to move the dispute to. */
-        fun status(status: Status) = apply { this.status = status }
+        fun status(status: Status) = apply { body.status(status) }
 
         /** Why the dispute was rejected. Not required for accepting disputes. */
-        fun explanation(explanation: String) = apply { this.explanation = explanation }
+        fun explanation(explanation: String) = apply { body.explanation(explanation) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -288,35 +279,30 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): SimulationCardDisputeActionParams =
             SimulationCardDisputeActionParams(
                 checkNotNull(cardDisputeId) { "`cardDisputeId` is required but was not set" },
-                checkNotNull(status) { "`status` is required but was not set" },
-                explanation,
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -400,11 +386,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is SimulationCardDisputeActionParams && cardDisputeId == other.cardDisputeId && status == other.status && explanation == other.explanation && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is SimulationCardDisputeActionParams && cardDisputeId == other.cardDisputeId && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(cardDisputeId, status, explanation, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(cardDisputeId, body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "SimulationCardDisputeActionParams{cardDisputeId=$cardDisputeId, status=$status, explanation=$explanation, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "SimulationCardDisputeActionParams{cardDisputeId=$cardDisputeId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

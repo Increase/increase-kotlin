@@ -25,16 +25,21 @@ constructor(
     private val additionalQueryParams: QueryParams,
 ) {
 
+    /** Filter Inbound ACH Tranfers to ones belonging to the specified Account. */
     fun accountId(): String? = accountId
 
+    /** Filter Inbound ACH Tranfers to ones belonging to the specified Account Number. */
     fun accountNumberId(): String? = accountNumberId
 
     fun createdAt(): CreatedAt? = createdAt
 
+    /** Return the page of entries after this one. */
     fun cursor(): String? = cursor
 
+    /** Limit the size of the list that is returned. The default (and maximum) is 100 objects. */
     fun limit(): Long? = limit
 
+    /** Filter Inbound ACH Transfers to those with the specified status. */
     fun status(): Status? = status
 
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -295,25 +300,25 @@ constructor(
              * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            fun after(after: OffsetDateTime?) = apply { this.after = after }
+            fun after(after: OffsetDateTime) = apply { this.after = after }
 
             /**
              * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            fun before(before: OffsetDateTime?) = apply { this.before = before }
+            fun before(before: OffsetDateTime) = apply { this.before = before }
 
             /**
              * Return results on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            fun onOrAfter(onOrAfter: OffsetDateTime?) = apply { this.onOrAfter = onOrAfter }
+            fun onOrAfter(onOrAfter: OffsetDateTime) = apply { this.onOrAfter = onOrAfter }
 
             /**
              * Return results on or before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            fun onOrBefore(onOrBefore: OffsetDateTime?) = apply { this.onOrBefore = onOrBefore }
+            fun onOrBefore(onOrBefore: OffsetDateTime) = apply { this.onOrBefore = onOrBefore }
 
             fun additionalProperties(additionalProperties: QueryParams) = apply {
                 this.additionalProperties.clear()

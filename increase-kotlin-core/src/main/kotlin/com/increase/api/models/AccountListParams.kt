@@ -29,18 +29,29 @@ constructor(
 
     fun createdAt(): CreatedAt? = createdAt
 
+    /** Return the page of entries after this one. */
     fun cursor(): String? = cursor
 
+    /** Filter Accounts for those belonging to the specified Entity. */
     fun entityId(): String? = entityId
 
+    /**
+     * Filter records to the one with the specified `idempotency_key` you chose for that object.
+     * This value is unique across Increase and is used to ensure that a request is only processed
+     * once. Learn more about [idempotency](https://increase.com/documentation/idempotency-keys).
+     */
     fun idempotencyKey(): String? = idempotencyKey
 
+    /** Filter Accounts for those belonging to the specified Entity as informational. */
     fun informationalEntityId(): String? = informationalEntityId
 
+    /** Limit the size of the list that is returned. The default (and maximum) is 100 objects. */
     fun limit(): Long? = limit
 
+    /** Filter Accounts for those in a specific Program. */
     fun programId(): String? = programId
 
+    /** Filter Accounts for those with the specified status. */
     fun status(): Status? = status
 
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -322,25 +333,25 @@ constructor(
              * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            fun after(after: OffsetDateTime?) = apply { this.after = after }
+            fun after(after: OffsetDateTime) = apply { this.after = after }
 
             /**
              * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            fun before(before: OffsetDateTime?) = apply { this.before = before }
+            fun before(before: OffsetDateTime) = apply { this.before = before }
 
             /**
              * Return results on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            fun onOrAfter(onOrAfter: OffsetDateTime?) = apply { this.onOrAfter = onOrAfter }
+            fun onOrAfter(onOrAfter: OffsetDateTime) = apply { this.onOrAfter = onOrAfter }
 
             /**
              * Return results on or before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            fun onOrBefore(onOrBefore: OffsetDateTime?) = apply { this.onOrBefore = onOrBefore }
+            fun onOrBefore(onOrBefore: OffsetDateTime) = apply { this.onOrBefore = onOrBefore }
 
             fun additionalProperties(additionalProperties: QueryParams) = apply {
                 this.additionalProperties.clear()

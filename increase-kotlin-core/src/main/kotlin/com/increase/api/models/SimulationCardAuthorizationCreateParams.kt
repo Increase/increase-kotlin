@@ -20,82 +20,83 @@ import java.util.Objects
 
 class SimulationCardAuthorizationCreateParams
 constructor(
-    private val amount: Long,
-    private val authenticatedCardPaymentId: String?,
-    private val cardId: String?,
-    private val declineReason: DeclineReason?,
-    private val digitalWalletTokenId: String?,
-    private val direction: Direction?,
-    private val eventSubscriptionId: String?,
-    private val merchantAcceptorId: String?,
-    private val merchantCategoryCode: String?,
-    private val merchantCity: String?,
-    private val merchantCountry: String?,
-    private val merchantDescriptor: String?,
-    private val merchantState: String?,
-    private val physicalCardId: String?,
-    private val terminalId: String?,
+    private val body: SimulationCardAuthorizationCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
-    fun amount(): Long = amount
+    /** The authorization amount in cents. */
+    fun amount(): Long = body.amount()
 
-    fun authenticatedCardPaymentId(): String? = authenticatedCardPaymentId
+    /**
+     * The identifier of a Card Payment with a `card_authentication` if you want to simulate an
+     * authenticated authorization.
+     */
+    fun authenticatedCardPaymentId(): String? = body.authenticatedCardPaymentId()
 
-    fun cardId(): String? = cardId
+    /** The identifier of the Card to be authorized. */
+    fun cardId(): String? = body.cardId()
 
-    fun declineReason(): DeclineReason? = declineReason
+    /** Forces a card decline with a specific reason. No real time decision will be sent. */
+    fun declineReason(): DeclineReason? = body.declineReason()
 
-    fun digitalWalletTokenId(): String? = digitalWalletTokenId
+    /** The identifier of the Digital Wallet Token to be authorized. */
+    fun digitalWalletTokenId(): String? = body.digitalWalletTokenId()
 
-    fun direction(): Direction? = direction
+    /**
+     * The direction describes the direction the funds will move, either from the cardholder to the
+     * merchant or from the merchant to the cardholder.
+     */
+    fun direction(): Direction? = body.direction()
 
-    fun eventSubscriptionId(): String? = eventSubscriptionId
+    /**
+     * The identifier of the Event Subscription to use. If provided, will override the default real
+     * time event subscription. Because you can only create one real time decision event
+     * subscription, you can use this field to route events to any specified event subscription for
+     * testing purposes.
+     */
+    fun eventSubscriptionId(): String? = body.eventSubscriptionId()
 
-    fun merchantAcceptorId(): String? = merchantAcceptorId
+    /**
+     * The merchant identifier (commonly abbreviated as MID) of the merchant the card is transacting
+     * with.
+     */
+    fun merchantAcceptorId(): String? = body.merchantAcceptorId()
 
-    fun merchantCategoryCode(): String? = merchantCategoryCode
+    /**
+     * The Merchant Category Code (commonly abbreviated as MCC) of the merchant the card is
+     * transacting with.
+     */
+    fun merchantCategoryCode(): String? = body.merchantCategoryCode()
 
-    fun merchantCity(): String? = merchantCity
+    /** The city the merchant resides in. */
+    fun merchantCity(): String? = body.merchantCity()
 
-    fun merchantCountry(): String? = merchantCountry
+    /** The country the merchant resides in. */
+    fun merchantCountry(): String? = body.merchantCountry()
 
-    fun merchantDescriptor(): String? = merchantDescriptor
+    /** The merchant descriptor of the merchant the card is transacting with. */
+    fun merchantDescriptor(): String? = body.merchantDescriptor()
 
-    fun merchantState(): String? = merchantState
+    /** The state the merchant resides in. */
+    fun merchantState(): String? = body.merchantState()
 
-    fun physicalCardId(): String? = physicalCardId
+    /** The identifier of the Physical Card to be authorized. */
+    fun physicalCardId(): String? = body.physicalCardId()
 
-    fun terminalId(): String? = terminalId
+    /**
+     * The terminal identifier (commonly abbreviated as TID) of the terminal the card is transacting
+     * with.
+     */
+    fun terminalId(): String? = body.terminalId()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    internal fun getBody(): SimulationCardAuthorizationCreateBody {
-        return SimulationCardAuthorizationCreateBody(
-            amount,
-            authenticatedCardPaymentId,
-            cardId,
-            declineReason,
-            digitalWalletTokenId,
-            direction,
-            eventSubscriptionId,
-            merchantAcceptorId,
-            merchantCategoryCode,
-            merchantCity,
-            merchantCountry,
-            merchantDescriptor,
-            merchantState,
-            physicalCardId,
-            terminalId,
-            additionalBodyProperties,
-        )
-    }
+    internal fun getBody(): SimulationCardAuthorizationCreateBody = body
 
     internal fun getHeaders(): Headers = additionalHeaders
 
@@ -254,20 +255,20 @@ constructor(
              * The identifier of a Card Payment with a `card_authentication` if you want to simulate
              * an authenticated authorization.
              */
-            fun authenticatedCardPaymentId(authenticatedCardPaymentId: String?) = apply {
+            fun authenticatedCardPaymentId(authenticatedCardPaymentId: String) = apply {
                 this.authenticatedCardPaymentId = authenticatedCardPaymentId
             }
 
             /** The identifier of the Card to be authorized. */
-            fun cardId(cardId: String?) = apply { this.cardId = cardId }
+            fun cardId(cardId: String) = apply { this.cardId = cardId }
 
             /** Forces a card decline with a specific reason. No real time decision will be sent. */
-            fun declineReason(declineReason: DeclineReason?) = apply {
+            fun declineReason(declineReason: DeclineReason) = apply {
                 this.declineReason = declineReason
             }
 
             /** The identifier of the Digital Wallet Token to be authorized. */
-            fun digitalWalletTokenId(digitalWalletTokenId: String?) = apply {
+            fun digitalWalletTokenId(digitalWalletTokenId: String) = apply {
                 this.digitalWalletTokenId = digitalWalletTokenId
             }
 
@@ -275,7 +276,7 @@ constructor(
              * The direction describes the direction the funds will move, either from the cardholder
              * to the merchant or from the merchant to the cardholder.
              */
-            fun direction(direction: Direction?) = apply { this.direction = direction }
+            fun direction(direction: Direction) = apply { this.direction = direction }
 
             /**
              * The identifier of the Event Subscription to use. If provided, will override the
@@ -283,7 +284,7 @@ constructor(
              * decision event subscription, you can use this field to route events to any specified
              * event subscription for testing purposes.
              */
-            fun eventSubscriptionId(eventSubscriptionId: String?) = apply {
+            fun eventSubscriptionId(eventSubscriptionId: String) = apply {
                 this.eventSubscriptionId = eventSubscriptionId
             }
 
@@ -291,7 +292,7 @@ constructor(
              * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
              * transacting with.
              */
-            fun merchantAcceptorId(merchantAcceptorId: String?) = apply {
+            fun merchantAcceptorId(merchantAcceptorId: String) = apply {
                 this.merchantAcceptorId = merchantAcceptorId
             }
 
@@ -299,28 +300,28 @@ constructor(
              * The Merchant Category Code (commonly abbreviated as MCC) of the merchant the card is
              * transacting with.
              */
-            fun merchantCategoryCode(merchantCategoryCode: String?) = apply {
+            fun merchantCategoryCode(merchantCategoryCode: String) = apply {
                 this.merchantCategoryCode = merchantCategoryCode
             }
 
             /** The city the merchant resides in. */
-            fun merchantCity(merchantCity: String?) = apply { this.merchantCity = merchantCity }
+            fun merchantCity(merchantCity: String) = apply { this.merchantCity = merchantCity }
 
             /** The country the merchant resides in. */
-            fun merchantCountry(merchantCountry: String?) = apply {
+            fun merchantCountry(merchantCountry: String) = apply {
                 this.merchantCountry = merchantCountry
             }
 
             /** The merchant descriptor of the merchant the card is transacting with. */
-            fun merchantDescriptor(merchantDescriptor: String?) = apply {
+            fun merchantDescriptor(merchantDescriptor: String) = apply {
                 this.merchantDescriptor = merchantDescriptor
             }
 
             /** The state the merchant resides in. */
-            fun merchantState(merchantState: String?) = apply { this.merchantState = merchantState }
+            fun merchantState(merchantState: String) = apply { this.merchantState = merchantState }
 
             /** The identifier of the Physical Card to be authorized. */
-            fun physicalCardId(physicalCardId: String?) = apply {
+            fun physicalCardId(physicalCardId: String) = apply {
                 this.physicalCardId = physicalCardId
             }
 
@@ -328,7 +329,7 @@ constructor(
              * The terminal identifier (commonly abbreviated as TID) of the terminal the card is
              * transacting with.
              */
-            fun terminalId(terminalId: String?) = apply { this.terminalId = terminalId }
+            fun terminalId(terminalId: String) = apply { this.terminalId = terminalId }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -398,81 +399,50 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var amount: Long? = null
-        private var authenticatedCardPaymentId: String? = null
-        private var cardId: String? = null
-        private var declineReason: DeclineReason? = null
-        private var digitalWalletTokenId: String? = null
-        private var direction: Direction? = null
-        private var eventSubscriptionId: String? = null
-        private var merchantAcceptorId: String? = null
-        private var merchantCategoryCode: String? = null
-        private var merchantCity: String? = null
-        private var merchantCountry: String? = null
-        private var merchantDescriptor: String? = null
-        private var merchantState: String? = null
-        private var physicalCardId: String? = null
-        private var terminalId: String? = null
+        private var body: SimulationCardAuthorizationCreateBody.Builder =
+            SimulationCardAuthorizationCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(
             simulationCardAuthorizationCreateParams: SimulationCardAuthorizationCreateParams
         ) = apply {
-            amount = simulationCardAuthorizationCreateParams.amount
-            authenticatedCardPaymentId =
-                simulationCardAuthorizationCreateParams.authenticatedCardPaymentId
-            cardId = simulationCardAuthorizationCreateParams.cardId
-            declineReason = simulationCardAuthorizationCreateParams.declineReason
-            digitalWalletTokenId = simulationCardAuthorizationCreateParams.digitalWalletTokenId
-            direction = simulationCardAuthorizationCreateParams.direction
-            eventSubscriptionId = simulationCardAuthorizationCreateParams.eventSubscriptionId
-            merchantAcceptorId = simulationCardAuthorizationCreateParams.merchantAcceptorId
-            merchantCategoryCode = simulationCardAuthorizationCreateParams.merchantCategoryCode
-            merchantCity = simulationCardAuthorizationCreateParams.merchantCity
-            merchantCountry = simulationCardAuthorizationCreateParams.merchantCountry
-            merchantDescriptor = simulationCardAuthorizationCreateParams.merchantDescriptor
-            merchantState = simulationCardAuthorizationCreateParams.merchantState
-            physicalCardId = simulationCardAuthorizationCreateParams.physicalCardId
-            terminalId = simulationCardAuthorizationCreateParams.terminalId
+            body = simulationCardAuthorizationCreateParams.body.toBuilder()
             additionalHeaders =
                 simulationCardAuthorizationCreateParams.additionalHeaders.toBuilder()
             additionalQueryParams =
                 simulationCardAuthorizationCreateParams.additionalQueryParams.toBuilder()
-            additionalBodyProperties =
-                simulationCardAuthorizationCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The authorization amount in cents. */
-        fun amount(amount: Long) = apply { this.amount = amount }
+        fun amount(amount: Long) = apply { body.amount(amount) }
 
         /**
          * The identifier of a Card Payment with a `card_authentication` if you want to simulate an
          * authenticated authorization.
          */
         fun authenticatedCardPaymentId(authenticatedCardPaymentId: String) = apply {
-            this.authenticatedCardPaymentId = authenticatedCardPaymentId
+            body.authenticatedCardPaymentId(authenticatedCardPaymentId)
         }
 
         /** The identifier of the Card to be authorized. */
-        fun cardId(cardId: String) = apply { this.cardId = cardId }
+        fun cardId(cardId: String) = apply { body.cardId(cardId) }
 
         /** Forces a card decline with a specific reason. No real time decision will be sent. */
         fun declineReason(declineReason: DeclineReason) = apply {
-            this.declineReason = declineReason
+            body.declineReason(declineReason)
         }
 
         /** The identifier of the Digital Wallet Token to be authorized. */
         fun digitalWalletTokenId(digitalWalletTokenId: String) = apply {
-            this.digitalWalletTokenId = digitalWalletTokenId
+            body.digitalWalletTokenId(digitalWalletTokenId)
         }
 
         /**
          * The direction describes the direction the funds will move, either from the cardholder to
          * the merchant or from the merchant to the cardholder.
          */
-        fun direction(direction: Direction) = apply { this.direction = direction }
+        fun direction(direction: Direction) = apply { body.direction(direction) }
 
         /**
          * The identifier of the Event Subscription to use. If provided, will override the default
@@ -481,7 +451,7 @@ constructor(
          * for testing purposes.
          */
         fun eventSubscriptionId(eventSubscriptionId: String) = apply {
-            this.eventSubscriptionId = eventSubscriptionId
+            body.eventSubscriptionId(eventSubscriptionId)
         }
 
         /**
@@ -489,7 +459,7 @@ constructor(
          * transacting with.
          */
         fun merchantAcceptorId(merchantAcceptorId: String) = apply {
-            this.merchantAcceptorId = merchantAcceptorId
+            body.merchantAcceptorId(merchantAcceptorId)
         }
 
         /**
@@ -497,33 +467,33 @@ constructor(
          * transacting with.
          */
         fun merchantCategoryCode(merchantCategoryCode: String) = apply {
-            this.merchantCategoryCode = merchantCategoryCode
+            body.merchantCategoryCode(merchantCategoryCode)
         }
 
         /** The city the merchant resides in. */
-        fun merchantCity(merchantCity: String) = apply { this.merchantCity = merchantCity }
+        fun merchantCity(merchantCity: String) = apply { body.merchantCity(merchantCity) }
 
         /** The country the merchant resides in. */
         fun merchantCountry(merchantCountry: String) = apply {
-            this.merchantCountry = merchantCountry
+            body.merchantCountry(merchantCountry)
         }
 
         /** The merchant descriptor of the merchant the card is transacting with. */
         fun merchantDescriptor(merchantDescriptor: String) = apply {
-            this.merchantDescriptor = merchantDescriptor
+            body.merchantDescriptor(merchantDescriptor)
         }
 
         /** The state the merchant resides in. */
-        fun merchantState(merchantState: String) = apply { this.merchantState = merchantState }
+        fun merchantState(merchantState: String) = apply { body.merchantState(merchantState) }
 
         /** The identifier of the Physical Card to be authorized. */
-        fun physicalCardId(physicalCardId: String) = apply { this.physicalCardId = physicalCardId }
+        fun physicalCardId(physicalCardId: String) = apply { body.physicalCardId(physicalCardId) }
 
         /**
          * The terminal identifier (commonly abbreviated as TID) of the terminal the card is
          * transacting with.
          */
-        fun terminalId(terminalId: String) = apply { this.terminalId = terminalId }
+        fun terminalId(terminalId: String) = apply { body.terminalId(terminalId) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -624,47 +594,29 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): SimulationCardAuthorizationCreateParams =
             SimulationCardAuthorizationCreateParams(
-                checkNotNull(amount) { "`amount` is required but was not set" },
-                authenticatedCardPaymentId,
-                cardId,
-                declineReason,
-                digitalWalletTokenId,
-                direction,
-                eventSubscriptionId,
-                merchantAcceptorId,
-                merchantCategoryCode,
-                merchantCity,
-                merchantCountry,
-                merchantDescriptor,
-                merchantState,
-                physicalCardId,
-                terminalId,
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -865,11 +817,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is SimulationCardAuthorizationCreateParams && amount == other.amount && authenticatedCardPaymentId == other.authenticatedCardPaymentId && cardId == other.cardId && declineReason == other.declineReason && digitalWalletTokenId == other.digitalWalletTokenId && direction == other.direction && eventSubscriptionId == other.eventSubscriptionId && merchantAcceptorId == other.merchantAcceptorId && merchantCategoryCode == other.merchantCategoryCode && merchantCity == other.merchantCity && merchantCountry == other.merchantCountry && merchantDescriptor == other.merchantDescriptor && merchantState == other.merchantState && physicalCardId == other.physicalCardId && terminalId == other.terminalId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is SimulationCardAuthorizationCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(amount, authenticatedCardPaymentId, cardId, declineReason, digitalWalletTokenId, direction, eventSubscriptionId, merchantAcceptorId, merchantCategoryCode, merchantCity, merchantCountry, merchantDescriptor, merchantState, physicalCardId, terminalId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "SimulationCardAuthorizationCreateParams{amount=$amount, authenticatedCardPaymentId=$authenticatedCardPaymentId, cardId=$cardId, declineReason=$declineReason, digitalWalletTokenId=$digitalWalletTokenId, direction=$direction, eventSubscriptionId=$eventSubscriptionId, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, merchantState=$merchantState, physicalCardId=$physicalCardId, terminalId=$terminalId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "SimulationCardAuthorizationCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }
