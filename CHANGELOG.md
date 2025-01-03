@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.154.1 (2025-01-03)
+
+Full Changelog: [v0.154.0...v0.154.1](https://github.com/Increase/increase-kotlin/compare/v0.154.0...v0.154.1)
+
+### Chores
+
+* **internal:** codegen related update ([#678](https://github.com/Increase/increase-kotlin/issues/678)) ([ed85f43](https://github.com/Increase/increase-kotlin/commit/ed85f433cc5757129c9321b4ec684ac4ab3c43cb))
+
 ## 0.154.0 (2025-01-02)
 
 Full Changelog: [v0.153.0...v0.154.0](https://github.com/Increase/increase-kotlin/compare/v0.153.0...v0.154.0)
