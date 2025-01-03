@@ -18,25 +18,27 @@ import java.util.Objects
 class EntityUpdateAddressParams
 constructor(
     private val entityId: String,
-    private val address: Address,
+    private val body: EntityUpdateAddressBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
+    /** The identifier of the Entity whose address is being updated. */
     fun entityId(): String = entityId
 
-    fun address(): Address = address
+    /**
+     * The entity's physical address. Mail receiving locations like PO Boxes and PMB's are
+     * disallowed.
+     */
+    fun address(): Address = body.address()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    internal fun getBody(): EntityUpdateAddressBody {
-        return EntityUpdateAddressBody(address, additionalBodyProperties)
-    }
+    internal fun getBody(): EntityUpdateAddressBody = body
 
     internal fun getHeaders(): Headers = additionalHeaders
 
@@ -146,18 +148,15 @@ constructor(
     class Builder {
 
         private var entityId: String? = null
-        private var address: Address? = null
+        private var body: EntityUpdateAddressBody.Builder = EntityUpdateAddressBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(entityUpdateAddressParams: EntityUpdateAddressParams) = apply {
             entityId = entityUpdateAddressParams.entityId
-            address = entityUpdateAddressParams.address
+            body = entityUpdateAddressParams.body.toBuilder()
             additionalHeaders = entityUpdateAddressParams.additionalHeaders.toBuilder()
             additionalQueryParams = entityUpdateAddressParams.additionalQueryParams.toBuilder()
-            additionalBodyProperties =
-                entityUpdateAddressParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The identifier of the Entity whose address is being updated. */
@@ -167,7 +166,7 @@ constructor(
          * The entity's physical address. Mail receiving locations like PO Boxes and PMB's are
          * disallowed.
          */
-        fun address(address: Address) = apply { this.address = address }
+        fun address(address: Address) = apply { body.address(address) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -268,34 +267,30 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): EntityUpdateAddressParams =
             EntityUpdateAddressParams(
                 checkNotNull(entityId) { "`entityId` is required but was not set" },
-                checkNotNull(address) { "`address` is required but was not set" },
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -370,7 +365,7 @@ constructor(
             fun line1(line1: String) = apply { this.line1 = line1 }
 
             /** The second line of the address. This might be the floor or room number. */
-            fun line2(line2: String?) = apply { this.line2 = line2 }
+            fun line2(line2: String) = apply { this.line2 = line2 }
 
             /**
              * The two-letter United States Postal Service (USPS) abbreviation for the state of the
@@ -434,11 +429,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is EntityUpdateAddressParams && entityId == other.entityId && address == other.address && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is EntityUpdateAddressParams && entityId == other.entityId && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(entityId, address, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(entityId, body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "EntityUpdateAddressParams{entityId=$entityId, address=$address, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "EntityUpdateAddressParams{entityId=$entityId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

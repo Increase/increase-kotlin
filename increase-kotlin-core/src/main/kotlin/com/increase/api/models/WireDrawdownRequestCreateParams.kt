@@ -17,74 +17,69 @@ import java.util.Objects
 
 class WireDrawdownRequestCreateParams
 constructor(
-    private val accountNumberId: String,
-    private val amount: Long,
-    private val messageToRecipient: String,
-    private val recipientAccountNumber: String,
-    private val recipientName: String,
-    private val recipientRoutingNumber: String,
-    private val originatorAddressLine1: String?,
-    private val originatorAddressLine2: String?,
-    private val originatorAddressLine3: String?,
-    private val originatorName: String?,
-    private val recipientAddressLine1: String?,
-    private val recipientAddressLine2: String?,
-    private val recipientAddressLine3: String?,
+    private val body: WireDrawdownRequestCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
-    fun accountNumberId(): String = accountNumberId
+    /** The Account Number to which the recipient should send funds. */
+    fun accountNumberId(): String = body.accountNumberId()
 
-    fun amount(): Long = amount
+    /** The amount requested from the recipient, in USD cents. */
+    fun amount(): Long = body.amount()
 
-    fun messageToRecipient(): String = messageToRecipient
+    /** A message the recipient will see as part of the request. */
+    fun messageToRecipient(): String = body.messageToRecipient()
 
-    fun recipientAccountNumber(): String = recipientAccountNumber
+    /** The drawdown request's recipient's account number. */
+    fun recipientAccountNumber(): String = body.recipientAccountNumber()
 
-    fun recipientName(): String = recipientName
+    /** The drawdown request's recipient's name. */
+    fun recipientName(): String = body.recipientName()
 
-    fun recipientRoutingNumber(): String = recipientRoutingNumber
+    /** The drawdown request's recipient's routing number. */
+    fun recipientRoutingNumber(): String = body.recipientRoutingNumber()
 
-    fun originatorAddressLine1(): String? = originatorAddressLine1
+    /**
+     * The drawdown request originator's address line 1. This is only necessary if you're requesting
+     * a payment to a commingled account. Otherwise, we'll use the associated entity's details.
+     */
+    fun originatorAddressLine1(): String? = body.originatorAddressLine1()
 
-    fun originatorAddressLine2(): String? = originatorAddressLine2
+    /**
+     * The drawdown request originator's address line 2. This is only necessary if you're requesting
+     * a payment to a commingled account. Otherwise, we'll use the associated entity's details.
+     */
+    fun originatorAddressLine2(): String? = body.originatorAddressLine2()
 
-    fun originatorAddressLine3(): String? = originatorAddressLine3
+    /**
+     * The drawdown request originator's address line 3. This is only necessary if you're requesting
+     * a payment to a commingled account. Otherwise, we'll use the associated entity's details.
+     */
+    fun originatorAddressLine3(): String? = body.originatorAddressLine3()
 
-    fun originatorName(): String? = originatorName
+    /**
+     * The drawdown request originator's name. This is only necessary if you're requesting a payment
+     * to a commingled account. Otherwise, we'll use the associated entity's details.
+     */
+    fun originatorName(): String? = body.originatorName()
 
-    fun recipientAddressLine1(): String? = recipientAddressLine1
+    /** Line 1 of the drawdown request's recipient's address. */
+    fun recipientAddressLine1(): String? = body.recipientAddressLine1()
 
-    fun recipientAddressLine2(): String? = recipientAddressLine2
+    /** Line 2 of the drawdown request's recipient's address. */
+    fun recipientAddressLine2(): String? = body.recipientAddressLine2()
 
-    fun recipientAddressLine3(): String? = recipientAddressLine3
+    /** Line 3 of the drawdown request's recipient's address. */
+    fun recipientAddressLine3(): String? = body.recipientAddressLine3()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    internal fun getBody(): WireDrawdownRequestCreateBody {
-        return WireDrawdownRequestCreateBody(
-            accountNumberId,
-            amount,
-            messageToRecipient,
-            recipientAccountNumber,
-            recipientName,
-            recipientRoutingNumber,
-            originatorAddressLine1,
-            originatorAddressLine2,
-            originatorAddressLine3,
-            originatorName,
-            recipientAddressLine1,
-            recipientAddressLine2,
-            recipientAddressLine3,
-            additionalBodyProperties,
-        )
-    }
+    internal fun getBody(): WireDrawdownRequestCreateBody = body
 
     internal fun getHeaders(): Headers = additionalHeaders
 
@@ -251,7 +246,7 @@ constructor(
              * requesting a payment to a commingled account. Otherwise, we'll use the associated
              * entity's details.
              */
-            fun originatorAddressLine1(originatorAddressLine1: String?) = apply {
+            fun originatorAddressLine1(originatorAddressLine1: String) = apply {
                 this.originatorAddressLine1 = originatorAddressLine1
             }
 
@@ -260,7 +255,7 @@ constructor(
              * requesting a payment to a commingled account. Otherwise, we'll use the associated
              * entity's details.
              */
-            fun originatorAddressLine2(originatorAddressLine2: String?) = apply {
+            fun originatorAddressLine2(originatorAddressLine2: String) = apply {
                 this.originatorAddressLine2 = originatorAddressLine2
             }
 
@@ -269,7 +264,7 @@ constructor(
              * requesting a payment to a commingled account. Otherwise, we'll use the associated
              * entity's details.
              */
-            fun originatorAddressLine3(originatorAddressLine3: String?) = apply {
+            fun originatorAddressLine3(originatorAddressLine3: String) = apply {
                 this.originatorAddressLine3 = originatorAddressLine3
             }
 
@@ -278,22 +273,22 @@ constructor(
              * payment to a commingled account. Otherwise, we'll use the associated entity's
              * details.
              */
-            fun originatorName(originatorName: String?) = apply {
+            fun originatorName(originatorName: String) = apply {
                 this.originatorName = originatorName
             }
 
             /** Line 1 of the drawdown request's recipient's address. */
-            fun recipientAddressLine1(recipientAddressLine1: String?) = apply {
+            fun recipientAddressLine1(recipientAddressLine1: String) = apply {
                 this.recipientAddressLine1 = recipientAddressLine1
             }
 
             /** Line 2 of the drawdown request's recipient's address. */
-            fun recipientAddressLine2(recipientAddressLine2: String?) = apply {
+            fun recipientAddressLine2(recipientAddressLine2: String) = apply {
                 this.recipientAddressLine2 = recipientAddressLine2
             }
 
             /** Line 3 of the drawdown request's recipient's address. */
-            fun recipientAddressLine3(recipientAddressLine3: String?) = apply {
+            fun recipientAddressLine3(recipientAddressLine3: String) = apply {
                 this.recipientAddressLine3 = recipientAddressLine3
             }
 
@@ -371,69 +366,43 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var accountNumberId: String? = null
-        private var amount: Long? = null
-        private var messageToRecipient: String? = null
-        private var recipientAccountNumber: String? = null
-        private var recipientName: String? = null
-        private var recipientRoutingNumber: String? = null
-        private var originatorAddressLine1: String? = null
-        private var originatorAddressLine2: String? = null
-        private var originatorAddressLine3: String? = null
-        private var originatorName: String? = null
-        private var recipientAddressLine1: String? = null
-        private var recipientAddressLine2: String? = null
-        private var recipientAddressLine3: String? = null
+        private var body: WireDrawdownRequestCreateBody.Builder =
+            WireDrawdownRequestCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(wireDrawdownRequestCreateParams: WireDrawdownRequestCreateParams) =
             apply {
-                accountNumberId = wireDrawdownRequestCreateParams.accountNumberId
-                amount = wireDrawdownRequestCreateParams.amount
-                messageToRecipient = wireDrawdownRequestCreateParams.messageToRecipient
-                recipientAccountNumber = wireDrawdownRequestCreateParams.recipientAccountNumber
-                recipientName = wireDrawdownRequestCreateParams.recipientName
-                recipientRoutingNumber = wireDrawdownRequestCreateParams.recipientRoutingNumber
-                originatorAddressLine1 = wireDrawdownRequestCreateParams.originatorAddressLine1
-                originatorAddressLine2 = wireDrawdownRequestCreateParams.originatorAddressLine2
-                originatorAddressLine3 = wireDrawdownRequestCreateParams.originatorAddressLine3
-                originatorName = wireDrawdownRequestCreateParams.originatorName
-                recipientAddressLine1 = wireDrawdownRequestCreateParams.recipientAddressLine1
-                recipientAddressLine2 = wireDrawdownRequestCreateParams.recipientAddressLine2
-                recipientAddressLine3 = wireDrawdownRequestCreateParams.recipientAddressLine3
+                body = wireDrawdownRequestCreateParams.body.toBuilder()
                 additionalHeaders = wireDrawdownRequestCreateParams.additionalHeaders.toBuilder()
                 additionalQueryParams =
                     wireDrawdownRequestCreateParams.additionalQueryParams.toBuilder()
-                additionalBodyProperties =
-                    wireDrawdownRequestCreateParams.additionalBodyProperties.toMutableMap()
             }
 
         /** The Account Number to which the recipient should send funds. */
         fun accountNumberId(accountNumberId: String) = apply {
-            this.accountNumberId = accountNumberId
+            body.accountNumberId(accountNumberId)
         }
 
         /** The amount requested from the recipient, in USD cents. */
-        fun amount(amount: Long) = apply { this.amount = amount }
+        fun amount(amount: Long) = apply { body.amount(amount) }
 
         /** A message the recipient will see as part of the request. */
         fun messageToRecipient(messageToRecipient: String) = apply {
-            this.messageToRecipient = messageToRecipient
+            body.messageToRecipient(messageToRecipient)
         }
 
         /** The drawdown request's recipient's account number. */
         fun recipientAccountNumber(recipientAccountNumber: String) = apply {
-            this.recipientAccountNumber = recipientAccountNumber
+            body.recipientAccountNumber(recipientAccountNumber)
         }
 
         /** The drawdown request's recipient's name. */
-        fun recipientName(recipientName: String) = apply { this.recipientName = recipientName }
+        fun recipientName(recipientName: String) = apply { body.recipientName(recipientName) }
 
         /** The drawdown request's recipient's routing number. */
         fun recipientRoutingNumber(recipientRoutingNumber: String) = apply {
-            this.recipientRoutingNumber = recipientRoutingNumber
+            body.recipientRoutingNumber(recipientRoutingNumber)
         }
 
         /**
@@ -442,7 +411,7 @@ constructor(
          * entity's details.
          */
         fun originatorAddressLine1(originatorAddressLine1: String) = apply {
-            this.originatorAddressLine1 = originatorAddressLine1
+            body.originatorAddressLine1(originatorAddressLine1)
         }
 
         /**
@@ -451,7 +420,7 @@ constructor(
          * entity's details.
          */
         fun originatorAddressLine2(originatorAddressLine2: String) = apply {
-            this.originatorAddressLine2 = originatorAddressLine2
+            body.originatorAddressLine2(originatorAddressLine2)
         }
 
         /**
@@ -460,28 +429,28 @@ constructor(
          * entity's details.
          */
         fun originatorAddressLine3(originatorAddressLine3: String) = apply {
-            this.originatorAddressLine3 = originatorAddressLine3
+            body.originatorAddressLine3(originatorAddressLine3)
         }
 
         /**
          * The drawdown request originator's name. This is only necessary if you're requesting a
          * payment to a commingled account. Otherwise, we'll use the associated entity's details.
          */
-        fun originatorName(originatorName: String) = apply { this.originatorName = originatorName }
+        fun originatorName(originatorName: String) = apply { body.originatorName(originatorName) }
 
         /** Line 1 of the drawdown request's recipient's address. */
         fun recipientAddressLine1(recipientAddressLine1: String) = apply {
-            this.recipientAddressLine1 = recipientAddressLine1
+            body.recipientAddressLine1(recipientAddressLine1)
         }
 
         /** Line 2 of the drawdown request's recipient's address. */
         fun recipientAddressLine2(recipientAddressLine2: String) = apply {
-            this.recipientAddressLine2 = recipientAddressLine2
+            body.recipientAddressLine2(recipientAddressLine2)
         }
 
         /** Line 3 of the drawdown request's recipient's address. */
         fun recipientAddressLine3(recipientAddressLine3: String) = apply {
-            this.recipientAddressLine3 = recipientAddressLine3
+            body.recipientAddressLine3(recipientAddressLine3)
         }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
@@ -583,51 +552,29 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): WireDrawdownRequestCreateParams =
             WireDrawdownRequestCreateParams(
-                checkNotNull(accountNumberId) { "`accountNumberId` is required but was not set" },
-                checkNotNull(amount) { "`amount` is required but was not set" },
-                checkNotNull(messageToRecipient) {
-                    "`messageToRecipient` is required but was not set"
-                },
-                checkNotNull(recipientAccountNumber) {
-                    "`recipientAccountNumber` is required but was not set"
-                },
-                checkNotNull(recipientName) { "`recipientName` is required but was not set" },
-                checkNotNull(recipientRoutingNumber) {
-                    "`recipientRoutingNumber` is required but was not set"
-                },
-                originatorAddressLine1,
-                originatorAddressLine2,
-                originatorAddressLine3,
-                originatorName,
-                recipientAddressLine1,
-                recipientAddressLine2,
-                recipientAddressLine3,
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -636,11 +583,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is WireDrawdownRequestCreateParams && accountNumberId == other.accountNumberId && amount == other.amount && messageToRecipient == other.messageToRecipient && recipientAccountNumber == other.recipientAccountNumber && recipientName == other.recipientName && recipientRoutingNumber == other.recipientRoutingNumber && originatorAddressLine1 == other.originatorAddressLine1 && originatorAddressLine2 == other.originatorAddressLine2 && originatorAddressLine3 == other.originatorAddressLine3 && originatorName == other.originatorName && recipientAddressLine1 == other.recipientAddressLine1 && recipientAddressLine2 == other.recipientAddressLine2 && recipientAddressLine3 == other.recipientAddressLine3 && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is WireDrawdownRequestCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountNumberId, amount, messageToRecipient, recipientAccountNumber, recipientName, recipientRoutingNumber, originatorAddressLine1, originatorAddressLine2, originatorAddressLine3, originatorName, recipientAddressLine1, recipientAddressLine2, recipientAddressLine3, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "WireDrawdownRequestCreateParams{accountNumberId=$accountNumberId, amount=$amount, messageToRecipient=$messageToRecipient, recipientAccountNumber=$recipientAccountNumber, recipientName=$recipientName, recipientRoutingNumber=$recipientRoutingNumber, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, recipientAddressLine1=$recipientAddressLine1, recipientAddressLine2=$recipientAddressLine2, recipientAddressLine3=$recipientAddressLine3, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "WireDrawdownRequestCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }
