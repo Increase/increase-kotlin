@@ -18,32 +18,33 @@ import java.util.Objects
 class EntityUpdateBeneficialOwnerAddressParams
 constructor(
     private val entityId: String,
-    private val address: Address,
-    private val beneficialOwnerId: String,
+    private val body: EntityUpdateBeneficialOwnerAddressBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
+    /**
+     * The identifier of the Entity associated with the Beneficial Owner whose address is being
+     * updated.
+     */
     fun entityId(): String = entityId
 
-    fun address(): Address = address
+    /**
+     * The individual's physical address. Mail receiving locations like PO Boxes and PMB's are
+     * disallowed.
+     */
+    fun address(): Address = body.address()
 
-    fun beneficialOwnerId(): String = beneficialOwnerId
+    /** The identifying details of anyone controlling or owning 25% or more of the corporation. */
+    fun beneficialOwnerId(): String = body.beneficialOwnerId()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    internal fun getBody(): EntityUpdateBeneficialOwnerAddressBody {
-        return EntityUpdateBeneficialOwnerAddressBody(
-            address,
-            beneficialOwnerId,
-            additionalBodyProperties,
-        )
-    }
+    internal fun getBody(): EntityUpdateBeneficialOwnerAddressBody = body
 
     internal fun getHeaders(): Headers = additionalHeaders
 
@@ -175,24 +176,20 @@ constructor(
     class Builder {
 
         private var entityId: String? = null
-        private var address: Address? = null
-        private var beneficialOwnerId: String? = null
+        private var body: EntityUpdateBeneficialOwnerAddressBody.Builder =
+            EntityUpdateBeneficialOwnerAddressBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(
             entityUpdateBeneficialOwnerAddressParams: EntityUpdateBeneficialOwnerAddressParams
         ) = apply {
             entityId = entityUpdateBeneficialOwnerAddressParams.entityId
-            address = entityUpdateBeneficialOwnerAddressParams.address
-            beneficialOwnerId = entityUpdateBeneficialOwnerAddressParams.beneficialOwnerId
+            body = entityUpdateBeneficialOwnerAddressParams.body.toBuilder()
             additionalHeaders =
                 entityUpdateBeneficialOwnerAddressParams.additionalHeaders.toBuilder()
             additionalQueryParams =
                 entityUpdateBeneficialOwnerAddressParams.additionalQueryParams.toBuilder()
-            additionalBodyProperties =
-                entityUpdateBeneficialOwnerAddressParams.additionalBodyProperties.toMutableMap()
         }
 
         /**
@@ -205,13 +202,13 @@ constructor(
          * The individual's physical address. Mail receiving locations like PO Boxes and PMB's are
          * disallowed.
          */
-        fun address(address: Address) = apply { this.address = address }
+        fun address(address: Address) = apply { body.address(address) }
 
         /**
          * The identifying details of anyone controlling or owning 25% or more of the corporation.
          */
         fun beneficialOwnerId(beneficialOwnerId: String) = apply {
-            this.beneficialOwnerId = beneficialOwnerId
+            body.beneficialOwnerId(beneficialOwnerId)
         }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
@@ -313,37 +310,30 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): EntityUpdateBeneficialOwnerAddressParams =
             EntityUpdateBeneficialOwnerAddressParams(
                 checkNotNull(entityId) { "`entityId` is required but was not set" },
-                checkNotNull(address) { "`address` is required but was not set" },
-                checkNotNull(beneficialOwnerId) {
-                    "`beneficialOwnerId` is required but was not set"
-                },
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -418,7 +408,7 @@ constructor(
             fun line1(line1: String) = apply { this.line1 = line1 }
 
             /** The second line of the address. This might be the floor or room number. */
-            fun line2(line2: String?) = apply { this.line2 = line2 }
+            fun line2(line2: String) = apply { this.line2 = line2 }
 
             /**
              * The two-letter United States Postal Service (USPS) abbreviation for the state of the
@@ -482,11 +472,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is EntityUpdateBeneficialOwnerAddressParams && entityId == other.entityId && address == other.address && beneficialOwnerId == other.beneficialOwnerId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is EntityUpdateBeneficialOwnerAddressParams && entityId == other.entityId && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(entityId, address, beneficialOwnerId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(entityId, body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "EntityUpdateBeneficialOwnerAddressParams{entityId=$entityId, address=$address, beneficialOwnerId=$beneficialOwnerId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "EntityUpdateBeneficialOwnerAddressParams{entityId=$entityId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }
