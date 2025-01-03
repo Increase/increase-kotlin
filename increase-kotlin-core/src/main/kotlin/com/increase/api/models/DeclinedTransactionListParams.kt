@@ -26,16 +26,20 @@ constructor(
     private val additionalQueryParams: QueryParams,
 ) {
 
+    /** Filter Declined Transactions to ones belonging to the specified Account. */
     fun accountId(): String? = accountId
 
     fun category(): Category? = category
 
     fun createdAt(): CreatedAt? = createdAt
 
+    /** Return the page of entries after this one. */
     fun cursor(): String? = cursor
 
+    /** Limit the size of the list that is returned. The default (and maximum) is 100 objects. */
     fun limit(): Long? = limit
 
+    /** Filter Declined Transactions to those belonging to the specified route. */
     fun routeId(): String? = routeId
 
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -245,7 +249,7 @@ constructor(
 
         class Builder {
 
-            private var in_: List<In>? = null
+            private var in_: MutableList<In>? = null
             private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
             internal fun from(category: Category) = apply {
@@ -257,7 +261,15 @@ constructor(
              * Return results whose value is in the provided list. For GET requests, this should be
              * encoded as a comma-delimited string, such as `?in=one,two,three`.
              */
-            fun in_(in_: List<In>?) = apply { this.in_ = in_ }
+            fun in_(in_: List<In>) = apply { this.in_ = in_.toMutableList() }
+
+            /**
+             * Return results whose value is in the provided list. For GET requests, this should be
+             * encoded as a comma-delimited string, such as `?in=one,two,three`.
+             */
+            fun addIn(in_: In) = apply {
+                this.in_ = (this.in_ ?: mutableListOf()).apply { add(in_) }
+            }
 
             fun additionalProperties(additionalProperties: QueryParams) = apply {
                 this.additionalProperties.clear()
@@ -494,25 +506,25 @@ constructor(
              * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            fun after(after: OffsetDateTime?) = apply { this.after = after }
+            fun after(after: OffsetDateTime) = apply { this.after = after }
 
             /**
              * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            fun before(before: OffsetDateTime?) = apply { this.before = before }
+            fun before(before: OffsetDateTime) = apply { this.before = before }
 
             /**
              * Return results on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            fun onOrAfter(onOrAfter: OffsetDateTime?) = apply { this.onOrAfter = onOrAfter }
+            fun onOrAfter(onOrAfter: OffsetDateTime) = apply { this.onOrAfter = onOrAfter }
 
             /**
              * Return results on or before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            fun onOrBefore(onOrBefore: OffsetDateTime?) = apply { this.onOrBefore = onOrBefore }
+            fun onOrBefore(onOrBefore: OffsetDateTime) = apply { this.onOrBefore = onOrBefore }
 
             fun additionalProperties(additionalProperties: QueryParams) = apply {
                 this.additionalProperties.clear()

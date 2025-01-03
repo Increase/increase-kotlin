@@ -22,25 +22,24 @@ import java.util.Objects
 class EntityCreateBeneficialOwnerParams
 constructor(
     private val entityId: String,
-    private val beneficialOwner: BeneficialOwner,
+    private val body: EntityCreateBeneficialOwnerBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
+    /** The identifier of the Entity to associate with the new Beneficial Owner. */
     fun entityId(): String = entityId
 
-    fun beneficialOwner(): BeneficialOwner = beneficialOwner
+    /** The identifying details of anyone controlling or owning 25% or more of the corporation. */
+    fun beneficialOwner(): BeneficialOwner = body.beneficialOwner()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    internal fun getBody(): EntityCreateBeneficialOwnerBody {
-        return EntityCreateBeneficialOwnerBody(beneficialOwner, additionalBodyProperties)
-    }
+    internal fun getBody(): EntityCreateBeneficialOwnerBody = body
 
     internal fun getHeaders(): Headers = additionalHeaders
 
@@ -155,20 +154,18 @@ constructor(
     class Builder {
 
         private var entityId: String? = null
-        private var beneficialOwner: BeneficialOwner? = null
+        private var body: EntityCreateBeneficialOwnerBody.Builder =
+            EntityCreateBeneficialOwnerBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(entityCreateBeneficialOwnerParams: EntityCreateBeneficialOwnerParams) =
             apply {
                 entityId = entityCreateBeneficialOwnerParams.entityId
-                beneficialOwner = entityCreateBeneficialOwnerParams.beneficialOwner
+                body = entityCreateBeneficialOwnerParams.body.toBuilder()
                 additionalHeaders = entityCreateBeneficialOwnerParams.additionalHeaders.toBuilder()
                 additionalQueryParams =
                     entityCreateBeneficialOwnerParams.additionalQueryParams.toBuilder()
-                additionalBodyProperties =
-                    entityCreateBeneficialOwnerParams.additionalBodyProperties.toMutableMap()
             }
 
         /** The identifier of the Entity to associate with the new Beneficial Owner. */
@@ -178,7 +175,7 @@ constructor(
          * The identifying details of anyone controlling or owning 25% or more of the corporation.
          */
         fun beneficialOwner(beneficialOwner: BeneficialOwner) = apply {
-            this.beneficialOwner = beneficialOwner
+            body.beneficialOwner(beneficialOwner)
         }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
@@ -280,34 +277,30 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): EntityCreateBeneficialOwnerParams =
             EntityCreateBeneficialOwnerParams(
                 checkNotNull(entityId) { "`entityId` is required but was not set" },
-                checkNotNull(beneficialOwner) { "`beneficialOwner` is required but was not set" },
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -351,7 +344,7 @@ constructor(
 
             private var companyTitle: String? = null
             private var individual: Individual? = null
-            private var prongs: List<Prong>? = null
+            private var prongs: MutableList<Prong>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(beneficialOwner: BeneficialOwner) = apply {
@@ -362,7 +355,7 @@ constructor(
             }
 
             /** This person's role or title within the entity. */
-            fun companyTitle(companyTitle: String?) = apply { this.companyTitle = companyTitle }
+            fun companyTitle(companyTitle: String) = apply { this.companyTitle = companyTitle }
 
             /** Personal details for the beneficial owner. */
             fun individual(individual: Individual) = apply { this.individual = individual }
@@ -372,7 +365,16 @@ constructor(
              * is required, if a person is both a control person and owner, submit an array
              * containing both.
              */
-            fun prongs(prongs: List<Prong>) = apply { this.prongs = prongs }
+            fun prongs(prongs: List<Prong>) = apply { this.prongs = prongs.toMutableList() }
+
+            /**
+             * Why this person is considered a beneficial owner of the entity. At least one option
+             * is required, if a person is both a control person and owner, submit an array
+             * containing both.
+             */
+            fun addProng(prong: Prong) = apply {
+                prongs = (prongs ?: mutableListOf()).apply { add(prong) }
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -480,7 +482,7 @@ constructor(
                  * tax id (either a Social Security Number or Individual Taxpayer Identification
                  * Number).
                  */
-                fun confirmedNoUsTaxId(confirmedNoUsTaxId: Boolean?) = apply {
+                fun confirmedNoUsTaxId(confirmedNoUsTaxId: Boolean) = apply {
                     this.confirmedNoUsTaxId = confirmedNoUsTaxId
                 }
 
@@ -603,7 +605,7 @@ constructor(
                     fun line1(line1: String) = apply { this.line1 = line1 }
 
                     /** The second line of the address. This might be the floor or room number. */
-                    fun line2(line2: String?) = apply { this.line2 = line2 }
+                    fun line2(line2: String) = apply { this.line2 = line2 }
 
                     /**
                      * The two-letter United States Postal Service (USPS) abbreviation for the state
@@ -740,7 +742,7 @@ constructor(
                      * Information about the United States driver's license used for identification.
                      * Required if `method` is equal to `drivers_license`.
                      */
-                    fun driversLicense(driversLicense: DriversLicense?) = apply {
+                    fun driversLicense(driversLicense: DriversLicense) = apply {
                         this.driversLicense = driversLicense
                     }
 
@@ -757,13 +759,13 @@ constructor(
                      * Information about the identification document provided. Required if `method`
                      * is equal to `other`.
                      */
-                    fun other(other: Other?) = apply { this.other = other }
+                    fun other(other: Other) = apply { this.other = other }
 
                     /**
                      * Information about the passport used for identification. Required if `method`
                      * is equal to `passport`.
                      */
-                    fun passport(passport: Passport?) = apply { this.passport = passport }
+                    fun passport(passport: Passport) = apply { this.passport = passport }
 
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                         this.additionalProperties.clear()
@@ -938,7 +940,7 @@ constructor(
                         /**
                          * The identifier of the File containing the back of the driver's license.
                          */
-                        fun backFileId(backFileId: String?) = apply { this.backFileId = backFileId }
+                        fun backFileId(backFileId: String) = apply { this.backFileId = backFileId }
 
                         /** The driver's license's expiration date in YYYY-MM-DD format. */
                         fun expirationDate(expirationDate: LocalDate) = apply {
@@ -1078,7 +1080,7 @@ constructor(
                          * The identifier of the File containing the back of the document. Not every
                          * document has a reverse side.
                          */
-                        fun backFileId(backFileId: String?) = apply { this.backFileId = backFileId }
+                        fun backFileId(backFileId: String) = apply { this.backFileId = backFileId }
 
                         /**
                          * The two-character ISO 3166-1 code representing the country that issued
@@ -1092,7 +1094,7 @@ constructor(
                         }
 
                         /** The document's expiration date in YYYY-MM-DD format. */
-                        fun expirationDate(expirationDate: LocalDate?) = apply {
+                        fun expirationDate(expirationDate: LocalDate) = apply {
                             this.expirationDate = expirationDate
                         }
 
@@ -1381,11 +1383,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is EntityCreateBeneficialOwnerParams && entityId == other.entityId && beneficialOwner == other.beneficialOwner && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is EntityCreateBeneficialOwnerParams && entityId == other.entityId && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(entityId, beneficialOwner, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(entityId, body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "EntityCreateBeneficialOwnerParams{entityId=$entityId, beneficialOwner=$beneficialOwner, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "EntityCreateBeneficialOwnerParams{entityId=$entityId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

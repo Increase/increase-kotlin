@@ -17,8 +17,10 @@ constructor(
     private val additionalQueryParams: QueryParams,
 ) {
 
+    /** The identifier of the Bookkeeping Account to retrieve. */
     fun bookkeepingAccountId(): String = bookkeepingAccountId
 
+    /** The moment to query the balance at. If not set, returns the current balances. */
     fun atTime(): OffsetDateTime? = atTime
 
     fun _additionalHeaders(): Headers = additionalHeaders

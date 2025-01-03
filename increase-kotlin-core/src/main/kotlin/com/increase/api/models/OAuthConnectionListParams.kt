@@ -22,10 +22,13 @@ constructor(
     private val additionalQueryParams: QueryParams,
 ) {
 
+    /** Return the page of entries after this one. */
     fun cursor(): String? = cursor
 
+    /** Limit the size of the list that is returned. The default (and maximum) is 100 objects. */
     fun limit(): Long? = limit
 
+    /** Filter results to only include OAuth Connections for a specific OAuth Application. */
     fun oauthApplicationId(): String? = oauthApplicationId
 
     fun status(): Status? = status
@@ -227,7 +230,7 @@ constructor(
 
         class Builder {
 
-            private var in_: List<In>? = null
+            private var in_: MutableList<In>? = null
             private var additionalProperties: QueryParams.Builder = QueryParams.builder()
 
             internal fun from(status: Status) = apply {
@@ -240,7 +243,16 @@ constructor(
              * ones. For GET requests, this should be encoded as a comma-delimited string, such as
              * `?in=one,two,three`.
              */
-            fun in_(in_: List<In>?) = apply { this.in_ = in_ }
+            fun in_(in_: List<In>) = apply { this.in_ = in_.toMutableList() }
+
+            /**
+             * Filter to OAuth Connections by their status. By default, return only the `active`
+             * ones. For GET requests, this should be encoded as a comma-delimited string, such as
+             * `?in=one,two,three`.
+             */
+            fun addIn(in_: In) = apply {
+                this.in_ = (this.in_ ?: mutableListOf()).apply { add(in_) }
+            }
 
             fun additionalProperties(additionalProperties: QueryParams) = apply {
                 this.additionalProperties.clear()

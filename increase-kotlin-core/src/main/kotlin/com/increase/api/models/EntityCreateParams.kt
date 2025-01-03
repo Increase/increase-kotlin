@@ -21,58 +21,58 @@ import java.util.Objects
 
 class EntityCreateParams
 constructor(
-    private val structure: Structure,
-    private val corporation: Corporation?,
-    private val description: String?,
-    private val governmentAuthority: GovernmentAuthority?,
-    private val joint: Joint?,
-    private val naturalPerson: NaturalPerson?,
-    private val supplementalDocuments: List<SupplementalDocument>?,
-    private val thirdPartyVerification: ThirdPartyVerification?,
-    private val trust: Trust?,
+    private val body: EntityCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
-    fun structure(): Structure = structure
+    /** The type of Entity to create. */
+    fun structure(): Structure = body.structure()
 
-    fun corporation(): Corporation? = corporation
+    /**
+     * Details of the corporation entity to create. Required if `structure` is equal to
+     * `corporation`.
+     */
+    fun corporation(): Corporation? = body.corporation()
 
-    fun description(): String? = description
+    /** The description you choose to give the entity. */
+    fun description(): String? = body.description()
 
-    fun governmentAuthority(): GovernmentAuthority? = governmentAuthority
+    /**
+     * Details of the Government Authority entity to create. Required if `structure` is equal to
+     * `Government Authority`.
+     */
+    fun governmentAuthority(): GovernmentAuthority? = body.governmentAuthority()
 
-    fun joint(): Joint? = joint
+    /** Details of the joint entity to create. Required if `structure` is equal to `joint`. */
+    fun joint(): Joint? = body.joint()
 
-    fun naturalPerson(): NaturalPerson? = naturalPerson
+    /**
+     * Details of the natural person entity to create. Required if `structure` is equal to
+     * `natural_person`. Natural people entities should be submitted with `social_security_number`
+     * or `individual_taxpayer_identification_number` identification methods.
+     */
+    fun naturalPerson(): NaturalPerson? = body.naturalPerson()
 
-    fun supplementalDocuments(): List<SupplementalDocument>? = supplementalDocuments
+    /** Additional documentation associated with the entity. */
+    fun supplementalDocuments(): List<SupplementalDocument>? = body.supplementalDocuments()
 
-    fun thirdPartyVerification(): ThirdPartyVerification? = thirdPartyVerification
+    /**
+     * A reference to data stored in a third-party verification service. Your integration may or may
+     * not use this field.
+     */
+    fun thirdPartyVerification(): ThirdPartyVerification? = body.thirdPartyVerification()
 
-    fun trust(): Trust? = trust
+    /** Details of the trust entity to create. Required if `structure` is equal to `trust`. */
+    fun trust(): Trust? = body.trust()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    internal fun getBody(): EntityCreateBody {
-        return EntityCreateBody(
-            structure,
-            corporation,
-            description,
-            governmentAuthority,
-            joint,
-            naturalPerson,
-            supplementalDocuments,
-            thirdPartyVerification,
-            trust,
-            additionalBodyProperties,
-        )
-    }
+    internal fun getBody(): EntityCreateBody = body
 
     internal fun getHeaders(): Headers = additionalHeaders
 
@@ -160,7 +160,7 @@ constructor(
             private var governmentAuthority: GovernmentAuthority? = null
             private var joint: Joint? = null
             private var naturalPerson: NaturalPerson? = null
-            private var supplementalDocuments: List<SupplementalDocument>? = null
+            private var supplementalDocuments: MutableList<SupplementalDocument>? = null
             private var thirdPartyVerification: ThirdPartyVerification? = null
             private var trust: Trust? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -185,23 +185,23 @@ constructor(
              * Details of the corporation entity to create. Required if `structure` is equal to
              * `corporation`.
              */
-            fun corporation(corporation: Corporation?) = apply { this.corporation = corporation }
+            fun corporation(corporation: Corporation) = apply { this.corporation = corporation }
 
             /** The description you choose to give the entity. */
-            fun description(description: String?) = apply { this.description = description }
+            fun description(description: String) = apply { this.description = description }
 
             /**
              * Details of the Government Authority entity to create. Required if `structure` is
              * equal to `Government Authority`.
              */
-            fun governmentAuthority(governmentAuthority: GovernmentAuthority?) = apply {
+            fun governmentAuthority(governmentAuthority: GovernmentAuthority) = apply {
                 this.governmentAuthority = governmentAuthority
             }
 
             /**
              * Details of the joint entity to create. Required if `structure` is equal to `joint`.
              */
-            fun joint(joint: Joint?) = apply { this.joint = joint }
+            fun joint(joint: Joint) = apply { this.joint = joint }
 
             /**
              * Details of the natural person entity to create. Required if `structure` is equal to
@@ -209,27 +209,33 @@ constructor(
              * `social_security_number` or `individual_taxpayer_identification_number`
              * identification methods.
              */
-            fun naturalPerson(naturalPerson: NaturalPerson?) = apply {
+            fun naturalPerson(naturalPerson: NaturalPerson) = apply {
                 this.naturalPerson = naturalPerson
             }
 
             /** Additional documentation associated with the entity. */
-            fun supplementalDocuments(supplementalDocuments: List<SupplementalDocument>?) = apply {
-                this.supplementalDocuments = supplementalDocuments
+            fun supplementalDocuments(supplementalDocuments: List<SupplementalDocument>) = apply {
+                this.supplementalDocuments = supplementalDocuments.toMutableList()
+            }
+
+            /** Additional documentation associated with the entity. */
+            fun addSupplementalDocument(supplementalDocument: SupplementalDocument) = apply {
+                supplementalDocuments =
+                    (supplementalDocuments ?: mutableListOf()).apply { add(supplementalDocument) }
             }
 
             /**
              * A reference to data stored in a third-party verification service. Your integration
              * may or may not use this field.
              */
-            fun thirdPartyVerification(thirdPartyVerification: ThirdPartyVerification?) = apply {
+            fun thirdPartyVerification(thirdPartyVerification: ThirdPartyVerification) = apply {
                 this.thirdPartyVerification = thirdPartyVerification
             }
 
             /**
              * Details of the trust entity to create. Required if `structure` is equal to `trust`.
              */
-            fun trust(trust: Trust?) = apply { this.trust = trust }
+            fun trust(trust: Trust) = apply { this.trust = trust }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -293,57 +299,38 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var structure: Structure? = null
-        private var corporation: Corporation? = null
-        private var description: String? = null
-        private var governmentAuthority: GovernmentAuthority? = null
-        private var joint: Joint? = null
-        private var naturalPerson: NaturalPerson? = null
-        private var supplementalDocuments: MutableList<SupplementalDocument> = mutableListOf()
-        private var thirdPartyVerification: ThirdPartyVerification? = null
-        private var trust: Trust? = null
+        private var body: EntityCreateBody.Builder = EntityCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(entityCreateParams: EntityCreateParams) = apply {
-            structure = entityCreateParams.structure
-            corporation = entityCreateParams.corporation
-            description = entityCreateParams.description
-            governmentAuthority = entityCreateParams.governmentAuthority
-            joint = entityCreateParams.joint
-            naturalPerson = entityCreateParams.naturalPerson
-            supplementalDocuments =
-                entityCreateParams.supplementalDocuments?.toMutableList() ?: mutableListOf()
-            thirdPartyVerification = entityCreateParams.thirdPartyVerification
-            trust = entityCreateParams.trust
+            body = entityCreateParams.body.toBuilder()
             additionalHeaders = entityCreateParams.additionalHeaders.toBuilder()
             additionalQueryParams = entityCreateParams.additionalQueryParams.toBuilder()
-            additionalBodyProperties = entityCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The type of Entity to create. */
-        fun structure(structure: Structure) = apply { this.structure = structure }
+        fun structure(structure: Structure) = apply { body.structure(structure) }
 
         /**
          * Details of the corporation entity to create. Required if `structure` is equal to
          * `corporation`.
          */
-        fun corporation(corporation: Corporation) = apply { this.corporation = corporation }
+        fun corporation(corporation: Corporation) = apply { body.corporation(corporation) }
 
         /** The description you choose to give the entity. */
-        fun description(description: String) = apply { this.description = description }
+        fun description(description: String) = apply { body.description(description) }
 
         /**
          * Details of the Government Authority entity to create. Required if `structure` is equal to
          * `Government Authority`.
          */
         fun governmentAuthority(governmentAuthority: GovernmentAuthority) = apply {
-            this.governmentAuthority = governmentAuthority
+            body.governmentAuthority(governmentAuthority)
         }
 
         /** Details of the joint entity to create. Required if `structure` is equal to `joint`. */
-        fun joint(joint: Joint) = apply { this.joint = joint }
+        fun joint(joint: Joint) = apply { body.joint(joint) }
 
         /**
          * Details of the natural person entity to create. Required if `structure` is equal to
@@ -352,18 +339,17 @@ constructor(
          * methods.
          */
         fun naturalPerson(naturalPerson: NaturalPerson) = apply {
-            this.naturalPerson = naturalPerson
+            body.naturalPerson(naturalPerson)
         }
 
         /** Additional documentation associated with the entity. */
         fun supplementalDocuments(supplementalDocuments: List<SupplementalDocument>) = apply {
-            this.supplementalDocuments.clear()
-            this.supplementalDocuments.addAll(supplementalDocuments)
+            body.supplementalDocuments(supplementalDocuments)
         }
 
         /** Additional documentation associated with the entity. */
         fun addSupplementalDocument(supplementalDocument: SupplementalDocument) = apply {
-            this.supplementalDocuments.add(supplementalDocument)
+            body.addSupplementalDocument(supplementalDocument)
         }
 
         /**
@@ -371,11 +357,11 @@ constructor(
          * may not use this field.
          */
         fun thirdPartyVerification(thirdPartyVerification: ThirdPartyVerification) = apply {
-            this.thirdPartyVerification = thirdPartyVerification
+            body.thirdPartyVerification(thirdPartyVerification)
         }
 
         /** Details of the trust entity to create. Required if `structure` is equal to `trust`. */
-        fun trust(trust: Trust) = apply { this.trust = trust }
+        fun trust(trust: Trust) = apply { body.trust(trust) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -476,41 +462,29 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): EntityCreateParams =
             EntityCreateParams(
-                checkNotNull(structure) { "`structure` is required but was not set" },
-                corporation,
-                description,
-                governmentAuthority,
-                joint,
-                naturalPerson,
-                supplementalDocuments.toImmutable().ifEmpty { null },
-                thirdPartyVerification,
-                trust,
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -657,7 +631,7 @@ constructor(
         class Builder {
 
             private var address: Address? = null
-            private var beneficialOwners: List<BeneficialOwner>? = null
+            private var beneficialOwners: MutableList<BeneficialOwner>? = null
             private var incorporationState: String? = null
             private var industryCode: String? = null
             private var name: String? = null
@@ -687,14 +661,23 @@ constructor(
              * corporation.
              */
             fun beneficialOwners(beneficialOwners: List<BeneficialOwner>) = apply {
-                this.beneficialOwners = beneficialOwners
+                this.beneficialOwners = beneficialOwners.toMutableList()
+            }
+
+            /**
+             * The identifying details of anyone controlling or owning 25% or more of the
+             * corporation.
+             */
+            fun addBeneficialOwner(beneficialOwner: BeneficialOwner) = apply {
+                beneficialOwners =
+                    (beneficialOwners ?: mutableListOf()).apply { add(beneficialOwner) }
             }
 
             /**
              * The two-letter United States Postal Service (USPS) abbreviation for the corporation's
              * state of incorporation.
              */
-            fun incorporationState(incorporationState: String?) = apply {
+            fun incorporationState(incorporationState: String) = apply {
                 this.incorporationState = incorporationState
             }
 
@@ -704,7 +687,7 @@ constructor(
              * full list of classification codes is available
              * [here](https://increase.com/documentation/data-dictionary#north-american-industry-classification-system-codes).
              */
-            fun industryCode(industryCode: String?) = apply { this.industryCode = industryCode }
+            fun industryCode(industryCode: String) = apply { this.industryCode = industryCode }
 
             /** The legal name of the corporation. */
             fun name(name: String) = apply { this.name = name }
@@ -713,7 +696,7 @@ constructor(
             fun taxIdentifier(taxIdentifier: String) = apply { this.taxIdentifier = taxIdentifier }
 
             /** The website of the corporation. */
-            fun website(website: String?) = apply { this.website = website }
+            fun website(website: String) = apply { this.website = website }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -821,7 +804,7 @@ constructor(
                 fun line1(line1: String) = apply { this.line1 = line1 }
 
                 /** The second line of the address. This might be the floor or room number. */
-                fun line2(line2: String?) = apply { this.line2 = line2 }
+                fun line2(line2: String) = apply { this.line2 = line2 }
 
                 /**
                  * The two-letter United States Postal Service (USPS) abbreviation for the state of
@@ -922,7 +905,7 @@ constructor(
 
                 private var companyTitle: String? = null
                 private var individual: Individual? = null
-                private var prongs: List<Prong>? = null
+                private var prongs: MutableList<Prong>? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(beneficialOwner: BeneficialOwner) = apply {
@@ -933,7 +916,7 @@ constructor(
                 }
 
                 /** This person's role or title within the entity. */
-                fun companyTitle(companyTitle: String?) = apply { this.companyTitle = companyTitle }
+                fun companyTitle(companyTitle: String) = apply { this.companyTitle = companyTitle }
 
                 /** Personal details for the beneficial owner. */
                 fun individual(individual: Individual) = apply { this.individual = individual }
@@ -943,7 +926,16 @@ constructor(
                  * option is required, if a person is both a control person and owner, submit an
                  * array containing both.
                  */
-                fun prongs(prongs: List<Prong>) = apply { this.prongs = prongs }
+                fun prongs(prongs: List<Prong>) = apply { this.prongs = prongs.toMutableList() }
+
+                /**
+                 * Why this person is considered a beneficial owner of the entity. At least one
+                 * option is required, if a person is both a control person and owner, submit an
+                 * array containing both.
+                 */
+                fun addProng(prong: Prong) = apply {
+                    prongs = (prongs ?: mutableListOf()).apply { add(prong) }
+                }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -1057,7 +1049,7 @@ constructor(
                      * US tax id (either a Social Security Number or Individual Taxpayer
                      * Identification Number).
                      */
-                    fun confirmedNoUsTaxId(confirmedNoUsTaxId: Boolean?) = apply {
+                    fun confirmedNoUsTaxId(confirmedNoUsTaxId: Boolean) = apply {
                         this.confirmedNoUsTaxId = confirmedNoUsTaxId
                     }
 
@@ -1190,7 +1182,7 @@ constructor(
                         /**
                          * The second line of the address. This might be the floor or room number.
                          */
-                        fun line2(line2: String?) = apply { this.line2 = line2 }
+                        fun line2(line2: String) = apply { this.line2 = line2 }
 
                         /**
                          * The two-letter United States Postal Service (USPS) abbreviation for the
@@ -1329,7 +1321,7 @@ constructor(
                          * Information about the United States driver's license used for
                          * identification. Required if `method` is equal to `drivers_license`.
                          */
-                        fun driversLicense(driversLicense: DriversLicense?) = apply {
+                        fun driversLicense(driversLicense: DriversLicense) = apply {
                             this.driversLicense = driversLicense
                         }
 
@@ -1346,13 +1338,13 @@ constructor(
                          * Information about the identification document provided. Required if
                          * `method` is equal to `other`.
                          */
-                        fun other(other: Other?) = apply { this.other = other }
+                        fun other(other: Other) = apply { this.other = other }
 
                         /**
                          * Information about the passport used for identification. Required if
                          * `method` is equal to `passport`.
                          */
-                        fun passport(passport: Passport?) = apply { this.passport = passport }
+                        fun passport(passport: Passport) = apply { this.passport = passport }
 
                         fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
                             apply {
@@ -1533,7 +1525,7 @@ constructor(
                              * The identifier of the File containing the back of the driver's
                              * license.
                              */
-                            fun backFileId(backFileId: String?) = apply {
+                            fun backFileId(backFileId: String) = apply {
                                 this.backFileId = backFileId
                             }
 
@@ -1677,7 +1669,7 @@ constructor(
                              * The identifier of the File containing the back of the document. Not
                              * every document has a reverse side.
                              */
-                            fun backFileId(backFileId: String?) = apply {
+                            fun backFileId(backFileId: String) = apply {
                                 this.backFileId = backFileId
                             }
 
@@ -1693,7 +1685,7 @@ constructor(
                             }
 
                             /** The document's expiration date in YYYY-MM-DD format. */
-                            fun expirationDate(expirationDate: LocalDate?) = apply {
+                            fun expirationDate(expirationDate: LocalDate) = apply {
                                 this.expirationDate = expirationDate
                             }
 
@@ -2054,7 +2046,7 @@ constructor(
         class Builder {
 
             private var address: Address? = null
-            private var authorizedPersons: List<AuthorizedPerson>? = null
+            private var authorizedPersons: MutableList<AuthorizedPerson>? = null
             private var category: Category? = null
             private var name: String? = null
             private var taxIdentifier: String? = null
@@ -2079,7 +2071,13 @@ constructor(
 
             /** The identifying details of authorized officials acting on the entity's behalf. */
             fun authorizedPersons(authorizedPersons: List<AuthorizedPerson>) = apply {
-                this.authorizedPersons = authorizedPersons
+                this.authorizedPersons = authorizedPersons.toMutableList()
+            }
+
+            /** The identifying details of authorized officials acting on the entity's behalf. */
+            fun addAuthorizedPerson(authorizedPerson: AuthorizedPerson) = apply {
+                authorizedPersons =
+                    (authorizedPersons ?: mutableListOf()).apply { add(authorizedPerson) }
             }
 
             /** The category of the government authority. */
@@ -2092,7 +2090,7 @@ constructor(
             fun taxIdentifier(taxIdentifier: String) = apply { this.taxIdentifier = taxIdentifier }
 
             /** The website of the government authority. */
-            fun website(website: String?) = apply { this.website = website }
+            fun website(website: String) = apply { this.website = website }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -2199,7 +2197,7 @@ constructor(
                 fun line1(line1: String) = apply { this.line1 = line1 }
 
                 /** The second line of the address. This might be the floor or room number. */
-                fun line2(line2: String?) = apply { this.line2 = line2 }
+                fun line2(line2: String) = apply { this.line2 = line2 }
 
                 /**
                  * The two-letter United States Postal Service (USPS) abbreviation for the state of
@@ -2443,7 +2441,7 @@ constructor(
 
         class Builder {
 
-            private var individuals: List<Individual>? = null
+            private var individuals: MutableList<Individual>? = null
             private var name: String? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -2455,11 +2453,16 @@ constructor(
 
             /** The two individuals that share control of the entity. */
             fun individuals(individuals: List<Individual>) = apply {
-                this.individuals = individuals
+                this.individuals = individuals.toMutableList()
+            }
+
+            /** The two individuals that share control of the entity. */
+            fun addIndividual(individual: Individual) = apply {
+                individuals = (individuals ?: mutableListOf()).apply { add(individual) }
             }
 
             /** The name of the joint entity. */
-            fun name(name: String?) = apply { this.name = name }
+            fun name(name: String) = apply { this.name = name }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -2566,7 +2569,7 @@ constructor(
                  * tax id (either a Social Security Number or Individual Taxpayer Identification
                  * Number).
                  */
-                fun confirmedNoUsTaxId(confirmedNoUsTaxId: Boolean?) = apply {
+                fun confirmedNoUsTaxId(confirmedNoUsTaxId: Boolean) = apply {
                     this.confirmedNoUsTaxId = confirmedNoUsTaxId
                 }
 
@@ -2689,7 +2692,7 @@ constructor(
                     fun line1(line1: String) = apply { this.line1 = line1 }
 
                     /** The second line of the address. This might be the floor or room number. */
-                    fun line2(line2: String?) = apply { this.line2 = line2 }
+                    fun line2(line2: String) = apply { this.line2 = line2 }
 
                     /**
                      * The two-letter United States Postal Service (USPS) abbreviation for the state
@@ -2826,7 +2829,7 @@ constructor(
                      * Information about the United States driver's license used for identification.
                      * Required if `method` is equal to `drivers_license`.
                      */
-                    fun driversLicense(driversLicense: DriversLicense?) = apply {
+                    fun driversLicense(driversLicense: DriversLicense) = apply {
                         this.driversLicense = driversLicense
                     }
 
@@ -2843,13 +2846,13 @@ constructor(
                      * Information about the identification document provided. Required if `method`
                      * is equal to `other`.
                      */
-                    fun other(other: Other?) = apply { this.other = other }
+                    fun other(other: Other) = apply { this.other = other }
 
                     /**
                      * Information about the passport used for identification. Required if `method`
                      * is equal to `passport`.
                      */
-                    fun passport(passport: Passport?) = apply { this.passport = passport }
+                    fun passport(passport: Passport) = apply { this.passport = passport }
 
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                         this.additionalProperties.clear()
@@ -3024,7 +3027,7 @@ constructor(
                         /**
                          * The identifier of the File containing the back of the driver's license.
                          */
-                        fun backFileId(backFileId: String?) = apply { this.backFileId = backFileId }
+                        fun backFileId(backFileId: String) = apply { this.backFileId = backFileId }
 
                         /** The driver's license's expiration date in YYYY-MM-DD format. */
                         fun expirationDate(expirationDate: LocalDate) = apply {
@@ -3164,7 +3167,7 @@ constructor(
                          * The identifier of the File containing the back of the document. Not every
                          * document has a reverse side.
                          */
-                        fun backFileId(backFileId: String?) = apply { this.backFileId = backFileId }
+                        fun backFileId(backFileId: String) = apply { this.backFileId = backFileId }
 
                         /**
                          * The two-character ISO 3166-1 code representing the country that issued
@@ -3178,7 +3181,7 @@ constructor(
                         }
 
                         /** The document's expiration date in YYYY-MM-DD format. */
-                        fun expirationDate(expirationDate: LocalDate?) = apply {
+                        fun expirationDate(expirationDate: LocalDate) = apply {
                             this.expirationDate = expirationDate
                         }
 
@@ -3486,7 +3489,7 @@ constructor(
              * or other document if you've confirmed the individual does not have a US tax id
              * (either a Social Security Number or Individual Taxpayer Identification Number).
              */
-            fun confirmedNoUsTaxId(confirmedNoUsTaxId: Boolean?) = apply {
+            fun confirmedNoUsTaxId(confirmedNoUsTaxId: Boolean) = apply {
                 this.confirmedNoUsTaxId = confirmedNoUsTaxId
             }
 
@@ -3602,7 +3605,7 @@ constructor(
                 fun line1(line1: String) = apply { this.line1 = line1 }
 
                 /** The second line of the address. This might be the floor or room number. */
-                fun line2(line2: String?) = apply { this.line2 = line2 }
+                fun line2(line2: String) = apply { this.line2 = line2 }
 
                 /**
                  * The two-letter United States Postal Service (USPS) abbreviation for the state of
@@ -3738,7 +3741,7 @@ constructor(
                  * Information about the United States driver's license used for identification.
                  * Required if `method` is equal to `drivers_license`.
                  */
-                fun driversLicense(driversLicense: DriversLicense?) = apply {
+                fun driversLicense(driversLicense: DriversLicense) = apply {
                     this.driversLicense = driversLicense
                 }
 
@@ -3755,13 +3758,13 @@ constructor(
                  * Information about the identification document provided. Required if `method` is
                  * equal to `other`.
                  */
-                fun other(other: Other?) = apply { this.other = other }
+                fun other(other: Other) = apply { this.other = other }
 
                 /**
                  * Information about the passport used for identification. Required if `method` is
                  * equal to `passport`.
                  */
-                fun passport(passport: Passport?) = apply { this.passport = passport }
+                fun passport(passport: Passport) = apply { this.passport = passport }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -3930,7 +3933,7 @@ constructor(
                     }
 
                     /** The identifier of the File containing the back of the driver's license. */
-                    fun backFileId(backFileId: String?) = apply { this.backFileId = backFileId }
+                    fun backFileId(backFileId: String) = apply { this.backFileId = backFileId }
 
                     /** The driver's license's expiration date in YYYY-MM-DD format. */
                     fun expirationDate(expirationDate: LocalDate) = apply {
@@ -4066,7 +4069,7 @@ constructor(
                      * The identifier of the File containing the back of the document. Not every
                      * document has a reverse side.
                      */
-                    fun backFileId(backFileId: String?) = apply { this.backFileId = backFileId }
+                    fun backFileId(backFileId: String) = apply { this.backFileId = backFileId }
 
                     /**
                      * The two-character ISO 3166-1 code representing the country that issued the
@@ -4078,7 +4081,7 @@ constructor(
                     fun description(description: String) = apply { this.description = description }
 
                     /** The document's expiration date in YYYY-MM-DD format. */
-                    fun expirationDate(expirationDate: LocalDate?) = apply {
+                    fun expirationDate(expirationDate: LocalDate) = apply {
                         this.expirationDate = expirationDate
                     }
 
@@ -4591,7 +4594,7 @@ constructor(
             private var grantor: Grantor? = null
             private var name: String? = null
             private var taxIdentifier: String? = null
-            private var trustees: List<Trustee>? = null
+            private var trustees: MutableList<Trustee>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(trust: Trust) = apply {
@@ -4620,7 +4623,7 @@ constructor(
             fun category(category: Category) = apply { this.category = category }
 
             /** The identifier of the File containing the formation document of the trust. */
-            fun formationDocumentFileId(formationDocumentFileId: String?) = apply {
+            fun formationDocumentFileId(formationDocumentFileId: String) = apply {
                 this.formationDocumentFileId = formationDocumentFileId
             }
 
@@ -4628,12 +4631,12 @@ constructor(
              * The two-letter United States Postal Service (USPS) abbreviation for the state in
              * which the trust was formed.
              */
-            fun formationState(formationState: String?) = apply {
+            fun formationState(formationState: String) = apply {
                 this.formationState = formationState
             }
 
             /** The grantor of the trust. Required if `category` is equal to `revocable`. */
-            fun grantor(grantor: Grantor?) = apply { this.grantor = grantor }
+            fun grantor(grantor: Grantor) = apply { this.grantor = grantor }
 
             /** The legal name of the trust. */
             fun name(name: String) = apply { this.name = name }
@@ -4642,10 +4645,17 @@ constructor(
              * The Employer Identification Number (EIN) for the trust. Required if `category` is
              * equal to `irrevocable`.
              */
-            fun taxIdentifier(taxIdentifier: String?) = apply { this.taxIdentifier = taxIdentifier }
+            fun taxIdentifier(taxIdentifier: String) = apply { this.taxIdentifier = taxIdentifier }
 
             /** The trustees of the trust. */
-            fun trustees(trustees: List<Trustee>) = apply { this.trustees = trustees }
+            fun trustees(trustees: List<Trustee>) = apply {
+                this.trustees = trustees.toMutableList()
+            }
+
+            /** The trustees of the trust. */
+            fun addTrustee(trustee: Trustee) = apply {
+                trustees = (trustees ?: mutableListOf()).apply { add(trustee) }
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -4752,7 +4762,7 @@ constructor(
                 fun line1(line1: String) = apply { this.line1 = line1 }
 
                 /** The second line of the address. This might be the floor or room number. */
-                fun line2(line2: String?) = apply { this.line2 = line2 }
+                fun line2(line2: String) = apply { this.line2 = line2 }
 
                 /**
                  * The two-letter United States Postal Service (USPS) abbreviation for the state of
@@ -4917,7 +4927,7 @@ constructor(
                  * Details of the individual trustee. Required when the trustee `structure` is equal
                  * to `individual`.
                  */
-                fun individual(individual: Individual?) = apply { this.individual = individual }
+                fun individual(individual: Individual) = apply { this.individual = individual }
 
                 /** The structure of the trustee. */
                 fun structure(structure: Structure) = apply { this.structure = structure }
@@ -5086,7 +5096,7 @@ constructor(
                      * US tax id (either a Social Security Number or Individual Taxpayer
                      * Identification Number).
                      */
-                    fun confirmedNoUsTaxId(confirmedNoUsTaxId: Boolean?) = apply {
+                    fun confirmedNoUsTaxId(confirmedNoUsTaxId: Boolean) = apply {
                         this.confirmedNoUsTaxId = confirmedNoUsTaxId
                     }
 
@@ -5219,7 +5229,7 @@ constructor(
                         /**
                          * The second line of the address. This might be the floor or room number.
                          */
-                        fun line2(line2: String?) = apply { this.line2 = line2 }
+                        fun line2(line2: String) = apply { this.line2 = line2 }
 
                         /**
                          * The two-letter United States Postal Service (USPS) abbreviation for the
@@ -5358,7 +5368,7 @@ constructor(
                          * Information about the United States driver's license used for
                          * identification. Required if `method` is equal to `drivers_license`.
                          */
-                        fun driversLicense(driversLicense: DriversLicense?) = apply {
+                        fun driversLicense(driversLicense: DriversLicense) = apply {
                             this.driversLicense = driversLicense
                         }
 
@@ -5375,13 +5385,13 @@ constructor(
                          * Information about the identification document provided. Required if
                          * `method` is equal to `other`.
                          */
-                        fun other(other: Other?) = apply { this.other = other }
+                        fun other(other: Other) = apply { this.other = other }
 
                         /**
                          * Information about the passport used for identification. Required if
                          * `method` is equal to `passport`.
                          */
-                        fun passport(passport: Passport?) = apply { this.passport = passport }
+                        fun passport(passport: Passport) = apply { this.passport = passport }
 
                         fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
                             apply {
@@ -5562,7 +5572,7 @@ constructor(
                              * The identifier of the File containing the back of the driver's
                              * license.
                              */
-                            fun backFileId(backFileId: String?) = apply {
+                            fun backFileId(backFileId: String) = apply {
                                 this.backFileId = backFileId
                             }
 
@@ -5706,7 +5716,7 @@ constructor(
                              * The identifier of the File containing the back of the document. Not
                              * every document has a reverse side.
                              */
-                            fun backFileId(backFileId: String?) = apply {
+                            fun backFileId(backFileId: String) = apply {
                                 this.backFileId = backFileId
                             }
 
@@ -5722,7 +5732,7 @@ constructor(
                             }
 
                             /** The document's expiration date in YYYY-MM-DD format. */
-                            fun expirationDate(expirationDate: LocalDate?) = apply {
+                            fun expirationDate(expirationDate: LocalDate) = apply {
                                 this.expirationDate = expirationDate
                             }
 
@@ -6032,7 +6042,7 @@ constructor(
                  * tax id (either a Social Security Number or Individual Taxpayer Identification
                  * Number).
                  */
-                fun confirmedNoUsTaxId(confirmedNoUsTaxId: Boolean?) = apply {
+                fun confirmedNoUsTaxId(confirmedNoUsTaxId: Boolean) = apply {
                     this.confirmedNoUsTaxId = confirmedNoUsTaxId
                 }
 
@@ -6155,7 +6165,7 @@ constructor(
                     fun line1(line1: String) = apply { this.line1 = line1 }
 
                     /** The second line of the address. This might be the floor or room number. */
-                    fun line2(line2: String?) = apply { this.line2 = line2 }
+                    fun line2(line2: String) = apply { this.line2 = line2 }
 
                     /**
                      * The two-letter United States Postal Service (USPS) abbreviation for the state
@@ -6292,7 +6302,7 @@ constructor(
                      * Information about the United States driver's license used for identification.
                      * Required if `method` is equal to `drivers_license`.
                      */
-                    fun driversLicense(driversLicense: DriversLicense?) = apply {
+                    fun driversLicense(driversLicense: DriversLicense) = apply {
                         this.driversLicense = driversLicense
                     }
 
@@ -6309,13 +6319,13 @@ constructor(
                      * Information about the identification document provided. Required if `method`
                      * is equal to `other`.
                      */
-                    fun other(other: Other?) = apply { this.other = other }
+                    fun other(other: Other) = apply { this.other = other }
 
                     /**
                      * Information about the passport used for identification. Required if `method`
                      * is equal to `passport`.
                      */
-                    fun passport(passport: Passport?) = apply { this.passport = passport }
+                    fun passport(passport: Passport) = apply { this.passport = passport }
 
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                         this.additionalProperties.clear()
@@ -6490,7 +6500,7 @@ constructor(
                         /**
                          * The identifier of the File containing the back of the driver's license.
                          */
-                        fun backFileId(backFileId: String?) = apply { this.backFileId = backFileId }
+                        fun backFileId(backFileId: String) = apply { this.backFileId = backFileId }
 
                         /** The driver's license's expiration date in YYYY-MM-DD format. */
                         fun expirationDate(expirationDate: LocalDate) = apply {
@@ -6630,7 +6640,7 @@ constructor(
                          * The identifier of the File containing the back of the document. Not every
                          * document has a reverse side.
                          */
-                        fun backFileId(backFileId: String?) = apply { this.backFileId = backFileId }
+                        fun backFileId(backFileId: String) = apply { this.backFileId = backFileId }
 
                         /**
                          * The two-character ISO 3166-1 code representing the country that issued
@@ -6644,7 +6654,7 @@ constructor(
                         }
 
                         /** The document's expiration date in YYYY-MM-DD format. */
-                        fun expirationDate(expirationDate: LocalDate?) = apply {
+                        fun expirationDate(expirationDate: LocalDate) = apply {
                             this.expirationDate = expirationDate
                         }
 
@@ -6876,11 +6886,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is EntityCreateParams && structure == other.structure && corporation == other.corporation && description == other.description && governmentAuthority == other.governmentAuthority && joint == other.joint && naturalPerson == other.naturalPerson && supplementalDocuments == other.supplementalDocuments && thirdPartyVerification == other.thirdPartyVerification && trust == other.trust && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is EntityCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(structure, corporation, description, governmentAuthority, joint, naturalPerson, supplementalDocuments, thirdPartyVerification, trust, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "EntityCreateParams{structure=$structure, corporation=$corporation, description=$description, governmentAuthority=$governmentAuthority, joint=$joint, naturalPerson=$naturalPerson, supplementalDocuments=$supplementalDocuments, thirdPartyVerification=$thirdPartyVerification, trust=$trust, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "EntityCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

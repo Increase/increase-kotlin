@@ -20,38 +20,39 @@ import java.util.Objects
 
 class EventSubscriptionCreateParams
 constructor(
-    private val url: String,
-    private val oauthConnectionId: String?,
-    private val selectedEventCategory: SelectedEventCategory?,
-    private val sharedSecret: String?,
+    private val body: EventSubscriptionCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
-    fun url(): String = url
+    /** The URL you'd like us to send webhooks to. */
+    fun url(): String = body.url()
 
-    fun oauthConnectionId(): String? = oauthConnectionId
+    /**
+     * If specified, this subscription will only receive webhooks for Events associated with the
+     * specified OAuth Connection.
+     */
+    fun oauthConnectionId(): String? = body.oauthConnectionId()
 
-    fun selectedEventCategory(): SelectedEventCategory? = selectedEventCategory
+    /**
+     * If specified, this subscription will only receive webhooks for Events with the specified
+     * `category`.
+     */
+    fun selectedEventCategory(): SelectedEventCategory? = body.selectedEventCategory()
 
-    fun sharedSecret(): String? = sharedSecret
+    /**
+     * The key that will be used to sign webhooks. If no value is passed, a random string will be
+     * used as default.
+     */
+    fun sharedSecret(): String? = body.sharedSecret()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    internal fun getBody(): EventSubscriptionCreateBody {
-        return EventSubscriptionCreateBody(
-            url,
-            oauthConnectionId,
-            selectedEventCategory,
-            sharedSecret,
-            additionalBodyProperties,
-        )
-    }
+    internal fun getBody(): EventSubscriptionCreateBody = body
 
     internal fun getHeaders(): Headers = additionalHeaders
 
@@ -127,7 +128,7 @@ constructor(
              * If specified, this subscription will only receive webhooks for Events associated with
              * the specified OAuth Connection.
              */
-            fun oauthConnectionId(oauthConnectionId: String?) = apply {
+            fun oauthConnectionId(oauthConnectionId: String) = apply {
                 this.oauthConnectionId = oauthConnectionId
             }
 
@@ -135,7 +136,7 @@ constructor(
              * If specified, this subscription will only receive webhooks for Events with the
              * specified `category`.
              */
-            fun selectedEventCategory(selectedEventCategory: SelectedEventCategory?) = apply {
+            fun selectedEventCategory(selectedEventCategory: SelectedEventCategory) = apply {
                 this.selectedEventCategory = selectedEventCategory
             }
 
@@ -143,7 +144,7 @@ constructor(
              * The key that will be used to sign webhooks. If no value is passed, a random string
              * will be used as default.
              */
-            fun sharedSecret(sharedSecret: String?) = apply { this.sharedSecret = sharedSecret }
+            fun sharedSecret(sharedSecret: String) = apply { this.sharedSecret = sharedSecret }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -202,34 +203,26 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var url: String? = null
-        private var oauthConnectionId: String? = null
-        private var selectedEventCategory: SelectedEventCategory? = null
-        private var sharedSecret: String? = null
+        private var body: EventSubscriptionCreateBody.Builder =
+            EventSubscriptionCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(eventSubscriptionCreateParams: EventSubscriptionCreateParams) = apply {
-            url = eventSubscriptionCreateParams.url
-            oauthConnectionId = eventSubscriptionCreateParams.oauthConnectionId
-            selectedEventCategory = eventSubscriptionCreateParams.selectedEventCategory
-            sharedSecret = eventSubscriptionCreateParams.sharedSecret
+            body = eventSubscriptionCreateParams.body.toBuilder()
             additionalHeaders = eventSubscriptionCreateParams.additionalHeaders.toBuilder()
             additionalQueryParams = eventSubscriptionCreateParams.additionalQueryParams.toBuilder()
-            additionalBodyProperties =
-                eventSubscriptionCreateParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The URL you'd like us to send webhooks to. */
-        fun url(url: String) = apply { this.url = url }
+        fun url(url: String) = apply { body.url(url) }
 
         /**
          * If specified, this subscription will only receive webhooks for Events associated with the
          * specified OAuth Connection.
          */
         fun oauthConnectionId(oauthConnectionId: String) = apply {
-            this.oauthConnectionId = oauthConnectionId
+            body.oauthConnectionId(oauthConnectionId)
         }
 
         /**
@@ -237,14 +230,14 @@ constructor(
          * `category`.
          */
         fun selectedEventCategory(selectedEventCategory: SelectedEventCategory) = apply {
-            this.selectedEventCategory = selectedEventCategory
+            body.selectedEventCategory(selectedEventCategory)
         }
 
         /**
          * The key that will be used to sign webhooks. If no value is passed, a random string will
          * be used as default.
          */
-        fun sharedSecret(sharedSecret: String) = apply { this.sharedSecret = sharedSecret }
+        fun sharedSecret(sharedSecret: String) = apply { body.sharedSecret(sharedSecret) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -345,36 +338,29 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): EventSubscriptionCreateParams =
             EventSubscriptionCreateParams(
-                checkNotNull(url) { "`url` is required but was not set" },
-                oauthConnectionId,
-                selectedEventCategory,
-                sharedSecret,
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -995,11 +981,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is EventSubscriptionCreateParams && url == other.url && oauthConnectionId == other.oauthConnectionId && selectedEventCategory == other.selectedEventCategory && sharedSecret == other.sharedSecret && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is EventSubscriptionCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(url, oauthConnectionId, selectedEventCategory, sharedSecret, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "EventSubscriptionCreateParams{url=$url, oauthConnectionId=$oauthConnectionId, selectedEventCategory=$selectedEventCategory, sharedSecret=$sharedSecret, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "EventSubscriptionCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

@@ -17,26 +17,21 @@ import java.util.Objects
 
 class SimulationCardAuthorizationExpirationCreateParams
 constructor(
-    private val cardPaymentId: String,
+    private val body: SimulationCardAuthorizationExpirationCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
-    fun cardPaymentId(): String = cardPaymentId
+    /** The identifier of the Card Payment to expire. */
+    fun cardPaymentId(): String = body.cardPaymentId()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    internal fun getBody(): SimulationCardAuthorizationExpirationCreateBody {
-        return SimulationCardAuthorizationExpirationCreateBody(
-            cardPaymentId,
-            additionalBodyProperties
-        )
-    }
+    internal fun getBody(): SimulationCardAuthorizationExpirationCreateBody = body
 
     internal fun getHeaders(): Headers = additionalHeaders
 
@@ -137,27 +132,24 @@ constructor(
     @NoAutoDetect
     class Builder {
 
-        private var cardPaymentId: String? = null
+        private var body: SimulationCardAuthorizationExpirationCreateBody.Builder =
+            SimulationCardAuthorizationExpirationCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(
             simulationCardAuthorizationExpirationCreateParams:
                 SimulationCardAuthorizationExpirationCreateParams
         ) = apply {
-            cardPaymentId = simulationCardAuthorizationExpirationCreateParams.cardPaymentId
+            body = simulationCardAuthorizationExpirationCreateParams.body.toBuilder()
             additionalHeaders =
                 simulationCardAuthorizationExpirationCreateParams.additionalHeaders.toBuilder()
             additionalQueryParams =
                 simulationCardAuthorizationExpirationCreateParams.additionalQueryParams.toBuilder()
-            additionalBodyProperties =
-                simulationCardAuthorizationExpirationCreateParams.additionalBodyProperties
-                    .toMutableMap()
         }
 
         /** The identifier of the Card Payment to expire. */
-        fun cardPaymentId(cardPaymentId: String) = apply { this.cardPaymentId = cardPaymentId }
+        fun cardPaymentId(cardPaymentId: String) = apply { body.cardPaymentId(cardPaymentId) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -258,33 +250,29 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): SimulationCardAuthorizationExpirationCreateParams =
             SimulationCardAuthorizationExpirationCreateParams(
-                checkNotNull(cardPaymentId) { "`cardPaymentId` is required but was not set" },
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -293,11 +281,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is SimulationCardAuthorizationExpirationCreateParams && cardPaymentId == other.cardPaymentId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is SimulationCardAuthorizationExpirationCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(cardPaymentId, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "SimulationCardAuthorizationExpirationCreateParams{cardPaymentId=$cardPaymentId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "SimulationCardAuthorizationExpirationCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

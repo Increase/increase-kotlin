@@ -16,10 +16,13 @@ constructor(
     private val additionalQueryParams: QueryParams,
 ) {
 
+    /** The identifier for the Bookkeeping Account to filter by. */
     fun accountId(): String? = accountId
 
+    /** Return the page of entries after this one. */
     fun cursor(): String? = cursor
 
+    /** Limit the size of the list that is returned. The default (and maximum) is 100 objects. */
     fun limit(): Long? = limit
 
     fun _additionalHeaders(): Headers = additionalHeaders

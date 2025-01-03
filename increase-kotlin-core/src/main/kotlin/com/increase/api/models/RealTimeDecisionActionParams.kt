@@ -21,44 +21,53 @@ import java.util.Objects
 class RealTimeDecisionActionParams
 constructor(
     private val realTimeDecisionId: String,
-    private val cardAuthentication: CardAuthentication?,
-    private val cardAuthenticationChallenge: CardAuthenticationChallenge?,
-    private val cardAuthorization: CardAuthorization?,
-    private val digitalWalletAuthentication: DigitalWalletAuthentication?,
-    private val digitalWalletToken: DigitalWalletToken?,
+    private val body: RealTimeDecisionActionBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
+    /** The identifier of the Real-Time Decision. */
     fun realTimeDecisionId(): String = realTimeDecisionId
 
-    fun cardAuthentication(): CardAuthentication? = cardAuthentication
+    /**
+     * If the Real-Time Decision relates to a 3DS card authentication attempt, this object contains
+     * your response to the authentication.
+     */
+    fun cardAuthentication(): CardAuthentication? = body.cardAuthentication()
 
-    fun cardAuthenticationChallenge(): CardAuthenticationChallenge? = cardAuthenticationChallenge
+    /**
+     * If the Real-Time Decision relates to 3DS card authentication challenge delivery, this object
+     * contains your response.
+     */
+    fun cardAuthenticationChallenge(): CardAuthenticationChallenge? =
+        body.cardAuthenticationChallenge()
 
-    fun cardAuthorization(): CardAuthorization? = cardAuthorization
+    /**
+     * If the Real-Time Decision relates to a card authorization attempt, this object contains your
+     * response to the authorization.
+     */
+    fun cardAuthorization(): CardAuthorization? = body.cardAuthorization()
 
-    fun digitalWalletAuthentication(): DigitalWalletAuthentication? = digitalWalletAuthentication
+    /**
+     * If the Real-Time Decision relates to a digital wallet authentication attempt, this object
+     * contains your response to the authentication.
+     */
+    fun digitalWalletAuthentication(): DigitalWalletAuthentication? =
+        body.digitalWalletAuthentication()
 
-    fun digitalWalletToken(): DigitalWalletToken? = digitalWalletToken
+    /**
+     * If the Real-Time Decision relates to a digital wallet token provisioning attempt, this object
+     * contains your response to the attempt.
+     */
+    fun digitalWalletToken(): DigitalWalletToken? = body.digitalWalletToken()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    internal fun getBody(): RealTimeDecisionActionBody {
-        return RealTimeDecisionActionBody(
-            cardAuthentication,
-            cardAuthenticationChallenge,
-            cardAuthorization,
-            digitalWalletAuthentication,
-            digitalWalletToken,
-            additionalBodyProperties,
-        )
-    }
+    internal fun getBody(): RealTimeDecisionActionBody = body
 
     internal fun getHeaders(): Headers = additionalHeaders
 
@@ -157,7 +166,7 @@ constructor(
              * If the Real-Time Decision relates to a 3DS card authentication attempt, this object
              * contains your response to the authentication.
              */
-            fun cardAuthentication(cardAuthentication: CardAuthentication?) = apply {
+            fun cardAuthentication(cardAuthentication: CardAuthentication) = apply {
                 this.cardAuthentication = cardAuthentication
             }
 
@@ -166,14 +175,14 @@ constructor(
              * object contains your response.
              */
             fun cardAuthenticationChallenge(
-                cardAuthenticationChallenge: CardAuthenticationChallenge?
+                cardAuthenticationChallenge: CardAuthenticationChallenge
             ) = apply { this.cardAuthenticationChallenge = cardAuthenticationChallenge }
 
             /**
              * If the Real-Time Decision relates to a card authorization attempt, this object
              * contains your response to the authorization.
              */
-            fun cardAuthorization(cardAuthorization: CardAuthorization?) = apply {
+            fun cardAuthorization(cardAuthorization: CardAuthorization) = apply {
                 this.cardAuthorization = cardAuthorization
             }
 
@@ -182,14 +191,14 @@ constructor(
              * object contains your response to the authentication.
              */
             fun digitalWalletAuthentication(
-                digitalWalletAuthentication: DigitalWalletAuthentication?
+                digitalWalletAuthentication: DigitalWalletAuthentication
             ) = apply { this.digitalWalletAuthentication = digitalWalletAuthentication }
 
             /**
              * If the Real-Time Decision relates to a digital wallet token provisioning attempt,
              * this object contains your response to the attempt.
              */
-            fun digitalWalletToken(digitalWalletToken: DigitalWalletToken?) = apply {
+            fun digitalWalletToken(digitalWalletToken: DigitalWalletToken) = apply {
                 this.digitalWalletToken = digitalWalletToken
             }
 
@@ -252,26 +261,15 @@ constructor(
     class Builder {
 
         private var realTimeDecisionId: String? = null
-        private var cardAuthentication: CardAuthentication? = null
-        private var cardAuthenticationChallenge: CardAuthenticationChallenge? = null
-        private var cardAuthorization: CardAuthorization? = null
-        private var digitalWalletAuthentication: DigitalWalletAuthentication? = null
-        private var digitalWalletToken: DigitalWalletToken? = null
+        private var body: RealTimeDecisionActionBody.Builder = RealTimeDecisionActionBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(realTimeDecisionActionParams: RealTimeDecisionActionParams) = apply {
             realTimeDecisionId = realTimeDecisionActionParams.realTimeDecisionId
-            cardAuthentication = realTimeDecisionActionParams.cardAuthentication
-            cardAuthenticationChallenge = realTimeDecisionActionParams.cardAuthenticationChallenge
-            cardAuthorization = realTimeDecisionActionParams.cardAuthorization
-            digitalWalletAuthentication = realTimeDecisionActionParams.digitalWalletAuthentication
-            digitalWalletToken = realTimeDecisionActionParams.digitalWalletToken
+            body = realTimeDecisionActionParams.body.toBuilder()
             additionalHeaders = realTimeDecisionActionParams.additionalHeaders.toBuilder()
             additionalQueryParams = realTimeDecisionActionParams.additionalQueryParams.toBuilder()
-            additionalBodyProperties =
-                realTimeDecisionActionParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The identifier of the Real-Time Decision. */
@@ -284,7 +282,7 @@ constructor(
          * contains your response to the authentication.
          */
         fun cardAuthentication(cardAuthentication: CardAuthentication) = apply {
-            this.cardAuthentication = cardAuthentication
+            body.cardAuthentication(cardAuthentication)
         }
 
         /**
@@ -293,7 +291,7 @@ constructor(
          */
         fun cardAuthenticationChallenge(cardAuthenticationChallenge: CardAuthenticationChallenge) =
             apply {
-                this.cardAuthenticationChallenge = cardAuthenticationChallenge
+                body.cardAuthenticationChallenge(cardAuthenticationChallenge)
             }
 
         /**
@@ -301,7 +299,7 @@ constructor(
          * your response to the authorization.
          */
         fun cardAuthorization(cardAuthorization: CardAuthorization) = apply {
-            this.cardAuthorization = cardAuthorization
+            body.cardAuthorization(cardAuthorization)
         }
 
         /**
@@ -310,7 +308,7 @@ constructor(
          */
         fun digitalWalletAuthentication(digitalWalletAuthentication: DigitalWalletAuthentication) =
             apply {
-                this.digitalWalletAuthentication = digitalWalletAuthentication
+                body.digitalWalletAuthentication(digitalWalletAuthentication)
             }
 
         /**
@@ -318,7 +316,7 @@ constructor(
          * object contains your response to the attempt.
          */
         fun digitalWalletToken(digitalWalletToken: DigitalWalletToken) = apply {
-            this.digitalWalletToken = digitalWalletToken
+            body.digitalWalletToken(digitalWalletToken)
         }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
@@ -420,25 +418,22 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): RealTimeDecisionActionParams =
@@ -446,14 +441,9 @@ constructor(
                 checkNotNull(realTimeDecisionId) {
                     "`realTimeDecisionId` is required but was not set"
                 },
-                cardAuthentication,
-                cardAuthenticationChallenge,
-                cardAuthorization,
-                digitalWalletAuthentication,
-                digitalWalletToken,
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -804,7 +794,7 @@ constructor(
              * The reason the card authorization was declined. This translates to a specific decline
              * code that is sent to the card network.
              */
-            fun declineReason(declineReason: DeclineReason?) = apply {
+            fun declineReason(declineReason: DeclineReason) = apply {
                 this.declineReason = declineReason
             }
 
@@ -1037,7 +1027,7 @@ constructor(
             /** Whether your application was able to deliver the one-time passcode. */
             fun result(result: Result) = apply { this.result = result }
 
-            fun success(success: Success?) = apply { this.success = success }
+            fun success(success: Success) = apply { this.success = success }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -1168,13 +1158,13 @@ constructor(
                 /**
                  * The email address that was used to verify the cardholder via one-time passcode.
                  */
-                fun email(email: String?) = apply { this.email = email }
+                fun email(email: String) = apply { this.email = email }
 
                 /**
                  * The phone number that was used to verify the cardholder via one-time passcode
                  * over SMS.
                  */
-                fun phone(phone: String?) = apply { this.phone = phone }
+                fun phone(phone: String) = apply { this.phone = phone }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -1295,13 +1285,13 @@ constructor(
              * If your application approves the provisioning attempt, this contains metadata about
              * the digital wallet token that will be generated.
              */
-            fun approval(approval: Approval?) = apply { this.approval = approval }
+            fun approval(approval: Approval) = apply { this.approval = approval }
 
             /**
              * If your application declines the provisioning attempt, this contains details about
              * the decline.
              */
-            fun decline(decline: Decline?) = apply { this.decline = decline }
+            fun decline(decline: Decline) = apply { this.decline = decline }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -1379,13 +1369,13 @@ constructor(
                 /**
                  * An email address that can be used to verify the cardholder via one-time passcode.
                  */
-                fun email(email: String?) = apply { this.email = email }
+                fun email(email: String) = apply { this.email = email }
 
                 /**
                  * A phone number that can be used to verify the cardholder via one-time passcode
                  * over SMS.
                  */
-                fun phone(phone: String?) = apply { this.phone = phone }
+                fun phone(phone: String) = apply { this.phone = phone }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -1479,7 +1469,7 @@ constructor(
                  * Why the tokenization attempt was declined. This is for logging purposes only and
                  * is not displayed to the end-user.
                  */
-                fun reason(reason: String?) = apply { this.reason = reason }
+                fun reason(reason: String) = apply { this.reason = reason }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -1547,11 +1537,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is RealTimeDecisionActionParams && realTimeDecisionId == other.realTimeDecisionId && cardAuthentication == other.cardAuthentication && cardAuthenticationChallenge == other.cardAuthenticationChallenge && cardAuthorization == other.cardAuthorization && digitalWalletAuthentication == other.digitalWalletAuthentication && digitalWalletToken == other.digitalWalletToken && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is RealTimeDecisionActionParams && realTimeDecisionId == other.realTimeDecisionId && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(realTimeDecisionId, cardAuthentication, cardAuthenticationChallenge, cardAuthorization, digitalWalletAuthentication, digitalWalletToken, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(realTimeDecisionId, body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "RealTimeDecisionActionParams{realTimeDecisionId=$realTimeDecisionId, cardAuthentication=$cardAuthentication, cardAuthenticationChallenge=$cardAuthenticationChallenge, cardAuthorization=$cardAuthorization, digitalWalletAuthentication=$digitalWalletAuthentication, digitalWalletToken=$digitalWalletToken, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "RealTimeDecisionActionParams{realTimeDecisionId=$realTimeDecisionId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

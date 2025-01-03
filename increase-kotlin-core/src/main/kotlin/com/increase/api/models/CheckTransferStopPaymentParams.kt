@@ -21,25 +21,24 @@ import java.util.Objects
 class CheckTransferStopPaymentParams
 constructor(
     private val checkTransferId: String,
-    private val reason: Reason?,
+    private val body: CheckTransferStopPaymentBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) {
 
+    /** The identifier of the Check Transfer. */
     fun checkTransferId(): String = checkTransferId
 
-    fun reason(): Reason? = reason
+    /** The reason why this transfer should be stopped. */
+    fun reason(): Reason? = body.reason()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
-    internal fun getBody(): CheckTransferStopPaymentBody {
-        return CheckTransferStopPaymentBody(reason, additionalBodyProperties)
-    }
+    internal fun getBody(): CheckTransferStopPaymentBody = body
 
     internal fun getHeaders(): Headers = additionalHeaders
 
@@ -87,7 +86,7 @@ constructor(
             }
 
             /** The reason why this transfer should be stopped. */
-            fun reason(reason: Reason?) = apply { this.reason = reason }
+            fun reason(reason: Reason) = apply { this.reason = reason }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -141,18 +140,16 @@ constructor(
     class Builder {
 
         private var checkTransferId: String? = null
-        private var reason: Reason? = null
+        private var body: CheckTransferStopPaymentBody.Builder =
+            CheckTransferStopPaymentBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(checkTransferStopPaymentParams: CheckTransferStopPaymentParams) = apply {
             checkTransferId = checkTransferStopPaymentParams.checkTransferId
-            reason = checkTransferStopPaymentParams.reason
+            body = checkTransferStopPaymentParams.body.toBuilder()
             additionalHeaders = checkTransferStopPaymentParams.additionalHeaders.toBuilder()
             additionalQueryParams = checkTransferStopPaymentParams.additionalQueryParams.toBuilder()
-            additionalBodyProperties =
-                checkTransferStopPaymentParams.additionalBodyProperties.toMutableMap()
         }
 
         /** The identifier of the Check Transfer. */
@@ -161,7 +158,7 @@ constructor(
         }
 
         /** The reason why this transfer should be stopped. */
-        fun reason(reason: Reason) = apply { this.reason = reason }
+        fun reason(reason: Reason) = apply { body.reason(reason) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -262,34 +259,30 @@ constructor(
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
+            body.additionalProperties(additionalBodyProperties)
         }
 
         fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
+            body.putAdditionalProperty(key, value)
         }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
+                body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
         fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): CheckTransferStopPaymentParams =
             CheckTransferStopPaymentParams(
                 checkNotNull(checkTransferId) { "`checkTransferId` is required but was not set" },
-                reason,
+                body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
@@ -361,11 +354,11 @@ constructor(
             return true
         }
 
-        return /* spotless:off */ other is CheckTransferStopPaymentParams && checkTransferId == other.checkTransferId && reason == other.reason && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams && additionalBodyProperties == other.additionalBodyProperties /* spotless:on */
+        return /* spotless:off */ other is CheckTransferStopPaymentParams && checkTransferId == other.checkTransferId && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(checkTransferId, reason, additionalHeaders, additionalQueryParams, additionalBodyProperties) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(checkTransferId, body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "CheckTransferStopPaymentParams{checkTransferId=$checkTransferId, reason=$reason, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "CheckTransferStopPaymentParams{checkTransferId=$checkTransferId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }
