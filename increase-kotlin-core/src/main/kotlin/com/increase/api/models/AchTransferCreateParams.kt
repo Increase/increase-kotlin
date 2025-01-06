@@ -348,19 +348,19 @@ constructor(
             }
 
             /** The account number for the destination account. */
-            fun accountNumber(accountNumber: String) = apply { this.accountNumber = accountNumber }
+            fun accountNumber(accountNumber: String?) = apply { this.accountNumber = accountNumber }
 
             /**
              * Additional information that will be sent to the recipient. This is included in the
              * transfer data sent to the receiving bank.
              */
-            fun addenda(addenda: Addenda) = apply { this.addenda = addenda }
+            fun addenda(addenda: Addenda?) = apply { this.addenda = addenda }
 
             /**
              * The description of the date of the transfer, usually in the format `YYMMDD`. This is
              * included in the transfer data sent to the receiving bank.
              */
-            fun companyDescriptiveDate(companyDescriptiveDate: String) = apply {
+            fun companyDescriptiveDate(companyDescriptiveDate: String?) = apply {
                 this.companyDescriptiveDate = companyDescriptiveDate
             }
 
@@ -368,7 +368,7 @@ constructor(
              * The data you choose to associate with the transfer. This is included in the transfer
              * data sent to the receiving bank.
              */
-            fun companyDiscretionaryData(companyDiscretionaryData: String) = apply {
+            fun companyDiscretionaryData(companyDiscretionaryData: String?) = apply {
                 this.companyDiscretionaryData = companyDiscretionaryData
             }
 
@@ -376,7 +376,7 @@ constructor(
              * A description of the transfer. This is included in the transfer data sent to the
              * receiving bank.
              */
-            fun companyEntryDescription(companyEntryDescription: String) = apply {
+            fun companyEntryDescription(companyEntryDescription: String?) = apply {
                 this.companyEntryDescription = companyEntryDescription
             }
 
@@ -384,10 +384,10 @@ constructor(
              * The name by which the recipient knows you. This is included in the transfer data sent
              * to the receiving bank.
              */
-            fun companyName(companyName: String) = apply { this.companyName = companyName }
+            fun companyName(companyName: String?) = apply { this.companyName = companyName }
 
             /** The type of entity that owns the account to which the ACH Transfer is being sent. */
-            fun destinationAccountHolder(destinationAccountHolder: DestinationAccountHolder) =
+            fun destinationAccountHolder(destinationAccountHolder: DestinationAccountHolder?) =
                 apply {
                     this.destinationAccountHolder = destinationAccountHolder
                 }
@@ -396,21 +396,21 @@ constructor(
              * The ID of an External Account to initiate a transfer to. If this parameter is
              * provided, `account_number`, `routing_number`, and `funding` must be absent.
              */
-            fun externalAccountId(externalAccountId: String) = apply {
+            fun externalAccountId(externalAccountId: String?) = apply {
                 this.externalAccountId = externalAccountId
             }
 
             /** The type of the account to which the transfer will be sent. */
-            fun funding(funding: Funding) = apply { this.funding = funding }
+            fun funding(funding: Funding?) = apply { this.funding = funding }
 
             /** Your identifier for the transfer recipient. */
-            fun individualId(individualId: String) = apply { this.individualId = individualId }
+            fun individualId(individualId: String?) = apply { this.individualId = individualId }
 
             /**
              * The name of the transfer recipient. This value is informational and not verified by
              * the recipient's bank.
              */
-            fun individualName(individualName: String) = apply {
+            fun individualName(individualName: String?) = apply {
                 this.individualName = individualName
             }
 
@@ -420,28 +420,32 @@ constructor(
              * `settlement_schedule` of `same_day`. If set, exactly one of the child attributes must
              * be set.
              */
-            fun preferredEffectiveDate(preferredEffectiveDate: PreferredEffectiveDate) = apply {
+            fun preferredEffectiveDate(preferredEffectiveDate: PreferredEffectiveDate?) = apply {
                 this.preferredEffectiveDate = preferredEffectiveDate
             }
 
             /** Whether the transfer requires explicit approval via the dashboard or API. */
-            fun requireApproval(requireApproval: Boolean) = apply {
+            fun requireApproval(requireApproval: Boolean?) = apply {
                 this.requireApproval = requireApproval
             }
+
+            /** Whether the transfer requires explicit approval via the dashboard or API. */
+            fun requireApproval(requireApproval: Boolean) =
+                requireApproval(requireApproval as Boolean?)
 
             /**
              * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the
              * destination account.
              */
-            fun routingNumber(routingNumber: String) = apply { this.routingNumber = routingNumber }
+            fun routingNumber(routingNumber: String?) = apply { this.routingNumber = routingNumber }
 
             /** The Standard Entry Class (SEC) code to use for the transfer. */
-            fun standardEntryClassCode(standardEntryClassCode: StandardEntryClassCode) = apply {
+            fun standardEntryClassCode(standardEntryClassCode: StandardEntryClassCode?) = apply {
                 this.standardEntryClassCode = standardEntryClassCode
             }
 
             /** The timing of the transaction. */
-            fun transactionTiming(transactionTiming: TransactionTiming) = apply {
+            fun transactionTiming(transactionTiming: TransactionTiming?) = apply {
                 this.transactionTiming = transactionTiming
             }
 
@@ -552,19 +556,19 @@ constructor(
         }
 
         /** The account number for the destination account. */
-        fun accountNumber(accountNumber: String) = apply { body.accountNumber(accountNumber) }
+        fun accountNumber(accountNumber: String?) = apply { body.accountNumber(accountNumber) }
 
         /**
          * Additional information that will be sent to the recipient. This is included in the
          * transfer data sent to the receiving bank.
          */
-        fun addenda(addenda: Addenda) = apply { body.addenda(addenda) }
+        fun addenda(addenda: Addenda?) = apply { body.addenda(addenda) }
 
         /**
          * The description of the date of the transfer, usually in the format `YYMMDD`. This is
          * included in the transfer data sent to the receiving bank.
          */
-        fun companyDescriptiveDate(companyDescriptiveDate: String) = apply {
+        fun companyDescriptiveDate(companyDescriptiveDate: String?) = apply {
             body.companyDescriptiveDate(companyDescriptiveDate)
         }
 
@@ -572,7 +576,7 @@ constructor(
          * The data you choose to associate with the transfer. This is included in the transfer data
          * sent to the receiving bank.
          */
-        fun companyDiscretionaryData(companyDiscretionaryData: String) = apply {
+        fun companyDiscretionaryData(companyDiscretionaryData: String?) = apply {
             body.companyDiscretionaryData(companyDiscretionaryData)
         }
 
@@ -580,7 +584,7 @@ constructor(
          * A description of the transfer. This is included in the transfer data sent to the
          * receiving bank.
          */
-        fun companyEntryDescription(companyEntryDescription: String) = apply {
+        fun companyEntryDescription(companyEntryDescription: String?) = apply {
             body.companyEntryDescription(companyEntryDescription)
         }
 
@@ -588,10 +592,10 @@ constructor(
          * The name by which the recipient knows you. This is included in the transfer data sent to
          * the receiving bank.
          */
-        fun companyName(companyName: String) = apply { body.companyName(companyName) }
+        fun companyName(companyName: String?) = apply { body.companyName(companyName) }
 
         /** The type of entity that owns the account to which the ACH Transfer is being sent. */
-        fun destinationAccountHolder(destinationAccountHolder: DestinationAccountHolder) = apply {
+        fun destinationAccountHolder(destinationAccountHolder: DestinationAccountHolder?) = apply {
             body.destinationAccountHolder(destinationAccountHolder)
         }
 
@@ -599,21 +603,21 @@ constructor(
          * The ID of an External Account to initiate a transfer to. If this parameter is provided,
          * `account_number`, `routing_number`, and `funding` must be absent.
          */
-        fun externalAccountId(externalAccountId: String) = apply {
+        fun externalAccountId(externalAccountId: String?) = apply {
             body.externalAccountId(externalAccountId)
         }
 
         /** The type of the account to which the transfer will be sent. */
-        fun funding(funding: Funding) = apply { body.funding(funding) }
+        fun funding(funding: Funding?) = apply { body.funding(funding) }
 
         /** Your identifier for the transfer recipient. */
-        fun individualId(individualId: String) = apply { body.individualId(individualId) }
+        fun individualId(individualId: String?) = apply { body.individualId(individualId) }
 
         /**
          * The name of the transfer recipient. This value is informational and not verified by the
          * recipient's bank.
          */
-        fun individualName(individualName: String) = apply { body.individualName(individualName) }
+        fun individualName(individualName: String?) = apply { body.individualName(individualName) }
 
         /**
          * Configuration for how the effective date of the transfer will be set. This determines
@@ -621,28 +625,31 @@ constructor(
          * `settlement_schedule` of `same_day`. If set, exactly one of the child attributes must be
          * set.
          */
-        fun preferredEffectiveDate(preferredEffectiveDate: PreferredEffectiveDate) = apply {
+        fun preferredEffectiveDate(preferredEffectiveDate: PreferredEffectiveDate?) = apply {
             body.preferredEffectiveDate(preferredEffectiveDate)
         }
 
         /** Whether the transfer requires explicit approval via the dashboard or API. */
-        fun requireApproval(requireApproval: Boolean) = apply {
+        fun requireApproval(requireApproval: Boolean?) = apply {
             body.requireApproval(requireApproval)
         }
+
+        /** Whether the transfer requires explicit approval via the dashboard or API. */
+        fun requireApproval(requireApproval: Boolean) = requireApproval(requireApproval as Boolean?)
 
         /**
          * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the destination
          * account.
          */
-        fun routingNumber(routingNumber: String) = apply { body.routingNumber(routingNumber) }
+        fun routingNumber(routingNumber: String?) = apply { body.routingNumber(routingNumber) }
 
         /** The Standard Entry Class (SEC) code to use for the transfer. */
-        fun standardEntryClassCode(standardEntryClassCode: StandardEntryClassCode) = apply {
+        fun standardEntryClassCode(standardEntryClassCode: StandardEntryClassCode?) = apply {
             body.standardEntryClassCode(standardEntryClassCode)
         }
 
         /** The timing of the transaction. */
-        fun transactionTiming(transactionTiming: TransactionTiming) = apply {
+        fun transactionTiming(transactionTiming: TransactionTiming?) = apply {
             body.transactionTiming(transactionTiming)
         }
 
@@ -830,14 +837,14 @@ constructor(
             fun category(category: Category) = apply { this.category = category }
 
             /** Unstructured `payment_related_information` passed through with the transfer. */
-            fun freeform(freeform: Freeform) = apply { this.freeform = freeform }
+            fun freeform(freeform: Freeform?) = apply { this.freeform = freeform }
 
             /**
              * Structured ASC X12 820 remittance advice records. Please reach out to
              * [support@increase.com](mailto:support@increase.com) for more information.
              */
             fun paymentOrderRemittanceAdvice(
-                paymentOrderRemittanceAdvice: PaymentOrderRemittanceAdvice
+                paymentOrderRemittanceAdvice: PaymentOrderRemittanceAdvice?
             ) = apply { this.paymentOrderRemittanceAdvice = paymentOrderRemittanceAdvice }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -1511,10 +1518,10 @@ constructor(
              * A specific date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format to use
              * as the effective date when submitting this transfer.
              */
-            fun date(date: LocalDate) = apply { this.date = date }
+            fun date(date: LocalDate?) = apply { this.date = date }
 
             /** A schedule by which Increase will choose an effective date for the transfer. */
-            fun settlementSchedule(settlementSchedule: SettlementSchedule) = apply {
+            fun settlementSchedule(settlementSchedule: SettlementSchedule?) = apply {
                 this.settlementSchedule = settlementSchedule
             }
 

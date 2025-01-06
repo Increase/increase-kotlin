@@ -265,20 +265,20 @@ constructor(
             }
 
             /** The account number for the destination account. */
-            fun accountNumber(accountNumber: String) = apply { this.accountNumber = accountNumber }
+            fun accountNumber(accountNumber: String?) = apply { this.accountNumber = accountNumber }
 
             /** The beneficiary's address line 1. */
-            fun beneficiaryAddressLine1(beneficiaryAddressLine1: String) = apply {
+            fun beneficiaryAddressLine1(beneficiaryAddressLine1: String?) = apply {
                 this.beneficiaryAddressLine1 = beneficiaryAddressLine1
             }
 
             /** The beneficiary's address line 2. */
-            fun beneficiaryAddressLine2(beneficiaryAddressLine2: String) = apply {
+            fun beneficiaryAddressLine2(beneficiaryAddressLine2: String?) = apply {
                 this.beneficiaryAddressLine2 = beneficiaryAddressLine2
             }
 
             /** The beneficiary's address line 3. */
-            fun beneficiaryAddressLine3(beneficiaryAddressLine3: String) = apply {
+            fun beneficiaryAddressLine3(beneficiaryAddressLine3: String?) = apply {
                 this.beneficiaryAddressLine3 = beneficiaryAddressLine3
             }
 
@@ -286,7 +286,7 @@ constructor(
              * The ID of an External Account to initiate a transfer to. If this parameter is
              * provided, `account_number` and `routing_number` must be absent.
              */
-            fun externalAccountId(externalAccountId: String) = apply {
+            fun externalAccountId(externalAccountId: String?) = apply {
                 this.externalAccountId = externalAccountId
             }
 
@@ -294,7 +294,7 @@ constructor(
              * The originator's address line 1. This is only necessary if you're transferring from a
              * commingled account. Otherwise, we'll use the associated entity's details.
              */
-            fun originatorAddressLine1(originatorAddressLine1: String) = apply {
+            fun originatorAddressLine1(originatorAddressLine1: String?) = apply {
                 this.originatorAddressLine1 = originatorAddressLine1
             }
 
@@ -302,7 +302,7 @@ constructor(
              * The originator's address line 2. This is only necessary if you're transferring from a
              * commingled account. Otherwise, we'll use the associated entity's details.
              */
-            fun originatorAddressLine2(originatorAddressLine2: String) = apply {
+            fun originatorAddressLine2(originatorAddressLine2: String?) = apply {
                 this.originatorAddressLine2 = originatorAddressLine2
             }
 
@@ -310,7 +310,7 @@ constructor(
              * The originator's address line 3. This is only necessary if you're transferring from a
              * commingled account. Otherwise, we'll use the associated entity's details.
              */
-            fun originatorAddressLine3(originatorAddressLine3: String) = apply {
+            fun originatorAddressLine3(originatorAddressLine3: String?) = apply {
                 this.originatorAddressLine3 = originatorAddressLine3
             }
 
@@ -318,23 +318,27 @@ constructor(
              * The originator's name. This is only necessary if you're transferring from a
              * commingled account. Otherwise, we'll use the associated entity's details.
              */
-            fun originatorName(originatorName: String) = apply {
+            fun originatorName(originatorName: String?) = apply {
                 this.originatorName = originatorName
             }
 
             /** Whether the transfer requires explicit approval via the dashboard or API. */
-            fun requireApproval(requireApproval: Boolean) = apply {
+            fun requireApproval(requireApproval: Boolean?) = apply {
                 this.requireApproval = requireApproval
             }
+
+            /** Whether the transfer requires explicit approval via the dashboard or API. */
+            fun requireApproval(requireApproval: Boolean) =
+                requireApproval(requireApproval as Boolean?)
 
             /**
              * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the
              * destination account.
              */
-            fun routingNumber(routingNumber: String) = apply { this.routingNumber = routingNumber }
+            fun routingNumber(routingNumber: String?) = apply { this.routingNumber = routingNumber }
 
             /** The ID of an Account Number that will be passed to the wire's recipient */
-            fun sourceAccountNumberId(sourceAccountNumberId: String) = apply {
+            fun sourceAccountNumberId(sourceAccountNumberId: String?) = apply {
                 this.sourceAccountNumberId = sourceAccountNumberId
             }
 
@@ -438,20 +442,20 @@ constructor(
         }
 
         /** The account number for the destination account. */
-        fun accountNumber(accountNumber: String) = apply { body.accountNumber(accountNumber) }
+        fun accountNumber(accountNumber: String?) = apply { body.accountNumber(accountNumber) }
 
         /** The beneficiary's address line 1. */
-        fun beneficiaryAddressLine1(beneficiaryAddressLine1: String) = apply {
+        fun beneficiaryAddressLine1(beneficiaryAddressLine1: String?) = apply {
             body.beneficiaryAddressLine1(beneficiaryAddressLine1)
         }
 
         /** The beneficiary's address line 2. */
-        fun beneficiaryAddressLine2(beneficiaryAddressLine2: String) = apply {
+        fun beneficiaryAddressLine2(beneficiaryAddressLine2: String?) = apply {
             body.beneficiaryAddressLine2(beneficiaryAddressLine2)
         }
 
         /** The beneficiary's address line 3. */
-        fun beneficiaryAddressLine3(beneficiaryAddressLine3: String) = apply {
+        fun beneficiaryAddressLine3(beneficiaryAddressLine3: String?) = apply {
             body.beneficiaryAddressLine3(beneficiaryAddressLine3)
         }
 
@@ -459,7 +463,7 @@ constructor(
          * The ID of an External Account to initiate a transfer to. If this parameter is provided,
          * `account_number` and `routing_number` must be absent.
          */
-        fun externalAccountId(externalAccountId: String) = apply {
+        fun externalAccountId(externalAccountId: String?) = apply {
             body.externalAccountId(externalAccountId)
         }
 
@@ -467,7 +471,7 @@ constructor(
          * The originator's address line 1. This is only necessary if you're transferring from a
          * commingled account. Otherwise, we'll use the associated entity's details.
          */
-        fun originatorAddressLine1(originatorAddressLine1: String) = apply {
+        fun originatorAddressLine1(originatorAddressLine1: String?) = apply {
             body.originatorAddressLine1(originatorAddressLine1)
         }
 
@@ -475,7 +479,7 @@ constructor(
          * The originator's address line 2. This is only necessary if you're transferring from a
          * commingled account. Otherwise, we'll use the associated entity's details.
          */
-        fun originatorAddressLine2(originatorAddressLine2: String) = apply {
+        fun originatorAddressLine2(originatorAddressLine2: String?) = apply {
             body.originatorAddressLine2(originatorAddressLine2)
         }
 
@@ -483,7 +487,7 @@ constructor(
          * The originator's address line 3. This is only necessary if you're transferring from a
          * commingled account. Otherwise, we'll use the associated entity's details.
          */
-        fun originatorAddressLine3(originatorAddressLine3: String) = apply {
+        fun originatorAddressLine3(originatorAddressLine3: String?) = apply {
             body.originatorAddressLine3(originatorAddressLine3)
         }
 
@@ -491,21 +495,24 @@ constructor(
          * The originator's name. This is only necessary if you're transferring from a commingled
          * account. Otherwise, we'll use the associated entity's details.
          */
-        fun originatorName(originatorName: String) = apply { body.originatorName(originatorName) }
+        fun originatorName(originatorName: String?) = apply { body.originatorName(originatorName) }
 
         /** Whether the transfer requires explicit approval via the dashboard or API. */
-        fun requireApproval(requireApproval: Boolean) = apply {
+        fun requireApproval(requireApproval: Boolean?) = apply {
             body.requireApproval(requireApproval)
         }
+
+        /** Whether the transfer requires explicit approval via the dashboard or API. */
+        fun requireApproval(requireApproval: Boolean) = requireApproval(requireApproval as Boolean?)
 
         /**
          * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the destination
          * account.
          */
-        fun routingNumber(routingNumber: String) = apply { body.routingNumber(routingNumber) }
+        fun routingNumber(routingNumber: String?) = apply { body.routingNumber(routingNumber) }
 
         /** The ID of an Account Number that will be passed to the wire's recipient */
-        fun sourceAccountNumberId(sourceAccountNumberId: String) = apply {
+        fun sourceAccountNumberId(sourceAccountNumberId: String?) = apply {
             body.sourceAccountNumberId(sourceAccountNumberId)
         }
 

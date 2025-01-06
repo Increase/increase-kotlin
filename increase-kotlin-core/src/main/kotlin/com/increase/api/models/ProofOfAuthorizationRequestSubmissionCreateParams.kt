@@ -248,12 +248,12 @@ constructor(
             }
 
             /** Company of the authorizer. */
-            fun authorizerCompany(authorizerCompany: String) = apply {
+            fun authorizerCompany(authorizerCompany: String?) = apply {
                 this.authorizerCompany = authorizerCompany
             }
 
             /** IP address of the authorizer. */
-            fun authorizerIpAddress(authorizerIpAddress: String) = apply {
+            fun authorizerIpAddress(authorizerIpAddress: String?) = apply {
                 this.authorizerIpAddress = authorizerIpAddress
             }
 
@@ -403,12 +403,12 @@ constructor(
         }
 
         /** Company of the authorizer. */
-        fun authorizerCompany(authorizerCompany: String) = apply {
+        fun authorizerCompany(authorizerCompany: String?) = apply {
             body.authorizerCompany(authorizerCompany)
         }
 
         /** IP address of the authorizer. */
-        fun authorizerIpAddress(authorizerIpAddress: String) = apply {
+        fun authorizerIpAddress(authorizerIpAddress: String?) = apply {
             body.authorizerIpAddress(authorizerIpAddress)
         }
 

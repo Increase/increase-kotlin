@@ -112,20 +112,20 @@ constructor(
             }
 
             /** Options related to how this Account Number handles inbound ACH transfers. */
-            fun inboundAch(inboundAch: InboundAch) = apply { this.inboundAch = inboundAch }
+            fun inboundAch(inboundAch: InboundAch?) = apply { this.inboundAch = inboundAch }
 
             /**
              * Options related to how this Account Number should handle inbound check withdrawals.
              */
-            fun inboundChecks(inboundChecks: InboundChecks) = apply {
+            fun inboundChecks(inboundChecks: InboundChecks?) = apply {
                 this.inboundChecks = inboundChecks
             }
 
             /** The name you choose for the Account Number. */
-            fun name(name: String) = apply { this.name = name }
+            fun name(name: String?) = apply { this.name = name }
 
             /** This indicates if transfers can be made to the Account Number. */
-            fun status(status: Status) = apply { this.status = status }
+            fun status(status: Status?) = apply { this.status = status }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -202,18 +202,18 @@ constructor(
         }
 
         /** Options related to how this Account Number handles inbound ACH transfers. */
-        fun inboundAch(inboundAch: InboundAch) = apply { body.inboundAch(inboundAch) }
+        fun inboundAch(inboundAch: InboundAch?) = apply { body.inboundAch(inboundAch) }
 
         /** Options related to how this Account Number should handle inbound check withdrawals. */
-        fun inboundChecks(inboundChecks: InboundChecks) = apply {
+        fun inboundChecks(inboundChecks: InboundChecks?) = apply {
             body.inboundChecks(inboundChecks)
         }
 
         /** The name you choose for the Account Number. */
-        fun name(name: String) = apply { body.name(name) }
+        fun name(name: String?) = apply { body.name(name) }
 
         /** This indicates if transfers can be made to the Account Number. */
-        fun status(status: Status) = apply { body.status(status) }
+        fun status(status: Status?) = apply { body.status(status) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -382,7 +382,7 @@ constructor(
              * Whether ACH debits are allowed against this Account Number. Note that ACH debits will
              * be declined if this is `allowed` but the Account Number is not active.
              */
-            fun debitStatus(debitStatus: DebitStatus) = apply { this.debitStatus = debitStatus }
+            fun debitStatus(debitStatus: DebitStatus?) = apply { this.debitStatus = debitStatus }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()

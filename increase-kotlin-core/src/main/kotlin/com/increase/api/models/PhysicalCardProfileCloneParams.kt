@@ -126,18 +126,18 @@ constructor(
             }
 
             /** The identifier of the File containing the physical card's carrier image. */
-            fun carrierImageFileId(carrierImageFileId: String) = apply {
+            fun carrierImageFileId(carrierImageFileId: String?) = apply {
                 this.carrierImageFileId = carrierImageFileId
             }
 
             /** A phone number the user can contact to receive support for their card. */
-            fun contactPhone(contactPhone: String) = apply { this.contactPhone = contactPhone }
+            fun contactPhone(contactPhone: String?) = apply { this.contactPhone = contactPhone }
 
             /** A description you can use to identify the Card Profile. */
-            fun description(description: String) = apply { this.description = description }
+            fun description(description: String?) = apply { this.description = description }
 
             /** The identifier of the File containing the physical card's front image. */
-            fun frontImageFileId(frontImageFileId: String) = apply {
+            fun frontImageFileId(frontImageFileId: String?) = apply {
                 this.frontImageFileId = frontImageFileId
             }
 
@@ -145,7 +145,7 @@ constructor(
              * Text printed on the front of the card. Reach out to
              * [support@increase.com](mailto:support@increase.com) for more information.
              */
-            fun frontText(frontText: FrontText) = apply { this.frontText = frontText }
+            fun frontText(frontText: FrontText?) = apply { this.frontText = frontText }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -224,18 +224,18 @@ constructor(
         }
 
         /** The identifier of the File containing the physical card's carrier image. */
-        fun carrierImageFileId(carrierImageFileId: String) = apply {
+        fun carrierImageFileId(carrierImageFileId: String?) = apply {
             body.carrierImageFileId(carrierImageFileId)
         }
 
         /** A phone number the user can contact to receive support for their card. */
-        fun contactPhone(contactPhone: String) = apply { body.contactPhone(contactPhone) }
+        fun contactPhone(contactPhone: String?) = apply { body.contactPhone(contactPhone) }
 
         /** A description you can use to identify the Card Profile. */
-        fun description(description: String) = apply { body.description(description) }
+        fun description(description: String?) = apply { body.description(description) }
 
         /** The identifier of the File containing the physical card's front image. */
-        fun frontImageFileId(frontImageFileId: String) = apply {
+        fun frontImageFileId(frontImageFileId: String?) = apply {
             body.frontImageFileId(frontImageFileId)
         }
 
@@ -243,7 +243,7 @@ constructor(
          * Text printed on the front of the card. Reach out to
          * [support@increase.com](mailto:support@increase.com) for more information.
          */
-        fun frontText(frontText: FrontText) = apply { body.frontText(frontText) }
+        fun frontText(frontText: FrontText?) = apply { body.frontText(frontText) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -428,7 +428,7 @@ constructor(
              * first line slightly higher and prints the second line in the spot where the first
              * line would have otherwise been printed.
              */
-            fun line2(line2: String) = apply { this.line2 = line2 }
+            fun line2(line2: String?) = apply { this.line2 = line2 }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()

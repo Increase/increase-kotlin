@@ -546,13 +546,13 @@ constructor(
                 fun country(country: String) = apply { this.country = country }
 
                 /** The town or city. */
-                fun city(city: String) = apply { this.city = city }
+                fun city(city: String?) = apply { this.city = city }
 
                 /** The postal code or zip. */
-                fun postCode(postCode: String) = apply { this.postCode = postCode }
+                fun postCode(postCode: String?) = apply { this.postCode = postCode }
 
                 /** The street name without the street number. */
-                fun streetName(streetName: String) = apply { this.streetName = streetName }
+                fun streetName(streetName: String?) = apply { this.streetName = streetName }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()

@@ -216,15 +216,15 @@ constructor(
              * The name of the transfer's sender. If not provided, defaults to the name of the
              * account's entity.
              */
-            fun debtorName(debtorName: String) = apply { this.debtorName = debtorName }
+            fun debtorName(debtorName: String?) = apply { this.debtorName = debtorName }
 
             /** The destination account number. */
-            fun destinationAccountNumber(destinationAccountNumber: String) = apply {
+            fun destinationAccountNumber(destinationAccountNumber: String?) = apply {
                 this.destinationAccountNumber = destinationAccountNumber
             }
 
             /** The destination American Bankers' Association (ABA) Routing Transit Number (RTN). */
-            fun destinationRoutingNumber(destinationRoutingNumber: String) = apply {
+            fun destinationRoutingNumber(destinationRoutingNumber: String?) = apply {
                 this.destinationRoutingNumber = destinationRoutingNumber
             }
 
@@ -233,20 +233,24 @@ constructor(
              * provided, `destination_account_number` and `destination_routing_number` must be
              * absent.
              */
-            fun externalAccountId(externalAccountId: String) = apply {
+            fun externalAccountId(externalAccountId: String?) = apply {
                 this.externalAccountId = externalAccountId
             }
 
             /** Whether the transfer requires explicit approval via the dashboard or API. */
-            fun requireApproval(requireApproval: Boolean) = apply {
+            fun requireApproval(requireApproval: Boolean?) = apply {
                 this.requireApproval = requireApproval
             }
+
+            /** Whether the transfer requires explicit approval via the dashboard or API. */
+            fun requireApproval(requireApproval: Boolean) =
+                requireApproval(requireApproval as Boolean?)
 
             /**
              * The name of the ultimate recipient of the transfer. Set this if the creditor is an
              * intermediary receiving the payment for someone else.
              */
-            fun ultimateCreditorName(ultimateCreditorName: String) = apply {
+            fun ultimateCreditorName(ultimateCreditorName: String?) = apply {
                 this.ultimateCreditorName = ultimateCreditorName
             }
 
@@ -254,7 +258,7 @@ constructor(
              * The name of the ultimate sender of the transfer. Set this if the funds are being sent
              * on behalf of someone who is not the account holder at Increase.
              */
-            fun ultimateDebtorName(ultimateDebtorName: String) = apply {
+            fun ultimateDebtorName(ultimateDebtorName: String?) = apply {
                 this.ultimateDebtorName = ultimateDebtorName
             }
 
@@ -360,15 +364,15 @@ constructor(
          * The name of the transfer's sender. If not provided, defaults to the name of the account's
          * entity.
          */
-        fun debtorName(debtorName: String) = apply { body.debtorName(debtorName) }
+        fun debtorName(debtorName: String?) = apply { body.debtorName(debtorName) }
 
         /** The destination account number. */
-        fun destinationAccountNumber(destinationAccountNumber: String) = apply {
+        fun destinationAccountNumber(destinationAccountNumber: String?) = apply {
             body.destinationAccountNumber(destinationAccountNumber)
         }
 
         /** The destination American Bankers' Association (ABA) Routing Transit Number (RTN). */
-        fun destinationRoutingNumber(destinationRoutingNumber: String) = apply {
+        fun destinationRoutingNumber(destinationRoutingNumber: String?) = apply {
             body.destinationRoutingNumber(destinationRoutingNumber)
         }
 
@@ -376,20 +380,23 @@ constructor(
          * The ID of an External Account to initiate a transfer to. If this parameter is provided,
          * `destination_account_number` and `destination_routing_number` must be absent.
          */
-        fun externalAccountId(externalAccountId: String) = apply {
+        fun externalAccountId(externalAccountId: String?) = apply {
             body.externalAccountId(externalAccountId)
         }
 
         /** Whether the transfer requires explicit approval via the dashboard or API. */
-        fun requireApproval(requireApproval: Boolean) = apply {
+        fun requireApproval(requireApproval: Boolean?) = apply {
             body.requireApproval(requireApproval)
         }
+
+        /** Whether the transfer requires explicit approval via the dashboard or API. */
+        fun requireApproval(requireApproval: Boolean) = requireApproval(requireApproval as Boolean?)
 
         /**
          * The name of the ultimate recipient of the transfer. Set this if the creditor is an
          * intermediary receiving the payment for someone else.
          */
-        fun ultimateCreditorName(ultimateCreditorName: String) = apply {
+        fun ultimateCreditorName(ultimateCreditorName: String?) = apply {
             body.ultimateCreditorName(ultimateCreditorName)
         }
 
@@ -397,7 +404,7 @@ constructor(
          * The name of the ultimate sender of the transfer. Set this if the funds are being sent on
          * behalf of someone who is not the account holder at Increase.
          */
-        fun ultimateDebtorName(ultimateDebtorName: String) = apply {
+        fun ultimateDebtorName(ultimateDebtorName: String?) = apply {
             body.ultimateDebtorName(ultimateDebtorName)
         }
 

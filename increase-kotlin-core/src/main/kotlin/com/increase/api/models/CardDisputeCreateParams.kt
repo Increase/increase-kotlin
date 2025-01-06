@@ -119,7 +119,14 @@ constructor(
              * optional and will default to the full amount of the transaction if not provided. If
              * provided, the amount must be less than or equal to the amount of the transaction.
              */
-            fun amount(amount: Long) = apply { this.amount = amount }
+            fun amount(amount: Long?) = apply { this.amount = amount }
+
+            /**
+             * The monetary amount of the part of the transaction that is being disputed. This is
+             * optional and will default to the full amount of the transaction if not provided. If
+             * provided, the amount must be less than or equal to the amount of the transaction.
+             */
+            fun amount(amount: Long) = amount(amount as Long?)
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -205,7 +212,14 @@ constructor(
          * optional and will default to the full amount of the transaction if not provided. If
          * provided, the amount must be less than or equal to the amount of the transaction.
          */
-        fun amount(amount: Long) = apply { body.amount(amount) }
+        fun amount(amount: Long?) = apply { body.amount(amount) }
+
+        /**
+         * The monetary amount of the part of the transaction that is being disputed. This is
+         * optional and will default to the full amount of the transaction if not provided. If
+         * provided, the amount must be less than or equal to the amount of the transaction.
+         */
+        fun amount(amount: Long) = amount(amount as Long?)
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()

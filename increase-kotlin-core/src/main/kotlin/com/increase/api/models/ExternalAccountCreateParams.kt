@@ -128,12 +128,12 @@ constructor(
             fun routingNumber(routingNumber: String) = apply { this.routingNumber = routingNumber }
 
             /** The type of entity that owns the External Account. */
-            fun accountHolder(accountHolder: AccountHolder) = apply {
+            fun accountHolder(accountHolder: AccountHolder?) = apply {
                 this.accountHolder = accountHolder
             }
 
             /** The type of the destination account. Defaults to `checking`. */
-            fun funding(funding: Funding) = apply { this.funding = funding }
+            fun funding(funding: Funding?) = apply { this.funding = funding }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -216,12 +216,12 @@ constructor(
         fun routingNumber(routingNumber: String) = apply { body.routingNumber(routingNumber) }
 
         /** The type of entity that owns the External Account. */
-        fun accountHolder(accountHolder: AccountHolder) = apply {
+        fun accountHolder(accountHolder: AccountHolder?) = apply {
             body.accountHolder(accountHolder)
         }
 
         /** The type of the destination account. Defaults to `checking`. */
-        fun funding(funding: Funding) = apply { body.funding(funding) }
+        fun funding(funding: Funding?) = apply { body.funding(funding) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()

@@ -107,12 +107,12 @@ constructor(
             fun name(name: String) = apply { this.name = name }
 
             /** Options related to how this Account Number should handle inbound ACH transfers. */
-            fun inboundAch(inboundAch: InboundAch) = apply { this.inboundAch = inboundAch }
+            fun inboundAch(inboundAch: InboundAch?) = apply { this.inboundAch = inboundAch }
 
             /**
              * Options related to how this Account Number should handle inbound check withdrawals.
              */
-            fun inboundChecks(inboundChecks: InboundChecks) = apply {
+            fun inboundChecks(inboundChecks: InboundChecks?) = apply {
                 this.inboundChecks = inboundChecks
             }
 
@@ -190,10 +190,10 @@ constructor(
         fun name(name: String) = apply { body.name(name) }
 
         /** Options related to how this Account Number should handle inbound ACH transfers. */
-        fun inboundAch(inboundAch: InboundAch) = apply { body.inboundAch(inboundAch) }
+        fun inboundAch(inboundAch: InboundAch?) = apply { body.inboundAch(inboundAch) }
 
         /** Options related to how this Account Number should handle inbound check withdrawals. */
-        fun inboundChecks(inboundChecks: InboundChecks) = apply {
+        fun inboundChecks(inboundChecks: InboundChecks?) = apply {
             body.inboundChecks(inboundChecks)
         }
 
