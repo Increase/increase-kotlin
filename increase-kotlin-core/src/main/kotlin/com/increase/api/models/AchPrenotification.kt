@@ -26,6 +26,7 @@ import java.util.Objects
 class AchPrenotification
 @JsonCreator
 private constructor(
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("account_number")
     @ExcludeMissing
     private val accountNumber: JsonField<String> = JsonMissing.of(),
@@ -53,7 +54,6 @@ private constructor(
     @JsonProperty("effective_date")
     @ExcludeMissing
     private val effectiveDate: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("idempotency_key")
     @ExcludeMissing
     private val idempotencyKey: JsonField<String> = JsonMissing.of(),
@@ -72,6 +72,9 @@ private constructor(
     @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
+
+    /** The ACH Prenotification's identifier. */
+    fun id(): String = id.getRequired("id")
 
     /** The destination account number. */
     fun accountNumber(): String = accountNumber.getRequired("account_number")
@@ -107,9 +110,6 @@ private constructor(
     /** The effective date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. */
     fun effectiveDate(): OffsetDateTime? = effectiveDate.getNullable("effective_date")
 
-    /** The ACH Prenotification's identifier. */
-    fun id(): String = id.getRequired("id")
-
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
      * used to ensure that a request is only processed once. Learn more about
@@ -139,6 +139,9 @@ private constructor(
      * `ach_prenotification`.
      */
     fun type(): Type = type.getRequired("type")
+
+    /** The ACH Prenotification's identifier. */
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /** The destination account number. */
     @JsonProperty("account_number") @ExcludeMissing fun _accountNumber() = accountNumber
@@ -177,9 +180,6 @@ private constructor(
 
     /** The effective date in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format. */
     @JsonProperty("effective_date") @ExcludeMissing fun _effectiveDate() = effectiveDate
-
-    /** The ACH Prenotification's identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -221,6 +221,7 @@ private constructor(
 
     fun validate(): AchPrenotification = apply {
         if (!validated) {
+            id()
             accountNumber()
             addendum()
             companyDescriptiveDate()
@@ -230,7 +231,6 @@ private constructor(
             createdAt()
             creditDebitIndicator()
             effectiveDate()
-            id()
             idempotencyKey()
             notificationsOfChange().forEach { it.validate() }
             prenotificationReturn()?.validate()
@@ -250,6 +250,7 @@ private constructor(
 
     class Builder {
 
+        private var id: JsonField<String> = JsonMissing.of()
         private var accountNumber: JsonField<String> = JsonMissing.of()
         private var addendum: JsonField<String> = JsonMissing.of()
         private var companyDescriptiveDate: JsonField<String> = JsonMissing.of()
@@ -259,7 +260,6 @@ private constructor(
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var creditDebitIndicator: JsonField<CreditDebitIndicator> = JsonMissing.of()
         private var effectiveDate: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var id: JsonField<String> = JsonMissing.of()
         private var idempotencyKey: JsonField<String> = JsonMissing.of()
         private var notificationsOfChange: JsonField<List<NotificationsOfChange>> = JsonMissing.of()
         private var prenotificationReturn: JsonField<PrenotificationReturn> = JsonMissing.of()
@@ -269,6 +269,7 @@ private constructor(
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(achPrenotification: AchPrenotification) = apply {
+            id = achPrenotification.id
             accountNumber = achPrenotification.accountNumber
             addendum = achPrenotification.addendum
             companyDescriptiveDate = achPrenotification.companyDescriptiveDate
@@ -278,7 +279,6 @@ private constructor(
             createdAt = achPrenotification.createdAt
             creditDebitIndicator = achPrenotification.creditDebitIndicator
             effectiveDate = achPrenotification.effectiveDate
-            id = achPrenotification.id
             idempotencyKey = achPrenotification.idempotencyKey
             notificationsOfChange = achPrenotification.notificationsOfChange
             prenotificationReturn = achPrenotification.prenotificationReturn
@@ -287,6 +287,12 @@ private constructor(
             type = achPrenotification.type
             additionalProperties = achPrenotification.additionalProperties.toMutableMap()
         }
+
+        /** The ACH Prenotification's identifier. */
+        fun id(id: String) = id(JsonField.of(id))
+
+        /** The ACH Prenotification's identifier. */
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The destination account number. */
         fun accountNumber(accountNumber: String) = accountNumber(JsonField.of(accountNumber))
@@ -364,12 +370,6 @@ private constructor(
         fun effectiveDate(effectiveDate: JsonField<OffsetDateTime>) = apply {
             this.effectiveDate = effectiveDate
         }
-
-        /** The ACH Prenotification's identifier. */
-        fun id(id: String) = id(JsonField.of(id))
-
-        /** The ACH Prenotification's identifier. */
-        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -459,6 +459,7 @@ private constructor(
 
         fun build(): AchPrenotification =
             AchPrenotification(
+                id,
                 accountNumber,
                 addendum,
                 companyDescriptiveDate,
@@ -468,7 +469,6 @@ private constructor(
                 createdAt,
                 creditDebitIndicator,
                 effectiveDate,
-                id,
                 idempotencyKey,
                 notificationsOfChange.map { it.toImmutable() },
                 prenotificationReturn,
@@ -1713,15 +1713,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is AchPrenotification && accountNumber == other.accountNumber && addendum == other.addendum && companyDescriptiveDate == other.companyDescriptiveDate && companyDiscretionaryData == other.companyDiscretionaryData && companyEntryDescription == other.companyEntryDescription && companyName == other.companyName && createdAt == other.createdAt && creditDebitIndicator == other.creditDebitIndicator && effectiveDate == other.effectiveDate && id == other.id && idempotencyKey == other.idempotencyKey && notificationsOfChange == other.notificationsOfChange && prenotificationReturn == other.prenotificationReturn && routingNumber == other.routingNumber && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is AchPrenotification && id == other.id && accountNumber == other.accountNumber && addendum == other.addendum && companyDescriptiveDate == other.companyDescriptiveDate && companyDiscretionaryData == other.companyDiscretionaryData && companyEntryDescription == other.companyEntryDescription && companyName == other.companyName && createdAt == other.createdAt && creditDebitIndicator == other.creditDebitIndicator && effectiveDate == other.effectiveDate && idempotencyKey == other.idempotencyKey && notificationsOfChange == other.notificationsOfChange && prenotificationReturn == other.prenotificationReturn && routingNumber == other.routingNumber && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(accountNumber, addendum, companyDescriptiveDate, companyDiscretionaryData, companyEntryDescription, companyName, createdAt, creditDebitIndicator, effectiveDate, id, idempotencyKey, notificationsOfChange, prenotificationReturn, routingNumber, status, type, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, accountNumber, addendum, companyDescriptiveDate, companyDiscretionaryData, companyEntryDescription, companyName, createdAt, creditDebitIndicator, effectiveDate, idempotencyKey, notificationsOfChange, prenotificationReturn, routingNumber, status, type, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "AchPrenotification{accountNumber=$accountNumber, addendum=$addendum, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, createdAt=$createdAt, creditDebitIndicator=$creditDebitIndicator, effectiveDate=$effectiveDate, id=$id, idempotencyKey=$idempotencyKey, notificationsOfChange=$notificationsOfChange, prenotificationReturn=$prenotificationReturn, routingNumber=$routingNumber, status=$status, type=$type, additionalProperties=$additionalProperties}"
+        "AchPrenotification{id=$id, accountNumber=$accountNumber, addendum=$addendum, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, createdAt=$createdAt, creditDebitIndicator=$creditDebitIndicator, effectiveDate=$effectiveDate, idempotencyKey=$idempotencyKey, notificationsOfChange=$notificationsOfChange, prenotificationReturn=$prenotificationReturn, routingNumber=$routingNumber, status=$status, type=$type, additionalProperties=$additionalProperties}"
 }

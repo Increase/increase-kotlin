@@ -26,6 +26,7 @@ import java.util.Objects
 class BookkeepingAccount
 @JsonCreator
 private constructor(
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("account_id")
     @ExcludeMissing
     private val accountId: JsonField<String> = JsonMissing.of(),
@@ -35,7 +36,6 @@ private constructor(
     @JsonProperty("entity_id")
     @ExcludeMissing
     private val entityId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("idempotency_key")
     @ExcludeMissing
     private val idempotencyKey: JsonField<String> = JsonMissing.of(),
@@ -43,6 +43,9 @@ private constructor(
     @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
+
+    /** The account identifier. */
+    fun id(): String = id.getRequired("id")
 
     /** The API Account associated with this bookkeeping account. */
     fun accountId(): String? = accountId.getNullable("account_id")
@@ -53,9 +56,6 @@ private constructor(
 
     /** The Entity associated with this bookkeeping account. */
     fun entityId(): String? = entityId.getNullable("entity_id")
-
-    /** The account identifier. */
-    fun id(): String = id.getRequired("id")
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -73,6 +73,9 @@ private constructor(
      */
     fun type(): Type = type.getRequired("type")
 
+    /** The account identifier. */
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
+
     /** The API Account associated with this bookkeeping account. */
     @JsonProperty("account_id") @ExcludeMissing fun _accountId() = accountId
 
@@ -83,9 +86,6 @@ private constructor(
 
     /** The Entity associated with this bookkeeping account. */
     @JsonProperty("entity_id") @ExcludeMissing fun _entityId() = entityId
-
-    /** The account identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -111,10 +111,10 @@ private constructor(
 
     fun validate(): BookkeepingAccount = apply {
         if (!validated) {
+            id()
             accountId()
             complianceCategory()
             entityId()
-            id()
             idempotencyKey()
             name()
             type()
@@ -131,25 +131,31 @@ private constructor(
 
     class Builder {
 
+        private var id: JsonField<String> = JsonMissing.of()
         private var accountId: JsonField<String> = JsonMissing.of()
         private var complianceCategory: JsonField<ComplianceCategory> = JsonMissing.of()
         private var entityId: JsonField<String> = JsonMissing.of()
-        private var id: JsonField<String> = JsonMissing.of()
         private var idempotencyKey: JsonField<String> = JsonMissing.of()
         private var name: JsonField<String> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(bookkeepingAccount: BookkeepingAccount) = apply {
+            id = bookkeepingAccount.id
             accountId = bookkeepingAccount.accountId
             complianceCategory = bookkeepingAccount.complianceCategory
             entityId = bookkeepingAccount.entityId
-            id = bookkeepingAccount.id
             idempotencyKey = bookkeepingAccount.idempotencyKey
             name = bookkeepingAccount.name
             type = bookkeepingAccount.type
             additionalProperties = bookkeepingAccount.additionalProperties.toMutableMap()
         }
+
+        /** The account identifier. */
+        fun id(id: String) = id(JsonField.of(id))
+
+        /** The account identifier. */
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The API Account associated with this bookkeeping account. */
         fun accountId(accountId: String) = accountId(JsonField.of(accountId))
@@ -171,12 +177,6 @@ private constructor(
 
         /** The Entity associated with this bookkeeping account. */
         fun entityId(entityId: JsonField<String>) = apply { this.entityId = entityId }
-
-        /** The account identifier. */
-        fun id(id: String) = id(JsonField.of(id))
-
-        /** The account identifier. */
-        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -233,10 +233,10 @@ private constructor(
 
         fun build(): BookkeepingAccount =
             BookkeepingAccount(
+                id,
                 accountId,
                 complianceCategory,
                 entityId,
-                id,
                 idempotencyKey,
                 name,
                 type,
@@ -357,15 +357,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is BookkeepingAccount && accountId == other.accountId && complianceCategory == other.complianceCategory && entityId == other.entityId && id == other.id && idempotencyKey == other.idempotencyKey && name == other.name && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is BookkeepingAccount && id == other.id && accountId == other.accountId && complianceCategory == other.complianceCategory && entityId == other.entityId && idempotencyKey == other.idempotencyKey && name == other.name && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(accountId, complianceCategory, entityId, id, idempotencyKey, name, type, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, accountId, complianceCategory, entityId, idempotencyKey, name, type, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "BookkeepingAccount{accountId=$accountId, complianceCategory=$complianceCategory, entityId=$entityId, id=$id, idempotencyKey=$idempotencyKey, name=$name, type=$type, additionalProperties=$additionalProperties}"
+        "BookkeepingAccount{id=$id, accountId=$accountId, complianceCategory=$complianceCategory, entityId=$entityId, idempotencyKey=$idempotencyKey, name=$name, type=$type, additionalProperties=$additionalProperties}"
 }

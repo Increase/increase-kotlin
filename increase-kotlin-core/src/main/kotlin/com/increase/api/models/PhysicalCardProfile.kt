@@ -27,6 +27,7 @@ import java.util.Objects
 class PhysicalCardProfile
 @JsonCreator
 private constructor(
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("back_image_file_id")
     @ExcludeMissing
     private val backImageFileId: JsonField<String> = JsonMissing.of(),
@@ -48,7 +49,6 @@ private constructor(
     @JsonProperty("front_image_file_id")
     @ExcludeMissing
     private val frontImageFileId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("idempotency_key")
     @ExcludeMissing
     private val idempotencyKey: JsonField<String> = JsonMissing.of(),
@@ -61,6 +61,9 @@ private constructor(
     @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
+
+    /** The Card Profile identifier. */
+    fun id(): String = id.getRequired("id")
 
     /** The identifier of the File containing the physical card's back image. */
     fun backImageFileId(): String? = backImageFileId.getNullable("back_image_file_id")
@@ -86,9 +89,6 @@ private constructor(
     /** The identifier of the File containing the physical card's front image. */
     fun frontImageFileId(): String? = frontImageFileId.getNullable("front_image_file_id")
 
-    /** The Card Profile identifier. */
-    fun id(): String = id.getRequired("id")
-
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
      * used to ensure that a request is only processed once. Learn more about
@@ -107,6 +107,9 @@ private constructor(
      * `physical_card_profile`.
      */
     fun type(): Type = type.getRequired("type")
+
+    /** The Card Profile identifier. */
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /** The identifier of the File containing the physical card's back image. */
     @JsonProperty("back_image_file_id") @ExcludeMissing fun _backImageFileId() = backImageFileId
@@ -133,9 +136,6 @@ private constructor(
 
     /** The identifier of the File containing the physical card's front image. */
     @JsonProperty("front_image_file_id") @ExcludeMissing fun _frontImageFileId() = frontImageFileId
-
-    /** The Card Profile identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -164,6 +164,7 @@ private constructor(
 
     fun validate(): PhysicalCardProfile = apply {
         if (!validated) {
+            id()
             backImageFileId()
             carrierImageFileId()
             contactPhone()
@@ -171,7 +172,6 @@ private constructor(
             creator()
             description()
             frontImageFileId()
-            id()
             idempotencyKey()
             isDefault()
             status()
@@ -189,6 +189,7 @@ private constructor(
 
     class Builder {
 
+        private var id: JsonField<String> = JsonMissing.of()
         private var backImageFileId: JsonField<String> = JsonMissing.of()
         private var carrierImageFileId: JsonField<String> = JsonMissing.of()
         private var contactPhone: JsonField<String> = JsonMissing.of()
@@ -196,7 +197,6 @@ private constructor(
         private var creator: JsonField<Creator> = JsonMissing.of()
         private var description: JsonField<String> = JsonMissing.of()
         private var frontImageFileId: JsonField<String> = JsonMissing.of()
-        private var id: JsonField<String> = JsonMissing.of()
         private var idempotencyKey: JsonField<String> = JsonMissing.of()
         private var isDefault: JsonField<Boolean> = JsonMissing.of()
         private var status: JsonField<Status> = JsonMissing.of()
@@ -204,6 +204,7 @@ private constructor(
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(physicalCardProfile: PhysicalCardProfile) = apply {
+            id = physicalCardProfile.id
             backImageFileId = physicalCardProfile.backImageFileId
             carrierImageFileId = physicalCardProfile.carrierImageFileId
             contactPhone = physicalCardProfile.contactPhone
@@ -211,13 +212,18 @@ private constructor(
             creator = physicalCardProfile.creator
             description = physicalCardProfile.description
             frontImageFileId = physicalCardProfile.frontImageFileId
-            id = physicalCardProfile.id
             idempotencyKey = physicalCardProfile.idempotencyKey
             isDefault = physicalCardProfile.isDefault
             status = physicalCardProfile.status
             type = physicalCardProfile.type
             additionalProperties = physicalCardProfile.additionalProperties.toMutableMap()
         }
+
+        /** The Card Profile identifier. */
+        fun id(id: String) = id(JsonField.of(id))
+
+        /** The Card Profile identifier. */
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The identifier of the File containing the physical card's back image. */
         fun backImageFileId(backImageFileId: String) =
@@ -277,12 +283,6 @@ private constructor(
         fun frontImageFileId(frontImageFileId: JsonField<String>) = apply {
             this.frontImageFileId = frontImageFileId
         }
-
-        /** The Card Profile identifier. */
-        fun id(id: String) = id(JsonField.of(id))
-
-        /** The Card Profile identifier. */
-        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -349,6 +349,7 @@ private constructor(
 
         fun build(): PhysicalCardProfile =
             PhysicalCardProfile(
+                id,
                 backImageFileId,
                 carrierImageFileId,
                 contactPhone,
@@ -356,7 +357,6 @@ private constructor(
                 creator,
                 description,
                 frontImageFileId,
-                id,
                 idempotencyKey,
                 isDefault,
                 status,
@@ -559,15 +559,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is PhysicalCardProfile && backImageFileId == other.backImageFileId && carrierImageFileId == other.carrierImageFileId && contactPhone == other.contactPhone && createdAt == other.createdAt && creator == other.creator && description == other.description && frontImageFileId == other.frontImageFileId && id == other.id && idempotencyKey == other.idempotencyKey && isDefault == other.isDefault && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is PhysicalCardProfile && id == other.id && backImageFileId == other.backImageFileId && carrierImageFileId == other.carrierImageFileId && contactPhone == other.contactPhone && createdAt == other.createdAt && creator == other.creator && description == other.description && frontImageFileId == other.frontImageFileId && idempotencyKey == other.idempotencyKey && isDefault == other.isDefault && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(backImageFileId, carrierImageFileId, contactPhone, createdAt, creator, description, frontImageFileId, id, idempotencyKey, isDefault, status, type, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, backImageFileId, carrierImageFileId, contactPhone, createdAt, creator, description, frontImageFileId, idempotencyKey, isDefault, status, type, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "PhysicalCardProfile{backImageFileId=$backImageFileId, carrierImageFileId=$carrierImageFileId, contactPhone=$contactPhone, createdAt=$createdAt, creator=$creator, description=$description, frontImageFileId=$frontImageFileId, id=$id, idempotencyKey=$idempotencyKey, isDefault=$isDefault, status=$status, type=$type, additionalProperties=$additionalProperties}"
+        "PhysicalCardProfile{id=$id, backImageFileId=$backImageFileId, carrierImageFileId=$carrierImageFileId, contactPhone=$contactPhone, createdAt=$createdAt, creator=$creator, description=$description, frontImageFileId=$frontImageFileId, idempotencyKey=$idempotencyKey, isDefault=$isDefault, status=$status, type=$type, additionalProperties=$additionalProperties}"
 }

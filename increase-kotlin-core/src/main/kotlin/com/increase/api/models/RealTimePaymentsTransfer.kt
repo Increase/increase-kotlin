@@ -26,6 +26,7 @@ import java.util.Objects
 class RealTimePaymentsTransfer
 @JsonCreator
 private constructor(
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("account_id")
     @ExcludeMissing
     private val accountId: JsonField<String> = JsonMissing.of(),
@@ -63,7 +64,6 @@ private constructor(
     @JsonProperty("external_account_id")
     @ExcludeMissing
     private val externalAccountId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("idempotency_key")
     @ExcludeMissing
     private val idempotencyKey: JsonField<String> = JsonMissing.of(),
@@ -97,6 +97,9 @@ private constructor(
     private val ultimateDebtorName: JsonField<String> = JsonMissing.of(),
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
+
+    /** The Real-Time Payments Transfer's identifier. */
+    fun id(): String = id.getRequired("id")
 
     /** The Account from which the transfer was sent. */
     fun accountId(): String = accountId.getRequired("account_id")
@@ -159,9 +162,6 @@ private constructor(
     /** The identifier of the External Account the transfer was made to, if any. */
     fun externalAccountId(): String? = externalAccountId.getNullable("external_account_id")
 
-    /** The Real-Time Payments Transfer's identifier. */
-    fun id(): String = id.getRequired("id")
-
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
      * used to ensure that a request is only processed once. Learn more about
@@ -220,6 +220,9 @@ private constructor(
      * behalf of someone who is not the account holder at Increase.
      */
     fun ultimateDebtorName(): String? = ultimateDebtorName.getNullable("ultimate_debtor_name")
+
+    /** The Real-Time Payments Transfer's identifier. */
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /** The Account from which the transfer was sent. */
     @JsonProperty("account_id") @ExcludeMissing fun _accountId() = accountId
@@ -285,9 +288,6 @@ private constructor(
     @JsonProperty("external_account_id")
     @ExcludeMissing
     fun _externalAccountId() = externalAccountId
-
-    /** The Real-Time Payments Transfer's identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -364,6 +364,7 @@ private constructor(
 
     fun validate(): RealTimePaymentsTransfer = apply {
         if (!validated) {
+            id()
             accountId()
             acknowledgement()?.validate()
             amount()
@@ -377,7 +378,6 @@ private constructor(
             destinationAccountNumber()
             destinationRoutingNumber()
             externalAccountId()
-            id()
             idempotencyKey()
             pendingTransactionId()
             rejection()?.validate()
@@ -402,6 +402,7 @@ private constructor(
 
     class Builder {
 
+        private var id: JsonField<String> = JsonMissing.of()
         private var accountId: JsonField<String> = JsonMissing.of()
         private var acknowledgement: JsonField<Acknowledgement> = JsonMissing.of()
         private var amount: JsonField<Long> = JsonMissing.of()
@@ -415,7 +416,6 @@ private constructor(
         private var destinationAccountNumber: JsonField<String> = JsonMissing.of()
         private var destinationRoutingNumber: JsonField<String> = JsonMissing.of()
         private var externalAccountId: JsonField<String> = JsonMissing.of()
-        private var id: JsonField<String> = JsonMissing.of()
         private var idempotencyKey: JsonField<String> = JsonMissing.of()
         private var pendingTransactionId: JsonField<String> = JsonMissing.of()
         private var rejection: JsonField<Rejection> = JsonMissing.of()
@@ -430,6 +430,7 @@ private constructor(
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(realTimePaymentsTransfer: RealTimePaymentsTransfer) = apply {
+            id = realTimePaymentsTransfer.id
             accountId = realTimePaymentsTransfer.accountId
             acknowledgement = realTimePaymentsTransfer.acknowledgement
             amount = realTimePaymentsTransfer.amount
@@ -443,7 +444,6 @@ private constructor(
             destinationAccountNumber = realTimePaymentsTransfer.destinationAccountNumber
             destinationRoutingNumber = realTimePaymentsTransfer.destinationRoutingNumber
             externalAccountId = realTimePaymentsTransfer.externalAccountId
-            id = realTimePaymentsTransfer.id
             idempotencyKey = realTimePaymentsTransfer.idempotencyKey
             pendingTransactionId = realTimePaymentsTransfer.pendingTransactionId
             rejection = realTimePaymentsTransfer.rejection
@@ -457,6 +457,12 @@ private constructor(
             ultimateDebtorName = realTimePaymentsTransfer.ultimateDebtorName
             additionalProperties = realTimePaymentsTransfer.additionalProperties.toMutableMap()
         }
+
+        /** The Real-Time Payments Transfer's identifier. */
+        fun id(id: String) = id(JsonField.of(id))
+
+        /** The Real-Time Payments Transfer's identifier. */
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The Account from which the transfer was sent. */
         fun accountId(accountId: String) = accountId(JsonField.of(accountId))
@@ -593,12 +599,6 @@ private constructor(
         fun externalAccountId(externalAccountId: JsonField<String>) = apply {
             this.externalAccountId = externalAccountId
         }
-
-        /** The Real-Time Payments Transfer's identifier. */
-        fun id(id: String) = id(JsonField.of(id))
-
-        /** The Real-Time Payments Transfer's identifier. */
-        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -754,6 +754,7 @@ private constructor(
 
         fun build(): RealTimePaymentsTransfer =
             RealTimePaymentsTransfer(
+                id,
                 accountId,
                 acknowledgement,
                 amount,
@@ -767,7 +768,6 @@ private constructor(
                 destinationAccountNumber,
                 destinationRoutingNumber,
                 externalAccountId,
-                id,
                 idempotencyKey,
                 pendingTransactionId,
                 rejection,
@@ -2421,15 +2421,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is RealTimePaymentsTransfer && accountId == other.accountId && acknowledgement == other.acknowledgement && amount == other.amount && approval == other.approval && cancellation == other.cancellation && createdAt == other.createdAt && createdBy == other.createdBy && creditorName == other.creditorName && currency == other.currency && debtorName == other.debtorName && destinationAccountNumber == other.destinationAccountNumber && destinationRoutingNumber == other.destinationRoutingNumber && externalAccountId == other.externalAccountId && id == other.id && idempotencyKey == other.idempotencyKey && pendingTransactionId == other.pendingTransactionId && rejection == other.rejection && remittanceInformation == other.remittanceInformation && sourceAccountNumberId == other.sourceAccountNumberId && status == other.status && submission == other.submission && transactionId == other.transactionId && type == other.type && ultimateCreditorName == other.ultimateCreditorName && ultimateDebtorName == other.ultimateDebtorName && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is RealTimePaymentsTransfer && id == other.id && accountId == other.accountId && acknowledgement == other.acknowledgement && amount == other.amount && approval == other.approval && cancellation == other.cancellation && createdAt == other.createdAt && createdBy == other.createdBy && creditorName == other.creditorName && currency == other.currency && debtorName == other.debtorName && destinationAccountNumber == other.destinationAccountNumber && destinationRoutingNumber == other.destinationRoutingNumber && externalAccountId == other.externalAccountId && idempotencyKey == other.idempotencyKey && pendingTransactionId == other.pendingTransactionId && rejection == other.rejection && remittanceInformation == other.remittanceInformation && sourceAccountNumberId == other.sourceAccountNumberId && status == other.status && submission == other.submission && transactionId == other.transactionId && type == other.type && ultimateCreditorName == other.ultimateCreditorName && ultimateDebtorName == other.ultimateDebtorName && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(accountId, acknowledgement, amount, approval, cancellation, createdAt, createdBy, creditorName, currency, debtorName, destinationAccountNumber, destinationRoutingNumber, externalAccountId, id, idempotencyKey, pendingTransactionId, rejection, remittanceInformation, sourceAccountNumberId, status, submission, transactionId, type, ultimateCreditorName, ultimateDebtorName, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, accountId, acknowledgement, amount, approval, cancellation, createdAt, createdBy, creditorName, currency, debtorName, destinationAccountNumber, destinationRoutingNumber, externalAccountId, idempotencyKey, pendingTransactionId, rejection, remittanceInformation, sourceAccountNumberId, status, submission, transactionId, type, ultimateCreditorName, ultimateDebtorName, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "RealTimePaymentsTransfer{accountId=$accountId, acknowledgement=$acknowledgement, amount=$amount, approval=$approval, cancellation=$cancellation, createdAt=$createdAt, createdBy=$createdBy, creditorName=$creditorName, currency=$currency, debtorName=$debtorName, destinationAccountNumber=$destinationAccountNumber, destinationRoutingNumber=$destinationRoutingNumber, externalAccountId=$externalAccountId, id=$id, idempotencyKey=$idempotencyKey, pendingTransactionId=$pendingTransactionId, rejection=$rejection, remittanceInformation=$remittanceInformation, sourceAccountNumberId=$sourceAccountNumberId, status=$status, submission=$submission, transactionId=$transactionId, type=$type, ultimateCreditorName=$ultimateCreditorName, ultimateDebtorName=$ultimateDebtorName, additionalProperties=$additionalProperties}"
+        "RealTimePaymentsTransfer{id=$id, accountId=$accountId, acknowledgement=$acknowledgement, amount=$amount, approval=$approval, cancellation=$cancellation, createdAt=$createdAt, createdBy=$createdBy, creditorName=$creditorName, currency=$currency, debtorName=$debtorName, destinationAccountNumber=$destinationAccountNumber, destinationRoutingNumber=$destinationRoutingNumber, externalAccountId=$externalAccountId, idempotencyKey=$idempotencyKey, pendingTransactionId=$pendingTransactionId, rejection=$rejection, remittanceInformation=$remittanceInformation, sourceAccountNumberId=$sourceAccountNumberId, status=$status, submission=$submission, transactionId=$transactionId, type=$type, ultimateCreditorName=$ultimateCreditorName, ultimateDebtorName=$ultimateDebtorName, additionalProperties=$additionalProperties}"
 }

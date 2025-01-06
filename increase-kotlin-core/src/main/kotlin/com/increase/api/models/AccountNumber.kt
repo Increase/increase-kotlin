@@ -28,6 +28,7 @@ import java.util.Objects
 class AccountNumber
 @JsonCreator
 private constructor(
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("account_id")
     @ExcludeMissing
     private val accountId: JsonField<String> = JsonMissing.of(),
@@ -37,7 +38,6 @@ private constructor(
     @JsonProperty("created_at")
     @ExcludeMissing
     private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("idempotency_key")
     @ExcludeMissing
     private val idempotencyKey: JsonField<String> = JsonMissing.of(),
@@ -58,6 +58,9 @@ private constructor(
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
+    /** The Account Number identifier. */
+    fun id(): String = id.getRequired("id")
+
     /** The identifier for the account this Account Number belongs to. */
     fun accountId(): String = accountId.getRequired("account_id")
 
@@ -69,9 +72,6 @@ private constructor(
      * created.
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
-
-    /** The Account Number identifier. */
-    fun id(): String = id.getRequired("id")
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -101,6 +101,9 @@ private constructor(
      */
     fun type(): Type = type.getRequired("type")
 
+    /** The Account Number identifier. */
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
+
     /** The identifier for the account this Account Number belongs to. */
     @JsonProperty("account_id") @ExcludeMissing fun _accountId() = accountId
 
@@ -112,9 +115,6 @@ private constructor(
      * created.
      */
     @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
-
-    /** The Account Number identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -152,10 +152,10 @@ private constructor(
 
     fun validate(): AccountNumber = apply {
         if (!validated) {
+            id()
             accountId()
             accountNumber()
             createdAt()
-            id()
             idempotencyKey()
             inboundAch().validate()
             inboundChecks().validate()
@@ -176,10 +176,10 @@ private constructor(
 
     class Builder {
 
+        private var id: JsonField<String> = JsonMissing.of()
         private var accountId: JsonField<String> = JsonMissing.of()
         private var accountNumber: JsonField<String> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var id: JsonField<String> = JsonMissing.of()
         private var idempotencyKey: JsonField<String> = JsonMissing.of()
         private var inboundAch: JsonField<InboundAch> = JsonMissing.of()
         private var inboundChecks: JsonField<InboundChecks> = JsonMissing.of()
@@ -190,10 +190,10 @@ private constructor(
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(accountNumber: AccountNumber) = apply {
+            id = accountNumber.id
             accountId = accountNumber.accountId
             this.accountNumber = accountNumber.accountNumber
             createdAt = accountNumber.createdAt
-            id = accountNumber.id
             idempotencyKey = accountNumber.idempotencyKey
             inboundAch = accountNumber.inboundAch
             inboundChecks = accountNumber.inboundChecks
@@ -203,6 +203,12 @@ private constructor(
             type = accountNumber.type
             additionalProperties = accountNumber.additionalProperties.toMutableMap()
         }
+
+        /** The Account Number identifier. */
+        fun id(id: String) = id(JsonField.of(id))
+
+        /** The Account Number identifier. */
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The identifier for the account this Account Number belongs to. */
         fun accountId(accountId: String) = accountId(JsonField.of(accountId))
@@ -229,12 +235,6 @@ private constructor(
          * was created.
          */
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
-
-        /** The Account Number identifier. */
-        fun id(id: String) = id(JsonField.of(id))
-
-        /** The Account Number identifier. */
-        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -323,10 +323,10 @@ private constructor(
 
         fun build(): AccountNumber =
             AccountNumber(
+                id,
                 accountId,
                 accountNumber,
                 createdAt,
-                id,
                 idempotencyKey,
                 inboundAch,
                 inboundChecks,
@@ -773,15 +773,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is AccountNumber && accountId == other.accountId && accountNumber == other.accountNumber && createdAt == other.createdAt && id == other.id && idempotencyKey == other.idempotencyKey && inboundAch == other.inboundAch && inboundChecks == other.inboundChecks && name == other.name && routingNumber == other.routingNumber && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is AccountNumber && id == other.id && accountId == other.accountId && accountNumber == other.accountNumber && createdAt == other.createdAt && idempotencyKey == other.idempotencyKey && inboundAch == other.inboundAch && inboundChecks == other.inboundChecks && name == other.name && routingNumber == other.routingNumber && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(accountId, accountNumber, createdAt, id, idempotencyKey, inboundAch, inboundChecks, name, routingNumber, status, type, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, accountId, accountNumber, createdAt, idempotencyKey, inboundAch, inboundChecks, name, routingNumber, status, type, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "AccountNumber{accountId=$accountId, accountNumber=$accountNumber, createdAt=$createdAt, id=$id, idempotencyKey=$idempotencyKey, inboundAch=$inboundAch, inboundChecks=$inboundChecks, name=$name, routingNumber=$routingNumber, status=$status, type=$type, additionalProperties=$additionalProperties}"
+        "AccountNumber{id=$id, accountId=$accountId, accountNumber=$accountNumber, createdAt=$createdAt, idempotencyKey=$idempotencyKey, inboundAch=$inboundAch, inboundChecks=$inboundChecks, name=$name, routingNumber=$routingNumber, status=$status, type=$type, additionalProperties=$additionalProperties}"
 }

@@ -27,6 +27,7 @@ import java.util.Objects
 class CardPayment
 @JsonCreator
 private constructor(
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("account_id")
     @ExcludeMissing
     private val accountId: JsonField<String> = JsonMissing.of(),
@@ -42,7 +43,6 @@ private constructor(
     @JsonProperty("elements")
     @ExcludeMissing
     private val elements: JsonField<List<Element>> = JsonMissing.of(),
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("physical_card_id")
     @ExcludeMissing
     private val physicalCardId: JsonField<String> = JsonMissing.of(),
@@ -50,6 +50,9 @@ private constructor(
     @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
+
+    /** The Card Payment identifier. */
+    fun id(): String = id.getRequired("id")
 
     /** The identifier for the Account the Transaction belongs to. */
     fun accountId(): String = accountId.getRequired("account_id")
@@ -70,9 +73,6 @@ private constructor(
     /** The interactions related to this card payment. */
     fun elements(): List<Element> = elements.getRequired("elements")
 
-    /** The Card Payment identifier. */
-    fun id(): String = id.getRequired("id")
-
     /** The Physical Card identifier for this payment. */
     fun physicalCardId(): String? = physicalCardId.getNullable("physical_card_id")
 
@@ -84,6 +84,9 @@ private constructor(
      * `card_payment`.
      */
     fun type(): Type = type.getRequired("type")
+
+    /** The Card Payment identifier. */
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /** The identifier for the Account the Transaction belongs to. */
     @JsonProperty("account_id") @ExcludeMissing fun _accountId() = accountId
@@ -105,9 +108,6 @@ private constructor(
     /** The interactions related to this card payment. */
     @JsonProperty("elements") @ExcludeMissing fun _elements() = elements
 
-    /** The Card Payment identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
-
     /** The Physical Card identifier for this payment. */
     @JsonProperty("physical_card_id") @ExcludeMissing fun _physicalCardId() = physicalCardId
 
@@ -128,12 +128,12 @@ private constructor(
 
     fun validate(): CardPayment = apply {
         if (!validated) {
+            id()
             accountId()
             cardId()
             createdAt()
             digitalWalletTokenId()
             elements().forEach { it.validate() }
-            id()
             physicalCardId()
             state().validate()
             type()
@@ -150,29 +150,35 @@ private constructor(
 
     class Builder {
 
+        private var id: JsonField<String> = JsonMissing.of()
         private var accountId: JsonField<String> = JsonMissing.of()
         private var cardId: JsonField<String> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var digitalWalletTokenId: JsonField<String> = JsonMissing.of()
         private var elements: JsonField<List<Element>> = JsonMissing.of()
-        private var id: JsonField<String> = JsonMissing.of()
         private var physicalCardId: JsonField<String> = JsonMissing.of()
         private var state: JsonField<State> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(cardPayment: CardPayment) = apply {
+            id = cardPayment.id
             accountId = cardPayment.accountId
             cardId = cardPayment.cardId
             createdAt = cardPayment.createdAt
             digitalWalletTokenId = cardPayment.digitalWalletTokenId
             elements = cardPayment.elements
-            id = cardPayment.id
             physicalCardId = cardPayment.physicalCardId
             state = cardPayment.state
             type = cardPayment.type
             additionalProperties = cardPayment.additionalProperties.toMutableMap()
         }
+
+        /** The Card Payment identifier. */
+        fun id(id: String) = id(JsonField.of(id))
+
+        /** The Card Payment identifier. */
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The identifier for the Account the Transaction belongs to. */
         fun accountId(accountId: String) = accountId(JsonField.of(accountId))
@@ -212,12 +218,6 @@ private constructor(
 
         /** The interactions related to this card payment. */
         fun elements(elements: JsonField<List<Element>>) = apply { this.elements = elements }
-
-        /** The Card Payment identifier. */
-        fun id(id: String) = id(JsonField.of(id))
-
-        /** The Card Payment identifier. */
-        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The Physical Card identifier for this payment. */
         fun physicalCardId(physicalCardId: String) = physicalCardId(JsonField.of(physicalCardId))
@@ -266,12 +266,12 @@ private constructor(
 
         fun build(): CardPayment =
             CardPayment(
+                id,
                 accountId,
                 cardId,
                 createdAt,
                 digitalWalletTokenId,
                 elements.map { it.toImmutable() },
-                id,
                 physicalCardId,
                 state,
                 type,
@@ -743,6 +743,9 @@ private constructor(
         class CardAuthorization
         @JsonCreator
         private constructor(
+            @JsonProperty("id")
+            @ExcludeMissing
+            private val id: JsonField<String> = JsonMissing.of(),
             @JsonProperty("actioner")
             @ExcludeMissing
             private val actioner: JsonField<Actioner> = JsonMissing.of(),
@@ -764,9 +767,6 @@ private constructor(
             @JsonProperty("expires_at")
             @ExcludeMissing
             private val expiresAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-            @JsonProperty("id")
-            @ExcludeMissing
-            private val id: JsonField<String> = JsonMissing.of(),
             @JsonProperty("merchant_acceptor_id")
             @ExcludeMissing
             private val merchantAcceptorId: JsonField<String> = JsonMissing.of(),
@@ -828,6 +828,9 @@ private constructor(
             private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
 
+            /** The Card Authorization identifier. */
+            fun id(): String = id.getRequired("id")
+
             /**
              * Whether this authorization was approved by Increase, the card network through
              * stand-in processing, or the user through a real-time decision.
@@ -867,9 +870,6 @@ private constructor(
              * expire and the pending transaction will be released.
              */
             fun expiresAt(): OffsetDateTime = expiresAt.getRequired("expires_at")
-
-            /** The Card Authorization identifier. */
-            fun id(): String = id.getRequired("id")
 
             /**
              * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
@@ -965,6 +965,9 @@ private constructor(
             /** Fields related to verification of cardholder-provided values. */
             fun verification(): Verification = verification.getRequired("verification")
 
+            /** The Card Authorization identifier. */
+            @JsonProperty("id") @ExcludeMissing fun _id() = id
+
             /**
              * Whether this authorization was approved by Increase, the card network through
              * stand-in processing, or the user through a real-time decision.
@@ -1005,9 +1008,6 @@ private constructor(
              * expire and the pending transaction will be released.
              */
             @JsonProperty("expires_at") @ExcludeMissing fun _expiresAt() = expiresAt
-
-            /** The Card Authorization identifier. */
-            @JsonProperty("id") @ExcludeMissing fun _id() = id
 
             /**
              * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
@@ -1127,6 +1127,7 @@ private constructor(
 
             fun validate(): CardAuthorization = apply {
                 if (!validated) {
+                    id()
                     actioner()
                     amount()
                     cardPaymentId()
@@ -1134,7 +1135,6 @@ private constructor(
                     digitalWalletTokenId()
                     direction()
                     expiresAt()
-                    id()
                     merchantAcceptorId()
                     merchantCategoryCode()
                     merchantCity()
@@ -1167,6 +1167,7 @@ private constructor(
 
             class Builder {
 
+                private var id: JsonField<String> = JsonMissing.of()
                 private var actioner: JsonField<Actioner> = JsonMissing.of()
                 private var amount: JsonField<Long> = JsonMissing.of()
                 private var cardPaymentId: JsonField<String> = JsonMissing.of()
@@ -1174,7 +1175,6 @@ private constructor(
                 private var digitalWalletTokenId: JsonField<String> = JsonMissing.of()
                 private var direction: JsonField<Direction> = JsonMissing.of()
                 private var expiresAt: JsonField<OffsetDateTime> = JsonMissing.of()
-                private var id: JsonField<String> = JsonMissing.of()
                 private var merchantAcceptorId: JsonField<String> = JsonMissing.of()
                 private var merchantCategoryCode: JsonField<String> = JsonMissing.of()
                 private var merchantCity: JsonField<String> = JsonMissing.of()
@@ -1197,6 +1197,7 @@ private constructor(
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(cardAuthorization: CardAuthorization) = apply {
+                    id = cardAuthorization.id
                     actioner = cardAuthorization.actioner
                     amount = cardAuthorization.amount
                     cardPaymentId = cardAuthorization.cardPaymentId
@@ -1204,7 +1205,6 @@ private constructor(
                     digitalWalletTokenId = cardAuthorization.digitalWalletTokenId
                     direction = cardAuthorization.direction
                     expiresAt = cardAuthorization.expiresAt
-                    id = cardAuthorization.id
                     merchantAcceptorId = cardAuthorization.merchantAcceptorId
                     merchantCategoryCode = cardAuthorization.merchantCategoryCode
                     merchantCity = cardAuthorization.merchantCity
@@ -1226,6 +1226,12 @@ private constructor(
                     verification = cardAuthorization.verification
                     additionalProperties = cardAuthorization.additionalProperties.toMutableMap()
                 }
+
+                /** The Card Authorization identifier. */
+                fun id(id: String) = id(JsonField.of(id))
+
+                /** The Card Authorization identifier. */
+                fun id(id: JsonField<String>) = apply { this.id = id }
 
                 /**
                  * Whether this authorization was approved by Increase, the card network through
@@ -1314,12 +1320,6 @@ private constructor(
                 fun expiresAt(expiresAt: JsonField<OffsetDateTime>) = apply {
                     this.expiresAt = expiresAt
                 }
-
-                /** The Card Authorization identifier. */
-                fun id(id: String) = id(JsonField.of(id))
-
-                /** The Card Authorization identifier. */
-                fun id(id: JsonField<String>) = apply { this.id = id }
 
                 /**
                  * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
@@ -1575,6 +1575,7 @@ private constructor(
 
                 fun build(): CardAuthorization =
                     CardAuthorization(
+                        id,
                         actioner,
                         amount,
                         cardPaymentId,
@@ -1582,7 +1583,6 @@ private constructor(
                         digitalWalletTokenId,
                         direction,
                         expiresAt,
-                        id,
                         merchantAcceptorId,
                         merchantCategoryCode,
                         merchantCity,
@@ -3464,17 +3464,17 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is CardAuthorization && actioner == other.actioner && amount == other.amount && cardPaymentId == other.cardPaymentId && currency == other.currency && digitalWalletTokenId == other.digitalWalletTokenId && direction == other.direction && expiresAt == other.expiresAt && id == other.id && merchantAcceptorId == other.merchantAcceptorId && merchantCategoryCode == other.merchantCategoryCode && merchantCity == other.merchantCity && merchantCountry == other.merchantCountry && merchantDescriptor == other.merchantDescriptor && merchantPostalCode == other.merchantPostalCode && merchantState == other.merchantState && networkDetails == other.networkDetails && networkIdentifiers == other.networkIdentifiers && networkRiskScore == other.networkRiskScore && pendingTransactionId == other.pendingTransactionId && physicalCardId == other.physicalCardId && presentmentAmount == other.presentmentAmount && presentmentCurrency == other.presentmentCurrency && processingCategory == other.processingCategory && realTimeDecisionId == other.realTimeDecisionId && terminalId == other.terminalId && type == other.type && verification == other.verification && additionalProperties == other.additionalProperties /* spotless:on */
+                return /* spotless:off */ other is CardAuthorization && id == other.id && actioner == other.actioner && amount == other.amount && cardPaymentId == other.cardPaymentId && currency == other.currency && digitalWalletTokenId == other.digitalWalletTokenId && direction == other.direction && expiresAt == other.expiresAt && merchantAcceptorId == other.merchantAcceptorId && merchantCategoryCode == other.merchantCategoryCode && merchantCity == other.merchantCity && merchantCountry == other.merchantCountry && merchantDescriptor == other.merchantDescriptor && merchantPostalCode == other.merchantPostalCode && merchantState == other.merchantState && networkDetails == other.networkDetails && networkIdentifiers == other.networkIdentifiers && networkRiskScore == other.networkRiskScore && pendingTransactionId == other.pendingTransactionId && physicalCardId == other.physicalCardId && presentmentAmount == other.presentmentAmount && presentmentCurrency == other.presentmentCurrency && processingCategory == other.processingCategory && realTimeDecisionId == other.realTimeDecisionId && terminalId == other.terminalId && type == other.type && verification == other.verification && additionalProperties == other.additionalProperties /* spotless:on */
             }
 
             /* spotless:off */
-            private val hashCode: Int by lazy { Objects.hash(actioner, amount, cardPaymentId, currency, digitalWalletTokenId, direction, expiresAt, id, merchantAcceptorId, merchantCategoryCode, merchantCity, merchantCountry, merchantDescriptor, merchantPostalCode, merchantState, networkDetails, networkIdentifiers, networkRiskScore, pendingTransactionId, physicalCardId, presentmentAmount, presentmentCurrency, processingCategory, realTimeDecisionId, terminalId, type, verification, additionalProperties) }
+            private val hashCode: Int by lazy { Objects.hash(id, actioner, amount, cardPaymentId, currency, digitalWalletTokenId, direction, expiresAt, merchantAcceptorId, merchantCategoryCode, merchantCity, merchantCountry, merchantDescriptor, merchantPostalCode, merchantState, networkDetails, networkIdentifiers, networkRiskScore, pendingTransactionId, physicalCardId, presentmentAmount, presentmentCurrency, processingCategory, realTimeDecisionId, terminalId, type, verification, additionalProperties) }
             /* spotless:on */
 
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "CardAuthorization{actioner=$actioner, amount=$amount, cardPaymentId=$cardPaymentId, currency=$currency, digitalWalletTokenId=$digitalWalletTokenId, direction=$direction, expiresAt=$expiresAt, id=$id, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, networkDetails=$networkDetails, networkIdentifiers=$networkIdentifiers, networkRiskScore=$networkRiskScore, pendingTransactionId=$pendingTransactionId, physicalCardId=$physicalCardId, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, processingCategory=$processingCategory, realTimeDecisionId=$realTimeDecisionId, terminalId=$terminalId, type=$type, verification=$verification, additionalProperties=$additionalProperties}"
+                "CardAuthorization{id=$id, actioner=$actioner, amount=$amount, cardPaymentId=$cardPaymentId, currency=$currency, digitalWalletTokenId=$digitalWalletTokenId, direction=$direction, expiresAt=$expiresAt, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, networkDetails=$networkDetails, networkIdentifiers=$networkIdentifiers, networkRiskScore=$networkRiskScore, pendingTransactionId=$pendingTransactionId, physicalCardId=$physicalCardId, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, processingCategory=$processingCategory, realTimeDecisionId=$realTimeDecisionId, terminalId=$terminalId, type=$type, verification=$verification, additionalProperties=$additionalProperties}"
         }
 
         /**
@@ -3485,6 +3485,9 @@ private constructor(
         class CardAuthorizationExpiration
         @JsonCreator
         private constructor(
+            @JsonProperty("id")
+            @ExcludeMissing
+            private val id: JsonField<String> = JsonMissing.of(),
             @JsonProperty("card_authorization_id")
             @ExcludeMissing
             private val cardAuthorizationId: JsonField<String> = JsonMissing.of(),
@@ -3494,9 +3497,6 @@ private constructor(
             @JsonProperty("expired_amount")
             @ExcludeMissing
             private val expiredAmount: JsonField<Long> = JsonMissing.of(),
-            @JsonProperty("id")
-            @ExcludeMissing
-            private val id: JsonField<String> = JsonMissing.of(),
             @JsonProperty("network")
             @ExcludeMissing
             private val network: JsonField<Network> = JsonMissing.of(),
@@ -3506,6 +3506,9 @@ private constructor(
             @JsonAnySetter
             private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
+
+            /** The Card Authorization Expiration identifier. */
+            fun id(): String = id.getRequired("id")
 
             /** The identifier for the Card Authorization this reverses. */
             fun cardAuthorizationId(): String =
@@ -3523,9 +3526,6 @@ private constructor(
              */
             fun expiredAmount(): Long = expiredAmount.getRequired("expired_amount")
 
-            /** The Card Authorization Expiration identifier. */
-            fun id(): String = id.getRequired("id")
-
             /** The card network used to process this card authorization. */
             fun network(): Network = network.getRequired("network")
 
@@ -3534,6 +3534,9 @@ private constructor(
              * `card_authorization_expiration`.
              */
             fun type(): Type = type.getRequired("type")
+
+            /** The Card Authorization Expiration identifier. */
+            @JsonProperty("id") @ExcludeMissing fun _id() = id
 
             /** The identifier for the Card Authorization this reverses. */
             @JsonProperty("card_authorization_id")
@@ -3552,9 +3555,6 @@ private constructor(
              */
             @JsonProperty("expired_amount") @ExcludeMissing fun _expiredAmount() = expiredAmount
 
-            /** The Card Authorization Expiration identifier. */
-            @JsonProperty("id") @ExcludeMissing fun _id() = id
-
             /** The card network used to process this card authorization. */
             @JsonProperty("network") @ExcludeMissing fun _network() = network
 
@@ -3572,10 +3572,10 @@ private constructor(
 
             fun validate(): CardAuthorizationExpiration = apply {
                 if (!validated) {
+                    id()
                     cardAuthorizationId()
                     currency()
                     expiredAmount()
-                    id()
                     network()
                     type()
                     validated = true
@@ -3591,25 +3591,31 @@ private constructor(
 
             class Builder {
 
+                private var id: JsonField<String> = JsonMissing.of()
                 private var cardAuthorizationId: JsonField<String> = JsonMissing.of()
                 private var currency: JsonField<Currency> = JsonMissing.of()
                 private var expiredAmount: JsonField<Long> = JsonMissing.of()
-                private var id: JsonField<String> = JsonMissing.of()
                 private var network: JsonField<Network> = JsonMissing.of()
                 private var type: JsonField<Type> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(cardAuthorizationExpiration: CardAuthorizationExpiration) =
                     apply {
+                        id = cardAuthorizationExpiration.id
                         cardAuthorizationId = cardAuthorizationExpiration.cardAuthorizationId
                         currency = cardAuthorizationExpiration.currency
                         expiredAmount = cardAuthorizationExpiration.expiredAmount
-                        id = cardAuthorizationExpiration.id
                         network = cardAuthorizationExpiration.network
                         type = cardAuthorizationExpiration.type
                         additionalProperties =
                             cardAuthorizationExpiration.additionalProperties.toMutableMap()
                     }
+
+                /** The Card Authorization Expiration identifier. */
+                fun id(id: String) = id(JsonField.of(id))
+
+                /** The Card Authorization Expiration identifier. */
+                fun id(id: JsonField<String>) = apply { this.id = id }
 
                 /** The identifier for the Card Authorization this reverses. */
                 fun cardAuthorizationId(cardAuthorizationId: String) =
@@ -3645,12 +3651,6 @@ private constructor(
                 fun expiredAmount(expiredAmount: JsonField<Long>) = apply {
                     this.expiredAmount = expiredAmount
                 }
-
-                /** The Card Authorization Expiration identifier. */
-                fun id(id: String) = id(JsonField.of(id))
-
-                /** The Card Authorization Expiration identifier. */
-                fun id(id: JsonField<String>) = apply { this.id = id }
 
                 /** The card network used to process this card authorization. */
                 fun network(network: Network) = network(JsonField.of(network))
@@ -3694,10 +3694,10 @@ private constructor(
 
                 fun build(): CardAuthorizationExpiration =
                     CardAuthorizationExpiration(
+                        id,
                         cardAuthorizationId,
                         currency,
                         expiredAmount,
-                        id,
                         network,
                         type,
                         additionalProperties.toImmutable(),
@@ -3892,17 +3892,17 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is CardAuthorizationExpiration && cardAuthorizationId == other.cardAuthorizationId && currency == other.currency && expiredAmount == other.expiredAmount && id == other.id && network == other.network && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+                return /* spotless:off */ other is CardAuthorizationExpiration && id == other.id && cardAuthorizationId == other.cardAuthorizationId && currency == other.currency && expiredAmount == other.expiredAmount && network == other.network && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
             }
 
             /* spotless:off */
-            private val hashCode: Int by lazy { Objects.hash(cardAuthorizationId, currency, expiredAmount, id, network, type, additionalProperties) }
+            private val hashCode: Int by lazy { Objects.hash(id, cardAuthorizationId, currency, expiredAmount, network, type, additionalProperties) }
             /* spotless:on */
 
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "CardAuthorizationExpiration{cardAuthorizationId=$cardAuthorizationId, currency=$currency, expiredAmount=$expiredAmount, id=$id, network=$network, type=$type, additionalProperties=$additionalProperties}"
+                "CardAuthorizationExpiration{id=$id, cardAuthorizationId=$cardAuthorizationId, currency=$currency, expiredAmount=$expiredAmount, network=$network, type=$type, additionalProperties=$additionalProperties}"
         }
 
         /**
@@ -3913,6 +3913,9 @@ private constructor(
         class CardDecline
         @JsonCreator
         private constructor(
+            @JsonProperty("id")
+            @ExcludeMissing
+            private val id: JsonField<String> = JsonMissing.of(),
             @JsonProperty("actioner")
             @ExcludeMissing
             private val actioner: JsonField<Actioner> = JsonMissing.of(),
@@ -3934,9 +3937,6 @@ private constructor(
             @JsonProperty("direction")
             @ExcludeMissing
             private val direction: JsonField<Direction> = JsonMissing.of(),
-            @JsonProperty("id")
-            @ExcludeMissing
-            private val id: JsonField<String> = JsonMissing.of(),
             @JsonProperty("merchant_acceptor_id")
             @ExcludeMissing
             private val merchantAcceptorId: JsonField<String> = JsonMissing.of(),
@@ -3999,6 +3999,9 @@ private constructor(
             private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
 
+            /** The Card Decline identifier. */
+            fun id(): String = id.getRequired("id")
+
             /**
              * Whether this authorization was approved by Increase, the card network through
              * stand-in processing, or the user through a real-time decision.
@@ -4036,9 +4039,6 @@ private constructor(
              * to the merchant or from the merchant to the cardholder.
              */
             fun direction(): Direction = direction.getRequired("direction")
-
-            /** The Card Decline identifier. */
-            fun id(): String = id.getRequired("id")
 
             /**
              * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
@@ -4131,6 +4131,9 @@ private constructor(
             /** Fields related to verification of cardholder-provided values. */
             fun verification(): Verification = verification.getRequired("verification")
 
+            /** The Card Decline identifier. */
+            @JsonProperty("id") @ExcludeMissing fun _id() = id
+
             /**
              * Whether this authorization was approved by Increase, the card network through
              * stand-in processing, or the user through a real-time decision.
@@ -4170,9 +4173,6 @@ private constructor(
              * to the merchant or from the merchant to the cardholder.
              */
             @JsonProperty("direction") @ExcludeMissing fun _direction() = direction
-
-            /** The Card Decline identifier. */
-            @JsonProperty("id") @ExcludeMissing fun _id() = id
 
             /**
              * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
@@ -4289,6 +4289,7 @@ private constructor(
 
             fun validate(): CardDecline = apply {
                 if (!validated) {
+                    id()
                     actioner()
                     amount()
                     cardPaymentId()
@@ -4296,7 +4297,6 @@ private constructor(
                     declinedTransactionId()
                     digitalWalletTokenId()
                     direction()
-                    id()
                     merchantAcceptorId()
                     merchantCategoryCode()
                     merchantCity()
@@ -4329,6 +4329,7 @@ private constructor(
 
             class Builder {
 
+                private var id: JsonField<String> = JsonMissing.of()
                 private var actioner: JsonField<Actioner> = JsonMissing.of()
                 private var amount: JsonField<Long> = JsonMissing.of()
                 private var cardPaymentId: JsonField<String> = JsonMissing.of()
@@ -4336,7 +4337,6 @@ private constructor(
                 private var declinedTransactionId: JsonField<String> = JsonMissing.of()
                 private var digitalWalletTokenId: JsonField<String> = JsonMissing.of()
                 private var direction: JsonField<Direction> = JsonMissing.of()
-                private var id: JsonField<String> = JsonMissing.of()
                 private var merchantAcceptorId: JsonField<String> = JsonMissing.of()
                 private var merchantCategoryCode: JsonField<String> = JsonMissing.of()
                 private var merchantCity: JsonField<String> = JsonMissing.of()
@@ -4360,6 +4360,7 @@ private constructor(
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(cardDecline: CardDecline) = apply {
+                    id = cardDecline.id
                     actioner = cardDecline.actioner
                     amount = cardDecline.amount
                     cardPaymentId = cardDecline.cardPaymentId
@@ -4367,7 +4368,6 @@ private constructor(
                     declinedTransactionId = cardDecline.declinedTransactionId
                     digitalWalletTokenId = cardDecline.digitalWalletTokenId
                     direction = cardDecline.direction
-                    id = cardDecline.id
                     merchantAcceptorId = cardDecline.merchantAcceptorId
                     merchantCategoryCode = cardDecline.merchantCategoryCode
                     merchantCity = cardDecline.merchantCity
@@ -4389,6 +4389,12 @@ private constructor(
                     verification = cardDecline.verification
                     additionalProperties = cardDecline.additionalProperties.toMutableMap()
                 }
+
+                /** The Card Decline identifier. */
+                fun id(id: String) = id(JsonField.of(id))
+
+                /** The Card Decline identifier. */
+                fun id(id: JsonField<String>) = apply { this.id = id }
 
                 /**
                  * Whether this authorization was approved by Increase, the card network through
@@ -4472,12 +4478,6 @@ private constructor(
                 fun direction(direction: JsonField<Direction>) = apply {
                     this.direction = direction
                 }
-
-                /** The Card Decline identifier. */
-                fun id(id: String) = id(JsonField.of(id))
-
-                /** The Card Decline identifier. */
-                fun id(id: JsonField<String>) = apply { this.id = id }
 
                 /**
                  * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
@@ -4731,6 +4731,7 @@ private constructor(
 
                 fun build(): CardDecline =
                     CardDecline(
+                        id,
                         actioner,
                         amount,
                         cardPaymentId,
@@ -4738,7 +4739,6 @@ private constructor(
                         declinedTransactionId,
                         digitalWalletTokenId,
                         direction,
-                        id,
                         merchantAcceptorId,
                         merchantCategoryCode,
                         merchantCity,
@@ -6788,17 +6788,17 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is CardDecline && actioner == other.actioner && amount == other.amount && cardPaymentId == other.cardPaymentId && currency == other.currency && declinedTransactionId == other.declinedTransactionId && digitalWalletTokenId == other.digitalWalletTokenId && direction == other.direction && id == other.id && merchantAcceptorId == other.merchantAcceptorId && merchantCategoryCode == other.merchantCategoryCode && merchantCity == other.merchantCity && merchantCountry == other.merchantCountry && merchantDescriptor == other.merchantDescriptor && merchantPostalCode == other.merchantPostalCode && merchantState == other.merchantState && networkDetails == other.networkDetails && networkIdentifiers == other.networkIdentifiers && networkRiskScore == other.networkRiskScore && physicalCardId == other.physicalCardId && presentmentAmount == other.presentmentAmount && presentmentCurrency == other.presentmentCurrency && processingCategory == other.processingCategory && realTimeDecisionId == other.realTimeDecisionId && realTimeDecisionReason == other.realTimeDecisionReason && reason == other.reason && terminalId == other.terminalId && verification == other.verification && additionalProperties == other.additionalProperties /* spotless:on */
+                return /* spotless:off */ other is CardDecline && id == other.id && actioner == other.actioner && amount == other.amount && cardPaymentId == other.cardPaymentId && currency == other.currency && declinedTransactionId == other.declinedTransactionId && digitalWalletTokenId == other.digitalWalletTokenId && direction == other.direction && merchantAcceptorId == other.merchantAcceptorId && merchantCategoryCode == other.merchantCategoryCode && merchantCity == other.merchantCity && merchantCountry == other.merchantCountry && merchantDescriptor == other.merchantDescriptor && merchantPostalCode == other.merchantPostalCode && merchantState == other.merchantState && networkDetails == other.networkDetails && networkIdentifiers == other.networkIdentifiers && networkRiskScore == other.networkRiskScore && physicalCardId == other.physicalCardId && presentmentAmount == other.presentmentAmount && presentmentCurrency == other.presentmentCurrency && processingCategory == other.processingCategory && realTimeDecisionId == other.realTimeDecisionId && realTimeDecisionReason == other.realTimeDecisionReason && reason == other.reason && terminalId == other.terminalId && verification == other.verification && additionalProperties == other.additionalProperties /* spotless:on */
             }
 
             /* spotless:off */
-            private val hashCode: Int by lazy { Objects.hash(actioner, amount, cardPaymentId, currency, declinedTransactionId, digitalWalletTokenId, direction, id, merchantAcceptorId, merchantCategoryCode, merchantCity, merchantCountry, merchantDescriptor, merchantPostalCode, merchantState, networkDetails, networkIdentifiers, networkRiskScore, physicalCardId, presentmentAmount, presentmentCurrency, processingCategory, realTimeDecisionId, realTimeDecisionReason, reason, terminalId, verification, additionalProperties) }
+            private val hashCode: Int by lazy { Objects.hash(id, actioner, amount, cardPaymentId, currency, declinedTransactionId, digitalWalletTokenId, direction, merchantAcceptorId, merchantCategoryCode, merchantCity, merchantCountry, merchantDescriptor, merchantPostalCode, merchantState, networkDetails, networkIdentifiers, networkRiskScore, physicalCardId, presentmentAmount, presentmentCurrency, processingCategory, realTimeDecisionId, realTimeDecisionReason, reason, terminalId, verification, additionalProperties) }
             /* spotless:on */
 
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "CardDecline{actioner=$actioner, amount=$amount, cardPaymentId=$cardPaymentId, currency=$currency, declinedTransactionId=$declinedTransactionId, digitalWalletTokenId=$digitalWalletTokenId, direction=$direction, id=$id, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, networkDetails=$networkDetails, networkIdentifiers=$networkIdentifiers, networkRiskScore=$networkRiskScore, physicalCardId=$physicalCardId, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, processingCategory=$processingCategory, realTimeDecisionId=$realTimeDecisionId, realTimeDecisionReason=$realTimeDecisionReason, reason=$reason, terminalId=$terminalId, verification=$verification, additionalProperties=$additionalProperties}"
+                "CardDecline{id=$id, actioner=$actioner, amount=$amount, cardPaymentId=$cardPaymentId, currency=$currency, declinedTransactionId=$declinedTransactionId, digitalWalletTokenId=$digitalWalletTokenId, direction=$direction, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, networkDetails=$networkDetails, networkIdentifiers=$networkIdentifiers, networkRiskScore=$networkRiskScore, physicalCardId=$physicalCardId, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, processingCategory=$processingCategory, realTimeDecisionId=$realTimeDecisionId, realTimeDecisionReason=$realTimeDecisionReason, reason=$reason, terminalId=$terminalId, verification=$verification, additionalProperties=$additionalProperties}"
         }
 
         /**
@@ -6809,15 +6809,15 @@ private constructor(
         class CardFuelConfirmation
         @JsonCreator
         private constructor(
+            @JsonProperty("id")
+            @ExcludeMissing
+            private val id: JsonField<String> = JsonMissing.of(),
             @JsonProperty("card_authorization_id")
             @ExcludeMissing
             private val cardAuthorizationId: JsonField<String> = JsonMissing.of(),
             @JsonProperty("currency")
             @ExcludeMissing
             private val currency: JsonField<Currency> = JsonMissing.of(),
-            @JsonProperty("id")
-            @ExcludeMissing
-            private val id: JsonField<String> = JsonMissing.of(),
             @JsonProperty("network")
             @ExcludeMissing
             private val network: JsonField<Network> = JsonMissing.of(),
@@ -6837,6 +6837,9 @@ private constructor(
             private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
 
+            /** The Card Fuel Confirmation identifier. */
+            fun id(): String = id.getRequired("id")
+
             /** The identifier for the Card Authorization this updates. */
             fun cardAuthorizationId(): String =
                 cardAuthorizationId.getRequired("card_authorization_id")
@@ -6846,9 +6849,6 @@ private constructor(
              * currency.
              */
             fun currency(): Currency = currency.getRequired("currency")
-
-            /** The Card Fuel Confirmation identifier. */
-            fun id(): String = id.getRequired("id")
 
             /** The card network used to process this card authorization. */
             fun network(): Network = network.getRequired("network")
@@ -6877,6 +6877,9 @@ private constructor(
             fun updatedAuthorizationAmount(): Long =
                 updatedAuthorizationAmount.getRequired("updated_authorization_amount")
 
+            /** The Card Fuel Confirmation identifier. */
+            @JsonProperty("id") @ExcludeMissing fun _id() = id
+
             /** The identifier for the Card Authorization this updates. */
             @JsonProperty("card_authorization_id")
             @ExcludeMissing
@@ -6887,9 +6890,6 @@ private constructor(
              * currency.
              */
             @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
-
-            /** The Card Fuel Confirmation identifier. */
-            @JsonProperty("id") @ExcludeMissing fun _id() = id
 
             /** The card network used to process this card authorization. */
             @JsonProperty("network") @ExcludeMissing fun _network() = network
@@ -6929,9 +6929,9 @@ private constructor(
 
             fun validate(): CardFuelConfirmation = apply {
                 if (!validated) {
+                    id()
                     cardAuthorizationId()
                     currency()
-                    id()
                     network()
                     networkIdentifiers().validate()
                     pendingTransactionId()
@@ -6950,9 +6950,9 @@ private constructor(
 
             class Builder {
 
+                private var id: JsonField<String> = JsonMissing.of()
                 private var cardAuthorizationId: JsonField<String> = JsonMissing.of()
                 private var currency: JsonField<Currency> = JsonMissing.of()
-                private var id: JsonField<String> = JsonMissing.of()
                 private var network: JsonField<Network> = JsonMissing.of()
                 private var networkIdentifiers: JsonField<NetworkIdentifiers> = JsonMissing.of()
                 private var pendingTransactionId: JsonField<String> = JsonMissing.of()
@@ -6961,9 +6961,9 @@ private constructor(
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(cardFuelConfirmation: CardFuelConfirmation) = apply {
+                    id = cardFuelConfirmation.id
                     cardAuthorizationId = cardFuelConfirmation.cardAuthorizationId
                     currency = cardFuelConfirmation.currency
-                    id = cardFuelConfirmation.id
                     network = cardFuelConfirmation.network
                     networkIdentifiers = cardFuelConfirmation.networkIdentifiers
                     pendingTransactionId = cardFuelConfirmation.pendingTransactionId
@@ -6971,6 +6971,12 @@ private constructor(
                     updatedAuthorizationAmount = cardFuelConfirmation.updatedAuthorizationAmount
                     additionalProperties = cardFuelConfirmation.additionalProperties.toMutableMap()
                 }
+
+                /** The Card Fuel Confirmation identifier. */
+                fun id(id: String) = id(JsonField.of(id))
+
+                /** The Card Fuel Confirmation identifier. */
+                fun id(id: JsonField<String>) = apply { this.id = id }
 
                 /** The identifier for the Card Authorization this updates. */
                 fun cardAuthorizationId(cardAuthorizationId: String) =
@@ -6992,12 +6998,6 @@ private constructor(
                  * currency.
                  */
                 fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
-
-                /** The Card Fuel Confirmation identifier. */
-                fun id(id: String) = id(JsonField.of(id))
-
-                /** The Card Fuel Confirmation identifier. */
-                fun id(id: JsonField<String>) = apply { this.id = id }
 
                 /** The card network used to process this card authorization. */
                 fun network(network: Network) = network(JsonField.of(network))
@@ -7081,9 +7081,9 @@ private constructor(
 
                 fun build(): CardFuelConfirmation =
                     CardFuelConfirmation(
+                        id,
                         cardAuthorizationId,
                         currency,
-                        id,
                         network,
                         networkIdentifiers,
                         pendingTransactionId,
@@ -7473,17 +7473,17 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is CardFuelConfirmation && cardAuthorizationId == other.cardAuthorizationId && currency == other.currency && id == other.id && network == other.network && networkIdentifiers == other.networkIdentifiers && pendingTransactionId == other.pendingTransactionId && type == other.type && updatedAuthorizationAmount == other.updatedAuthorizationAmount && additionalProperties == other.additionalProperties /* spotless:on */
+                return /* spotless:off */ other is CardFuelConfirmation && id == other.id && cardAuthorizationId == other.cardAuthorizationId && currency == other.currency && network == other.network && networkIdentifiers == other.networkIdentifiers && pendingTransactionId == other.pendingTransactionId && type == other.type && updatedAuthorizationAmount == other.updatedAuthorizationAmount && additionalProperties == other.additionalProperties /* spotless:on */
             }
 
             /* spotless:off */
-            private val hashCode: Int by lazy { Objects.hash(cardAuthorizationId, currency, id, network, networkIdentifiers, pendingTransactionId, type, updatedAuthorizationAmount, additionalProperties) }
+            private val hashCode: Int by lazy { Objects.hash(id, cardAuthorizationId, currency, network, networkIdentifiers, pendingTransactionId, type, updatedAuthorizationAmount, additionalProperties) }
             /* spotless:on */
 
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "CardFuelConfirmation{cardAuthorizationId=$cardAuthorizationId, currency=$currency, id=$id, network=$network, networkIdentifiers=$networkIdentifiers, pendingTransactionId=$pendingTransactionId, type=$type, updatedAuthorizationAmount=$updatedAuthorizationAmount, additionalProperties=$additionalProperties}"
+                "CardFuelConfirmation{id=$id, cardAuthorizationId=$cardAuthorizationId, currency=$currency, network=$network, networkIdentifiers=$networkIdentifiers, pendingTransactionId=$pendingTransactionId, type=$type, updatedAuthorizationAmount=$updatedAuthorizationAmount, additionalProperties=$additionalProperties}"
         }
 
         /**
@@ -7494,6 +7494,9 @@ private constructor(
         class CardIncrement
         @JsonCreator
         private constructor(
+            @JsonProperty("id")
+            @ExcludeMissing
+            private val id: JsonField<String> = JsonMissing.of(),
             @JsonProperty("actioner")
             @ExcludeMissing
             private val actioner: JsonField<Actioner> = JsonMissing.of(),
@@ -7506,9 +7509,6 @@ private constructor(
             @JsonProperty("currency")
             @ExcludeMissing
             private val currency: JsonField<Currency> = JsonMissing.of(),
-            @JsonProperty("id")
-            @ExcludeMissing
-            private val id: JsonField<String> = JsonMissing.of(),
             @JsonProperty("network")
             @ExcludeMissing
             private val network: JsonField<Network> = JsonMissing.of(),
@@ -7534,6 +7534,9 @@ private constructor(
             private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
 
+            /** The Card Increment identifier. */
+            fun id(): String = id.getRequired("id")
+
             /**
              * Whether this authorization was approved by Increase, the card network through
              * stand-in processing, or the user through a real-time decision.
@@ -7555,9 +7558,6 @@ private constructor(
              * currency.
              */
             fun currency(): Currency = currency.getRequired("currency")
-
-            /** The Card Increment identifier. */
-            fun id(): String = id.getRequired("id")
 
             /** The card network used to process this card authorization. */
             fun network(): Network = network.getRequired("network")
@@ -7596,6 +7596,9 @@ private constructor(
             fun updatedAuthorizationAmount(): Long =
                 updatedAuthorizationAmount.getRequired("updated_authorization_amount")
 
+            /** The Card Increment identifier. */
+            @JsonProperty("id") @ExcludeMissing fun _id() = id
+
             /**
              * Whether this authorization was approved by Increase, the card network through
              * stand-in processing, or the user through a real-time decision.
@@ -7618,9 +7621,6 @@ private constructor(
              * currency.
              */
             @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
-
-            /** The Card Increment identifier. */
-            @JsonProperty("id") @ExcludeMissing fun _id() = id
 
             /** The card network used to process this card authorization. */
             @JsonProperty("network") @ExcludeMissing fun _network() = network
@@ -7673,11 +7673,11 @@ private constructor(
 
             fun validate(): CardIncrement = apply {
                 if (!validated) {
+                    id()
                     actioner()
                     amount()
                     cardAuthorizationId()
                     currency()
-                    id()
                     network()
                     networkIdentifiers().validate()
                     networkRiskScore()
@@ -7698,11 +7698,11 @@ private constructor(
 
             class Builder {
 
+                private var id: JsonField<String> = JsonMissing.of()
                 private var actioner: JsonField<Actioner> = JsonMissing.of()
                 private var amount: JsonField<Long> = JsonMissing.of()
                 private var cardAuthorizationId: JsonField<String> = JsonMissing.of()
                 private var currency: JsonField<Currency> = JsonMissing.of()
-                private var id: JsonField<String> = JsonMissing.of()
                 private var network: JsonField<Network> = JsonMissing.of()
                 private var networkIdentifiers: JsonField<NetworkIdentifiers> = JsonMissing.of()
                 private var networkRiskScore: JsonField<Long> = JsonMissing.of()
@@ -7713,11 +7713,11 @@ private constructor(
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(cardIncrement: CardIncrement) = apply {
+                    id = cardIncrement.id
                     actioner = cardIncrement.actioner
                     amount = cardIncrement.amount
                     cardAuthorizationId = cardIncrement.cardAuthorizationId
                     currency = cardIncrement.currency
-                    id = cardIncrement.id
                     network = cardIncrement.network
                     networkIdentifiers = cardIncrement.networkIdentifiers
                     networkRiskScore = cardIncrement.networkRiskScore
@@ -7727,6 +7727,12 @@ private constructor(
                     updatedAuthorizationAmount = cardIncrement.updatedAuthorizationAmount
                     additionalProperties = cardIncrement.additionalProperties.toMutableMap()
                 }
+
+                /** The Card Increment identifier. */
+                fun id(id: String) = id(JsonField.of(id))
+
+                /** The Card Increment identifier. */
+                fun id(id: JsonField<String>) = apply { this.id = id }
 
                 /**
                  * Whether this authorization was approved by Increase, the card network through
@@ -7772,12 +7778,6 @@ private constructor(
                  * currency.
                  */
                 fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
-
-                /** The Card Increment identifier. */
-                fun id(id: String) = id(JsonField.of(id))
-
-                /** The Card Increment identifier. */
-                fun id(id: JsonField<String>) = apply { this.id = id }
 
                 /** The card network used to process this card authorization. */
                 fun network(network: Network) = network(JsonField.of(network))
@@ -7889,11 +7889,11 @@ private constructor(
 
                 fun build(): CardIncrement =
                     CardIncrement(
+                        id,
                         actioner,
                         amount,
                         cardAuthorizationId,
                         currency,
-                        id,
                         network,
                         networkIdentifiers,
                         networkRiskScore,
@@ -8348,17 +8348,17 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is CardIncrement && actioner == other.actioner && amount == other.amount && cardAuthorizationId == other.cardAuthorizationId && currency == other.currency && id == other.id && network == other.network && networkIdentifiers == other.networkIdentifiers && networkRiskScore == other.networkRiskScore && pendingTransactionId == other.pendingTransactionId && realTimeDecisionId == other.realTimeDecisionId && type == other.type && updatedAuthorizationAmount == other.updatedAuthorizationAmount && additionalProperties == other.additionalProperties /* spotless:on */
+                return /* spotless:off */ other is CardIncrement && id == other.id && actioner == other.actioner && amount == other.amount && cardAuthorizationId == other.cardAuthorizationId && currency == other.currency && network == other.network && networkIdentifiers == other.networkIdentifiers && networkRiskScore == other.networkRiskScore && pendingTransactionId == other.pendingTransactionId && realTimeDecisionId == other.realTimeDecisionId && type == other.type && updatedAuthorizationAmount == other.updatedAuthorizationAmount && additionalProperties == other.additionalProperties /* spotless:on */
             }
 
             /* spotless:off */
-            private val hashCode: Int by lazy { Objects.hash(actioner, amount, cardAuthorizationId, currency, id, network, networkIdentifiers, networkRiskScore, pendingTransactionId, realTimeDecisionId, type, updatedAuthorizationAmount, additionalProperties) }
+            private val hashCode: Int by lazy { Objects.hash(id, actioner, amount, cardAuthorizationId, currency, network, networkIdentifiers, networkRiskScore, pendingTransactionId, realTimeDecisionId, type, updatedAuthorizationAmount, additionalProperties) }
             /* spotless:on */
 
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "CardIncrement{actioner=$actioner, amount=$amount, cardAuthorizationId=$cardAuthorizationId, currency=$currency, id=$id, network=$network, networkIdentifiers=$networkIdentifiers, networkRiskScore=$networkRiskScore, pendingTransactionId=$pendingTransactionId, realTimeDecisionId=$realTimeDecisionId, type=$type, updatedAuthorizationAmount=$updatedAuthorizationAmount, additionalProperties=$additionalProperties}"
+                "CardIncrement{id=$id, actioner=$actioner, amount=$amount, cardAuthorizationId=$cardAuthorizationId, currency=$currency, network=$network, networkIdentifiers=$networkIdentifiers, networkRiskScore=$networkRiskScore, pendingTransactionId=$pendingTransactionId, realTimeDecisionId=$realTimeDecisionId, type=$type, updatedAuthorizationAmount=$updatedAuthorizationAmount, additionalProperties=$additionalProperties}"
         }
 
         /**
@@ -8369,6 +8369,9 @@ private constructor(
         class CardRefund
         @JsonCreator
         private constructor(
+            @JsonProperty("id")
+            @ExcludeMissing
+            private val id: JsonField<String> = JsonMissing.of(),
             @JsonProperty("amount")
             @ExcludeMissing
             private val amount: JsonField<Long> = JsonMissing.of(),
@@ -8381,9 +8384,6 @@ private constructor(
             @JsonProperty("currency")
             @ExcludeMissing
             private val currency: JsonField<Currency> = JsonMissing.of(),
-            @JsonProperty("id")
-            @ExcludeMissing
-            private val id: JsonField<String> = JsonMissing.of(),
             @JsonProperty("interchange")
             @ExcludeMissing
             private val interchange: JsonField<Interchange> = JsonMissing.of(),
@@ -8430,6 +8430,9 @@ private constructor(
             private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
 
+            /** The Card Refund identifier. */
+            fun id(): String = id.getRequired("id")
+
             /**
              * The amount in the minor unit of the transaction's settlement currency. For dollars,
              * for example, this is cents.
@@ -8450,9 +8453,6 @@ private constructor(
              * settlement currency.
              */
             fun currency(): Currency = currency.getRequired("currency")
-
-            /** The Card Refund identifier. */
-            fun id(): String = id.getRequired("id")
 
             /** Interchange assessed as a part of this transaciton. */
             fun interchange(): Interchange? = interchange.getNullable("interchange")
@@ -8513,6 +8513,9 @@ private constructor(
              */
             fun type(): Type = type.getRequired("type")
 
+            /** The Card Refund identifier. */
+            @JsonProperty("id") @ExcludeMissing fun _id() = id
+
             /**
              * The amount in the minor unit of the transaction's settlement currency. For dollars,
              * for example, this is cents.
@@ -8533,9 +8536,6 @@ private constructor(
              * settlement currency.
              */
             @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
-
-            /** The Card Refund identifier. */
-            @JsonProperty("id") @ExcludeMissing fun _id() = id
 
             /** Interchange assessed as a part of this transaciton. */
             @JsonProperty("interchange") @ExcludeMissing fun _interchange() = interchange
@@ -8614,11 +8614,11 @@ private constructor(
 
             fun validate(): CardRefund = apply {
                 if (!validated) {
+                    id()
                     amount()
                     cardPaymentId()
                     cashback()?.validate()
                     currency()
-                    id()
                     interchange()?.validate()
                     merchantAcceptorId()
                     merchantCategoryCode()
@@ -8646,11 +8646,11 @@ private constructor(
 
             class Builder {
 
+                private var id: JsonField<String> = JsonMissing.of()
                 private var amount: JsonField<Long> = JsonMissing.of()
                 private var cardPaymentId: JsonField<String> = JsonMissing.of()
                 private var cashback: JsonField<Cashback> = JsonMissing.of()
                 private var currency: JsonField<Currency> = JsonMissing.of()
-                private var id: JsonField<String> = JsonMissing.of()
                 private var interchange: JsonField<Interchange> = JsonMissing.of()
                 private var merchantAcceptorId: JsonField<String> = JsonMissing.of()
                 private var merchantCategoryCode: JsonField<String> = JsonMissing.of()
@@ -8668,11 +8668,11 @@ private constructor(
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(cardRefund: CardRefund) = apply {
+                    id = cardRefund.id
                     amount = cardRefund.amount
                     cardPaymentId = cardRefund.cardPaymentId
                     cashback = cardRefund.cashback
                     currency = cardRefund.currency
-                    id = cardRefund.id
                     interchange = cardRefund.interchange
                     merchantAcceptorId = cardRefund.merchantAcceptorId
                     merchantCategoryCode = cardRefund.merchantCategoryCode
@@ -8689,6 +8689,12 @@ private constructor(
                     type = cardRefund.type
                     additionalProperties = cardRefund.additionalProperties.toMutableMap()
                 }
+
+                /** The Card Refund identifier. */
+                fun id(id: String) = id(JsonField.of(id))
+
+                /** The Card Refund identifier. */
+                fun id(id: JsonField<String>) = apply { this.id = id }
 
                 /**
                  * The amount in the minor unit of the transaction's settlement currency. For
@@ -8734,12 +8740,6 @@ private constructor(
                  * settlement currency.
                  */
                 fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
-
-                /** The Card Refund identifier. */
-                fun id(id: String) = id(JsonField.of(id))
-
-                /** The Card Refund identifier. */
-                fun id(id: JsonField<String>) = apply { this.id = id }
 
                 /** Interchange assessed as a part of this transaciton. */
                 fun interchange(interchange: Interchange) = interchange(JsonField.of(interchange))
@@ -8913,11 +8913,11 @@ private constructor(
 
                 fun build(): CardRefund =
                     CardRefund(
+                        id,
                         amount,
                         cardPaymentId,
                         cashback,
                         currency,
-                        id,
                         interchange,
                         merchantAcceptorId,
                         merchantCategoryCode,
@@ -13176,17 +13176,17 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is CardRefund && amount == other.amount && cardPaymentId == other.cardPaymentId && cashback == other.cashback && currency == other.currency && id == other.id && interchange == other.interchange && merchantAcceptorId == other.merchantAcceptorId && merchantCategoryCode == other.merchantCategoryCode && merchantCity == other.merchantCity && merchantCountry == other.merchantCountry && merchantName == other.merchantName && merchantPostalCode == other.merchantPostalCode && merchantState == other.merchantState && networkIdentifiers == other.networkIdentifiers && presentmentAmount == other.presentmentAmount && presentmentCurrency == other.presentmentCurrency && purchaseDetails == other.purchaseDetails && transactionId == other.transactionId && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+                return /* spotless:off */ other is CardRefund && id == other.id && amount == other.amount && cardPaymentId == other.cardPaymentId && cashback == other.cashback && currency == other.currency && interchange == other.interchange && merchantAcceptorId == other.merchantAcceptorId && merchantCategoryCode == other.merchantCategoryCode && merchantCity == other.merchantCity && merchantCountry == other.merchantCountry && merchantName == other.merchantName && merchantPostalCode == other.merchantPostalCode && merchantState == other.merchantState && networkIdentifiers == other.networkIdentifiers && presentmentAmount == other.presentmentAmount && presentmentCurrency == other.presentmentCurrency && purchaseDetails == other.purchaseDetails && transactionId == other.transactionId && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
             }
 
             /* spotless:off */
-            private val hashCode: Int by lazy { Objects.hash(amount, cardPaymentId, cashback, currency, id, interchange, merchantAcceptorId, merchantCategoryCode, merchantCity, merchantCountry, merchantName, merchantPostalCode, merchantState, networkIdentifiers, presentmentAmount, presentmentCurrency, purchaseDetails, transactionId, type, additionalProperties) }
+            private val hashCode: Int by lazy { Objects.hash(id, amount, cardPaymentId, cashback, currency, interchange, merchantAcceptorId, merchantCategoryCode, merchantCity, merchantCountry, merchantName, merchantPostalCode, merchantState, networkIdentifiers, presentmentAmount, presentmentCurrency, purchaseDetails, transactionId, type, additionalProperties) }
             /* spotless:on */
 
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "CardRefund{amount=$amount, cardPaymentId=$cardPaymentId, cashback=$cashback, currency=$currency, id=$id, interchange=$interchange, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantName=$merchantName, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, networkIdentifiers=$networkIdentifiers, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, purchaseDetails=$purchaseDetails, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
+                "CardRefund{id=$id, amount=$amount, cardPaymentId=$cardPaymentId, cashback=$cashback, currency=$currency, interchange=$interchange, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantName=$merchantName, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, networkIdentifiers=$networkIdentifiers, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, purchaseDetails=$purchaseDetails, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
         }
 
         /**
@@ -13197,15 +13197,15 @@ private constructor(
         class CardReversal
         @JsonCreator
         private constructor(
+            @JsonProperty("id")
+            @ExcludeMissing
+            private val id: JsonField<String> = JsonMissing.of(),
             @JsonProperty("card_authorization_id")
             @ExcludeMissing
             private val cardAuthorizationId: JsonField<String> = JsonMissing.of(),
             @JsonProperty("currency")
             @ExcludeMissing
             private val currency: JsonField<Currency> = JsonMissing.of(),
-            @JsonProperty("id")
-            @ExcludeMissing
-            private val id: JsonField<String> = JsonMissing.of(),
             @JsonProperty("merchant_acceptor_id")
             @ExcludeMissing
             private val merchantAcceptorId: JsonField<String> = JsonMissing.of(),
@@ -13255,6 +13255,9 @@ private constructor(
             private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
 
+            /** The Card Reversal identifier. */
+            fun id(): String = id.getRequired("id")
+
             /** The identifier for the Card Authorization this reverses. */
             fun cardAuthorizationId(): String =
                 cardAuthorizationId.getRequired("card_authorization_id")
@@ -13264,9 +13267,6 @@ private constructor(
              * currency.
              */
             fun currency(): Currency = currency.getRequired("currency")
-
-            /** The Card Reversal identifier. */
-            fun id(): String = id.getRequired("id")
 
             /**
              * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
@@ -13340,6 +13340,9 @@ private constructor(
             fun updatedAuthorizationAmount(): Long =
                 updatedAuthorizationAmount.getRequired("updated_authorization_amount")
 
+            /** The Card Reversal identifier. */
+            @JsonProperty("id") @ExcludeMissing fun _id() = id
+
             /** The identifier for the Card Authorization this reverses. */
             @JsonProperty("card_authorization_id")
             @ExcludeMissing
@@ -13350,9 +13353,6 @@ private constructor(
              * currency.
              */
             @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
-
-            /** The Card Reversal identifier. */
-            @JsonProperty("id") @ExcludeMissing fun _id() = id
 
             /**
              * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
@@ -13444,9 +13444,9 @@ private constructor(
 
             fun validate(): CardReversal = apply {
                 if (!validated) {
+                    id()
                     cardAuthorizationId()
                     currency()
-                    id()
                     merchantAcceptorId()
                     merchantCategoryCode()
                     merchantCity()
@@ -13475,9 +13475,9 @@ private constructor(
 
             class Builder {
 
+                private var id: JsonField<String> = JsonMissing.of()
                 private var cardAuthorizationId: JsonField<String> = JsonMissing.of()
                 private var currency: JsonField<Currency> = JsonMissing.of()
-                private var id: JsonField<String> = JsonMissing.of()
                 private var merchantAcceptorId: JsonField<String> = JsonMissing.of()
                 private var merchantCategoryCode: JsonField<String> = JsonMissing.of()
                 private var merchantCity: JsonField<String> = JsonMissing.of()
@@ -13496,9 +13496,9 @@ private constructor(
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(cardReversal: CardReversal) = apply {
+                    id = cardReversal.id
                     cardAuthorizationId = cardReversal.cardAuthorizationId
                     currency = cardReversal.currency
-                    id = cardReversal.id
                     merchantAcceptorId = cardReversal.merchantAcceptorId
                     merchantCategoryCode = cardReversal.merchantCategoryCode
                     merchantCity = cardReversal.merchantCity
@@ -13516,6 +13516,12 @@ private constructor(
                     updatedAuthorizationAmount = cardReversal.updatedAuthorizationAmount
                     additionalProperties = cardReversal.additionalProperties.toMutableMap()
                 }
+
+                /** The Card Reversal identifier. */
+                fun id(id: String) = id(JsonField.of(id))
+
+                /** The Card Reversal identifier. */
+                fun id(id: JsonField<String>) = apply { this.id = id }
 
                 /** The identifier for the Card Authorization this reverses. */
                 fun cardAuthorizationId(cardAuthorizationId: String) =
@@ -13537,12 +13543,6 @@ private constructor(
                  * currency.
                  */
                 fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
-
-                /** The Card Reversal identifier. */
-                fun id(id: String) = id(JsonField.of(id))
-
-                /** The Card Reversal identifier. */
-                fun id(id: JsonField<String>) = apply { this.id = id }
 
                 /**
                  * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
@@ -13738,9 +13738,9 @@ private constructor(
 
                 fun build(): CardReversal =
                     CardReversal(
+                        id,
                         cardAuthorizationId,
                         currency,
-                        id,
                         merchantAcceptorId,
                         merchantCategoryCode,
                         merchantCity,
@@ -14209,17 +14209,17 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is CardReversal && cardAuthorizationId == other.cardAuthorizationId && currency == other.currency && id == other.id && merchantAcceptorId == other.merchantAcceptorId && merchantCategoryCode == other.merchantCategoryCode && merchantCity == other.merchantCity && merchantCountry == other.merchantCountry && merchantDescriptor == other.merchantDescriptor && merchantPostalCode == other.merchantPostalCode && merchantState == other.merchantState && network == other.network && networkIdentifiers == other.networkIdentifiers && pendingTransactionId == other.pendingTransactionId && reversalAmount == other.reversalAmount && reversalReason == other.reversalReason && terminalId == other.terminalId && type == other.type && updatedAuthorizationAmount == other.updatedAuthorizationAmount && additionalProperties == other.additionalProperties /* spotless:on */
+                return /* spotless:off */ other is CardReversal && id == other.id && cardAuthorizationId == other.cardAuthorizationId && currency == other.currency && merchantAcceptorId == other.merchantAcceptorId && merchantCategoryCode == other.merchantCategoryCode && merchantCity == other.merchantCity && merchantCountry == other.merchantCountry && merchantDescriptor == other.merchantDescriptor && merchantPostalCode == other.merchantPostalCode && merchantState == other.merchantState && network == other.network && networkIdentifiers == other.networkIdentifiers && pendingTransactionId == other.pendingTransactionId && reversalAmount == other.reversalAmount && reversalReason == other.reversalReason && terminalId == other.terminalId && type == other.type && updatedAuthorizationAmount == other.updatedAuthorizationAmount && additionalProperties == other.additionalProperties /* spotless:on */
             }
 
             /* spotless:off */
-            private val hashCode: Int by lazy { Objects.hash(cardAuthorizationId, currency, id, merchantAcceptorId, merchantCategoryCode, merchantCity, merchantCountry, merchantDescriptor, merchantPostalCode, merchantState, network, networkIdentifiers, pendingTransactionId, reversalAmount, reversalReason, terminalId, type, updatedAuthorizationAmount, additionalProperties) }
+            private val hashCode: Int by lazy { Objects.hash(id, cardAuthorizationId, currency, merchantAcceptorId, merchantCategoryCode, merchantCity, merchantCountry, merchantDescriptor, merchantPostalCode, merchantState, network, networkIdentifiers, pendingTransactionId, reversalAmount, reversalReason, terminalId, type, updatedAuthorizationAmount, additionalProperties) }
             /* spotless:on */
 
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "CardReversal{cardAuthorizationId=$cardAuthorizationId, currency=$currency, id=$id, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, network=$network, networkIdentifiers=$networkIdentifiers, pendingTransactionId=$pendingTransactionId, reversalAmount=$reversalAmount, reversalReason=$reversalReason, terminalId=$terminalId, type=$type, updatedAuthorizationAmount=$updatedAuthorizationAmount, additionalProperties=$additionalProperties}"
+                "CardReversal{id=$id, cardAuthorizationId=$cardAuthorizationId, currency=$currency, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, network=$network, networkIdentifiers=$networkIdentifiers, pendingTransactionId=$pendingTransactionId, reversalAmount=$reversalAmount, reversalReason=$reversalReason, terminalId=$terminalId, type=$type, updatedAuthorizationAmount=$updatedAuthorizationAmount, additionalProperties=$additionalProperties}"
         }
 
         /**
@@ -14230,6 +14230,9 @@ private constructor(
         class CardSettlement
         @JsonCreator
         private constructor(
+            @JsonProperty("id")
+            @ExcludeMissing
+            private val id: JsonField<String> = JsonMissing.of(),
             @JsonProperty("amount")
             @ExcludeMissing
             private val amount: JsonField<Long> = JsonMissing.of(),
@@ -14245,9 +14248,6 @@ private constructor(
             @JsonProperty("currency")
             @ExcludeMissing
             private val currency: JsonField<Currency> = JsonMissing.of(),
-            @JsonProperty("id")
-            @ExcludeMissing
-            private val id: JsonField<String> = JsonMissing.of(),
             @JsonProperty("interchange")
             @ExcludeMissing
             private val interchange: JsonField<Interchange> = JsonMissing.of(),
@@ -14297,6 +14297,9 @@ private constructor(
             private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
 
+            /** The Card Settlement identifier. */
+            fun id(): String = id.getRequired("id")
+
             /**
              * The amount in the minor unit of the transaction's settlement currency. For dollars,
              * for example, this is cents.
@@ -14322,9 +14325,6 @@ private constructor(
              * settlement currency.
              */
             fun currency(): Currency = currency.getRequired("currency")
-
-            /** The Card Settlement identifier. */
-            fun id(): String = id.getRequired("id")
 
             /** Interchange assessed as a part of this transaction. */
             fun interchange(): Interchange? = interchange.getNullable("interchange")
@@ -14389,6 +14389,9 @@ private constructor(
              */
             fun type(): Type = type.getRequired("type")
 
+            /** The Card Settlement identifier. */
+            @JsonProperty("id") @ExcludeMissing fun _id() = id
+
             /**
              * The amount in the minor unit of the transaction's settlement currency. For dollars,
              * for example, this is cents.
@@ -14416,9 +14419,6 @@ private constructor(
              * settlement currency.
              */
             @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
-
-            /** The Card Settlement identifier. */
-            @JsonProperty("id") @ExcludeMissing fun _id() = id
 
             /** Interchange assessed as a part of this transaction. */
             @JsonProperty("interchange") @ExcludeMissing fun _interchange() = interchange
@@ -14502,12 +14502,12 @@ private constructor(
 
             fun validate(): CardSettlement = apply {
                 if (!validated) {
+                    id()
                     amount()
                     cardAuthorization()
                     cardPaymentId()
                     cashback()?.validate()
                     currency()
-                    id()
                     interchange()?.validate()
                     merchantAcceptorId()
                     merchantCategoryCode()
@@ -14536,12 +14536,12 @@ private constructor(
 
             class Builder {
 
+                private var id: JsonField<String> = JsonMissing.of()
                 private var amount: JsonField<Long> = JsonMissing.of()
                 private var cardAuthorization: JsonField<String> = JsonMissing.of()
                 private var cardPaymentId: JsonField<String> = JsonMissing.of()
                 private var cashback: JsonField<Cashback> = JsonMissing.of()
                 private var currency: JsonField<Currency> = JsonMissing.of()
-                private var id: JsonField<String> = JsonMissing.of()
                 private var interchange: JsonField<Interchange> = JsonMissing.of()
                 private var merchantAcceptorId: JsonField<String> = JsonMissing.of()
                 private var merchantCategoryCode: JsonField<String> = JsonMissing.of()
@@ -14560,12 +14560,12 @@ private constructor(
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(cardSettlement: CardSettlement) = apply {
+                    id = cardSettlement.id
                     amount = cardSettlement.amount
                     cardAuthorization = cardSettlement.cardAuthorization
                     cardPaymentId = cardSettlement.cardPaymentId
                     cashback = cardSettlement.cashback
                     currency = cardSettlement.currency
-                    id = cardSettlement.id
                     interchange = cardSettlement.interchange
                     merchantAcceptorId = cardSettlement.merchantAcceptorId
                     merchantCategoryCode = cardSettlement.merchantCategoryCode
@@ -14583,6 +14583,12 @@ private constructor(
                     type = cardSettlement.type
                     additionalProperties = cardSettlement.additionalProperties.toMutableMap()
                 }
+
+                /** The Card Settlement identifier. */
+                fun id(id: String) = id(JsonField.of(id))
+
+                /** The Card Settlement identifier. */
+                fun id(id: JsonField<String>) = apply { this.id = id }
 
                 /**
                  * The amount in the minor unit of the transaction's settlement currency. For
@@ -14643,12 +14649,6 @@ private constructor(
                  * settlement currency.
                  */
                 fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
-
-                /** The Card Settlement identifier. */
-                fun id(id: String) = id(JsonField.of(id))
-
-                /** The Card Settlement identifier. */
-                fun id(id: JsonField<String>) = apply { this.id = id }
 
                 /** Interchange assessed as a part of this transaction. */
                 fun interchange(interchange: Interchange) = interchange(JsonField.of(interchange))
@@ -14831,12 +14831,12 @@ private constructor(
 
                 fun build(): CardSettlement =
                     CardSettlement(
+                        id,
                         amount,
                         cardAuthorization,
                         cardPaymentId,
                         cashback,
                         currency,
-                        id,
                         interchange,
                         merchantAcceptorId,
                         merchantCategoryCode,
@@ -19096,17 +19096,17 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is CardSettlement && amount == other.amount && cardAuthorization == other.cardAuthorization && cardPaymentId == other.cardPaymentId && cashback == other.cashback && currency == other.currency && id == other.id && interchange == other.interchange && merchantAcceptorId == other.merchantAcceptorId && merchantCategoryCode == other.merchantCategoryCode && merchantCity == other.merchantCity && merchantCountry == other.merchantCountry && merchantName == other.merchantName && merchantPostalCode == other.merchantPostalCode && merchantState == other.merchantState && networkIdentifiers == other.networkIdentifiers && pendingTransactionId == other.pendingTransactionId && presentmentAmount == other.presentmentAmount && presentmentCurrency == other.presentmentCurrency && purchaseDetails == other.purchaseDetails && transactionId == other.transactionId && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+                return /* spotless:off */ other is CardSettlement && id == other.id && amount == other.amount && cardAuthorization == other.cardAuthorization && cardPaymentId == other.cardPaymentId && cashback == other.cashback && currency == other.currency && interchange == other.interchange && merchantAcceptorId == other.merchantAcceptorId && merchantCategoryCode == other.merchantCategoryCode && merchantCity == other.merchantCity && merchantCountry == other.merchantCountry && merchantName == other.merchantName && merchantPostalCode == other.merchantPostalCode && merchantState == other.merchantState && networkIdentifiers == other.networkIdentifiers && pendingTransactionId == other.pendingTransactionId && presentmentAmount == other.presentmentAmount && presentmentCurrency == other.presentmentCurrency && purchaseDetails == other.purchaseDetails && transactionId == other.transactionId && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
             }
 
             /* spotless:off */
-            private val hashCode: Int by lazy { Objects.hash(amount, cardAuthorization, cardPaymentId, cashback, currency, id, interchange, merchantAcceptorId, merchantCategoryCode, merchantCity, merchantCountry, merchantName, merchantPostalCode, merchantState, networkIdentifiers, pendingTransactionId, presentmentAmount, presentmentCurrency, purchaseDetails, transactionId, type, additionalProperties) }
+            private val hashCode: Int by lazy { Objects.hash(id, amount, cardAuthorization, cardPaymentId, cashback, currency, interchange, merchantAcceptorId, merchantCategoryCode, merchantCity, merchantCountry, merchantName, merchantPostalCode, merchantState, networkIdentifiers, pendingTransactionId, presentmentAmount, presentmentCurrency, purchaseDetails, transactionId, type, additionalProperties) }
             /* spotless:on */
 
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "CardSettlement{amount=$amount, cardAuthorization=$cardAuthorization, cardPaymentId=$cardPaymentId, cashback=$cashback, currency=$currency, id=$id, interchange=$interchange, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantName=$merchantName, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, networkIdentifiers=$networkIdentifiers, pendingTransactionId=$pendingTransactionId, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, purchaseDetails=$purchaseDetails, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
+                "CardSettlement{id=$id, amount=$amount, cardAuthorization=$cardAuthorization, cardPaymentId=$cardPaymentId, cashback=$cashback, currency=$currency, interchange=$interchange, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantName=$merchantName, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, networkIdentifiers=$networkIdentifiers, pendingTransactionId=$pendingTransactionId, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, purchaseDetails=$purchaseDetails, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
         }
 
         /**
@@ -19117,6 +19117,9 @@ private constructor(
         class CardValidation
         @JsonCreator
         private constructor(
+            @JsonProperty("id")
+            @ExcludeMissing
+            private val id: JsonField<String> = JsonMissing.of(),
             @JsonProperty("actioner")
             @ExcludeMissing
             private val actioner: JsonField<Actioner> = JsonMissing.of(),
@@ -19129,9 +19132,6 @@ private constructor(
             @JsonProperty("digital_wallet_token_id")
             @ExcludeMissing
             private val digitalWalletTokenId: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("id")
-            @ExcludeMissing
-            private val id: JsonField<String> = JsonMissing.of(),
             @JsonProperty("merchant_acceptor_id")
             @ExcludeMissing
             private val merchantAcceptorId: JsonField<String> = JsonMissing.of(),
@@ -19181,6 +19181,9 @@ private constructor(
             private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
 
+            /** The Card Validation identifier. */
+            fun id(): String = id.getRequired("id")
+
             /**
              * Whether this authorization was approved by Increase, the card network through
              * stand-in processing, or the user through a real-time decision.
@@ -19202,9 +19205,6 @@ private constructor(
              */
             fun digitalWalletTokenId(): String? =
                 digitalWalletTokenId.getNullable("digital_wallet_token_id")
-
-            /** The Card Validation identifier. */
-            fun id(): String = id.getRequired("id")
 
             /**
              * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
@@ -19279,6 +19279,9 @@ private constructor(
             /** Fields related to verification of cardholder-provided values. */
             fun verification(): Verification = verification.getRequired("verification")
 
+            /** The Card Validation identifier. */
+            @JsonProperty("id") @ExcludeMissing fun _id() = id
+
             /**
              * Whether this authorization was approved by Increase, the card network through
              * stand-in processing, or the user through a real-time decision.
@@ -19301,9 +19304,6 @@ private constructor(
             @JsonProperty("digital_wallet_token_id")
             @ExcludeMissing
             fun _digitalWalletTokenId() = digitalWalletTokenId
-
-            /** The Card Validation identifier. */
-            @JsonProperty("id") @ExcludeMissing fun _id() = id
 
             /**
              * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
@@ -19397,11 +19397,11 @@ private constructor(
 
             fun validate(): CardValidation = apply {
                 if (!validated) {
+                    id()
                     actioner()
                     cardPaymentId()
                     currency()
                     digitalWalletTokenId()
-                    id()
                     merchantAcceptorId()
                     merchantCategoryCode()
                     merchantCity()
@@ -19430,11 +19430,11 @@ private constructor(
 
             class Builder {
 
+                private var id: JsonField<String> = JsonMissing.of()
                 private var actioner: JsonField<Actioner> = JsonMissing.of()
                 private var cardPaymentId: JsonField<String> = JsonMissing.of()
                 private var currency: JsonField<Currency> = JsonMissing.of()
                 private var digitalWalletTokenId: JsonField<String> = JsonMissing.of()
-                private var id: JsonField<String> = JsonMissing.of()
                 private var merchantAcceptorId: JsonField<String> = JsonMissing.of()
                 private var merchantCategoryCode: JsonField<String> = JsonMissing.of()
                 private var merchantCity: JsonField<String> = JsonMissing.of()
@@ -19453,11 +19453,11 @@ private constructor(
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(cardValidation: CardValidation) = apply {
+                    id = cardValidation.id
                     actioner = cardValidation.actioner
                     cardPaymentId = cardValidation.cardPaymentId
                     currency = cardValidation.currency
                     digitalWalletTokenId = cardValidation.digitalWalletTokenId
-                    id = cardValidation.id
                     merchantAcceptorId = cardValidation.merchantAcceptorId
                     merchantCategoryCode = cardValidation.merchantCategoryCode
                     merchantCity = cardValidation.merchantCity
@@ -19475,6 +19475,12 @@ private constructor(
                     verification = cardValidation.verification
                     additionalProperties = cardValidation.additionalProperties.toMutableMap()
                 }
+
+                /** The Card Validation identifier. */
+                fun id(id: String) = id(JsonField.of(id))
+
+                /** The Card Validation identifier. */
+                fun id(id: JsonField<String>) = apply { this.id = id }
 
                 /**
                  * Whether this authorization was approved by Increase, the card network through
@@ -19523,12 +19529,6 @@ private constructor(
                 fun digitalWalletTokenId(digitalWalletTokenId: JsonField<String>) = apply {
                     this.digitalWalletTokenId = digitalWalletTokenId
                 }
-
-                /** The Card Validation identifier. */
-                fun id(id: String) = id(JsonField.of(id))
-
-                /** The Card Validation identifier. */
-                fun id(id: JsonField<String>) = apply { this.id = id }
 
                 /**
                  * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
@@ -19732,11 +19732,11 @@ private constructor(
 
                 fun build(): CardValidation =
                     CardValidation(
+                        id,
                         actioner,
                         cardPaymentId,
                         currency,
                         digitalWalletTokenId,
-                        id,
                         merchantAcceptorId,
                         merchantCategoryCode,
                         merchantCity,
@@ -21475,17 +21475,17 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is CardValidation && actioner == other.actioner && cardPaymentId == other.cardPaymentId && currency == other.currency && digitalWalletTokenId == other.digitalWalletTokenId && id == other.id && merchantAcceptorId == other.merchantAcceptorId && merchantCategoryCode == other.merchantCategoryCode && merchantCity == other.merchantCity && merchantCountry == other.merchantCountry && merchantDescriptor == other.merchantDescriptor && merchantPostalCode == other.merchantPostalCode && merchantState == other.merchantState && networkDetails == other.networkDetails && networkIdentifiers == other.networkIdentifiers && networkRiskScore == other.networkRiskScore && physicalCardId == other.physicalCardId && realTimeDecisionId == other.realTimeDecisionId && terminalId == other.terminalId && type == other.type && verification == other.verification && additionalProperties == other.additionalProperties /* spotless:on */
+                return /* spotless:off */ other is CardValidation && id == other.id && actioner == other.actioner && cardPaymentId == other.cardPaymentId && currency == other.currency && digitalWalletTokenId == other.digitalWalletTokenId && merchantAcceptorId == other.merchantAcceptorId && merchantCategoryCode == other.merchantCategoryCode && merchantCity == other.merchantCity && merchantCountry == other.merchantCountry && merchantDescriptor == other.merchantDescriptor && merchantPostalCode == other.merchantPostalCode && merchantState == other.merchantState && networkDetails == other.networkDetails && networkIdentifiers == other.networkIdentifiers && networkRiskScore == other.networkRiskScore && physicalCardId == other.physicalCardId && realTimeDecisionId == other.realTimeDecisionId && terminalId == other.terminalId && type == other.type && verification == other.verification && additionalProperties == other.additionalProperties /* spotless:on */
             }
 
             /* spotless:off */
-            private val hashCode: Int by lazy { Objects.hash(actioner, cardPaymentId, currency, digitalWalletTokenId, id, merchantAcceptorId, merchantCategoryCode, merchantCity, merchantCountry, merchantDescriptor, merchantPostalCode, merchantState, networkDetails, networkIdentifiers, networkRiskScore, physicalCardId, realTimeDecisionId, terminalId, type, verification, additionalProperties) }
+            private val hashCode: Int by lazy { Objects.hash(id, actioner, cardPaymentId, currency, digitalWalletTokenId, merchantAcceptorId, merchantCategoryCode, merchantCity, merchantCountry, merchantDescriptor, merchantPostalCode, merchantState, networkDetails, networkIdentifiers, networkRiskScore, physicalCardId, realTimeDecisionId, terminalId, type, verification, additionalProperties) }
             /* spotless:on */
 
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "CardValidation{actioner=$actioner, cardPaymentId=$cardPaymentId, currency=$currency, digitalWalletTokenId=$digitalWalletTokenId, id=$id, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, networkDetails=$networkDetails, networkIdentifiers=$networkIdentifiers, networkRiskScore=$networkRiskScore, physicalCardId=$physicalCardId, realTimeDecisionId=$realTimeDecisionId, terminalId=$terminalId, type=$type, verification=$verification, additionalProperties=$additionalProperties}"
+                "CardValidation{id=$id, actioner=$actioner, cardPaymentId=$cardPaymentId, currency=$currency, digitalWalletTokenId=$digitalWalletTokenId, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, networkDetails=$networkDetails, networkIdentifiers=$networkIdentifiers, networkRiskScore=$networkRiskScore, physicalCardId=$physicalCardId, realTimeDecisionId=$realTimeDecisionId, terminalId=$terminalId, type=$type, verification=$verification, additionalProperties=$additionalProperties}"
         }
 
         class Category
@@ -21926,15 +21926,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is CardPayment && accountId == other.accountId && cardId == other.cardId && createdAt == other.createdAt && digitalWalletTokenId == other.digitalWalletTokenId && elements == other.elements && id == other.id && physicalCardId == other.physicalCardId && state == other.state && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is CardPayment && id == other.id && accountId == other.accountId && cardId == other.cardId && createdAt == other.createdAt && digitalWalletTokenId == other.digitalWalletTokenId && elements == other.elements && physicalCardId == other.physicalCardId && state == other.state && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(accountId, cardId, createdAt, digitalWalletTokenId, elements, id, physicalCardId, state, type, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, accountId, cardId, createdAt, digitalWalletTokenId, elements, physicalCardId, state, type, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "CardPayment{accountId=$accountId, cardId=$cardId, createdAt=$createdAt, digitalWalletTokenId=$digitalWalletTokenId, elements=$elements, id=$id, physicalCardId=$physicalCardId, state=$state, type=$type, additionalProperties=$additionalProperties}"
+        "CardPayment{id=$id, accountId=$accountId, cardId=$cardId, createdAt=$createdAt, digitalWalletTokenId=$digitalWalletTokenId, elements=$elements, physicalCardId=$physicalCardId, state=$state, type=$type, additionalProperties=$additionalProperties}"
 }
