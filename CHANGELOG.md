@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.154.1 (2025-01-06)
+
+Full Changelog: [v0.154.0...v0.154.1](https://github.com/Increase/increase-kotlin/compare/v0.154.0...v0.154.1)
+
+### Bug Fixes
+
+* **client:** allow passing null for nullable fields where missing ([#681](https://github.com/Increase/increase-kotlin/issues/681)) ([65540c7](https://github.com/Increase/increase-kotlin/commit/65540c7a00ecff057c59911b407c773e675ef163))
+
+
+### Chores
+
+* **internal:** codegen related update ([#678](https://github.com/Increase/increase-kotlin/issues/678)) ([ed85f43](https://github.com/Increase/increase-kotlin/commit/ed85f433cc5757129c9321b4ec684ac4ab3c43cb))
+
+
+### Styles
+
+* **internal:** sort fields ([#680](https://github.com/Increase/increase-kotlin/issues/680)) ([40ff22e](https://github.com/Increase/increase-kotlin/commit/40ff22e62d9babe9685a630d4ae0528852e90739))
+
 ## 0.154.0 (2025-01-02)
 
 Full Changelog: [v0.153.0...v0.154.0](https://github.com/Increase/increase-kotlin/compare/v0.153.0...v0.154.0)
