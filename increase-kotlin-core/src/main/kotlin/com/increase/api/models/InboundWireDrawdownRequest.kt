@@ -26,6 +26,7 @@ import java.util.Objects
 class InboundWireDrawdownRequest
 @JsonCreator
 private constructor(
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("amount") @ExcludeMissing private val amount: JsonField<Long> = JsonMissing.of(),
     @JsonProperty("beneficiary_account_number")
     @ExcludeMissing
@@ -51,7 +52,6 @@ private constructor(
     @JsonProperty("currency")
     @ExcludeMissing
     private val currency: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("message_to_recipient")
     @ExcludeMissing
     private val messageToRecipient: JsonField<String> = JsonMissing.of(),
@@ -92,6 +92,9 @@ private constructor(
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
+    /** The Wire drawdown request identifier. */
+    fun id(): String = id.getRequired("id")
+
     /** The amount being requested in cents. */
     fun amount(): Long = amount.getRequired("amount")
 
@@ -129,9 +132,6 @@ private constructor(
      * Will always be "USD".
      */
     fun currency(): String = currency.getRequired("currency")
-
-    /** The Wire drawdown request identifier. */
-    fun id(): String = id.getRequired("id")
 
     /** A message from the drawdown request's originator. */
     fun messageToRecipient(): String? = messageToRecipient.getNullable("message_to_recipient")
@@ -195,6 +195,9 @@ private constructor(
      */
     fun type(): Type = type.getRequired("type")
 
+    /** The Wire drawdown request identifier. */
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
+
     /** The amount being requested in cents. */
     @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
 
@@ -237,9 +240,6 @@ private constructor(
      * Will always be "USD".
      */
     @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
-
-    /** The Wire drawdown request identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /** A message from the drawdown request's originator. */
     @JsonProperty("message_to_recipient")
@@ -315,6 +315,7 @@ private constructor(
 
     fun validate(): InboundWireDrawdownRequest = apply {
         if (!validated) {
+            id()
             amount()
             beneficiaryAccountNumber()
             beneficiaryAddressLine1()
@@ -324,7 +325,6 @@ private constructor(
             beneficiaryRoutingNumber()
             createdAt()
             currency()
-            id()
             messageToRecipient()
             originatorAccountNumber()
             originatorAddressLine1()
@@ -351,6 +351,7 @@ private constructor(
 
     class Builder {
 
+        private var id: JsonField<String> = JsonMissing.of()
         private var amount: JsonField<Long> = JsonMissing.of()
         private var beneficiaryAccountNumber: JsonField<String> = JsonMissing.of()
         private var beneficiaryAddressLine1: JsonField<String> = JsonMissing.of()
@@ -360,7 +361,6 @@ private constructor(
         private var beneficiaryRoutingNumber: JsonField<String> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var currency: JsonField<String> = JsonMissing.of()
-        private var id: JsonField<String> = JsonMissing.of()
         private var messageToRecipient: JsonField<String> = JsonMissing.of()
         private var originatorAccountNumber: JsonField<String> = JsonMissing.of()
         private var originatorAddressLine1: JsonField<String> = JsonMissing.of()
@@ -377,6 +377,7 @@ private constructor(
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(inboundWireDrawdownRequest: InboundWireDrawdownRequest) = apply {
+            id = inboundWireDrawdownRequest.id
             amount = inboundWireDrawdownRequest.amount
             beneficiaryAccountNumber = inboundWireDrawdownRequest.beneficiaryAccountNumber
             beneficiaryAddressLine1 = inboundWireDrawdownRequest.beneficiaryAddressLine1
@@ -386,7 +387,6 @@ private constructor(
             beneficiaryRoutingNumber = inboundWireDrawdownRequest.beneficiaryRoutingNumber
             createdAt = inboundWireDrawdownRequest.createdAt
             currency = inboundWireDrawdownRequest.currency
-            id = inboundWireDrawdownRequest.id
             messageToRecipient = inboundWireDrawdownRequest.messageToRecipient
             originatorAccountNumber = inboundWireDrawdownRequest.originatorAccountNumber
             originatorAddressLine1 = inboundWireDrawdownRequest.originatorAddressLine1
@@ -406,6 +406,12 @@ private constructor(
             type = inboundWireDrawdownRequest.type
             additionalProperties = inboundWireDrawdownRequest.additionalProperties.toMutableMap()
         }
+
+        /** The Wire drawdown request identifier. */
+        fun id(id: String) = id(JsonField.of(id))
+
+        /** The Wire drawdown request identifier. */
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The amount being requested in cents. */
         fun amount(amount: Long) = amount(JsonField.of(amount))
@@ -490,12 +496,6 @@ private constructor(
          * requested. Will always be "USD".
          */
         fun currency(currency: JsonField<String>) = apply { this.currency = currency }
-
-        /** The Wire drawdown request identifier. */
-        fun id(id: String) = id(JsonField.of(id))
-
-        /** The Wire drawdown request identifier. */
-        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** A message from the drawdown request's originator. */
         fun messageToRecipient(messageToRecipient: String) =
@@ -683,6 +683,7 @@ private constructor(
 
         fun build(): InboundWireDrawdownRequest =
             InboundWireDrawdownRequest(
+                id,
                 amount,
                 beneficiaryAccountNumber,
                 beneficiaryAddressLine1,
@@ -692,7 +693,6 @@ private constructor(
                 beneficiaryRoutingNumber,
                 createdAt,
                 currency,
-                id,
                 messageToRecipient,
                 originatorAccountNumber,
                 originatorAddressLine1,
@@ -766,15 +766,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is InboundWireDrawdownRequest && amount == other.amount && beneficiaryAccountNumber == other.beneficiaryAccountNumber && beneficiaryAddressLine1 == other.beneficiaryAddressLine1 && beneficiaryAddressLine2 == other.beneficiaryAddressLine2 && beneficiaryAddressLine3 == other.beneficiaryAddressLine3 && beneficiaryName == other.beneficiaryName && beneficiaryRoutingNumber == other.beneficiaryRoutingNumber && createdAt == other.createdAt && currency == other.currency && id == other.id && messageToRecipient == other.messageToRecipient && originatorAccountNumber == other.originatorAccountNumber && originatorAddressLine1 == other.originatorAddressLine1 && originatorAddressLine2 == other.originatorAddressLine2 && originatorAddressLine3 == other.originatorAddressLine3 && originatorName == other.originatorName && originatorRoutingNumber == other.originatorRoutingNumber && originatorToBeneficiaryInformationLine1 == other.originatorToBeneficiaryInformationLine1 && originatorToBeneficiaryInformationLine2 == other.originatorToBeneficiaryInformationLine2 && originatorToBeneficiaryInformationLine3 == other.originatorToBeneficiaryInformationLine3 && originatorToBeneficiaryInformationLine4 == other.originatorToBeneficiaryInformationLine4 && recipientAccountNumberId == other.recipientAccountNumberId && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is InboundWireDrawdownRequest && id == other.id && amount == other.amount && beneficiaryAccountNumber == other.beneficiaryAccountNumber && beneficiaryAddressLine1 == other.beneficiaryAddressLine1 && beneficiaryAddressLine2 == other.beneficiaryAddressLine2 && beneficiaryAddressLine3 == other.beneficiaryAddressLine3 && beneficiaryName == other.beneficiaryName && beneficiaryRoutingNumber == other.beneficiaryRoutingNumber && createdAt == other.createdAt && currency == other.currency && messageToRecipient == other.messageToRecipient && originatorAccountNumber == other.originatorAccountNumber && originatorAddressLine1 == other.originatorAddressLine1 && originatorAddressLine2 == other.originatorAddressLine2 && originatorAddressLine3 == other.originatorAddressLine3 && originatorName == other.originatorName && originatorRoutingNumber == other.originatorRoutingNumber && originatorToBeneficiaryInformationLine1 == other.originatorToBeneficiaryInformationLine1 && originatorToBeneficiaryInformationLine2 == other.originatorToBeneficiaryInformationLine2 && originatorToBeneficiaryInformationLine3 == other.originatorToBeneficiaryInformationLine3 && originatorToBeneficiaryInformationLine4 == other.originatorToBeneficiaryInformationLine4 && recipientAccountNumberId == other.recipientAccountNumberId && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(amount, beneficiaryAccountNumber, beneficiaryAddressLine1, beneficiaryAddressLine2, beneficiaryAddressLine3, beneficiaryName, beneficiaryRoutingNumber, createdAt, currency, id, messageToRecipient, originatorAccountNumber, originatorAddressLine1, originatorAddressLine2, originatorAddressLine3, originatorName, originatorRoutingNumber, originatorToBeneficiaryInformationLine1, originatorToBeneficiaryInformationLine2, originatorToBeneficiaryInformationLine3, originatorToBeneficiaryInformationLine4, recipientAccountNumberId, type, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, amount, beneficiaryAccountNumber, beneficiaryAddressLine1, beneficiaryAddressLine2, beneficiaryAddressLine3, beneficiaryName, beneficiaryRoutingNumber, createdAt, currency, messageToRecipient, originatorAccountNumber, originatorAddressLine1, originatorAddressLine2, originatorAddressLine3, originatorName, originatorRoutingNumber, originatorToBeneficiaryInformationLine1, originatorToBeneficiaryInformationLine2, originatorToBeneficiaryInformationLine3, originatorToBeneficiaryInformationLine4, recipientAccountNumberId, type, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "InboundWireDrawdownRequest{amount=$amount, beneficiaryAccountNumber=$beneficiaryAccountNumber, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, beneficiaryName=$beneficiaryName, beneficiaryRoutingNumber=$beneficiaryRoutingNumber, createdAt=$createdAt, currency=$currency, id=$id, messageToRecipient=$messageToRecipient, originatorAccountNumber=$originatorAccountNumber, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, originatorRoutingNumber=$originatorRoutingNumber, originatorToBeneficiaryInformationLine1=$originatorToBeneficiaryInformationLine1, originatorToBeneficiaryInformationLine2=$originatorToBeneficiaryInformationLine2, originatorToBeneficiaryInformationLine3=$originatorToBeneficiaryInformationLine3, originatorToBeneficiaryInformationLine4=$originatorToBeneficiaryInformationLine4, recipientAccountNumberId=$recipientAccountNumberId, type=$type, additionalProperties=$additionalProperties}"
+        "InboundWireDrawdownRequest{id=$id, amount=$amount, beneficiaryAccountNumber=$beneficiaryAccountNumber, beneficiaryAddressLine1=$beneficiaryAddressLine1, beneficiaryAddressLine2=$beneficiaryAddressLine2, beneficiaryAddressLine3=$beneficiaryAddressLine3, beneficiaryName=$beneficiaryName, beneficiaryRoutingNumber=$beneficiaryRoutingNumber, createdAt=$createdAt, currency=$currency, messageToRecipient=$messageToRecipient, originatorAccountNumber=$originatorAccountNumber, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, originatorRoutingNumber=$originatorRoutingNumber, originatorToBeneficiaryInformationLine1=$originatorToBeneficiaryInformationLine1, originatorToBeneficiaryInformationLine2=$originatorToBeneficiaryInformationLine2, originatorToBeneficiaryInformationLine3=$originatorToBeneficiaryInformationLine3, originatorToBeneficiaryInformationLine4=$originatorToBeneficiaryInformationLine4, recipientAccountNumberId=$recipientAccountNumberId, type=$type, additionalProperties=$additionalProperties}"
 }

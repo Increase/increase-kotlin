@@ -26,6 +26,7 @@ import java.util.Objects
 class Lockbox
 @JsonCreator
 private constructor(
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("account_id")
     @ExcludeMissing
     private val accountId: JsonField<String> = JsonMissing.of(),
@@ -38,7 +39,6 @@ private constructor(
     @JsonProperty("description")
     @ExcludeMissing
     private val description: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("idempotency_key")
     @ExcludeMissing
     private val idempotencyKey: JsonField<String> = JsonMissing.of(),
@@ -51,6 +51,9 @@ private constructor(
     @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
+
+    /** The Lockbox identifier. */
+    fun id(): String = id.getRequired("id")
 
     /** The identifier for the Account checks sent to this lockbox will be deposited into. */
     fun accountId(): String = accountId.getRequired("account_id")
@@ -65,9 +68,6 @@ private constructor(
 
     /** The description you choose for the Lockbox. */
     fun description(): String? = description.getNullable("description")
-
-    /** The Lockbox identifier. */
-    fun id(): String = id.getRequired("id")
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -85,6 +85,9 @@ private constructor(
     /** A constant representing the object's type. For this resource it will always be `lockbox`. */
     fun type(): Type = type.getRequired("type")
 
+    /** The Lockbox identifier. */
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
+
     /** The identifier for the Account checks sent to this lockbox will be deposited into. */
     @JsonProperty("account_id") @ExcludeMissing fun _accountId() = accountId
 
@@ -98,9 +101,6 @@ private constructor(
 
     /** The description you choose for the Lockbox. */
     @JsonProperty("description") @ExcludeMissing fun _description() = description
-
-    /** The Lockbox identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -126,11 +126,11 @@ private constructor(
 
     fun validate(): Lockbox = apply {
         if (!validated) {
+            id()
             accountId()
             address().validate()
             createdAt()
             description()
-            id()
             idempotencyKey()
             recipientName()
             status()
@@ -148,11 +148,11 @@ private constructor(
 
     class Builder {
 
+        private var id: JsonField<String> = JsonMissing.of()
         private var accountId: JsonField<String> = JsonMissing.of()
         private var address: JsonField<Address> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var description: JsonField<String> = JsonMissing.of()
-        private var id: JsonField<String> = JsonMissing.of()
         private var idempotencyKey: JsonField<String> = JsonMissing.of()
         private var recipientName: JsonField<String> = JsonMissing.of()
         private var status: JsonField<Status> = JsonMissing.of()
@@ -160,17 +160,23 @@ private constructor(
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(lockbox: Lockbox) = apply {
+            id = lockbox.id
             accountId = lockbox.accountId
             address = lockbox.address
             createdAt = lockbox.createdAt
             description = lockbox.description
-            id = lockbox.id
             idempotencyKey = lockbox.idempotencyKey
             recipientName = lockbox.recipientName
             status = lockbox.status
             type = lockbox.type
             additionalProperties = lockbox.additionalProperties.toMutableMap()
         }
+
+        /** The Lockbox identifier. */
+        fun id(id: String) = id(JsonField.of(id))
+
+        /** The Lockbox identifier. */
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The identifier for the Account checks sent to this lockbox will be deposited into. */
         fun accountId(accountId: String) = accountId(JsonField.of(accountId))
@@ -201,12 +207,6 @@ private constructor(
 
         /** The description you choose for the Lockbox. */
         fun description(description: JsonField<String>) = apply { this.description = description }
-
-        /** The Lockbox identifier. */
-        fun id(id: String) = id(JsonField.of(id))
-
-        /** The Lockbox identifier. */
-        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -269,11 +269,11 @@ private constructor(
 
         fun build(): Lockbox =
             Lockbox(
+                id,
                 accountId,
                 address,
                 createdAt,
                 description,
-                id,
                 idempotencyKey,
                 recipientName,
                 status,
@@ -616,15 +616,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is Lockbox && accountId == other.accountId && address == other.address && createdAt == other.createdAt && description == other.description && id == other.id && idempotencyKey == other.idempotencyKey && recipientName == other.recipientName && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is Lockbox && id == other.id && accountId == other.accountId && address == other.address && createdAt == other.createdAt && description == other.description && idempotencyKey == other.idempotencyKey && recipientName == other.recipientName && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(accountId, address, createdAt, description, id, idempotencyKey, recipientName, status, type, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, accountId, address, createdAt, description, idempotencyKey, recipientName, status, type, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "Lockbox{accountId=$accountId, address=$address, createdAt=$createdAt, description=$description, id=$id, idempotencyKey=$idempotencyKey, recipientName=$recipientName, status=$status, type=$type, additionalProperties=$additionalProperties}"
+        "Lockbox{id=$id, accountId=$accountId, address=$address, createdAt=$createdAt, description=$description, idempotencyKey=$idempotencyKey, recipientName=$recipientName, status=$status, type=$type, additionalProperties=$additionalProperties}"
 }
