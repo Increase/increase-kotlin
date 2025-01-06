@@ -23,6 +23,7 @@ import java.util.Objects
 class AccountTransfer
 @JsonCreator
 private constructor(
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("account_id")
     @ExcludeMissing
     private val accountId: JsonField<String> = JsonMissing.of(),
@@ -51,7 +52,6 @@ private constructor(
     @JsonProperty("destination_transaction_id")
     @ExcludeMissing
     private val destinationTransactionId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("idempotency_key")
     @ExcludeMissing
     private val idempotencyKey: JsonField<String> = JsonMissing.of(),
@@ -70,6 +70,9 @@ private constructor(
     @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
+
+    /** The account transfer's identifier. */
+    fun id(): String = id.getRequired("id")
 
     /** The Account to which the transfer belongs. */
     fun accountId(): String = accountId.getRequired("account_id")
@@ -117,9 +120,6 @@ private constructor(
     fun destinationTransactionId(): String? =
         destinationTransactionId.getNullable("destination_transaction_id")
 
-    /** The account transfer's identifier. */
-    fun id(): String = id.getRequired("id")
-
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
      * used to ensure that a request is only processed once. Learn more about
@@ -149,6 +149,9 @@ private constructor(
      * `account_transfer`.
      */
     fun type(): Type = type.getRequired("type")
+
+    /** The account transfer's identifier. */
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /** The Account to which the transfer belongs. */
     @JsonProperty("account_id") @ExcludeMissing fun _accountId() = accountId
@@ -199,9 +202,6 @@ private constructor(
     @ExcludeMissing
     fun _destinationTransactionId() = destinationTransactionId
 
-    /** The account transfer's identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
-
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
      * used to ensure that a request is only processed once. Learn more about
@@ -242,6 +242,7 @@ private constructor(
 
     fun validate(): AccountTransfer = apply {
         if (!validated) {
+            id()
             accountId()
             amount()
             approval()?.validate()
@@ -252,7 +253,6 @@ private constructor(
             description()
             destinationAccountId()
             destinationTransactionId()
-            id()
             idempotencyKey()
             network()
             pendingTransactionId()
@@ -272,6 +272,7 @@ private constructor(
 
     class Builder {
 
+        private var id: JsonField<String> = JsonMissing.of()
         private var accountId: JsonField<String> = JsonMissing.of()
         private var amount: JsonField<Long> = JsonMissing.of()
         private var approval: JsonField<Approval> = JsonMissing.of()
@@ -282,7 +283,6 @@ private constructor(
         private var description: JsonField<String> = JsonMissing.of()
         private var destinationAccountId: JsonField<String> = JsonMissing.of()
         private var destinationTransactionId: JsonField<String> = JsonMissing.of()
-        private var id: JsonField<String> = JsonMissing.of()
         private var idempotencyKey: JsonField<String> = JsonMissing.of()
         private var network: JsonField<Network> = JsonMissing.of()
         private var pendingTransactionId: JsonField<String> = JsonMissing.of()
@@ -292,6 +292,7 @@ private constructor(
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(accountTransfer: AccountTransfer) = apply {
+            id = accountTransfer.id
             accountId = accountTransfer.accountId
             amount = accountTransfer.amount
             approval = accountTransfer.approval
@@ -302,7 +303,6 @@ private constructor(
             description = accountTransfer.description
             destinationAccountId = accountTransfer.destinationAccountId
             destinationTransactionId = accountTransfer.destinationTransactionId
-            id = accountTransfer.id
             idempotencyKey = accountTransfer.idempotencyKey
             network = accountTransfer.network
             pendingTransactionId = accountTransfer.pendingTransactionId
@@ -311,6 +311,12 @@ private constructor(
             type = accountTransfer.type
             additionalProperties = accountTransfer.additionalProperties.toMutableMap()
         }
+
+        /** The account transfer's identifier. */
+        fun id(id: String) = id(JsonField.of(id))
+
+        /** The account transfer's identifier. */
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The Account to which the transfer belongs. */
         fun accountId(accountId: String) = accountId(JsonField.of(accountId))
@@ -410,12 +416,6 @@ private constructor(
             this.destinationTransactionId = destinationTransactionId
         }
 
-        /** The account transfer's identifier. */
-        fun id(id: String) = id(JsonField.of(id))
-
-        /** The account transfer's identifier. */
-        fun id(id: JsonField<String>) = apply { this.id = id }
-
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
          * is used to ensure that a request is only processed once. Learn more about
@@ -504,6 +504,7 @@ private constructor(
 
         fun build(): AccountTransfer =
             AccountTransfer(
+                id,
                 accountId,
                 amount,
                 approval,
@@ -514,7 +515,6 @@ private constructor(
                 description,
                 destinationAccountId,
                 destinationTransactionId,
-                id,
                 idempotencyKey,
                 network,
                 pendingTransactionId,
@@ -1580,15 +1580,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is AccountTransfer && accountId == other.accountId && amount == other.amount && approval == other.approval && cancellation == other.cancellation && createdAt == other.createdAt && createdBy == other.createdBy && currency == other.currency && description == other.description && destinationAccountId == other.destinationAccountId && destinationTransactionId == other.destinationTransactionId && id == other.id && idempotencyKey == other.idempotencyKey && network == other.network && pendingTransactionId == other.pendingTransactionId && status == other.status && transactionId == other.transactionId && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is AccountTransfer && id == other.id && accountId == other.accountId && amount == other.amount && approval == other.approval && cancellation == other.cancellation && createdAt == other.createdAt && createdBy == other.createdBy && currency == other.currency && description == other.description && destinationAccountId == other.destinationAccountId && destinationTransactionId == other.destinationTransactionId && idempotencyKey == other.idempotencyKey && network == other.network && pendingTransactionId == other.pendingTransactionId && status == other.status && transactionId == other.transactionId && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(accountId, amount, approval, cancellation, createdAt, createdBy, currency, description, destinationAccountId, destinationTransactionId, id, idempotencyKey, network, pendingTransactionId, status, transactionId, type, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, accountId, amount, approval, cancellation, createdAt, createdBy, currency, description, destinationAccountId, destinationTransactionId, idempotencyKey, network, pendingTransactionId, status, transactionId, type, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "AccountTransfer{accountId=$accountId, amount=$amount, approval=$approval, cancellation=$cancellation, createdAt=$createdAt, createdBy=$createdBy, currency=$currency, description=$description, destinationAccountId=$destinationAccountId, destinationTransactionId=$destinationTransactionId, id=$id, idempotencyKey=$idempotencyKey, network=$network, pendingTransactionId=$pendingTransactionId, status=$status, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
+        "AccountTransfer{id=$id, accountId=$accountId, amount=$amount, approval=$approval, cancellation=$cancellation, createdAt=$createdAt, createdBy=$createdBy, currency=$currency, description=$description, destinationAccountId=$destinationAccountId, destinationTransactionId=$destinationTransactionId, idempotencyKey=$idempotencyKey, network=$network, pendingTransactionId=$pendingTransactionId, status=$status, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
 }

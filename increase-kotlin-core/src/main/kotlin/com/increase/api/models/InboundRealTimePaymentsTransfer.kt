@@ -26,6 +26,7 @@ import java.util.Objects
 class InboundRealTimePaymentsTransfer
 @JsonCreator
 private constructor(
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("account_id")
     @ExcludeMissing
     private val accountId: JsonField<String> = JsonMissing.of(),
@@ -57,7 +58,6 @@ private constructor(
     @JsonProperty("decline")
     @ExcludeMissing
     private val decline: JsonField<Decline> = JsonMissing.of(),
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("remittance_information")
     @ExcludeMissing
     private val remittanceInformation: JsonField<String> = JsonMissing.of(),
@@ -70,6 +70,9 @@ private constructor(
     @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
+
+    /** The inbound Real-Time Payments transfer's identifier. */
+    fun id(): String = id.getRequired("id")
 
     /** The Account to which the transfer was sent. */
     fun accountId(): String = accountId.getRequired("account_id")
@@ -110,9 +113,6 @@ private constructor(
     /** If your transfer is declined, this will contain details of the decline. */
     fun decline(): Decline? = decline.getNullable("decline")
 
-    /** The inbound Real-Time Payments transfer's identifier. */
-    fun id(): String = id.getRequired("id")
-
     /** Additional information included with the transfer. */
     fun remittanceInformation(): String? =
         remittanceInformation.getNullable("remittance_information")
@@ -129,6 +129,9 @@ private constructor(
      * `inbound_real_time_payments_transfer`.
      */
     fun type(): Type = type.getRequired("type")
+
+    /** The inbound Real-Time Payments transfer's identifier. */
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /** The Account to which the transfer was sent. */
     @JsonProperty("account_id") @ExcludeMissing fun _accountId() = accountId
@@ -173,9 +176,6 @@ private constructor(
     /** If your transfer is declined, this will contain details of the decline. */
     @JsonProperty("decline") @ExcludeMissing fun _decline() = decline
 
-    /** The inbound Real-Time Payments transfer's identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
-
     /** Additional information included with the transfer. */
     @JsonProperty("remittance_information")
     @ExcludeMissing
@@ -203,6 +203,7 @@ private constructor(
 
     fun validate(): InboundRealTimePaymentsTransfer = apply {
         if (!validated) {
+            id()
             accountId()
             accountNumberId()
             amount()
@@ -214,7 +215,6 @@ private constructor(
             debtorName()
             debtorRoutingNumber()
             decline()?.validate()
-            id()
             remittanceInformation()
             status()
             transactionIdentification()
@@ -232,6 +232,7 @@ private constructor(
 
     class Builder {
 
+        private var id: JsonField<String> = JsonMissing.of()
         private var accountId: JsonField<String> = JsonMissing.of()
         private var accountNumberId: JsonField<String> = JsonMissing.of()
         private var amount: JsonField<Long> = JsonMissing.of()
@@ -243,7 +244,6 @@ private constructor(
         private var debtorName: JsonField<String> = JsonMissing.of()
         private var debtorRoutingNumber: JsonField<String> = JsonMissing.of()
         private var decline: JsonField<Decline> = JsonMissing.of()
-        private var id: JsonField<String> = JsonMissing.of()
         private var remittanceInformation: JsonField<String> = JsonMissing.of()
         private var status: JsonField<Status> = JsonMissing.of()
         private var transactionIdentification: JsonField<String> = JsonMissing.of()
@@ -252,6 +252,7 @@ private constructor(
 
         internal fun from(inboundRealTimePaymentsTransfer: InboundRealTimePaymentsTransfer) =
             apply {
+                id = inboundRealTimePaymentsTransfer.id
                 accountId = inboundRealTimePaymentsTransfer.accountId
                 accountNumberId = inboundRealTimePaymentsTransfer.accountNumberId
                 amount = inboundRealTimePaymentsTransfer.amount
@@ -263,7 +264,6 @@ private constructor(
                 debtorName = inboundRealTimePaymentsTransfer.debtorName
                 debtorRoutingNumber = inboundRealTimePaymentsTransfer.debtorRoutingNumber
                 decline = inboundRealTimePaymentsTransfer.decline
-                id = inboundRealTimePaymentsTransfer.id
                 remittanceInformation = inboundRealTimePaymentsTransfer.remittanceInformation
                 status = inboundRealTimePaymentsTransfer.status
                 transactionIdentification =
@@ -272,6 +272,12 @@ private constructor(
                 additionalProperties =
                     inboundRealTimePaymentsTransfer.additionalProperties.toMutableMap()
             }
+
+        /** The inbound Real-Time Payments transfer's identifier. */
+        fun id(id: String) = id(JsonField.of(id))
+
+        /** The inbound Real-Time Payments transfer's identifier. */
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The Account to which the transfer was sent. */
         fun accountId(accountId: String) = accountId(JsonField.of(accountId))
@@ -364,12 +370,6 @@ private constructor(
         /** If your transfer is declined, this will contain details of the decline. */
         fun decline(decline: JsonField<Decline>) = apply { this.decline = decline }
 
-        /** The inbound Real-Time Payments transfer's identifier. */
-        fun id(id: String) = id(JsonField.of(id))
-
-        /** The inbound Real-Time Payments transfer's identifier. */
-        fun id(id: JsonField<String>) = apply { this.id = id }
-
         /** Additional information included with the transfer. */
         fun remittanceInformation(remittanceInformation: String) =
             remittanceInformation(JsonField.of(remittanceInformation))
@@ -427,6 +427,7 @@ private constructor(
 
         fun build(): InboundRealTimePaymentsTransfer =
             InboundRealTimePaymentsTransfer(
+                id,
                 accountId,
                 accountNumberId,
                 amount,
@@ -438,7 +439,6 @@ private constructor(
                 debtorName,
                 debtorRoutingNumber,
                 decline,
-                id,
                 remittanceInformation,
                 status,
                 transactionIdentification,
@@ -999,15 +999,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is InboundRealTimePaymentsTransfer && accountId == other.accountId && accountNumberId == other.accountNumberId && amount == other.amount && confirmation == other.confirmation && createdAt == other.createdAt && creditorName == other.creditorName && currency == other.currency && debtorAccountNumber == other.debtorAccountNumber && debtorName == other.debtorName && debtorRoutingNumber == other.debtorRoutingNumber && decline == other.decline && id == other.id && remittanceInformation == other.remittanceInformation && status == other.status && transactionIdentification == other.transactionIdentification && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is InboundRealTimePaymentsTransfer && id == other.id && accountId == other.accountId && accountNumberId == other.accountNumberId && amount == other.amount && confirmation == other.confirmation && createdAt == other.createdAt && creditorName == other.creditorName && currency == other.currency && debtorAccountNumber == other.debtorAccountNumber && debtorName == other.debtorName && debtorRoutingNumber == other.debtorRoutingNumber && decline == other.decline && remittanceInformation == other.remittanceInformation && status == other.status && transactionIdentification == other.transactionIdentification && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(accountId, accountNumberId, amount, confirmation, createdAt, creditorName, currency, debtorAccountNumber, debtorName, debtorRoutingNumber, decline, id, remittanceInformation, status, transactionIdentification, type, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, accountId, accountNumberId, amount, confirmation, createdAt, creditorName, currency, debtorAccountNumber, debtorName, debtorRoutingNumber, decline, remittanceInformation, status, transactionIdentification, type, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "InboundRealTimePaymentsTransfer{accountId=$accountId, accountNumberId=$accountNumberId, amount=$amount, confirmation=$confirmation, createdAt=$createdAt, creditorName=$creditorName, currency=$currency, debtorAccountNumber=$debtorAccountNumber, debtorName=$debtorName, debtorRoutingNumber=$debtorRoutingNumber, decline=$decline, id=$id, remittanceInformation=$remittanceInformation, status=$status, transactionIdentification=$transactionIdentification, type=$type, additionalProperties=$additionalProperties}"
+        "InboundRealTimePaymentsTransfer{id=$id, accountId=$accountId, accountNumberId=$accountNumberId, amount=$amount, confirmation=$confirmation, createdAt=$createdAt, creditorName=$creditorName, currency=$currency, debtorAccountNumber=$debtorAccountNumber, debtorName=$debtorName, debtorRoutingNumber=$debtorRoutingNumber, decline=$decline, remittanceInformation=$remittanceInformation, status=$status, transactionIdentification=$transactionIdentification, type=$type, additionalProperties=$additionalProperties}"
 }

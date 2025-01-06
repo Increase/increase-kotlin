@@ -23,6 +23,7 @@ import java.util.Objects
 class CheckDeposit
 @JsonCreator
 private constructor(
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("account_id")
     @ExcludeMissing
     private val accountId: JsonField<String> = JsonMissing.of(),
@@ -51,7 +52,6 @@ private constructor(
     @JsonProperty("front_image_file_id")
     @ExcludeMissing
     private val frontImageFileId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("idempotency_key")
     @ExcludeMissing
     private val idempotencyKey: JsonField<String> = JsonMissing.of(),
@@ -73,6 +73,9 @@ private constructor(
     @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
+
+    /** The deposit's identifier. */
+    fun id(): String = id.getRequired("id")
 
     /** The Account the check was deposited into. */
     fun accountId(): String = accountId.getRequired("account_id")
@@ -117,9 +120,6 @@ private constructor(
     /** The ID for the File containing the image of the front of the check. */
     fun frontImageFileId(): String = frontImageFileId.getRequired("front_image_file_id")
 
-    /** The deposit's identifier. */
-    fun id(): String = id.getRequired("id")
-
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
      * used to ensure that a request is only processed once. Learn more about
@@ -156,6 +156,9 @@ private constructor(
      * `check_deposit`.
      */
     fun type(): Type = type.getRequired("type")
+
+    /** The deposit's identifier. */
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /** The Account the check was deposited into. */
     @JsonProperty("account_id") @ExcludeMissing fun _accountId() = accountId
@@ -197,9 +200,6 @@ private constructor(
 
     /** The ID for the File containing the image of the front of the check. */
     @JsonProperty("front_image_file_id") @ExcludeMissing fun _frontImageFileId() = frontImageFileId
-
-    /** The deposit's identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -248,6 +248,7 @@ private constructor(
 
     fun validate(): CheckDeposit = apply {
         if (!validated) {
+            id()
             accountId()
             amount()
             backImageFileId()
@@ -258,7 +259,6 @@ private constructor(
             depositSubmission()?.validate()
             description()
             frontImageFileId()
-            id()
             idempotencyKey()
             inboundFundsHold()?.validate()
             inboundMailItemId()
@@ -279,6 +279,7 @@ private constructor(
 
     class Builder {
 
+        private var id: JsonField<String> = JsonMissing.of()
         private var accountId: JsonField<String> = JsonMissing.of()
         private var amount: JsonField<Long> = JsonMissing.of()
         private var backImageFileId: JsonField<String> = JsonMissing.of()
@@ -289,7 +290,6 @@ private constructor(
         private var depositSubmission: JsonField<DepositSubmission> = JsonMissing.of()
         private var description: JsonField<String> = JsonMissing.of()
         private var frontImageFileId: JsonField<String> = JsonMissing.of()
-        private var id: JsonField<String> = JsonMissing.of()
         private var idempotencyKey: JsonField<String> = JsonMissing.of()
         private var inboundFundsHold: JsonField<InboundFundsHold> = JsonMissing.of()
         private var inboundMailItemId: JsonField<String> = JsonMissing.of()
@@ -300,6 +300,7 @@ private constructor(
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(checkDeposit: CheckDeposit) = apply {
+            id = checkDeposit.id
             accountId = checkDeposit.accountId
             amount = checkDeposit.amount
             backImageFileId = checkDeposit.backImageFileId
@@ -310,7 +311,6 @@ private constructor(
             depositSubmission = checkDeposit.depositSubmission
             description = checkDeposit.description
             frontImageFileId = checkDeposit.frontImageFileId
-            id = checkDeposit.id
             idempotencyKey = checkDeposit.idempotencyKey
             inboundFundsHold = checkDeposit.inboundFundsHold
             inboundMailItemId = checkDeposit.inboundMailItemId
@@ -320,6 +320,12 @@ private constructor(
             type = checkDeposit.type
             additionalProperties = checkDeposit.additionalProperties.toMutableMap()
         }
+
+        /** The deposit's identifier. */
+        fun id(id: String) = id(JsonField.of(id))
+
+        /** The deposit's identifier. */
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The Account the check was deposited into. */
         fun accountId(accountId: String) = accountId(JsonField.of(accountId))
@@ -421,12 +427,6 @@ private constructor(
         fun frontImageFileId(frontImageFileId: JsonField<String>) = apply {
             this.frontImageFileId = frontImageFileId
         }
-
-        /** The deposit's identifier. */
-        fun id(id: String) = id(JsonField.of(id))
-
-        /** The deposit's identifier. */
-        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -533,6 +533,7 @@ private constructor(
 
         fun build(): CheckDeposit =
             CheckDeposit(
+                id,
                 accountId,
                 amount,
                 backImageFileId,
@@ -543,7 +544,6 @@ private constructor(
                 depositSubmission,
                 description,
                 frontImageFileId,
-                id,
                 idempotencyKey,
                 inboundFundsHold,
                 inboundMailItemId,
@@ -2043,6 +2043,7 @@ private constructor(
     class InboundFundsHold
     @JsonCreator
     private constructor(
+        @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
         @JsonProperty("amount")
         @ExcludeMissing
         private val amount: JsonField<Long> = JsonMissing.of(),
@@ -2058,7 +2059,6 @@ private constructor(
         @JsonProperty("held_transaction_id")
         @ExcludeMissing
         private val heldTransactionId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
         @JsonProperty("pending_transaction_id")
         @ExcludeMissing
         private val pendingTransactionId: JsonField<String> = JsonMissing.of(),
@@ -2072,6 +2072,9 @@ private constructor(
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
+
+        /** The Inbound Funds Hold identifier. */
+        fun id(): String = id.getRequired("id")
 
         /**
          * The held amount in the minor unit of the account's currency. For dollars, for example,
@@ -2098,9 +2101,6 @@ private constructor(
         /** The ID of the Transaction for which funds were held. */
         fun heldTransactionId(): String? = heldTransactionId.getNullable("held_transaction_id")
 
-        /** The Inbound Funds Hold identifier. */
-        fun id(): String = id.getRequired("id")
-
         /** The ID of the Pending Transaction representing the held funds. */
         fun pendingTransactionId(): String? =
             pendingTransactionId.getNullable("pending_transaction_id")
@@ -2116,6 +2116,9 @@ private constructor(
          * `inbound_funds_hold`.
          */
         fun type(): Type = type.getRequired("type")
+
+        /** The Inbound Funds Hold identifier. */
+        @JsonProperty("id") @ExcludeMissing fun _id() = id
 
         /**
          * The held amount in the minor unit of the account's currency. For dollars, for example,
@@ -2145,9 +2148,6 @@ private constructor(
         @ExcludeMissing
         fun _heldTransactionId() = heldTransactionId
 
-        /** The Inbound Funds Hold identifier. */
-        @JsonProperty("id") @ExcludeMissing fun _id() = id
-
         /** The ID of the Pending Transaction representing the held funds. */
         @JsonProperty("pending_transaction_id")
         @ExcludeMissing
@@ -2173,12 +2173,12 @@ private constructor(
 
         fun validate(): InboundFundsHold = apply {
             if (!validated) {
+                id()
                 amount()
                 automaticallyReleasesAt()
                 createdAt()
                 currency()
                 heldTransactionId()
-                id()
                 pendingTransactionId()
                 releasedAt()
                 status()
@@ -2196,12 +2196,12 @@ private constructor(
 
         class Builder {
 
+            private var id: JsonField<String> = JsonMissing.of()
             private var amount: JsonField<Long> = JsonMissing.of()
             private var automaticallyReleasesAt: JsonField<OffsetDateTime> = JsonMissing.of()
             private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
             private var currency: JsonField<Currency> = JsonMissing.of()
             private var heldTransactionId: JsonField<String> = JsonMissing.of()
-            private var id: JsonField<String> = JsonMissing.of()
             private var pendingTransactionId: JsonField<String> = JsonMissing.of()
             private var releasedAt: JsonField<OffsetDateTime> = JsonMissing.of()
             private var status: JsonField<Status> = JsonMissing.of()
@@ -2209,18 +2209,24 @@ private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(inboundFundsHold: InboundFundsHold) = apply {
+                id = inboundFundsHold.id
                 amount = inboundFundsHold.amount
                 automaticallyReleasesAt = inboundFundsHold.automaticallyReleasesAt
                 createdAt = inboundFundsHold.createdAt
                 currency = inboundFundsHold.currency
                 heldTransactionId = inboundFundsHold.heldTransactionId
-                id = inboundFundsHold.id
                 pendingTransactionId = inboundFundsHold.pendingTransactionId
                 releasedAt = inboundFundsHold.releasedAt
                 status = inboundFundsHold.status
                 type = inboundFundsHold.type
                 additionalProperties = inboundFundsHold.additionalProperties.toMutableMap()
             }
+
+            /** The Inbound Funds Hold identifier. */
+            fun id(id: String) = id(JsonField.of(id))
+
+            /** The Inbound Funds Hold identifier. */
+            fun id(id: JsonField<String>) = apply { this.id = id }
 
             /**
              * The held amount in the minor unit of the account's currency. For dollars, for
@@ -2283,12 +2289,6 @@ private constructor(
                 this.heldTransactionId = heldTransactionId
             }
 
-            /** The Inbound Funds Hold identifier. */
-            fun id(id: String) = id(JsonField.of(id))
-
-            /** The Inbound Funds Hold identifier. */
-            fun id(id: JsonField<String>) = apply { this.id = id }
-
             /** The ID of the Pending Transaction representing the held funds. */
             fun pendingTransactionId(pendingTransactionId: String) =
                 pendingTransactionId(JsonField.of(pendingTransactionId))
@@ -2345,12 +2345,12 @@ private constructor(
 
             fun build(): InboundFundsHold =
                 InboundFundsHold(
+                    id,
                     amount,
                     automaticallyReleasesAt,
                     createdAt,
                     currency,
                     heldTransactionId,
-                    id,
                     pendingTransactionId,
                     releasedAt,
                     status,
@@ -2553,17 +2553,17 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is InboundFundsHold && amount == other.amount && automaticallyReleasesAt == other.automaticallyReleasesAt && createdAt == other.createdAt && currency == other.currency && heldTransactionId == other.heldTransactionId && id == other.id && pendingTransactionId == other.pendingTransactionId && releasedAt == other.releasedAt && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is InboundFundsHold && id == other.id && amount == other.amount && automaticallyReleasesAt == other.automaticallyReleasesAt && createdAt == other.createdAt && currency == other.currency && heldTransactionId == other.heldTransactionId && pendingTransactionId == other.pendingTransactionId && releasedAt == other.releasedAt && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(amount, automaticallyReleasesAt, createdAt, currency, heldTransactionId, id, pendingTransactionId, releasedAt, status, type, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(id, amount, automaticallyReleasesAt, createdAt, currency, heldTransactionId, pendingTransactionId, releasedAt, status, type, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "InboundFundsHold{amount=$amount, automaticallyReleasesAt=$automaticallyReleasesAt, createdAt=$createdAt, currency=$currency, heldTransactionId=$heldTransactionId, id=$id, pendingTransactionId=$pendingTransactionId, releasedAt=$releasedAt, status=$status, type=$type, additionalProperties=$additionalProperties}"
+            "InboundFundsHold{id=$id, amount=$amount, automaticallyReleasesAt=$automaticallyReleasesAt, createdAt=$createdAt, currency=$currency, heldTransactionId=$heldTransactionId, pendingTransactionId=$pendingTransactionId, releasedAt=$releasedAt, status=$status, type=$type, additionalProperties=$additionalProperties}"
     }
 
     class Status
@@ -2691,15 +2691,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is CheckDeposit && accountId == other.accountId && amount == other.amount && backImageFileId == other.backImageFileId && createdAt == other.createdAt && depositAcceptance == other.depositAcceptance && depositRejection == other.depositRejection && depositReturn == other.depositReturn && depositSubmission == other.depositSubmission && description == other.description && frontImageFileId == other.frontImageFileId && id == other.id && idempotencyKey == other.idempotencyKey && inboundFundsHold == other.inboundFundsHold && inboundMailItemId == other.inboundMailItemId && lockboxId == other.lockboxId && status == other.status && transactionId == other.transactionId && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is CheckDeposit && id == other.id && accountId == other.accountId && amount == other.amount && backImageFileId == other.backImageFileId && createdAt == other.createdAt && depositAcceptance == other.depositAcceptance && depositRejection == other.depositRejection && depositReturn == other.depositReturn && depositSubmission == other.depositSubmission && description == other.description && frontImageFileId == other.frontImageFileId && idempotencyKey == other.idempotencyKey && inboundFundsHold == other.inboundFundsHold && inboundMailItemId == other.inboundMailItemId && lockboxId == other.lockboxId && status == other.status && transactionId == other.transactionId && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(accountId, amount, backImageFileId, createdAt, depositAcceptance, depositRejection, depositReturn, depositSubmission, description, frontImageFileId, id, idempotencyKey, inboundFundsHold, inboundMailItemId, lockboxId, status, transactionId, type, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, accountId, amount, backImageFileId, createdAt, depositAcceptance, depositRejection, depositReturn, depositSubmission, description, frontImageFileId, idempotencyKey, inboundFundsHold, inboundMailItemId, lockboxId, status, transactionId, type, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "CheckDeposit{accountId=$accountId, amount=$amount, backImageFileId=$backImageFileId, createdAt=$createdAt, depositAcceptance=$depositAcceptance, depositRejection=$depositRejection, depositReturn=$depositReturn, depositSubmission=$depositSubmission, description=$description, frontImageFileId=$frontImageFileId, id=$id, idempotencyKey=$idempotencyKey, inboundFundsHold=$inboundFundsHold, inboundMailItemId=$inboundMailItemId, lockboxId=$lockboxId, status=$status, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
+        "CheckDeposit{id=$id, accountId=$accountId, amount=$amount, backImageFileId=$backImageFileId, createdAt=$createdAt, depositAcceptance=$depositAcceptance, depositRejection=$depositRejection, depositReturn=$depositReturn, depositSubmission=$depositSubmission, description=$description, frontImageFileId=$frontImageFileId, idempotencyKey=$idempotencyKey, inboundFundsHold=$inboundFundsHold, inboundMailItemId=$inboundMailItemId, lockboxId=$lockboxId, status=$status, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
 }
