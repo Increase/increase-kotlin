@@ -27,6 +27,7 @@ import java.util.Objects
 class Entity
 @JsonCreator
 private constructor(
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("corporation")
     @ExcludeMissing
     private val corporation: JsonField<Corporation> = JsonMissing.of(),
@@ -42,7 +43,6 @@ private constructor(
     @JsonProperty("government_authority")
     @ExcludeMissing
     private val governmentAuthority: JsonField<GovernmentAuthority> = JsonMissing.of(),
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("idempotency_key")
     @ExcludeMissing
     private val idempotencyKey: JsonField<String> = JsonMissing.of(),
@@ -67,6 +67,9 @@ private constructor(
     @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
+
+    /** The entity's identifier. */
+    fun id(): String = id.getRequired("id")
 
     /**
      * Details of the corporation entity. Will be present if `structure` is equal to `corporation`.
@@ -94,9 +97,6 @@ private constructor(
      */
     fun governmentAuthority(): GovernmentAuthority? =
         governmentAuthority.getNullable("government_authority")
-
-    /** The entity's identifier. */
-    fun id(): String = id.getRequired("id")
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -141,6 +141,9 @@ private constructor(
     /** A constant representing the object's type. For this resource it will always be `entity`. */
     fun type(): Type = type.getRequired("type")
 
+    /** The entity's identifier. */
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
+
     /**
      * Details of the corporation entity. Will be present if `structure` is equal to `corporation`.
      */
@@ -169,9 +172,6 @@ private constructor(
     @JsonProperty("government_authority")
     @ExcludeMissing
     fun _governmentAuthority() = governmentAuthority
-
-    /** The entity's identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -226,12 +226,12 @@ private constructor(
 
     fun validate(): Entity = apply {
         if (!validated) {
+            id()
             corporation()?.validate()
             createdAt()
             description()
             detailsConfirmedAt()
             governmentAuthority()?.validate()
-            id()
             idempotencyKey()
             joint()?.validate()
             naturalPerson()?.validate()
@@ -254,12 +254,12 @@ private constructor(
 
     class Builder {
 
+        private var id: JsonField<String> = JsonMissing.of()
         private var corporation: JsonField<Corporation> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var description: JsonField<String> = JsonMissing.of()
         private var detailsConfirmedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var governmentAuthority: JsonField<GovernmentAuthority> = JsonMissing.of()
-        private var id: JsonField<String> = JsonMissing.of()
         private var idempotencyKey: JsonField<String> = JsonMissing.of()
         private var joint: JsonField<Joint> = JsonMissing.of()
         private var naturalPerson: JsonField<NaturalPerson> = JsonMissing.of()
@@ -273,12 +273,12 @@ private constructor(
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(entity: Entity) = apply {
+            id = entity.id
             corporation = entity.corporation
             createdAt = entity.createdAt
             description = entity.description
             detailsConfirmedAt = entity.detailsConfirmedAt
             governmentAuthority = entity.governmentAuthority
-            id = entity.id
             idempotencyKey = entity.idempotencyKey
             joint = entity.joint
             naturalPerson = entity.naturalPerson
@@ -290,6 +290,12 @@ private constructor(
             type = entity.type
             additionalProperties = entity.additionalProperties.toMutableMap()
         }
+
+        /** The entity's identifier. */
+        fun id(id: String) = id(JsonField.of(id))
+
+        /** The entity's identifier. */
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
          * Details of the corporation entity. Will be present if `structure` is equal to
@@ -352,12 +358,6 @@ private constructor(
         fun governmentAuthority(governmentAuthority: JsonField<GovernmentAuthority>) = apply {
             this.governmentAuthority = governmentAuthority
         }
-
-        /** The entity's identifier. */
-        fun id(id: String) = id(JsonField.of(id))
-
-        /** The entity's identifier. */
-        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -477,12 +477,12 @@ private constructor(
 
         fun build(): Entity =
             Entity(
+                id,
                 corporation,
                 createdAt,
                 description,
                 detailsConfirmedAt,
                 governmentAuthority,
-                id,
                 idempotencyKey,
                 joint,
                 naturalPerson,
@@ -5754,15 +5754,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is Entity && corporation == other.corporation && createdAt == other.createdAt && description == other.description && detailsConfirmedAt == other.detailsConfirmedAt && governmentAuthority == other.governmentAuthority && id == other.id && idempotencyKey == other.idempotencyKey && joint == other.joint && naturalPerson == other.naturalPerson && status == other.status && structure == other.structure && supplementalDocuments == other.supplementalDocuments && thirdPartyVerification == other.thirdPartyVerification && trust == other.trust && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is Entity && id == other.id && corporation == other.corporation && createdAt == other.createdAt && description == other.description && detailsConfirmedAt == other.detailsConfirmedAt && governmentAuthority == other.governmentAuthority && idempotencyKey == other.idempotencyKey && joint == other.joint && naturalPerson == other.naturalPerson && status == other.status && structure == other.structure && supplementalDocuments == other.supplementalDocuments && thirdPartyVerification == other.thirdPartyVerification && trust == other.trust && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(corporation, createdAt, description, detailsConfirmedAt, governmentAuthority, id, idempotencyKey, joint, naturalPerson, status, structure, supplementalDocuments, thirdPartyVerification, trust, type, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, corporation, createdAt, description, detailsConfirmedAt, governmentAuthority, idempotencyKey, joint, naturalPerson, status, structure, supplementalDocuments, thirdPartyVerification, trust, type, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "Entity{corporation=$corporation, createdAt=$createdAt, description=$description, detailsConfirmedAt=$detailsConfirmedAt, governmentAuthority=$governmentAuthority, id=$id, idempotencyKey=$idempotencyKey, joint=$joint, naturalPerson=$naturalPerson, status=$status, structure=$structure, supplementalDocuments=$supplementalDocuments, thirdPartyVerification=$thirdPartyVerification, trust=$trust, type=$type, additionalProperties=$additionalProperties}"
+        "Entity{id=$id, corporation=$corporation, createdAt=$createdAt, description=$description, detailsConfirmedAt=$detailsConfirmedAt, governmentAuthority=$governmentAuthority, idempotencyKey=$idempotencyKey, joint=$joint, naturalPerson=$naturalPerson, status=$status, structure=$structure, supplementalDocuments=$supplementalDocuments, thirdPartyVerification=$thirdPartyVerification, trust=$trust, type=$type, additionalProperties=$additionalProperties}"
 }

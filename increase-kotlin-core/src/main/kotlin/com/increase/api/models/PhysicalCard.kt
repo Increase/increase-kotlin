@@ -28,6 +28,7 @@ import java.util.Objects
 class PhysicalCard
 @JsonCreator
 private constructor(
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("card_id")
     @ExcludeMissing
     private val cardId: JsonField<String> = JsonMissing.of(),
@@ -37,7 +38,6 @@ private constructor(
     @JsonProperty("created_at")
     @ExcludeMissing
     private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("idempotency_key")
     @ExcludeMissing
     private val idempotencyKey: JsonField<String> = JsonMissing.of(),
@@ -54,6 +54,9 @@ private constructor(
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
+    /** The physical card identifier. */
+    fun id(): String = id.getRequired("id")
+
     /** The identifier for the Card this Physical Card represents. */
     fun cardId(): String = cardId.getRequired("card_id")
 
@@ -65,9 +68,6 @@ private constructor(
      * Card was created.
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
-
-    /** The physical card identifier. */
-    fun id(): String = id.getRequired("id")
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -92,6 +92,9 @@ private constructor(
      */
     fun type(): Type = type.getRequired("type")
 
+    /** The physical card identifier. */
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
+
     /** The identifier for the Card this Physical Card represents. */
     @JsonProperty("card_id") @ExcludeMissing fun _cardId() = cardId
 
@@ -103,9 +106,6 @@ private constructor(
      * Card was created.
      */
     @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
-
-    /** The physical card identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -139,10 +139,10 @@ private constructor(
 
     fun validate(): PhysicalCard = apply {
         if (!validated) {
+            id()
             cardId()
             cardholder().validate()
             createdAt()
-            id()
             idempotencyKey()
             physicalCardProfileId()
             shipment().validate()
@@ -161,10 +161,10 @@ private constructor(
 
     class Builder {
 
+        private var id: JsonField<String> = JsonMissing.of()
         private var cardId: JsonField<String> = JsonMissing.of()
         private var cardholder: JsonField<Cardholder> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var id: JsonField<String> = JsonMissing.of()
         private var idempotencyKey: JsonField<String> = JsonMissing.of()
         private var physicalCardProfileId: JsonField<String> = JsonMissing.of()
         private var shipment: JsonField<Shipment> = JsonMissing.of()
@@ -173,10 +173,10 @@ private constructor(
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(physicalCard: PhysicalCard) = apply {
+            id = physicalCard.id
             cardId = physicalCard.cardId
             cardholder = physicalCard.cardholder
             createdAt = physicalCard.createdAt
-            id = physicalCard.id
             idempotencyKey = physicalCard.idempotencyKey
             physicalCardProfileId = physicalCard.physicalCardProfileId
             shipment = physicalCard.shipment
@@ -184,6 +184,12 @@ private constructor(
             type = physicalCard.type
             additionalProperties = physicalCard.additionalProperties.toMutableMap()
         }
+
+        /** The physical card identifier. */
+        fun id(id: String) = id(JsonField.of(id))
+
+        /** The physical card identifier. */
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The identifier for the Card this Physical Card represents. */
         fun cardId(cardId: String) = cardId(JsonField.of(cardId))
@@ -208,12 +214,6 @@ private constructor(
          * Physical Card was created.
          */
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
-
-        /** The physical card identifier. */
-        fun id(id: String) = id(JsonField.of(id))
-
-        /** The physical card identifier. */
-        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -285,10 +285,10 @@ private constructor(
 
         fun build(): PhysicalCard =
             PhysicalCard(
+                id,
                 cardId,
                 cardholder,
                 createdAt,
-                id,
                 idempotencyKey,
                 physicalCardProfileId,
                 shipment,
@@ -1234,15 +1234,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is PhysicalCard && cardId == other.cardId && cardholder == other.cardholder && createdAt == other.createdAt && id == other.id && idempotencyKey == other.idempotencyKey && physicalCardProfileId == other.physicalCardProfileId && shipment == other.shipment && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is PhysicalCard && id == other.id && cardId == other.cardId && cardholder == other.cardholder && createdAt == other.createdAt && idempotencyKey == other.idempotencyKey && physicalCardProfileId == other.physicalCardProfileId && shipment == other.shipment && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(cardId, cardholder, createdAt, id, idempotencyKey, physicalCardProfileId, shipment, status, type, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, cardId, cardholder, createdAt, idempotencyKey, physicalCardProfileId, shipment, status, type, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "PhysicalCard{cardId=$cardId, cardholder=$cardholder, createdAt=$createdAt, id=$id, idempotencyKey=$idempotencyKey, physicalCardProfileId=$physicalCardProfileId, shipment=$shipment, status=$status, type=$type, additionalProperties=$additionalProperties}"
+        "PhysicalCard{id=$id, cardId=$cardId, cardholder=$cardholder, createdAt=$createdAt, idempotencyKey=$idempotencyKey, physicalCardProfileId=$physicalCardProfileId, shipment=$shipment, status=$status, type=$type, additionalProperties=$additionalProperties}"
 }

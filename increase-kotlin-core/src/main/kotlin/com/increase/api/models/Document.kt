@@ -26,6 +26,7 @@ import java.util.Objects
 class Document
 @JsonCreator
 private constructor(
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("category")
     @ExcludeMissing
     private val category: JsonField<Category> = JsonMissing.of(),
@@ -38,10 +39,12 @@ private constructor(
     @JsonProperty("file_id")
     @ExcludeMissing
     private val fileId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
+
+    /** The Document identifier. */
+    fun id(): String = id.getRequired("id")
 
     /** The type of document. */
     fun category(): Category = category.getRequired("category")
@@ -58,13 +61,13 @@ private constructor(
     /** The identifier of the File containing the Document's contents. */
     fun fileId(): String = fileId.getRequired("file_id")
 
-    /** The Document identifier. */
-    fun id(): String = id.getRequired("id")
-
     /**
      * A constant representing the object's type. For this resource it will always be `document`.
      */
     fun type(): Type = type.getRequired("type")
+
+    /** The Document identifier. */
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /** The type of document. */
     @JsonProperty("category") @ExcludeMissing fun _category() = category
@@ -81,9 +84,6 @@ private constructor(
     /** The identifier of the File containing the Document's contents. */
     @JsonProperty("file_id") @ExcludeMissing fun _fileId() = fileId
 
-    /** The Document identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
-
     /**
      * A constant representing the object's type. For this resource it will always be `document`.
      */
@@ -97,11 +97,11 @@ private constructor(
 
     fun validate(): Document = apply {
         if (!validated) {
+            id()
             category()
             createdAt()
             entityId()
             fileId()
-            id()
             type()
             validated = true
         }
@@ -116,23 +116,29 @@ private constructor(
 
     class Builder {
 
+        private var id: JsonField<String> = JsonMissing.of()
         private var category: JsonField<Category> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var entityId: JsonField<String> = JsonMissing.of()
         private var fileId: JsonField<String> = JsonMissing.of()
-        private var id: JsonField<String> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(document: Document) = apply {
+            id = document.id
             category = document.category
             createdAt = document.createdAt
             entityId = document.entityId
             fileId = document.fileId
-            id = document.id
             type = document.type
             additionalProperties = document.additionalProperties.toMutableMap()
         }
+
+        /** The Document identifier. */
+        fun id(id: String) = id(JsonField.of(id))
+
+        /** The Document identifier. */
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The type of document. */
         fun category(category: Category) = category(JsonField.of(category))
@@ -163,12 +169,6 @@ private constructor(
 
         /** The identifier of the File containing the Document's contents. */
         fun fileId(fileId: JsonField<String>) = apply { this.fileId = fileId }
-
-        /** The Document identifier. */
-        fun id(id: String) = id(JsonField.of(id))
-
-        /** The Document identifier. */
-        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
          * A constant representing the object's type. For this resource it will always be
@@ -203,11 +203,11 @@ private constructor(
 
         fun build(): Document =
             Document(
+                id,
                 category,
                 createdAt,
                 entityId,
                 fileId,
-                id,
                 type,
                 additionalProperties.toImmutable(),
             )
@@ -332,15 +332,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is Document && category == other.category && createdAt == other.createdAt && entityId == other.entityId && fileId == other.fileId && id == other.id && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is Document && id == other.id && category == other.category && createdAt == other.createdAt && entityId == other.entityId && fileId == other.fileId && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(category, createdAt, entityId, fileId, id, type, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, category, createdAt, entityId, fileId, type, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "Document{category=$category, createdAt=$createdAt, entityId=$entityId, fileId=$fileId, id=$id, type=$type, additionalProperties=$additionalProperties}"
+        "Document{id=$id, category=$category, createdAt=$createdAt, entityId=$entityId, fileId=$fileId, type=$type, additionalProperties=$additionalProperties}"
 }

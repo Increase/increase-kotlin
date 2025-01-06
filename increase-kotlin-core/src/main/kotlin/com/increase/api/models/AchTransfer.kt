@@ -27,6 +27,7 @@ import java.util.Objects
 class AchTransfer
 @JsonCreator
 private constructor(
+    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("account_id")
     @ExcludeMissing
     private val accountId: JsonField<String> = JsonMissing.of(),
@@ -76,7 +77,6 @@ private constructor(
     @JsonProperty("funding")
     @ExcludeMissing
     private val funding: JsonField<Funding> = JsonMissing.of(),
-    @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("idempotency_key")
     @ExcludeMissing
     private val idempotencyKey: JsonField<String> = JsonMissing.of(),
@@ -128,6 +128,9 @@ private constructor(
     @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
+
+    /** The ACH transfer's identifier. */
+    fun id(): String = id.getRequired("id")
 
     /** The Account to which the transfer belongs. */
     fun accountId(): String = accountId.getRequired("account_id")
@@ -202,9 +205,6 @@ private constructor(
 
     /** The type of the account to which the transfer will be sent. */
     fun funding(): Funding = funding.getRequired("funding")
-
-    /** The ACH transfer's identifier. */
-    fun id(): String = id.getRequired("id")
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -293,6 +293,9 @@ private constructor(
      */
     fun type(): Type = type.getRequired("type")
 
+    /** The ACH transfer's identifier. */
+    @JsonProperty("id") @ExcludeMissing fun _id() = id
+
     /** The Account to which the transfer belongs. */
     @JsonProperty("account_id") @ExcludeMissing fun _accountId() = accountId
 
@@ -372,9 +375,6 @@ private constructor(
 
     /** The type of the account to which the transfer will be sent. */
     @JsonProperty("funding") @ExcludeMissing fun _funding() = funding
-
-    /** The ACH transfer's identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -478,6 +478,7 @@ private constructor(
 
     fun validate(): AchTransfer = apply {
         if (!validated) {
+            id()
             accountId()
             accountNumber()
             acknowledgement()?.validate()
@@ -495,7 +496,6 @@ private constructor(
             destinationAccountHolder()
             externalAccountId()
             funding()
-            id()
             idempotencyKey()
             inboundFundsHold()?.validate()
             individualId()
@@ -526,6 +526,7 @@ private constructor(
 
     class Builder {
 
+        private var id: JsonField<String> = JsonMissing.of()
         private var accountId: JsonField<String> = JsonMissing.of()
         private var accountNumber: JsonField<String> = JsonMissing.of()
         private var acknowledgement: JsonField<Acknowledgement> = JsonMissing.of()
@@ -543,7 +544,6 @@ private constructor(
         private var destinationAccountHolder: JsonField<DestinationAccountHolder> = JsonMissing.of()
         private var externalAccountId: JsonField<String> = JsonMissing.of()
         private var funding: JsonField<Funding> = JsonMissing.of()
-        private var id: JsonField<String> = JsonMissing.of()
         private var idempotencyKey: JsonField<String> = JsonMissing.of()
         private var inboundFundsHold: JsonField<InboundFundsHold> = JsonMissing.of()
         private var individualId: JsonField<String> = JsonMissing.of()
@@ -564,6 +564,7 @@ private constructor(
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(achTransfer: AchTransfer) = apply {
+            id = achTransfer.id
             accountId = achTransfer.accountId
             accountNumber = achTransfer.accountNumber
             acknowledgement = achTransfer.acknowledgement
@@ -581,7 +582,6 @@ private constructor(
             destinationAccountHolder = achTransfer.destinationAccountHolder
             externalAccountId = achTransfer.externalAccountId
             funding = achTransfer.funding
-            id = achTransfer.id
             idempotencyKey = achTransfer.idempotencyKey
             inboundFundsHold = achTransfer.inboundFundsHold
             individualId = achTransfer.individualId
@@ -601,6 +601,12 @@ private constructor(
             type = achTransfer.type
             additionalProperties = achTransfer.additionalProperties.toMutableMap()
         }
+
+        /** The ACH transfer's identifier. */
+        fun id(id: String) = id(JsonField.of(id))
+
+        /** The ACH transfer's identifier. */
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The Account to which the transfer belongs. */
         fun accountId(accountId: String) = accountId(JsonField.of(accountId))
@@ -763,12 +769,6 @@ private constructor(
 
         /** The type of the account to which the transfer will be sent. */
         fun funding(funding: JsonField<Funding>) = apply { this.funding = funding }
-
-        /** The ACH transfer's identifier. */
-        fun id(id: String) = id(JsonField.of(id))
-
-        /** The ACH transfer's identifier. */
-        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -992,6 +992,7 @@ private constructor(
 
         fun build(): AchTransfer =
             AchTransfer(
+                id,
                 accountId,
                 accountNumber,
                 acknowledgement,
@@ -1009,7 +1010,6 @@ private constructor(
                 destinationAccountHolder,
                 externalAccountId,
                 funding,
-                id,
                 idempotencyKey,
                 inboundFundsHold,
                 individualId,
@@ -2838,6 +2838,7 @@ private constructor(
     class InboundFundsHold
     @JsonCreator
     private constructor(
+        @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
         @JsonProperty("amount")
         @ExcludeMissing
         private val amount: JsonField<Long> = JsonMissing.of(),
@@ -2853,7 +2854,6 @@ private constructor(
         @JsonProperty("held_transaction_id")
         @ExcludeMissing
         private val heldTransactionId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
         @JsonProperty("pending_transaction_id")
         @ExcludeMissing
         private val pendingTransactionId: JsonField<String> = JsonMissing.of(),
@@ -2867,6 +2867,9 @@ private constructor(
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
+
+        /** The Inbound Funds Hold identifier. */
+        fun id(): String = id.getRequired("id")
 
         /**
          * The held amount in the minor unit of the account's currency. For dollars, for example,
@@ -2893,9 +2896,6 @@ private constructor(
         /** The ID of the Transaction for which funds were held. */
         fun heldTransactionId(): String? = heldTransactionId.getNullable("held_transaction_id")
 
-        /** The Inbound Funds Hold identifier. */
-        fun id(): String = id.getRequired("id")
-
         /** The ID of the Pending Transaction representing the held funds. */
         fun pendingTransactionId(): String? =
             pendingTransactionId.getNullable("pending_transaction_id")
@@ -2911,6 +2911,9 @@ private constructor(
          * `inbound_funds_hold`.
          */
         fun type(): Type = type.getRequired("type")
+
+        /** The Inbound Funds Hold identifier. */
+        @JsonProperty("id") @ExcludeMissing fun _id() = id
 
         /**
          * The held amount in the minor unit of the account's currency. For dollars, for example,
@@ -2940,9 +2943,6 @@ private constructor(
         @ExcludeMissing
         fun _heldTransactionId() = heldTransactionId
 
-        /** The Inbound Funds Hold identifier. */
-        @JsonProperty("id") @ExcludeMissing fun _id() = id
-
         /** The ID of the Pending Transaction representing the held funds. */
         @JsonProperty("pending_transaction_id")
         @ExcludeMissing
@@ -2968,12 +2968,12 @@ private constructor(
 
         fun validate(): InboundFundsHold = apply {
             if (!validated) {
+                id()
                 amount()
                 automaticallyReleasesAt()
                 createdAt()
                 currency()
                 heldTransactionId()
-                id()
                 pendingTransactionId()
                 releasedAt()
                 status()
@@ -2991,12 +2991,12 @@ private constructor(
 
         class Builder {
 
+            private var id: JsonField<String> = JsonMissing.of()
             private var amount: JsonField<Long> = JsonMissing.of()
             private var automaticallyReleasesAt: JsonField<OffsetDateTime> = JsonMissing.of()
             private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
             private var currency: JsonField<Currency> = JsonMissing.of()
             private var heldTransactionId: JsonField<String> = JsonMissing.of()
-            private var id: JsonField<String> = JsonMissing.of()
             private var pendingTransactionId: JsonField<String> = JsonMissing.of()
             private var releasedAt: JsonField<OffsetDateTime> = JsonMissing.of()
             private var status: JsonField<Status> = JsonMissing.of()
@@ -3004,18 +3004,24 @@ private constructor(
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(inboundFundsHold: InboundFundsHold) = apply {
+                id = inboundFundsHold.id
                 amount = inboundFundsHold.amount
                 automaticallyReleasesAt = inboundFundsHold.automaticallyReleasesAt
                 createdAt = inboundFundsHold.createdAt
                 currency = inboundFundsHold.currency
                 heldTransactionId = inboundFundsHold.heldTransactionId
-                id = inboundFundsHold.id
                 pendingTransactionId = inboundFundsHold.pendingTransactionId
                 releasedAt = inboundFundsHold.releasedAt
                 status = inboundFundsHold.status
                 type = inboundFundsHold.type
                 additionalProperties = inboundFundsHold.additionalProperties.toMutableMap()
             }
+
+            /** The Inbound Funds Hold identifier. */
+            fun id(id: String) = id(JsonField.of(id))
+
+            /** The Inbound Funds Hold identifier. */
+            fun id(id: JsonField<String>) = apply { this.id = id }
 
             /**
              * The held amount in the minor unit of the account's currency. For dollars, for
@@ -3078,12 +3084,6 @@ private constructor(
                 this.heldTransactionId = heldTransactionId
             }
 
-            /** The Inbound Funds Hold identifier. */
-            fun id(id: String) = id(JsonField.of(id))
-
-            /** The Inbound Funds Hold identifier. */
-            fun id(id: JsonField<String>) = apply { this.id = id }
-
             /** The ID of the Pending Transaction representing the held funds. */
             fun pendingTransactionId(pendingTransactionId: String) =
                 pendingTransactionId(JsonField.of(pendingTransactionId))
@@ -3140,12 +3140,12 @@ private constructor(
 
             fun build(): InboundFundsHold =
                 InboundFundsHold(
+                    id,
                     amount,
                     automaticallyReleasesAt,
                     createdAt,
                     currency,
                     heldTransactionId,
-                    id,
                     pendingTransactionId,
                     releasedAt,
                     status,
@@ -3348,17 +3348,17 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is InboundFundsHold && amount == other.amount && automaticallyReleasesAt == other.automaticallyReleasesAt && createdAt == other.createdAt && currency == other.currency && heldTransactionId == other.heldTransactionId && id == other.id && pendingTransactionId == other.pendingTransactionId && releasedAt == other.releasedAt && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is InboundFundsHold && id == other.id && amount == other.amount && automaticallyReleasesAt == other.automaticallyReleasesAt && createdAt == other.createdAt && currency == other.currency && heldTransactionId == other.heldTransactionId && pendingTransactionId == other.pendingTransactionId && releasedAt == other.releasedAt && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(amount, automaticallyReleasesAt, createdAt, currency, heldTransactionId, id, pendingTransactionId, releasedAt, status, type, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(id, amount, automaticallyReleasesAt, createdAt, currency, heldTransactionId, pendingTransactionId, releasedAt, status, type, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "InboundFundsHold{amount=$amount, automaticallyReleasesAt=$automaticallyReleasesAt, createdAt=$createdAt, currency=$currency, heldTransactionId=$heldTransactionId, id=$id, pendingTransactionId=$pendingTransactionId, releasedAt=$releasedAt, status=$status, type=$type, additionalProperties=$additionalProperties}"
+            "InboundFundsHold{id=$id, amount=$amount, automaticallyReleasesAt=$automaticallyReleasesAt, createdAt=$createdAt, currency=$currency, heldTransactionId=$heldTransactionId, pendingTransactionId=$pendingTransactionId, releasedAt=$releasedAt, status=$status, type=$type, additionalProperties=$additionalProperties}"
     }
 
     class Network
@@ -5443,15 +5443,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is AchTransfer && accountId == other.accountId && accountNumber == other.accountNumber && acknowledgement == other.acknowledgement && addenda == other.addenda && amount == other.amount && approval == other.approval && cancellation == other.cancellation && companyDescriptiveDate == other.companyDescriptiveDate && companyDiscretionaryData == other.companyDiscretionaryData && companyEntryDescription == other.companyEntryDescription && companyName == other.companyName && createdAt == other.createdAt && createdBy == other.createdBy && currency == other.currency && destinationAccountHolder == other.destinationAccountHolder && externalAccountId == other.externalAccountId && funding == other.funding && id == other.id && idempotencyKey == other.idempotencyKey && inboundFundsHold == other.inboundFundsHold && individualId == other.individualId && individualName == other.individualName && network == other.network && notificationsOfChange == other.notificationsOfChange && pendingTransactionId == other.pendingTransactionId && preferredEffectiveDate == other.preferredEffectiveDate && return_ == other.return_ && routingNumber == other.routingNumber && settlement == other.settlement && standardEntryClassCode == other.standardEntryClassCode && statementDescriptor == other.statementDescriptor && status == other.status && submission == other.submission && transactionId == other.transactionId && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is AchTransfer && id == other.id && accountId == other.accountId && accountNumber == other.accountNumber && acknowledgement == other.acknowledgement && addenda == other.addenda && amount == other.amount && approval == other.approval && cancellation == other.cancellation && companyDescriptiveDate == other.companyDescriptiveDate && companyDiscretionaryData == other.companyDiscretionaryData && companyEntryDescription == other.companyEntryDescription && companyName == other.companyName && createdAt == other.createdAt && createdBy == other.createdBy && currency == other.currency && destinationAccountHolder == other.destinationAccountHolder && externalAccountId == other.externalAccountId && funding == other.funding && idempotencyKey == other.idempotencyKey && inboundFundsHold == other.inboundFundsHold && individualId == other.individualId && individualName == other.individualName && network == other.network && notificationsOfChange == other.notificationsOfChange && pendingTransactionId == other.pendingTransactionId && preferredEffectiveDate == other.preferredEffectiveDate && return_ == other.return_ && routingNumber == other.routingNumber && settlement == other.settlement && standardEntryClassCode == other.standardEntryClassCode && statementDescriptor == other.statementDescriptor && status == other.status && submission == other.submission && transactionId == other.transactionId && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(accountId, accountNumber, acknowledgement, addenda, amount, approval, cancellation, companyDescriptiveDate, companyDiscretionaryData, companyEntryDescription, companyName, createdAt, createdBy, currency, destinationAccountHolder, externalAccountId, funding, id, idempotencyKey, inboundFundsHold, individualId, individualName, network, notificationsOfChange, pendingTransactionId, preferredEffectiveDate, return_, routingNumber, settlement, standardEntryClassCode, statementDescriptor, status, submission, transactionId, type, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, accountId, accountNumber, acknowledgement, addenda, amount, approval, cancellation, companyDescriptiveDate, companyDiscretionaryData, companyEntryDescription, companyName, createdAt, createdBy, currency, destinationAccountHolder, externalAccountId, funding, idempotencyKey, inboundFundsHold, individualId, individualName, network, notificationsOfChange, pendingTransactionId, preferredEffectiveDate, return_, routingNumber, settlement, standardEntryClassCode, statementDescriptor, status, submission, transactionId, type, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "AchTransfer{accountId=$accountId, accountNumber=$accountNumber, acknowledgement=$acknowledgement, addenda=$addenda, amount=$amount, approval=$approval, cancellation=$cancellation, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, createdAt=$createdAt, createdBy=$createdBy, currency=$currency, destinationAccountHolder=$destinationAccountHolder, externalAccountId=$externalAccountId, funding=$funding, id=$id, idempotencyKey=$idempotencyKey, inboundFundsHold=$inboundFundsHold, individualId=$individualId, individualName=$individualName, network=$network, notificationsOfChange=$notificationsOfChange, pendingTransactionId=$pendingTransactionId, preferredEffectiveDate=$preferredEffectiveDate, return_=$return_, routingNumber=$routingNumber, settlement=$settlement, standardEntryClassCode=$standardEntryClassCode, statementDescriptor=$statementDescriptor, status=$status, submission=$submission, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
+        "AchTransfer{id=$id, accountId=$accountId, accountNumber=$accountNumber, acknowledgement=$acknowledgement, addenda=$addenda, amount=$amount, approval=$approval, cancellation=$cancellation, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, createdAt=$createdAt, createdBy=$createdBy, currency=$currency, destinationAccountHolder=$destinationAccountHolder, externalAccountId=$externalAccountId, funding=$funding, idempotencyKey=$idempotencyKey, inboundFundsHold=$inboundFundsHold, individualId=$individualId, individualName=$individualName, network=$network, notificationsOfChange=$notificationsOfChange, pendingTransactionId=$pendingTransactionId, preferredEffectiveDate=$preferredEffectiveDate, return_=$return_, routingNumber=$routingNumber, settlement=$settlement, standardEntryClassCode=$standardEntryClassCode, statementDescriptor=$statementDescriptor, status=$status, submission=$submission, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
 }
