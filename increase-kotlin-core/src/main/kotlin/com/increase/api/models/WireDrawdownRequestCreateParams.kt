@@ -246,7 +246,7 @@ constructor(
              * requesting a payment to a commingled account. Otherwise, we'll use the associated
              * entity's details.
              */
-            fun originatorAddressLine1(originatorAddressLine1: String) = apply {
+            fun originatorAddressLine1(originatorAddressLine1: String?) = apply {
                 this.originatorAddressLine1 = originatorAddressLine1
             }
 
@@ -255,7 +255,7 @@ constructor(
              * requesting a payment to a commingled account. Otherwise, we'll use the associated
              * entity's details.
              */
-            fun originatorAddressLine2(originatorAddressLine2: String) = apply {
+            fun originatorAddressLine2(originatorAddressLine2: String?) = apply {
                 this.originatorAddressLine2 = originatorAddressLine2
             }
 
@@ -264,7 +264,7 @@ constructor(
              * requesting a payment to a commingled account. Otherwise, we'll use the associated
              * entity's details.
              */
-            fun originatorAddressLine3(originatorAddressLine3: String) = apply {
+            fun originatorAddressLine3(originatorAddressLine3: String?) = apply {
                 this.originatorAddressLine3 = originatorAddressLine3
             }
 
@@ -273,22 +273,22 @@ constructor(
              * payment to a commingled account. Otherwise, we'll use the associated entity's
              * details.
              */
-            fun originatorName(originatorName: String) = apply {
+            fun originatorName(originatorName: String?) = apply {
                 this.originatorName = originatorName
             }
 
             /** Line 1 of the drawdown request's recipient's address. */
-            fun recipientAddressLine1(recipientAddressLine1: String) = apply {
+            fun recipientAddressLine1(recipientAddressLine1: String?) = apply {
                 this.recipientAddressLine1 = recipientAddressLine1
             }
 
             /** Line 2 of the drawdown request's recipient's address. */
-            fun recipientAddressLine2(recipientAddressLine2: String) = apply {
+            fun recipientAddressLine2(recipientAddressLine2: String?) = apply {
                 this.recipientAddressLine2 = recipientAddressLine2
             }
 
             /** Line 3 of the drawdown request's recipient's address. */
-            fun recipientAddressLine3(recipientAddressLine3: String) = apply {
+            fun recipientAddressLine3(recipientAddressLine3: String?) = apply {
                 this.recipientAddressLine3 = recipientAddressLine3
             }
 
@@ -410,7 +410,7 @@ constructor(
          * requesting a payment to a commingled account. Otherwise, we'll use the associated
          * entity's details.
          */
-        fun originatorAddressLine1(originatorAddressLine1: String) = apply {
+        fun originatorAddressLine1(originatorAddressLine1: String?) = apply {
             body.originatorAddressLine1(originatorAddressLine1)
         }
 
@@ -419,7 +419,7 @@ constructor(
          * requesting a payment to a commingled account. Otherwise, we'll use the associated
          * entity's details.
          */
-        fun originatorAddressLine2(originatorAddressLine2: String) = apply {
+        fun originatorAddressLine2(originatorAddressLine2: String?) = apply {
             body.originatorAddressLine2(originatorAddressLine2)
         }
 
@@ -428,7 +428,7 @@ constructor(
          * requesting a payment to a commingled account. Otherwise, we'll use the associated
          * entity's details.
          */
-        fun originatorAddressLine3(originatorAddressLine3: String) = apply {
+        fun originatorAddressLine3(originatorAddressLine3: String?) = apply {
             body.originatorAddressLine3(originatorAddressLine3)
         }
 
@@ -436,20 +436,20 @@ constructor(
          * The drawdown request originator's name. This is only necessary if you're requesting a
          * payment to a commingled account. Otherwise, we'll use the associated entity's details.
          */
-        fun originatorName(originatorName: String) = apply { body.originatorName(originatorName) }
+        fun originatorName(originatorName: String?) = apply { body.originatorName(originatorName) }
 
         /** Line 1 of the drawdown request's recipient's address. */
-        fun recipientAddressLine1(recipientAddressLine1: String) = apply {
+        fun recipientAddressLine1(recipientAddressLine1: String?) = apply {
             body.recipientAddressLine1(recipientAddressLine1)
         }
 
         /** Line 2 of the drawdown request's recipient's address. */
-        fun recipientAddressLine2(recipientAddressLine2: String) = apply {
+        fun recipientAddressLine2(recipientAddressLine2: String?) = apply {
             body.recipientAddressLine2(recipientAddressLine2)
         }
 
         /** Line 3 of the drawdown request's recipient's address. */
-        fun recipientAddressLine3(recipientAddressLine3: String) = apply {
+        fun recipientAddressLine3(recipientAddressLine3: String?) = apply {
             body.recipientAddressLine3(recipientAddressLine3)
         }
 

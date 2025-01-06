@@ -149,25 +149,25 @@ constructor(
             fun amount(amount: Long) = apply { this.amount = amount }
 
             /** The account number of the account that sent the transfer. */
-            fun debtorAccountNumber(debtorAccountNumber: String) = apply {
+            fun debtorAccountNumber(debtorAccountNumber: String?) = apply {
                 this.debtorAccountNumber = debtorAccountNumber
             }
 
             /** The name provided by the sender of the transfer. */
-            fun debtorName(debtorName: String) = apply { this.debtorName = debtorName }
+            fun debtorName(debtorName: String?) = apply { this.debtorName = debtorName }
 
             /** The routing number of the account that sent the transfer. */
-            fun debtorRoutingNumber(debtorRoutingNumber: String) = apply {
+            fun debtorRoutingNumber(debtorRoutingNumber: String?) = apply {
                 this.debtorRoutingNumber = debtorRoutingNumber
             }
 
             /** Additional information included with the transfer. */
-            fun remittanceInformation(remittanceInformation: String) = apply {
+            fun remittanceInformation(remittanceInformation: String?) = apply {
                 this.remittanceInformation = remittanceInformation
             }
 
             /** The identifier of a pending Request for Payment that this transfer will fulfill. */
-            fun requestForPaymentId(requestForPaymentId: String) = apply {
+            fun requestForPaymentId(requestForPaymentId: String?) = apply {
                 this.requestForPaymentId = requestForPaymentId
             }
 
@@ -259,25 +259,25 @@ constructor(
         fun amount(amount: Long) = apply { body.amount(amount) }
 
         /** The account number of the account that sent the transfer. */
-        fun debtorAccountNumber(debtorAccountNumber: String) = apply {
+        fun debtorAccountNumber(debtorAccountNumber: String?) = apply {
             body.debtorAccountNumber(debtorAccountNumber)
         }
 
         /** The name provided by the sender of the transfer. */
-        fun debtorName(debtorName: String) = apply { body.debtorName(debtorName) }
+        fun debtorName(debtorName: String?) = apply { body.debtorName(debtorName) }
 
         /** The routing number of the account that sent the transfer. */
-        fun debtorRoutingNumber(debtorRoutingNumber: String) = apply {
+        fun debtorRoutingNumber(debtorRoutingNumber: String?) = apply {
             body.debtorRoutingNumber(debtorRoutingNumber)
         }
 
         /** Additional information included with the transfer. */
-        fun remittanceInformation(remittanceInformation: String) = apply {
+        fun remittanceInformation(remittanceInformation: String?) = apply {
             body.remittanceInformation(remittanceInformation)
         }
 
         /** The identifier of a pending Request for Payment that this transfer will fulfill. */
-        fun requestForPaymentId(requestForPaymentId: String) = apply {
+        fun requestForPaymentId(requestForPaymentId: String?) = apply {
             body.requestForPaymentId(requestForPaymentId)
         }
 

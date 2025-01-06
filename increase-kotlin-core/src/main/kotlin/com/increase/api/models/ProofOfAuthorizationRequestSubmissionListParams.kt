@@ -84,7 +84,7 @@ constructor(
         }
 
         /** Return the page of entries after this one. */
-        fun cursor(cursor: String) = apply { this.cursor = cursor }
+        fun cursor(cursor: String?) = apply { this.cursor = cursor }
 
         /**
          * Filter records to the one with the specified `idempotency_key` you chose for that object.
@@ -92,15 +92,20 @@ constructor(
          * processed once. Learn more about
          * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
-        fun idempotencyKey(idempotencyKey: String) = apply { this.idempotencyKey = idempotencyKey }
+        fun idempotencyKey(idempotencyKey: String?) = apply { this.idempotencyKey = idempotencyKey }
 
         /**
          * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
          */
-        fun limit(limit: Long) = apply { this.limit = limit }
+        fun limit(limit: Long?) = apply { this.limit = limit }
+
+        /**
+         * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
+         */
+        fun limit(limit: Long) = limit(limit as Long?)
 
         /** ID of the proof of authorization request. */
-        fun proofOfAuthorizationRequestId(proofOfAuthorizationRequestId: String) = apply {
+        fun proofOfAuthorizationRequestId(proofOfAuthorizationRequestId: String?) = apply {
             this.proofOfAuthorizationRequestId = proofOfAuthorizationRequestId
         }
 

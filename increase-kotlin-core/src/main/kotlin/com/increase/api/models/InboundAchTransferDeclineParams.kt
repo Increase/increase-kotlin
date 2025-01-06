@@ -98,7 +98,7 @@ constructor(
              * codes will be `payment_stopped` for debits and `credit_entry_refused_by_receiver` for
              * credits.
              */
-            fun reason(reason: Reason) = apply { this.reason = reason }
+            fun reason(reason: Reason?) = apply { this.reason = reason }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -176,7 +176,7 @@ constructor(
          * codes will be `payment_stopped` for debits and `credit_entry_refused_by_receiver` for
          * credits.
          */
-        fun reason(reason: Reason) = apply { body.reason(reason) }
+        fun reason(reason: Reason?) = apply { body.reason(reason) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()

@@ -108,10 +108,10 @@ constructor(
             fun amount(amount: Long) = apply { this.amount = amount }
 
             /** The end of the interest period. If not provided, defaults to the current time. */
-            fun periodEnd(periodEnd: OffsetDateTime) = apply { this.periodEnd = periodEnd }
+            fun periodEnd(periodEnd: OffsetDateTime?) = apply { this.periodEnd = periodEnd }
 
             /** The start of the interest period. If not provided, defaults to the current time. */
-            fun periodStart(periodStart: OffsetDateTime) = apply { this.periodStart = periodStart }
+            fun periodStart(periodStart: OffsetDateTime?) = apply { this.periodStart = periodStart }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -191,10 +191,10 @@ constructor(
         fun amount(amount: Long) = apply { body.amount(amount) }
 
         /** The end of the interest period. If not provided, defaults to the current time. */
-        fun periodEnd(periodEnd: OffsetDateTime) = apply { body.periodEnd(periodEnd) }
+        fun periodEnd(periodEnd: OffsetDateTime?) = apply { body.periodEnd(periodEnd) }
 
         /** The start of the interest period. If not provided, defaults to the current time. */
-        fun periodStart(periodStart: OffsetDateTime) = apply { body.periodStart(periodStart) }
+        fun periodStart(periodStart: OffsetDateTime?) = apply { body.periodStart(periodStart) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()

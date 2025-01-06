@@ -90,7 +90,7 @@ constructor(
             }
 
             /** If set, the simulation will reject the transfer. */
-            fun rejection(rejection: Rejection) = apply { this.rejection = rejection }
+            fun rejection(rejection: Rejection?) = apply { this.rejection = rejection }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -171,7 +171,7 @@ constructor(
         }
 
         /** If set, the simulation will reject the transfer. */
-        fun rejection(rejection: Rejection) = apply { body.rejection(rejection) }
+        fun rejection(rejection: Rejection?) = apply { body.rejection(rejection) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()

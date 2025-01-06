@@ -100,12 +100,12 @@ constructor(
             }
 
             /** The updated account number to send in the notification of change. */
-            fun updatedAccountNumber(updatedAccountNumber: String) = apply {
+            fun updatedAccountNumber(updatedAccountNumber: String?) = apply {
                 this.updatedAccountNumber = updatedAccountNumber
             }
 
             /** The updated routing number to send in the notification of change. */
-            fun updatedRoutingNumber(updatedRoutingNumber: String) = apply {
+            fun updatedRoutingNumber(updatedRoutingNumber: String?) = apply {
                 this.updatedRoutingNumber = updatedRoutingNumber
             }
 
@@ -191,12 +191,12 @@ constructor(
         }
 
         /** The updated account number to send in the notification of change. */
-        fun updatedAccountNumber(updatedAccountNumber: String) = apply {
+        fun updatedAccountNumber(updatedAccountNumber: String?) = apply {
             body.updatedAccountNumber(updatedAccountNumber)
         }
 
         /** The updated routing number to send in the notification of change. */
-        fun updatedRoutingNumber(updatedRoutingNumber: String) = apply {
+        fun updatedRoutingNumber(updatedRoutingNumber: String?) = apply {
             body.updatedRoutingNumber(updatedRoutingNumber)
         }
 
