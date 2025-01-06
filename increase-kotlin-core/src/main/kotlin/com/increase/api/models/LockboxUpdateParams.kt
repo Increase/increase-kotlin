@@ -103,13 +103,13 @@ constructor(
             }
 
             /** The description you choose for the Lockbox. */
-            fun description(description: String) = apply { this.description = description }
+            fun description(description: String?) = apply { this.description = description }
 
             /** The recipient name you choose for the Lockbox. */
-            fun recipientName(recipientName: String) = apply { this.recipientName = recipientName }
+            fun recipientName(recipientName: String?) = apply { this.recipientName = recipientName }
 
             /** This indicates if checks can be sent to the Lockbox. */
-            fun status(status: Status) = apply { this.status = status }
+            fun status(status: Status?) = apply { this.status = status }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -183,13 +183,13 @@ constructor(
         fun lockboxId(lockboxId: String) = apply { this.lockboxId = lockboxId }
 
         /** The description you choose for the Lockbox. */
-        fun description(description: String) = apply { body.description(description) }
+        fun description(description: String?) = apply { body.description(description) }
 
         /** The recipient name you choose for the Lockbox. */
-        fun recipientName(recipientName: String) = apply { body.recipientName(recipientName) }
+        fun recipientName(recipientName: String?) = apply { body.recipientName(recipientName) }
 
         /** This indicates if checks can be sent to the Lockbox. */
-        fun status(status: Status) = apply { body.status(status) }
+        fun status(status: Status?) = apply { body.status(status) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()

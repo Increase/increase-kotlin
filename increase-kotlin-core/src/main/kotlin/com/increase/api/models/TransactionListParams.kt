@@ -96,25 +96,30 @@ constructor(
         }
 
         /** Filter Transactions for those belonging to the specified Account. */
-        fun accountId(accountId: String) = apply { this.accountId = accountId }
+        fun accountId(accountId: String?) = apply { this.accountId = accountId }
 
-        fun category(category: Category) = apply { this.category = category }
+        fun category(category: Category?) = apply { this.category = category }
 
-        fun createdAt(createdAt: CreatedAt) = apply { this.createdAt = createdAt }
+        fun createdAt(createdAt: CreatedAt?) = apply { this.createdAt = createdAt }
 
         /** Return the page of entries after this one. */
-        fun cursor(cursor: String) = apply { this.cursor = cursor }
+        fun cursor(cursor: String?) = apply { this.cursor = cursor }
 
         /**
          * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
          */
-        fun limit(limit: Long) = apply { this.limit = limit }
+        fun limit(limit: Long?) = apply { this.limit = limit }
+
+        /**
+         * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
+         */
+        fun limit(limit: Long) = limit(limit as Long?)
 
         /**
          * Filter Transactions for those belonging to the specified route. This could be a Card ID
          * or an Account Number ID.
          */
-        fun routeId(routeId: String) = apply { this.routeId = routeId }
+        fun routeId(routeId: String?) = apply { this.routeId = routeId }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -267,7 +272,7 @@ constructor(
              * Return results whose value is in the provided list. For GET requests, this should be
              * encoded as a comma-delimited string, such as `?in=one,two,three`.
              */
-            fun in_(in_: List<In>) = apply { this.in_ = in_.toMutableList() }
+            fun in_(in_: List<In>?) = apply { this.in_ = in_?.toMutableList() }
 
             /**
              * Return results whose value is in the provided list. For GET requests, this should be
@@ -656,25 +661,25 @@ constructor(
              * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            fun after(after: OffsetDateTime) = apply { this.after = after }
+            fun after(after: OffsetDateTime?) = apply { this.after = after }
 
             /**
              * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            fun before(before: OffsetDateTime) = apply { this.before = before }
+            fun before(before: OffsetDateTime?) = apply { this.before = before }
 
             /**
              * Return results on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            fun onOrAfter(onOrAfter: OffsetDateTime) = apply { this.onOrAfter = onOrAfter }
+            fun onOrAfter(onOrAfter: OffsetDateTime?) = apply { this.onOrAfter = onOrAfter }
 
             /**
              * Return results on or before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            fun onOrBefore(onOrBefore: OffsetDateTime) = apply { this.onOrBefore = onOrBefore }
+            fun onOrBefore(onOrBefore: OffsetDateTime?) = apply { this.onOrBefore = onOrBefore }
 
             fun additionalProperties(additionalProperties: QueryParams) = apply {
                 this.additionalProperties.clear()

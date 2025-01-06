@@ -112,13 +112,13 @@ constructor(
             additionalQueryParams = accountListParams.additionalQueryParams.toBuilder()
         }
 
-        fun createdAt(createdAt: CreatedAt) = apply { this.createdAt = createdAt }
+        fun createdAt(createdAt: CreatedAt?) = apply { this.createdAt = createdAt }
 
         /** Return the page of entries after this one. */
-        fun cursor(cursor: String) = apply { this.cursor = cursor }
+        fun cursor(cursor: String?) = apply { this.cursor = cursor }
 
         /** Filter Accounts for those belonging to the specified Entity. */
-        fun entityId(entityId: String) = apply { this.entityId = entityId }
+        fun entityId(entityId: String?) = apply { this.entityId = entityId }
 
         /**
          * Filter records to the one with the specified `idempotency_key` you chose for that object.
@@ -126,23 +126,28 @@ constructor(
          * processed once. Learn more about
          * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
-        fun idempotencyKey(idempotencyKey: String) = apply { this.idempotencyKey = idempotencyKey }
+        fun idempotencyKey(idempotencyKey: String?) = apply { this.idempotencyKey = idempotencyKey }
 
         /** Filter Accounts for those belonging to the specified Entity as informational. */
-        fun informationalEntityId(informationalEntityId: String) = apply {
+        fun informationalEntityId(informationalEntityId: String?) = apply {
             this.informationalEntityId = informationalEntityId
         }
 
         /**
          * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
          */
-        fun limit(limit: Long) = apply { this.limit = limit }
+        fun limit(limit: Long?) = apply { this.limit = limit }
+
+        /**
+         * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
+         */
+        fun limit(limit: Long) = limit(limit as Long?)
 
         /** Filter Accounts for those in a specific Program. */
-        fun programId(programId: String) = apply { this.programId = programId }
+        fun programId(programId: String?) = apply { this.programId = programId }
 
         /** Filter Accounts for those with the specified status. */
-        fun status(status: Status) = apply { this.status = status }
+        fun status(status: Status?) = apply { this.status = status }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -333,25 +338,25 @@ constructor(
              * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            fun after(after: OffsetDateTime) = apply { this.after = after }
+            fun after(after: OffsetDateTime?) = apply { this.after = after }
 
             /**
              * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            fun before(before: OffsetDateTime) = apply { this.before = before }
+            fun before(before: OffsetDateTime?) = apply { this.before = before }
 
             /**
              * Return results on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            fun onOrAfter(onOrAfter: OffsetDateTime) = apply { this.onOrAfter = onOrAfter }
+            fun onOrAfter(onOrAfter: OffsetDateTime?) = apply { this.onOrAfter = onOrAfter }
 
             /**
              * Return results on or before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            fun onOrBefore(onOrBefore: OffsetDateTime) = apply { this.onOrBefore = onOrBefore }
+            fun onOrBefore(onOrBefore: OffsetDateTime?) = apply { this.onOrBefore = onOrBefore }
 
             fun additionalProperties(additionalProperties: QueryParams) = apply {
                 this.additionalProperties.clear()

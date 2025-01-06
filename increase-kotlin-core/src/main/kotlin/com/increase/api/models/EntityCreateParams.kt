@@ -185,23 +185,23 @@ constructor(
              * Details of the corporation entity to create. Required if `structure` is equal to
              * `corporation`.
              */
-            fun corporation(corporation: Corporation) = apply { this.corporation = corporation }
+            fun corporation(corporation: Corporation?) = apply { this.corporation = corporation }
 
             /** The description you choose to give the entity. */
-            fun description(description: String) = apply { this.description = description }
+            fun description(description: String?) = apply { this.description = description }
 
             /**
              * Details of the Government Authority entity to create. Required if `structure` is
              * equal to `Government Authority`.
              */
-            fun governmentAuthority(governmentAuthority: GovernmentAuthority) = apply {
+            fun governmentAuthority(governmentAuthority: GovernmentAuthority?) = apply {
                 this.governmentAuthority = governmentAuthority
             }
 
             /**
              * Details of the joint entity to create. Required if `structure` is equal to `joint`.
              */
-            fun joint(joint: Joint) = apply { this.joint = joint }
+            fun joint(joint: Joint?) = apply { this.joint = joint }
 
             /**
              * Details of the natural person entity to create. Required if `structure` is equal to
@@ -209,13 +209,13 @@ constructor(
              * `social_security_number` or `individual_taxpayer_identification_number`
              * identification methods.
              */
-            fun naturalPerson(naturalPerson: NaturalPerson) = apply {
+            fun naturalPerson(naturalPerson: NaturalPerson?) = apply {
                 this.naturalPerson = naturalPerson
             }
 
             /** Additional documentation associated with the entity. */
-            fun supplementalDocuments(supplementalDocuments: List<SupplementalDocument>) = apply {
-                this.supplementalDocuments = supplementalDocuments.toMutableList()
+            fun supplementalDocuments(supplementalDocuments: List<SupplementalDocument>?) = apply {
+                this.supplementalDocuments = supplementalDocuments?.toMutableList()
             }
 
             /** Additional documentation associated with the entity. */
@@ -228,14 +228,14 @@ constructor(
              * A reference to data stored in a third-party verification service. Your integration
              * may or may not use this field.
              */
-            fun thirdPartyVerification(thirdPartyVerification: ThirdPartyVerification) = apply {
+            fun thirdPartyVerification(thirdPartyVerification: ThirdPartyVerification?) = apply {
                 this.thirdPartyVerification = thirdPartyVerification
             }
 
             /**
              * Details of the trust entity to create. Required if `structure` is equal to `trust`.
              */
-            fun trust(trust: Trust) = apply { this.trust = trust }
+            fun trust(trust: Trust?) = apply { this.trust = trust }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -316,21 +316,21 @@ constructor(
          * Details of the corporation entity to create. Required if `structure` is equal to
          * `corporation`.
          */
-        fun corporation(corporation: Corporation) = apply { body.corporation(corporation) }
+        fun corporation(corporation: Corporation?) = apply { body.corporation(corporation) }
 
         /** The description you choose to give the entity. */
-        fun description(description: String) = apply { body.description(description) }
+        fun description(description: String?) = apply { body.description(description) }
 
         /**
          * Details of the Government Authority entity to create. Required if `structure` is equal to
          * `Government Authority`.
          */
-        fun governmentAuthority(governmentAuthority: GovernmentAuthority) = apply {
+        fun governmentAuthority(governmentAuthority: GovernmentAuthority?) = apply {
             body.governmentAuthority(governmentAuthority)
         }
 
         /** Details of the joint entity to create. Required if `structure` is equal to `joint`. */
-        fun joint(joint: Joint) = apply { body.joint(joint) }
+        fun joint(joint: Joint?) = apply { body.joint(joint) }
 
         /**
          * Details of the natural person entity to create. Required if `structure` is equal to
@@ -338,12 +338,12 @@ constructor(
          * `social_security_number` or `individual_taxpayer_identification_number` identification
          * methods.
          */
-        fun naturalPerson(naturalPerson: NaturalPerson) = apply {
+        fun naturalPerson(naturalPerson: NaturalPerson?) = apply {
             body.naturalPerson(naturalPerson)
         }
 
         /** Additional documentation associated with the entity. */
-        fun supplementalDocuments(supplementalDocuments: List<SupplementalDocument>) = apply {
+        fun supplementalDocuments(supplementalDocuments: List<SupplementalDocument>?) = apply {
             body.supplementalDocuments(supplementalDocuments)
         }
 
@@ -356,12 +356,12 @@ constructor(
          * A reference to data stored in a third-party verification service. Your integration may or
          * may not use this field.
          */
-        fun thirdPartyVerification(thirdPartyVerification: ThirdPartyVerification) = apply {
+        fun thirdPartyVerification(thirdPartyVerification: ThirdPartyVerification?) = apply {
             body.thirdPartyVerification(thirdPartyVerification)
         }
 
         /** Details of the trust entity to create. Required if `structure` is equal to `trust`. */
-        fun trust(trust: Trust) = apply { body.trust(trust) }
+        fun trust(trust: Trust?) = apply { body.trust(trust) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -683,7 +683,7 @@ constructor(
              * The two-letter United States Postal Service (USPS) abbreviation for the corporation's
              * state of incorporation.
              */
-            fun incorporationState(incorporationState: String) = apply {
+            fun incorporationState(incorporationState: String?) = apply {
                 this.incorporationState = incorporationState
             }
 
@@ -693,10 +693,10 @@ constructor(
              * full list of classification codes is available
              * [here](https://increase.com/documentation/data-dictionary#north-american-industry-classification-system-codes).
              */
-            fun industryCode(industryCode: String) = apply { this.industryCode = industryCode }
+            fun industryCode(industryCode: String?) = apply { this.industryCode = industryCode }
 
             /** The website of the corporation. */
-            fun website(website: String) = apply { this.website = website }
+            fun website(website: String?) = apply { this.website = website }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -813,7 +813,7 @@ constructor(
                 fun zip(zip: String) = apply { this.zip = zip }
 
                 /** The second line of the address. This might be the floor or room number. */
-                fun line2(line2: String) = apply { this.line2 = line2 }
+                fun line2(line2: String?) = apply { this.line2 = line2 }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -935,7 +935,7 @@ constructor(
                 }
 
                 /** This person's role or title within the entity. */
-                fun companyTitle(companyTitle: String) = apply { this.companyTitle = companyTitle }
+                fun companyTitle(companyTitle: String?) = apply { this.companyTitle = companyTitle }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -1062,9 +1062,18 @@ constructor(
                      * US tax id (either a Social Security Number or Individual Taxpayer
                      * Identification Number).
                      */
-                    fun confirmedNoUsTaxId(confirmedNoUsTaxId: Boolean) = apply {
+                    fun confirmedNoUsTaxId(confirmedNoUsTaxId: Boolean?) = apply {
                         this.confirmedNoUsTaxId = confirmedNoUsTaxId
                     }
+
+                    /**
+                     * The identification method for an individual can only be a passport, driver's
+                     * license, or other document if you've confirmed the individual does not have a
+                     * US tax id (either a Social Security Number or Individual Taxpayer
+                     * Identification Number).
+                     */
+                    fun confirmedNoUsTaxId(confirmedNoUsTaxId: Boolean) =
+                        confirmedNoUsTaxId(confirmedNoUsTaxId as Boolean?)
 
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                         this.additionalProperties.clear()
@@ -1191,7 +1200,7 @@ constructor(
                         /**
                          * The second line of the address. This might be the floor or room number.
                          */
-                        fun line2(line2: String) = apply { this.line2 = line2 }
+                        fun line2(line2: String?) = apply { this.line2 = line2 }
 
                         fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
                             apply {
@@ -1330,7 +1339,7 @@ constructor(
                          * Information about the United States driver's license used for
                          * identification. Required if `method` is equal to `drivers_license`.
                          */
-                        fun driversLicense(driversLicense: DriversLicense) = apply {
+                        fun driversLicense(driversLicense: DriversLicense?) = apply {
                             this.driversLicense = driversLicense
                         }
 
@@ -1338,13 +1347,13 @@ constructor(
                          * Information about the identification document provided. Required if
                          * `method` is equal to `other`.
                          */
-                        fun other(other: Other) = apply { this.other = other }
+                        fun other(other: Other?) = apply { this.other = other }
 
                         /**
                          * Information about the passport used for identification. Required if
                          * `method` is equal to `passport`.
                          */
-                        fun passport(passport: Passport) = apply { this.passport = passport }
+                        fun passport(passport: Passport?) = apply { this.passport = passport }
 
                         fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
                             apply {
@@ -1539,7 +1548,7 @@ constructor(
                              * The identifier of the File containing the back of the driver's
                              * license.
                              */
-                            fun backFileId(backFileId: String) = apply {
+                            fun backFileId(backFileId: String?) = apply {
                                 this.backFileId = backFileId
                             }
 
@@ -1683,12 +1692,12 @@ constructor(
                              * The identifier of the File containing the back of the document. Not
                              * every document has a reverse side.
                              */
-                            fun backFileId(backFileId: String) = apply {
+                            fun backFileId(backFileId: String?) = apply {
                                 this.backFileId = backFileId
                             }
 
                             /** The document's expiration date in YYYY-MM-DD format. */
-                            fun expirationDate(expirationDate: LocalDate) = apply {
+                            fun expirationDate(expirationDate: LocalDate?) = apply {
                                 this.expirationDate = expirationDate
                             }
 
@@ -2090,7 +2099,7 @@ constructor(
             fun taxIdentifier(taxIdentifier: String) = apply { this.taxIdentifier = taxIdentifier }
 
             /** The website of the government authority. */
-            fun website(website: String) = apply { this.website = website }
+            fun website(website: String?) = apply { this.website = website }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -2206,7 +2215,7 @@ constructor(
                 fun zip(zip: String) = apply { this.zip = zip }
 
                 /** The second line of the address. This might be the floor or room number. */
-                fun line2(line2: String) = apply { this.line2 = line2 }
+                fun line2(line2: String?) = apply { this.line2 = line2 }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -2462,7 +2471,7 @@ constructor(
             }
 
             /** The name of the joint entity. */
-            fun name(name: String) = apply { this.name = name }
+            fun name(name: String?) = apply { this.name = name }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -2580,9 +2589,18 @@ constructor(
                  * tax id (either a Social Security Number or Individual Taxpayer Identification
                  * Number).
                  */
-                fun confirmedNoUsTaxId(confirmedNoUsTaxId: Boolean) = apply {
+                fun confirmedNoUsTaxId(confirmedNoUsTaxId: Boolean?) = apply {
                     this.confirmedNoUsTaxId = confirmedNoUsTaxId
                 }
+
+                /**
+                 * The identification method for an individual can only be a passport, driver's
+                 * license, or other document if you've confirmed the individual does not have a US
+                 * tax id (either a Social Security Number or Individual Taxpayer Identification
+                 * Number).
+                 */
+                fun confirmedNoUsTaxId(confirmedNoUsTaxId: Boolean) =
+                    confirmedNoUsTaxId(confirmedNoUsTaxId as Boolean?)
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -2701,7 +2719,7 @@ constructor(
                     fun zip(zip: String) = apply { this.zip = zip }
 
                     /** The second line of the address. This might be the floor or room number. */
-                    fun line2(line2: String) = apply { this.line2 = line2 }
+                    fun line2(line2: String?) = apply { this.line2 = line2 }
 
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                         this.additionalProperties.clear()
@@ -2838,7 +2856,7 @@ constructor(
                      * Information about the United States driver's license used for identification.
                      * Required if `method` is equal to `drivers_license`.
                      */
-                    fun driversLicense(driversLicense: DriversLicense) = apply {
+                    fun driversLicense(driversLicense: DriversLicense?) = apply {
                         this.driversLicense = driversLicense
                     }
 
@@ -2846,13 +2864,13 @@ constructor(
                      * Information about the identification document provided. Required if `method`
                      * is equal to `other`.
                      */
-                    fun other(other: Other) = apply { this.other = other }
+                    fun other(other: Other?) = apply { this.other = other }
 
                     /**
                      * Information about the passport used for identification. Required if `method`
                      * is equal to `passport`.
                      */
-                    fun passport(passport: Passport) = apply { this.passport = passport }
+                    fun passport(passport: Passport?) = apply { this.passport = passport }
 
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                         this.additionalProperties.clear()
@@ -3040,7 +3058,7 @@ constructor(
                         /**
                          * The identifier of the File containing the back of the driver's license.
                          */
-                        fun backFileId(backFileId: String) = apply { this.backFileId = backFileId }
+                        fun backFileId(backFileId: String?) = apply { this.backFileId = backFileId }
 
                         fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
                             apply {
@@ -3181,10 +3199,10 @@ constructor(
                          * The identifier of the File containing the back of the document. Not every
                          * document has a reverse side.
                          */
-                        fun backFileId(backFileId: String) = apply { this.backFileId = backFileId }
+                        fun backFileId(backFileId: String?) = apply { this.backFileId = backFileId }
 
                         /** The document's expiration date in YYYY-MM-DD format. */
-                        fun expirationDate(expirationDate: LocalDate) = apply {
+                        fun expirationDate(expirationDate: LocalDate?) = apply {
                             this.expirationDate = expirationDate
                         }
 
@@ -3500,9 +3518,17 @@ constructor(
              * or other document if you've confirmed the individual does not have a US tax id
              * (either a Social Security Number or Individual Taxpayer Identification Number).
              */
-            fun confirmedNoUsTaxId(confirmedNoUsTaxId: Boolean) = apply {
+            fun confirmedNoUsTaxId(confirmedNoUsTaxId: Boolean?) = apply {
                 this.confirmedNoUsTaxId = confirmedNoUsTaxId
             }
+
+            /**
+             * The identification method for an individual can only be a passport, driver's license,
+             * or other document if you've confirmed the individual does not have a US tax id
+             * (either a Social Security Number or Individual Taxpayer Identification Number).
+             */
+            fun confirmedNoUsTaxId(confirmedNoUsTaxId: Boolean) =
+                confirmedNoUsTaxId(confirmedNoUsTaxId as Boolean?)
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -3614,7 +3640,7 @@ constructor(
                 fun zip(zip: String) = apply { this.zip = zip }
 
                 /** The second line of the address. This might be the floor or room number. */
-                fun line2(line2: String) = apply { this.line2 = line2 }
+                fun line2(line2: String?) = apply { this.line2 = line2 }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -3750,7 +3776,7 @@ constructor(
                  * Information about the United States driver's license used for identification.
                  * Required if `method` is equal to `drivers_license`.
                  */
-                fun driversLicense(driversLicense: DriversLicense) = apply {
+                fun driversLicense(driversLicense: DriversLicense?) = apply {
                     this.driversLicense = driversLicense
                 }
 
@@ -3758,13 +3784,13 @@ constructor(
                  * Information about the identification document provided. Required if `method` is
                  * equal to `other`.
                  */
-                fun other(other: Other) = apply { this.other = other }
+                fun other(other: Other?) = apply { this.other = other }
 
                 /**
                  * Information about the passport used for identification. Required if `method` is
                  * equal to `passport`.
                  */
-                fun passport(passport: Passport) = apply { this.passport = passport }
+                fun passport(passport: Passport?) = apply { this.passport = passport }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -3944,7 +3970,7 @@ constructor(
                     fun state(state: String) = apply { this.state = state }
 
                     /** The identifier of the File containing the back of the driver's license. */
-                    fun backFileId(backFileId: String) = apply { this.backFileId = backFileId }
+                    fun backFileId(backFileId: String?) = apply { this.backFileId = backFileId }
 
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                         this.additionalProperties.clear()
@@ -4081,10 +4107,10 @@ constructor(
                      * The identifier of the File containing the back of the document. Not every
                      * document has a reverse side.
                      */
-                    fun backFileId(backFileId: String) = apply { this.backFileId = backFileId }
+                    fun backFileId(backFileId: String?) = apply { this.backFileId = backFileId }
 
                     /** The document's expiration date in YYYY-MM-DD format. */
-                    fun expirationDate(expirationDate: LocalDate) = apply {
+                    fun expirationDate(expirationDate: LocalDate?) = apply {
                         this.expirationDate = expirationDate
                     }
 
@@ -4636,7 +4662,7 @@ constructor(
             }
 
             /** The identifier of the File containing the formation document of the trust. */
-            fun formationDocumentFileId(formationDocumentFileId: String) = apply {
+            fun formationDocumentFileId(formationDocumentFileId: String?) = apply {
                 this.formationDocumentFileId = formationDocumentFileId
             }
 
@@ -4644,18 +4670,18 @@ constructor(
              * The two-letter United States Postal Service (USPS) abbreviation for the state in
              * which the trust was formed.
              */
-            fun formationState(formationState: String) = apply {
+            fun formationState(formationState: String?) = apply {
                 this.formationState = formationState
             }
 
             /** The grantor of the trust. Required if `category` is equal to `revocable`. */
-            fun grantor(grantor: Grantor) = apply { this.grantor = grantor }
+            fun grantor(grantor: Grantor?) = apply { this.grantor = grantor }
 
             /**
              * The Employer Identification Number (EIN) for the trust. Required if `category` is
              * equal to `irrevocable`.
              */
-            fun taxIdentifier(taxIdentifier: String) = apply { this.taxIdentifier = taxIdentifier }
+            fun taxIdentifier(taxIdentifier: String?) = apply { this.taxIdentifier = taxIdentifier }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -4771,7 +4797,7 @@ constructor(
                 fun zip(zip: String) = apply { this.zip = zip }
 
                 /** The second line of the address. This might be the floor or room number. */
-                fun line2(line2: String) = apply { this.line2 = line2 }
+                fun line2(line2: String?) = apply { this.line2 = line2 }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -4930,7 +4956,7 @@ constructor(
                  * Details of the individual trustee. Required when the trustee `structure` is equal
                  * to `individual`.
                  */
-                fun individual(individual: Individual) = apply { this.individual = individual }
+                fun individual(individual: Individual?) = apply { this.individual = individual }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -5109,9 +5135,18 @@ constructor(
                      * US tax id (either a Social Security Number or Individual Taxpayer
                      * Identification Number).
                      */
-                    fun confirmedNoUsTaxId(confirmedNoUsTaxId: Boolean) = apply {
+                    fun confirmedNoUsTaxId(confirmedNoUsTaxId: Boolean?) = apply {
                         this.confirmedNoUsTaxId = confirmedNoUsTaxId
                     }
+
+                    /**
+                     * The identification method for an individual can only be a passport, driver's
+                     * license, or other document if you've confirmed the individual does not have a
+                     * US tax id (either a Social Security Number or Individual Taxpayer
+                     * Identification Number).
+                     */
+                    fun confirmedNoUsTaxId(confirmedNoUsTaxId: Boolean) =
+                        confirmedNoUsTaxId(confirmedNoUsTaxId as Boolean?)
 
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                         this.additionalProperties.clear()
@@ -5238,7 +5273,7 @@ constructor(
                         /**
                          * The second line of the address. This might be the floor or room number.
                          */
-                        fun line2(line2: String) = apply { this.line2 = line2 }
+                        fun line2(line2: String?) = apply { this.line2 = line2 }
 
                         fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
                             apply {
@@ -5377,7 +5412,7 @@ constructor(
                          * Information about the United States driver's license used for
                          * identification. Required if `method` is equal to `drivers_license`.
                          */
-                        fun driversLicense(driversLicense: DriversLicense) = apply {
+                        fun driversLicense(driversLicense: DriversLicense?) = apply {
                             this.driversLicense = driversLicense
                         }
 
@@ -5385,13 +5420,13 @@ constructor(
                          * Information about the identification document provided. Required if
                          * `method` is equal to `other`.
                          */
-                        fun other(other: Other) = apply { this.other = other }
+                        fun other(other: Other?) = apply { this.other = other }
 
                         /**
                          * Information about the passport used for identification. Required if
                          * `method` is equal to `passport`.
                          */
-                        fun passport(passport: Passport) = apply { this.passport = passport }
+                        fun passport(passport: Passport?) = apply { this.passport = passport }
 
                         fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
                             apply {
@@ -5586,7 +5621,7 @@ constructor(
                              * The identifier of the File containing the back of the driver's
                              * license.
                              */
-                            fun backFileId(backFileId: String) = apply {
+                            fun backFileId(backFileId: String?) = apply {
                                 this.backFileId = backFileId
                             }
 
@@ -5730,12 +5765,12 @@ constructor(
                              * The identifier of the File containing the back of the document. Not
                              * every document has a reverse side.
                              */
-                            fun backFileId(backFileId: String) = apply {
+                            fun backFileId(backFileId: String?) = apply {
                                 this.backFileId = backFileId
                             }
 
                             /** The document's expiration date in YYYY-MM-DD format. */
-                            fun expirationDate(expirationDate: LocalDate) = apply {
+                            fun expirationDate(expirationDate: LocalDate?) = apply {
                                 this.expirationDate = expirationDate
                             }
 
@@ -6053,9 +6088,18 @@ constructor(
                  * tax id (either a Social Security Number or Individual Taxpayer Identification
                  * Number).
                  */
-                fun confirmedNoUsTaxId(confirmedNoUsTaxId: Boolean) = apply {
+                fun confirmedNoUsTaxId(confirmedNoUsTaxId: Boolean?) = apply {
                     this.confirmedNoUsTaxId = confirmedNoUsTaxId
                 }
+
+                /**
+                 * The identification method for an individual can only be a passport, driver's
+                 * license, or other document if you've confirmed the individual does not have a US
+                 * tax id (either a Social Security Number or Individual Taxpayer Identification
+                 * Number).
+                 */
+                fun confirmedNoUsTaxId(confirmedNoUsTaxId: Boolean) =
+                    confirmedNoUsTaxId(confirmedNoUsTaxId as Boolean?)
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -6174,7 +6218,7 @@ constructor(
                     fun zip(zip: String) = apply { this.zip = zip }
 
                     /** The second line of the address. This might be the floor or room number. */
-                    fun line2(line2: String) = apply { this.line2 = line2 }
+                    fun line2(line2: String?) = apply { this.line2 = line2 }
 
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                         this.additionalProperties.clear()
@@ -6311,7 +6355,7 @@ constructor(
                      * Information about the United States driver's license used for identification.
                      * Required if `method` is equal to `drivers_license`.
                      */
-                    fun driversLicense(driversLicense: DriversLicense) = apply {
+                    fun driversLicense(driversLicense: DriversLicense?) = apply {
                         this.driversLicense = driversLicense
                     }
 
@@ -6319,13 +6363,13 @@ constructor(
                      * Information about the identification document provided. Required if `method`
                      * is equal to `other`.
                      */
-                    fun other(other: Other) = apply { this.other = other }
+                    fun other(other: Other?) = apply { this.other = other }
 
                     /**
                      * Information about the passport used for identification. Required if `method`
                      * is equal to `passport`.
                      */
-                    fun passport(passport: Passport) = apply { this.passport = passport }
+                    fun passport(passport: Passport?) = apply { this.passport = passport }
 
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                         this.additionalProperties.clear()
@@ -6513,7 +6557,7 @@ constructor(
                         /**
                          * The identifier of the File containing the back of the driver's license.
                          */
-                        fun backFileId(backFileId: String) = apply { this.backFileId = backFileId }
+                        fun backFileId(backFileId: String?) = apply { this.backFileId = backFileId }
 
                         fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
                             apply {
@@ -6654,10 +6698,10 @@ constructor(
                          * The identifier of the File containing the back of the document. Not every
                          * document has a reverse side.
                          */
-                        fun backFileId(backFileId: String) = apply { this.backFileId = backFileId }
+                        fun backFileId(backFileId: String?) = apply { this.backFileId = backFileId }
 
                         /** The document's expiration date in YYYY-MM-DD format. */
-                        fun expirationDate(expirationDate: LocalDate) = apply {
+                        fun expirationDate(expirationDate: LocalDate?) = apply {
                             this.expirationDate = expirationDate
                         }
 

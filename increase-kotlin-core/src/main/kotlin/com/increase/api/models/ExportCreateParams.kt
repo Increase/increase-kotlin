@@ -152,33 +152,33 @@ constructor(
              * Options for the created export. Required if `category` is equal to
              * `account_statement_ofx`.
              */
-            fun accountStatementOfx(accountStatementOfx: AccountStatementOfx) = apply {
+            fun accountStatementOfx(accountStatementOfx: AccountStatementOfx?) = apply {
                 this.accountStatementOfx = accountStatementOfx
             }
 
             /** Options for the created export. Required if `category` is equal to `balance_csv`. */
-            fun balanceCsv(balanceCsv: BalanceCsv) = apply { this.balanceCsv = balanceCsv }
+            fun balanceCsv(balanceCsv: BalanceCsv?) = apply { this.balanceCsv = balanceCsv }
 
             /**
              * Options for the created export. Required if `category` is equal to
              * `bookkeeping_account_balance_csv`.
              */
             fun bookkeepingAccountBalanceCsv(
-                bookkeepingAccountBalanceCsv: BookkeepingAccountBalanceCsv
+                bookkeepingAccountBalanceCsv: BookkeepingAccountBalanceCsv?
             ) = apply { this.bookkeepingAccountBalanceCsv = bookkeepingAccountBalanceCsv }
 
             /** Options for the created export. Required if `category` is equal to `entity_csv`. */
-            fun entityCsv(entityCsv: EntityCsv) = apply { this.entityCsv = entityCsv }
+            fun entityCsv(entityCsv: EntityCsv?) = apply { this.entityCsv = entityCsv }
 
             /**
              * Options for the created export. Required if `category` is equal to `transaction_csv`.
              */
-            fun transactionCsv(transactionCsv: TransactionCsv) = apply {
+            fun transactionCsv(transactionCsv: TransactionCsv?) = apply {
                 this.transactionCsv = transactionCsv
             }
 
             /** Options for the created export. Required if `category` is equal to `vendor_csv`. */
-            fun vendorCsv(vendorCsv: JsonValue) = apply { this.vendorCsv = vendorCsv }
+            fun vendorCsv(vendorCsv: JsonValue?) = apply { this.vendorCsv = vendorCsv }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -257,31 +257,31 @@ constructor(
          * Options for the created export. Required if `category` is equal to
          * `account_statement_ofx`.
          */
-        fun accountStatementOfx(accountStatementOfx: AccountStatementOfx) = apply {
+        fun accountStatementOfx(accountStatementOfx: AccountStatementOfx?) = apply {
             body.accountStatementOfx(accountStatementOfx)
         }
 
         /** Options for the created export. Required if `category` is equal to `balance_csv`. */
-        fun balanceCsv(balanceCsv: BalanceCsv) = apply { body.balanceCsv(balanceCsv) }
+        fun balanceCsv(balanceCsv: BalanceCsv?) = apply { body.balanceCsv(balanceCsv) }
 
         /**
          * Options for the created export. Required if `category` is equal to
          * `bookkeeping_account_balance_csv`.
          */
         fun bookkeepingAccountBalanceCsv(
-            bookkeepingAccountBalanceCsv: BookkeepingAccountBalanceCsv
+            bookkeepingAccountBalanceCsv: BookkeepingAccountBalanceCsv?
         ) = apply { body.bookkeepingAccountBalanceCsv(bookkeepingAccountBalanceCsv) }
 
         /** Options for the created export. Required if `category` is equal to `entity_csv`. */
-        fun entityCsv(entityCsv: EntityCsv) = apply { body.entityCsv(entityCsv) }
+        fun entityCsv(entityCsv: EntityCsv?) = apply { body.entityCsv(entityCsv) }
 
         /** Options for the created export. Required if `category` is equal to `transaction_csv`. */
-        fun transactionCsv(transactionCsv: TransactionCsv) = apply {
+        fun transactionCsv(transactionCsv: TransactionCsv?) = apply {
             body.transactionCsv(transactionCsv)
         }
 
         /** Options for the created export. Required if `category` is equal to `vendor_csv`. */
-        fun vendorCsv(vendorCsv: JsonValue) = apply { body.vendorCsv(vendorCsv) }
+        fun vendorCsv(vendorCsv: JsonValue?) = apply { body.vendorCsv(vendorCsv) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -535,7 +535,7 @@ constructor(
             fun accountId(accountId: String) = apply { this.accountId = accountId }
 
             /** Filter results by time range on the `created_at` attribute. */
-            fun createdAt(createdAt: CreatedAt) = apply { this.createdAt = createdAt }
+            fun createdAt(createdAt: CreatedAt?) = apply { this.createdAt = createdAt }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -632,25 +632,25 @@ constructor(
                  * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
                  * timestamp.
                  */
-                fun after(after: OffsetDateTime) = apply { this.after = after }
+                fun after(after: OffsetDateTime?) = apply { this.after = after }
 
                 /**
                  * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
                  * timestamp.
                  */
-                fun before(before: OffsetDateTime) = apply { this.before = before }
+                fun before(before: OffsetDateTime?) = apply { this.before = before }
 
                 /**
                  * Return results on or after this
                  * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
                  */
-                fun onOrAfter(onOrAfter: OffsetDateTime) = apply { this.onOrAfter = onOrAfter }
+                fun onOrAfter(onOrAfter: OffsetDateTime?) = apply { this.onOrAfter = onOrAfter }
 
                 /**
                  * Return results on or before this
                  * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
                  */
-                fun onOrBefore(onOrBefore: OffsetDateTime) = apply { this.onOrBefore = onOrBefore }
+                fun onOrBefore(onOrBefore: OffsetDateTime?) = apply { this.onOrBefore = onOrBefore }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -767,13 +767,13 @@ constructor(
             }
 
             /** Filter exported Transactions to the specified Account. */
-            fun accountId(accountId: String) = apply { this.accountId = accountId }
+            fun accountId(accountId: String?) = apply { this.accountId = accountId }
 
             /** Filter results by time range on the `created_at` attribute. */
-            fun createdAt(createdAt: CreatedAt) = apply { this.createdAt = createdAt }
+            fun createdAt(createdAt: CreatedAt?) = apply { this.createdAt = createdAt }
 
             /** Filter exported Transactions to the specified Program. */
-            fun programId(programId: String) = apply { this.programId = programId }
+            fun programId(programId: String?) = apply { this.programId = programId }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -871,25 +871,25 @@ constructor(
                  * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
                  * timestamp.
                  */
-                fun after(after: OffsetDateTime) = apply { this.after = after }
+                fun after(after: OffsetDateTime?) = apply { this.after = after }
 
                 /**
                  * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
                  * timestamp.
                  */
-                fun before(before: OffsetDateTime) = apply { this.before = before }
+                fun before(before: OffsetDateTime?) = apply { this.before = before }
 
                 /**
                  * Return results on or after this
                  * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
                  */
-                fun onOrAfter(onOrAfter: OffsetDateTime) = apply { this.onOrAfter = onOrAfter }
+                fun onOrAfter(onOrAfter: OffsetDateTime?) = apply { this.onOrAfter = onOrAfter }
 
                 /**
                  * Return results on or before this
                  * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
                  */
-                fun onOrBefore(onOrBefore: OffsetDateTime) = apply { this.onOrBefore = onOrBefore }
+                fun onOrBefore(onOrBefore: OffsetDateTime?) = apply { this.onOrBefore = onOrBefore }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -1005,12 +1005,12 @@ constructor(
             }
 
             /** Filter exported Transactions to the specified Bookkeeping Account. */
-            fun bookkeepingAccountId(bookkeepingAccountId: String) = apply {
+            fun bookkeepingAccountId(bookkeepingAccountId: String?) = apply {
                 this.bookkeepingAccountId = bookkeepingAccountId
             }
 
             /** Filter results by time range on the `created_at` attribute. */
-            fun createdAt(createdAt: CreatedAt) = apply { this.createdAt = createdAt }
+            fun createdAt(createdAt: CreatedAt?) = apply { this.createdAt = createdAt }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -1107,25 +1107,25 @@ constructor(
                  * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
                  * timestamp.
                  */
-                fun after(after: OffsetDateTime) = apply { this.after = after }
+                fun after(after: OffsetDateTime?) = apply { this.after = after }
 
                 /**
                  * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
                  * timestamp.
                  */
-                fun before(before: OffsetDateTime) = apply { this.before = before }
+                fun before(before: OffsetDateTime?) = apply { this.before = before }
 
                 /**
                  * Return results on or after this
                  * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
                  */
-                fun onOrAfter(onOrAfter: OffsetDateTime) = apply { this.onOrAfter = onOrAfter }
+                fun onOrAfter(onOrAfter: OffsetDateTime?) = apply { this.onOrAfter = onOrAfter }
 
                 /**
                  * Return results on or before this
                  * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
                  */
-                fun onOrBefore(onOrBefore: OffsetDateTime) = apply { this.onOrBefore = onOrBefore }
+                fun onOrBefore(onOrBefore: OffsetDateTime?) = apply { this.onOrBefore = onOrBefore }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -1230,7 +1230,7 @@ constructor(
             }
 
             /** Entity statuses to filter by. */
-            fun status(status: Status) = apply { this.status = status }
+            fun status(status: Status?) = apply { this.status = status }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -1479,13 +1479,13 @@ constructor(
             }
 
             /** Filter exported Transactions to the specified Account. */
-            fun accountId(accountId: String) = apply { this.accountId = accountId }
+            fun accountId(accountId: String?) = apply { this.accountId = accountId }
 
             /** Filter results by time range on the `created_at` attribute. */
-            fun createdAt(createdAt: CreatedAt) = apply { this.createdAt = createdAt }
+            fun createdAt(createdAt: CreatedAt?) = apply { this.createdAt = createdAt }
 
             /** Filter exported Transactions to the specified Program. */
-            fun programId(programId: String) = apply { this.programId = programId }
+            fun programId(programId: String?) = apply { this.programId = programId }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -1583,25 +1583,25 @@ constructor(
                  * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
                  * timestamp.
                  */
-                fun after(after: OffsetDateTime) = apply { this.after = after }
+                fun after(after: OffsetDateTime?) = apply { this.after = after }
 
                 /**
                  * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
                  * timestamp.
                  */
-                fun before(before: OffsetDateTime) = apply { this.before = before }
+                fun before(before: OffsetDateTime?) = apply { this.before = before }
 
                 /**
                  * Return results on or after this
                  * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
                  */
-                fun onOrAfter(onOrAfter: OffsetDateTime) = apply { this.onOrAfter = onOrAfter }
+                fun onOrAfter(onOrAfter: OffsetDateTime?) = apply { this.onOrAfter = onOrAfter }
 
                 /**
                  * Return results on or before this
                  * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
                  */
-                fun onOrBefore(onOrBefore: OffsetDateTime) = apply { this.onOrBefore = onOrBefore }
+                fun onOrBefore(onOrBefore: OffsetDateTime?) = apply { this.onOrBefore = onOrBefore }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()

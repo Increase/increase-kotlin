@@ -92,10 +92,10 @@ constructor(
             fun accountId(accountId: String) = apply { this.accountId = accountId }
 
             /** The description you choose for the Lockbox, for display purposes. */
-            fun description(description: String) = apply { this.description = description }
+            fun description(description: String?) = apply { this.description = description }
 
             /** The name of the recipient that will receive mail at this location. */
-            fun recipientName(recipientName: String) = apply { this.recipientName = recipientName }
+            fun recipientName(recipientName: String?) = apply { this.recipientName = recipientName }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -167,10 +167,10 @@ constructor(
         fun accountId(accountId: String) = apply { body.accountId(accountId) }
 
         /** The description you choose for the Lockbox, for display purposes. */
-        fun description(description: String) = apply { body.description(description) }
+        fun description(description: String?) = apply { body.description(description) }
 
         /** The name of the recipient that will receive mail at this location. */
-        fun recipientName(recipientName: String) = apply { body.recipientName(recipientName) }
+        fun recipientName(recipientName: String?) = apply { body.recipientName(recipientName) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()

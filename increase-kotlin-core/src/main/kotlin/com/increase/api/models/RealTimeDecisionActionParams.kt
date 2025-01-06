@@ -166,7 +166,7 @@ constructor(
              * If the Real-Time Decision relates to a 3DS card authentication attempt, this object
              * contains your response to the authentication.
              */
-            fun cardAuthentication(cardAuthentication: CardAuthentication) = apply {
+            fun cardAuthentication(cardAuthentication: CardAuthentication?) = apply {
                 this.cardAuthentication = cardAuthentication
             }
 
@@ -175,14 +175,14 @@ constructor(
              * object contains your response.
              */
             fun cardAuthenticationChallenge(
-                cardAuthenticationChallenge: CardAuthenticationChallenge
+                cardAuthenticationChallenge: CardAuthenticationChallenge?
             ) = apply { this.cardAuthenticationChallenge = cardAuthenticationChallenge }
 
             /**
              * If the Real-Time Decision relates to a card authorization attempt, this object
              * contains your response to the authorization.
              */
-            fun cardAuthorization(cardAuthorization: CardAuthorization) = apply {
+            fun cardAuthorization(cardAuthorization: CardAuthorization?) = apply {
                 this.cardAuthorization = cardAuthorization
             }
 
@@ -191,14 +191,14 @@ constructor(
              * object contains your response to the authentication.
              */
             fun digitalWalletAuthentication(
-                digitalWalletAuthentication: DigitalWalletAuthentication
+                digitalWalletAuthentication: DigitalWalletAuthentication?
             ) = apply { this.digitalWalletAuthentication = digitalWalletAuthentication }
 
             /**
              * If the Real-Time Decision relates to a digital wallet token provisioning attempt,
              * this object contains your response to the attempt.
              */
-            fun digitalWalletToken(digitalWalletToken: DigitalWalletToken) = apply {
+            fun digitalWalletToken(digitalWalletToken: DigitalWalletToken?) = apply {
                 this.digitalWalletToken = digitalWalletToken
             }
 
@@ -281,7 +281,7 @@ constructor(
          * If the Real-Time Decision relates to a 3DS card authentication attempt, this object
          * contains your response to the authentication.
          */
-        fun cardAuthentication(cardAuthentication: CardAuthentication) = apply {
+        fun cardAuthentication(cardAuthentication: CardAuthentication?) = apply {
             body.cardAuthentication(cardAuthentication)
         }
 
@@ -289,7 +289,7 @@ constructor(
          * If the Real-Time Decision relates to 3DS card authentication challenge delivery, this
          * object contains your response.
          */
-        fun cardAuthenticationChallenge(cardAuthenticationChallenge: CardAuthenticationChallenge) =
+        fun cardAuthenticationChallenge(cardAuthenticationChallenge: CardAuthenticationChallenge?) =
             apply {
                 body.cardAuthenticationChallenge(cardAuthenticationChallenge)
             }
@@ -298,7 +298,7 @@ constructor(
          * If the Real-Time Decision relates to a card authorization attempt, this object contains
          * your response to the authorization.
          */
-        fun cardAuthorization(cardAuthorization: CardAuthorization) = apply {
+        fun cardAuthorization(cardAuthorization: CardAuthorization?) = apply {
             body.cardAuthorization(cardAuthorization)
         }
 
@@ -306,7 +306,7 @@ constructor(
          * If the Real-Time Decision relates to a digital wallet authentication attempt, this object
          * contains your response to the authentication.
          */
-        fun digitalWalletAuthentication(digitalWalletAuthentication: DigitalWalletAuthentication) =
+        fun digitalWalletAuthentication(digitalWalletAuthentication: DigitalWalletAuthentication?) =
             apply {
                 body.digitalWalletAuthentication(digitalWalletAuthentication)
             }
@@ -315,7 +315,7 @@ constructor(
          * If the Real-Time Decision relates to a digital wallet token provisioning attempt, this
          * object contains your response to the attempt.
          */
-        fun digitalWalletToken(digitalWalletToken: DigitalWalletToken) = apply {
+        fun digitalWalletToken(digitalWalletToken: DigitalWalletToken?) = apply {
             body.digitalWalletToken(digitalWalletToken)
         }
 
@@ -794,7 +794,7 @@ constructor(
              * The reason the card authorization was declined. This translates to a specific decline
              * code that is sent to the card network.
              */
-            fun declineReason(declineReason: DeclineReason) = apply {
+            fun declineReason(declineReason: DeclineReason?) = apply {
                 this.declineReason = declineReason
             }
 
@@ -1027,7 +1027,7 @@ constructor(
             /** Whether your application was able to deliver the one-time passcode. */
             fun result(result: Result) = apply { this.result = result }
 
-            fun success(success: Success) = apply { this.success = success }
+            fun success(success: Success?) = apply { this.success = success }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -1158,13 +1158,13 @@ constructor(
                 /**
                  * The email address that was used to verify the cardholder via one-time passcode.
                  */
-                fun email(email: String) = apply { this.email = email }
+                fun email(email: String?) = apply { this.email = email }
 
                 /**
                  * The phone number that was used to verify the cardholder via one-time passcode
                  * over SMS.
                  */
-                fun phone(phone: String) = apply { this.phone = phone }
+                fun phone(phone: String?) = apply { this.phone = phone }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -1285,13 +1285,13 @@ constructor(
              * If your application approves the provisioning attempt, this contains metadata about
              * the digital wallet token that will be generated.
              */
-            fun approval(approval: Approval) = apply { this.approval = approval }
+            fun approval(approval: Approval?) = apply { this.approval = approval }
 
             /**
              * If your application declines the provisioning attempt, this contains details about
              * the decline.
              */
-            fun decline(decline: Decline) = apply { this.decline = decline }
+            fun decline(decline: Decline?) = apply { this.decline = decline }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -1369,13 +1369,13 @@ constructor(
                 /**
                  * An email address that can be used to verify the cardholder via one-time passcode.
                  */
-                fun email(email: String) = apply { this.email = email }
+                fun email(email: String?) = apply { this.email = email }
 
                 /**
                  * A phone number that can be used to verify the cardholder via one-time passcode
                  * over SMS.
                  */
-                fun phone(phone: String) = apply { this.phone = phone }
+                fun phone(phone: String?) = apply { this.phone = phone }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -1469,7 +1469,7 @@ constructor(
                  * Why the tokenization attempt was declined. This is for logging purposes only and
                  * is not displayed to the end-user.
                  */
-                fun reason(reason: String) = apply { this.reason = reason }
+                fun reason(reason: String?) = apply { this.reason = reason }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()

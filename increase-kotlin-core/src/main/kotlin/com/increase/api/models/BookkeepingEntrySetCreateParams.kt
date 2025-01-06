@@ -109,10 +109,10 @@ constructor(
              * The date of the transaction. Optional if `transaction_id` is provided, in which case
              * we use the `date` of that transaction. Required otherwise.
              */
-            fun date(date: OffsetDateTime) = apply { this.date = date }
+            fun date(date: OffsetDateTime?) = apply { this.date = date }
 
             /** The identifier of the Transaction related to this entry set, if any. */
-            fun transactionId(transactionId: String) = apply { this.transactionId = transactionId }
+            fun transactionId(transactionId: String?) = apply { this.transactionId = transactionId }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -193,10 +193,10 @@ constructor(
          * The date of the transaction. Optional if `transaction_id` is provided, in which case we
          * use the `date` of that transaction. Required otherwise.
          */
-        fun date(date: OffsetDateTime) = apply { body.date(date) }
+        fun date(date: OffsetDateTime?) = apply { body.date(date) }
 
         /** The identifier of the Transaction related to this entry set, if any. */
-        fun transactionId(transactionId: String) = apply { body.transactionId(transactionId) }
+        fun transactionId(transactionId: String?) = apply { body.transactionId(transactionId) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()

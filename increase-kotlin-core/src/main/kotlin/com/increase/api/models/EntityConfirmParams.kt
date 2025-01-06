@@ -92,7 +92,7 @@ constructor(
              * When your user confirmed the Entity's details. If not provided, the current time will
              * be used.
              */
-            fun confirmedAt(confirmedAt: OffsetDateTime) = apply { this.confirmedAt = confirmedAt }
+            fun confirmedAt(confirmedAt: OffsetDateTime?) = apply { this.confirmedAt = confirmedAt }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -164,7 +164,7 @@ constructor(
          * When your user confirmed the Entity's details. If not provided, the current time will be
          * used.
          */
-        fun confirmedAt(confirmedAt: OffsetDateTime) = apply { body.confirmedAt(confirmedAt) }
+        fun confirmedAt(confirmedAt: OffsetDateTime?) = apply { body.confirmedAt(confirmedAt) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()

@@ -86,7 +86,7 @@ constructor(
             }
 
             /** The reason why this transfer should be stopped. */
-            fun reason(reason: Reason) = apply { this.reason = reason }
+            fun reason(reason: Reason?) = apply { this.reason = reason }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -158,7 +158,7 @@ constructor(
         }
 
         /** The reason why this transfer should be stopped. */
-        fun reason(reason: Reason) = apply { body.reason(reason) }
+        fun reason(reason: Reason?) = apply { body.reason(reason) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
