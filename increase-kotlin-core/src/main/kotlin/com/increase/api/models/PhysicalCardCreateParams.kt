@@ -120,7 +120,7 @@ constructor(
              * The physical card profile to use for this physical card. The latest default physical
              * card profile will be used if not provided.
              */
-            fun physicalCardProfileId(physicalCardProfileId: String) = apply {
+            fun physicalCardProfileId(physicalCardProfileId: String?) = apply {
                 this.physicalCardProfileId = physicalCardProfileId
             }
 
@@ -204,7 +204,7 @@ constructor(
          * The physical card profile to use for this physical card. The latest default physical card
          * profile will be used if not provided.
          */
-        fun physicalCardProfileId(physicalCardProfileId: String) = apply {
+        fun physicalCardProfileId(physicalCardProfileId: String?) = apply {
             body.physicalCardProfileId(physicalCardProfileId)
         }
 
@@ -589,13 +589,13 @@ constructor(
                 fun state(state: String) = apply { this.state = state }
 
                 /** The second line of the shipping address. */
-                fun line2(line2: String) = apply { this.line2 = line2 }
+                fun line2(line2: String?) = apply { this.line2 = line2 }
 
                 /** The third line of the shipping address. */
-                fun line3(line3: String) = apply { this.line3 = line3 }
+                fun line3(line3: String?) = apply { this.line3 = line3 }
 
                 /** The phone number of the recipient. */
-                fun phoneNumber(phoneNumber: String) = apply { this.phoneNumber = phoneNumber }
+                fun phoneNumber(phoneNumber: String?) = apply { this.phoneNumber = phoneNumber }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()

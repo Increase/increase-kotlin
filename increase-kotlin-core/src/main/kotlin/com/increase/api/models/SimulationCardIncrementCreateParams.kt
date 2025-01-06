@@ -114,7 +114,7 @@ constructor(
              * decision event subscription, you can use this field to route events to any specified
              * event subscription for testing purposes.
              */
-            fun eventSubscriptionId(eventSubscriptionId: String) = apply {
+            fun eventSubscriptionId(eventSubscriptionId: String?) = apply {
                 this.eventSubscriptionId = eventSubscriptionId
             }
 
@@ -200,7 +200,7 @@ constructor(
          * subscription, you can use this field to route events to any specified event subscription
          * for testing purposes.
          */
-        fun eventSubscriptionId(eventSubscriptionId: String) = apply {
+        fun eventSubscriptionId(eventSubscriptionId: String?) = apply {
             body.eventSubscriptionId(eventSubscriptionId)
         }
 

@@ -165,7 +165,7 @@ constructor(
             }
 
             /** Whether Increase will print and mail the check or if you will do it yourself. */
-            fun fulfillmentMethod(fulfillmentMethod: FulfillmentMethod) = apply {
+            fun fulfillmentMethod(fulfillmentMethod: FulfillmentMethod?) = apply {
                 this.fulfillmentMethod = fulfillmentMethod
             }
 
@@ -174,21 +174,25 @@ constructor(
              * required if `fulfillment_method` is equal to `physical_check`. It must not be
              * included if any other `fulfillment_method` is provided.
              */
-            fun physicalCheck(physicalCheck: PhysicalCheck) = apply {
+            fun physicalCheck(physicalCheck: PhysicalCheck?) = apply {
                 this.physicalCheck = physicalCheck
             }
 
             /** Whether the transfer requires explicit approval via the dashboard or API. */
-            fun requireApproval(requireApproval: Boolean) = apply {
+            fun requireApproval(requireApproval: Boolean?) = apply {
                 this.requireApproval = requireApproval
             }
+
+            /** Whether the transfer requires explicit approval via the dashboard or API. */
+            fun requireApproval(requireApproval: Boolean) =
+                requireApproval(requireApproval as Boolean?)
 
             /**
              * Details relating to the custom fulfillment you will perform. This is required if
              * `fulfillment_method` is equal to `third_party`. It must not be included if any other
              * `fulfillment_method` is provided.
              */
-            fun thirdParty(thirdParty: ThirdParty) = apply { this.thirdParty = thirdParty }
+            fun thirdParty(thirdParty: ThirdParty?) = apply { this.thirdParty = thirdParty }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -277,7 +281,7 @@ constructor(
         }
 
         /** Whether Increase will print and mail the check or if you will do it yourself. */
-        fun fulfillmentMethod(fulfillmentMethod: FulfillmentMethod) = apply {
+        fun fulfillmentMethod(fulfillmentMethod: FulfillmentMethod?) = apply {
             body.fulfillmentMethod(fulfillmentMethod)
         }
 
@@ -286,21 +290,24 @@ constructor(
          * required if `fulfillment_method` is equal to `physical_check`. It must not be included if
          * any other `fulfillment_method` is provided.
          */
-        fun physicalCheck(physicalCheck: PhysicalCheck) = apply {
+        fun physicalCheck(physicalCheck: PhysicalCheck?) = apply {
             body.physicalCheck(physicalCheck)
         }
 
         /** Whether the transfer requires explicit approval via the dashboard or API. */
-        fun requireApproval(requireApproval: Boolean) = apply {
+        fun requireApproval(requireApproval: Boolean?) = apply {
             body.requireApproval(requireApproval)
         }
+
+        /** Whether the transfer requires explicit approval via the dashboard or API. */
+        fun requireApproval(requireApproval: Boolean) = requireApproval(requireApproval as Boolean?)
 
         /**
          * Details relating to the custom fulfillment you will perform. This is required if
          * `fulfillment_method` is equal to `third_party`. It must not be included if any other
          * `fulfillment_method` is provided.
          */
-        fun thirdParty(thirdParty: ThirdParty) = apply { body.thirdParty(thirdParty) }
+        fun thirdParty(thirdParty: ThirdParty?) = apply { body.thirdParty(thirdParty) }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -570,13 +577,13 @@ constructor(
             fun recipientName(recipientName: String) = apply { this.recipientName = recipientName }
 
             /** The descriptor that will be printed on the letter included with the check. */
-            fun note(note: String) = apply { this.note = note }
+            fun note(note: String?) = apply { this.note = note }
 
             /**
              * The return address to be printed on the check. If omitted this will default to an
              * Increase-owned address that will mark checks as delivery failed and shred them.
              */
-            fun returnAddress(returnAddress: ReturnAddress) = apply {
+            fun returnAddress(returnAddress: ReturnAddress?) = apply {
                 this.returnAddress = returnAddress
             }
 
@@ -584,7 +591,7 @@ constructor(
              * The text that will appear as the signature on the check in cursive font. If not
              * provided, the check will be printed with 'No signature required'.
              */
-            fun signatureText(signatureText: String) = apply { this.signatureText = signatureText }
+            fun signatureText(signatureText: String?) = apply { this.signatureText = signatureText }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -697,13 +704,13 @@ constructor(
                 fun state(state: String) = apply { this.state = state }
 
                 /** The second line of the address component of the check's destination address. */
-                fun line2(line2: String) = apply { this.line2 = line2 }
+                fun line2(line2: String?) = apply { this.line2 = line2 }
 
                 /**
                  * The name component of the check's destination address. Defaults to the provided
                  * `recipient_name` parameter.
                  */
-                fun name(name: String) = apply { this.name = name }
+                fun name(name: String?) = apply { this.name = name }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -840,7 +847,7 @@ constructor(
                 fun state(state: String) = apply { this.state = state }
 
                 /** The second line of the return address. */
-                fun line2(line2: String) = apply { this.line2 = line2 }
+                fun line2(line2: String?) = apply { this.line2 = line2 }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -959,7 +966,7 @@ constructor(
              * If this is omitted, Increase will generate a check number for you; you should inspect
              * the response and use that check number.
              */
-            fun checkNumber(checkNumber: String) = apply { this.checkNumber = checkNumber }
+            fun checkNumber(checkNumber: String?) = apply { this.checkNumber = checkNumber }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
