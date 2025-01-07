@@ -194,22 +194,24 @@ private constructor(
     fun type(): Type = type.getRequired("type")
 
     /** The Check transfer's identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /** The identifier of the Account from which funds will be transferred. */
-    @JsonProperty("account_id") @ExcludeMissing fun _accountId() = accountId
+    @JsonProperty("account_id") @ExcludeMissing fun _accountId(): JsonField<String> = accountId
 
     /** The account number printed on the check. */
-    @JsonProperty("account_number") @ExcludeMissing fun _accountNumber() = accountNumber
+    @JsonProperty("account_number")
+    @ExcludeMissing
+    fun _accountNumber(): JsonField<String> = accountNumber
 
     /** The transfer amount in USD cents. */
-    @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
+    @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
     /**
      * If your account requires approvals for transfers and the transfer was approved, this will
      * contain details of the approval.
      */
-    @JsonProperty("approval") @ExcludeMissing fun _approval() = approval
+    @JsonProperty("approval") @ExcludeMissing fun _approval(): JsonField<Approval> = approval
 
     /**
      * If the Check Transfer was successfully deposited, this will contain the identifier of the
@@ -217,41 +219,51 @@ private constructor(
      */
     @JsonProperty("approved_inbound_check_deposit_id")
     @ExcludeMissing
-    fun _approvedInboundCheckDepositId() = approvedInboundCheckDepositId
+    fun _approvedInboundCheckDepositId(): JsonField<String> = approvedInboundCheckDepositId
 
     /**
      * If your account requires approvals for transfers and the transfer was not approved, this will
      * contain details of the cancellation.
      */
-    @JsonProperty("cancellation") @ExcludeMissing fun _cancellation() = cancellation
+    @JsonProperty("cancellation")
+    @ExcludeMissing
+    fun _cancellation(): JsonField<Cancellation> = cancellation
 
     /** The check number printed on the check. */
-    @JsonProperty("check_number") @ExcludeMissing fun _checkNumber() = checkNumber
+    @JsonProperty("check_number")
+    @ExcludeMissing
+    fun _checkNumber(): JsonField<String> = checkNumber
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the transfer
      * was created.
      */
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /** What object created the transfer, either via the API or the dashboard. */
-    @JsonProperty("created_by") @ExcludeMissing fun _createdBy() = createdBy
+    @JsonProperty("created_by") @ExcludeMissing fun _createdBy(): JsonField<CreatedBy> = createdBy
 
     /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the check's currency. */
-    @JsonProperty("currency") @ExcludeMissing fun _currency() = currency
+    @JsonProperty("currency") @ExcludeMissing fun _currency(): JsonField<Currency> = currency
 
     /** Whether Increase will print and mail the check or if you will do it yourself. */
-    @JsonProperty("fulfillment_method") @ExcludeMissing fun _fulfillmentMethod() = fulfillmentMethod
+    @JsonProperty("fulfillment_method")
+    @ExcludeMissing
+    fun _fulfillmentMethod(): JsonField<FulfillmentMethod> = fulfillmentMethod
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
      * used to ensure that a request is only processed once. Learn more about
      * [idempotency](https://increase.com/documentation/idempotency-keys).
      */
-    @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
+    @JsonProperty("idempotency_key")
+    @ExcludeMissing
+    fun _idempotencyKey(): JsonField<String> = idempotencyKey
 
     /** If the check has been mailed by Increase, this will contain details of the shipment. */
-    @JsonProperty("mailing") @ExcludeMissing fun _mailing() = mailing
+    @JsonProperty("mailing") @ExcludeMissing fun _mailing(): JsonField<Mailing> = mailing
 
     /**
      * The ID for the pending transaction representing the transfer. A pending transaction is
@@ -261,46 +273,54 @@ private constructor(
      */
     @JsonProperty("pending_transaction_id")
     @ExcludeMissing
-    fun _pendingTransactionId() = pendingTransactionId
+    fun _pendingTransactionId(): JsonField<String> = pendingTransactionId
 
     /**
      * Details relating to the physical check that Increase will print and mail. Will be present if
      * and only if `fulfillment_method` is equal to `physical_check`.
      */
-    @JsonProperty("physical_check") @ExcludeMissing fun _physicalCheck() = physicalCheck
+    @JsonProperty("physical_check")
+    @ExcludeMissing
+    fun _physicalCheck(): JsonField<PhysicalCheck> = physicalCheck
 
     /** The routing number printed on the check. */
-    @JsonProperty("routing_number") @ExcludeMissing fun _routingNumber() = routingNumber
+    @JsonProperty("routing_number")
+    @ExcludeMissing
+    fun _routingNumber(): JsonField<String> = routingNumber
 
     /**
      * The identifier of the Account Number from which to send the transfer and print on the check.
      */
     @JsonProperty("source_account_number_id")
     @ExcludeMissing
-    fun _sourceAccountNumberId() = sourceAccountNumberId
+    fun _sourceAccountNumberId(): JsonField<String> = sourceAccountNumberId
 
     /** The lifecycle status of the transfer. */
-    @JsonProperty("status") @ExcludeMissing fun _status() = status
+    @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
     /** After a stop-payment is requested on the check, this will contain supplemental details. */
     @JsonProperty("stop_payment_request")
     @ExcludeMissing
-    fun _stopPaymentRequest() = stopPaymentRequest
+    fun _stopPaymentRequest(): JsonField<StopPaymentRequest> = stopPaymentRequest
 
     /** After the transfer is submitted, this will contain supplemental details. */
-    @JsonProperty("submission") @ExcludeMissing fun _submission() = submission
+    @JsonProperty("submission")
+    @ExcludeMissing
+    fun _submission(): JsonField<Submission> = submission
 
     /**
      * Details relating to the custom fulfillment you will perform. Will be present if and only if
      * `fulfillment_method` is equal to `third_party`.
      */
-    @JsonProperty("third_party") @ExcludeMissing fun _thirdParty() = thirdParty
+    @JsonProperty("third_party")
+    @ExcludeMissing
+    fun _thirdParty(): JsonField<ThirdParty> = thirdParty
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `check_transfer`.
      */
-    @JsonProperty("type") @ExcludeMissing fun _type() = type
+    @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -346,29 +366,29 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
-        private var accountId: JsonField<String> = JsonMissing.of()
-        private var accountNumber: JsonField<String> = JsonMissing.of()
-        private var amount: JsonField<Long> = JsonMissing.of()
-        private var approval: JsonField<Approval> = JsonMissing.of()
-        private var approvedInboundCheckDepositId: JsonField<String> = JsonMissing.of()
-        private var cancellation: JsonField<Cancellation> = JsonMissing.of()
-        private var checkNumber: JsonField<String> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var createdBy: JsonField<CreatedBy> = JsonMissing.of()
-        private var currency: JsonField<Currency> = JsonMissing.of()
-        private var fulfillmentMethod: JsonField<FulfillmentMethod> = JsonMissing.of()
-        private var idempotencyKey: JsonField<String> = JsonMissing.of()
-        private var mailing: JsonField<Mailing> = JsonMissing.of()
-        private var pendingTransactionId: JsonField<String> = JsonMissing.of()
-        private var physicalCheck: JsonField<PhysicalCheck> = JsonMissing.of()
-        private var routingNumber: JsonField<String> = JsonMissing.of()
-        private var sourceAccountNumberId: JsonField<String> = JsonMissing.of()
-        private var status: JsonField<Status> = JsonMissing.of()
-        private var stopPaymentRequest: JsonField<StopPaymentRequest> = JsonMissing.of()
-        private var submission: JsonField<Submission> = JsonMissing.of()
-        private var thirdParty: JsonField<ThirdParty> = JsonMissing.of()
-        private var type: JsonField<Type> = JsonMissing.of()
+        private var id: JsonField<String>? = null
+        private var accountId: JsonField<String>? = null
+        private var accountNumber: JsonField<String>? = null
+        private var amount: JsonField<Long>? = null
+        private var approval: JsonField<Approval>? = null
+        private var approvedInboundCheckDepositId: JsonField<String>? = null
+        private var cancellation: JsonField<Cancellation>? = null
+        private var checkNumber: JsonField<String>? = null
+        private var createdAt: JsonField<OffsetDateTime>? = null
+        private var createdBy: JsonField<CreatedBy>? = null
+        private var currency: JsonField<Currency>? = null
+        private var fulfillmentMethod: JsonField<FulfillmentMethod>? = null
+        private var idempotencyKey: JsonField<String>? = null
+        private var mailing: JsonField<Mailing>? = null
+        private var pendingTransactionId: JsonField<String>? = null
+        private var physicalCheck: JsonField<PhysicalCheck>? = null
+        private var routingNumber: JsonField<String>? = null
+        private var sourceAccountNumberId: JsonField<String>? = null
+        private var status: JsonField<Status>? = null
+        private var stopPaymentRequest: JsonField<StopPaymentRequest>? = null
+        private var submission: JsonField<Submission>? = null
+        private var thirdParty: JsonField<ThirdParty>? = null
+        private var type: JsonField<Type>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(checkTransfer: CheckTransfer) = apply {
@@ -428,7 +448,7 @@ private constructor(
          * If your account requires approvals for transfers and the transfer was approved, this will
          * contain details of the approval.
          */
-        fun approval(approval: Approval) = approval(JsonField.of(approval))
+        fun approval(approval: Approval?) = approval(JsonField.ofNullable(approval))
 
         /**
          * If your account requires approvals for transfers and the transfer was approved, this will
@@ -440,8 +460,8 @@ private constructor(
          * If the Check Transfer was successfully deposited, this will contain the identifier of the
          * Inbound Check Deposit object with details of the deposit.
          */
-        fun approvedInboundCheckDepositId(approvedInboundCheckDepositId: String) =
-            approvedInboundCheckDepositId(JsonField.of(approvedInboundCheckDepositId))
+        fun approvedInboundCheckDepositId(approvedInboundCheckDepositId: String?) =
+            approvedInboundCheckDepositId(JsonField.ofNullable(approvedInboundCheckDepositId))
 
         /**
          * If the Check Transfer was successfully deposited, this will contain the identifier of the
@@ -456,7 +476,8 @@ private constructor(
          * If your account requires approvals for transfers and the transfer was not approved, this
          * will contain details of the cancellation.
          */
-        fun cancellation(cancellation: Cancellation) = cancellation(JsonField.of(cancellation))
+        fun cancellation(cancellation: Cancellation?) =
+            cancellation(JsonField.ofNullable(cancellation))
 
         /**
          * If your account requires approvals for transfers and the transfer was not approved, this
@@ -485,7 +506,7 @@ private constructor(
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /** What object created the transfer, either via the API or the dashboard. */
-        fun createdBy(createdBy: CreatedBy) = createdBy(JsonField.of(createdBy))
+        fun createdBy(createdBy: CreatedBy?) = createdBy(JsonField.ofNullable(createdBy))
 
         /** What object created the transfer, either via the API or the dashboard. */
         fun createdBy(createdBy: JsonField<CreatedBy>) = apply { this.createdBy = createdBy }
@@ -510,7 +531,8 @@ private constructor(
          * is used to ensure that a request is only processed once. Learn more about
          * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
-        fun idempotencyKey(idempotencyKey: String) = idempotencyKey(JsonField.of(idempotencyKey))
+        fun idempotencyKey(idempotencyKey: String?) =
+            idempotencyKey(JsonField.ofNullable(idempotencyKey))
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -522,7 +544,7 @@ private constructor(
         }
 
         /** If the check has been mailed by Increase, this will contain details of the shipment. */
-        fun mailing(mailing: Mailing) = mailing(JsonField.of(mailing))
+        fun mailing(mailing: Mailing?) = mailing(JsonField.ofNullable(mailing))
 
         /** If the check has been mailed by Increase, this will contain details of the shipment. */
         fun mailing(mailing: JsonField<Mailing>) = apply { this.mailing = mailing }
@@ -533,8 +555,8 @@ private constructor(
          * [requires approval](https://increase.com/documentation/transfer-approvals#transfer-approvals)
          * by someone else in your organization.
          */
-        fun pendingTransactionId(pendingTransactionId: String) =
-            pendingTransactionId(JsonField.of(pendingTransactionId))
+        fun pendingTransactionId(pendingTransactionId: String?) =
+            pendingTransactionId(JsonField.ofNullable(pendingTransactionId))
 
         /**
          * The ID for the pending transaction representing the transfer. A pending transaction is
@@ -550,7 +572,8 @@ private constructor(
          * Details relating to the physical check that Increase will print and mail. Will be present
          * if and only if `fulfillment_method` is equal to `physical_check`.
          */
-        fun physicalCheck(physicalCheck: PhysicalCheck) = physicalCheck(JsonField.of(physicalCheck))
+        fun physicalCheck(physicalCheck: PhysicalCheck?) =
+            physicalCheck(JsonField.ofNullable(physicalCheck))
 
         /**
          * Details relating to the physical check that Increase will print and mail. Will be present
@@ -572,8 +595,8 @@ private constructor(
          * The identifier of the Account Number from which to send the transfer and print on the
          * check.
          */
-        fun sourceAccountNumberId(sourceAccountNumberId: String) =
-            sourceAccountNumberId(JsonField.of(sourceAccountNumberId))
+        fun sourceAccountNumberId(sourceAccountNumberId: String?) =
+            sourceAccountNumberId(JsonField.ofNullable(sourceAccountNumberId))
 
         /**
          * The identifier of the Account Number from which to send the transfer and print on the
@@ -592,8 +615,8 @@ private constructor(
         /**
          * After a stop-payment is requested on the check, this will contain supplemental details.
          */
-        fun stopPaymentRequest(stopPaymentRequest: StopPaymentRequest) =
-            stopPaymentRequest(JsonField.of(stopPaymentRequest))
+        fun stopPaymentRequest(stopPaymentRequest: StopPaymentRequest?) =
+            stopPaymentRequest(JsonField.ofNullable(stopPaymentRequest))
 
         /**
          * After a stop-payment is requested on the check, this will contain supplemental details.
@@ -603,7 +626,7 @@ private constructor(
         }
 
         /** After the transfer is submitted, this will contain supplemental details. */
-        fun submission(submission: Submission) = submission(JsonField.of(submission))
+        fun submission(submission: Submission?) = submission(JsonField.ofNullable(submission))
 
         /** After the transfer is submitted, this will contain supplemental details. */
         fun submission(submission: JsonField<Submission>) = apply { this.submission = submission }
@@ -612,7 +635,7 @@ private constructor(
          * Details relating to the custom fulfillment you will perform. Will be present if and only
          * if `fulfillment_method` is equal to `third_party`.
          */
-        fun thirdParty(thirdParty: ThirdParty) = thirdParty(JsonField.of(thirdParty))
+        fun thirdParty(thirdParty: ThirdParty?) = thirdParty(JsonField.ofNullable(thirdParty))
 
         /**
          * Details relating to the custom fulfillment you will perform. Will be present if and only
@@ -653,29 +676,39 @@ private constructor(
 
         fun build(): CheckTransfer =
             CheckTransfer(
-                id,
-                accountId,
-                accountNumber,
-                amount,
-                approval,
-                approvedInboundCheckDepositId,
-                cancellation,
-                checkNumber,
-                createdAt,
-                createdBy,
-                currency,
-                fulfillmentMethod,
-                idempotencyKey,
-                mailing,
-                pendingTransactionId,
-                physicalCheck,
-                routingNumber,
-                sourceAccountNumberId,
-                status,
-                stopPaymentRequest,
-                submission,
-                thirdParty,
-                type,
+                checkNotNull(id) { "`id` is required but was not set" },
+                checkNotNull(accountId) { "`accountId` is required but was not set" },
+                checkNotNull(accountNumber) { "`accountNumber` is required but was not set" },
+                checkNotNull(amount) { "`amount` is required but was not set" },
+                checkNotNull(approval) { "`approval` is required but was not set" },
+                checkNotNull(approvedInboundCheckDepositId) {
+                    "`approvedInboundCheckDepositId` is required but was not set"
+                },
+                checkNotNull(cancellation) { "`cancellation` is required but was not set" },
+                checkNotNull(checkNumber) { "`checkNumber` is required but was not set" },
+                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
+                checkNotNull(createdBy) { "`createdBy` is required but was not set" },
+                checkNotNull(currency) { "`currency` is required but was not set" },
+                checkNotNull(fulfillmentMethod) {
+                    "`fulfillmentMethod` is required but was not set"
+                },
+                checkNotNull(idempotencyKey) { "`idempotencyKey` is required but was not set" },
+                checkNotNull(mailing) { "`mailing` is required but was not set" },
+                checkNotNull(pendingTransactionId) {
+                    "`pendingTransactionId` is required but was not set"
+                },
+                checkNotNull(physicalCheck) { "`physicalCheck` is required but was not set" },
+                checkNotNull(routingNumber) { "`routingNumber` is required but was not set" },
+                checkNotNull(sourceAccountNumberId) {
+                    "`sourceAccountNumberId` is required but was not set"
+                },
+                checkNotNull(status) { "`status` is required but was not set" },
+                checkNotNull(stopPaymentRequest) {
+                    "`stopPaymentRequest` is required but was not set"
+                },
+                checkNotNull(submission) { "`submission` is required but was not set" },
+                checkNotNull(thirdParty) { "`thirdParty` is required but was not set" },
+                checkNotNull(type) { "`type` is required but was not set" },
                 additionalProperties.toImmutable(),
             )
     }
@@ -713,12 +746,16 @@ private constructor(
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
          * transfer was approved.
          */
-        @JsonProperty("approved_at") @ExcludeMissing fun _approvedAt() = approvedAt
+        @JsonProperty("approved_at")
+        @ExcludeMissing
+        fun _approvedAt(): JsonField<OffsetDateTime> = approvedAt
 
         /**
          * If the Transfer was approved by a user in the dashboard, the email address of that user.
          */
-        @JsonProperty("approved_by") @ExcludeMissing fun _approvedBy() = approvedBy
+        @JsonProperty("approved_by")
+        @ExcludeMissing
+        fun _approvedBy(): JsonField<String> = approvedBy
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -743,8 +780,8 @@ private constructor(
 
         class Builder {
 
-            private var approvedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-            private var approvedBy: JsonField<String> = JsonMissing.of()
+            private var approvedAt: JsonField<OffsetDateTime>? = null
+            private var approvedBy: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(approval: Approval) = apply {
@@ -771,7 +808,7 @@ private constructor(
              * If the Transfer was approved by a user in the dashboard, the email address of that
              * user.
              */
-            fun approvedBy(approvedBy: String) = approvedBy(JsonField.of(approvedBy))
+            fun approvedBy(approvedBy: String?) = approvedBy(JsonField.ofNullable(approvedBy))
 
             /**
              * If the Transfer was approved by a user in the dashboard, the email address of that
@@ -800,8 +837,8 @@ private constructor(
 
             fun build(): Approval =
                 Approval(
-                    approvedAt,
-                    approvedBy,
+                    checkNotNull(approvedAt) { "`approvedAt` is required but was not set" },
+                    checkNotNull(approvedBy) { "`approvedBy` is required but was not set" },
                     additionalProperties.toImmutable(),
                 )
         }
@@ -857,12 +894,16 @@ private constructor(
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
          * Transfer was canceled.
          */
-        @JsonProperty("canceled_at") @ExcludeMissing fun _canceledAt() = canceledAt
+        @JsonProperty("canceled_at")
+        @ExcludeMissing
+        fun _canceledAt(): JsonField<OffsetDateTime> = canceledAt
 
         /**
          * If the Transfer was canceled by a user in the dashboard, the email address of that user.
          */
-        @JsonProperty("canceled_by") @ExcludeMissing fun _canceledBy() = canceledBy
+        @JsonProperty("canceled_by")
+        @ExcludeMissing
+        fun _canceledBy(): JsonField<String> = canceledBy
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -887,8 +928,8 @@ private constructor(
 
         class Builder {
 
-            private var canceledAt: JsonField<OffsetDateTime> = JsonMissing.of()
-            private var canceledBy: JsonField<String> = JsonMissing.of()
+            private var canceledAt: JsonField<OffsetDateTime>? = null
+            private var canceledBy: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(cancellation: Cancellation) = apply {
@@ -915,7 +956,7 @@ private constructor(
              * If the Transfer was canceled by a user in the dashboard, the email address of that
              * user.
              */
-            fun canceledBy(canceledBy: String) = canceledBy(JsonField.of(canceledBy))
+            fun canceledBy(canceledBy: String?) = canceledBy(JsonField.ofNullable(canceledBy))
 
             /**
              * If the Transfer was canceled by a user in the dashboard, the email address of that
@@ -944,8 +985,8 @@ private constructor(
 
             fun build(): Cancellation =
                 Cancellation(
-                    canceledAt,
-                    canceledBy,
+                    checkNotNull(canceledAt) { "`canceledAt` is required but was not set" },
+                    checkNotNull(canceledBy) { "`canceledBy` is required but was not set" },
                     additionalProperties.toImmutable(),
                 )
         }
@@ -1001,18 +1042,18 @@ private constructor(
         fun user(): User? = user.getNullable("user")
 
         /** If present, details about the API key that created the transfer. */
-        @JsonProperty("api_key") @ExcludeMissing fun _apiKey() = apiKey
+        @JsonProperty("api_key") @ExcludeMissing fun _apiKey(): JsonField<ApiKey> = apiKey
 
         /** The type of object that created this transfer. */
-        @JsonProperty("category") @ExcludeMissing fun _category() = category
+        @JsonProperty("category") @ExcludeMissing fun _category(): JsonField<Category> = category
 
         /** If present, details about the OAuth Application that created the transfer. */
         @JsonProperty("oauth_application")
         @ExcludeMissing
-        fun _oauthApplication() = oauthApplication
+        fun _oauthApplication(): JsonField<OAuthApplication> = oauthApplication
 
         /** If present, details about the User that created the transfer. */
-        @JsonProperty("user") @ExcludeMissing fun _user() = user
+        @JsonProperty("user") @ExcludeMissing fun _user(): JsonField<User> = user
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -1039,10 +1080,10 @@ private constructor(
 
         class Builder {
 
-            private var apiKey: JsonField<ApiKey> = JsonMissing.of()
-            private var category: JsonField<Category> = JsonMissing.of()
-            private var oauthApplication: JsonField<OAuthApplication> = JsonMissing.of()
-            private var user: JsonField<User> = JsonMissing.of()
+            private var apiKey: JsonField<ApiKey>? = null
+            private var category: JsonField<Category>? = null
+            private var oauthApplication: JsonField<OAuthApplication>? = null
+            private var user: JsonField<User>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(createdBy: CreatedBy) = apply {
@@ -1054,7 +1095,7 @@ private constructor(
             }
 
             /** If present, details about the API key that created the transfer. */
-            fun apiKey(apiKey: ApiKey) = apiKey(JsonField.of(apiKey))
+            fun apiKey(apiKey: ApiKey?) = apiKey(JsonField.ofNullable(apiKey))
 
             /** If present, details about the API key that created the transfer. */
             fun apiKey(apiKey: JsonField<ApiKey>) = apply { this.apiKey = apiKey }
@@ -1066,8 +1107,8 @@ private constructor(
             fun category(category: JsonField<Category>) = apply { this.category = category }
 
             /** If present, details about the OAuth Application that created the transfer. */
-            fun oauthApplication(oauthApplication: OAuthApplication) =
-                oauthApplication(JsonField.of(oauthApplication))
+            fun oauthApplication(oauthApplication: OAuthApplication?) =
+                oauthApplication(JsonField.ofNullable(oauthApplication))
 
             /** If present, details about the OAuth Application that created the transfer. */
             fun oauthApplication(oauthApplication: JsonField<OAuthApplication>) = apply {
@@ -1075,7 +1116,7 @@ private constructor(
             }
 
             /** If present, details about the User that created the transfer. */
-            fun user(user: User) = user(JsonField.of(user))
+            fun user(user: User?) = user(JsonField.ofNullable(user))
 
             /** If present, details about the User that created the transfer. */
             fun user(user: JsonField<User>) = apply { this.user = user }
@@ -1101,10 +1142,12 @@ private constructor(
 
             fun build(): CreatedBy =
                 CreatedBy(
-                    apiKey,
-                    category,
-                    oauthApplication,
-                    user,
+                    checkNotNull(apiKey) { "`apiKey` is required but was not set" },
+                    checkNotNull(category) { "`category` is required but was not set" },
+                    checkNotNull(oauthApplication) {
+                        "`oauthApplication` is required but was not set"
+                    },
+                    checkNotNull(user) { "`user` is required but was not set" },
                     additionalProperties.toImmutable(),
                 )
         }
@@ -1125,7 +1168,9 @@ private constructor(
             fun description(): String? = description.getNullable("description")
 
             /** The description set for the API key when it was created. */
-            @JsonProperty("description") @ExcludeMissing fun _description() = description
+            @JsonProperty("description")
+            @ExcludeMissing
+            fun _description(): JsonField<String> = description
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -1149,7 +1194,7 @@ private constructor(
 
             class Builder {
 
-                private var description: JsonField<String> = JsonMissing.of()
+                private var description: JsonField<String>? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(apiKey: ApiKey) = apply {
@@ -1158,7 +1203,8 @@ private constructor(
                 }
 
                 /** The description set for the API key when it was created. */
-                fun description(description: String) = description(JsonField.of(description))
+                fun description(description: String?) =
+                    description(JsonField.ofNullable(description))
 
                 /** The description set for the API key when it was created. */
                 fun description(description: JsonField<String>) = apply {
@@ -1187,7 +1233,11 @@ private constructor(
                     keys.forEach(::removeAdditionalProperty)
                 }
 
-                fun build(): ApiKey = ApiKey(description, additionalProperties.toImmutable())
+                fun build(): ApiKey =
+                    ApiKey(
+                        checkNotNull(description) { "`description` is required but was not set" },
+                        additionalProperties.toImmutable()
+                    )
             }
 
             override fun equals(other: Any?): Boolean {
@@ -1287,7 +1337,7 @@ private constructor(
             fun name(): String = name.getRequired("name")
 
             /** The name of the OAuth Application. */
-            @JsonProperty("name") @ExcludeMissing fun _name() = name
+            @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -1311,7 +1361,7 @@ private constructor(
 
             class Builder {
 
-                private var name: JsonField<String> = JsonMissing.of()
+                private var name: JsonField<String>? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(oauthApplication: OAuthApplication) = apply {
@@ -1348,7 +1398,10 @@ private constructor(
                 }
 
                 fun build(): OAuthApplication =
-                    OAuthApplication(name, additionalProperties.toImmutable())
+                    OAuthApplication(
+                        checkNotNull(name) { "`name` is required but was not set" },
+                        additionalProperties.toImmutable()
+                    )
             }
 
             override fun equals(other: Any?): Boolean {
@@ -1385,7 +1438,7 @@ private constructor(
             fun email(): String = email.getRequired("email")
 
             /** The email address of the User. */
-            @JsonProperty("email") @ExcludeMissing fun _email() = email
+            @JsonProperty("email") @ExcludeMissing fun _email(): JsonField<String> = email
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -1409,7 +1462,7 @@ private constructor(
 
             class Builder {
 
-                private var email: JsonField<String> = JsonMissing.of()
+                private var email: JsonField<String>? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(user: User) = apply {
@@ -1445,7 +1498,11 @@ private constructor(
                     keys.forEach(::removeAdditionalProperty)
                 }
 
-                fun build(): User = User(email, additionalProperties.toImmutable())
+                fun build(): User =
+                    User(
+                        checkNotNull(email) { "`email` is required but was not set" },
+                        additionalProperties.toImmutable()
+                    )
             }
 
             override fun equals(other: Any?): Boolean {
@@ -1651,13 +1708,15 @@ private constructor(
         /**
          * The ID of the file corresponding to an image of the check that was mailed, if available.
          */
-        @JsonProperty("image_id") @ExcludeMissing fun _imageId() = imageId
+        @JsonProperty("image_id") @ExcludeMissing fun _imageId(): JsonField<String> = imageId
 
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the check
          * was mailed.
          */
-        @JsonProperty("mailed_at") @ExcludeMissing fun _mailedAt() = mailedAt
+        @JsonProperty("mailed_at")
+        @ExcludeMissing
+        fun _mailedAt(): JsonField<OffsetDateTime> = mailedAt
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -1682,8 +1741,8 @@ private constructor(
 
         class Builder {
 
-            private var imageId: JsonField<String> = JsonMissing.of()
-            private var mailedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+            private var imageId: JsonField<String>? = null
+            private var mailedAt: JsonField<OffsetDateTime>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(mailing: Mailing) = apply {
@@ -1696,7 +1755,7 @@ private constructor(
              * The ID of the file corresponding to an image of the check that was mailed, if
              * available.
              */
-            fun imageId(imageId: String) = imageId(JsonField.of(imageId))
+            fun imageId(imageId: String?) = imageId(JsonField.ofNullable(imageId))
 
             /**
              * The ID of the file corresponding to an image of the check that was mailed, if
@@ -1737,8 +1796,8 @@ private constructor(
 
             fun build(): Mailing =
                 Mailing(
-                    imageId,
-                    mailedAt,
+                    checkNotNull(imageId) { "`imageId` is required but was not set" },
+                    checkNotNull(mailedAt) { "`mailedAt` is required but was not set" },
                     additionalProperties.toImmutable(),
                 )
         }
@@ -1820,28 +1879,38 @@ private constructor(
             trackingUpdates.getRequired("tracking_updates")
 
         /** Details for where Increase will mail the check. */
-        @JsonProperty("mailing_address") @ExcludeMissing fun _mailingAddress() = mailingAddress
+        @JsonProperty("mailing_address")
+        @ExcludeMissing
+        fun _mailingAddress(): JsonField<MailingAddress> = mailingAddress
 
         /** The descriptor that will be printed on the memo field on the check. */
-        @JsonProperty("memo") @ExcludeMissing fun _memo() = memo
+        @JsonProperty("memo") @ExcludeMissing fun _memo(): JsonField<String> = memo
 
         /** The descriptor that will be printed on the letter included with the check. */
-        @JsonProperty("note") @ExcludeMissing fun _note() = note
+        @JsonProperty("note") @ExcludeMissing fun _note(): JsonField<String> = note
 
         /** The name that will be printed on the check. */
-        @JsonProperty("recipient_name") @ExcludeMissing fun _recipientName() = recipientName
+        @JsonProperty("recipient_name")
+        @ExcludeMissing
+        fun _recipientName(): JsonField<String> = recipientName
 
         /** The return address to be printed on the check. */
-        @JsonProperty("return_address") @ExcludeMissing fun _returnAddress() = returnAddress
+        @JsonProperty("return_address")
+        @ExcludeMissing
+        fun _returnAddress(): JsonField<ReturnAddress> = returnAddress
 
         /**
          * The text that will appear as the signature on the check in cursive font. If blank, the
          * check will be printed with 'No signature required'.
          */
-        @JsonProperty("signature_text") @ExcludeMissing fun _signatureText() = signatureText
+        @JsonProperty("signature_text")
+        @ExcludeMissing
+        fun _signatureText(): JsonField<String> = signatureText
 
         /** Tracking updates relating to the physical check's delivery. */
-        @JsonProperty("tracking_updates") @ExcludeMissing fun _trackingUpdates() = trackingUpdates
+        @JsonProperty("tracking_updates")
+        @ExcludeMissing
+        fun _trackingUpdates(): JsonField<List<TrackingUpdate>> = trackingUpdates
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -1871,13 +1940,13 @@ private constructor(
 
         class Builder {
 
-            private var mailingAddress: JsonField<MailingAddress> = JsonMissing.of()
-            private var memo: JsonField<String> = JsonMissing.of()
-            private var note: JsonField<String> = JsonMissing.of()
-            private var recipientName: JsonField<String> = JsonMissing.of()
-            private var returnAddress: JsonField<ReturnAddress> = JsonMissing.of()
-            private var signatureText: JsonField<String> = JsonMissing.of()
-            private var trackingUpdates: JsonField<List<TrackingUpdate>> = JsonMissing.of()
+            private var mailingAddress: JsonField<MailingAddress>? = null
+            private var memo: JsonField<String>? = null
+            private var note: JsonField<String>? = null
+            private var recipientName: JsonField<String>? = null
+            private var returnAddress: JsonField<ReturnAddress>? = null
+            private var signatureText: JsonField<String>? = null
+            private var trackingUpdates: JsonField<MutableList<TrackingUpdate>>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(physicalCheck: PhysicalCheck) = apply {
@@ -1887,7 +1956,7 @@ private constructor(
                 recipientName = physicalCheck.recipientName
                 returnAddress = physicalCheck.returnAddress
                 signatureText = physicalCheck.signatureText
-                trackingUpdates = physicalCheck.trackingUpdates
+                trackingUpdates = physicalCheck.trackingUpdates.map { it.toMutableList() }
                 additionalProperties = physicalCheck.additionalProperties.toMutableMap()
             }
 
@@ -1901,13 +1970,13 @@ private constructor(
             }
 
             /** The descriptor that will be printed on the memo field on the check. */
-            fun memo(memo: String) = memo(JsonField.of(memo))
+            fun memo(memo: String?) = memo(JsonField.ofNullable(memo))
 
             /** The descriptor that will be printed on the memo field on the check. */
             fun memo(memo: JsonField<String>) = apply { this.memo = memo }
 
             /** The descriptor that will be printed on the letter included with the check. */
-            fun note(note: String) = note(JsonField.of(note))
+            fun note(note: String?) = note(JsonField.ofNullable(note))
 
             /** The descriptor that will be printed on the letter included with the check. */
             fun note(note: JsonField<String>) = apply { this.note = note }
@@ -1921,8 +1990,8 @@ private constructor(
             }
 
             /** The return address to be printed on the check. */
-            fun returnAddress(returnAddress: ReturnAddress) =
-                returnAddress(JsonField.of(returnAddress))
+            fun returnAddress(returnAddress: ReturnAddress?) =
+                returnAddress(JsonField.ofNullable(returnAddress))
 
             /** The return address to be printed on the check. */
             fun returnAddress(returnAddress: JsonField<ReturnAddress>) = apply {
@@ -1933,7 +2002,8 @@ private constructor(
              * The text that will appear as the signature on the check in cursive font. If blank,
              * the check will be printed with 'No signature required'.
              */
-            fun signatureText(signatureText: String) = signatureText(JsonField.of(signatureText))
+            fun signatureText(signatureText: String?) =
+                signatureText(JsonField.ofNullable(signatureText))
 
             /**
              * The text that will appear as the signature on the check in cursive font. If blank,
@@ -1949,7 +2019,19 @@ private constructor(
 
             /** Tracking updates relating to the physical check's delivery. */
             fun trackingUpdates(trackingUpdates: JsonField<List<TrackingUpdate>>) = apply {
-                this.trackingUpdates = trackingUpdates
+                this.trackingUpdates = trackingUpdates.map { it.toMutableList() }
+            }
+
+            /** Tracking updates relating to the physical check's delivery. */
+            fun addTrackingUpdate(trackingUpdate: TrackingUpdate) = apply {
+                trackingUpdates =
+                    (trackingUpdates ?: JsonField.of(mutableListOf())).apply {
+                        (asKnown()
+                                ?: throw IllegalStateException(
+                                    "Field was set to non-list type: ${javaClass.simpleName}"
+                                ))
+                            .add(trackingUpdate)
+                    }
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -1973,13 +2055,16 @@ private constructor(
 
             fun build(): PhysicalCheck =
                 PhysicalCheck(
-                    mailingAddress,
-                    memo,
-                    note,
-                    recipientName,
-                    returnAddress,
-                    signatureText,
-                    trackingUpdates.map { it.toImmutable() },
+                    checkNotNull(mailingAddress) { "`mailingAddress` is required but was not set" },
+                    checkNotNull(memo) { "`memo` is required but was not set" },
+                    checkNotNull(note) { "`note` is required but was not set" },
+                    checkNotNull(recipientName) { "`recipientName` is required but was not set" },
+                    checkNotNull(returnAddress) { "`returnAddress` is required but was not set" },
+                    checkNotNull(signatureText) { "`signatureText` is required but was not set" },
+                    checkNotNull(trackingUpdates) {
+                            "`trackingUpdates` is required but was not set"
+                        }
+                        .map { it.toImmutable() },
                     additionalProperties.toImmutable(),
                 )
         }
@@ -2030,22 +2115,24 @@ private constructor(
             fun state(): String? = state.getNullable("state")
 
             /** The city of the check's destination. */
-            @JsonProperty("city") @ExcludeMissing fun _city() = city
+            @JsonProperty("city") @ExcludeMissing fun _city(): JsonField<String> = city
 
             /** The street address of the check's destination. */
-            @JsonProperty("line1") @ExcludeMissing fun _line1() = line1
+            @JsonProperty("line1") @ExcludeMissing fun _line1(): JsonField<String> = line1
 
             /** The second line of the address of the check's destination. */
-            @JsonProperty("line2") @ExcludeMissing fun _line2() = line2
+            @JsonProperty("line2") @ExcludeMissing fun _line2(): JsonField<String> = line2
 
             /** The name component of the check's mailing address. */
-            @JsonProperty("name") @ExcludeMissing fun _name() = name
+            @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
             /** The postal code of the check's destination. */
-            @JsonProperty("postal_code") @ExcludeMissing fun _postalCode() = postalCode
+            @JsonProperty("postal_code")
+            @ExcludeMissing
+            fun _postalCode(): JsonField<String> = postalCode
 
             /** The state of the check's destination. */
-            @JsonProperty("state") @ExcludeMissing fun _state() = state
+            @JsonProperty("state") @ExcludeMissing fun _state(): JsonField<String> = state
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -2074,12 +2161,12 @@ private constructor(
 
             class Builder {
 
-                private var city: JsonField<String> = JsonMissing.of()
-                private var line1: JsonField<String> = JsonMissing.of()
-                private var line2: JsonField<String> = JsonMissing.of()
-                private var name: JsonField<String> = JsonMissing.of()
-                private var postalCode: JsonField<String> = JsonMissing.of()
-                private var state: JsonField<String> = JsonMissing.of()
+                private var city: JsonField<String>? = null
+                private var line1: JsonField<String>? = null
+                private var line2: JsonField<String>? = null
+                private var name: JsonField<String>? = null
+                private var postalCode: JsonField<String>? = null
+                private var state: JsonField<String>? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(mailingAddress: MailingAddress) = apply {
@@ -2093,31 +2180,31 @@ private constructor(
                 }
 
                 /** The city of the check's destination. */
-                fun city(city: String) = city(JsonField.of(city))
+                fun city(city: String?) = city(JsonField.ofNullable(city))
 
                 /** The city of the check's destination. */
                 fun city(city: JsonField<String>) = apply { this.city = city }
 
                 /** The street address of the check's destination. */
-                fun line1(line1: String) = line1(JsonField.of(line1))
+                fun line1(line1: String?) = line1(JsonField.ofNullable(line1))
 
                 /** The street address of the check's destination. */
                 fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
 
                 /** The second line of the address of the check's destination. */
-                fun line2(line2: String) = line2(JsonField.of(line2))
+                fun line2(line2: String?) = line2(JsonField.ofNullable(line2))
 
                 /** The second line of the address of the check's destination. */
                 fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
 
                 /** The name component of the check's mailing address. */
-                fun name(name: String) = name(JsonField.of(name))
+                fun name(name: String?) = name(JsonField.ofNullable(name))
 
                 /** The name component of the check's mailing address. */
                 fun name(name: JsonField<String>) = apply { this.name = name }
 
                 /** The postal code of the check's destination. */
-                fun postalCode(postalCode: String) = postalCode(JsonField.of(postalCode))
+                fun postalCode(postalCode: String?) = postalCode(JsonField.ofNullable(postalCode))
 
                 /** The postal code of the check's destination. */
                 fun postalCode(postalCode: JsonField<String>) = apply {
@@ -2125,7 +2212,7 @@ private constructor(
                 }
 
                 /** The state of the check's destination. */
-                fun state(state: String) = state(JsonField.of(state))
+                fun state(state: String?) = state(JsonField.ofNullable(state))
 
                 /** The state of the check's destination. */
                 fun state(state: JsonField<String>) = apply { this.state = state }
@@ -2154,12 +2241,12 @@ private constructor(
 
                 fun build(): MailingAddress =
                     MailingAddress(
-                        city,
-                        line1,
-                        line2,
-                        name,
-                        postalCode,
-                        state,
+                        checkNotNull(city) { "`city` is required but was not set" },
+                        checkNotNull(line1) { "`line1` is required but was not set" },
+                        checkNotNull(line2) { "`line2` is required but was not set" },
+                        checkNotNull(name) { "`name` is required but was not set" },
+                        checkNotNull(postalCode) { "`postalCode` is required but was not set" },
+                        checkNotNull(state) { "`state` is required but was not set" },
                         additionalProperties.toImmutable(),
                     )
             }
@@ -2228,22 +2315,24 @@ private constructor(
             fun state(): String? = state.getNullable("state")
 
             /** The city of the check's destination. */
-            @JsonProperty("city") @ExcludeMissing fun _city() = city
+            @JsonProperty("city") @ExcludeMissing fun _city(): JsonField<String> = city
 
             /** The street address of the check's destination. */
-            @JsonProperty("line1") @ExcludeMissing fun _line1() = line1
+            @JsonProperty("line1") @ExcludeMissing fun _line1(): JsonField<String> = line1
 
             /** The second line of the address of the check's destination. */
-            @JsonProperty("line2") @ExcludeMissing fun _line2() = line2
+            @JsonProperty("line2") @ExcludeMissing fun _line2(): JsonField<String> = line2
 
             /** The name component of the check's return address. */
-            @JsonProperty("name") @ExcludeMissing fun _name() = name
+            @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
             /** The postal code of the check's destination. */
-            @JsonProperty("postal_code") @ExcludeMissing fun _postalCode() = postalCode
+            @JsonProperty("postal_code")
+            @ExcludeMissing
+            fun _postalCode(): JsonField<String> = postalCode
 
             /** The state of the check's destination. */
-            @JsonProperty("state") @ExcludeMissing fun _state() = state
+            @JsonProperty("state") @ExcludeMissing fun _state(): JsonField<String> = state
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -2272,12 +2361,12 @@ private constructor(
 
             class Builder {
 
-                private var city: JsonField<String> = JsonMissing.of()
-                private var line1: JsonField<String> = JsonMissing.of()
-                private var line2: JsonField<String> = JsonMissing.of()
-                private var name: JsonField<String> = JsonMissing.of()
-                private var postalCode: JsonField<String> = JsonMissing.of()
-                private var state: JsonField<String> = JsonMissing.of()
+                private var city: JsonField<String>? = null
+                private var line1: JsonField<String>? = null
+                private var line2: JsonField<String>? = null
+                private var name: JsonField<String>? = null
+                private var postalCode: JsonField<String>? = null
+                private var state: JsonField<String>? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(returnAddress: ReturnAddress) = apply {
@@ -2291,31 +2380,31 @@ private constructor(
                 }
 
                 /** The city of the check's destination. */
-                fun city(city: String) = city(JsonField.of(city))
+                fun city(city: String?) = city(JsonField.ofNullable(city))
 
                 /** The city of the check's destination. */
                 fun city(city: JsonField<String>) = apply { this.city = city }
 
                 /** The street address of the check's destination. */
-                fun line1(line1: String) = line1(JsonField.of(line1))
+                fun line1(line1: String?) = line1(JsonField.ofNullable(line1))
 
                 /** The street address of the check's destination. */
                 fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
 
                 /** The second line of the address of the check's destination. */
-                fun line2(line2: String) = line2(JsonField.of(line2))
+                fun line2(line2: String?) = line2(JsonField.ofNullable(line2))
 
                 /** The second line of the address of the check's destination. */
                 fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
 
                 /** The name component of the check's return address. */
-                fun name(name: String) = name(JsonField.of(name))
+                fun name(name: String?) = name(JsonField.ofNullable(name))
 
                 /** The name component of the check's return address. */
                 fun name(name: JsonField<String>) = apply { this.name = name }
 
                 /** The postal code of the check's destination. */
-                fun postalCode(postalCode: String) = postalCode(JsonField.of(postalCode))
+                fun postalCode(postalCode: String?) = postalCode(JsonField.ofNullable(postalCode))
 
                 /** The postal code of the check's destination. */
                 fun postalCode(postalCode: JsonField<String>) = apply {
@@ -2323,7 +2412,7 @@ private constructor(
                 }
 
                 /** The state of the check's destination. */
-                fun state(state: String) = state(JsonField.of(state))
+                fun state(state: String?) = state(JsonField.ofNullable(state))
 
                 /** The state of the check's destination. */
                 fun state(state: JsonField<String>) = apply { this.state = state }
@@ -2352,12 +2441,12 @@ private constructor(
 
                 fun build(): ReturnAddress =
                     ReturnAddress(
-                        city,
-                        line1,
-                        line2,
-                        name,
-                        postalCode,
-                        state,
+                        checkNotNull(city) { "`city` is required but was not set" },
+                        checkNotNull(line1) { "`line1` is required but was not set" },
+                        checkNotNull(line2) { "`line2` is required but was not set" },
+                        checkNotNull(name) { "`name` is required but was not set" },
+                        checkNotNull(postalCode) { "`postalCode` is required but was not set" },
+                        checkNotNull(state) { "`state` is required but was not set" },
                         additionalProperties.toImmutable(),
                     )
             }
@@ -2410,16 +2499,22 @@ private constructor(
             fun postalCode(): String = postalCode.getRequired("postal_code")
 
             /** The type of tracking event. */
-            @JsonProperty("category") @ExcludeMissing fun _category() = category
+            @JsonProperty("category")
+            @ExcludeMissing
+            fun _category(): JsonField<Category> = category
 
             /**
              * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
              * tracking event took place.
              */
-            @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+            @JsonProperty("created_at")
+            @ExcludeMissing
+            fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
             /** The postal code where the event took place. */
-            @JsonProperty("postal_code") @ExcludeMissing fun _postalCode() = postalCode
+            @JsonProperty("postal_code")
+            @ExcludeMissing
+            fun _postalCode(): JsonField<String> = postalCode
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -2445,9 +2540,9 @@ private constructor(
 
             class Builder {
 
-                private var category: JsonField<Category> = JsonMissing.of()
-                private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-                private var postalCode: JsonField<String> = JsonMissing.of()
+                private var category: JsonField<Category>? = null
+                private var createdAt: JsonField<OffsetDateTime>? = null
+                private var postalCode: JsonField<String>? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(trackingUpdate: TrackingUpdate) = apply {
@@ -2509,9 +2604,9 @@ private constructor(
 
                 fun build(): TrackingUpdate =
                     TrackingUpdate(
-                        category,
-                        createdAt,
-                        postalCode,
+                        checkNotNull(category) { "`category` is required but was not set" },
+                        checkNotNull(createdAt) { "`createdAt` is required but was not set" },
+                        checkNotNull(postalCode) { "`postalCode` is required but was not set" },
                         additionalProperties.toImmutable(),
                     )
             }
@@ -2761,19 +2856,23 @@ private constructor(
         fun type(): Type = type.getRequired("type")
 
         /** The reason why this transfer was stopped. */
-        @JsonProperty("reason") @ExcludeMissing fun _reason() = reason
+        @JsonProperty("reason") @ExcludeMissing fun _reason(): JsonField<Reason> = reason
 
         /** The time the stop-payment was requested. */
-        @JsonProperty("requested_at") @ExcludeMissing fun _requestedAt() = requestedAt
+        @JsonProperty("requested_at")
+        @ExcludeMissing
+        fun _requestedAt(): JsonField<OffsetDateTime> = requestedAt
 
         /** The ID of the check transfer that was stopped. */
-        @JsonProperty("transfer_id") @ExcludeMissing fun _transferId() = transferId
+        @JsonProperty("transfer_id")
+        @ExcludeMissing
+        fun _transferId(): JsonField<String> = transferId
 
         /**
          * A constant representing the object's type. For this resource it will always be
          * `check_transfer_stop_payment_request`.
          */
-        @JsonProperty("type") @ExcludeMissing fun _type() = type
+        @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -2800,10 +2899,10 @@ private constructor(
 
         class Builder {
 
-            private var reason: JsonField<Reason> = JsonMissing.of()
-            private var requestedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-            private var transferId: JsonField<String> = JsonMissing.of()
-            private var type: JsonField<Type> = JsonMissing.of()
+            private var reason: JsonField<Reason>? = null
+            private var requestedAt: JsonField<OffsetDateTime>? = null
+            private var transferId: JsonField<String>? = null
+            private var type: JsonField<Type>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(stopPaymentRequest: StopPaymentRequest) = apply {
@@ -2867,10 +2966,10 @@ private constructor(
 
             fun build(): StopPaymentRequest =
                 StopPaymentRequest(
-                    reason,
-                    requestedAt,
-                    transferId,
-                    type,
+                    checkNotNull(reason) { "`reason` is required but was not set" },
+                    checkNotNull(requestedAt) { "`requestedAt` is required but was not set" },
+                    checkNotNull(transferId) { "`transferId` is required but was not set" },
+                    checkNotNull(type) { "`type` is required but was not set" },
                     additionalProperties.toImmutable(),
                 )
         }
@@ -3029,7 +3128,9 @@ private constructor(
         fun submittedAt(): OffsetDateTime = submittedAt.getRequired("submitted_at")
 
         /** When this check transfer was submitted to our check printer. */
-        @JsonProperty("submitted_at") @ExcludeMissing fun _submittedAt() = submittedAt
+        @JsonProperty("submitted_at")
+        @ExcludeMissing
+        fun _submittedAt(): JsonField<OffsetDateTime> = submittedAt
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -3053,7 +3154,7 @@ private constructor(
 
         class Builder {
 
-            private var submittedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+            private var submittedAt: JsonField<OffsetDateTime>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(submission: Submission) = apply {
@@ -3088,7 +3189,11 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): Submission = Submission(submittedAt, additionalProperties.toImmutable())
+            fun build(): Submission =
+                Submission(
+                    checkNotNull(submittedAt) { "`submittedAt` is required but was not set" },
+                    additionalProperties.toImmutable()
+                )
         }
 
         override fun equals(other: Any?): Boolean {
@@ -3128,7 +3233,9 @@ private constructor(
         fun checkNumber(): String? = checkNumber.getNullable("check_number")
 
         /** The check number that will be printed on the check. */
-        @JsonProperty("check_number") @ExcludeMissing fun _checkNumber() = checkNumber
+        @JsonProperty("check_number")
+        @ExcludeMissing
+        fun _checkNumber(): JsonField<String> = checkNumber
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -3152,7 +3259,7 @@ private constructor(
 
         class Builder {
 
-            private var checkNumber: JsonField<String> = JsonMissing.of()
+            private var checkNumber: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(thirdParty: ThirdParty) = apply {
@@ -3161,7 +3268,7 @@ private constructor(
             }
 
             /** The check number that will be printed on the check. */
-            fun checkNumber(checkNumber: String) = checkNumber(JsonField.of(checkNumber))
+            fun checkNumber(checkNumber: String?) = checkNumber(JsonField.ofNullable(checkNumber))
 
             /** The check number that will be printed on the check. */
             fun checkNumber(checkNumber: JsonField<String>) = apply {
@@ -3187,7 +3294,11 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): ThirdParty = ThirdParty(checkNumber, additionalProperties.toImmutable())
+            fun build(): ThirdParty =
+                ThirdParty(
+                    checkNotNull(checkNumber) { "`checkNumber` is required but was not set" },
+                    additionalProperties.toImmutable()
+                )
         }
 
         override fun equals(other: Any?): Boolean {

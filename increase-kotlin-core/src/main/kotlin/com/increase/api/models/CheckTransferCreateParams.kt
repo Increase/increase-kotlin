@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
+import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
@@ -57,11 +58,42 @@ constructor(
      */
     fun thirdParty(): ThirdParty? = body.thirdParty()
 
+    /** The identifier for the account that will send the transfer. */
+    fun _accountId(): JsonField<String> = body._accountId()
+
+    /** The transfer amount in USD cents. */
+    fun _amount(): JsonField<Long> = body._amount()
+
+    /**
+     * The identifier of the Account Number from which to send the transfer and print on the check.
+     */
+    fun _sourceAccountNumberId(): JsonField<String> = body._sourceAccountNumberId()
+
+    /** Whether Increase will print and mail the check or if you will do it yourself. */
+    fun _fulfillmentMethod(): JsonField<FulfillmentMethod> = body._fulfillmentMethod()
+
+    /**
+     * Details relating to the physical check that Increase will print and mail. This is required if
+     * `fulfillment_method` is equal to `physical_check`. It must not be included if any other
+     * `fulfillment_method` is provided.
+     */
+    fun _physicalCheck(): JsonField<PhysicalCheck> = body._physicalCheck()
+
+    /** Whether the transfer requires explicit approval via the dashboard or API. */
+    fun _requireApproval(): JsonField<Boolean> = body._requireApproval()
+
+    /**
+     * Details relating to the custom fulfillment you will perform. This is required if
+     * `fulfillment_method` is equal to `third_party`. It must not be included if any other
+     * `fulfillment_method` is provided.
+     */
+    fun _thirdParty(): JsonField<ThirdParty> = body._thirdParty()
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     internal fun getBody(): CheckTransferCreateBody = body
 
@@ -73,54 +105,125 @@ constructor(
     class CheckTransferCreateBody
     @JsonCreator
     internal constructor(
-        @JsonProperty("account_id") private val accountId: String,
-        @JsonProperty("amount") private val amount: Long,
-        @JsonProperty("source_account_number_id") private val sourceAccountNumberId: String,
-        @JsonProperty("fulfillment_method") private val fulfillmentMethod: FulfillmentMethod?,
-        @JsonProperty("physical_check") private val physicalCheck: PhysicalCheck?,
-        @JsonProperty("require_approval") private val requireApproval: Boolean?,
-        @JsonProperty("third_party") private val thirdParty: ThirdParty?,
+        @JsonProperty("account_id")
+        @ExcludeMissing
+        private val accountId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("amount")
+        @ExcludeMissing
+        private val amount: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("source_account_number_id")
+        @ExcludeMissing
+        private val sourceAccountNumberId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("fulfillment_method")
+        @ExcludeMissing
+        private val fulfillmentMethod: JsonField<FulfillmentMethod> = JsonMissing.of(),
+        @JsonProperty("physical_check")
+        @ExcludeMissing
+        private val physicalCheck: JsonField<PhysicalCheck> = JsonMissing.of(),
+        @JsonProperty("require_approval")
+        @ExcludeMissing
+        private val requireApproval: JsonField<Boolean> = JsonMissing.of(),
+        @JsonProperty("third_party")
+        @ExcludeMissing
+        private val thirdParty: JsonField<ThirdParty> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The identifier for the account that will send the transfer. */
-        @JsonProperty("account_id") fun accountId(): String = accountId
+        fun accountId(): String = accountId.getRequired("account_id")
 
         /** The transfer amount in USD cents. */
-        @JsonProperty("amount") fun amount(): Long = amount
+        fun amount(): Long = amount.getRequired("amount")
 
         /**
          * The identifier of the Account Number from which to send the transfer and print on the
          * check.
          */
-        @JsonProperty("source_account_number_id")
-        fun sourceAccountNumberId(): String = sourceAccountNumberId
+        fun sourceAccountNumberId(): String =
+            sourceAccountNumberId.getRequired("source_account_number_id")
 
         /** Whether Increase will print and mail the check or if you will do it yourself. */
-        @JsonProperty("fulfillment_method")
-        fun fulfillmentMethod(): FulfillmentMethod? = fulfillmentMethod
+        fun fulfillmentMethod(): FulfillmentMethod? =
+            fulfillmentMethod.getNullable("fulfillment_method")
 
         /**
          * Details relating to the physical check that Increase will print and mail. This is
          * required if `fulfillment_method` is equal to `physical_check`. It must not be included if
          * any other `fulfillment_method` is provided.
          */
-        @JsonProperty("physical_check") fun physicalCheck(): PhysicalCheck? = physicalCheck
+        fun physicalCheck(): PhysicalCheck? = physicalCheck.getNullable("physical_check")
 
         /** Whether the transfer requires explicit approval via the dashboard or API. */
-        @JsonProperty("require_approval") fun requireApproval(): Boolean? = requireApproval
+        fun requireApproval(): Boolean? = requireApproval.getNullable("require_approval")
 
         /**
          * Details relating to the custom fulfillment you will perform. This is required if
          * `fulfillment_method` is equal to `third_party`. It must not be included if any other
          * `fulfillment_method` is provided.
          */
-        @JsonProperty("third_party") fun thirdParty(): ThirdParty? = thirdParty
+        fun thirdParty(): ThirdParty? = thirdParty.getNullable("third_party")
+
+        /** The identifier for the account that will send the transfer. */
+        @JsonProperty("account_id") @ExcludeMissing fun _accountId(): JsonField<String> = accountId
+
+        /** The transfer amount in USD cents. */
+        @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
+
+        /**
+         * The identifier of the Account Number from which to send the transfer and print on the
+         * check.
+         */
+        @JsonProperty("source_account_number_id")
+        @ExcludeMissing
+        fun _sourceAccountNumberId(): JsonField<String> = sourceAccountNumberId
+
+        /** Whether Increase will print and mail the check or if you will do it yourself. */
+        @JsonProperty("fulfillment_method")
+        @ExcludeMissing
+        fun _fulfillmentMethod(): JsonField<FulfillmentMethod> = fulfillmentMethod
+
+        /**
+         * Details relating to the physical check that Increase will print and mail. This is
+         * required if `fulfillment_method` is equal to `physical_check`. It must not be included if
+         * any other `fulfillment_method` is provided.
+         */
+        @JsonProperty("physical_check")
+        @ExcludeMissing
+        fun _physicalCheck(): JsonField<PhysicalCheck> = physicalCheck
+
+        /** Whether the transfer requires explicit approval via the dashboard or API. */
+        @JsonProperty("require_approval")
+        @ExcludeMissing
+        fun _requireApproval(): JsonField<Boolean> = requireApproval
+
+        /**
+         * Details relating to the custom fulfillment you will perform. This is required if
+         * `fulfillment_method` is equal to `third_party`. It must not be included if any other
+         * `fulfillment_method` is provided.
+         */
+        @JsonProperty("third_party")
+        @ExcludeMissing
+        fun _thirdParty(): JsonField<ThirdParty> = thirdParty
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): CheckTransferCreateBody = apply {
+            if (!validated) {
+                accountId()
+                amount()
+                sourceAccountNumberId()
+                fulfillmentMethod()
+                physicalCheck()?.validate()
+                requireApproval()
+                thirdParty()?.validate()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -131,13 +234,13 @@ constructor(
 
         class Builder {
 
-            private var accountId: String? = null
-            private var amount: Long? = null
-            private var sourceAccountNumberId: String? = null
-            private var fulfillmentMethod: FulfillmentMethod? = null
-            private var physicalCheck: PhysicalCheck? = null
-            private var requireApproval: Boolean? = null
-            private var thirdParty: ThirdParty? = null
+            private var accountId: JsonField<String>? = null
+            private var amount: JsonField<Long>? = null
+            private var sourceAccountNumberId: JsonField<String>? = null
+            private var fulfillmentMethod: JsonField<FulfillmentMethod> = JsonMissing.of()
+            private var physicalCheck: JsonField<PhysicalCheck> = JsonMissing.of()
+            private var requireApproval: JsonField<Boolean> = JsonMissing.of()
+            private var thirdParty: JsonField<ThirdParty> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(checkTransferCreateBody: CheckTransferCreateBody) = apply {
@@ -152,21 +255,38 @@ constructor(
             }
 
             /** The identifier for the account that will send the transfer. */
-            fun accountId(accountId: String) = apply { this.accountId = accountId }
+            fun accountId(accountId: String) = accountId(JsonField.of(accountId))
+
+            /** The identifier for the account that will send the transfer. */
+            fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
             /** The transfer amount in USD cents. */
-            fun amount(amount: Long) = apply { this.amount = amount }
+            fun amount(amount: Long) = amount(JsonField.of(amount))
+
+            /** The transfer amount in USD cents. */
+            fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
             /**
              * The identifier of the Account Number from which to send the transfer and print on the
              * check.
              */
-            fun sourceAccountNumberId(sourceAccountNumberId: String) = apply {
+            fun sourceAccountNumberId(sourceAccountNumberId: String) =
+                sourceAccountNumberId(JsonField.of(sourceAccountNumberId))
+
+            /**
+             * The identifier of the Account Number from which to send the transfer and print on the
+             * check.
+             */
+            fun sourceAccountNumberId(sourceAccountNumberId: JsonField<String>) = apply {
                 this.sourceAccountNumberId = sourceAccountNumberId
             }
 
             /** Whether Increase will print and mail the check or if you will do it yourself. */
-            fun fulfillmentMethod(fulfillmentMethod: FulfillmentMethod?) = apply {
+            fun fulfillmentMethod(fulfillmentMethod: FulfillmentMethod) =
+                fulfillmentMethod(JsonField.of(fulfillmentMethod))
+
+            /** Whether Increase will print and mail the check or if you will do it yourself. */
+            fun fulfillmentMethod(fulfillmentMethod: JsonField<FulfillmentMethod>) = apply {
                 this.fulfillmentMethod = fulfillmentMethod
             }
 
@@ -175,25 +295,42 @@ constructor(
              * required if `fulfillment_method` is equal to `physical_check`. It must not be
              * included if any other `fulfillment_method` is provided.
              */
-            fun physicalCheck(physicalCheck: PhysicalCheck?) = apply {
+            fun physicalCheck(physicalCheck: PhysicalCheck) =
+                physicalCheck(JsonField.of(physicalCheck))
+
+            /**
+             * Details relating to the physical check that Increase will print and mail. This is
+             * required if `fulfillment_method` is equal to `physical_check`. It must not be
+             * included if any other `fulfillment_method` is provided.
+             */
+            fun physicalCheck(physicalCheck: JsonField<PhysicalCheck>) = apply {
                 this.physicalCheck = physicalCheck
             }
 
             /** Whether the transfer requires explicit approval via the dashboard or API. */
-            fun requireApproval(requireApproval: Boolean?) = apply {
-                this.requireApproval = requireApproval
-            }
+            fun requireApproval(requireApproval: Boolean) =
+                requireApproval(JsonField.of(requireApproval))
 
             /** Whether the transfer requires explicit approval via the dashboard or API. */
-            fun requireApproval(requireApproval: Boolean) =
-                requireApproval(requireApproval as Boolean?)
+            fun requireApproval(requireApproval: JsonField<Boolean>) = apply {
+                this.requireApproval = requireApproval
+            }
 
             /**
              * Details relating to the custom fulfillment you will perform. This is required if
              * `fulfillment_method` is equal to `third_party`. It must not be included if any other
              * `fulfillment_method` is provided.
              */
-            fun thirdParty(thirdParty: ThirdParty?) = apply { this.thirdParty = thirdParty }
+            fun thirdParty(thirdParty: ThirdParty) = thirdParty(JsonField.of(thirdParty))
+
+            /**
+             * Details relating to the custom fulfillment you will perform. This is required if
+             * `fulfillment_method` is equal to `third_party`. It must not be included if any other
+             * `fulfillment_method` is provided.
+             */
+            fun thirdParty(thirdParty: JsonField<ThirdParty>) = apply {
+                this.thirdParty = thirdParty
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -270,8 +407,14 @@ constructor(
         /** The identifier for the account that will send the transfer. */
         fun accountId(accountId: String) = apply { body.accountId(accountId) }
 
+        /** The identifier for the account that will send the transfer. */
+        fun accountId(accountId: JsonField<String>) = apply { body.accountId(accountId) }
+
         /** The transfer amount in USD cents. */
         fun amount(amount: Long) = apply { body.amount(amount) }
+
+        /** The transfer amount in USD cents. */
+        fun amount(amount: JsonField<Long>) = apply { body.amount(amount) }
 
         /**
          * The identifier of the Account Number from which to send the transfer and print on the
@@ -281,8 +424,21 @@ constructor(
             body.sourceAccountNumberId(sourceAccountNumberId)
         }
 
+        /**
+         * The identifier of the Account Number from which to send the transfer and print on the
+         * check.
+         */
+        fun sourceAccountNumberId(sourceAccountNumberId: JsonField<String>) = apply {
+            body.sourceAccountNumberId(sourceAccountNumberId)
+        }
+
         /** Whether Increase will print and mail the check or if you will do it yourself. */
-        fun fulfillmentMethod(fulfillmentMethod: FulfillmentMethod?) = apply {
+        fun fulfillmentMethod(fulfillmentMethod: FulfillmentMethod) = apply {
+            body.fulfillmentMethod(fulfillmentMethod)
+        }
+
+        /** Whether Increase will print and mail the check or if you will do it yourself. */
+        fun fulfillmentMethod(fulfillmentMethod: JsonField<FulfillmentMethod>) = apply {
             body.fulfillmentMethod(fulfillmentMethod)
         }
 
@@ -291,24 +447,61 @@ constructor(
          * required if `fulfillment_method` is equal to `physical_check`. It must not be included if
          * any other `fulfillment_method` is provided.
          */
-        fun physicalCheck(physicalCheck: PhysicalCheck?) = apply {
+        fun physicalCheck(physicalCheck: PhysicalCheck) = apply {
+            body.physicalCheck(physicalCheck)
+        }
+
+        /**
+         * Details relating to the physical check that Increase will print and mail. This is
+         * required if `fulfillment_method` is equal to `physical_check`. It must not be included if
+         * any other `fulfillment_method` is provided.
+         */
+        fun physicalCheck(physicalCheck: JsonField<PhysicalCheck>) = apply {
             body.physicalCheck(physicalCheck)
         }
 
         /** Whether the transfer requires explicit approval via the dashboard or API. */
-        fun requireApproval(requireApproval: Boolean?) = apply {
+        fun requireApproval(requireApproval: Boolean) = apply {
             body.requireApproval(requireApproval)
         }
 
         /** Whether the transfer requires explicit approval via the dashboard or API. */
-        fun requireApproval(requireApproval: Boolean) = requireApproval(requireApproval as Boolean?)
+        fun requireApproval(requireApproval: JsonField<Boolean>) = apply {
+            body.requireApproval(requireApproval)
+        }
 
         /**
          * Details relating to the custom fulfillment you will perform. This is required if
          * `fulfillment_method` is equal to `third_party`. It must not be included if any other
          * `fulfillment_method` is provided.
          */
-        fun thirdParty(thirdParty: ThirdParty?) = apply { body.thirdParty(thirdParty) }
+        fun thirdParty(thirdParty: ThirdParty) = apply { body.thirdParty(thirdParty) }
+
+        /**
+         * Details relating to the custom fulfillment you will perform. This is required if
+         * `fulfillment_method` is equal to `third_party`. It must not be included if any other
+         * `fulfillment_method` is provided.
+         */
+        fun thirdParty(thirdParty: JsonField<ThirdParty>) = apply { body.thirdParty(thirdParty) }
+
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.putAllAdditionalProperties(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
+        }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -408,25 +601,6 @@ constructor(
             additionalQueryParams.removeAll(keys)
         }
 
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                body.putAllAdditionalProperties(additionalBodyProperties)
-            }
-
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
-
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
-        }
-
         fun build(): CheckTransferCreateParams =
             CheckTransferCreateParams(
                 body.build(),
@@ -501,43 +675,101 @@ constructor(
     class PhysicalCheck
     @JsonCreator
     private constructor(
-        @JsonProperty("mailing_address") private val mailingAddress: MailingAddress,
-        @JsonProperty("memo") private val memo: String,
-        @JsonProperty("recipient_name") private val recipientName: String,
-        @JsonProperty("note") private val note: String?,
-        @JsonProperty("return_address") private val returnAddress: ReturnAddress?,
-        @JsonProperty("signature_text") private val signatureText: String?,
+        @JsonProperty("mailing_address")
+        @ExcludeMissing
+        private val mailingAddress: JsonField<MailingAddress> = JsonMissing.of(),
+        @JsonProperty("memo")
+        @ExcludeMissing
+        private val memo: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("recipient_name")
+        @ExcludeMissing
+        private val recipientName: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("note")
+        @ExcludeMissing
+        private val note: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("return_address")
+        @ExcludeMissing
+        private val returnAddress: JsonField<ReturnAddress> = JsonMissing.of(),
+        @JsonProperty("signature_text")
+        @ExcludeMissing
+        private val signatureText: JsonField<String> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** Details for where Increase will mail the check. */
-        @JsonProperty("mailing_address") fun mailingAddress(): MailingAddress = mailingAddress
+        fun mailingAddress(): MailingAddress = mailingAddress.getRequired("mailing_address")
 
         /** The descriptor that will be printed on the memo field on the check. */
-        @JsonProperty("memo") fun memo(): String = memo
+        fun memo(): String = memo.getRequired("memo")
 
         /** The name that will be printed on the check in the 'To:' field. */
-        @JsonProperty("recipient_name") fun recipientName(): String = recipientName
+        fun recipientName(): String = recipientName.getRequired("recipient_name")
 
         /** The descriptor that will be printed on the letter included with the check. */
-        @JsonProperty("note") fun note(): String? = note
+        fun note(): String? = note.getNullable("note")
 
         /**
          * The return address to be printed on the check. If omitted this will default to an
          * Increase-owned address that will mark checks as delivery failed and shred them.
          */
-        @JsonProperty("return_address") fun returnAddress(): ReturnAddress? = returnAddress
+        fun returnAddress(): ReturnAddress? = returnAddress.getNullable("return_address")
 
         /**
          * The text that will appear as the signature on the check in cursive font. If not provided,
          * the check will be printed with 'No signature required'.
          */
-        @JsonProperty("signature_text") fun signatureText(): String? = signatureText
+        fun signatureText(): String? = signatureText.getNullable("signature_text")
+
+        /** Details for where Increase will mail the check. */
+        @JsonProperty("mailing_address")
+        @ExcludeMissing
+        fun _mailingAddress(): JsonField<MailingAddress> = mailingAddress
+
+        /** The descriptor that will be printed on the memo field on the check. */
+        @JsonProperty("memo") @ExcludeMissing fun _memo(): JsonField<String> = memo
+
+        /** The name that will be printed on the check in the 'To:' field. */
+        @JsonProperty("recipient_name")
+        @ExcludeMissing
+        fun _recipientName(): JsonField<String> = recipientName
+
+        /** The descriptor that will be printed on the letter included with the check. */
+        @JsonProperty("note") @ExcludeMissing fun _note(): JsonField<String> = note
+
+        /**
+         * The return address to be printed on the check. If omitted this will default to an
+         * Increase-owned address that will mark checks as delivery failed and shred them.
+         */
+        @JsonProperty("return_address")
+        @ExcludeMissing
+        fun _returnAddress(): JsonField<ReturnAddress> = returnAddress
+
+        /**
+         * The text that will appear as the signature on the check in cursive font. If not provided,
+         * the check will be printed with 'No signature required'.
+         */
+        @JsonProperty("signature_text")
+        @ExcludeMissing
+        fun _signatureText(): JsonField<String> = signatureText
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): PhysicalCheck = apply {
+            if (!validated) {
+                mailingAddress().validate()
+                memo()
+                recipientName()
+                note()
+                returnAddress()?.validate()
+                signatureText()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -548,12 +780,12 @@ constructor(
 
         class Builder {
 
-            private var mailingAddress: MailingAddress? = null
-            private var memo: String? = null
-            private var recipientName: String? = null
-            private var note: String? = null
-            private var returnAddress: ReturnAddress? = null
-            private var signatureText: String? = null
+            private var mailingAddress: JsonField<MailingAddress>? = null
+            private var memo: JsonField<String>? = null
+            private var recipientName: JsonField<String>? = null
+            private var note: JsonField<String> = JsonMissing.of()
+            private var returnAddress: JsonField<ReturnAddress> = JsonMissing.of()
+            private var signatureText: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(physicalCheck: PhysicalCheck) = apply {
@@ -567,24 +799,46 @@ constructor(
             }
 
             /** Details for where Increase will mail the check. */
-            fun mailingAddress(mailingAddress: MailingAddress) = apply {
+            fun mailingAddress(mailingAddress: MailingAddress) =
+                mailingAddress(JsonField.of(mailingAddress))
+
+            /** Details for where Increase will mail the check. */
+            fun mailingAddress(mailingAddress: JsonField<MailingAddress>) = apply {
                 this.mailingAddress = mailingAddress
             }
 
             /** The descriptor that will be printed on the memo field on the check. */
-            fun memo(memo: String) = apply { this.memo = memo }
+            fun memo(memo: String) = memo(JsonField.of(memo))
+
+            /** The descriptor that will be printed on the memo field on the check. */
+            fun memo(memo: JsonField<String>) = apply { this.memo = memo }
 
             /** The name that will be printed on the check in the 'To:' field. */
-            fun recipientName(recipientName: String) = apply { this.recipientName = recipientName }
+            fun recipientName(recipientName: String) = recipientName(JsonField.of(recipientName))
+
+            /** The name that will be printed on the check in the 'To:' field. */
+            fun recipientName(recipientName: JsonField<String>) = apply {
+                this.recipientName = recipientName
+            }
 
             /** The descriptor that will be printed on the letter included with the check. */
-            fun note(note: String?) = apply { this.note = note }
+            fun note(note: String) = note(JsonField.of(note))
+
+            /** The descriptor that will be printed on the letter included with the check. */
+            fun note(note: JsonField<String>) = apply { this.note = note }
 
             /**
              * The return address to be printed on the check. If omitted this will default to an
              * Increase-owned address that will mark checks as delivery failed and shred them.
              */
-            fun returnAddress(returnAddress: ReturnAddress?) = apply {
+            fun returnAddress(returnAddress: ReturnAddress) =
+                returnAddress(JsonField.of(returnAddress))
+
+            /**
+             * The return address to be printed on the check. If omitted this will default to an
+             * Increase-owned address that will mark checks as delivery failed and shred them.
+             */
+            fun returnAddress(returnAddress: JsonField<ReturnAddress>) = apply {
                 this.returnAddress = returnAddress
             }
 
@@ -592,7 +846,15 @@ constructor(
              * The text that will appear as the signature on the check in cursive font. If not
              * provided, the check will be printed with 'No signature required'.
              */
-            fun signatureText(signatureText: String?) = apply { this.signatureText = signatureText }
+            fun signatureText(signatureText: String) = signatureText(JsonField.of(signatureText))
+
+            /**
+             * The text that will appear as the signature on the check in cursive font. If not
+             * provided, the check will be printed with 'No signature required'.
+             */
+            fun signatureText(signatureText: JsonField<String>) = apply {
+                this.signatureText = signatureText
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -630,40 +892,89 @@ constructor(
         class MailingAddress
         @JsonCreator
         private constructor(
-            @JsonProperty("city") private val city: String,
-            @JsonProperty("line1") private val line1: String,
-            @JsonProperty("postal_code") private val postalCode: String,
-            @JsonProperty("state") private val state: String,
-            @JsonProperty("line2") private val line2: String?,
-            @JsonProperty("name") private val name: String?,
+            @JsonProperty("city")
+            @ExcludeMissing
+            private val city: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("line1")
+            @ExcludeMissing
+            private val line1: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("postal_code")
+            @ExcludeMissing
+            private val postalCode: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("state")
+            @ExcludeMissing
+            private val state: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("line2")
+            @ExcludeMissing
+            private val line2: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("name")
+            @ExcludeMissing
+            private val name: JsonField<String> = JsonMissing.of(),
             @JsonAnySetter
             private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
 
             /** The city component of the check's destination address. */
-            @JsonProperty("city") fun city(): String = city
+            fun city(): String = city.getRequired("city")
 
             /** The first line of the address component of the check's destination address. */
-            @JsonProperty("line1") fun line1(): String = line1
+            fun line1(): String = line1.getRequired("line1")
 
             /** The postal code component of the check's destination address. */
-            @JsonProperty("postal_code") fun postalCode(): String = postalCode
+            fun postalCode(): String = postalCode.getRequired("postal_code")
 
             /** The US state component of the check's destination address. */
-            @JsonProperty("state") fun state(): String = state
+            fun state(): String = state.getRequired("state")
 
             /** The second line of the address component of the check's destination address. */
-            @JsonProperty("line2") fun line2(): String? = line2
+            fun line2(): String? = line2.getNullable("line2")
 
             /**
              * The name component of the check's destination address. Defaults to the provided
              * `recipient_name` parameter.
              */
-            @JsonProperty("name") fun name(): String? = name
+            fun name(): String? = name.getNullable("name")
+
+            /** The city component of the check's destination address. */
+            @JsonProperty("city") @ExcludeMissing fun _city(): JsonField<String> = city
+
+            /** The first line of the address component of the check's destination address. */
+            @JsonProperty("line1") @ExcludeMissing fun _line1(): JsonField<String> = line1
+
+            /** The postal code component of the check's destination address. */
+            @JsonProperty("postal_code")
+            @ExcludeMissing
+            fun _postalCode(): JsonField<String> = postalCode
+
+            /** The US state component of the check's destination address. */
+            @JsonProperty("state") @ExcludeMissing fun _state(): JsonField<String> = state
+
+            /** The second line of the address component of the check's destination address. */
+            @JsonProperty("line2") @ExcludeMissing fun _line2(): JsonField<String> = line2
+
+            /**
+             * The name component of the check's destination address. Defaults to the provided
+             * `recipient_name` parameter.
+             */
+            @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
             @JsonAnyGetter
             @ExcludeMissing
             fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+            private var validated: Boolean = false
+
+            fun validate(): MailingAddress = apply {
+                if (!validated) {
+                    city()
+                    line1()
+                    postalCode()
+                    state()
+                    line2()
+                    name()
+                    validated = true
+                }
+            }
 
             fun toBuilder() = Builder().from(this)
 
@@ -674,12 +985,12 @@ constructor(
 
             class Builder {
 
-                private var city: String? = null
-                private var line1: String? = null
-                private var postalCode: String? = null
-                private var state: String? = null
-                private var line2: String? = null
-                private var name: String? = null
+                private var city: JsonField<String>? = null
+                private var line1: JsonField<String>? = null
+                private var postalCode: JsonField<String>? = null
+                private var state: JsonField<String>? = null
+                private var line2: JsonField<String> = JsonMissing.of()
+                private var name: JsonField<String> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(mailingAddress: MailingAddress) = apply {
@@ -693,25 +1004,48 @@ constructor(
                 }
 
                 /** The city component of the check's destination address. */
-                fun city(city: String) = apply { this.city = city }
+                fun city(city: String) = city(JsonField.of(city))
+
+                /** The city component of the check's destination address. */
+                fun city(city: JsonField<String>) = apply { this.city = city }
 
                 /** The first line of the address component of the check's destination address. */
-                fun line1(line1: String) = apply { this.line1 = line1 }
+                fun line1(line1: String) = line1(JsonField.of(line1))
+
+                /** The first line of the address component of the check's destination address. */
+                fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
 
                 /** The postal code component of the check's destination address. */
-                fun postalCode(postalCode: String) = apply { this.postalCode = postalCode }
+                fun postalCode(postalCode: String) = postalCode(JsonField.of(postalCode))
+
+                /** The postal code component of the check's destination address. */
+                fun postalCode(postalCode: JsonField<String>) = apply {
+                    this.postalCode = postalCode
+                }
 
                 /** The US state component of the check's destination address. */
-                fun state(state: String) = apply { this.state = state }
+                fun state(state: String) = state(JsonField.of(state))
+
+                /** The US state component of the check's destination address. */
+                fun state(state: JsonField<String>) = apply { this.state = state }
 
                 /** The second line of the address component of the check's destination address. */
-                fun line2(line2: String?) = apply { this.line2 = line2 }
+                fun line2(line2: String) = line2(JsonField.of(line2))
+
+                /** The second line of the address component of the check's destination address. */
+                fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
 
                 /**
                  * The name component of the check's destination address. Defaults to the provided
                  * `recipient_name` parameter.
                  */
-                fun name(name: String?) = apply { this.name = name }
+                fun name(name: String) = name(JsonField.of(name))
+
+                /**
+                 * The name component of the check's destination address. Defaults to the provided
+                 * `recipient_name` parameter.
+                 */
+                fun name(name: JsonField<String>) = apply { this.name = name }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -773,37 +1107,83 @@ constructor(
         class ReturnAddress
         @JsonCreator
         private constructor(
-            @JsonProperty("city") private val city: String,
-            @JsonProperty("line1") private val line1: String,
-            @JsonProperty("name") private val name: String,
-            @JsonProperty("postal_code") private val postalCode: String,
-            @JsonProperty("state") private val state: String,
-            @JsonProperty("line2") private val line2: String?,
+            @JsonProperty("city")
+            @ExcludeMissing
+            private val city: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("line1")
+            @ExcludeMissing
+            private val line1: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("name")
+            @ExcludeMissing
+            private val name: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("postal_code")
+            @ExcludeMissing
+            private val postalCode: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("state")
+            @ExcludeMissing
+            private val state: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("line2")
+            @ExcludeMissing
+            private val line2: JsonField<String> = JsonMissing.of(),
             @JsonAnySetter
             private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
 
             /** The city of the return address. */
-            @JsonProperty("city") fun city(): String = city
+            fun city(): String = city.getRequired("city")
 
             /** The first line of the return address. */
-            @JsonProperty("line1") fun line1(): String = line1
+            fun line1(): String = line1.getRequired("line1")
 
             /** The name of the return address. */
-            @JsonProperty("name") fun name(): String = name
+            fun name(): String = name.getRequired("name")
 
             /** The postal code of the return address. */
-            @JsonProperty("postal_code") fun postalCode(): String = postalCode
+            fun postalCode(): String = postalCode.getRequired("postal_code")
 
             /** The US state of the return address. */
-            @JsonProperty("state") fun state(): String = state
+            fun state(): String = state.getRequired("state")
 
             /** The second line of the return address. */
-            @JsonProperty("line2") fun line2(): String? = line2
+            fun line2(): String? = line2.getNullable("line2")
+
+            /** The city of the return address. */
+            @JsonProperty("city") @ExcludeMissing fun _city(): JsonField<String> = city
+
+            /** The first line of the return address. */
+            @JsonProperty("line1") @ExcludeMissing fun _line1(): JsonField<String> = line1
+
+            /** The name of the return address. */
+            @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
+
+            /** The postal code of the return address. */
+            @JsonProperty("postal_code")
+            @ExcludeMissing
+            fun _postalCode(): JsonField<String> = postalCode
+
+            /** The US state of the return address. */
+            @JsonProperty("state") @ExcludeMissing fun _state(): JsonField<String> = state
+
+            /** The second line of the return address. */
+            @JsonProperty("line2") @ExcludeMissing fun _line2(): JsonField<String> = line2
 
             @JsonAnyGetter
             @ExcludeMissing
             fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+            private var validated: Boolean = false
+
+            fun validate(): ReturnAddress = apply {
+                if (!validated) {
+                    city()
+                    line1()
+                    name()
+                    postalCode()
+                    state()
+                    line2()
+                    validated = true
+                }
+            }
 
             fun toBuilder() = Builder().from(this)
 
@@ -814,12 +1194,12 @@ constructor(
 
             class Builder {
 
-                private var city: String? = null
-                private var line1: String? = null
-                private var name: String? = null
-                private var postalCode: String? = null
-                private var state: String? = null
-                private var line2: String? = null
+                private var city: JsonField<String>? = null
+                private var line1: JsonField<String>? = null
+                private var name: JsonField<String>? = null
+                private var postalCode: JsonField<String>? = null
+                private var state: JsonField<String>? = null
+                private var line2: JsonField<String> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(returnAddress: ReturnAddress) = apply {
@@ -833,22 +1213,42 @@ constructor(
                 }
 
                 /** The city of the return address. */
-                fun city(city: String) = apply { this.city = city }
+                fun city(city: String) = city(JsonField.of(city))
+
+                /** The city of the return address. */
+                fun city(city: JsonField<String>) = apply { this.city = city }
 
                 /** The first line of the return address. */
-                fun line1(line1: String) = apply { this.line1 = line1 }
+                fun line1(line1: String) = line1(JsonField.of(line1))
+
+                /** The first line of the return address. */
+                fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
 
                 /** The name of the return address. */
-                fun name(name: String) = apply { this.name = name }
+                fun name(name: String) = name(JsonField.of(name))
+
+                /** The name of the return address. */
+                fun name(name: JsonField<String>) = apply { this.name = name }
 
                 /** The postal code of the return address. */
-                fun postalCode(postalCode: String) = apply { this.postalCode = postalCode }
+                fun postalCode(postalCode: String) = postalCode(JsonField.of(postalCode))
+
+                /** The postal code of the return address. */
+                fun postalCode(postalCode: JsonField<String>) = apply {
+                    this.postalCode = postalCode
+                }
 
                 /** The US state of the return address. */
-                fun state(state: String) = apply { this.state = state }
+                fun state(state: String) = state(JsonField.of(state))
+
+                /** The US state of the return address. */
+                fun state(state: JsonField<String>) = apply { this.state = state }
 
                 /** The second line of the return address. */
-                fun line2(line2: String?) = apply { this.line2 = line2 }
+                fun line2(line2: String) = line2(JsonField.of(line2))
+
+                /** The second line of the return address. */
+                fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -929,7 +1329,9 @@ constructor(
     class ThirdParty
     @JsonCreator
     private constructor(
-        @JsonProperty("check_number") private val checkNumber: String?,
+        @JsonProperty("check_number")
+        @ExcludeMissing
+        private val checkNumber: JsonField<String> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
@@ -939,11 +1341,29 @@ constructor(
          * this is omitted, Increase will generate a check number for you; you should inspect the
          * response and use that check number.
          */
-        @JsonProperty("check_number") fun checkNumber(): String? = checkNumber
+        fun checkNumber(): String? = checkNumber.getNullable("check_number")
+
+        /**
+         * The check number you will print on the check. This should not contain leading zeroes. If
+         * this is omitted, Increase will generate a check number for you; you should inspect the
+         * response and use that check number.
+         */
+        @JsonProperty("check_number")
+        @ExcludeMissing
+        fun _checkNumber(): JsonField<String> = checkNumber
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): ThirdParty = apply {
+            if (!validated) {
+                checkNumber()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -954,7 +1374,7 @@ constructor(
 
         class Builder {
 
-            private var checkNumber: String? = null
+            private var checkNumber: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(thirdParty: ThirdParty) = apply {
@@ -967,7 +1387,16 @@ constructor(
              * If this is omitted, Increase will generate a check number for you; you should inspect
              * the response and use that check number.
              */
-            fun checkNumber(checkNumber: String?) = apply { this.checkNumber = checkNumber }
+            fun checkNumber(checkNumber: String) = checkNumber(JsonField.of(checkNumber))
+
+            /**
+             * The check number you will print on the check. This should not contain leading zeroes.
+             * If this is omitted, Increase will generate a check number for you; you should inspect
+             * the response and use that check number.
+             */
+            fun checkNumber(checkNumber: JsonField<String>) = apply {
+                this.checkNumber = checkNumber
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()

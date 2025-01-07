@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
+import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
@@ -52,13 +53,37 @@ constructor(
     fun transactionCsv(): TransactionCsv? = body.transactionCsv()
 
     /** Options for the created export. Required if `category` is equal to `vendor_csv`. */
-    fun vendorCsv(): JsonValue? = body.vendorCsv()
+    fun _vendorCsv(): JsonValue = body._vendorCsv()
+
+    /** The type of Export to create. */
+    fun _category(): JsonField<Category> = body._category()
+
+    /**
+     * Options for the created export. Required if `category` is equal to `account_statement_ofx`.
+     */
+    fun _accountStatementOfx(): JsonField<AccountStatementOfx> = body._accountStatementOfx()
+
+    /** Options for the created export. Required if `category` is equal to `balance_csv`. */
+    fun _balanceCsv(): JsonField<BalanceCsv> = body._balanceCsv()
+
+    /**
+     * Options for the created export. Required if `category` is equal to
+     * `bookkeeping_account_balance_csv`.
+     */
+    fun _bookkeepingAccountBalanceCsv(): JsonField<BookkeepingAccountBalanceCsv> =
+        body._bookkeepingAccountBalanceCsv()
+
+    /** Options for the created export. Required if `category` is equal to `entity_csv`. */
+    fun _entityCsv(): JsonField<EntityCsv> = body._entityCsv()
+
+    /** Options for the created export. Required if `category` is equal to `transaction_csv`. */
+    fun _transactionCsv(): JsonField<TransactionCsv> = body._transactionCsv()
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     internal fun getBody(): ExportCreateBody = body
 
@@ -70,52 +95,113 @@ constructor(
     class ExportCreateBody
     @JsonCreator
     internal constructor(
-        @JsonProperty("category") private val category: Category,
+        @JsonProperty("category")
+        @ExcludeMissing
+        private val category: JsonField<Category> = JsonMissing.of(),
         @JsonProperty("account_statement_ofx")
-        private val accountStatementOfx: AccountStatementOfx?,
-        @JsonProperty("balance_csv") private val balanceCsv: BalanceCsv?,
+        @ExcludeMissing
+        private val accountStatementOfx: JsonField<AccountStatementOfx> = JsonMissing.of(),
+        @JsonProperty("balance_csv")
+        @ExcludeMissing
+        private val balanceCsv: JsonField<BalanceCsv> = JsonMissing.of(),
         @JsonProperty("bookkeeping_account_balance_csv")
-        private val bookkeepingAccountBalanceCsv: BookkeepingAccountBalanceCsv?,
-        @JsonProperty("entity_csv") private val entityCsv: EntityCsv?,
-        @JsonProperty("transaction_csv") private val transactionCsv: TransactionCsv?,
-        @JsonProperty("vendor_csv") private val vendorCsv: JsonValue?,
+        @ExcludeMissing
+        private val bookkeepingAccountBalanceCsv: JsonField<BookkeepingAccountBalanceCsv> =
+            JsonMissing.of(),
+        @JsonProperty("entity_csv")
+        @ExcludeMissing
+        private val entityCsv: JsonField<EntityCsv> = JsonMissing.of(),
+        @JsonProperty("transaction_csv")
+        @ExcludeMissing
+        private val transactionCsv: JsonField<TransactionCsv> = JsonMissing.of(),
+        @JsonProperty("vendor_csv")
+        @ExcludeMissing
+        private val vendorCsv: JsonValue = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The type of Export to create. */
-        @JsonProperty("category") fun category(): Category = category
+        fun category(): Category = category.getRequired("category")
+
+        /**
+         * Options for the created export. Required if `category` is equal to
+         * `account_statement_ofx`.
+         */
+        fun accountStatementOfx(): AccountStatementOfx? =
+            accountStatementOfx.getNullable("account_statement_ofx")
+
+        /** Options for the created export. Required if `category` is equal to `balance_csv`. */
+        fun balanceCsv(): BalanceCsv? = balanceCsv.getNullable("balance_csv")
+
+        /**
+         * Options for the created export. Required if `category` is equal to
+         * `bookkeeping_account_balance_csv`.
+         */
+        fun bookkeepingAccountBalanceCsv(): BookkeepingAccountBalanceCsv? =
+            bookkeepingAccountBalanceCsv.getNullable("bookkeeping_account_balance_csv")
+
+        /** Options for the created export. Required if `category` is equal to `entity_csv`. */
+        fun entityCsv(): EntityCsv? = entityCsv.getNullable("entity_csv")
+
+        /** Options for the created export. Required if `category` is equal to `transaction_csv`. */
+        fun transactionCsv(): TransactionCsv? = transactionCsv.getNullable("transaction_csv")
+
+        /** Options for the created export. Required if `category` is equal to `vendor_csv`. */
+        @JsonProperty("vendor_csv") @ExcludeMissing fun _vendorCsv(): JsonValue = vendorCsv
+
+        /** The type of Export to create. */
+        @JsonProperty("category") @ExcludeMissing fun _category(): JsonField<Category> = category
 
         /**
          * Options for the created export. Required if `category` is equal to
          * `account_statement_ofx`.
          */
         @JsonProperty("account_statement_ofx")
-        fun accountStatementOfx(): AccountStatementOfx? = accountStatementOfx
+        @ExcludeMissing
+        fun _accountStatementOfx(): JsonField<AccountStatementOfx> = accountStatementOfx
 
         /** Options for the created export. Required if `category` is equal to `balance_csv`. */
-        @JsonProperty("balance_csv") fun balanceCsv(): BalanceCsv? = balanceCsv
+        @JsonProperty("balance_csv")
+        @ExcludeMissing
+        fun _balanceCsv(): JsonField<BalanceCsv> = balanceCsv
 
         /**
          * Options for the created export. Required if `category` is equal to
          * `bookkeeping_account_balance_csv`.
          */
         @JsonProperty("bookkeeping_account_balance_csv")
-        fun bookkeepingAccountBalanceCsv(): BookkeepingAccountBalanceCsv? =
+        @ExcludeMissing
+        fun _bookkeepingAccountBalanceCsv(): JsonField<BookkeepingAccountBalanceCsv> =
             bookkeepingAccountBalanceCsv
 
         /** Options for the created export. Required if `category` is equal to `entity_csv`. */
-        @JsonProperty("entity_csv") fun entityCsv(): EntityCsv? = entityCsv
+        @JsonProperty("entity_csv")
+        @ExcludeMissing
+        fun _entityCsv(): JsonField<EntityCsv> = entityCsv
 
         /** Options for the created export. Required if `category` is equal to `transaction_csv`. */
-        @JsonProperty("transaction_csv") fun transactionCsv(): TransactionCsv? = transactionCsv
-
-        /** Options for the created export. Required if `category` is equal to `vendor_csv`. */
-        @JsonProperty("vendor_csv") fun vendorCsv(): JsonValue? = vendorCsv
+        @JsonProperty("transaction_csv")
+        @ExcludeMissing
+        fun _transactionCsv(): JsonField<TransactionCsv> = transactionCsv
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): ExportCreateBody = apply {
+            if (!validated) {
+                category()
+                accountStatementOfx()?.validate()
+                balanceCsv()?.validate()
+                bookkeepingAccountBalanceCsv()?.validate()
+                entityCsv()?.validate()
+                transactionCsv()?.validate()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -126,13 +212,14 @@ constructor(
 
         class Builder {
 
-            private var category: Category? = null
-            private var accountStatementOfx: AccountStatementOfx? = null
-            private var balanceCsv: BalanceCsv? = null
-            private var bookkeepingAccountBalanceCsv: BookkeepingAccountBalanceCsv? = null
-            private var entityCsv: EntityCsv? = null
-            private var transactionCsv: TransactionCsv? = null
-            private var vendorCsv: JsonValue? = null
+            private var category: JsonField<Category>? = null
+            private var accountStatementOfx: JsonField<AccountStatementOfx> = JsonMissing.of()
+            private var balanceCsv: JsonField<BalanceCsv> = JsonMissing.of()
+            private var bookkeepingAccountBalanceCsv: JsonField<BookkeepingAccountBalanceCsv> =
+                JsonMissing.of()
+            private var entityCsv: JsonField<EntityCsv> = JsonMissing.of()
+            private var transactionCsv: JsonField<TransactionCsv> = JsonMissing.of()
+            private var vendorCsv: JsonValue = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(exportCreateBody: ExportCreateBody) = apply {
@@ -147,39 +234,71 @@ constructor(
             }
 
             /** The type of Export to create. */
-            fun category(category: Category) = apply { this.category = category }
+            fun category(category: Category) = category(JsonField.of(category))
+
+            /** The type of Export to create. */
+            fun category(category: JsonField<Category>) = apply { this.category = category }
 
             /**
              * Options for the created export. Required if `category` is equal to
              * `account_statement_ofx`.
              */
-            fun accountStatementOfx(accountStatementOfx: AccountStatementOfx?) = apply {
+            fun accountStatementOfx(accountStatementOfx: AccountStatementOfx) =
+                accountStatementOfx(JsonField.of(accountStatementOfx))
+
+            /**
+             * Options for the created export. Required if `category` is equal to
+             * `account_statement_ofx`.
+             */
+            fun accountStatementOfx(accountStatementOfx: JsonField<AccountStatementOfx>) = apply {
                 this.accountStatementOfx = accountStatementOfx
             }
 
             /** Options for the created export. Required if `category` is equal to `balance_csv`. */
-            fun balanceCsv(balanceCsv: BalanceCsv?) = apply { this.balanceCsv = balanceCsv }
+            fun balanceCsv(balanceCsv: BalanceCsv) = balanceCsv(JsonField.of(balanceCsv))
+
+            /** Options for the created export. Required if `category` is equal to `balance_csv`. */
+            fun balanceCsv(balanceCsv: JsonField<BalanceCsv>) = apply {
+                this.balanceCsv = balanceCsv
+            }
 
             /**
              * Options for the created export. Required if `category` is equal to
              * `bookkeeping_account_balance_csv`.
              */
             fun bookkeepingAccountBalanceCsv(
-                bookkeepingAccountBalanceCsv: BookkeepingAccountBalanceCsv?
+                bookkeepingAccountBalanceCsv: BookkeepingAccountBalanceCsv
+            ) = bookkeepingAccountBalanceCsv(JsonField.of(bookkeepingAccountBalanceCsv))
+
+            /**
+             * Options for the created export. Required if `category` is equal to
+             * `bookkeeping_account_balance_csv`.
+             */
+            fun bookkeepingAccountBalanceCsv(
+                bookkeepingAccountBalanceCsv: JsonField<BookkeepingAccountBalanceCsv>
             ) = apply { this.bookkeepingAccountBalanceCsv = bookkeepingAccountBalanceCsv }
 
             /** Options for the created export. Required if `category` is equal to `entity_csv`. */
-            fun entityCsv(entityCsv: EntityCsv?) = apply { this.entityCsv = entityCsv }
+            fun entityCsv(entityCsv: EntityCsv) = entityCsv(JsonField.of(entityCsv))
+
+            /** Options for the created export. Required if `category` is equal to `entity_csv`. */
+            fun entityCsv(entityCsv: JsonField<EntityCsv>) = apply { this.entityCsv = entityCsv }
 
             /**
              * Options for the created export. Required if `category` is equal to `transaction_csv`.
              */
-            fun transactionCsv(transactionCsv: TransactionCsv?) = apply {
+            fun transactionCsv(transactionCsv: TransactionCsv) =
+                transactionCsv(JsonField.of(transactionCsv))
+
+            /**
+             * Options for the created export. Required if `category` is equal to `transaction_csv`.
+             */
+            fun transactionCsv(transactionCsv: JsonField<TransactionCsv>) = apply {
                 this.transactionCsv = transactionCsv
             }
 
             /** Options for the created export. Required if `category` is equal to `vendor_csv`. */
-            fun vendorCsv(vendorCsv: JsonValue?) = apply { this.vendorCsv = vendorCsv }
+            fun vendorCsv(vendorCsv: JsonValue) = apply { this.vendorCsv = vendorCsv }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -254,35 +373,84 @@ constructor(
         /** The type of Export to create. */
         fun category(category: Category) = apply { body.category(category) }
 
+        /** The type of Export to create. */
+        fun category(category: JsonField<Category>) = apply { body.category(category) }
+
         /**
          * Options for the created export. Required if `category` is equal to
          * `account_statement_ofx`.
          */
-        fun accountStatementOfx(accountStatementOfx: AccountStatementOfx?) = apply {
+        fun accountStatementOfx(accountStatementOfx: AccountStatementOfx) = apply {
+            body.accountStatementOfx(accountStatementOfx)
+        }
+
+        /**
+         * Options for the created export. Required if `category` is equal to
+         * `account_statement_ofx`.
+         */
+        fun accountStatementOfx(accountStatementOfx: JsonField<AccountStatementOfx>) = apply {
             body.accountStatementOfx(accountStatementOfx)
         }
 
         /** Options for the created export. Required if `category` is equal to `balance_csv`. */
-        fun balanceCsv(balanceCsv: BalanceCsv?) = apply { body.balanceCsv(balanceCsv) }
+        fun balanceCsv(balanceCsv: BalanceCsv) = apply { body.balanceCsv(balanceCsv) }
+
+        /** Options for the created export. Required if `category` is equal to `balance_csv`. */
+        fun balanceCsv(balanceCsv: JsonField<BalanceCsv>) = apply { body.balanceCsv(balanceCsv) }
 
         /**
          * Options for the created export. Required if `category` is equal to
          * `bookkeeping_account_balance_csv`.
          */
         fun bookkeepingAccountBalanceCsv(
-            bookkeepingAccountBalanceCsv: BookkeepingAccountBalanceCsv?
+            bookkeepingAccountBalanceCsv: BookkeepingAccountBalanceCsv
+        ) = apply { body.bookkeepingAccountBalanceCsv(bookkeepingAccountBalanceCsv) }
+
+        /**
+         * Options for the created export. Required if `category` is equal to
+         * `bookkeeping_account_balance_csv`.
+         */
+        fun bookkeepingAccountBalanceCsv(
+            bookkeepingAccountBalanceCsv: JsonField<BookkeepingAccountBalanceCsv>
         ) = apply { body.bookkeepingAccountBalanceCsv(bookkeepingAccountBalanceCsv) }
 
         /** Options for the created export. Required if `category` is equal to `entity_csv`. */
-        fun entityCsv(entityCsv: EntityCsv?) = apply { body.entityCsv(entityCsv) }
+        fun entityCsv(entityCsv: EntityCsv) = apply { body.entityCsv(entityCsv) }
+
+        /** Options for the created export. Required if `category` is equal to `entity_csv`. */
+        fun entityCsv(entityCsv: JsonField<EntityCsv>) = apply { body.entityCsv(entityCsv) }
 
         /** Options for the created export. Required if `category` is equal to `transaction_csv`. */
-        fun transactionCsv(transactionCsv: TransactionCsv?) = apply {
+        fun transactionCsv(transactionCsv: TransactionCsv) = apply {
+            body.transactionCsv(transactionCsv)
+        }
+
+        /** Options for the created export. Required if `category` is equal to `transaction_csv`. */
+        fun transactionCsv(transactionCsv: JsonField<TransactionCsv>) = apply {
             body.transactionCsv(transactionCsv)
         }
 
         /** Options for the created export. Required if `category` is equal to `vendor_csv`. */
-        fun vendorCsv(vendorCsv: JsonValue?) = apply { body.vendorCsv(vendorCsv) }
+        fun vendorCsv(vendorCsv: JsonValue) = apply { body.vendorCsv(vendorCsv) }
+
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.putAllAdditionalProperties(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
+        }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -382,25 +550,6 @@ constructor(
             additionalQueryParams.removeAll(keys)
         }
 
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                body.putAllAdditionalProperties(additionalBodyProperties)
-            }
-
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
-
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
-        }
-
         fun build(): ExportCreateParams =
             ExportCreateParams(
                 body.build(),
@@ -497,21 +646,43 @@ constructor(
     class AccountStatementOfx
     @JsonCreator
     private constructor(
-        @JsonProperty("account_id") private val accountId: String,
-        @JsonProperty("created_at") private val createdAt: CreatedAt?,
+        @JsonProperty("account_id")
+        @ExcludeMissing
+        private val accountId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        private val createdAt: JsonField<CreatedAt> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The Account to create a statement for. */
-        @JsonProperty("account_id") fun accountId(): String = accountId
+        fun accountId(): String = accountId.getRequired("account_id")
 
         /** Filter results by time range on the `created_at` attribute. */
-        @JsonProperty("created_at") fun createdAt(): CreatedAt? = createdAt
+        fun createdAt(): CreatedAt? = createdAt.getNullable("created_at")
+
+        /** The Account to create a statement for. */
+        @JsonProperty("account_id") @ExcludeMissing fun _accountId(): JsonField<String> = accountId
+
+        /** Filter results by time range on the `created_at` attribute. */
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        fun _createdAt(): JsonField<CreatedAt> = createdAt
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): AccountStatementOfx = apply {
+            if (!validated) {
+                accountId()
+                createdAt()?.validate()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -522,8 +693,8 @@ constructor(
 
         class Builder {
 
-            private var accountId: String? = null
-            private var createdAt: CreatedAt? = null
+            private var accountId: JsonField<String>? = null
+            private var createdAt: JsonField<CreatedAt> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(accountStatementOfx: AccountStatementOfx) = apply {
@@ -533,10 +704,16 @@ constructor(
             }
 
             /** The Account to create a statement for. */
-            fun accountId(accountId: String) = apply { this.accountId = accountId }
+            fun accountId(accountId: String) = accountId(JsonField.of(accountId))
+
+            /** The Account to create a statement for. */
+            fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
             /** Filter results by time range on the `created_at` attribute. */
-            fun createdAt(createdAt: CreatedAt?) = apply { this.createdAt = createdAt }
+            fun createdAt(createdAt: CreatedAt) = createdAt(JsonField.of(createdAt))
+
+            /** Filter results by time range on the `created_at` attribute. */
+            fun createdAt(createdAt: JsonField<CreatedAt>) = apply { this.createdAt = createdAt }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -570,10 +747,18 @@ constructor(
         class CreatedAt
         @JsonCreator
         private constructor(
-            @JsonProperty("after") private val after: OffsetDateTime?,
-            @JsonProperty("before") private val before: OffsetDateTime?,
-            @JsonProperty("on_or_after") private val onOrAfter: OffsetDateTime?,
-            @JsonProperty("on_or_before") private val onOrBefore: OffsetDateTime?,
+            @JsonProperty("after")
+            @ExcludeMissing
+            private val after: JsonField<OffsetDateTime> = JsonMissing.of(),
+            @JsonProperty("before")
+            @ExcludeMissing
+            private val before: JsonField<OffsetDateTime> = JsonMissing.of(),
+            @JsonProperty("on_or_after")
+            @ExcludeMissing
+            private val onOrAfter: JsonField<OffsetDateTime> = JsonMissing.of(),
+            @JsonProperty("on_or_before")
+            @ExcludeMissing
+            private val onOrBefore: JsonField<OffsetDateTime> = JsonMissing.of(),
             @JsonAnySetter
             private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
@@ -582,29 +767,71 @@ constructor(
              * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            @JsonProperty("after") fun after(): OffsetDateTime? = after
+            fun after(): OffsetDateTime? = after.getNullable("after")
 
             /**
              * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            @JsonProperty("before") fun before(): OffsetDateTime? = before
+            fun before(): OffsetDateTime? = before.getNullable("before")
 
             /**
              * Return results on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            @JsonProperty("on_or_after") fun onOrAfter(): OffsetDateTime? = onOrAfter
+            fun onOrAfter(): OffsetDateTime? = onOrAfter.getNullable("on_or_after")
 
             /**
              * Return results on or before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            @JsonProperty("on_or_before") fun onOrBefore(): OffsetDateTime? = onOrBefore
+            fun onOrBefore(): OffsetDateTime? = onOrBefore.getNullable("on_or_before")
+
+            /**
+             * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+             * timestamp.
+             */
+            @JsonProperty("after") @ExcludeMissing fun _after(): JsonField<OffsetDateTime> = after
+
+            /**
+             * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+             * timestamp.
+             */
+            @JsonProperty("before")
+            @ExcludeMissing
+            fun _before(): JsonField<OffsetDateTime> = before
+
+            /**
+             * Return results on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+             * timestamp.
+             */
+            @JsonProperty("on_or_after")
+            @ExcludeMissing
+            fun _onOrAfter(): JsonField<OffsetDateTime> = onOrAfter
+
+            /**
+             * Return results on or before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+             * timestamp.
+             */
+            @JsonProperty("on_or_before")
+            @ExcludeMissing
+            fun _onOrBefore(): JsonField<OffsetDateTime> = onOrBefore
 
             @JsonAnyGetter
             @ExcludeMissing
             fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+            private var validated: Boolean = false
+
+            fun validate(): CreatedAt = apply {
+                if (!validated) {
+                    after()
+                    before()
+                    onOrAfter()
+                    onOrBefore()
+                    validated = true
+                }
+            }
 
             fun toBuilder() = Builder().from(this)
 
@@ -615,10 +842,10 @@ constructor(
 
             class Builder {
 
-                private var after: OffsetDateTime? = null
-                private var before: OffsetDateTime? = null
-                private var onOrAfter: OffsetDateTime? = null
-                private var onOrBefore: OffsetDateTime? = null
+                private var after: JsonField<OffsetDateTime> = JsonMissing.of()
+                private var before: JsonField<OffsetDateTime> = JsonMissing.of()
+                private var onOrAfter: JsonField<OffsetDateTime> = JsonMissing.of()
+                private var onOrBefore: JsonField<OffsetDateTime> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(createdAt: CreatedAt) = apply {
@@ -633,25 +860,53 @@ constructor(
                  * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
                  * timestamp.
                  */
-                fun after(after: OffsetDateTime?) = apply { this.after = after }
+                fun after(after: OffsetDateTime) = after(JsonField.of(after))
+
+                /**
+                 * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+                 * timestamp.
+                 */
+                fun after(after: JsonField<OffsetDateTime>) = apply { this.after = after }
 
                 /**
                  * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
                  * timestamp.
                  */
-                fun before(before: OffsetDateTime?) = apply { this.before = before }
+                fun before(before: OffsetDateTime) = before(JsonField.of(before))
+
+                /**
+                 * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+                 * timestamp.
+                 */
+                fun before(before: JsonField<OffsetDateTime>) = apply { this.before = before }
 
                 /**
                  * Return results on or after this
                  * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
                  */
-                fun onOrAfter(onOrAfter: OffsetDateTime?) = apply { this.onOrAfter = onOrAfter }
+                fun onOrAfter(onOrAfter: OffsetDateTime) = onOrAfter(JsonField.of(onOrAfter))
+
+                /**
+                 * Return results on or after this
+                 * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
+                 */
+                fun onOrAfter(onOrAfter: JsonField<OffsetDateTime>) = apply {
+                    this.onOrAfter = onOrAfter
+                }
 
                 /**
                  * Return results on or before this
                  * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
                  */
-                fun onOrBefore(onOrBefore: OffsetDateTime?) = apply { this.onOrBefore = onOrBefore }
+                fun onOrBefore(onOrBefore: OffsetDateTime) = onOrBefore(JsonField.of(onOrBefore))
+
+                /**
+                 * Return results on or before this
+                 * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
+                 */
+                fun onOrBefore(onOrBefore: JsonField<OffsetDateTime>) = apply {
+                    this.onOrBefore = onOrBefore
+                }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -726,25 +981,53 @@ constructor(
     class BalanceCsv
     @JsonCreator
     private constructor(
-        @JsonProperty("account_id") private val accountId: String?,
-        @JsonProperty("created_at") private val createdAt: CreatedAt?,
-        @JsonProperty("program_id") private val programId: String?,
+        @JsonProperty("account_id")
+        @ExcludeMissing
+        private val accountId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        private val createdAt: JsonField<CreatedAt> = JsonMissing.of(),
+        @JsonProperty("program_id")
+        @ExcludeMissing
+        private val programId: JsonField<String> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** Filter exported Transactions to the specified Account. */
-        @JsonProperty("account_id") fun accountId(): String? = accountId
+        fun accountId(): String? = accountId.getNullable("account_id")
 
         /** Filter results by time range on the `created_at` attribute. */
-        @JsonProperty("created_at") fun createdAt(): CreatedAt? = createdAt
+        fun createdAt(): CreatedAt? = createdAt.getNullable("created_at")
 
         /** Filter exported Transactions to the specified Program. */
-        @JsonProperty("program_id") fun programId(): String? = programId
+        fun programId(): String? = programId.getNullable("program_id")
+
+        /** Filter exported Transactions to the specified Account. */
+        @JsonProperty("account_id") @ExcludeMissing fun _accountId(): JsonField<String> = accountId
+
+        /** Filter results by time range on the `created_at` attribute. */
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        fun _createdAt(): JsonField<CreatedAt> = createdAt
+
+        /** Filter exported Transactions to the specified Program. */
+        @JsonProperty("program_id") @ExcludeMissing fun _programId(): JsonField<String> = programId
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): BalanceCsv = apply {
+            if (!validated) {
+                accountId()
+                createdAt()?.validate()
+                programId()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -755,9 +1038,9 @@ constructor(
 
         class Builder {
 
-            private var accountId: String? = null
-            private var createdAt: CreatedAt? = null
-            private var programId: String? = null
+            private var accountId: JsonField<String> = JsonMissing.of()
+            private var createdAt: JsonField<CreatedAt> = JsonMissing.of()
+            private var programId: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(balanceCsv: BalanceCsv) = apply {
@@ -768,13 +1051,22 @@ constructor(
             }
 
             /** Filter exported Transactions to the specified Account. */
-            fun accountId(accountId: String?) = apply { this.accountId = accountId }
+            fun accountId(accountId: String) = accountId(JsonField.of(accountId))
+
+            /** Filter exported Transactions to the specified Account. */
+            fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
             /** Filter results by time range on the `created_at` attribute. */
-            fun createdAt(createdAt: CreatedAt?) = apply { this.createdAt = createdAt }
+            fun createdAt(createdAt: CreatedAt) = createdAt(JsonField.of(createdAt))
+
+            /** Filter results by time range on the `created_at` attribute. */
+            fun createdAt(createdAt: JsonField<CreatedAt>) = apply { this.createdAt = createdAt }
 
             /** Filter exported Transactions to the specified Program. */
-            fun programId(programId: String?) = apply { this.programId = programId }
+            fun programId(programId: String) = programId(JsonField.of(programId))
+
+            /** Filter exported Transactions to the specified Program. */
+            fun programId(programId: JsonField<String>) = apply { this.programId = programId }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -809,10 +1101,18 @@ constructor(
         class CreatedAt
         @JsonCreator
         private constructor(
-            @JsonProperty("after") private val after: OffsetDateTime?,
-            @JsonProperty("before") private val before: OffsetDateTime?,
-            @JsonProperty("on_or_after") private val onOrAfter: OffsetDateTime?,
-            @JsonProperty("on_or_before") private val onOrBefore: OffsetDateTime?,
+            @JsonProperty("after")
+            @ExcludeMissing
+            private val after: JsonField<OffsetDateTime> = JsonMissing.of(),
+            @JsonProperty("before")
+            @ExcludeMissing
+            private val before: JsonField<OffsetDateTime> = JsonMissing.of(),
+            @JsonProperty("on_or_after")
+            @ExcludeMissing
+            private val onOrAfter: JsonField<OffsetDateTime> = JsonMissing.of(),
+            @JsonProperty("on_or_before")
+            @ExcludeMissing
+            private val onOrBefore: JsonField<OffsetDateTime> = JsonMissing.of(),
             @JsonAnySetter
             private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
@@ -821,29 +1121,71 @@ constructor(
              * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            @JsonProperty("after") fun after(): OffsetDateTime? = after
+            fun after(): OffsetDateTime? = after.getNullable("after")
 
             /**
              * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            @JsonProperty("before") fun before(): OffsetDateTime? = before
+            fun before(): OffsetDateTime? = before.getNullable("before")
 
             /**
              * Return results on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            @JsonProperty("on_or_after") fun onOrAfter(): OffsetDateTime? = onOrAfter
+            fun onOrAfter(): OffsetDateTime? = onOrAfter.getNullable("on_or_after")
 
             /**
              * Return results on or before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            @JsonProperty("on_or_before") fun onOrBefore(): OffsetDateTime? = onOrBefore
+            fun onOrBefore(): OffsetDateTime? = onOrBefore.getNullable("on_or_before")
+
+            /**
+             * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+             * timestamp.
+             */
+            @JsonProperty("after") @ExcludeMissing fun _after(): JsonField<OffsetDateTime> = after
+
+            /**
+             * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+             * timestamp.
+             */
+            @JsonProperty("before")
+            @ExcludeMissing
+            fun _before(): JsonField<OffsetDateTime> = before
+
+            /**
+             * Return results on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+             * timestamp.
+             */
+            @JsonProperty("on_or_after")
+            @ExcludeMissing
+            fun _onOrAfter(): JsonField<OffsetDateTime> = onOrAfter
+
+            /**
+             * Return results on or before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+             * timestamp.
+             */
+            @JsonProperty("on_or_before")
+            @ExcludeMissing
+            fun _onOrBefore(): JsonField<OffsetDateTime> = onOrBefore
 
             @JsonAnyGetter
             @ExcludeMissing
             fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+            private var validated: Boolean = false
+
+            fun validate(): CreatedAt = apply {
+                if (!validated) {
+                    after()
+                    before()
+                    onOrAfter()
+                    onOrBefore()
+                    validated = true
+                }
+            }
 
             fun toBuilder() = Builder().from(this)
 
@@ -854,10 +1196,10 @@ constructor(
 
             class Builder {
 
-                private var after: OffsetDateTime? = null
-                private var before: OffsetDateTime? = null
-                private var onOrAfter: OffsetDateTime? = null
-                private var onOrBefore: OffsetDateTime? = null
+                private var after: JsonField<OffsetDateTime> = JsonMissing.of()
+                private var before: JsonField<OffsetDateTime> = JsonMissing.of()
+                private var onOrAfter: JsonField<OffsetDateTime> = JsonMissing.of()
+                private var onOrBefore: JsonField<OffsetDateTime> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(createdAt: CreatedAt) = apply {
@@ -872,25 +1214,53 @@ constructor(
                  * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
                  * timestamp.
                  */
-                fun after(after: OffsetDateTime?) = apply { this.after = after }
+                fun after(after: OffsetDateTime) = after(JsonField.of(after))
+
+                /**
+                 * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+                 * timestamp.
+                 */
+                fun after(after: JsonField<OffsetDateTime>) = apply { this.after = after }
 
                 /**
                  * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
                  * timestamp.
                  */
-                fun before(before: OffsetDateTime?) = apply { this.before = before }
+                fun before(before: OffsetDateTime) = before(JsonField.of(before))
+
+                /**
+                 * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+                 * timestamp.
+                 */
+                fun before(before: JsonField<OffsetDateTime>) = apply { this.before = before }
 
                 /**
                  * Return results on or after this
                  * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
                  */
-                fun onOrAfter(onOrAfter: OffsetDateTime?) = apply { this.onOrAfter = onOrAfter }
+                fun onOrAfter(onOrAfter: OffsetDateTime) = onOrAfter(JsonField.of(onOrAfter))
+
+                /**
+                 * Return results on or after this
+                 * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
+                 */
+                fun onOrAfter(onOrAfter: JsonField<OffsetDateTime>) = apply {
+                    this.onOrAfter = onOrAfter
+                }
 
                 /**
                  * Return results on or before this
                  * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
                  */
-                fun onOrBefore(onOrBefore: OffsetDateTime?) = apply { this.onOrBefore = onOrBefore }
+                fun onOrBefore(onOrBefore: OffsetDateTime) = onOrBefore(JsonField.of(onOrBefore))
+
+                /**
+                 * Return results on or before this
+                 * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
+                 */
+                fun onOrBefore(onOrBefore: JsonField<OffsetDateTime>) = apply {
+                    this.onOrBefore = onOrBefore
+                }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -968,22 +1338,46 @@ constructor(
     class BookkeepingAccountBalanceCsv
     @JsonCreator
     private constructor(
-        @JsonProperty("bookkeeping_account_id") private val bookkeepingAccountId: String?,
-        @JsonProperty("created_at") private val createdAt: CreatedAt?,
+        @JsonProperty("bookkeeping_account_id")
+        @ExcludeMissing
+        private val bookkeepingAccountId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        private val createdAt: JsonField<CreatedAt> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** Filter exported Transactions to the specified Bookkeeping Account. */
-        @JsonProperty("bookkeeping_account_id")
-        fun bookkeepingAccountId(): String? = bookkeepingAccountId
+        fun bookkeepingAccountId(): String? =
+            bookkeepingAccountId.getNullable("bookkeeping_account_id")
 
         /** Filter results by time range on the `created_at` attribute. */
-        @JsonProperty("created_at") fun createdAt(): CreatedAt? = createdAt
+        fun createdAt(): CreatedAt? = createdAt.getNullable("created_at")
+
+        /** Filter exported Transactions to the specified Bookkeeping Account. */
+        @JsonProperty("bookkeeping_account_id")
+        @ExcludeMissing
+        fun _bookkeepingAccountId(): JsonField<String> = bookkeepingAccountId
+
+        /** Filter results by time range on the `created_at` attribute. */
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        fun _createdAt(): JsonField<CreatedAt> = createdAt
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): BookkeepingAccountBalanceCsv = apply {
+            if (!validated) {
+                bookkeepingAccountId()
+                createdAt()?.validate()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -994,8 +1388,8 @@ constructor(
 
         class Builder {
 
-            private var bookkeepingAccountId: String? = null
-            private var createdAt: CreatedAt? = null
+            private var bookkeepingAccountId: JsonField<String> = JsonMissing.of()
+            private var createdAt: JsonField<CreatedAt> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(bookkeepingAccountBalanceCsv: BookkeepingAccountBalanceCsv) = apply {
@@ -1006,12 +1400,19 @@ constructor(
             }
 
             /** Filter exported Transactions to the specified Bookkeeping Account. */
-            fun bookkeepingAccountId(bookkeepingAccountId: String?) = apply {
+            fun bookkeepingAccountId(bookkeepingAccountId: String) =
+                bookkeepingAccountId(JsonField.of(bookkeepingAccountId))
+
+            /** Filter exported Transactions to the specified Bookkeeping Account. */
+            fun bookkeepingAccountId(bookkeepingAccountId: JsonField<String>) = apply {
                 this.bookkeepingAccountId = bookkeepingAccountId
             }
 
             /** Filter results by time range on the `created_at` attribute. */
-            fun createdAt(createdAt: CreatedAt?) = apply { this.createdAt = createdAt }
+            fun createdAt(createdAt: CreatedAt) = createdAt(JsonField.of(createdAt))
+
+            /** Filter results by time range on the `created_at` attribute. */
+            fun createdAt(createdAt: JsonField<CreatedAt>) = apply { this.createdAt = createdAt }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -1045,10 +1446,18 @@ constructor(
         class CreatedAt
         @JsonCreator
         private constructor(
-            @JsonProperty("after") private val after: OffsetDateTime?,
-            @JsonProperty("before") private val before: OffsetDateTime?,
-            @JsonProperty("on_or_after") private val onOrAfter: OffsetDateTime?,
-            @JsonProperty("on_or_before") private val onOrBefore: OffsetDateTime?,
+            @JsonProperty("after")
+            @ExcludeMissing
+            private val after: JsonField<OffsetDateTime> = JsonMissing.of(),
+            @JsonProperty("before")
+            @ExcludeMissing
+            private val before: JsonField<OffsetDateTime> = JsonMissing.of(),
+            @JsonProperty("on_or_after")
+            @ExcludeMissing
+            private val onOrAfter: JsonField<OffsetDateTime> = JsonMissing.of(),
+            @JsonProperty("on_or_before")
+            @ExcludeMissing
+            private val onOrBefore: JsonField<OffsetDateTime> = JsonMissing.of(),
             @JsonAnySetter
             private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
@@ -1057,29 +1466,71 @@ constructor(
              * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            @JsonProperty("after") fun after(): OffsetDateTime? = after
+            fun after(): OffsetDateTime? = after.getNullable("after")
 
             /**
              * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            @JsonProperty("before") fun before(): OffsetDateTime? = before
+            fun before(): OffsetDateTime? = before.getNullable("before")
 
             /**
              * Return results on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            @JsonProperty("on_or_after") fun onOrAfter(): OffsetDateTime? = onOrAfter
+            fun onOrAfter(): OffsetDateTime? = onOrAfter.getNullable("on_or_after")
 
             /**
              * Return results on or before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            @JsonProperty("on_or_before") fun onOrBefore(): OffsetDateTime? = onOrBefore
+            fun onOrBefore(): OffsetDateTime? = onOrBefore.getNullable("on_or_before")
+
+            /**
+             * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+             * timestamp.
+             */
+            @JsonProperty("after") @ExcludeMissing fun _after(): JsonField<OffsetDateTime> = after
+
+            /**
+             * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+             * timestamp.
+             */
+            @JsonProperty("before")
+            @ExcludeMissing
+            fun _before(): JsonField<OffsetDateTime> = before
+
+            /**
+             * Return results on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+             * timestamp.
+             */
+            @JsonProperty("on_or_after")
+            @ExcludeMissing
+            fun _onOrAfter(): JsonField<OffsetDateTime> = onOrAfter
+
+            /**
+             * Return results on or before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+             * timestamp.
+             */
+            @JsonProperty("on_or_before")
+            @ExcludeMissing
+            fun _onOrBefore(): JsonField<OffsetDateTime> = onOrBefore
 
             @JsonAnyGetter
             @ExcludeMissing
             fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+            private var validated: Boolean = false
+
+            fun validate(): CreatedAt = apply {
+                if (!validated) {
+                    after()
+                    before()
+                    onOrAfter()
+                    onOrBefore()
+                    validated = true
+                }
+            }
 
             fun toBuilder() = Builder().from(this)
 
@@ -1090,10 +1541,10 @@ constructor(
 
             class Builder {
 
-                private var after: OffsetDateTime? = null
-                private var before: OffsetDateTime? = null
-                private var onOrAfter: OffsetDateTime? = null
-                private var onOrBefore: OffsetDateTime? = null
+                private var after: JsonField<OffsetDateTime> = JsonMissing.of()
+                private var before: JsonField<OffsetDateTime> = JsonMissing.of()
+                private var onOrAfter: JsonField<OffsetDateTime> = JsonMissing.of()
+                private var onOrBefore: JsonField<OffsetDateTime> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(createdAt: CreatedAt) = apply {
@@ -1108,25 +1559,53 @@ constructor(
                  * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
                  * timestamp.
                  */
-                fun after(after: OffsetDateTime?) = apply { this.after = after }
+                fun after(after: OffsetDateTime) = after(JsonField.of(after))
+
+                /**
+                 * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+                 * timestamp.
+                 */
+                fun after(after: JsonField<OffsetDateTime>) = apply { this.after = after }
 
                 /**
                  * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
                  * timestamp.
                  */
-                fun before(before: OffsetDateTime?) = apply { this.before = before }
+                fun before(before: OffsetDateTime) = before(JsonField.of(before))
+
+                /**
+                 * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+                 * timestamp.
+                 */
+                fun before(before: JsonField<OffsetDateTime>) = apply { this.before = before }
 
                 /**
                  * Return results on or after this
                  * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
                  */
-                fun onOrAfter(onOrAfter: OffsetDateTime?) = apply { this.onOrAfter = onOrAfter }
+                fun onOrAfter(onOrAfter: OffsetDateTime) = onOrAfter(JsonField.of(onOrAfter))
+
+                /**
+                 * Return results on or after this
+                 * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
+                 */
+                fun onOrAfter(onOrAfter: JsonField<OffsetDateTime>) = apply {
+                    this.onOrAfter = onOrAfter
+                }
 
                 /**
                  * Return results on or before this
                  * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
                  */
-                fun onOrBefore(onOrBefore: OffsetDateTime?) = apply { this.onOrBefore = onOrBefore }
+                fun onOrBefore(onOrBefore: OffsetDateTime) = onOrBefore(JsonField.of(onOrBefore))
+
+                /**
+                 * Return results on or before this
+                 * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
+                 */
+                fun onOrBefore(onOrBefore: JsonField<OffsetDateTime>) = apply {
+                    this.onOrBefore = onOrBefore
+                }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -1201,17 +1680,31 @@ constructor(
     class EntityCsv
     @JsonCreator
     private constructor(
-        @JsonProperty("status") private val status: Status?,
+        @JsonProperty("status")
+        @ExcludeMissing
+        private val status: JsonField<Status> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** Entity statuses to filter by. */
-        @JsonProperty("status") fun status(): Status? = status
+        fun status(): Status? = status.getNullable("status")
+
+        /** Entity statuses to filter by. */
+        @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): EntityCsv = apply {
+            if (!validated) {
+                status()?.validate()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -1222,7 +1715,7 @@ constructor(
 
         class Builder {
 
-            private var status: Status? = null
+            private var status: JsonField<Status> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(entityCsv: EntityCsv) = apply {
@@ -1231,7 +1724,10 @@ constructor(
             }
 
             /** Entity statuses to filter by. */
-            fun status(status: Status?) = apply { this.status = status }
+            fun status(status: Status) = status(JsonField.of(status))
+
+            /** Entity statuses to filter by. */
+            fun status(status: JsonField<Status>) = apply { this.status = status }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -1260,7 +1756,9 @@ constructor(
         class Status
         @JsonCreator
         private constructor(
-            @JsonProperty("in") private val in_: List<In>,
+            @JsonProperty("in")
+            @ExcludeMissing
+            private val in_: JsonField<List<In>> = JsonMissing.of(),
             @JsonAnySetter
             private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
@@ -1269,11 +1767,26 @@ constructor(
              * Entity statuses to filter by. For GET requests, this should be encoded as a
              * comma-delimited string, such as `?in=one,two,three`.
              */
-            @JsonProperty("in") fun in_(): List<In> = in_
+            fun in_(): List<In> = in_.getRequired("in")
+
+            /**
+             * Entity statuses to filter by. For GET requests, this should be encoded as a
+             * comma-delimited string, such as `?in=one,two,three`.
+             */
+            @JsonProperty("in") @ExcludeMissing fun _in_(): JsonField<List<In>> = in_
 
             @JsonAnyGetter
             @ExcludeMissing
             fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+            private var validated: Boolean = false
+
+            fun validate(): Status = apply {
+                if (!validated) {
+                    in_()
+                    validated = true
+                }
+            }
 
             fun toBuilder() = Builder().from(this)
 
@@ -1284,11 +1797,11 @@ constructor(
 
             class Builder {
 
-                private var in_: MutableList<In>? = null
+                private var in_: JsonField<MutableList<In>>? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(status: Status) = apply {
-                    in_ = status.in_.toMutableList()
+                    in_ = status.in_.map { it.toMutableList() }
                     additionalProperties = status.additionalProperties.toMutableMap()
                 }
 
@@ -1296,14 +1809,29 @@ constructor(
                  * Entity statuses to filter by. For GET requests, this should be encoded as a
                  * comma-delimited string, such as `?in=one,two,three`.
                  */
-                fun in_(in_: List<In>) = apply { this.in_ = in_.toMutableList() }
+                fun in_(in_: List<In>) = in_(JsonField.of(in_))
+
+                /**
+                 * Entity statuses to filter by. For GET requests, this should be encoded as a
+                 * comma-delimited string, such as `?in=one,two,three`.
+                 */
+                fun in_(in_: JsonField<List<In>>) = apply {
+                    this.in_ = in_.map { it.toMutableList() }
+                }
 
                 /**
                  * Entity statuses to filter by. For GET requests, this should be encoded as a
                  * comma-delimited string, such as `?in=one,two,three`.
                  */
                 fun addIn(in_: In) = apply {
-                    this.in_ = (this.in_ ?: mutableListOf()).apply { add(in_) }
+                    this.in_ =
+                        (this.in_ ?: JsonField.of(mutableListOf())).apply {
+                            (asKnown()
+                                    ?: throw IllegalStateException(
+                                        "Field was set to non-list type: ${javaClass.simpleName}"
+                                    ))
+                                .add(in_)
+                        }
                 }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -1330,7 +1858,8 @@ constructor(
 
                 fun build(): Status =
                     Status(
-                        checkNotNull(in_) { "`in_` is required but was not set" }.toImmutable(),
+                        checkNotNull(in_) { "`in_` is required but was not set" }
+                            .map { it.toImmutable() },
                         additionalProperties.toImmutable()
                     )
             }
@@ -1438,25 +1967,53 @@ constructor(
     class TransactionCsv
     @JsonCreator
     private constructor(
-        @JsonProperty("account_id") private val accountId: String?,
-        @JsonProperty("created_at") private val createdAt: CreatedAt?,
-        @JsonProperty("program_id") private val programId: String?,
+        @JsonProperty("account_id")
+        @ExcludeMissing
+        private val accountId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        private val createdAt: JsonField<CreatedAt> = JsonMissing.of(),
+        @JsonProperty("program_id")
+        @ExcludeMissing
+        private val programId: JsonField<String> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** Filter exported Transactions to the specified Account. */
-        @JsonProperty("account_id") fun accountId(): String? = accountId
+        fun accountId(): String? = accountId.getNullable("account_id")
 
         /** Filter results by time range on the `created_at` attribute. */
-        @JsonProperty("created_at") fun createdAt(): CreatedAt? = createdAt
+        fun createdAt(): CreatedAt? = createdAt.getNullable("created_at")
 
         /** Filter exported Transactions to the specified Program. */
-        @JsonProperty("program_id") fun programId(): String? = programId
+        fun programId(): String? = programId.getNullable("program_id")
+
+        /** Filter exported Transactions to the specified Account. */
+        @JsonProperty("account_id") @ExcludeMissing fun _accountId(): JsonField<String> = accountId
+
+        /** Filter results by time range on the `created_at` attribute. */
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        fun _createdAt(): JsonField<CreatedAt> = createdAt
+
+        /** Filter exported Transactions to the specified Program. */
+        @JsonProperty("program_id") @ExcludeMissing fun _programId(): JsonField<String> = programId
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): TransactionCsv = apply {
+            if (!validated) {
+                accountId()
+                createdAt()?.validate()
+                programId()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -1467,9 +2024,9 @@ constructor(
 
         class Builder {
 
-            private var accountId: String? = null
-            private var createdAt: CreatedAt? = null
-            private var programId: String? = null
+            private var accountId: JsonField<String> = JsonMissing.of()
+            private var createdAt: JsonField<CreatedAt> = JsonMissing.of()
+            private var programId: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(transactionCsv: TransactionCsv) = apply {
@@ -1480,13 +2037,22 @@ constructor(
             }
 
             /** Filter exported Transactions to the specified Account. */
-            fun accountId(accountId: String?) = apply { this.accountId = accountId }
+            fun accountId(accountId: String) = accountId(JsonField.of(accountId))
+
+            /** Filter exported Transactions to the specified Account. */
+            fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
             /** Filter results by time range on the `created_at` attribute. */
-            fun createdAt(createdAt: CreatedAt?) = apply { this.createdAt = createdAt }
+            fun createdAt(createdAt: CreatedAt) = createdAt(JsonField.of(createdAt))
+
+            /** Filter results by time range on the `created_at` attribute. */
+            fun createdAt(createdAt: JsonField<CreatedAt>) = apply { this.createdAt = createdAt }
 
             /** Filter exported Transactions to the specified Program. */
-            fun programId(programId: String?) = apply { this.programId = programId }
+            fun programId(programId: String) = programId(JsonField.of(programId))
+
+            /** Filter exported Transactions to the specified Program. */
+            fun programId(programId: JsonField<String>) = apply { this.programId = programId }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -1521,10 +2087,18 @@ constructor(
         class CreatedAt
         @JsonCreator
         private constructor(
-            @JsonProperty("after") private val after: OffsetDateTime?,
-            @JsonProperty("before") private val before: OffsetDateTime?,
-            @JsonProperty("on_or_after") private val onOrAfter: OffsetDateTime?,
-            @JsonProperty("on_or_before") private val onOrBefore: OffsetDateTime?,
+            @JsonProperty("after")
+            @ExcludeMissing
+            private val after: JsonField<OffsetDateTime> = JsonMissing.of(),
+            @JsonProperty("before")
+            @ExcludeMissing
+            private val before: JsonField<OffsetDateTime> = JsonMissing.of(),
+            @JsonProperty("on_or_after")
+            @ExcludeMissing
+            private val onOrAfter: JsonField<OffsetDateTime> = JsonMissing.of(),
+            @JsonProperty("on_or_before")
+            @ExcludeMissing
+            private val onOrBefore: JsonField<OffsetDateTime> = JsonMissing.of(),
             @JsonAnySetter
             private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
@@ -1533,29 +2107,71 @@ constructor(
              * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            @JsonProperty("after") fun after(): OffsetDateTime? = after
+            fun after(): OffsetDateTime? = after.getNullable("after")
 
             /**
              * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            @JsonProperty("before") fun before(): OffsetDateTime? = before
+            fun before(): OffsetDateTime? = before.getNullable("before")
 
             /**
              * Return results on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            @JsonProperty("on_or_after") fun onOrAfter(): OffsetDateTime? = onOrAfter
+            fun onOrAfter(): OffsetDateTime? = onOrAfter.getNullable("on_or_after")
 
             /**
              * Return results on or before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
              * timestamp.
              */
-            @JsonProperty("on_or_before") fun onOrBefore(): OffsetDateTime? = onOrBefore
+            fun onOrBefore(): OffsetDateTime? = onOrBefore.getNullable("on_or_before")
+
+            /**
+             * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+             * timestamp.
+             */
+            @JsonProperty("after") @ExcludeMissing fun _after(): JsonField<OffsetDateTime> = after
+
+            /**
+             * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+             * timestamp.
+             */
+            @JsonProperty("before")
+            @ExcludeMissing
+            fun _before(): JsonField<OffsetDateTime> = before
+
+            /**
+             * Return results on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+             * timestamp.
+             */
+            @JsonProperty("on_or_after")
+            @ExcludeMissing
+            fun _onOrAfter(): JsonField<OffsetDateTime> = onOrAfter
+
+            /**
+             * Return results on or before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+             * timestamp.
+             */
+            @JsonProperty("on_or_before")
+            @ExcludeMissing
+            fun _onOrBefore(): JsonField<OffsetDateTime> = onOrBefore
 
             @JsonAnyGetter
             @ExcludeMissing
             fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+            private var validated: Boolean = false
+
+            fun validate(): CreatedAt = apply {
+                if (!validated) {
+                    after()
+                    before()
+                    onOrAfter()
+                    onOrBefore()
+                    validated = true
+                }
+            }
 
             fun toBuilder() = Builder().from(this)
 
@@ -1566,10 +2182,10 @@ constructor(
 
             class Builder {
 
-                private var after: OffsetDateTime? = null
-                private var before: OffsetDateTime? = null
-                private var onOrAfter: OffsetDateTime? = null
-                private var onOrBefore: OffsetDateTime? = null
+                private var after: JsonField<OffsetDateTime> = JsonMissing.of()
+                private var before: JsonField<OffsetDateTime> = JsonMissing.of()
+                private var onOrAfter: JsonField<OffsetDateTime> = JsonMissing.of()
+                private var onOrBefore: JsonField<OffsetDateTime> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(createdAt: CreatedAt) = apply {
@@ -1584,25 +2200,53 @@ constructor(
                  * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
                  * timestamp.
                  */
-                fun after(after: OffsetDateTime?) = apply { this.after = after }
+                fun after(after: OffsetDateTime) = after(JsonField.of(after))
+
+                /**
+                 * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+                 * timestamp.
+                 */
+                fun after(after: JsonField<OffsetDateTime>) = apply { this.after = after }
 
                 /**
                  * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
                  * timestamp.
                  */
-                fun before(before: OffsetDateTime?) = apply { this.before = before }
+                fun before(before: OffsetDateTime) = before(JsonField.of(before))
+
+                /**
+                 * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+                 * timestamp.
+                 */
+                fun before(before: JsonField<OffsetDateTime>) = apply { this.before = before }
 
                 /**
                  * Return results on or after this
                  * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
                  */
-                fun onOrAfter(onOrAfter: OffsetDateTime?) = apply { this.onOrAfter = onOrAfter }
+                fun onOrAfter(onOrAfter: OffsetDateTime) = onOrAfter(JsonField.of(onOrAfter))
+
+                /**
+                 * Return results on or after this
+                 * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
+                 */
+                fun onOrAfter(onOrAfter: JsonField<OffsetDateTime>) = apply {
+                    this.onOrAfter = onOrAfter
+                }
 
                 /**
                  * Return results on or before this
                  * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
                  */
-                fun onOrBefore(onOrBefore: OffsetDateTime?) = apply { this.onOrBefore = onOrBefore }
+                fun onOrBefore(onOrBefore: OffsetDateTime) = onOrBefore(JsonField.of(onOrBefore))
+
+                /**
+                 * Return results on or before this
+                 * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
+                 */
+                fun onOrBefore(onOrBefore: JsonField<OffsetDateTime>) = apply {
+                    this.onOrBefore = onOrBefore
+                }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()

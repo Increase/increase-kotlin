@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
+import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
@@ -47,11 +48,32 @@ constructor(
      */
     fun sharedSecret(): String? = body.sharedSecret()
 
+    /** The URL you'd like us to send webhooks to. */
+    fun _url(): JsonField<String> = body._url()
+
+    /**
+     * If specified, this subscription will only receive webhooks for Events associated with the
+     * specified OAuth Connection.
+     */
+    fun _oauthConnectionId(): JsonField<String> = body._oauthConnectionId()
+
+    /**
+     * If specified, this subscription will only receive webhooks for Events with the specified
+     * `category`.
+     */
+    fun _selectedEventCategory(): JsonField<SelectedEventCategory> = body._selectedEventCategory()
+
+    /**
+     * The key that will be used to sign webhooks. If no value is passed, a random string will be
+     * used as default.
+     */
+    fun _sharedSecret(): JsonField<String> = body._sharedSecret()
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     internal fun getBody(): EventSubscriptionCreateBody = body
 
@@ -63,40 +85,84 @@ constructor(
     class EventSubscriptionCreateBody
     @JsonCreator
     internal constructor(
-        @JsonProperty("url") private val url: String,
-        @JsonProperty("oauth_connection_id") private val oauthConnectionId: String?,
+        @JsonProperty("url") @ExcludeMissing private val url: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("oauth_connection_id")
+        @ExcludeMissing
+        private val oauthConnectionId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("selected_event_category")
-        private val selectedEventCategory: SelectedEventCategory?,
-        @JsonProperty("shared_secret") private val sharedSecret: String?,
+        @ExcludeMissing
+        private val selectedEventCategory: JsonField<SelectedEventCategory> = JsonMissing.of(),
+        @JsonProperty("shared_secret")
+        @ExcludeMissing
+        private val sharedSecret: JsonField<String> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The URL you'd like us to send webhooks to. */
-        @JsonProperty("url") fun url(): String = url
+        fun url(): String = url.getRequired("url")
 
         /**
          * If specified, this subscription will only receive webhooks for Events associated with the
          * specified OAuth Connection.
          */
-        @JsonProperty("oauth_connection_id") fun oauthConnectionId(): String? = oauthConnectionId
+        fun oauthConnectionId(): String? = oauthConnectionId.getNullable("oauth_connection_id")
+
+        /**
+         * If specified, this subscription will only receive webhooks for Events with the specified
+         * `category`.
+         */
+        fun selectedEventCategory(): SelectedEventCategory? =
+            selectedEventCategory.getNullable("selected_event_category")
+
+        /**
+         * The key that will be used to sign webhooks. If no value is passed, a random string will
+         * be used as default.
+         */
+        fun sharedSecret(): String? = sharedSecret.getNullable("shared_secret")
+
+        /** The URL you'd like us to send webhooks to. */
+        @JsonProperty("url") @ExcludeMissing fun _url(): JsonField<String> = url
+
+        /**
+         * If specified, this subscription will only receive webhooks for Events associated with the
+         * specified OAuth Connection.
+         */
+        @JsonProperty("oauth_connection_id")
+        @ExcludeMissing
+        fun _oauthConnectionId(): JsonField<String> = oauthConnectionId
 
         /**
          * If specified, this subscription will only receive webhooks for Events with the specified
          * `category`.
          */
         @JsonProperty("selected_event_category")
-        fun selectedEventCategory(): SelectedEventCategory? = selectedEventCategory
+        @ExcludeMissing
+        fun _selectedEventCategory(): JsonField<SelectedEventCategory> = selectedEventCategory
 
         /**
          * The key that will be used to sign webhooks. If no value is passed, a random string will
          * be used as default.
          */
-        @JsonProperty("shared_secret") fun sharedSecret(): String? = sharedSecret
+        @JsonProperty("shared_secret")
+        @ExcludeMissing
+        fun _sharedSecret(): JsonField<String> = sharedSecret
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): EventSubscriptionCreateBody = apply {
+            if (!validated) {
+                url()
+                oauthConnectionId()
+                selectedEventCategory()
+                sharedSecret()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -107,10 +173,10 @@ constructor(
 
         class Builder {
 
-            private var url: String? = null
-            private var oauthConnectionId: String? = null
-            private var selectedEventCategory: SelectedEventCategory? = null
-            private var sharedSecret: String? = null
+            private var url: JsonField<String>? = null
+            private var oauthConnectionId: JsonField<String> = JsonMissing.of()
+            private var selectedEventCategory: JsonField<SelectedEventCategory> = JsonMissing.of()
+            private var sharedSecret: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(eventSubscriptionCreateBody: EventSubscriptionCreateBody) = apply {
@@ -123,13 +189,23 @@ constructor(
             }
 
             /** The URL you'd like us to send webhooks to. */
-            fun url(url: String) = apply { this.url = url }
+            fun url(url: String) = url(JsonField.of(url))
+
+            /** The URL you'd like us to send webhooks to. */
+            fun url(url: JsonField<String>) = apply { this.url = url }
 
             /**
              * If specified, this subscription will only receive webhooks for Events associated with
              * the specified OAuth Connection.
              */
-            fun oauthConnectionId(oauthConnectionId: String?) = apply {
+            fun oauthConnectionId(oauthConnectionId: String) =
+                oauthConnectionId(JsonField.of(oauthConnectionId))
+
+            /**
+             * If specified, this subscription will only receive webhooks for Events associated with
+             * the specified OAuth Connection.
+             */
+            fun oauthConnectionId(oauthConnectionId: JsonField<String>) = apply {
                 this.oauthConnectionId = oauthConnectionId
             }
 
@@ -137,15 +213,31 @@ constructor(
              * If specified, this subscription will only receive webhooks for Events with the
              * specified `category`.
              */
-            fun selectedEventCategory(selectedEventCategory: SelectedEventCategory?) = apply {
-                this.selectedEventCategory = selectedEventCategory
-            }
+            fun selectedEventCategory(selectedEventCategory: SelectedEventCategory) =
+                selectedEventCategory(JsonField.of(selectedEventCategory))
+
+            /**
+             * If specified, this subscription will only receive webhooks for Events with the
+             * specified `category`.
+             */
+            fun selectedEventCategory(selectedEventCategory: JsonField<SelectedEventCategory>) =
+                apply {
+                    this.selectedEventCategory = selectedEventCategory
+                }
 
             /**
              * The key that will be used to sign webhooks. If no value is passed, a random string
              * will be used as default.
              */
-            fun sharedSecret(sharedSecret: String?) = apply { this.sharedSecret = sharedSecret }
+            fun sharedSecret(sharedSecret: String) = sharedSecret(JsonField.of(sharedSecret))
+
+            /**
+             * The key that will be used to sign webhooks. If no value is passed, a random string
+             * will be used as default.
+             */
+            fun sharedSecret(sharedSecret: JsonField<String>) = apply {
+                this.sharedSecret = sharedSecret
+            }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -218,11 +310,22 @@ constructor(
         /** The URL you'd like us to send webhooks to. */
         fun url(url: String) = apply { body.url(url) }
 
+        /** The URL you'd like us to send webhooks to. */
+        fun url(url: JsonField<String>) = apply { body.url(url) }
+
         /**
          * If specified, this subscription will only receive webhooks for Events associated with the
          * specified OAuth Connection.
          */
-        fun oauthConnectionId(oauthConnectionId: String?) = apply {
+        fun oauthConnectionId(oauthConnectionId: String) = apply {
+            body.oauthConnectionId(oauthConnectionId)
+        }
+
+        /**
+         * If specified, this subscription will only receive webhooks for Events associated with the
+         * specified OAuth Connection.
+         */
+        fun oauthConnectionId(oauthConnectionId: JsonField<String>) = apply {
             body.oauthConnectionId(oauthConnectionId)
         }
 
@@ -230,7 +333,15 @@ constructor(
          * If specified, this subscription will only receive webhooks for Events with the specified
          * `category`.
          */
-        fun selectedEventCategory(selectedEventCategory: SelectedEventCategory?) = apply {
+        fun selectedEventCategory(selectedEventCategory: SelectedEventCategory) = apply {
+            body.selectedEventCategory(selectedEventCategory)
+        }
+
+        /**
+         * If specified, this subscription will only receive webhooks for Events with the specified
+         * `category`.
+         */
+        fun selectedEventCategory(selectedEventCategory: JsonField<SelectedEventCategory>) = apply {
             body.selectedEventCategory(selectedEventCategory)
         }
 
@@ -238,7 +349,34 @@ constructor(
          * The key that will be used to sign webhooks. If no value is passed, a random string will
          * be used as default.
          */
-        fun sharedSecret(sharedSecret: String?) = apply { body.sharedSecret(sharedSecret) }
+        fun sharedSecret(sharedSecret: String) = apply { body.sharedSecret(sharedSecret) }
+
+        /**
+         * The key that will be used to sign webhooks. If no value is passed, a random string will
+         * be used as default.
+         */
+        fun sharedSecret(sharedSecret: JsonField<String>) = apply {
+            body.sharedSecret(sharedSecret)
+        }
+
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.putAllAdditionalProperties(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
+        }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -336,25 +474,6 @@ constructor(
 
         fun removeAllAdditionalQueryParams(keys: Set<String>) = apply {
             additionalQueryParams.removeAll(keys)
-        }
-
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                body.putAllAdditionalProperties(additionalBodyProperties)
-            }
-
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
-
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): EventSubscriptionCreateParams =
