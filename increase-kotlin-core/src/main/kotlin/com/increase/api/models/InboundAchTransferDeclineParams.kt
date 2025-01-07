@@ -18,6 +18,7 @@ import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
 
+/** Decline an Inbound ACH Transfer */
 class InboundAchTransferDeclineParams
 constructor(
     private val inboundAchTransferId: String,

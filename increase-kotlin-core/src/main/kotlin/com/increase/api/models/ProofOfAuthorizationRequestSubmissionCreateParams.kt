@@ -16,6 +16,7 @@ import com.increase.api.core.toImmutable
 import java.time.OffsetDateTime
 import java.util.Objects
 
+/** Submit Proof of Authorization */
 class ProofOfAuthorizationRequestSubmissionCreateParams
 constructor(
     private val body: ProofOfAuthorizationRequestSubmissionCreateBody,

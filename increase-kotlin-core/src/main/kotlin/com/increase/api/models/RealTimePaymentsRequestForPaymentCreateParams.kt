@@ -16,6 +16,7 @@ import com.increase.api.core.toImmutable
 import java.time.LocalDate
 import java.util.Objects
 
+/** Create a Real-Time Payments Request for Payment */
 class RealTimePaymentsRequestForPaymentCreateParams
 constructor(
     private val body: RealTimePaymentsRequestForPaymentCreateBody,

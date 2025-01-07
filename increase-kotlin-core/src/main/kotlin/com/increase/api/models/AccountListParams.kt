@@ -13,6 +13,7 @@ import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Objects
 
+/** List Accounts */
 class AccountListParams
 constructor(
     private val createdAt: CreatedAt?,

@@ -9,6 +9,10 @@ import com.increase.api.core.http.QueryParams
 import com.increase.api.core.toImmutable
 import java.util.Objects
 
+/**
+ * Simulates the return of a [Check Deposit](#check-deposits). This Check Deposit must first have a
+ * `status` of `submitted`.
+ */
 class SimulationCheckDepositReturnParams
 constructor(
     private val checkDepositId: String,

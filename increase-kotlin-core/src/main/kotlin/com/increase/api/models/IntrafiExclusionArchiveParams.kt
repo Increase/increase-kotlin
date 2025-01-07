@@ -9,6 +9,7 @@ import com.increase.api.core.http.QueryParams
 import com.increase.api.core.toImmutable
 import java.util.Objects
 
+/** Archive an IntraFi Exclusion */
 class IntrafiExclusionArchiveParams
 constructor(
     private val intrafiExclusionId: String,

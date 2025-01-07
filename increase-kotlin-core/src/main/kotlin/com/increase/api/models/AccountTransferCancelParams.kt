@@ -9,6 +9,7 @@ import com.increase.api.core.http.QueryParams
 import com.increase.api.core.toImmutable
 import java.util.Objects
 
+/** Cancel an Account Transfer */
 class AccountTransferCancelParams
 constructor(
     private val accountTransferId: String,

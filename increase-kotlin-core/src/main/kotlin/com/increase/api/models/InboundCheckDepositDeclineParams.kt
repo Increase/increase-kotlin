@@ -9,6 +9,7 @@ import com.increase.api.core.http.QueryParams
 import com.increase.api.core.toImmutable
 import java.util.Objects
 
+/** Decline an Inbound Check Deposit */
 class InboundCheckDepositDeclineParams
 constructor(
     private val inboundCheckDepositId: String,

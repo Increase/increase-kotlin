@@ -18,6 +18,7 @@ import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
 
+/** Update an Account Number */
 class AccountNumberUpdateParams
 constructor(
     private val accountNumberId: String,

@@ -18,6 +18,7 @@ import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
 
+/** Update a Lockbox */
 class LockboxUpdateParams
 constructor(
     private val lockboxId: String,

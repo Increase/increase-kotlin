@@ -9,6 +9,7 @@ import com.increase.api.core.http.QueryParams
 import com.increase.api.core.toImmutable
 import java.util.Objects
 
+/** Close an Account */
 class AccountCloseParams
 constructor(
     private val accountId: String,
