@@ -18,6 +18,7 @@ import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
 
+/** Update an External Account */
 class ExternalAccountUpdateParams
 constructor(
     private val externalAccountId: String,

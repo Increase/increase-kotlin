@@ -9,6 +9,7 @@ import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Objects
 
+/** Retrieve a Bookkeeping Account Balance */
 class BookkeepingAccountBalanceParams
 constructor(
     private val bookkeepingAccountId: String,

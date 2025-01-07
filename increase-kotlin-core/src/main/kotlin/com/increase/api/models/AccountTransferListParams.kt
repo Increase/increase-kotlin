@@ -9,6 +9,7 @@ import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Objects
 
+/** List Account Transfers */
 class AccountTransferListParams
 constructor(
     private val accountId: String?,

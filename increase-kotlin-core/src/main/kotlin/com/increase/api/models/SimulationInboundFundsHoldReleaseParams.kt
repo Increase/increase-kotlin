@@ -9,6 +9,10 @@ import com.increase.api.core.http.QueryParams
 import com.increase.api.core.toImmutable
 import java.util.Objects
 
+/**
+ * This endpoint simulates immediately releasing an Inbound Funds Hold, which might be created as a
+ * result of e.g., an ACH debit.
+ */
 class SimulationInboundFundsHoldReleaseParams
 constructor(
     private val inboundFundsHoldId: String,

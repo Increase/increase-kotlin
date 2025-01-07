@@ -9,6 +9,7 @@ import com.increase.api.core.http.QueryParams
 import com.increase.api.core.toImmutable
 import java.util.Objects
 
+/** Archive an Entity */
 class EntityArchiveParams
 constructor(
     private val entityId: String,

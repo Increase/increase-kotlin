@@ -11,6 +11,7 @@ import com.increase.api.core.http.QueryParams
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
 
+/** List Wire Drawdown Requests */
 class WireDrawdownRequestListParams
 constructor(
     private val cursor: String?,

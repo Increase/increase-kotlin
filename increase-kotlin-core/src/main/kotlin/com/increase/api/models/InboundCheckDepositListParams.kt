@@ -9,6 +9,7 @@ import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Objects
 
+/** List Inbound Check Deposits */
 class InboundCheckDepositListParams
 constructor(
     private val accountId: String?,

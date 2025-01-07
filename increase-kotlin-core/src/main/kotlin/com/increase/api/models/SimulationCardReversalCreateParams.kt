@@ -15,6 +15,11 @@ import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import java.util.Objects
 
+/**
+ * Simulates the reversal of an authorization by a card acquirer. An authorization can be partially
+ * reversed multiple times, up until the total authorized amount. Marks the pending transaction as
+ * complete if the authorization is fully reversed.
+ */
 class SimulationCardReversalCreateParams
 constructor(
     private val body: SimulationCardReversalCreateBody,

@@ -13,6 +13,7 @@ import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Objects
 
+/** List Inbound ACH Transfers */
 class InboundAchTransferListParams
 constructor(
     private val accountId: String?,

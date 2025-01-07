@@ -19,6 +19,7 @@ import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.LocalDate
 import java.util.Objects
 
+/** Create a beneficial owner for a corporate Entity */
 class EntityCreateBeneficialOwnerParams
 constructor(
     private val entityId: String,
