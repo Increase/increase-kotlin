@@ -9,6 +9,7 @@ import com.increase.api.core.http.QueryParams
 import com.increase.api.core.toImmutable
 import java.util.Objects
 
+/** Archive a Physical Card Profile */
 class PhysicalCardProfileArchiveParams
 constructor(
     private val physicalCardProfileId: String,

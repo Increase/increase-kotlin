@@ -9,6 +9,7 @@ import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Objects
 
+/** List Inbound Real-Time Payments Transfers */
 class InboundRealTimePaymentsTransferListParams
 constructor(
     private val accountId: String?,

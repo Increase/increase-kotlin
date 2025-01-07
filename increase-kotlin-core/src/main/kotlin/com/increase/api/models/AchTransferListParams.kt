@@ -9,6 +9,7 @@ import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Objects
 
+/** List ACH Transfers */
 class AchTransferListParams
 constructor(
     private val accountId: String?,

@@ -9,6 +9,7 @@ import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Objects
 
+/** List Wire Transfers */
 class WireTransferListParams
 constructor(
     private val accountId: String?,

@@ -18,6 +18,7 @@ import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
 
+/** Action a Real-Time Decision */
 class RealTimeDecisionActionParams
 constructor(
     private val realTimeDecisionId: String,

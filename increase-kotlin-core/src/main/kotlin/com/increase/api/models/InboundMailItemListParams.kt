@@ -9,6 +9,7 @@ import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Objects
 
+/** List Inbound Mail Items */
 class InboundMailItemListParams
 constructor(
     private val createdAt: CreatedAt?,

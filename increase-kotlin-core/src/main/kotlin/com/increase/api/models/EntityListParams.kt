@@ -14,6 +14,7 @@ import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Objects
 
+/** List Entities */
 class EntityListParams
 constructor(
     private val createdAt: CreatedAt?,

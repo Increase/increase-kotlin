@@ -9,6 +9,13 @@ import com.increase.api.core.http.QueryParams
 import com.increase.api.core.toImmutable
 import java.util.Objects
 
+/**
+ * Simulates the submission of an [ACH Transfer](#ach-transfers) to the Federal Reserve. This
+ * transfer must first have a `status` of `pending_approval` or `pending_submission`. In production,
+ * Increase submits ACH Transfers to the Federal Reserve three times per day on weekdays. Since
+ * sandbox ACH Transfers are not submitted to the Federal Reserve, this endpoint allows you to skip
+ * that delay and transition the ACH Transfer to a status of `submitted`.
+ */
 class SimulationAchTransferSubmitParams
 constructor(
     private val achTransferId: String,

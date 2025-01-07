@@ -18,6 +18,7 @@ import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
 
+/** Create a Physical Card */
 class PhysicalCardCreateParams
 constructor(
     private val body: PhysicalCardCreateBody,

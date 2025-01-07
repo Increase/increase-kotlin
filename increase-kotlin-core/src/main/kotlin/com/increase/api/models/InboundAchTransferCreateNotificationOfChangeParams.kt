@@ -15,6 +15,7 @@ import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import java.util.Objects
 
+/** Create a notification of change for an Inbound ACH Transfer */
 class InboundAchTransferCreateNotificationOfChangeParams
 constructor(
     private val inboundAchTransferId: String,

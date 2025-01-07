@@ -19,6 +19,7 @@ import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Objects
 
+/** Create an Export */
 class ExportCreateParams
 constructor(
     private val body: ExportCreateBody,

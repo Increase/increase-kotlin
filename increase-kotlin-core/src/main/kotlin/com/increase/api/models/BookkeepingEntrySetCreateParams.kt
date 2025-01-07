@@ -16,6 +16,7 @@ import com.increase.api.core.toImmutable
 import java.time.OffsetDateTime
 import java.util.Objects
 
+/** Create a Bookkeeping Entry Set */
 class BookkeepingEntrySetCreateParams
 constructor(
     private val body: BookkeepingEntrySetCreateBody,
