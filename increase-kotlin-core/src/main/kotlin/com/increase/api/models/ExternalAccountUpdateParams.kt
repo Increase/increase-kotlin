@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
+import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
@@ -42,11 +43,23 @@ constructor(
     /** The status of the External Account. */
     fun status(): Status? = body.status()
 
+    /** The type of entity that owns the External Account. */
+    fun _accountHolder(): JsonField<AccountHolder> = body._accountHolder()
+
+    /** The description you choose to give the external account. */
+    fun _description(): JsonField<String> = body._description()
+
+    /** The funding type of the External Account. */
+    fun _funding(): JsonField<Funding> = body._funding()
+
+    /** The status of the External Account. */
+    fun _status(): JsonField<Status> = body._status()
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     internal fun getBody(): ExternalAccountUpdateBody = body
 
@@ -65,29 +78,65 @@ constructor(
     class ExternalAccountUpdateBody
     @JsonCreator
     internal constructor(
-        @JsonProperty("account_holder") private val accountHolder: AccountHolder?,
-        @JsonProperty("description") private val description: String?,
-        @JsonProperty("funding") private val funding: Funding?,
-        @JsonProperty("status") private val status: Status?,
+        @JsonProperty("account_holder")
+        @ExcludeMissing
+        private val accountHolder: JsonField<AccountHolder> = JsonMissing.of(),
+        @JsonProperty("description")
+        @ExcludeMissing
+        private val description: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("funding")
+        @ExcludeMissing
+        private val funding: JsonField<Funding> = JsonMissing.of(),
+        @JsonProperty("status")
+        @ExcludeMissing
+        private val status: JsonField<Status> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The type of entity that owns the External Account. */
-        @JsonProperty("account_holder") fun accountHolder(): AccountHolder? = accountHolder
+        fun accountHolder(): AccountHolder? = accountHolder.getNullable("account_holder")
 
         /** The description you choose to give the external account. */
-        @JsonProperty("description") fun description(): String? = description
+        fun description(): String? = description.getNullable("description")
 
         /** The funding type of the External Account. */
-        @JsonProperty("funding") fun funding(): Funding? = funding
+        fun funding(): Funding? = funding.getNullable("funding")
 
         /** The status of the External Account. */
-        @JsonProperty("status") fun status(): Status? = status
+        fun status(): Status? = status.getNullable("status")
+
+        /** The type of entity that owns the External Account. */
+        @JsonProperty("account_holder")
+        @ExcludeMissing
+        fun _accountHolder(): JsonField<AccountHolder> = accountHolder
+
+        /** The description you choose to give the external account. */
+        @JsonProperty("description")
+        @ExcludeMissing
+        fun _description(): JsonField<String> = description
+
+        /** The funding type of the External Account. */
+        @JsonProperty("funding") @ExcludeMissing fun _funding(): JsonField<Funding> = funding
+
+        /** The status of the External Account. */
+        @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): ExternalAccountUpdateBody = apply {
+            if (!validated) {
+                accountHolder()
+                description()
+                funding()
+                status()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -98,10 +147,10 @@ constructor(
 
         class Builder {
 
-            private var accountHolder: AccountHolder? = null
-            private var description: String? = null
-            private var funding: Funding? = null
-            private var status: Status? = null
+            private var accountHolder: JsonField<AccountHolder> = JsonMissing.of()
+            private var description: JsonField<String> = JsonMissing.of()
+            private var funding: JsonField<Funding> = JsonMissing.of()
+            private var status: JsonField<Status> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(externalAccountUpdateBody: ExternalAccountUpdateBody) = apply {
@@ -113,18 +162,33 @@ constructor(
             }
 
             /** The type of entity that owns the External Account. */
-            fun accountHolder(accountHolder: AccountHolder?) = apply {
+            fun accountHolder(accountHolder: AccountHolder) =
+                accountHolder(JsonField.of(accountHolder))
+
+            /** The type of entity that owns the External Account. */
+            fun accountHolder(accountHolder: JsonField<AccountHolder>) = apply {
                 this.accountHolder = accountHolder
             }
 
             /** The description you choose to give the external account. */
-            fun description(description: String?) = apply { this.description = description }
+            fun description(description: String) = description(JsonField.of(description))
+
+            /** The description you choose to give the external account. */
+            fun description(description: JsonField<String>) = apply {
+                this.description = description
+            }
 
             /** The funding type of the External Account. */
-            fun funding(funding: Funding?) = apply { this.funding = funding }
+            fun funding(funding: Funding) = funding(JsonField.of(funding))
+
+            /** The funding type of the External Account. */
+            fun funding(funding: JsonField<Funding>) = apply { this.funding = funding }
 
             /** The status of the External Account. */
-            fun status(status: Status?) = apply { this.status = status }
+            fun status(status: Status) = status(JsonField.of(status))
+
+            /** The status of the External Account. */
+            fun status(status: JsonField<Status>) = apply { this.status = status }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -201,18 +265,51 @@ constructor(
         }
 
         /** The type of entity that owns the External Account. */
-        fun accountHolder(accountHolder: AccountHolder?) = apply {
+        fun accountHolder(accountHolder: AccountHolder) = apply {
+            body.accountHolder(accountHolder)
+        }
+
+        /** The type of entity that owns the External Account. */
+        fun accountHolder(accountHolder: JsonField<AccountHolder>) = apply {
             body.accountHolder(accountHolder)
         }
 
         /** The description you choose to give the external account. */
-        fun description(description: String?) = apply { body.description(description) }
+        fun description(description: String) = apply { body.description(description) }
+
+        /** The description you choose to give the external account. */
+        fun description(description: JsonField<String>) = apply { body.description(description) }
 
         /** The funding type of the External Account. */
-        fun funding(funding: Funding?) = apply { body.funding(funding) }
+        fun funding(funding: Funding) = apply { body.funding(funding) }
+
+        /** The funding type of the External Account. */
+        fun funding(funding: JsonField<Funding>) = apply { body.funding(funding) }
 
         /** The status of the External Account. */
-        fun status(status: Status?) = apply { body.status(status) }
+        fun status(status: Status) = apply { body.status(status) }
+
+        /** The status of the External Account. */
+        fun status(status: JsonField<Status>) = apply { body.status(status) }
+
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.putAllAdditionalProperties(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
+        }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -310,25 +407,6 @@ constructor(
 
         fun removeAllAdditionalQueryParams(keys: Set<String>) = apply {
             additionalQueryParams.removeAll(keys)
-        }
-
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                body.putAllAdditionalProperties(additionalBodyProperties)
-            }
-
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
-
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): ExternalAccountUpdateParams =

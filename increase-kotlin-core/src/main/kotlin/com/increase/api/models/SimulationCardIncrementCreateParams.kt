@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonField
+import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
@@ -40,11 +42,25 @@ constructor(
      */
     fun eventSubscriptionId(): String? = body.eventSubscriptionId()
 
+    /** The amount of the increment in minor units in the card authorization's currency. */
+    fun _amount(): JsonField<Long> = body._amount()
+
+    /** The identifier of the Card Payment to create a increment on. */
+    fun _cardPaymentId(): JsonField<String> = body._cardPaymentId()
+
+    /**
+     * The identifier of the Event Subscription to use. If provided, will override the default real
+     * time event subscription. Because you can only create one real time decision event
+     * subscription, you can use this field to route events to any specified event subscription for
+     * testing purposes.
+     */
+    fun _eventSubscriptionId(): JsonField<String> = body._eventSubscriptionId()
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     internal fun getBody(): SimulationCardIncrementCreateBody = body
 
@@ -56,18 +72,41 @@ constructor(
     class SimulationCardIncrementCreateBody
     @JsonCreator
     internal constructor(
-        @JsonProperty("amount") private val amount: Long,
-        @JsonProperty("card_payment_id") private val cardPaymentId: String,
-        @JsonProperty("event_subscription_id") private val eventSubscriptionId: String?,
+        @JsonProperty("amount")
+        @ExcludeMissing
+        private val amount: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("card_payment_id")
+        @ExcludeMissing
+        private val cardPaymentId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("event_subscription_id")
+        @ExcludeMissing
+        private val eventSubscriptionId: JsonField<String> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The amount of the increment in minor units in the card authorization's currency. */
-        @JsonProperty("amount") fun amount(): Long = amount
+        fun amount(): Long = amount.getRequired("amount")
 
         /** The identifier of the Card Payment to create a increment on. */
-        @JsonProperty("card_payment_id") fun cardPaymentId(): String = cardPaymentId
+        fun cardPaymentId(): String = cardPaymentId.getRequired("card_payment_id")
+
+        /**
+         * The identifier of the Event Subscription to use. If provided, will override the default
+         * real time event subscription. Because you can only create one real time decision event
+         * subscription, you can use this field to route events to any specified event subscription
+         * for testing purposes.
+         */
+        fun eventSubscriptionId(): String? =
+            eventSubscriptionId.getNullable("event_subscription_id")
+
+        /** The amount of the increment in minor units in the card authorization's currency. */
+        @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
+
+        /** The identifier of the Card Payment to create a increment on. */
+        @JsonProperty("card_payment_id")
+        @ExcludeMissing
+        fun _cardPaymentId(): JsonField<String> = cardPaymentId
 
         /**
          * The identifier of the Event Subscription to use. If provided, will override the default
@@ -76,11 +115,23 @@ constructor(
          * for testing purposes.
          */
         @JsonProperty("event_subscription_id")
-        fun eventSubscriptionId(): String? = eventSubscriptionId
+        @ExcludeMissing
+        fun _eventSubscriptionId(): JsonField<String> = eventSubscriptionId
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): SimulationCardIncrementCreateBody = apply {
+            if (!validated) {
+                amount()
+                cardPaymentId()
+                eventSubscriptionId()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -91,9 +142,9 @@ constructor(
 
         class Builder {
 
-            private var amount: Long? = null
-            private var cardPaymentId: String? = null
-            private var eventSubscriptionId: String? = null
+            private var amount: JsonField<Long>? = null
+            private var cardPaymentId: JsonField<String>? = null
+            private var eventSubscriptionId: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(
@@ -107,10 +158,18 @@ constructor(
             }
 
             /** The amount of the increment in minor units in the card authorization's currency. */
-            fun amount(amount: Long) = apply { this.amount = amount }
+            fun amount(amount: Long) = amount(JsonField.of(amount))
+
+            /** The amount of the increment in minor units in the card authorization's currency. */
+            fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
             /** The identifier of the Card Payment to create a increment on. */
-            fun cardPaymentId(cardPaymentId: String) = apply { this.cardPaymentId = cardPaymentId }
+            fun cardPaymentId(cardPaymentId: String) = cardPaymentId(JsonField.of(cardPaymentId))
+
+            /** The identifier of the Card Payment to create a increment on. */
+            fun cardPaymentId(cardPaymentId: JsonField<String>) = apply {
+                this.cardPaymentId = cardPaymentId
+            }
 
             /**
              * The identifier of the Event Subscription to use. If provided, will override the
@@ -118,7 +177,16 @@ constructor(
              * decision event subscription, you can use this field to route events to any specified
              * event subscription for testing purposes.
              */
-            fun eventSubscriptionId(eventSubscriptionId: String?) = apply {
+            fun eventSubscriptionId(eventSubscriptionId: String) =
+                eventSubscriptionId(JsonField.of(eventSubscriptionId))
+
+            /**
+             * The identifier of the Event Subscription to use. If provided, will override the
+             * default real time event subscription. Because you can only create one real time
+             * decision event subscription, you can use this field to route events to any specified
+             * event subscription for testing purposes.
+             */
+            fun eventSubscriptionId(eventSubscriptionId: JsonField<String>) = apply {
                 this.eventSubscriptionId = eventSubscriptionId
             }
 
@@ -195,8 +263,16 @@ constructor(
         /** The amount of the increment in minor units in the card authorization's currency. */
         fun amount(amount: Long) = apply { body.amount(amount) }
 
+        /** The amount of the increment in minor units in the card authorization's currency. */
+        fun amount(amount: JsonField<Long>) = apply { body.amount(amount) }
+
         /** The identifier of the Card Payment to create a increment on. */
         fun cardPaymentId(cardPaymentId: String) = apply { body.cardPaymentId(cardPaymentId) }
+
+        /** The identifier of the Card Payment to create a increment on. */
+        fun cardPaymentId(cardPaymentId: JsonField<String>) = apply {
+            body.cardPaymentId(cardPaymentId)
+        }
 
         /**
          * The identifier of the Event Subscription to use. If provided, will override the default
@@ -204,8 +280,37 @@ constructor(
          * subscription, you can use this field to route events to any specified event subscription
          * for testing purposes.
          */
-        fun eventSubscriptionId(eventSubscriptionId: String?) = apply {
+        fun eventSubscriptionId(eventSubscriptionId: String) = apply {
             body.eventSubscriptionId(eventSubscriptionId)
+        }
+
+        /**
+         * The identifier of the Event Subscription to use. If provided, will override the default
+         * real time event subscription. Because you can only create one real time decision event
+         * subscription, you can use this field to route events to any specified event subscription
+         * for testing purposes.
+         */
+        fun eventSubscriptionId(eventSubscriptionId: JsonField<String>) = apply {
+            body.eventSubscriptionId(eventSubscriptionId)
+        }
+
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.putAllAdditionalProperties(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
@@ -304,25 +409,6 @@ constructor(
 
         fun removeAllAdditionalQueryParams(keys: Set<String>) = apply {
             additionalQueryParams.removeAll(keys)
-        }
-
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                body.putAllAdditionalProperties(additionalBodyProperties)
-            }
-
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
-
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): SimulationCardIncrementCreateParams =

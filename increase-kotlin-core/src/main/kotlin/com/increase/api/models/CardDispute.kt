@@ -109,58 +109,64 @@ private constructor(
     fun win(): Win? = win.getNullable("win")
 
     /** The Card Dispute identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /**
      * If the Card Dispute's status is `accepted`, this will contain details of the successful
      * dispute.
      */
-    @JsonProperty("acceptance") @ExcludeMissing fun _acceptance() = acceptance
+    @JsonProperty("acceptance")
+    @ExcludeMissing
+    fun _acceptance(): JsonField<Acceptance> = acceptance
 
     /** The amount of the dispute, if provided, or the transaction amount otherwise. */
-    @JsonProperty("amount") @ExcludeMissing fun _amount() = amount
+    @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card
      * Dispute was created.
      */
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /** The identifier of the Transaction that was disputed. */
     @JsonProperty("disputed_transaction_id")
     @ExcludeMissing
-    fun _disputedTransactionId() = disputedTransactionId
+    fun _disputedTransactionId(): JsonField<String> = disputedTransactionId
 
     /** Why you disputed the Transaction in question. */
-    @JsonProperty("explanation") @ExcludeMissing fun _explanation() = explanation
+    @JsonProperty("explanation") @ExcludeMissing fun _explanation(): JsonField<String> = explanation
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
      * used to ensure that a request is only processed once. Learn more about
      * [idempotency](https://increase.com/documentation/idempotency-keys).
      */
-    @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
+    @JsonProperty("idempotency_key")
+    @ExcludeMissing
+    fun _idempotencyKey(): JsonField<String> = idempotencyKey
 
     /** If the Card Dispute's status is `lost`, this will contain details of the lost dispute. */
-    @JsonProperty("loss") @ExcludeMissing fun _loss() = loss
+    @JsonProperty("loss") @ExcludeMissing fun _loss(): JsonField<Loss> = loss
 
     /**
      * If the Card Dispute's status is `rejected`, this will contain details of the unsuccessful
      * dispute.
      */
-    @JsonProperty("rejection") @ExcludeMissing fun _rejection() = rejection
+    @JsonProperty("rejection") @ExcludeMissing fun _rejection(): JsonField<Rejection> = rejection
 
     /** The results of the Dispute investigation. */
-    @JsonProperty("status") @ExcludeMissing fun _status() = status
+    @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `card_dispute`.
      */
-    @JsonProperty("type") @ExcludeMissing fun _type() = type
+    @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
     /** If the Card Dispute's status is `won`, this will contain details of the won dispute. */
-    @JsonProperty("win") @ExcludeMissing fun _win() = win
+    @JsonProperty("win") @ExcludeMissing fun _win(): JsonField<Win> = win
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -195,18 +201,18 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
-        private var acceptance: JsonField<Acceptance> = JsonMissing.of()
-        private var amount: JsonField<Long> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var disputedTransactionId: JsonField<String> = JsonMissing.of()
-        private var explanation: JsonField<String> = JsonMissing.of()
-        private var idempotencyKey: JsonField<String> = JsonMissing.of()
-        private var loss: JsonField<Loss> = JsonMissing.of()
-        private var rejection: JsonField<Rejection> = JsonMissing.of()
-        private var status: JsonField<Status> = JsonMissing.of()
-        private var type: JsonField<Type> = JsonMissing.of()
-        private var win: JsonField<Win> = JsonMissing.of()
+        private var id: JsonField<String>? = null
+        private var acceptance: JsonField<Acceptance>? = null
+        private var amount: JsonField<Long>? = null
+        private var createdAt: JsonField<OffsetDateTime>? = null
+        private var disputedTransactionId: JsonField<String>? = null
+        private var explanation: JsonField<String>? = null
+        private var idempotencyKey: JsonField<String>? = null
+        private var loss: JsonField<Loss>? = null
+        private var rejection: JsonField<Rejection>? = null
+        private var status: JsonField<Status>? = null
+        private var type: JsonField<Type>? = null
+        private var win: JsonField<Win>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(cardDispute: CardDispute) = apply {
@@ -235,7 +241,7 @@ private constructor(
          * If the Card Dispute's status is `accepted`, this will contain details of the successful
          * dispute.
          */
-        fun acceptance(acceptance: Acceptance) = acceptance(JsonField.of(acceptance))
+        fun acceptance(acceptance: Acceptance?) = acceptance(JsonField.ofNullable(acceptance))
 
         /**
          * If the Card Dispute's status is `accepted`, this will contain details of the successful
@@ -244,7 +250,10 @@ private constructor(
         fun acceptance(acceptance: JsonField<Acceptance>) = apply { this.acceptance = acceptance }
 
         /** The amount of the dispute, if provided, or the transaction amount otherwise. */
-        fun amount(amount: Long) = amount(JsonField.of(amount))
+        fun amount(amount: Long?) = amount(JsonField.ofNullable(amount))
+
+        /** The amount of the dispute, if provided, or the transaction amount otherwise. */
+        fun amount(amount: Long) = amount(amount as Long?)
 
         /** The amount of the dispute, if provided, or the transaction amount otherwise. */
         fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
@@ -281,7 +290,8 @@ private constructor(
          * is used to ensure that a request is only processed once. Learn more about
          * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
-        fun idempotencyKey(idempotencyKey: String) = idempotencyKey(JsonField.of(idempotencyKey))
+        fun idempotencyKey(idempotencyKey: String?) =
+            idempotencyKey(JsonField.ofNullable(idempotencyKey))
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -295,7 +305,7 @@ private constructor(
         /**
          * If the Card Dispute's status is `lost`, this will contain details of the lost dispute.
          */
-        fun loss(loss: Loss) = loss(JsonField.of(loss))
+        fun loss(loss: Loss?) = loss(JsonField.ofNullable(loss))
 
         /**
          * If the Card Dispute's status is `lost`, this will contain details of the lost dispute.
@@ -306,7 +316,7 @@ private constructor(
          * If the Card Dispute's status is `rejected`, this will contain details of the unsuccessful
          * dispute.
          */
-        fun rejection(rejection: Rejection) = rejection(JsonField.of(rejection))
+        fun rejection(rejection: Rejection?) = rejection(JsonField.ofNullable(rejection))
 
         /**
          * If the Card Dispute's status is `rejected`, this will contain details of the unsuccessful
@@ -333,7 +343,7 @@ private constructor(
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
         /** If the Card Dispute's status is `won`, this will contain details of the won dispute. */
-        fun win(win: Win) = win(JsonField.of(win))
+        fun win(win: Win?) = win(JsonField.ofNullable(win))
 
         /** If the Card Dispute's status is `won`, this will contain details of the won dispute. */
         fun win(win: JsonField<Win>) = apply { this.win = win }
@@ -359,18 +369,20 @@ private constructor(
 
         fun build(): CardDispute =
             CardDispute(
-                id,
-                acceptance,
-                amount,
-                createdAt,
-                disputedTransactionId,
-                explanation,
-                idempotencyKey,
-                loss,
-                rejection,
-                status,
-                type,
-                win,
+                checkNotNull(id) { "`id` is required but was not set" },
+                checkNotNull(acceptance) { "`acceptance` is required but was not set" },
+                checkNotNull(amount) { "`amount` is required but was not set" },
+                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
+                checkNotNull(disputedTransactionId) {
+                    "`disputedTransactionId` is required but was not set"
+                },
+                checkNotNull(explanation) { "`explanation` is required but was not set" },
+                checkNotNull(idempotencyKey) { "`idempotencyKey` is required but was not set" },
+                checkNotNull(loss) { "`loss` is required but was not set" },
+                checkNotNull(rejection) { "`rejection` is required but was not set" },
+                checkNotNull(status) { "`status` is required but was not set" },
+                checkNotNull(type) { "`type` is required but was not set" },
+                checkNotNull(win) { "`win` is required but was not set" },
                 additionalProperties.toImmutable(),
             )
     }
@@ -415,16 +427,22 @@ private constructor(
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card
          * Dispute was accepted.
          */
-        @JsonProperty("accepted_at") @ExcludeMissing fun _acceptedAt() = acceptedAt
+        @JsonProperty("accepted_at")
+        @ExcludeMissing
+        fun _acceptedAt(): JsonField<OffsetDateTime> = acceptedAt
 
         /** The identifier of the Card Dispute that was accepted. */
-        @JsonProperty("card_dispute_id") @ExcludeMissing fun _cardDisputeId() = cardDisputeId
+        @JsonProperty("card_dispute_id")
+        @ExcludeMissing
+        fun _cardDisputeId(): JsonField<String> = cardDisputeId
 
         /**
          * The identifier of the Transaction that was created to return the disputed funds to your
          * account.
          */
-        @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
+        @JsonProperty("transaction_id")
+        @ExcludeMissing
+        fun _transactionId(): JsonField<String> = transactionId
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -450,9 +468,9 @@ private constructor(
 
         class Builder {
 
-            private var acceptedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-            private var cardDisputeId: JsonField<String> = JsonMissing.of()
-            private var transactionId: JsonField<String> = JsonMissing.of()
+            private var acceptedAt: JsonField<OffsetDateTime>? = null
+            private var cardDisputeId: JsonField<String>? = null
+            private var transactionId: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(acceptance: Acceptance) = apply {
@@ -519,9 +537,9 @@ private constructor(
 
             fun build(): Acceptance =
                 Acceptance(
-                    acceptedAt,
-                    cardDisputeId,
-                    transactionId,
+                    checkNotNull(acceptedAt) { "`acceptedAt` is required but was not set" },
+                    checkNotNull(cardDisputeId) { "`cardDisputeId` is required but was not set" },
+                    checkNotNull(transactionId) { "`transactionId` is required but was not set" },
                     additionalProperties.toImmutable(),
                 )
         }
@@ -584,22 +602,28 @@ private constructor(
         fun transactionId(): String = transactionId.getRequired("transaction_id")
 
         /** The identifier of the Card Dispute that was lost. */
-        @JsonProperty("card_dispute_id") @ExcludeMissing fun _cardDisputeId() = cardDisputeId
+        @JsonProperty("card_dispute_id")
+        @ExcludeMissing
+        fun _cardDisputeId(): JsonField<String> = cardDisputeId
 
         /** Why the Card Dispute was lost. */
-        @JsonProperty("explanation") @ExcludeMissing fun _explanation() = explanation
+        @JsonProperty("explanation")
+        @ExcludeMissing
+        fun _explanation(): JsonField<String> = explanation
 
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card
          * Dispute was lost.
          */
-        @JsonProperty("lost_at") @ExcludeMissing fun _lostAt() = lostAt
+        @JsonProperty("lost_at") @ExcludeMissing fun _lostAt(): JsonField<OffsetDateTime> = lostAt
 
         /**
          * The identifier of the Transaction that was created to debit the disputed funds from your
          * account.
          */
-        @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
+        @JsonProperty("transaction_id")
+        @ExcludeMissing
+        fun _transactionId(): JsonField<String> = transactionId
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -626,10 +650,10 @@ private constructor(
 
         class Builder {
 
-            private var cardDisputeId: JsonField<String> = JsonMissing.of()
-            private var explanation: JsonField<String> = JsonMissing.of()
-            private var lostAt: JsonField<OffsetDateTime> = JsonMissing.of()
-            private var transactionId: JsonField<String> = JsonMissing.of()
+            private var cardDisputeId: JsonField<String>? = null
+            private var explanation: JsonField<String>? = null
+            private var lostAt: JsonField<OffsetDateTime>? = null
+            private var transactionId: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(loss: Loss) = apply {
@@ -703,10 +727,10 @@ private constructor(
 
             fun build(): Loss =
                 Loss(
-                    cardDisputeId,
-                    explanation,
-                    lostAt,
-                    transactionId,
+                    checkNotNull(cardDisputeId) { "`cardDisputeId` is required but was not set" },
+                    checkNotNull(explanation) { "`explanation` is required but was not set" },
+                    checkNotNull(lostAt) { "`lostAt` is required but was not set" },
+                    checkNotNull(transactionId) { "`transactionId` is required but was not set" },
                     additionalProperties.toImmutable(),
                 )
         }
@@ -763,16 +787,22 @@ private constructor(
         fun rejectedAt(): OffsetDateTime = rejectedAt.getRequired("rejected_at")
 
         /** The identifier of the Card Dispute that was rejected. */
-        @JsonProperty("card_dispute_id") @ExcludeMissing fun _cardDisputeId() = cardDisputeId
+        @JsonProperty("card_dispute_id")
+        @ExcludeMissing
+        fun _cardDisputeId(): JsonField<String> = cardDisputeId
 
         /** Why the Card Dispute was rejected. */
-        @JsonProperty("explanation") @ExcludeMissing fun _explanation() = explanation
+        @JsonProperty("explanation")
+        @ExcludeMissing
+        fun _explanation(): JsonField<String> = explanation
 
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card
          * Dispute was rejected.
          */
-        @JsonProperty("rejected_at") @ExcludeMissing fun _rejectedAt() = rejectedAt
+        @JsonProperty("rejected_at")
+        @ExcludeMissing
+        fun _rejectedAt(): JsonField<OffsetDateTime> = rejectedAt
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -798,9 +828,9 @@ private constructor(
 
         class Builder {
 
-            private var cardDisputeId: JsonField<String> = JsonMissing.of()
-            private var explanation: JsonField<String> = JsonMissing.of()
-            private var rejectedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+            private var cardDisputeId: JsonField<String>? = null
+            private var explanation: JsonField<String>? = null
+            private var rejectedAt: JsonField<OffsetDateTime>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(rejection: Rejection) = apply {
@@ -861,9 +891,9 @@ private constructor(
 
             fun build(): Rejection =
                 Rejection(
-                    cardDisputeId,
-                    explanation,
-                    rejectedAt,
+                    checkNotNull(cardDisputeId) { "`cardDisputeId` is required but was not set" },
+                    checkNotNull(explanation) { "`explanation` is required but was not set" },
+                    checkNotNull(rejectedAt) { "`rejectedAt` is required but was not set" },
                     additionalProperties.toImmutable(),
                 )
         }
@@ -1043,13 +1073,15 @@ private constructor(
         fun wonAt(): OffsetDateTime = wonAt.getRequired("won_at")
 
         /** The identifier of the Card Dispute that was won. */
-        @JsonProperty("card_dispute_id") @ExcludeMissing fun _cardDisputeId() = cardDisputeId
+        @JsonProperty("card_dispute_id")
+        @ExcludeMissing
+        fun _cardDisputeId(): JsonField<String> = cardDisputeId
 
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card
          * Dispute was won.
          */
-        @JsonProperty("won_at") @ExcludeMissing fun _wonAt() = wonAt
+        @JsonProperty("won_at") @ExcludeMissing fun _wonAt(): JsonField<OffsetDateTime> = wonAt
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -1074,8 +1106,8 @@ private constructor(
 
         class Builder {
 
-            private var cardDisputeId: JsonField<String> = JsonMissing.of()
-            private var wonAt: JsonField<OffsetDateTime> = JsonMissing.of()
+            private var cardDisputeId: JsonField<String>? = null
+            private var wonAt: JsonField<OffsetDateTime>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(win: Win) = apply {
@@ -1125,8 +1157,8 @@ private constructor(
 
             fun build(): Win =
                 Win(
-                    cardDisputeId,
-                    wonAt,
+                    checkNotNull(cardDisputeId) { "`cardDisputeId` is required but was not set" },
+                    checkNotNull(wonAt) { "`wonAt` is required but was not set" },
                     additionalProperties.toImmutable(),
                 )
         }

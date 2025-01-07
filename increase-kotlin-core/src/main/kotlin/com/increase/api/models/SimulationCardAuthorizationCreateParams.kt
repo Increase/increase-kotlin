@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
+import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
@@ -98,11 +99,76 @@ constructor(
      */
     fun terminalId(): String? = body.terminalId()
 
+    /** The authorization amount in cents. */
+    fun _amount(): JsonField<Long> = body._amount()
+
+    /**
+     * The identifier of a Card Payment with a `card_authentication` if you want to simulate an
+     * authenticated authorization.
+     */
+    fun _authenticatedCardPaymentId(): JsonField<String> = body._authenticatedCardPaymentId()
+
+    /** The identifier of the Card to be authorized. */
+    fun _cardId(): JsonField<String> = body._cardId()
+
+    /** Forces a card decline with a specific reason. No real time decision will be sent. */
+    fun _declineReason(): JsonField<DeclineReason> = body._declineReason()
+
+    /** The identifier of the Digital Wallet Token to be authorized. */
+    fun _digitalWalletTokenId(): JsonField<String> = body._digitalWalletTokenId()
+
+    /**
+     * The direction describes the direction the funds will move, either from the cardholder to the
+     * merchant or from the merchant to the cardholder.
+     */
+    fun _direction(): JsonField<Direction> = body._direction()
+
+    /**
+     * The identifier of the Event Subscription to use. If provided, will override the default real
+     * time event subscription. Because you can only create one real time decision event
+     * subscription, you can use this field to route events to any specified event subscription for
+     * testing purposes.
+     */
+    fun _eventSubscriptionId(): JsonField<String> = body._eventSubscriptionId()
+
+    /**
+     * The merchant identifier (commonly abbreviated as MID) of the merchant the card is transacting
+     * with.
+     */
+    fun _merchantAcceptorId(): JsonField<String> = body._merchantAcceptorId()
+
+    /**
+     * The Merchant Category Code (commonly abbreviated as MCC) of the merchant the card is
+     * transacting with.
+     */
+    fun _merchantCategoryCode(): JsonField<String> = body._merchantCategoryCode()
+
+    /** The city the merchant resides in. */
+    fun _merchantCity(): JsonField<String> = body._merchantCity()
+
+    /** The country the merchant resides in. */
+    fun _merchantCountry(): JsonField<String> = body._merchantCountry()
+
+    /** The merchant descriptor of the merchant the card is transacting with. */
+    fun _merchantDescriptor(): JsonField<String> = body._merchantDescriptor()
+
+    /** The state the merchant resides in. */
+    fun _merchantState(): JsonField<String> = body._merchantState()
+
+    /** The identifier of the Physical Card to be authorized. */
+    fun _physicalCardId(): JsonField<String> = body._physicalCardId()
+
+    /**
+     * The terminal identifier (commonly abbreviated as TID) of the terminal the card is transacting
+     * with.
+     */
+    fun _terminalId(): JsonField<String> = body._terminalId()
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     internal fun getBody(): SimulationCardAuthorizationCreateBody = body
 
@@ -114,51 +180,155 @@ constructor(
     class SimulationCardAuthorizationCreateBody
     @JsonCreator
     internal constructor(
-        @JsonProperty("amount") private val amount: Long,
+        @JsonProperty("amount")
+        @ExcludeMissing
+        private val amount: JsonField<Long> = JsonMissing.of(),
         @JsonProperty("authenticated_card_payment_id")
-        private val authenticatedCardPaymentId: String?,
-        @JsonProperty("card_id") private val cardId: String?,
-        @JsonProperty("decline_reason") private val declineReason: DeclineReason?,
-        @JsonProperty("digital_wallet_token_id") private val digitalWalletTokenId: String?,
-        @JsonProperty("direction") private val direction: Direction?,
-        @JsonProperty("event_subscription_id") private val eventSubscriptionId: String?,
-        @JsonProperty("merchant_acceptor_id") private val merchantAcceptorId: String?,
-        @JsonProperty("merchant_category_code") private val merchantCategoryCode: String?,
-        @JsonProperty("merchant_city") private val merchantCity: String?,
-        @JsonProperty("merchant_country") private val merchantCountry: String?,
-        @JsonProperty("merchant_descriptor") private val merchantDescriptor: String?,
-        @JsonProperty("merchant_state") private val merchantState: String?,
-        @JsonProperty("physical_card_id") private val physicalCardId: String?,
-        @JsonProperty("terminal_id") private val terminalId: String?,
+        @ExcludeMissing
+        private val authenticatedCardPaymentId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("card_id")
+        @ExcludeMissing
+        private val cardId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("decline_reason")
+        @ExcludeMissing
+        private val declineReason: JsonField<DeclineReason> = JsonMissing.of(),
+        @JsonProperty("digital_wallet_token_id")
+        @ExcludeMissing
+        private val digitalWalletTokenId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("direction")
+        @ExcludeMissing
+        private val direction: JsonField<Direction> = JsonMissing.of(),
+        @JsonProperty("event_subscription_id")
+        @ExcludeMissing
+        private val eventSubscriptionId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("merchant_acceptor_id")
+        @ExcludeMissing
+        private val merchantAcceptorId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("merchant_category_code")
+        @ExcludeMissing
+        private val merchantCategoryCode: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("merchant_city")
+        @ExcludeMissing
+        private val merchantCity: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("merchant_country")
+        @ExcludeMissing
+        private val merchantCountry: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("merchant_descriptor")
+        @ExcludeMissing
+        private val merchantDescriptor: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("merchant_state")
+        @ExcludeMissing
+        private val merchantState: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("physical_card_id")
+        @ExcludeMissing
+        private val physicalCardId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("terminal_id")
+        @ExcludeMissing
+        private val terminalId: JsonField<String> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The authorization amount in cents. */
-        @JsonProperty("amount") fun amount(): Long = amount
+        fun amount(): Long = amount.getRequired("amount")
+
+        /**
+         * The identifier of a Card Payment with a `card_authentication` if you want to simulate an
+         * authenticated authorization.
+         */
+        fun authenticatedCardPaymentId(): String? =
+            authenticatedCardPaymentId.getNullable("authenticated_card_payment_id")
+
+        /** The identifier of the Card to be authorized. */
+        fun cardId(): String? = cardId.getNullable("card_id")
+
+        /** Forces a card decline with a specific reason. No real time decision will be sent. */
+        fun declineReason(): DeclineReason? = declineReason.getNullable("decline_reason")
+
+        /** The identifier of the Digital Wallet Token to be authorized. */
+        fun digitalWalletTokenId(): String? =
+            digitalWalletTokenId.getNullable("digital_wallet_token_id")
+
+        /**
+         * The direction describes the direction the funds will move, either from the cardholder to
+         * the merchant or from the merchant to the cardholder.
+         */
+        fun direction(): Direction? = direction.getNullable("direction")
+
+        /**
+         * The identifier of the Event Subscription to use. If provided, will override the default
+         * real time event subscription. Because you can only create one real time decision event
+         * subscription, you can use this field to route events to any specified event subscription
+         * for testing purposes.
+         */
+        fun eventSubscriptionId(): String? =
+            eventSubscriptionId.getNullable("event_subscription_id")
+
+        /**
+         * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
+         * transacting with.
+         */
+        fun merchantAcceptorId(): String? = merchantAcceptorId.getNullable("merchant_acceptor_id")
+
+        /**
+         * The Merchant Category Code (commonly abbreviated as MCC) of the merchant the card is
+         * transacting with.
+         */
+        fun merchantCategoryCode(): String? =
+            merchantCategoryCode.getNullable("merchant_category_code")
+
+        /** The city the merchant resides in. */
+        fun merchantCity(): String? = merchantCity.getNullable("merchant_city")
+
+        /** The country the merchant resides in. */
+        fun merchantCountry(): String? = merchantCountry.getNullable("merchant_country")
+
+        /** The merchant descriptor of the merchant the card is transacting with. */
+        fun merchantDescriptor(): String? = merchantDescriptor.getNullable("merchant_descriptor")
+
+        /** The state the merchant resides in. */
+        fun merchantState(): String? = merchantState.getNullable("merchant_state")
+
+        /** The identifier of the Physical Card to be authorized. */
+        fun physicalCardId(): String? = physicalCardId.getNullable("physical_card_id")
+
+        /**
+         * The terminal identifier (commonly abbreviated as TID) of the terminal the card is
+         * transacting with.
+         */
+        fun terminalId(): String? = terminalId.getNullable("terminal_id")
+
+        /** The authorization amount in cents. */
+        @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
         /**
          * The identifier of a Card Payment with a `card_authentication` if you want to simulate an
          * authenticated authorization.
          */
         @JsonProperty("authenticated_card_payment_id")
-        fun authenticatedCardPaymentId(): String? = authenticatedCardPaymentId
+        @ExcludeMissing
+        fun _authenticatedCardPaymentId(): JsonField<String> = authenticatedCardPaymentId
 
         /** The identifier of the Card to be authorized. */
-        @JsonProperty("card_id") fun cardId(): String? = cardId
+        @JsonProperty("card_id") @ExcludeMissing fun _cardId(): JsonField<String> = cardId
 
         /** Forces a card decline with a specific reason. No real time decision will be sent. */
-        @JsonProperty("decline_reason") fun declineReason(): DeclineReason? = declineReason
+        @JsonProperty("decline_reason")
+        @ExcludeMissing
+        fun _declineReason(): JsonField<DeclineReason> = declineReason
 
         /** The identifier of the Digital Wallet Token to be authorized. */
         @JsonProperty("digital_wallet_token_id")
-        fun digitalWalletTokenId(): String? = digitalWalletTokenId
+        @ExcludeMissing
+        fun _digitalWalletTokenId(): JsonField<String> = digitalWalletTokenId
 
         /**
          * The direction describes the direction the funds will move, either from the cardholder to
          * the merchant or from the merchant to the cardholder.
          */
-        @JsonProperty("direction") fun direction(): Direction? = direction
+        @JsonProperty("direction")
+        @ExcludeMissing
+        fun _direction(): JsonField<Direction> = direction
 
         /**
          * The identifier of the Event Subscription to use. If provided, will override the default
@@ -167,45 +337,84 @@ constructor(
          * for testing purposes.
          */
         @JsonProperty("event_subscription_id")
-        fun eventSubscriptionId(): String? = eventSubscriptionId
+        @ExcludeMissing
+        fun _eventSubscriptionId(): JsonField<String> = eventSubscriptionId
 
         /**
          * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
          * transacting with.
          */
-        @JsonProperty("merchant_acceptor_id") fun merchantAcceptorId(): String? = merchantAcceptorId
+        @JsonProperty("merchant_acceptor_id")
+        @ExcludeMissing
+        fun _merchantAcceptorId(): JsonField<String> = merchantAcceptorId
 
         /**
          * The Merchant Category Code (commonly abbreviated as MCC) of the merchant the card is
          * transacting with.
          */
         @JsonProperty("merchant_category_code")
-        fun merchantCategoryCode(): String? = merchantCategoryCode
+        @ExcludeMissing
+        fun _merchantCategoryCode(): JsonField<String> = merchantCategoryCode
 
         /** The city the merchant resides in. */
-        @JsonProperty("merchant_city") fun merchantCity(): String? = merchantCity
+        @JsonProperty("merchant_city")
+        @ExcludeMissing
+        fun _merchantCity(): JsonField<String> = merchantCity
 
         /** The country the merchant resides in. */
-        @JsonProperty("merchant_country") fun merchantCountry(): String? = merchantCountry
+        @JsonProperty("merchant_country")
+        @ExcludeMissing
+        fun _merchantCountry(): JsonField<String> = merchantCountry
 
         /** The merchant descriptor of the merchant the card is transacting with. */
-        @JsonProperty("merchant_descriptor") fun merchantDescriptor(): String? = merchantDescriptor
+        @JsonProperty("merchant_descriptor")
+        @ExcludeMissing
+        fun _merchantDescriptor(): JsonField<String> = merchantDescriptor
 
         /** The state the merchant resides in. */
-        @JsonProperty("merchant_state") fun merchantState(): String? = merchantState
+        @JsonProperty("merchant_state")
+        @ExcludeMissing
+        fun _merchantState(): JsonField<String> = merchantState
 
         /** The identifier of the Physical Card to be authorized. */
-        @JsonProperty("physical_card_id") fun physicalCardId(): String? = physicalCardId
+        @JsonProperty("physical_card_id")
+        @ExcludeMissing
+        fun _physicalCardId(): JsonField<String> = physicalCardId
 
         /**
          * The terminal identifier (commonly abbreviated as TID) of the terminal the card is
          * transacting with.
          */
-        @JsonProperty("terminal_id") fun terminalId(): String? = terminalId
+        @JsonProperty("terminal_id")
+        @ExcludeMissing
+        fun _terminalId(): JsonField<String> = terminalId
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): SimulationCardAuthorizationCreateBody = apply {
+            if (!validated) {
+                amount()
+                authenticatedCardPaymentId()
+                cardId()
+                declineReason()
+                digitalWalletTokenId()
+                direction()
+                eventSubscriptionId()
+                merchantAcceptorId()
+                merchantCategoryCode()
+                merchantCity()
+                merchantCountry()
+                merchantDescriptor()
+                merchantState()
+                physicalCardId()
+                terminalId()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -216,21 +425,21 @@ constructor(
 
         class Builder {
 
-            private var amount: Long? = null
-            private var authenticatedCardPaymentId: String? = null
-            private var cardId: String? = null
-            private var declineReason: DeclineReason? = null
-            private var digitalWalletTokenId: String? = null
-            private var direction: Direction? = null
-            private var eventSubscriptionId: String? = null
-            private var merchantAcceptorId: String? = null
-            private var merchantCategoryCode: String? = null
-            private var merchantCity: String? = null
-            private var merchantCountry: String? = null
-            private var merchantDescriptor: String? = null
-            private var merchantState: String? = null
-            private var physicalCardId: String? = null
-            private var terminalId: String? = null
+            private var amount: JsonField<Long>? = null
+            private var authenticatedCardPaymentId: JsonField<String> = JsonMissing.of()
+            private var cardId: JsonField<String> = JsonMissing.of()
+            private var declineReason: JsonField<DeclineReason> = JsonMissing.of()
+            private var digitalWalletTokenId: JsonField<String> = JsonMissing.of()
+            private var direction: JsonField<Direction> = JsonMissing.of()
+            private var eventSubscriptionId: JsonField<String> = JsonMissing.of()
+            private var merchantAcceptorId: JsonField<String> = JsonMissing.of()
+            private var merchantCategoryCode: JsonField<String> = JsonMissing.of()
+            private var merchantCity: JsonField<String> = JsonMissing.of()
+            private var merchantCountry: JsonField<String> = JsonMissing.of()
+            private var merchantDescriptor: JsonField<String> = JsonMissing.of()
+            private var merchantState: JsonField<String> = JsonMissing.of()
+            private var physicalCardId: JsonField<String> = JsonMissing.of()
+            private var terminalId: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(
@@ -257,26 +466,47 @@ constructor(
             }
 
             /** The authorization amount in cents. */
-            fun amount(amount: Long) = apply { this.amount = amount }
+            fun amount(amount: Long) = amount(JsonField.of(amount))
+
+            /** The authorization amount in cents. */
+            fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
             /**
              * The identifier of a Card Payment with a `card_authentication` if you want to simulate
              * an authenticated authorization.
              */
-            fun authenticatedCardPaymentId(authenticatedCardPaymentId: String?) = apply {
+            fun authenticatedCardPaymentId(authenticatedCardPaymentId: String) =
+                authenticatedCardPaymentId(JsonField.of(authenticatedCardPaymentId))
+
+            /**
+             * The identifier of a Card Payment with a `card_authentication` if you want to simulate
+             * an authenticated authorization.
+             */
+            fun authenticatedCardPaymentId(authenticatedCardPaymentId: JsonField<String>) = apply {
                 this.authenticatedCardPaymentId = authenticatedCardPaymentId
             }
 
             /** The identifier of the Card to be authorized. */
-            fun cardId(cardId: String?) = apply { this.cardId = cardId }
+            fun cardId(cardId: String) = cardId(JsonField.of(cardId))
+
+            /** The identifier of the Card to be authorized. */
+            fun cardId(cardId: JsonField<String>) = apply { this.cardId = cardId }
 
             /** Forces a card decline with a specific reason. No real time decision will be sent. */
-            fun declineReason(declineReason: DeclineReason?) = apply {
+            fun declineReason(declineReason: DeclineReason) =
+                declineReason(JsonField.of(declineReason))
+
+            /** Forces a card decline with a specific reason. No real time decision will be sent. */
+            fun declineReason(declineReason: JsonField<DeclineReason>) = apply {
                 this.declineReason = declineReason
             }
 
             /** The identifier of the Digital Wallet Token to be authorized. */
-            fun digitalWalletTokenId(digitalWalletTokenId: String?) = apply {
+            fun digitalWalletTokenId(digitalWalletTokenId: String) =
+                digitalWalletTokenId(JsonField.of(digitalWalletTokenId))
+
+            /** The identifier of the Digital Wallet Token to be authorized. */
+            fun digitalWalletTokenId(digitalWalletTokenId: JsonField<String>) = apply {
                 this.digitalWalletTokenId = digitalWalletTokenId
             }
 
@@ -284,7 +514,13 @@ constructor(
              * The direction describes the direction the funds will move, either from the cardholder
              * to the merchant or from the merchant to the cardholder.
              */
-            fun direction(direction: Direction?) = apply { this.direction = direction }
+            fun direction(direction: Direction) = direction(JsonField.of(direction))
+
+            /**
+             * The direction describes the direction the funds will move, either from the cardholder
+             * to the merchant or from the merchant to the cardholder.
+             */
+            fun direction(direction: JsonField<Direction>) = apply { this.direction = direction }
 
             /**
              * The identifier of the Event Subscription to use. If provided, will override the
@@ -292,7 +528,16 @@ constructor(
              * decision event subscription, you can use this field to route events to any specified
              * event subscription for testing purposes.
              */
-            fun eventSubscriptionId(eventSubscriptionId: String?) = apply {
+            fun eventSubscriptionId(eventSubscriptionId: String) =
+                eventSubscriptionId(JsonField.of(eventSubscriptionId))
+
+            /**
+             * The identifier of the Event Subscription to use. If provided, will override the
+             * default real time event subscription. Because you can only create one real time
+             * decision event subscription, you can use this field to route events to any specified
+             * event subscription for testing purposes.
+             */
+            fun eventSubscriptionId(eventSubscriptionId: JsonField<String>) = apply {
                 this.eventSubscriptionId = eventSubscriptionId
             }
 
@@ -300,7 +545,14 @@ constructor(
              * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
              * transacting with.
              */
-            fun merchantAcceptorId(merchantAcceptorId: String?) = apply {
+            fun merchantAcceptorId(merchantAcceptorId: String) =
+                merchantAcceptorId(JsonField.of(merchantAcceptorId))
+
+            /**
+             * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
+             * transacting with.
+             */
+            fun merchantAcceptorId(merchantAcceptorId: JsonField<String>) = apply {
                 this.merchantAcceptorId = merchantAcceptorId
             }
 
@@ -308,28 +560,57 @@ constructor(
              * The Merchant Category Code (commonly abbreviated as MCC) of the merchant the card is
              * transacting with.
              */
-            fun merchantCategoryCode(merchantCategoryCode: String?) = apply {
+            fun merchantCategoryCode(merchantCategoryCode: String) =
+                merchantCategoryCode(JsonField.of(merchantCategoryCode))
+
+            /**
+             * The Merchant Category Code (commonly abbreviated as MCC) of the merchant the card is
+             * transacting with.
+             */
+            fun merchantCategoryCode(merchantCategoryCode: JsonField<String>) = apply {
                 this.merchantCategoryCode = merchantCategoryCode
             }
 
             /** The city the merchant resides in. */
-            fun merchantCity(merchantCity: String?) = apply { this.merchantCity = merchantCity }
+            fun merchantCity(merchantCity: String) = merchantCity(JsonField.of(merchantCity))
+
+            /** The city the merchant resides in. */
+            fun merchantCity(merchantCity: JsonField<String>) = apply {
+                this.merchantCity = merchantCity
+            }
 
             /** The country the merchant resides in. */
-            fun merchantCountry(merchantCountry: String?) = apply {
+            fun merchantCountry(merchantCountry: String) =
+                merchantCountry(JsonField.of(merchantCountry))
+
+            /** The country the merchant resides in. */
+            fun merchantCountry(merchantCountry: JsonField<String>) = apply {
                 this.merchantCountry = merchantCountry
             }
 
             /** The merchant descriptor of the merchant the card is transacting with. */
-            fun merchantDescriptor(merchantDescriptor: String?) = apply {
+            fun merchantDescriptor(merchantDescriptor: String) =
+                merchantDescriptor(JsonField.of(merchantDescriptor))
+
+            /** The merchant descriptor of the merchant the card is transacting with. */
+            fun merchantDescriptor(merchantDescriptor: JsonField<String>) = apply {
                 this.merchantDescriptor = merchantDescriptor
             }
 
             /** The state the merchant resides in. */
-            fun merchantState(merchantState: String?) = apply { this.merchantState = merchantState }
+            fun merchantState(merchantState: String) = merchantState(JsonField.of(merchantState))
+
+            /** The state the merchant resides in. */
+            fun merchantState(merchantState: JsonField<String>) = apply {
+                this.merchantState = merchantState
+            }
 
             /** The identifier of the Physical Card to be authorized. */
-            fun physicalCardId(physicalCardId: String?) = apply {
+            fun physicalCardId(physicalCardId: String) =
+                physicalCardId(JsonField.of(physicalCardId))
+
+            /** The identifier of the Physical Card to be authorized. */
+            fun physicalCardId(physicalCardId: JsonField<String>) = apply {
                 this.physicalCardId = physicalCardId
             }
 
@@ -337,7 +618,13 @@ constructor(
              * The terminal identifier (commonly abbreviated as TID) of the terminal the card is
              * transacting with.
              */
-            fun terminalId(terminalId: String?) = apply { this.terminalId = terminalId }
+            fun terminalId(terminalId: String) = terminalId(JsonField.of(terminalId))
+
+            /**
+             * The terminal identifier (commonly abbreviated as TID) of the terminal the card is
+             * transacting with.
+             */
+            fun terminalId(terminalId: JsonField<String>) = apply { this.terminalId = terminalId }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -425,24 +712,48 @@ constructor(
         /** The authorization amount in cents. */
         fun amount(amount: Long) = apply { body.amount(amount) }
 
+        /** The authorization amount in cents. */
+        fun amount(amount: JsonField<Long>) = apply { body.amount(amount) }
+
         /**
          * The identifier of a Card Payment with a `card_authentication` if you want to simulate an
          * authenticated authorization.
          */
-        fun authenticatedCardPaymentId(authenticatedCardPaymentId: String?) = apply {
+        fun authenticatedCardPaymentId(authenticatedCardPaymentId: String) = apply {
+            body.authenticatedCardPaymentId(authenticatedCardPaymentId)
+        }
+
+        /**
+         * The identifier of a Card Payment with a `card_authentication` if you want to simulate an
+         * authenticated authorization.
+         */
+        fun authenticatedCardPaymentId(authenticatedCardPaymentId: JsonField<String>) = apply {
             body.authenticatedCardPaymentId(authenticatedCardPaymentId)
         }
 
         /** The identifier of the Card to be authorized. */
-        fun cardId(cardId: String?) = apply { body.cardId(cardId) }
+        fun cardId(cardId: String) = apply { body.cardId(cardId) }
+
+        /** The identifier of the Card to be authorized. */
+        fun cardId(cardId: JsonField<String>) = apply { body.cardId(cardId) }
 
         /** Forces a card decline with a specific reason. No real time decision will be sent. */
-        fun declineReason(declineReason: DeclineReason?) = apply {
+        fun declineReason(declineReason: DeclineReason) = apply {
+            body.declineReason(declineReason)
+        }
+
+        /** Forces a card decline with a specific reason. No real time decision will be sent. */
+        fun declineReason(declineReason: JsonField<DeclineReason>) = apply {
             body.declineReason(declineReason)
         }
 
         /** The identifier of the Digital Wallet Token to be authorized. */
-        fun digitalWalletTokenId(digitalWalletTokenId: String?) = apply {
+        fun digitalWalletTokenId(digitalWalletTokenId: String) = apply {
+            body.digitalWalletTokenId(digitalWalletTokenId)
+        }
+
+        /** The identifier of the Digital Wallet Token to be authorized. */
+        fun digitalWalletTokenId(digitalWalletTokenId: JsonField<String>) = apply {
             body.digitalWalletTokenId(digitalWalletTokenId)
         }
 
@@ -450,7 +761,13 @@ constructor(
          * The direction describes the direction the funds will move, either from the cardholder to
          * the merchant or from the merchant to the cardholder.
          */
-        fun direction(direction: Direction?) = apply { body.direction(direction) }
+        fun direction(direction: Direction) = apply { body.direction(direction) }
+
+        /**
+         * The direction describes the direction the funds will move, either from the cardholder to
+         * the merchant or from the merchant to the cardholder.
+         */
+        fun direction(direction: JsonField<Direction>) = apply { body.direction(direction) }
 
         /**
          * The identifier of the Event Subscription to use. If provided, will override the default
@@ -458,7 +775,17 @@ constructor(
          * subscription, you can use this field to route events to any specified event subscription
          * for testing purposes.
          */
-        fun eventSubscriptionId(eventSubscriptionId: String?) = apply {
+        fun eventSubscriptionId(eventSubscriptionId: String) = apply {
+            body.eventSubscriptionId(eventSubscriptionId)
+        }
+
+        /**
+         * The identifier of the Event Subscription to use. If provided, will override the default
+         * real time event subscription. Because you can only create one real time decision event
+         * subscription, you can use this field to route events to any specified event subscription
+         * for testing purposes.
+         */
+        fun eventSubscriptionId(eventSubscriptionId: JsonField<String>) = apply {
             body.eventSubscriptionId(eventSubscriptionId)
         }
 
@@ -466,7 +793,15 @@ constructor(
          * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
          * transacting with.
          */
-        fun merchantAcceptorId(merchantAcceptorId: String?) = apply {
+        fun merchantAcceptorId(merchantAcceptorId: String) = apply {
+            body.merchantAcceptorId(merchantAcceptorId)
+        }
+
+        /**
+         * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
+         * transacting with.
+         */
+        fun merchantAcceptorId(merchantAcceptorId: JsonField<String>) = apply {
             body.merchantAcceptorId(merchantAcceptorId)
         }
 
@@ -474,34 +809,92 @@ constructor(
          * The Merchant Category Code (commonly abbreviated as MCC) of the merchant the card is
          * transacting with.
          */
-        fun merchantCategoryCode(merchantCategoryCode: String?) = apply {
+        fun merchantCategoryCode(merchantCategoryCode: String) = apply {
+            body.merchantCategoryCode(merchantCategoryCode)
+        }
+
+        /**
+         * The Merchant Category Code (commonly abbreviated as MCC) of the merchant the card is
+         * transacting with.
+         */
+        fun merchantCategoryCode(merchantCategoryCode: JsonField<String>) = apply {
             body.merchantCategoryCode(merchantCategoryCode)
         }
 
         /** The city the merchant resides in. */
-        fun merchantCity(merchantCity: String?) = apply { body.merchantCity(merchantCity) }
+        fun merchantCity(merchantCity: String) = apply { body.merchantCity(merchantCity) }
+
+        /** The city the merchant resides in. */
+        fun merchantCity(merchantCity: JsonField<String>) = apply {
+            body.merchantCity(merchantCity)
+        }
 
         /** The country the merchant resides in. */
-        fun merchantCountry(merchantCountry: String?) = apply {
+        fun merchantCountry(merchantCountry: String) = apply {
+            body.merchantCountry(merchantCountry)
+        }
+
+        /** The country the merchant resides in. */
+        fun merchantCountry(merchantCountry: JsonField<String>) = apply {
             body.merchantCountry(merchantCountry)
         }
 
         /** The merchant descriptor of the merchant the card is transacting with. */
-        fun merchantDescriptor(merchantDescriptor: String?) = apply {
+        fun merchantDescriptor(merchantDescriptor: String) = apply {
+            body.merchantDescriptor(merchantDescriptor)
+        }
+
+        /** The merchant descriptor of the merchant the card is transacting with. */
+        fun merchantDescriptor(merchantDescriptor: JsonField<String>) = apply {
             body.merchantDescriptor(merchantDescriptor)
         }
 
         /** The state the merchant resides in. */
-        fun merchantState(merchantState: String?) = apply { body.merchantState(merchantState) }
+        fun merchantState(merchantState: String) = apply { body.merchantState(merchantState) }
+
+        /** The state the merchant resides in. */
+        fun merchantState(merchantState: JsonField<String>) = apply {
+            body.merchantState(merchantState)
+        }
 
         /** The identifier of the Physical Card to be authorized. */
-        fun physicalCardId(physicalCardId: String?) = apply { body.physicalCardId(physicalCardId) }
+        fun physicalCardId(physicalCardId: String) = apply { body.physicalCardId(physicalCardId) }
+
+        /** The identifier of the Physical Card to be authorized. */
+        fun physicalCardId(physicalCardId: JsonField<String>) = apply {
+            body.physicalCardId(physicalCardId)
+        }
 
         /**
          * The terminal identifier (commonly abbreviated as TID) of the terminal the card is
          * transacting with.
          */
-        fun terminalId(terminalId: String?) = apply { body.terminalId(terminalId) }
+        fun terminalId(terminalId: String) = apply { body.terminalId(terminalId) }
+
+        /**
+         * The terminal identifier (commonly abbreviated as TID) of the terminal the card is
+         * transacting with.
+         */
+        fun terminalId(terminalId: JsonField<String>) = apply { body.terminalId(terminalId) }
+
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.putAllAdditionalProperties(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
+        }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -599,25 +992,6 @@ constructor(
 
         fun removeAllAdditionalQueryParams(keys: Set<String>) = apply {
             additionalQueryParams.removeAll(keys)
-        }
-
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                body.putAllAdditionalProperties(additionalBodyProperties)
-            }
-
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
-
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): SimulationCardAuthorizationCreateParams =

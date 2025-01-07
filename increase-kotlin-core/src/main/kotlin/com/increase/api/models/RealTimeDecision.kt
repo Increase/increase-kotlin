@@ -109,54 +109,62 @@ private constructor(
     fun type(): Type = type.getRequired("type")
 
     /** The Real-Time Decision identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /** Fields related to a 3DS authentication attempt. */
     @JsonProperty("card_authentication")
     @ExcludeMissing
-    fun _cardAuthentication() = cardAuthentication
+    fun _cardAuthentication(): JsonField<CardAuthentication> = cardAuthentication
 
     /** Fields related to a 3DS authentication attempt. */
     @JsonProperty("card_authentication_challenge")
     @ExcludeMissing
-    fun _cardAuthenticationChallenge() = cardAuthenticationChallenge
+    fun _cardAuthenticationChallenge(): JsonField<CardAuthenticationChallenge> =
+        cardAuthenticationChallenge
 
     /** Fields related to a card authorization. */
-    @JsonProperty("card_authorization") @ExcludeMissing fun _cardAuthorization() = cardAuthorization
+    @JsonProperty("card_authorization")
+    @ExcludeMissing
+    fun _cardAuthorization(): JsonField<CardAuthorization> = cardAuthorization
 
     /** The category of the Real-Time Decision. */
-    @JsonProperty("category") @ExcludeMissing fun _category() = category
+    @JsonProperty("category") @ExcludeMissing fun _category(): JsonField<Category> = category
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Real-Time
      * Decision was created.
      */
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /** Fields related to a digital wallet authentication attempt. */
     @JsonProperty("digital_wallet_authentication")
     @ExcludeMissing
-    fun _digitalWalletAuthentication() = digitalWalletAuthentication
+    fun _digitalWalletAuthentication(): JsonField<DigitalWalletAuthentication> =
+        digitalWalletAuthentication
 
     /** Fields related to a digital wallet token provisioning attempt. */
     @JsonProperty("digital_wallet_token")
     @ExcludeMissing
-    fun _digitalWalletToken() = digitalWalletToken
+    fun _digitalWalletToken(): JsonField<DigitalWalletToken> = digitalWalletToken
 
     /** The status of the Real-Time Decision. */
-    @JsonProperty("status") @ExcludeMissing fun _status() = status
+    @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which your
      * application can no longer respond to the Real-Time Decision.
      */
-    @JsonProperty("timeout_at") @ExcludeMissing fun _timeoutAt() = timeoutAt
+    @JsonProperty("timeout_at")
+    @ExcludeMissing
+    fun _timeoutAt(): JsonField<OffsetDateTime> = timeoutAt
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `real_time_decision`.
      */
-    @JsonProperty("type") @ExcludeMissing fun _type() = type
+    @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -190,19 +198,17 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
-        private var cardAuthentication: JsonField<CardAuthentication> = JsonMissing.of()
-        private var cardAuthenticationChallenge: JsonField<CardAuthenticationChallenge> =
-            JsonMissing.of()
-        private var cardAuthorization: JsonField<CardAuthorization> = JsonMissing.of()
-        private var category: JsonField<Category> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var digitalWalletAuthentication: JsonField<DigitalWalletAuthentication> =
-            JsonMissing.of()
-        private var digitalWalletToken: JsonField<DigitalWalletToken> = JsonMissing.of()
-        private var status: JsonField<Status> = JsonMissing.of()
-        private var timeoutAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var type: JsonField<Type> = JsonMissing.of()
+        private var id: JsonField<String>? = null
+        private var cardAuthentication: JsonField<CardAuthentication>? = null
+        private var cardAuthenticationChallenge: JsonField<CardAuthenticationChallenge>? = null
+        private var cardAuthorization: JsonField<CardAuthorization>? = null
+        private var category: JsonField<Category>? = null
+        private var createdAt: JsonField<OffsetDateTime>? = null
+        private var digitalWalletAuthentication: JsonField<DigitalWalletAuthentication>? = null
+        private var digitalWalletToken: JsonField<DigitalWalletToken>? = null
+        private var status: JsonField<Status>? = null
+        private var timeoutAt: JsonField<OffsetDateTime>? = null
+        private var type: JsonField<Type>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(realTimeDecision: RealTimeDecision) = apply {
@@ -227,8 +233,8 @@ private constructor(
         fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** Fields related to a 3DS authentication attempt. */
-        fun cardAuthentication(cardAuthentication: CardAuthentication) =
-            cardAuthentication(JsonField.of(cardAuthentication))
+        fun cardAuthentication(cardAuthentication: CardAuthentication?) =
+            cardAuthentication(JsonField.ofNullable(cardAuthentication))
 
         /** Fields related to a 3DS authentication attempt. */
         fun cardAuthentication(cardAuthentication: JsonField<CardAuthentication>) = apply {
@@ -236,8 +242,8 @@ private constructor(
         }
 
         /** Fields related to a 3DS authentication attempt. */
-        fun cardAuthenticationChallenge(cardAuthenticationChallenge: CardAuthenticationChallenge) =
-            cardAuthenticationChallenge(JsonField.of(cardAuthenticationChallenge))
+        fun cardAuthenticationChallenge(cardAuthenticationChallenge: CardAuthenticationChallenge?) =
+            cardAuthenticationChallenge(JsonField.ofNullable(cardAuthenticationChallenge))
 
         /** Fields related to a 3DS authentication attempt. */
         fun cardAuthenticationChallenge(
@@ -245,8 +251,8 @@ private constructor(
         ) = apply { this.cardAuthenticationChallenge = cardAuthenticationChallenge }
 
         /** Fields related to a card authorization. */
-        fun cardAuthorization(cardAuthorization: CardAuthorization) =
-            cardAuthorization(JsonField.of(cardAuthorization))
+        fun cardAuthorization(cardAuthorization: CardAuthorization?) =
+            cardAuthorization(JsonField.ofNullable(cardAuthorization))
 
         /** Fields related to a card authorization. */
         fun cardAuthorization(cardAuthorization: JsonField<CardAuthorization>) = apply {
@@ -272,8 +278,8 @@ private constructor(
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /** Fields related to a digital wallet authentication attempt. */
-        fun digitalWalletAuthentication(digitalWalletAuthentication: DigitalWalletAuthentication) =
-            digitalWalletAuthentication(JsonField.of(digitalWalletAuthentication))
+        fun digitalWalletAuthentication(digitalWalletAuthentication: DigitalWalletAuthentication?) =
+            digitalWalletAuthentication(JsonField.ofNullable(digitalWalletAuthentication))
 
         /** Fields related to a digital wallet authentication attempt. */
         fun digitalWalletAuthentication(
@@ -281,8 +287,8 @@ private constructor(
         ) = apply { this.digitalWalletAuthentication = digitalWalletAuthentication }
 
         /** Fields related to a digital wallet token provisioning attempt. */
-        fun digitalWalletToken(digitalWalletToken: DigitalWalletToken) =
-            digitalWalletToken(JsonField.of(digitalWalletToken))
+        fun digitalWalletToken(digitalWalletToken: DigitalWalletToken?) =
+            digitalWalletToken(JsonField.ofNullable(digitalWalletToken))
 
         /** Fields related to a digital wallet token provisioning attempt. */
         fun digitalWalletToken(digitalWalletToken: JsonField<DigitalWalletToken>) = apply {
@@ -340,17 +346,27 @@ private constructor(
 
         fun build(): RealTimeDecision =
             RealTimeDecision(
-                id,
-                cardAuthentication,
-                cardAuthenticationChallenge,
-                cardAuthorization,
-                category,
-                createdAt,
-                digitalWalletAuthentication,
-                digitalWalletToken,
-                status,
-                timeoutAt,
-                type,
+                checkNotNull(id) { "`id` is required but was not set" },
+                checkNotNull(cardAuthentication) {
+                    "`cardAuthentication` is required but was not set"
+                },
+                checkNotNull(cardAuthenticationChallenge) {
+                    "`cardAuthenticationChallenge` is required but was not set"
+                },
+                checkNotNull(cardAuthorization) {
+                    "`cardAuthorization` is required but was not set"
+                },
+                checkNotNull(category) { "`category` is required but was not set" },
+                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
+                checkNotNull(digitalWalletAuthentication) {
+                    "`digitalWalletAuthentication` is required but was not set"
+                },
+                checkNotNull(digitalWalletToken) {
+                    "`digitalWalletToken` is required but was not set"
+                },
+                checkNotNull(status) { "`status` is required but was not set" },
+                checkNotNull(timeoutAt) { "`timeoutAt` is required but was not set" },
+                checkNotNull(type) { "`type` is required but was not set" },
                 additionalProperties.toImmutable(),
             )
     }
@@ -393,13 +409,13 @@ private constructor(
             upcomingCardPaymentId.getRequired("upcoming_card_payment_id")
 
         /** The identifier of the Account the card belongs to. */
-        @JsonProperty("account_id") @ExcludeMissing fun _accountId() = accountId
+        @JsonProperty("account_id") @ExcludeMissing fun _accountId(): JsonField<String> = accountId
 
         /** The identifier of the Card that is being tokenized. */
-        @JsonProperty("card_id") @ExcludeMissing fun _cardId() = cardId
+        @JsonProperty("card_id") @ExcludeMissing fun _cardId(): JsonField<String> = cardId
 
         /** Whether or not the authentication attempt was approved. */
-        @JsonProperty("decision") @ExcludeMissing fun _decision() = decision
+        @JsonProperty("decision") @ExcludeMissing fun _decision(): JsonField<Decision> = decision
 
         /**
          * The identifier of the Card Payment this authentication attempt will belong to. Available
@@ -407,7 +423,7 @@ private constructor(
          */
         @JsonProperty("upcoming_card_payment_id")
         @ExcludeMissing
-        fun _upcomingCardPaymentId() = upcomingCardPaymentId
+        fun _upcomingCardPaymentId(): JsonField<String> = upcomingCardPaymentId
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -434,10 +450,10 @@ private constructor(
 
         class Builder {
 
-            private var accountId: JsonField<String> = JsonMissing.of()
-            private var cardId: JsonField<String> = JsonMissing.of()
-            private var decision: JsonField<Decision> = JsonMissing.of()
-            private var upcomingCardPaymentId: JsonField<String> = JsonMissing.of()
+            private var accountId: JsonField<String>? = null
+            private var cardId: JsonField<String>? = null
+            private var decision: JsonField<Decision>? = null
+            private var upcomingCardPaymentId: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(cardAuthentication: CardAuthentication) = apply {
@@ -461,7 +477,7 @@ private constructor(
             fun cardId(cardId: JsonField<String>) = apply { this.cardId = cardId }
 
             /** Whether or not the authentication attempt was approved. */
-            fun decision(decision: Decision) = decision(JsonField.of(decision))
+            fun decision(decision: Decision?) = decision(JsonField.ofNullable(decision))
 
             /** Whether or not the authentication attempt was approved. */
             fun decision(decision: JsonField<Decision>) = apply { this.decision = decision }
@@ -502,10 +518,12 @@ private constructor(
 
             fun build(): CardAuthentication =
                 CardAuthentication(
-                    accountId,
-                    cardId,
-                    decision,
-                    upcomingCardPaymentId,
+                    checkNotNull(accountId) { "`accountId` is required but was not set" },
+                    checkNotNull(cardId) { "`cardId` is required but was not set" },
+                    checkNotNull(decision) { "`decision` is required but was not set" },
+                    checkNotNull(upcomingCardPaymentId) {
+                        "`upcomingCardPaymentId` is required but was not set"
+                    },
                     additionalProperties.toImmutable(),
                 )
         }
@@ -631,19 +649,23 @@ private constructor(
         fun result(): Result? = result.getNullable("result")
 
         /** The identifier of the Account the card belongs to. */
-        @JsonProperty("account_id") @ExcludeMissing fun _accountId() = accountId
+        @JsonProperty("account_id") @ExcludeMissing fun _accountId(): JsonField<String> = accountId
 
         /** The identifier of the Card that is being tokenized. */
-        @JsonProperty("card_id") @ExcludeMissing fun _cardId() = cardId
+        @JsonProperty("card_id") @ExcludeMissing fun _cardId(): JsonField<String> = cardId
 
         /** The identifier of the Card Payment this authentication challenge attempt belongs to. */
-        @JsonProperty("card_payment_id") @ExcludeMissing fun _cardPaymentId() = cardPaymentId
+        @JsonProperty("card_payment_id")
+        @ExcludeMissing
+        fun _cardPaymentId(): JsonField<String> = cardPaymentId
 
         /** The one-time code delivered to the cardholder. */
-        @JsonProperty("one_time_code") @ExcludeMissing fun _oneTimeCode() = oneTimeCode
+        @JsonProperty("one_time_code")
+        @ExcludeMissing
+        fun _oneTimeCode(): JsonField<String> = oneTimeCode
 
         /** Whether or not the challenge was delivered to the cardholder. */
-        @JsonProperty("result") @ExcludeMissing fun _result() = result
+        @JsonProperty("result") @ExcludeMissing fun _result(): JsonField<Result> = result
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -671,11 +693,11 @@ private constructor(
 
         class Builder {
 
-            private var accountId: JsonField<String> = JsonMissing.of()
-            private var cardId: JsonField<String> = JsonMissing.of()
-            private var cardPaymentId: JsonField<String> = JsonMissing.of()
-            private var oneTimeCode: JsonField<String> = JsonMissing.of()
-            private var result: JsonField<Result> = JsonMissing.of()
+            private var accountId: JsonField<String>? = null
+            private var cardId: JsonField<String>? = null
+            private var cardPaymentId: JsonField<String>? = null
+            private var oneTimeCode: JsonField<String>? = null
+            private var result: JsonField<Result>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(cardAuthenticationChallenge: CardAuthenticationChallenge) = apply {
@@ -721,7 +743,7 @@ private constructor(
             }
 
             /** Whether or not the challenge was delivered to the cardholder. */
-            fun result(result: Result) = result(JsonField.of(result))
+            fun result(result: Result?) = result(JsonField.ofNullable(result))
 
             /** Whether or not the challenge was delivered to the cardholder. */
             fun result(result: JsonField<Result>) = apply { this.result = result }
@@ -747,11 +769,11 @@ private constructor(
 
             fun build(): CardAuthenticationChallenge =
                 CardAuthenticationChallenge(
-                    accountId,
-                    cardId,
-                    cardPaymentId,
-                    oneTimeCode,
-                    result,
+                    checkNotNull(accountId) { "`accountId` is required but was not set" },
+                    checkNotNull(cardId) { "`cardId` is required but was not set" },
+                    checkNotNull(cardPaymentId) { "`cardPaymentId` is required but was not set" },
+                    checkNotNull(oneTimeCode) { "`oneTimeCode` is required but was not set" },
+                    checkNotNull(result) { "`result` is required but was not set" },
                     additionalProperties.toImmutable(),
                 )
         }
@@ -1038,13 +1060,13 @@ private constructor(
         fun verification(): Verification = verification.getRequired("verification")
 
         /** The identifier of the Account the authorization will debit. */
-        @JsonProperty("account_id") @ExcludeMissing fun _accountId() = accountId
+        @JsonProperty("account_id") @ExcludeMissing fun _accountId(): JsonField<String> = accountId
 
         /** The identifier of the Card that is being authorized. */
-        @JsonProperty("card_id") @ExcludeMissing fun _cardId() = cardId
+        @JsonProperty("card_id") @ExcludeMissing fun _cardId(): JsonField<String> = cardId
 
         /** Whether or not the authorization was approved. */
-        @JsonProperty("decision") @ExcludeMissing fun _decision() = decision
+        @JsonProperty("decision") @ExcludeMissing fun _decision(): JsonField<Decision> = decision
 
         /**
          * If the authorization was made via a Digital Wallet Token (such as an Apple Pay purchase),
@@ -1052,13 +1074,15 @@ private constructor(
          */
         @JsonProperty("digital_wallet_token_id")
         @ExcludeMissing
-        fun _digitalWalletTokenId() = digitalWalletTokenId
+        fun _digitalWalletTokenId(): JsonField<String> = digitalWalletTokenId
 
         /**
          * The direction describes the direction the funds will move, either from the cardholder to
          * the merchant or from the merchant to the cardholder.
          */
-        @JsonProperty("direction") @ExcludeMissing fun _direction() = direction
+        @JsonProperty("direction")
+        @ExcludeMissing
+        fun _direction(): JsonField<Direction> = direction
 
         /**
          * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
@@ -1066,7 +1090,7 @@ private constructor(
          */
         @JsonProperty("merchant_acceptor_id")
         @ExcludeMissing
-        fun _merchantAcceptorId() = merchantAcceptorId
+        fun _merchantAcceptorId(): JsonField<String> = merchantAcceptorId
 
         /**
          * The Merchant Category Code (commonly abbreviated as MCC) of the merchant the card is
@@ -1074,18 +1098,22 @@ private constructor(
          */
         @JsonProperty("merchant_category_code")
         @ExcludeMissing
-        fun _merchantCategoryCode() = merchantCategoryCode
+        fun _merchantCategoryCode(): JsonField<String> = merchantCategoryCode
 
         /** The city the merchant resides in. */
-        @JsonProperty("merchant_city") @ExcludeMissing fun _merchantCity() = merchantCity
+        @JsonProperty("merchant_city")
+        @ExcludeMissing
+        fun _merchantCity(): JsonField<String> = merchantCity
 
         /** The country the merchant resides in. */
-        @JsonProperty("merchant_country") @ExcludeMissing fun _merchantCountry() = merchantCountry
+        @JsonProperty("merchant_country")
+        @ExcludeMissing
+        fun _merchantCountry(): JsonField<String> = merchantCountry
 
         /** The merchant descriptor of the merchant the card is transacting with. */
         @JsonProperty("merchant_descriptor")
         @ExcludeMissing
-        fun _merchantDescriptor() = merchantDescriptor
+        fun _merchantDescriptor(): JsonField<String> = merchantDescriptor
 
         /**
          * The merchant's postal code. For US merchants this is either a 5-digit or 9-digit ZIP
@@ -1093,18 +1121,22 @@ private constructor(
          */
         @JsonProperty("merchant_postal_code")
         @ExcludeMissing
-        fun _merchantPostalCode() = merchantPostalCode
+        fun _merchantPostalCode(): JsonField<String> = merchantPostalCode
 
         /** The state the merchant resides in. */
-        @JsonProperty("merchant_state") @ExcludeMissing fun _merchantState() = merchantState
+        @JsonProperty("merchant_state")
+        @ExcludeMissing
+        fun _merchantState(): JsonField<String> = merchantState
 
         /** Fields specific to the `network`. */
-        @JsonProperty("network_details") @ExcludeMissing fun _networkDetails() = networkDetails
+        @JsonProperty("network_details")
+        @ExcludeMissing
+        fun _networkDetails(): JsonField<NetworkDetails> = networkDetails
 
         /** Network-specific identifiers for a specific request or transaction. */
         @JsonProperty("network_identifiers")
         @ExcludeMissing
-        fun _networkIdentifiers() = networkIdentifiers
+        fun _networkIdentifiers(): JsonField<NetworkIdentifiers> = networkIdentifiers
 
         /**
          * The risk score generated by the card network. For Visa this is the Visa Advanced
@@ -1112,13 +1144,15 @@ private constructor(
          */
         @JsonProperty("network_risk_score")
         @ExcludeMissing
-        fun _networkRiskScore() = networkRiskScore
+        fun _networkRiskScore(): JsonField<Long> = networkRiskScore
 
         /**
          * If the authorization was made in-person with a physical card, the Physical Card that was
          * used.
          */
-        @JsonProperty("physical_card_id") @ExcludeMissing fun _physicalCardId() = physicalCardId
+        @JsonProperty("physical_card_id")
+        @ExcludeMissing
+        fun _physicalCardId(): JsonField<String> = physicalCardId
 
         /**
          * The amount of the attempted authorization in the currency the card user sees at the time
@@ -1126,7 +1160,7 @@ private constructor(
          */
         @JsonProperty("presentment_amount")
         @ExcludeMissing
-        fun _presentmentAmount() = presentmentAmount
+        fun _presentmentAmount(): JsonField<Long> = presentmentAmount
 
         /**
          * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the currency the user
@@ -1134,7 +1168,7 @@ private constructor(
          */
         @JsonProperty("presentment_currency")
         @ExcludeMissing
-        fun _presentmentCurrency() = presentmentCurrency
+        fun _presentmentCurrency(): JsonField<String> = presentmentCurrency
 
         /**
          * The processing category describes the intent behind the authorization, such as whether it
@@ -1142,10 +1176,12 @@ private constructor(
          */
         @JsonProperty("processing_category")
         @ExcludeMissing
-        fun _processingCategory() = processingCategory
+        fun _processingCategory(): JsonField<ProcessingCategory> = processingCategory
 
         /** Fields specific to the type of request, such as an incremental authorization. */
-        @JsonProperty("request_details") @ExcludeMissing fun _requestDetails() = requestDetails
+        @JsonProperty("request_details")
+        @ExcludeMissing
+        fun _requestDetails(): JsonField<RequestDetails> = requestDetails
 
         /**
          * The amount of the attempted authorization in the currency it will be settled in. This
@@ -1153,7 +1189,7 @@ private constructor(
          */
         @JsonProperty("settlement_amount")
         @ExcludeMissing
-        fun _settlementAmount() = settlementAmount
+        fun _settlementAmount(): JsonField<Long> = settlementAmount
 
         /**
          * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the currency the
@@ -1161,13 +1197,15 @@ private constructor(
          */
         @JsonProperty("settlement_currency")
         @ExcludeMissing
-        fun _settlementCurrency() = settlementCurrency
+        fun _settlementCurrency(): JsonField<String> = settlementCurrency
 
         /**
          * The terminal identifier (commonly abbreviated as TID) of the terminal the card is
          * transacting with.
          */
-        @JsonProperty("terminal_id") @ExcludeMissing fun _terminalId() = terminalId
+        @JsonProperty("terminal_id")
+        @ExcludeMissing
+        fun _terminalId(): JsonField<String> = terminalId
 
         /**
          * The identifier of the Card Payment this authorization will belong to. Available in the
@@ -1175,10 +1213,12 @@ private constructor(
          */
         @JsonProperty("upcoming_card_payment_id")
         @ExcludeMissing
-        fun _upcomingCardPaymentId() = upcomingCardPaymentId
+        fun _upcomingCardPaymentId(): JsonField<String> = upcomingCardPaymentId
 
         /** Fields related to verification of cardholder-provided values. */
-        @JsonProperty("verification") @ExcludeMissing fun _verification() = verification
+        @JsonProperty("verification")
+        @ExcludeMissing
+        fun _verification(): JsonField<Verification> = verification
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -1226,31 +1266,31 @@ private constructor(
 
         class Builder {
 
-            private var accountId: JsonField<String> = JsonMissing.of()
-            private var cardId: JsonField<String> = JsonMissing.of()
-            private var decision: JsonField<Decision> = JsonMissing.of()
-            private var digitalWalletTokenId: JsonField<String> = JsonMissing.of()
-            private var direction: JsonField<Direction> = JsonMissing.of()
-            private var merchantAcceptorId: JsonField<String> = JsonMissing.of()
-            private var merchantCategoryCode: JsonField<String> = JsonMissing.of()
-            private var merchantCity: JsonField<String> = JsonMissing.of()
-            private var merchantCountry: JsonField<String> = JsonMissing.of()
-            private var merchantDescriptor: JsonField<String> = JsonMissing.of()
-            private var merchantPostalCode: JsonField<String> = JsonMissing.of()
-            private var merchantState: JsonField<String> = JsonMissing.of()
-            private var networkDetails: JsonField<NetworkDetails> = JsonMissing.of()
-            private var networkIdentifiers: JsonField<NetworkIdentifiers> = JsonMissing.of()
-            private var networkRiskScore: JsonField<Long> = JsonMissing.of()
-            private var physicalCardId: JsonField<String> = JsonMissing.of()
-            private var presentmentAmount: JsonField<Long> = JsonMissing.of()
-            private var presentmentCurrency: JsonField<String> = JsonMissing.of()
-            private var processingCategory: JsonField<ProcessingCategory> = JsonMissing.of()
-            private var requestDetails: JsonField<RequestDetails> = JsonMissing.of()
-            private var settlementAmount: JsonField<Long> = JsonMissing.of()
-            private var settlementCurrency: JsonField<String> = JsonMissing.of()
-            private var terminalId: JsonField<String> = JsonMissing.of()
-            private var upcomingCardPaymentId: JsonField<String> = JsonMissing.of()
-            private var verification: JsonField<Verification> = JsonMissing.of()
+            private var accountId: JsonField<String>? = null
+            private var cardId: JsonField<String>? = null
+            private var decision: JsonField<Decision>? = null
+            private var digitalWalletTokenId: JsonField<String>? = null
+            private var direction: JsonField<Direction>? = null
+            private var merchantAcceptorId: JsonField<String>? = null
+            private var merchantCategoryCode: JsonField<String>? = null
+            private var merchantCity: JsonField<String>? = null
+            private var merchantCountry: JsonField<String>? = null
+            private var merchantDescriptor: JsonField<String>? = null
+            private var merchantPostalCode: JsonField<String>? = null
+            private var merchantState: JsonField<String>? = null
+            private var networkDetails: JsonField<NetworkDetails>? = null
+            private var networkIdentifiers: JsonField<NetworkIdentifiers>? = null
+            private var networkRiskScore: JsonField<Long>? = null
+            private var physicalCardId: JsonField<String>? = null
+            private var presentmentAmount: JsonField<Long>? = null
+            private var presentmentCurrency: JsonField<String>? = null
+            private var processingCategory: JsonField<ProcessingCategory>? = null
+            private var requestDetails: JsonField<RequestDetails>? = null
+            private var settlementAmount: JsonField<Long>? = null
+            private var settlementCurrency: JsonField<String>? = null
+            private var terminalId: JsonField<String>? = null
+            private var upcomingCardPaymentId: JsonField<String>? = null
+            private var verification: JsonField<Verification>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(cardAuthorization: CardAuthorization) = apply {
@@ -1295,7 +1335,7 @@ private constructor(
             fun cardId(cardId: JsonField<String>) = apply { this.cardId = cardId }
 
             /** Whether or not the authorization was approved. */
-            fun decision(decision: Decision) = decision(JsonField.of(decision))
+            fun decision(decision: Decision?) = decision(JsonField.ofNullable(decision))
 
             /** Whether or not the authorization was approved. */
             fun decision(decision: JsonField<Decision>) = apply { this.decision = decision }
@@ -1304,8 +1344,8 @@ private constructor(
              * If the authorization was made via a Digital Wallet Token (such as an Apple Pay
              * purchase), the identifier of the token that was used.
              */
-            fun digitalWalletTokenId(digitalWalletTokenId: String) =
-                digitalWalletTokenId(JsonField.of(digitalWalletTokenId))
+            fun digitalWalletTokenId(digitalWalletTokenId: String?) =
+                digitalWalletTokenId(JsonField.ofNullable(digitalWalletTokenId))
 
             /**
              * If the authorization was made via a Digital Wallet Token (such as an Apple Pay
@@ -1358,7 +1398,8 @@ private constructor(
             }
 
             /** The city the merchant resides in. */
-            fun merchantCity(merchantCity: String) = merchantCity(JsonField.of(merchantCity))
+            fun merchantCity(merchantCity: String?) =
+                merchantCity(JsonField.ofNullable(merchantCity))
 
             /** The city the merchant resides in. */
             fun merchantCity(merchantCity: JsonField<String>) = apply {
@@ -1387,8 +1428,8 @@ private constructor(
              * The merchant's postal code. For US merchants this is either a 5-digit or 9-digit ZIP
              * code, where the first 5 and last 4 are separated by a dash.
              */
-            fun merchantPostalCode(merchantPostalCode: String) =
-                merchantPostalCode(JsonField.of(merchantPostalCode))
+            fun merchantPostalCode(merchantPostalCode: String?) =
+                merchantPostalCode(JsonField.ofNullable(merchantPostalCode))
 
             /**
              * The merchant's postal code. For US merchants this is either a 5-digit or 9-digit ZIP
@@ -1399,7 +1440,8 @@ private constructor(
             }
 
             /** The state the merchant resides in. */
-            fun merchantState(merchantState: String) = merchantState(JsonField.of(merchantState))
+            fun merchantState(merchantState: String?) =
+                merchantState(JsonField.ofNullable(merchantState))
 
             /** The state the merchant resides in. */
             fun merchantState(merchantState: JsonField<String>) = apply {
@@ -1428,8 +1470,15 @@ private constructor(
              * The risk score generated by the card network. For Visa this is the Visa Advanced
              * Authorization risk score, from 0 to 99, where 99 is the riskiest.
              */
+            fun networkRiskScore(networkRiskScore: Long?) =
+                networkRiskScore(JsonField.ofNullable(networkRiskScore))
+
+            /**
+             * The risk score generated by the card network. For Visa this is the Visa Advanced
+             * Authorization risk score, from 0 to 99, where 99 is the riskiest.
+             */
             fun networkRiskScore(networkRiskScore: Long) =
-                networkRiskScore(JsonField.of(networkRiskScore))
+                networkRiskScore(networkRiskScore as Long?)
 
             /**
              * The risk score generated by the card network. For Visa this is the Visa Advanced
@@ -1443,8 +1492,8 @@ private constructor(
              * If the authorization was made in-person with a physical card, the Physical Card that
              * was used.
              */
-            fun physicalCardId(physicalCardId: String) =
-                physicalCardId(JsonField.of(physicalCardId))
+            fun physicalCardId(physicalCardId: String?) =
+                physicalCardId(JsonField.ofNullable(physicalCardId))
 
             /**
              * If the authorization was made in-person with a physical card, the Physical Card that
@@ -1544,7 +1593,7 @@ private constructor(
              * The terminal identifier (commonly abbreviated as TID) of the terminal the card is
              * transacting with.
              */
-            fun terminalId(terminalId: String) = terminalId(JsonField.of(terminalId))
+            fun terminalId(terminalId: String?) = terminalId(JsonField.ofNullable(terminalId))
 
             /**
              * The terminal identifier (commonly abbreviated as TID) of the terminal the card is
@@ -1596,31 +1645,59 @@ private constructor(
 
             fun build(): CardAuthorization =
                 CardAuthorization(
-                    accountId,
-                    cardId,
-                    decision,
-                    digitalWalletTokenId,
-                    direction,
-                    merchantAcceptorId,
-                    merchantCategoryCode,
-                    merchantCity,
-                    merchantCountry,
-                    merchantDescriptor,
-                    merchantPostalCode,
-                    merchantState,
-                    networkDetails,
-                    networkIdentifiers,
-                    networkRiskScore,
-                    physicalCardId,
-                    presentmentAmount,
-                    presentmentCurrency,
-                    processingCategory,
-                    requestDetails,
-                    settlementAmount,
-                    settlementCurrency,
-                    terminalId,
-                    upcomingCardPaymentId,
-                    verification,
+                    checkNotNull(accountId) { "`accountId` is required but was not set" },
+                    checkNotNull(cardId) { "`cardId` is required but was not set" },
+                    checkNotNull(decision) { "`decision` is required but was not set" },
+                    checkNotNull(digitalWalletTokenId) {
+                        "`digitalWalletTokenId` is required but was not set"
+                    },
+                    checkNotNull(direction) { "`direction` is required but was not set" },
+                    checkNotNull(merchantAcceptorId) {
+                        "`merchantAcceptorId` is required but was not set"
+                    },
+                    checkNotNull(merchantCategoryCode) {
+                        "`merchantCategoryCode` is required but was not set"
+                    },
+                    checkNotNull(merchantCity) { "`merchantCity` is required but was not set" },
+                    checkNotNull(merchantCountry) {
+                        "`merchantCountry` is required but was not set"
+                    },
+                    checkNotNull(merchantDescriptor) {
+                        "`merchantDescriptor` is required but was not set"
+                    },
+                    checkNotNull(merchantPostalCode) {
+                        "`merchantPostalCode` is required but was not set"
+                    },
+                    checkNotNull(merchantState) { "`merchantState` is required but was not set" },
+                    checkNotNull(networkDetails) { "`networkDetails` is required but was not set" },
+                    checkNotNull(networkIdentifiers) {
+                        "`networkIdentifiers` is required but was not set"
+                    },
+                    checkNotNull(networkRiskScore) {
+                        "`networkRiskScore` is required but was not set"
+                    },
+                    checkNotNull(physicalCardId) { "`physicalCardId` is required but was not set" },
+                    checkNotNull(presentmentAmount) {
+                        "`presentmentAmount` is required but was not set"
+                    },
+                    checkNotNull(presentmentCurrency) {
+                        "`presentmentCurrency` is required but was not set"
+                    },
+                    checkNotNull(processingCategory) {
+                        "`processingCategory` is required but was not set"
+                    },
+                    checkNotNull(requestDetails) { "`requestDetails` is required but was not set" },
+                    checkNotNull(settlementAmount) {
+                        "`settlementAmount` is required but was not set"
+                    },
+                    checkNotNull(settlementCurrency) {
+                        "`settlementCurrency` is required but was not set"
+                    },
+                    checkNotNull(terminalId) { "`terminalId` is required but was not set" },
+                    checkNotNull(upcomingCardPaymentId) {
+                        "`upcomingCardPaymentId` is required but was not set"
+                    },
+                    checkNotNull(verification) { "`verification` is required but was not set" },
                     additionalProperties.toImmutable(),
                 )
         }
@@ -1761,10 +1838,12 @@ private constructor(
             fun visa(): Visa? = visa.getNullable("visa")
 
             /** The payment network used to process this card authorization. */
-            @JsonProperty("category") @ExcludeMissing fun _category() = category
+            @JsonProperty("category")
+            @ExcludeMissing
+            fun _category(): JsonField<Category> = category
 
             /** Fields specific to the `visa` network. */
-            @JsonProperty("visa") @ExcludeMissing fun _visa() = visa
+            @JsonProperty("visa") @ExcludeMissing fun _visa(): JsonField<Visa> = visa
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -1789,8 +1868,8 @@ private constructor(
 
             class Builder {
 
-                private var category: JsonField<Category> = JsonMissing.of()
-                private var visa: JsonField<Visa> = JsonMissing.of()
+                private var category: JsonField<Category>? = null
+                private var visa: JsonField<Visa>? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(networkDetails: NetworkDetails) = apply {
@@ -1806,7 +1885,7 @@ private constructor(
                 fun category(category: JsonField<Category>) = apply { this.category = category }
 
                 /** Fields specific to the `visa` network. */
-                fun visa(visa: Visa) = visa(JsonField.of(visa))
+                fun visa(visa: Visa?) = visa(JsonField.ofNullable(visa))
 
                 /** Fields specific to the `visa` network. */
                 fun visa(visa: JsonField<Visa>) = apply { this.visa = visa }
@@ -1835,8 +1914,8 @@ private constructor(
 
                 fun build(): NetworkDetails =
                     NetworkDetails(
-                        category,
-                        visa,
+                        checkNotNull(category) { "`category` is required but was not set" },
+                        checkNotNull(visa) { "`visa` is required but was not set" },
                         additionalProperties.toImmutable(),
                     )
             }
@@ -1942,7 +2021,8 @@ private constructor(
                  */
                 @JsonProperty("electronic_commerce_indicator")
                 @ExcludeMissing
-                fun _electronicCommerceIndicator() = electronicCommerceIndicator
+                fun _electronicCommerceIndicator(): JsonField<ElectronicCommerceIndicator> =
+                    electronicCommerceIndicator
 
                 /**
                  * The method used to enter the cardholder's primary account number and card
@@ -1950,7 +2030,8 @@ private constructor(
                  */
                 @JsonProperty("point_of_service_entry_mode")
                 @ExcludeMissing
-                fun _pointOfServiceEntryMode() = pointOfServiceEntryMode
+                fun _pointOfServiceEntryMode(): JsonField<PointOfServiceEntryMode> =
+                    pointOfServiceEntryMode
 
                 /**
                  * Only present when `actioner: network`. Describes why a card authorization was
@@ -1958,7 +2039,8 @@ private constructor(
                  */
                 @JsonProperty("stand_in_processing_reason")
                 @ExcludeMissing
-                fun _standInProcessingReason() = standInProcessingReason
+                fun _standInProcessingReason(): JsonField<StandInProcessingReason> =
+                    standInProcessingReason
 
                 @JsonAnyGetter
                 @ExcludeMissing
@@ -1985,12 +2067,10 @@ private constructor(
                 class Builder {
 
                     private var electronicCommerceIndicator:
-                        JsonField<ElectronicCommerceIndicator> =
-                        JsonMissing.of()
-                    private var pointOfServiceEntryMode: JsonField<PointOfServiceEntryMode> =
-                        JsonMissing.of()
-                    private var standInProcessingReason: JsonField<StandInProcessingReason> =
-                        JsonMissing.of()
+                        JsonField<ElectronicCommerceIndicator>? =
+                        null
+                    private var pointOfServiceEntryMode: JsonField<PointOfServiceEntryMode>? = null
+                    private var standInProcessingReason: JsonField<StandInProcessingReason>? = null
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                     internal fun from(visa: Visa) = apply {
@@ -2006,8 +2086,11 @@ private constructor(
                      * order transactions, identifies the type of mail or telephone order.
                      */
                     fun electronicCommerceIndicator(
-                        electronicCommerceIndicator: ElectronicCommerceIndicator
-                    ) = electronicCommerceIndicator(JsonField.of(electronicCommerceIndicator))
+                        electronicCommerceIndicator: ElectronicCommerceIndicator?
+                    ) =
+                        electronicCommerceIndicator(
+                            JsonField.ofNullable(electronicCommerceIndicator)
+                        )
 
                     /**
                      * For electronic commerce transactions, this identifies the level of security
@@ -2022,8 +2105,8 @@ private constructor(
                      * The method used to enter the cardholder's primary account number and card
                      * expiration date.
                      */
-                    fun pointOfServiceEntryMode(pointOfServiceEntryMode: PointOfServiceEntryMode) =
-                        pointOfServiceEntryMode(JsonField.of(pointOfServiceEntryMode))
+                    fun pointOfServiceEntryMode(pointOfServiceEntryMode: PointOfServiceEntryMode?) =
+                        pointOfServiceEntryMode(JsonField.ofNullable(pointOfServiceEntryMode))
 
                     /**
                      * The method used to enter the cardholder's primary account number and card
@@ -2037,8 +2120,8 @@ private constructor(
                      * Only present when `actioner: network`. Describes why a card authorization was
                      * approved or declined by Visa through stand-in processing.
                      */
-                    fun standInProcessingReason(standInProcessingReason: StandInProcessingReason) =
-                        standInProcessingReason(JsonField.of(standInProcessingReason))
+                    fun standInProcessingReason(standInProcessingReason: StandInProcessingReason?) =
+                        standInProcessingReason(JsonField.ofNullable(standInProcessingReason))
 
                     /**
                      * Only present when `actioner: network`. Describes why a card authorization was
@@ -2072,9 +2155,15 @@ private constructor(
 
                     fun build(): Visa =
                         Visa(
-                            electronicCommerceIndicator,
-                            pointOfServiceEntryMode,
-                            standInProcessingReason,
+                            checkNotNull(electronicCommerceIndicator) {
+                                "`electronicCommerceIndicator` is required but was not set"
+                            },
+                            checkNotNull(pointOfServiceEntryMode) {
+                                "`pointOfServiceEntryMode` is required but was not set"
+                            },
+                            checkNotNull(standInProcessingReason) {
+                                "`standInProcessingReason` is required but was not set"
+                            },
                             additionalProperties.toImmutable(),
                         )
                 }
@@ -2463,19 +2552,23 @@ private constructor(
              */
             @JsonProperty("retrieval_reference_number")
             @ExcludeMissing
-            fun _retrievalReferenceNumber() = retrievalReferenceNumber
+            fun _retrievalReferenceNumber(): JsonField<String> = retrievalReferenceNumber
 
             /**
              * A counter used to verify an individual authorization. Expected to be unique per
              * acquirer within a window of time.
              */
-            @JsonProperty("trace_number") @ExcludeMissing fun _traceNumber() = traceNumber
+            @JsonProperty("trace_number")
+            @ExcludeMissing
+            fun _traceNumber(): JsonField<String> = traceNumber
 
             /**
              * A globally unique transaction identifier provided by the card network, used across
              * multiple life-cycle requests.
              */
-            @JsonProperty("transaction_id") @ExcludeMissing fun _transactionId() = transactionId
+            @JsonProperty("transaction_id")
+            @ExcludeMissing
+            fun _transactionId(): JsonField<String> = transactionId
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -2501,9 +2594,9 @@ private constructor(
 
             class Builder {
 
-                private var retrievalReferenceNumber: JsonField<String> = JsonMissing.of()
-                private var traceNumber: JsonField<String> = JsonMissing.of()
-                private var transactionId: JsonField<String> = JsonMissing.of()
+                private var retrievalReferenceNumber: JsonField<String>? = null
+                private var traceNumber: JsonField<String>? = null
+                private var transactionId: JsonField<String>? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(networkIdentifiers: NetworkIdentifiers) = apply {
@@ -2518,8 +2611,8 @@ private constructor(
                  * Expected to be unique per acquirer within a window of time. For some card
                  * networks the retrieval reference number includes the trace counter.
                  */
-                fun retrievalReferenceNumber(retrievalReferenceNumber: String) =
-                    retrievalReferenceNumber(JsonField.of(retrievalReferenceNumber))
+                fun retrievalReferenceNumber(retrievalReferenceNumber: String?) =
+                    retrievalReferenceNumber(JsonField.ofNullable(retrievalReferenceNumber))
 
                 /**
                  * A life-cycle identifier used across e.g., an authorization and a reversal.
@@ -2534,7 +2627,8 @@ private constructor(
                  * A counter used to verify an individual authorization. Expected to be unique per
                  * acquirer within a window of time.
                  */
-                fun traceNumber(traceNumber: String) = traceNumber(JsonField.of(traceNumber))
+                fun traceNumber(traceNumber: String?) =
+                    traceNumber(JsonField.ofNullable(traceNumber))
 
                 /**
                  * A counter used to verify an individual authorization. Expected to be unique per
@@ -2548,8 +2642,8 @@ private constructor(
                  * A globally unique transaction identifier provided by the card network, used
                  * across multiple life-cycle requests.
                  */
-                fun transactionId(transactionId: String) =
-                    transactionId(JsonField.of(transactionId))
+                fun transactionId(transactionId: String?) =
+                    transactionId(JsonField.ofNullable(transactionId))
 
                 /**
                  * A globally unique transaction identifier provided by the card network, used
@@ -2583,9 +2677,13 @@ private constructor(
 
                 fun build(): NetworkIdentifiers =
                     NetworkIdentifiers(
-                        retrievalReferenceNumber,
-                        traceNumber,
-                        transactionId,
+                        checkNotNull(retrievalReferenceNumber) {
+                            "`retrievalReferenceNumber` is required but was not set"
+                        },
+                        checkNotNull(traceNumber) { "`traceNumber` is required but was not set" },
+                        checkNotNull(transactionId) {
+                            "`transactionId` is required but was not set"
+                        },
                         additionalProperties.toImmutable(),
                     )
             }
@@ -2718,21 +2816,24 @@ private constructor(
             fun incrementalAuthorization(): IncrementalAuthorization? =
                 incrementalAuthorization.getNullable("incremental_authorization")
 
+            /** Fields specific to the category `initial_authorization`. */
+            @JsonProperty("initial_authorization")
+            @ExcludeMissing
+            fun _initialAuthorization(): JsonValue = initialAuthorization
+
             /**
              * The type of this request (e.g., an initial authorization or an incremental
              * authorization).
              */
-            @JsonProperty("category") @ExcludeMissing fun _category() = category
+            @JsonProperty("category")
+            @ExcludeMissing
+            fun _category(): JsonField<Category> = category
 
             /** Fields specific to the category `incremental_authorization`. */
             @JsonProperty("incremental_authorization")
             @ExcludeMissing
-            fun _incrementalAuthorization() = incrementalAuthorization
-
-            /** Fields specific to the category `initial_authorization`. */
-            @JsonProperty("initial_authorization")
-            @ExcludeMissing
-            fun _initialAuthorization() = initialAuthorization
+            fun _incrementalAuthorization(): JsonField<IncrementalAuthorization> =
+                incrementalAuthorization
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -2757,10 +2858,9 @@ private constructor(
 
             class Builder {
 
-                private var category: JsonField<Category> = JsonMissing.of()
-                private var incrementalAuthorization: JsonField<IncrementalAuthorization> =
-                    JsonMissing.of()
-                private var initialAuthorization: JsonValue = JsonMissing.of()
+                private var category: JsonField<Category>? = null
+                private var incrementalAuthorization: JsonField<IncrementalAuthorization>? = null
+                private var initialAuthorization: JsonValue? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(requestDetails: RequestDetails) = apply {
@@ -2783,8 +2883,8 @@ private constructor(
                 fun category(category: JsonField<Category>) = apply { this.category = category }
 
                 /** Fields specific to the category `incremental_authorization`. */
-                fun incrementalAuthorization(incrementalAuthorization: IncrementalAuthorization) =
-                    incrementalAuthorization(JsonField.of(incrementalAuthorization))
+                fun incrementalAuthorization(incrementalAuthorization: IncrementalAuthorization?) =
+                    incrementalAuthorization(JsonField.ofNullable(incrementalAuthorization))
 
                 /** Fields specific to the category `incremental_authorization`. */
                 fun incrementalAuthorization(
@@ -2820,9 +2920,13 @@ private constructor(
 
                 fun build(): RequestDetails =
                     RequestDetails(
-                        category,
-                        incrementalAuthorization,
-                        initialAuthorization,
+                        checkNotNull(category) { "`category` is required but was not set" },
+                        checkNotNull(incrementalAuthorization) {
+                            "`incrementalAuthorization` is required but was not set"
+                        },
+                        checkNotNull(initialAuthorization) {
+                            "`initialAuthorization` is required but was not set"
+                        },
                         additionalProperties.toImmutable(),
                     )
             }
@@ -2911,14 +3015,14 @@ private constructor(
                 /** The card payment for this authorization and increment. */
                 @JsonProperty("card_payment_id")
                 @ExcludeMissing
-                fun _cardPaymentId() = cardPaymentId
+                fun _cardPaymentId(): JsonField<String> = cardPaymentId
 
                 /**
                  * The identifier of the card authorization this request is attempting to increment.
                  */
                 @JsonProperty("original_card_authorization_id")
                 @ExcludeMissing
-                fun _originalCardAuthorizationId() = originalCardAuthorizationId
+                fun _originalCardAuthorizationId(): JsonField<String> = originalCardAuthorizationId
 
                 @JsonAnyGetter
                 @ExcludeMissing
@@ -2943,8 +3047,8 @@ private constructor(
 
                 class Builder {
 
-                    private var cardPaymentId: JsonField<String> = JsonMissing.of()
-                    private var originalCardAuthorizationId: JsonField<String> = JsonMissing.of()
+                    private var cardPaymentId: JsonField<String>? = null
+                    private var originalCardAuthorizationId: JsonField<String>? = null
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                     internal fun from(incrementalAuthorization: IncrementalAuthorization) = apply {
@@ -3003,8 +3107,12 @@ private constructor(
 
                     fun build(): IncrementalAuthorization =
                         IncrementalAuthorization(
-                            cardPaymentId,
-                            originalCardAuthorizationId,
+                            checkNotNull(cardPaymentId) {
+                                "`cardPaymentId` is required but was not set"
+                            },
+                            checkNotNull(originalCardAuthorizationId) {
+                                "`originalCardAuthorizationId` is required but was not set"
+                            },
                             additionalProperties.toImmutable(),
                         )
                 }
@@ -3080,7 +3188,7 @@ private constructor(
              */
             @JsonProperty("card_verification_code")
             @ExcludeMissing
-            fun _cardVerificationCode() = cardVerificationCode
+            fun _cardVerificationCode(): JsonField<CardVerificationCode> = cardVerificationCode
 
             /**
              * Cardholder address provided in the authorization request and the address on file we
@@ -3088,7 +3196,7 @@ private constructor(
              */
             @JsonProperty("cardholder_address")
             @ExcludeMissing
-            fun _cardholderAddress() = cardholderAddress
+            fun _cardholderAddress(): JsonField<CardholderAddress> = cardholderAddress
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -3113,8 +3221,8 @@ private constructor(
 
             class Builder {
 
-                private var cardVerificationCode: JsonField<CardVerificationCode> = JsonMissing.of()
-                private var cardholderAddress: JsonField<CardholderAddress> = JsonMissing.of()
+                private var cardVerificationCode: JsonField<CardVerificationCode>? = null
+                private var cardholderAddress: JsonField<CardholderAddress>? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(verification: Verification) = apply {
@@ -3178,8 +3286,12 @@ private constructor(
 
                 fun build(): Verification =
                     Verification(
-                        cardVerificationCode,
-                        cardholderAddress,
+                        checkNotNull(cardVerificationCode) {
+                            "`cardVerificationCode` is required but was not set"
+                        },
+                        checkNotNull(cardholderAddress) {
+                            "`cardholderAddress` is required but was not set"
+                        },
                         additionalProperties.toImmutable(),
                     )
             }
@@ -3203,7 +3315,7 @@ private constructor(
                 fun result(): Result = result.getRequired("result")
 
                 /** The result of verifying the Card Verification Code. */
-                @JsonProperty("result") @ExcludeMissing fun _result() = result
+                @JsonProperty("result") @ExcludeMissing fun _result(): JsonField<Result> = result
 
                 @JsonAnyGetter
                 @ExcludeMissing
@@ -3227,7 +3339,7 @@ private constructor(
 
                 class Builder {
 
-                    private var result: JsonField<Result> = JsonMissing.of()
+                    private var result: JsonField<Result>? = null
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                     internal fun from(cardVerificationCode: CardVerificationCode) = apply {
@@ -3265,7 +3377,10 @@ private constructor(
                     }
 
                     fun build(): CardVerificationCode =
-                        CardVerificationCode(result, additionalProperties.toImmutable())
+                        CardVerificationCode(
+                            checkNotNull(result) { "`result` is required but was not set" },
+                            additionalProperties.toImmutable()
+                        )
                 }
 
                 class Result
@@ -3397,26 +3512,30 @@ private constructor(
                 fun result(): Result = result.getRequired("result")
 
                 /** Line 1 of the address on file for the cardholder. */
-                @JsonProperty("actual_line1") @ExcludeMissing fun _actualLine1() = actualLine1
+                @JsonProperty("actual_line1")
+                @ExcludeMissing
+                fun _actualLine1(): JsonField<String> = actualLine1
 
                 /** The postal code of the address on file for the cardholder. */
                 @JsonProperty("actual_postal_code")
                 @ExcludeMissing
-                fun _actualPostalCode() = actualPostalCode
+                fun _actualPostalCode(): JsonField<String> = actualPostalCode
 
                 /**
                  * The cardholder address line 1 provided for verification in the authorization
                  * request.
                  */
-                @JsonProperty("provided_line1") @ExcludeMissing fun _providedLine1() = providedLine1
+                @JsonProperty("provided_line1")
+                @ExcludeMissing
+                fun _providedLine1(): JsonField<String> = providedLine1
 
                 /** The postal code provided for verification in the authorization request. */
                 @JsonProperty("provided_postal_code")
                 @ExcludeMissing
-                fun _providedPostalCode() = providedPostalCode
+                fun _providedPostalCode(): JsonField<String> = providedPostalCode
 
                 /** The address verification result returned to the card network. */
-                @JsonProperty("result") @ExcludeMissing fun _result() = result
+                @JsonProperty("result") @ExcludeMissing fun _result(): JsonField<Result> = result
 
                 @JsonAnyGetter
                 @ExcludeMissing
@@ -3444,11 +3563,11 @@ private constructor(
 
                 class Builder {
 
-                    private var actualLine1: JsonField<String> = JsonMissing.of()
-                    private var actualPostalCode: JsonField<String> = JsonMissing.of()
-                    private var providedLine1: JsonField<String> = JsonMissing.of()
-                    private var providedPostalCode: JsonField<String> = JsonMissing.of()
-                    private var result: JsonField<Result> = JsonMissing.of()
+                    private var actualLine1: JsonField<String>? = null
+                    private var actualPostalCode: JsonField<String>? = null
+                    private var providedLine1: JsonField<String>? = null
+                    private var providedPostalCode: JsonField<String>? = null
+                    private var result: JsonField<Result>? = null
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                     internal fun from(cardholderAddress: CardholderAddress) = apply {
@@ -3461,7 +3580,8 @@ private constructor(
                     }
 
                     /** Line 1 of the address on file for the cardholder. */
-                    fun actualLine1(actualLine1: String) = actualLine1(JsonField.of(actualLine1))
+                    fun actualLine1(actualLine1: String?) =
+                        actualLine1(JsonField.ofNullable(actualLine1))
 
                     /** Line 1 of the address on file for the cardholder. */
                     fun actualLine1(actualLine1: JsonField<String>) = apply {
@@ -3469,8 +3589,8 @@ private constructor(
                     }
 
                     /** The postal code of the address on file for the cardholder. */
-                    fun actualPostalCode(actualPostalCode: String) =
-                        actualPostalCode(JsonField.of(actualPostalCode))
+                    fun actualPostalCode(actualPostalCode: String?) =
+                        actualPostalCode(JsonField.ofNullable(actualPostalCode))
 
                     /** The postal code of the address on file for the cardholder. */
                     fun actualPostalCode(actualPostalCode: JsonField<String>) = apply {
@@ -3481,8 +3601,8 @@ private constructor(
                      * The cardholder address line 1 provided for verification in the authorization
                      * request.
                      */
-                    fun providedLine1(providedLine1: String) =
-                        providedLine1(JsonField.of(providedLine1))
+                    fun providedLine1(providedLine1: String?) =
+                        providedLine1(JsonField.ofNullable(providedLine1))
 
                     /**
                      * The cardholder address line 1 provided for verification in the authorization
@@ -3493,8 +3613,8 @@ private constructor(
                     }
 
                     /** The postal code provided for verification in the authorization request. */
-                    fun providedPostalCode(providedPostalCode: String) =
-                        providedPostalCode(JsonField.of(providedPostalCode))
+                    fun providedPostalCode(providedPostalCode: String?) =
+                        providedPostalCode(JsonField.ofNullable(providedPostalCode))
 
                     /** The postal code provided for verification in the authorization request. */
                     fun providedPostalCode(providedPostalCode: JsonField<String>) = apply {
@@ -3531,11 +3651,19 @@ private constructor(
 
                     fun build(): CardholderAddress =
                         CardholderAddress(
-                            actualLine1,
-                            actualPostalCode,
-                            providedLine1,
-                            providedPostalCode,
-                            result,
+                            checkNotNull(actualLine1) {
+                                "`actualLine1` is required but was not set"
+                            },
+                            checkNotNull(actualPostalCode) {
+                                "`actualPostalCode` is required but was not set"
+                            },
+                            checkNotNull(providedLine1) {
+                                "`providedLine1` is required but was not set"
+                            },
+                            checkNotNull(providedPostalCode) {
+                                "`providedPostalCode` is required but was not set"
+                            },
+                            checkNotNull(result) { "`result` is required but was not set" },
                             additionalProperties.toImmutable(),
                         )
                 }
@@ -3818,25 +3946,29 @@ private constructor(
         fun result(): Result? = result.getNullable("result")
 
         /** The identifier of the Card that is being tokenized. */
-        @JsonProperty("card_id") @ExcludeMissing fun _cardId() = cardId
+        @JsonProperty("card_id") @ExcludeMissing fun _cardId(): JsonField<String> = cardId
 
         /** The channel to send the card user their one-time passcode. */
-        @JsonProperty("channel") @ExcludeMissing fun _channel() = channel
+        @JsonProperty("channel") @ExcludeMissing fun _channel(): JsonField<Channel> = channel
 
         /** The digital wallet app being used. */
-        @JsonProperty("digital_wallet") @ExcludeMissing fun _digitalWallet() = digitalWallet
+        @JsonProperty("digital_wallet")
+        @ExcludeMissing
+        fun _digitalWallet(): JsonField<DigitalWallet> = digitalWallet
 
         /** The email to send the one-time passcode to if `channel` is equal to `email`. */
-        @JsonProperty("email") @ExcludeMissing fun _email() = email
+        @JsonProperty("email") @ExcludeMissing fun _email(): JsonField<String> = email
 
         /** The one-time passcode to send the card user. */
-        @JsonProperty("one_time_passcode") @ExcludeMissing fun _oneTimePasscode() = oneTimePasscode
+        @JsonProperty("one_time_passcode")
+        @ExcludeMissing
+        fun _oneTimePasscode(): JsonField<String> = oneTimePasscode
 
         /** The phone number to send the one-time passcode to if `channel` is equal to `sms`. */
-        @JsonProperty("phone") @ExcludeMissing fun _phone() = phone
+        @JsonProperty("phone") @ExcludeMissing fun _phone(): JsonField<String> = phone
 
         /** Whether your application successfully delivered the one-time passcode. */
-        @JsonProperty("result") @ExcludeMissing fun _result() = result
+        @JsonProperty("result") @ExcludeMissing fun _result(): JsonField<Result> = result
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -3866,13 +3998,13 @@ private constructor(
 
         class Builder {
 
-            private var cardId: JsonField<String> = JsonMissing.of()
-            private var channel: JsonField<Channel> = JsonMissing.of()
-            private var digitalWallet: JsonField<DigitalWallet> = JsonMissing.of()
-            private var email: JsonField<String> = JsonMissing.of()
-            private var oneTimePasscode: JsonField<String> = JsonMissing.of()
-            private var phone: JsonField<String> = JsonMissing.of()
-            private var result: JsonField<Result> = JsonMissing.of()
+            private var cardId: JsonField<String>? = null
+            private var channel: JsonField<Channel>? = null
+            private var digitalWallet: JsonField<DigitalWallet>? = null
+            private var email: JsonField<String>? = null
+            private var oneTimePasscode: JsonField<String>? = null
+            private var phone: JsonField<String>? = null
+            private var result: JsonField<Result>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(digitalWalletAuthentication: DigitalWalletAuthentication) = apply {
@@ -3909,7 +4041,7 @@ private constructor(
             }
 
             /** The email to send the one-time passcode to if `channel` is equal to `email`. */
-            fun email(email: String) = email(JsonField.of(email))
+            fun email(email: String?) = email(JsonField.ofNullable(email))
 
             /** The email to send the one-time passcode to if `channel` is equal to `email`. */
             fun email(email: JsonField<String>) = apply { this.email = email }
@@ -3924,13 +4056,13 @@ private constructor(
             }
 
             /** The phone number to send the one-time passcode to if `channel` is equal to `sms`. */
-            fun phone(phone: String) = phone(JsonField.of(phone))
+            fun phone(phone: String?) = phone(JsonField.ofNullable(phone))
 
             /** The phone number to send the one-time passcode to if `channel` is equal to `sms`. */
             fun phone(phone: JsonField<String>) = apply { this.phone = phone }
 
             /** Whether your application successfully delivered the one-time passcode. */
-            fun result(result: Result) = result(JsonField.of(result))
+            fun result(result: Result?) = result(JsonField.ofNullable(result))
 
             /** Whether your application successfully delivered the one-time passcode. */
             fun result(result: JsonField<Result>) = apply { this.result = result }
@@ -3956,13 +4088,15 @@ private constructor(
 
             fun build(): DigitalWalletAuthentication =
                 DigitalWalletAuthentication(
-                    cardId,
-                    channel,
-                    digitalWallet,
-                    email,
-                    oneTimePasscode,
-                    phone,
-                    result,
+                    checkNotNull(cardId) { "`cardId` is required but was not set" },
+                    checkNotNull(channel) { "`channel` is required but was not set" },
+                    checkNotNull(digitalWallet) { "`digitalWallet` is required but was not set" },
+                    checkNotNull(email) { "`email` is required but was not set" },
+                    checkNotNull(oneTimePasscode) {
+                        "`oneTimePasscode` is required but was not set"
+                    },
+                    checkNotNull(phone) { "`phone` is required but was not set" },
+                    checkNotNull(result) { "`result` is required but was not set" },
                     additionalProperties.toImmutable(),
                 )
         }
@@ -4209,23 +4343,27 @@ private constructor(
         fun digitalWallet(): DigitalWallet = digitalWallet.getRequired("digital_wallet")
 
         /** The identifier of the Card that is being tokenized. */
-        @JsonProperty("card_id") @ExcludeMissing fun _cardId() = cardId
+        @JsonProperty("card_id") @ExcludeMissing fun _cardId(): JsonField<String> = cardId
 
         /**
          * The identifier of the Card Profile that was set via the real time decision. This will be
          * null until the real time decision is responded to or if the real time decision did not
          * set a card profile.
          */
-        @JsonProperty("card_profile_id") @ExcludeMissing fun _cardProfileId() = cardProfileId
+        @JsonProperty("card_profile_id")
+        @ExcludeMissing
+        fun _cardProfileId(): JsonField<String> = cardProfileId
 
         /**
          * Whether or not the provisioning request was approved. This will be null until the real
          * time decision is responded to.
          */
-        @JsonProperty("decision") @ExcludeMissing fun _decision() = decision
+        @JsonProperty("decision") @ExcludeMissing fun _decision(): JsonField<Decision> = decision
 
         /** The digital wallet app being used. */
-        @JsonProperty("digital_wallet") @ExcludeMissing fun _digitalWallet() = digitalWallet
+        @JsonProperty("digital_wallet")
+        @ExcludeMissing
+        fun _digitalWallet(): JsonField<DigitalWallet> = digitalWallet
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -4252,10 +4390,10 @@ private constructor(
 
         class Builder {
 
-            private var cardId: JsonField<String> = JsonMissing.of()
-            private var cardProfileId: JsonField<String> = JsonMissing.of()
-            private var decision: JsonField<Decision> = JsonMissing.of()
-            private var digitalWallet: JsonField<DigitalWallet> = JsonMissing.of()
+            private var cardId: JsonField<String>? = null
+            private var cardProfileId: JsonField<String>? = null
+            private var decision: JsonField<Decision>? = null
+            private var digitalWallet: JsonField<DigitalWallet>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(digitalWalletToken: DigitalWalletToken) = apply {
@@ -4277,7 +4415,8 @@ private constructor(
              * be null until the real time decision is responded to or if the real time decision did
              * not set a card profile.
              */
-            fun cardProfileId(cardProfileId: String) = cardProfileId(JsonField.of(cardProfileId))
+            fun cardProfileId(cardProfileId: String?) =
+                cardProfileId(JsonField.ofNullable(cardProfileId))
 
             /**
              * The identifier of the Card Profile that was set via the real time decision. This will
@@ -4292,7 +4431,7 @@ private constructor(
              * Whether or not the provisioning request was approved. This will be null until the
              * real time decision is responded to.
              */
-            fun decision(decision: Decision) = decision(JsonField.of(decision))
+            fun decision(decision: Decision?) = decision(JsonField.ofNullable(decision))
 
             /**
              * Whether or not the provisioning request was approved. This will be null until the
@@ -4330,10 +4469,10 @@ private constructor(
 
             fun build(): DigitalWalletToken =
                 DigitalWalletToken(
-                    cardId,
-                    cardProfileId,
-                    decision,
-                    digitalWallet,
+                    checkNotNull(cardId) { "`cardId` is required but was not set" },
+                    checkNotNull(cardProfileId) { "`cardProfileId` is required but was not set" },
+                    checkNotNull(decision) { "`decision` is required but was not set" },
+                    checkNotNull(digitalWallet) { "`digitalWallet` is required but was not set" },
                     additionalProperties.toImmutable(),
                 )
         }

@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonField
+import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
@@ -118,11 +120,106 @@ constructor(
      */
     fun senderReference(): String? = body.senderReference()
 
+    /** The identifier of the Account Number the inbound Wire Transfer is for. */
+    fun _accountNumberId(): JsonField<String> = body._accountNumberId()
+
+    /** The transfer amount in cents. Must be positive. */
+    fun _amount(): JsonField<Long> = body._amount()
+
+    /**
+     * The sending bank will set beneficiary_address_line1 in production. You can simulate any value
+     * here.
+     */
+    fun _beneficiaryAddressLine1(): JsonField<String> = body._beneficiaryAddressLine1()
+
+    /**
+     * The sending bank will set beneficiary_address_line2 in production. You can simulate any value
+     * here.
+     */
+    fun _beneficiaryAddressLine2(): JsonField<String> = body._beneficiaryAddressLine2()
+
+    /**
+     * The sending bank will set beneficiary_address_line3 in production. You can simulate any value
+     * here.
+     */
+    fun _beneficiaryAddressLine3(): JsonField<String> = body._beneficiaryAddressLine3()
+
+    /**
+     * The sending bank will set beneficiary_name in production. You can simulate any value here.
+     */
+    fun _beneficiaryName(): JsonField<String> = body._beneficiaryName()
+
+    /**
+     * The sending bank will set beneficiary_reference in production. You can simulate any value
+     * here.
+     */
+    fun _beneficiaryReference(): JsonField<String> = body._beneficiaryReference()
+
+    /**
+     * The sending bank will set originator_address_line1 in production. You can simulate any value
+     * here.
+     */
+    fun _originatorAddressLine1(): JsonField<String> = body._originatorAddressLine1()
+
+    /**
+     * The sending bank will set originator_address_line2 in production. You can simulate any value
+     * here.
+     */
+    fun _originatorAddressLine2(): JsonField<String> = body._originatorAddressLine2()
+
+    /**
+     * The sending bank will set originator_address_line3 in production. You can simulate any value
+     * here.
+     */
+    fun _originatorAddressLine3(): JsonField<String> = body._originatorAddressLine3()
+
+    /** The sending bank will set originator_name in production. You can simulate any value here. */
+    fun _originatorName(): JsonField<String> = body._originatorName()
+
+    /**
+     * The sending bank will set originator_routing_number in production. You can simulate any value
+     * here.
+     */
+    fun _originatorRoutingNumber(): JsonField<String> = body._originatorRoutingNumber()
+
+    /**
+     * The sending bank will set originator_to_beneficiary_information_line1 in production. You can
+     * simulate any value here.
+     */
+    fun _originatorToBeneficiaryInformationLine1(): JsonField<String> =
+        body._originatorToBeneficiaryInformationLine1()
+
+    /**
+     * The sending bank will set originator_to_beneficiary_information_line2 in production. You can
+     * simulate any value here.
+     */
+    fun _originatorToBeneficiaryInformationLine2(): JsonField<String> =
+        body._originatorToBeneficiaryInformationLine2()
+
+    /**
+     * The sending bank will set originator_to_beneficiary_information_line3 in production. You can
+     * simulate any value here.
+     */
+    fun _originatorToBeneficiaryInformationLine3(): JsonField<String> =
+        body._originatorToBeneficiaryInformationLine3()
+
+    /**
+     * The sending bank will set originator_to_beneficiary_information_line4 in production. You can
+     * simulate any value here.
+     */
+    fun _originatorToBeneficiaryInformationLine4(): JsonField<String> =
+        body._originatorToBeneficiaryInformationLine4()
+
+    /**
+     * The sending bank will set sender_reference in production. You can simulate any value here.
+     */
+    fun _senderReference(): JsonField<String> = body._senderReference()
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     internal fun getBody(): SimulationInboundWireTransferCreateBody = body
 
@@ -134,110 +231,270 @@ constructor(
     class SimulationInboundWireTransferCreateBody
     @JsonCreator
     internal constructor(
-        @JsonProperty("account_number_id") private val accountNumberId: String,
-        @JsonProperty("amount") private val amount: Long,
-        @JsonProperty("beneficiary_address_line1") private val beneficiaryAddressLine1: String?,
-        @JsonProperty("beneficiary_address_line2") private val beneficiaryAddressLine2: String?,
-        @JsonProperty("beneficiary_address_line3") private val beneficiaryAddressLine3: String?,
-        @JsonProperty("beneficiary_name") private val beneficiaryName: String?,
-        @JsonProperty("beneficiary_reference") private val beneficiaryReference: String?,
-        @JsonProperty("originator_address_line1") private val originatorAddressLine1: String?,
-        @JsonProperty("originator_address_line2") private val originatorAddressLine2: String?,
-        @JsonProperty("originator_address_line3") private val originatorAddressLine3: String?,
-        @JsonProperty("originator_name") private val originatorName: String?,
-        @JsonProperty("originator_routing_number") private val originatorRoutingNumber: String?,
+        @JsonProperty("account_number_id")
+        @ExcludeMissing
+        private val accountNumberId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("amount")
+        @ExcludeMissing
+        private val amount: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("beneficiary_address_line1")
+        @ExcludeMissing
+        private val beneficiaryAddressLine1: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("beneficiary_address_line2")
+        @ExcludeMissing
+        private val beneficiaryAddressLine2: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("beneficiary_address_line3")
+        @ExcludeMissing
+        private val beneficiaryAddressLine3: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("beneficiary_name")
+        @ExcludeMissing
+        private val beneficiaryName: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("beneficiary_reference")
+        @ExcludeMissing
+        private val beneficiaryReference: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("originator_address_line1")
+        @ExcludeMissing
+        private val originatorAddressLine1: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("originator_address_line2")
+        @ExcludeMissing
+        private val originatorAddressLine2: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("originator_address_line3")
+        @ExcludeMissing
+        private val originatorAddressLine3: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("originator_name")
+        @ExcludeMissing
+        private val originatorName: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("originator_routing_number")
+        @ExcludeMissing
+        private val originatorRoutingNumber: JsonField<String> = JsonMissing.of(),
         @JsonProperty("originator_to_beneficiary_information_line1")
-        private val originatorToBeneficiaryInformationLine1: String?,
+        @ExcludeMissing
+        private val originatorToBeneficiaryInformationLine1: JsonField<String> = JsonMissing.of(),
         @JsonProperty("originator_to_beneficiary_information_line2")
-        private val originatorToBeneficiaryInformationLine2: String?,
+        @ExcludeMissing
+        private val originatorToBeneficiaryInformationLine2: JsonField<String> = JsonMissing.of(),
         @JsonProperty("originator_to_beneficiary_information_line3")
-        private val originatorToBeneficiaryInformationLine3: String?,
+        @ExcludeMissing
+        private val originatorToBeneficiaryInformationLine3: JsonField<String> = JsonMissing.of(),
         @JsonProperty("originator_to_beneficiary_information_line4")
-        private val originatorToBeneficiaryInformationLine4: String?,
-        @JsonProperty("sender_reference") private val senderReference: String?,
+        @ExcludeMissing
+        private val originatorToBeneficiaryInformationLine4: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("sender_reference")
+        @ExcludeMissing
+        private val senderReference: JsonField<String> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The identifier of the Account Number the inbound Wire Transfer is for. */
-        @JsonProperty("account_number_id") fun accountNumberId(): String = accountNumberId
+        fun accountNumberId(): String = accountNumberId.getRequired("account_number_id")
 
         /** The transfer amount in cents. Must be positive. */
-        @JsonProperty("amount") fun amount(): Long = amount
+        fun amount(): Long = amount.getRequired("amount")
+
+        /**
+         * The sending bank will set beneficiary_address_line1 in production. You can simulate any
+         * value here.
+         */
+        fun beneficiaryAddressLine1(): String? =
+            beneficiaryAddressLine1.getNullable("beneficiary_address_line1")
+
+        /**
+         * The sending bank will set beneficiary_address_line2 in production. You can simulate any
+         * value here.
+         */
+        fun beneficiaryAddressLine2(): String? =
+            beneficiaryAddressLine2.getNullable("beneficiary_address_line2")
+
+        /**
+         * The sending bank will set beneficiary_address_line3 in production. You can simulate any
+         * value here.
+         */
+        fun beneficiaryAddressLine3(): String? =
+            beneficiaryAddressLine3.getNullable("beneficiary_address_line3")
+
+        /**
+         * The sending bank will set beneficiary_name in production. You can simulate any value
+         * here.
+         */
+        fun beneficiaryName(): String? = beneficiaryName.getNullable("beneficiary_name")
+
+        /**
+         * The sending bank will set beneficiary_reference in production. You can simulate any value
+         * here.
+         */
+        fun beneficiaryReference(): String? =
+            beneficiaryReference.getNullable("beneficiary_reference")
+
+        /**
+         * The sending bank will set originator_address_line1 in production. You can simulate any
+         * value here.
+         */
+        fun originatorAddressLine1(): String? =
+            originatorAddressLine1.getNullable("originator_address_line1")
+
+        /**
+         * The sending bank will set originator_address_line2 in production. You can simulate any
+         * value here.
+         */
+        fun originatorAddressLine2(): String? =
+            originatorAddressLine2.getNullable("originator_address_line2")
+
+        /**
+         * The sending bank will set originator_address_line3 in production. You can simulate any
+         * value here.
+         */
+        fun originatorAddressLine3(): String? =
+            originatorAddressLine3.getNullable("originator_address_line3")
+
+        /**
+         * The sending bank will set originator_name in production. You can simulate any value here.
+         */
+        fun originatorName(): String? = originatorName.getNullable("originator_name")
+
+        /**
+         * The sending bank will set originator_routing_number in production. You can simulate any
+         * value here.
+         */
+        fun originatorRoutingNumber(): String? =
+            originatorRoutingNumber.getNullable("originator_routing_number")
+
+        /**
+         * The sending bank will set originator_to_beneficiary_information_line1 in production. You
+         * can simulate any value here.
+         */
+        fun originatorToBeneficiaryInformationLine1(): String? =
+            originatorToBeneficiaryInformationLine1.getNullable(
+                "originator_to_beneficiary_information_line1"
+            )
+
+        /**
+         * The sending bank will set originator_to_beneficiary_information_line2 in production. You
+         * can simulate any value here.
+         */
+        fun originatorToBeneficiaryInformationLine2(): String? =
+            originatorToBeneficiaryInformationLine2.getNullable(
+                "originator_to_beneficiary_information_line2"
+            )
+
+        /**
+         * The sending bank will set originator_to_beneficiary_information_line3 in production. You
+         * can simulate any value here.
+         */
+        fun originatorToBeneficiaryInformationLine3(): String? =
+            originatorToBeneficiaryInformationLine3.getNullable(
+                "originator_to_beneficiary_information_line3"
+            )
+
+        /**
+         * The sending bank will set originator_to_beneficiary_information_line4 in production. You
+         * can simulate any value here.
+         */
+        fun originatorToBeneficiaryInformationLine4(): String? =
+            originatorToBeneficiaryInformationLine4.getNullable(
+                "originator_to_beneficiary_information_line4"
+            )
+
+        /**
+         * The sending bank will set sender_reference in production. You can simulate any value
+         * here.
+         */
+        fun senderReference(): String? = senderReference.getNullable("sender_reference")
+
+        /** The identifier of the Account Number the inbound Wire Transfer is for. */
+        @JsonProperty("account_number_id")
+        @ExcludeMissing
+        fun _accountNumberId(): JsonField<String> = accountNumberId
+
+        /** The transfer amount in cents. Must be positive. */
+        @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
         /**
          * The sending bank will set beneficiary_address_line1 in production. You can simulate any
          * value here.
          */
         @JsonProperty("beneficiary_address_line1")
-        fun beneficiaryAddressLine1(): String? = beneficiaryAddressLine1
+        @ExcludeMissing
+        fun _beneficiaryAddressLine1(): JsonField<String> = beneficiaryAddressLine1
 
         /**
          * The sending bank will set beneficiary_address_line2 in production. You can simulate any
          * value here.
          */
         @JsonProperty("beneficiary_address_line2")
-        fun beneficiaryAddressLine2(): String? = beneficiaryAddressLine2
+        @ExcludeMissing
+        fun _beneficiaryAddressLine2(): JsonField<String> = beneficiaryAddressLine2
 
         /**
          * The sending bank will set beneficiary_address_line3 in production. You can simulate any
          * value here.
          */
         @JsonProperty("beneficiary_address_line3")
-        fun beneficiaryAddressLine3(): String? = beneficiaryAddressLine3
+        @ExcludeMissing
+        fun _beneficiaryAddressLine3(): JsonField<String> = beneficiaryAddressLine3
 
         /**
          * The sending bank will set beneficiary_name in production. You can simulate any value
          * here.
          */
-        @JsonProperty("beneficiary_name") fun beneficiaryName(): String? = beneficiaryName
+        @JsonProperty("beneficiary_name")
+        @ExcludeMissing
+        fun _beneficiaryName(): JsonField<String> = beneficiaryName
 
         /**
          * The sending bank will set beneficiary_reference in production. You can simulate any value
          * here.
          */
         @JsonProperty("beneficiary_reference")
-        fun beneficiaryReference(): String? = beneficiaryReference
+        @ExcludeMissing
+        fun _beneficiaryReference(): JsonField<String> = beneficiaryReference
 
         /**
          * The sending bank will set originator_address_line1 in production. You can simulate any
          * value here.
          */
         @JsonProperty("originator_address_line1")
-        fun originatorAddressLine1(): String? = originatorAddressLine1
+        @ExcludeMissing
+        fun _originatorAddressLine1(): JsonField<String> = originatorAddressLine1
 
         /**
          * The sending bank will set originator_address_line2 in production. You can simulate any
          * value here.
          */
         @JsonProperty("originator_address_line2")
-        fun originatorAddressLine2(): String? = originatorAddressLine2
+        @ExcludeMissing
+        fun _originatorAddressLine2(): JsonField<String> = originatorAddressLine2
 
         /**
          * The sending bank will set originator_address_line3 in production. You can simulate any
          * value here.
          */
         @JsonProperty("originator_address_line3")
-        fun originatorAddressLine3(): String? = originatorAddressLine3
+        @ExcludeMissing
+        fun _originatorAddressLine3(): JsonField<String> = originatorAddressLine3
 
         /**
          * The sending bank will set originator_name in production. You can simulate any value here.
          */
-        @JsonProperty("originator_name") fun originatorName(): String? = originatorName
+        @JsonProperty("originator_name")
+        @ExcludeMissing
+        fun _originatorName(): JsonField<String> = originatorName
 
         /**
          * The sending bank will set originator_routing_number in production. You can simulate any
          * value here.
          */
         @JsonProperty("originator_routing_number")
-        fun originatorRoutingNumber(): String? = originatorRoutingNumber
+        @ExcludeMissing
+        fun _originatorRoutingNumber(): JsonField<String> = originatorRoutingNumber
 
         /**
          * The sending bank will set originator_to_beneficiary_information_line1 in production. You
          * can simulate any value here.
          */
         @JsonProperty("originator_to_beneficiary_information_line1")
-        fun originatorToBeneficiaryInformationLine1(): String? =
+        @ExcludeMissing
+        fun _originatorToBeneficiaryInformationLine1(): JsonField<String> =
             originatorToBeneficiaryInformationLine1
 
         /**
@@ -245,7 +502,8 @@ constructor(
          * can simulate any value here.
          */
         @JsonProperty("originator_to_beneficiary_information_line2")
-        fun originatorToBeneficiaryInformationLine2(): String? =
+        @ExcludeMissing
+        fun _originatorToBeneficiaryInformationLine2(): JsonField<String> =
             originatorToBeneficiaryInformationLine2
 
         /**
@@ -253,7 +511,8 @@ constructor(
          * can simulate any value here.
          */
         @JsonProperty("originator_to_beneficiary_information_line3")
-        fun originatorToBeneficiaryInformationLine3(): String? =
+        @ExcludeMissing
+        fun _originatorToBeneficiaryInformationLine3(): JsonField<String> =
             originatorToBeneficiaryInformationLine3
 
         /**
@@ -261,18 +520,46 @@ constructor(
          * can simulate any value here.
          */
         @JsonProperty("originator_to_beneficiary_information_line4")
-        fun originatorToBeneficiaryInformationLine4(): String? =
+        @ExcludeMissing
+        fun _originatorToBeneficiaryInformationLine4(): JsonField<String> =
             originatorToBeneficiaryInformationLine4
 
         /**
          * The sending bank will set sender_reference in production. You can simulate any value
          * here.
          */
-        @JsonProperty("sender_reference") fun senderReference(): String? = senderReference
+        @JsonProperty("sender_reference")
+        @ExcludeMissing
+        fun _senderReference(): JsonField<String> = senderReference
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): SimulationInboundWireTransferCreateBody = apply {
+            if (!validated) {
+                accountNumberId()
+                amount()
+                beneficiaryAddressLine1()
+                beneficiaryAddressLine2()
+                beneficiaryAddressLine3()
+                beneficiaryName()
+                beneficiaryReference()
+                originatorAddressLine1()
+                originatorAddressLine2()
+                originatorAddressLine3()
+                originatorName()
+                originatorRoutingNumber()
+                originatorToBeneficiaryInformationLine1()
+                originatorToBeneficiaryInformationLine2()
+                originatorToBeneficiaryInformationLine3()
+                originatorToBeneficiaryInformationLine4()
+                senderReference()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -283,23 +570,27 @@ constructor(
 
         class Builder {
 
-            private var accountNumberId: String? = null
-            private var amount: Long? = null
-            private var beneficiaryAddressLine1: String? = null
-            private var beneficiaryAddressLine2: String? = null
-            private var beneficiaryAddressLine3: String? = null
-            private var beneficiaryName: String? = null
-            private var beneficiaryReference: String? = null
-            private var originatorAddressLine1: String? = null
-            private var originatorAddressLine2: String? = null
-            private var originatorAddressLine3: String? = null
-            private var originatorName: String? = null
-            private var originatorRoutingNumber: String? = null
-            private var originatorToBeneficiaryInformationLine1: String? = null
-            private var originatorToBeneficiaryInformationLine2: String? = null
-            private var originatorToBeneficiaryInformationLine3: String? = null
-            private var originatorToBeneficiaryInformationLine4: String? = null
-            private var senderReference: String? = null
+            private var accountNumberId: JsonField<String>? = null
+            private var amount: JsonField<Long>? = null
+            private var beneficiaryAddressLine1: JsonField<String> = JsonMissing.of()
+            private var beneficiaryAddressLine2: JsonField<String> = JsonMissing.of()
+            private var beneficiaryAddressLine3: JsonField<String> = JsonMissing.of()
+            private var beneficiaryName: JsonField<String> = JsonMissing.of()
+            private var beneficiaryReference: JsonField<String> = JsonMissing.of()
+            private var originatorAddressLine1: JsonField<String> = JsonMissing.of()
+            private var originatorAddressLine2: JsonField<String> = JsonMissing.of()
+            private var originatorAddressLine3: JsonField<String> = JsonMissing.of()
+            private var originatorName: JsonField<String> = JsonMissing.of()
+            private var originatorRoutingNumber: JsonField<String> = JsonMissing.of()
+            private var originatorToBeneficiaryInformationLine1: JsonField<String> =
+                JsonMissing.of()
+            private var originatorToBeneficiaryInformationLine2: JsonField<String> =
+                JsonMissing.of()
+            private var originatorToBeneficiaryInformationLine3: JsonField<String> =
+                JsonMissing.of()
+            private var originatorToBeneficiaryInformationLine4: JsonField<String> =
+                JsonMissing.of()
+            private var senderReference: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(
@@ -338,18 +629,32 @@ constructor(
             }
 
             /** The identifier of the Account Number the inbound Wire Transfer is for. */
-            fun accountNumberId(accountNumberId: String) = apply {
+            fun accountNumberId(accountNumberId: String) =
+                accountNumberId(JsonField.of(accountNumberId))
+
+            /** The identifier of the Account Number the inbound Wire Transfer is for. */
+            fun accountNumberId(accountNumberId: JsonField<String>) = apply {
                 this.accountNumberId = accountNumberId
             }
 
             /** The transfer amount in cents. Must be positive. */
-            fun amount(amount: Long) = apply { this.amount = amount }
+            fun amount(amount: Long) = amount(JsonField.of(amount))
+
+            /** The transfer amount in cents. Must be positive. */
+            fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
             /**
              * The sending bank will set beneficiary_address_line1 in production. You can simulate
              * any value here.
              */
-            fun beneficiaryAddressLine1(beneficiaryAddressLine1: String?) = apply {
+            fun beneficiaryAddressLine1(beneficiaryAddressLine1: String) =
+                beneficiaryAddressLine1(JsonField.of(beneficiaryAddressLine1))
+
+            /**
+             * The sending bank will set beneficiary_address_line1 in production. You can simulate
+             * any value here.
+             */
+            fun beneficiaryAddressLine1(beneficiaryAddressLine1: JsonField<String>) = apply {
                 this.beneficiaryAddressLine1 = beneficiaryAddressLine1
             }
 
@@ -357,7 +662,14 @@ constructor(
              * The sending bank will set beneficiary_address_line2 in production. You can simulate
              * any value here.
              */
-            fun beneficiaryAddressLine2(beneficiaryAddressLine2: String?) = apply {
+            fun beneficiaryAddressLine2(beneficiaryAddressLine2: String) =
+                beneficiaryAddressLine2(JsonField.of(beneficiaryAddressLine2))
+
+            /**
+             * The sending bank will set beneficiary_address_line2 in production. You can simulate
+             * any value here.
+             */
+            fun beneficiaryAddressLine2(beneficiaryAddressLine2: JsonField<String>) = apply {
                 this.beneficiaryAddressLine2 = beneficiaryAddressLine2
             }
 
@@ -365,7 +677,14 @@ constructor(
              * The sending bank will set beneficiary_address_line3 in production. You can simulate
              * any value here.
              */
-            fun beneficiaryAddressLine3(beneficiaryAddressLine3: String?) = apply {
+            fun beneficiaryAddressLine3(beneficiaryAddressLine3: String) =
+                beneficiaryAddressLine3(JsonField.of(beneficiaryAddressLine3))
+
+            /**
+             * The sending bank will set beneficiary_address_line3 in production. You can simulate
+             * any value here.
+             */
+            fun beneficiaryAddressLine3(beneficiaryAddressLine3: JsonField<String>) = apply {
                 this.beneficiaryAddressLine3 = beneficiaryAddressLine3
             }
 
@@ -373,7 +692,14 @@ constructor(
              * The sending bank will set beneficiary_name in production. You can simulate any value
              * here.
              */
-            fun beneficiaryName(beneficiaryName: String?) = apply {
+            fun beneficiaryName(beneficiaryName: String) =
+                beneficiaryName(JsonField.of(beneficiaryName))
+
+            /**
+             * The sending bank will set beneficiary_name in production. You can simulate any value
+             * here.
+             */
+            fun beneficiaryName(beneficiaryName: JsonField<String>) = apply {
                 this.beneficiaryName = beneficiaryName
             }
 
@@ -381,7 +707,14 @@ constructor(
              * The sending bank will set beneficiary_reference in production. You can simulate any
              * value here.
              */
-            fun beneficiaryReference(beneficiaryReference: String?) = apply {
+            fun beneficiaryReference(beneficiaryReference: String) =
+                beneficiaryReference(JsonField.of(beneficiaryReference))
+
+            /**
+             * The sending bank will set beneficiary_reference in production. You can simulate any
+             * value here.
+             */
+            fun beneficiaryReference(beneficiaryReference: JsonField<String>) = apply {
                 this.beneficiaryReference = beneficiaryReference
             }
 
@@ -389,7 +722,14 @@ constructor(
              * The sending bank will set originator_address_line1 in production. You can simulate
              * any value here.
              */
-            fun originatorAddressLine1(originatorAddressLine1: String?) = apply {
+            fun originatorAddressLine1(originatorAddressLine1: String) =
+                originatorAddressLine1(JsonField.of(originatorAddressLine1))
+
+            /**
+             * The sending bank will set originator_address_line1 in production. You can simulate
+             * any value here.
+             */
+            fun originatorAddressLine1(originatorAddressLine1: JsonField<String>) = apply {
                 this.originatorAddressLine1 = originatorAddressLine1
             }
 
@@ -397,7 +737,14 @@ constructor(
              * The sending bank will set originator_address_line2 in production. You can simulate
              * any value here.
              */
-            fun originatorAddressLine2(originatorAddressLine2: String?) = apply {
+            fun originatorAddressLine2(originatorAddressLine2: String) =
+                originatorAddressLine2(JsonField.of(originatorAddressLine2))
+
+            /**
+             * The sending bank will set originator_address_line2 in production. You can simulate
+             * any value here.
+             */
+            fun originatorAddressLine2(originatorAddressLine2: JsonField<String>) = apply {
                 this.originatorAddressLine2 = originatorAddressLine2
             }
 
@@ -405,7 +752,14 @@ constructor(
              * The sending bank will set originator_address_line3 in production. You can simulate
              * any value here.
              */
-            fun originatorAddressLine3(originatorAddressLine3: String?) = apply {
+            fun originatorAddressLine3(originatorAddressLine3: String) =
+                originatorAddressLine3(JsonField.of(originatorAddressLine3))
+
+            /**
+             * The sending bank will set originator_address_line3 in production. You can simulate
+             * any value here.
+             */
+            fun originatorAddressLine3(originatorAddressLine3: JsonField<String>) = apply {
                 this.originatorAddressLine3 = originatorAddressLine3
             }
 
@@ -413,7 +767,14 @@ constructor(
              * The sending bank will set originator_name in production. You can simulate any value
              * here.
              */
-            fun originatorName(originatorName: String?) = apply {
+            fun originatorName(originatorName: String) =
+                originatorName(JsonField.of(originatorName))
+
+            /**
+             * The sending bank will set originator_name in production. You can simulate any value
+             * here.
+             */
+            fun originatorName(originatorName: JsonField<String>) = apply {
                 this.originatorName = originatorName
             }
 
@@ -421,7 +782,14 @@ constructor(
              * The sending bank will set originator_routing_number in production. You can simulate
              * any value here.
              */
-            fun originatorRoutingNumber(originatorRoutingNumber: String?) = apply {
+            fun originatorRoutingNumber(originatorRoutingNumber: String) =
+                originatorRoutingNumber(JsonField.of(originatorRoutingNumber))
+
+            /**
+             * The sending bank will set originator_routing_number in production. You can simulate
+             * any value here.
+             */
+            fun originatorRoutingNumber(originatorRoutingNumber: JsonField<String>) = apply {
                 this.originatorRoutingNumber = originatorRoutingNumber
             }
 
@@ -430,7 +798,18 @@ constructor(
              * You can simulate any value here.
              */
             fun originatorToBeneficiaryInformationLine1(
-                originatorToBeneficiaryInformationLine1: String?
+                originatorToBeneficiaryInformationLine1: String
+            ) =
+                originatorToBeneficiaryInformationLine1(
+                    JsonField.of(originatorToBeneficiaryInformationLine1)
+                )
+
+            /**
+             * The sending bank will set originator_to_beneficiary_information_line1 in production.
+             * You can simulate any value here.
+             */
+            fun originatorToBeneficiaryInformationLine1(
+                originatorToBeneficiaryInformationLine1: JsonField<String>
             ) = apply {
                 this.originatorToBeneficiaryInformationLine1 =
                     originatorToBeneficiaryInformationLine1
@@ -441,7 +820,18 @@ constructor(
              * You can simulate any value here.
              */
             fun originatorToBeneficiaryInformationLine2(
-                originatorToBeneficiaryInformationLine2: String?
+                originatorToBeneficiaryInformationLine2: String
+            ) =
+                originatorToBeneficiaryInformationLine2(
+                    JsonField.of(originatorToBeneficiaryInformationLine2)
+                )
+
+            /**
+             * The sending bank will set originator_to_beneficiary_information_line2 in production.
+             * You can simulate any value here.
+             */
+            fun originatorToBeneficiaryInformationLine2(
+                originatorToBeneficiaryInformationLine2: JsonField<String>
             ) = apply {
                 this.originatorToBeneficiaryInformationLine2 =
                     originatorToBeneficiaryInformationLine2
@@ -452,7 +842,18 @@ constructor(
              * You can simulate any value here.
              */
             fun originatorToBeneficiaryInformationLine3(
-                originatorToBeneficiaryInformationLine3: String?
+                originatorToBeneficiaryInformationLine3: String
+            ) =
+                originatorToBeneficiaryInformationLine3(
+                    JsonField.of(originatorToBeneficiaryInformationLine3)
+                )
+
+            /**
+             * The sending bank will set originator_to_beneficiary_information_line3 in production.
+             * You can simulate any value here.
+             */
+            fun originatorToBeneficiaryInformationLine3(
+                originatorToBeneficiaryInformationLine3: JsonField<String>
             ) = apply {
                 this.originatorToBeneficiaryInformationLine3 =
                     originatorToBeneficiaryInformationLine3
@@ -463,7 +864,18 @@ constructor(
              * You can simulate any value here.
              */
             fun originatorToBeneficiaryInformationLine4(
-                originatorToBeneficiaryInformationLine4: String?
+                originatorToBeneficiaryInformationLine4: String
+            ) =
+                originatorToBeneficiaryInformationLine4(
+                    JsonField.of(originatorToBeneficiaryInformationLine4)
+                )
+
+            /**
+             * The sending bank will set originator_to_beneficiary_information_line4 in production.
+             * You can simulate any value here.
+             */
+            fun originatorToBeneficiaryInformationLine4(
+                originatorToBeneficiaryInformationLine4: JsonField<String>
             ) = apply {
                 this.originatorToBeneficiaryInformationLine4 =
                     originatorToBeneficiaryInformationLine4
@@ -473,7 +885,14 @@ constructor(
              * The sending bank will set sender_reference in production. You can simulate any value
              * here.
              */
-            fun senderReference(senderReference: String?) = apply {
+            fun senderReference(senderReference: String) =
+                senderReference(JsonField.of(senderReference))
+
+            /**
+             * The sending bank will set sender_reference in production. You can simulate any value
+             * here.
+             */
+            fun senderReference(senderReference: JsonField<String>) = apply {
                 this.senderReference = senderReference
             }
 
@@ -569,14 +988,30 @@ constructor(
             body.accountNumberId(accountNumberId)
         }
 
+        /** The identifier of the Account Number the inbound Wire Transfer is for. */
+        fun accountNumberId(accountNumberId: JsonField<String>) = apply {
+            body.accountNumberId(accountNumberId)
+        }
+
         /** The transfer amount in cents. Must be positive. */
         fun amount(amount: Long) = apply { body.amount(amount) }
+
+        /** The transfer amount in cents. Must be positive. */
+        fun amount(amount: JsonField<Long>) = apply { body.amount(amount) }
 
         /**
          * The sending bank will set beneficiary_address_line1 in production. You can simulate any
          * value here.
          */
-        fun beneficiaryAddressLine1(beneficiaryAddressLine1: String?) = apply {
+        fun beneficiaryAddressLine1(beneficiaryAddressLine1: String) = apply {
+            body.beneficiaryAddressLine1(beneficiaryAddressLine1)
+        }
+
+        /**
+         * The sending bank will set beneficiary_address_line1 in production. You can simulate any
+         * value here.
+         */
+        fun beneficiaryAddressLine1(beneficiaryAddressLine1: JsonField<String>) = apply {
             body.beneficiaryAddressLine1(beneficiaryAddressLine1)
         }
 
@@ -584,7 +1019,15 @@ constructor(
          * The sending bank will set beneficiary_address_line2 in production. You can simulate any
          * value here.
          */
-        fun beneficiaryAddressLine2(beneficiaryAddressLine2: String?) = apply {
+        fun beneficiaryAddressLine2(beneficiaryAddressLine2: String) = apply {
+            body.beneficiaryAddressLine2(beneficiaryAddressLine2)
+        }
+
+        /**
+         * The sending bank will set beneficiary_address_line2 in production. You can simulate any
+         * value here.
+         */
+        fun beneficiaryAddressLine2(beneficiaryAddressLine2: JsonField<String>) = apply {
             body.beneficiaryAddressLine2(beneficiaryAddressLine2)
         }
 
@@ -592,7 +1035,15 @@ constructor(
          * The sending bank will set beneficiary_address_line3 in production. You can simulate any
          * value here.
          */
-        fun beneficiaryAddressLine3(beneficiaryAddressLine3: String?) = apply {
+        fun beneficiaryAddressLine3(beneficiaryAddressLine3: String) = apply {
+            body.beneficiaryAddressLine3(beneficiaryAddressLine3)
+        }
+
+        /**
+         * The sending bank will set beneficiary_address_line3 in production. You can simulate any
+         * value here.
+         */
+        fun beneficiaryAddressLine3(beneficiaryAddressLine3: JsonField<String>) = apply {
             body.beneficiaryAddressLine3(beneficiaryAddressLine3)
         }
 
@@ -600,7 +1051,15 @@ constructor(
          * The sending bank will set beneficiary_name in production. You can simulate any value
          * here.
          */
-        fun beneficiaryName(beneficiaryName: String?) = apply {
+        fun beneficiaryName(beneficiaryName: String) = apply {
+            body.beneficiaryName(beneficiaryName)
+        }
+
+        /**
+         * The sending bank will set beneficiary_name in production. You can simulate any value
+         * here.
+         */
+        fun beneficiaryName(beneficiaryName: JsonField<String>) = apply {
             body.beneficiaryName(beneficiaryName)
         }
 
@@ -608,7 +1067,15 @@ constructor(
          * The sending bank will set beneficiary_reference in production. You can simulate any value
          * here.
          */
-        fun beneficiaryReference(beneficiaryReference: String?) = apply {
+        fun beneficiaryReference(beneficiaryReference: String) = apply {
+            body.beneficiaryReference(beneficiaryReference)
+        }
+
+        /**
+         * The sending bank will set beneficiary_reference in production. You can simulate any value
+         * here.
+         */
+        fun beneficiaryReference(beneficiaryReference: JsonField<String>) = apply {
             body.beneficiaryReference(beneficiaryReference)
         }
 
@@ -616,7 +1083,15 @@ constructor(
          * The sending bank will set originator_address_line1 in production. You can simulate any
          * value here.
          */
-        fun originatorAddressLine1(originatorAddressLine1: String?) = apply {
+        fun originatorAddressLine1(originatorAddressLine1: String) = apply {
+            body.originatorAddressLine1(originatorAddressLine1)
+        }
+
+        /**
+         * The sending bank will set originator_address_line1 in production. You can simulate any
+         * value here.
+         */
+        fun originatorAddressLine1(originatorAddressLine1: JsonField<String>) = apply {
             body.originatorAddressLine1(originatorAddressLine1)
         }
 
@@ -624,7 +1099,15 @@ constructor(
          * The sending bank will set originator_address_line2 in production. You can simulate any
          * value here.
          */
-        fun originatorAddressLine2(originatorAddressLine2: String?) = apply {
+        fun originatorAddressLine2(originatorAddressLine2: String) = apply {
+            body.originatorAddressLine2(originatorAddressLine2)
+        }
+
+        /**
+         * The sending bank will set originator_address_line2 in production. You can simulate any
+         * value here.
+         */
+        fun originatorAddressLine2(originatorAddressLine2: JsonField<String>) = apply {
             body.originatorAddressLine2(originatorAddressLine2)
         }
 
@@ -632,20 +1115,43 @@ constructor(
          * The sending bank will set originator_address_line3 in production. You can simulate any
          * value here.
          */
-        fun originatorAddressLine3(originatorAddressLine3: String?) = apply {
+        fun originatorAddressLine3(originatorAddressLine3: String) = apply {
+            body.originatorAddressLine3(originatorAddressLine3)
+        }
+
+        /**
+         * The sending bank will set originator_address_line3 in production. You can simulate any
+         * value here.
+         */
+        fun originatorAddressLine3(originatorAddressLine3: JsonField<String>) = apply {
             body.originatorAddressLine3(originatorAddressLine3)
         }
 
         /**
          * The sending bank will set originator_name in production. You can simulate any value here.
          */
-        fun originatorName(originatorName: String?) = apply { body.originatorName(originatorName) }
+        fun originatorName(originatorName: String) = apply { body.originatorName(originatorName) }
+
+        /**
+         * The sending bank will set originator_name in production. You can simulate any value here.
+         */
+        fun originatorName(originatorName: JsonField<String>) = apply {
+            body.originatorName(originatorName)
+        }
 
         /**
          * The sending bank will set originator_routing_number in production. You can simulate any
          * value here.
          */
-        fun originatorRoutingNumber(originatorRoutingNumber: String?) = apply {
+        fun originatorRoutingNumber(originatorRoutingNumber: String) = apply {
+            body.originatorRoutingNumber(originatorRoutingNumber)
+        }
+
+        /**
+         * The sending bank will set originator_routing_number in production. You can simulate any
+         * value here.
+         */
+        fun originatorRoutingNumber(originatorRoutingNumber: JsonField<String>) = apply {
             body.originatorRoutingNumber(originatorRoutingNumber)
         }
 
@@ -654,7 +1160,17 @@ constructor(
          * can simulate any value here.
          */
         fun originatorToBeneficiaryInformationLine1(
-            originatorToBeneficiaryInformationLine1: String?
+            originatorToBeneficiaryInformationLine1: String
+        ) = apply {
+            body.originatorToBeneficiaryInformationLine1(originatorToBeneficiaryInformationLine1)
+        }
+
+        /**
+         * The sending bank will set originator_to_beneficiary_information_line1 in production. You
+         * can simulate any value here.
+         */
+        fun originatorToBeneficiaryInformationLine1(
+            originatorToBeneficiaryInformationLine1: JsonField<String>
         ) = apply {
             body.originatorToBeneficiaryInformationLine1(originatorToBeneficiaryInformationLine1)
         }
@@ -664,7 +1180,17 @@ constructor(
          * can simulate any value here.
          */
         fun originatorToBeneficiaryInformationLine2(
-            originatorToBeneficiaryInformationLine2: String?
+            originatorToBeneficiaryInformationLine2: String
+        ) = apply {
+            body.originatorToBeneficiaryInformationLine2(originatorToBeneficiaryInformationLine2)
+        }
+
+        /**
+         * The sending bank will set originator_to_beneficiary_information_line2 in production. You
+         * can simulate any value here.
+         */
+        fun originatorToBeneficiaryInformationLine2(
+            originatorToBeneficiaryInformationLine2: JsonField<String>
         ) = apply {
             body.originatorToBeneficiaryInformationLine2(originatorToBeneficiaryInformationLine2)
         }
@@ -674,7 +1200,17 @@ constructor(
          * can simulate any value here.
          */
         fun originatorToBeneficiaryInformationLine3(
-            originatorToBeneficiaryInformationLine3: String?
+            originatorToBeneficiaryInformationLine3: String
+        ) = apply {
+            body.originatorToBeneficiaryInformationLine3(originatorToBeneficiaryInformationLine3)
+        }
+
+        /**
+         * The sending bank will set originator_to_beneficiary_information_line3 in production. You
+         * can simulate any value here.
+         */
+        fun originatorToBeneficiaryInformationLine3(
+            originatorToBeneficiaryInformationLine3: JsonField<String>
         ) = apply {
             body.originatorToBeneficiaryInformationLine3(originatorToBeneficiaryInformationLine3)
         }
@@ -684,7 +1220,17 @@ constructor(
          * can simulate any value here.
          */
         fun originatorToBeneficiaryInformationLine4(
-            originatorToBeneficiaryInformationLine4: String?
+            originatorToBeneficiaryInformationLine4: String
+        ) = apply {
+            body.originatorToBeneficiaryInformationLine4(originatorToBeneficiaryInformationLine4)
+        }
+
+        /**
+         * The sending bank will set originator_to_beneficiary_information_line4 in production. You
+         * can simulate any value here.
+         */
+        fun originatorToBeneficiaryInformationLine4(
+            originatorToBeneficiaryInformationLine4: JsonField<String>
         ) = apply {
             body.originatorToBeneficiaryInformationLine4(originatorToBeneficiaryInformationLine4)
         }
@@ -693,8 +1239,35 @@ constructor(
          * The sending bank will set sender_reference in production. You can simulate any value
          * here.
          */
-        fun senderReference(senderReference: String?) = apply {
+        fun senderReference(senderReference: String) = apply {
             body.senderReference(senderReference)
+        }
+
+        /**
+         * The sending bank will set sender_reference in production. You can simulate any value
+         * here.
+         */
+        fun senderReference(senderReference: JsonField<String>) = apply {
+            body.senderReference(senderReference)
+        }
+
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.putAllAdditionalProperties(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
@@ -793,25 +1366,6 @@ constructor(
 
         fun removeAllAdditionalQueryParams(keys: Set<String>) = apply {
             additionalQueryParams.removeAll(keys)
-        }
-
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                body.putAllAdditionalProperties(additionalBodyProperties)
-            }
-
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
-
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): SimulationInboundWireTransferCreateParams =
