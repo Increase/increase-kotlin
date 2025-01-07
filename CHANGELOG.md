@@ -1,5 +1,38 @@
 # Changelog
 
+## 0.155.0 (2025-01-07)
+
+Full Changelog: [v0.154.1...v0.155.0](https://github.com/Increase/increase-kotlin/compare/v0.154.1...v0.155.0)
+
+### Features
+
+* **client:** add various convenience setters to models ([#686](https://github.com/Increase/increase-kotlin/issues/686)) ([a1892f0](https://github.com/Increase/increase-kotlin/commit/a1892f0db2b50e1ddc42c4beb79798ba2c138c52))
+* **client:** allow setting arbitrary JSON for top-level body params ([a1892f0](https://github.com/Increase/increase-kotlin/commit/a1892f0db2b50e1ddc42c4beb79798ba2c138c52))
+* **client:** expose getters for `JsonField` of body params ([a1892f0](https://github.com/Increase/increase-kotlin/commit/a1892f0db2b50e1ddc42c4beb79798ba2c138c52))
+
+
+### Bug Fixes
+
+* **client:** consistently throw on omitting required fields ([a1892f0](https://github.com/Increase/increase-kotlin/commit/a1892f0db2b50e1ddc42c4beb79798ba2c138c52))
+* **client:** convert `JsonField` containing list type to mutable in builder ([a1892f0](https://github.com/Increase/increase-kotlin/commit/a1892f0db2b50e1ddc42c4beb79798ba2c138c52))
+
+
+### Chores
+
+* **internal:** update examples ([#683](https://github.com/Increase/increase-kotlin/issues/683)) ([1599bf8](https://github.com/Increase/increase-kotlin/commit/1599bf8a0c44d40ef60266f5d7848d8a0f102ddc))
+
+
+### Documentation
+
+* add params class javadocs ([#685](https://github.com/Increase/increase-kotlin/issues/685)) ([41d9c1b](https://github.com/Increase/increase-kotlin/commit/41d9c1ba50977cb760be3dc6c69eaea4f82c7efb))
+
+
+### Styles
+
+* **internal:** explicitly add some method return types ([a1892f0](https://github.com/Increase/increase-kotlin/commit/a1892f0db2b50e1ddc42c4beb79798ba2c138c52))
+* **internal:** move headers and query params setters below others ([a1892f0](https://github.com/Increase/increase-kotlin/commit/a1892f0db2b50e1ddc42c4beb79798ba2c138c52))
+* **internal:** simplify existing convenience setters on params ([a1892f0](https://github.com/Increase/increase-kotlin/commit/a1892f0db2b50e1ddc42c4beb79798ba2c138c52))
+
 ## 0.154.1 (2025-01-06)
 
 Full Changelog: [v0.154.0...v0.154.1](https://github.com/Increase/increase-kotlin/compare/v0.154.0...v0.154.1)
