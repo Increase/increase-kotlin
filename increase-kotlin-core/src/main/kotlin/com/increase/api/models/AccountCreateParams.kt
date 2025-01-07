@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonField
+import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
@@ -41,11 +43,29 @@ constructor(
      */
     fun programId(): String? = body.programId()
 
+    /** The name you choose for the Account. */
+    fun _name(): JsonField<String> = body._name()
+
+    /** The identifier for the Entity that will own the Account. */
+    fun _entityId(): JsonField<String> = body._entityId()
+
+    /**
+     * The identifier of an Entity that, while not owning the Account, is associated with its
+     * activity. Its relationship to your group must be `informational`.
+     */
+    fun _informationalEntityId(): JsonField<String> = body._informationalEntityId()
+
+    /**
+     * The identifier for the Program that this Account falls under. Required if you operate more
+     * than one Program.
+     */
+    fun _programId(): JsonField<String> = body._programId()
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     internal fun getBody(): AccountCreateBody = body
 
@@ -57,36 +77,76 @@ constructor(
     class AccountCreateBody
     @JsonCreator
     internal constructor(
-        @JsonProperty("name") private val name: String,
-        @JsonProperty("entity_id") private val entityId: String?,
-        @JsonProperty("informational_entity_id") private val informationalEntityId: String?,
-        @JsonProperty("program_id") private val programId: String?,
+        @JsonProperty("name")
+        @ExcludeMissing
+        private val name: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("entity_id")
+        @ExcludeMissing
+        private val entityId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("informational_entity_id")
+        @ExcludeMissing
+        private val informationalEntityId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("program_id")
+        @ExcludeMissing
+        private val programId: JsonField<String> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The name you choose for the Account. */
-        @JsonProperty("name") fun name(): String = name
+        fun name(): String = name.getRequired("name")
 
         /** The identifier for the Entity that will own the Account. */
-        @JsonProperty("entity_id") fun entityId(): String? = entityId
+        fun entityId(): String? = entityId.getNullable("entity_id")
+
+        /**
+         * The identifier of an Entity that, while not owning the Account, is associated with its
+         * activity. Its relationship to your group must be `informational`.
+         */
+        fun informationalEntityId(): String? =
+            informationalEntityId.getNullable("informational_entity_id")
+
+        /**
+         * The identifier for the Program that this Account falls under. Required if you operate
+         * more than one Program.
+         */
+        fun programId(): String? = programId.getNullable("program_id")
+
+        /** The name you choose for the Account. */
+        @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
+
+        /** The identifier for the Entity that will own the Account. */
+        @JsonProperty("entity_id") @ExcludeMissing fun _entityId(): JsonField<String> = entityId
 
         /**
          * The identifier of an Entity that, while not owning the Account, is associated with its
          * activity. Its relationship to your group must be `informational`.
          */
         @JsonProperty("informational_entity_id")
-        fun informationalEntityId(): String? = informationalEntityId
+        @ExcludeMissing
+        fun _informationalEntityId(): JsonField<String> = informationalEntityId
 
         /**
          * The identifier for the Program that this Account falls under. Required if you operate
          * more than one Program.
          */
-        @JsonProperty("program_id") fun programId(): String? = programId
+        @JsonProperty("program_id") @ExcludeMissing fun _programId(): JsonField<String> = programId
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): AccountCreateBody = apply {
+            if (!validated) {
+                name()
+                entityId()
+                informationalEntityId()
+                programId()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -97,10 +157,10 @@ constructor(
 
         class Builder {
 
-            private var name: String? = null
-            private var entityId: String? = null
-            private var informationalEntityId: String? = null
-            private var programId: String? = null
+            private var name: JsonField<String>? = null
+            private var entityId: JsonField<String> = JsonMissing.of()
+            private var informationalEntityId: JsonField<String> = JsonMissing.of()
+            private var programId: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(accountCreateBody: AccountCreateBody) = apply {
@@ -112,16 +172,29 @@ constructor(
             }
 
             /** The name you choose for the Account. */
-            fun name(name: String) = apply { this.name = name }
+            fun name(name: String) = name(JsonField.of(name))
+
+            /** The name you choose for the Account. */
+            fun name(name: JsonField<String>) = apply { this.name = name }
 
             /** The identifier for the Entity that will own the Account. */
-            fun entityId(entityId: String?) = apply { this.entityId = entityId }
+            fun entityId(entityId: String) = entityId(JsonField.of(entityId))
+
+            /** The identifier for the Entity that will own the Account. */
+            fun entityId(entityId: JsonField<String>) = apply { this.entityId = entityId }
 
             /**
              * The identifier of an Entity that, while not owning the Account, is associated with
              * its activity. Its relationship to your group must be `informational`.
              */
-            fun informationalEntityId(informationalEntityId: String?) = apply {
+            fun informationalEntityId(informationalEntityId: String) =
+                informationalEntityId(JsonField.of(informationalEntityId))
+
+            /**
+             * The identifier of an Entity that, while not owning the Account, is associated with
+             * its activity. Its relationship to your group must be `informational`.
+             */
+            fun informationalEntityId(informationalEntityId: JsonField<String>) = apply {
                 this.informationalEntityId = informationalEntityId
             }
 
@@ -129,7 +202,13 @@ constructor(
              * The identifier for the Program that this Account falls under. Required if you operate
              * more than one Program.
              */
-            fun programId(programId: String?) = apply { this.programId = programId }
+            fun programId(programId: String) = programId(JsonField.of(programId))
+
+            /**
+             * The identifier for the Program that this Account falls under. Required if you operate
+             * more than one Program.
+             */
+            fun programId(programId: JsonField<String>) = apply { this.programId = programId }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -201,14 +280,28 @@ constructor(
         /** The name you choose for the Account. */
         fun name(name: String) = apply { body.name(name) }
 
+        /** The name you choose for the Account. */
+        fun name(name: JsonField<String>) = apply { body.name(name) }
+
         /** The identifier for the Entity that will own the Account. */
-        fun entityId(entityId: String?) = apply { body.entityId(entityId) }
+        fun entityId(entityId: String) = apply { body.entityId(entityId) }
+
+        /** The identifier for the Entity that will own the Account. */
+        fun entityId(entityId: JsonField<String>) = apply { body.entityId(entityId) }
 
         /**
          * The identifier of an Entity that, while not owning the Account, is associated with its
          * activity. Its relationship to your group must be `informational`.
          */
-        fun informationalEntityId(informationalEntityId: String?) = apply {
+        fun informationalEntityId(informationalEntityId: String) = apply {
+            body.informationalEntityId(informationalEntityId)
+        }
+
+        /**
+         * The identifier of an Entity that, while not owning the Account, is associated with its
+         * activity. Its relationship to your group must be `informational`.
+         */
+        fun informationalEntityId(informationalEntityId: JsonField<String>) = apply {
             body.informationalEntityId(informationalEntityId)
         }
 
@@ -216,7 +309,32 @@ constructor(
          * The identifier for the Program that this Account falls under. Required if you operate
          * more than one Program.
          */
-        fun programId(programId: String?) = apply { body.programId(programId) }
+        fun programId(programId: String) = apply { body.programId(programId) }
+
+        /**
+         * The identifier for the Program that this Account falls under. Required if you operate
+         * more than one Program.
+         */
+        fun programId(programId: JsonField<String>) = apply { body.programId(programId) }
+
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.putAllAdditionalProperties(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
+        }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -314,25 +432,6 @@ constructor(
 
         fun removeAllAdditionalQueryParams(keys: Set<String>) = apply {
             additionalQueryParams.removeAll(keys)
-        }
-
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                body.putAllAdditionalProperties(additionalBodyProperties)
-            }
-
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
-
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): AccountCreateParams =

@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonField
+import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.http.Headers
@@ -33,11 +35,17 @@ constructor(
     /** The updated routing number to send in the notification of change. */
     fun updatedRoutingNumber(): String? = body.updatedRoutingNumber()
 
+    /** The updated account number to send in the notification of change. */
+    fun _updatedAccountNumber(): JsonField<String> = body._updatedAccountNumber()
+
+    /** The updated routing number to send in the notification of change. */
+    fun _updatedRoutingNumber(): JsonField<String> = body._updatedRoutingNumber()
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+
     fun _additionalHeaders(): Headers = additionalHeaders
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     internal fun getBody(): InboundAchTransferCreateNotificationOfChangeBody = body
 
@@ -56,23 +64,47 @@ constructor(
     class InboundAchTransferCreateNotificationOfChangeBody
     @JsonCreator
     internal constructor(
-        @JsonProperty("updated_account_number") private val updatedAccountNumber: String?,
-        @JsonProperty("updated_routing_number") private val updatedRoutingNumber: String?,
+        @JsonProperty("updated_account_number")
+        @ExcludeMissing
+        private val updatedAccountNumber: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("updated_routing_number")
+        @ExcludeMissing
+        private val updatedRoutingNumber: JsonField<String> = JsonMissing.of(),
         @JsonAnySetter
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The updated account number to send in the notification of change. */
+        fun updatedAccountNumber(): String? =
+            updatedAccountNumber.getNullable("updated_account_number")
+
+        /** The updated routing number to send in the notification of change. */
+        fun updatedRoutingNumber(): String? =
+            updatedRoutingNumber.getNullable("updated_routing_number")
+
+        /** The updated account number to send in the notification of change. */
         @JsonProperty("updated_account_number")
-        fun updatedAccountNumber(): String? = updatedAccountNumber
+        @ExcludeMissing
+        fun _updatedAccountNumber(): JsonField<String> = updatedAccountNumber
 
         /** The updated routing number to send in the notification of change. */
         @JsonProperty("updated_routing_number")
-        fun updatedRoutingNumber(): String? = updatedRoutingNumber
+        @ExcludeMissing
+        fun _updatedRoutingNumber(): JsonField<String> = updatedRoutingNumber
 
         @JsonAnyGetter
         @ExcludeMissing
         fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        private var validated: Boolean = false
+
+        fun validate(): InboundAchTransferCreateNotificationOfChangeBody = apply {
+            if (!validated) {
+                updatedAccountNumber()
+                updatedRoutingNumber()
+                validated = true
+            }
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -83,8 +115,8 @@ constructor(
 
         class Builder {
 
-            private var updatedAccountNumber: String? = null
-            private var updatedRoutingNumber: String? = null
+            private var updatedAccountNumber: JsonField<String> = JsonMissing.of()
+            private var updatedRoutingNumber: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(
@@ -101,12 +133,20 @@ constructor(
             }
 
             /** The updated account number to send in the notification of change. */
-            fun updatedAccountNumber(updatedAccountNumber: String?) = apply {
+            fun updatedAccountNumber(updatedAccountNumber: String) =
+                updatedAccountNumber(JsonField.of(updatedAccountNumber))
+
+            /** The updated account number to send in the notification of change. */
+            fun updatedAccountNumber(updatedAccountNumber: JsonField<String>) = apply {
                 this.updatedAccountNumber = updatedAccountNumber
             }
 
             /** The updated routing number to send in the notification of change. */
-            fun updatedRoutingNumber(updatedRoutingNumber: String?) = apply {
+            fun updatedRoutingNumber(updatedRoutingNumber: String) =
+                updatedRoutingNumber(JsonField.of(updatedRoutingNumber))
+
+            /** The updated routing number to send in the notification of change. */
+            fun updatedRoutingNumber(updatedRoutingNumber: JsonField<String>) = apply {
                 this.updatedRoutingNumber = updatedRoutingNumber
             }
 
@@ -192,13 +232,42 @@ constructor(
         }
 
         /** The updated account number to send in the notification of change. */
-        fun updatedAccountNumber(updatedAccountNumber: String?) = apply {
+        fun updatedAccountNumber(updatedAccountNumber: String) = apply {
+            body.updatedAccountNumber(updatedAccountNumber)
+        }
+
+        /** The updated account number to send in the notification of change. */
+        fun updatedAccountNumber(updatedAccountNumber: JsonField<String>) = apply {
             body.updatedAccountNumber(updatedAccountNumber)
         }
 
         /** The updated routing number to send in the notification of change. */
-        fun updatedRoutingNumber(updatedRoutingNumber: String?) = apply {
+        fun updatedRoutingNumber(updatedRoutingNumber: String) = apply {
             body.updatedRoutingNumber(updatedRoutingNumber)
+        }
+
+        /** The updated routing number to send in the notification of change. */
+        fun updatedRoutingNumber(updatedRoutingNumber: JsonField<String>) = apply {
+            body.updatedRoutingNumber(updatedRoutingNumber)
+        }
+
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.putAllAdditionalProperties(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
@@ -297,25 +366,6 @@ constructor(
 
         fun removeAllAdditionalQueryParams(keys: Set<String>) = apply {
             additionalQueryParams.removeAll(keys)
-        }
-
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                body.putAllAdditionalProperties(additionalBodyProperties)
-            }
-
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
-
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
         }
 
         fun build(): InboundAchTransferCreateNotificationOfChangeParams =
