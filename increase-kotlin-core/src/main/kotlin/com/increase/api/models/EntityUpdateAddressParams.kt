@@ -15,6 +15,7 @@ import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import java.util.Objects
 
+/** Update a Natural Person or Corporation's address */
 class EntityUpdateAddressParams
 constructor(
     private val entityId: String,

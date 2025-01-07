@@ -14,6 +14,7 @@ import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Objects
 
+/** List Pending Transactions */
 class PendingTransactionListParams
 constructor(
     private val accountId: String?,

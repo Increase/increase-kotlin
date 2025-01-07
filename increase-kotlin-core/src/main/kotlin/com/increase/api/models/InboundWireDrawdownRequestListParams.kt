@@ -7,6 +7,7 @@ import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import java.util.Objects
 
+/** List Inbound Wire Drawdown Requests */
 class InboundWireDrawdownRequestListParams
 constructor(
     private val cursor: String?,

@@ -9,6 +9,7 @@ import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Objects
 
+/** List Card Purchase Supplements */
 class CardPurchaseSupplementListParams
 constructor(
     private val cardPaymentId: String?,

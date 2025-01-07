@@ -9,6 +9,7 @@ import com.increase.api.core.http.QueryParams
 import com.increase.api.core.toImmutable
 import java.util.Objects
 
+/** Cancels an ACH Transfer in a pending_approval state. */
 class AchTransferCancelParams
 constructor(
     private val achTransferId: String,

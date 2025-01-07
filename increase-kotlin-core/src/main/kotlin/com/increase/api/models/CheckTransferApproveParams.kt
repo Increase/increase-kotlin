@@ -9,6 +9,7 @@ import com.increase.api.core.http.QueryParams
 import com.increase.api.core.toImmutable
 import java.util.Objects
 
+/** Approve a Check Transfer */
 class CheckTransferApproveParams
 constructor(
     private val checkTransferId: String,

@@ -9,6 +9,7 @@ import com.increase.api.core.http.QueryParams
 import com.increase.api.core.toImmutable
 import java.util.Objects
 
+/** Cancel a pending Check Transfer */
 class CheckTransferCancelParams
 constructor(
     private val checkTransferId: String,

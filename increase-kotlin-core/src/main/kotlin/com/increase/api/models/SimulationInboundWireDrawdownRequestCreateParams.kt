@@ -15,6 +15,7 @@ import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import java.util.Objects
 
+/** Simulates receiving an [Inbound Wire Drawdown Request](#inbound-wire-drawdown-requests). */
 class SimulationInboundWireDrawdownRequestCreateParams
 constructor(
     private val body: SimulationInboundWireDrawdownRequestCreateBody,

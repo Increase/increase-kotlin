@@ -9,6 +9,7 @@ import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Objects
 
+/** List Cards */
 class CardListParams
 constructor(
     private val accountId: String?,

@@ -9,6 +9,7 @@ import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Objects
 
+/** List Proof of Authorization Requests */
 class ProofOfAuthorizationRequestListParams
 constructor(
     private val createdAt: CreatedAt?,

@@ -9,6 +9,7 @@ import com.increase.api.core.http.QueryParams
 import com.increase.api.core.toImmutable
 import java.util.Objects
 
+/** Cancel a pending Wire Transfer */
 class WireTransferCancelParams
 constructor(
     private val wireTransferId: String,

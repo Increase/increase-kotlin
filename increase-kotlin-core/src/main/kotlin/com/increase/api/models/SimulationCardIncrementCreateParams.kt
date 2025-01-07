@@ -15,6 +15,10 @@ import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import java.util.Objects
 
+/**
+ * Simulates the increment of an authorization by a card acquirer. An authorization can be
+ * incremented multiple times.
+ */
 class SimulationCardIncrementCreateParams
 constructor(
     private val body: SimulationCardIncrementCreateBody,

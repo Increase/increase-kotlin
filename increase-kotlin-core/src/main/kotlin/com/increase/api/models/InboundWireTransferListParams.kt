@@ -13,6 +13,7 @@ import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Objects
 
+/** List Inbound Wire Transfers */
 class InboundWireTransferListParams
 constructor(
     private val accountId: String?,

@@ -14,6 +14,7 @@ import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Objects
 
+/** List Events */
 class EventListParams
 constructor(
     private val associatedObjectId: String?,

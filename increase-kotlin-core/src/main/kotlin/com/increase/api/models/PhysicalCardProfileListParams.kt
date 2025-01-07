@@ -12,6 +12,7 @@ import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
 
+/** List Physical Card Profiles */
 class PhysicalCardProfileListParams
 constructor(
     private val cursor: String?,

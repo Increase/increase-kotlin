@@ -19,6 +19,7 @@ import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.LocalDate
 import java.util.Objects
 
+/** Create an ACH Transfer */
 class AchTransferCreateParams
 constructor(
     private val body: AchTransferCreateBody,

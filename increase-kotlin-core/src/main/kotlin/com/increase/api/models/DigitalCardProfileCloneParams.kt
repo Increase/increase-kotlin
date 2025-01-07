@@ -15,6 +15,7 @@ import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import java.util.Objects
 
+/** Clones a Digital Card Profile */
 class DigitalCardProfileCloneParams
 constructor(
     private val digitalCardProfileId: String,

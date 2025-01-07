@@ -14,6 +14,7 @@ import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Objects
 
+/** List Transactions */
 class TransactionListParams
 constructor(
     private val accountId: String?,
