@@ -149,77 +149,93 @@ private constructor(
         )
 
     /** The Proof of Authorization Request Submission identifier. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /** Terms of authorization. */
     @JsonProperty("authorization_terms")
     @ExcludeMissing
-    fun _authorizationTerms() = authorizationTerms
+    fun _authorizationTerms(): JsonField<String> = authorizationTerms
 
     /** Time of authorization. */
-    @JsonProperty("authorized_at") @ExcludeMissing fun _authorizedAt() = authorizedAt
+    @JsonProperty("authorized_at")
+    @ExcludeMissing
+    fun _authorizedAt(): JsonField<OffsetDateTime> = authorizedAt
 
     /** Company of the authorizer. */
-    @JsonProperty("authorizer_company") @ExcludeMissing fun _authorizerCompany() = authorizerCompany
+    @JsonProperty("authorizer_company")
+    @ExcludeMissing
+    fun _authorizerCompany(): JsonField<String> = authorizerCompany
 
     /** Email of the authorizer. */
-    @JsonProperty("authorizer_email") @ExcludeMissing fun _authorizerEmail() = authorizerEmail
+    @JsonProperty("authorizer_email")
+    @ExcludeMissing
+    fun _authorizerEmail(): JsonField<String> = authorizerEmail
 
     /** IP address of the authorizer. */
     @JsonProperty("authorizer_ip_address")
     @ExcludeMissing
-    fun _authorizerIpAddress() = authorizerIpAddress
+    fun _authorizerIpAddress(): JsonField<String> = authorizerIpAddress
 
     /** Name of the authorizer. */
-    @JsonProperty("authorizer_name") @ExcludeMissing fun _authorizerName() = authorizerName
+    @JsonProperty("authorizer_name")
+    @ExcludeMissing
+    fun _authorizerName(): JsonField<String> = authorizerName
 
     /** The time the Proof of Authorization Request Submission was created. */
-    @JsonProperty("created_at") @ExcludeMissing fun _createdAt() = createdAt
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /** Whether the customer has been offboarded. */
     @JsonProperty("customer_has_been_offboarded")
     @ExcludeMissing
-    fun _customerHasBeenOffboarded() = customerHasBeenOffboarded
+    fun _customerHasBeenOffboarded(): JsonField<Boolean> = customerHasBeenOffboarded
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
      * used to ensure that a request is only processed once. Learn more about
      * [idempotency](https://increase.com/documentation/idempotency-keys).
      */
-    @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
+    @JsonProperty("idempotency_key")
+    @ExcludeMissing
+    fun _idempotencyKey(): JsonField<String> = idempotencyKey
 
     /** ID of the proof of authorization request. */
     @JsonProperty("proof_of_authorization_request_id")
     @ExcludeMissing
-    fun _proofOfAuthorizationRequestId() = proofOfAuthorizationRequestId
+    fun _proofOfAuthorizationRequestId(): JsonField<String> = proofOfAuthorizationRequestId
 
     /** Status of the proof of authorization request submission. */
-    @JsonProperty("status") @ExcludeMissing fun _status() = status
+    @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `proof_of_authorization_request_submission`.
      */
-    @JsonProperty("type") @ExcludeMissing fun _type() = type
+    @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
     /** The time the Proof of Authorization Request Submission was last updated. */
-    @JsonProperty("updated_at") @ExcludeMissing fun _updatedAt() = updatedAt
+    @JsonProperty("updated_at")
+    @ExcludeMissing
+    fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
 
     /** Whether account ownership was validated via credential (for instance, Plaid). */
     @JsonProperty("validated_account_ownership_via_credential")
     @ExcludeMissing
-    fun _validatedAccountOwnershipViaCredential() = validatedAccountOwnershipViaCredential
+    fun _validatedAccountOwnershipViaCredential(): JsonField<Boolean> =
+        validatedAccountOwnershipViaCredential
 
     /** Whether account ownership was validated with an account statement. */
     @JsonProperty("validated_account_ownership_with_account_statement")
     @ExcludeMissing
-    fun _validatedAccountOwnershipWithAccountStatement() =
+    fun _validatedAccountOwnershipWithAccountStatement(): JsonField<Boolean> =
         validatedAccountOwnershipWithAccountStatement
 
     /** Whether account ownership was validated with microdeposit. */
     @JsonProperty("validated_account_ownership_with_microdeposit")
     @ExcludeMissing
-    fun _validatedAccountOwnershipWithMicrodeposit() = validatedAccountOwnershipWithMicrodeposit
+    fun _validatedAccountOwnershipWithMicrodeposit(): JsonField<Boolean> =
+        validatedAccountOwnershipWithMicrodeposit
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -259,24 +275,23 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
-        private var authorizationTerms: JsonField<String> = JsonMissing.of()
-        private var authorizedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var authorizerCompany: JsonField<String> = JsonMissing.of()
-        private var authorizerEmail: JsonField<String> = JsonMissing.of()
-        private var authorizerIpAddress: JsonField<String> = JsonMissing.of()
-        private var authorizerName: JsonField<String> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var customerHasBeenOffboarded: JsonField<Boolean> = JsonMissing.of()
-        private var idempotencyKey: JsonField<String> = JsonMissing.of()
-        private var proofOfAuthorizationRequestId: JsonField<String> = JsonMissing.of()
-        private var status: JsonField<Status> = JsonMissing.of()
-        private var type: JsonField<Type> = JsonMissing.of()
-        private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var validatedAccountOwnershipViaCredential: JsonField<Boolean> = JsonMissing.of()
-        private var validatedAccountOwnershipWithAccountStatement: JsonField<Boolean> =
-            JsonMissing.of()
-        private var validatedAccountOwnershipWithMicrodeposit: JsonField<Boolean> = JsonMissing.of()
+        private var id: JsonField<String>? = null
+        private var authorizationTerms: JsonField<String>? = null
+        private var authorizedAt: JsonField<OffsetDateTime>? = null
+        private var authorizerCompany: JsonField<String>? = null
+        private var authorizerEmail: JsonField<String>? = null
+        private var authorizerIpAddress: JsonField<String>? = null
+        private var authorizerName: JsonField<String>? = null
+        private var createdAt: JsonField<OffsetDateTime>? = null
+        private var customerHasBeenOffboarded: JsonField<Boolean>? = null
+        private var idempotencyKey: JsonField<String>? = null
+        private var proofOfAuthorizationRequestId: JsonField<String>? = null
+        private var status: JsonField<Status>? = null
+        private var type: JsonField<Type>? = null
+        private var updatedAt: JsonField<OffsetDateTime>? = null
+        private var validatedAccountOwnershipViaCredential: JsonField<Boolean>? = null
+        private var validatedAccountOwnershipWithAccountStatement: JsonField<Boolean>? = null
+        private var validatedAccountOwnershipWithMicrodeposit: JsonField<Boolean>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(
@@ -332,8 +347,8 @@ private constructor(
         }
 
         /** Company of the authorizer. */
-        fun authorizerCompany(authorizerCompany: String) =
-            authorizerCompany(JsonField.of(authorizerCompany))
+        fun authorizerCompany(authorizerCompany: String?) =
+            authorizerCompany(JsonField.ofNullable(authorizerCompany))
 
         /** Company of the authorizer. */
         fun authorizerCompany(authorizerCompany: JsonField<String>) = apply {
@@ -341,8 +356,8 @@ private constructor(
         }
 
         /** Email of the authorizer. */
-        fun authorizerEmail(authorizerEmail: String) =
-            authorizerEmail(JsonField.of(authorizerEmail))
+        fun authorizerEmail(authorizerEmail: String?) =
+            authorizerEmail(JsonField.ofNullable(authorizerEmail))
 
         /** Email of the authorizer. */
         fun authorizerEmail(authorizerEmail: JsonField<String>) = apply {
@@ -350,8 +365,8 @@ private constructor(
         }
 
         /** IP address of the authorizer. */
-        fun authorizerIpAddress(authorizerIpAddress: String) =
-            authorizerIpAddress(JsonField.of(authorizerIpAddress))
+        fun authorizerIpAddress(authorizerIpAddress: String?) =
+            authorizerIpAddress(JsonField.ofNullable(authorizerIpAddress))
 
         /** IP address of the authorizer. */
         fun authorizerIpAddress(authorizerIpAddress: JsonField<String>) = apply {
@@ -359,7 +374,8 @@ private constructor(
         }
 
         /** Name of the authorizer. */
-        fun authorizerName(authorizerName: String) = authorizerName(JsonField.of(authorizerName))
+        fun authorizerName(authorizerName: String?) =
+            authorizerName(JsonField.ofNullable(authorizerName))
 
         /** Name of the authorizer. */
         fun authorizerName(authorizerName: JsonField<String>) = apply {
@@ -373,8 +389,12 @@ private constructor(
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /** Whether the customer has been offboarded. */
+        fun customerHasBeenOffboarded(customerHasBeenOffboarded: Boolean?) =
+            customerHasBeenOffboarded(JsonField.ofNullable(customerHasBeenOffboarded))
+
+        /** Whether the customer has been offboarded. */
         fun customerHasBeenOffboarded(customerHasBeenOffboarded: Boolean) =
-            customerHasBeenOffboarded(JsonField.of(customerHasBeenOffboarded))
+            customerHasBeenOffboarded(customerHasBeenOffboarded as Boolean?)
 
         /** Whether the customer has been offboarded. */
         fun customerHasBeenOffboarded(customerHasBeenOffboarded: JsonField<Boolean>) = apply {
@@ -386,7 +406,8 @@ private constructor(
          * is used to ensure that a request is only processed once. Learn more about
          * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
-        fun idempotencyKey(idempotencyKey: String) = idempotencyKey(JsonField.of(idempotencyKey))
+        fun idempotencyKey(idempotencyKey: String?) =
+            idempotencyKey(JsonField.ofNullable(idempotencyKey))
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -433,10 +454,18 @@ private constructor(
 
         /** Whether account ownership was validated via credential (for instance, Plaid). */
         fun validatedAccountOwnershipViaCredential(
+            validatedAccountOwnershipViaCredential: Boolean?
+        ) =
+            validatedAccountOwnershipViaCredential(
+                JsonField.ofNullable(validatedAccountOwnershipViaCredential)
+            )
+
+        /** Whether account ownership was validated via credential (for instance, Plaid). */
+        fun validatedAccountOwnershipViaCredential(
             validatedAccountOwnershipViaCredential: Boolean
         ) =
             validatedAccountOwnershipViaCredential(
-                JsonField.of(validatedAccountOwnershipViaCredential)
+                validatedAccountOwnershipViaCredential as Boolean?
             )
 
         /** Whether account ownership was validated via credential (for instance, Plaid). */
@@ -448,10 +477,18 @@ private constructor(
 
         /** Whether account ownership was validated with an account statement. */
         fun validatedAccountOwnershipWithAccountStatement(
+            validatedAccountOwnershipWithAccountStatement: Boolean?
+        ) =
+            validatedAccountOwnershipWithAccountStatement(
+                JsonField.ofNullable(validatedAccountOwnershipWithAccountStatement)
+            )
+
+        /** Whether account ownership was validated with an account statement. */
+        fun validatedAccountOwnershipWithAccountStatement(
             validatedAccountOwnershipWithAccountStatement: Boolean
         ) =
             validatedAccountOwnershipWithAccountStatement(
-                JsonField.of(validatedAccountOwnershipWithAccountStatement)
+                validatedAccountOwnershipWithAccountStatement as Boolean?
             )
 
         /** Whether account ownership was validated with an account statement. */
@@ -464,10 +501,18 @@ private constructor(
 
         /** Whether account ownership was validated with microdeposit. */
         fun validatedAccountOwnershipWithMicrodeposit(
+            validatedAccountOwnershipWithMicrodeposit: Boolean?
+        ) =
+            validatedAccountOwnershipWithMicrodeposit(
+                JsonField.ofNullable(validatedAccountOwnershipWithMicrodeposit)
+            )
+
+        /** Whether account ownership was validated with microdeposit. */
+        fun validatedAccountOwnershipWithMicrodeposit(
             validatedAccountOwnershipWithMicrodeposit: Boolean
         ) =
             validatedAccountOwnershipWithMicrodeposit(
-                JsonField.of(validatedAccountOwnershipWithMicrodeposit)
+                validatedAccountOwnershipWithMicrodeposit as Boolean?
             )
 
         /** Whether account ownership was validated with microdeposit. */
@@ -499,23 +544,39 @@ private constructor(
 
         fun build(): ProofOfAuthorizationRequestSubmission =
             ProofOfAuthorizationRequestSubmission(
-                id,
-                authorizationTerms,
-                authorizedAt,
-                authorizerCompany,
-                authorizerEmail,
-                authorizerIpAddress,
-                authorizerName,
-                createdAt,
-                customerHasBeenOffboarded,
-                idempotencyKey,
-                proofOfAuthorizationRequestId,
-                status,
-                type,
-                updatedAt,
-                validatedAccountOwnershipViaCredential,
-                validatedAccountOwnershipWithAccountStatement,
-                validatedAccountOwnershipWithMicrodeposit,
+                checkNotNull(id) { "`id` is required but was not set" },
+                checkNotNull(authorizationTerms) {
+                    "`authorizationTerms` is required but was not set"
+                },
+                checkNotNull(authorizedAt) { "`authorizedAt` is required but was not set" },
+                checkNotNull(authorizerCompany) {
+                    "`authorizerCompany` is required but was not set"
+                },
+                checkNotNull(authorizerEmail) { "`authorizerEmail` is required but was not set" },
+                checkNotNull(authorizerIpAddress) {
+                    "`authorizerIpAddress` is required but was not set"
+                },
+                checkNotNull(authorizerName) { "`authorizerName` is required but was not set" },
+                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
+                checkNotNull(customerHasBeenOffboarded) {
+                    "`customerHasBeenOffboarded` is required but was not set"
+                },
+                checkNotNull(idempotencyKey) { "`idempotencyKey` is required but was not set" },
+                checkNotNull(proofOfAuthorizationRequestId) {
+                    "`proofOfAuthorizationRequestId` is required but was not set"
+                },
+                checkNotNull(status) { "`status` is required but was not set" },
+                checkNotNull(type) { "`type` is required but was not set" },
+                checkNotNull(updatedAt) { "`updatedAt` is required but was not set" },
+                checkNotNull(validatedAccountOwnershipViaCredential) {
+                    "`validatedAccountOwnershipViaCredential` is required but was not set"
+                },
+                checkNotNull(validatedAccountOwnershipWithAccountStatement) {
+                    "`validatedAccountOwnershipWithAccountStatement` is required but was not set"
+                },
+                checkNotNull(validatedAccountOwnershipWithMicrodeposit) {
+                    "`validatedAccountOwnershipWithMicrodeposit` is required but was not set"
+                },
                 additionalProperties.toImmutable(),
             )
     }

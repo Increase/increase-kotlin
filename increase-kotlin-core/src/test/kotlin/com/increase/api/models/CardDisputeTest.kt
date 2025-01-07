@@ -20,9 +20,11 @@ class CardDisputeTest {
                         .transactionId("transaction_id")
                         .build()
                 )
+                .amount(null)
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .disputedTransactionId("transaction_uyrp7fld2ium70oa7oi")
                 .explanation("Unauthorized recurring purchase")
+                .idempotencyKey(null)
                 .loss(
                     CardDispute.Loss.builder()
                         .cardDisputeId("card_dispute_id")
@@ -57,9 +59,11 @@ class CardDisputeTest {
                     .transactionId("transaction_id")
                     .build()
             )
+        assertThat(cardDispute.amount()).isNull()
         assertThat(cardDispute.createdAt()).isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
         assertThat(cardDispute.disputedTransactionId()).isEqualTo("transaction_uyrp7fld2ium70oa7oi")
         assertThat(cardDispute.explanation()).isEqualTo("Unauthorized recurring purchase")
+        assertThat(cardDispute.idempotencyKey()).isNull()
         assertThat(cardDispute.loss())
             .isEqualTo(
                 CardDispute.Loss.builder()

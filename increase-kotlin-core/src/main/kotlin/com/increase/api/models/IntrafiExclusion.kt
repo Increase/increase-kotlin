@@ -89,40 +89,46 @@ private constructor(
     fun type(): Type = type.getRequired("type")
 
     /** The identifier of this exclusion request. */
-    @JsonProperty("id") @ExcludeMissing fun _id() = id
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /** The name of the excluded institution. */
-    @JsonProperty("bank_name") @ExcludeMissing fun _bankName() = bankName
+    @JsonProperty("bank_name") @ExcludeMissing fun _bankName(): JsonField<String> = bankName
 
     /** The entity for which this institution is excluded. */
-    @JsonProperty("entity_id") @ExcludeMissing fun _entityId() = entityId
+    @JsonProperty("entity_id") @ExcludeMissing fun _entityId(): JsonField<String> = entityId
 
     /** When this was exclusion was confirmed by IntraFi. */
-    @JsonProperty("excluded_at") @ExcludeMissing fun _excludedAt() = excludedAt
+    @JsonProperty("excluded_at")
+    @ExcludeMissing
+    fun _excludedAt(): JsonField<OffsetDateTime> = excludedAt
 
     /** The Federal Deposit Insurance Corporation's certificate number for the institution. */
     @JsonProperty("fdic_certificate_number")
     @ExcludeMissing
-    fun _fdicCertificateNumber() = fdicCertificateNumber
+    fun _fdicCertificateNumber(): JsonField<String> = fdicCertificateNumber
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
      * used to ensure that a request is only processed once. Learn more about
      * [idempotency](https://increase.com/documentation/idempotency-keys).
      */
-    @JsonProperty("idempotency_key") @ExcludeMissing fun _idempotencyKey() = idempotencyKey
+    @JsonProperty("idempotency_key")
+    @ExcludeMissing
+    fun _idempotencyKey(): JsonField<String> = idempotencyKey
 
     /** The status of the exclusion request. */
-    @JsonProperty("status") @ExcludeMissing fun _status() = status
+    @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
     /** When this was exclusion was submitted to IntraFi by Increase. */
-    @JsonProperty("submitted_at") @ExcludeMissing fun _submittedAt() = submittedAt
+    @JsonProperty("submitted_at")
+    @ExcludeMissing
+    fun _submittedAt(): JsonField<OffsetDateTime> = submittedAt
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `intrafi_exclusion`.
      */
-    @JsonProperty("type") @ExcludeMissing fun _type() = type
+    @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -154,15 +160,15 @@ private constructor(
 
     class Builder {
 
-        private var id: JsonField<String> = JsonMissing.of()
-        private var bankName: JsonField<String> = JsonMissing.of()
-        private var entityId: JsonField<String> = JsonMissing.of()
-        private var excludedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var fdicCertificateNumber: JsonField<String> = JsonMissing.of()
-        private var idempotencyKey: JsonField<String> = JsonMissing.of()
-        private var status: JsonField<Status> = JsonMissing.of()
-        private var submittedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var type: JsonField<Type> = JsonMissing.of()
+        private var id: JsonField<String>? = null
+        private var bankName: JsonField<String>? = null
+        private var entityId: JsonField<String>? = null
+        private var excludedAt: JsonField<OffsetDateTime>? = null
+        private var fdicCertificateNumber: JsonField<String>? = null
+        private var idempotencyKey: JsonField<String>? = null
+        private var status: JsonField<Status>? = null
+        private var submittedAt: JsonField<OffsetDateTime>? = null
+        private var type: JsonField<Type>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(intrafiExclusion: IntrafiExclusion) = apply {
@@ -197,7 +203,7 @@ private constructor(
         fun entityId(entityId: JsonField<String>) = apply { this.entityId = entityId }
 
         /** When this was exclusion was confirmed by IntraFi. */
-        fun excludedAt(excludedAt: OffsetDateTime) = excludedAt(JsonField.of(excludedAt))
+        fun excludedAt(excludedAt: OffsetDateTime?) = excludedAt(JsonField.ofNullable(excludedAt))
 
         /** When this was exclusion was confirmed by IntraFi. */
         fun excludedAt(excludedAt: JsonField<OffsetDateTime>) = apply {
@@ -205,8 +211,8 @@ private constructor(
         }
 
         /** The Federal Deposit Insurance Corporation's certificate number for the institution. */
-        fun fdicCertificateNumber(fdicCertificateNumber: String) =
-            fdicCertificateNumber(JsonField.of(fdicCertificateNumber))
+        fun fdicCertificateNumber(fdicCertificateNumber: String?) =
+            fdicCertificateNumber(JsonField.ofNullable(fdicCertificateNumber))
 
         /** The Federal Deposit Insurance Corporation's certificate number for the institution. */
         fun fdicCertificateNumber(fdicCertificateNumber: JsonField<String>) = apply {
@@ -218,7 +224,8 @@ private constructor(
          * is used to ensure that a request is only processed once. Learn more about
          * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
-        fun idempotencyKey(idempotencyKey: String) = idempotencyKey(JsonField.of(idempotencyKey))
+        fun idempotencyKey(idempotencyKey: String?) =
+            idempotencyKey(JsonField.ofNullable(idempotencyKey))
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -236,7 +243,8 @@ private constructor(
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /** When this was exclusion was submitted to IntraFi by Increase. */
-        fun submittedAt(submittedAt: OffsetDateTime) = submittedAt(JsonField.of(submittedAt))
+        fun submittedAt(submittedAt: OffsetDateTime?) =
+            submittedAt(JsonField.ofNullable(submittedAt))
 
         /** When this was exclusion was submitted to IntraFi by Increase. */
         fun submittedAt(submittedAt: JsonField<OffsetDateTime>) = apply {
@@ -276,15 +284,17 @@ private constructor(
 
         fun build(): IntrafiExclusion =
             IntrafiExclusion(
-                id,
-                bankName,
-                entityId,
-                excludedAt,
-                fdicCertificateNumber,
-                idempotencyKey,
-                status,
-                submittedAt,
-                type,
+                checkNotNull(id) { "`id` is required but was not set" },
+                checkNotNull(bankName) { "`bankName` is required but was not set" },
+                checkNotNull(entityId) { "`entityId` is required but was not set" },
+                checkNotNull(excludedAt) { "`excludedAt` is required but was not set" },
+                checkNotNull(fdicCertificateNumber) {
+                    "`fdicCertificateNumber` is required but was not set"
+                },
+                checkNotNull(idempotencyKey) { "`idempotencyKey` is required but was not set" },
+                checkNotNull(status) { "`status` is required but was not set" },
+                checkNotNull(submittedAt) { "`submittedAt` is required but was not set" },
+                checkNotNull(type) { "`type` is required but was not set" },
                 additionalProperties.toImmutable(),
             )
     }

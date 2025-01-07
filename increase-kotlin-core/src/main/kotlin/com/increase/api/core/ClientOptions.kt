@@ -72,6 +72,16 @@ private constructor(
 
         fun baseUrl(baseUrl: String) = apply { this.baseUrl = baseUrl }
 
+        fun responseValidation(responseValidation: Boolean) = apply {
+            this.responseValidation = responseValidation
+        }
+
+        fun maxRetries(maxRetries: Int) = apply { this.maxRetries = maxRetries }
+
+        fun apiKey(apiKey: String) = apply { this.apiKey = apiKey }
+
+        fun webhookSecret(webhookSecret: String?) = apply { this.webhookSecret = webhookSecret }
+
         fun headers(headers: Headers) = apply {
             this.headers.clear()
             putAllHeaders(headers)
@@ -151,16 +161,6 @@ private constructor(
         fun removeQueryParams(key: String) = apply { queryParams.remove(key) }
 
         fun removeAllQueryParams(keys: Set<String>) = apply { queryParams.removeAll(keys) }
-
-        fun responseValidation(responseValidation: Boolean) = apply {
-            this.responseValidation = responseValidation
-        }
-
-        fun maxRetries(maxRetries: Int) = apply { this.maxRetries = maxRetries }
-
-        fun apiKey(apiKey: String) = apply { this.apiKey = apiKey }
-
-        fun webhookSecret(webhookSecret: String?) = apply { this.webhookSecret = webhookSecret }
 
         fun fromEnv() = apply {
             System.getenv("INCREASE_API_KEY")?.let { apiKey(it) }

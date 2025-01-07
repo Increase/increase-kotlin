@@ -20,8 +20,13 @@ class WireTransferTest {
                 .approval(
                     WireTransfer.Approval.builder()
                         .approvedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                        .approvedBy(null)
                         .build()
                 )
+                .beneficiaryAddressLine1(null)
+                .beneficiaryAddressLine2(null)
+                .beneficiaryAddressLine3(null)
+                .beneficiaryName(null)
                 .cancellation(
                     WireTransfer.Cancellation.builder()
                         .canceledAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -47,8 +52,14 @@ class WireTransferTest {
                 )
                 .currency(WireTransfer.Currency.CAD)
                 .externalAccountId("external_account_ukk55lr923a3ac0pp7iv")
+                .idempotencyKey(null)
                 .messageToRecipient("Message to recipient")
                 .network(WireTransfer.Network.WIRE)
+                .originatorAddressLine1(null)
+                .originatorAddressLine2(null)
+                .originatorAddressLine3(null)
+                .originatorName(null)
+                .pendingTransactionId(null)
                 .reversal(
                     WireTransfer.Reversal.builder()
                         .amount(0L)
@@ -79,6 +90,7 @@ class WireTransferTest {
                         .build()
                 )
                 .routingNumber("101050001")
+                .sourceAccountNumberId(null)
                 .status(WireTransfer.Status.PENDING_APPROVAL)
                 .submission(
                     WireTransfer.Submission.builder()
@@ -98,8 +110,13 @@ class WireTransferTest {
             .isEqualTo(
                 WireTransfer.Approval.builder()
                     .approvedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                    .approvedBy(null)
                     .build()
             )
+        assertThat(wireTransfer.beneficiaryAddressLine1()).isNull()
+        assertThat(wireTransfer.beneficiaryAddressLine2()).isNull()
+        assertThat(wireTransfer.beneficiaryAddressLine3()).isNull()
+        assertThat(wireTransfer.beneficiaryName()).isNull()
         assertThat(wireTransfer.cancellation())
             .isEqualTo(
                 WireTransfer.Cancellation.builder()
@@ -124,8 +141,14 @@ class WireTransferTest {
         assertThat(wireTransfer.currency()).isEqualTo(WireTransfer.Currency.CAD)
         assertThat(wireTransfer.externalAccountId())
             .isEqualTo("external_account_ukk55lr923a3ac0pp7iv")
+        assertThat(wireTransfer.idempotencyKey()).isNull()
         assertThat(wireTransfer.messageToRecipient()).isEqualTo("Message to recipient")
         assertThat(wireTransfer.network()).isEqualTo(WireTransfer.Network.WIRE)
+        assertThat(wireTransfer.originatorAddressLine1()).isNull()
+        assertThat(wireTransfer.originatorAddressLine2()).isNull()
+        assertThat(wireTransfer.originatorAddressLine3()).isNull()
+        assertThat(wireTransfer.originatorName()).isNull()
+        assertThat(wireTransfer.pendingTransactionId()).isNull()
         assertThat(wireTransfer.reversal())
             .isEqualTo(
                 WireTransfer.Reversal.builder()
@@ -155,6 +178,7 @@ class WireTransferTest {
                     .build()
             )
         assertThat(wireTransfer.routingNumber()).isEqualTo("101050001")
+        assertThat(wireTransfer.sourceAccountNumberId()).isNull()
         assertThat(wireTransfer.status()).isEqualTo(WireTransfer.Status.PENDING_APPROVAL)
         assertThat(wireTransfer.submission())
             .isEqualTo(

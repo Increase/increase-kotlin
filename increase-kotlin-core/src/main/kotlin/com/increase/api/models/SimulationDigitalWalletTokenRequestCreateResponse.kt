@@ -53,7 +53,9 @@ private constructor(
     /**
      * If the simulated tokenization attempt was declined, this field contains details as to why.
      */
-    @JsonProperty("decline_reason") @ExcludeMissing fun _declineReason() = declineReason
+    @JsonProperty("decline_reason")
+    @ExcludeMissing
+    fun _declineReason(): JsonField<DeclineReason> = declineReason
 
     /**
      * If the simulated tokenization attempt was accepted, this field contains the id of the Digital
@@ -61,13 +63,13 @@ private constructor(
      */
     @JsonProperty("digital_wallet_token_id")
     @ExcludeMissing
-    fun _digitalWalletTokenId() = digitalWalletTokenId
+    fun _digitalWalletTokenId(): JsonField<String> = digitalWalletTokenId
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `inbound_digital_wallet_token_request_simulation_result`.
      */
-    @JsonProperty("type") @ExcludeMissing fun _type() = type
+    @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -93,9 +95,9 @@ private constructor(
 
     class Builder {
 
-        private var declineReason: JsonField<DeclineReason> = JsonMissing.of()
-        private var digitalWalletTokenId: JsonField<String> = JsonMissing.of()
-        private var type: JsonField<Type> = JsonMissing.of()
+        private var declineReason: JsonField<DeclineReason>? = null
+        private var digitalWalletTokenId: JsonField<String>? = null
+        private var type: JsonField<Type>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(
@@ -115,7 +117,8 @@ private constructor(
          * If the simulated tokenization attempt was declined, this field contains details as to
          * why.
          */
-        fun declineReason(declineReason: DeclineReason) = declineReason(JsonField.of(declineReason))
+        fun declineReason(declineReason: DeclineReason?) =
+            declineReason(JsonField.ofNullable(declineReason))
 
         /**
          * If the simulated tokenization attempt was declined, this field contains details as to
@@ -129,8 +132,8 @@ private constructor(
          * If the simulated tokenization attempt was accepted, this field contains the id of the
          * Digital Wallet Token that was created.
          */
-        fun digitalWalletTokenId(digitalWalletTokenId: String) =
-            digitalWalletTokenId(JsonField.of(digitalWalletTokenId))
+        fun digitalWalletTokenId(digitalWalletTokenId: String?) =
+            digitalWalletTokenId(JsonField.ofNullable(digitalWalletTokenId))
 
         /**
          * If the simulated tokenization attempt was accepted, this field contains the id of the
@@ -173,9 +176,11 @@ private constructor(
 
         fun build(): SimulationDigitalWalletTokenRequestCreateResponse =
             SimulationDigitalWalletTokenRequestCreateResponse(
-                declineReason,
-                digitalWalletTokenId,
-                type,
+                checkNotNull(declineReason) { "`declineReason` is required but was not set" },
+                checkNotNull(digitalWalletTokenId) {
+                    "`digitalWalletTokenId` is required but was not set"
+                },
+                checkNotNull(type) { "`type` is required but was not set" },
                 additionalProperties.toImmutable(),
             )
     }

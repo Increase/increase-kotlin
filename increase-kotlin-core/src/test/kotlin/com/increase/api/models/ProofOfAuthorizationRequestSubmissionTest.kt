@@ -21,6 +21,7 @@ class ProofOfAuthorizationRequestSubmissionTest {
                 .authorizerName("Ian Crease")
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .customerHasBeenOffboarded(false)
+                .idempotencyKey(null)
                 .proofOfAuthorizationRequestId(
                     "proof_of_authorization_request_iwp8no25h3rjvil6ad3b"
                 )
@@ -52,6 +53,7 @@ class ProofOfAuthorizationRequestSubmissionTest {
             .isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
         assertThat(proofOfAuthorizationRequestSubmission.customerHasBeenOffboarded())
             .isEqualTo(false)
+        assertThat(proofOfAuthorizationRequestSubmission.idempotencyKey()).isNull()
         assertThat(proofOfAuthorizationRequestSubmission.proofOfAuthorizationRequestId())
             .isEqualTo("proof_of_authorization_request_iwp8no25h3rjvil6ad3b")
         assertThat(proofOfAuthorizationRequestSubmission.status())
