@@ -116,16 +116,18 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): OAuthApplication = apply {
-        if (!validated) {
-            id()
-            clientId()
-            createdAt()
-            deletedAt()
-            name()
-            status()
-            type()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        id()
+        clientId()
+        createdAt()
+        deletedAt()
+        name()
+        status()
+        type()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)

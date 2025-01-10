@@ -282,29 +282,31 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): WireDrawdownRequest = apply {
-        if (!validated) {
-            id()
-            accountNumberId()
-            amount()
-            currency()
-            fulfillmentInboundWireTransferId()
-            idempotencyKey()
-            messageToRecipient()
-            originatorAddressLine1()
-            originatorAddressLine2()
-            originatorAddressLine3()
-            originatorName()
-            recipientAccountNumber()
-            recipientAddressLine1()
-            recipientAddressLine2()
-            recipientAddressLine3()
-            recipientName()
-            recipientRoutingNumber()
-            status()
-            submission()?.validate()
-            type()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        id()
+        accountNumberId()
+        amount()
+        currency()
+        fulfillmentInboundWireTransferId()
+        idempotencyKey()
+        messageToRecipient()
+        originatorAddressLine1()
+        originatorAddressLine2()
+        originatorAddressLine3()
+        originatorName()
+        recipientAccountNumber()
+        recipientAddressLine1()
+        recipientAddressLine2()
+        recipientAddressLine3()
+        recipientName()
+        recipientRoutingNumber()
+        status()
+        submission()?.validate()
+        type()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)
@@ -733,10 +735,12 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): Submission = apply {
-            if (!validated) {
-                inputMessageAccountabilityData()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            inputMessageAccountabilityData()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

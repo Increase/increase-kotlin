@@ -165,19 +165,21 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): DeclinedTransaction = apply {
-        if (!validated) {
-            id()
-            accountId()
-            amount()
-            createdAt()
-            currency()
-            description()
-            routeId()
-            routeType()
-            source().validate()
-            type()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        id()
+        accountId()
+        amount()
+        createdAt()
+        currency()
+        description()
+        routeId()
+        routeType()
+        source().validate()
+        type()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)
@@ -654,16 +656,18 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): Source = apply {
-            if (!validated) {
-                achDecline()?.validate()
-                cardDecline()?.validate()
-                category()
-                checkDecline()?.validate()
-                checkDepositRejection()?.validate()
-                inboundRealTimePaymentsTransferDecline()?.validate()
-                wireDecline()?.validate()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            achDecline()?.validate()
+            cardDecline()?.validate()
+            category()
+            checkDecline()?.validate()
+            checkDepositRejection()?.validate()
+            inboundRealTimePaymentsTransferDecline()?.validate()
+            wireDecline()?.validate()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -1012,21 +1016,23 @@ private constructor(
             private var validated: Boolean = false
 
             fun validate(): AchDecline = apply {
-                if (!validated) {
-                    id()
-                    amount()
-                    inboundAchTransferId()
-                    originatorCompanyDescriptiveDate()
-                    originatorCompanyDiscretionaryData()
-                    originatorCompanyId()
-                    originatorCompanyName()
-                    reason()
-                    receiverIdNumber()
-                    receiverName()
-                    traceNumber()
-                    type()
-                    validated = true
+                if (validated) {
+                    return@apply
                 }
+
+                id()
+                amount()
+                inboundAchTransferId()
+                originatorCompanyDescriptiveDate()
+                originatorCompanyDiscretionaryData()
+                originatorCompanyId()
+                originatorCompanyName()
+                reason()
+                receiverIdNumber()
+                receiverName()
+                traceNumber()
+                type()
+                validated = true
             }
 
             fun toBuilder() = Builder().from(this)
@@ -1870,36 +1876,38 @@ private constructor(
             private var validated: Boolean = false
 
             fun validate(): CardDecline = apply {
-                if (!validated) {
-                    id()
-                    actioner()
-                    amount()
-                    cardPaymentId()
-                    currency()
-                    declinedTransactionId()
-                    digitalWalletTokenId()
-                    direction()
-                    merchantAcceptorId()
-                    merchantCategoryCode()
-                    merchantCity()
-                    merchantCountry()
-                    merchantDescriptor()
-                    merchantPostalCode()
-                    merchantState()
-                    networkDetails().validate()
-                    networkIdentifiers().validate()
-                    networkRiskScore()
-                    physicalCardId()
-                    presentmentAmount()
-                    presentmentCurrency()
-                    processingCategory()
-                    realTimeDecisionId()
-                    realTimeDecisionReason()
-                    reason()
-                    terminalId()
-                    verification().validate()
-                    validated = true
+                if (validated) {
+                    return@apply
                 }
+
+                id()
+                actioner()
+                amount()
+                cardPaymentId()
+                currency()
+                declinedTransactionId()
+                digitalWalletTokenId()
+                direction()
+                merchantAcceptorId()
+                merchantCategoryCode()
+                merchantCity()
+                merchantCountry()
+                merchantDescriptor()
+                merchantPostalCode()
+                merchantState()
+                networkDetails().validate()
+                networkIdentifiers().validate()
+                networkRiskScore()
+                physicalCardId()
+                presentmentAmount()
+                presentmentCurrency()
+                processingCategory()
+                realTimeDecisionId()
+                realTimeDecisionReason()
+                reason()
+                terminalId()
+                verification().validate()
+                validated = true
             }
 
             fun toBuilder() = Builder().from(this)
@@ -2624,11 +2632,13 @@ private constructor(
                 private var validated: Boolean = false
 
                 fun validate(): NetworkDetails = apply {
-                    if (!validated) {
-                        category()
-                        visa()?.validate()
-                        validated = true
+                    if (validated) {
+                        return@apply
                     }
+
+                    category()
+                    visa()?.validate()
+                    validated = true
                 }
 
                 fun toBuilder() = Builder().from(this)
@@ -2823,12 +2833,14 @@ private constructor(
                     private var validated: Boolean = false
 
                     fun validate(): Visa = apply {
-                        if (!validated) {
-                            electronicCommerceIndicator()
-                            pointOfServiceEntryMode()
-                            standInProcessingReason()
-                            validated = true
+                        if (validated) {
+                            return@apply
                         }
+
+                        electronicCommerceIndicator()
+                        pointOfServiceEntryMode()
+                        standInProcessingReason()
+                        validated = true
                     }
 
                     fun toBuilder() = Builder().from(this)
@@ -3365,12 +3377,14 @@ private constructor(
                 private var validated: Boolean = false
 
                 fun validate(): NetworkIdentifiers = apply {
-                    if (!validated) {
-                        retrievalReferenceNumber()
-                        traceNumber()
-                        transactionId()
-                        validated = true
+                    if (validated) {
+                        return@apply
                     }
+
+                    retrievalReferenceNumber()
+                    traceNumber()
+                    transactionId()
+                    validated = true
                 }
 
                 fun toBuilder() = Builder().from(this)
@@ -3852,11 +3866,13 @@ private constructor(
                 private var validated: Boolean = false
 
                 fun validate(): Verification = apply {
-                    if (!validated) {
-                        cardVerificationCode().validate()
-                        cardholderAddress().validate()
-                        validated = true
+                    if (validated) {
+                        return@apply
                     }
+
+                    cardVerificationCode().validate()
+                    cardholderAddress().validate()
+                    validated = true
                 }
 
                 fun toBuilder() = Builder().from(this)
@@ -3972,10 +3988,12 @@ private constructor(
                     private var validated: Boolean = false
 
                     fun validate(): CardVerificationCode = apply {
-                        if (!validated) {
-                            result()
-                            validated = true
+                        if (validated) {
+                            return@apply
                         }
+
+                        result()
+                        validated = true
                     }
 
                     fun toBuilder() = Builder().from(this)
@@ -4196,14 +4214,16 @@ private constructor(
                     private var validated: Boolean = false
 
                     fun validate(): CardholderAddress = apply {
-                        if (!validated) {
-                            actualLine1()
-                            actualPostalCode()
-                            providedLine1()
-                            providedPostalCode()
-                            result()
-                            validated = true
+                        if (validated) {
+                            return@apply
                         }
+
+                        actualLine1()
+                        actualPostalCode()
+                        providedLine1()
+                        providedPostalCode()
+                        result()
+                        validated = true
                     }
 
                     fun toBuilder() = Builder().from(this)
@@ -4674,16 +4694,18 @@ private constructor(
             private var validated: Boolean = false
 
             fun validate(): CheckDecline = apply {
-                if (!validated) {
-                    amount()
-                    auxiliaryOnUs()
-                    backImageFileId()
-                    checkTransferId()
-                    frontImageFileId()
-                    inboundCheckDepositId()
-                    reason()
-                    validated = true
+                if (validated) {
+                    return@apply
                 }
+
+                amount()
+                auxiliaryOnUs()
+                backImageFileId()
+                checkTransferId()
+                frontImageFileId()
+                inboundCheckDepositId()
+                reason()
+                validated = true
             }
 
             fun toBuilder() = Builder().from(this)
@@ -5104,15 +5126,17 @@ private constructor(
             private var validated: Boolean = false
 
             fun validate(): CheckDepositRejection = apply {
-                if (!validated) {
-                    amount()
-                    checkDepositId()
-                    currency()
-                    declinedTransactionId()
-                    reason()
-                    rejectedAt()
-                    validated = true
+                if (validated) {
+                    return@apply
                 }
+
+                amount()
+                checkDepositId()
+                currency()
+                declinedTransactionId()
+                reason()
+                rejectedAt()
+                validated = true
             }
 
             fun toBuilder() = Builder().from(this)
@@ -5594,19 +5618,21 @@ private constructor(
             private var validated: Boolean = false
 
             fun validate(): InboundRealTimePaymentsTransferDecline = apply {
-                if (!validated) {
-                    amount()
-                    creditorName()
-                    currency()
-                    debtorAccountNumber()
-                    debtorName()
-                    debtorRoutingNumber()
-                    reason()
-                    remittanceInformation()
-                    transactionIdentification()
-                    transferId()
-                    validated = true
+                if (validated) {
+                    return@apply
                 }
+
+                amount()
+                creditorName()
+                currency()
+                debtorAccountNumber()
+                debtorName()
+                debtorRoutingNumber()
+                reason()
+                remittanceInformation()
+                transactionIdentification()
+                transferId()
+                validated = true
             }
 
             fun toBuilder() = Builder().from(this)
@@ -6014,11 +6040,13 @@ private constructor(
             private var validated: Boolean = false
 
             fun validate(): WireDecline = apply {
-                if (!validated) {
-                    inboundWireTransferId()
-                    reason()
-                    validated = true
+                if (validated) {
+                    return@apply
                 }
+
+                inboundWireTransferId()
+                reason()
+                validated = true
             }
 
             fun toBuilder() = Builder().from(this)

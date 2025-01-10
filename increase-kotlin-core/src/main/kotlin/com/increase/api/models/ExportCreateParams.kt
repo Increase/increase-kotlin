@@ -192,15 +192,17 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): ExportCreateBody = apply {
-            if (!validated) {
-                category()
-                accountStatementOfx()?.validate()
-                balanceCsv()?.validate()
-                bookkeepingAccountBalanceCsv()?.validate()
-                entityCsv()?.validate()
-                transactionCsv()?.validate()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            category()
+            accountStatementOfx()?.validate()
+            balanceCsv()?.validate()
+            bookkeepingAccountBalanceCsv()?.validate()
+            entityCsv()?.validate()
+            transactionCsv()?.validate()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -677,11 +679,13 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): AccountStatementOfx = apply {
-            if (!validated) {
-                accountId()
-                createdAt()?.validate()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            accountId()
+            createdAt()?.validate()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -824,13 +828,15 @@ constructor(
             private var validated: Boolean = false
 
             fun validate(): CreatedAt = apply {
-                if (!validated) {
-                    after()
-                    before()
-                    onOrAfter()
-                    onOrBefore()
-                    validated = true
+                if (validated) {
+                    return@apply
                 }
+
+                after()
+                before()
+                onOrAfter()
+                onOrBefore()
+                validated = true
             }
 
             fun toBuilder() = Builder().from(this)
@@ -1021,12 +1027,14 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): BalanceCsv = apply {
-            if (!validated) {
-                accountId()
-                createdAt()?.validate()
-                programId()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            accountId()
+            createdAt()?.validate()
+            programId()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -1178,13 +1186,15 @@ constructor(
             private var validated: Boolean = false
 
             fun validate(): CreatedAt = apply {
-                if (!validated) {
-                    after()
-                    before()
-                    onOrAfter()
-                    onOrBefore()
-                    validated = true
+                if (validated) {
+                    return@apply
                 }
+
+                after()
+                before()
+                onOrAfter()
+                onOrBefore()
+                validated = true
             }
 
             fun toBuilder() = Builder().from(this)
@@ -1372,11 +1382,13 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): BookkeepingAccountBalanceCsv = apply {
-            if (!validated) {
-                bookkeepingAccountId()
-                createdAt()?.validate()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            bookkeepingAccountId()
+            createdAt()?.validate()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -1523,13 +1535,15 @@ constructor(
             private var validated: Boolean = false
 
             fun validate(): CreatedAt = apply {
-                if (!validated) {
-                    after()
-                    before()
-                    onOrAfter()
-                    onOrBefore()
-                    validated = true
+                if (validated) {
+                    return@apply
                 }
+
+                after()
+                before()
+                onOrAfter()
+                onOrBefore()
+                validated = true
             }
 
             fun toBuilder() = Builder().from(this)
@@ -1700,10 +1714,12 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): EntityCsv = apply {
-            if (!validated) {
-                status()?.validate()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            status()?.validate()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -1782,10 +1798,12 @@ constructor(
             private var validated: Boolean = false
 
             fun validate(): Status = apply {
-                if (!validated) {
-                    in_()
-                    validated = true
+                if (validated) {
+                    return@apply
                 }
+
+                in_()
+                validated = true
             }
 
             fun toBuilder() = Builder().from(this)
@@ -2007,12 +2025,14 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): TransactionCsv = apply {
-            if (!validated) {
-                accountId()
-                createdAt()?.validate()
-                programId()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            accountId()
+            createdAt()?.validate()
+            programId()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -2164,13 +2184,15 @@ constructor(
             private var validated: Boolean = false
 
             fun validate(): CreatedAt = apply {
-                if (!validated) {
-                    after()
-                    before()
-                    onOrAfter()
-                    onOrBefore()
-                    validated = true
+                if (validated) {
+                    return@apply
                 }
+
+                after()
+                before()
+                onOrAfter()
+                onOrBefore()
+                validated = true
             }
 
             fun toBuilder() = Builder().from(this)

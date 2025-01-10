@@ -170,14 +170,16 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): CardUpdateBody = apply {
-            if (!validated) {
-                billingAddress()?.validate()
-                description()
-                digitalWallet()?.validate()
-                entityId()
-                status()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            billingAddress()?.validate()
+            description()
+            digitalWallet()?.validate()
+            entityId()
+            status()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -567,14 +569,16 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): BillingAddress = apply {
-            if (!validated) {
-                city()
-                line1()
-                postalCode()
-                state()
-                line2()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            city()
+            line1()
+            postalCode()
+            state()
+            line2()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -739,12 +743,14 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): DigitalWallet = apply {
-            if (!validated) {
-                digitalCardProfileId()
-                email()
-                phone()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            digitalCardProfileId()
+            email()
+            phone()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

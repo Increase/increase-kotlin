@@ -149,19 +149,21 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): File = apply {
-        if (!validated) {
-            id()
-            createdAt()
-            description()
-            direction()
-            downloadUrl()
-            filename()
-            idempotencyKey()
-            mimeType()
-            purpose()
-            type()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        id()
+        createdAt()
+        description()
+        direction()
+        downloadUrl()
+        filename()
+        idempotencyKey()
+        mimeType()
+        purpose()
+        type()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)

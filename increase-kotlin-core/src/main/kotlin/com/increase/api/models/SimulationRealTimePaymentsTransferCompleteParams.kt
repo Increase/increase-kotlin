@@ -86,10 +86,12 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): SimulationRealTimePaymentsTransferCompleteBody = apply {
-            if (!validated) {
-                rejection()?.validate()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            rejection()?.validate()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -360,10 +362,12 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): Rejection = apply {
-            if (!validated) {
-                rejectReasonCode()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            rejectReasonCode()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

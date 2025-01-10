@@ -118,13 +118,15 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): AccountNumberCreateBody = apply {
-            if (!validated) {
-                accountId()
-                name()
-                inboundAch()?.validate()
-                inboundChecks()?.validate()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            accountId()
+            name()
+            inboundAch()?.validate()
+            inboundChecks()?.validate()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -438,10 +440,12 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): InboundAch = apply {
-            if (!validated) {
-                debitStatus()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            debitStatus()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -609,10 +613,12 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): InboundChecks = apply {
-            if (!validated) {
-                status()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            status()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
