@@ -131,13 +131,15 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): PhysicalCardCreateBody = apply {
-            if (!validated) {
-                cardId()
-                cardholder().validate()
-                shipment().validate()
-                physicalCardProfileId()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            cardId()
+            cardholder().validate()
+            shipment().validate()
+            physicalCardProfileId()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -458,11 +460,13 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): Cardholder = apply {
-            if (!validated) {
-                firstName()
-                lastName()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            firstName()
+            lastName()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -575,11 +579,13 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): Shipment = apply {
-            if (!validated) {
-                address().validate()
-                method()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            address().validate()
+            method()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -732,17 +738,19 @@ constructor(
             private var validated: Boolean = false
 
             fun validate(): Address = apply {
-                if (!validated) {
-                    city()
-                    line1()
-                    name()
-                    postalCode()
-                    state()
-                    line2()
-                    line3()
-                    phoneNumber()
-                    validated = true
+                if (validated) {
+                    return@apply
                 }
+
+                city()
+                line1()
+                name()
+                postalCode()
+                state()
+                line2()
+                line3()
+                phoneNumber()
+                validated = true
             }
 
             fun toBuilder() = Builder().from(this)

@@ -213,16 +213,18 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): CheckTransferCreateBody = apply {
-            if (!validated) {
-                accountId()
-                amount()
-                sourceAccountNumberId()
-                fulfillmentMethod()
-                physicalCheck()?.validate()
-                requireApproval()
-                thirdParty()?.validate()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            accountId()
+            amount()
+            sourceAccountNumberId()
+            fulfillmentMethod()
+            physicalCheck()?.validate()
+            requireApproval()
+            thirdParty()?.validate()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -760,15 +762,17 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): PhysicalCheck = apply {
-            if (!validated) {
-                mailingAddress().validate()
-                memo()
-                recipientName()
-                note()
-                returnAddress()?.validate()
-                signatureText()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            mailingAddress().validate()
+            memo()
+            recipientName()
+            note()
+            returnAddress()?.validate()
+            signatureText()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -965,15 +969,17 @@ constructor(
             private var validated: Boolean = false
 
             fun validate(): MailingAddress = apply {
-                if (!validated) {
-                    city()
-                    line1()
-                    postalCode()
-                    state()
-                    line2()
-                    name()
-                    validated = true
+                if (validated) {
+                    return@apply
                 }
+
+                city()
+                line1()
+                postalCode()
+                state()
+                line2()
+                name()
+                validated = true
             }
 
             fun toBuilder() = Builder().from(this)
@@ -1174,15 +1180,17 @@ constructor(
             private var validated: Boolean = false
 
             fun validate(): ReturnAddress = apply {
-                if (!validated) {
-                    city()
-                    line1()
-                    name()
-                    postalCode()
-                    state()
-                    line2()
-                    validated = true
+                if (validated) {
+                    return@apply
                 }
+
+                city()
+                line1()
+                name()
+                postalCode()
+                state()
+                line2()
+                validated = true
             }
 
             fun toBuilder() = Builder().from(this)
@@ -1359,10 +1367,12 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): ThirdParty = apply {
-            if (!validated) {
-                checkNumber()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            checkNumber()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

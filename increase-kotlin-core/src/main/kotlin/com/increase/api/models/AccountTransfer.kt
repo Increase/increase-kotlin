@@ -249,26 +249,28 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): AccountTransfer = apply {
-        if (!validated) {
-            id()
-            accountId()
-            amount()
-            approval()?.validate()
-            cancellation()?.validate()
-            createdAt()
-            createdBy()?.validate()
-            currency()
-            description()
-            destinationAccountId()
-            destinationTransactionId()
-            idempotencyKey()
-            network()
-            pendingTransactionId()
-            status()
-            transactionId()
-            type()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        id()
+        accountId()
+        amount()
+        approval()?.validate()
+        cancellation()?.validate()
+        createdAt()
+        createdBy()?.validate()
+        currency()
+        description()
+        destinationAccountId()
+        destinationTransactionId()
+        idempotencyKey()
+        network()
+        pendingTransactionId()
+        status()
+        transactionId()
+        type()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)
@@ -593,11 +595,13 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): Approval = apply {
-            if (!validated) {
-                approvedAt()
-                approvedBy()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            approvedAt()
+            approvedBy()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -741,11 +745,13 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): Cancellation = apply {
-            if (!validated) {
-                canceledAt()
-                canceledBy()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            canceledAt()
+            canceledBy()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -891,13 +897,15 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): CreatedBy = apply {
-            if (!validated) {
-                apiKey()?.validate()
-                category()
-                oauthApplication()?.validate()
-                user()?.validate()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            apiKey()?.validate()
+            category()
+            oauthApplication()?.validate()
+            user()?.validate()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -1008,10 +1016,12 @@ private constructor(
             private var validated: Boolean = false
 
             fun validate(): ApiKey = apply {
-                if (!validated) {
-                    description()
-                    validated = true
+                if (validated) {
+                    return@apply
                 }
+
+                description()
+                validated = true
             }
 
             fun toBuilder() = Builder().from(this)
@@ -1175,10 +1185,12 @@ private constructor(
             private var validated: Boolean = false
 
             fun validate(): OAuthApplication = apply {
-                if (!validated) {
-                    name()
-                    validated = true
+                if (validated) {
+                    return@apply
                 }
+
+                name()
+                validated = true
             }
 
             fun toBuilder() = Builder().from(this)
@@ -1276,10 +1288,12 @@ private constructor(
             private var validated: Boolean = false
 
             fun validate(): User = apply {
-                if (!validated) {
-                    email()
-                    validated = true
+                if (validated) {
+                    return@apply
                 }
+
+                email()
+                validated = true
             }
 
             fun toBuilder() = Builder().from(this)

@@ -234,24 +234,26 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): Entity = apply {
-        if (!validated) {
-            id()
-            corporation()?.validate()
-            createdAt()
-            description()
-            detailsConfirmedAt()
-            governmentAuthority()?.validate()
-            idempotencyKey()
-            joint()?.validate()
-            naturalPerson()?.validate()
-            status()
-            structure()
-            supplementalDocuments().forEach { it.validate() }
-            thirdPartyVerification()?.validate()
-            trust()?.validate()
-            type()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        id()
+        corporation()?.validate()
+        createdAt()
+        description()
+        detailsConfirmedAt()
+        governmentAuthority()?.validate()
+        idempotencyKey()
+        joint()?.validate()
+        naturalPerson()?.validate()
+        status()
+        structure()
+        supplementalDocuments().forEach { it.validate() }
+        thirdPartyVerification()?.validate()
+        trust()?.validate()
+        type()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)
@@ -638,16 +640,18 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): Corporation = apply {
-            if (!validated) {
-                address().validate()
-                beneficialOwners().forEach { it.validate() }
-                incorporationState()
-                industryCode()
-                name()
-                taxIdentifier()
-                website()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            address().validate()
+            beneficialOwners().forEach { it.validate() }
+            incorporationState()
+            industryCode()
+            name()
+            taxIdentifier()
+            website()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -870,14 +874,16 @@ private constructor(
             private var validated: Boolean = false
 
             fun validate(): Address = apply {
-                if (!validated) {
-                    city()
-                    line1()
-                    line2()
-                    state()
-                    zip()
-                    validated = true
+                if (validated) {
+                    return@apply
                 }
+
+                city()
+                line1()
+                line2()
+                state()
+                zip()
+                validated = true
             }
 
             fun toBuilder() = Builder().from(this)
@@ -1049,13 +1055,15 @@ private constructor(
             private var validated: Boolean = false
 
             fun validate(): BeneficialOwner = apply {
-                if (!validated) {
-                    beneficialOwnerId()
-                    companyTitle()
-                    individual().validate()
-                    prong()
-                    validated = true
+                if (validated) {
+                    return@apply
                 }
+
+                beneficialOwnerId()
+                companyTitle()
+                individual().validate()
+                prong()
+                validated = true
             }
 
             fun toBuilder() = Builder().from(this)
@@ -1205,13 +1213,15 @@ private constructor(
                 private var validated: Boolean = false
 
                 fun validate(): Individual = apply {
-                    if (!validated) {
-                        address().validate()
-                        dateOfBirth()
-                        identification().validate()
-                        name()
-                        validated = true
+                    if (validated) {
+                        return@apply
                     }
+
+                    address().validate()
+                    dateOfBirth()
+                    identification().validate()
+                    name()
+                    validated = true
                 }
 
                 fun toBuilder() = Builder().from(this)
@@ -1369,14 +1379,16 @@ private constructor(
                     private var validated: Boolean = false
 
                     fun validate(): Address = apply {
-                        if (!validated) {
-                            city()
-                            line1()
-                            line2()
-                            state()
-                            zip()
-                            validated = true
+                        if (validated) {
+                            return@apply
                         }
+
+                        city()
+                        line1()
+                        line2()
+                        state()
+                        zip()
+                        validated = true
                     }
 
                     fun toBuilder() = Builder().from(this)
@@ -1536,11 +1548,13 @@ private constructor(
                     private var validated: Boolean = false
 
                     fun validate(): Identification = apply {
-                        if (!validated) {
-                            method()
-                            numberLast4()
-                            validated = true
+                        if (validated) {
+                            return@apply
                         }
+
+                        method()
+                        numberLast4()
+                        validated = true
                     }
 
                     fun toBuilder() = Builder().from(this)
@@ -1903,15 +1917,17 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): GovernmentAuthority = apply {
-            if (!validated) {
-                address().validate()
-                authorizedPersons().forEach { it.validate() }
-                category()
-                name()
-                taxIdentifier()
-                website()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            address().validate()
+            authorizedPersons().forEach { it.validate() }
+            category()
+            name()
+            taxIdentifier()
+            website()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -2096,14 +2112,16 @@ private constructor(
             private var validated: Boolean = false
 
             fun validate(): Address = apply {
-                if (!validated) {
-                    city()
-                    line1()
-                    line2()
-                    state()
-                    zip()
-                    validated = true
+                if (validated) {
+                    return@apply
                 }
+
+                city()
+                line1()
+                line2()
+                state()
+                zip()
+                validated = true
             }
 
             fun toBuilder() = Builder().from(this)
@@ -2254,11 +2272,13 @@ private constructor(
             private var validated: Boolean = false
 
             fun validate(): AuthorizedPerson = apply {
-                if (!validated) {
-                    authorizedPersonId()
-                    name()
-                    validated = true
+                if (validated) {
+                    return@apply
                 }
+
+                authorizedPersonId()
+                name()
+                validated = true
             }
 
             fun toBuilder() = Builder().from(this)
@@ -2450,11 +2470,13 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): Joint = apply {
-            if (!validated) {
-                individuals().forEach { it.validate() }
-                name()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            individuals().forEach { it.validate() }
+            name()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -2585,13 +2607,15 @@ private constructor(
             private var validated: Boolean = false
 
             fun validate(): Individual = apply {
-                if (!validated) {
-                    address().validate()
-                    dateOfBirth()
-                    identification().validate()
-                    name()
-                    validated = true
+                if (validated) {
+                    return@apply
                 }
+
+                address().validate()
+                dateOfBirth()
+                identification().validate()
+                name()
+                validated = true
             }
 
             fun toBuilder() = Builder().from(this)
@@ -2747,14 +2771,16 @@ private constructor(
                 private var validated: Boolean = false
 
                 fun validate(): Address = apply {
-                    if (!validated) {
-                        city()
-                        line1()
-                        line2()
-                        state()
-                        zip()
-                        validated = true
+                    if (validated) {
+                        return@apply
                     }
+
+                    city()
+                    line1()
+                    line2()
+                    state()
+                    zip()
+                    validated = true
                 }
 
                 fun toBuilder() = Builder().from(this)
@@ -2911,11 +2937,13 @@ private constructor(
                 private var validated: Boolean = false
 
                 fun validate(): Identification = apply {
-                    if (!validated) {
-                        method()
-                        numberLast4()
-                        validated = true
+                    if (validated) {
+                        return@apply
                     }
+
+                    method()
+                    numberLast4()
+                    validated = true
                 }
 
                 fun toBuilder() = Builder().from(this)
@@ -3181,13 +3209,15 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): NaturalPerson = apply {
-            if (!validated) {
-                address().validate()
-                dateOfBirth()
-                identification().validate()
-                name()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            address().validate()
+            dateOfBirth()
+            identification().validate()
+            name()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -3338,14 +3368,16 @@ private constructor(
             private var validated: Boolean = false
 
             fun validate(): Address = apply {
-                if (!validated) {
-                    city()
-                    line1()
-                    line2()
-                    state()
-                    zip()
-                    validated = true
+                if (validated) {
+                    return@apply
                 }
+
+                city()
+                line1()
+                line2()
+                state()
+                zip()
+                validated = true
             }
 
             fun toBuilder() = Builder().from(this)
@@ -3502,11 +3534,13 @@ private constructor(
             private var validated: Boolean = false
 
             fun validate(): Identification = apply {
-                if (!validated) {
-                    method()
-                    numberLast4()
-                    validated = true
+                if (validated) {
+                    return@apply
                 }
+
+                method()
+                numberLast4()
+                validated = true
             }
 
             fun toBuilder() = Builder().from(this)
@@ -3867,11 +3901,13 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): ThirdPartyVerification = apply {
-            if (!validated) {
-                reference()
-                vendor()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            reference()
+            vendor()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -4110,17 +4146,19 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): Trust = apply {
-            if (!validated) {
-                address().validate()
-                category()
-                formationDocumentFileId()
-                formationState()
-                grantor()?.validate()
-                name()
-                taxIdentifier()
-                trustees().forEach { it.validate() }
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            address().validate()
+            category()
+            formationDocumentFileId()
+            formationState()
+            grantor()?.validate()
+            name()
+            taxIdentifier()
+            trustees().forEach { it.validate() }
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -4334,14 +4372,16 @@ private constructor(
             private var validated: Boolean = false
 
             fun validate(): Address = apply {
-                if (!validated) {
-                    city()
-                    line1()
-                    line2()
-                    state()
-                    zip()
-                    validated = true
+                if (validated) {
+                    return@apply
                 }
+
+                city()
+                line1()
+                line2()
+                state()
+                zip()
+                validated = true
             }
 
             fun toBuilder() = Builder().from(this)
@@ -4569,13 +4609,15 @@ private constructor(
             private var validated: Boolean = false
 
             fun validate(): Grantor = apply {
-                if (!validated) {
-                    address().validate()
-                    dateOfBirth()
-                    identification().validate()
-                    name()
-                    validated = true
+                if (validated) {
+                    return@apply
                 }
+
+                address().validate()
+                dateOfBirth()
+                identification().validate()
+                name()
+                validated = true
             }
 
             fun toBuilder() = Builder().from(this)
@@ -4731,14 +4773,16 @@ private constructor(
                 private var validated: Boolean = false
 
                 fun validate(): Address = apply {
-                    if (!validated) {
-                        city()
-                        line1()
-                        line2()
-                        state()
-                        zip()
-                        validated = true
+                    if (validated) {
+                        return@apply
                     }
+
+                    city()
+                    line1()
+                    line2()
+                    state()
+                    zip()
+                    validated = true
                 }
 
                 fun toBuilder() = Builder().from(this)
@@ -4895,11 +4939,13 @@ private constructor(
                 private var validated: Boolean = false
 
                 fun validate(): Identification = apply {
-                    if (!validated) {
-                        method()
-                        numberLast4()
-                        validated = true
+                    if (validated) {
+                        return@apply
                     }
+
+                    method()
+                    numberLast4()
+                    validated = true
                 }
 
                 fun toBuilder() = Builder().from(this)
@@ -5131,11 +5177,13 @@ private constructor(
             private var validated: Boolean = false
 
             fun validate(): Trustee = apply {
-                if (!validated) {
-                    individual()?.validate()
-                    structure()
-                    validated = true
+                if (validated) {
+                    return@apply
                 }
+
+                individual()?.validate()
+                structure()
+                validated = true
             }
 
             fun toBuilder() = Builder().from(this)
@@ -5271,13 +5319,15 @@ private constructor(
                 private var validated: Boolean = false
 
                 fun validate(): Individual = apply {
-                    if (!validated) {
-                        address().validate()
-                        dateOfBirth()
-                        identification().validate()
-                        name()
-                        validated = true
+                    if (validated) {
+                        return@apply
                     }
+
+                    address().validate()
+                    dateOfBirth()
+                    identification().validate()
+                    name()
+                    validated = true
                 }
 
                 fun toBuilder() = Builder().from(this)
@@ -5435,14 +5485,16 @@ private constructor(
                     private var validated: Boolean = false
 
                     fun validate(): Address = apply {
-                        if (!validated) {
-                            city()
-                            line1()
-                            line2()
-                            state()
-                            zip()
-                            validated = true
+                        if (validated) {
+                            return@apply
                         }
+
+                        city()
+                        line1()
+                        line2()
+                        state()
+                        zip()
+                        validated = true
                     }
 
                     fun toBuilder() = Builder().from(this)
@@ -5602,11 +5654,13 @@ private constructor(
                     private var validated: Boolean = false
 
                     fun validate(): Identification = apply {
-                        if (!validated) {
-                            method()
-                            numberLast4()
-                            validated = true
+                        if (validated) {
+                            return@apply
                         }
+
+                        method()
+                        numberLast4()
+                        validated = true
                     }
 
                     fun toBuilder() = Builder().from(this)

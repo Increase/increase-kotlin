@@ -210,25 +210,27 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): InboundRealTimePaymentsTransfer = apply {
-        if (!validated) {
-            id()
-            accountId()
-            accountNumberId()
-            amount()
-            confirmation()?.validate()
-            createdAt()
-            creditorName()
-            currency()
-            debtorAccountNumber()
-            debtorName()
-            debtorRoutingNumber()
-            decline()?.validate()
-            remittanceInformation()
-            status()
-            transactionIdentification()
-            type()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        id()
+        accountId()
+        accountNumberId()
+        amount()
+        confirmation()?.validate()
+        createdAt()
+        creditorName()
+        currency()
+        debtorAccountNumber()
+        debtorName()
+        debtorRoutingNumber()
+        decline()?.validate()
+        remittanceInformation()
+        status()
+        transactionIdentification()
+        type()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)
@@ -502,11 +504,13 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): Confirmation = apply {
-            if (!validated) {
-                confirmedAt()
-                transactionId()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            confirmedAt()
+            transactionId()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -718,12 +722,14 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): Decline = apply {
-            if (!validated) {
-                declinedAt()
-                declinedTransactionId()
-                reason()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            declinedAt()
+            declinedTransactionId()
+            reason()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
