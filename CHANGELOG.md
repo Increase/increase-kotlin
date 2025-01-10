@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.155.1 (2025-01-10)
+
+Full Changelog: [v0.155.0...v0.155.1](https://github.com/Increase/increase-kotlin/compare/v0.155.0...v0.155.1)
+
+### Bug Fixes
+
+* **client:** add some missing `validate()` calls ([#690](https://github.com/Increase/increase-kotlin/issues/690)) ([799b348](https://github.com/Increase/increase-kotlin/commit/799b348a986bfcd1e8ab2989ff642bfbaf87d008))
+
+
+### Chores
+
+* **internal:** codegen related update ([#688](https://github.com/Increase/increase-kotlin/issues/688)) ([9f1c0ac](https://github.com/Increase/increase-kotlin/commit/9f1c0ac51cf003368ce5c0b772d151fab084c08c))
+* **internal:** refactor `validate` methods ([799b348](https://github.com/Increase/increase-kotlin/commit/799b348a986bfcd1e8ab2989ff642bfbaf87d008))
+
 ## 0.155.0 (2025-01-07)
 
 Full Changelog: [v0.154.1...v0.155.0](https://github.com/Increase/increase-kotlin/compare/v0.154.1...v0.155.0)
