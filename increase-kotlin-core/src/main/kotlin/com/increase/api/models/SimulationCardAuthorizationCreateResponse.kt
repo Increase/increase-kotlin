@@ -83,12 +83,14 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): SimulationCardAuthorizationCreateResponse = apply {
-        if (!validated) {
-            declinedTransaction()?.validate()
-            pendingTransaction()?.validate()
-            type()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        declinedTransaction()?.validate()
+        pendingTransaction()?.validate()
+        type()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)

@@ -98,15 +98,17 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): Document = apply {
-        if (!validated) {
-            id()
-            category()
-            createdAt()
-            entityId()
-            fileId()
-            type()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        id()
+        category()
+        createdAt()
+        entityId()
+        fileId()
+        type()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)

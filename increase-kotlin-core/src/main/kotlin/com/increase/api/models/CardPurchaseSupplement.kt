@@ -98,15 +98,17 @@ private constructor(
     private var validated: Boolean = false
 
     fun validate(): CardPurchaseSupplement = apply {
-        if (!validated) {
-            id()
-            cardPaymentId()
-            invoice()?.validate()
-            lineItems()?.forEach { it.validate() }
-            transactionId()
-            type()
-            validated = true
+        if (validated) {
+            return@apply
         }
+
+        id()
+        cardPaymentId()
+        invoice()?.validate()
+        lineItems()?.forEach { it.validate() }
+        transactionId()
+        type()
+        validated = true
     }
 
     fun toBuilder() = Builder().from(this)
@@ -430,25 +432,27 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): Invoice = apply {
-            if (!validated) {
-                discountAmount()
-                discountCurrency()
-                discountTreatmentCode()
-                dutyTaxAmount()
-                dutyTaxCurrency()
-                orderDate()
-                shippingAmount()
-                shippingCurrency()
-                shippingDestinationCountryCode()
-                shippingDestinationPostalCode()
-                shippingSourcePostalCode()
-                shippingTaxAmount()
-                shippingTaxCurrency()
-                shippingTaxRate()
-                taxTreatments()
-                uniqueValueAddedTaxInvoiceReference()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            discountAmount()
+            discountCurrency()
+            discountTreatmentCode()
+            dutyTaxAmount()
+            dutyTaxCurrency()
+            orderDate()
+            shippingAmount()
+            shippingCurrency()
+            shippingDestinationCountryCode()
+            shippingDestinationPostalCode()
+            shippingSourcePostalCode()
+            shippingTaxAmount()
+            shippingTaxCurrency()
+            shippingTaxRate()
+            taxTreatments()
+            uniqueValueAddedTaxInvoiceReference()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -1091,26 +1095,28 @@ private constructor(
         private var validated: Boolean = false
 
         fun validate(): LineItem = apply {
-            if (!validated) {
-                id()
-                detailIndicator()
-                discountAmount()
-                discountCurrency()
-                discountTreatmentCode()
-                itemCommodityCode()
-                itemDescriptor()
-                itemQuantity()
-                productCode()
-                salesTaxAmount()
-                salesTaxCurrency()
-                salesTaxRate()
-                totalAmount()
-                totalAmountCurrency()
-                unitCost()
-                unitCostCurrency()
-                unitOfMeasureCode()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            id()
+            detailIndicator()
+            discountAmount()
+            discountCurrency()
+            discountTreatmentCode()
+            itemCommodityCode()
+            itemDescriptor()
+            itemQuantity()
+            productCode()
+            salesTaxAmount()
+            salesTaxCurrency()
+            salesTaxRate()
+            totalAmount()
+            totalAmountCurrency()
+            unitCost()
+            unitCostCurrency()
+            unitOfMeasureCode()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)

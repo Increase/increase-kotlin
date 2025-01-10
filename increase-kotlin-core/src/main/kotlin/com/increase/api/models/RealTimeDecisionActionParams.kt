@@ -223,14 +223,16 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): RealTimeDecisionActionBody = apply {
-            if (!validated) {
-                cardAuthentication()?.validate()
-                cardAuthenticationChallenge()?.validate()
-                cardAuthorization()?.validate()
-                digitalWalletAuthentication()?.validate()
-                digitalWalletToken()?.validate()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            cardAuthentication()?.validate()
+            cardAuthenticationChallenge()?.validate()
+            cardAuthorization()?.validate()
+            digitalWalletAuthentication()?.validate()
+            digitalWalletToken()?.validate()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -651,10 +653,12 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): CardAuthentication = apply {
-            if (!validated) {
-                decision()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            decision()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -819,10 +823,12 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): CardAuthenticationChallenge = apply {
-            if (!validated) {
-                result()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            result()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -1001,11 +1007,13 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): CardAuthorization = apply {
-            if (!validated) {
-                decision()
-                declineReason()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            decision()
+            declineReason()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -1266,11 +1274,13 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): DigitalWalletAuthentication = apply {
-            if (!validated) {
-                result()
-                success()?.validate()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            result()
+            success()?.validate()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -1426,11 +1436,13 @@ constructor(
             private var validated: Boolean = false
 
             fun validate(): Success = apply {
-                if (!validated) {
-                    email()
-                    phone()
-                    validated = true
+                if (validated) {
+                    return@apply
                 }
+
+                email()
+                phone()
+                validated = true
             }
 
             fun toBuilder() = Builder().from(this)
@@ -1589,11 +1601,13 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): DigitalWalletToken = apply {
-            if (!validated) {
-                approval()?.validate()
-                decline()?.validate()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            approval()?.validate()
+            decline()?.validate()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -1709,11 +1723,13 @@ constructor(
             private var validated: Boolean = false
 
             fun validate(): Approval = apply {
-                if (!validated) {
-                    email()
-                    phone()
-                    validated = true
+                if (validated) {
+                    return@apply
                 }
+
+                email()
+                phone()
+                validated = true
             }
 
             fun toBuilder() = Builder().from(this)
@@ -1839,10 +1855,12 @@ constructor(
             private var validated: Boolean = false
 
             fun validate(): Decline = apply {
-                if (!validated) {
-                    reason()
-                    validated = true
+                if (validated) {
+                    return@apply
                 }
+
+                reason()
+                validated = true
             }
 
             fun toBuilder() = Builder().from(this)

@@ -182,16 +182,18 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): RealTimePaymentsRequestForPaymentCreateBody = apply {
-            if (!validated) {
-                amount()
-                debtor().validate()
-                destinationAccountNumberId()
-                expiresAt()
-                remittanceInformation()
-                sourceAccountNumber()
-                sourceRoutingNumber()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            amount()
+            debtor().validate()
+            destinationAccountNumberId()
+            expiresAt()
+            remittanceInformation()
+            sourceAccountNumber()
+            sourceRoutingNumber()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -598,11 +600,13 @@ constructor(
         private var validated: Boolean = false
 
         fun validate(): Debtor = apply {
-            if (!validated) {
-                address().validate()
-                name()
-                validated = true
+            if (validated) {
+                return@apply
             }
+
+            address().validate()
+            name()
+            validated = true
         }
 
         fun toBuilder() = Builder().from(this)
@@ -717,13 +721,15 @@ constructor(
             private var validated: Boolean = false
 
             fun validate(): Address = apply {
-                if (!validated) {
-                    country()
-                    city()
-                    postCode()
-                    streetName()
-                    validated = true
+                if (validated) {
+                    return@apply
                 }
+
+                country()
+                city()
+                postCode()
+                streetName()
+                validated = true
             }
 
             fun toBuilder() = Builder().from(this)
