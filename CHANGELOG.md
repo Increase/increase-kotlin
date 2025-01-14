@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.156.0 (2025-01-14)
+
+Full Changelog: [v0.155.1...v0.156.0](https://github.com/Increase/increase-kotlin/compare/v0.155.1...v0.156.0)
+
+### Features
+
+* **api:** api update ([#697](https://github.com/Increase/increase-kotlin/issues/697)) ([86da387](https://github.com/Increase/increase-kotlin/commit/86da387c8bb38ed8ff8aae2a8ae4bb7a10f82878))
+
+
+### Chores
+
+* **internal:** fix up root `build.gradle.kts` formatting ([#692](https://github.com/Increase/increase-kotlin/issues/692)) ([85f1ba6](https://github.com/Increase/increase-kotlin/commit/85f1ba670fbc6caa6c48f6f78303aad8184e71a2))
+* **internal:** remove unused Gradle imports ([#694](https://github.com/Increase/increase-kotlin/issues/694)) ([1544474](https://github.com/Increase/increase-kotlin/commit/15444744209089b8d98af2ebb1db73550ba2d81e))
+* **internal:** remove unused or unnecessary Gradle imports ([#695](https://github.com/Increase/increase-kotlin/issues/695)) ([0a4afc2](https://github.com/Increase/increase-kotlin/commit/0a4afc2b17279c3051ff989705f14e3068bbabfa))
+* **internal:** update some gradle formatting ([#696](https://github.com/Increase/increase-kotlin/issues/696)) ([f98ffb9](https://github.com/Increase/increase-kotlin/commit/f98ffb93ff971b122c09adb5340e068dd89eb526))
+
 ## 0.155.1 (2025-01-10)
 
 Full Changelog: [v0.155.0...v0.155.1](https://github.com/Increase/increase-kotlin/compare/v0.155.0...v0.155.1)
