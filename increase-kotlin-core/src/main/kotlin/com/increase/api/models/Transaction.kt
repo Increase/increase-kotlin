@@ -12,6 +12,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
@@ -344,16 +345,16 @@ private constructor(
 
         fun build(): Transaction =
             Transaction(
-                checkNotNull(id) { "`id` is required but was not set" },
-                checkNotNull(accountId) { "`accountId` is required but was not set" },
-                checkNotNull(amount) { "`amount` is required but was not set" },
-                checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                checkNotNull(currency) { "`currency` is required but was not set" },
-                checkNotNull(description) { "`description` is required but was not set" },
-                checkNotNull(routeId) { "`routeId` is required but was not set" },
-                checkNotNull(routeType) { "`routeType` is required but was not set" },
-                checkNotNull(source) { "`source` is required but was not set" },
-                checkNotNull(type) { "`type` is required but was not set" },
+                checkRequired("id", id),
+                checkRequired("accountId", accountId),
+                checkRequired("amount", amount),
+                checkRequired("createdAt", createdAt),
+                checkRequired("currency", currency),
+                checkRequired("description", description),
+                checkRequired("routeId", routeId),
+                checkRequired("routeType", routeType),
+                checkRequired("source", source),
+                checkRequired("type", type),
                 additionalProperties.toImmutable(),
             )
     }
@@ -1536,70 +1537,41 @@ private constructor(
 
             fun build(): Source =
                 Source(
-                    checkNotNull(accountTransferIntention) {
-                        "`accountTransferIntention` is required but was not set"
-                    },
-                    checkNotNull(achTransferIntention) {
-                        "`achTransferIntention` is required but was not set"
-                    },
-                    checkNotNull(achTransferRejection) {
-                        "`achTransferRejection` is required but was not set"
-                    },
-                    checkNotNull(achTransferReturn) {
-                        "`achTransferReturn` is required but was not set"
-                    },
-                    checkNotNull(cardDisputeAcceptance) {
-                        "`cardDisputeAcceptance` is required but was not set"
-                    },
-                    checkNotNull(cardDisputeLoss) {
-                        "`cardDisputeLoss` is required but was not set"
-                    },
-                    checkNotNull(cardRefund) { "`cardRefund` is required but was not set" },
-                    checkNotNull(cardRevenuePayment) {
-                        "`cardRevenuePayment` is required but was not set"
-                    },
-                    checkNotNull(cardSettlement) { "`cardSettlement` is required but was not set" },
-                    checkNotNull(cashbackPayment) {
-                        "`cashbackPayment` is required but was not set"
-                    },
-                    checkNotNull(category) { "`category` is required but was not set" },
-                    checkNotNull(checkDepositAcceptance) {
-                        "`checkDepositAcceptance` is required but was not set"
-                    },
-                    checkNotNull(checkDepositReturn) {
-                        "`checkDepositReturn` is required but was not set"
-                    },
-                    checkNotNull(checkTransferDeposit) {
-                        "`checkTransferDeposit` is required but was not set"
-                    },
-                    checkNotNull(feePayment) { "`feePayment` is required but was not set" },
-                    checkNotNull(inboundAchTransfer) {
-                        "`inboundAchTransfer` is required but was not set"
-                    },
-                    checkNotNull(inboundRealTimePaymentsTransferConfirmation) {
-                        "`inboundRealTimePaymentsTransferConfirmation` is required but was not set"
-                    },
-                    checkNotNull(inboundRealTimePaymentsTransferDecline) {
-                        "`inboundRealTimePaymentsTransferDecline` is required but was not set"
-                    },
-                    checkNotNull(inboundWireReversal) {
-                        "`inboundWireReversal` is required but was not set"
-                    },
-                    checkNotNull(inboundWireTransfer) {
-                        "`inboundWireTransfer` is required but was not set"
-                    },
-                    checkNotNull(interestPayment) {
-                        "`interestPayment` is required but was not set"
-                    },
-                    checkNotNull(internalSource) { "`internalSource` is required but was not set" },
-                    checkNotNull(other) { "`other` is required but was not set" },
-                    checkNotNull(realTimePaymentsTransferAcknowledgement) {
-                        "`realTimePaymentsTransferAcknowledgement` is required but was not set"
-                    },
-                    checkNotNull(sampleFunds) { "`sampleFunds` is required but was not set" },
-                    checkNotNull(wireTransferIntention) {
-                        "`wireTransferIntention` is required but was not set"
-                    },
+                    checkRequired("accountTransferIntention", accountTransferIntention),
+                    checkRequired("achTransferIntention", achTransferIntention),
+                    checkRequired("achTransferRejection", achTransferRejection),
+                    checkRequired("achTransferReturn", achTransferReturn),
+                    checkRequired("cardDisputeAcceptance", cardDisputeAcceptance),
+                    checkRequired("cardDisputeLoss", cardDisputeLoss),
+                    checkRequired("cardRefund", cardRefund),
+                    checkRequired("cardRevenuePayment", cardRevenuePayment),
+                    checkRequired("cardSettlement", cardSettlement),
+                    checkRequired("cashbackPayment", cashbackPayment),
+                    checkRequired("category", category),
+                    checkRequired("checkDepositAcceptance", checkDepositAcceptance),
+                    checkRequired("checkDepositReturn", checkDepositReturn),
+                    checkRequired("checkTransferDeposit", checkTransferDeposit),
+                    checkRequired("feePayment", feePayment),
+                    checkRequired("inboundAchTransfer", inboundAchTransfer),
+                    checkRequired(
+                        "inboundRealTimePaymentsTransferConfirmation",
+                        inboundRealTimePaymentsTransferConfirmation
+                    ),
+                    checkRequired(
+                        "inboundRealTimePaymentsTransferDecline",
+                        inboundRealTimePaymentsTransferDecline
+                    ),
+                    checkRequired("inboundWireReversal", inboundWireReversal),
+                    checkRequired("inboundWireTransfer", inboundWireTransfer),
+                    checkRequired("interestPayment", interestPayment),
+                    checkRequired("internalSource", internalSource),
+                    checkRequired("other", other),
+                    checkRequired(
+                        "realTimePaymentsTransferAcknowledgement",
+                        realTimePaymentsTransferAcknowledgement
+                    ),
+                    checkRequired("sampleFunds", sampleFunds),
+                    checkRequired("wireTransferIntention", wireTransferIntention),
                     additionalProperties.toImmutable(),
                 )
         }
@@ -1823,16 +1795,12 @@ private constructor(
 
                 fun build(): AccountTransferIntention =
                     AccountTransferIntention(
-                        checkNotNull(amount) { "`amount` is required but was not set" },
-                        checkNotNull(currency) { "`currency` is required but was not set" },
-                        checkNotNull(description) { "`description` is required but was not set" },
-                        checkNotNull(destinationAccountId) {
-                            "`destinationAccountId` is required but was not set"
-                        },
-                        checkNotNull(sourceAccountId) {
-                            "`sourceAccountId` is required but was not set"
-                        },
-                        checkNotNull(transferId) { "`transferId` is required but was not set" },
+                        checkRequired("amount", amount),
+                        checkRequired("currency", currency),
+                        checkRequired("description", description),
+                        checkRequired("destinationAccountId", destinationAccountId),
+                        checkRequired("sourceAccountId", sourceAccountId),
+                        checkRequired("transferId", transferId),
                         additionalProperties.toImmutable(),
                     )
             }
@@ -2135,17 +2103,11 @@ private constructor(
 
                 fun build(): AchTransferIntention =
                     AchTransferIntention(
-                        checkNotNull(accountNumber) {
-                            "`accountNumber` is required but was not set"
-                        },
-                        checkNotNull(amount) { "`amount` is required but was not set" },
-                        checkNotNull(routingNumber) {
-                            "`routingNumber` is required but was not set"
-                        },
-                        checkNotNull(statementDescriptor) {
-                            "`statementDescriptor` is required but was not set"
-                        },
-                        checkNotNull(transferId) { "`transferId` is required but was not set" },
+                        checkRequired("accountNumber", accountNumber),
+                        checkRequired("amount", amount),
+                        checkRequired("routingNumber", routingNumber),
+                        checkRequired("statementDescriptor", statementDescriptor),
+                        checkRequired("transferId", transferId),
                         additionalProperties.toImmutable(),
                     )
             }
@@ -2255,7 +2217,7 @@ private constructor(
 
                 fun build(): AchTransferRejection =
                     AchTransferRejection(
-                        checkNotNull(transferId) { "`transferId` is required but was not set" },
+                        checkRequired("transferId", transferId),
                         additionalProperties.toImmutable()
                     )
             }
@@ -2524,18 +2486,12 @@ private constructor(
 
                 fun build(): AchTransferReturn =
                     AchTransferReturn(
-                        checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                        checkNotNull(rawReturnReasonCode) {
-                            "`rawReturnReasonCode` is required but was not set"
-                        },
-                        checkNotNull(returnReasonCode) {
-                            "`returnReasonCode` is required but was not set"
-                        },
-                        checkNotNull(traceNumber) { "`traceNumber` is required but was not set" },
-                        checkNotNull(transactionId) {
-                            "`transactionId` is required but was not set"
-                        },
-                        checkNotNull(transferId) { "`transferId` is required but was not set" },
+                        checkRequired("createdAt", createdAt),
+                        checkRequired("rawReturnReasonCode", rawReturnReasonCode),
+                        checkRequired("returnReasonCode", returnReasonCode),
+                        checkRequired("traceNumber", traceNumber),
+                        checkRequired("transactionId", transactionId),
+                        checkRequired("transferId", transferId),
                         additionalProperties.toImmutable(),
                     )
             }
@@ -3249,13 +3205,9 @@ private constructor(
 
                 fun build(): CardDisputeAcceptance =
                     CardDisputeAcceptance(
-                        checkNotNull(acceptedAt) { "`acceptedAt` is required but was not set" },
-                        checkNotNull(cardDisputeId) {
-                            "`cardDisputeId` is required but was not set"
-                        },
-                        checkNotNull(transactionId) {
-                            "`transactionId` is required but was not set"
-                        },
+                        checkRequired("acceptedAt", acceptedAt),
+                        checkRequired("cardDisputeId", cardDisputeId),
+                        checkRequired("transactionId", transactionId),
                         additionalProperties.toImmutable(),
                     )
             }
@@ -3455,14 +3407,10 @@ private constructor(
 
                 fun build(): CardDisputeLoss =
                     CardDisputeLoss(
-                        checkNotNull(cardDisputeId) {
-                            "`cardDisputeId` is required but was not set"
-                        },
-                        checkNotNull(explanation) { "`explanation` is required but was not set" },
-                        checkNotNull(lostAt) { "`lostAt` is required but was not set" },
-                        checkNotNull(transactionId) {
-                            "`transactionId` is required but was not set"
-                        },
+                        checkRequired("cardDisputeId", cardDisputeId),
+                        checkRequired("explanation", explanation),
+                        checkRequired("lostAt", lostAt),
+                        checkRequired("transactionId", transactionId),
                         additionalProperties.toImmutable(),
                     )
             }
@@ -4056,47 +4004,25 @@ private constructor(
 
                 fun build(): CardRefund =
                     CardRefund(
-                        checkNotNull(id) { "`id` is required but was not set" },
-                        checkNotNull(amount) { "`amount` is required but was not set" },
-                        checkNotNull(cardPaymentId) {
-                            "`cardPaymentId` is required but was not set"
-                        },
-                        checkNotNull(cashback) { "`cashback` is required but was not set" },
-                        checkNotNull(currency) { "`currency` is required but was not set" },
-                        checkNotNull(interchange) { "`interchange` is required but was not set" },
-                        checkNotNull(merchantAcceptorId) {
-                            "`merchantAcceptorId` is required but was not set"
-                        },
-                        checkNotNull(merchantCategoryCode) {
-                            "`merchantCategoryCode` is required but was not set"
-                        },
-                        checkNotNull(merchantCity) { "`merchantCity` is required but was not set" },
-                        checkNotNull(merchantCountry) {
-                            "`merchantCountry` is required but was not set"
-                        },
-                        checkNotNull(merchantName) { "`merchantName` is required but was not set" },
-                        checkNotNull(merchantPostalCode) {
-                            "`merchantPostalCode` is required but was not set"
-                        },
-                        checkNotNull(merchantState) {
-                            "`merchantState` is required but was not set"
-                        },
-                        checkNotNull(networkIdentifiers) {
-                            "`networkIdentifiers` is required but was not set"
-                        },
-                        checkNotNull(presentmentAmount) {
-                            "`presentmentAmount` is required but was not set"
-                        },
-                        checkNotNull(presentmentCurrency) {
-                            "`presentmentCurrency` is required but was not set"
-                        },
-                        checkNotNull(purchaseDetails) {
-                            "`purchaseDetails` is required but was not set"
-                        },
-                        checkNotNull(transactionId) {
-                            "`transactionId` is required but was not set"
-                        },
-                        checkNotNull(type) { "`type` is required but was not set" },
+                        checkRequired("id", id),
+                        checkRequired("amount", amount),
+                        checkRequired("cardPaymentId", cardPaymentId),
+                        checkRequired("cashback", cashback),
+                        checkRequired("currency", currency),
+                        checkRequired("interchange", interchange),
+                        checkRequired("merchantAcceptorId", merchantAcceptorId),
+                        checkRequired("merchantCategoryCode", merchantCategoryCode),
+                        checkRequired("merchantCity", merchantCity),
+                        checkRequired("merchantCountry", merchantCountry),
+                        checkRequired("merchantName", merchantName),
+                        checkRequired("merchantPostalCode", merchantPostalCode),
+                        checkRequired("merchantState", merchantState),
+                        checkRequired("networkIdentifiers", networkIdentifiers),
+                        checkRequired("presentmentAmount", presentmentAmount),
+                        checkRequired("presentmentCurrency", presentmentCurrency),
+                        checkRequired("purchaseDetails", purchaseDetails),
+                        checkRequired("transactionId", transactionId),
+                        checkRequired("type", type),
                         additionalProperties.toImmutable(),
                     )
             }
@@ -4224,8 +4150,8 @@ private constructor(
 
                     fun build(): Cashback =
                         Cashback(
-                            checkNotNull(amount) { "`amount` is required but was not set" },
-                            checkNotNull(currency) { "`currency` is required but was not set" },
+                            checkRequired("amount", amount),
+                            checkRequired("currency", currency),
                             additionalProperties.toImmutable(),
                         )
                 }
@@ -4557,9 +4483,9 @@ private constructor(
 
                     fun build(): Interchange =
                         Interchange(
-                            checkNotNull(amount) { "`amount` is required but was not set" },
-                            checkNotNull(code) { "`code` is required but was not set" },
-                            checkNotNull(currency) { "`currency` is required but was not set" },
+                            checkRequired("amount", amount),
+                            checkRequired("code", code),
+                            checkRequired("currency", currency),
                             additionalProperties.toImmutable(),
                         )
                 }
@@ -4823,15 +4749,9 @@ private constructor(
 
                     fun build(): NetworkIdentifiers =
                         NetworkIdentifiers(
-                            checkNotNull(acquirerBusinessId) {
-                                "`acquirerBusinessId` is required but was not set"
-                            },
-                            checkNotNull(acquirerReferenceNumber) {
-                                "`acquirerReferenceNumber` is required but was not set"
-                            },
-                            checkNotNull(transactionId) {
-                                "`transactionId` is required but was not set"
-                            },
+                            checkRequired("acquirerBusinessId", acquirerBusinessId),
+                            checkRequired("acquirerReferenceNumber", acquirerReferenceNumber),
+                            checkRequired("transactionId", transactionId),
                             additionalProperties.toImmutable(),
                         )
                 }
@@ -5193,30 +5113,19 @@ private constructor(
 
                     fun build(): PurchaseDetails =
                         PurchaseDetails(
-                            checkNotNull(carRental) { "`carRental` is required but was not set" },
-                            checkNotNull(customerReferenceIdentifier) {
-                                "`customerReferenceIdentifier` is required but was not set"
-                            },
-                            checkNotNull(localTaxAmount) {
-                                "`localTaxAmount` is required but was not set"
-                            },
-                            checkNotNull(localTaxCurrency) {
-                                "`localTaxCurrency` is required but was not set"
-                            },
-                            checkNotNull(lodging) { "`lodging` is required but was not set" },
-                            checkNotNull(nationalTaxAmount) {
-                                "`nationalTaxAmount` is required but was not set"
-                            },
-                            checkNotNull(nationalTaxCurrency) {
-                                "`nationalTaxCurrency` is required but was not set"
-                            },
-                            checkNotNull(purchaseIdentifier) {
-                                "`purchaseIdentifier` is required but was not set"
-                            },
-                            checkNotNull(purchaseIdentifierFormat) {
-                                "`purchaseIdentifierFormat` is required but was not set"
-                            },
-                            checkNotNull(travel) { "`travel` is required but was not set" },
+                            checkRequired("carRental", carRental),
+                            checkRequired(
+                                "customerReferenceIdentifier",
+                                customerReferenceIdentifier
+                            ),
+                            checkRequired("localTaxAmount", localTaxAmount),
+                            checkRequired("localTaxCurrency", localTaxCurrency),
+                            checkRequired("lodging", lodging),
+                            checkRequired("nationalTaxAmount", nationalTaxAmount),
+                            checkRequired("nationalTaxCurrency", nationalTaxCurrency),
+                            checkRequired("purchaseIdentifier", purchaseIdentifier),
+                            checkRequired("purchaseIdentifierFormat", purchaseIdentifierFormat),
+                            checkRequired("travel", travel),
                             additionalProperties.toImmutable(),
                         )
                 }
@@ -5799,54 +5708,28 @@ private constructor(
 
                         fun build(): CarRental =
                             CarRental(
-                                checkNotNull(carClassCode) {
-                                    "`carClassCode` is required but was not set"
-                                },
-                                checkNotNull(checkoutDate) {
-                                    "`checkoutDate` is required but was not set"
-                                },
-                                checkNotNull(dailyRentalRateAmount) {
-                                    "`dailyRentalRateAmount` is required but was not set"
-                                },
-                                checkNotNull(dailyRentalRateCurrency) {
-                                    "`dailyRentalRateCurrency` is required but was not set"
-                                },
-                                checkNotNull(daysRented) {
-                                    "`daysRented` is required but was not set"
-                                },
-                                checkNotNull(extraCharges) {
-                                    "`extraCharges` is required but was not set"
-                                },
-                                checkNotNull(fuelChargesAmount) {
-                                    "`fuelChargesAmount` is required but was not set"
-                                },
-                                checkNotNull(fuelChargesCurrency) {
-                                    "`fuelChargesCurrency` is required but was not set"
-                                },
-                                checkNotNull(insuranceChargesAmount) {
-                                    "`insuranceChargesAmount` is required but was not set"
-                                },
-                                checkNotNull(insuranceChargesCurrency) {
-                                    "`insuranceChargesCurrency` is required but was not set"
-                                },
-                                checkNotNull(noShowIndicator) {
-                                    "`noShowIndicator` is required but was not set"
-                                },
-                                checkNotNull(oneWayDropOffChargesAmount) {
-                                    "`oneWayDropOffChargesAmount` is required but was not set"
-                                },
-                                checkNotNull(oneWayDropOffChargesCurrency) {
-                                    "`oneWayDropOffChargesCurrency` is required but was not set"
-                                },
-                                checkNotNull(renterName) {
-                                    "`renterName` is required but was not set"
-                                },
-                                checkNotNull(weeklyRentalRateAmount) {
-                                    "`weeklyRentalRateAmount` is required but was not set"
-                                },
-                                checkNotNull(weeklyRentalRateCurrency) {
-                                    "`weeklyRentalRateCurrency` is required but was not set"
-                                },
+                                checkRequired("carClassCode", carClassCode),
+                                checkRequired("checkoutDate", checkoutDate),
+                                checkRequired("dailyRentalRateAmount", dailyRentalRateAmount),
+                                checkRequired("dailyRentalRateCurrency", dailyRentalRateCurrency),
+                                checkRequired("daysRented", daysRented),
+                                checkRequired("extraCharges", extraCharges),
+                                checkRequired("fuelChargesAmount", fuelChargesAmount),
+                                checkRequired("fuelChargesCurrency", fuelChargesCurrency),
+                                checkRequired("insuranceChargesAmount", insuranceChargesAmount),
+                                checkRequired("insuranceChargesCurrency", insuranceChargesCurrency),
+                                checkRequired("noShowIndicator", noShowIndicator),
+                                checkRequired(
+                                    "oneWayDropOffChargesAmount",
+                                    oneWayDropOffChargesAmount
+                                ),
+                                checkRequired(
+                                    "oneWayDropOffChargesCurrency",
+                                    oneWayDropOffChargesCurrency
+                                ),
+                                checkRequired("renterName", renterName),
+                                checkRequired("weeklyRentalRateAmount", weeklyRentalRateAmount),
+                                checkRequired("weeklyRentalRateCurrency", weeklyRentalRateCurrency),
                                 additionalProperties.toImmutable(),
                             )
                     }
@@ -6583,54 +6466,31 @@ private constructor(
 
                         fun build(): Lodging =
                             Lodging(
-                                checkNotNull(checkInDate) {
-                                    "`checkInDate` is required but was not set"
-                                },
-                                checkNotNull(dailyRoomRateAmount) {
-                                    "`dailyRoomRateAmount` is required but was not set"
-                                },
-                                checkNotNull(dailyRoomRateCurrency) {
-                                    "`dailyRoomRateCurrency` is required but was not set"
-                                },
-                                checkNotNull(extraCharges) {
-                                    "`extraCharges` is required but was not set"
-                                },
-                                checkNotNull(folioCashAdvancesAmount) {
-                                    "`folioCashAdvancesAmount` is required but was not set"
-                                },
-                                checkNotNull(folioCashAdvancesCurrency) {
-                                    "`folioCashAdvancesCurrency` is required but was not set"
-                                },
-                                checkNotNull(foodBeverageChargesAmount) {
-                                    "`foodBeverageChargesAmount` is required but was not set"
-                                },
-                                checkNotNull(foodBeverageChargesCurrency) {
-                                    "`foodBeverageChargesCurrency` is required but was not set"
-                                },
-                                checkNotNull(noShowIndicator) {
-                                    "`noShowIndicator` is required but was not set"
-                                },
-                                checkNotNull(prepaidExpensesAmount) {
-                                    "`prepaidExpensesAmount` is required but was not set"
-                                },
-                                checkNotNull(prepaidExpensesCurrency) {
-                                    "`prepaidExpensesCurrency` is required but was not set"
-                                },
-                                checkNotNull(roomNights) {
-                                    "`roomNights` is required but was not set"
-                                },
-                                checkNotNull(totalRoomTaxAmount) {
-                                    "`totalRoomTaxAmount` is required but was not set"
-                                },
-                                checkNotNull(totalRoomTaxCurrency) {
-                                    "`totalRoomTaxCurrency` is required but was not set"
-                                },
-                                checkNotNull(totalTaxAmount) {
-                                    "`totalTaxAmount` is required but was not set"
-                                },
-                                checkNotNull(totalTaxCurrency) {
-                                    "`totalTaxCurrency` is required but was not set"
-                                },
+                                checkRequired("checkInDate", checkInDate),
+                                checkRequired("dailyRoomRateAmount", dailyRoomRateAmount),
+                                checkRequired("dailyRoomRateCurrency", dailyRoomRateCurrency),
+                                checkRequired("extraCharges", extraCharges),
+                                checkRequired("folioCashAdvancesAmount", folioCashAdvancesAmount),
+                                checkRequired(
+                                    "folioCashAdvancesCurrency",
+                                    folioCashAdvancesCurrency
+                                ),
+                                checkRequired(
+                                    "foodBeverageChargesAmount",
+                                    foodBeverageChargesAmount
+                                ),
+                                checkRequired(
+                                    "foodBeverageChargesCurrency",
+                                    foodBeverageChargesCurrency
+                                ),
+                                checkRequired("noShowIndicator", noShowIndicator),
+                                checkRequired("prepaidExpensesAmount", prepaidExpensesAmount),
+                                checkRequired("prepaidExpensesCurrency", prepaidExpensesCurrency),
+                                checkRequired("roomNights", roomNights),
+                                checkRequired("totalRoomTaxAmount", totalRoomTaxAmount),
+                                checkRequired("totalRoomTaxCurrency", totalRoomTaxCurrency),
+                                checkRequired("totalTaxAmount", totalTaxAmount),
+                                checkRequired("totalTaxCurrency", totalTaxCurrency),
                                 additionalProperties.toImmutable(),
                             )
                     }
@@ -7274,41 +7134,27 @@ private constructor(
 
                         fun build(): Travel =
                             Travel(
-                                checkNotNull(ancillary) {
-                                    "`ancillary` is required but was not set"
-                                },
-                                checkNotNull(computerizedReservationSystem) {
-                                    "`computerizedReservationSystem` is required but was not set"
-                                },
-                                checkNotNull(creditReasonIndicator) {
-                                    "`creditReasonIndicator` is required but was not set"
-                                },
-                                checkNotNull(departureDate) {
-                                    "`departureDate` is required but was not set"
-                                },
-                                checkNotNull(originationCityAirportCode) {
-                                    "`originationCityAirportCode` is required but was not set"
-                                },
-                                checkNotNull(passengerName) {
-                                    "`passengerName` is required but was not set"
-                                },
-                                checkNotNull(restrictedTicketIndicator) {
-                                    "`restrictedTicketIndicator` is required but was not set"
-                                },
-                                checkNotNull(ticketChangeIndicator) {
-                                    "`ticketChangeIndicator` is required but was not set"
-                                },
-                                checkNotNull(ticketNumber) {
-                                    "`ticketNumber` is required but was not set"
-                                },
-                                checkNotNull(travelAgencyCode) {
-                                    "`travelAgencyCode` is required but was not set"
-                                },
-                                checkNotNull(travelAgencyName) {
-                                    "`travelAgencyName` is required but was not set"
-                                },
-                                checkNotNull(tripLegs) { "`tripLegs` is required but was not set" }
-                                    .map { it.toImmutable() },
+                                checkRequired("ancillary", ancillary),
+                                checkRequired(
+                                    "computerizedReservationSystem",
+                                    computerizedReservationSystem
+                                ),
+                                checkRequired("creditReasonIndicator", creditReasonIndicator),
+                                checkRequired("departureDate", departureDate),
+                                checkRequired(
+                                    "originationCityAirportCode",
+                                    originationCityAirportCode
+                                ),
+                                checkRequired("passengerName", passengerName),
+                                checkRequired(
+                                    "restrictedTicketIndicator",
+                                    restrictedTicketIndicator
+                                ),
+                                checkRequired("ticketChangeIndicator", ticketChangeIndicator),
+                                checkRequired("ticketNumber", ticketNumber),
+                                checkRequired("travelAgencyCode", travelAgencyCode),
+                                checkRequired("travelAgencyName", travelAgencyName),
+                                checkRequired("tripLegs", tripLegs).map { it.toImmutable() },
                                 additionalProperties.toImmutable(),
                             )
                     }
@@ -7547,22 +7393,17 @@ private constructor(
 
                             fun build(): Ancillary =
                                 Ancillary(
-                                    checkNotNull(connectedTicketDocumentNumber) {
-                                        "`connectedTicketDocumentNumber` is required but was not set"
-                                    },
-                                    checkNotNull(creditReasonIndicator) {
-                                        "`creditReasonIndicator` is required but was not set"
-                                    },
-                                    checkNotNull(passengerNameOrDescription) {
-                                        "`passengerNameOrDescription` is required but was not set"
-                                    },
-                                    checkNotNull(services) {
-                                            "`services` is required but was not set"
-                                        }
-                                        .map { it.toImmutable() },
-                                    checkNotNull(ticketDocumentNumber) {
-                                        "`ticketDocumentNumber` is required but was not set"
-                                    },
+                                    checkRequired(
+                                        "connectedTicketDocumentNumber",
+                                        connectedTicketDocumentNumber
+                                    ),
+                                    checkRequired("creditReasonIndicator", creditReasonIndicator),
+                                    checkRequired(
+                                        "passengerNameOrDescription",
+                                        passengerNameOrDescription
+                                    ),
+                                    checkRequired("services", services).map { it.toImmutable() },
+                                    checkRequired("ticketDocumentNumber", ticketDocumentNumber),
                                     additionalProperties.toImmutable(),
                                 )
                         }
@@ -7762,12 +7603,8 @@ private constructor(
 
                                 fun build(): Service =
                                     Service(
-                                        checkNotNull(category) {
-                                            "`category` is required but was not set"
-                                        },
-                                        checkNotNull(subCategory) {
-                                            "`subCategory` is required but was not set"
-                                        },
+                                        checkRequired("category", category),
+                                        checkRequired("subCategory", subCategory),
                                         additionalProperties.toImmutable(),
                                     )
                             }
@@ -8439,24 +8276,15 @@ private constructor(
 
                             fun build(): TripLeg =
                                 TripLeg(
-                                    checkNotNull(carrierCode) {
-                                        "`carrierCode` is required but was not set"
-                                    },
-                                    checkNotNull(destinationCityAirportCode) {
-                                        "`destinationCityAirportCode` is required but was not set"
-                                    },
-                                    checkNotNull(fareBasisCode) {
-                                        "`fareBasisCode` is required but was not set"
-                                    },
-                                    checkNotNull(flightNumber) {
-                                        "`flightNumber` is required but was not set"
-                                    },
-                                    checkNotNull(serviceClass) {
-                                        "`serviceClass` is required but was not set"
-                                    },
-                                    checkNotNull(stopOverCode) {
-                                        "`stopOverCode` is required but was not set"
-                                    },
+                                    checkRequired("carrierCode", carrierCode),
+                                    checkRequired(
+                                        "destinationCityAirportCode",
+                                        destinationCityAirportCode
+                                    ),
+                                    checkRequired("fareBasisCode", fareBasisCode),
+                                    checkRequired("flightNumber", flightNumber),
+                                    checkRequired("serviceClass", serviceClass),
+                                    checkRequired("stopOverCode", stopOverCode),
                                     additionalProperties.toImmutable(),
                                 )
                         }
@@ -8847,13 +8675,11 @@ private constructor(
 
                 fun build(): CardRevenuePayment =
                     CardRevenuePayment(
-                        checkNotNull(amount) { "`amount` is required but was not set" },
-                        checkNotNull(currency) { "`currency` is required but was not set" },
-                        checkNotNull(periodEnd) { "`periodEnd` is required but was not set" },
-                        checkNotNull(periodStart) { "`periodStart` is required but was not set" },
-                        checkNotNull(transactedOnAccountId) {
-                            "`transactedOnAccountId` is required but was not set"
-                        },
+                        checkRequired("amount", amount),
+                        checkRequired("currency", currency),
+                        checkRequired("periodEnd", periodEnd),
+                        checkRequired("periodStart", periodStart),
+                        checkRequired("transactedOnAccountId", transactedOnAccountId),
                         additionalProperties.toImmutable(),
                     )
             }
@@ -9585,53 +9411,27 @@ private constructor(
 
                 fun build(): CardSettlement =
                     CardSettlement(
-                        checkNotNull(id) { "`id` is required but was not set" },
-                        checkNotNull(amount) { "`amount` is required but was not set" },
-                        checkNotNull(cardAuthorization) {
-                            "`cardAuthorization` is required but was not set"
-                        },
-                        checkNotNull(cardPaymentId) {
-                            "`cardPaymentId` is required but was not set"
-                        },
-                        checkNotNull(cashback) { "`cashback` is required but was not set" },
-                        checkNotNull(currency) { "`currency` is required but was not set" },
-                        checkNotNull(interchange) { "`interchange` is required but was not set" },
-                        checkNotNull(merchantAcceptorId) {
-                            "`merchantAcceptorId` is required but was not set"
-                        },
-                        checkNotNull(merchantCategoryCode) {
-                            "`merchantCategoryCode` is required but was not set"
-                        },
-                        checkNotNull(merchantCity) { "`merchantCity` is required but was not set" },
-                        checkNotNull(merchantCountry) {
-                            "`merchantCountry` is required but was not set"
-                        },
-                        checkNotNull(merchantName) { "`merchantName` is required but was not set" },
-                        checkNotNull(merchantPostalCode) {
-                            "`merchantPostalCode` is required but was not set"
-                        },
-                        checkNotNull(merchantState) {
-                            "`merchantState` is required but was not set"
-                        },
-                        checkNotNull(networkIdentifiers) {
-                            "`networkIdentifiers` is required but was not set"
-                        },
-                        checkNotNull(pendingTransactionId) {
-                            "`pendingTransactionId` is required but was not set"
-                        },
-                        checkNotNull(presentmentAmount) {
-                            "`presentmentAmount` is required but was not set"
-                        },
-                        checkNotNull(presentmentCurrency) {
-                            "`presentmentCurrency` is required but was not set"
-                        },
-                        checkNotNull(purchaseDetails) {
-                            "`purchaseDetails` is required but was not set"
-                        },
-                        checkNotNull(transactionId) {
-                            "`transactionId` is required but was not set"
-                        },
-                        checkNotNull(type) { "`type` is required but was not set" },
+                        checkRequired("id", id),
+                        checkRequired("amount", amount),
+                        checkRequired("cardAuthorization", cardAuthorization),
+                        checkRequired("cardPaymentId", cardPaymentId),
+                        checkRequired("cashback", cashback),
+                        checkRequired("currency", currency),
+                        checkRequired("interchange", interchange),
+                        checkRequired("merchantAcceptorId", merchantAcceptorId),
+                        checkRequired("merchantCategoryCode", merchantCategoryCode),
+                        checkRequired("merchantCity", merchantCity),
+                        checkRequired("merchantCountry", merchantCountry),
+                        checkRequired("merchantName", merchantName),
+                        checkRequired("merchantPostalCode", merchantPostalCode),
+                        checkRequired("merchantState", merchantState),
+                        checkRequired("networkIdentifiers", networkIdentifiers),
+                        checkRequired("pendingTransactionId", pendingTransactionId),
+                        checkRequired("presentmentAmount", presentmentAmount),
+                        checkRequired("presentmentCurrency", presentmentCurrency),
+                        checkRequired("purchaseDetails", purchaseDetails),
+                        checkRequired("transactionId", transactionId),
+                        checkRequired("type", type),
                         additionalProperties.toImmutable(),
                     )
             }
@@ -9759,8 +9559,8 @@ private constructor(
 
                     fun build(): Cashback =
                         Cashback(
-                            checkNotNull(amount) { "`amount` is required but was not set" },
-                            checkNotNull(currency) { "`currency` is required but was not set" },
+                            checkRequired("amount", amount),
+                            checkRequired("currency", currency),
                             additionalProperties.toImmutable(),
                         )
                 }
@@ -10092,9 +9892,9 @@ private constructor(
 
                     fun build(): Interchange =
                         Interchange(
-                            checkNotNull(amount) { "`amount` is required but was not set" },
-                            checkNotNull(code) { "`code` is required but was not set" },
-                            checkNotNull(currency) { "`currency` is required but was not set" },
+                            checkRequired("amount", amount),
+                            checkRequired("code", code),
+                            checkRequired("currency", currency),
                             additionalProperties.toImmutable(),
                         )
                 }
@@ -10358,15 +10158,9 @@ private constructor(
 
                     fun build(): NetworkIdentifiers =
                         NetworkIdentifiers(
-                            checkNotNull(acquirerBusinessId) {
-                                "`acquirerBusinessId` is required but was not set"
-                            },
-                            checkNotNull(acquirerReferenceNumber) {
-                                "`acquirerReferenceNumber` is required but was not set"
-                            },
-                            checkNotNull(transactionId) {
-                                "`transactionId` is required but was not set"
-                            },
+                            checkRequired("acquirerBusinessId", acquirerBusinessId),
+                            checkRequired("acquirerReferenceNumber", acquirerReferenceNumber),
+                            checkRequired("transactionId", transactionId),
                             additionalProperties.toImmutable(),
                         )
                 }
@@ -10728,30 +10522,19 @@ private constructor(
 
                     fun build(): PurchaseDetails =
                         PurchaseDetails(
-                            checkNotNull(carRental) { "`carRental` is required but was not set" },
-                            checkNotNull(customerReferenceIdentifier) {
-                                "`customerReferenceIdentifier` is required but was not set"
-                            },
-                            checkNotNull(localTaxAmount) {
-                                "`localTaxAmount` is required but was not set"
-                            },
-                            checkNotNull(localTaxCurrency) {
-                                "`localTaxCurrency` is required but was not set"
-                            },
-                            checkNotNull(lodging) { "`lodging` is required but was not set" },
-                            checkNotNull(nationalTaxAmount) {
-                                "`nationalTaxAmount` is required but was not set"
-                            },
-                            checkNotNull(nationalTaxCurrency) {
-                                "`nationalTaxCurrency` is required but was not set"
-                            },
-                            checkNotNull(purchaseIdentifier) {
-                                "`purchaseIdentifier` is required but was not set"
-                            },
-                            checkNotNull(purchaseIdentifierFormat) {
-                                "`purchaseIdentifierFormat` is required but was not set"
-                            },
-                            checkNotNull(travel) { "`travel` is required but was not set" },
+                            checkRequired("carRental", carRental),
+                            checkRequired(
+                                "customerReferenceIdentifier",
+                                customerReferenceIdentifier
+                            ),
+                            checkRequired("localTaxAmount", localTaxAmount),
+                            checkRequired("localTaxCurrency", localTaxCurrency),
+                            checkRequired("lodging", lodging),
+                            checkRequired("nationalTaxAmount", nationalTaxAmount),
+                            checkRequired("nationalTaxCurrency", nationalTaxCurrency),
+                            checkRequired("purchaseIdentifier", purchaseIdentifier),
+                            checkRequired("purchaseIdentifierFormat", purchaseIdentifierFormat),
+                            checkRequired("travel", travel),
                             additionalProperties.toImmutable(),
                         )
                 }
@@ -11334,54 +11117,28 @@ private constructor(
 
                         fun build(): CarRental =
                             CarRental(
-                                checkNotNull(carClassCode) {
-                                    "`carClassCode` is required but was not set"
-                                },
-                                checkNotNull(checkoutDate) {
-                                    "`checkoutDate` is required but was not set"
-                                },
-                                checkNotNull(dailyRentalRateAmount) {
-                                    "`dailyRentalRateAmount` is required but was not set"
-                                },
-                                checkNotNull(dailyRentalRateCurrency) {
-                                    "`dailyRentalRateCurrency` is required but was not set"
-                                },
-                                checkNotNull(daysRented) {
-                                    "`daysRented` is required but was not set"
-                                },
-                                checkNotNull(extraCharges) {
-                                    "`extraCharges` is required but was not set"
-                                },
-                                checkNotNull(fuelChargesAmount) {
-                                    "`fuelChargesAmount` is required but was not set"
-                                },
-                                checkNotNull(fuelChargesCurrency) {
-                                    "`fuelChargesCurrency` is required but was not set"
-                                },
-                                checkNotNull(insuranceChargesAmount) {
-                                    "`insuranceChargesAmount` is required but was not set"
-                                },
-                                checkNotNull(insuranceChargesCurrency) {
-                                    "`insuranceChargesCurrency` is required but was not set"
-                                },
-                                checkNotNull(noShowIndicator) {
-                                    "`noShowIndicator` is required but was not set"
-                                },
-                                checkNotNull(oneWayDropOffChargesAmount) {
-                                    "`oneWayDropOffChargesAmount` is required but was not set"
-                                },
-                                checkNotNull(oneWayDropOffChargesCurrency) {
-                                    "`oneWayDropOffChargesCurrency` is required but was not set"
-                                },
-                                checkNotNull(renterName) {
-                                    "`renterName` is required but was not set"
-                                },
-                                checkNotNull(weeklyRentalRateAmount) {
-                                    "`weeklyRentalRateAmount` is required but was not set"
-                                },
-                                checkNotNull(weeklyRentalRateCurrency) {
-                                    "`weeklyRentalRateCurrency` is required but was not set"
-                                },
+                                checkRequired("carClassCode", carClassCode),
+                                checkRequired("checkoutDate", checkoutDate),
+                                checkRequired("dailyRentalRateAmount", dailyRentalRateAmount),
+                                checkRequired("dailyRentalRateCurrency", dailyRentalRateCurrency),
+                                checkRequired("daysRented", daysRented),
+                                checkRequired("extraCharges", extraCharges),
+                                checkRequired("fuelChargesAmount", fuelChargesAmount),
+                                checkRequired("fuelChargesCurrency", fuelChargesCurrency),
+                                checkRequired("insuranceChargesAmount", insuranceChargesAmount),
+                                checkRequired("insuranceChargesCurrency", insuranceChargesCurrency),
+                                checkRequired("noShowIndicator", noShowIndicator),
+                                checkRequired(
+                                    "oneWayDropOffChargesAmount",
+                                    oneWayDropOffChargesAmount
+                                ),
+                                checkRequired(
+                                    "oneWayDropOffChargesCurrency",
+                                    oneWayDropOffChargesCurrency
+                                ),
+                                checkRequired("renterName", renterName),
+                                checkRequired("weeklyRentalRateAmount", weeklyRentalRateAmount),
+                                checkRequired("weeklyRentalRateCurrency", weeklyRentalRateCurrency),
                                 additionalProperties.toImmutable(),
                             )
                     }
@@ -12118,54 +11875,31 @@ private constructor(
 
                         fun build(): Lodging =
                             Lodging(
-                                checkNotNull(checkInDate) {
-                                    "`checkInDate` is required but was not set"
-                                },
-                                checkNotNull(dailyRoomRateAmount) {
-                                    "`dailyRoomRateAmount` is required but was not set"
-                                },
-                                checkNotNull(dailyRoomRateCurrency) {
-                                    "`dailyRoomRateCurrency` is required but was not set"
-                                },
-                                checkNotNull(extraCharges) {
-                                    "`extraCharges` is required but was not set"
-                                },
-                                checkNotNull(folioCashAdvancesAmount) {
-                                    "`folioCashAdvancesAmount` is required but was not set"
-                                },
-                                checkNotNull(folioCashAdvancesCurrency) {
-                                    "`folioCashAdvancesCurrency` is required but was not set"
-                                },
-                                checkNotNull(foodBeverageChargesAmount) {
-                                    "`foodBeverageChargesAmount` is required but was not set"
-                                },
-                                checkNotNull(foodBeverageChargesCurrency) {
-                                    "`foodBeverageChargesCurrency` is required but was not set"
-                                },
-                                checkNotNull(noShowIndicator) {
-                                    "`noShowIndicator` is required but was not set"
-                                },
-                                checkNotNull(prepaidExpensesAmount) {
-                                    "`prepaidExpensesAmount` is required but was not set"
-                                },
-                                checkNotNull(prepaidExpensesCurrency) {
-                                    "`prepaidExpensesCurrency` is required but was not set"
-                                },
-                                checkNotNull(roomNights) {
-                                    "`roomNights` is required but was not set"
-                                },
-                                checkNotNull(totalRoomTaxAmount) {
-                                    "`totalRoomTaxAmount` is required but was not set"
-                                },
-                                checkNotNull(totalRoomTaxCurrency) {
-                                    "`totalRoomTaxCurrency` is required but was not set"
-                                },
-                                checkNotNull(totalTaxAmount) {
-                                    "`totalTaxAmount` is required but was not set"
-                                },
-                                checkNotNull(totalTaxCurrency) {
-                                    "`totalTaxCurrency` is required but was not set"
-                                },
+                                checkRequired("checkInDate", checkInDate),
+                                checkRequired("dailyRoomRateAmount", dailyRoomRateAmount),
+                                checkRequired("dailyRoomRateCurrency", dailyRoomRateCurrency),
+                                checkRequired("extraCharges", extraCharges),
+                                checkRequired("folioCashAdvancesAmount", folioCashAdvancesAmount),
+                                checkRequired(
+                                    "folioCashAdvancesCurrency",
+                                    folioCashAdvancesCurrency
+                                ),
+                                checkRequired(
+                                    "foodBeverageChargesAmount",
+                                    foodBeverageChargesAmount
+                                ),
+                                checkRequired(
+                                    "foodBeverageChargesCurrency",
+                                    foodBeverageChargesCurrency
+                                ),
+                                checkRequired("noShowIndicator", noShowIndicator),
+                                checkRequired("prepaidExpensesAmount", prepaidExpensesAmount),
+                                checkRequired("prepaidExpensesCurrency", prepaidExpensesCurrency),
+                                checkRequired("roomNights", roomNights),
+                                checkRequired("totalRoomTaxAmount", totalRoomTaxAmount),
+                                checkRequired("totalRoomTaxCurrency", totalRoomTaxCurrency),
+                                checkRequired("totalTaxAmount", totalTaxAmount),
+                                checkRequired("totalTaxCurrency", totalTaxCurrency),
                                 additionalProperties.toImmutable(),
                             )
                     }
@@ -12809,41 +12543,27 @@ private constructor(
 
                         fun build(): Travel =
                             Travel(
-                                checkNotNull(ancillary) {
-                                    "`ancillary` is required but was not set"
-                                },
-                                checkNotNull(computerizedReservationSystem) {
-                                    "`computerizedReservationSystem` is required but was not set"
-                                },
-                                checkNotNull(creditReasonIndicator) {
-                                    "`creditReasonIndicator` is required but was not set"
-                                },
-                                checkNotNull(departureDate) {
-                                    "`departureDate` is required but was not set"
-                                },
-                                checkNotNull(originationCityAirportCode) {
-                                    "`originationCityAirportCode` is required but was not set"
-                                },
-                                checkNotNull(passengerName) {
-                                    "`passengerName` is required but was not set"
-                                },
-                                checkNotNull(restrictedTicketIndicator) {
-                                    "`restrictedTicketIndicator` is required but was not set"
-                                },
-                                checkNotNull(ticketChangeIndicator) {
-                                    "`ticketChangeIndicator` is required but was not set"
-                                },
-                                checkNotNull(ticketNumber) {
-                                    "`ticketNumber` is required but was not set"
-                                },
-                                checkNotNull(travelAgencyCode) {
-                                    "`travelAgencyCode` is required but was not set"
-                                },
-                                checkNotNull(travelAgencyName) {
-                                    "`travelAgencyName` is required but was not set"
-                                },
-                                checkNotNull(tripLegs) { "`tripLegs` is required but was not set" }
-                                    .map { it.toImmutable() },
+                                checkRequired("ancillary", ancillary),
+                                checkRequired(
+                                    "computerizedReservationSystem",
+                                    computerizedReservationSystem
+                                ),
+                                checkRequired("creditReasonIndicator", creditReasonIndicator),
+                                checkRequired("departureDate", departureDate),
+                                checkRequired(
+                                    "originationCityAirportCode",
+                                    originationCityAirportCode
+                                ),
+                                checkRequired("passengerName", passengerName),
+                                checkRequired(
+                                    "restrictedTicketIndicator",
+                                    restrictedTicketIndicator
+                                ),
+                                checkRequired("ticketChangeIndicator", ticketChangeIndicator),
+                                checkRequired("ticketNumber", ticketNumber),
+                                checkRequired("travelAgencyCode", travelAgencyCode),
+                                checkRequired("travelAgencyName", travelAgencyName),
+                                checkRequired("tripLegs", tripLegs).map { it.toImmutable() },
                                 additionalProperties.toImmutable(),
                             )
                     }
@@ -13082,22 +12802,17 @@ private constructor(
 
                             fun build(): Ancillary =
                                 Ancillary(
-                                    checkNotNull(connectedTicketDocumentNumber) {
-                                        "`connectedTicketDocumentNumber` is required but was not set"
-                                    },
-                                    checkNotNull(creditReasonIndicator) {
-                                        "`creditReasonIndicator` is required but was not set"
-                                    },
-                                    checkNotNull(passengerNameOrDescription) {
-                                        "`passengerNameOrDescription` is required but was not set"
-                                    },
-                                    checkNotNull(services) {
-                                            "`services` is required but was not set"
-                                        }
-                                        .map { it.toImmutable() },
-                                    checkNotNull(ticketDocumentNumber) {
-                                        "`ticketDocumentNumber` is required but was not set"
-                                    },
+                                    checkRequired(
+                                        "connectedTicketDocumentNumber",
+                                        connectedTicketDocumentNumber
+                                    ),
+                                    checkRequired("creditReasonIndicator", creditReasonIndicator),
+                                    checkRequired(
+                                        "passengerNameOrDescription",
+                                        passengerNameOrDescription
+                                    ),
+                                    checkRequired("services", services).map { it.toImmutable() },
+                                    checkRequired("ticketDocumentNumber", ticketDocumentNumber),
                                     additionalProperties.toImmutable(),
                                 )
                         }
@@ -13297,12 +13012,8 @@ private constructor(
 
                                 fun build(): Service =
                                     Service(
-                                        checkNotNull(category) {
-                                            "`category` is required but was not set"
-                                        },
-                                        checkNotNull(subCategory) {
-                                            "`subCategory` is required but was not set"
-                                        },
+                                        checkRequired("category", category),
+                                        checkRequired("subCategory", subCategory),
                                         additionalProperties.toImmutable(),
                                     )
                             }
@@ -13974,24 +13685,15 @@ private constructor(
 
                             fun build(): TripLeg =
                                 TripLeg(
-                                    checkNotNull(carrierCode) {
-                                        "`carrierCode` is required but was not set"
-                                    },
-                                    checkNotNull(destinationCityAirportCode) {
-                                        "`destinationCityAirportCode` is required but was not set"
-                                    },
-                                    checkNotNull(fareBasisCode) {
-                                        "`fareBasisCode` is required but was not set"
-                                    },
-                                    checkNotNull(flightNumber) {
-                                        "`flightNumber` is required but was not set"
-                                    },
-                                    checkNotNull(serviceClass) {
-                                        "`serviceClass` is required but was not set"
-                                    },
-                                    checkNotNull(stopOverCode) {
-                                        "`stopOverCode` is required but was not set"
-                                    },
+                                    checkRequired("carrierCode", carrierCode),
+                                    checkRequired(
+                                        "destinationCityAirportCode",
+                                        destinationCityAirportCode
+                                    ),
+                                    checkRequired("fareBasisCode", fareBasisCode),
+                                    checkRequired("flightNumber", flightNumber),
+                                    checkRequired("serviceClass", serviceClass),
+                                    checkRequired("stopOverCode", stopOverCode),
                                     additionalProperties.toImmutable(),
                                 )
                         }
@@ -14381,13 +14083,11 @@ private constructor(
 
                 fun build(): CashbackPayment =
                     CashbackPayment(
-                        checkNotNull(accruedOnCardId) {
-                            "`accruedOnCardId` is required but was not set"
-                        },
-                        checkNotNull(amount) { "`amount` is required but was not set" },
-                        checkNotNull(currency) { "`currency` is required but was not set" },
-                        checkNotNull(periodEnd) { "`periodEnd` is required but was not set" },
-                        checkNotNull(periodStart) { "`periodStart` is required but was not set" },
+                        checkRequired("accruedOnCardId", accruedOnCardId),
+                        checkRequired("amount", amount),
+                        checkRequired("currency", currency),
+                        checkRequired("periodEnd", periodEnd),
+                        checkRequired("periodStart", periodStart),
                         additionalProperties.toImmutable(),
                     )
             }
@@ -14992,21 +14692,13 @@ private constructor(
 
                 fun build(): CheckDepositAcceptance =
                     CheckDepositAcceptance(
-                        checkNotNull(accountNumber) {
-                            "`accountNumber` is required but was not set"
-                        },
-                        checkNotNull(amount) { "`amount` is required but was not set" },
-                        checkNotNull(auxiliaryOnUs) {
-                            "`auxiliaryOnUs` is required but was not set"
-                        },
-                        checkNotNull(checkDepositId) {
-                            "`checkDepositId` is required but was not set"
-                        },
-                        checkNotNull(currency) { "`currency` is required but was not set" },
-                        checkNotNull(routingNumber) {
-                            "`routingNumber` is required but was not set"
-                        },
-                        checkNotNull(serialNumber) { "`serialNumber` is required but was not set" },
+                        checkRequired("accountNumber", accountNumber),
+                        checkRequired("amount", amount),
+                        checkRequired("auxiliaryOnUs", auxiliaryOnUs),
+                        checkRequired("checkDepositId", checkDepositId),
+                        checkRequired("currency", currency),
+                        checkRequired("routingNumber", routingNumber),
+                        checkRequired("serialNumber", serialNumber),
                         additionalProperties.toImmutable(),
                     )
             }
@@ -15344,16 +15036,12 @@ private constructor(
 
                 fun build(): CheckDepositReturn =
                     CheckDepositReturn(
-                        checkNotNull(amount) { "`amount` is required but was not set" },
-                        checkNotNull(checkDepositId) {
-                            "`checkDepositId` is required but was not set"
-                        },
-                        checkNotNull(currency) { "`currency` is required but was not set" },
-                        checkNotNull(returnReason) { "`returnReason` is required but was not set" },
-                        checkNotNull(returnedAt) { "`returnedAt` is required but was not set" },
-                        checkNotNull(transactionId) {
-                            "`transactionId` is required but was not set"
-                        },
+                        checkRequired("amount", amount),
+                        checkRequired("checkDepositId", checkDepositId),
+                        checkRequired("currency", currency),
+                        checkRequired("returnReason", returnReason),
+                        checkRequired("returnedAt", returnedAt),
+                        checkRequired("transactionId", transactionId),
                         additionalProperties.toImmutable(),
                     )
             }
@@ -15973,24 +15661,17 @@ private constructor(
 
                 fun build(): CheckTransferDeposit =
                     CheckTransferDeposit(
-                        checkNotNull(backImageFileId) {
-                            "`backImageFileId` is required but was not set"
-                        },
-                        checkNotNull(bankOfFirstDepositRoutingNumber) {
-                            "`bankOfFirstDepositRoutingNumber` is required but was not set"
-                        },
-                        checkNotNull(depositedAt) { "`depositedAt` is required but was not set" },
-                        checkNotNull(frontImageFileId) {
-                            "`frontImageFileId` is required but was not set"
-                        },
-                        checkNotNull(inboundCheckDepositId) {
-                            "`inboundCheckDepositId` is required but was not set"
-                        },
-                        checkNotNull(transactionId) {
-                            "`transactionId` is required but was not set"
-                        },
-                        checkNotNull(transferId) { "`transferId` is required but was not set" },
-                        checkNotNull(type) { "`type` is required but was not set" },
+                        checkRequired("backImageFileId", backImageFileId),
+                        checkRequired(
+                            "bankOfFirstDepositRoutingNumber",
+                            bankOfFirstDepositRoutingNumber
+                        ),
+                        checkRequired("depositedAt", depositedAt),
+                        checkRequired("frontImageFileId", frontImageFileId),
+                        checkRequired("inboundCheckDepositId", inboundCheckDepositId),
+                        checkRequired("transactionId", transactionId),
+                        checkRequired("transferId", transferId),
+                        checkRequired("type", type),
                         additionalProperties.toImmutable(),
                     )
             }
@@ -16234,12 +15915,10 @@ private constructor(
 
                 fun build(): FeePayment =
                     FeePayment(
-                        checkNotNull(amount) { "`amount` is required but was not set" },
-                        checkNotNull(currency) { "`currency` is required but was not set" },
-                        checkNotNull(feePeriodStart) {
-                            "`feePeriodStart` is required but was not set"
-                        },
-                        checkNotNull(programId) { "`programId` is required but was not set" },
+                        checkRequired("amount", amount),
+                        checkRequired("currency", currency),
+                        checkRequired("feePeriodStart", feePeriodStart),
+                        checkRequired("programId", programId),
                         additionalProperties.toImmutable(),
                     )
             }
@@ -16726,29 +16405,26 @@ private constructor(
 
                 fun build(): InboundAchTransfer =
                     InboundAchTransfer(
-                        checkNotNull(addenda) { "`addenda` is required but was not set" },
-                        checkNotNull(amount) { "`amount` is required but was not set" },
-                        checkNotNull(originatorCompanyDescriptiveDate) {
-                            "`originatorCompanyDescriptiveDate` is required but was not set"
-                        },
-                        checkNotNull(originatorCompanyDiscretionaryData) {
-                            "`originatorCompanyDiscretionaryData` is required but was not set"
-                        },
-                        checkNotNull(originatorCompanyEntryDescription) {
-                            "`originatorCompanyEntryDescription` is required but was not set"
-                        },
-                        checkNotNull(originatorCompanyId) {
-                            "`originatorCompanyId` is required but was not set"
-                        },
-                        checkNotNull(originatorCompanyName) {
-                            "`originatorCompanyName` is required but was not set"
-                        },
-                        checkNotNull(receiverIdNumber) {
-                            "`receiverIdNumber` is required but was not set"
-                        },
-                        checkNotNull(receiverName) { "`receiverName` is required but was not set" },
-                        checkNotNull(traceNumber) { "`traceNumber` is required but was not set" },
-                        checkNotNull(transferId) { "`transferId` is required but was not set" },
+                        checkRequired("addenda", addenda),
+                        checkRequired("amount", amount),
+                        checkRequired(
+                            "originatorCompanyDescriptiveDate",
+                            originatorCompanyDescriptiveDate
+                        ),
+                        checkRequired(
+                            "originatorCompanyDiscretionaryData",
+                            originatorCompanyDiscretionaryData
+                        ),
+                        checkRequired(
+                            "originatorCompanyEntryDescription",
+                            originatorCompanyEntryDescription
+                        ),
+                        checkRequired("originatorCompanyId", originatorCompanyId),
+                        checkRequired("originatorCompanyName", originatorCompanyName),
+                        checkRequired("receiverIdNumber", receiverIdNumber),
+                        checkRequired("receiverName", receiverName),
+                        checkRequired("traceNumber", traceNumber),
+                        checkRequired("transferId", transferId),
                         additionalProperties.toImmutable(),
                     )
             }
@@ -16859,8 +16535,8 @@ private constructor(
 
                     fun build(): Addenda =
                         Addenda(
-                            checkNotNull(category) { "`category` is required but was not set" },
-                            checkNotNull(freeform) { "`freeform` is required but was not set" },
+                            checkRequired("category", category),
+                            checkRequired("freeform", freeform),
                             additionalProperties.toImmutable(),
                         )
                 }
@@ -17014,8 +16690,7 @@ private constructor(
 
                         fun build(): Freeform =
                             Freeform(
-                                checkNotNull(entries) { "`entries` is required but was not set" }
-                                    .map { it.toImmutable() },
+                                checkRequired("entries", entries).map { it.toImmutable() },
                                 additionalProperties.toImmutable()
                             )
                     }
@@ -17108,9 +16783,10 @@ private constructor(
 
                             fun build(): Entry =
                                 Entry(
-                                    checkNotNull(paymentRelatedInformation) {
-                                        "`paymentRelatedInformation` is required but was not set"
-                                    },
+                                    checkRequired(
+                                        "paymentRelatedInformation",
+                                        paymentRelatedInformation
+                                    ),
                                     additionalProperties.toImmutable()
                                 )
                         }
@@ -17495,23 +17171,15 @@ private constructor(
 
                 fun build(): InboundRealTimePaymentsTransferConfirmation =
                     InboundRealTimePaymentsTransferConfirmation(
-                        checkNotNull(amount) { "`amount` is required but was not set" },
-                        checkNotNull(creditorName) { "`creditorName` is required but was not set" },
-                        checkNotNull(currency) { "`currency` is required but was not set" },
-                        checkNotNull(debtorAccountNumber) {
-                            "`debtorAccountNumber` is required but was not set"
-                        },
-                        checkNotNull(debtorName) { "`debtorName` is required but was not set" },
-                        checkNotNull(debtorRoutingNumber) {
-                            "`debtorRoutingNumber` is required but was not set"
-                        },
-                        checkNotNull(remittanceInformation) {
-                            "`remittanceInformation` is required but was not set"
-                        },
-                        checkNotNull(transactionIdentification) {
-                            "`transactionIdentification` is required but was not set"
-                        },
-                        checkNotNull(transferId) { "`transferId` is required but was not set" },
+                        checkRequired("amount", amount),
+                        checkRequired("creditorName", creditorName),
+                        checkRequired("currency", currency),
+                        checkRequired("debtorAccountNumber", debtorAccountNumber),
+                        checkRequired("debtorName", debtorName),
+                        checkRequired("debtorRoutingNumber", debtorRoutingNumber),
+                        checkRequired("remittanceInformation", remittanceInformation),
+                        checkRequired("transactionIdentification", transactionIdentification),
+                        checkRequired("transferId", transferId),
                         additionalProperties.toImmutable(),
                     )
             }
@@ -17937,24 +17605,16 @@ private constructor(
 
                 fun build(): InboundRealTimePaymentsTransferDecline =
                     InboundRealTimePaymentsTransferDecline(
-                        checkNotNull(amount) { "`amount` is required but was not set" },
-                        checkNotNull(creditorName) { "`creditorName` is required but was not set" },
-                        checkNotNull(currency) { "`currency` is required but was not set" },
-                        checkNotNull(debtorAccountNumber) {
-                            "`debtorAccountNumber` is required but was not set"
-                        },
-                        checkNotNull(debtorName) { "`debtorName` is required but was not set" },
-                        checkNotNull(debtorRoutingNumber) {
-                            "`debtorRoutingNumber` is required but was not set"
-                        },
-                        checkNotNull(reason) { "`reason` is required but was not set" },
-                        checkNotNull(remittanceInformation) {
-                            "`remittanceInformation` is required but was not set"
-                        },
-                        checkNotNull(transactionIdentification) {
-                            "`transactionIdentification` is required but was not set"
-                        },
-                        checkNotNull(transferId) { "`transferId` is required but was not set" },
+                        checkRequired("amount", amount),
+                        checkRequired("creditorName", creditorName),
+                        checkRequired("currency", currency),
+                        checkRequired("debtorAccountNumber", debtorAccountNumber),
+                        checkRequired("debtorName", debtorName),
+                        checkRequired("debtorRoutingNumber", debtorRoutingNumber),
+                        checkRequired("reason", reason),
+                        checkRequired("remittanceInformation", remittanceInformation),
+                        checkRequired("transactionIdentification", transactionIdentification),
+                        checkRequired("transferId", transferId),
                         additionalProperties.toImmutable(),
                     )
             }
@@ -18707,49 +18367,41 @@ private constructor(
 
                 fun build(): InboundWireReversal =
                     InboundWireReversal(
-                        checkNotNull(amount) { "`amount` is required but was not set" },
-                        checkNotNull(createdAt) { "`createdAt` is required but was not set" },
-                        checkNotNull(description) { "`description` is required but was not set" },
-                        checkNotNull(financialInstitutionToFinancialInstitutionInformation) {
-                            "`financialInstitutionToFinancialInstitutionInformation` is required but was not set"
-                        },
-                        checkNotNull(inputCycleDate) {
-                            "`inputCycleDate` is required but was not set"
-                        },
-                        checkNotNull(inputMessageAccountabilityData) {
-                            "`inputMessageAccountabilityData` is required but was not set"
-                        },
-                        checkNotNull(inputSequenceNumber) {
-                            "`inputSequenceNumber` is required but was not set"
-                        },
-                        checkNotNull(inputSource) { "`inputSource` is required but was not set" },
-                        checkNotNull(originatorRoutingNumber) {
-                            "`originatorRoutingNumber` is required but was not set"
-                        },
-                        checkNotNull(previousMessageInputCycleDate) {
-                            "`previousMessageInputCycleDate` is required but was not set"
-                        },
-                        checkNotNull(previousMessageInputMessageAccountabilityData) {
-                            "`previousMessageInputMessageAccountabilityData` is required but was not set"
-                        },
-                        checkNotNull(previousMessageInputSequenceNumber) {
-                            "`previousMessageInputSequenceNumber` is required but was not set"
-                        },
-                        checkNotNull(previousMessageInputSource) {
-                            "`previousMessageInputSource` is required but was not set"
-                        },
-                        checkNotNull(receiverFinancialInstitutionInformation) {
-                            "`receiverFinancialInstitutionInformation` is required but was not set"
-                        },
-                        checkNotNull(senderReference) {
-                            "`senderReference` is required but was not set"
-                        },
-                        checkNotNull(transactionId) {
-                            "`transactionId` is required but was not set"
-                        },
-                        checkNotNull(wireTransferId) {
-                            "`wireTransferId` is required but was not set"
-                        },
+                        checkRequired("amount", amount),
+                        checkRequired("createdAt", createdAt),
+                        checkRequired("description", description),
+                        checkRequired(
+                            "financialInstitutionToFinancialInstitutionInformation",
+                            financialInstitutionToFinancialInstitutionInformation
+                        ),
+                        checkRequired("inputCycleDate", inputCycleDate),
+                        checkRequired(
+                            "inputMessageAccountabilityData",
+                            inputMessageAccountabilityData
+                        ),
+                        checkRequired("inputSequenceNumber", inputSequenceNumber),
+                        checkRequired("inputSource", inputSource),
+                        checkRequired("originatorRoutingNumber", originatorRoutingNumber),
+                        checkRequired(
+                            "previousMessageInputCycleDate",
+                            previousMessageInputCycleDate
+                        ),
+                        checkRequired(
+                            "previousMessageInputMessageAccountabilityData",
+                            previousMessageInputMessageAccountabilityData
+                        ),
+                        checkRequired(
+                            "previousMessageInputSequenceNumber",
+                            previousMessageInputSequenceNumber
+                        ),
+                        checkRequired("previousMessageInputSource", previousMessageInputSource),
+                        checkRequired(
+                            "receiverFinancialInstitutionInformation",
+                            receiverFinancialInstitutionInformation
+                        ),
+                        checkRequired("senderReference", senderReference),
+                        checkRequired("transactionId", transactionId),
+                        checkRequired("wireTransferId", wireTransferId),
                         additionalProperties.toImmutable(),
                     )
             }
@@ -19375,57 +19027,43 @@ private constructor(
 
                 fun build(): InboundWireTransfer =
                     InboundWireTransfer(
-                        checkNotNull(amount) { "`amount` is required but was not set" },
-                        checkNotNull(beneficiaryAddressLine1) {
-                            "`beneficiaryAddressLine1` is required but was not set"
-                        },
-                        checkNotNull(beneficiaryAddressLine2) {
-                            "`beneficiaryAddressLine2` is required but was not set"
-                        },
-                        checkNotNull(beneficiaryAddressLine3) {
-                            "`beneficiaryAddressLine3` is required but was not set"
-                        },
-                        checkNotNull(beneficiaryName) {
-                            "`beneficiaryName` is required but was not set"
-                        },
-                        checkNotNull(beneficiaryReference) {
-                            "`beneficiaryReference` is required but was not set"
-                        },
-                        checkNotNull(description) { "`description` is required but was not set" },
-                        checkNotNull(inputMessageAccountabilityData) {
-                            "`inputMessageAccountabilityData` is required but was not set"
-                        },
-                        checkNotNull(originatorAddressLine1) {
-                            "`originatorAddressLine1` is required but was not set"
-                        },
-                        checkNotNull(originatorAddressLine2) {
-                            "`originatorAddressLine2` is required but was not set"
-                        },
-                        checkNotNull(originatorAddressLine3) {
-                            "`originatorAddressLine3` is required but was not set"
-                        },
-                        checkNotNull(originatorName) {
-                            "`originatorName` is required but was not set"
-                        },
-                        checkNotNull(originatorRoutingNumber) {
-                            "`originatorRoutingNumber` is required but was not set"
-                        },
-                        checkNotNull(originatorToBeneficiaryInformation) {
-                            "`originatorToBeneficiaryInformation` is required but was not set"
-                        },
-                        checkNotNull(originatorToBeneficiaryInformationLine1) {
-                            "`originatorToBeneficiaryInformationLine1` is required but was not set"
-                        },
-                        checkNotNull(originatorToBeneficiaryInformationLine2) {
-                            "`originatorToBeneficiaryInformationLine2` is required but was not set"
-                        },
-                        checkNotNull(originatorToBeneficiaryInformationLine3) {
-                            "`originatorToBeneficiaryInformationLine3` is required but was not set"
-                        },
-                        checkNotNull(originatorToBeneficiaryInformationLine4) {
-                            "`originatorToBeneficiaryInformationLine4` is required but was not set"
-                        },
-                        checkNotNull(transferId) { "`transferId` is required but was not set" },
+                        checkRequired("amount", amount),
+                        checkRequired("beneficiaryAddressLine1", beneficiaryAddressLine1),
+                        checkRequired("beneficiaryAddressLine2", beneficiaryAddressLine2),
+                        checkRequired("beneficiaryAddressLine3", beneficiaryAddressLine3),
+                        checkRequired("beneficiaryName", beneficiaryName),
+                        checkRequired("beneficiaryReference", beneficiaryReference),
+                        checkRequired("description", description),
+                        checkRequired(
+                            "inputMessageAccountabilityData",
+                            inputMessageAccountabilityData
+                        ),
+                        checkRequired("originatorAddressLine1", originatorAddressLine1),
+                        checkRequired("originatorAddressLine2", originatorAddressLine2),
+                        checkRequired("originatorAddressLine3", originatorAddressLine3),
+                        checkRequired("originatorName", originatorName),
+                        checkRequired("originatorRoutingNumber", originatorRoutingNumber),
+                        checkRequired(
+                            "originatorToBeneficiaryInformation",
+                            originatorToBeneficiaryInformation
+                        ),
+                        checkRequired(
+                            "originatorToBeneficiaryInformationLine1",
+                            originatorToBeneficiaryInformationLine1
+                        ),
+                        checkRequired(
+                            "originatorToBeneficiaryInformationLine2",
+                            originatorToBeneficiaryInformationLine2
+                        ),
+                        checkRequired(
+                            "originatorToBeneficiaryInformationLine3",
+                            originatorToBeneficiaryInformationLine3
+                        ),
+                        checkRequired(
+                            "originatorToBeneficiaryInformationLine4",
+                            originatorToBeneficiaryInformationLine4
+                        ),
+                        checkRequired("transferId", transferId),
                         additionalProperties.toImmutable(),
                     )
             }
@@ -19644,13 +19282,11 @@ private constructor(
 
                 fun build(): InterestPayment =
                     InterestPayment(
-                        checkNotNull(accruedOnAccountId) {
-                            "`accruedOnAccountId` is required but was not set"
-                        },
-                        checkNotNull(amount) { "`amount` is required but was not set" },
-                        checkNotNull(currency) { "`currency` is required but was not set" },
-                        checkNotNull(periodEnd) { "`periodEnd` is required but was not set" },
-                        checkNotNull(periodStart) { "`periodStart` is required but was not set" },
+                        checkRequired("accruedOnAccountId", accruedOnAccountId),
+                        checkRequired("amount", amount),
+                        checkRequired("currency", currency),
+                        checkRequired("periodEnd", periodEnd),
+                        checkRequired("periodStart", periodStart),
                         additionalProperties.toImmutable(),
                     )
             }
@@ -19911,9 +19547,9 @@ private constructor(
 
                 fun build(): InternalSource =
                     InternalSource(
-                        checkNotNull(amount) { "`amount` is required but was not set" },
-                        checkNotNull(currency) { "`currency` is required but was not set" },
-                        checkNotNull(reason) { "`reason` is required but was not set" },
+                        checkRequired("amount", amount),
+                        checkRequired("currency", currency),
+                        checkRequired("reason", reason),
                         additionalProperties.toImmutable(),
                     )
             }
@@ -20340,17 +19976,11 @@ private constructor(
 
                 fun build(): RealTimePaymentsTransferAcknowledgement =
                     RealTimePaymentsTransferAcknowledgement(
-                        checkNotNull(amount) { "`amount` is required but was not set" },
-                        checkNotNull(destinationAccountNumber) {
-                            "`destinationAccountNumber` is required but was not set"
-                        },
-                        checkNotNull(destinationRoutingNumber) {
-                            "`destinationRoutingNumber` is required but was not set"
-                        },
-                        checkNotNull(remittanceInformation) {
-                            "`remittanceInformation` is required but was not set"
-                        },
-                        checkNotNull(transferId) { "`transferId` is required but was not set" },
+                        checkRequired("amount", amount),
+                        checkRequired("destinationAccountNumber", destinationAccountNumber),
+                        checkRequired("destinationRoutingNumber", destinationRoutingNumber),
+                        checkRequired("remittanceInformation", remittanceInformation),
+                        checkRequired("transferId", transferId),
                         additionalProperties.toImmutable(),
                     )
             }
@@ -20460,7 +20090,7 @@ private constructor(
 
                 fun build(): SampleFunds =
                     SampleFunds(
-                        checkNotNull(originator) { "`originator` is required but was not set" },
+                        checkRequired("originator", originator),
                         additionalProperties.toImmutable()
                     )
             }
@@ -20658,17 +20288,11 @@ private constructor(
 
                 fun build(): WireTransferIntention =
                     WireTransferIntention(
-                        checkNotNull(accountNumber) {
-                            "`accountNumber` is required but was not set"
-                        },
-                        checkNotNull(amount) { "`amount` is required but was not set" },
-                        checkNotNull(messageToRecipient) {
-                            "`messageToRecipient` is required but was not set"
-                        },
-                        checkNotNull(routingNumber) {
-                            "`routingNumber` is required but was not set"
-                        },
-                        checkNotNull(transferId) { "`transferId` is required but was not set" },
+                        checkRequired("accountNumber", accountNumber),
+                        checkRequired("amount", amount),
+                        checkRequired("messageToRecipient", messageToRecipient),
+                        checkRequired("routingNumber", routingNumber),
+                        checkRequired("transferId", transferId),
                         additionalProperties.toImmutable(),
                     )
             }

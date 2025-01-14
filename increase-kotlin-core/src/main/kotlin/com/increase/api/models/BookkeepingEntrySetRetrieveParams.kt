@@ -3,6 +3,7 @@
 package com.increase.api.models
 
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import java.util.Objects
@@ -160,9 +161,7 @@ constructor(
 
         fun build(): BookkeepingEntrySetRetrieveParams =
             BookkeepingEntrySetRetrieveParams(
-                checkNotNull(bookkeepingEntrySetId) {
-                    "`bookkeepingEntrySetId` is required but was not set"
-                },
+                checkRequired("bookkeepingEntrySetId", bookkeepingEntrySetId),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
