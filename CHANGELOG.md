@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.157.0 (2025-01-14)
+
+Full Changelog: [v0.156.0...v0.157.0](https://github.com/Increase/increase-kotlin/compare/v0.156.0...v0.157.0)
+
+### Features
+
+* **api:** api update ([#702](https://github.com/Increase/increase-kotlin/issues/702)) ([c63ab29](https://github.com/Increase/increase-kotlin/commit/c63ab2913b65107f3cf0d5fca95ba5d546584563))
+
+
+### Chores
+
+* **internal:** add and tweak check functions ([#701](https://github.com/Increase/increase-kotlin/issues/701)) ([a9e8c91](https://github.com/Increase/increase-kotlin/commit/a9e8c918a7c5dcd28ab71f3856acfccaf1a9ec14))
+* **internal:** extract a `checkRequired` function ([#699](https://github.com/Increase/increase-kotlin/issues/699)) ([e08cfb7](https://github.com/Increase/increase-kotlin/commit/e08cfb7b8495909bbd9229808eacf6e513ab5311))
+* **internal:** tweak client options nullability handling ([a9e8c91](https://github.com/Increase/increase-kotlin/commit/a9e8c918a7c5dcd28ab71f3856acfccaf1a9ec14))
+
 ## 0.156.0 (2025-01-14)
 
 Full Changelog: [v0.155.1...v0.156.0](https://github.com/Increase/increase-kotlin/compare/v0.155.1...v0.156.0)
