@@ -12,6 +12,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.immutableEmptyMap
@@ -417,7 +418,7 @@ constructor(
 
         fun build(): AccountNumberUpdateParams =
             AccountNumberUpdateParams(
-                checkNotNull(accountNumberId) { "`accountNumberId` is required but was not set" },
+                checkRequired("accountNumberId", accountNumberId),
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -669,10 +670,7 @@ constructor(
             }
 
             fun build(): InboundChecks =
-                InboundChecks(
-                    checkNotNull(status) { "`status` is required but was not set" },
-                    additionalProperties.toImmutable()
-                )
+                InboundChecks(checkRequired("status", status), additionalProperties.toImmutable())
         }
 
         class Status
