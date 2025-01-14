@@ -12,6 +12,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.immutableEmptyMap
@@ -150,9 +151,7 @@ constructor(
 
             fun build(): EntityCreateBeneficialOwnerBody =
                 EntityCreateBeneficialOwnerBody(
-                    checkNotNull(beneficialOwner) {
-                        "`beneficialOwner` is required but was not set"
-                    },
+                    checkRequired("beneficialOwner", beneficialOwner),
                     additionalProperties.toImmutable()
                 )
         }
@@ -336,7 +335,7 @@ constructor(
 
         fun build(): EntityCreateBeneficialOwnerParams =
             EntityCreateBeneficialOwnerParams(
-                checkNotNull(entityId) { "`entityId` is required but was not set" },
+                checkRequired("entityId", entityId),
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -498,9 +497,8 @@ constructor(
 
             fun build(): BeneficialOwner =
                 BeneficialOwner(
-                    checkNotNull(individual) { "`individual` is required but was not set" },
-                    checkNotNull(prongs) { "`prongs` is required but was not set" }
-                        .map { it.toImmutable() },
+                    checkRequired("individual", individual),
+                    checkRequired("prongs", prongs).map { it.toImmutable() },
                     companyTitle,
                     additionalProperties.toImmutable(),
                 )
@@ -703,12 +701,10 @@ constructor(
 
                 fun build(): Individual =
                     Individual(
-                        checkNotNull(address) { "`address` is required but was not set" },
-                        checkNotNull(dateOfBirth) { "`dateOfBirth` is required but was not set" },
-                        checkNotNull(identification) {
-                            "`identification` is required but was not set"
-                        },
-                        checkNotNull(name) { "`name` is required but was not set" },
+                        checkRequired("address", address),
+                        checkRequired("dateOfBirth", dateOfBirth),
+                        checkRequired("identification", identification),
+                        checkRequired("name", name),
                         confirmedNoUsTaxId,
                         additionalProperties.toImmutable(),
                     )
@@ -885,10 +881,10 @@ constructor(
 
                     fun build(): Address =
                         Address(
-                            checkNotNull(city) { "`city` is required but was not set" },
-                            checkNotNull(line1) { "`line1` is required but was not set" },
-                            checkNotNull(state) { "`state` is required but was not set" },
-                            checkNotNull(zip) { "`zip` is required but was not set" },
+                            checkRequired("city", city),
+                            checkRequired("line1", line1),
+                            checkRequired("state", state),
+                            checkRequired("zip", zip),
                             line2,
                             additionalProperties.toImmutable(),
                         )
@@ -1120,8 +1116,8 @@ constructor(
 
                     fun build(): Identification =
                         Identification(
-                            checkNotNull(method) { "`method` is required but was not set" },
-                            checkNotNull(number) { "`number` is required but was not set" },
+                            checkRequired("method", method),
+                            checkRequired("number", number),
                             driversLicense,
                             other,
                             passport,
@@ -1366,11 +1362,9 @@ constructor(
 
                         fun build(): DriversLicense =
                             DriversLicense(
-                                checkNotNull(expirationDate) {
-                                    "`expirationDate` is required but was not set"
-                                },
-                                checkNotNull(fileId) { "`fileId` is required but was not set" },
-                                checkNotNull(state) { "`state` is required but was not set" },
+                                checkRequired("expirationDate", expirationDate),
+                                checkRequired("fileId", fileId),
+                                checkRequired("state", state),
                                 backFileId,
                                 additionalProperties.toImmutable(),
                             )
@@ -1592,11 +1586,9 @@ constructor(
 
                         fun build(): Other =
                             Other(
-                                checkNotNull(country) { "`country` is required but was not set" },
-                                checkNotNull(description) {
-                                    "`description` is required but was not set"
-                                },
-                                checkNotNull(fileId) { "`fileId` is required but was not set" },
+                                checkRequired("country", country),
+                                checkRequired("description", description),
+                                checkRequired("fileId", fileId),
                                 backFileId,
                                 expirationDate,
                                 additionalProperties.toImmutable(),
@@ -1750,11 +1742,9 @@ constructor(
 
                         fun build(): Passport =
                             Passport(
-                                checkNotNull(country) { "`country` is required but was not set" },
-                                checkNotNull(expirationDate) {
-                                    "`expirationDate` is required but was not set"
-                                },
-                                checkNotNull(fileId) { "`fileId` is required but was not set" },
+                                checkRequired("country", country),
+                                checkRequired("expirationDate", expirationDate),
+                                checkRequired("fileId", fileId),
                                 additionalProperties.toImmutable(),
                             )
                     }

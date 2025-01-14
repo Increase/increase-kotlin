@@ -3,6 +3,7 @@
 package com.increase.api.models
 
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import java.util.Objects
@@ -158,7 +159,7 @@ constructor(
 
         fun build(): AccountNumberRetrieveParams =
             AccountNumberRetrieveParams(
-                checkNotNull(accountNumberId) { "`accountNumberId` is required but was not set" },
+                checkRequired("accountNumberId", accountNumberId),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )

@@ -12,6 +12,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
@@ -242,13 +243,12 @@ private constructor(
 
         fun build(): IntrafiBalance =
             IntrafiBalance(
-                checkNotNull(id) { "`id` is required but was not set" },
-                checkNotNull(balances) { "`balances` is required but was not set" }
-                    .map { it.toImmutable() },
-                checkNotNull(currency) { "`currency` is required but was not set" },
-                checkNotNull(effectiveDate) { "`effectiveDate` is required but was not set" },
-                checkNotNull(totalBalance) { "`totalBalance` is required but was not set" },
-                checkNotNull(type) { "`type` is required but was not set" },
+                checkRequired("id", id),
+                checkRequired("balances", balances).map { it.toImmutable() },
+                checkRequired("currency", currency),
+                checkRequired("effectiveDate", effectiveDate),
+                checkRequired("totalBalance", totalBalance),
+                checkRequired("type", type),
                 additionalProperties.toImmutable(),
             )
     }
@@ -426,13 +426,11 @@ private constructor(
 
             fun build(): Balance =
                 Balance(
-                    checkNotNull(id) { "`id` is required but was not set" },
-                    checkNotNull(balance) { "`balance` is required but was not set" },
-                    checkNotNull(bank) { "`bank` is required but was not set" },
-                    checkNotNull(bankLocation) { "`bankLocation` is required but was not set" },
-                    checkNotNull(fdicCertificateNumber) {
-                        "`fdicCertificateNumber` is required but was not set"
-                    },
+                    checkRequired("id", id),
+                    checkRequired("balance", balance),
+                    checkRequired("bank", bank),
+                    checkRequired("bankLocation", bankLocation),
+                    checkRequired("fdicCertificateNumber", fdicCertificateNumber),
                     additionalProperties.toImmutable(),
                 )
         }
@@ -535,8 +533,8 @@ private constructor(
 
                 fun build(): BankLocation =
                     BankLocation(
-                        checkNotNull(city) { "`city` is required but was not set" },
-                        checkNotNull(state) { "`state` is required but was not set" },
+                        checkRequired("city", city),
+                        checkRequired("state", state),
                         additionalProperties.toImmutable(),
                     )
             }

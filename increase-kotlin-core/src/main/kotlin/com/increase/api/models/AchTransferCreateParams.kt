@@ -12,6 +12,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.immutableEmptyMap
@@ -876,11 +877,9 @@ constructor(
 
             fun build(): AchTransferCreateBody =
                 AchTransferCreateBody(
-                    checkNotNull(accountId) { "`accountId` is required but was not set" },
-                    checkNotNull(amount) { "`amount` is required but was not set" },
-                    checkNotNull(statementDescriptor) {
-                        "`statementDescriptor` is required but was not set"
-                    },
+                    checkRequired("accountId", accountId),
+                    checkRequired("amount", amount),
+                    checkRequired("statementDescriptor", statementDescriptor),
                     accountNumber,
                     addenda,
                     companyDescriptiveDate,
@@ -1446,7 +1445,7 @@ constructor(
 
             fun build(): Addenda =
                 Addenda(
-                    checkNotNull(category) { "`category` is required but was not set" },
+                    checkRequired("category", category),
                     freeform,
                     paymentOrderRemittanceAdvice,
                     additionalProperties.toImmutable(),
@@ -1624,8 +1623,7 @@ constructor(
 
                 fun build(): Freeform =
                     Freeform(
-                        checkNotNull(entries) { "`entries` is required but was not set" }
-                            .map { it.toImmutable() },
+                        checkRequired("entries", entries).map { it.toImmutable() },
                         additionalProperties.toImmutable()
                     )
             }
@@ -1716,9 +1714,7 @@ constructor(
 
                     fun build(): Entry =
                         Entry(
-                            checkNotNull(paymentRelatedInformation) {
-                                "`paymentRelatedInformation` is required but was not set"
-                            },
+                            checkRequired("paymentRelatedInformation", paymentRelatedInformation),
                             additionalProperties.toImmutable()
                         )
                 }
@@ -1860,8 +1856,7 @@ constructor(
 
                 fun build(): PaymentOrderRemittanceAdvice =
                     PaymentOrderRemittanceAdvice(
-                        checkNotNull(invoices) { "`invoices` is required but was not set" }
-                            .map { it.toImmutable() },
+                        checkRequired("invoices", invoices).map { it.toImmutable() },
                         additionalProperties.toImmutable()
                     )
             }
@@ -1994,10 +1989,8 @@ constructor(
 
                     fun build(): Invoice =
                         Invoice(
-                            checkNotNull(invoiceNumber) {
-                                "`invoiceNumber` is required but was not set"
-                            },
-                            checkNotNull(paidAmount) { "`paidAmount` is required but was not set" },
+                            checkRequired("invoiceNumber", invoiceNumber),
+                            checkRequired("paidAmount", paidAmount),
                             additionalProperties.toImmutable(),
                         )
                 }
