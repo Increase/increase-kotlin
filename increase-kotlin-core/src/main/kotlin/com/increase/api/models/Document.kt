@@ -218,6 +218,7 @@ private constructor(
             )
     }
 
+    /** The type of document. */
     class Category
     @JsonCreator
     private constructor(
@@ -238,14 +239,32 @@ private constructor(
         }
 
         enum class Known {
+            /** Internal Revenue Service Form 1099-INT. */
             FORM_1099_INT,
+            /**
+             * A document submitted in response to a proof of authorization request for an ACH
+             * transfer.
+             */
             PROOF_OF_AUTHORIZATION,
+            /**
+             * Company information, such a policies or procedures, typically submitted during our
+             * due diligence process.
+             */
             COMPANY_INFORMATION,
         }
 
         enum class Value {
+            /** Internal Revenue Service Form 1099-INT. */
             FORM_1099_INT,
+            /**
+             * A document submitted in response to a proof of authorization request for an ACH
+             * transfer.
+             */
             PROOF_OF_AUTHORIZATION,
+            /**
+             * Company information, such a policies or procedures, typically submitted during our
+             * due diligence process.
+             */
             COMPANY_INFORMATION,
             _UNKNOWN,
         }
@@ -281,6 +300,9 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /**
+     * A constant representing the object's type. For this resource it will always be `document`.
+     */
     class Type
     @JsonCreator
     private constructor(

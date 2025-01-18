@@ -513,6 +513,10 @@ constructor(
             )
     }
 
+    /**
+     * The credential you request in exchange for the code. In Production, this is always
+     * `authorization_code`. In Sandbox, you can pass either enum value.
+     */
     class GrantType
     @JsonCreator
     private constructor(
@@ -531,12 +535,16 @@ constructor(
         }
 
         enum class Known {
+            /** An OAuth authorization code. */
             AUTHORIZATION_CODE,
+            /** An OAuth production token. */
             PRODUCTION_TOKEN,
         }
 
         enum class Value {
+            /** An OAuth authorization code. */
             AUTHORIZATION_CODE,
+            /** An OAuth production token. */
             PRODUCTION_TOKEN,
             _UNKNOWN,
         }

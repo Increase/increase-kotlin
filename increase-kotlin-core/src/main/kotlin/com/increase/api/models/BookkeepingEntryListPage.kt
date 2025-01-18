@@ -16,6 +16,7 @@ import com.increase.api.core.toImmutable
 import com.increase.api.services.blocking.BookkeepingEntryService
 import java.util.Objects
 
+/** List Bookkeeping Entries */
 class BookkeepingEntryListPage
 private constructor(
     private val bookkeepingEntriesService: BookkeepingEntryService,

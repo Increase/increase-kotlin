@@ -16,6 +16,7 @@ import com.increase.api.core.toImmutable
 import com.increase.api.services.blocking.DocumentService
 import java.util.Objects
 
+/** List Documents */
 class DocumentListPage
 private constructor(
     private val documentsService: DocumentService,

@@ -16,6 +16,7 @@ import com.increase.api.core.toImmutable
 import com.increase.api.services.blocking.InboundAchTransferService
 import java.util.Objects
 
+/** List Inbound ACH Transfers */
 class InboundAchTransferListPage
 private constructor(
     private val inboundAchTransfersService: InboundAchTransferService,

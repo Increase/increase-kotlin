@@ -16,6 +16,7 @@ import com.increase.api.core.toImmutable
 import com.increase.api.services.blocking.LockboxService
 import java.util.Objects
 
+/** List Lockboxes */
 class LockboxListPage
 private constructor(
     private val lockboxesService: LockboxService,

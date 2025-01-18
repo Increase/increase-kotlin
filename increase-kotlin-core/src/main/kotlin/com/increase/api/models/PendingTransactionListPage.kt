@@ -16,6 +16,7 @@ import com.increase.api.core.toImmutable
 import com.increase.api.services.blocking.PendingTransactionService
 import java.util.Objects
 
+/** List Pending Transactions */
 class PendingTransactionListPage
 private constructor(
     private val pendingTransactionsService: PendingTransactionService,

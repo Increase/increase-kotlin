@@ -16,6 +16,7 @@ import com.increase.api.core.toImmutable
 import com.increase.api.services.blocking.EntityService
 import java.util.Objects
 
+/** List Entities */
 class EntityListPage
 private constructor(
     private val entitiesService: EntityService,

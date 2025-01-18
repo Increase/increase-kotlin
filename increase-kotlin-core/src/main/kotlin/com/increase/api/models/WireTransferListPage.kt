@@ -16,6 +16,7 @@ import com.increase.api.core.toImmutable
 import com.increase.api.services.blocking.WireTransferService
 import java.util.Objects
 
+/** List Wire Transfers */
 class WireTransferListPage
 private constructor(
     private val wireTransfersService: WireTransferService,

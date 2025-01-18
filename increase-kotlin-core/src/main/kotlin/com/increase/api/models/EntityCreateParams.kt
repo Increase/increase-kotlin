@@ -739,6 +739,7 @@ constructor(
             )
     }
 
+    /** The type of Entity to create. */
     class Structure
     @JsonCreator
     private constructor(
@@ -763,18 +764,28 @@ constructor(
         }
 
         enum class Known {
+            /** A corporation. */
             CORPORATION,
+            /** An individual person. */
             NATURAL_PERSON,
+            /** Multiple individual people. */
             JOINT,
+            /** A trust. */
             TRUST,
+            /** A government authority. */
             GOVERNMENT_AUTHORITY,
         }
 
         enum class Value {
+            /** A corporation. */
             CORPORATION,
+            /** An individual person. */
             NATURAL_PERSON,
+            /** Multiple individual people. */
             JOINT,
+            /** A trust. */
             TRUST,
+            /** A government authority. */
             GOVERNMENT_AUTHORITY,
             _UNKNOWN,
         }
@@ -2103,6 +2114,7 @@ constructor(
                             )
                     }
 
+                    /** A method that can be used to verify the individual's identity. */
                     class Method
                     @JsonCreator
                     private constructor(
@@ -2129,18 +2141,28 @@ constructor(
                         }
 
                         enum class Known {
+                            /** A social security number. */
                             SOCIAL_SECURITY_NUMBER,
+                            /** An individual taxpayer identification number (ITIN). */
                             INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER,
+                            /** A passport number. */
                             PASSPORT,
+                            /** A driver's license number. */
                             DRIVERS_LICENSE,
+                            /** Another identifying document. */
                             OTHER,
                         }
 
                         enum class Value {
+                            /** A social security number. */
                             SOCIAL_SECURITY_NUMBER,
+                            /** An individual taxpayer identification number (ITIN). */
                             INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER,
+                            /** A passport number. */
                             PASSPORT,
+                            /** A driver's license number. */
                             DRIVERS_LICENSE,
+                            /** Another identifying document. */
                             OTHER,
                             _UNKNOWN,
                         }
@@ -2825,12 +2847,16 @@ constructor(
                 }
 
                 enum class Known {
+                    /** A person with 25% or greater direct or indirect ownership of the entity. */
                     OWNERSHIP,
+                    /** A person who manages, directs, or has significant control of the entity. */
                     CONTROL,
                 }
 
                 enum class Value {
+                    /** A person with 25% or greater direct or indirect ownership of the entity. */
                     OWNERSHIP,
+                    /** A person who manages, directs, or has significant control of the entity. */
                     CONTROL,
                     _UNKNOWN,
                 }
@@ -3410,6 +3436,7 @@ constructor(
                 "AuthorizedPerson{name=$name, additionalProperties=$additionalProperties}"
         }
 
+        /** The category of the government authority. */
         class Category
         @JsonCreator
         private constructor(
@@ -3426,10 +3453,12 @@ constructor(
             }
 
             enum class Known {
+                /** The Public Entity is a Municipality. */
                 MUNICIPALITY,
             }
 
             enum class Value {
+                /** The Public Entity is a Municipality. */
                 MUNICIPALITY,
                 _UNKNOWN,
             }
@@ -4216,6 +4245,7 @@ constructor(
                         )
                 }
 
+                /** A method that can be used to verify the individual's identity. */
                 class Method
                 @JsonCreator
                 private constructor(
@@ -4242,18 +4272,28 @@ constructor(
                     }
 
                     enum class Known {
+                        /** A social security number. */
                         SOCIAL_SECURITY_NUMBER,
+                        /** An individual taxpayer identification number (ITIN). */
                         INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER,
+                        /** A passport number. */
                         PASSPORT,
+                        /** A driver's license number. */
                         DRIVERS_LICENSE,
+                        /** Another identifying document. */
                         OTHER,
                     }
 
                     enum class Value {
+                        /** A social security number. */
                         SOCIAL_SECURITY_NUMBER,
+                        /** An individual taxpayer identification number (ITIN). */
                         INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER,
+                        /** A passport number. */
                         PASSPORT,
+                        /** A driver's license number. */
                         DRIVERS_LICENSE,
+                        /** Another identifying document. */
                         OTHER,
                         _UNKNOWN,
                     }
@@ -5527,6 +5567,7 @@ constructor(
                     )
             }
 
+            /** A method that can be used to verify the individual's identity. */
             class Method
             @JsonCreator
             private constructor(
@@ -5552,18 +5593,28 @@ constructor(
                 }
 
                 enum class Known {
+                    /** A social security number. */
                     SOCIAL_SECURITY_NUMBER,
+                    /** An individual taxpayer identification number (ITIN). */
                     INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER,
+                    /** A passport number. */
                     PASSPORT,
+                    /** A driver's license number. */
                     DRIVERS_LICENSE,
+                    /** Another identifying document. */
                     OTHER,
                 }
 
                 enum class Value {
+                    /** A social security number. */
                     SOCIAL_SECURITY_NUMBER,
+                    /** An individual taxpayer identification number (ITIN). */
                     INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER,
+                    /** A passport number. */
                     PASSPORT,
+                    /** A driver's license number. */
                     DRIVERS_LICENSE,
+                    /** Another identifying document. */
                     OTHER,
                     _UNKNOWN,
                 }
@@ -6384,6 +6435,7 @@ constructor(
                 )
         }
 
+        /** The vendor that was used to perform the verification. */
         class Vendor
         @JsonCreator
         private constructor(
@@ -6402,12 +6454,16 @@ constructor(
             }
 
             enum class Known {
+                /** Alloy. See https://alloy.com for more information. */
                 ALLOY,
+                /** Middesk. See https://middesk.com for more information. */
                 MIDDESK,
             }
 
             enum class Value {
+                /** Alloy. See https://alloy.com for more information. */
                 ALLOY,
+                /** Middesk. See https://middesk.com for more information. */
                 MIDDESK,
                 _UNKNOWN,
             }
@@ -6951,6 +7007,11 @@ constructor(
                 "Address{city=$city, line1=$line1, state=$state, zip=$zip, line2=$line2, additionalProperties=$additionalProperties}"
         }
 
+        /**
+         * Whether the trust is `revocable` or `irrevocable`. Irrevocable trusts require their own
+         * Employer Identification Number. Revocable trusts require information about the individual
+         * `grantor` who created the trust.
+         */
         class Category
         @JsonCreator
         private constructor(
@@ -6969,12 +7030,16 @@ constructor(
             }
 
             enum class Known {
+                /** The trust is revocable by the grantor. */
                 REVOCABLE,
+                /** The trust cannot be revoked. */
                 IRREVOCABLE,
             }
 
             enum class Value {
+                /** The trust is revocable by the grantor. */
                 REVOCABLE,
+                /** The trust cannot be revoked. */
                 IRREVOCABLE,
                 _UNKNOWN,
             }
@@ -7131,6 +7196,7 @@ constructor(
                     )
             }
 
+            /** The structure of the trustee. */
             class Structure
             @JsonCreator
             private constructor(
@@ -7147,10 +7213,12 @@ constructor(
                 }
 
                 enum class Known {
+                    /** The trustee is an individual. */
                     INDIVIDUAL,
                 }
 
                 enum class Value {
+                    /** The trustee is an individual. */
                     INDIVIDUAL,
                     _UNKNOWN,
                 }
@@ -7829,6 +7897,7 @@ constructor(
                             )
                     }
 
+                    /** A method that can be used to verify the individual's identity. */
                     class Method
                     @JsonCreator
                     private constructor(
@@ -7855,18 +7924,28 @@ constructor(
                         }
 
                         enum class Known {
+                            /** A social security number. */
                             SOCIAL_SECURITY_NUMBER,
+                            /** An individual taxpayer identification number (ITIN). */
                             INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER,
+                            /** A passport number. */
                             PASSPORT,
+                            /** A driver's license number. */
                             DRIVERS_LICENSE,
+                            /** Another identifying document. */
                             OTHER,
                         }
 
                         enum class Value {
+                            /** A social security number. */
                             SOCIAL_SECURITY_NUMBER,
+                            /** An individual taxpayer identification number (ITIN). */
                             INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER,
+                            /** A passport number. */
                             PASSPORT,
+                            /** A driver's license number. */
                             DRIVERS_LICENSE,
+                            /** Another identifying document. */
                             OTHER,
                             _UNKNOWN,
                         }
@@ -9172,6 +9251,7 @@ constructor(
                         )
                 }
 
+                /** A method that can be used to verify the individual's identity. */
                 class Method
                 @JsonCreator
                 private constructor(
@@ -9198,18 +9278,28 @@ constructor(
                     }
 
                     enum class Known {
+                        /** A social security number. */
                         SOCIAL_SECURITY_NUMBER,
+                        /** An individual taxpayer identification number (ITIN). */
                         INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER,
+                        /** A passport number. */
                         PASSPORT,
+                        /** A driver's license number. */
                         DRIVERS_LICENSE,
+                        /** Another identifying document. */
                         OTHER,
                     }
 
                     enum class Value {
+                        /** A social security number. */
                         SOCIAL_SECURITY_NUMBER,
+                        /** An individual taxpayer identification number (ITIN). */
                         INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER,
+                        /** A passport number. */
                         PASSPORT,
+                        /** A driver's license number. */
                         DRIVERS_LICENSE,
+                        /** Another identifying document. */
                         OTHER,
                         _UNKNOWN,
                     }

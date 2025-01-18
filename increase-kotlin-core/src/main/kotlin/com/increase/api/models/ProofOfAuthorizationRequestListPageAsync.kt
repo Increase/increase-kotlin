@@ -18,6 +18,7 @@ import java.util.Objects
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 
+/** List Proof of Authorization Requests */
 class ProofOfAuthorizationRequestListPageAsync
 private constructor(
     private val proofOfAuthorizationRequestsService: ProofOfAuthorizationRequestServiceAsync,

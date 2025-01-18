@@ -277,6 +277,7 @@ private constructor(
             )
     }
 
+    /** If the mail item has been rejected, why it was rejected. */
     class RejectionReason
     @JsonCreator
     private constructor(
@@ -297,14 +298,20 @@ private constructor(
         }
 
         enum class Known {
+            /** The mail item does not match any lockbox. */
             NO_MATCHING_LOCKBOX,
+            /** The mail item does not contain a check. */
             NO_CHECK,
+            /** The Lockbox or its associated Account is not active. */
             LOCKBOX_NOT_ACTIVE,
         }
 
         enum class Value {
+            /** The mail item does not match any lockbox. */
             NO_MATCHING_LOCKBOX,
+            /** The mail item does not contain a check. */
             NO_CHECK,
+            /** The Lockbox or its associated Account is not active. */
             LOCKBOX_NOT_ACTIVE,
             _UNKNOWN,
         }
@@ -340,6 +347,7 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /** If the mail item has been processed. */
     class Status
     @JsonCreator
     private constructor(
@@ -360,14 +368,20 @@ private constructor(
         }
 
         enum class Known {
+            /** The mail item is pending processing. */
             PENDING,
+            /** The mail item has been processed. */
             PROCESSED,
+            /** The mail item has been rejected. */
             REJECTED,
         }
 
         enum class Value {
+            /** The mail item is pending processing. */
             PENDING,
+            /** The mail item has been processed. */
             PROCESSED,
+            /** The mail item has been rejected. */
             REJECTED,
             _UNKNOWN,
         }
@@ -403,6 +417,10 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /**
+     * A constant representing the object's type. For this resource it will always be
+     * `inbound_mail_item`.
+     */
     class Type
     @JsonCreator
     private constructor(

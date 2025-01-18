@@ -731,6 +731,7 @@ private constructor(
             )
     }
 
+    /** The status of the transfer. */
     class Status
     @JsonCreator
     private constructor(
@@ -753,16 +754,30 @@ private constructor(
         }
 
         enum class Known {
+            /**
+             * The Inbound Wire Transfer is awaiting action, will transition automatically if no
+             * action is taken.
+             */
             PENDING,
+            /** The Inbound Wire Transfer is accepted. */
             ACCEPTED,
+            /** The Inbound Wire Transfer was declined. */
             DECLINED,
+            /** The Inbound Wire Transfer was reversed. */
             REVERSED,
         }
 
         enum class Value {
+            /**
+             * The Inbound Wire Transfer is awaiting action, will transition automatically if no
+             * action is taken.
+             */
             PENDING,
+            /** The Inbound Wire Transfer is accepted. */
             ACCEPTED,
+            /** The Inbound Wire Transfer was declined. */
             DECLINED,
+            /** The Inbound Wire Transfer was reversed. */
             REVERSED,
             _UNKNOWN,
         }
@@ -800,6 +815,10 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /**
+     * A constant representing the object's type. For this resource it will always be
+     * `inbound_wire_transfer`.
+     */
     class Type
     @JsonCreator
     private constructor(

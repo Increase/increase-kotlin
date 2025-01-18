@@ -16,6 +16,7 @@ import com.increase.api.core.toImmutable
 import com.increase.api.services.blocking.InboundWireDrawdownRequestService
 import java.util.Objects
 
+/** List Inbound Wire Drawdown Requests */
 class InboundWireDrawdownRequestListPage
 private constructor(
     private val inboundWireDrawdownRequestsService: InboundWireDrawdownRequestService,

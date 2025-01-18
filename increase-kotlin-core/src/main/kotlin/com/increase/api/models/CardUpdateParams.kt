@@ -854,6 +854,7 @@ constructor(
             "DigitalWallet{digitalCardProfileId=$digitalCardProfileId, email=$email, phone=$phone, additionalProperties=$additionalProperties}"
     }
 
+    /** The status to update the Card with. */
     class Status
     @JsonCreator
     private constructor(
@@ -874,14 +875,20 @@ constructor(
         }
 
         enum class Known {
+            /** The card is active. */
             ACTIVE,
+            /** The card is temporarily disabled. */
             DISABLED,
+            /** The card is permanently canceled. */
             CANCELED,
         }
 
         enum class Value {
+            /** The card is active. */
             ACTIVE,
+            /** The card is temporarily disabled. */
             DISABLED,
+            /** The card is permanently canceled. */
             CANCELED,
             _UNKNOWN,
         }

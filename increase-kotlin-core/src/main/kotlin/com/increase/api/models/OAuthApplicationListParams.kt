@@ -498,12 +498,16 @@ constructor(
             }
 
             enum class Known {
+                /** The application is active and can be used by your users. */
                 ACTIVE,
+                /** The application is deleted. */
                 DELETED,
             }
 
             enum class Value {
+                /** The application is active and can be used by your users. */
                 ACTIVE,
+                /** The application is deleted. */
                 DELETED,
                 _UNKNOWN,
             }

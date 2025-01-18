@@ -16,6 +16,7 @@ import com.increase.api.core.toImmutable
 import com.increase.api.services.blocking.ProofOfAuthorizationRequestService
 import java.util.Objects
 
+/** List Proof of Authorization Requests */
 class ProofOfAuthorizationRequestListPage
 private constructor(
     private val proofOfAuthorizationRequestsService: ProofOfAuthorizationRequestService,

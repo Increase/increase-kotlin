@@ -16,6 +16,7 @@ import com.increase.api.core.toImmutable
 import com.increase.api.services.blocking.CardDisputeService
 import java.util.Objects
 
+/** List Card Disputes */
 class CardDisputeListPage
 private constructor(
     private val cardDisputesService: CardDisputeService,

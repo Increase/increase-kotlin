@@ -18,6 +18,7 @@ import java.util.Objects
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 
+/** List Card Profiles */
 class DigitalCardProfileListPageAsync
 private constructor(
     private val digitalCardProfilesService: DigitalCardProfileServiceAsync,
