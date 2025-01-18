@@ -804,6 +804,7 @@ private constructor(
                 )
         }
 
+        /** The reason for the adjustment. */
         class Reason
         @JsonCreator
         private constructor(
@@ -824,14 +825,38 @@ private constructor(
             }
 
             enum class Known {
+                /**
+                 * The return was initiated too late and the receiving institution has responded
+                 * with a Late Return Claim.
+                 */
                 LATE_RETURN,
+                /**
+                 * The check was deposited to the wrong payee and the depositing institution has
+                 * reimbursed the funds with a Wrong Payee Credit.
+                 */
                 WRONG_PAYEE_CREDIT,
+                /**
+                 * The check was deposited with a different amount than what was written on the
+                 * check.
+                 */
                 ADJUSTED_AMOUNT,
             }
 
             enum class Value {
+                /**
+                 * The return was initiated too late and the receiving institution has responded
+                 * with a Late Return Claim.
+                 */
                 LATE_RETURN,
+                /**
+                 * The check was deposited to the wrong payee and the depositing institution has
+                 * reimbursed the funds with a Wrong Payee Credit.
+                 */
                 WRONG_PAYEE_CREDIT,
+                /**
+                 * The check was deposited with a different amount than what was written on the
+                 * check.
+                 */
                 ADJUSTED_AMOUNT,
                 _UNKNOWN,
             }
@@ -885,6 +910,7 @@ private constructor(
             "Adjustment{adjustedAt=$adjustedAt, amount=$amount, reason=$reason, transactionId=$transactionId, additionalProperties=$additionalProperties}"
     }
 
+    /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the deposit. */
     class Currency
     @JsonCreator
     private constructor(
@@ -911,20 +937,32 @@ private constructor(
         }
 
         enum class Known {
+            /** Canadian Dollar (CAD) */
             CAD,
+            /** Swiss Franc (CHF) */
             CHF,
+            /** Euro (EUR) */
             EUR,
+            /** British Pound (GBP) */
             GBP,
+            /** Japanese Yen (JPY) */
             JPY,
+            /** US Dollar (USD) */
             USD,
         }
 
         enum class Value {
+            /** Canadian Dollar (CAD) */
             CAD,
+            /** Swiss Franc (CHF) */
             CHF,
+            /** Euro (EUR) */
             EUR,
+            /** British Pound (GBP) */
             GBP,
+            /** Japanese Yen (JPY) */
             JPY,
+            /** US Dollar (USD) */
             USD,
             _UNKNOWN,
         }
@@ -1094,6 +1132,7 @@ private constructor(
                 )
         }
 
+        /** The reason the deposit was returned. */
         class Reason
         @JsonCreator
         private constructor(
@@ -1118,18 +1157,28 @@ private constructor(
             }
 
             enum class Known {
+                /** The check was altered or fictitious. */
                 ALTERED_OR_FICTITIOUS,
+                /** The check was not authorized. */
                 NOT_AUTHORIZED,
+                /** The check was a duplicate presentment. */
                 DUPLICATE_PRESENTMENT,
+                /** The check was not endorsed. */
                 ENDORSEMENT_MISSING,
+                /** The check was not endorsed by the payee. */
                 ENDORSEMENT_IRREGULAR,
             }
 
             enum class Value {
+                /** The check was altered or fictitious. */
                 ALTERED_OR_FICTITIOUS,
+                /** The check was not authorized. */
                 NOT_AUTHORIZED,
+                /** The check was a duplicate presentment. */
                 DUPLICATE_PRESENTMENT,
+                /** The check was not endorsed. */
                 ENDORSEMENT_MISSING,
+                /** The check was not endorsed by the payee. */
                 ENDORSEMENT_IRREGULAR,
                 _UNKNOWN,
             }
@@ -1187,6 +1236,10 @@ private constructor(
             "DepositReturn{reason=$reason, returnedAt=$returnedAt, transactionId=$transactionId, additionalProperties=$additionalProperties}"
     }
 
+    /**
+     * Whether the details on the check match the recipient name of the check transfer. This is an
+     * optional feature, contact sales to enable.
+     */
     class PayeeNameAnalysis
     @JsonCreator
     private constructor(
@@ -1207,14 +1260,20 @@ private constructor(
         }
 
         enum class Known {
+            /** The details on the check match the recipient name of the check transfer. */
             NAME_MATCHES,
+            /** The details on the check do not match the recipient name of the check transfer. */
             DOES_NOT_MATCH,
+            /** The payee name analysis was not evaluated. */
             NOT_EVALUATED,
         }
 
         enum class Value {
+            /** The details on the check match the recipient name of the check transfer. */
             NAME_MATCHES,
+            /** The details on the check do not match the recipient name of the check transfer. */
             DOES_NOT_MATCH,
+            /** The payee name analysis was not evaluated. */
             NOT_EVALUATED,
             _UNKNOWN,
         }
@@ -1250,6 +1309,7 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /** The status of the Inbound Check Deposit. */
     class Status
     @JsonCreator
     private constructor(
@@ -1274,18 +1334,28 @@ private constructor(
         }
 
         enum class Known {
+            /** The Inbound Check Deposit is pending. */
             PENDING,
+            /** The Inbound Check Deposit was accepted. */
             ACCEPTED,
+            /** The Inbound Check Deposit was rejected. */
             DECLINED,
+            /** The Inbound Check Deposit was returned. */
             RETURNED,
+            /** The Inbound Check Deposit requires attention from an Increase operator. */
             REQUIRES_ATTENTION,
         }
 
         enum class Value {
+            /** The Inbound Check Deposit is pending. */
             PENDING,
+            /** The Inbound Check Deposit was accepted. */
             ACCEPTED,
+            /** The Inbound Check Deposit was rejected. */
             DECLINED,
+            /** The Inbound Check Deposit was returned. */
             RETURNED,
+            /** The Inbound Check Deposit requires attention from an Increase operator. */
             REQUIRES_ATTENTION,
             _UNKNOWN,
         }
@@ -1325,6 +1395,10 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /**
+     * A constant representing the object's type. For this resource it will always be
+     * `inbound_check_deposit`.
+     */
     class Type
     @JsonCreator
     private constructor(

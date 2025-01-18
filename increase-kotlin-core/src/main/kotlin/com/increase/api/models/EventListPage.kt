@@ -16,6 +16,7 @@ import com.increase.api.core.toImmutable
 import com.increase.api.services.blocking.EventService
 import java.util.Objects
 
+/** List Events */
 class EventListPage
 private constructor(
     private val eventsService: EventService,

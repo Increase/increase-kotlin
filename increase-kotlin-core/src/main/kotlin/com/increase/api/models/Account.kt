@@ -489,6 +489,7 @@ private constructor(
             )
     }
 
+    /** The bank the Account is with. */
     class Bank
     @JsonCreator
     private constructor(
@@ -509,14 +510,20 @@ private constructor(
         }
 
         enum class Known {
+            /** Blue Ridge Bank, N.A. */
             BLUE_RIDGE_BANK,
+            /** First Internet Bank of Indiana */
             FIRST_INTERNET_BANK,
+            /** Grasshopper Bank */
             GRASSHOPPER_BANK,
         }
 
         enum class Value {
+            /** Blue Ridge Bank, N.A. */
             BLUE_RIDGE_BANK,
+            /** First Internet Bank of Indiana */
             FIRST_INTERNET_BANK,
+            /** Grasshopper Bank */
             GRASSHOPPER_BANK,
             _UNKNOWN,
         }
@@ -552,6 +559,7 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the Account currency. */
     class Currency
     @JsonCreator
     private constructor(
@@ -578,20 +586,32 @@ private constructor(
         }
 
         enum class Known {
+            /** Canadian Dollar (CAD) */
             CAD,
+            /** Swiss Franc (CHF) */
             CHF,
+            /** Euro (EUR) */
             EUR,
+            /** British Pound (GBP) */
             GBP,
+            /** Japanese Yen (JPY) */
             JPY,
+            /** US Dollar (USD) */
             USD,
         }
 
         enum class Value {
+            /** Canadian Dollar (CAD) */
             CAD,
+            /** Swiss Franc (CHF) */
             CHF,
+            /** Euro (EUR) */
             EUR,
+            /** British Pound (GBP) */
             GBP,
+            /** Japanese Yen (JPY) */
             JPY,
+            /** US Dollar (USD) */
             USD,
             _UNKNOWN,
         }
@@ -633,6 +653,7 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /** The status of the Account. */
     class Status
     @JsonCreator
     private constructor(
@@ -651,12 +672,16 @@ private constructor(
         }
 
         enum class Known {
+            /** Closed Accounts on which no new activity can occur. */
             CLOSED,
+            /** Open Accounts that are ready to use. */
             OPEN,
         }
 
         enum class Value {
+            /** Closed Accounts on which no new activity can occur. */
             CLOSED,
+            /** Open Accounts that are ready to use. */
             OPEN,
             _UNKNOWN,
         }
@@ -690,6 +715,7 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /** A constant representing the object's type. For this resource it will always be `account`. */
     class Type
     @JsonCreator
     private constructor(

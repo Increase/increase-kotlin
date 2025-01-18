@@ -18,6 +18,7 @@ import java.util.Objects
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 
+/** List Physical Card Profiles */
 class PhysicalCardProfileListPageAsync
 private constructor(
     private val physicalCardProfilesService: PhysicalCardProfileServiceAsync,

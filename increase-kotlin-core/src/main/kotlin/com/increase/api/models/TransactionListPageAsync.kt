@@ -18,6 +18,7 @@ import java.util.Objects
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 
+/** List Transactions */
 class TransactionListPageAsync
 private constructor(
     private val transactionsService: TransactionServiceAsync,

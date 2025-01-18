@@ -18,6 +18,7 @@ import java.util.Objects
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 
+/** List Declined Transactions */
 class DeclinedTransactionListPageAsync
 private constructor(
     private val declinedTransactionsService: DeclinedTransactionServiceAsync,

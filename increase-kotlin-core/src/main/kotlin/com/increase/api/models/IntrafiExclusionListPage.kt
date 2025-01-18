@@ -16,6 +16,7 @@ import com.increase.api.core.toImmutable
 import com.increase.api.services.blocking.IntrafiExclusionService
 import java.util.Objects
 
+/** List IntraFi Exclusions */
 class IntrafiExclusionListPage
 private constructor(
     private val intrafiExclusionsService: IntrafiExclusionService,

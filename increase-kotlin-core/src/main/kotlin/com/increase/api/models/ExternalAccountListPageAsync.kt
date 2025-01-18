@@ -18,6 +18,7 @@ import java.util.Objects
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 
+/** List External Accounts */
 class ExternalAccountListPageAsync
 private constructor(
     private val externalAccountsService: ExternalAccountServiceAsync,

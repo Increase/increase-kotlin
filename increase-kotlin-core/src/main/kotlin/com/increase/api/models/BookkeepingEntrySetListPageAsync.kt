@@ -18,6 +18,7 @@ import java.util.Objects
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 
+/** List Bookkeeping Entry Sets */
 class BookkeepingEntrySetListPageAsync
 private constructor(
     private val bookkeepingEntrySetsService: BookkeepingEntrySetServiceAsync,

@@ -258,6 +258,7 @@ private constructor(
             )
     }
 
+    /** Whether the connection is active. */
     class Status
     @JsonCreator
     private constructor(
@@ -276,12 +277,16 @@ private constructor(
         }
 
         enum class Known {
+            /** The OAuth connection is active. */
             ACTIVE,
+            /** The OAuth connection is permanently deactivated. */
             INACTIVE,
         }
 
         enum class Value {
+            /** The OAuth connection is active. */
             ACTIVE,
+            /** The OAuth connection is permanently deactivated. */
             INACTIVE,
             _UNKNOWN,
         }
@@ -315,6 +320,10 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /**
+     * A constant representing the object's type. For this resource it will always be
+     * `oauth_connection`.
+     */
     class Type
     @JsonCreator
     private constructor(

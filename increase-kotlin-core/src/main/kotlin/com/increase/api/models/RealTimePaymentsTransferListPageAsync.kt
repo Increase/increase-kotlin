@@ -18,6 +18,7 @@ import java.util.Objects
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 
+/** List Real-Time Payments Transfers */
 class RealTimePaymentsTransferListPageAsync
 private constructor(
     private val realTimePaymentsTransfersService: RealTimePaymentsTransferServiceAsync,

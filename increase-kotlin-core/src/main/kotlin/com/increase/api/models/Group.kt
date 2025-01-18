@@ -203,6 +203,7 @@ private constructor(
             )
     }
 
+    /** If the Group is allowed to create ACH debits. */
     class AchDebitStatus
     @JsonCreator
     private constructor(
@@ -221,12 +222,16 @@ private constructor(
         }
 
         enum class Known {
+            /** The Group cannot make ACH debits. */
             DISABLED,
+            /** The Group can make ACH debits. */
             ENABLED,
         }
 
         enum class Value {
+            /** The Group cannot make ACH debits. */
             DISABLED,
+            /** The Group can make ACH debits. */
             ENABLED,
             _UNKNOWN,
         }
@@ -260,6 +265,7 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /** If the Group is activated or not. */
     class ActivationStatus
     @JsonCreator
     private constructor(
@@ -278,12 +284,16 @@ private constructor(
         }
 
         enum class Known {
+            /** The Group is not activated. */
             UNACTIVATED,
+            /** The Group is activated. */
             ACTIVATED,
         }
 
         enum class Value {
+            /** The Group is not activated. */
             UNACTIVATED,
+            /** The Group is activated. */
             ACTIVATED,
             _UNKNOWN,
         }
@@ -317,6 +327,7 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /** A constant representing the object's type. For this resource it will always be `group`. */
     class Type
     @JsonCreator
     private constructor(

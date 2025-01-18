@@ -16,6 +16,7 @@ import com.increase.api.core.toImmutable
 import com.increase.api.services.blocking.CardPaymentService
 import java.util.Objects
 
+/** List Card Payments */
 class CardPaymentListPage
 private constructor(
     private val cardPaymentsService: CardPaymentService,

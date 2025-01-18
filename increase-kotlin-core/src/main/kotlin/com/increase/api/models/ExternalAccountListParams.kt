@@ -346,12 +346,16 @@ constructor(
             }
 
             enum class Known {
+                /** The External Account is active. */
                 ACTIVE,
+                /** The External Account is archived and won't appear in the dashboard. */
                 ARCHIVED,
             }
 
             enum class Value {
+                /** The External Account is active. */
                 ACTIVE,
+                /** The External Account is archived and won't appear in the dashboard. */
                 ARCHIVED,
                 _UNKNOWN,
             }

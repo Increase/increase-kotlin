@@ -18,6 +18,7 @@ import java.util.Objects
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 
+/** List OAuth Applications */
 class OAuthApplicationListPageAsync
 private constructor(
     private val oauthApplicationsService: OAuthApplicationServiceAsync,

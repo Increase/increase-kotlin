@@ -401,6 +401,7 @@ constructor(
             )
     }
 
+    /** The account compliance category. */
     class ComplianceCategory
     @JsonCreator
     private constructor(
@@ -419,12 +420,16 @@ constructor(
         }
 
         enum class Known {
+            /** A cash in an commingled Increase Account. */
             COMMINGLED_CASH,
+            /** A customer balance. */
             CUSTOMER_BALANCE,
         }
 
         enum class Value {
+            /** A cash in an commingled Increase Account. */
             COMMINGLED_CASH,
+            /** A customer balance. */
             CUSTOMER_BALANCE,
             _UNKNOWN,
         }

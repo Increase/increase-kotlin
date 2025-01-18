@@ -16,6 +16,7 @@ import com.increase.api.core.toImmutable
 import com.increase.api.services.blocking.OAuthConnectionService
 import java.util.Objects
 
+/** List OAuth Connections */
 class OAuthConnectionListPage
 private constructor(
     private val oauthConnectionsService: OAuthConnectionService,

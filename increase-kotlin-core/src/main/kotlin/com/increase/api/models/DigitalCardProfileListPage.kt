@@ -16,6 +16,7 @@ import com.increase.api.core.toImmutable
 import com.increase.api.services.blocking.DigitalCardProfileService
 import java.util.Objects
 
+/** List Card Profiles */
 class DigitalCardProfileListPage
 private constructor(
     private val digitalCardProfilesService: DigitalCardProfileService,

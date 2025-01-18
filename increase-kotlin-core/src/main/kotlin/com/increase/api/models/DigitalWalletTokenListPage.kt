@@ -16,6 +16,7 @@ import com.increase.api.core.toImmutable
 import com.increase.api.services.blocking.DigitalWalletTokenService
 import java.util.Objects
 
+/** List Digital Wallet Tokens */
 class DigitalWalletTokenListPage
 private constructor(
     private val digitalWalletTokensService: DigitalWalletTokenService,

@@ -18,6 +18,7 @@ import java.util.Objects
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 
+/** List Check Transfers */
 class CheckTransferListPageAsync
 private constructor(
     private val checkTransfersService: CheckTransferServiceAsync,
