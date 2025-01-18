@@ -16,6 +16,7 @@ import com.increase.api.core.toImmutable
 import com.increase.api.services.blocking.TransactionService
 import java.util.Objects
 
+/** List Transactions */
 class TransactionListPage
 private constructor(
     private val transactionsService: TransactionService,

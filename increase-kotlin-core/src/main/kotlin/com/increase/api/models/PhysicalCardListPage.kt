@@ -16,6 +16,7 @@ import com.increase.api.core.toImmutable
 import com.increase.api.services.blocking.PhysicalCardService
 import java.util.Objects
 
+/** List Physical Cards */
 class PhysicalCardListPage
 private constructor(
     private val physicalCardsService: PhysicalCardService,

@@ -1125,6 +1125,7 @@ constructor(
                         )
                 }
 
+                /** A method that can be used to verify the individual's identity. */
                 class Method
                 @JsonCreator
                 private constructor(
@@ -1151,18 +1152,28 @@ constructor(
                     }
 
                     enum class Known {
+                        /** A social security number. */
                         SOCIAL_SECURITY_NUMBER,
+                        /** An individual taxpayer identification number (ITIN). */
                         INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER,
+                        /** A passport number. */
                         PASSPORT,
+                        /** A driver's license number. */
                         DRIVERS_LICENSE,
+                        /** Another identifying document. */
                         OTHER,
                     }
 
                     enum class Value {
+                        /** A social security number. */
                         SOCIAL_SECURITY_NUMBER,
+                        /** An individual taxpayer identification number (ITIN). */
                         INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER,
+                        /** A passport number. */
                         PASSPORT,
+                        /** A driver's license number. */
                         DRIVERS_LICENSE,
+                        /** Another identifying document. */
                         OTHER,
                         _UNKNOWN,
                     }
@@ -1821,12 +1832,16 @@ constructor(
             }
 
             enum class Known {
+                /** A person with 25% or greater direct or indirect ownership of the entity. */
                 OWNERSHIP,
+                /** A person who manages, directs, or has significant control of the entity. */
                 CONTROL,
             }
 
             enum class Value {
+                /** A person with 25% or greater direct or indirect ownership of the entity. */
                 OWNERSHIP,
+                /** A person who manages, directs, or has significant control of the entity. */
                 CONTROL,
                 _UNKNOWN,
             }

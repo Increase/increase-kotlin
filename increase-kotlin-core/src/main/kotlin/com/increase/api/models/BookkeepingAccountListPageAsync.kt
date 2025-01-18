@@ -18,6 +18,7 @@ import java.util.Objects
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 
+/** List Bookkeeping Accounts */
 class BookkeepingAccountListPageAsync
 private constructor(
     private val bookkeepingAccountsService: BookkeepingAccountServiceAsync,

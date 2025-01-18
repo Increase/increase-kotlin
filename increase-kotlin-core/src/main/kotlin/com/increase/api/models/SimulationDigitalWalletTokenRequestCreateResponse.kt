@@ -186,6 +186,9 @@ private constructor(
             )
     }
 
+    /**
+     * If the simulated tokenization attempt was declined, this field contains details as to why.
+     */
     class DeclineReason
     @JsonCreator
     private constructor(
@@ -208,16 +211,24 @@ private constructor(
         }
 
         enum class Known {
+            /** The card is not active. */
             CARD_NOT_ACTIVE,
+            /** The card does not have a two-factor authentication method. */
             NO_VERIFICATION_METHOD,
+            /** Your webhook timed out when evaluating the token provisioning attempt. */
             WEBHOOK_TIMED_OUT,
+            /** Your webhook declined the token provisioning attempt. */
             WEBHOOK_DECLINED,
         }
 
         enum class Value {
+            /** The card is not active. */
             CARD_NOT_ACTIVE,
+            /** The card does not have a two-factor authentication method. */
             NO_VERIFICATION_METHOD,
+            /** Your webhook timed out when evaluating the token provisioning attempt. */
             WEBHOOK_TIMED_OUT,
+            /** Your webhook declined the token provisioning attempt. */
             WEBHOOK_DECLINED,
             _UNKNOWN,
         }
@@ -255,6 +266,10 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /**
+     * A constant representing the object's type. For this resource it will always be
+     * `inbound_digital_wallet_token_request_simulation_result`.
+     */
     class Type
     @JsonCreator
     private constructor(

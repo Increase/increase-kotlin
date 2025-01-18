@@ -16,6 +16,7 @@ import com.increase.api.core.toImmutable
 import com.increase.api.services.blocking.AchPrenotificationService
 import java.util.Objects
 
+/** List ACH Prenotifications */
 class AchPrenotificationListPage
 private constructor(
     private val achPrenotificationsService: AchPrenotificationService,

@@ -18,6 +18,7 @@ import java.util.Objects
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 
+/** List Files */
 class FileListPageAsync
 private constructor(
     private val filesService: FileServiceAsync,

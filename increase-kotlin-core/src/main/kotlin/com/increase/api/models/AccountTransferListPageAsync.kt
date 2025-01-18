@@ -18,6 +18,7 @@ import java.util.Objects
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 
+/** List Account Transfers */
 class AccountTransferListPageAsync
 private constructor(
     private val accountTransfersService: AccountTransferServiceAsync,

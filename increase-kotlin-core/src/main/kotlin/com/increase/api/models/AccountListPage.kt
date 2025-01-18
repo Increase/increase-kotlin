@@ -16,6 +16,7 @@ import com.increase.api.core.toImmutable
 import com.increase.api.services.blocking.AccountService
 import java.util.Objects
 
+/** List Accounts */
 class AccountListPage
 private constructor(
     private val accountsService: AccountService,

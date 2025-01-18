@@ -18,6 +18,7 @@ import java.util.Objects
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 
+/** List Inbound Check Deposits */
 class InboundCheckDepositListPageAsync
 private constructor(
     private val inboundCheckDepositsService: InboundCheckDepositServiceAsync,

@@ -314,6 +314,7 @@ constructor(
             )
     }
 
+    /** The reason why this transfer should be stopped. */
     class Reason
     @JsonCreator
     private constructor(
@@ -334,14 +335,20 @@ constructor(
         }
 
         enum class Known {
+            /** The check could not be delivered. */
             MAIL_DELIVERY_FAILED,
+            /** The check was not authorized. */
             NOT_AUTHORIZED,
+            /** The check was stopped for another reason. */
             UNKNOWN,
         }
 
         enum class Value {
+            /** The check could not be delivered. */
             MAIL_DELIVERY_FAILED,
+            /** The check was not authorized. */
             NOT_AUTHORIZED,
+            /** The check was stopped for another reason. */
             UNKNOWN,
             _UNKNOWN,
         }

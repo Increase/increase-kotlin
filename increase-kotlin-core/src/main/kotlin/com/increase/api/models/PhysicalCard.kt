@@ -787,6 +787,7 @@ private constructor(
                 "Address{city=$city, line1=$line1, line2=$line2, line3=$line3, name=$name, postalCode=$postalCode, state=$state, additionalProperties=$additionalProperties}"
         }
 
+        /** The shipping method. */
         class Method
         @JsonCreator
         private constructor(
@@ -807,14 +808,20 @@ private constructor(
             }
 
             enum class Known {
+                /** USPS Post with tracking. */
                 USPS,
+                /** FedEx Priority Overnight, no signature. */
                 FEDEX_PRIORITY_OVERNIGHT,
+                /** FedEx 2-day. */
                 FEDEX_2_DAY,
             }
 
             enum class Value {
+                /** USPS Post with tracking. */
                 USPS,
+                /** FedEx Priority Overnight, no signature. */
                 FEDEX_PRIORITY_OVERNIGHT,
+                /** FedEx 2-day. */
                 FEDEX_2_DAY,
                 _UNKNOWN,
             }
@@ -850,6 +857,7 @@ private constructor(
             override fun toString() = value.toString()
         }
 
+        /** The status of this shipment. */
         class Status
         @JsonCreator
         private constructor(
@@ -878,22 +886,52 @@ private constructor(
             }
 
             enum class Known {
+                /** The physical card has not yet been shipped. */
                 PENDING,
+                /** The physical card shipment was canceled prior to submission. */
                 CANCELED,
+                /**
+                 * The physical card shipment has been submitted to the card fulfillment provider.
+                 */
                 SUBMITTED,
+                /**
+                 * The physical card shipment has been acknowledged by the card fulfillment provider
+                 * and will be processed in their next batch.
+                 */
                 ACKNOWLEDGED,
+                /** The physical card shipment was rejected by the card printer due to an error. */
                 REJECTED,
+                /** The physical card has been shipped. */
                 SHIPPED,
+                /**
+                 * The physical card shipment was returned to the sender and destroyed by the
+                 * production facility.
+                 */
                 RETURNED,
             }
 
             enum class Value {
+                /** The physical card has not yet been shipped. */
                 PENDING,
+                /** The physical card shipment was canceled prior to submission. */
                 CANCELED,
+                /**
+                 * The physical card shipment has been submitted to the card fulfillment provider.
+                 */
                 SUBMITTED,
+                /**
+                 * The physical card shipment has been acknowledged by the card fulfillment provider
+                 * and will be processed in their next batch.
+                 */
                 ACKNOWLEDGED,
+                /** The physical card shipment was rejected by the card printer due to an error. */
                 REJECTED,
+                /** The physical card has been shipped. */
                 SHIPPED,
+                /**
+                 * The physical card shipment was returned to the sender and destroyed by the
+                 * production facility.
+                 */
                 RETURNED,
                 _UNKNOWN,
             }
@@ -1143,6 +1181,7 @@ private constructor(
             "Shipment{address=$address, method=$method, status=$status, tracking=$tracking, additionalProperties=$additionalProperties}"
     }
 
+    /** The status of the Physical Card. */
     class Status
     @JsonCreator
     private constructor(
@@ -1163,14 +1202,20 @@ private constructor(
         }
 
         enum class Known {
+            /** The physical card is active. */
             ACTIVE,
+            /** The physical card is temporarily disabled. */
             DISABLED,
+            /** The physical card is permanently canceled. */
             CANCELED,
         }
 
         enum class Value {
+            /** The physical card is active. */
             ACTIVE,
+            /** The physical card is temporarily disabled. */
             DISABLED,
+            /** The physical card is permanently canceled. */
             CANCELED,
             _UNKNOWN,
         }
@@ -1206,6 +1251,10 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /**
+     * A constant representing the object's type. For this resource it will always be
+     * `physical_card`.
+     */
     class Type
     @JsonCreator
     private constructor(

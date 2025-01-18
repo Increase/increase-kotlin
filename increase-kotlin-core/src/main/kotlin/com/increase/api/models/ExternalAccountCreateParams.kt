@@ -469,6 +469,7 @@ constructor(
             )
     }
 
+    /** The type of entity that owns the External Account. */
     class AccountHolder
     @JsonCreator
     private constructor(
@@ -489,14 +490,20 @@ constructor(
         }
 
         enum class Known {
+            /** The External Account is owned by a business. */
             BUSINESS,
+            /** The External Account is owned by an individual. */
             INDIVIDUAL,
+            /** It's unknown what kind of entity owns the External Account. */
             UNKNOWN,
         }
 
         enum class Value {
+            /** The External Account is owned by a business. */
             BUSINESS,
+            /** The External Account is owned by an individual. */
             INDIVIDUAL,
+            /** It's unknown what kind of entity owns the External Account. */
             UNKNOWN,
             _UNKNOWN,
         }
@@ -532,6 +539,7 @@ constructor(
         override fun toString() = value.toString()
     }
 
+    /** The type of the destination account. Defaults to `checking`. */
     class Funding
     @JsonCreator
     private constructor(
@@ -552,14 +560,20 @@ constructor(
         }
 
         enum class Known {
+            /** A checking account. */
             CHECKING,
+            /** A savings account. */
             SAVINGS,
+            /** A different type of account. */
             OTHER,
         }
 
         enum class Value {
+            /** A checking account. */
             CHECKING,
+            /** A savings account. */
             SAVINGS,
+            /** A different type of account. */
             OTHER,
             _UNKNOWN,
         }

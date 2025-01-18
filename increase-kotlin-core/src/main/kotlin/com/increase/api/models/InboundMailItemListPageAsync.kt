@@ -18,6 +18,7 @@ import java.util.Objects
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 
+/** List Inbound Mail Items */
 class InboundMailItemListPageAsync
 private constructor(
     private val inboundMailItemsService: InboundMailItemServiceAsync,
