@@ -851,6 +851,10 @@ private constructor(
                 )
         }
 
+        /**
+         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's
+         * currency.
+         */
         class Currency
         @JsonCreator
         private constructor(
@@ -877,20 +881,32 @@ private constructor(
             }
 
             enum class Known {
+                /** Canadian Dollar (CAD) */
                 CAD,
+                /** Swiss Franc (CHF) */
                 CHF,
+                /** Euro (EUR) */
                 EUR,
+                /** British Pound (GBP) */
                 GBP,
+                /** Japanese Yen (JPY) */
                 JPY,
+                /** US Dollar (USD) */
                 USD,
             }
 
             enum class Value {
+                /** Canadian Dollar (CAD) */
                 CAD,
+                /** Swiss Franc (CHF) */
                 CHF,
+                /** Euro (EUR) */
                 EUR,
+                /** British Pound (GBP) */
                 GBP,
+                /** Japanese Yen (JPY) */
                 JPY,
+                /** US Dollar (USD) */
                 USD,
                 _UNKNOWN,
             }
@@ -1172,6 +1188,7 @@ private constructor(
                 )
         }
 
+        /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the check's currency. */
         class Currency
         @JsonCreator
         private constructor(
@@ -1198,20 +1215,32 @@ private constructor(
             }
 
             enum class Known {
+                /** Canadian Dollar (CAD) */
                 CAD,
+                /** Swiss Franc (CHF) */
                 CHF,
+                /** Euro (EUR) */
                 EUR,
+                /** British Pound (GBP) */
                 GBP,
+                /** Japanese Yen (JPY) */
                 JPY,
+                /** US Dollar (USD) */
                 USD,
             }
 
             enum class Value {
+                /** Canadian Dollar (CAD) */
                 CAD,
+                /** Swiss Franc (CHF) */
                 CHF,
+                /** Euro (EUR) */
                 EUR,
+                /** British Pound (GBP) */
                 GBP,
+                /** Japanese Yen (JPY) */
                 JPY,
+                /** US Dollar (USD) */
                 USD,
                 _UNKNOWN,
             }
@@ -1253,6 +1282,7 @@ private constructor(
             override fun toString() = value.toString()
         }
 
+        /** Why the check deposit was rejected. */
         class Reason
         @JsonCreator
         private constructor(
@@ -1289,30 +1319,52 @@ private constructor(
             }
 
             enum class Known {
+                /** The check's image is incomplete. */
                 INCOMPLETE_IMAGE,
+                /** This is a duplicate check submission. */
                 DUPLICATE,
+                /** This check has poor image quality. */
                 POOR_IMAGE_QUALITY,
+                /** The check was deposited with the incorrect amount. */
                 INCORRECT_AMOUNT,
+                /** The check is made out to someone other than the account holder. */
                 INCORRECT_RECIPIENT,
+                /** This check was not eligible for mobile deposit. */
                 NOT_ELIGIBLE_FOR_MOBILE_DEPOSIT,
+                /** This check is missing at least one required field. */
                 MISSING_REQUIRED_DATA_ELEMENTS,
+                /** This check is suspected to be fraudulent. */
                 SUSPECTED_FRAUD,
+                /** This check's deposit window has expired. */
                 DEPOSIT_WINDOW_EXPIRED,
+                /** The check was rejected at the user's request. */
                 REQUESTED_BY_USER,
+                /** The check was rejected for an unknown reason. */
                 UNKNOWN,
             }
 
             enum class Value {
+                /** The check's image is incomplete. */
                 INCOMPLETE_IMAGE,
+                /** This is a duplicate check submission. */
                 DUPLICATE,
+                /** This check has poor image quality. */
                 POOR_IMAGE_QUALITY,
+                /** The check was deposited with the incorrect amount. */
                 INCORRECT_AMOUNT,
+                /** The check is made out to someone other than the account holder. */
                 INCORRECT_RECIPIENT,
+                /** This check was not eligible for mobile deposit. */
                 NOT_ELIGIBLE_FOR_MOBILE_DEPOSIT,
+                /** This check is missing at least one required field. */
                 MISSING_REQUIRED_DATA_ELEMENTS,
+                /** This check is suspected to be fraudulent. */
                 SUSPECTED_FRAUD,
+                /** This check's deposit window has expired. */
                 DEPOSIT_WINDOW_EXPIRED,
+                /** The check was rejected at the user's request. */
                 REQUESTED_BY_USER,
+                /** The check was rejected for an unknown reason. */
                 UNKNOWN,
                 _UNKNOWN,
             }
@@ -1610,6 +1662,10 @@ private constructor(
                 )
         }
 
+        /**
+         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's
+         * currency.
+         */
         class Currency
         @JsonCreator
         private constructor(
@@ -1636,20 +1692,32 @@ private constructor(
             }
 
             enum class Known {
+                /** Canadian Dollar (CAD) */
                 CAD,
+                /** Swiss Franc (CHF) */
                 CHF,
+                /** Euro (EUR) */
                 EUR,
+                /** British Pound (GBP) */
                 GBP,
+                /** Japanese Yen (JPY) */
                 JPY,
+                /** US Dollar (USD) */
                 USD,
             }
 
             enum class Value {
+                /** Canadian Dollar (CAD) */
                 CAD,
+                /** Swiss Franc (CHF) */
                 CHF,
+                /** Euro (EUR) */
                 EUR,
+                /** British Pound (GBP) */
                 GBP,
+                /** Japanese Yen (JPY) */
                 JPY,
+                /** US Dollar (USD) */
                 USD,
                 _UNKNOWN,
             }
@@ -1691,6 +1759,7 @@ private constructor(
             override fun toString() = value.toString()
         }
 
+        /** Why this check was returned by the bank holding the account it was drawn against. */
         class ReturnReason
         @JsonCreator
         private constructor(
@@ -1757,60 +1826,112 @@ private constructor(
             }
 
             enum class Known {
+                /** The check doesn't allow ACH conversion. */
                 ACH_CONVERSION_NOT_SUPPORTED,
+                /** The account is closed. */
                 CLOSED_ACCOUNT,
+                /** The check has already been deposited. */
                 DUPLICATE_SUBMISSION,
+                /** Insufficient funds */
                 INSUFFICIENT_FUNDS,
+                /** No account was found matching the check details. */
                 NO_ACCOUNT,
+                /** The check was not authorized. */
                 NOT_AUTHORIZED,
+                /** The check is too old. */
                 STALE_DATED,
+                /** The payment has been stopped by the account holder. */
                 STOP_PAYMENT,
+                /** The reason for the return is unknown. */
                 UNKNOWN_REASON,
+                /** The image doesn't match the details submitted. */
                 UNMATCHED_DETAILS,
+                /** The image could not be read. */
                 UNREADABLE_IMAGE,
+                /** The check endorsement was irregular. */
                 ENDORSEMENT_IRREGULAR,
+                /** The check present was either altered or fake. */
                 ALTERED_OR_FICTITIOUS_ITEM,
+                /** The account this check is drawn on is frozen. */
                 FROZEN_OR_BLOCKED_ACCOUNT,
+                /** The check is post dated. */
                 POST_DATED,
+                /** The endorsement was missing. */
                 ENDORSEMENT_MISSING,
+                /** The check signature was missing. */
                 SIGNATURE_MISSING,
+                /** The bank suspects a stop payment will be placed. */
                 STOP_PAYMENT_SUSPECT,
+                /** The bank cannot read the image. */
                 UNUSABLE_IMAGE,
+                /** The check image fails the bank's security check. */
                 IMAGE_FAILS_SECURITY_CHECK,
+                /** The bank cannot determine the amount. */
                 CANNOT_DETERMINE_AMOUNT,
+                /** The signature is inconsistent with prior signatures. */
                 SIGNATURE_IRREGULAR,
+                /** The check is a non-cash item and cannot be drawn against the account. */
                 NON_CASH_ITEM,
+                /** The bank is unable to process this check. */
                 UNABLE_TO_PROCESS,
+                /** The check exceeds the bank or customer's limit. */
                 ITEM_EXCEEDS_DOLLAR_LIMIT,
+                /** The bank sold this account and no longer services this customer. */
                 BRANCH_OR_ACCOUNT_SOLD,
             }
 
             enum class Value {
+                /** The check doesn't allow ACH conversion. */
                 ACH_CONVERSION_NOT_SUPPORTED,
+                /** The account is closed. */
                 CLOSED_ACCOUNT,
+                /** The check has already been deposited. */
                 DUPLICATE_SUBMISSION,
+                /** Insufficient funds */
                 INSUFFICIENT_FUNDS,
+                /** No account was found matching the check details. */
                 NO_ACCOUNT,
+                /** The check was not authorized. */
                 NOT_AUTHORIZED,
+                /** The check is too old. */
                 STALE_DATED,
+                /** The payment has been stopped by the account holder. */
                 STOP_PAYMENT,
+                /** The reason for the return is unknown. */
                 UNKNOWN_REASON,
+                /** The image doesn't match the details submitted. */
                 UNMATCHED_DETAILS,
+                /** The image could not be read. */
                 UNREADABLE_IMAGE,
+                /** The check endorsement was irregular. */
                 ENDORSEMENT_IRREGULAR,
+                /** The check present was either altered or fake. */
                 ALTERED_OR_FICTITIOUS_ITEM,
+                /** The account this check is drawn on is frozen. */
                 FROZEN_OR_BLOCKED_ACCOUNT,
+                /** The check is post dated. */
                 POST_DATED,
+                /** The endorsement was missing. */
                 ENDORSEMENT_MISSING,
+                /** The check signature was missing. */
                 SIGNATURE_MISSING,
+                /** The bank suspects a stop payment will be placed. */
                 STOP_PAYMENT_SUSPECT,
+                /** The bank cannot read the image. */
                 UNUSABLE_IMAGE,
+                /** The check image fails the bank's security check. */
                 IMAGE_FAILS_SECURITY_CHECK,
+                /** The bank cannot determine the amount. */
                 CANNOT_DETERMINE_AMOUNT,
+                /** The signature is inconsistent with prior signatures. */
                 SIGNATURE_IRREGULAR,
+                /** The check is a non-cash item and cannot be drawn against the account. */
                 NON_CASH_ITEM,
+                /** The bank is unable to process this check. */
                 UNABLE_TO_PROCESS,
+                /** The check exceeds the bank or customer's limit. */
                 ITEM_EXCEEDS_DOLLAR_LIMIT,
+                /** The bank sold this account and no longer services this customer. */
                 BRANCH_OR_ACCOUNT_SOLD,
                 _UNKNOWN,
             }
@@ -2430,6 +2551,7 @@ private constructor(
                 )
         }
 
+        /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the hold's currency. */
         class Currency
         @JsonCreator
         private constructor(
@@ -2456,20 +2578,32 @@ private constructor(
             }
 
             enum class Known {
+                /** Canadian Dollar (CAD) */
                 CAD,
+                /** Swiss Franc (CHF) */
                 CHF,
+                /** Euro (EUR) */
                 EUR,
+                /** British Pound (GBP) */
                 GBP,
+                /** Japanese Yen (JPY) */
                 JPY,
+                /** US Dollar (USD) */
                 USD,
             }
 
             enum class Value {
+                /** Canadian Dollar (CAD) */
                 CAD,
+                /** Swiss Franc (CHF) */
                 CHF,
+                /** Euro (EUR) */
                 EUR,
+                /** British Pound (GBP) */
                 GBP,
+                /** Japanese Yen (JPY) */
                 JPY,
+                /** US Dollar (USD) */
                 USD,
                 _UNKNOWN,
             }
@@ -2511,6 +2645,7 @@ private constructor(
             override fun toString() = value.toString()
         }
 
+        /** The status of the hold. */
         class Status
         @JsonCreator
         private constructor(
@@ -2529,12 +2664,16 @@ private constructor(
             }
 
             enum class Known {
+                /** Funds are still being held. */
                 HELD,
+                /** Funds have been released. */
                 COMPLETE,
             }
 
             enum class Value {
+                /** Funds are still being held. */
                 HELD,
+                /** Funds have been released. */
                 COMPLETE,
                 _UNKNOWN,
             }
@@ -2568,6 +2707,10 @@ private constructor(
             override fun toString() = value.toString()
         }
 
+        /**
+         * A constant representing the object's type. For this resource it will always be
+         * `inbound_funds_hold`.
+         */
         class Type
         @JsonCreator
         private constructor(
@@ -2637,6 +2780,7 @@ private constructor(
             "InboundFundsHold{id=$id, amount=$amount, automaticallyReleasesAt=$automaticallyReleasesAt, createdAt=$createdAt, currency=$currency, heldTransactionId=$heldTransactionId, pendingTransactionId=$pendingTransactionId, releasedAt=$releasedAt, status=$status, type=$type, additionalProperties=$additionalProperties}"
     }
 
+    /** The status of the Check Deposit. */
     class Status
     @JsonCreator
     private constructor(
@@ -2659,16 +2803,24 @@ private constructor(
         }
 
         enum class Known {
+            /** The Check Deposit is pending review. */
             PENDING,
+            /** The Check Deposit has been deposited. */
             SUBMITTED,
+            /** The Check Deposit has been rejected. */
             REJECTED,
+            /** The Check Deposit has been returned. */
             RETURNED,
         }
 
         enum class Value {
+            /** The Check Deposit is pending review. */
             PENDING,
+            /** The Check Deposit has been deposited. */
             SUBMITTED,
+            /** The Check Deposit has been rejected. */
             REJECTED,
+            /** The Check Deposit has been returned. */
             RETURNED,
             _UNKNOWN,
         }
@@ -2706,6 +2858,10 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /**
+     * A constant representing the object's type. For this resource it will always be
+     * `check_deposit`.
+     */
     class Type
     @JsonCreator
     private constructor(

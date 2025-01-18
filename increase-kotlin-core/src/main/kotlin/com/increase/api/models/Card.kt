@@ -754,6 +754,7 @@ private constructor(
             "DigitalWallet{digitalCardProfileId=$digitalCardProfileId, email=$email, phone=$phone, additionalProperties=$additionalProperties}"
     }
 
+    /** This indicates if payments can be made with the card. */
     class Status
     @JsonCreator
     private constructor(
@@ -774,14 +775,20 @@ private constructor(
         }
 
         enum class Known {
+            /** The card is active. */
             ACTIVE,
+            /** The card is temporarily disabled. */
             DISABLED,
+            /** The card is permanently canceled. */
             CANCELED,
         }
 
         enum class Value {
+            /** The card is active. */
             ACTIVE,
+            /** The card is temporarily disabled. */
             DISABLED,
+            /** The card is permanently canceled. */
             CANCELED,
             _UNKNOWN,
         }
@@ -817,6 +824,7 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /** A constant representing the object's type. For this resource it will always be `card`. */
     class Type
     @JsonCreator
     private constructor(

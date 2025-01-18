@@ -340,6 +340,7 @@ private constructor(
             )
     }
 
+    /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the hold's currency. */
     class Currency
     @JsonCreator
     private constructor(
@@ -366,20 +367,32 @@ private constructor(
         }
 
         enum class Known {
+            /** Canadian Dollar (CAD) */
             CAD,
+            /** Swiss Franc (CHF) */
             CHF,
+            /** Euro (EUR) */
             EUR,
+            /** British Pound (GBP) */
             GBP,
+            /** Japanese Yen (JPY) */
             JPY,
+            /** US Dollar (USD) */
             USD,
         }
 
         enum class Value {
+            /** Canadian Dollar (CAD) */
             CAD,
+            /** Swiss Franc (CHF) */
             CHF,
+            /** Euro (EUR) */
             EUR,
+            /** British Pound (GBP) */
             GBP,
+            /** Japanese Yen (JPY) */
             JPY,
+            /** US Dollar (USD) */
             USD,
             _UNKNOWN,
         }
@@ -421,6 +434,7 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /** The status of the hold. */
     class Status
     @JsonCreator
     private constructor(
@@ -439,12 +453,16 @@ private constructor(
         }
 
         enum class Known {
+            /** Funds are still being held. */
             HELD,
+            /** Funds have been released. */
             COMPLETE,
         }
 
         enum class Value {
+            /** Funds are still being held. */
             HELD,
+            /** Funds have been released. */
             COMPLETE,
             _UNKNOWN,
         }
@@ -478,6 +496,10 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /**
+     * A constant representing the object's type. For this resource it will always be
+     * `inbound_funds_hold`.
+     */
     class Type
     @JsonCreator
     private constructor(

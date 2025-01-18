@@ -18,6 +18,7 @@ import java.util.Objects
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 
+/** List Check Deposits */
 class CheckDepositListPageAsync
 private constructor(
     private val checkDepositsService: CheckDepositServiceAsync,

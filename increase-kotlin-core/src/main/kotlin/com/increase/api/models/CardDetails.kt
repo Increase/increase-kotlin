@@ -234,6 +234,10 @@ private constructor(
             )
     }
 
+    /**
+     * A constant representing the object's type. For this resource it will always be
+     * `card_details`.
+     */
     class Type
     @JsonCreator
     private constructor(

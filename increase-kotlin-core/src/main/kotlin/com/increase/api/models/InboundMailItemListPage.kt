@@ -16,6 +16,7 @@ import com.increase.api.core.toImmutable
 import com.increase.api.services.blocking.InboundMailItemService
 import java.util.Objects
 
+/** List Inbound Mail Items */
 class InboundMailItemListPage
 private constructor(
     private val inboundMailItemsService: InboundMailItemService,

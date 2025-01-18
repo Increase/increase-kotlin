@@ -16,6 +16,7 @@ import com.increase.api.core.toImmutable
 import com.increase.api.services.blocking.ExternalAccountService
 import java.util.Objects
 
+/** List External Accounts */
 class ExternalAccountListPage
 private constructor(
     private val externalAccountsService: ExternalAccountService,

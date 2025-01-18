@@ -16,6 +16,7 @@ import com.increase.api.core.toImmutable
 import com.increase.api.services.blocking.CheckDepositService
 import java.util.Objects
 
+/** List Check Deposits */
 class CheckDepositListPage
 private constructor(
     private val checkDepositsService: CheckDepositService,

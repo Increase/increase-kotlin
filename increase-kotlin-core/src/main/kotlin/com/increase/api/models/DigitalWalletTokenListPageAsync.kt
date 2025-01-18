@@ -18,6 +18,7 @@ import java.util.Objects
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 
+/** List Digital Wallet Tokens */
 class DigitalWalletTokenListPageAsync
 private constructor(
     private val digitalWalletTokensService: DigitalWalletTokenServiceAsync,

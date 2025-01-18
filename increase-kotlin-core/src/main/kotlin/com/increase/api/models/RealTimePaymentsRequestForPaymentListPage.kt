@@ -16,6 +16,7 @@ import com.increase.api.core.toImmutable
 import com.increase.api.services.blocking.RealTimePaymentsRequestForPaymentService
 import java.util.Objects
 
+/** List Real-Time Payments Request for Payments */
 class RealTimePaymentsRequestForPaymentListPage
 private constructor(
     private val realTimePaymentsRequestForPaymentsService: RealTimePaymentsRequestForPaymentService,

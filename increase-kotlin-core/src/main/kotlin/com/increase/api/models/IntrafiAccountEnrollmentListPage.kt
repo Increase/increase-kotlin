@@ -16,6 +16,7 @@ import com.increase.api.core.toImmutable
 import com.increase.api.services.blocking.IntrafiAccountEnrollmentService
 import java.util.Objects
 
+/** List IntraFi Account Enrollments */
 class IntrafiAccountEnrollmentListPage
 private constructor(
     private val intrafiAccountEnrollmentsService: IntrafiAccountEnrollmentService,

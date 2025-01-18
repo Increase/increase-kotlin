@@ -16,6 +16,7 @@ import com.increase.api.core.toImmutable
 import com.increase.api.services.blocking.FileService
 import java.util.Objects
 
+/** List Files */
 class FileListPage
 private constructor(
     private val filesService: FileService,

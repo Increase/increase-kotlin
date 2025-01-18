@@ -421,6 +421,7 @@ constructor(
             )
     }
 
+    /** The type of entity that owns the External Account. */
     class AccountHolder
     @JsonCreator
     private constructor(
@@ -439,12 +440,16 @@ constructor(
         }
 
         enum class Known {
+            /** The External Account is owned by a business. */
             BUSINESS,
+            /** The External Account is owned by an individual. */
             INDIVIDUAL,
         }
 
         enum class Value {
+            /** The External Account is owned by a business. */
             BUSINESS,
+            /** The External Account is owned by an individual. */
             INDIVIDUAL,
             _UNKNOWN,
         }
@@ -478,6 +483,7 @@ constructor(
         override fun toString() = value.toString()
     }
 
+    /** The funding type of the External Account. */
     class Funding
     @JsonCreator
     private constructor(
@@ -498,14 +504,20 @@ constructor(
         }
 
         enum class Known {
+            /** A checking account. */
             CHECKING,
+            /** A savings account. */
             SAVINGS,
+            /** A different type of account. */
             OTHER,
         }
 
         enum class Value {
+            /** A checking account. */
             CHECKING,
+            /** A savings account. */
             SAVINGS,
+            /** A different type of account. */
             OTHER,
             _UNKNOWN,
         }
@@ -541,6 +553,7 @@ constructor(
         override fun toString() = value.toString()
     }
 
+    /** The status of the External Account. */
     class Status
     @JsonCreator
     private constructor(
@@ -559,12 +572,16 @@ constructor(
         }
 
         enum class Known {
+            /** The External Account is active. */
             ACTIVE,
+            /** The External Account is archived and won't appear in the dashboard. */
             ARCHIVED,
         }
 
         enum class Value {
+            /** The External Account is active. */
             ACTIVE,
+            /** The External Account is archived and won't appear in the dashboard. */
             ARCHIVED,
             _UNKNOWN,
         }

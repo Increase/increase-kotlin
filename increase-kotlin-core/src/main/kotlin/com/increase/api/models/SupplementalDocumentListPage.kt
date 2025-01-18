@@ -16,6 +16,7 @@ import com.increase.api.core.toImmutable
 import com.increase.api.services.blocking.SupplementalDocumentService
 import java.util.Objects
 
+/** List Entity Supplemental Document Submissions */
 class SupplementalDocumentListPage
 private constructor(
     private val supplementalDocumentsService: SupplementalDocumentService,

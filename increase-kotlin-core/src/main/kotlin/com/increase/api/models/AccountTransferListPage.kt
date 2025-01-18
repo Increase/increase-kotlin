@@ -16,6 +16,7 @@ import com.increase.api.core.toImmutable
 import com.increase.api.services.blocking.AccountTransferService
 import java.util.Objects
 
+/** List Account Transfers */
 class AccountTransferListPage
 private constructor(
     private val accountTransfersService: AccountTransferService,

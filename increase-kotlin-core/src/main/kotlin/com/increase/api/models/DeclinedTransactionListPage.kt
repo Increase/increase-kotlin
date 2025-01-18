@@ -16,6 +16,7 @@ import com.increase.api.core.toImmutable
 import com.increase.api.services.blocking.DeclinedTransactionService
 import java.util.Objects
 
+/** List Declined Transactions */
 class DeclinedTransactionListPage
 private constructor(
     private val declinedTransactionsService: DeclinedTransactionService,

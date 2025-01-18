@@ -16,6 +16,7 @@ import com.increase.api.core.toImmutable
 import com.increase.api.services.blocking.CheckTransferService
 import java.util.Objects
 
+/** List Check Transfers */
 class CheckTransferListPage
 private constructor(
     private val checkTransfersService: CheckTransferService,

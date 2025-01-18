@@ -1090,6 +1090,7 @@ private constructor(
                 "ApiKey{description=$description, additionalProperties=$additionalProperties}"
         }
 
+        /** The type of object that created this transfer. */
         class Category
         @JsonCreator
         private constructor(
@@ -1110,14 +1111,26 @@ private constructor(
             }
 
             enum class Known {
+                /** An API key. Details will be under the `api_key` object. */
                 API_KEY,
+                /**
+                 * An OAuth application you connected to Increase. Details will be under the
+                 * `oauth_application` object.
+                 */
                 OAUTH_APPLICATION,
+                /** A User in the Increase dashboard. Details will be under the `user` object. */
                 USER,
             }
 
             enum class Value {
+                /** An API key. Details will be under the `api_key` object. */
                 API_KEY,
+                /**
+                 * An OAuth application you connected to Increase. Details will be under the
+                 * `oauth_application` object.
+                 */
                 OAUTH_APPLICATION,
+                /** A User in the Increase dashboard. Details will be under the `user` object. */
                 USER,
                 _UNKNOWN,
             }
@@ -1374,6 +1387,10 @@ private constructor(
             "CreatedBy{apiKey=$apiKey, category=$category, oauthApplication=$oauthApplication, user=$user, additionalProperties=$additionalProperties}"
     }
 
+    /**
+     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the destination account
+     * currency.
+     */
     class Currency
     @JsonCreator
     private constructor(
@@ -1400,20 +1417,32 @@ private constructor(
         }
 
         enum class Known {
+            /** Canadian Dollar (CAD) */
             CAD,
+            /** Swiss Franc (CHF) */
             CHF,
+            /** Euro (EUR) */
             EUR,
+            /** British Pound (GBP) */
             GBP,
+            /** Japanese Yen (JPY) */
             JPY,
+            /** US Dollar (USD) */
             USD,
         }
 
         enum class Value {
+            /** Canadian Dollar (CAD) */
             CAD,
+            /** Swiss Franc (CHF) */
             CHF,
+            /** Euro (EUR) */
             EUR,
+            /** British Pound (GBP) */
             GBP,
+            /** Japanese Yen (JPY) */
             JPY,
+            /** US Dollar (USD) */
             USD,
             _UNKNOWN,
         }
@@ -1455,6 +1484,7 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /** The transfer's network. */
     class Network
     @JsonCreator
     private constructor(
@@ -1506,6 +1536,7 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /** The lifecycle status of the transfer. */
     class Status
     @JsonCreator
     private constructor(
@@ -1526,14 +1557,20 @@ private constructor(
         }
 
         enum class Known {
+            /** The transfer is pending approval. */
             PENDING_APPROVAL,
+            /** The transfer has been canceled. */
             CANCELED,
+            /** The transfer has been completed. */
             COMPLETE,
         }
 
         enum class Value {
+            /** The transfer is pending approval. */
             PENDING_APPROVAL,
+            /** The transfer has been canceled. */
             CANCELED,
+            /** The transfer has been completed. */
             COMPLETE,
             _UNKNOWN,
         }
@@ -1569,6 +1606,10 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /**
+     * A constant representing the object's type. For this resource it will always be
+     * `account_transfer`.
+     */
     class Type
     @JsonCreator
     private constructor(

@@ -18,6 +18,7 @@ import java.util.Objects
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 
+/** List Inbound Wire Transfers */
 class InboundWireTransferListPageAsync
 private constructor(
     private val inboundWireTransfersService: InboundWireTransferServiceAsync,

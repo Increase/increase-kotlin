@@ -18,6 +18,7 @@ import java.util.Objects
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 
+/** List ACH Prenotifications */
 class AchPrenotificationListPageAsync
 private constructor(
     private val achPrenotificationsService: AchPrenotificationServiceAsync,

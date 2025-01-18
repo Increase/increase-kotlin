@@ -18,6 +18,7 @@ import java.util.Objects
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 
+/** List Account Statements */
 class AccountStatementListPageAsync
 private constructor(
     private val accountStatementsService: AccountStatementServiceAsync,

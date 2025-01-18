@@ -16,6 +16,7 @@ import com.increase.api.core.toImmutable
 import com.increase.api.services.blocking.AccountStatementService
 import java.util.Objects
 
+/** List Account Statements */
 class AccountStatementListPage
 private constructor(
     private val accountStatementsService: AccountStatementService,
