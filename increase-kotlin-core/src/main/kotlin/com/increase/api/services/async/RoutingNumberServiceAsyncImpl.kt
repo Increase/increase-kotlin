@@ -15,7 +15,7 @@ import com.increase.api.models.RoutingNumberListPageAsync
 import com.increase.api.models.RoutingNumberListParams
 
 class RoutingNumberServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : RoutingNumberServiceAsync {
 

@@ -15,7 +15,7 @@ import com.increase.api.models.IntrafiBalance
 import com.increase.api.models.IntrafiBalanceRetrieveParams
 
 class IntrafiBalanceServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : IntrafiBalanceServiceAsync {
 

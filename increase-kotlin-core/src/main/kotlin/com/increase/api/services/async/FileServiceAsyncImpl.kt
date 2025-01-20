@@ -19,7 +19,7 @@ import com.increase.api.models.FileListParams
 import com.increase.api.models.FileRetrieveParams
 
 class FileServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : FileServiceAsync {
 

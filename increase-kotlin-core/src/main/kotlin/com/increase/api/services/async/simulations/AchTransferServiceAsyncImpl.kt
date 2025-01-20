@@ -20,7 +20,7 @@ import com.increase.api.models.SimulationAchTransferSettleParams
 import com.increase.api.models.SimulationAchTransferSubmitParams
 
 class AchTransferServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : AchTransferServiceAsync {
 

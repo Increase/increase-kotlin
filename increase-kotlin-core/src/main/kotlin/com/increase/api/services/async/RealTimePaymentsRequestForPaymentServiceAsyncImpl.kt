@@ -19,7 +19,7 @@ import com.increase.api.models.RealTimePaymentsRequestForPaymentListParams
 import com.increase.api.models.RealTimePaymentsRequestForPaymentRetrieveParams
 
 class RealTimePaymentsRequestForPaymentServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : RealTimePaymentsRequestForPaymentServiceAsync {
 
