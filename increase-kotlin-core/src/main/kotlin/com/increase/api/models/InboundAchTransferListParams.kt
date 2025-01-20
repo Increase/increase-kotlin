@@ -414,12 +414,19 @@ constructor(
 
         companion object {
 
+            /**
+             * The Inbound ACH Transfer is awaiting action, will transition automatically if no
+             * action is taken.
+             */
             val PENDING = of("pending")
 
+            /** The Inbound ACH Transfer has been declined. */
             val DECLINED = of("declined")
 
+            /** The Inbound ACH Transfer is accepted. */
             val ACCEPTED = of("accepted")
 
+            /** The Inbound ACH Transfer has been returned. */
             val RETURNED = of("returned")
 
             fun of(value: String) = Status(JsonField.of(value))

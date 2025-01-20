@@ -572,16 +572,25 @@ constructor(
 
         companion object {
 
+            /**
+             * Export an Open Financial Exchange (OFX) file of transactions and balances for a given
+             * time range and Account.
+             */
             val ACCOUNT_STATEMENT_OFX = of("account_statement_ofx")
 
+            /** Export a CSV of all transactions for a given time range. */
             val TRANSACTION_CSV = of("transaction_csv")
 
+            /** Export a CSV of account balances for the dates in a given range. */
             val BALANCE_CSV = of("balance_csv")
 
+            /** Export a CSV of bookkeeping account balances for the dates in a given range. */
             val BOOKKEEPING_ACCOUNT_BALANCE_CSV = of("bookkeeping_account_balance_csv")
 
+            /** Export a CSV of entities with a given status. */
             val ENTITY_CSV = of("entity_csv")
 
+            /** Export a CSV of vendors added to the third-party risk management dashboard. */
             val VENDOR_CSV = of("vendor_csv")
 
             fun of(value: String) = Category(JsonField.of(value))
@@ -1911,10 +1920,15 @@ constructor(
 
                 companion object {
 
+                    /** The entity is active. */
                     val ACTIVE = of("active")
 
+                    /** The entity is archived, and can no longer be used to create accounts. */
                     val ARCHIVED = of("archived")
 
+                    /**
+                     * The entity is temporarily disabled and cannot be used for financial activity.
+                     */
                     val DISABLED = of("disabled")
 
                     fun of(value: String) = In(JsonField.of(value))

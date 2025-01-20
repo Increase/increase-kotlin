@@ -332,194 +332,300 @@ constructor(
 
             companion object {
 
+                /** Occurs whenever an Account is created. */
                 val ACCOUNT_CREATED = of("account.created")
 
+                /** Occurs whenever an Account is updated. */
                 val ACCOUNT_UPDATED = of("account.updated")
 
+                /** Occurs whenever an Account Number is created. */
                 val ACCOUNT_NUMBER_CREATED = of("account_number.created")
 
+                /** Occurs whenever an Account Number is updated. */
                 val ACCOUNT_NUMBER_UPDATED = of("account_number.updated")
 
+                /** Occurs whenever an Account Statement is created. */
                 val ACCOUNT_STATEMENT_CREATED = of("account_statement.created")
 
+                /** Occurs whenever an Account Transfer is created. */
                 val ACCOUNT_TRANSFER_CREATED = of("account_transfer.created")
 
+                /** Occurs whenever an Account Transfer is updated. */
                 val ACCOUNT_TRANSFER_UPDATED = of("account_transfer.updated")
 
+                /** Occurs whenever an ACH Prenotification is created. */
                 val ACH_PRENOTIFICATION_CREATED = of("ach_prenotification.created")
 
+                /** Occurs whenever an ACH Prenotification is updated. */
                 val ACH_PRENOTIFICATION_UPDATED = of("ach_prenotification.updated")
 
+                /** Occurs whenever an ACH Transfer is created. */
                 val ACH_TRANSFER_CREATED = of("ach_transfer.created")
 
+                /** Occurs whenever an ACH Transfer is updated. */
                 val ACH_TRANSFER_UPDATED = of("ach_transfer.updated")
 
+                /** Occurs whenever a Bookkeeping Account is created. */
                 val BOOKKEEPING_ACCOUNT_CREATED = of("bookkeeping_account.created")
 
+                /** Occurs whenever a Bookkeeping Account is updated. */
                 val BOOKKEEPING_ACCOUNT_UPDATED = of("bookkeeping_account.updated")
 
+                /** Occurs whenever a Bookkeeping Entry Set is created. */
                 val BOOKKEEPING_ENTRY_SET_UPDATED = of("bookkeeping_entry_set.updated")
 
+                /** Occurs whenever a Card is created. */
                 val CARD_CREATED = of("card.created")
 
+                /** Occurs whenever a Card is updated. */
                 val CARD_UPDATED = of("card.updated")
 
+                /** Occurs whenever a Card Payment is created. */
                 val CARD_PAYMENT_CREATED = of("card_payment.created")
 
+                /** Occurs whenever a Card Payment is updated. */
                 val CARD_PAYMENT_UPDATED = of("card_payment.updated")
 
+                /** Occurs whenever a Card Profile is created. */
                 val CARD_PROFILE_CREATED = of("card_profile.created")
 
+                /** Occurs whenever a Card Profile is updated. */
                 val CARD_PROFILE_UPDATED = of("card_profile.updated")
 
+                /** Occurs whenever a Card Dispute is created. */
                 val CARD_DISPUTE_CREATED = of("card_dispute.created")
 
+                /** Occurs whenever a Card Dispute is updated. */
                 val CARD_DISPUTE_UPDATED = of("card_dispute.updated")
 
+                /** Occurs whenever a Check Deposit is created. */
                 val CHECK_DEPOSIT_CREATED = of("check_deposit.created")
 
+                /** Occurs whenever a Check Deposit is updated. */
                 val CHECK_DEPOSIT_UPDATED = of("check_deposit.updated")
 
+                /** Occurs whenever a Check Transfer is created. */
                 val CHECK_TRANSFER_CREATED = of("check_transfer.created")
 
+                /** Occurs whenever a Check Transfer is updated. */
                 val CHECK_TRANSFER_UPDATED = of("check_transfer.updated")
 
+                /** Occurs whenever a Declined Transaction is created. */
                 val DECLINED_TRANSACTION_CREATED = of("declined_transaction.created")
 
+                /** Occurs whenever a Digital Card Profile is created. */
                 val DIGITAL_CARD_PROFILE_CREATED = of("digital_card_profile.created")
 
+                /** Occurs whenever a Digital Card Profile is updated. */
                 val DIGITAL_CARD_PROFILE_UPDATED = of("digital_card_profile.updated")
 
+                /** Occurs whenever a Digital Wallet Token is created. */
                 val DIGITAL_WALLET_TOKEN_CREATED = of("digital_wallet_token.created")
 
+                /** Occurs whenever a Digital Wallet Token is updated. */
                 val DIGITAL_WALLET_TOKEN_UPDATED = of("digital_wallet_token.updated")
 
+                /** Occurs whenever a Document is created. */
                 val DOCUMENT_CREATED = of("document.created")
 
+                /** Occurs whenever an Entity is created. */
                 val ENTITY_CREATED = of("entity.created")
 
+                /** Occurs whenever an Entity is updated. */
                 val ENTITY_UPDATED = of("entity.updated")
 
+                /** Occurs whenever an Event Subscription is created. */
                 val EVENT_SUBSCRIPTION_CREATED = of("event_subscription.created")
 
+                /** Occurs whenever an Event Subscription is updated. */
                 val EVENT_SUBSCRIPTION_UPDATED = of("event_subscription.updated")
 
+                /** Occurs whenever an Export is created. */
                 val EXPORT_CREATED = of("export.created")
 
+                /** Occurs whenever an Export is updated. */
                 val EXPORT_UPDATED = of("export.updated")
 
+                /** Occurs whenever an External Account is created. */
                 val EXTERNAL_ACCOUNT_CREATED = of("external_account.created")
 
+                /** Occurs whenever an External Account is updated. */
                 val EXTERNAL_ACCOUNT_UPDATED = of("external_account.updated")
 
+                /** Occurs whenever a File is created. */
                 val FILE_CREATED = of("file.created")
 
+                /** Occurs whenever a Group is updated. */
                 val GROUP_UPDATED = of("group.updated")
 
+                /**
+                 * Increase may send webhooks with this category to see if a webhook endpoint is
+                 * working properly.
+                 */
                 val GROUP_HEARTBEAT = of("group.heartbeat")
 
+                /** Occurs whenever an Inbound ACH Transfer is created. */
                 val INBOUND_ACH_TRANSFER_CREATED = of("inbound_ach_transfer.created")
 
+                /** Occurs whenever an Inbound ACH Transfer is updated. */
                 val INBOUND_ACH_TRANSFER_UPDATED = of("inbound_ach_transfer.updated")
 
+                /** Occurs whenever an Inbound ACH Transfer Return is created. */
                 val INBOUND_ACH_TRANSFER_RETURN_CREATED = of("inbound_ach_transfer_return.created")
 
+                /** Occurs whenever an Inbound ACH Transfer Return is updated. */
                 val INBOUND_ACH_TRANSFER_RETURN_UPDATED = of("inbound_ach_transfer_return.updated")
 
+                /** Occurs whenever an Inbound Check Deposit is created. */
                 val INBOUND_CHECK_DEPOSIT_CREATED = of("inbound_check_deposit.created")
 
+                /** Occurs whenever an Inbound Check Deposit is updated. */
                 val INBOUND_CHECK_DEPOSIT_UPDATED = of("inbound_check_deposit.updated")
 
+                /** Occurs whenever an Inbound Mail Item is created. */
                 val INBOUND_MAIL_ITEM_CREATED = of("inbound_mail_item.created")
 
+                /** Occurs whenever an Inbound Mail Item is updated. */
                 val INBOUND_MAIL_ITEM_UPDATED = of("inbound_mail_item.updated")
 
+                /** Occurs whenever an Inbound Real-Time Payments Transfer is created. */
                 val INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CREATED =
                     of("inbound_real_time_payments_transfer.created")
 
+                /** Occurs whenever an Inbound Real-Time Payments Transfer is updated. */
                 val INBOUND_REAL_TIME_PAYMENTS_TRANSFER_UPDATED =
                     of("inbound_real_time_payments_transfer.updated")
 
+                /** Occurs whenever an Inbound Wire Drawdown Request is created. */
                 val INBOUND_WIRE_DRAWDOWN_REQUEST_CREATED =
                     of("inbound_wire_drawdown_request.created")
 
+                /** Occurs whenever an Inbound Wire Transfer is created. */
                 val INBOUND_WIRE_TRANSFER_CREATED = of("inbound_wire_transfer.created")
 
+                /** Occurs whenever an Inbound Wire Transfer is updated. */
                 val INBOUND_WIRE_TRANSFER_UPDATED = of("inbound_wire_transfer.updated")
 
+                /** Occurs whenever an IntraFi Account Enrollment is created. */
                 val INTRAFI_ACCOUNT_ENROLLMENT_CREATED = of("intrafi_account_enrollment.created")
 
+                /** Occurs whenever an IntraFi Account Enrollment is updated. */
                 val INTRAFI_ACCOUNT_ENROLLMENT_UPDATED = of("intrafi_account_enrollment.updated")
 
+                /** Occurs whenever an IntraFi Exclusion is created. */
                 val INTRAFI_EXCLUSION_CREATED = of("intrafi_exclusion.created")
 
+                /** Occurs whenever an IntraFi Exclusion is updated. */
                 val INTRAFI_EXCLUSION_UPDATED = of("intrafi_exclusion.updated")
 
+                /** Occurs whenever a Lockbox is created. */
                 val LOCKBOX_CREATED = of("lockbox.created")
 
+                /** Occurs whenever a Lockbox is updated. */
                 val LOCKBOX_UPDATED = of("lockbox.updated")
 
+                /** Occurs whenever an OAuth Connection is created. */
                 val OAUTH_CONNECTION_CREATED = of("oauth_connection.created")
 
+                /** Occurs whenever an OAuth Connection is deactivated. */
                 val OAUTH_CONNECTION_DEACTIVATED = of("oauth_connection.deactivated")
 
+                /** Occurs whenever a Pending Transaction is created. */
                 val PENDING_TRANSACTION_CREATED = of("pending_transaction.created")
 
+                /** Occurs whenever a Pending Transaction is updated. */
                 val PENDING_TRANSACTION_UPDATED = of("pending_transaction.updated")
 
+                /** Occurs whenever a Physical Card is created. */
                 val PHYSICAL_CARD_CREATED = of("physical_card.created")
 
+                /** Occurs whenever a Physical Card is updated. */
                 val PHYSICAL_CARD_UPDATED = of("physical_card.updated")
 
+                /** Occurs whenever a Physical Card Profile is created. */
                 val PHYSICAL_CARD_PROFILE_CREATED = of("physical_card_profile.created")
 
+                /** Occurs whenever a Physical Card Profile is updated. */
                 val PHYSICAL_CARD_PROFILE_UPDATED = of("physical_card_profile.updated")
 
+                /** Occurs whenever a Proof of Authorization Request is created. */
                 val PROOF_OF_AUTHORIZATION_REQUEST_CREATED =
                     of("proof_of_authorization_request.created")
 
+                /** Occurs whenever a Proof of Authorization Request is updated. */
                 val PROOF_OF_AUTHORIZATION_REQUEST_UPDATED =
                     of("proof_of_authorization_request.updated")
 
+                /** Occurs whenever a Proof of Authorization Request Submission is created. */
                 val PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION_CREATED =
                     of("proof_of_authorization_request_submission.created")
 
+                /** Occurs whenever a Proof of Authorization Request Submission is updated. */
                 val PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION_UPDATED =
                     of("proof_of_authorization_request_submission.updated")
 
+                /**
+                 * Occurs whenever a Real-Time Decision is created in response to a card
+                 * authorization.
+                 */
                 val REAL_TIME_DECISION_CARD_AUTHORIZATION_REQUESTED =
                     of("real_time_decision.card_authorization_requested")
 
+                /**
+                 * Occurs whenever a Real-Time Decision is created in response to a digital wallet
+                 * provisioning attempt.
+                 */
                 val REAL_TIME_DECISION_DIGITAL_WALLET_TOKEN_REQUESTED =
                     of("real_time_decision.digital_wallet_token_requested")
 
+                /**
+                 * Occurs whenever a Real-Time Decision is created in response to a digital wallet
+                 * requiring two-factor authentication.
+                 */
                 val REAL_TIME_DECISION_DIGITAL_WALLET_AUTHENTICATION_REQUESTED =
                     of("real_time_decision.digital_wallet_authentication_requested")
 
+                /**
+                 * Occurs whenever a Real-Time Decision is created in response to 3DS
+                 * authentication.
+                 */
                 val REAL_TIME_DECISION_CARD_AUTHENTICATION_REQUESTED =
                     of("real_time_decision.card_authentication_requested")
 
+                /**
+                 * Occurs whenever a Real-Time Decision is created in response to 3DS authentication
+                 * challenges.
+                 */
                 val REAL_TIME_DECISION_CARD_AUTHENTICATION_CHALLENGE_REQUESTED =
                     of("real_time_decision.card_authentication_challenge_requested")
 
+                /** Occurs whenever a Real-Time Payments Transfer is created. */
                 val REAL_TIME_PAYMENTS_TRANSFER_CREATED = of("real_time_payments_transfer.created")
 
+                /** Occurs whenever a Real-Time Payments Transfer is updated. */
                 val REAL_TIME_PAYMENTS_TRANSFER_UPDATED = of("real_time_payments_transfer.updated")
 
+                /** Occurs whenever a Real-Time Payments Request for Payment is created. */
                 val REAL_TIME_PAYMENTS_REQUEST_FOR_PAYMENT_CREATED =
                     of("real_time_payments_request_for_payment.created")
 
+                /** Occurs whenever a Real-Time Payments Request for Payment is updated. */
                 val REAL_TIME_PAYMENTS_REQUEST_FOR_PAYMENT_UPDATED =
                     of("real_time_payments_request_for_payment.updated")
 
+                /** Occurs whenever a Transaction is created. */
                 val TRANSACTION_CREATED = of("transaction.created")
 
+                /** Occurs whenever a Wire Drawdown Request is created. */
                 val WIRE_DRAWDOWN_REQUEST_CREATED = of("wire_drawdown_request.created")
 
+                /** Occurs whenever a Wire Drawdown Request is updated. */
                 val WIRE_DRAWDOWN_REQUEST_UPDATED = of("wire_drawdown_request.updated")
 
+                /** Occurs whenever a Wire Transfer is created. */
                 val WIRE_TRANSFER_CREATED = of("wire_transfer.created")
 
+                /** Occurs whenever a Wire Transfer is updated. */
                 val WIRE_TRANSFER_UPDATED = of("wire_transfer.updated")
 
                 fun of(value: String) = In(JsonField.of(value))

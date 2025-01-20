@@ -319,10 +319,13 @@ private constructor(
 
         companion object {
 
+            /** Blue Ridge Bank, N.A. */
             val BLUE_RIDGE_BANK = of("blue_ridge_bank")
 
+            /** First Internet Bank of Indiana */
             val FIRST_INTERNET_BANK = of("first_internet_bank")
 
+            /** Grasshopper Bank */
             val GRASSHOPPER_BANK = of("grasshopper_bank")
 
             fun of(value: String) = Bank(JsonField.of(value))

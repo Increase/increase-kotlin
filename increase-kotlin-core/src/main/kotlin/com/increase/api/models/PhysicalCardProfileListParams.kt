@@ -326,16 +326,25 @@ constructor(
 
             companion object {
 
+                /** The Card Profile has not yet been processed by Increase. */
                 val PENDING_CREATING = of("pending_creating")
 
+                /** The card profile is awaiting review by Increase. */
                 val PENDING_REVIEWING = of("pending_reviewing")
 
+                /** There is an issue with the Physical Card Profile preventing it from use. */
                 val REJECTED = of("rejected")
 
+                /** The card profile is awaiting submission to the fulfillment provider. */
                 val PENDING_SUBMITTING = of("pending_submitting")
 
+                /**
+                 * The Physical Card Profile has been submitted to the fulfillment provider and is
+                 * ready to use.
+                 */
                 val ACTIVE = of("active")
 
+                /** The Physical Card Profile has been archived. */
                 val ARCHIVED = of("archived")
 
                 fun of(value: String) = In(JsonField.of(value))

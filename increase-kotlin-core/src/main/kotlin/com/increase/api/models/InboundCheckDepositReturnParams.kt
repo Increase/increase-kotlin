@@ -331,14 +331,19 @@ constructor(
 
         companion object {
 
+            /** The check was altered or fictitious. */
             val ALTERED_OR_FICTITIOUS = of("altered_or_fictitious")
 
+            /** The check was not authorized. */
             val NOT_AUTHORIZED = of("not_authorized")
 
+            /** The check was a duplicate presentment. */
             val DUPLICATE_PRESENTMENT = of("duplicate_presentment")
 
+            /** The check was not endorsed. */
             val ENDORSEMENT_MISSING = of("endorsement_missing")
 
+            /** The check was not endorsed by the payee. */
             val ENDORSEMENT_IRREGULAR = of("endorsement_irregular")
 
             fun of(value: String) = Reason(JsonField.of(value))

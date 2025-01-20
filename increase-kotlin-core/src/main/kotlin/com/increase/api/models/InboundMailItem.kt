@@ -288,10 +288,13 @@ private constructor(
 
         companion object {
 
+            /** The mail item does not match any lockbox. */
             val NO_MATCHING_LOCKBOX = of("no_matching_lockbox")
 
+            /** The mail item does not contain a check. */
             val NO_CHECK = of("no_check")
 
+            /** The Lockbox or its associated Account is not active. */
             val LOCKBOX_NOT_ACTIVE = of("lockbox_not_active")
 
             fun of(value: String) = RejectionReason(JsonField.of(value))
@@ -358,10 +361,13 @@ private constructor(
 
         companion object {
 
+            /** The mail item is pending processing. */
             val PENDING = of("pending")
 
+            /** The mail item has been processed. */
             val PROCESSED = of("processed")
 
+            /** The mail item has been rejected. */
             val REJECTED = of("rejected")
 
             fun of(value: String) = Status(JsonField.of(value))

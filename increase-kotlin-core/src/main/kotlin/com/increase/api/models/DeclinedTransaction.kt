@@ -371,16 +371,22 @@ private constructor(
 
         companion object {
 
+            /** Canadian Dollar (CAD) */
             val CAD = of("CAD")
 
+            /** Swiss Franc (CHF) */
             val CHF = of("CHF")
 
+            /** Euro (EUR) */
             val EUR = of("EUR")
 
+            /** British Pound (GBP) */
             val GBP = of("GBP")
 
+            /** Japanese Yen (JPY) */
             val JPY = of("JPY")
 
+            /** US Dollar (USD) */
             val USD = of("USD")
 
             fun of(value: String) = Currency(JsonField.of(value))
@@ -465,10 +471,13 @@ private constructor(
 
         companion object {
 
+            /** An Account Number. */
             val ACCOUNT_NUMBER = of("account_number")
 
+            /** A Card. */
             val CARD = of("card")
 
+            /** A Lockbox. */
             val LOCKBOX = of("lockbox")
 
             fun of(value: String) = RouteType(JsonField.of(value))
@@ -1270,41 +1279,61 @@ private constructor(
 
                 companion object {
 
+                    /** The account number is canceled. */
                     val ACH_ROUTE_CANCELED = of("ach_route_canceled")
 
+                    /** The account number is disabled. */
                     val ACH_ROUTE_DISABLED = of("ach_route_disabled")
 
+                    /** The transaction would cause an Increase limit to be exceeded. */
                     val BREACHES_LIMIT = of("breaches_limit")
 
+                    /** The account's entity is not active. */
                     val ENTITY_NOT_ACTIVE = of("entity_not_active")
 
+                    /** Your account is inactive. */
                     val GROUP_LOCKED = of("group_locked")
 
+                    /** The transaction is not allowed per Increase's terms. */
                     val TRANSACTION_NOT_ALLOWED = of("transaction_not_allowed")
 
+                    /** Your integration declined this transfer via the API. */
                     val USER_INITIATED = of("user_initiated")
 
+                    /** Your account contains insufficient funds. */
                     val INSUFFICIENT_FUNDS = of("insufficient_funds")
 
+                    /**
+                     * The originating financial institution asked for this transfer to be returned.
+                     * The receiving bank is complying with the request.
+                     */
                     val RETURNED_PER_ODFI_REQUEST = of("returned_per_odfi_request")
 
+                    /** The customer no longer authorizes this transaction. */
                     val AUTHORIZATION_REVOKED_BY_CUSTOMER = of("authorization_revoked_by_customer")
 
+                    /** The customer asked for the payment to be stopped. */
                     val PAYMENT_STOPPED = of("payment_stopped")
 
+                    /** The customer advises that the debit was unauthorized. */
                     val CUSTOMER_ADVISED_UNAUTHORIZED_IMPROPER_INELIGIBLE_OR_INCOMPLETE =
                         of("customer_advised_unauthorized_improper_ineligible_or_incomplete")
 
+                    /** The payee is deceased. */
                     val REPRESENTATIVE_PAYEE_DECEASED_OR_UNABLE_TO_CONTINUE_IN_THAT_CAPACITY =
                         of("representative_payee_deceased_or_unable_to_continue_in_that_capacity")
 
+                    /** The account holder is deceased. */
                     val BENEFICIARY_OR_ACCOUNT_HOLDER_DECEASED =
                         of("beneficiary_or_account_holder_deceased")
 
+                    /** The customer refused a credit entry. */
                     val CREDIT_ENTRY_REFUSED_BY_RECEIVER = of("credit_entry_refused_by_receiver")
 
+                    /** The account holder identified this transaction as a duplicate. */
                     val DUPLICATE_ENTRY = of("duplicate_entry")
 
+                    /** The corporate customer no longer authorizes this transaction. */
                     val CORPORATE_CUSTOMER_ADVISED_NOT_AUTHORIZED =
                         of("corporate_customer_advised_not_authorized")
 
@@ -2435,10 +2464,13 @@ private constructor(
 
                 companion object {
 
+                    /** This object was actioned by the user through a real-time decision. */
                     val USER = of("user")
 
+                    /** This object was actioned by Increase without user intervention. */
                     val INCREASE = of("increase")
 
+                    /** This object was actioned by the network, through stand-in processing. */
                     val NETWORK = of("network")
 
                     fun of(value: String) = Actioner(JsonField.of(value))
@@ -2508,16 +2540,22 @@ private constructor(
 
                 companion object {
 
+                    /** Canadian Dollar (CAD) */
                     val CAD = of("CAD")
 
+                    /** Swiss Franc (CHF) */
                     val CHF = of("CHF")
 
+                    /** Euro (EUR) */
                     val EUR = of("EUR")
 
+                    /** British Pound (GBP) */
                     val GBP = of("GBP")
 
+                    /** Japanese Yen (JPY) */
                     val JPY = of("JPY")
 
+                    /** US Dollar (USD) */
                     val USD = of("USD")
 
                     fun of(value: String) = Currency(JsonField.of(value))
@@ -2605,8 +2643,13 @@ private constructor(
 
                 companion object {
 
+                    /** A regular card authorization where funds are debited from the cardholder. */
                     val SETTLEMENT = of("settlement")
 
+                    /**
+                     * A refund card authorization, sometimes referred to as a credit voucher
+                     * authorization, where funds are credited to the cardholder.
+                     */
                     val REFUND = of("refund")
 
                     fun of(value: String) = Direction(JsonField.of(value))
@@ -2780,6 +2823,7 @@ private constructor(
 
                     companion object {
 
+                        /** Visa */
                         val VISA = of("visa")
 
                         fun of(value: String) = Category(JsonField.of(value))
@@ -3043,22 +3087,66 @@ private constructor(
 
                         companion object {
 
+                            /**
+                             * Single transaction of a mail/phone order: Use to indicate that the
+                             * transaction is a mail/phone order purchase, not a recurring
+                             * transaction or installment payment. For domestic transactions in the
+                             * US region, this value may also indicate one bill payment transaction
+                             * in the card-present or card-absent environments.
+                             */
                             val MAIL_PHONE_ORDER = of("mail_phone_order")
 
+                            /**
+                             * Recurring transaction: Payment indicator used to indicate a recurring
+                             * transaction that originates from an acquirer in the US region.
+                             */
                             val RECURRING = of("recurring")
 
+                            /**
+                             * Installment payment: Payment indicator used to indicate one purchase
+                             * of goods or services that is billed to the account in multiple
+                             * charges over a period of time agreed upon by the cardholder and
+                             * merchant from transactions that originate from an acquirer in the US
+                             * region.
+                             */
                             val INSTALLMENT = of("installment")
 
+                            /**
+                             * Unknown classification: other mail order: Use to indicate that the
+                             * type of mail/telephone order is unknown.
+                             */
                             val UNKNOWN_MAIL_PHONE_ORDER = of("unknown_mail_phone_order")
 
+                            /**
+                             * Secure electronic commerce transaction: Use to indicate that the
+                             * electronic commerce transaction has been authenticated using e.g.,
+                             * 3-D Secure
+                             */
                             val SECURE_ELECTRONIC_COMMERCE = of("secure_electronic_commerce")
 
+                            /**
+                             * Non-authenticated security transaction at a 3-D Secure-capable
+                             * merchant, and merchant attempted to authenticate the cardholder using
+                             * 3-D Secure: Use to identify an electronic commerce transaction where
+                             * the merchant attempted to authenticate the cardholder using 3-D
+                             * Secure, but was unable to complete the authentication because the
+                             * issuer or cardholder does not participate in the 3-D Secure program.
+                             */
                             val NON_AUTHENTICATED_SECURITY_TRANSACTION_AT_3DS_CAPABLE_MERCHANT =
                                 of("non_authenticated_security_transaction_at_3ds_capable_merchant")
 
+                            /**
+                             * Non-authenticated security transaction: Use to identify an electronic
+                             * commerce transaction that uses data encryption for security however ,
+                             * cardholder authentication is not performed using 3-D Secure.
+                             */
                             val NON_AUTHENTICATED_SECURITY_TRANSACTION =
                                 of("non_authenticated_security_transaction")
 
+                            /**
+                             * Non-secure transaction: Use to identify an electronic commerce
+                             * transaction that has no data protection.
+                             */
                             val NON_SECURE_TRANSACTION = of("non_secure_transaction")
 
                             fun of(value: String) = ElectronicCommerceIndicator(JsonField.of(value))
@@ -3240,24 +3328,37 @@ private constructor(
 
                         companion object {
 
+                            /** Unknown */
                             val UNKNOWN = of("unknown")
 
+                            /** Manual key entry */
                             val MANUAL = of("manual")
 
+                            /** Magnetic stripe read, without card verification value */
                             val MAGNETIC_STRIPE_NO_CVV = of("magnetic_stripe_no_cvv")
 
+                            /** Optical code */
                             val OPTICAL_CODE = of("optical_code")
 
+                            /** Contact chip card */
                             val INTEGRATED_CIRCUIT_CARD = of("integrated_circuit_card")
 
+                            /** Contactless read of chip card */
                             val CONTACTLESS = of("contactless")
 
+                            /**
+                             * Transaction initiated using a credential that has previously been
+                             * stored on file
+                             */
                             val CREDENTIAL_ON_FILE = of("credential_on_file")
 
+                            /** Magnetic stripe read */
                             val MAGNETIC_STRIPE = of("magnetic_stripe")
 
+                            /** Contactless read of magnetic stripe data */
                             val CONTACTLESS_MAGNETIC_STRIPE = of("contactless_magnetic_stripe")
 
+                            /** Contact chip card, without card verification value */
                             val INTEGRATED_CIRCUIT_CARD_NO_CVV =
                                 of("integrated_circuit_card_no_cvv")
 
@@ -3382,18 +3483,36 @@ private constructor(
 
                         companion object {
 
+                            /** Increase failed to process the authorization in a timely manner. */
                             val ISSUER_ERROR = of("issuer_error")
 
+                            /**
+                             * The physical card read had an invalid CVV, dCVV, or authorization
+                             * request cryptogram.
+                             */
                             val INVALID_PHYSICAL_CARD = of("invalid_physical_card")
 
+                            /** The 3DS cardholder authentication verification value was invalid. */
                             val INVALID_CARDHOLDER_AUTHENTICATION_VERIFICATION_VALUE =
                                 of("invalid_cardholder_authentication_verification_value")
 
+                            /**
+                             * An internal Visa error occurred. Visa uses this reason code for
+                             * certain expected occurrences as well, such as Application Transaction
+                             * Counter (ATC) replays.
+                             */
                             val INTERNAL_VISA_ERROR = of("internal_visa_error")
 
+                            /**
+                             * The merchant has enabled Visa's Transaction Advisory Service and
+                             * requires further authentication to perform the transaction. In
+                             * practice this is often utilized at fuel pumps to tell the cardholder
+                             * to see the cashier.
+                             */
                             val MERCHANT_TRANSACTION_ADVISORY_SERVICE_AUTHENTICATION_REQUIRED =
                                 of("merchant_transaction_advisory_service_authentication_required")
 
+                            /** An unspecific reason for stand-in processing. */
                             val OTHER = of("other")
 
                             fun of(value: String) = StandInProcessingReason(JsonField.of(value))
@@ -3749,16 +3868,35 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Account funding transactions are transactions used to e.g., fund an account
+                     * or transfer funds between accounts.
+                     */
                     val ACCOUNT_FUNDING = of("account_funding")
 
+                    /**
+                     * Automatic fuel dispenser authorizations occur when a card is used at a gas
+                     * pump, prior to the actual transaction amount being known. They are followed
+                     * by an advice message that updates the amount of the pending transaction.
+                     */
                     val AUTOMATIC_FUEL_DISPENSER = of("automatic_fuel_dispenser")
 
+                    /** A transaction used to pay a bill. */
                     val BILL_PAYMENT = of("bill_payment")
 
+                    /** A regular purchase. */
                     val PURCHASE = of("purchase")
 
+                    /**
+                     * Quasi-cash transactions represent purchases of items which may be convertible
+                     * to cash.
+                     */
                     val QUASI_CASH = of("quasi_cash")
 
+                    /**
+                     * A refund card authorization, sometimes referred to as a credit voucher
+                     * authorization, where funds are credited to the cardholder.
+                     */
                     val REFUND = of("refund")
 
                     fun of(value: String) = ProcessingCategory(JsonField.of(value))
@@ -3870,16 +4008,40 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * The cardholder does not have sufficient funds to cover the transaction. The
+                     * merchant may attempt to process the transaction again.
+                     */
                     val INSUFFICIENT_FUNDS = of("insufficient_funds")
 
+                    /**
+                     * This type of transaction is not allowed for this card. This transaction
+                     * should not be retried.
+                     */
                     val TRANSACTION_NEVER_ALLOWED = of("transaction_never_allowed")
 
+                    /**
+                     * The transaction amount exceeds the cardholder's approval limit. The merchant
+                     * may attempt to process the transaction again.
+                     */
                     val EXCEEDS_APPROVAL_LIMIT = of("exceeds_approval_limit")
 
+                    /**
+                     * The card has been temporarily disabled or not yet activated. The merchant may
+                     * attempt to process the transaction again.
+                     */
                     val CARD_TEMPORARILY_DISABLED = of("card_temporarily_disabled")
 
+                    /**
+                     * The transaction is suspected to be fraudulent. The merchant may attempt to
+                     * process the transaction again.
+                     */
                     val SUSPECTED_FRAUD = of("suspected_fraud")
 
+                    /**
+                     * The transaction was declined for another reason. The merchant may attempt to
+                     * process the transaction again. This should be used sparingly.
+                     */
                     val OTHER = of("other")
 
                     fun of(value: String) = RealTimeDecisionReason(JsonField.of(value))
@@ -4003,34 +4165,60 @@ private constructor(
 
                 companion object {
 
+                    /** The Card was not active. */
                     val CARD_NOT_ACTIVE = of("card_not_active")
 
+                    /** The Physical Card was not active. */
                     val PHYSICAL_CARD_NOT_ACTIVE = of("physical_card_not_active")
 
+                    /** The account's entity was not active. */
                     val ENTITY_NOT_ACTIVE = of("entity_not_active")
 
+                    /** The account was inactive. */
                     val GROUP_LOCKED = of("group_locked")
 
+                    /** The Card's Account did not have a sufficient available balance. */
                     val INSUFFICIENT_FUNDS = of("insufficient_funds")
 
+                    /** The given CVV2 did not match the card's value. */
                     val CVV2_MISMATCH = of("cvv2_mismatch")
 
+                    /**
+                     * The given expiration date did not match the card's value. Only applies when a
+                     * CVV2 is present.
+                     */
                     val CARD_EXPIRATION_MISMATCH = of("card_expiration_mismatch")
 
+                    /** The attempted card transaction is not allowed per Increase's terms. */
                     val TRANSACTION_NOT_ALLOWED = of("transaction_not_allowed")
 
+                    /** The transaction was blocked by a Limit. */
                     val BREACHES_LIMIT = of("breaches_limit")
 
+                    /** Your application declined the transaction via webhook. */
                     val WEBHOOK_DECLINED = of("webhook_declined")
 
+                    /** Your application webhook did not respond without the required timeout. */
                     val WEBHOOK_TIMED_OUT = of("webhook_timed_out")
 
+                    /** Declined by stand-in processing. */
                     val DECLINED_BY_STAND_IN_PROCESSING = of("declined_by_stand_in_processing")
 
+                    /**
+                     * The card read had an invalid CVV, dCVV, or authorization request cryptogram.
+                     */
                     val INVALID_PHYSICAL_CARD = of("invalid_physical_card")
 
+                    /**
+                     * The original card authorization for this incremental authorization does not
+                     * exist.
+                     */
                     val MISSING_ORIGINAL_AUTHORIZATION = of("missing_original_authorization")
 
+                    /**
+                     * The transaction was suspected to be fraudulent. Please reach out to
+                     * support@increase.com for more information.
+                     */
                     val SUSPECTED_FRAUD = of("suspected_fraud")
 
                     fun of(value: String) = Reason(JsonField.of(value))
@@ -4425,10 +4613,15 @@ private constructor(
 
                         companion object {
 
+                            /**
+                             * No card verification code was provided in the authorization request.
+                             */
                             val NOT_CHECKED = of("not_checked")
 
+                            /** The card verification code matched the one on file. */
                             val MATCH = of("match")
 
+                            /** The card verification code did not match the one on file. */
                             val NO_MATCH = of("no_match")
 
                             fun of(value: String) = Result(JsonField.of(value))
@@ -4724,19 +4917,25 @@ private constructor(
 
                         companion object {
 
+                            /** No adress was provided in the authorization request. */
                             val NOT_CHECKED = of("not_checked")
 
+                            /** Postal code matches, but the street address was not verified. */
                             val POSTAL_CODE_MATCH_ADDRESS_NOT_CHECKED =
                                 of("postal_code_match_address_not_checked")
 
+                            /** Postal code matches, but the street address does not match. */
                             val POSTAL_CODE_MATCH_ADDRESS_NO_MATCH =
                                 of("postal_code_match_address_no_match")
 
+                            /** Postal code does not match, but the street address matches. */
                             val POSTAL_CODE_NO_MATCH_ADDRESS_MATCH =
                                 of("postal_code_no_match_address_match")
 
+                            /** Postal code and street address match. */
                             val MATCH = of("match")
 
+                            /** Postal code and street address do not match. */
                             val NO_MATCH = of("no_match")
 
                             fun of(value: String) = Result(JsonField.of(value))
@@ -4884,19 +5083,32 @@ private constructor(
 
             companion object {
 
+                /** ACH Decline: details will be under the `ach_decline` object. */
                 val ACH_DECLINE = of("ach_decline")
 
+                /** Card Decline: details will be under the `card_decline` object. */
                 val CARD_DECLINE = of("card_decline")
 
+                /** Check Decline: details will be under the `check_decline` object. */
                 val CHECK_DECLINE = of("check_decline")
 
+                /**
+                 * Inbound Real-Time Payments Transfer Decline: details will be under the
+                 * `inbound_real_time_payments_transfer_decline` object.
+                 */
                 val INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE =
                     of("inbound_real_time_payments_transfer_decline")
 
+                /** Wire Decline: details will be under the `wire_decline` object. */
                 val WIRE_DECLINE = of("wire_decline")
 
+                /**
+                 * Check Deposit Rejection: details will be under the `check_deposit_rejection`
+                 * object.
+                 */
                 val CHECK_DEPOSIT_REJECTION = of("check_deposit_rejection")
 
+                /** The Declined Transaction was made for an undocumented or deprecated reason. */
                 val OTHER = of("other")
 
                 fun of(value: String) = Category(JsonField.of(value))
@@ -5273,38 +5485,58 @@ private constructor(
 
                 companion object {
 
+                    /** The account number is disabled. */
                     val ACH_ROUTE_DISABLED = of("ach_route_disabled")
 
+                    /** The account number is canceled. */
                     val ACH_ROUTE_CANCELED = of("ach_route_canceled")
 
+                    /** The deposited check was altered or fictitious. */
                     val ALTERED_OR_FICTITIOUS = of("altered_or_fictitious")
 
+                    /** The transaction would cause a limit to be exceeded. */
                     val BREACHES_LIMIT = of("breaches_limit")
 
+                    /** The check was not endorsed by the payee. */
                     val ENDORSEMENT_IRREGULAR = of("endorsement_irregular")
 
+                    /** The account's entity is not active. */
                     val ENTITY_NOT_ACTIVE = of("entity_not_active")
 
+                    /** Your account is inactive. */
                     val GROUP_LOCKED = of("group_locked")
 
+                    /** Your account contains insufficient funds. */
                     val INSUFFICIENT_FUNDS = of("insufficient_funds")
 
+                    /** Stop payment requested for this check. */
                     val STOP_PAYMENT_REQUESTED = of("stop_payment_requested")
 
+                    /** The check was a duplicate deposit. */
                     val DUPLICATE_PRESENTMENT = of("duplicate_presentment")
 
+                    /** The check was not authorized. */
                     val NOT_AUTHORIZED = of("not_authorized")
 
+                    /**
+                     * The amount the receiving bank is attempting to deposit does not match the
+                     * amount on the check.
+                     */
                     val AMOUNT_MISMATCH = of("amount_mismatch")
 
+                    /** The check attempting to be deposited does not belong to Increase. */
                     val NOT_OUR_ITEM = of("not_our_item")
 
+                    /** The account number on the check does not exist at Increase. */
                     val NO_ACCOUNT_NUMBER_FOUND = of("no_account_number_found")
 
+                    /** The check is not readable. Please refer to the image. */
                     val REFER_TO_IMAGE = of("refer_to_image")
 
+                    /** The check cannot be processed. This is rare: please contact support. */
                     val UNABLE_TO_PROCESS = of("unable_to_process")
 
+                    /** Your integration declined this check via the API. */
                     val USER_INITIATED = of("user_initiated")
 
                     fun of(value: String) = Reason(JsonField.of(value))
@@ -5715,16 +5947,22 @@ private constructor(
 
                 companion object {
 
+                    /** Canadian Dollar (CAD) */
                     val CAD = of("CAD")
 
+                    /** Swiss Franc (CHF) */
                     val CHF = of("CHF")
 
+                    /** Euro (EUR) */
                     val EUR = of("EUR")
 
+                    /** British Pound (GBP) */
                     val GBP = of("GBP")
 
+                    /** Japanese Yen (JPY) */
                     val JPY = of("JPY")
 
+                    /** US Dollar (USD) */
                     val USD = of("USD")
 
                     fun of(value: String) = Currency(JsonField.of(value))
@@ -5809,26 +6047,37 @@ private constructor(
 
                 companion object {
 
+                    /** The check's image is incomplete. */
                     val INCOMPLETE_IMAGE = of("incomplete_image")
 
+                    /** This is a duplicate check submission. */
                     val DUPLICATE = of("duplicate")
 
+                    /** This check has poor image quality. */
                     val POOR_IMAGE_QUALITY = of("poor_image_quality")
 
+                    /** The check was deposited with the incorrect amount. */
                     val INCORRECT_AMOUNT = of("incorrect_amount")
 
+                    /** The check is made out to someone other than the account holder. */
                     val INCORRECT_RECIPIENT = of("incorrect_recipient")
 
+                    /** This check was not eligible for mobile deposit. */
                     val NOT_ELIGIBLE_FOR_MOBILE_DEPOSIT = of("not_eligible_for_mobile_deposit")
 
+                    /** This check is missing at least one required field. */
                     val MISSING_REQUIRED_DATA_ELEMENTS = of("missing_required_data_elements")
 
+                    /** This check is suspected to be fraudulent. */
                     val SUSPECTED_FRAUD = of("suspected_fraud")
 
+                    /** This check's deposit window has expired. */
                     val DEPOSIT_WINDOW_EXPIRED = of("deposit_window_expired")
 
+                    /** The check was rejected at the user's request. */
                     val REQUESTED_BY_USER = of("requested_by_user")
 
+                    /** The check was rejected for an unknown reason. */
                     val UNKNOWN = of("unknown")
 
                     fun of(value: String) = Reason(JsonField.of(value))
@@ -6300,16 +6549,22 @@ private constructor(
 
                 companion object {
 
+                    /** Canadian Dollar (CAD) */
                     val CAD = of("CAD")
 
+                    /** Swiss Franc (CHF) */
                     val CHF = of("CHF")
 
+                    /** Euro (EUR) */
                     val EUR = of("EUR")
 
+                    /** British Pound (GBP) */
                     val GBP = of("GBP")
 
+                    /** Japanese Yen (JPY) */
                     val JPY = of("JPY")
 
+                    /** US Dollar (USD) */
                     val USD = of("USD")
 
                     fun of(value: String) = Currency(JsonField.of(value))
@@ -6394,16 +6649,22 @@ private constructor(
 
                 companion object {
 
+                    /** The account number is canceled. */
                     val ACCOUNT_NUMBER_CANCELED = of("account_number_canceled")
 
+                    /** The account number is disabled. */
                     val ACCOUNT_NUMBER_DISABLED = of("account_number_disabled")
 
+                    /** Your account is restricted. */
                     val ACCOUNT_RESTRICTED = of("account_restricted")
 
+                    /** Your account is inactive. */
                     val GROUP_LOCKED = of("group_locked")
 
+                    /** The account's entity is not active. */
                     val ENTITY_NOT_ACTIVE = of("entity_not_active")
 
+                    /** Your account is not enabled to receive Real-Time Payments transfers. */
                     val REAL_TIME_PAYMENTS_NOT_ENABLED = of("real_time_payments_not_enabled")
 
                     fun of(value: String) = Reason(JsonField.of(value))
@@ -6619,16 +6880,22 @@ private constructor(
 
                 companion object {
 
+                    /** The account number is canceled. */
                     val ACCOUNT_NUMBER_CANCELED = of("account_number_canceled")
 
+                    /** The account number is disabled. */
                     val ACCOUNT_NUMBER_DISABLED = of("account_number_disabled")
 
+                    /** The account's entity is not active. */
                     val ENTITY_NOT_ACTIVE = of("entity_not_active")
 
+                    /** Your account is inactive. */
                     val GROUP_LOCKED = of("group_locked")
 
+                    /** The beneficiary account number does not exist. */
                     val NO_ACCOUNT_NUMBER = of("no_account_number")
 
+                    /** The transaction is not allowed per Increase's terms. */
                     val TRANSACTION_NOT_ALLOWED = of("transaction_not_allowed")
 
                     fun of(value: String) = Reason(JsonField.of(value))

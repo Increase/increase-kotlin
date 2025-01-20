@@ -412,8 +412,10 @@ constructor(
 
         companion object {
 
+            /** A cash in an commingled Increase Account. */
             val COMMINGLED_CASH = of("commingled_cash")
 
+            /** A customer balance. */
             val CUSTOMER_BALANCE = of("customer_balance")
 
             fun of(value: String) = ComplianceCategory(JsonField.of(value))

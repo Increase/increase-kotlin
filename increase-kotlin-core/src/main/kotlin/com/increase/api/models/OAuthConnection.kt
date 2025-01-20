@@ -269,8 +269,10 @@ private constructor(
 
         companion object {
 
+            /** The OAuth connection is active. */
             val ACTIVE = of("active")
 
+            /** The OAuth connection is permanently deactivated. */
             val INACTIVE = of("inactive")
 
             fun of(value: String) = Status(JsonField.of(value))

@@ -622,12 +622,16 @@ private constructor(
 
         companion object {
 
+            /** The drawdown request is queued to be submitted to Fedwire. */
             val PENDING_SUBMISSION = of("pending_submission")
 
+            /** The drawdown request has been sent and the recipient should respond in some way. */
             val PENDING_RESPONSE = of("pending_response")
 
+            /** The drawdown request has been fulfilled by the recipient. */
             val FULFILLED = of("fulfilled")
 
+            /** The drawdown request has been refused by the recipient. */
             val REFUSED = of("refused")
 
             fun of(value: String) = Status(JsonField.of(value))
