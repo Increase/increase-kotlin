@@ -17,7 +17,7 @@ import com.increase.api.models.InboundMailItemListParams
 import com.increase.api.models.InboundMailItemRetrieveParams
 
 class InboundMailItemServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : InboundMailItemServiceAsync {
 

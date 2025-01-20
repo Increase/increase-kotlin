@@ -20,7 +20,7 @@ import com.increase.api.models.ExternalAccountRetrieveParams
 import com.increase.api.models.ExternalAccountUpdateParams
 
 class ExternalAccountServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : ExternalAccountServiceAsync {
 

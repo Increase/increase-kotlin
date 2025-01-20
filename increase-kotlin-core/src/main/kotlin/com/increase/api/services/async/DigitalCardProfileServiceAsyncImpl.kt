@@ -21,7 +21,7 @@ import com.increase.api.models.DigitalCardProfileListParams
 import com.increase.api.models.DigitalCardProfileRetrieveParams
 
 class DigitalCardProfileServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : DigitalCardProfileServiceAsync {
 

@@ -17,7 +17,7 @@ import com.increase.api.models.ProgramListParams
 import com.increase.api.models.ProgramRetrieveParams
 
 class ProgramServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : ProgramServiceAsync {
 

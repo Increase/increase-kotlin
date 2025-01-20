@@ -16,7 +16,7 @@ import com.increase.api.models.PhysicalCard
 import com.increase.api.models.SimulationPhysicalCardAdvanceShipmentParams
 
 class PhysicalCardServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : PhysicalCardServiceAsync {
 

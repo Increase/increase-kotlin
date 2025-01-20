@@ -20,7 +20,7 @@ import com.increase.api.models.EventSubscriptionRetrieveParams
 import com.increase.api.models.EventSubscriptionUpdateParams
 
 class EventSubscriptionServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : EventSubscriptionServiceAsync {
 

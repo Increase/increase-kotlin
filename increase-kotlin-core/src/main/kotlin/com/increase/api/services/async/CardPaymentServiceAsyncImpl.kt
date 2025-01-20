@@ -17,7 +17,7 @@ import com.increase.api.models.CardPaymentListParams
 import com.increase.api.models.CardPaymentRetrieveParams
 
 class CardPaymentServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : CardPaymentServiceAsync {
 

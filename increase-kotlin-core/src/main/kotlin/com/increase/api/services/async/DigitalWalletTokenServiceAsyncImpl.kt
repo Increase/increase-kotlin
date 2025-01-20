@@ -17,7 +17,7 @@ import com.increase.api.models.DigitalWalletTokenListParams
 import com.increase.api.models.DigitalWalletTokenRetrieveParams
 
 class DigitalWalletTokenServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : DigitalWalletTokenServiceAsync {
 

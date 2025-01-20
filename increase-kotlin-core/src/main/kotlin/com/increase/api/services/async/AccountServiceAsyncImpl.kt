@@ -23,7 +23,7 @@ import com.increase.api.models.AccountUpdateParams
 import com.increase.api.models.BalanceLookup
 
 class AccountServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : AccountServiceAsync {
 

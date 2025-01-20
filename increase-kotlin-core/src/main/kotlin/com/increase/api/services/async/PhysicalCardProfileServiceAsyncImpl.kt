@@ -21,7 +21,7 @@ import com.increase.api.models.PhysicalCardProfileListParams
 import com.increase.api.models.PhysicalCardProfileRetrieveParams
 
 class PhysicalCardProfileServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : PhysicalCardProfileServiceAsync {
 

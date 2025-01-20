@@ -16,7 +16,7 @@ import com.increase.api.models.InboundAchTransfer
 import com.increase.api.models.SimulationInboundAchTransferCreateParams
 
 class InboundAchTransferServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : InboundAchTransferServiceAsync {
 

@@ -19,7 +19,7 @@ import com.increase.api.models.CheckDepositListParams
 import com.increase.api.models.CheckDepositRetrieveParams
 
 class CheckDepositServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : CheckDepositServiceAsync {
 

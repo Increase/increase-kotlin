@@ -18,7 +18,7 @@ import com.increase.api.models.SupplementalDocumentListPageAsync
 import com.increase.api.models.SupplementalDocumentListParams
 
 class SupplementalDocumentServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : SupplementalDocumentServiceAsync {
 
