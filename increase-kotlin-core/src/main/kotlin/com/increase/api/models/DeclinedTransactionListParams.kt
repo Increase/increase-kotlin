@@ -339,19 +339,32 @@ constructor(
 
             companion object {
 
+                /** ACH Decline: details will be under the `ach_decline` object. */
                 val ACH_DECLINE = of("ach_decline")
 
+                /** Card Decline: details will be under the `card_decline` object. */
                 val CARD_DECLINE = of("card_decline")
 
+                /** Check Decline: details will be under the `check_decline` object. */
                 val CHECK_DECLINE = of("check_decline")
 
+                /**
+                 * Inbound Real-Time Payments Transfer Decline: details will be under the
+                 * `inbound_real_time_payments_transfer_decline` object.
+                 */
                 val INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE =
                     of("inbound_real_time_payments_transfer_decline")
 
+                /** Wire Decline: details will be under the `wire_decline` object. */
                 val WIRE_DECLINE = of("wire_decline")
 
+                /**
+                 * Check Deposit Rejection: details will be under the `check_deposit_rejection`
+                 * object.
+                 */
                 val CHECK_DEPOSIT_REJECTION = of("check_deposit_rejection")
 
+                /** The Declined Transaction was made for an undocumented or deprecated reason. */
                 val OTHER = of("other")
 
                 fun of(value: String) = In(JsonField.of(value))

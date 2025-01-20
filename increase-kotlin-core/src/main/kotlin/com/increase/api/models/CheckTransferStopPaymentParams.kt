@@ -325,10 +325,13 @@ constructor(
 
         companion object {
 
+            /** The check could not be delivered. */
             val MAIL_DELIVERY_FAILED = of("mail_delivery_failed")
 
+            /** The check was not authorized. */
             val NOT_AUTHORIZED = of("not_authorized")
 
+            /** The check was stopped for another reason. */
             val UNKNOWN = of("unknown")
 
             fun of(value: String) = Reason(JsonField.of(value))

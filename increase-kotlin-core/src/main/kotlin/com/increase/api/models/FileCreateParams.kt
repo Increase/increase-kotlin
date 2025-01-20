@@ -240,34 +240,64 @@ constructor(
 
         companion object {
 
+            /** An image of the front of a check, used for check deposits. */
             val CHECK_IMAGE_FRONT = of("check_image_front")
 
+            /** An image of the back of a check, used for check deposits. */
             val CHECK_IMAGE_BACK = of("check_image_back")
 
+            /** An image of a check that was mailed to a recipient. */
             val MAILED_CHECK_IMAGE = of("mailed_check_image")
 
+            /**
+             * An image to be printed on the bottom or voucher of a check that you've requested
+             * Increase print.
+             */
             val CHECK_VOUCHER_IMAGE = of("check_voucher_image")
 
+            /** IRS Form SS-4. */
             val FORM_SS_4 = of("form_ss_4")
 
+            /** An image of a government-issued ID. */
             val IDENTITY_DOCUMENT = of("identity_document")
 
+            /** A file purpose not covered by any of the other cases. */
             val OTHER = of("other")
 
+            /** A legal document forming a trust. */
             val TRUST_FORMATION_DOCUMENT = of("trust_formation_document")
 
+            /**
+             * A card image to be rendered inside digital wallet apps. This must be a 1536x969 pixel
+             * PNG.
+             */
             val DIGITAL_WALLET_ARTWORK = of("digital_wallet_artwork")
 
+            /**
+             * An icon for you app to be rendered inside digital wallet apps. This must be a 100x100
+             * pixel PNG.
+             */
             val DIGITAL_WALLET_APP_ICON = of("digital_wallet_app_icon")
 
+            /**
+             * A card image to be printed on the front of a physical card. This must be a 2100x1340
+             * pixel PNG with no other color but black.
+             */
             val PHYSICAL_CARD_FRONT = of("physical_card_front")
 
+            /**
+             * An image representing the entirety of the carrier used for a physical card. This must
+             * be a 2550x3300 pixel PNG with no other color but black.
+             */
             val PHYSICAL_CARD_CARRIER = of("physical_card_carrier")
 
+            /** A document requested by Increase. */
             val DOCUMENT_REQUEST = of("document_request")
 
+            /** A supplemental document associated an an Entity. */
             val ENTITY_SUPPLEMENTAL_DOCUMENT = of("entity_supplemental_document")
 
+            /** An attachment to an Unusual Activity Report. */
             val UNUSUAL_ACTIVITY_REPORT_ATTACHMENT = of("unusual_activity_report_attachment")
 
             fun of(value: String) = Purpose(JsonField.of(value))

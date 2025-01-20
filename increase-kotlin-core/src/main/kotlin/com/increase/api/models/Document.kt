@@ -229,10 +229,19 @@ private constructor(
 
         companion object {
 
+            /** Internal Revenue Service Form 1099-INT. */
             val FORM_1099_INT = of("form_1099_int")
 
+            /**
+             * A document submitted in response to a proof of authorization request for an ACH
+             * transfer.
+             */
             val PROOF_OF_AUTHORIZATION = of("proof_of_authorization")
 
+            /**
+             * Company information, such a policies or procedures, typically submitted during our
+             * due diligence process.
+             */
             val COMPANY_INFORMATION = of("company_information")
 
             fun of(value: String) = Category(JsonField.of(value))

@@ -500,10 +500,13 @@ private constructor(
 
         companion object {
 
+            /** Blue Ridge Bank, N.A. */
             val BLUE_RIDGE_BANK = of("blue_ridge_bank")
 
+            /** First Internet Bank of Indiana */
             val FIRST_INTERNET_BANK = of("first_internet_bank")
 
+            /** Grasshopper Bank */
             val GRASSHOPPER_BANK = of("grasshopper_bank")
 
             fun of(value: String) = Bank(JsonField.of(value))
@@ -570,16 +573,22 @@ private constructor(
 
         companion object {
 
+            /** Canadian Dollar (CAD) */
             val CAD = of("CAD")
 
+            /** Swiss Franc (CHF) */
             val CHF = of("CHF")
 
+            /** Euro (EUR) */
             val EUR = of("EUR")
 
+            /** British Pound (GBP) */
             val GBP = of("GBP")
 
+            /** Japanese Yen (JPY) */
             val JPY = of("JPY")
 
+            /** US Dollar (USD) */
             val USD = of("USD")
 
             fun of(value: String) = Currency(JsonField.of(value))
@@ -664,8 +673,10 @@ private constructor(
 
         companion object {
 
+            /** Closed Accounts on which no new activity can occur. */
             val CLOSED = of("closed")
 
+            /** Open Accounts that are ready to use. */
             val OPEN = of("open")
 
             fun of(value: String) = Status(JsonField.of(value))

@@ -365,10 +365,13 @@ private constructor(
 
         companion object {
 
+            /** The External Account is owned by a business. */
             val BUSINESS = of("business")
 
+            /** The External Account is owned by an individual. */
             val INDIVIDUAL = of("individual")
 
+            /** It's unknown what kind of entity owns the External Account. */
             val UNKNOWN = of("unknown")
 
             fun of(value: String) = AccountHolder(JsonField.of(value))
@@ -435,10 +438,13 @@ private constructor(
 
         companion object {
 
+            /** A checking account. */
             val CHECKING = of("checking")
 
+            /** A savings account. */
             val SAVINGS = of("savings")
 
+            /** A different type of account. */
             val OTHER = of("other")
 
             fun of(value: String) = Funding(JsonField.of(value))
@@ -505,8 +511,10 @@ private constructor(
 
         companion object {
 
+            /** The External Account is active. */
             val ACTIVE = of("active")
 
+            /** The External Account is archived and won't appear in the dashboard. */
             val ARCHIVED = of("archived")
 
             fun of(value: String) = Status(JsonField.of(value))
@@ -622,10 +630,13 @@ private constructor(
 
         companion object {
 
+            /** The External Account has not been verified. */
             val UNVERIFIED = of("unverified")
 
+            /** The External Account is in the process of being verified. */
             val PENDING = of("pending")
 
+            /** The External Account is verified. */
             val VERIFIED = of("verified")
 
             fun of(value: String) = VerificationStatus(JsonField.of(value))

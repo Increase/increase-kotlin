@@ -325,10 +325,13 @@ constructor(
 
         companion object {
 
+            /** The subscription is active and Events will be delivered normally. */
             val ACTIVE = of("active")
 
+            /** The subscription is temporarily disabled and Events will not be delivered. */
             val DISABLED = of("disabled")
 
+            /** The subscription is permanently disabled and Events will not be delivered. */
             val DELETED = of("deleted")
 
             fun of(value: String) = Status(JsonField.of(value))

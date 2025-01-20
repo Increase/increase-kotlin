@@ -214,8 +214,10 @@ private constructor(
 
         companion object {
 
+            /** The Group cannot make ACH debits. */
             val DISABLED = of("disabled")
 
+            /** The Group can make ACH debits. */
             val ENABLED = of("enabled")
 
             fun of(value: String) = AchDebitStatus(JsonField.of(value))
@@ -276,8 +278,10 @@ private constructor(
 
         companion object {
 
+            /** The Group is not activated. */
             val UNACTIVATED = of("unactivated")
 
+            /** The Group is activated. */
             val ACTIVATED = of("activated")
 
             fun of(value: String) = ActivationStatus(JsonField.of(value))
