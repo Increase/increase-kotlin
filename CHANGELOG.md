@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.157.1 (2025-01-20)
+
+Full Changelog: [v0.157.0...v0.157.1](https://github.com/Increase/increase-kotlin/compare/v0.157.0...v0.157.1)
+
+### Bug Fixes
+
+* **client:** make service impl constructors internal ([#709](https://github.com/Increase/increase-kotlin/issues/709)) ([db66a7d](https://github.com/Increase/increase-kotlin/commit/db66a7d16155bb25142719930e2638ff643a51e6))
+
+
+### Chores
+
+* **internal:** upgrade kotlin compiler and gradle ([#707](https://github.com/Increase/increase-kotlin/issues/707)) ([81ccebd](https://github.com/Increase/increase-kotlin/commit/81ccebd9ad9ed6ae833b57bb64ad0b2cf32c6c53))
+* simplify examples involving lists ([#704](https://github.com/Increase/increase-kotlin/issues/704)) ([7fb2875](https://github.com/Increase/increase-kotlin/commit/7fb28752f0b7e22576b5953e364260971d2166c0))
+
+
+### Documentation
+
+* add more documentation ([#708](https://github.com/Increase/increase-kotlin/issues/708)) ([5a9163d](https://github.com/Increase/increase-kotlin/commit/5a9163dc50235104c8fc54392ba977b5a024e96b))
+* add sonatype readme badge ([#706](https://github.com/Increase/increase-kotlin/issues/706)) ([81cc9fe](https://github.com/Increase/increase-kotlin/commit/81cc9fe954fce3272a361e599399452a4fbb3013))
+
 ## 0.157.0 (2025-01-14)
 
 Full Changelog: [v0.156.0...v0.157.0](https://github.com/Increase/increase-kotlin/compare/v0.156.0...v0.157.0)

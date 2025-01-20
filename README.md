@@ -2,7 +2,7 @@
 
 <!-- x-release-please-start-version -->
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.increase.api/increase-kotlin)](https://central.sonatype.com/artifact/com.increase.api/increase-kotlin/0.157.0)
+[![Maven Central](https://img.shields.io/maven-central/v/com.increase.api/increase-kotlin)](https://central.sonatype.com/artifact/com.increase.api/increase-kotlin/0.157.1)
 
 <!-- x-release-please-end -->
 
@@ -25,7 +25,7 @@ The REST API documentation can be found on [increase.com](https://increase.com/
 <!-- x-release-please-start-version -->
 
 ```kotlin
-implementation("com.increase.api:increase-kotlin:0.157.0")
+implementation("com.increase.api:increase-kotlin:0.157.1")
 ```
 
 #### Maven
@@ -34,7 +34,7 @@ implementation("com.increase.api:increase-kotlin:0.157.0")
 <dependency>
     <groupId>com.increase.api</groupId>
     <artifactId>increase-kotlin</artifactId>
-    <version>0.157.0</version>
+    <version>0.157.1</version>
 </dependency>
 ```
 
