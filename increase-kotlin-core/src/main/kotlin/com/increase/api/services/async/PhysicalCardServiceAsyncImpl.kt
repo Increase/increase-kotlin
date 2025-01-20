@@ -20,7 +20,7 @@ import com.increase.api.models.PhysicalCardRetrieveParams
 import com.increase.api.models.PhysicalCardUpdateParams
 
 class PhysicalCardServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : PhysicalCardServiceAsync {
 

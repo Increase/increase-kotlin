@@ -17,7 +17,7 @@ import com.increase.api.models.BookkeepingEntryListParams
 import com.increase.api.models.BookkeepingEntryRetrieveParams
 
 class BookkeepingEntryServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : BookkeepingEntryServiceAsync {
 

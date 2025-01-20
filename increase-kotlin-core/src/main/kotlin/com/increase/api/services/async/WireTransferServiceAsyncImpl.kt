@@ -21,7 +21,7 @@ import com.increase.api.models.WireTransferListParams
 import com.increase.api.models.WireTransferRetrieveParams
 
 class WireTransferServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : WireTransferServiceAsync {
 

@@ -15,7 +15,7 @@ import com.increase.api.models.Group
 import com.increase.api.models.GroupRetrieveParams
 
 class GroupServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : GroupServiceAsync {
 

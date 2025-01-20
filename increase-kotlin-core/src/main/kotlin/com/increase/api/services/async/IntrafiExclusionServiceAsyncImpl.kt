@@ -20,7 +20,7 @@ import com.increase.api.models.IntrafiExclusionListParams
 import com.increase.api.models.IntrafiExclusionRetrieveParams
 
 class IntrafiExclusionServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : IntrafiExclusionServiceAsync {
 

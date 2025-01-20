@@ -21,7 +21,7 @@ import com.increase.api.models.AccountTransferListParams
 import com.increase.api.models.AccountTransferRetrieveParams
 
 class AccountTransferServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : AccountTransferServiceAsync {
 

@@ -16,7 +16,7 @@ import com.increase.api.models.CheckTransfer
 import com.increase.api.models.SimulationCheckTransferMailParams
 
 class CheckTransferServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : CheckTransferServiceAsync {
 
