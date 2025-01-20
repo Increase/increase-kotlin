@@ -17,7 +17,7 @@ import com.increase.api.models.InboundRealTimePaymentsTransferListParams
 import com.increase.api.models.InboundRealTimePaymentsTransferRetrieveParams
 
 class InboundRealTimePaymentsTransferServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : InboundRealTimePaymentsTransferServiceAsync {
 

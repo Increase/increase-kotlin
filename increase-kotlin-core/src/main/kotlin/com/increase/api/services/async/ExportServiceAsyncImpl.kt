@@ -19,7 +19,7 @@ import com.increase.api.models.ExportListParams
 import com.increase.api.models.ExportRetrieveParams
 
 class ExportServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : ExportServiceAsync {
 

@@ -22,7 +22,7 @@ import com.increase.api.models.CardRetrieveParams
 import com.increase.api.models.CardUpdateParams
 
 class CardServiceAsyncImpl
-constructor(
+internal constructor(
     private val clientOptions: ClientOptions,
 ) : CardServiceAsync {
 
