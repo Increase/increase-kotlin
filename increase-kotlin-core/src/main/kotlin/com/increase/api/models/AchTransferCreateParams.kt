@@ -1463,8 +1463,13 @@ constructor(
 
             companion object {
 
+                /** Unstructured `payment_related_information` passed through with the transfer. */
                 val FREEFORM = of("freeform")
 
+                /**
+                 * Structured ASC X12 820 remittance advice records. Please reach out to
+                 * [support@increase.com](mailto:support@increase.com) for more information.
+                 */
                 val PAYMENT_ORDER_REMITTANCE_ADVICE = of("payment_order_remittance_advice")
 
                 fun of(value: String) = Category(JsonField.of(value))
@@ -2071,10 +2076,13 @@ constructor(
 
         companion object {
 
+            /** The External Account is owned by a business. */
             val BUSINESS = of("business")
 
+            /** The External Account is owned by an individual. */
             val INDIVIDUAL = of("individual")
 
+            /** It's unknown what kind of entity owns the External Account. */
             val UNKNOWN = of("unknown")
 
             fun of(value: String) = DestinationAccountHolder(JsonField.of(value))
@@ -2142,8 +2150,10 @@ constructor(
 
         companion object {
 
+            /** A checking account. */
             val CHECKING = of("checking")
 
+            /** A savings account. */
             val SAVINGS = of("savings")
 
             fun of(value: String) = Funding(JsonField.of(value))
@@ -2327,8 +2337,19 @@ constructor(
 
             companion object {
 
+                /**
+                 * The chosen effective date will be the same as the ACH processing date on which
+                 * the transfer is submitted. This is necessary, but not sufficient for the transfer
+                 * to be settled same-day: it must also be submitted before the last same-day cutoff
+                 * and be less than or equal to $1,000.000.00.
+                 */
                 val SAME_DAY = of("same_day")
 
+                /**
+                 * The chosen effective date will be the business day following the ACH processing
+                 * date on which the transfer is submitted. The transfer will be settled on that
+                 * future day.
+                 */
                 val FUTURE_DATED = of("future_dated")
 
                 fun of(value: String) = SettlementSchedule(JsonField.of(value))
@@ -2425,12 +2446,16 @@ constructor(
 
         companion object {
 
+            /** Corporate Credit and Debit (CCD). */
             val CORPORATE_CREDIT_OR_DEBIT = of("corporate_credit_or_debit")
 
+            /** Corporate Trade Exchange (CTX). */
             val CORPORATE_TRADE_EXCHANGE = of("corporate_trade_exchange")
 
+            /** Prearranged Payments and Deposits (PPD). */
             val PREARRANGED_PAYMENTS_AND_DEPOSIT = of("prearranged_payments_and_deposit")
 
+            /** Internet Initiated (WEB). */
             val INTERNET_INITIATED = of("internet_initiated")
 
             fun of(value: String) = StandardEntryClassCode(JsonField.of(value))
@@ -2503,8 +2528,10 @@ constructor(
 
         companion object {
 
+            /** A Transaction will be created immediately. */
             val SYNCHRONOUS = of("synchronous")
 
+            /** A Transaction will be created when the funds settle at the Federal Reserve. */
             val ASYNCHRONOUS = of("asynchronous")
 
             fun of(value: String) = TransactionTiming(JsonField.of(value))

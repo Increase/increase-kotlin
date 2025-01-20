@@ -1016,34 +1016,57 @@ constructor(
 
         companion object {
 
+            /** The Card was not active. */
             val CARD_NOT_ACTIVE = of("card_not_active")
 
+            /** The Physical Card was not active. */
             val PHYSICAL_CARD_NOT_ACTIVE = of("physical_card_not_active")
 
+            /** The account's entity was not active. */
             val ENTITY_NOT_ACTIVE = of("entity_not_active")
 
+            /** The account was inactive. */
             val GROUP_LOCKED = of("group_locked")
 
+            /** The Card's Account did not have a sufficient available balance. */
             val INSUFFICIENT_FUNDS = of("insufficient_funds")
 
+            /** The given CVV2 did not match the card's value. */
             val CVV2_MISMATCH = of("cvv2_mismatch")
 
+            /**
+             * The given expiration date did not match the card's value. Only applies when a CVV2 is
+             * present.
+             */
             val CARD_EXPIRATION_MISMATCH = of("card_expiration_mismatch")
 
+            /** The attempted card transaction is not allowed per Increase's terms. */
             val TRANSACTION_NOT_ALLOWED = of("transaction_not_allowed")
 
+            /** The transaction was blocked by a Limit. */
             val BREACHES_LIMIT = of("breaches_limit")
 
+            /** Your application declined the transaction via webhook. */
             val WEBHOOK_DECLINED = of("webhook_declined")
 
+            /** Your application webhook did not respond without the required timeout. */
             val WEBHOOK_TIMED_OUT = of("webhook_timed_out")
 
+            /** Declined by stand-in processing. */
             val DECLINED_BY_STAND_IN_PROCESSING = of("declined_by_stand_in_processing")
 
+            /** The card read had an invalid CVV, dCVV, or authorization request cryptogram. */
             val INVALID_PHYSICAL_CARD = of("invalid_physical_card")
 
+            /**
+             * The original card authorization for this incremental authorization does not exist.
+             */
             val MISSING_ORIGINAL_AUTHORIZATION = of("missing_original_authorization")
 
+            /**
+             * The transaction was suspected to be fraudulent. Please reach out to
+             * support@increase.com for more information.
+             */
             val SUSPECTED_FRAUD = of("suspected_fraud")
 
             fun of(value: String) = DeclineReason(JsonField.of(value))
@@ -1201,8 +1224,13 @@ constructor(
 
         companion object {
 
+            /** A regular card authorization where funds are debited from the cardholder. */
             val SETTLEMENT = of("settlement")
 
+            /**
+             * A refund card authorization, sometimes referred to as a credit voucher authorization,
+             * where funds are credited to the cardholder.
+             */
             val REFUND = of("refund")
 
             fun of(value: String) = Direction(JsonField.of(value))

@@ -232,8 +232,10 @@ private constructor(
 
         companion object {
 
+            /** The routing number can receive this transfer type. */
             val SUPPORTED = of("supported")
 
+            /** The routing number cannot receive this transfer type. */
             val NOT_SUPPORTED = of("not_supported")
 
             fun of(value: String) = AchTransfers(JsonField.of(value))
@@ -294,8 +296,10 @@ private constructor(
 
         companion object {
 
+            /** The routing number can receive this transfer type. */
             val SUPPORTED = of("supported")
 
+            /** The routing number cannot receive this transfer type. */
             val NOT_SUPPORTED = of("not_supported")
 
             fun of(value: String) = RealTimePaymentsTransfers(JsonField.of(value))
@@ -412,8 +416,10 @@ private constructor(
 
         companion object {
 
+            /** The routing number can receive this transfer type. */
             val SUPPORTED = of("supported")
 
+            /** The routing number cannot receive this transfer type. */
             val NOT_SUPPORTED = of("not_supported")
 
             fun of(value: String) = WireTransfers(JsonField.of(value))

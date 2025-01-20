@@ -833,8 +833,10 @@ constructor(
 
         companion object {
 
+            /** The Prenotification is for an anticipated credit. */
             val CREDIT = of("credit")
 
+            /** The Prenotification is for an anticipated debit. */
             val DEBIT = of("debit")
 
             fun of(value: String) = CreditDebitIndicator(JsonField.of(value))
@@ -895,12 +897,16 @@ constructor(
 
         companion object {
 
+            /** Corporate Credit and Debit (CCD). */
             val CORPORATE_CREDIT_OR_DEBIT = of("corporate_credit_or_debit")
 
+            /** Corporate Trade Exchange (CTX). */
             val CORPORATE_TRADE_EXCHANGE = of("corporate_trade_exchange")
 
+            /** Prearranged Payments and Deposits (PPD). */
             val PREARRANGED_PAYMENTS_AND_DEPOSIT = of("prearranged_payments_and_deposit")
 
+            /** Internet Initiated (WEB). */
             val INTERNET_INITIATED = of("internet_initiated")
 
             fun of(value: String) = StandardEntryClassCode(JsonField.of(value))

@@ -1268,10 +1268,16 @@ private constructor(
 
             companion object {
 
+                /** An API key. Details will be under the `api_key` object. */
                 val API_KEY = of("api_key")
 
+                /**
+                 * An OAuth application you connected to Increase. Details will be under the
+                 * `oauth_application` object.
+                 */
                 val OAUTH_APPLICATION = of("oauth_application")
 
+                /** A User in the Increase dashboard. Details will be under the `user` object. */
                 val USER = of("user")
 
                 fun of(value: String) = Category(JsonField.of(value))
@@ -1565,16 +1571,22 @@ private constructor(
 
         companion object {
 
+            /** Canadian Dollar (CAD) */
             val CAD = of("CAD")
 
+            /** Swiss Franc (CHF) */
             val CHF = of("CHF")
 
+            /** Euro (EUR) */
             val EUR = of("EUR")
 
+            /** British Pound (GBP) */
             val GBP = of("GBP")
 
+            /** Japanese Yen (JPY) */
             val JPY = of("JPY")
 
+            /** US Dollar (USD) */
             val USD = of("USD")
 
             fun of(value: String) = Currency(JsonField.of(value))
@@ -1659,8 +1671,13 @@ private constructor(
 
         companion object {
 
+            /** Increase will print and mail a physical check. */
             val PHYSICAL_CHECK = of("physical_check")
 
+            /**
+             * Increase will not print a check; you are responsible for printing and mailing a check
+             * with the provided account number, routing number, check number, and amount.
+             */
             val THIRD_PARTY = of("third_party")
 
             fun of(value: String) = FulfillmentMethod(JsonField.of(value))
@@ -2666,12 +2683,16 @@ private constructor(
 
                 companion object {
 
+                    /** The check is in transit. */
                     val IN_TRANSIT = of("in_transit")
 
+                    /** The check has been processed for delivery. */
                     val PROCESSED_FOR_DELIVERY = of("processed_for_delivery")
 
+                    /** The check has been delivered. */
                     val DELIVERED = of("delivered")
 
+                    /** Delivery failed and the check was returned to sender. */
                     val RETURNED_TO_SENDER = of("returned_to_sender")
 
                     fun of(value: String) = Category(JsonField.of(value))
@@ -2780,24 +2801,34 @@ private constructor(
 
         companion object {
 
+            /** The transfer is awaiting approval. */
             val PENDING_APPROVAL = of("pending_approval")
 
+            /** The transfer has been canceled. */
             val CANCELED = of("canceled")
 
+            /** The transfer is pending submission. */
             val PENDING_SUBMISSION = of("pending_submission")
 
+            /** The transfer requires attention from an Increase operator. */
             val REQUIRES_ATTENTION = of("requires_attention")
 
+            /** The transfer has been rejected. */
             val REJECTED = of("rejected")
 
+            /** The check is queued for mailing. */
             val PENDING_MAILING = of("pending_mailing")
 
+            /** The check has been mailed. */
             val MAILED = of("mailed")
 
+            /** The check has been deposited. */
             val DEPOSITED = of("deposited")
 
+            /** A stop-payment was requested for this check. */
             val STOPPED = of("stopped")
 
+            /** The transfer has been returned. */
             val RETURNED = of("returned")
 
             fun of(value: String) = Status(JsonField.of(value))
@@ -3061,12 +3092,19 @@ private constructor(
 
             companion object {
 
+                /** The check could not be delivered. */
                 val MAIL_DELIVERY_FAILED = of("mail_delivery_failed")
 
+                /**
+                 * The check was canceled by an Increase operator who will provide details
+                 * out-of-band.
+                 */
                 val REJECTED_BY_INCREASE = of("rejected_by_increase")
 
+                /** The check was not authorized. */
                 val NOT_AUTHORIZED = of("not_authorized")
 
+                /** The check was stopped for another reason. */
                 val UNKNOWN = of("unknown")
 
                 fun of(value: String) = Reason(JsonField.of(value))

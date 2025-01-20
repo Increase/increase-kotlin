@@ -588,14 +588,21 @@ private constructor(
 
         companion object {
 
+            /** The proof of authorization request submission is pending review. */
             val PENDING_REVIEW = of("pending_review")
 
+            /** The proof of authorization request submission was rejected. */
             val REJECTED = of("rejected")
 
+            /**
+             * The proof of authorization request submission was canceled and replaced with another.
+             */
             val CANCELED = of("canceled")
 
+            /** The proof of authorization request submission is pending sending. */
             val PENDING_SENDING = of("pending_sending")
 
+            /** The proof of authorization request submission was sent. */
             val SENT = of("sent")
 
             fun of(value: String) = Status(JsonField.of(value))

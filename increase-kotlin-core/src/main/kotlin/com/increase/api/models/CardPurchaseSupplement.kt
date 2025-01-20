@@ -722,11 +722,14 @@ private constructor(
 
             companion object {
 
+                /** No invoice level discount provided */
                 val NO_INVOICE_LEVEL_DISCOUNT_PROVIDED = of("no_invoice_level_discount_provided")
 
+                /** Tax calculated on post discount invoice total */
                 val TAX_CALCULATED_ON_POST_DISCOUNT_INVOICE_TOTAL =
                     of("tax_calculated_on_post_discount_invoice_total")
 
+                /** Tax calculated on pre discount invoice total */
                 val TAX_CALCULATED_ON_PRE_DISCOUNT_INVOICE_TOTAL =
                     of("tax_calculated_on_pre_discount_invoice_total")
 
@@ -799,14 +802,19 @@ private constructor(
 
             companion object {
 
+                /** No tax applies */
                 val NO_TAX_APPLIES = of("no_tax_applies")
 
+                /** Net price line item level */
                 val NET_PRICE_LINE_ITEM_LEVEL = of("net_price_line_item_level")
 
+                /** Net price invoice level */
                 val NET_PRICE_INVOICE_LEVEL = of("net_price_invoice_level")
 
+                /** Gross price line item level */
                 val GROSS_PRICE_LINE_ITEM_LEVEL = of("gross_price_line_item_level")
 
+                /** Gross price invoice level */
                 val GROSS_PRICE_INVOICE_LEVEL = of("gross_price_invoice_level")
 
                 fun of(value: String) = TaxTreatments(JsonField.of(value))
@@ -1379,10 +1387,13 @@ private constructor(
 
             companion object {
 
+                /** Normal */
                 val NORMAL = of("normal")
 
+                /** Credit */
                 val CREDIT = of("credit")
 
+                /** Purchase */
                 val PAYMENT = of("payment")
 
                 fun of(value: String) = DetailIndicator(JsonField.of(value))
@@ -1449,12 +1460,15 @@ private constructor(
 
             companion object {
 
+                /** No line item level discount provided */
                 val NO_LINE_ITEM_LEVEL_DISCOUNT_PROVIDED =
                     of("no_line_item_level_discount_provided")
 
+                /** Tax calculated on post discount line item total */
                 val TAX_CALCULATED_ON_POST_DISCOUNT_LINE_ITEM_TOTAL =
                     of("tax_calculated_on_post_discount_line_item_total")
 
+                /** Tax calculated on pre discount line item total */
                 val TAX_CALCULATED_ON_PRE_DISCOUNT_LINE_ITEM_TOTAL =
                     of("tax_calculated_on_pre_discount_line_item_total")
 

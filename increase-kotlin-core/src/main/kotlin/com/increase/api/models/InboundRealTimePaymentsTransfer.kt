@@ -600,16 +600,22 @@ private constructor(
 
         companion object {
 
+            /** Canadian Dollar (CAD) */
             val CAD = of("CAD")
 
+            /** Swiss Franc (CHF) */
             val CHF = of("CHF")
 
+            /** Euro (EUR) */
             val EUR = of("EUR")
 
+            /** British Pound (GBP) */
             val GBP = of("GBP")
 
+            /** Japanese Yen (JPY) */
             val JPY = of("JPY")
 
+            /** US Dollar (USD) */
             val USD = of("USD")
 
             fun of(value: String) = Currency(JsonField.of(value))
@@ -824,16 +830,22 @@ private constructor(
 
             companion object {
 
+                /** The account number is canceled. */
                 val ACCOUNT_NUMBER_CANCELED = of("account_number_canceled")
 
+                /** The account number is disabled. */
                 val ACCOUNT_NUMBER_DISABLED = of("account_number_disabled")
 
+                /** Your account is restricted. */
                 val ACCOUNT_RESTRICTED = of("account_restricted")
 
+                /** Your account is inactive. */
                 val GROUP_LOCKED = of("group_locked")
 
+                /** The account's entity is not active. */
                 val ENTITY_NOT_ACTIVE = of("entity_not_active")
 
+                /** Your account is not enabled to receive Real-Time Payments transfers. */
                 val REAL_TIME_PAYMENTS_NOT_ENABLED = of("real_time_payments_not_enabled")
 
                 fun of(value: String) = Reason(JsonField.of(value))
@@ -936,12 +948,16 @@ private constructor(
 
         companion object {
 
+            /** The transfer is pending confirmation. */
             val PENDING_CONFIRMING = of("pending_confirming")
 
+            /** The transfer was not responded to in time. */
             val TIMED_OUT = of("timed_out")
 
+            /** The transfer has been received successfully and is confirmed. */
             val CONFIRMED = of("confirmed")
 
+            /** The transfer has been declined. */
             val DECLINED = of("declined")
 
             fun of(value: String) = Status(JsonField.of(value))

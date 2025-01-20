@@ -324,10 +324,13 @@ constructor(
 
         companion object {
 
+            /** The physical card is active. */
             val ACTIVE = of("active")
 
+            /** The physical card is temporarily disabled. */
             val DISABLED = of("disabled")
 
+            /** The physical card is permanently canceled. */
             val CANCELED = of("canceled")
 
             fun of(value: String) = Status(JsonField.of(value))

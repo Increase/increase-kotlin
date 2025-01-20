@@ -1624,15 +1624,20 @@ private constructor(
 
                         companion object {
 
+                            /** A social security number. */
                             val SOCIAL_SECURITY_NUMBER = of("social_security_number")
 
+                            /** An individual taxpayer identification number (ITIN). */
                             val INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER =
                                 of("individual_taxpayer_identification_number")
 
+                            /** A passport number. */
                             val PASSPORT = of("passport")
 
+                            /** A driver's license number. */
                             val DRIVERS_LICENSE = of("drivers_license")
 
+                            /** Another identifying document. */
                             val OTHER = of("other")
 
                             fun of(value: String) = Method(JsonField.of(value))
@@ -1749,8 +1754,10 @@ private constructor(
 
                 companion object {
 
+                    /** A person with 25% or greater direct or indirect ownership of the entity. */
                     val OWNERSHIP = of("ownership")
 
+                    /** A person who manages, directs, or has significant control of the entity. */
                     val CONTROL = of("control")
 
                     fun of(value: String) = Prong(JsonField.of(value))
@@ -2368,6 +2375,7 @@ private constructor(
 
             companion object {
 
+                /** The Public Entity is a Municipality. */
                 val MUNICIPALITY = of("municipality")
 
                 fun of(value: String) = Category(JsonField.of(value))
@@ -3019,15 +3027,20 @@ private constructor(
 
                     companion object {
 
+                        /** A social security number. */
                         val SOCIAL_SECURITY_NUMBER = of("social_security_number")
 
+                        /** An individual taxpayer identification number (ITIN). */
                         val INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER =
                             of("individual_taxpayer_identification_number")
 
+                        /** A passport number. */
                         val PASSPORT = of("passport")
 
+                        /** A driver's license number. */
                         val DRIVERS_LICENSE = of("drivers_license")
 
+                        /** Another identifying document. */
                         val OTHER = of("other")
 
                         fun of(value: String) = Method(JsonField.of(value))
@@ -3624,15 +3637,20 @@ private constructor(
 
                 companion object {
 
+                    /** A social security number. */
                     val SOCIAL_SECURITY_NUMBER = of("social_security_number")
 
+                    /** An individual taxpayer identification number (ITIN). */
                     val INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER =
                         of("individual_taxpayer_identification_number")
 
+                    /** A passport number. */
                     val PASSPORT = of("passport")
 
+                    /** A driver's license number. */
                     val DRIVERS_LICENSE = of("drivers_license")
 
+                    /** Another identifying document. */
                     val OTHER = of("other")
 
                     fun of(value: String) = Method(JsonField.of(value))
@@ -3749,10 +3767,13 @@ private constructor(
 
         companion object {
 
+            /** The entity is active. */
             val ACTIVE = of("active")
 
+            /** The entity is archived, and can no longer be used to create accounts. */
             val ARCHIVED = of("archived")
 
+            /** The entity is temporarily disabled and cannot be used for financial activity. */
             val DISABLED = of("disabled")
 
             fun of(value: String) = Status(JsonField.of(value))
@@ -3819,14 +3840,19 @@ private constructor(
 
         companion object {
 
+            /** A corporation. */
             val CORPORATION = of("corporation")
 
+            /** An individual person. */
             val NATURAL_PERSON = of("natural_person")
 
+            /** Multiple individual people. */
             val JOINT = of("joint")
 
+            /** A trust. */
             val TRUST = of("trust")
 
+            /** A government authority. */
             val GOVERNMENT_AUTHORITY = of("government_authority")
 
             fun of(value: String) = Structure(JsonField.of(value))
@@ -4009,8 +4035,10 @@ private constructor(
 
             companion object {
 
+                /** Alloy. See https://alloy.com for more information. */
                 val ALLOY = of("alloy")
 
+                /** Middesk. See https://middesk.com for more information. */
                 val MIDDESK = of("middesk")
 
                 fun of(value: String) = Vendor(JsonField.of(value))
@@ -4539,8 +4567,10 @@ private constructor(
 
             companion object {
 
+                /** The trust is revocable by the grantor. */
                 val REVOCABLE = of("revocable")
 
+                /** The trust cannot be revoked. */
                 val IRREVOCABLE = of("irrevocable")
 
                 fun of(value: String) = Category(JsonField.of(value))
@@ -5064,15 +5094,20 @@ private constructor(
 
                     companion object {
 
+                        /** A social security number. */
                         val SOCIAL_SECURITY_NUMBER = of("social_security_number")
 
+                        /** An individual taxpayer identification number (ITIN). */
                         val INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER =
                             of("individual_taxpayer_identification_number")
 
+                        /** A passport number. */
                         val PASSPORT = of("passport")
 
+                        /** A driver's license number. */
                         val DRIVERS_LICENSE = of("drivers_license")
 
+                        /** Another identifying document. */
                         val OTHER = of("other")
 
                         fun of(value: String) = Method(JsonField.of(value))
@@ -5787,15 +5822,20 @@ private constructor(
 
                         companion object {
 
+                            /** A social security number. */
                             val SOCIAL_SECURITY_NUMBER = of("social_security_number")
 
+                            /** An individual taxpayer identification number (ITIN). */
                             val INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER =
                                 of("individual_taxpayer_identification_number")
 
+                            /** A passport number. */
                             val PASSPORT = of("passport")
 
+                            /** A driver's license number. */
                             val DRIVERS_LICENSE = of("drivers_license")
 
+                            /** Another identifying document. */
                             val OTHER = of("other")
 
                             fun of(value: String) = Method(JsonField.of(value))
@@ -5912,6 +5952,7 @@ private constructor(
 
                 companion object {
 
+                    /** The trustee is an individual. */
                     val INDIVIDUAL = of("individual")
 
                     fun of(value: String) = Structure(JsonField.of(value))

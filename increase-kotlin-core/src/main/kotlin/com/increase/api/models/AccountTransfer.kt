@@ -1101,10 +1101,16 @@ private constructor(
 
             companion object {
 
+                /** An API key. Details will be under the `api_key` object. */
                 val API_KEY = of("api_key")
 
+                /**
+                 * An OAuth application you connected to Increase. Details will be under the
+                 * `oauth_application` object.
+                 */
                 val OAUTH_APPLICATION = of("oauth_application")
 
+                /** A User in the Increase dashboard. Details will be under the `user` object. */
                 val USER = of("user")
 
                 fun of(value: String) = Category(JsonField.of(value))
@@ -1401,16 +1407,22 @@ private constructor(
 
         companion object {
 
+            /** Canadian Dollar (CAD) */
             val CAD = of("CAD")
 
+            /** Swiss Franc (CHF) */
             val CHF = of("CHF")
 
+            /** Euro (EUR) */
             val EUR = of("EUR")
 
+            /** British Pound (GBP) */
             val GBP = of("GBP")
 
+            /** Japanese Yen (JPY) */
             val JPY = of("JPY")
 
+            /** US Dollar (USD) */
             val USD = of("USD")
 
             fun of(value: String) = Currency(JsonField.of(value))
@@ -1547,10 +1559,13 @@ private constructor(
 
         companion object {
 
+            /** The transfer is pending approval. */
             val PENDING_APPROVAL = of("pending_approval")
 
+            /** The transfer has been canceled. */
             val CANCELED = of("canceled")
 
+            /** The transfer has been completed. */
             val COMPLETE = of("complete")
 
             fun of(value: String) = Status(JsonField.of(value))

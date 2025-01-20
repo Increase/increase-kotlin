@@ -447,8 +447,10 @@ constructor(
 
         companion object {
 
+            /** Closed Accounts on which no new activity can occur. */
             val CLOSED = of("closed")
 
+            /** Open Accounts that are ready to use. */
             val OPEN = of("open")
 
             fun of(value: String) = Status(JsonField.of(value))

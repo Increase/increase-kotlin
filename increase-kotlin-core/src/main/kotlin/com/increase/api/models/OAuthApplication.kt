@@ -267,8 +267,10 @@ private constructor(
 
         companion object {
 
+            /** The application is active and can be used by your users. */
             val ACTIVE = of("active")
 
+            /** The application is deleted. */
             val DELETED = of("deleted")
 
             fun of(value: String) = Status(JsonField.of(value))

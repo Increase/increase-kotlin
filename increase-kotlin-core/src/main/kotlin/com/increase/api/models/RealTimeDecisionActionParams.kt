@@ -720,10 +720,13 @@ constructor(
 
             companion object {
 
+                /** Approve the authentication attempt without triggering a challenge. */
                 val APPROVE = of("approve")
 
+                /** Request further validation before approving the authentication attempt. */
                 val CHALLENGE = of("challenge")
 
+                /** Deny the authentication attempt. */
                 val DENY = of("deny")
 
                 fun of(value: String) = Decision(JsonField.of(value))
@@ -906,8 +909,10 @@ constructor(
 
             companion object {
 
+                /** Your application successfully delivered the one-time code to the cardholder. */
                 val SUCCESS = of("success")
 
+                /** Your application was unable to deliver the one-time code to the cardholder. */
                 val FAILURE = of("failure")
 
                 fun of(value: String) = Result(JsonField.of(value))
@@ -1107,8 +1112,10 @@ constructor(
 
             companion object {
 
+                /** Approve the authorization. */
                 val APPROVE = of("approve")
 
+                /** Decline the authorization. */
                 val DECLINE = of("decline")
 
                 fun of(value: String) = Decision(JsonField.of(value))
@@ -1172,16 +1179,40 @@ constructor(
 
             companion object {
 
+                /**
+                 * The cardholder does not have sufficient funds to cover the transaction. The
+                 * merchant may attempt to process the transaction again.
+                 */
                 val INSUFFICIENT_FUNDS = of("insufficient_funds")
 
+                /**
+                 * This type of transaction is not allowed for this card. This transaction should
+                 * not be retried.
+                 */
                 val TRANSACTION_NEVER_ALLOWED = of("transaction_never_allowed")
 
+                /**
+                 * The transaction amount exceeds the cardholder's approval limit. The merchant may
+                 * attempt to process the transaction again.
+                 */
                 val EXCEEDS_APPROVAL_LIMIT = of("exceeds_approval_limit")
 
+                /**
+                 * The card has been temporarily disabled or not yet activated. The merchant may
+                 * attempt to process the transaction again.
+                 */
                 val CARD_TEMPORARILY_DISABLED = of("card_temporarily_disabled")
 
+                /**
+                 * The transaction is suspected to be fraudulent. The merchant may attempt to
+                 * process the transaction again.
+                 */
                 val SUSPECTED_FRAUD = of("suspected_fraud")
 
+                /**
+                 * The transaction was declined for another reason. The merchant may attempt to
+                 * process the transaction again. This should be used sparingly.
+                 */
                 val OTHER = of("other")
 
                 fun of(value: String) = DeclineReason(JsonField.of(value))
@@ -1421,8 +1452,12 @@ constructor(
 
             companion object {
 
+                /**
+                 * Your application successfully delivered the one-time passcode to the cardholder.
+                 */
                 val SUCCESS = of("success")
 
+                /** Your application failed to deliver the one-time passcode to the cardholder. */
                 val FAILURE = of("failure")
 
                 fun of(value: String) = Result(JsonField.of(value))
