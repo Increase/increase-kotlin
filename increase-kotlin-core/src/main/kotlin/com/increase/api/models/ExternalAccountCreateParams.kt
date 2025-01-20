@@ -480,10 +480,13 @@ constructor(
 
         companion object {
 
+            /** The External Account is owned by a business. */
             val BUSINESS = of("business")
 
+            /** The External Account is owned by an individual. */
             val INDIVIDUAL = of("individual")
 
+            /** It's unknown what kind of entity owns the External Account. */
             val UNKNOWN = of("unknown")
 
             fun of(value: String) = AccountHolder(JsonField.of(value))
@@ -550,10 +553,13 @@ constructor(
 
         companion object {
 
+            /** A checking account. */
             val CHECKING = of("checking")
 
+            /** A savings account. */
             val SAVINGS = of("savings")
 
+            /** A different type of account. */
             val OTHER = of("other")
 
             fun of(value: String) = Funding(JsonField.of(value))

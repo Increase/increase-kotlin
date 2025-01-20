@@ -348,25 +348,56 @@ constructor(
 
             companion object {
 
+                /**
+                 * Account Transfer Instruction: details will be under the
+                 * `account_transfer_instruction` object.
+                 */
                 val ACCOUNT_TRANSFER_INSTRUCTION = of("account_transfer_instruction")
 
+                /**
+                 * ACH Transfer Instruction: details will be under the `ach_transfer_instruction`
+                 * object.
+                 */
                 val ACH_TRANSFER_INSTRUCTION = of("ach_transfer_instruction")
 
+                /** Card Authorization: details will be under the `card_authorization` object. */
                 val CARD_AUTHORIZATION = of("card_authorization")
 
+                /**
+                 * Check Deposit Instruction: details will be under the `check_deposit_instruction`
+                 * object.
+                 */
                 val CHECK_DEPOSIT_INSTRUCTION = of("check_deposit_instruction")
 
+                /**
+                 * Check Transfer Instruction: details will be under the
+                 * `check_transfer_instruction` object.
+                 */
                 val CHECK_TRANSFER_INSTRUCTION = of("check_transfer_instruction")
 
+                /** Inbound Funds Hold: details will be under the `inbound_funds_hold` object. */
                 val INBOUND_FUNDS_HOLD = of("inbound_funds_hold")
 
+                /**
+                 * Real-Time Payments Transfer Instruction: details will be under the
+                 * `real_time_payments_transfer_instruction` object.
+                 */
                 val REAL_TIME_PAYMENTS_TRANSFER_INSTRUCTION =
                     of("real_time_payments_transfer_instruction")
 
+                /**
+                 * Wire Transfer Instruction: details will be under the `wire_transfer_instruction`
+                 * object.
+                 */
                 val WIRE_TRANSFER_INSTRUCTION = of("wire_transfer_instruction")
 
+                /**
+                 * Inbound Wire Transfer Reversal: details will be under the
+                 * `inbound_wire_transfer_reversal` object.
+                 */
                 val INBOUND_WIRE_TRANSFER_REVERSAL = of("inbound_wire_transfer_reversal")
 
+                /** The Pending Transaction was made for an undocumented or deprecated reason. */
                 val OTHER = of("other")
 
                 fun of(value: String) = In(JsonField.of(value))
@@ -813,8 +844,14 @@ constructor(
 
             companion object {
 
+                /** The Pending Transaction is still awaiting confirmation. */
                 val PENDING = of("pending")
 
+                /**
+                 * The Pending Transaction is confirmed. An associated Transaction exists for this
+                 * object. The Pending Transaction will no longer count against your balance and can
+                 * generally be hidden from UIs, etc.
+                 */
                 val COMPLETE = of("complete")
 
                 fun of(value: String) = In(JsonField.of(value))

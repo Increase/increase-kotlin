@@ -466,8 +466,10 @@ private constructor(
 
             companion object {
 
+                /** ACH Debits are allowed. */
                 val ALLOWED = of("allowed")
 
+                /** ACH Debits are blocked. */
                 val BLOCKED = of("blocked")
 
                 fun of(value: String) = DebitStatus(JsonField.of(value))
@@ -625,8 +627,16 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Checks with this Account Number will be processed even if they are not associated
+                 * with a Check Transfer.
+                 */
                 val ALLOWED = of("allowed")
 
+                /**
+                 * Checks with this Account Number will be processed only if they can be matched to
+                 * an existing Check Transfer.
+                 */
                 val CHECK_TRANSFERS_ONLY = of("check_transfers_only")
 
                 fun of(value: String) = Status(JsonField.of(value))
@@ -717,10 +727,13 @@ private constructor(
 
         companion object {
 
+            /** The account number is active. */
             val ACTIVE = of("active")
 
+            /** The account number is temporarily disabled. */
             val DISABLED = of("disabled")
 
+            /** The account number is permanently disabled. */
             val CANCELED = of("canceled")
 
             fun of(value: String) = Status(JsonField.of(value))

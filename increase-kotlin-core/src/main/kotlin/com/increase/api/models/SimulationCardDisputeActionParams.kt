@@ -369,14 +369,25 @@ constructor(
 
         companion object {
 
+            /** Increase has requested more information related to the Card Dispute from you. */
             val PENDING_USER_INFORMATION = of("pending_user_information")
 
+            /**
+             * The Card Dispute has been accepted and your funds have been returned. The card
+             * dispute will eventually transition into `won` or `lost` depending on the outcome.
+             */
             val ACCEPTED = of("accepted")
 
+            /** The Card Dispute has been rejected. */
             val REJECTED = of("rejected")
 
+            /**
+             * The Card Dispute has been lost and funds previously credited from the acceptance have
+             * been debited.
+             */
             val LOST = of("lost")
 
+            /** The Card Dispute has been won and no further action can be taken. */
             val WON = of("won")
 
             fun of(value: String) = Status(JsonField.of(value))

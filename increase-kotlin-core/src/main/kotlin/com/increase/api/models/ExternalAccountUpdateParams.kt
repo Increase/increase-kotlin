@@ -432,8 +432,10 @@ constructor(
 
         companion object {
 
+            /** The External Account is owned by a business. */
             val BUSINESS = of("business")
 
+            /** The External Account is owned by an individual. */
             val INDIVIDUAL = of("individual")
 
             fun of(value: String) = AccountHolder(JsonField.of(value))
@@ -494,10 +496,13 @@ constructor(
 
         companion object {
 
+            /** A checking account. */
             val CHECKING = of("checking")
 
+            /** A savings account. */
             val SAVINGS = of("savings")
 
+            /** A different type of account. */
             val OTHER = of("other")
 
             fun of(value: String) = Funding(JsonField.of(value))
@@ -564,8 +569,10 @@ constructor(
 
         companion object {
 
+            /** The External Account is active. */
             val ACTIVE = of("active")
 
+            /** The External Account is archived and won't appear in the dashboard. */
             val ARCHIVED = of("archived")
 
             fun of(value: String) = Status(JsonField.of(value))

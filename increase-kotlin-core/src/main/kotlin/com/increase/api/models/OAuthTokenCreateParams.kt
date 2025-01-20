@@ -527,8 +527,10 @@ constructor(
 
         companion object {
 
+            /** An OAuth authorization code. */
             val AUTHORIZATION_CODE = of("authorization_code")
 
+            /** An OAuth production token. */
             val PRODUCTION_TOKEN = of("production_token")
 
             fun of(value: String) = GrantType(JsonField.of(value))

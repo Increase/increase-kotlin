@@ -351,16 +351,22 @@ private constructor(
 
         companion object {
 
+            /** Canadian Dollar (CAD) */
             val CAD = of("CAD")
 
+            /** Swiss Franc (CHF) */
             val CHF = of("CHF")
 
+            /** Euro (EUR) */
             val EUR = of("EUR")
 
+            /** British Pound (GBP) */
             val GBP = of("GBP")
 
+            /** Japanese Yen (JPY) */
             val JPY = of("JPY")
 
+            /** US Dollar (USD) */
             val USD = of("USD")
 
             fun of(value: String) = Currency(JsonField.of(value))
@@ -445,8 +451,10 @@ private constructor(
 
         companion object {
 
+            /** Funds are still being held. */
             val HELD = of("held")
 
+            /** Funds have been released. */
             val COMPLETE = of("complete")
 
             fun of(value: String) = Status(JsonField.of(value))

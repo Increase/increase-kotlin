@@ -433,12 +433,18 @@ private constructor(
 
         companion object {
 
+            /**
+             * The Card Profile is awaiting review from Increase and/or processing by card networks.
+             */
             val PENDING = of("pending")
 
+            /** There is an issue with the Card Profile preventing it from use. */
             val REJECTED = of("rejected")
 
+            /** The Card Profile can be assigned to Cards. */
             val ACTIVE = of("active")
 
+            /** The Card Profile is no longer in use. */
             val ARCHIVED = of("archived")
 
             fun of(value: String) = Status(JsonField.of(value))

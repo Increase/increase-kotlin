@@ -267,14 +267,19 @@ private constructor(
 
         companion object {
 
+            /** The account is being added to the IntraFi network. */
             val PENDING_ENROLLING = of("pending_enrolling")
 
+            /** The account has been enrolled with IntraFi. */
             val ENROLLED = of("enrolled")
 
+            /** The account is being unenrolled from IntraFi's deposit sweep. */
             val PENDING_UNENROLLING = of("pending_unenrolling")
 
+            /** The account was once enrolled, but is no longer enrolled at IntraFi. */
             val UNENROLLED = of("unenrolled")
 
+            /** Something unexpected happened with this account. Contact Increase support. */
             val REQUIRES_ATTENTION = of("requires_attention")
 
             fun of(value: String) = Status(JsonField.of(value))

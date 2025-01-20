@@ -532,10 +532,13 @@ private constructor(
 
             companion object {
 
+                /** Approve the authentication attempt without triggering a challenge. */
                 val APPROVE = of("approve")
 
+                /** Request further validation before approving the authentication attempt. */
                 val CHALLENGE = of("challenge")
 
+                /** Deny the authentication attempt. */
                 val DENY = of("deny")
 
                 fun of(value: String) = Decision(JsonField.of(value))
@@ -791,8 +794,10 @@ private constructor(
 
             companion object {
 
+                /** Your application successfully delivered the one-time code to the cardholder. */
                 val SUCCESS = of("success")
 
+                /** Your application was unable to deliver the one-time code to the cardholder. */
                 val FAILURE = of("failure")
 
                 fun of(value: String) = Result(JsonField.of(value))
@@ -1694,8 +1699,10 @@ private constructor(
 
             companion object {
 
+                /** Approve the authorization. */
                 val APPROVE = of("approve")
 
+                /** Decline the authorization. */
                 val DECLINE = of("decline")
 
                 fun of(value: String) = Decision(JsonField.of(value))
@@ -1759,8 +1766,13 @@ private constructor(
 
             companion object {
 
+                /** A regular card authorization where funds are debited from the cardholder. */
                 val SETTLEMENT = of("settlement")
 
+                /**
+                 * A refund card authorization, sometimes referred to as a credit voucher
+                 * authorization, where funds are credited to the cardholder.
+                 */
                 val REFUND = of("refund")
 
                 fun of(value: String) = Direction(JsonField.of(value))
@@ -1933,6 +1945,7 @@ private constructor(
 
                 companion object {
 
+                    /** Visa */
                     val VISA = of("visa")
 
                     fun of(value: String) = Category(JsonField.of(value))
@@ -2188,22 +2201,65 @@ private constructor(
 
                     companion object {
 
+                        /**
+                         * Single transaction of a mail/phone order: Use to indicate that the
+                         * transaction is a mail/phone order purchase, not a recurring transaction
+                         * or installment payment. For domestic transactions in the US region, this
+                         * value may also indicate one bill payment transaction in the card-present
+                         * or card-absent environments.
+                         */
                         val MAIL_PHONE_ORDER = of("mail_phone_order")
 
+                        /**
+                         * Recurring transaction: Payment indicator used to indicate a recurring
+                         * transaction that originates from an acquirer in the US region.
+                         */
                         val RECURRING = of("recurring")
 
+                        /**
+                         * Installment payment: Payment indicator used to indicate one purchase of
+                         * goods or services that is billed to the account in multiple charges over
+                         * a period of time agreed upon by the cardholder and merchant from
+                         * transactions that originate from an acquirer in the US region.
+                         */
                         val INSTALLMENT = of("installment")
 
+                        /**
+                         * Unknown classification: other mail order: Use to indicate that the type
+                         * of mail/telephone order is unknown.
+                         */
                         val UNKNOWN_MAIL_PHONE_ORDER = of("unknown_mail_phone_order")
 
+                        /**
+                         * Secure electronic commerce transaction: Use to indicate that the
+                         * electronic commerce transaction has been authenticated using e.g., 3-D
+                         * Secure
+                         */
                         val SECURE_ELECTRONIC_COMMERCE = of("secure_electronic_commerce")
 
+                        /**
+                         * Non-authenticated security transaction at a 3-D Secure-capable merchant,
+                         * and merchant attempted to authenticate the cardholder using 3-D Secure:
+                         * Use to identify an electronic commerce transaction where the merchant
+                         * attempted to authenticate the cardholder using 3-D Secure, but was unable
+                         * to complete the authentication because the issuer or cardholder does not
+                         * participate in the 3-D Secure program.
+                         */
                         val NON_AUTHENTICATED_SECURITY_TRANSACTION_AT_3DS_CAPABLE_MERCHANT =
                             of("non_authenticated_security_transaction_at_3ds_capable_merchant")
 
+                        /**
+                         * Non-authenticated security transaction: Use to identify an electronic
+                         * commerce transaction that uses data encryption for security however ,
+                         * cardholder authentication is not performed using 3-D Secure.
+                         */
                         val NON_AUTHENTICATED_SECURITY_TRANSACTION =
                             of("non_authenticated_security_transaction")
 
+                        /**
+                         * Non-secure transaction: Use to identify an electronic commerce
+                         * transaction that has no data protection.
+                         */
                         val NON_SECURE_TRANSACTION = of("non_secure_transaction")
 
                         fun of(value: String) = ElectronicCommerceIndicator(JsonField.of(value))
@@ -2381,24 +2437,37 @@ private constructor(
 
                     companion object {
 
+                        /** Unknown */
                         val UNKNOWN = of("unknown")
 
+                        /** Manual key entry */
                         val MANUAL = of("manual")
 
+                        /** Magnetic stripe read, without card verification value */
                         val MAGNETIC_STRIPE_NO_CVV = of("magnetic_stripe_no_cvv")
 
+                        /** Optical code */
                         val OPTICAL_CODE = of("optical_code")
 
+                        /** Contact chip card */
                         val INTEGRATED_CIRCUIT_CARD = of("integrated_circuit_card")
 
+                        /** Contactless read of chip card */
                         val CONTACTLESS = of("contactless")
 
+                        /**
+                         * Transaction initiated using a credential that has previously been stored
+                         * on file
+                         */
                         val CREDENTIAL_ON_FILE = of("credential_on_file")
 
+                        /** Magnetic stripe read */
                         val MAGNETIC_STRIPE = of("magnetic_stripe")
 
+                        /** Contactless read of magnetic stripe data */
                         val CONTACTLESS_MAGNETIC_STRIPE = of("contactless_magnetic_stripe")
 
+                        /** Contact chip card, without card verification value */
                         val INTEGRATED_CIRCUIT_CARD_NO_CVV = of("integrated_circuit_card_no_cvv")
 
                         fun of(value: String) = PointOfServiceEntryMode(JsonField.of(value))
@@ -2520,18 +2589,35 @@ private constructor(
 
                     companion object {
 
+                        /** Increase failed to process the authorization in a timely manner. */
                         val ISSUER_ERROR = of("issuer_error")
 
+                        /**
+                         * The physical card read had an invalid CVV, dCVV, or authorization request
+                         * cryptogram.
+                         */
                         val INVALID_PHYSICAL_CARD = of("invalid_physical_card")
 
+                        /** The 3DS cardholder authentication verification value was invalid. */
                         val INVALID_CARDHOLDER_AUTHENTICATION_VERIFICATION_VALUE =
                             of("invalid_cardholder_authentication_verification_value")
 
+                        /**
+                         * An internal Visa error occurred. Visa uses this reason code for certain
+                         * expected occurrences as well, such as Application Transaction Counter
+                         * (ATC) replays.
+                         */
                         val INTERNAL_VISA_ERROR = of("internal_visa_error")
 
+                        /**
+                         * The merchant has enabled Visa's Transaction Advisory Service and requires
+                         * further authentication to perform the transaction. In practice this is
+                         * often utilized at fuel pumps to tell the cardholder to see the cashier.
+                         */
                         val MERCHANT_TRANSACTION_ADVISORY_SERVICE_AUTHENTICATION_REQUIRED =
                             of("merchant_transaction_advisory_service_authentication_required")
 
+                        /** An unspecific reason for stand-in processing. */
                         val OTHER = of("other")
 
                         fun of(value: String) = StandInProcessingReason(JsonField.of(value))
@@ -2881,16 +2967,35 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Account funding transactions are transactions used to e.g., fund an account or
+                 * transfer funds between accounts.
+                 */
                 val ACCOUNT_FUNDING = of("account_funding")
 
+                /**
+                 * Automatic fuel dispenser authorizations occur when a card is used at a gas pump,
+                 * prior to the actual transaction amount being known. They are followed by an
+                 * advice message that updates the amount of the pending transaction.
+                 */
                 val AUTOMATIC_FUEL_DISPENSER = of("automatic_fuel_dispenser")
 
+                /** A transaction used to pay a bill. */
                 val BILL_PAYMENT = of("bill_payment")
 
+                /** A regular purchase. */
                 val PURCHASE = of("purchase")
 
+                /**
+                 * Quasi-cash transactions represent purchases of items which may be convertible to
+                 * cash.
+                 */
                 val QUASI_CASH = of("quasi_cash")
 
+                /**
+                 * A refund card authorization, sometimes referred to as a credit voucher
+                 * authorization, where funds are credited to the cardholder.
+                 */
                 val REFUND = of("refund")
 
                 fun of(value: String) = ProcessingCategory(JsonField.of(value))
@@ -3146,8 +3251,12 @@ private constructor(
 
                 companion object {
 
+                    /** A regular, standalone authorization. */
                     val INITIAL_AUTHORIZATION = of("initial_authorization")
 
+                    /**
+                     * An incremental request to increase the amount of an existing authorization.
+                     */
                     val INCREMENTAL_AUTHORIZATION = of("incremental_authorization")
 
                     fun of(value: String) = Category(JsonField.of(value))
@@ -3609,10 +3718,13 @@ private constructor(
 
                     companion object {
 
+                        /** No card verification code was provided in the authorization request. */
                         val NOT_CHECKED = of("not_checked")
 
+                        /** The card verification code matched the one on file. */
                         val MATCH = of("match")
 
+                        /** The card verification code did not match the one on file. */
                         val NO_MATCH = of("no_match")
 
                         fun of(value: String) = Result(JsonField.of(value))
@@ -3895,19 +4007,25 @@ private constructor(
 
                     companion object {
 
+                        /** No adress was provided in the authorization request. */
                         val NOT_CHECKED = of("not_checked")
 
+                        /** Postal code matches, but the street address was not verified. */
                         val POSTAL_CODE_MATCH_ADDRESS_NOT_CHECKED =
                             of("postal_code_match_address_not_checked")
 
+                        /** Postal code matches, but the street address does not match. */
                         val POSTAL_CODE_MATCH_ADDRESS_NO_MATCH =
                             of("postal_code_match_address_no_match")
 
+                        /** Postal code does not match, but the street address matches. */
                         val POSTAL_CODE_NO_MATCH_ADDRESS_MATCH =
                             of("postal_code_no_match_address_match")
 
+                        /** Postal code and street address match. */
                         val MATCH = of("match")
 
+                        /** Postal code and street address do not match. */
                         val NO_MATCH = of("no_match")
 
                         fun of(value: String) = Result(JsonField.of(value))
@@ -4052,15 +4170,22 @@ private constructor(
 
         companion object {
 
+            /** A card is being authorized. */
             val CARD_AUTHORIZATION_REQUESTED = of("card_authorization_requested")
 
+            /** 3DS authentication is requested. */
             val CARD_AUTHENTICATION_REQUESTED = of("card_authentication_requested")
 
+            /** 3DS authentication challenge requires cardholder involvement. */
             val CARD_AUTHENTICATION_CHALLENGE_REQUESTED =
                 of("card_authentication_challenge_requested")
 
+            /** A card is being loaded into a digital wallet. */
             val DIGITAL_WALLET_TOKEN_REQUESTED = of("digital_wallet_token_requested")
 
+            /**
+             * A card is being loaded into a digital wallet and requires cardholder authentication.
+             */
             val DIGITAL_WALLET_AUTHENTICATION_REQUESTED =
                 of("digital_wallet_authentication_requested")
 
@@ -4355,8 +4480,10 @@ private constructor(
 
             companion object {
 
+                /** Send one-time passcodes over SMS. */
                 val SMS = of("sms")
 
+                /** Send one-time passcodes over email. */
                 val EMAIL = of("email")
 
                 fun of(value: String) = Channel(JsonField.of(value))
@@ -4417,12 +4544,16 @@ private constructor(
 
             companion object {
 
+                /** Apple Pay */
                 val APPLE_PAY = of("apple_pay")
 
+                /** Google Pay */
                 val GOOGLE_PAY = of("google_pay")
 
+                /** Samsung Pay */
                 val SAMSUNG_PAY = of("samsung_pay")
 
+                /** Unknown */
                 val UNKNOWN = of("unknown")
 
                 fun of(value: String) = DigitalWallet(JsonField.of(value))
@@ -4495,8 +4626,12 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Your application successfully delivered the one-time passcode to the cardholder.
+                 */
                 val SUCCESS = of("success")
 
+                /** Your application failed to deliver the one-time passcode to the cardholder. */
                 val FAILURE = of("failure")
 
                 fun of(value: String) = Result(JsonField.of(value))
@@ -4759,8 +4894,10 @@ private constructor(
 
             companion object {
 
+                /** Approve the provisioning request. */
                 val APPROVE = of("approve")
 
+                /** Decline the provisioning request. */
                 val DECLINE = of("decline")
 
                 fun of(value: String) = Decision(JsonField.of(value))
@@ -4821,12 +4958,16 @@ private constructor(
 
             companion object {
 
+                /** Apple Pay */
                 val APPLE_PAY = of("apple_pay")
 
+                /** Google Pay */
                 val GOOGLE_PAY = of("google_pay")
 
+                /** Samsung Pay */
                 val SAMSUNG_PAY = of("samsung_pay")
 
+                /** Unknown */
                 val UNKNOWN = of("unknown")
 
                 fun of(value: String) = DigitalWallet(JsonField.of(value))
@@ -4917,10 +5058,13 @@ private constructor(
 
         companion object {
 
+            /** The decision is pending action via real-time webhook. */
             val PENDING = of("pending")
 
+            /** Your webhook actioned the real-time decision. */
             val RESPONDED = of("responded")
 
+            /** Your webhook failed to respond to the authorization in time. */
             val TIMED_OUT = of("timed_out")
 
             fun of(value: String) = Status(JsonField.of(value))

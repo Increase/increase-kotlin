@@ -414,12 +414,19 @@ constructor(
 
         companion object {
 
+            /**
+             * The Inbound Wire Transfer is awaiting action, will transition automatically if no
+             * action is taken.
+             */
             val PENDING = of("pending")
 
+            /** The Inbound Wire Transfer is accepted. */
             val ACCEPTED = of("accepted")
 
+            /** The Inbound Wire Transfer was declined. */
             val DECLINED = of("declined")
 
+            /** The Inbound Wire Transfer was reversed. */
             val REVERSED = of("reversed")
 
             fun of(value: String) = Status(JsonField.of(value))

@@ -529,8 +529,10 @@ private constructor(
 
         companion object {
 
+            /** This Lockbox is active. Checks mailed to it will be deposited automatically. */
             val ACTIVE = of("active")
 
+            /** This Lockbox is inactive. Checks mailed to it will not be deposited. */
             val INACTIVE = of("inactive")
 
             fun of(value: String) = Status(JsonField.of(value))

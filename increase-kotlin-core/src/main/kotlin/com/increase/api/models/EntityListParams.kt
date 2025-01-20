@@ -510,10 +510,13 @@ constructor(
 
             companion object {
 
+                /** The entity is active. */
                 val ACTIVE = of("active")
 
+                /** The entity is archived, and can no longer be used to create accounts. */
                 val ARCHIVED = of("archived")
 
+                /** The entity is temporarily disabled and cannot be used for financial activity. */
                 val DISABLED = of("disabled")
 
                 fun of(value: String) = In(JsonField.of(value))

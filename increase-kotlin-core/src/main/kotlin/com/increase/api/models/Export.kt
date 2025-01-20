@@ -316,18 +316,31 @@ private constructor(
 
         companion object {
 
+            /**
+             * Export an Open Financial Exchange (OFX) file of transactions and balances for a given
+             * time range and Account.
+             */
             val ACCOUNT_STATEMENT_OFX = of("account_statement_ofx")
 
+            /** Export a CSV of all transactions for a given time range. */
             val TRANSACTION_CSV = of("transaction_csv")
 
+            /** Export a CSV of account balances for the dates in a given range. */
             val BALANCE_CSV = of("balance_csv")
 
+            /** Export a CSV of bookkeeping account balances for the dates in a given range. */
             val BOOKKEEPING_ACCOUNT_BALANCE_CSV = of("bookkeeping_account_balance_csv")
 
+            /** Export a CSV of entities with a given status. */
             val ENTITY_CSV = of("entity_csv")
 
+            /** Export a CSV of vendors added to the third-party risk management dashboard. */
             val VENDOR_CSV = of("vendor_csv")
 
+            /**
+             * Certain dashboard tables are available as CSV exports. This export cannot be created
+             * via the API.
+             */
             val DASHBOARD_TABLE_CSV = of("dashboard_table_csv")
 
             fun of(value: String) = Category(JsonField.of(value))
@@ -430,10 +443,15 @@ private constructor(
 
         companion object {
 
+            /** Increase is generating the export. */
             val PENDING = of("pending")
 
+            /** The export has been successfully generated. */
             val COMPLETE = of("complete")
 
+            /**
+             * The export failed to generate. Increase will reach out to you to resolve the issue.
+             */
             val FAILED = of("failed")
 
             fun of(value: String) = Status(JsonField.of(value))

@@ -1137,15 +1137,20 @@ constructor(
 
                     companion object {
 
+                        /** A social security number. */
                         val SOCIAL_SECURITY_NUMBER = of("social_security_number")
 
+                        /** An individual taxpayer identification number (ITIN). */
                         val INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER =
                             of("individual_taxpayer_identification_number")
 
+                        /** A passport number. */
                         val PASSPORT = of("passport")
 
+                        /** A driver's license number. */
                         val DRIVERS_LICENSE = of("drivers_license")
 
+                        /** Another identifying document. */
                         val OTHER = of("other")
 
                         fun of(value: String) = Method(JsonField.of(value))
@@ -1824,8 +1829,10 @@ constructor(
 
             companion object {
 
+                /** A person with 25% or greater direct or indirect ownership of the entity. */
                 val OWNERSHIP = of("ownership")
 
+                /** A person who manages, directs, or has significant control of the entity. */
                 val CONTROL = of("control")
 
                 fun of(value: String) = Prong(JsonField.of(value))

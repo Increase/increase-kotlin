@@ -338,8 +338,10 @@ constructor(
 
             companion object {
 
+                /** The External Account is active. */
                 val ACTIVE = of("active")
 
+                /** The External Account is archived and won't appear in the dashboard. */
                 val ARCHIVED = of("archived")
 
                 fun of(value: String) = In(JsonField.of(value))

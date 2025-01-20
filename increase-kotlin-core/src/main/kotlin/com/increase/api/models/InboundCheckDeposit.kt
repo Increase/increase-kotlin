@@ -815,10 +815,22 @@ private constructor(
 
             companion object {
 
+                /**
+                 * The return was initiated too late and the receiving institution has responded
+                 * with a Late Return Claim.
+                 */
                 val LATE_RETURN = of("late_return")
 
+                /**
+                 * The check was deposited to the wrong payee and the depositing institution has
+                 * reimbursed the funds with a Wrong Payee Credit.
+                 */
                 val WRONG_PAYEE_CREDIT = of("wrong_payee_credit")
 
+                /**
+                 * The check was deposited with a different amount than what was written on the
+                 * check.
+                 */
                 val ADJUSTED_AMOUNT = of("adjusted_amount")
 
                 fun of(value: String) = Reason(JsonField.of(value))
@@ -921,16 +933,22 @@ private constructor(
 
         companion object {
 
+            /** Canadian Dollar (CAD) */
             val CAD = of("CAD")
 
+            /** Swiss Franc (CHF) */
             val CHF = of("CHF")
 
+            /** Euro (EUR) */
             val EUR = of("EUR")
 
+            /** British Pound (GBP) */
             val GBP = of("GBP")
 
+            /** Japanese Yen (JPY) */
             val JPY = of("JPY")
 
+            /** US Dollar (USD) */
             val USD = of("USD")
 
             fun of(value: String) = Currency(JsonField.of(value))
@@ -1143,14 +1161,19 @@ private constructor(
 
             companion object {
 
+                /** The check was altered or fictitious. */
                 val ALTERED_OR_FICTITIOUS = of("altered_or_fictitious")
 
+                /** The check was not authorized. */
                 val NOT_AUTHORIZED = of("not_authorized")
 
+                /** The check was a duplicate presentment. */
                 val DUPLICATE_PRESENTMENT = of("duplicate_presentment")
 
+                /** The check was not endorsed. */
                 val ENDORSEMENT_MISSING = of("endorsement_missing")
 
+                /** The check was not endorsed by the payee. */
                 val ENDORSEMENT_IRREGULAR = of("endorsement_irregular")
 
                 fun of(value: String) = Reason(JsonField.of(value))
@@ -1250,10 +1273,13 @@ private constructor(
 
         companion object {
 
+            /** The details on the check match the recipient name of the check transfer. */
             val NAME_MATCHES = of("name_matches")
 
+            /** The details on the check do not match the recipient name of the check transfer. */
             val DOES_NOT_MATCH = of("does_not_match")
 
+            /** The payee name analysis was not evaluated. */
             val NOT_EVALUATED = of("not_evaluated")
 
             fun of(value: String) = PayeeNameAnalysis(JsonField.of(value))
@@ -1320,14 +1346,19 @@ private constructor(
 
         companion object {
 
+            /** The Inbound Check Deposit is pending. */
             val PENDING = of("pending")
 
+            /** The Inbound Check Deposit was accepted. */
             val ACCEPTED = of("accepted")
 
+            /** The Inbound Check Deposit was rejected. */
             val DECLINED = of("declined")
 
+            /** The Inbound Check Deposit was returned. */
             val RETURNED = of("returned")
 
+            /** The Inbound Check Deposit requires attention from an Increase operator. */
             val REQUIRES_ATTENTION = of("requires_attention")
 
             fun of(value: String) = Status(JsonField.of(value))
