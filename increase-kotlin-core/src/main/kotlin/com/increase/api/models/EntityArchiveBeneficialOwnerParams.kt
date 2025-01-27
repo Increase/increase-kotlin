@@ -100,6 +100,7 @@ private constructor(
             fun builder() = Builder()
         }
 
+        /** A builder for [EntityArchiveBeneficialOwnerBody]. */
         class Builder internal constructor() {
 
             private var beneficialOwnerId: JsonField<String>? = null
@@ -178,6 +179,7 @@ private constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [EntityArchiveBeneficialOwnerParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 

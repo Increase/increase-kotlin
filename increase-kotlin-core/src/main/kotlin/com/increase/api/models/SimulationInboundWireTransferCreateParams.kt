@@ -571,6 +571,7 @@ private constructor(
             fun builder() = Builder()
         }
 
+        /** A builder for [SimulationInboundWireTransferCreateBody]. */
         class Builder internal constructor() {
 
             private var accountNumberId: JsonField<String>? = null
@@ -966,6 +967,7 @@ private constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [SimulationInboundWireTransferCreateParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 

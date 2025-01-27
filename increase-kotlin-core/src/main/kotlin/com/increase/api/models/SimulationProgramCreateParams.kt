@@ -87,6 +87,7 @@ private constructor(
             fun builder() = Builder()
         }
 
+        /** A builder for [SimulationProgramCreateBody]. */
         class Builder internal constructor() {
 
             private var name: JsonField<String>? = null
@@ -155,6 +156,7 @@ private constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [SimulationProgramCreateParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 

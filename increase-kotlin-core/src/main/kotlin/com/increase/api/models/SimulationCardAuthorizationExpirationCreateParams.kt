@@ -85,6 +85,7 @@ private constructor(
             fun builder() = Builder()
         }
 
+        /** A builder for [SimulationCardAuthorizationExpirationCreateBody]. */
         class Builder internal constructor() {
 
             private var cardPaymentId: JsonField<String>? = null
@@ -159,6 +160,7 @@ private constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [SimulationCardAuthorizationExpirationCreateParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 

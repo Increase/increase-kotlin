@@ -241,6 +241,7 @@ private constructor(
             fun builder() = Builder()
         }
 
+        /** A builder for [DigitalCardProfileCloneBody]. */
         class Builder internal constructor() {
 
             private var appIconFileId: JsonField<String> = JsonMissing.of()
@@ -398,6 +399,7 @@ private constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [DigitalCardProfileCloneParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 
@@ -671,6 +673,7 @@ private constructor(
             fun builder() = Builder()
         }
 
+        /** A builder for [TextColor]. */
         class Builder internal constructor() {
 
             private var blue: JsonField<Long>? = null

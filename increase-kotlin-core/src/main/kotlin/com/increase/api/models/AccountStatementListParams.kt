@@ -56,6 +56,7 @@ private constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [AccountStatementListParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 
@@ -260,6 +261,7 @@ private constructor(
             fun builder() = Builder()
         }
 
+        /** A builder for [StatementPeriodStart]. */
         class Builder internal constructor() {
 
             private var after: OffsetDateTime? = null

@@ -51,6 +51,7 @@ private constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [SimulationWireTransferSubmitParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 

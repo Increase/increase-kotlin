@@ -54,6 +54,7 @@ private constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [SimulationAchTransferAcknowledgeParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 
