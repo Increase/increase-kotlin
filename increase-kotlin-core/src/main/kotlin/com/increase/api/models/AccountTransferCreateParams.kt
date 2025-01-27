@@ -20,7 +20,7 @@ import java.util.Objects
 
 /** Create an Account Transfer */
 class AccountTransferCreateParams
-constructor(
+private constructor(
     private val body: AccountTransferCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -166,7 +166,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var accountId: JsonField<String>? = null
             private var amount: JsonField<Long>? = null
@@ -284,7 +284,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var body: AccountTransferCreateBody.Builder = AccountTransferCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()

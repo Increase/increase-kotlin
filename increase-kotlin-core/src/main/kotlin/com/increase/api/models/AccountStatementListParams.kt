@@ -11,7 +11,7 @@ import java.util.Objects
 
 /** List Account Statements */
 class AccountStatementListParams
-constructor(
+private constructor(
     private val accountId: String?,
     private val cursor: String?,
     private val limit: Long?,
@@ -57,7 +57,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var accountId: String? = null
         private var cursor: String? = null
@@ -260,7 +260,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var after: OffsetDateTime? = null
             private var before: OffsetDateTime? = null

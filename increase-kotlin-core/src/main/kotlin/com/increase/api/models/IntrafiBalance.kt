@@ -129,7 +129,7 @@ private constructor(
         fun builder() = Builder()
     }
 
-    class Builder {
+    class Builder internal constructor() {
 
         private var id: JsonField<String>? = null
         private var balances: JsonField<MutableList<Balance>>? = null
@@ -343,7 +343,7 @@ private constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var id: JsonField<String>? = null
             private var balance: JsonField<Long>? = null
@@ -485,7 +485,7 @@ private constructor(
                 fun builder() = Builder()
             }
 
-            class Builder {
+            class Builder internal constructor() {
 
                 private var city: JsonField<String>? = null
                 private var state: JsonField<String>? = null

@@ -20,7 +20,7 @@ import java.util.Objects
 
 /** Simulates an tax document being created for an account. */
 class SimulationDocumentCreateParams
-constructor(
+private constructor(
     private val body: SimulationDocumentCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -83,7 +83,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var accountId: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -152,7 +152,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var body: SimulationDocumentCreateBody.Builder =
             SimulationDocumentCreateBody.builder()

@@ -12,7 +12,7 @@ import java.util.Objects
 
 /** Cancel a pending Check Transfer */
 class CheckTransferCancelParams
-constructor(
+private constructor(
     private val checkTransferId: String,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -49,7 +49,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var checkTransferId: String? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()

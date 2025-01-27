@@ -12,7 +12,7 @@ import java.util.Objects
 
 /** Archive a Digital Card Profile */
 class DigitalCardProfileArchiveParams
-constructor(
+private constructor(
     private val digitalCardProfileId: String,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -49,7 +49,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var digitalCardProfileId: String? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()

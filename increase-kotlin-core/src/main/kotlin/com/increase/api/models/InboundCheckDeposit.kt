@@ -332,7 +332,7 @@ private constructor(
         fun builder() = Builder()
     }
 
-    class Builder {
+    class Builder internal constructor() {
 
         private var id: JsonField<String>? = null
         private var acceptedAt: JsonField<OffsetDateTime>? = null
@@ -731,7 +731,7 @@ private constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var adjustedAt: JsonField<OffsetDateTime>? = null
             private var amount: JsonField<Long>? = null
@@ -1086,7 +1086,7 @@ private constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var reason: JsonField<Reason>? = null
             private var returnedAt: JsonField<OffsetDateTime>? = null

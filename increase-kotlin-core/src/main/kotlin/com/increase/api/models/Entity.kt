@@ -264,7 +264,7 @@ private constructor(
         fun builder() = Builder()
     }
 
-    class Builder {
+    class Builder internal constructor() {
 
         private var id: JsonField<String>? = null
         private var corporation: JsonField<Corporation>? = null
@@ -655,7 +655,7 @@ private constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var address: JsonField<Address>? = null
             private var beneficialOwners: JsonField<MutableList<BeneficialOwner>>? = null
@@ -882,7 +882,7 @@ private constructor(
                 fun builder() = Builder()
             }
 
-            class Builder {
+            class Builder internal constructor() {
 
                 private var city: JsonField<String>? = null
                 private var line1: JsonField<String>? = null
@@ -1062,7 +1062,7 @@ private constructor(
                 fun builder() = Builder()
             }
 
-            class Builder {
+            class Builder internal constructor() {
 
                 private var beneficialOwnerId: JsonField<String>? = null
                 private var companyTitle: JsonField<String>? = null
@@ -1218,7 +1218,7 @@ private constructor(
                     fun builder() = Builder()
                 }
 
-                class Builder {
+                class Builder internal constructor() {
 
                     private var address: JsonField<Address>? = null
                     private var dateOfBirth: JsonField<LocalDate>? = null
@@ -1381,7 +1381,7 @@ private constructor(
                         fun builder() = Builder()
                     }
 
-                    class Builder {
+                    class Builder internal constructor() {
 
                         private var city: JsonField<String>? = null
                         private var line1: JsonField<String>? = null
@@ -1547,7 +1547,7 @@ private constructor(
                         fun builder() = Builder()
                     }
 
-                    class Builder {
+                    class Builder internal constructor() {
 
                         private var method: JsonField<Method>? = null
                         private var numberLast4: JsonField<String>? = null
@@ -1941,7 +1941,7 @@ private constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var address: JsonField<Address>? = null
             private var authorizedPersons: JsonField<MutableList<AuthorizedPerson>>? = null
@@ -2132,7 +2132,7 @@ private constructor(
                 fun builder() = Builder()
             }
 
-            class Builder {
+            class Builder internal constructor() {
 
                 private var city: JsonField<String>? = null
                 private var line1: JsonField<String>? = null
@@ -2289,7 +2289,7 @@ private constructor(
                 fun builder() = Builder()
             }
 
-            class Builder {
+            class Builder internal constructor() {
 
                 private var authorizedPersonId: JsonField<String>? = null
                 private var name: JsonField<String>? = null
@@ -2489,7 +2489,7 @@ private constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var individuals: JsonField<MutableList<Individual>>? = null
             private var name: JsonField<String>? = null
@@ -2627,7 +2627,7 @@ private constructor(
                 fun builder() = Builder()
             }
 
-            class Builder {
+            class Builder internal constructor() {
 
                 private var address: JsonField<Address>? = null
                 private var dateOfBirth: JsonField<LocalDate>? = null
@@ -2790,7 +2790,7 @@ private constructor(
                     fun builder() = Builder()
                 }
 
-                class Builder {
+                class Builder internal constructor() {
 
                     private var city: JsonField<String>? = null
                     private var line1: JsonField<String>? = null
@@ -2953,7 +2953,7 @@ private constructor(
                     fun builder() = Builder()
                 }
 
-                class Builder {
+                class Builder internal constructor() {
 
                     private var method: JsonField<Method>? = null
                     private var numberLast4: JsonField<String>? = null
@@ -3241,7 +3241,7 @@ private constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var address: JsonField<Address>? = null
             private var dateOfBirth: JsonField<LocalDate>? = null
@@ -3401,7 +3401,7 @@ private constructor(
                 fun builder() = Builder()
             }
 
-            class Builder {
+            class Builder internal constructor() {
 
                 private var city: JsonField<String>? = null
                 private var line1: JsonField<String>? = null
@@ -3564,7 +3564,7 @@ private constructor(
                 fun builder() = Builder()
             }
 
-            class Builder {
+            class Builder internal constructor() {
 
                 private var method: JsonField<Method>? = null
                 private var numberLast4: JsonField<String>? = null
@@ -3973,7 +3973,7 @@ private constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var reference: JsonField<String>? = null
             private var vendor: JsonField<Vendor>? = null
@@ -4231,7 +4231,7 @@ private constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var address: JsonField<Address>? = null
             private var category: JsonField<Category>? = null
@@ -4451,7 +4451,7 @@ private constructor(
                 fun builder() = Builder()
             }
 
-            class Builder {
+            class Builder internal constructor() {
 
                 private var city: JsonField<String>? = null
                 private var line1: JsonField<String>? = null
@@ -4694,7 +4694,7 @@ private constructor(
                 fun builder() = Builder()
             }
 
-            class Builder {
+            class Builder internal constructor() {
 
                 private var address: JsonField<Address>? = null
                 private var dateOfBirth: JsonField<LocalDate>? = null
@@ -4857,7 +4857,7 @@ private constructor(
                     fun builder() = Builder()
                 }
 
-                class Builder {
+                class Builder internal constructor() {
 
                     private var city: JsonField<String>? = null
                     private var line1: JsonField<String>? = null
@@ -5020,7 +5020,7 @@ private constructor(
                     fun builder() = Builder()
                 }
 
-                class Builder {
+                class Builder internal constructor() {
 
                     private var method: JsonField<Method>? = null
                     private var numberLast4: JsonField<String>? = null
@@ -5272,7 +5272,7 @@ private constructor(
                 fun builder() = Builder()
             }
 
-            class Builder {
+            class Builder internal constructor() {
 
                 private var individual: JsonField<Individual>? = null
                 private var structure: JsonField<Structure>? = null
@@ -5416,7 +5416,7 @@ private constructor(
                     fun builder() = Builder()
                 }
 
-                class Builder {
+                class Builder internal constructor() {
 
                     private var address: JsonField<Address>? = null
                     private var dateOfBirth: JsonField<LocalDate>? = null
@@ -5579,7 +5579,7 @@ private constructor(
                         fun builder() = Builder()
                     }
 
-                    class Builder {
+                    class Builder internal constructor() {
 
                         private var city: JsonField<String>? = null
                         private var line1: JsonField<String>? = null
@@ -5745,7 +5745,7 @@ private constructor(
                         fun builder() = Builder()
                     }
 
-                    class Builder {
+                    class Builder internal constructor() {
 
                         private var method: JsonField<Method>? = null
                         private var numberLast4: JsonField<String>? = null

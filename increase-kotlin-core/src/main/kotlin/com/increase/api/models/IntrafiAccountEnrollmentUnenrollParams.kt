@@ -12,7 +12,7 @@ import java.util.Objects
 
 /** Unenroll an account from IntraFi */
 class IntrafiAccountEnrollmentUnenrollParams
-constructor(
+private constructor(
     private val intrafiAccountEnrollmentId: String,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -49,7 +49,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var intrafiAccountEnrollmentId: String? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()

@@ -9,7 +9,7 @@ import java.util.Objects
 
 /** List Programs */
 class ProgramListParams
-constructor(
+private constructor(
     private val cursor: String?,
     private val limit: Long?,
     private val additionalHeaders: Headers,
@@ -44,7 +44,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var cursor: String? = null
         private var limit: Long? = null

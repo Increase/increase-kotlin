@@ -84,7 +84,7 @@ private constructor(
         fun builder() = Builder()
     }
 
-    class Builder {
+    class Builder internal constructor() {
 
         private var accessToken: JsonField<String>? = null
         private var tokenType: JsonField<TokenType>? = null

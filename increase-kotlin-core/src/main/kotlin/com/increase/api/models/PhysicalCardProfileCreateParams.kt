@@ -20,7 +20,7 @@ import java.util.Objects
 
 /** Create a Physical Card Profile */
 class PhysicalCardProfileCreateParams
-constructor(
+private constructor(
     private val body: PhysicalCardProfileCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -139,7 +139,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var carrierImageFileId: JsonField<String>? = null
             private var contactPhone: JsonField<String>? = null
@@ -246,7 +246,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var body: PhysicalCardProfileCreateBody.Builder =
             PhysicalCardProfileCreateBody.builder()

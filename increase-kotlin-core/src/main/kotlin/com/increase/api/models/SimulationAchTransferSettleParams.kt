@@ -16,7 +16,7 @@ import java.util.Objects
  * eventually settle on its own following the same Federal Reserve timeline as in production.
  */
 class SimulationAchTransferSettleParams
-constructor(
+private constructor(
     private val achTransferId: String,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -53,7 +53,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var achTransferId: String? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
