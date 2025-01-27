@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.162.0 (2025-01-27)
+
+Full Changelog: [v0.161.0...v0.162.0](https://github.com/Increase/increase-kotlin/compare/v0.161.0...v0.162.0)
+
+### Features
+
+* **api:** api update ([#733](https://github.com/Increase/increase-kotlin/issues/733)) ([f92147d](https://github.com/Increase/increase-kotlin/commit/f92147deb26f8bf7f082c5347f15e27df11a93fb))
+
+
+### Documentation
+
+* builder, enum, and union comments ([#731](https://github.com/Increase/increase-kotlin/issues/731)) ([df66a15](https://github.com/Increase/increase-kotlin/commit/df66a1512e5d3bf16babe201a45e99627ae778c8))
+
 ## 0.161.0 (2025-01-27)
 
 Full Changelog: [v0.160.0...v0.161.0](https://github.com/Increase/increase-kotlin/compare/v0.160.0...v0.161.0)
