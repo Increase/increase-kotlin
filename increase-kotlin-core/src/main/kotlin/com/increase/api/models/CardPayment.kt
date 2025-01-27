@@ -2986,6 +2986,13 @@ private constructor(
                             val MERCHANT_TRANSACTION_ADVISORY_SERVICE_AUTHENTICATION_REQUIRED =
                                 of("merchant_transaction_advisory_service_authentication_required")
 
+                            /**
+                             * The transaction was blocked by Visa's Payment Fraud Disruption
+                             * service due to fraudulent Acquirer behavior, such as card testing.
+                             */
+                            val PAYMENT_FRAUD_DISRUPTION_ACQUIRER_BLOCK =
+                                of("payment_fraud_disruption_acquirer_block")
+
                             /** An unspecific reason for stand-in processing. */
                             val OTHER = of("other")
 
@@ -3016,6 +3023,11 @@ private constructor(
                              * to see the cashier.
                              */
                             MERCHANT_TRANSACTION_ADVISORY_SERVICE_AUTHENTICATION_REQUIRED,
+                            /**
+                             * The transaction was blocked by Visa's Payment Fraud Disruption
+                             * service due to fraudulent Acquirer behavior, such as card testing.
+                             */
+                            PAYMENT_FRAUD_DISRUPTION_ACQUIRER_BLOCK,
                             /** An unspecific reason for stand-in processing. */
                             OTHER,
                         }
@@ -3054,6 +3066,11 @@ private constructor(
                              * to see the cashier.
                              */
                             MERCHANT_TRANSACTION_ADVISORY_SERVICE_AUTHENTICATION_REQUIRED,
+                            /**
+                             * The transaction was blocked by Visa's Payment Fraud Disruption
+                             * service due to fraudulent Acquirer behavior, such as card testing.
+                             */
+                            PAYMENT_FRAUD_DISRUPTION_ACQUIRER_BLOCK,
                             /** An unspecific reason for stand-in processing. */
                             OTHER,
                             /**
@@ -3080,6 +3097,8 @@ private constructor(
                                 MERCHANT_TRANSACTION_ADVISORY_SERVICE_AUTHENTICATION_REQUIRED ->
                                     Value
                                         .MERCHANT_TRANSACTION_ADVISORY_SERVICE_AUTHENTICATION_REQUIRED
+                                PAYMENT_FRAUD_DISRUPTION_ACQUIRER_BLOCK ->
+                                    Value.PAYMENT_FRAUD_DISRUPTION_ACQUIRER_BLOCK
                                 OTHER -> Value.OTHER
                                 else -> Value._UNKNOWN
                             }
@@ -3103,6 +3122,8 @@ private constructor(
                                 MERCHANT_TRANSACTION_ADVISORY_SERVICE_AUTHENTICATION_REQUIRED ->
                                     Known
                                         .MERCHANT_TRANSACTION_ADVISORY_SERVICE_AUTHENTICATION_REQUIRED
+                                PAYMENT_FRAUD_DISRUPTION_ACQUIRER_BLOCK ->
+                                    Known.PAYMENT_FRAUD_DISRUPTION_ACQUIRER_BLOCK
                                 OTHER -> Known.OTHER
                                 else ->
                                     throw IncreaseInvalidDataException(
@@ -7191,6 +7212,13 @@ private constructor(
                             val MERCHANT_TRANSACTION_ADVISORY_SERVICE_AUTHENTICATION_REQUIRED =
                                 of("merchant_transaction_advisory_service_authentication_required")
 
+                            /**
+                             * The transaction was blocked by Visa's Payment Fraud Disruption
+                             * service due to fraudulent Acquirer behavior, such as card testing.
+                             */
+                            val PAYMENT_FRAUD_DISRUPTION_ACQUIRER_BLOCK =
+                                of("payment_fraud_disruption_acquirer_block")
+
                             /** An unspecific reason for stand-in processing. */
                             val OTHER = of("other")
 
@@ -7221,6 +7249,11 @@ private constructor(
                              * to see the cashier.
                              */
                             MERCHANT_TRANSACTION_ADVISORY_SERVICE_AUTHENTICATION_REQUIRED,
+                            /**
+                             * The transaction was blocked by Visa's Payment Fraud Disruption
+                             * service due to fraudulent Acquirer behavior, such as card testing.
+                             */
+                            PAYMENT_FRAUD_DISRUPTION_ACQUIRER_BLOCK,
                             /** An unspecific reason for stand-in processing. */
                             OTHER,
                         }
@@ -7259,6 +7292,11 @@ private constructor(
                              * to see the cashier.
                              */
                             MERCHANT_TRANSACTION_ADVISORY_SERVICE_AUTHENTICATION_REQUIRED,
+                            /**
+                             * The transaction was blocked by Visa's Payment Fraud Disruption
+                             * service due to fraudulent Acquirer behavior, such as card testing.
+                             */
+                            PAYMENT_FRAUD_DISRUPTION_ACQUIRER_BLOCK,
                             /** An unspecific reason for stand-in processing. */
                             OTHER,
                             /**
@@ -7285,6 +7323,8 @@ private constructor(
                                 MERCHANT_TRANSACTION_ADVISORY_SERVICE_AUTHENTICATION_REQUIRED ->
                                     Value
                                         .MERCHANT_TRANSACTION_ADVISORY_SERVICE_AUTHENTICATION_REQUIRED
+                                PAYMENT_FRAUD_DISRUPTION_ACQUIRER_BLOCK ->
+                                    Value.PAYMENT_FRAUD_DISRUPTION_ACQUIRER_BLOCK
                                 OTHER -> Value.OTHER
                                 else -> Value._UNKNOWN
                             }
@@ -7308,6 +7348,8 @@ private constructor(
                                 MERCHANT_TRANSACTION_ADVISORY_SERVICE_AUTHENTICATION_REQUIRED ->
                                     Known
                                         .MERCHANT_TRANSACTION_ADVISORY_SERVICE_AUTHENTICATION_REQUIRED
+                                PAYMENT_FRAUD_DISRUPTION_ACQUIRER_BLOCK ->
+                                    Known.PAYMENT_FRAUD_DISRUPTION_ACQUIRER_BLOCK
                                 OTHER -> Known.OTHER
                                 else ->
                                     throw IncreaseInvalidDataException(
@@ -25995,6 +26037,13 @@ private constructor(
                             val MERCHANT_TRANSACTION_ADVISORY_SERVICE_AUTHENTICATION_REQUIRED =
                                 of("merchant_transaction_advisory_service_authentication_required")
 
+                            /**
+                             * The transaction was blocked by Visa's Payment Fraud Disruption
+                             * service due to fraudulent Acquirer behavior, such as card testing.
+                             */
+                            val PAYMENT_FRAUD_DISRUPTION_ACQUIRER_BLOCK =
+                                of("payment_fraud_disruption_acquirer_block")
+
                             /** An unspecific reason for stand-in processing. */
                             val OTHER = of("other")
 
@@ -26025,6 +26074,11 @@ private constructor(
                              * to see the cashier.
                              */
                             MERCHANT_TRANSACTION_ADVISORY_SERVICE_AUTHENTICATION_REQUIRED,
+                            /**
+                             * The transaction was blocked by Visa's Payment Fraud Disruption
+                             * service due to fraudulent Acquirer behavior, such as card testing.
+                             */
+                            PAYMENT_FRAUD_DISRUPTION_ACQUIRER_BLOCK,
                             /** An unspecific reason for stand-in processing. */
                             OTHER,
                         }
@@ -26063,6 +26117,11 @@ private constructor(
                              * to see the cashier.
                              */
                             MERCHANT_TRANSACTION_ADVISORY_SERVICE_AUTHENTICATION_REQUIRED,
+                            /**
+                             * The transaction was blocked by Visa's Payment Fraud Disruption
+                             * service due to fraudulent Acquirer behavior, such as card testing.
+                             */
+                            PAYMENT_FRAUD_DISRUPTION_ACQUIRER_BLOCK,
                             /** An unspecific reason for stand-in processing. */
                             OTHER,
                             /**
@@ -26089,6 +26148,8 @@ private constructor(
                                 MERCHANT_TRANSACTION_ADVISORY_SERVICE_AUTHENTICATION_REQUIRED ->
                                     Value
                                         .MERCHANT_TRANSACTION_ADVISORY_SERVICE_AUTHENTICATION_REQUIRED
+                                PAYMENT_FRAUD_DISRUPTION_ACQUIRER_BLOCK ->
+                                    Value.PAYMENT_FRAUD_DISRUPTION_ACQUIRER_BLOCK
                                 OTHER -> Value.OTHER
                                 else -> Value._UNKNOWN
                             }
@@ -26112,6 +26173,8 @@ private constructor(
                                 MERCHANT_TRANSACTION_ADVISORY_SERVICE_AUTHENTICATION_REQUIRED ->
                                     Known
                                         .MERCHANT_TRANSACTION_ADVISORY_SERVICE_AUTHENTICATION_REQUIRED
+                                PAYMENT_FRAUD_DISRUPTION_ACQUIRER_BLOCK ->
+                                    Known.PAYMENT_FRAUD_DISRUPTION_ACQUIRER_BLOCK
                                 OTHER -> Known.OTHER
                                 else ->
                                     throw IncreaseInvalidDataException(
