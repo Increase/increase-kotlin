@@ -180,6 +180,7 @@ private constructor(
             fun builder() = Builder()
         }
 
+        /** A builder for [PhysicalCardProfileCloneBody]. */
         class Builder internal constructor() {
 
             private var carrierImageFileId: JsonField<String> = JsonMissing.of()
@@ -300,6 +301,7 @@ private constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [PhysicalCardProfileCloneParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 
@@ -554,6 +556,7 @@ private constructor(
             fun builder() = Builder()
         }
 
+        /** A builder for [FrontText]. */
         class Builder internal constructor() {
 
             private var line1: JsonField<String>? = null

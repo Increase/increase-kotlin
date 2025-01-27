@@ -41,6 +41,7 @@ private constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [CardDetailsParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 

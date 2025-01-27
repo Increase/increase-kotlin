@@ -83,6 +83,7 @@ private constructor(
             fun builder() = Builder()
         }
 
+        /** A builder for [SimulationDigitalWalletTokenRequestCreateBody]. */
         class Builder internal constructor() {
 
             private var cardId: JsonField<String>? = null
@@ -155,6 +156,7 @@ private constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [SimulationDigitalWalletTokenRequestCreateParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 

@@ -48,6 +48,7 @@ private constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [AchTransferCancelParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 

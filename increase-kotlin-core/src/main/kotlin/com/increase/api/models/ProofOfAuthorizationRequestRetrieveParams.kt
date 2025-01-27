@@ -41,6 +41,7 @@ private constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [ProofOfAuthorizationRequestRetrieveParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 

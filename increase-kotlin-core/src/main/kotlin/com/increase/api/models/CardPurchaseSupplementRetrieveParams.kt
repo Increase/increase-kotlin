@@ -41,6 +41,7 @@ private constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [CardPurchaseSupplementRetrieveParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 

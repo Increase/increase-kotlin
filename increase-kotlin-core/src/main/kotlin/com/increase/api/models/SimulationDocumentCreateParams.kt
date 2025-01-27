@@ -83,6 +83,7 @@ private constructor(
             fun builder() = Builder()
         }
 
+        /** A builder for [SimulationDocumentCreateBody]. */
         class Builder internal constructor() {
 
             private var accountId: JsonField<String>? = null
@@ -151,6 +152,7 @@ private constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [SimulationDocumentCreateParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 

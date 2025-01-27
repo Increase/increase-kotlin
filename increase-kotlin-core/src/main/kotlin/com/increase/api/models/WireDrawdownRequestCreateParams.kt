@@ -361,6 +361,7 @@ private constructor(
             fun builder() = Builder()
         }
 
+        /** A builder for [WireDrawdownRequestCreateBody]. */
         class Builder internal constructor() {
 
             private var accountNumberId: JsonField<String>? = null
@@ -605,6 +606,7 @@ private constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [WireDrawdownRequestCreateParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 

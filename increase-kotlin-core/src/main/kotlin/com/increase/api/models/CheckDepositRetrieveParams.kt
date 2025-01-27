@@ -41,6 +41,7 @@ private constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [CheckDepositRetrieveParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 
