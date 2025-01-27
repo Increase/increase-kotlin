@@ -232,6 +232,9 @@ private constructor(
             /** Internal Revenue Service Form 1099-INT. */
             val FORM_1099_INT = of("form_1099_int")
 
+            /** Internal Revenue Service Form 1099-MISC. */
+            val FORM_1099_MISC = of("form_1099_misc")
+
             /**
              * A document submitted in response to a proof of authorization request for an ACH
              * transfer.
@@ -250,6 +253,8 @@ private constructor(
         enum class Known {
             /** Internal Revenue Service Form 1099-INT. */
             FORM_1099_INT,
+            /** Internal Revenue Service Form 1099-MISC. */
+            FORM_1099_MISC,
             /**
              * A document submitted in response to a proof of authorization request for an ACH
              * transfer.
@@ -265,6 +270,8 @@ private constructor(
         enum class Value {
             /** Internal Revenue Service Form 1099-INT. */
             FORM_1099_INT,
+            /** Internal Revenue Service Form 1099-MISC. */
+            FORM_1099_MISC,
             /**
              * A document submitted in response to a proof of authorization request for an ACH
              * transfer.
@@ -281,6 +288,7 @@ private constructor(
         fun value(): Value =
             when (this) {
                 FORM_1099_INT -> Value.FORM_1099_INT
+                FORM_1099_MISC -> Value.FORM_1099_MISC
                 PROOF_OF_AUTHORIZATION -> Value.PROOF_OF_AUTHORIZATION
                 COMPANY_INFORMATION -> Value.COMPANY_INFORMATION
                 else -> Value._UNKNOWN
@@ -289,6 +297,7 @@ private constructor(
         fun known(): Known =
             when (this) {
                 FORM_1099_INT -> Known.FORM_1099_INT
+                FORM_1099_MISC -> Known.FORM_1099_MISC
                 PROOF_OF_AUTHORIZATION -> Known.PROOF_OF_AUTHORIZATION
                 COMPANY_INFORMATION -> Known.COMPANY_INFORMATION
                 else -> throw IncreaseInvalidDataException("Unknown Category: $value")
