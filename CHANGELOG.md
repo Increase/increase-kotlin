@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.160.0 (2025-01-27)
+
+Full Changelog: [v0.159.0...v0.160.0](https://github.com/Increase/increase-kotlin/compare/v0.159.0...v0.160.0)
+
+### Features
+
+* **api:** api update ([#722](https://github.com/Increase/increase-kotlin/issues/722)) ([cab3c9f](https://github.com/Increase/increase-kotlin/commit/cab3c9fc33ef968140092488059e3c8c2c43489f))
+
+
+### Chores
+
+* **internal:** swap `checkNotNull` to `checkRequired` ([#721](https://github.com/Increase/increase-kotlin/issues/721)) ([bbe90aa](https://github.com/Increase/increase-kotlin/commit/bbe90aa317446291fc7be64425e46e144cb454e3))
+
+
+### Documentation
+
+* move up requirements section ([#720](https://github.com/Increase/increase-kotlin/issues/720)) ([7c07219](https://github.com/Increase/increase-kotlin/commit/7c072199079b48e11e54cf2c4f88324bbbff4550))
+* update readme ([#718](https://github.com/Increase/increase-kotlin/issues/718)) ([0e09faf](https://github.com/Increase/increase-kotlin/commit/0e09faf1f0088de72dbd52ca49565515cacb05d1))
+
 ## 0.159.0 (2025-01-21)
 
 Full Changelog: [v0.158.0...v0.159.0](https://github.com/Increase/increase-kotlin/compare/v0.158.0...v0.159.0)
