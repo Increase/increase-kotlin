@@ -41,6 +41,7 @@ private constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [WireTransferRetrieveParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 

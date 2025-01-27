@@ -132,6 +132,7 @@ private constructor(
             fun builder() = Builder()
         }
 
+        /** A builder for [SimulationInboundMailItemCreateBody]. */
         class Builder internal constructor() {
 
             private var amount: JsonField<Long>? = null
@@ -229,6 +230,7 @@ private constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [SimulationInboundMailItemCreateParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 

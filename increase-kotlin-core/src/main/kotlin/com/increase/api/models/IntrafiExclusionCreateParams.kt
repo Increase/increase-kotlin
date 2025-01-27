@@ -99,6 +99,7 @@ private constructor(
             fun builder() = Builder()
         }
 
+        /** A builder for [IntrafiExclusionCreateBody]. */
         class Builder internal constructor() {
 
             private var bankName: JsonField<String>? = null
@@ -176,6 +177,7 @@ private constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [IntrafiExclusionCreateParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 

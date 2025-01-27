@@ -64,6 +64,7 @@ private constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [InboundRealTimePaymentsTransferListParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 
@@ -283,6 +284,7 @@ private constructor(
             fun builder() = Builder()
         }
 
+        /** A builder for [CreatedAt]. */
         class Builder internal constructor() {
 
             private var after: OffsetDateTime? = null

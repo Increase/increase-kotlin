@@ -41,6 +41,7 @@ private constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [PhysicalCardProfileRetrieveParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 

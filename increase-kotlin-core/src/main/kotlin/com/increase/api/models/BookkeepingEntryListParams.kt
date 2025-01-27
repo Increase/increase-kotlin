@@ -48,6 +48,7 @@ private constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [BookkeepingEntryListParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 

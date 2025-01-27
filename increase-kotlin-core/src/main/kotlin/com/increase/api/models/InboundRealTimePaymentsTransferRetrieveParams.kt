@@ -41,6 +41,7 @@ private constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [InboundRealTimePaymentsTransferRetrieveParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 

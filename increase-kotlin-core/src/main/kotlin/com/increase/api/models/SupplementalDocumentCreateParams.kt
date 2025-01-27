@@ -99,6 +99,7 @@ private constructor(
             fun builder() = Builder()
         }
 
+        /** A builder for [SupplementalDocumentCreateBody]. */
         class Builder internal constructor() {
 
             private var entityId: JsonField<String>? = null
@@ -177,6 +178,7 @@ private constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [SupplementalDocumentCreateParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 

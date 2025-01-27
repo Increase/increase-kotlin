@@ -96,6 +96,7 @@ private constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [SimulationDigitalWalletTokenRequestCreateResponse]. */
     class Builder internal constructor() {
 
         private var declineReason: JsonField<DeclineReason>? = null
@@ -195,6 +196,14 @@ private constructor(
         private val value: JsonField<String>,
     ) : Enum {
 
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
         @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         companion object {
@@ -214,6 +223,7 @@ private constructor(
             fun of(value: String) = DeclineReason(JsonField.of(value))
         }
 
+        /** An enum containing [DeclineReason]'s known values. */
         enum class Known {
             /** The card is not active. */
             CARD_NOT_ACTIVE,
@@ -225,6 +235,15 @@ private constructor(
             WEBHOOK_DECLINED,
         }
 
+        /**
+         * An enum containing [DeclineReason]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [DeclineReason] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
         enum class Value {
             /** The card is not active. */
             CARD_NOT_ACTIVE,
@@ -234,9 +253,20 @@ private constructor(
             WEBHOOK_TIMED_OUT,
             /** Your webhook declined the token provisioning attempt. */
             WEBHOOK_DECLINED,
+            /**
+             * An enum member indicating that [DeclineReason] was instantiated with an unknown
+             * value.
+             */
             _UNKNOWN,
         }
 
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
         fun value(): Value =
             when (this) {
                 CARD_NOT_ACTIVE -> Value.CARD_NOT_ACTIVE
@@ -246,6 +276,15 @@ private constructor(
                 else -> Value._UNKNOWN
             }
 
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
         fun known(): Known =
             when (this) {
                 CARD_NOT_ACTIVE -> Known.CARD_NOT_ACTIVE
@@ -280,6 +319,14 @@ private constructor(
         private val value: JsonField<String>,
     ) : Enum {
 
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
         @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         companion object {
@@ -290,15 +337,33 @@ private constructor(
             fun of(value: String) = Type(JsonField.of(value))
         }
 
+        /** An enum containing [Type]'s known values. */
         enum class Known {
             INBOUND_DIGITAL_WALLET_TOKEN_REQUEST_SIMULATION_RESULT,
         }
 
+        /**
+         * An enum containing [Type]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [Type] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
         enum class Value {
             INBOUND_DIGITAL_WALLET_TOKEN_REQUEST_SIMULATION_RESULT,
+            /** An enum member indicating that [Type] was instantiated with an unknown value. */
             _UNKNOWN,
         }
 
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
         fun value(): Value =
             when (this) {
                 INBOUND_DIGITAL_WALLET_TOKEN_REQUEST_SIMULATION_RESULT ->
@@ -306,6 +371,15 @@ private constructor(
                 else -> Value._UNKNOWN
             }
 
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
         fun known(): Known =
             when (this) {
                 INBOUND_DIGITAL_WALLET_TOKEN_REQUEST_SIMULATION_RESULT ->

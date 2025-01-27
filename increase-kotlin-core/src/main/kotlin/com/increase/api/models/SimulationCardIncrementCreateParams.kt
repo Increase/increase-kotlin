@@ -143,6 +143,7 @@ private constructor(
             fun builder() = Builder()
         }
 
+        /** A builder for [SimulationCardIncrementCreateBody]. */
         class Builder internal constructor() {
 
             private var amount: JsonField<Long>? = null
@@ -246,6 +247,7 @@ private constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [SimulationCardIncrementCreateParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 

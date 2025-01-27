@@ -54,6 +54,7 @@ private constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [AccountBalanceParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 

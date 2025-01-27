@@ -101,6 +101,7 @@ private constructor(
             fun builder() = Builder()
         }
 
+        /** A builder for [IntrafiAccountEnrollmentCreateBody]. */
         class Builder internal constructor() {
 
             private var accountId: JsonField<String>? = null
@@ -182,6 +183,7 @@ private constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [IntrafiAccountEnrollmentCreateParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 
