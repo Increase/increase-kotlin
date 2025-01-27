@@ -498,6 +498,7 @@ private constructor(
             fun builder() = Builder()
         }
 
+        /** A builder for [SimulationInboundWireDrawdownRequestCreateBody]. */
         class Builder internal constructor() {
 
             private var amount: JsonField<Long>? = null
@@ -883,6 +884,7 @@ private constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [SimulationInboundWireDrawdownRequestCreateParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 

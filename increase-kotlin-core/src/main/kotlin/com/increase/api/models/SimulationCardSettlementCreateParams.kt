@@ -139,6 +139,7 @@ private constructor(
             fun builder() = Builder()
         }
 
+        /** A builder for [SimulationCardSettlementCreateBody]. */
         class Builder internal constructor() {
 
             private var cardId: JsonField<String>? = null
@@ -242,6 +243,7 @@ private constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [SimulationCardSettlementCreateParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 

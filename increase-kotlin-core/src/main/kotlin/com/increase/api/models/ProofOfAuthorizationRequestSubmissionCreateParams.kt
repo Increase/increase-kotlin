@@ -289,6 +289,7 @@ private constructor(
             fun builder() = Builder()
         }
 
+        /** A builder for [ProofOfAuthorizationRequestSubmissionCreateBody]. */
         class Builder internal constructor() {
 
             private var authorizationTerms: JsonField<String>? = null
@@ -525,6 +526,7 @@ private constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [ProofOfAuthorizationRequestSubmissionCreateParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 

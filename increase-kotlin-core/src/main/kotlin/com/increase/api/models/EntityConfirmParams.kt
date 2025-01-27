@@ -113,6 +113,7 @@ private constructor(
             fun builder() = Builder()
         }
 
+        /** A builder for [EntityConfirmBody]. */
         class Builder internal constructor() {
 
             private var confirmedAt: JsonField<OffsetDateTime> = JsonMissing.of()
@@ -185,6 +186,7 @@ private constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [EntityConfirmParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 

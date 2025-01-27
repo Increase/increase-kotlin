@@ -148,6 +148,7 @@ private constructor(
             fun builder() = Builder()
         }
 
+        /** A builder for [CardDisputeCreateBody]. */
         class Builder internal constructor() {
 
             private var disputedTransactionId: JsonField<String>? = null
@@ -252,6 +253,7 @@ private constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [CardDisputeCreateParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 

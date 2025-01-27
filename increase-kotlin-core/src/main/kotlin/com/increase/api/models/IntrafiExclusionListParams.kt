@@ -57,6 +57,7 @@ private constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [IntrafiExclusionListParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 

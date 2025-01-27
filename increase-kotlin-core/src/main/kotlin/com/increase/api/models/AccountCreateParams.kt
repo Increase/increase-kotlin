@@ -158,6 +158,7 @@ private constructor(
             fun builder() = Builder()
         }
 
+        /** A builder for [AccountCreateBody]. */
         class Builder internal constructor() {
 
             private var name: JsonField<String>? = null
@@ -267,6 +268,7 @@ private constructor(
         fun builder() = Builder()
     }
 
+    /** A builder for [AccountCreateParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 
