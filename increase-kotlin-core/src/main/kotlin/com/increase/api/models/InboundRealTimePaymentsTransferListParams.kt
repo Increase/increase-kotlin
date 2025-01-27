@@ -11,7 +11,7 @@ import java.util.Objects
 
 /** List Inbound Real-Time Payments Transfers */
 class InboundRealTimePaymentsTransferListParams
-constructor(
+private constructor(
     private val accountId: String?,
     private val accountNumberId: String?,
     private val createdAt: CreatedAt?,
@@ -65,7 +65,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var accountId: String? = null
         private var accountNumberId: String? = null
@@ -283,7 +283,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var after: OffsetDateTime? = null
             private var before: OffsetDateTime? = null

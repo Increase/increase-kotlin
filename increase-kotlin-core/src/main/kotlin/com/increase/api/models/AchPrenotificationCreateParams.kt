@@ -23,7 +23,7 @@ import java.util.Objects
 
 /** Create an ACH Prenotification */
 class AchPrenotificationCreateParams
-constructor(
+private constructor(
     private val body: AchPrenotificationCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -334,7 +334,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var accountId: JsonField<String>? = null
             private var accountNumber: JsonField<String>? = null
@@ -559,7 +559,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var body: AchPrenotificationCreateBody.Builder =
             AchPrenotificationCreateBody.builder()

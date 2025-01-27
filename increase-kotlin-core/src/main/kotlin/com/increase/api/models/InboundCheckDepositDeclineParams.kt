@@ -12,7 +12,7 @@ import java.util.Objects
 
 /** Decline an Inbound Check Deposit */
 class InboundCheckDepositDeclineParams
-constructor(
+private constructor(
     private val inboundCheckDepositId: String,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -49,7 +49,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var inboundCheckDepositId: String? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()

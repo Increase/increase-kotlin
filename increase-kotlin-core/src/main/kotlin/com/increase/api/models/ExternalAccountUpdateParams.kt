@@ -22,7 +22,7 @@ import java.util.Objects
 
 /** Update an External Account */
 class ExternalAccountUpdateParams
-constructor(
+private constructor(
     private val externalAccountId: String,
     private val body: ExternalAccountUpdateBody,
     private val additionalHeaders: Headers,
@@ -148,7 +148,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var accountHolder: JsonField<AccountHolder> = JsonMissing.of()
             private var description: JsonField<String> = JsonMissing.of()
@@ -248,7 +248,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var externalAccountId: String? = null
         private var body: ExternalAccountUpdateBody.Builder = ExternalAccountUpdateBody.builder()

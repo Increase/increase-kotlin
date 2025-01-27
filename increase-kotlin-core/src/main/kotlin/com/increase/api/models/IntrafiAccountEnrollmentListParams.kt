@@ -14,7 +14,7 @@ import java.util.Objects
 
 /** List IntraFi Account Enrollments */
 class IntrafiAccountEnrollmentListParams
-constructor(
+private constructor(
     private val accountId: String?,
     private val cursor: String?,
     private val idempotencyKey: String?,
@@ -67,7 +67,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var accountId: String? = null
         private var cursor: String? = null
@@ -252,7 +252,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var in_: MutableList<In>? = null
             private var additionalProperties: QueryParams.Builder = QueryParams.builder()

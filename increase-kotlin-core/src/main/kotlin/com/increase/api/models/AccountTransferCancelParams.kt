@@ -12,7 +12,7 @@ import java.util.Objects
 
 /** Cancel an Account Transfer */
 class AccountTransferCancelParams
-constructor(
+private constructor(
     private val accountTransferId: String,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -49,7 +49,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var accountTransferId: String? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()

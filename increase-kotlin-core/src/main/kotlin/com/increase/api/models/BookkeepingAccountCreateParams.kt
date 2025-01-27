@@ -22,7 +22,7 @@ import java.util.Objects
 
 /** Create a Bookkeeping Account */
 class BookkeepingAccountCreateParams
-constructor(
+private constructor(
     private val body: BookkeepingAccountCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -136,7 +136,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var name: JsonField<String>? = null
             private var accountId: JsonField<String> = JsonMissing.of()
@@ -235,7 +235,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var body: BookkeepingAccountCreateBody.Builder =
             BookkeepingAccountCreateBody.builder()

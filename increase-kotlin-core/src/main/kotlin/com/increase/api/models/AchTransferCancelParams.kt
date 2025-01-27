@@ -12,7 +12,7 @@ import java.util.Objects
 
 /** Cancels an ACH Transfer in a pending_approval state. */
 class AchTransferCancelParams
-constructor(
+private constructor(
     private val achTransferId: String,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -49,7 +49,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var achTransferId: String? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()

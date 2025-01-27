@@ -11,7 +11,7 @@ import java.util.Objects
 
 /** List Card Payments */
 class CardPaymentListParams
-constructor(
+private constructor(
     private val accountId: String?,
     private val cardId: String?,
     private val createdAt: CreatedAt?,
@@ -62,7 +62,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var accountId: String? = null
         private var cardId: String? = null
@@ -269,7 +269,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var after: OffsetDateTime? = null
             private var before: OffsetDateTime? = null

@@ -20,7 +20,7 @@ import java.util.Objects
 
 /** Update the industry code for a corporate Entity */
 class EntityUpdateIndustryCodeParams
-constructor(
+private constructor(
     private val entityId: String,
     private val body: EntityUpdateIndustryCodeBody,
     private val additionalHeaders: Headers,
@@ -118,7 +118,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var industryCode: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -199,7 +199,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var entityId: String? = null
         private var body: EntityUpdateIndustryCodeBody.Builder =

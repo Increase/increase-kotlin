@@ -14,7 +14,7 @@ import java.util.Objects
 
 /** List OAuth Connections */
 class OAuthConnectionListParams
-constructor(
+private constructor(
     private val cursor: String?,
     private val limit: Long?,
     private val oauthApplicationId: String?,
@@ -60,7 +60,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var cursor: String? = null
         private var limit: Long? = null
@@ -234,7 +234,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var in_: MutableList<In>? = null
             private var additionalProperties: QueryParams.Builder = QueryParams.builder()

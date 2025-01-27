@@ -16,7 +16,7 @@ import java.util.Objects
  * `status` of `pending_approval` or `pending_submission`.
  */
 class SimulationCheckTransferMailParams
-constructor(
+private constructor(
     private val checkTransferId: String,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -53,7 +53,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var checkTransferId: String? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()

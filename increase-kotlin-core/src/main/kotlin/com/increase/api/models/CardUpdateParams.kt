@@ -22,7 +22,7 @@ import java.util.Objects
 
 /** Update a Card */
 class CardUpdateParams
-constructor(
+private constructor(
     private val cardId: String,
     private val body: CardUpdateBody,
     private val additionalHeaders: Headers,
@@ -190,7 +190,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var billingAddress: JsonField<BillingAddress> = JsonMissing.of()
             private var description: JsonField<String> = JsonMissing.of()
@@ -314,7 +314,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var cardId: String? = null
         private var body: CardUpdateBody.Builder = CardUpdateBody.builder()
@@ -589,7 +589,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var city: JsonField<String>? = null
             private var line1: JsonField<String>? = null
@@ -761,7 +761,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var digitalCardProfileId: JsonField<String> = JsonMissing.of()
             private var email: JsonField<String> = JsonMissing.of()

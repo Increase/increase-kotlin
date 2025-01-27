@@ -22,7 +22,7 @@ import java.util.Objects
 
 /** Request a stop payment on a Check Transfer */
 class CheckTransferStopPaymentParams
-constructor(
+private constructor(
     private val checkTransferId: String,
     private val body: CheckTransferStopPaymentBody,
     private val additionalHeaders: Headers,
@@ -96,7 +96,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var reason: JsonField<Reason> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -162,7 +162,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var checkTransferId: String? = null
         private var body: CheckTransferStopPaymentBody.Builder =

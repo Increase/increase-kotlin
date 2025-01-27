@@ -101,7 +101,7 @@ private constructor(
         fun builder() = Builder()
     }
 
-    class Builder {
+    class Builder internal constructor() {
 
         private var declinedTransaction: JsonField<DeclinedTransaction>? = null
         private var pendingTransaction: JsonField<PendingTransaction>? = null

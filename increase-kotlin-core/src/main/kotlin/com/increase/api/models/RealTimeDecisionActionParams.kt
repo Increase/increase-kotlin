@@ -22,7 +22,7 @@ import java.util.Objects
 
 /** Action a Real-Time Decision */
 class RealTimeDecisionActionParams
-constructor(
+private constructor(
     private val realTimeDecisionId: String,
     private val body: RealTimeDecisionActionBody,
     private val additionalHeaders: Headers,
@@ -243,7 +243,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var cardAuthentication: JsonField<CardAuthentication> = JsonMissing.of()
             private var cardAuthenticationChallenge: JsonField<CardAuthenticationChallenge> =
@@ -397,7 +397,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var realTimeDecisionId: String? = null
         private var body: RealTimeDecisionActionBody.Builder = RealTimeDecisionActionBody.builder()
@@ -667,7 +667,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var decision: JsonField<Decision>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -847,7 +847,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var result: JsonField<Result>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -1041,7 +1041,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var decision: JsonField<Decision>? = null
             private var declineReason: JsonField<DeclineReason> = JsonMissing.of()
@@ -1391,7 +1391,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var result: JsonField<Result>? = null
             private var success: JsonField<Success> = JsonMissing.of()
@@ -1566,7 +1566,7 @@ constructor(
                 fun builder() = Builder()
             }
 
-            class Builder {
+            class Builder internal constructor() {
 
                 private var email: JsonField<String> = JsonMissing.of()
                 private var phone: JsonField<String> = JsonMissing.of()
@@ -1731,7 +1731,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var approval: JsonField<Approval> = JsonMissing.of()
             private var decline: JsonField<Decline> = JsonMissing.of()
@@ -1853,7 +1853,7 @@ constructor(
                 fun builder() = Builder()
             }
 
-            class Builder {
+            class Builder internal constructor() {
 
                 private var email: JsonField<String> = JsonMissing.of()
                 private var phone: JsonField<String> = JsonMissing.of()
@@ -1984,7 +1984,7 @@ constructor(
                 fun builder() = Builder()
             }
 
-            class Builder {
+            class Builder internal constructor() {
 
                 private var reason: JsonField<String> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()

@@ -21,7 +21,7 @@ import org.apache.hc.core5.http.ContentType
  * the parameters for creating a file.
  */
 class FileCreateParams
-constructor(
+private constructor(
     private val file: MultipartFormValue<ByteArray>,
     private val purpose: MultipartFormValue<Purpose>,
     private val description: MultipartFormValue<String>?,
@@ -65,7 +65,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var file: MultipartFormValue<ByteArray>? = null
         private var purpose: MultipartFormValue<Purpose>? = null
