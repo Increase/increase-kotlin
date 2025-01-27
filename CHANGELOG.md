@@ -1,5 +1,30 @@
 # Changelog
 
+## 0.161.0 (2025-01-27)
+
+Full Changelog: [v0.160.0...v0.161.0](https://github.com/Increase/increase-kotlin/compare/v0.160.0...v0.161.0)
+
+### Features
+
+* **client:** add `close` method ([#726](https://github.com/Increase/increase-kotlin/issues/726)) ([bed13d2](https://github.com/Increase/increase-kotlin/commit/bed13d2764ca90ce19b295d5e3392e3130a7a374))
+
+
+### Bug Fixes
+
+* **client:** make some classes and constructors non-public ([#729](https://github.com/Increase/increase-kotlin/issues/729)) ([f7f3921](https://github.com/Increase/increase-kotlin/commit/f7f39212373d611aaad4f4e71fae0516edeb5266))
+
+
+### Chores
+
+* add max retries to test ([#724](https://github.com/Increase/increase-kotlin/issues/724)) ([b51bfef](https://github.com/Increase/increase-kotlin/commit/b51bfef0809258d6f01ab5b0494d285c9e506bec))
+* **internal:** remove some unnecessary `constructor` keywords ([f7f3921](https://github.com/Increase/increase-kotlin/commit/f7f39212373d611aaad4f4e71fae0516edeb5266))
+
+
+### Documentation
+
+* `async` and `sync` method comments ([#728](https://github.com/Increase/increase-kotlin/issues/728)) ([ace118b](https://github.com/Increase/increase-kotlin/commit/ace118bb03f346eef71eb7a1089a13902a9b34ad))
+* add client documentation ([#727](https://github.com/Increase/increase-kotlin/issues/727)) ([1121a6a](https://github.com/Increase/increase-kotlin/commit/1121a6a9b953dd0d0fc443fd291761bb72d3745f))
+
 ## 0.160.0 (2025-01-27)
 
 Full Changelog: [v0.159.0...v0.160.0](https://github.com/Increase/increase-kotlin/compare/v0.159.0...v0.160.0)
