@@ -15,7 +15,7 @@ import java.util.Objects
  * Deposit must first have a `status` of `pending`.
  */
 class SimulationCheckDepositSubmitParams
-constructor(
+private constructor(
     private val checkDepositId: String,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -52,7 +52,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var checkDepositId: String? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()

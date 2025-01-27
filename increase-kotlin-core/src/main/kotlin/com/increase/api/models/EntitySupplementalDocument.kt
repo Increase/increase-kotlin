@@ -120,7 +120,7 @@ private constructor(
         fun builder() = Builder()
     }
 
-    class Builder {
+    class Builder internal constructor() {
 
         private var createdAt: JsonField<OffsetDateTime>? = null
         private var entityId: JsonField<String>? = null

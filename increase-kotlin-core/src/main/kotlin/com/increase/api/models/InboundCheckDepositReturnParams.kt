@@ -22,7 +22,7 @@ import java.util.Objects
 
 /** Return an Inbound Check Deposit */
 class InboundCheckDepositReturnParams
-constructor(
+private constructor(
     private val inboundCheckDepositId: String,
     private val body: InboundCheckDepositReturnBody,
     private val additionalHeaders: Headers,
@@ -96,7 +96,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var reason: JsonField<Reason>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -166,7 +166,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var inboundCheckDepositId: String? = null
         private var body: InboundCheckDepositReturnBody.Builder =

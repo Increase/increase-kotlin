@@ -20,7 +20,7 @@ import java.util.Objects
 
 /** Clone a Physical Card Profile */
 class PhysicalCardProfileCloneParams
-constructor(
+private constructor(
     private val physicalCardProfileId: String,
     private val body: PhysicalCardProfileCloneBody,
     private val additionalHeaders: Headers,
@@ -180,7 +180,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var carrierImageFileId: JsonField<String> = JsonMissing.of()
             private var contactPhone: JsonField<String> = JsonMissing.of()
@@ -301,7 +301,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var physicalCardProfileId: String? = null
         private var body: PhysicalCardProfileCloneBody.Builder =
@@ -554,7 +554,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var line1: JsonField<String>? = null
             private var line2: JsonField<String> = JsonMissing.of()

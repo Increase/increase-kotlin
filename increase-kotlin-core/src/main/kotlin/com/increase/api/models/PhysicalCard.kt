@@ -168,7 +168,7 @@ private constructor(
         fun builder() = Builder()
     }
 
-    class Builder {
+    class Builder internal constructor() {
 
         private var id: JsonField<String>? = null
         private var cardId: JsonField<String>? = null
@@ -358,7 +358,7 @@ private constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var firstName: JsonField<String>? = null
             private var lastName: JsonField<String>? = null
@@ -497,7 +497,7 @@ private constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var address: JsonField<Address>? = null
             private var method: JsonField<Method>? = null
@@ -668,7 +668,7 @@ private constructor(
                 fun builder() = Builder()
             }
 
-            class Builder {
+            class Builder internal constructor() {
 
                 private var city: JsonField<String>? = null
                 private var line1: JsonField<String>? = null
@@ -1075,7 +1075,7 @@ private constructor(
                 fun builder() = Builder()
             }
 
-            class Builder {
+            class Builder internal constructor() {
 
                 private var number: JsonField<String>? = null
                 private var returnNumber: JsonField<String>? = null

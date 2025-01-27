@@ -20,7 +20,7 @@ import java.util.Objects
 
 /** Create an Account */
 class AccountCreateParams
-constructor(
+private constructor(
     private val body: AccountCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -158,7 +158,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var name: JsonField<String>? = null
             private var entityId: JsonField<String> = JsonMissing.of()
@@ -268,7 +268,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var body: AccountCreateBody.Builder = AccountCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()

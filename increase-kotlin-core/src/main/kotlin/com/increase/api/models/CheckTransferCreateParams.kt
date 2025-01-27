@@ -22,7 +22,7 @@ import java.util.Objects
 
 /** Create a Check Transfer */
 class CheckTransferCreateParams
-constructor(
+private constructor(
     private val body: CheckTransferCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -235,7 +235,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var accountId: JsonField<String>? = null
             private var amount: JsonField<Long>? = null
@@ -393,7 +393,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var body: CheckTransferCreateBody.Builder = CheckTransferCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
@@ -797,7 +797,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var mailingAddress: JsonField<MailingAddress>? = null
             private var memo: JsonField<String>? = null
@@ -1004,7 +1004,7 @@ constructor(
                 fun builder() = Builder()
             }
 
-            class Builder {
+            class Builder internal constructor() {
 
                 private var city: JsonField<String>? = null
                 private var line1: JsonField<String>? = null
@@ -1215,7 +1215,7 @@ constructor(
                 fun builder() = Builder()
             }
 
-            class Builder {
+            class Builder internal constructor() {
 
                 private var city: JsonField<String>? = null
                 private var line1: JsonField<String>? = null
@@ -1397,7 +1397,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var checkNumber: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()

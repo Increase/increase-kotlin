@@ -22,7 +22,7 @@ import java.util.Objects
 
 /** Simulates receiving a Notification of Change for an [ACH Transfer](#ach-transfers). */
 class SimulationAchTransferCreateNotificationOfChangeParams
-constructor(
+private constructor(
     private val achTransferId: String,
     private val body: SimulationAchTransferCreateNotificationOfChangeBody,
     private val additionalHeaders: Headers,
@@ -116,7 +116,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var changeCode: JsonField<ChangeCode>? = null
             private var correctedData: JsonField<String>? = null
@@ -202,7 +202,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var achTransferId: String? = null
         private var body: SimulationAchTransferCreateNotificationOfChangeBody.Builder =

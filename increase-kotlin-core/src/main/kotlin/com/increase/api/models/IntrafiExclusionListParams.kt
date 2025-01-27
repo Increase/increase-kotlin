@@ -9,7 +9,7 @@ import java.util.Objects
 
 /** List IntraFi Exclusions */
 class IntrafiExclusionListParams
-constructor(
+private constructor(
     private val cursor: String?,
     private val entityId: String?,
     private val idempotencyKey: String?,
@@ -58,7 +58,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var cursor: String? = null
         private var entityId: String? = null

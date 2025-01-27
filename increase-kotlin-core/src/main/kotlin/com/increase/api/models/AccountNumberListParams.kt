@@ -15,7 +15,7 @@ import java.util.Objects
 
 /** List Account Numbers */
 class AccountNumberListParams
-constructor(
+private constructor(
     private val accountId: String?,
     private val achDebitStatus: AchDebitStatus?,
     private val createdAt: CreatedAt?,
@@ -80,7 +80,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var accountId: String? = null
         private var achDebitStatus: AchDebitStatus? = null
@@ -370,7 +370,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var after: OffsetDateTime? = null
             private var before: OffsetDateTime? = null

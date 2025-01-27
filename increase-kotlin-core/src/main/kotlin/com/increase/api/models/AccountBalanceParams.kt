@@ -12,7 +12,7 @@ import java.util.Objects
 
 /** Retrieve an Account Balance */
 class AccountBalanceParams
-constructor(
+private constructor(
     private val accountId: String,
     private val atTime: OffsetDateTime?,
     private val additionalHeaders: Headers,
@@ -55,7 +55,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var accountId: String? = null
         private var atTime: OffsetDateTime? = null

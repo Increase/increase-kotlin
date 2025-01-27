@@ -20,7 +20,7 @@ import java.util.Objects
 
 /** Simulates an [Inbound Wire Transfer](#inbound-wire-transfers) to your account. */
 class SimulationInboundWireTransferCreateParams
-constructor(
+private constructor(
     private val body: SimulationInboundWireTransferCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -571,7 +571,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var accountNumberId: JsonField<String>? = null
             private var amount: JsonField<Long>? = null
@@ -967,7 +967,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var body: SimulationInboundWireTransferCreateBody.Builder =
             SimulationInboundWireTransferCreateBody.builder()

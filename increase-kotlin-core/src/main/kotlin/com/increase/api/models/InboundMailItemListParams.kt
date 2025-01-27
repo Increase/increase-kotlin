@@ -11,7 +11,7 @@ import java.util.Objects
 
 /** List Inbound Mail Items */
 class InboundMailItemListParams
-constructor(
+private constructor(
     private val createdAt: CreatedAt?,
     private val cursor: String?,
     private val limit: Long?,
@@ -57,7 +57,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var createdAt: CreatedAt? = null
         private var cursor: String? = null
@@ -258,7 +258,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var after: OffsetDateTime? = null
             private var before: OffsetDateTime? = null

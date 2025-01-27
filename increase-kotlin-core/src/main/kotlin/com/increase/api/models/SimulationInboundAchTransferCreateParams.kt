@@ -32,7 +32,7 @@ import java.util.Objects
  * whether or not the transfer is allowed.
  */
 class SimulationInboundAchTransferCreateParams
-constructor(
+private constructor(
     private val body: SimulationInboundAchTransferCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -304,7 +304,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var accountNumberId: JsonField<String>? = null
             private var amount: JsonField<Long>? = null
@@ -508,7 +508,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var body: SimulationInboundAchTransferCreateBody.Builder =
             SimulationInboundAchTransferCreateBody.builder()

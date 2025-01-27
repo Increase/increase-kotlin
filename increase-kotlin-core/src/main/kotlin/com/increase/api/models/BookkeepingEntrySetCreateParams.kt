@@ -21,7 +21,7 @@ import java.util.Objects
 
 /** Create a Bookkeeping Entry Set */
 class BookkeepingEntrySetCreateParams
-constructor(
+private constructor(
     private val body: BookkeepingEntrySetCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -130,7 +130,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var entries: JsonField<MutableList<Entry>>? = null
             private var date: JsonField<OffsetDateTime> = JsonMissing.of()
@@ -240,7 +240,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var body: BookkeepingEntrySetCreateBody.Builder =
             BookkeepingEntrySetCreateBody.builder()
@@ -464,7 +464,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var accountId: JsonField<String>? = null
             private var amount: JsonField<Long>? = null

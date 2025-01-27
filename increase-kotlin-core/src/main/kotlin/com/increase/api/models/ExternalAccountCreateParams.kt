@@ -22,7 +22,7 @@ import java.util.Objects
 
 /** Create an External Account */
 class ExternalAccountCreateParams
-constructor(
+private constructor(
     private val body: ExternalAccountCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -169,7 +169,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var accountNumber: JsonField<String>? = null
             private var description: JsonField<String>? = null
@@ -288,7 +288,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var body: ExternalAccountCreateBody.Builder = ExternalAccountCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()

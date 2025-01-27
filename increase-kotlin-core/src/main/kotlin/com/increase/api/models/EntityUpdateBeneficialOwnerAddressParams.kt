@@ -20,7 +20,7 @@ import java.util.Objects
 
 /** Update the address for a beneficial owner belonging to a corporate Entity */
 class EntityUpdateBeneficialOwnerAddressParams
-constructor(
+private constructor(
     private val entityId: String,
     private val body: EntityUpdateBeneficialOwnerAddressBody,
     private val additionalHeaders: Headers,
@@ -131,7 +131,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var address: JsonField<Address>? = null
             private var beneficialOwnerId: JsonField<String>? = null
@@ -226,7 +226,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var entityId: String? = null
         private var body: EntityUpdateBeneficialOwnerAddressBody.Builder =
@@ -490,7 +490,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var city: JsonField<String>? = null
             private var line1: JsonField<String>? = null

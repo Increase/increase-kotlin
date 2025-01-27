@@ -16,7 +16,7 @@ import java.util.Objects
 
 /** List Entities */
 class EntityListParams
-constructor(
+private constructor(
     private val createdAt: CreatedAt?,
     private val cursor: String?,
     private val idempotencyKey: String?,
@@ -70,7 +70,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var createdAt: CreatedAt? = null
         private var cursor: String? = null
@@ -281,7 +281,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var after: OffsetDateTime? = null
             private var before: OffsetDateTime? = null
@@ -424,7 +424,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var in_: MutableList<In>? = null
             private var additionalProperties: QueryParams.Builder = QueryParams.builder()
