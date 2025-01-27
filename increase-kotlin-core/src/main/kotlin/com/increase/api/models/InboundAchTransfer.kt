@@ -390,7 +390,7 @@ private constructor(
         fun builder() = Builder()
     }
 
-    class Builder {
+    class Builder internal constructor() {
 
         private var id: JsonField<String>? = null
         private var acceptance: JsonField<Acceptance>? = null
@@ -808,7 +808,7 @@ private constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var acceptedAt: JsonField<OffsetDateTime>? = null
             private var transactionId: JsonField<String>? = null
@@ -931,7 +931,7 @@ private constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var category: JsonField<Category>? = null
             private var freeform: JsonField<Freeform>? = null
@@ -1079,7 +1079,7 @@ private constructor(
                 fun builder() = Builder()
             }
 
-            class Builder {
+            class Builder internal constructor() {
 
                 private var entries: JsonField<MutableList<Entry>>? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -1180,7 +1180,7 @@ private constructor(
                     fun builder() = Builder()
                 }
 
-                class Builder {
+                class Builder internal constructor() {
 
                     private var paymentRelatedInformation: JsonField<String>? = null
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -1348,7 +1348,7 @@ private constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var declinedAt: JsonField<OffsetDateTime>? = null
             private var declinedTransactionId: JsonField<String>? = null
@@ -2384,7 +2384,7 @@ private constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var destinationCountryCode: JsonField<String>? = null
             private var destinationCurrencyCode: JsonField<String>? = null
@@ -3707,7 +3707,7 @@ private constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var updatedAccountNumber: JsonField<String>? = null
             private var updatedRoutingNumber: JsonField<String>? = null
@@ -4127,7 +4127,7 @@ private constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var reason: JsonField<Reason>? = null
             private var returnedAt: JsonField<OffsetDateTime>? = null

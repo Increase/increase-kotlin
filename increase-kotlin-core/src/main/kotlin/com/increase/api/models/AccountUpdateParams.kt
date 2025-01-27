@@ -20,7 +20,7 @@ import java.util.Objects
 
 /** Update an Account */
 class AccountUpdateParams
-constructor(
+private constructor(
     private val accountId: String,
     private val body: AccountUpdateBody,
     private val additionalHeaders: Headers,
@@ -94,7 +94,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var name: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -159,7 +159,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var accountId: String? = null
         private var body: AccountUpdateBody.Builder = AccountUpdateBody.builder()

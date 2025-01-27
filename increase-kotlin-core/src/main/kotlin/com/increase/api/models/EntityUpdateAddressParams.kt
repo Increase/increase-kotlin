@@ -20,7 +20,7 @@ import java.util.Objects
 
 /** Update a Natural Person or Corporation's address */
 class EntityUpdateAddressParams
-constructor(
+private constructor(
     private val entityId: String,
     private val body: EntityUpdateAddressBody,
     private val additionalHeaders: Headers,
@@ -106,7 +106,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var address: JsonField<Address>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -180,7 +180,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var entityId: String? = null
         private var body: EntityUpdateAddressBody.Builder = EntityUpdateAddressBody.builder()
@@ -422,7 +422,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var city: JsonField<String>? = null
             private var line1: JsonField<String>? = null

@@ -23,7 +23,7 @@ import java.util.Objects
 
 /** Create an Export */
 class ExportCreateParams
-constructor(
+private constructor(
     private val body: ExportCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -213,7 +213,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var category: JsonField<Category>? = null
             private var accountStatementOfx: JsonField<AccountStatementOfx> = JsonMissing.of()
@@ -361,7 +361,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var body: ExportCreateBody.Builder = ExportCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
@@ -724,7 +724,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var accountId: JsonField<String>? = null
             private var createdAt: JsonField<CreatedAt> = JsonMissing.of()
@@ -875,7 +875,7 @@ constructor(
                 fun builder() = Builder()
             }
 
-            class Builder {
+            class Builder internal constructor() {
 
                 private var after: JsonField<OffsetDateTime> = JsonMissing.of()
                 private var before: JsonField<OffsetDateTime> = JsonMissing.of()
@@ -1073,7 +1073,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var accountId: JsonField<String> = JsonMissing.of()
             private var createdAt: JsonField<CreatedAt> = JsonMissing.of()
@@ -1233,7 +1233,7 @@ constructor(
                 fun builder() = Builder()
             }
 
-            class Builder {
+            class Builder internal constructor() {
 
                 private var after: JsonField<OffsetDateTime> = JsonMissing.of()
                 private var before: JsonField<OffsetDateTime> = JsonMissing.of()
@@ -1427,7 +1427,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var bookkeepingAccountId: JsonField<String> = JsonMissing.of()
             private var createdAt: JsonField<CreatedAt> = JsonMissing.of()
@@ -1582,7 +1582,7 @@ constructor(
                 fun builder() = Builder()
             }
 
-            class Builder {
+            class Builder internal constructor() {
 
                 private var after: JsonField<OffsetDateTime> = JsonMissing.of()
                 private var before: JsonField<OffsetDateTime> = JsonMissing.of()
@@ -1758,7 +1758,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var status: JsonField<Status> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -1842,7 +1842,7 @@ constructor(
                 fun builder() = Builder()
             }
 
-            class Builder {
+            class Builder internal constructor() {
 
                 private var in_: JsonField<MutableList<In>>? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -2085,7 +2085,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var accountId: JsonField<String> = JsonMissing.of()
             private var createdAt: JsonField<CreatedAt> = JsonMissing.of()
@@ -2245,7 +2245,7 @@ constructor(
                 fun builder() = Builder()
             }
 
-            class Builder {
+            class Builder internal constructor() {
 
                 private var after: JsonField<OffsetDateTime> = JsonMissing.of()
                 private var before: JsonField<OffsetDateTime> = JsonMissing.of()

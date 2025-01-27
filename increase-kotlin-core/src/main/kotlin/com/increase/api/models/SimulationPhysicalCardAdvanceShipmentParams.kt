@@ -25,7 +25,7 @@ import java.util.Objects
  * simulate e.g., that a physical card was attempted shipped but then failed delivery.
  */
 class SimulationPhysicalCardAdvanceShipmentParams
-constructor(
+private constructor(
     private val physicalCardId: String,
     private val body: SimulationPhysicalCardAdvanceShipmentBody,
     private val additionalHeaders: Headers,
@@ -101,7 +101,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var shipmentStatus: JsonField<ShipmentStatus>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -175,7 +175,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var physicalCardId: String? = null
         private var body: SimulationPhysicalCardAdvanceShipmentBody.Builder =

@@ -22,7 +22,7 @@ import java.util.Objects
 
 /** Update an Event Subscription */
 class EventSubscriptionUpdateParams
-constructor(
+private constructor(
     private val eventSubscriptionId: String,
     private val body: EventSubscriptionUpdateBody,
     private val additionalHeaders: Headers,
@@ -96,7 +96,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var status: JsonField<Status> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -162,7 +162,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var eventSubscriptionId: String? = null
         private var body: EventSubscriptionUpdateBody.Builder =

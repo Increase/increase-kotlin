@@ -22,7 +22,7 @@ import java.util.Objects
 
 /** Create an OAuth Token */
 class OAuthTokenCreateParams
-constructor(
+private constructor(
     private val body: OAuthTokenCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -191,7 +191,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var grantType: JsonField<GrantType>? = null
             private var clientId: JsonField<String> = JsonMissing.of()
@@ -322,7 +322,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var body: OAuthTokenCreateBody.Builder = OAuthTokenCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()

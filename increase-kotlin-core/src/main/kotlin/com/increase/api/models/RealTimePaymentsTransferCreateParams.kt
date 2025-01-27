@@ -20,7 +20,7 @@ import java.util.Objects
 
 /** Create a Real-Time Payments Transfer */
 class RealTimePaymentsTransferCreateParams
-constructor(
+private constructor(
     private val body: RealTimePaymentsTransferCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -316,7 +316,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var amount: JsonField<Long>? = null
             private var creditorName: JsonField<String>? = null
@@ -535,7 +535,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var body: RealTimePaymentsTransferCreateBody.Builder =
             RealTimePaymentsTransferCreateBody.builder()

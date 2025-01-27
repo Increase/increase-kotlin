@@ -22,7 +22,7 @@ import java.util.Objects
 
 /** Decline an Inbound ACH Transfer */
 class InboundAchTransferDeclineParams
-constructor(
+private constructor(
     private val inboundAchTransferId: String,
     private val body: InboundAchTransferDeclineBody,
     private val additionalHeaders: Headers,
@@ -110,7 +110,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var reason: JsonField<Reason> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -185,7 +185,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var inboundAchTransferId: String? = null
         private var body: InboundAchTransferDeclineBody.Builder =

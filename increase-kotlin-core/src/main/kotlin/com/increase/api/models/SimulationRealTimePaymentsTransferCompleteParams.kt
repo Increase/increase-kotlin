@@ -26,7 +26,7 @@ import java.util.Objects
  * `status` of `pending_submission`.
  */
 class SimulationRealTimePaymentsTransferCompleteParams
-constructor(
+private constructor(
     private val realTimePaymentsTransferId: String,
     private val body: SimulationRealTimePaymentsTransferCompleteBody,
     private val additionalHeaders: Headers,
@@ -102,7 +102,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var rejection: JsonField<Rejection> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -175,7 +175,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var realTimePaymentsTransferId: String? = null
         private var body: SimulationRealTimePaymentsTransferCompleteBody.Builder =
@@ -376,7 +376,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var rejectReasonCode: JsonField<RejectReasonCode>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()

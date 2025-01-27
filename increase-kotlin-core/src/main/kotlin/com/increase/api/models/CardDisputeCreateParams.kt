@@ -20,7 +20,7 @@ import java.util.Objects
 
 /** Create a Card Dispute */
 class CardDisputeCreateParams
-constructor(
+private constructor(
     private val body: CardDisputeCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -148,7 +148,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var disputedTransactionId: JsonField<String>? = null
             private var explanation: JsonField<String>? = null
@@ -253,7 +253,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var body: CardDisputeCreateBody.Builder = CardDisputeCreateBody.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()

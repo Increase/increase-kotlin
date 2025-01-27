@@ -11,7 +11,7 @@ import java.util.Objects
 
 /** List Lockboxes */
 class LockboxListParams
-constructor(
+private constructor(
     private val accountId: String?,
     private val createdAt: CreatedAt?,
     private val cursor: String?,
@@ -66,7 +66,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var accountId: String? = null
         private var createdAt: CreatedAt? = null
@@ -278,7 +278,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var after: OffsetDateTime? = null
             private var before: OffsetDateTime? = null

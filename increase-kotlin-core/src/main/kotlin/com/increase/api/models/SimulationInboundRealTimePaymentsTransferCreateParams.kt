@@ -23,7 +23,7 @@ import java.util.Objects
  * account. Real-Time Payments are a beta feature.
  */
 class SimulationInboundRealTimePaymentsTransferCreateParams
-constructor(
+private constructor(
     private val body: SimulationInboundRealTimePaymentsTransferCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -198,7 +198,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var accountNumberId: JsonField<String>? = null
             private var amount: JsonField<Long>? = null
@@ -349,7 +349,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var body: SimulationInboundRealTimePaymentsTransferCreateBody.Builder =
             SimulationInboundRealTimePaymentsTransferCreateBody.builder()

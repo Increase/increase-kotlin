@@ -20,7 +20,7 @@ import java.util.Objects
 
 /** Create a Digital Card Profile */
 class DigitalCardProfileCreateParams
-constructor(
+private constructor(
     private val body: DigitalCardProfileCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -230,7 +230,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var appIconFileId: JsonField<String>? = null
             private var backgroundImageFileId: JsonField<String>? = null
@@ -388,7 +388,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var body: DigitalCardProfileCreateBody.Builder =
             DigitalCardProfileCreateBody.builder()
@@ -652,7 +652,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var blue: JsonField<Long>? = null
             private var green: JsonField<Long>? = null

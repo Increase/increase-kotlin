@@ -24,7 +24,7 @@ import java.util.Objects
  * first of each month.
  */
 class SimulationInterestPaymentCreateParams
-constructor(
+private constructor(
     private val body: SimulationInterestPaymentCreateBody,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -139,7 +139,7 @@ constructor(
             fun builder() = Builder()
         }
 
-        class Builder {
+        class Builder internal constructor() {
 
             private var accountId: JsonField<String>? = null
             private var amount: JsonField<Long>? = null
@@ -241,7 +241,7 @@ constructor(
     }
 
     @NoAutoDetect
-    class Builder {
+    class Builder internal constructor() {
 
         private var body: SimulationInterestPaymentCreateBody.Builder =
             SimulationInterestPaymentCreateBody.builder()
