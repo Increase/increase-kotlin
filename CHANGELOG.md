@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.164.1 (2025-01-30)
+
+Full Changelog: [v0.164.0...v0.164.1](https://github.com/Increase/increase-kotlin/compare/v0.164.0...v0.164.1)
+
+### Bug Fixes
+
+* **client:** don't leak responses when retrying ([#742](https://github.com/Increase/increase-kotlin/issues/742)) ([c7f0301](https://github.com/Increase/increase-kotlin/commit/c7f0301cd2f154e27bbcfe53300f178e02ca29e3))
+
+
+### Documentation
+
+* fix incorrect additional properties info ([#744](https://github.com/Increase/increase-kotlin/issues/744)) ([17f5e19](https://github.com/Increase/increase-kotlin/commit/17f5e190d3ba3784d58b823d4a601d6605f1109c))
+
 ## 0.164.0 (2025-01-30)
 
 Full Changelog: [v0.163.0...v0.164.0](https://github.com/Increase/increase-kotlin/compare/v0.163.0...v0.164.0)
