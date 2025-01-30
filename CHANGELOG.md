@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.164.0 (2025-01-30)
+
+Full Changelog: [v0.163.0...v0.164.0](https://github.com/Increase/increase-kotlin/compare/v0.163.0...v0.164.0)
+
+### Features
+
+* **api:** api update ([#741](https://github.com/Increase/increase-kotlin/issues/741)) ([caaca46](https://github.com/Increase/increase-kotlin/commit/caaca46add3d09542370851720bc72f39ee4c78f))
+* **client:** add `_queryParams` and `_headers` methods ([#738](https://github.com/Increase/increase-kotlin/issues/738)) ([b3cc4af](https://github.com/Increase/increase-kotlin/commit/b3cc4af08ba2914395578897b8eca2ca5b54fe18))
+
+
+### Chores
+
+* **internal:** improve `RetryingHttpClientTest` ([#740](https://github.com/Increase/increase-kotlin/issues/740)) ([b833b42](https://github.com/Increase/increase-kotlin/commit/b833b424f2c6cd3f3542a99b4bd2e304187d21bf))
+
+
+### Refactors
+
+* **internal:** extract request preparation logic ([b3cc4af](https://github.com/Increase/increase-kotlin/commit/b3cc4af08ba2914395578897b8eca2ca5b54fe18))
+
 ## 0.163.0 (2025-01-30)
 
 Full Changelog: [v0.162.0...v0.163.0](https://github.com/Increase/increase-kotlin/compare/v0.162.0...v0.163.0)
