@@ -8,6 +8,7 @@ import com.increase.api.core.Enum
 import com.increase.api.core.JsonField
 import com.increase.api.core.MultipartFormValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.Params
 import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
@@ -27,7 +28,7 @@ private constructor(
     private val description: MultipartFormValue<String>?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-) {
+) : Params {
 
     /**
      * The file contents. This should follow the specifications of
@@ -46,16 +47,16 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun getBody(): Array<MultipartFormValue<*>?> =
+    internal fun _body(): Array<MultipartFormValue<*>?> =
         arrayOf(
             file(),
             purpose(),
             description(),
         )
 
-    internal fun getHeaders(): Headers = additionalHeaders
+    override fun _headers(): Headers = additionalHeaders
 
-    internal fun getQueryParams(): QueryParams = additionalQueryParams
+    override fun _queryParams(): QueryParams = additionalQueryParams
 
     fun toBuilder() = Builder().from(this)
 
