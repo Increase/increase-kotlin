@@ -726,7 +726,8 @@ private constructor(
 
         /**
          * A Card Authorization object. This field will be present in the JSON response if and only
-         * if `category` is equal to `card_authorization`.
+         * if `category` is equal to `card_authorization`. Card Authorizations are temporary holds
+         * placed on a customers funds with the intent to later clear a transaction.
          */
         fun cardAuthorization(): CardAuthorization? =
             cardAuthorization.getNullable("card_authorization")
@@ -753,14 +754,18 @@ private constructor(
 
         /**
          * An Inbound Funds Hold object. This field will be present in the JSON response if and only
-         * if `category` is equal to `inbound_funds_hold`.
+         * if `category` is equal to `inbound_funds_hold`. We hold funds for certain transaction
+         * types to account for return windows where funds might still be clawed back by the sending
+         * institution.
          */
         fun inboundFundsHold(): InboundFundsHold? =
             inboundFundsHold.getNullable("inbound_funds_hold")
 
         /**
          * An Inbound Wire Transfer Reversal object. This field will be present in the JSON response
-         * if and only if `category` is equal to `inbound_wire_transfer_reversal`.
+         * if and only if `category` is equal to `inbound_wire_transfer_reversal`. An Inbound Wire
+         * Transfer Reversal is created when Increase has received a wire and the User requests that
+         * it be reversed.
          */
         fun inboundWireTransferReversal(): InboundWireTransferReversal? =
             inboundWireTransferReversal.getNullable("inbound_wire_transfer_reversal")
@@ -806,7 +811,8 @@ private constructor(
 
         /**
          * A Card Authorization object. This field will be present in the JSON response if and only
-         * if `category` is equal to `card_authorization`.
+         * if `category` is equal to `card_authorization`. Card Authorizations are temporary holds
+         * placed on a customers funds with the intent to later clear a transaction.
          */
         @JsonProperty("card_authorization")
         @ExcludeMissing
@@ -837,7 +843,9 @@ private constructor(
 
         /**
          * An Inbound Funds Hold object. This field will be present in the JSON response if and only
-         * if `category` is equal to `inbound_funds_hold`.
+         * if `category` is equal to `inbound_funds_hold`. We hold funds for certain transaction
+         * types to account for return windows where funds might still be clawed back by the sending
+         * institution.
          */
         @JsonProperty("inbound_funds_hold")
         @ExcludeMissing
@@ -845,7 +853,9 @@ private constructor(
 
         /**
          * An Inbound Wire Transfer Reversal object. This field will be present in the JSON response
-         * if and only if `category` is equal to `inbound_wire_transfer_reversal`.
+         * if and only if `category` is equal to `inbound_wire_transfer_reversal`. An Inbound Wire
+         * Transfer Reversal is created when Increase has received a wire and the User requests that
+         * it be reversed.
          */
         @JsonProperty("inbound_wire_transfer_reversal")
         @ExcludeMissing
@@ -967,14 +977,18 @@ private constructor(
 
             /**
              * A Card Authorization object. This field will be present in the JSON response if and
-             * only if `category` is equal to `card_authorization`.
+             * only if `category` is equal to `card_authorization`. Card Authorizations are
+             * temporary holds placed on a customers funds with the intent to later clear a
+             * transaction.
              */
             fun cardAuthorization(cardAuthorization: CardAuthorization?) =
                 cardAuthorization(JsonField.ofNullable(cardAuthorization))
 
             /**
              * A Card Authorization object. This field will be present in the JSON response if and
-             * only if `category` is equal to `card_authorization`.
+             * only if `category` is equal to `card_authorization`. Card Authorizations are
+             * temporary holds placed on a customers funds with the intent to later clear a
+             * transaction.
              */
             fun cardAuthorization(cardAuthorization: JsonField<CardAuthorization>) = apply {
                 this.cardAuthorization = cardAuthorization
@@ -1024,14 +1038,18 @@ private constructor(
 
             /**
              * An Inbound Funds Hold object. This field will be present in the JSON response if and
-             * only if `category` is equal to `inbound_funds_hold`.
+             * only if `category` is equal to `inbound_funds_hold`. We hold funds for certain
+             * transaction types to account for return windows where funds might still be clawed
+             * back by the sending institution.
              */
             fun inboundFundsHold(inboundFundsHold: InboundFundsHold?) =
                 inboundFundsHold(JsonField.ofNullable(inboundFundsHold))
 
             /**
              * An Inbound Funds Hold object. This field will be present in the JSON response if and
-             * only if `category` is equal to `inbound_funds_hold`.
+             * only if `category` is equal to `inbound_funds_hold`. We hold funds for certain
+             * transaction types to account for return windows where funds might still be clawed
+             * back by the sending institution.
              */
             fun inboundFundsHold(inboundFundsHold: JsonField<InboundFundsHold>) = apply {
                 this.inboundFundsHold = inboundFundsHold
@@ -1039,7 +1057,9 @@ private constructor(
 
             /**
              * An Inbound Wire Transfer Reversal object. This field will be present in the JSON
-             * response if and only if `category` is equal to `inbound_wire_transfer_reversal`.
+             * response if and only if `category` is equal to `inbound_wire_transfer_reversal`. An
+             * Inbound Wire Transfer Reversal is created when Increase has received a wire and the
+             * User requests that it be reversed.
              */
             fun inboundWireTransferReversal(
                 inboundWireTransferReversal: InboundWireTransferReversal?
@@ -1047,7 +1067,9 @@ private constructor(
 
             /**
              * An Inbound Wire Transfer Reversal object. This field will be present in the JSON
-             * response if and only if `category` is equal to `inbound_wire_transfer_reversal`.
+             * response if and only if `category` is equal to `inbound_wire_transfer_reversal`. An
+             * Inbound Wire Transfer Reversal is created when Increase has received a wire and the
+             * User requests that it be reversed.
              */
             fun inboundWireTransferReversal(
                 inboundWireTransferReversal: JsonField<InboundWireTransferReversal>
@@ -1586,7 +1608,8 @@ private constructor(
 
         /**
          * A Card Authorization object. This field will be present in the JSON response if and only
-         * if `category` is equal to `card_authorization`.
+         * if `category` is equal to `card_authorization`. Card Authorizations are temporary holds
+         * placed on a customers funds with the intent to later clear a transaction.
          */
         @NoAutoDetect
         class CardAuthorization
@@ -6172,7 +6195,9 @@ private constructor(
 
         /**
          * An Inbound Funds Hold object. This field will be present in the JSON response if and only
-         * if `category` is equal to `inbound_funds_hold`.
+         * if `category` is equal to `inbound_funds_hold`. We hold funds for certain transaction
+         * types to account for return windows where funds might still be clawed back by the sending
+         * institution.
          */
         @NoAutoDetect
         class InboundFundsHold
@@ -6871,7 +6896,9 @@ private constructor(
 
         /**
          * An Inbound Wire Transfer Reversal object. This field will be present in the JSON response
-         * if and only if `category` is equal to `inbound_wire_transfer_reversal`.
+         * if and only if `category` is equal to `inbound_wire_transfer_reversal`. An Inbound Wire
+         * Transfer Reversal is created when Increase has received a wire and the User requests that
+         * it be reversed.
          */
         @NoAutoDetect
         class InboundWireTransferReversal
