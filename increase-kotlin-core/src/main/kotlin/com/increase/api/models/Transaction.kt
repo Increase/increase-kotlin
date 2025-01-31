@@ -723,67 +723,85 @@ private constructor(
 
         /**
          * An Account Transfer Intention object. This field will be present in the JSON response if
-         * and only if `category` is equal to `account_transfer_intention`.
+         * and only if `category` is equal to `account_transfer_intention`. Two Account Transfer
+         * Intentions are created from each Account Transfer. One decrements the source account, and
+         * the other increments the destination account.
          */
         fun accountTransferIntention(): AccountTransferIntention? =
             accountTransferIntention.getNullable("account_transfer_intention")
 
         /**
          * An ACH Transfer Intention object. This field will be present in the JSON response if and
-         * only if `category` is equal to `ach_transfer_intention`.
+         * only if `category` is equal to `ach_transfer_intention`. An ACH Transfer Intention is
+         * created from an ACH Transfer. It reflects the intention to move money into or out of an
+         * Increase account via the ACH network.
          */
         fun achTransferIntention(): AchTransferIntention? =
             achTransferIntention.getNullable("ach_transfer_intention")
 
         /**
          * An ACH Transfer Rejection object. This field will be present in the JSON response if and
-         * only if `category` is equal to `ach_transfer_rejection`.
+         * only if `category` is equal to `ach_transfer_rejection`. An ACH Transfer Rejection is
+         * created when an ACH Transfer is rejected by Increase. It offsets the ACH Transfer
+         * Intention. These rejections are rare.
          */
         fun achTransferRejection(): AchTransferRejection? =
             achTransferRejection.getNullable("ach_transfer_rejection")
 
         /**
          * An ACH Transfer Return object. This field will be present in the JSON response if and
-         * only if `category` is equal to `ach_transfer_return`.
+         * only if `category` is equal to `ach_transfer_return`. An ACH Transfer Return is created
+         * when an ACH Transfer is returned by the receiving bank. It offsets the ACH Transfer
+         * Intention. ACH Transfer Returns usually occur within the first two business days after
+         * the transfer is initiated, but can occur much later.
          */
         fun achTransferReturn(): AchTransferReturn? =
             achTransferReturn.getNullable("ach_transfer_return")
 
         /**
          * A Card Dispute Acceptance object. This field will be present in the JSON response if and
-         * only if `category` is equal to `card_dispute_acceptance`.
+         * only if `category` is equal to `card_dispute_acceptance`. Contains the details of a
+         * successful Card Dispute.
          */
         fun cardDisputeAcceptance(): CardDisputeAcceptance? =
             cardDisputeAcceptance.getNullable("card_dispute_acceptance")
 
         /**
          * A Card Dispute Loss object. This field will be present in the JSON response if and only
-         * if `category` is equal to `card_dispute_loss`.
+         * if `category` is equal to `card_dispute_loss`. Contains the details of a lost Card
+         * Dispute.
          */
         fun cardDisputeLoss(): CardDisputeLoss? = cardDisputeLoss.getNullable("card_dispute_loss")
 
         /**
          * A Card Refund object. This field will be present in the JSON response if and only if
-         * `category` is equal to `card_refund`.
+         * `category` is equal to `card_refund`. Card Refunds move money back to the cardholder.
+         * While they are usually connected to a Card Settlement an acquirer can also refund money
+         * directly to a card without relation to a transaction.
          */
         fun cardRefund(): CardRefund? = cardRefund.getNullable("card_refund")
 
         /**
          * A Card Revenue Payment object. This field will be present in the JSON response if and
-         * only if `category` is equal to `card_revenue_payment`.
+         * only if `category` is equal to `card_revenue_payment`. Card Revenue Payments reflect
+         * earnings from fees on card transactions.
          */
         fun cardRevenuePayment(): CardRevenuePayment? =
             cardRevenuePayment.getNullable("card_revenue_payment")
 
         /**
          * A Card Settlement object. This field will be present in the JSON response if and only if
-         * `category` is equal to `card_settlement`.
+         * `category` is equal to `card_settlement`. Card Settlements are card transactions that
+         * have cleared and settled. While a settlement is usually preceded by an authorization, an
+         * acquirer can also directly clear a transaction without first authorizing it.
          */
         fun cardSettlement(): CardSettlement? = cardSettlement.getNullable("card_settlement")
 
         /**
          * A Cashback Payment object. This field will be present in the JSON response if and only if
-         * `category` is equal to `cashback_payment`.
+         * `category` is equal to `cashback_payment`. A Cashback Payment represents the cashback
+         * paid to a cardholder for a given period. Cashback is usually paid monthly for the prior
+         * month's transactions.
          */
         fun cashbackPayment(): CashbackPayment? = cashbackPayment.getNullable("cashback_payment")
 
@@ -795,34 +813,45 @@ private constructor(
 
         /**
          * A Check Deposit Acceptance object. This field will be present in the JSON response if and
-         * only if `category` is equal to `check_deposit_acceptance`.
+         * only if `category` is equal to `check_deposit_acceptance`. A Check Deposit Acceptance is
+         * created when a Check Deposit is processed and its details confirmed. Check Deposits may
+         * be returned by the receiving bank, which will appear as a Check Deposit Return.
          */
         fun checkDepositAcceptance(): CheckDepositAcceptance? =
             checkDepositAcceptance.getNullable("check_deposit_acceptance")
 
         /**
          * A Check Deposit Return object. This field will be present in the JSON response if and
-         * only if `category` is equal to `check_deposit_return`.
+         * only if `category` is equal to `check_deposit_return`. A Check Deposit Return is created
+         * when a Check Deposit is returned by the bank holding the account it was drawn against.
+         * Check Deposits may be returned for a variety of reasons, including insufficient funds or
+         * a mismatched account number. Usually, checks are returned within the first 7 days after
+         * the deposit is made.
          */
         fun checkDepositReturn(): CheckDepositReturn? =
             checkDepositReturn.getNullable("check_deposit_return")
 
         /**
          * A Check Transfer Deposit object. This field will be present in the JSON response if and
-         * only if `category` is equal to `check_transfer_deposit`.
+         * only if `category` is equal to `check_transfer_deposit`. An Inbound Check is a check
+         * drawn on an Increase account that has been deposited by an external bank account. These
+         * types of checks are not pre-registered.
          */
         fun checkTransferDeposit(): CheckTransferDeposit? =
             checkTransferDeposit.getNullable("check_transfer_deposit")
 
         /**
          * A Fee Payment object. This field will be present in the JSON response if and only if
-         * `category` is equal to `fee_payment`.
+         * `category` is equal to `fee_payment`. A Fee Payment represents a payment made to
+         * Increase.
          */
         fun feePayment(): FeePayment? = feePayment.getNullable("fee_payment")
 
         /**
          * An Inbound ACH Transfer Intention object. This field will be present in the JSON response
-         * if and only if `category` is equal to `inbound_ach_transfer`.
+         * if and only if `category` is equal to `inbound_ach_transfer`. An Inbound ACH Transfer
+         * Intention is created when an ACH transfer is initiated at another bank and received by
+         * Increase.
          */
         fun inboundAchTransfer(): InboundAchTransfer? =
             inboundAchTransfer.getNullable("inbound_ach_transfer")
@@ -830,13 +859,17 @@ private constructor(
         /**
          * An Inbound ACH Transfer Return Intention object. This field will be present in the JSON
          * response if and only if `category` is equal to `inbound_ach_transfer_return_intention`.
+         * An Inbound ACH Transfer Return Intention is created when an ACH transfer is initiated at
+         * another bank and returned by Increase.
          */
         fun inboundAchTransferReturnIntention(): InboundAchTransferReturnIntention? =
             inboundAchTransferReturnIntention.getNullable("inbound_ach_transfer_return_intention")
 
         /**
          * An Inbound Check Adjustment object. This field will be present in the JSON response if
-         * and only if `category` is equal to `inbound_check_adjustment`.
+         * and only if `category` is equal to `inbound_check_adjustment`. An Inbound Check
+         * Adjustment is created when Increase receives an adjustment for a check or return
+         * deposited through Check21.
          */
         fun inboundCheckAdjustment(): InboundCheckAdjustment? =
             inboundCheckAdjustment.getNullable("inbound_check_adjustment")
@@ -844,6 +877,8 @@ private constructor(
         /**
          * An Inbound Check Deposit Return Intention object. This field will be present in the JSON
          * response if and only if `category` is equal to `inbound_check_deposit_return_intention`.
+         * An Inbound Check Deposit Return Intention is created when Increase receives an Inbound
+         * Check and the User requests that it be returned.
          */
         fun inboundCheckDepositReturnIntention(): InboundCheckDepositReturnIntention? =
             inboundCheckDepositReturnIntention.getNullable("inbound_check_deposit_return_intention")
@@ -851,7 +886,9 @@ private constructor(
         /**
          * An Inbound Real-Time Payments Transfer Confirmation object. This field will be present in
          * the JSON response if and only if `category` is equal to
-         * `inbound_real_time_payments_transfer_confirmation`.
+         * `inbound_real_time_payments_transfer_confirmation`. An Inbound Real-Time Payments
+         * Transfer Confirmation is created when a Real-Time Payments transfer is initiated at
+         * another bank and received by Increase.
          */
         fun inboundRealTimePaymentsTransferConfirmation():
             InboundRealTimePaymentsTransferConfirmation? =
@@ -871,34 +908,43 @@ private constructor(
 
         /**
          * An Inbound Wire Reversal object. This field will be present in the JSON response if and
-         * only if `category` is equal to `inbound_wire_reversal`.
+         * only if `category` is equal to `inbound_wire_reversal`. An Inbound Wire Reversal
+         * represents a reversal of a wire transfer that was initiated via Increase. The other bank
+         * is sending the money back. This most often happens when the original destination account
+         * details were incorrect.
          */
         fun inboundWireReversal(): InboundWireReversal? =
             inboundWireReversal.getNullable("inbound_wire_reversal")
 
         /**
          * An Inbound Wire Transfer Intention object. This field will be present in the JSON
-         * response if and only if `category` is equal to `inbound_wire_transfer`.
+         * response if and only if `category` is equal to `inbound_wire_transfer`. An Inbound Wire
+         * Transfer Intention is created when a wire transfer is initiated at another bank and
+         * received by Increase.
          */
         fun inboundWireTransfer(): InboundWireTransfer? =
             inboundWireTransfer.getNullable("inbound_wire_transfer")
 
         /**
          * An Inbound Wire Transfer Reversal Intention object. This field will be present in the
-         * JSON response if and only if `category` is equal to `inbound_wire_transfer_reversal`.
+         * JSON response if and only if `category` is equal to `inbound_wire_transfer_reversal`. An
+         * Inbound Wire Transfer Reversal Intention is created when Increase has received a wire and
+         * the User requests that it be reversed.
          */
         fun inboundWireTransferReversal(): InboundWireTransferReversal? =
             inboundWireTransferReversal.getNullable("inbound_wire_transfer_reversal")
 
         /**
          * An Interest Payment object. This field will be present in the JSON response if and only
-         * if `category` is equal to `interest_payment`.
+         * if `category` is equal to `interest_payment`. An Interest Payment represents a payment of
+         * interest on an account. Interest is usually paid monthly.
          */
         fun interestPayment(): InterestPayment? = interestPayment.getNullable("interest_payment")
 
         /**
          * An Internal Source object. This field will be present in the JSON response if and only if
-         * `category` is equal to `internal_source`.
+         * `category` is equal to `internal_source`. A transaction between the user and Increase.
+         * See the `reason` attribute for more information.
          */
         fun internalSource(): InternalSource? = internalSource.getNullable("internal_source")
 
@@ -911,7 +957,9 @@ private constructor(
         /**
          * A Real-Time Payments Transfer Acknowledgement object. This field will be present in the
          * JSON response if and only if `category` is equal to
-         * `real_time_payments_transfer_acknowledgement`.
+         * `real_time_payments_transfer_acknowledgement`. A Real-Time Payments Transfer
+         * Acknowledgement is created when a Real-Time Payments Transfer sent from Increase is
+         * acknowledged by the receiving bank.
          */
         fun realTimePaymentsTransferAcknowledgement(): RealTimePaymentsTransferAcknowledgement? =
             realTimePaymentsTransferAcknowledgement.getNullable(
@@ -920,20 +968,23 @@ private constructor(
 
         /**
          * A Sample Funds object. This field will be present in the JSON response if and only if
-         * `category` is equal to `sample_funds`.
+         * `category` is equal to `sample_funds`. Sample funds for testing purposes.
          */
         fun sampleFunds(): SampleFunds? = sampleFunds.getNullable("sample_funds")
 
         /**
          * A Wire Transfer Intention object. This field will be present in the JSON response if and
-         * only if `category` is equal to `wire_transfer_intention`.
+         * only if `category` is equal to `wire_transfer_intention`. A Wire Transfer initiated via
+         * Increase and sent to a different bank.
          */
         fun wireTransferIntention(): WireTransferIntention? =
             wireTransferIntention.getNullable("wire_transfer_intention")
 
         /**
          * An Account Transfer Intention object. This field will be present in the JSON response if
-         * and only if `category` is equal to `account_transfer_intention`.
+         * and only if `category` is equal to `account_transfer_intention`. Two Account Transfer
+         * Intentions are created from each Account Transfer. One decrements the source account, and
+         * the other increments the destination account.
          */
         @JsonProperty("account_transfer_intention")
         @ExcludeMissing
@@ -942,7 +993,9 @@ private constructor(
 
         /**
          * An ACH Transfer Intention object. This field will be present in the JSON response if and
-         * only if `category` is equal to `ach_transfer_intention`.
+         * only if `category` is equal to `ach_transfer_intention`. An ACH Transfer Intention is
+         * created from an ACH Transfer. It reflects the intention to move money into or out of an
+         * Increase account via the ACH network.
          */
         @JsonProperty("ach_transfer_intention")
         @ExcludeMissing
@@ -950,7 +1003,9 @@ private constructor(
 
         /**
          * An ACH Transfer Rejection object. This field will be present in the JSON response if and
-         * only if `category` is equal to `ach_transfer_rejection`.
+         * only if `category` is equal to `ach_transfer_rejection`. An ACH Transfer Rejection is
+         * created when an ACH Transfer is rejected by Increase. It offsets the ACH Transfer
+         * Intention. These rejections are rare.
          */
         @JsonProperty("ach_transfer_rejection")
         @ExcludeMissing
@@ -958,7 +1013,10 @@ private constructor(
 
         /**
          * An ACH Transfer Return object. This field will be present in the JSON response if and
-         * only if `category` is equal to `ach_transfer_return`.
+         * only if `category` is equal to `ach_transfer_return`. An ACH Transfer Return is created
+         * when an ACH Transfer is returned by the receiving bank. It offsets the ACH Transfer
+         * Intention. ACH Transfer Returns usually occur within the first two business days after
+         * the transfer is initiated, but can occur much later.
          */
         @JsonProperty("ach_transfer_return")
         @ExcludeMissing
@@ -966,7 +1024,8 @@ private constructor(
 
         /**
          * A Card Dispute Acceptance object. This field will be present in the JSON response if and
-         * only if `category` is equal to `card_dispute_acceptance`.
+         * only if `category` is equal to `card_dispute_acceptance`. Contains the details of a
+         * successful Card Dispute.
          */
         @JsonProperty("card_dispute_acceptance")
         @ExcludeMissing
@@ -974,7 +1033,8 @@ private constructor(
 
         /**
          * A Card Dispute Loss object. This field will be present in the JSON response if and only
-         * if `category` is equal to `card_dispute_loss`.
+         * if `category` is equal to `card_dispute_loss`. Contains the details of a lost Card
+         * Dispute.
          */
         @JsonProperty("card_dispute_loss")
         @ExcludeMissing
@@ -982,7 +1042,9 @@ private constructor(
 
         /**
          * A Card Refund object. This field will be present in the JSON response if and only if
-         * `category` is equal to `card_refund`.
+         * `category` is equal to `card_refund`. Card Refunds move money back to the cardholder.
+         * While they are usually connected to a Card Settlement an acquirer can also refund money
+         * directly to a card without relation to a transaction.
          */
         @JsonProperty("card_refund")
         @ExcludeMissing
@@ -990,7 +1052,8 @@ private constructor(
 
         /**
          * A Card Revenue Payment object. This field will be present in the JSON response if and
-         * only if `category` is equal to `card_revenue_payment`.
+         * only if `category` is equal to `card_revenue_payment`. Card Revenue Payments reflect
+         * earnings from fees on card transactions.
          */
         @JsonProperty("card_revenue_payment")
         @ExcludeMissing
@@ -998,7 +1061,9 @@ private constructor(
 
         /**
          * A Card Settlement object. This field will be present in the JSON response if and only if
-         * `category` is equal to `card_settlement`.
+         * `category` is equal to `card_settlement`. Card Settlements are card transactions that
+         * have cleared and settled. While a settlement is usually preceded by an authorization, an
+         * acquirer can also directly clear a transaction without first authorizing it.
          */
         @JsonProperty("card_settlement")
         @ExcludeMissing
@@ -1006,7 +1071,9 @@ private constructor(
 
         /**
          * A Cashback Payment object. This field will be present in the JSON response if and only if
-         * `category` is equal to `cashback_payment`.
+         * `category` is equal to `cashback_payment`. A Cashback Payment represents the cashback
+         * paid to a cardholder for a given period. Cashback is usually paid monthly for the prior
+         * month's transactions.
          */
         @JsonProperty("cashback_payment")
         @ExcludeMissing
@@ -1020,7 +1087,9 @@ private constructor(
 
         /**
          * A Check Deposit Acceptance object. This field will be present in the JSON response if and
-         * only if `category` is equal to `check_deposit_acceptance`.
+         * only if `category` is equal to `check_deposit_acceptance`. A Check Deposit Acceptance is
+         * created when a Check Deposit is processed and its details confirmed. Check Deposits may
+         * be returned by the receiving bank, which will appear as a Check Deposit Return.
          */
         @JsonProperty("check_deposit_acceptance")
         @ExcludeMissing
@@ -1028,7 +1097,11 @@ private constructor(
 
         /**
          * A Check Deposit Return object. This field will be present in the JSON response if and
-         * only if `category` is equal to `check_deposit_return`.
+         * only if `category` is equal to `check_deposit_return`. A Check Deposit Return is created
+         * when a Check Deposit is returned by the bank holding the account it was drawn against.
+         * Check Deposits may be returned for a variety of reasons, including insufficient funds or
+         * a mismatched account number. Usually, checks are returned within the first 7 days after
+         * the deposit is made.
          */
         @JsonProperty("check_deposit_return")
         @ExcludeMissing
@@ -1036,7 +1109,9 @@ private constructor(
 
         /**
          * A Check Transfer Deposit object. This field will be present in the JSON response if and
-         * only if `category` is equal to `check_transfer_deposit`.
+         * only if `category` is equal to `check_transfer_deposit`. An Inbound Check is a check
+         * drawn on an Increase account that has been deposited by an external bank account. These
+         * types of checks are not pre-registered.
          */
         @JsonProperty("check_transfer_deposit")
         @ExcludeMissing
@@ -1044,7 +1119,8 @@ private constructor(
 
         /**
          * A Fee Payment object. This field will be present in the JSON response if and only if
-         * `category` is equal to `fee_payment`.
+         * `category` is equal to `fee_payment`. A Fee Payment represents a payment made to
+         * Increase.
          */
         @JsonProperty("fee_payment")
         @ExcludeMissing
@@ -1052,7 +1128,9 @@ private constructor(
 
         /**
          * An Inbound ACH Transfer Intention object. This field will be present in the JSON response
-         * if and only if `category` is equal to `inbound_ach_transfer`.
+         * if and only if `category` is equal to `inbound_ach_transfer`. An Inbound ACH Transfer
+         * Intention is created when an ACH transfer is initiated at another bank and received by
+         * Increase.
          */
         @JsonProperty("inbound_ach_transfer")
         @ExcludeMissing
@@ -1061,6 +1139,8 @@ private constructor(
         /**
          * An Inbound ACH Transfer Return Intention object. This field will be present in the JSON
          * response if and only if `category` is equal to `inbound_ach_transfer_return_intention`.
+         * An Inbound ACH Transfer Return Intention is created when an ACH transfer is initiated at
+         * another bank and returned by Increase.
          */
         @JsonProperty("inbound_ach_transfer_return_intention")
         @ExcludeMissing
@@ -1069,7 +1149,9 @@ private constructor(
 
         /**
          * An Inbound Check Adjustment object. This field will be present in the JSON response if
-         * and only if `category` is equal to `inbound_check_adjustment`.
+         * and only if `category` is equal to `inbound_check_adjustment`. An Inbound Check
+         * Adjustment is created when Increase receives an adjustment for a check or return
+         * deposited through Check21.
          */
         @JsonProperty("inbound_check_adjustment")
         @ExcludeMissing
@@ -1078,6 +1160,8 @@ private constructor(
         /**
          * An Inbound Check Deposit Return Intention object. This field will be present in the JSON
          * response if and only if `category` is equal to `inbound_check_deposit_return_intention`.
+         * An Inbound Check Deposit Return Intention is created when Increase receives an Inbound
+         * Check and the User requests that it be returned.
          */
         @JsonProperty("inbound_check_deposit_return_intention")
         @ExcludeMissing
@@ -1087,7 +1171,9 @@ private constructor(
         /**
          * An Inbound Real-Time Payments Transfer Confirmation object. This field will be present in
          * the JSON response if and only if `category` is equal to
-         * `inbound_real_time_payments_transfer_confirmation`.
+         * `inbound_real_time_payments_transfer_confirmation`. An Inbound Real-Time Payments
+         * Transfer Confirmation is created when a Real-Time Payments transfer is initiated at
+         * another bank and received by Increase.
          */
         @JsonProperty("inbound_real_time_payments_transfer_confirmation")
         @ExcludeMissing
@@ -1108,7 +1194,10 @@ private constructor(
 
         /**
          * An Inbound Wire Reversal object. This field will be present in the JSON response if and
-         * only if `category` is equal to `inbound_wire_reversal`.
+         * only if `category` is equal to `inbound_wire_reversal`. An Inbound Wire Reversal
+         * represents a reversal of a wire transfer that was initiated via Increase. The other bank
+         * is sending the money back. This most often happens when the original destination account
+         * details were incorrect.
          */
         @JsonProperty("inbound_wire_reversal")
         @ExcludeMissing
@@ -1116,7 +1205,9 @@ private constructor(
 
         /**
          * An Inbound Wire Transfer Intention object. This field will be present in the JSON
-         * response if and only if `category` is equal to `inbound_wire_transfer`.
+         * response if and only if `category` is equal to `inbound_wire_transfer`. An Inbound Wire
+         * Transfer Intention is created when a wire transfer is initiated at another bank and
+         * received by Increase.
          */
         @JsonProperty("inbound_wire_transfer")
         @ExcludeMissing
@@ -1124,7 +1215,9 @@ private constructor(
 
         /**
          * An Inbound Wire Transfer Reversal Intention object. This field will be present in the
-         * JSON response if and only if `category` is equal to `inbound_wire_transfer_reversal`.
+         * JSON response if and only if `category` is equal to `inbound_wire_transfer_reversal`. An
+         * Inbound Wire Transfer Reversal Intention is created when Increase has received a wire and
+         * the User requests that it be reversed.
          */
         @JsonProperty("inbound_wire_transfer_reversal")
         @ExcludeMissing
@@ -1133,7 +1226,8 @@ private constructor(
 
         /**
          * An Interest Payment object. This field will be present in the JSON response if and only
-         * if `category` is equal to `interest_payment`.
+         * if `category` is equal to `interest_payment`. An Interest Payment represents a payment of
+         * interest on an account. Interest is usually paid monthly.
          */
         @JsonProperty("interest_payment")
         @ExcludeMissing
@@ -1141,7 +1235,8 @@ private constructor(
 
         /**
          * An Internal Source object. This field will be present in the JSON response if and only if
-         * `category` is equal to `internal_source`.
+         * `category` is equal to `internal_source`. A transaction between the user and Increase.
+         * See the `reason` attribute for more information.
          */
         @JsonProperty("internal_source")
         @ExcludeMissing
@@ -1150,7 +1245,9 @@ private constructor(
         /**
          * A Real-Time Payments Transfer Acknowledgement object. This field will be present in the
          * JSON response if and only if `category` is equal to
-         * `real_time_payments_transfer_acknowledgement`.
+         * `real_time_payments_transfer_acknowledgement`. A Real-Time Payments Transfer
+         * Acknowledgement is created when a Real-Time Payments Transfer sent from Increase is
+         * acknowledged by the receiving bank.
          */
         @JsonProperty("real_time_payments_transfer_acknowledgement")
         @ExcludeMissing
@@ -1160,7 +1257,7 @@ private constructor(
 
         /**
          * A Sample Funds object. This field will be present in the JSON response if and only if
-         * `category` is equal to `sample_funds`.
+         * `category` is equal to `sample_funds`. Sample funds for testing purposes.
          */
         @JsonProperty("sample_funds")
         @ExcludeMissing
@@ -1168,7 +1265,8 @@ private constructor(
 
         /**
          * A Wire Transfer Intention object. This field will be present in the JSON response if and
-         * only if `category` is equal to `wire_transfer_intention`.
+         * only if `category` is equal to `wire_transfer_intention`. A Wire Transfer initiated via
+         * Increase and sent to a different bank.
          */
         @JsonProperty("wire_transfer_intention")
         @ExcludeMissing
@@ -1308,14 +1406,18 @@ private constructor(
 
             /**
              * An Account Transfer Intention object. This field will be present in the JSON response
-             * if and only if `category` is equal to `account_transfer_intention`.
+             * if and only if `category` is equal to `account_transfer_intention`. Two Account
+             * Transfer Intentions are created from each Account Transfer. One decrements the source
+             * account, and the other increments the destination account.
              */
             fun accountTransferIntention(accountTransferIntention: AccountTransferIntention?) =
                 accountTransferIntention(JsonField.ofNullable(accountTransferIntention))
 
             /**
              * An Account Transfer Intention object. This field will be present in the JSON response
-             * if and only if `category` is equal to `account_transfer_intention`.
+             * if and only if `category` is equal to `account_transfer_intention`. Two Account
+             * Transfer Intentions are created from each Account Transfer. One decrements the source
+             * account, and the other increments the destination account.
              */
             fun accountTransferIntention(
                 accountTransferIntention: JsonField<AccountTransferIntention>
@@ -1323,14 +1425,18 @@ private constructor(
 
             /**
              * An ACH Transfer Intention object. This field will be present in the JSON response if
-             * and only if `category` is equal to `ach_transfer_intention`.
+             * and only if `category` is equal to `ach_transfer_intention`. An ACH Transfer
+             * Intention is created from an ACH Transfer. It reflects the intention to move money
+             * into or out of an Increase account via the ACH network.
              */
             fun achTransferIntention(achTransferIntention: AchTransferIntention?) =
                 achTransferIntention(JsonField.ofNullable(achTransferIntention))
 
             /**
              * An ACH Transfer Intention object. This field will be present in the JSON response if
-             * and only if `category` is equal to `ach_transfer_intention`.
+             * and only if `category` is equal to `ach_transfer_intention`. An ACH Transfer
+             * Intention is created from an ACH Transfer. It reflects the intention to move money
+             * into or out of an Increase account via the ACH network.
              */
             fun achTransferIntention(achTransferIntention: JsonField<AchTransferIntention>) =
                 apply {
@@ -1339,14 +1445,18 @@ private constructor(
 
             /**
              * An ACH Transfer Rejection object. This field will be present in the JSON response if
-             * and only if `category` is equal to `ach_transfer_rejection`.
+             * and only if `category` is equal to `ach_transfer_rejection`. An ACH Transfer
+             * Rejection is created when an ACH Transfer is rejected by Increase. It offsets the ACH
+             * Transfer Intention. These rejections are rare.
              */
             fun achTransferRejection(achTransferRejection: AchTransferRejection?) =
                 achTransferRejection(JsonField.ofNullable(achTransferRejection))
 
             /**
              * An ACH Transfer Rejection object. This field will be present in the JSON response if
-             * and only if `category` is equal to `ach_transfer_rejection`.
+             * and only if `category` is equal to `ach_transfer_rejection`. An ACH Transfer
+             * Rejection is created when an ACH Transfer is rejected by Increase. It offsets the ACH
+             * Transfer Intention. These rejections are rare.
              */
             fun achTransferRejection(achTransferRejection: JsonField<AchTransferRejection>) =
                 apply {
@@ -1355,14 +1465,20 @@ private constructor(
 
             /**
              * An ACH Transfer Return object. This field will be present in the JSON response if and
-             * only if `category` is equal to `ach_transfer_return`.
+             * only if `category` is equal to `ach_transfer_return`. An ACH Transfer Return is
+             * created when an ACH Transfer is returned by the receiving bank. It offsets the ACH
+             * Transfer Intention. ACH Transfer Returns usually occur within the first two business
+             * days after the transfer is initiated, but can occur much later.
              */
             fun achTransferReturn(achTransferReturn: AchTransferReturn?) =
                 achTransferReturn(JsonField.ofNullable(achTransferReturn))
 
             /**
              * An ACH Transfer Return object. This field will be present in the JSON response if and
-             * only if `category` is equal to `ach_transfer_return`.
+             * only if `category` is equal to `ach_transfer_return`. An ACH Transfer Return is
+             * created when an ACH Transfer is returned by the receiving bank. It offsets the ACH
+             * Transfer Intention. ACH Transfer Returns usually occur within the first two business
+             * days after the transfer is initiated, but can occur much later.
              */
             fun achTransferReturn(achTransferReturn: JsonField<AchTransferReturn>) = apply {
                 this.achTransferReturn = achTransferReturn
@@ -1370,14 +1486,16 @@ private constructor(
 
             /**
              * A Card Dispute Acceptance object. This field will be present in the JSON response if
-             * and only if `category` is equal to `card_dispute_acceptance`.
+             * and only if `category` is equal to `card_dispute_acceptance`. Contains the details of
+             * a successful Card Dispute.
              */
             fun cardDisputeAcceptance(cardDisputeAcceptance: CardDisputeAcceptance?) =
                 cardDisputeAcceptance(JsonField.ofNullable(cardDisputeAcceptance))
 
             /**
              * A Card Dispute Acceptance object. This field will be present in the JSON response if
-             * and only if `category` is equal to `card_dispute_acceptance`.
+             * and only if `category` is equal to `card_dispute_acceptance`. Contains the details of
+             * a successful Card Dispute.
              */
             fun cardDisputeAcceptance(cardDisputeAcceptance: JsonField<CardDisputeAcceptance>) =
                 apply {
@@ -1386,14 +1504,16 @@ private constructor(
 
             /**
              * A Card Dispute Loss object. This field will be present in the JSON response if and
-             * only if `category` is equal to `card_dispute_loss`.
+             * only if `category` is equal to `card_dispute_loss`. Contains the details of a lost
+             * Card Dispute.
              */
             fun cardDisputeLoss(cardDisputeLoss: CardDisputeLoss?) =
                 cardDisputeLoss(JsonField.ofNullable(cardDisputeLoss))
 
             /**
              * A Card Dispute Loss object. This field will be present in the JSON response if and
-             * only if `category` is equal to `card_dispute_loss`.
+             * only if `category` is equal to `card_dispute_loss`. Contains the details of a lost
+             * Card Dispute.
              */
             fun cardDisputeLoss(cardDisputeLoss: JsonField<CardDisputeLoss>) = apply {
                 this.cardDisputeLoss = cardDisputeLoss
@@ -1401,13 +1521,17 @@ private constructor(
 
             /**
              * A Card Refund object. This field will be present in the JSON response if and only if
-             * `category` is equal to `card_refund`.
+             * `category` is equal to `card_refund`. Card Refunds move money back to the cardholder.
+             * While they are usually connected to a Card Settlement an acquirer can also refund
+             * money directly to a card without relation to a transaction.
              */
             fun cardRefund(cardRefund: CardRefund?) = cardRefund(JsonField.ofNullable(cardRefund))
 
             /**
              * A Card Refund object. This field will be present in the JSON response if and only if
-             * `category` is equal to `card_refund`.
+             * `category` is equal to `card_refund`. Card Refunds move money back to the cardholder.
+             * While they are usually connected to a Card Settlement an acquirer can also refund
+             * money directly to a card without relation to a transaction.
              */
             fun cardRefund(cardRefund: JsonField<CardRefund>) = apply {
                 this.cardRefund = cardRefund
@@ -1415,14 +1539,16 @@ private constructor(
 
             /**
              * A Card Revenue Payment object. This field will be present in the JSON response if and
-             * only if `category` is equal to `card_revenue_payment`.
+             * only if `category` is equal to `card_revenue_payment`. Card Revenue Payments reflect
+             * earnings from fees on card transactions.
              */
             fun cardRevenuePayment(cardRevenuePayment: CardRevenuePayment?) =
                 cardRevenuePayment(JsonField.ofNullable(cardRevenuePayment))
 
             /**
              * A Card Revenue Payment object. This field will be present in the JSON response if and
-             * only if `category` is equal to `card_revenue_payment`.
+             * only if `category` is equal to `card_revenue_payment`. Card Revenue Payments reflect
+             * earnings from fees on card transactions.
              */
             fun cardRevenuePayment(cardRevenuePayment: JsonField<CardRevenuePayment>) = apply {
                 this.cardRevenuePayment = cardRevenuePayment
@@ -1430,14 +1556,20 @@ private constructor(
 
             /**
              * A Card Settlement object. This field will be present in the JSON response if and only
-             * if `category` is equal to `card_settlement`.
+             * if `category` is equal to `card_settlement`. Card Settlements are card transactions
+             * that have cleared and settled. While a settlement is usually preceded by an
+             * authorization, an acquirer can also directly clear a transaction without first
+             * authorizing it.
              */
             fun cardSettlement(cardSettlement: CardSettlement?) =
                 cardSettlement(JsonField.ofNullable(cardSettlement))
 
             /**
              * A Card Settlement object. This field will be present in the JSON response if and only
-             * if `category` is equal to `card_settlement`.
+             * if `category` is equal to `card_settlement`. Card Settlements are card transactions
+             * that have cleared and settled. While a settlement is usually preceded by an
+             * authorization, an acquirer can also directly clear a transaction without first
+             * authorizing it.
              */
             fun cardSettlement(cardSettlement: JsonField<CardSettlement>) = apply {
                 this.cardSettlement = cardSettlement
@@ -1445,14 +1577,18 @@ private constructor(
 
             /**
              * A Cashback Payment object. This field will be present in the JSON response if and
-             * only if `category` is equal to `cashback_payment`.
+             * only if `category` is equal to `cashback_payment`. A Cashback Payment represents the
+             * cashback paid to a cardholder for a given period. Cashback is usually paid monthly
+             * for the prior month's transactions.
              */
             fun cashbackPayment(cashbackPayment: CashbackPayment?) =
                 cashbackPayment(JsonField.ofNullable(cashbackPayment))
 
             /**
              * A Cashback Payment object. This field will be present in the JSON response if and
-             * only if `category` is equal to `cashback_payment`.
+             * only if `category` is equal to `cashback_payment`. A Cashback Payment represents the
+             * cashback paid to a cardholder for a given period. Cashback is usually paid monthly
+             * for the prior month's transactions.
              */
             fun cashbackPayment(cashbackPayment: JsonField<CashbackPayment>) = apply {
                 this.cashbackPayment = cashbackPayment
@@ -1472,14 +1608,20 @@ private constructor(
 
             /**
              * A Check Deposit Acceptance object. This field will be present in the JSON response if
-             * and only if `category` is equal to `check_deposit_acceptance`.
+             * and only if `category` is equal to `check_deposit_acceptance`. A Check Deposit
+             * Acceptance is created when a Check Deposit is processed and its details confirmed.
+             * Check Deposits may be returned by the receiving bank, which will appear as a Check
+             * Deposit Return.
              */
             fun checkDepositAcceptance(checkDepositAcceptance: CheckDepositAcceptance?) =
                 checkDepositAcceptance(JsonField.ofNullable(checkDepositAcceptance))
 
             /**
              * A Check Deposit Acceptance object. This field will be present in the JSON response if
-             * and only if `category` is equal to `check_deposit_acceptance`.
+             * and only if `category` is equal to `check_deposit_acceptance`. A Check Deposit
+             * Acceptance is created when a Check Deposit is processed and its details confirmed.
+             * Check Deposits may be returned by the receiving bank, which will appear as a Check
+             * Deposit Return.
              */
             fun checkDepositAcceptance(checkDepositAcceptance: JsonField<CheckDepositAcceptance>) =
                 apply {
@@ -1488,14 +1630,22 @@ private constructor(
 
             /**
              * A Check Deposit Return object. This field will be present in the JSON response if and
-             * only if `category` is equal to `check_deposit_return`.
+             * only if `category` is equal to `check_deposit_return`. A Check Deposit Return is
+             * created when a Check Deposit is returned by the bank holding the account it was drawn
+             * against. Check Deposits may be returned for a variety of reasons, including
+             * insufficient funds or a mismatched account number. Usually, checks are returned
+             * within the first 7 days after the deposit is made.
              */
             fun checkDepositReturn(checkDepositReturn: CheckDepositReturn?) =
                 checkDepositReturn(JsonField.ofNullable(checkDepositReturn))
 
             /**
              * A Check Deposit Return object. This field will be present in the JSON response if and
-             * only if `category` is equal to `check_deposit_return`.
+             * only if `category` is equal to `check_deposit_return`. A Check Deposit Return is
+             * created when a Check Deposit is returned by the bank holding the account it was drawn
+             * against. Check Deposits may be returned for a variety of reasons, including
+             * insufficient funds or a mismatched account number. Usually, checks are returned
+             * within the first 7 days after the deposit is made.
              */
             fun checkDepositReturn(checkDepositReturn: JsonField<CheckDepositReturn>) = apply {
                 this.checkDepositReturn = checkDepositReturn
@@ -1503,14 +1653,18 @@ private constructor(
 
             /**
              * A Check Transfer Deposit object. This field will be present in the JSON response if
-             * and only if `category` is equal to `check_transfer_deposit`.
+             * and only if `category` is equal to `check_transfer_deposit`. An Inbound Check is a
+             * check drawn on an Increase account that has been deposited by an external bank
+             * account. These types of checks are not pre-registered.
              */
             fun checkTransferDeposit(checkTransferDeposit: CheckTransferDeposit?) =
                 checkTransferDeposit(JsonField.ofNullable(checkTransferDeposit))
 
             /**
              * A Check Transfer Deposit object. This field will be present in the JSON response if
-             * and only if `category` is equal to `check_transfer_deposit`.
+             * and only if `category` is equal to `check_transfer_deposit`. An Inbound Check is a
+             * check drawn on an Increase account that has been deposited by an external bank
+             * account. These types of checks are not pre-registered.
              */
             fun checkTransferDeposit(checkTransferDeposit: JsonField<CheckTransferDeposit>) =
                 apply {
@@ -1519,13 +1673,15 @@ private constructor(
 
             /**
              * A Fee Payment object. This field will be present in the JSON response if and only if
-             * `category` is equal to `fee_payment`.
+             * `category` is equal to `fee_payment`. A Fee Payment represents a payment made to
+             * Increase.
              */
             fun feePayment(feePayment: FeePayment?) = feePayment(JsonField.ofNullable(feePayment))
 
             /**
              * A Fee Payment object. This field will be present in the JSON response if and only if
-             * `category` is equal to `fee_payment`.
+             * `category` is equal to `fee_payment`. A Fee Payment represents a payment made to
+             * Increase.
              */
             fun feePayment(feePayment: JsonField<FeePayment>) = apply {
                 this.feePayment = feePayment
@@ -1533,14 +1689,18 @@ private constructor(
 
             /**
              * An Inbound ACH Transfer Intention object. This field will be present in the JSON
-             * response if and only if `category` is equal to `inbound_ach_transfer`.
+             * response if and only if `category` is equal to `inbound_ach_transfer`. An Inbound ACH
+             * Transfer Intention is created when an ACH transfer is initiated at another bank and
+             * received by Increase.
              */
             fun inboundAchTransfer(inboundAchTransfer: InboundAchTransfer?) =
                 inboundAchTransfer(JsonField.ofNullable(inboundAchTransfer))
 
             /**
              * An Inbound ACH Transfer Intention object. This field will be present in the JSON
-             * response if and only if `category` is equal to `inbound_ach_transfer`.
+             * response if and only if `category` is equal to `inbound_ach_transfer`. An Inbound ACH
+             * Transfer Intention is created when an ACH transfer is initiated at another bank and
+             * received by Increase.
              */
             fun inboundAchTransfer(inboundAchTransfer: JsonField<InboundAchTransfer>) = apply {
                 this.inboundAchTransfer = inboundAchTransfer
@@ -1549,7 +1709,8 @@ private constructor(
             /**
              * An Inbound ACH Transfer Return Intention object. This field will be present in the
              * JSON response if and only if `category` is equal to
-             * `inbound_ach_transfer_return_intention`.
+             * `inbound_ach_transfer_return_intention`. An Inbound ACH Transfer Return Intention is
+             * created when an ACH transfer is initiated at another bank and returned by Increase.
              */
             fun inboundAchTransferReturnIntention(
                 inboundAchTransferReturnIntention: InboundAchTransferReturnIntention?
@@ -1561,7 +1722,8 @@ private constructor(
             /**
              * An Inbound ACH Transfer Return Intention object. This field will be present in the
              * JSON response if and only if `category` is equal to
-             * `inbound_ach_transfer_return_intention`.
+             * `inbound_ach_transfer_return_intention`. An Inbound ACH Transfer Return Intention is
+             * created when an ACH transfer is initiated at another bank and returned by Increase.
              */
             fun inboundAchTransferReturnIntention(
                 inboundAchTransferReturnIntention: JsonField<InboundAchTransferReturnIntention>
@@ -1569,14 +1731,18 @@ private constructor(
 
             /**
              * An Inbound Check Adjustment object. This field will be present in the JSON response
-             * if and only if `category` is equal to `inbound_check_adjustment`.
+             * if and only if `category` is equal to `inbound_check_adjustment`. An Inbound Check
+             * Adjustment is created when Increase receives an adjustment for a check or return
+             * deposited through Check21.
              */
             fun inboundCheckAdjustment(inboundCheckAdjustment: InboundCheckAdjustment?) =
                 inboundCheckAdjustment(JsonField.ofNullable(inboundCheckAdjustment))
 
             /**
              * An Inbound Check Adjustment object. This field will be present in the JSON response
-             * if and only if `category` is equal to `inbound_check_adjustment`.
+             * if and only if `category` is equal to `inbound_check_adjustment`. An Inbound Check
+             * Adjustment is created when Increase receives an adjustment for a check or return
+             * deposited through Check21.
              */
             fun inboundCheckAdjustment(inboundCheckAdjustment: JsonField<InboundCheckAdjustment>) =
                 apply {
@@ -1586,7 +1752,9 @@ private constructor(
             /**
              * An Inbound Check Deposit Return Intention object. This field will be present in the
              * JSON response if and only if `category` is equal to
-             * `inbound_check_deposit_return_intention`.
+             * `inbound_check_deposit_return_intention`. An Inbound Check Deposit Return Intention
+             * is created when Increase receives an Inbound Check and the User requests that it be
+             * returned.
              */
             fun inboundCheckDepositReturnIntention(
                 inboundCheckDepositReturnIntention: InboundCheckDepositReturnIntention?
@@ -1598,7 +1766,9 @@ private constructor(
             /**
              * An Inbound Check Deposit Return Intention object. This field will be present in the
              * JSON response if and only if `category` is equal to
-             * `inbound_check_deposit_return_intention`.
+             * `inbound_check_deposit_return_intention`. An Inbound Check Deposit Return Intention
+             * is created when Increase receives an Inbound Check and the User requests that it be
+             * returned.
              */
             fun inboundCheckDepositReturnIntention(
                 inboundCheckDepositReturnIntention: JsonField<InboundCheckDepositReturnIntention>
@@ -1609,7 +1779,9 @@ private constructor(
             /**
              * An Inbound Real-Time Payments Transfer Confirmation object. This field will be
              * present in the JSON response if and only if `category` is equal to
-             * `inbound_real_time_payments_transfer_confirmation`.
+             * `inbound_real_time_payments_transfer_confirmation`. An Inbound Real-Time Payments
+             * Transfer Confirmation is created when a Real-Time Payments transfer is initiated at
+             * another bank and received by Increase.
              */
             fun inboundRealTimePaymentsTransferConfirmation(
                 inboundRealTimePaymentsTransferConfirmation:
@@ -1622,7 +1794,9 @@ private constructor(
             /**
              * An Inbound Real-Time Payments Transfer Confirmation object. This field will be
              * present in the JSON response if and only if `category` is equal to
-             * `inbound_real_time_payments_transfer_confirmation`.
+             * `inbound_real_time_payments_transfer_confirmation`. An Inbound Real-Time Payments
+             * Transfer Confirmation is created when a Real-Time Payments transfer is initiated at
+             * another bank and received by Increase.
              */
             fun inboundRealTimePaymentsTransferConfirmation(
                 inboundRealTimePaymentsTransferConfirmation:
@@ -1658,14 +1832,20 @@ private constructor(
 
             /**
              * An Inbound Wire Reversal object. This field will be present in the JSON response if
-             * and only if `category` is equal to `inbound_wire_reversal`.
+             * and only if `category` is equal to `inbound_wire_reversal`. An Inbound Wire Reversal
+             * represents a reversal of a wire transfer that was initiated via Increase. The other
+             * bank is sending the money back. This most often happens when the original destination
+             * account details were incorrect.
              */
             fun inboundWireReversal(inboundWireReversal: InboundWireReversal?) =
                 inboundWireReversal(JsonField.ofNullable(inboundWireReversal))
 
             /**
              * An Inbound Wire Reversal object. This field will be present in the JSON response if
-             * and only if `category` is equal to `inbound_wire_reversal`.
+             * and only if `category` is equal to `inbound_wire_reversal`. An Inbound Wire Reversal
+             * represents a reversal of a wire transfer that was initiated via Increase. The other
+             * bank is sending the money back. This most often happens when the original destination
+             * account details were incorrect.
              */
             fun inboundWireReversal(inboundWireReversal: JsonField<InboundWireReversal>) = apply {
                 this.inboundWireReversal = inboundWireReversal
@@ -1673,14 +1853,18 @@ private constructor(
 
             /**
              * An Inbound Wire Transfer Intention object. This field will be present in the JSON
-             * response if and only if `category` is equal to `inbound_wire_transfer`.
+             * response if and only if `category` is equal to `inbound_wire_transfer`. An Inbound
+             * Wire Transfer Intention is created when a wire transfer is initiated at another bank
+             * and received by Increase.
              */
             fun inboundWireTransfer(inboundWireTransfer: InboundWireTransfer?) =
                 inboundWireTransfer(JsonField.ofNullable(inboundWireTransfer))
 
             /**
              * An Inbound Wire Transfer Intention object. This field will be present in the JSON
-             * response if and only if `category` is equal to `inbound_wire_transfer`.
+             * response if and only if `category` is equal to `inbound_wire_transfer`. An Inbound
+             * Wire Transfer Intention is created when a wire transfer is initiated at another bank
+             * and received by Increase.
              */
             fun inboundWireTransfer(inboundWireTransfer: JsonField<InboundWireTransfer>) = apply {
                 this.inboundWireTransfer = inboundWireTransfer
@@ -1689,6 +1873,8 @@ private constructor(
             /**
              * An Inbound Wire Transfer Reversal Intention object. This field will be present in the
              * JSON response if and only if `category` is equal to `inbound_wire_transfer_reversal`.
+             * An Inbound Wire Transfer Reversal Intention is created when Increase has received a
+             * wire and the User requests that it be reversed.
              */
             fun inboundWireTransferReversal(
                 inboundWireTransferReversal: InboundWireTransferReversal?
@@ -1697,6 +1883,8 @@ private constructor(
             /**
              * An Inbound Wire Transfer Reversal Intention object. This field will be present in the
              * JSON response if and only if `category` is equal to `inbound_wire_transfer_reversal`.
+             * An Inbound Wire Transfer Reversal Intention is created when Increase has received a
+             * wire and the User requests that it be reversed.
              */
             fun inboundWireTransferReversal(
                 inboundWireTransferReversal: JsonField<InboundWireTransferReversal>
@@ -1704,14 +1892,16 @@ private constructor(
 
             /**
              * An Interest Payment object. This field will be present in the JSON response if and
-             * only if `category` is equal to `interest_payment`.
+             * only if `category` is equal to `interest_payment`. An Interest Payment represents a
+             * payment of interest on an account. Interest is usually paid monthly.
              */
             fun interestPayment(interestPayment: InterestPayment?) =
                 interestPayment(JsonField.ofNullable(interestPayment))
 
             /**
              * An Interest Payment object. This field will be present in the JSON response if and
-             * only if `category` is equal to `interest_payment`.
+             * only if `category` is equal to `interest_payment`. An Interest Payment represents a
+             * payment of interest on an account. Interest is usually paid monthly.
              */
             fun interestPayment(interestPayment: JsonField<InterestPayment>) = apply {
                 this.interestPayment = interestPayment
@@ -1719,14 +1909,16 @@ private constructor(
 
             /**
              * An Internal Source object. This field will be present in the JSON response if and
-             * only if `category` is equal to `internal_source`.
+             * only if `category` is equal to `internal_source`. A transaction between the user and
+             * Increase. See the `reason` attribute for more information.
              */
             fun internalSource(internalSource: InternalSource?) =
                 internalSource(JsonField.ofNullable(internalSource))
 
             /**
              * An Internal Source object. This field will be present in the JSON response if and
-             * only if `category` is equal to `internal_source`.
+             * only if `category` is equal to `internal_source`. A transaction between the user and
+             * Increase. See the `reason` attribute for more information.
              */
             fun internalSource(internalSource: JsonField<InternalSource>) = apply {
                 this.internalSource = internalSource
@@ -1741,7 +1933,9 @@ private constructor(
             /**
              * A Real-Time Payments Transfer Acknowledgement object. This field will be present in
              * the JSON response if and only if `category` is equal to
-             * `real_time_payments_transfer_acknowledgement`.
+             * `real_time_payments_transfer_acknowledgement`. A Real-Time Payments Transfer
+             * Acknowledgement is created when a Real-Time Payments Transfer sent from Increase is
+             * acknowledged by the receiving bank.
              */
             fun realTimePaymentsTransferAcknowledgement(
                 realTimePaymentsTransferAcknowledgement: RealTimePaymentsTransferAcknowledgement?
@@ -1753,7 +1947,9 @@ private constructor(
             /**
              * A Real-Time Payments Transfer Acknowledgement object. This field will be present in
              * the JSON response if and only if `category` is equal to
-             * `real_time_payments_transfer_acknowledgement`.
+             * `real_time_payments_transfer_acknowledgement`. A Real-Time Payments Transfer
+             * Acknowledgement is created when a Real-Time Payments Transfer sent from Increase is
+             * acknowledged by the receiving bank.
              */
             fun realTimePaymentsTransferAcknowledgement(
                 realTimePaymentsTransferAcknowledgement:
@@ -1765,14 +1961,14 @@ private constructor(
 
             /**
              * A Sample Funds object. This field will be present in the JSON response if and only if
-             * `category` is equal to `sample_funds`.
+             * `category` is equal to `sample_funds`. Sample funds for testing purposes.
              */
             fun sampleFunds(sampleFunds: SampleFunds?) =
                 sampleFunds(JsonField.ofNullable(sampleFunds))
 
             /**
              * A Sample Funds object. This field will be present in the JSON response if and only if
-             * `category` is equal to `sample_funds`.
+             * `category` is equal to `sample_funds`. Sample funds for testing purposes.
              */
             fun sampleFunds(sampleFunds: JsonField<SampleFunds>) = apply {
                 this.sampleFunds = sampleFunds
@@ -1780,14 +1976,16 @@ private constructor(
 
             /**
              * A Wire Transfer Intention object. This field will be present in the JSON response if
-             * and only if `category` is equal to `wire_transfer_intention`.
+             * and only if `category` is equal to `wire_transfer_intention`. A Wire Transfer
+             * initiated via Increase and sent to a different bank.
              */
             fun wireTransferIntention(wireTransferIntention: WireTransferIntention?) =
                 wireTransferIntention(JsonField.ofNullable(wireTransferIntention))
 
             /**
              * A Wire Transfer Intention object. This field will be present in the JSON response if
-             * and only if `category` is equal to `wire_transfer_intention`.
+             * and only if `category` is equal to `wire_transfer_intention`. A Wire Transfer
+             * initiated via Increase and sent to a different bank.
              */
             fun wireTransferIntention(wireTransferIntention: JsonField<WireTransferIntention>) =
                 apply {
@@ -1866,7 +2064,9 @@ private constructor(
 
         /**
          * An Account Transfer Intention object. This field will be present in the JSON response if
-         * and only if `category` is equal to `account_transfer_intention`.
+         * and only if `category` is equal to `account_transfer_intention`. Two Account Transfer
+         * Intentions are created from each Account Transfer. One decrements the source account, and
+         * the other increments the destination account.
          */
         @NoAutoDetect
         class AccountTransferIntention
@@ -2255,7 +2455,9 @@ private constructor(
 
         /**
          * An ACH Transfer Intention object. This field will be present in the JSON response if and
-         * only if `category` is equal to `ach_transfer_intention`.
+         * only if `category` is equal to `ach_transfer_intention`. An ACH Transfer Intention is
+         * created from an ACH Transfer. It reflects the intention to move money into or out of an
+         * Increase account via the ACH network.
          */
         @NoAutoDetect
         class AchTransferIntention
@@ -2482,7 +2684,9 @@ private constructor(
 
         /**
          * An ACH Transfer Rejection object. This field will be present in the JSON response if and
-         * only if `category` is equal to `ach_transfer_rejection`.
+         * only if `category` is equal to `ach_transfer_rejection`. An ACH Transfer Rejection is
+         * created when an ACH Transfer is rejected by Increase. It offsets the ACH Transfer
+         * Intention. These rejections are rare.
          */
         @NoAutoDetect
         class AchTransferRejection
@@ -2593,7 +2797,10 @@ private constructor(
 
         /**
          * An ACH Transfer Return object. This field will be present in the JSON response if and
-         * only if `category` is equal to `ach_transfer_return`.
+         * only if `category` is equal to `ach_transfer_return`. An ACH Transfer Return is created
+         * when an ACH Transfer is returned by the receiving bank. It offsets the ACH Transfer
+         * Intention. ACH Transfer Returns usually occur within the first two business days after
+         * the transfer is initiated, but can occur much later.
          */
         @NoAutoDetect
         class AchTransferReturn
@@ -4094,7 +4301,8 @@ private constructor(
 
         /**
          * A Card Dispute Acceptance object. This field will be present in the JSON response if and
-         * only if `category` is equal to `card_dispute_acceptance`.
+         * only if `category` is equal to `card_dispute_acceptance`. Contains the details of a
+         * successful Card Dispute.
          */
         @NoAutoDetect
         class CardDisputeAcceptance
@@ -4277,7 +4485,8 @@ private constructor(
 
         /**
          * A Card Dispute Loss object. This field will be present in the JSON response if and only
-         * if `category` is equal to `card_dispute_loss`.
+         * if `category` is equal to `card_dispute_loss`. Contains the details of a lost Card
+         * Dispute.
          */
         @NoAutoDetect
         class CardDisputeLoss
@@ -4481,7 +4690,9 @@ private constructor(
 
         /**
          * A Card Refund object. This field will be present in the JSON response if and only if
-         * `category` is equal to `card_refund`.
+         * `category` is equal to `card_refund`. Card Refunds move money back to the cardholder.
+         * While they are usually connected to a Card Settlement an acquirer can also refund money
+         * directly to a card without relation to a transaction.
          */
         @NoAutoDetect
         class CardRefund
@@ -10432,7 +10643,8 @@ private constructor(
 
         /**
          * A Card Revenue Payment object. This field will be present in the JSON response if and
-         * only if `category` is equal to `card_revenue_payment`.
+         * only if `category` is equal to `card_revenue_payment`. Card Revenue Payments reflect
+         * earnings from fees on card transactions.
          */
         @NoAutoDetect
         class CardRevenuePayment
@@ -10797,7 +11009,9 @@ private constructor(
 
         /**
          * A Card Settlement object. This field will be present in the JSON response if and only if
-         * `category` is equal to `card_settlement`.
+         * `category` is equal to `card_settlement`. Card Settlements are card transactions that
+         * have cleared and settled. While a settlement is usually preceded by an authorization, an
+         * acquirer can also directly clear a transaction without first authorizing it.
          */
         @NoAutoDetect
         class CardSettlement
@@ -16807,7 +17021,9 @@ private constructor(
 
         /**
          * A Cashback Payment object. This field will be present in the JSON response if and only if
-         * `category` is equal to `cashback_payment`.
+         * `category` is equal to `cashback_payment`. A Cashback Payment represents the cashback
+         * paid to a cardholder for a given period. Cashback is usually paid monthly for the prior
+         * month's transactions.
          */
         @NoAutoDetect
         class CashbackPayment
@@ -17695,7 +17911,9 @@ private constructor(
 
         /**
          * A Check Deposit Acceptance object. This field will be present in the JSON response if and
-         * only if `category` is equal to `check_deposit_acceptance`.
+         * only if `category` is equal to `check_deposit_acceptance`. A Check Deposit Acceptance is
+         * created when a Check Deposit is processed and its details confirmed. Check Deposits may
+         * be returned by the receiving bank, which will appear as a Check Deposit Return.
          */
         @NoAutoDetect
         class CheckDepositAcceptance
@@ -18133,7 +18351,11 @@ private constructor(
 
         /**
          * A Check Deposit Return object. This field will be present in the JSON response if and
-         * only if `category` is equal to `check_deposit_return`.
+         * only if `category` is equal to `check_deposit_return`. A Check Deposit Return is created
+         * when a Check Deposit is returned by the bank holding the account it was drawn against.
+         * Check Deposits may be returned for a variety of reasons, including insufficient funds or
+         * a mismatched account number. Usually, checks are returned within the first 7 days after
+         * the deposit is made.
          */
         @NoAutoDetect
         class CheckDepositReturn
@@ -18856,7 +19078,9 @@ private constructor(
 
         /**
          * A Check Transfer Deposit object. This field will be present in the JSON response if and
-         * only if `category` is equal to `check_transfer_deposit`.
+         * only if `category` is equal to `check_transfer_deposit`. An Inbound Check is a check
+         * drawn on an Increase account that has been deposited by an external bank account. These
+         * types of checks are not pre-registered.
          */
         @NoAutoDetect
         class CheckTransferDeposit
@@ -19297,7 +19521,8 @@ private constructor(
 
         /**
          * A Fee Payment object. This field will be present in the JSON response if and only if
-         * `category` is equal to `fee_payment`.
+         * `category` is equal to `fee_payment`. A Fee Payment represents a payment made to
+         * Increase.
          */
         @NoAutoDetect
         class FeePayment
@@ -19635,7 +19860,9 @@ private constructor(
 
         /**
          * An Inbound ACH Transfer Intention object. This field will be present in the JSON response
-         * if and only if `category` is equal to `inbound_ach_transfer`.
+         * if and only if `category` is equal to `inbound_ach_transfer`. An Inbound ACH Transfer
+         * Intention is created when an ACH transfer is initiated at another bank and received by
+         * Increase.
          */
         @NoAutoDetect
         class InboundAchTransfer
@@ -20524,6 +20751,8 @@ private constructor(
         /**
          * An Inbound ACH Transfer Return Intention object. This field will be present in the JSON
          * response if and only if `category` is equal to `inbound_ach_transfer_return_intention`.
+         * An Inbound ACH Transfer Return Intention is created when an ACH transfer is initiated at
+         * another bank and returned by Increase.
          */
         @NoAutoDetect
         class InboundAchTransferReturnIntention
@@ -20639,7 +20868,9 @@ private constructor(
 
         /**
          * An Inbound Check Adjustment object. This field will be present in the JSON response if
-         * and only if `category` is equal to `inbound_check_adjustment`.
+         * and only if `category` is equal to `inbound_check_adjustment`. An Inbound Check
+         * Adjustment is created when Increase receives an adjustment for a check or return
+         * deposited through Check21.
          */
         @NoAutoDetect
         class InboundCheckAdjustment
@@ -20930,6 +21161,8 @@ private constructor(
         /**
          * An Inbound Check Deposit Return Intention object. This field will be present in the JSON
          * response if and only if `category` is equal to `inbound_check_deposit_return_intention`.
+         * An Inbound Check Deposit Return Intention is created when Increase receives an Inbound
+         * Check and the User requests that it be returned.
          */
         @NoAutoDetect
         class InboundCheckDepositReturnIntention
@@ -21069,7 +21302,9 @@ private constructor(
         /**
          * An Inbound Real-Time Payments Transfer Confirmation object. This field will be present in
          * the JSON response if and only if `category` is equal to
-         * `inbound_real_time_payments_transfer_confirmation`.
+         * `inbound_real_time_payments_transfer_confirmation`. An Inbound Real-Time Payments
+         * Transfer Confirmation is created when a Real-Time Payments transfer is initiated at
+         * another bank and received by Increase.
          */
         @NoAutoDetect
         class InboundRealTimePaymentsTransferConfirmation
@@ -22183,7 +22418,10 @@ private constructor(
 
         /**
          * An Inbound Wire Reversal object. This field will be present in the JSON response if and
-         * only if `category` is equal to `inbound_wire_reversal`.
+         * only if `category` is equal to `inbound_wire_reversal`. An Inbound Wire Reversal
+         * represents a reversal of a wire transfer that was initiated via Increase. The other bank
+         * is sending the money back. This most often happens when the original destination account
+         * details were incorrect.
          */
         @NoAutoDetect
         class InboundWireReversal
@@ -22809,7 +23047,9 @@ private constructor(
 
         /**
          * An Inbound Wire Transfer Intention object. This field will be present in the JSON
-         * response if and only if `category` is equal to `inbound_wire_transfer`.
+         * response if and only if `category` is equal to `inbound_wire_transfer`. An Inbound Wire
+         * Transfer Intention is created when a wire transfer is initiated at another bank and
+         * received by Increase.
          */
         @NoAutoDetect
         class InboundWireTransfer
@@ -23472,7 +23712,9 @@ private constructor(
 
         /**
          * An Inbound Wire Transfer Reversal Intention object. This field will be present in the
-         * JSON response if and only if `category` is equal to `inbound_wire_transfer_reversal`.
+         * JSON response if and only if `category` is equal to `inbound_wire_transfer_reversal`. An
+         * Inbound Wire Transfer Reversal Intention is created when Increase has received a wire and
+         * the User requests that it be reversed.
          */
         @NoAutoDetect
         class InboundWireTransferReversal
@@ -23587,7 +23829,8 @@ private constructor(
 
         /**
          * An Interest Payment object. This field will be present in the JSON response if and only
-         * if `category` is equal to `interest_payment`.
+         * if `category` is equal to `interest_payment`. An Interest Payment represents a payment of
+         * interest on an account. Interest is usually paid monthly.
          */
         @NoAutoDetect
         class InterestPayment
@@ -23952,7 +24195,8 @@ private constructor(
 
         /**
          * An Internal Source object. This field will be present in the JSON response if and only if
-         * `category` is equal to `internal_source`.
+         * `category` is equal to `internal_source`. A transaction between the user and Increase.
+         * See the `reason` attribute for more information.
          */
         @NoAutoDetect
         class InternalSource
@@ -24499,7 +24743,9 @@ private constructor(
         /**
          * A Real-Time Payments Transfer Acknowledgement object. This field will be present in the
          * JSON response if and only if `category` is equal to
-         * `real_time_payments_transfer_acknowledgement`.
+         * `real_time_payments_transfer_acknowledgement`. A Real-Time Payments Transfer
+         * Acknowledgement is created when a Real-Time Payments Transfer sent from Increase is
+         * acknowledged by the receiving bank.
          */
         @NoAutoDetect
         class RealTimePaymentsTransferAcknowledgement
@@ -24714,7 +24960,7 @@ private constructor(
 
         /**
          * A Sample Funds object. This field will be present in the JSON response if and only if
-         * `category` is equal to `sample_funds`.
+         * `category` is equal to `sample_funds`. Sample funds for testing purposes.
          */
         @NoAutoDetect
         class SampleFunds
@@ -24825,7 +25071,8 @@ private constructor(
 
         /**
          * A Wire Transfer Intention object. This field will be present in the JSON response if and
-         * only if `category` is equal to `wire_transfer_intention`.
+         * only if `category` is equal to `wire_transfer_intention`. A Wire Transfer initiated via
+         * Increase and sent to a different bank.
          */
         @NoAutoDetect
         class WireTransferIntention
