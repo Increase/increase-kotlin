@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.170.0 (2025-02-04)
+
+Full Changelog: [v0.169.0...v0.170.0](https://github.com/Increase/increase-kotlin/compare/v0.169.0...v0.170.0)
+
+### Features
+
+* **api:** api update ([#764](https://github.com/Increase/increase-kotlin/issues/764)) ([e2a6e16](https://github.com/Increase/increase-kotlin/commit/e2a6e160bcc6166abce973b55f4a8441fd34f325))
+* **client:** send client-side timeout headers ([#762](https://github.com/Increase/increase-kotlin/issues/762)) ([0da5ced](https://github.com/Increase/increase-kotlin/commit/0da5cedede993e51f2a42f43c4b27b803564dff6))
+
 ## 0.169.0 (2025-02-03)
 
 Full Changelog: [v0.168.0...v0.169.0](https://github.com/Increase/increase-kotlin/compare/v0.168.0...v0.169.0)
