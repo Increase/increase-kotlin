@@ -512,6 +512,9 @@ private constructor(
             /** Blue Ridge Bank, N.A. */
             val BLUE_RIDGE_BANK = of("blue_ridge_bank")
 
+            /** Core Bank */
+            val CORE_BANK = of("core_bank")
+
             /** First Internet Bank of Indiana */
             val FIRST_INTERNET_BANK = of("first_internet_bank")
 
@@ -525,6 +528,8 @@ private constructor(
         enum class Known {
             /** Blue Ridge Bank, N.A. */
             BLUE_RIDGE_BANK,
+            /** Core Bank */
+            CORE_BANK,
             /** First Internet Bank of Indiana */
             FIRST_INTERNET_BANK,
             /** Grasshopper Bank */
@@ -543,6 +548,8 @@ private constructor(
         enum class Value {
             /** Blue Ridge Bank, N.A. */
             BLUE_RIDGE_BANK,
+            /** Core Bank */
+            CORE_BANK,
             /** First Internet Bank of Indiana */
             FIRST_INTERNET_BANK,
             /** Grasshopper Bank */
@@ -561,6 +568,7 @@ private constructor(
         fun value(): Value =
             when (this) {
                 BLUE_RIDGE_BANK -> Value.BLUE_RIDGE_BANK
+                CORE_BANK -> Value.CORE_BANK
                 FIRST_INTERNET_BANK -> Value.FIRST_INTERNET_BANK
                 GRASSHOPPER_BANK -> Value.GRASSHOPPER_BANK
                 else -> Value._UNKNOWN
@@ -578,6 +586,7 @@ private constructor(
         fun known(): Known =
             when (this) {
                 BLUE_RIDGE_BANK -> Known.BLUE_RIDGE_BANK
+                CORE_BANK -> Known.CORE_BANK
                 FIRST_INTERNET_BANK -> Known.FIRST_INTERNET_BANK
                 GRASSHOPPER_BANK -> Known.GRASSHOPPER_BANK
                 else -> throw IncreaseInvalidDataException("Unknown Bank: $value")
