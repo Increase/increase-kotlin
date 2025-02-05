@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.170.1 (2025-02-05)
+
+Full Changelog: [v0.170.0...v0.170.1](https://github.com/Increase/increase-kotlin/compare/v0.170.0...v0.170.1)
+
+### Bug Fixes
+
+* **api:** add missing `@MustBeClosed` annotations ([#766](https://github.com/Increase/increase-kotlin/issues/766)) ([d571a5a](https://github.com/Increase/increase-kotlin/commit/d571a5a742c8faee0d2f8f77cfc1d51c0d504272))
+* **api:** switch `CompletableFuture&lt;Void&gt;` to `CompletableFuture<Void?>` ([d571a5a](https://github.com/Increase/increase-kotlin/commit/d571a5a742c8faee0d2f8f77cfc1d51c0d504272))
+* **client:** add missing validation calls on response ([d571a5a](https://github.com/Increase/increase-kotlin/commit/d571a5a742c8faee0d2f8f77cfc1d51c0d504272))
+* **client:** always provide a body for `PATCH` methods ([d571a5a](https://github.com/Increase/increase-kotlin/commit/d571a5a742c8faee0d2f8f77cfc1d51c0d504272))
+
+
+### Chores
+
+* **internal:** minor formatting/style changes ([d571a5a](https://github.com/Increase/increase-kotlin/commit/d571a5a742c8faee0d2f8f77cfc1d51c0d504272))
+* **internal:** rename some tests ([d571a5a](https://github.com/Increase/increase-kotlin/commit/d571a5a742c8faee0d2f8f77cfc1d51c0d504272))
+
 ## 0.170.0 (2025-02-04)
 
 Full Changelog: [v0.169.0...v0.170.0](https://github.com/Increase/increase-kotlin/compare/v0.169.0...v0.170.0)
