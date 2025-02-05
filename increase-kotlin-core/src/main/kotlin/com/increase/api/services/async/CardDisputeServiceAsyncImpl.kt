@@ -41,15 +41,14 @@ internal constructor(
                 .body(json(clientOptions.jsonMapper, params._body()))
                 .build()
                 .prepareAsync(clientOptions, params)
-        return clientOptions.httpClient.executeAsync(request, requestOptions).let { response ->
-            response
-                .use { createHandler.handle(it) }
-                .apply {
-                    if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
-                        validate()
-                    }
+        val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+        return response
+            .use { createHandler.handle(it) }
+            .also {
+                if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
+                    it.validate()
                 }
-        }
+            }
     }
 
     private val retrieveHandler: Handler<CardDispute> =
@@ -66,15 +65,14 @@ internal constructor(
                 .addPathSegments("card_disputes", params.getPathParam(0))
                 .build()
                 .prepareAsync(clientOptions, params)
-        return clientOptions.httpClient.executeAsync(request, requestOptions).let { response ->
-            response
-                .use { retrieveHandler.handle(it) }
-                .apply {
-                    if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
-                        validate()
-                    }
+        val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+        return response
+            .use { retrieveHandler.handle(it) }
+            .also {
+                if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
+                    it.validate()
                 }
-        }
+            }
     }
 
     private val listHandler: Handler<CardDisputeListPageAsync.Response> =
@@ -92,15 +90,14 @@ internal constructor(
                 .addPathSegments("card_disputes")
                 .build()
                 .prepareAsync(clientOptions, params)
-        return clientOptions.httpClient.executeAsync(request, requestOptions).let { response ->
-            response
-                .use { listHandler.handle(it) }
-                .apply {
-                    if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
-                        validate()
-                    }
+        val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+        return response
+            .use { listHandler.handle(it) }
+            .also {
+                if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
+                    it.validate()
                 }
-                .let { CardDisputeListPageAsync.of(this, params, it) }
-        }
+            }
+            .let { CardDisputeListPageAsync.of(this, params, it) }
     }
 }

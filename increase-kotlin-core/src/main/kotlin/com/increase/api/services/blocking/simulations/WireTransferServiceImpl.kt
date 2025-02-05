@@ -40,18 +40,17 @@ internal constructor(
             HttpRequest.builder()
                 .method(HttpMethod.POST)
                 .addPathSegments("simulations", "wire_transfers", params.getPathParam(0), "reverse")
-                .apply { params._body()?.also { body(json(clientOptions.jsonMapper, it)) } }
+                .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
                 .build()
                 .prepare(clientOptions, params)
-        return clientOptions.httpClient.execute(request, requestOptions).let { response ->
-            response
-                .use { reverseHandler.handle(it) }
-                .apply {
-                    if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
-                        validate()
-                    }
+        val response = clientOptions.httpClient.execute(request, requestOptions)
+        return response
+            .use { reverseHandler.handle(it) }
+            .also {
+                if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
+                    it.validate()
                 }
-        }
+            }
     }
 
     private val submitHandler: Handler<WireTransfer> =
@@ -69,17 +68,16 @@ internal constructor(
             HttpRequest.builder()
                 .method(HttpMethod.POST)
                 .addPathSegments("simulations", "wire_transfers", params.getPathParam(0), "submit")
-                .apply { params._body()?.also { body(json(clientOptions.jsonMapper, it)) } }
+                .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
                 .build()
                 .prepare(clientOptions, params)
-        return clientOptions.httpClient.execute(request, requestOptions).let { response ->
-            response
-                .use { submitHandler.handle(it) }
-                .apply {
-                    if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
-                        validate()
-                    }
+        val response = clientOptions.httpClient.execute(request, requestOptions)
+        return response
+            .use { submitHandler.handle(it) }
+            .also {
+                if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
+                    it.validate()
                 }
-        }
+            }
     }
 }

@@ -48,15 +48,14 @@ internal constructor(
                 .body(json(clientOptions.jsonMapper, params._body()))
                 .build()
                 .prepareAsync(clientOptions, params)
-        return clientOptions.httpClient.executeAsync(request, requestOptions).let { response ->
-            response
-                .use { createHandler.handle(it) }
-                .apply {
-                    if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
-                        validate()
-                    }
+        val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+        return response
+            .use { createHandler.handle(it) }
+            .also {
+                if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
+                    it.validate()
                 }
-        }
+            }
     }
 
     private val retrieveHandler: Handler<Entity> =
@@ -73,15 +72,14 @@ internal constructor(
                 .addPathSegments("entities", params.getPathParam(0))
                 .build()
                 .prepareAsync(clientOptions, params)
-        return clientOptions.httpClient.executeAsync(request, requestOptions).let { response ->
-            response
-                .use { retrieveHandler.handle(it) }
-                .apply {
-                    if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
-                        validate()
-                    }
+        val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+        return response
+            .use { retrieveHandler.handle(it) }
+            .also {
+                if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
+                    it.validate()
                 }
-        }
+            }
     }
 
     private val listHandler: Handler<EntityListPageAsync.Response> =
@@ -99,16 +97,15 @@ internal constructor(
                 .addPathSegments("entities")
                 .build()
                 .prepareAsync(clientOptions, params)
-        return clientOptions.httpClient.executeAsync(request, requestOptions).let { response ->
-            response
-                .use { listHandler.handle(it) }
-                .apply {
-                    if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
-                        validate()
-                    }
+        val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+        return response
+            .use { listHandler.handle(it) }
+            .also {
+                if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
+                    it.validate()
                 }
-                .let { EntityListPageAsync.of(this, params, it) }
-        }
+            }
+            .let { EntityListPageAsync.of(this, params, it) }
     }
 
     private val archiveHandler: Handler<Entity> =
@@ -123,18 +120,17 @@ internal constructor(
             HttpRequest.builder()
                 .method(HttpMethod.POST)
                 .addPathSegments("entities", params.getPathParam(0), "archive")
-                .apply { params._body()?.also { body(json(clientOptions.jsonMapper, it)) } }
+                .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
                 .build()
                 .prepareAsync(clientOptions, params)
-        return clientOptions.httpClient.executeAsync(request, requestOptions).let { response ->
-            response
-                .use { archiveHandler.handle(it) }
-                .apply {
-                    if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
-                        validate()
-                    }
+        val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+        return response
+            .use { archiveHandler.handle(it) }
+            .also {
+                if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
+                    it.validate()
                 }
-        }
+            }
     }
 
     private val archiveBeneficialOwnerHandler: Handler<Entity> =
@@ -152,15 +148,14 @@ internal constructor(
                 .body(json(clientOptions.jsonMapper, params._body()))
                 .build()
                 .prepareAsync(clientOptions, params)
-        return clientOptions.httpClient.executeAsync(request, requestOptions).let { response ->
-            response
-                .use { archiveBeneficialOwnerHandler.handle(it) }
-                .apply {
-                    if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
-                        validate()
-                    }
+        val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+        return response
+            .use { archiveBeneficialOwnerHandler.handle(it) }
+            .also {
+                if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
+                    it.validate()
                 }
-        }
+            }
     }
 
     private val confirmHandler: Handler<Entity> =
@@ -182,15 +177,14 @@ internal constructor(
                 .body(json(clientOptions.jsonMapper, params._body()))
                 .build()
                 .prepareAsync(clientOptions, params)
-        return clientOptions.httpClient.executeAsync(request, requestOptions).let { response ->
-            response
-                .use { confirmHandler.handle(it) }
-                .apply {
-                    if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
-                        validate()
-                    }
+        val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+        return response
+            .use { confirmHandler.handle(it) }
+            .also {
+                if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
+                    it.validate()
                 }
-        }
+            }
     }
 
     private val createBeneficialOwnerHandler: Handler<Entity> =
@@ -208,15 +202,14 @@ internal constructor(
                 .body(json(clientOptions.jsonMapper, params._body()))
                 .build()
                 .prepareAsync(clientOptions, params)
-        return clientOptions.httpClient.executeAsync(request, requestOptions).let { response ->
-            response
-                .use { createBeneficialOwnerHandler.handle(it) }
-                .apply {
-                    if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
-                        validate()
-                    }
+        val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+        return response
+            .use { createBeneficialOwnerHandler.handle(it) }
+            .also {
+                if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
+                    it.validate()
                 }
-        }
+            }
     }
 
     private val updateAddressHandler: Handler<Entity> =
@@ -234,15 +227,14 @@ internal constructor(
                 .body(json(clientOptions.jsonMapper, params._body()))
                 .build()
                 .prepareAsync(clientOptions, params)
-        return clientOptions.httpClient.executeAsync(request, requestOptions).let { response ->
-            response
-                .use { updateAddressHandler.handle(it) }
-                .apply {
-                    if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
-                        validate()
-                    }
+        val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+        return response
+            .use { updateAddressHandler.handle(it) }
+            .also {
+                if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
+                    it.validate()
                 }
-        }
+            }
     }
 
     private val updateBeneficialOwnerAddressHandler: Handler<Entity> =
@@ -264,15 +256,14 @@ internal constructor(
                 .body(json(clientOptions.jsonMapper, params._body()))
                 .build()
                 .prepareAsync(clientOptions, params)
-        return clientOptions.httpClient.executeAsync(request, requestOptions).let { response ->
-            response
-                .use { updateBeneficialOwnerAddressHandler.handle(it) }
-                .apply {
-                    if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
-                        validate()
-                    }
+        val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+        return response
+            .use { updateBeneficialOwnerAddressHandler.handle(it) }
+            .also {
+                if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
+                    it.validate()
                 }
-        }
+            }
     }
 
     private val updateIndustryCodeHandler: Handler<Entity> =
@@ -290,14 +281,13 @@ internal constructor(
                 .body(json(clientOptions.jsonMapper, params._body()))
                 .build()
                 .prepareAsync(clientOptions, params)
-        return clientOptions.httpClient.executeAsync(request, requestOptions).let { response ->
-            response
-                .use { updateIndustryCodeHandler.handle(it) }
-                .apply {
-                    if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
-                        validate()
-                    }
+        val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+        return response
+            .use { updateIndustryCodeHandler.handle(it) }
+            .also {
+                if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
+                    it.validate()
                 }
-        }
+            }
     }
 }

@@ -41,15 +41,14 @@ internal constructor(
                 .addPathSegments("inbound_check_deposits", params.getPathParam(0))
                 .build()
                 .prepareAsync(clientOptions, params)
-        return clientOptions.httpClient.executeAsync(request, requestOptions).let { response ->
-            response
-                .use { retrieveHandler.handle(it) }
-                .apply {
-                    if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
-                        validate()
-                    }
+        val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+        return response
+            .use { retrieveHandler.handle(it) }
+            .also {
+                if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
+                    it.validate()
                 }
-        }
+            }
     }
 
     private val listHandler: Handler<InboundCheckDepositListPageAsync.Response> =
@@ -67,16 +66,15 @@ internal constructor(
                 .addPathSegments("inbound_check_deposits")
                 .build()
                 .prepareAsync(clientOptions, params)
-        return clientOptions.httpClient.executeAsync(request, requestOptions).let { response ->
-            response
-                .use { listHandler.handle(it) }
-                .apply {
-                    if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
-                        validate()
-                    }
+        val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+        return response
+            .use { listHandler.handle(it) }
+            .also {
+                if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
+                    it.validate()
                 }
-                .let { InboundCheckDepositListPageAsync.of(this, params, it) }
-        }
+            }
+            .let { InboundCheckDepositListPageAsync.of(this, params, it) }
     }
 
     private val declineHandler: Handler<InboundCheckDeposit> =
@@ -91,18 +89,17 @@ internal constructor(
             HttpRequest.builder()
                 .method(HttpMethod.POST)
                 .addPathSegments("inbound_check_deposits", params.getPathParam(0), "decline")
-                .apply { params._body()?.also { body(json(clientOptions.jsonMapper, it)) } }
+                .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
                 .build()
                 .prepareAsync(clientOptions, params)
-        return clientOptions.httpClient.executeAsync(request, requestOptions).let { response ->
-            response
-                .use { declineHandler.handle(it) }
-                .apply {
-                    if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
-                        validate()
-                    }
+        val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+        return response
+            .use { declineHandler.handle(it) }
+            .also {
+                if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
+                    it.validate()
                 }
-        }
+            }
     }
 
     private val returnHandler: Handler<InboundCheckDeposit> =
@@ -120,14 +117,13 @@ internal constructor(
                 .body(json(clientOptions.jsonMapper, params._body()))
                 .build()
                 .prepareAsync(clientOptions, params)
-        return clientOptions.httpClient.executeAsync(request, requestOptions).let { response ->
-            response
-                .use { returnHandler.handle(it) }
-                .apply {
-                    if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
-                        validate()
-                    }
+        val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+        return response
+            .use { returnHandler.handle(it) }
+            .also {
+                if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
+                    it.validate()
                 }
-        }
+            }
     }
 }

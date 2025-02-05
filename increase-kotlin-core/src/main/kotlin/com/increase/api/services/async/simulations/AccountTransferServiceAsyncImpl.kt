@@ -45,17 +45,16 @@ internal constructor(
                     params.getPathParam(0),
                     "complete"
                 )
-                .apply { params._body()?.also { body(json(clientOptions.jsonMapper, it)) } }
+                .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
                 .build()
                 .prepareAsync(clientOptions, params)
-        return clientOptions.httpClient.executeAsync(request, requestOptions).let { response ->
-            response
-                .use { completeHandler.handle(it) }
-                .apply {
-                    if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
-                        validate()
-                    }
+        val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+        return response
+            .use { completeHandler.handle(it) }
+            .also {
+                if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
+                    it.validate()
                 }
-        }
+            }
     }
 }
