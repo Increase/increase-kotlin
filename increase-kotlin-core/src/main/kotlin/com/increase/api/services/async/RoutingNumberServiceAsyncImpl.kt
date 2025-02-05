@@ -42,15 +42,14 @@ internal constructor(
                 .addPathSegments("routing_numbers")
                 .build()
                 .prepareAsync(clientOptions, params)
-        return clientOptions.httpClient.executeAsync(request, requestOptions).let { response ->
-            response
-                .use { listHandler.handle(it) }
-                .apply {
-                    if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
-                        validate()
-                    }
+        val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+        return response
+            .use { listHandler.handle(it) }
+            .also {
+                if (requestOptions.responseValidation ?: clientOptions.responseValidation) {
+                    it.validate()
                 }
-                .let { RoutingNumberListPageAsync.of(this, params, it) }
-        }
+            }
+            .let { RoutingNumberListPageAsync.of(this, params, it) }
     }
 }
