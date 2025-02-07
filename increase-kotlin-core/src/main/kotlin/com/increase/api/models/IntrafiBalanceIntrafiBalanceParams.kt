@@ -10,7 +10,7 @@ import com.increase.api.core.http.QueryParams
 import java.util.Objects
 
 /** Get IntraFi balances by bank */
-class IntrafiBalanceRetrieveParams
+class IntrafiBalanceIntrafiBalanceParams
 private constructor(
     private val accountId: String,
     private val additionalHeaders: Headers,
@@ -42,7 +42,7 @@ private constructor(
         fun builder() = Builder()
     }
 
-    /** A builder for [IntrafiBalanceRetrieveParams]. */
+    /** A builder for [IntrafiBalanceIntrafiBalanceParams]. */
     @NoAutoDetect
     class Builder internal constructor() {
 
@@ -50,11 +50,13 @@ private constructor(
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
-        internal fun from(intrafiBalanceRetrieveParams: IntrafiBalanceRetrieveParams) = apply {
-            accountId = intrafiBalanceRetrieveParams.accountId
-            additionalHeaders = intrafiBalanceRetrieveParams.additionalHeaders.toBuilder()
-            additionalQueryParams = intrafiBalanceRetrieveParams.additionalQueryParams.toBuilder()
-        }
+        internal fun from(intrafiBalanceIntrafiBalanceParams: IntrafiBalanceIntrafiBalanceParams) =
+            apply {
+                accountId = intrafiBalanceIntrafiBalanceParams.accountId
+                additionalHeaders = intrafiBalanceIntrafiBalanceParams.additionalHeaders.toBuilder()
+                additionalQueryParams =
+                    intrafiBalanceIntrafiBalanceParams.additionalQueryParams.toBuilder()
+            }
 
         /** The identifier of the Account to get balances for. */
         fun accountId(accountId: String) = apply { this.accountId = accountId }
@@ -157,8 +159,8 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
-        fun build(): IntrafiBalanceRetrieveParams =
-            IntrafiBalanceRetrieveParams(
+        fun build(): IntrafiBalanceIntrafiBalanceParams =
+            IntrafiBalanceIntrafiBalanceParams(
                 checkRequired("accountId", accountId),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -170,11 +172,11 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is IntrafiBalanceRetrieveParams && accountId == other.accountId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return /* spotless:off */ other is IntrafiBalanceIntrafiBalanceParams && accountId == other.accountId && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
     override fun hashCode(): Int = /* spotless:off */ Objects.hash(accountId, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "IntrafiBalanceRetrieveParams{accountId=$accountId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "IntrafiBalanceIntrafiBalanceParams{accountId=$accountId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }
