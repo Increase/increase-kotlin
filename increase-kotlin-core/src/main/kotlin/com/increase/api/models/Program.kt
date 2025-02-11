@@ -328,9 +328,6 @@ private constructor(
 
         companion object {
 
-            /** Blue Ridge Bank, N.A. */
-            val BLUE_RIDGE_BANK = of("blue_ridge_bank")
-
             /** Core Bank */
             val CORE_BANK = of("core_bank")
 
@@ -345,8 +342,6 @@ private constructor(
 
         /** An enum containing [Bank]'s known values. */
         enum class Known {
-            /** Blue Ridge Bank, N.A. */
-            BLUE_RIDGE_BANK,
             /** Core Bank */
             CORE_BANK,
             /** First Internet Bank of Indiana */
@@ -365,8 +360,6 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            /** Blue Ridge Bank, N.A. */
-            BLUE_RIDGE_BANK,
             /** Core Bank */
             CORE_BANK,
             /** First Internet Bank of Indiana */
@@ -386,7 +379,6 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                BLUE_RIDGE_BANK -> Value.BLUE_RIDGE_BANK
                 CORE_BANK -> Value.CORE_BANK
                 FIRST_INTERNET_BANK -> Value.FIRST_INTERNET_BANK
                 GRASSHOPPER_BANK -> Value.GRASSHOPPER_BANK
@@ -404,7 +396,6 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                BLUE_RIDGE_BANK -> Known.BLUE_RIDGE_BANK
                 CORE_BANK -> Known.CORE_BANK
                 FIRST_INTERNET_BANK -> Known.FIRST_INTERNET_BANK
                 GRASSHOPPER_BANK -> Known.GRASSHOPPER_BANK
