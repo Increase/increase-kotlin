@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.175.1 (2025-02-12)
+
+Full Changelog: [v0.175.0...v0.175.1](https://github.com/Increase/increase-kotlin/compare/v0.175.0...v0.175.1)
+
+### Documentation
+
+* add more phantom reachability docs ([#784](https://github.com/Increase/increase-kotlin/issues/784)) ([b955f29](https://github.com/Increase/increase-kotlin/commit/b955f299bb0808316db9633f01c7aea9fc9da322))
+
 ## 0.175.0 (2025-02-12)
 
 Full Changelog: [v0.174.0...v0.175.0](https://github.com/Increase/increase-kotlin/compare/v0.174.0...v0.175.0)
