@@ -71,11 +71,7 @@ private constructor(
     companion object {
 
         fun of(programsService: ProgramService, params: ProgramListParams, response: Response) =
-            ProgramListPage(
-                programsService,
-                params,
-                response,
-            )
+            ProgramListPage(programsService, params, response)
     }
 
     @NoAutoDetect
@@ -156,18 +152,11 @@ private constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() =
-                Response(
-                    data,
-                    nextCursor,
-                    additionalProperties.toImmutable(),
-                )
+            fun build() = Response(data, nextCursor, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: ProgramListPage,
-    ) : Sequence<Program> {
+    class AutoPager(private val firstPage: ProgramListPage) : Sequence<Program> {
 
         override fun iterator(): Iterator<Program> = iterator {
             var page = firstPage

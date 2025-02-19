@@ -190,11 +190,8 @@ private constructor(
     /**
      * If the simulated tokenization attempt was declined, this field contains details as to why.
      */
-    class DeclineReason
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class DeclineReason @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -313,11 +310,7 @@ private constructor(
      * A constant representing the object's type. For this resource it will always be
      * `inbound_digital_wallet_token_request_simulation_result`.
      */
-    class Type
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -339,7 +332,7 @@ private constructor(
 
         /** An enum containing [Type]'s known values. */
         enum class Known {
-            INBOUND_DIGITAL_WALLET_TOKEN_REQUEST_SIMULATION_RESULT,
+            INBOUND_DIGITAL_WALLET_TOKEN_REQUEST_SIMULATION_RESULT
         }
 
         /**

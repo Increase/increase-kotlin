@@ -16,6 +16,6 @@ interface CardDisputeServiceAsync {
      */
     suspend fun action(
         params: SimulationCardDisputeActionParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CardDispute
 }

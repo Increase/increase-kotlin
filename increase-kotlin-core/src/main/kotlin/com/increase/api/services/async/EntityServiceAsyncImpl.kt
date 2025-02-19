@@ -26,10 +26,8 @@ import com.increase.api.models.EntityUpdateAddressParams
 import com.increase.api.models.EntityUpdateBeneficialOwnerAddressParams
 import com.increase.api.models.EntityUpdateIndustryCodeParams
 
-class EntityServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : EntityServiceAsync {
+class EntityServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
+    EntityServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -39,7 +37,7 @@ internal constructor(
     /** Create an Entity */
     override suspend fun create(
         params: EntityCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): Entity {
         val request =
             HttpRequest.builder()
@@ -64,7 +62,7 @@ internal constructor(
     /** Retrieve an Entity */
     override suspend fun retrieve(
         params: EntityRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): Entity {
         val request =
             HttpRequest.builder()
@@ -89,7 +87,7 @@ internal constructor(
     /** List Entities */
     override suspend fun list(
         params: EntityListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): EntityListPageAsync {
         val request =
             HttpRequest.builder()
@@ -114,7 +112,7 @@ internal constructor(
     /** Archive an Entity */
     override suspend fun archive(
         params: EntityArchiveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): Entity {
         val request =
             HttpRequest.builder()
@@ -139,7 +137,7 @@ internal constructor(
     /** Archive a beneficial owner for a corporate Entity */
     override suspend fun archiveBeneficialOwner(
         params: EntityArchiveBeneficialOwnerParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): Entity {
         val request =
             HttpRequest.builder()
@@ -168,7 +166,7 @@ internal constructor(
      */
     override suspend fun confirm(
         params: EntityConfirmParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): Entity {
         val request =
             HttpRequest.builder()
@@ -193,7 +191,7 @@ internal constructor(
     /** Create a beneficial owner for a corporate Entity */
     override suspend fun createBeneficialOwner(
         params: EntityCreateBeneficialOwnerParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): Entity {
         val request =
             HttpRequest.builder()
@@ -218,7 +216,7 @@ internal constructor(
     /** Update a Natural Person or Corporation's address */
     override suspend fun updateAddress(
         params: EntityUpdateAddressParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): Entity {
         val request =
             HttpRequest.builder()
@@ -243,7 +241,7 @@ internal constructor(
     /** Update the address for a beneficial owner belonging to a corporate Entity */
     override suspend fun updateBeneficialOwnerAddress(
         params: EntityUpdateBeneficialOwnerAddressParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): Entity {
         val request =
             HttpRequest.builder()
@@ -251,7 +249,7 @@ internal constructor(
                 .addPathSegments(
                     "entities",
                     params.getPathParam(0),
-                    "update_beneficial_owner_address"
+                    "update_beneficial_owner_address",
                 )
                 .body(json(clientOptions.jsonMapper, params._body()))
                 .build()
@@ -272,7 +270,7 @@ internal constructor(
     /** Update the industry code for a corporate Entity */
     override suspend fun updateIndustryCode(
         params: EntityUpdateIndustryCodeParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): Entity {
         val request =
             HttpRequest.builder()

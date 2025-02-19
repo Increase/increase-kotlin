@@ -73,13 +73,8 @@ private constructor(
         fun of(
             inboundWireDrawdownRequestsService: InboundWireDrawdownRequestService,
             params: InboundWireDrawdownRequestListParams,
-            response: Response
-        ) =
-            InboundWireDrawdownRequestListPage(
-                inboundWireDrawdownRequestsService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = InboundWireDrawdownRequestListPage(inboundWireDrawdownRequestsService, params, response)
     }
 
     @NoAutoDetect
@@ -161,18 +156,12 @@ private constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() =
-                Response(
-                    data,
-                    nextCursor,
-                    additionalProperties.toImmutable(),
-                )
+            fun build() = Response(data, nextCursor, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: InboundWireDrawdownRequestListPage,
-    ) : Sequence<InboundWireDrawdownRequest> {
+    class AutoPager(private val firstPage: InboundWireDrawdownRequestListPage) :
+        Sequence<InboundWireDrawdownRequest> {
 
         override fun iterator(): Iterator<InboundWireDrawdownRequest> = iterator {
             var page = firstPage

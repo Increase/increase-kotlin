@@ -147,7 +147,7 @@ private constructor(
             fun build(): SimulationRealTimePaymentsTransferCompleteBody =
                 SimulationRealTimePaymentsTransferCompleteBody(
                     rejection,
-                    additionalProperties.toImmutable()
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -421,16 +421,14 @@ private constructor(
             fun build(): Rejection =
                 Rejection(
                     checkRequired("rejectReasonCode", rejectReasonCode),
-                    additionalProperties.toImmutable()
+                    additionalProperties.toImmutable(),
                 )
         }
 
         /** The reason code that the simulated rejection will have. */
         class RejectReasonCode
         @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        private constructor(private val value: JsonField<String>) : Enum {
 
             /**
              * Returns this class instance's raw value.

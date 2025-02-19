@@ -17,10 +17,8 @@ import com.increase.api.models.CardPaymentListPageAsync
 import com.increase.api.models.CardPaymentListParams
 import com.increase.api.models.CardPaymentRetrieveParams
 
-class CardPaymentServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : CardPaymentServiceAsync {
+class CardPaymentServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
+    CardPaymentServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -30,7 +28,7 @@ internal constructor(
     /** Retrieve a Card Payment */
     override suspend fun retrieve(
         params: CardPaymentRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CardPayment {
         val request =
             HttpRequest.builder()
@@ -55,7 +53,7 @@ internal constructor(
     /** List Card Payments */
     override suspend fun list(
         params: CardPaymentListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CardPaymentListPageAsync {
         val request =
             HttpRequest.builder()

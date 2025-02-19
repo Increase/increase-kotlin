@@ -14,18 +14,18 @@ interface WireDrawdownRequestServiceAsync {
     /** Create a Wire Drawdown Request */
     suspend fun create(
         params: WireDrawdownRequestCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): WireDrawdownRequest
 
     /** Retrieve a Wire Drawdown Request */
     suspend fun retrieve(
         params: WireDrawdownRequestRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): WireDrawdownRequest
 
     /** List Wire Drawdown Requests */
     suspend fun list(
         params: WireDrawdownRequestListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): WireDrawdownRequestListPageAsync
 }

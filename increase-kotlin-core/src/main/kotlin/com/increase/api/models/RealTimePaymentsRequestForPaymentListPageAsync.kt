@@ -77,7 +77,7 @@ private constructor(
             realTimePaymentsRequestForPaymentsService:
                 RealTimePaymentsRequestForPaymentServiceAsync,
             params: RealTimePaymentsRequestForPaymentListParams,
-            response: Response
+            response: Response,
         ) =
             RealTimePaymentsRequestForPaymentListPageAsync(
                 realTimePaymentsRequestForPaymentsService,
@@ -168,18 +168,12 @@ private constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() =
-                Response(
-                    data,
-                    nextCursor,
-                    additionalProperties.toImmutable(),
-                )
+            fun build() = Response(data, nextCursor, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: RealTimePaymentsRequestForPaymentListPageAsync,
-    ) : Flow<RealTimePaymentsRequestForPayment> {
+    class AutoPager(private val firstPage: RealTimePaymentsRequestForPaymentListPageAsync) :
+        Flow<RealTimePaymentsRequestForPayment> {
 
         override suspend fun collect(collector: FlowCollector<RealTimePaymentsRequestForPayment>) {
             var page = firstPage

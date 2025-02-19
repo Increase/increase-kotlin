@@ -16,9 +16,7 @@ import com.increase.api.models.IntrafiBalance
 import com.increase.api.models.IntrafiBalanceIntrafiBalanceParams
 
 class IntrafiBalanceServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : IntrafiBalanceServiceAsync {
+internal constructor(private val clientOptions: ClientOptions) : IntrafiBalanceServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -28,7 +26,7 @@ internal constructor(
     /** Get IntraFi balances by bank */
     override suspend fun intrafiBalance(
         params: IntrafiBalanceIntrafiBalanceParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): IntrafiBalance {
         val request =
             HttpRequest.builder()

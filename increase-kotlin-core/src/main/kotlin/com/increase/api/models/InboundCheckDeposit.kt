@@ -807,11 +807,7 @@ private constructor(
         }
 
         /** The reason for the adjustment. */
-        class Reason
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        class Reason @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
             /**
              * Returns this class instance's raw value.
@@ -980,11 +976,7 @@ private constructor(
     }
 
     /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the deposit. */
-    class Currency
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Currency @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -1244,11 +1236,7 @@ private constructor(
         }
 
         /** The reason the deposit was returned. */
-        class Reason
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        class Reason @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
             /**
              * Returns this class instance's raw value.
@@ -1393,11 +1381,8 @@ private constructor(
      * Whether the details on the check match the recipient name of the check transfer. This is an
      * optional feature, contact sales to enable.
      */
-    class PayeeNameAnalysis
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class PayeeNameAnalysis @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -1504,11 +1489,7 @@ private constructor(
     }
 
     /** The status of the Inbound Check Deposit. */
-    class Status
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -1633,11 +1614,7 @@ private constructor(
      * A constant representing the object's type. For this resource it will always be
      * `inbound_check_deposit`.
      */
-    class Type
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -1658,7 +1635,7 @@ private constructor(
 
         /** An enum containing [Type]'s known values. */
         enum class Known {
-            INBOUND_CHECK_DEPOSIT,
+            INBOUND_CHECK_DEPOSIT
         }
 
         /**

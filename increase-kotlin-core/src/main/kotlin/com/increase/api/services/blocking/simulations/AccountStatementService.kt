@@ -14,6 +14,6 @@ interface AccountStatementService {
      */
     fun create(
         params: SimulationAccountStatementCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): AccountStatement
 }

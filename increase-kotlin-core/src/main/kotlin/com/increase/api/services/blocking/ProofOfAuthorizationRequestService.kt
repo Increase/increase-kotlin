@@ -13,12 +13,12 @@ interface ProofOfAuthorizationRequestService {
     /** Retrieve a Proof of Authorization Request */
     fun retrieve(
         params: ProofOfAuthorizationRequestRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): ProofOfAuthorizationRequest
 
     /** List Proof of Authorization Requests */
     fun list(
         params: ProofOfAuthorizationRequestListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): ProofOfAuthorizationRequestListPage
 }

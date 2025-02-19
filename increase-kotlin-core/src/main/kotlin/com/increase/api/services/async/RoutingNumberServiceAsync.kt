@@ -16,6 +16,6 @@ interface RoutingNumberServiceAsync {
      */
     suspend fun list(
         params: RoutingNumberListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): RoutingNumberListPageAsync
 }

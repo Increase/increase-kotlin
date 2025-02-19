@@ -75,13 +75,8 @@ private constructor(
         fun of(
             inboundMailItemsService: InboundMailItemServiceAsync,
             params: InboundMailItemListParams,
-            response: Response
-        ) =
-            InboundMailItemListPageAsync(
-                inboundMailItemsService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = InboundMailItemListPageAsync(inboundMailItemsService, params, response)
     }
 
     @NoAutoDetect
@@ -162,18 +157,11 @@ private constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() =
-                Response(
-                    data,
-                    nextCursor,
-                    additionalProperties.toImmutable(),
-                )
+            fun build() = Response(data, nextCursor, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: InboundMailItemListPageAsync,
-    ) : Flow<InboundMailItem> {
+    class AutoPager(private val firstPage: InboundMailItemListPageAsync) : Flow<InboundMailItem> {
 
         override suspend fun collect(collector: FlowCollector<InboundMailItem>) {
             var page = firstPage

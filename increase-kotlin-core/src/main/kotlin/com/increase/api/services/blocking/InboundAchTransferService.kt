@@ -16,30 +16,30 @@ interface InboundAchTransferService {
     /** Retrieve an Inbound ACH Transfer */
     fun retrieve(
         params: InboundAchTransferRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundAchTransfer
 
     /** List Inbound ACH Transfers */
     fun list(
         params: InboundAchTransferListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundAchTransferListPage
 
     /** Create a notification of change for an Inbound ACH Transfer */
     fun createNotificationOfChange(
         params: InboundAchTransferCreateNotificationOfChangeParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundAchTransfer
 
     /** Decline an Inbound ACH Transfer */
     fun decline(
         params: InboundAchTransferDeclineParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundAchTransfer
 
     /** Return an Inbound ACH Transfer */
     fun transferReturn(
         params: InboundAchTransferTransferReturnParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundAchTransfer
 }

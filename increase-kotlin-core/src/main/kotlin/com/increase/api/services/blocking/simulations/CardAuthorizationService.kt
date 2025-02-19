@@ -18,6 +18,6 @@ interface CardAuthorizationService {
      */
     fun create(
         params: SimulationCardAuthorizationCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): SimulationCardAuthorizationCreateResponse
 }

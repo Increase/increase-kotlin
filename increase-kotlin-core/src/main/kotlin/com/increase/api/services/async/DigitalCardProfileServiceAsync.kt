@@ -16,30 +16,30 @@ interface DigitalCardProfileServiceAsync {
     /** Create a Digital Card Profile */
     suspend fun create(
         params: DigitalCardProfileCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): DigitalCardProfile
 
     /** Retrieve a Digital Card Profile */
     suspend fun retrieve(
         params: DigitalCardProfileRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): DigitalCardProfile
 
     /** List Card Profiles */
     suspend fun list(
         params: DigitalCardProfileListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): DigitalCardProfileListPageAsync
 
     /** Archive a Digital Card Profile */
     suspend fun archive(
         params: DigitalCardProfileArchiveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): DigitalCardProfile
 
     /** Clones a Digital Card Profile */
     suspend fun clone(
         params: DigitalCardProfileCloneParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): DigitalCardProfile
 }

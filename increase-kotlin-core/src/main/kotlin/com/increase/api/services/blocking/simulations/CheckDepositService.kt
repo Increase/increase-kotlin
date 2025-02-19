@@ -16,7 +16,7 @@ interface CheckDepositService {
      */
     fun reject(
         params: SimulationCheckDepositRejectParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CheckDeposit
 
     /**
@@ -25,7 +25,7 @@ interface CheckDepositService {
      */
     fun return_(
         params: SimulationCheckDepositReturnParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CheckDeposit
 
     /**
@@ -34,6 +34,6 @@ interface CheckDepositService {
      */
     fun submit(
         params: SimulationCheckDepositSubmitParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CheckDeposit
 }

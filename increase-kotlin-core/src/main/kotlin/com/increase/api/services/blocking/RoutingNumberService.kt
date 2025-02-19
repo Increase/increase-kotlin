@@ -16,6 +16,6 @@ interface RoutingNumberService {
      */
     fun list(
         params: RoutingNumberListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): RoutingNumberListPage
 }

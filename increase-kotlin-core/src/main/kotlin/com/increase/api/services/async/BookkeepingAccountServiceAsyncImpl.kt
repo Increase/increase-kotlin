@@ -22,9 +22,7 @@ import com.increase.api.models.BookkeepingAccountUpdateParams
 import com.increase.api.models.BookkeepingBalanceLookup
 
 class BookkeepingAccountServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : BookkeepingAccountServiceAsync {
+internal constructor(private val clientOptions: ClientOptions) : BookkeepingAccountServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -34,7 +32,7 @@ internal constructor(
     /** Create a Bookkeeping Account */
     override suspend fun create(
         params: BookkeepingAccountCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): BookkeepingAccount {
         val request =
             HttpRequest.builder()
@@ -59,7 +57,7 @@ internal constructor(
     /** Update a Bookkeeping Account */
     override suspend fun update(
         params: BookkeepingAccountUpdateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): BookkeepingAccount {
         val request =
             HttpRequest.builder()
@@ -85,7 +83,7 @@ internal constructor(
     /** List Bookkeeping Accounts */
     override suspend fun list(
         params: BookkeepingAccountListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): BookkeepingAccountListPageAsync {
         val request =
             HttpRequest.builder()
@@ -111,7 +109,7 @@ internal constructor(
     /** Retrieve a Bookkeeping Account Balance */
     override suspend fun balance(
         params: BookkeepingAccountBalanceParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): BookkeepingBalanceLookup {
         val request =
             HttpRequest.builder()

@@ -15,6 +15,6 @@ interface CardFuelConfirmationServiceAsync {
      */
     suspend fun create(
         params: SimulationCardFuelConfirmationCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CardPayment
 }

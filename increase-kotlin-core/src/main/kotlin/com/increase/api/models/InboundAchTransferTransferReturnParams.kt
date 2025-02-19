@@ -160,7 +160,7 @@ private constructor(
             fun build(): InboundAchTransferTransferReturnBody =
                 InboundAchTransferTransferReturnBody(
                     checkRequired("reason", reason),
-                    additionalProperties.toImmutable()
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -359,11 +359,7 @@ private constructor(
      * The reason why this transfer will be returned. The most usual return codes are
      * `payment_stopped` for debits and `credit_entry_refused_by_receiver` for credits.
      */
-    class Reason
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Reason @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.

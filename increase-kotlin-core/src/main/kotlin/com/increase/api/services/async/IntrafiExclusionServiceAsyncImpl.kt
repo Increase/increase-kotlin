@@ -21,9 +21,7 @@ import com.increase.api.models.IntrafiExclusionListParams
 import com.increase.api.models.IntrafiExclusionRetrieveParams
 
 class IntrafiExclusionServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : IntrafiExclusionServiceAsync {
+internal constructor(private val clientOptions: ClientOptions) : IntrafiExclusionServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -33,7 +31,7 @@ internal constructor(
     /** Create an IntraFi Exclusion */
     override suspend fun create(
         params: IntrafiExclusionCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): IntrafiExclusion {
         val request =
             HttpRequest.builder()
@@ -58,7 +56,7 @@ internal constructor(
     /** Get an IntraFi Exclusion */
     override suspend fun retrieve(
         params: IntrafiExclusionRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): IntrafiExclusion {
         val request =
             HttpRequest.builder()
@@ -83,7 +81,7 @@ internal constructor(
     /** List IntraFi Exclusions */
     override suspend fun list(
         params: IntrafiExclusionListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): IntrafiExclusionListPageAsync {
         val request =
             HttpRequest.builder()
@@ -108,7 +106,7 @@ internal constructor(
     /** Archive an IntraFi Exclusion */
     override suspend fun archive(
         params: IntrafiExclusionArchiveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): IntrafiExclusion {
         val request =
             HttpRequest.builder()

@@ -13,12 +13,12 @@ interface ProgramService {
     /** Retrieve a Program */
     fun retrieve(
         params: ProgramRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): Program
 
     /** List Programs */
     fun list(
         params: ProgramListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): ProgramListPage
 }

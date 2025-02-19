@@ -450,7 +450,7 @@ private constructor(
             fun build(): InboundAch =
                 InboundAch(
                     checkRequired("debitStatus", debitStatus),
-                    additionalProperties.toImmutable()
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -458,11 +458,8 @@ private constructor(
          * Whether ACH debits are allowed against this Account Number. Note that they will still be
          * declined if this is `allowed` if the Account Number is not active.
          */
-        class DebitStatus
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        class DebitStatus @JsonCreator private constructor(private val value: JsonField<String>) :
+            Enum {
 
             /**
              * Returns this class instance's raw value.
@@ -658,11 +655,7 @@ private constructor(
         }
 
         /** How Increase should process checks with this account number printed on them. */
-        class Status
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
             /**
              * Returns this class instance's raw value.
@@ -795,11 +788,7 @@ private constructor(
     }
 
     /** This indicates if payments can be made to the Account Number. */
-    class Status
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -906,11 +895,7 @@ private constructor(
      * A constant representing the object's type. For this resource it will always be
      * `account_number`.
      */
-    class Type
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -931,7 +916,7 @@ private constructor(
 
         /** An enum containing [Type]'s known values. */
         enum class Known {
-            ACCOUNT_NUMBER,
+            ACCOUNT_NUMBER
         }
 
         /**

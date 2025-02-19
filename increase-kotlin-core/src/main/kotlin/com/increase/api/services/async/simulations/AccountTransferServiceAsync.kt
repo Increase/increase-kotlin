@@ -16,6 +16,6 @@ interface AccountTransferServiceAsync {
      */
     suspend fun complete(
         params: SimulationAccountTransferCompleteParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): AccountTransfer
 }

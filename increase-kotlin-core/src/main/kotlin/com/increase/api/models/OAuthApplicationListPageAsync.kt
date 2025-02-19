@@ -75,13 +75,8 @@ private constructor(
         fun of(
             oauthApplicationsService: OAuthApplicationServiceAsync,
             params: OAuthApplicationListParams,
-            response: Response
-        ) =
-            OAuthApplicationListPageAsync(
-                oauthApplicationsService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = OAuthApplicationListPageAsync(oauthApplicationsService, params, response)
     }
 
     @NoAutoDetect
@@ -163,18 +158,11 @@ private constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() =
-                Response(
-                    data,
-                    nextCursor,
-                    additionalProperties.toImmutable(),
-                )
+            fun build() = Response(data, nextCursor, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: OAuthApplicationListPageAsync,
-    ) : Flow<OAuthApplication> {
+    class AutoPager(private val firstPage: OAuthApplicationListPageAsync) : Flow<OAuthApplication> {
 
         override suspend fun collect(collector: FlowCollector<OAuthApplication>) {
             var page = firstPage

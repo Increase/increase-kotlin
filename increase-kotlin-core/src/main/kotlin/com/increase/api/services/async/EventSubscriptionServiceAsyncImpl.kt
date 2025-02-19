@@ -21,9 +21,7 @@ import com.increase.api.models.EventSubscriptionRetrieveParams
 import com.increase.api.models.EventSubscriptionUpdateParams
 
 class EventSubscriptionServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : EventSubscriptionServiceAsync {
+internal constructor(private val clientOptions: ClientOptions) : EventSubscriptionServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -33,7 +31,7 @@ internal constructor(
     /** Create an Event Subscription */
     override suspend fun create(
         params: EventSubscriptionCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): EventSubscription {
         val request =
             HttpRequest.builder()
@@ -58,7 +56,7 @@ internal constructor(
     /** Retrieve an Event Subscription */
     override suspend fun retrieve(
         params: EventSubscriptionRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): EventSubscription {
         val request =
             HttpRequest.builder()
@@ -82,7 +80,7 @@ internal constructor(
     /** Update an Event Subscription */
     override suspend fun update(
         params: EventSubscriptionUpdateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): EventSubscription {
         val request =
             HttpRequest.builder()
@@ -108,7 +106,7 @@ internal constructor(
     /** List Event Subscriptions */
     override suspend fun list(
         params: EventSubscriptionListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): EventSubscriptionListPageAsync {
         val request =
             HttpRequest.builder()

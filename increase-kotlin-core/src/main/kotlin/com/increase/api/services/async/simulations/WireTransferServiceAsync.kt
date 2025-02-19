@@ -16,7 +16,7 @@ interface WireTransferServiceAsync {
      */
     suspend fun reverse(
         params: SimulationWireTransferReverseParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): WireTransfer
 
     /**
@@ -25,6 +25,6 @@ interface WireTransferServiceAsync {
      */
     suspend fun submit(
         params: SimulationWireTransferSubmitParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): WireTransfer
 }

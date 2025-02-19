@@ -73,13 +73,8 @@ private constructor(
         fun of(
             inboundCheckDepositsService: InboundCheckDepositService,
             params: InboundCheckDepositListParams,
-            response: Response
-        ) =
-            InboundCheckDepositListPage(
-                inboundCheckDepositsService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = InboundCheckDepositListPage(inboundCheckDepositsService, params, response)
     }
 
     @NoAutoDetect
@@ -161,18 +156,12 @@ private constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() =
-                Response(
-                    data,
-                    nextCursor,
-                    additionalProperties.toImmutable(),
-                )
+            fun build() = Response(data, nextCursor, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: InboundCheckDepositListPage,
-    ) : Sequence<InboundCheckDeposit> {
+    class AutoPager(private val firstPage: InboundCheckDepositListPage) :
+        Sequence<InboundCheckDeposit> {
 
         override fun iterator(): Iterator<InboundCheckDeposit> = iterator {
             var page = firstPage

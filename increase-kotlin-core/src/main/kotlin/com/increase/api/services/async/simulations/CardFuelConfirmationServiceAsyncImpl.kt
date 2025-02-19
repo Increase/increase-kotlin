@@ -17,9 +17,7 @@ import com.increase.api.models.CardPayment
 import com.increase.api.models.SimulationCardFuelConfirmationCreateParams
 
 class CardFuelConfirmationServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : CardFuelConfirmationServiceAsync {
+internal constructor(private val clientOptions: ClientOptions) : CardFuelConfirmationServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -33,7 +31,7 @@ internal constructor(
      */
     override suspend fun create(
         params: SimulationCardFuelConfirmationCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CardPayment {
         val request =
             HttpRequest.builder()

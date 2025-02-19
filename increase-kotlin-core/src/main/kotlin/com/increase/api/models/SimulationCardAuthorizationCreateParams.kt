@@ -1049,11 +1049,8 @@ private constructor(
     }
 
     /** Forces a card decline with a specific reason. No real time decision will be sent. */
-    class DeclineReason
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class DeclineReason @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -1295,11 +1292,7 @@ private constructor(
      * The direction describes the direction the funds will move, either from the cardholder to the
      * merchant or from the merchant to the cardholder.
      */
-    class Direction
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Direction @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -1577,9 +1570,7 @@ private constructor(
             /** The reason code for the stand-in processing. */
             class StandInProcessingReason
             @JsonCreator
-            private constructor(
-                private val value: JsonField<String>,
-            ) : Enum {
+            private constructor(private val value: JsonField<String>) : Enum {
 
                 /**
                  * Returns this class instance's raw value.

@@ -13,12 +13,12 @@ interface InboundMailItemServiceAsync {
     /** Retrieve an Inbound Mail Item */
     suspend fun retrieve(
         params: InboundMailItemRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundMailItem
 
     /** List Inbound Mail Items */
     suspend fun list(
         params: InboundMailItemListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundMailItemListPageAsync
 }

@@ -11,6 +11,6 @@ interface GroupService {
     /** Returns details for the currently authenticated Group. */
     fun retrieve(
         params: GroupRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): Group
 }

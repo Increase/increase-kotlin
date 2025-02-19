@@ -73,13 +73,8 @@ private constructor(
         fun of(
             inboundWireTransfersService: InboundWireTransferService,
             params: InboundWireTransferListParams,
-            response: Response
-        ) =
-            InboundWireTransferListPage(
-                inboundWireTransfersService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = InboundWireTransferListPage(inboundWireTransfersService, params, response)
     }
 
     @NoAutoDetect
@@ -161,18 +156,12 @@ private constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() =
-                Response(
-                    data,
-                    nextCursor,
-                    additionalProperties.toImmutable(),
-                )
+            fun build() = Response(data, nextCursor, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: InboundWireTransferListPage,
-    ) : Sequence<InboundWireTransfer> {
+    class AutoPager(private val firstPage: InboundWireTransferListPage) :
+        Sequence<InboundWireTransfer> {
 
         override fun iterator(): Iterator<InboundWireTransfer> = iterator {
             var page = firstPage

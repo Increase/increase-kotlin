@@ -75,13 +75,8 @@ private constructor(
         fun of(
             lockboxesService: LockboxServiceAsync,
             params: LockboxListParams,
-            response: Response
-        ) =
-            LockboxListPageAsync(
-                lockboxesService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = LockboxListPageAsync(lockboxesService, params, response)
     }
 
     @NoAutoDetect
@@ -162,18 +157,11 @@ private constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() =
-                Response(
-                    data,
-                    nextCursor,
-                    additionalProperties.toImmutable(),
-                )
+            fun build() = Response(data, nextCursor, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: LockboxListPageAsync,
-    ) : Flow<Lockbox> {
+    class AutoPager(private val firstPage: LockboxListPageAsync) : Flow<Lockbox> {
 
         override suspend fun collect(collector: FlowCollector<Lockbox>) {
             var page = firstPage

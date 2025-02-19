@@ -73,13 +73,8 @@ private constructor(
         fun of(
             oauthApplicationsService: OAuthApplicationService,
             params: OAuthApplicationListParams,
-            response: Response
-        ) =
-            OAuthApplicationListPage(
-                oauthApplicationsService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = OAuthApplicationListPage(oauthApplicationsService, params, response)
     }
 
     @NoAutoDetect
@@ -161,18 +156,11 @@ private constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() =
-                Response(
-                    data,
-                    nextCursor,
-                    additionalProperties.toImmutable(),
-                )
+            fun build() = Response(data, nextCursor, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: OAuthApplicationListPage,
-    ) : Sequence<OAuthApplication> {
+    class AutoPager(private val firstPage: OAuthApplicationListPage) : Sequence<OAuthApplication> {
 
         override fun iterator(): Iterator<OAuthApplication> = iterator {
             var page = firstPage
