@@ -25,7 +25,7 @@ import java.util.Objects
  */
 class SimulationCardRefundCreateParams
 private constructor(
-    private val body: SimulationCardRefundCreateBody,
+    private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -48,16 +48,16 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): SimulationCardRefundCreateBody = body
+    internal fun _body(): Body = body
 
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     @NoAutoDetect
-    class SimulationCardRefundCreateBody
+    class Body
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("transaction_id")
         @ExcludeMissing
         private val transactionId: JsonField<String> = JsonMissing.of(),
@@ -85,7 +85,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): SimulationCardRefundCreateBody = apply {
+        fun validate(): Body = apply {
             if (validated) {
                 return@apply
             }
@@ -101,18 +101,16 @@ private constructor(
             fun builder() = Builder()
         }
 
-        /** A builder for [SimulationCardRefundCreateBody]. */
+        /** A builder for [Body]. */
         class Builder internal constructor() {
 
             private var transactionId: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(simulationCardRefundCreateBody: SimulationCardRefundCreateBody) =
-                apply {
-                    transactionId = simulationCardRefundCreateBody.transactionId
-                    additionalProperties =
-                        simulationCardRefundCreateBody.additionalProperties.toMutableMap()
-                }
+            internal fun from(body: Body) = apply {
+                transactionId = body.transactionId
+                additionalProperties = body.additionalProperties.toMutableMap()
+            }
 
             /**
              * The identifier for the Transaction to refund. The Transaction's source must have a
@@ -147,8 +145,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): SimulationCardRefundCreateBody =
-                SimulationCardRefundCreateBody(
+            fun build(): Body =
+                Body(
                     checkRequired("transactionId", transactionId),
                     additionalProperties.toImmutable(),
                 )
@@ -159,7 +157,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is SimulationCardRefundCreateBody && transactionId == other.transactionId && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Body && transactionId == other.transactionId && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -169,7 +167,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "SimulationCardRefundCreateBody{transactionId=$transactionId, additionalProperties=$additionalProperties}"
+            "Body{transactionId=$transactionId, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -183,8 +181,7 @@ private constructor(
     @NoAutoDetect
     class Builder internal constructor() {
 
-        private var body: SimulationCardRefundCreateBody.Builder =
-            SimulationCardRefundCreateBody.builder()
+        private var body: Body.Builder = Body.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

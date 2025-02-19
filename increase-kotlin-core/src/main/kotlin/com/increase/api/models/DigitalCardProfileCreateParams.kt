@@ -22,7 +22,7 @@ import java.util.Objects
 /** Create a Digital Card Profile */
 class DigitalCardProfileCreateParams
 private constructor(
-    private val body: DigitalCardProfileCreateBody,
+    private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -87,16 +87,16 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): DigitalCardProfileCreateBody = body
+    internal fun _body(): Body = body
 
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     @NoAutoDetect
-    class DigitalCardProfileCreateBody
+    class Body
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("app_icon_file_id")
         @ExcludeMissing
         private val appIconFileId: JsonField<String> = JsonMissing.of(),
@@ -207,7 +207,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): DigitalCardProfileCreateBody = apply {
+        fun validate(): Body = apply {
             if (validated) {
                 return@apply
             }
@@ -231,7 +231,7 @@ private constructor(
             fun builder() = Builder()
         }
 
-        /** A builder for [DigitalCardProfileCreateBody]. */
+        /** A builder for [Body]. */
         class Builder internal constructor() {
 
             private var appIconFileId: JsonField<String>? = null
@@ -245,18 +245,17 @@ private constructor(
             private var textColor: JsonField<TextColor> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(digitalCardProfileCreateBody: DigitalCardProfileCreateBody) = apply {
-                appIconFileId = digitalCardProfileCreateBody.appIconFileId
-                backgroundImageFileId = digitalCardProfileCreateBody.backgroundImageFileId
-                cardDescription = digitalCardProfileCreateBody.cardDescription
-                description = digitalCardProfileCreateBody.description
-                issuerName = digitalCardProfileCreateBody.issuerName
-                contactEmail = digitalCardProfileCreateBody.contactEmail
-                contactPhone = digitalCardProfileCreateBody.contactPhone
-                contactWebsite = digitalCardProfileCreateBody.contactWebsite
-                textColor = digitalCardProfileCreateBody.textColor
-                additionalProperties =
-                    digitalCardProfileCreateBody.additionalProperties.toMutableMap()
+            internal fun from(body: Body) = apply {
+                appIconFileId = body.appIconFileId
+                backgroundImageFileId = body.backgroundImageFileId
+                cardDescription = body.cardDescription
+                description = body.description
+                issuerName = body.issuerName
+                contactEmail = body.contactEmail
+                contactPhone = body.contactPhone
+                contactWebsite = body.contactWebsite
+                textColor = body.textColor
+                additionalProperties = body.additionalProperties.toMutableMap()
             }
 
             /** The identifier of the File containing the card's icon image. */
@@ -349,8 +348,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): DigitalCardProfileCreateBody =
-                DigitalCardProfileCreateBody(
+            fun build(): Body =
+                Body(
                     checkRequired("appIconFileId", appIconFileId),
                     checkRequired("backgroundImageFileId", backgroundImageFileId),
                     checkRequired("cardDescription", cardDescription),
@@ -369,7 +368,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is DigitalCardProfileCreateBody && appIconFileId == other.appIconFileId && backgroundImageFileId == other.backgroundImageFileId && cardDescription == other.cardDescription && description == other.description && issuerName == other.issuerName && contactEmail == other.contactEmail && contactPhone == other.contactPhone && contactWebsite == other.contactWebsite && textColor == other.textColor && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Body && appIconFileId == other.appIconFileId && backgroundImageFileId == other.backgroundImageFileId && cardDescription == other.cardDescription && description == other.description && issuerName == other.issuerName && contactEmail == other.contactEmail && contactPhone == other.contactPhone && contactWebsite == other.contactWebsite && textColor == other.textColor && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -379,7 +378,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "DigitalCardProfileCreateBody{appIconFileId=$appIconFileId, backgroundImageFileId=$backgroundImageFileId, cardDescription=$cardDescription, description=$description, issuerName=$issuerName, contactEmail=$contactEmail, contactPhone=$contactPhone, contactWebsite=$contactWebsite, textColor=$textColor, additionalProperties=$additionalProperties}"
+            "Body{appIconFileId=$appIconFileId, backgroundImageFileId=$backgroundImageFileId, cardDescription=$cardDescription, description=$description, issuerName=$issuerName, contactEmail=$contactEmail, contactPhone=$contactPhone, contactWebsite=$contactWebsite, textColor=$textColor, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -393,8 +392,7 @@ private constructor(
     @NoAutoDetect
     class Builder internal constructor() {
 
-        private var body: DigitalCardProfileCreateBody.Builder =
-            DigitalCardProfileCreateBody.builder()
+        private var body: Body.Builder = Body.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

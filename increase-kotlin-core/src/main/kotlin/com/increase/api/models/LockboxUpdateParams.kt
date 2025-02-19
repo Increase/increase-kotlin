@@ -25,7 +25,7 @@ import java.util.Objects
 class LockboxUpdateParams
 private constructor(
     private val lockboxId: String,
-    private val body: LockboxUpdateBody,
+    private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -57,7 +57,7 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): LockboxUpdateBody = body
+    internal fun _body(): Body = body
 
     override fun _headers(): Headers = additionalHeaders
 
@@ -71,9 +71,9 @@ private constructor(
     }
 
     @NoAutoDetect
-    class LockboxUpdateBody
+    class Body
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("description")
         @ExcludeMissing
         private val description: JsonField<String> = JsonMissing.of(),
@@ -115,7 +115,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): LockboxUpdateBody = apply {
+        fun validate(): Body = apply {
             if (validated) {
                 return@apply
             }
@@ -133,7 +133,7 @@ private constructor(
             fun builder() = Builder()
         }
 
-        /** A builder for [LockboxUpdateBody]. */
+        /** A builder for [Body]. */
         class Builder internal constructor() {
 
             private var description: JsonField<String> = JsonMissing.of()
@@ -141,11 +141,11 @@ private constructor(
             private var status: JsonField<Status> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(lockboxUpdateBody: LockboxUpdateBody) = apply {
-                description = lockboxUpdateBody.description
-                recipientName = lockboxUpdateBody.recipientName
-                status = lockboxUpdateBody.status
-                additionalProperties = lockboxUpdateBody.additionalProperties.toMutableMap()
+            internal fun from(body: Body) = apply {
+                description = body.description
+                recipientName = body.recipientName
+                status = body.status
+                additionalProperties = body.additionalProperties.toMutableMap()
             }
 
             /** The description you choose for the Lockbox. */
@@ -189,13 +189,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): LockboxUpdateBody =
-                LockboxUpdateBody(
-                    description,
-                    recipientName,
-                    status,
-                    additionalProperties.toImmutable(),
-                )
+            fun build(): Body =
+                Body(description, recipientName, status, additionalProperties.toImmutable())
         }
 
         override fun equals(other: Any?): Boolean {
@@ -203,7 +198,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is LockboxUpdateBody && description == other.description && recipientName == other.recipientName && status == other.status && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Body && description == other.description && recipientName == other.recipientName && status == other.status && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -213,7 +208,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "LockboxUpdateBody{description=$description, recipientName=$recipientName, status=$status, additionalProperties=$additionalProperties}"
+            "Body{description=$description, recipientName=$recipientName, status=$status, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -228,7 +223,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var lockboxId: String? = null
-        private var body: LockboxUpdateBody.Builder = LockboxUpdateBody.builder()
+        private var body: Body.Builder = Body.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

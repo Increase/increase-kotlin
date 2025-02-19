@@ -22,7 +22,7 @@ import java.util.Objects
 /** Create a Wire Drawdown Request */
 class WireDrawdownRequestCreateParams
 private constructor(
-    private val body: WireDrawdownRequestCreateBody,
+    private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -135,16 +135,16 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): WireDrawdownRequestCreateBody = body
+    internal fun _body(): Body = body
 
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     @NoAutoDetect
-    class WireDrawdownRequestCreateBody
+    class Body
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("account_number_id")
         @ExcludeMissing
         private val accountNumberId: JsonField<String> = JsonMissing.of(),
@@ -334,7 +334,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): WireDrawdownRequestCreateBody = apply {
+        fun validate(): Body = apply {
             if (validated) {
                 return@apply
             }
@@ -362,7 +362,7 @@ private constructor(
             fun builder() = Builder()
         }
 
-        /** A builder for [WireDrawdownRequestCreateBody]. */
+        /** A builder for [Body]. */
         class Builder internal constructor() {
 
             private var accountNumberId: JsonField<String>? = null
@@ -380,24 +380,22 @@ private constructor(
             private var recipientAddressLine3: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(wireDrawdownRequestCreateBody: WireDrawdownRequestCreateBody) =
-                apply {
-                    accountNumberId = wireDrawdownRequestCreateBody.accountNumberId
-                    amount = wireDrawdownRequestCreateBody.amount
-                    messageToRecipient = wireDrawdownRequestCreateBody.messageToRecipient
-                    recipientAccountNumber = wireDrawdownRequestCreateBody.recipientAccountNumber
-                    recipientName = wireDrawdownRequestCreateBody.recipientName
-                    recipientRoutingNumber = wireDrawdownRequestCreateBody.recipientRoutingNumber
-                    originatorAddressLine1 = wireDrawdownRequestCreateBody.originatorAddressLine1
-                    originatorAddressLine2 = wireDrawdownRequestCreateBody.originatorAddressLine2
-                    originatorAddressLine3 = wireDrawdownRequestCreateBody.originatorAddressLine3
-                    originatorName = wireDrawdownRequestCreateBody.originatorName
-                    recipientAddressLine1 = wireDrawdownRequestCreateBody.recipientAddressLine1
-                    recipientAddressLine2 = wireDrawdownRequestCreateBody.recipientAddressLine2
-                    recipientAddressLine3 = wireDrawdownRequestCreateBody.recipientAddressLine3
-                    additionalProperties =
-                        wireDrawdownRequestCreateBody.additionalProperties.toMutableMap()
-                }
+            internal fun from(body: Body) = apply {
+                accountNumberId = body.accountNumberId
+                amount = body.amount
+                messageToRecipient = body.messageToRecipient
+                recipientAccountNumber = body.recipientAccountNumber
+                recipientName = body.recipientName
+                recipientRoutingNumber = body.recipientRoutingNumber
+                originatorAddressLine1 = body.originatorAddressLine1
+                originatorAddressLine2 = body.originatorAddressLine2
+                originatorAddressLine3 = body.originatorAddressLine3
+                originatorName = body.originatorName
+                recipientAddressLine1 = body.recipientAddressLine1
+                recipientAddressLine2 = body.recipientAddressLine2
+                recipientAddressLine3 = body.recipientAddressLine3
+                additionalProperties = body.additionalProperties.toMutableMap()
+            }
 
             /** The Account Number to which the recipient should send funds. */
             fun accountNumberId(accountNumberId: String) =
@@ -563,8 +561,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): WireDrawdownRequestCreateBody =
-                WireDrawdownRequestCreateBody(
+            fun build(): Body =
+                Body(
                     checkRequired("accountNumberId", accountNumberId),
                     checkRequired("amount", amount),
                     checkRequired("messageToRecipient", messageToRecipient),
@@ -587,7 +585,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is WireDrawdownRequestCreateBody && accountNumberId == other.accountNumberId && amount == other.amount && messageToRecipient == other.messageToRecipient && recipientAccountNumber == other.recipientAccountNumber && recipientName == other.recipientName && recipientRoutingNumber == other.recipientRoutingNumber && originatorAddressLine1 == other.originatorAddressLine1 && originatorAddressLine2 == other.originatorAddressLine2 && originatorAddressLine3 == other.originatorAddressLine3 && originatorName == other.originatorName && recipientAddressLine1 == other.recipientAddressLine1 && recipientAddressLine2 == other.recipientAddressLine2 && recipientAddressLine3 == other.recipientAddressLine3 && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Body && accountNumberId == other.accountNumberId && amount == other.amount && messageToRecipient == other.messageToRecipient && recipientAccountNumber == other.recipientAccountNumber && recipientName == other.recipientName && recipientRoutingNumber == other.recipientRoutingNumber && originatorAddressLine1 == other.originatorAddressLine1 && originatorAddressLine2 == other.originatorAddressLine2 && originatorAddressLine3 == other.originatorAddressLine3 && originatorName == other.originatorName && recipientAddressLine1 == other.recipientAddressLine1 && recipientAddressLine2 == other.recipientAddressLine2 && recipientAddressLine3 == other.recipientAddressLine3 && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -597,7 +595,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "WireDrawdownRequestCreateBody{accountNumberId=$accountNumberId, amount=$amount, messageToRecipient=$messageToRecipient, recipientAccountNumber=$recipientAccountNumber, recipientName=$recipientName, recipientRoutingNumber=$recipientRoutingNumber, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, recipientAddressLine1=$recipientAddressLine1, recipientAddressLine2=$recipientAddressLine2, recipientAddressLine3=$recipientAddressLine3, additionalProperties=$additionalProperties}"
+            "Body{accountNumberId=$accountNumberId, amount=$amount, messageToRecipient=$messageToRecipient, recipientAccountNumber=$recipientAccountNumber, recipientName=$recipientName, recipientRoutingNumber=$recipientRoutingNumber, originatorAddressLine1=$originatorAddressLine1, originatorAddressLine2=$originatorAddressLine2, originatorAddressLine3=$originatorAddressLine3, originatorName=$originatorName, recipientAddressLine1=$recipientAddressLine1, recipientAddressLine2=$recipientAddressLine2, recipientAddressLine3=$recipientAddressLine3, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -611,8 +609,7 @@ private constructor(
     @NoAutoDetect
     class Builder internal constructor() {
 
-        private var body: WireDrawdownRequestCreateBody.Builder =
-            WireDrawdownRequestCreateBody.builder()
+        private var body: Body.Builder = Body.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

@@ -22,7 +22,7 @@ import java.util.Objects
 /** Create a Card Dispute */
 class CardDisputeCreateParams
 private constructor(
-    private val body: CardDisputeCreateBody,
+    private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -65,16 +65,16 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): CardDisputeCreateBody = body
+    internal fun _body(): Body = body
 
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     @NoAutoDetect
-    class CardDisputeCreateBody
+    class Body
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("disputed_transaction_id")
         @ExcludeMissing
         private val disputedTransactionId: JsonField<String> = JsonMissing.of(),
@@ -131,7 +131,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): CardDisputeCreateBody = apply {
+        fun validate(): Body = apply {
             if (validated) {
                 return@apply
             }
@@ -149,7 +149,7 @@ private constructor(
             fun builder() = Builder()
         }
 
-        /** A builder for [CardDisputeCreateBody]. */
+        /** A builder for [Body]. */
         class Builder internal constructor() {
 
             private var disputedTransactionId: JsonField<String>? = null
@@ -157,11 +157,11 @@ private constructor(
             private var amount: JsonField<Long> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(cardDisputeCreateBody: CardDisputeCreateBody) = apply {
-                disputedTransactionId = cardDisputeCreateBody.disputedTransactionId
-                explanation = cardDisputeCreateBody.explanation
-                amount = cardDisputeCreateBody.amount
-                additionalProperties = cardDisputeCreateBody.additionalProperties.toMutableMap()
+            internal fun from(body: Body) = apply {
+                disputedTransactionId = body.disputedTransactionId
+                explanation = body.explanation
+                amount = body.amount
+                additionalProperties = body.additionalProperties.toMutableMap()
             }
 
             /**
@@ -220,8 +220,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): CardDisputeCreateBody =
-                CardDisputeCreateBody(
+            fun build(): Body =
+                Body(
                     checkRequired("disputedTransactionId", disputedTransactionId),
                     checkRequired("explanation", explanation),
                     amount,
@@ -234,7 +234,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is CardDisputeCreateBody && disputedTransactionId == other.disputedTransactionId && explanation == other.explanation && amount == other.amount && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Body && disputedTransactionId == other.disputedTransactionId && explanation == other.explanation && amount == other.amount && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -244,7 +244,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "CardDisputeCreateBody{disputedTransactionId=$disputedTransactionId, explanation=$explanation, amount=$amount, additionalProperties=$additionalProperties}"
+            "Body{disputedTransactionId=$disputedTransactionId, explanation=$explanation, amount=$amount, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -258,7 +258,7 @@ private constructor(
     @NoAutoDetect
     class Builder internal constructor() {
 
-        private var body: CardDisputeCreateBody.Builder = CardDisputeCreateBody.builder()
+        private var body: Body.Builder = Body.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
