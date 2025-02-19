@@ -17,30 +17,30 @@ interface CardService {
     /** Create a Card */
     fun create(
         params: CardCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): Card
 
     /** Retrieve a Card */
     fun retrieve(
         params: CardRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): Card
 
     /** Update a Card */
     fun update(
         params: CardUpdateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): Card
 
     /** List Cards */
     fun list(
         params: CardListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CardListPage
 
     /** Retrieve sensitive details for a Card */
     fun details(
         params: CardDetailsParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CardDetails
 }

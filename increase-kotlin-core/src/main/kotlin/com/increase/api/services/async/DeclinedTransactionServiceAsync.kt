@@ -13,12 +13,12 @@ interface DeclinedTransactionServiceAsync {
     /** Retrieve a Declined Transaction */
     suspend fun retrieve(
         params: DeclinedTransactionRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): DeclinedTransaction
 
     /** List Declined Transactions */
     suspend fun list(
         params: DeclinedTransactionListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): DeclinedTransactionListPageAsync
 }

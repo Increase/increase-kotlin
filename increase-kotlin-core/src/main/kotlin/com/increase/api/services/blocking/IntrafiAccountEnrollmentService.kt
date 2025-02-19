@@ -15,24 +15,24 @@ interface IntrafiAccountEnrollmentService {
     /** Enroll an account in the IntraFi deposit sweep network */
     fun create(
         params: IntrafiAccountEnrollmentCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): IntrafiAccountEnrollment
 
     /** Get an IntraFi Account Enrollment */
     fun retrieve(
         params: IntrafiAccountEnrollmentRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): IntrafiAccountEnrollment
 
     /** List IntraFi Account Enrollments */
     fun list(
         params: IntrafiAccountEnrollmentListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): IntrafiAccountEnrollmentListPage
 
     /** Unenroll an account from IntraFi */
     fun unenroll(
         params: IntrafiAccountEnrollmentUnenrollParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): IntrafiAccountEnrollment
 }

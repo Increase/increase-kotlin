@@ -16,7 +16,7 @@ interface CheckDepositServiceAsync {
      */
     suspend fun reject(
         params: SimulationCheckDepositRejectParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CheckDeposit
 
     /**
@@ -25,7 +25,7 @@ interface CheckDepositServiceAsync {
      */
     suspend fun return_(
         params: SimulationCheckDepositReturnParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CheckDeposit
 
     /**
@@ -34,6 +34,6 @@ interface CheckDepositServiceAsync {
      */
     suspend fun submit(
         params: SimulationCheckDepositSubmitParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CheckDeposit
 }

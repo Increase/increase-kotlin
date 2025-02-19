@@ -22,9 +22,7 @@ import com.increase.api.models.InboundAchTransferRetrieveParams
 import com.increase.api.models.InboundAchTransferTransferReturnParams
 
 class InboundAchTransferServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : InboundAchTransferServiceAsync {
+internal constructor(private val clientOptions: ClientOptions) : InboundAchTransferServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -34,7 +32,7 @@ internal constructor(
     /** Retrieve an Inbound ACH Transfer */
     override suspend fun retrieve(
         params: InboundAchTransferRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): InboundAchTransfer {
         val request =
             HttpRequest.builder()
@@ -59,7 +57,7 @@ internal constructor(
     /** List Inbound ACH Transfers */
     override suspend fun list(
         params: InboundAchTransferListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): InboundAchTransferListPageAsync {
         val request =
             HttpRequest.builder()
@@ -84,7 +82,7 @@ internal constructor(
     /** Create a notification of change for an Inbound ACH Transfer */
     override suspend fun createNotificationOfChange(
         params: InboundAchTransferCreateNotificationOfChangeParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): InboundAchTransfer {
         val request =
             HttpRequest.builder()
@@ -92,7 +90,7 @@ internal constructor(
                 .addPathSegments(
                     "inbound_ach_transfers",
                     params.getPathParam(0),
-                    "create_notification_of_change"
+                    "create_notification_of_change",
                 )
                 .body(json(clientOptions.jsonMapper, params._body()))
                 .build()
@@ -113,7 +111,7 @@ internal constructor(
     /** Decline an Inbound ACH Transfer */
     override suspend fun decline(
         params: InboundAchTransferDeclineParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): InboundAchTransfer {
         val request =
             HttpRequest.builder()
@@ -138,7 +136,7 @@ internal constructor(
     /** Return an Inbound ACH Transfer */
     override suspend fun transferReturn(
         params: InboundAchTransferTransferReturnParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): InboundAchTransfer {
         val request =
             HttpRequest.builder()

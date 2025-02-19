@@ -173,7 +173,7 @@ private constructor(
             ProofOfAuthorizationRequestSubmissionRetrieveParams(
                 checkRequired(
                     "proofOfAuthorizationRequestSubmissionId",
-                    proofOfAuthorizationRequestSubmissionId
+                    proofOfAuthorizationRequestSubmissionId,
                 ),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),

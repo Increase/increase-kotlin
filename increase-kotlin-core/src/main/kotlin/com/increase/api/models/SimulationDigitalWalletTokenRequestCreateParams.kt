@@ -128,7 +128,7 @@ private constructor(
             fun build(): SimulationDigitalWalletTokenRequestCreateBody =
                 SimulationDigitalWalletTokenRequestCreateBody(
                     checkRequired("cardId", cardId),
-                    additionalProperties.toImmutable()
+                    additionalProperties.toImmutable(),
                 )
         }
 

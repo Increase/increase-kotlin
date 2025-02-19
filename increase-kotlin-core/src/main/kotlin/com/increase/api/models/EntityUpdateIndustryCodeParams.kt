@@ -171,7 +171,7 @@ private constructor(
             fun build(): EntityUpdateIndustryCodeBody =
                 EntityUpdateIndustryCodeBody(
                     checkRequired("industryCode", industryCode),
-                    additionalProperties.toImmutable()
+                    additionalProperties.toImmutable(),
                 )
         }
 

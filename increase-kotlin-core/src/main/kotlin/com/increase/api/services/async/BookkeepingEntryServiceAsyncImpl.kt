@@ -18,9 +18,7 @@ import com.increase.api.models.BookkeepingEntryListParams
 import com.increase.api.models.BookkeepingEntryRetrieveParams
 
 class BookkeepingEntryServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : BookkeepingEntryServiceAsync {
+internal constructor(private val clientOptions: ClientOptions) : BookkeepingEntryServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -30,7 +28,7 @@ internal constructor(
     /** Retrieve a Bookkeeping Entry */
     override suspend fun retrieve(
         params: BookkeepingEntryRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): BookkeepingEntry {
         val request =
             HttpRequest.builder()
@@ -55,7 +53,7 @@ internal constructor(
     /** List Bookkeeping Entries */
     override suspend fun list(
         params: BookkeepingEntryListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): BookkeepingEntryListPageAsync {
         val request =
             HttpRequest.builder()

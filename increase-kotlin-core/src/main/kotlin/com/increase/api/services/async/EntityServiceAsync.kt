@@ -21,31 +21,31 @@ interface EntityServiceAsync {
     /** Create an Entity */
     suspend fun create(
         params: EntityCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): Entity
 
     /** Retrieve an Entity */
     suspend fun retrieve(
         params: EntityRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): Entity
 
     /** List Entities */
     suspend fun list(
         params: EntityListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): EntityListPageAsync
 
     /** Archive an Entity */
     suspend fun archive(
         params: EntityArchiveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): Entity
 
     /** Archive a beneficial owner for a corporate Entity */
     suspend fun archiveBeneficialOwner(
         params: EntityArchiveBeneficialOwnerParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): Entity
 
     /**
@@ -55,30 +55,30 @@ interface EntityServiceAsync {
      */
     suspend fun confirm(
         params: EntityConfirmParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): Entity
 
     /** Create a beneficial owner for a corporate Entity */
     suspend fun createBeneficialOwner(
         params: EntityCreateBeneficialOwnerParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): Entity
 
     /** Update a Natural Person or Corporation's address */
     suspend fun updateAddress(
         params: EntityUpdateAddressParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): Entity
 
     /** Update the address for a beneficial owner belonging to a corporate Entity */
     suspend fun updateBeneficialOwnerAddress(
         params: EntityUpdateBeneficialOwnerAddressParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): Entity
 
     /** Update the industry code for a corporate Entity */
     suspend fun updateIndustryCode(
         params: EntityUpdateIndustryCodeParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): Entity
 }

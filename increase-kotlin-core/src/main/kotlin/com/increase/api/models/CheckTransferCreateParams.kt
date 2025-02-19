@@ -614,11 +614,8 @@ private constructor(
     }
 
     /** Whether Increase will print and mail the check or if you will do it yourself. */
-    class FulfillmentMethod
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class FulfillmentMethod @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
 
         /**
          * Returns this class instance's raw value.

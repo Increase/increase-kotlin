@@ -13,12 +13,12 @@ interface DocumentService {
     /** Retrieve a Document */
     fun retrieve(
         params: DocumentRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): Document
 
     /** List Documents */
     fun list(
         params: DocumentListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): DocumentListPage
 }

@@ -17,36 +17,36 @@ interface CheckTransferService {
     /** Create a Check Transfer */
     fun create(
         params: CheckTransferCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CheckTransfer
 
     /** Retrieve a Check Transfer */
     fun retrieve(
         params: CheckTransferRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CheckTransfer
 
     /** List Check Transfers */
     fun list(
         params: CheckTransferListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CheckTransferListPage
 
     /** Approve a Check Transfer */
     fun approve(
         params: CheckTransferApproveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CheckTransfer
 
     /** Cancel a pending Check Transfer */
     fun cancel(
         params: CheckTransferCancelParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CheckTransfer
 
     /** Request a stop payment on a Check Transfer */
     fun stopPayment(
         params: CheckTransferStopPaymentParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CheckTransfer
 }

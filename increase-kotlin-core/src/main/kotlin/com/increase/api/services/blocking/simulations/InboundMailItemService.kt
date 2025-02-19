@@ -14,6 +14,6 @@ interface InboundMailItemService {
      */
     fun create(
         params: SimulationInboundMailItemCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundMailItem
 }

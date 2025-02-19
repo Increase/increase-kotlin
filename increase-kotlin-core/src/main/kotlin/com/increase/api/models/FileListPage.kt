@@ -71,11 +71,7 @@ private constructor(
     companion object {
 
         fun of(filesService: FileService, params: FileListParams, response: Response) =
-            FileListPage(
-                filesService,
-                params,
-                response,
-            )
+            FileListPage(filesService, params, response)
     }
 
     @NoAutoDetect
@@ -156,18 +152,11 @@ private constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() =
-                Response(
-                    data,
-                    nextCursor,
-                    additionalProperties.toImmutable(),
-                )
+            fun build() = Response(data, nextCursor, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: FileListPage,
-    ) : Sequence<File> {
+    class AutoPager(private val firstPage: FileListPage) : Sequence<File> {
 
         override fun iterator(): Iterator<File> = iterator {
             var page = firstPage

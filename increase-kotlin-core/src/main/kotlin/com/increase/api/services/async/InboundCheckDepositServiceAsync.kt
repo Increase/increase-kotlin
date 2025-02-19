@@ -15,24 +15,24 @@ interface InboundCheckDepositServiceAsync {
     /** Retrieve an Inbound Check Deposit */
     suspend fun retrieve(
         params: InboundCheckDepositRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundCheckDeposit
 
     /** List Inbound Check Deposits */
     suspend fun list(
         params: InboundCheckDepositListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundCheckDepositListPageAsync
 
     /** Decline an Inbound Check Deposit */
     suspend fun decline(
         params: InboundCheckDepositDeclineParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundCheckDeposit
 
     /** Return an Inbound Check Deposit */
     suspend fun return_(
         params: InboundCheckDepositReturnParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundCheckDeposit
 }

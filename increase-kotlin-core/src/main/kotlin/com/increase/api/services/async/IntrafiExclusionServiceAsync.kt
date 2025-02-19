@@ -15,24 +15,24 @@ interface IntrafiExclusionServiceAsync {
     /** Create an IntraFi Exclusion */
     suspend fun create(
         params: IntrafiExclusionCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): IntrafiExclusion
 
     /** Get an IntraFi Exclusion */
     suspend fun retrieve(
         params: IntrafiExclusionRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): IntrafiExclusion
 
     /** List IntraFi Exclusions */
     suspend fun list(
         params: IntrafiExclusionListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): IntrafiExclusionListPageAsync
 
     /** Archive an IntraFi Exclusion */
     suspend fun archive(
         params: IntrafiExclusionArchiveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): IntrafiExclusion
 }

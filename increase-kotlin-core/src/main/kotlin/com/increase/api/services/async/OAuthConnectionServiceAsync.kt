@@ -13,12 +13,12 @@ interface OAuthConnectionServiceAsync {
     /** Retrieve an OAuth Connection */
     suspend fun retrieve(
         params: OAuthConnectionRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): OAuthConnection
 
     /** List OAuth Connections */
     suspend fun list(
         params: OAuthConnectionListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): OAuthConnectionListPageAsync
 }

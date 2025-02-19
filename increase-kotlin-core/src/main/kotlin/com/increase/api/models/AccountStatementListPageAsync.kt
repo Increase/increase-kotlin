@@ -75,13 +75,8 @@ private constructor(
         fun of(
             accountStatementsService: AccountStatementServiceAsync,
             params: AccountStatementListParams,
-            response: Response
-        ) =
-            AccountStatementListPageAsync(
-                accountStatementsService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = AccountStatementListPageAsync(accountStatementsService, params, response)
     }
 
     @NoAutoDetect
@@ -163,18 +158,11 @@ private constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() =
-                Response(
-                    data,
-                    nextCursor,
-                    additionalProperties.toImmutable(),
-                )
+            fun build() = Response(data, nextCursor, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: AccountStatementListPageAsync,
-    ) : Flow<AccountStatement> {
+    class AutoPager(private val firstPage: AccountStatementListPageAsync) : Flow<AccountStatement> {
 
         override suspend fun collect(collector: FlowCollector<AccountStatement>) {
             var page = firstPage

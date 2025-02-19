@@ -13,12 +13,12 @@ interface CardPurchaseSupplementServiceAsync {
     /** Retrieve a Card Purchase Supplement */
     suspend fun retrieve(
         params: CardPurchaseSupplementRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CardPurchaseSupplement
 
     /** List Card Purchase Supplements */
     suspend fun list(
         params: CardPurchaseSupplementListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CardPurchaseSupplementListPageAsync
 }

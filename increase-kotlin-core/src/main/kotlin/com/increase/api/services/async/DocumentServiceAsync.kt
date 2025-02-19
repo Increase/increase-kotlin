@@ -13,12 +13,12 @@ interface DocumentServiceAsync {
     /** Retrieve a Document */
     suspend fun retrieve(
         params: DocumentRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): Document
 
     /** List Documents */
     suspend fun list(
         params: DocumentListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): DocumentListPageAsync
 }

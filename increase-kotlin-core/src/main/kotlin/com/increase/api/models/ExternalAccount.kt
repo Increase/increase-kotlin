@@ -356,11 +356,8 @@ private constructor(
     }
 
     /** The type of entity that owns the External Account. */
-    class AccountHolder
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class AccountHolder @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -467,11 +464,7 @@ private constructor(
     }
 
     /** The type of the account to which the transfer will be sent. */
-    class Funding
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Funding @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -575,11 +568,7 @@ private constructor(
     }
 
     /** The External Account's status. */
-    class Status
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -677,11 +666,7 @@ private constructor(
      * A constant representing the object's type. For this resource it will always be
      * `external_account`.
      */
-    class Type
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -702,7 +687,7 @@ private constructor(
 
         /** An enum containing [Type]'s known values. */
         enum class Known {
-            EXTERNAL_ACCOUNT,
+            EXTERNAL_ACCOUNT
         }
 
         /**
@@ -766,9 +751,7 @@ private constructor(
     /** If you have verified ownership of the External Account. */
     class VerificationStatus
     @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.

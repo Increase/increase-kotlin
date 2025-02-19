@@ -1622,9 +1622,7 @@ private constructor(
                     /** A method that can be used to verify the individual's identity. */
                     class Method
                     @JsonCreator
-                    private constructor(
-                        private val value: JsonField<String>,
-                    ) : Enum {
+                    private constructor(private val value: JsonField<String>) : Enum {
 
                         /**
                          * Returns this class instance's raw value.
@@ -1791,11 +1789,8 @@ private constructor(
             }
 
             /** Why this person is considered a beneficial owner of the entity. */
-            class Prong
-            @JsonCreator
-            private constructor(
-                private val value: JsonField<String>,
-            ) : Enum {
+            class Prong @JsonCreator private constructor(private val value: JsonField<String>) :
+                Enum {
 
                 /**
                  * Returns this class instance's raw value.
@@ -2453,11 +2448,8 @@ private constructor(
         }
 
         /** The category of the government authority. */
-        class Category
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        class Category @JsonCreator private constructor(private val value: JsonField<String>) :
+            Enum {
 
             /**
              * Returns this class instance's raw value.
@@ -2480,7 +2472,7 @@ private constructor(
             /** An enum containing [Category]'s known values. */
             enum class Known {
                 /** The Public Entity is a Municipality. */
-                MUNICIPALITY,
+                MUNICIPALITY
             }
 
             /**
@@ -3147,9 +3139,7 @@ private constructor(
                 /** A method that can be used to verify the individual's identity. */
                 class Method
                 @JsonCreator
-                private constructor(
-                    private val value: JsonField<String>,
-                ) : Enum {
+                private constructor(private val value: JsonField<String>) : Enum {
 
                     /**
                      * Returns this class instance's raw value.
@@ -3797,11 +3787,8 @@ private constructor(
             }
 
             /** A method that can be used to verify the individual's identity. */
-            class Method
-            @JsonCreator
-            private constructor(
-                private val value: JsonField<String>,
-            ) : Enum {
+            class Method @JsonCreator private constructor(private val value: JsonField<String>) :
+                Enum {
 
                 /**
                  * Returns this class instance's raw value.
@@ -3965,11 +3952,7 @@ private constructor(
     }
 
     /** The status of the entity. */
-    class Status
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -4073,11 +4056,7 @@ private constructor(
     }
 
     /** The entity's legal structure. */
-    class Structure
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Structure @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -4306,11 +4285,7 @@ private constructor(
         }
 
         /** The vendor that was used to perform the verification. */
-        class Vendor
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        class Vendor @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
             /**
              * Returns this class instance's raw value.
@@ -4877,11 +4852,8 @@ private constructor(
         }
 
         /** Whether the trust is `revocable` or `irrevocable`. */
-        class Category
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        class Category @JsonCreator private constructor(private val value: JsonField<String>) :
+            Enum {
 
             /**
              * Returns this class instance's raw value.
@@ -5445,9 +5417,7 @@ private constructor(
                 /** A method that can be used to verify the individual's identity. */
                 class Method
                 @JsonCreator
-                private constructor(
-                    private val value: JsonField<String>,
-                ) : Enum {
+                private constructor(private val value: JsonField<String>) : Enum {
 
                     /**
                      * Returns this class instance's raw value.
@@ -6215,9 +6185,7 @@ private constructor(
                     /** A method that can be used to verify the individual's identity. */
                     class Method
                     @JsonCreator
-                    private constructor(
-                        private val value: JsonField<String>,
-                    ) : Enum {
+                    private constructor(private val value: JsonField<String>) : Enum {
 
                         /**
                          * Returns this class instance's raw value.
@@ -6384,11 +6352,8 @@ private constructor(
             }
 
             /** The structure of the trustee. Will always be equal to `individual`. */
-            class Structure
-            @JsonCreator
-            private constructor(
-                private val value: JsonField<String>,
-            ) : Enum {
+            class Structure @JsonCreator private constructor(private val value: JsonField<String>) :
+                Enum {
 
                 /**
                  * Returns this class instance's raw value.
@@ -6411,7 +6376,7 @@ private constructor(
                 /** An enum containing [Structure]'s known values. */
                 enum class Known {
                     /** The trustee is an individual. */
-                    INDIVIDUAL,
+                    INDIVIDUAL
                 }
 
                 /**
@@ -6513,11 +6478,7 @@ private constructor(
     }
 
     /** A constant representing the object's type. For this resource it will always be `entity`. */
-    class Type
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -6538,7 +6499,7 @@ private constructor(
 
         /** An enum containing [Type]'s known values. */
         enum class Known {
-            ENTITY,
+            ENTITY
         }
 
         /**

@@ -11,6 +11,6 @@ interface IntrafiBalanceService {
     /** Get IntraFi balances by bank */
     fun intrafiBalance(
         params: IntrafiBalanceIntrafiBalanceParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): IntrafiBalance
 }

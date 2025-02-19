@@ -13,12 +13,12 @@ interface BookkeepingEntryServiceAsync {
     /** Retrieve a Bookkeeping Entry */
     suspend fun retrieve(
         params: BookkeepingEntryRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): BookkeepingEntry
 
     /** List Bookkeeping Entries */
     suspend fun list(
         params: BookkeepingEntryListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): BookkeepingEntryListPageAsync
 }

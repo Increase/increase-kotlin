@@ -129,7 +129,7 @@ private constructor(
             fun build(): SimulationAccountStatementCreateBody =
                 SimulationAccountStatementCreateBody(
                     checkRequired("accountId", accountId),
-                    additionalProperties.toImmutable()
+                    additionalProperties.toImmutable(),
                 )
         }
 

@@ -16,10 +16,8 @@ import com.increase.api.errors.IncreaseError
 import com.increase.api.models.CardPayment
 import com.increase.api.models.SimulationCardIncrementCreateParams
 
-class CardIncrementServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : CardIncrementServiceAsync {
+class CardIncrementServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
+    CardIncrementServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -32,7 +30,7 @@ internal constructor(
      */
     override suspend fun create(
         params: SimulationCardIncrementCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CardPayment {
         val request =
             HttpRequest.builder()

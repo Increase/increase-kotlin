@@ -17,9 +17,7 @@ import com.increase.api.models.SimulationCardAuthorizationCreateParams
 import com.increase.api.models.SimulationCardAuthorizationCreateResponse
 
 class CardAuthorizationServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : CardAuthorizationServiceAsync {
+internal constructor(private val clientOptions: ClientOptions) : CardAuthorizationServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -37,7 +35,7 @@ internal constructor(
      */
     override suspend fun create(
         params: SimulationCardAuthorizationCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): SimulationCardAuthorizationCreateResponse {
         val request =
             HttpRequest.builder()

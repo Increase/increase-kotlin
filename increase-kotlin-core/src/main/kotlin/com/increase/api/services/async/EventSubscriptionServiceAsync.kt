@@ -15,24 +15,24 @@ interface EventSubscriptionServiceAsync {
     /** Create an Event Subscription */
     suspend fun create(
         params: EventSubscriptionCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): EventSubscription
 
     /** Retrieve an Event Subscription */
     suspend fun retrieve(
         params: EventSubscriptionRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): EventSubscription
 
     /** Update an Event Subscription */
     suspend fun update(
         params: EventSubscriptionUpdateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): EventSubscription
 
     /** List Event Subscriptions */
     suspend fun list(
         params: EventSubscriptionListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): EventSubscriptionListPageAsync
 }

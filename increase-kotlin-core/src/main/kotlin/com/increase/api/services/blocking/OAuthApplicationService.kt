@@ -13,12 +13,12 @@ interface OAuthApplicationService {
     /** Retrieve an OAuth Application */
     fun retrieve(
         params: OAuthApplicationRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): OAuthApplication
 
     /** List OAuth Applications */
     fun list(
         params: OAuthApplicationListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): OAuthApplicationListPage
 }

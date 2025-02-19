@@ -75,13 +75,8 @@ private constructor(
         fun of(
             supplementalDocumentsService: SupplementalDocumentServiceAsync,
             params: SupplementalDocumentListParams,
-            response: Response
-        ) =
-            SupplementalDocumentListPageAsync(
-                supplementalDocumentsService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = SupplementalDocumentListPageAsync(supplementalDocumentsService, params, response)
     }
 
     @NoAutoDetect
@@ -163,18 +158,12 @@ private constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() =
-                Response(
-                    data,
-                    nextCursor,
-                    additionalProperties.toImmutable(),
-                )
+            fun build() = Response(data, nextCursor, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: SupplementalDocumentListPageAsync,
-    ) : Flow<EntitySupplementalDocument> {
+    class AutoPager(private val firstPage: SupplementalDocumentListPageAsync) :
+        Flow<EntitySupplementalDocument> {
 
         override suspend fun collect(collector: FlowCollector<EntitySupplementalDocument>) {
             var page = firstPage

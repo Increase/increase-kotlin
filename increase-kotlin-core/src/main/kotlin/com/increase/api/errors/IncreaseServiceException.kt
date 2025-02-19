@@ -8,7 +8,7 @@ abstract class IncreaseServiceException(
     private val body: String,
     private val error: IncreaseError,
     message: String = "$statusCode: $error",
-    cause: Throwable? = null
+    cause: Throwable? = null,
 ) : IncreaseException(message, cause) {
 
     fun statusCode(): Int = statusCode

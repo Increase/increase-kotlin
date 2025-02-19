@@ -14,18 +14,18 @@ interface CardDisputeService {
     /** Create a Card Dispute */
     fun create(
         params: CardDisputeCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CardDispute
 
     /** Retrieve a Card Dispute */
     fun retrieve(
         params: CardDisputeRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CardDispute
 
     /** List Card Disputes */
     fun list(
         params: CardDisputeListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CardDisputeListPage
 }

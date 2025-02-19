@@ -79,13 +79,8 @@ private constructor(
         fun of(
             routingNumbersService: RoutingNumberServiceAsync,
             params: RoutingNumberListParams,
-            response: Response
-        ) =
-            RoutingNumberListPageAsync(
-                routingNumbersService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = RoutingNumberListPageAsync(routingNumbersService, params, response)
     }
 
     @NoAutoDetect
@@ -167,18 +162,12 @@ private constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() =
-                Response(
-                    data,
-                    nextCursor,
-                    additionalProperties.toImmutable(),
-                )
+            fun build() = Response(data, nextCursor, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: RoutingNumberListPageAsync,
-    ) : Flow<RoutingNumberListResponse> {
+    class AutoPager(private val firstPage: RoutingNumberListPageAsync) :
+        Flow<RoutingNumberListResponse> {
 
         override suspend fun collect(collector: FlowCollector<RoutingNumberListResponse>) {
             var page = firstPage

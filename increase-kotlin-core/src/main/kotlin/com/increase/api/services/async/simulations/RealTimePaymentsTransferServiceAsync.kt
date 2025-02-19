@@ -15,6 +15,6 @@ interface RealTimePaymentsTransferServiceAsync {
      */
     suspend fun complete(
         params: SimulationRealTimePaymentsTransferCompleteParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): RealTimePaymentsTransfer
 }

@@ -18,9 +18,7 @@ import com.increase.api.models.InboundMailItemListParams
 import com.increase.api.models.InboundMailItemRetrieveParams
 
 class InboundMailItemServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : InboundMailItemServiceAsync {
+internal constructor(private val clientOptions: ClientOptions) : InboundMailItemServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -30,7 +28,7 @@ internal constructor(
     /** Retrieve an Inbound Mail Item */
     override suspend fun retrieve(
         params: InboundMailItemRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): InboundMailItem {
         val request =
             HttpRequest.builder()
@@ -55,7 +53,7 @@ internal constructor(
     /** List Inbound Mail Items */
     override suspend fun list(
         params: InboundMailItemListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): InboundMailItemListPageAsync {
         val request =
             HttpRequest.builder()

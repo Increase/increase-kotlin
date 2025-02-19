@@ -13,12 +13,12 @@ interface AccountStatementServiceAsync {
     /** Retrieve an Account Statement */
     suspend fun retrieve(
         params: AccountStatementRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): AccountStatement
 
     /** List Account Statements */
     suspend fun list(
         params: AccountStatementListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): AccountStatementListPageAsync
 }

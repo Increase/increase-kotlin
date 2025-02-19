@@ -75,13 +75,8 @@ private constructor(
         fun of(
             cardPurchaseSupplementsService: CardPurchaseSupplementServiceAsync,
             params: CardPurchaseSupplementListParams,
-            response: Response
-        ) =
-            CardPurchaseSupplementListPageAsync(
-                cardPurchaseSupplementsService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = CardPurchaseSupplementListPageAsync(cardPurchaseSupplementsService, params, response)
     }
 
     @NoAutoDetect
@@ -163,18 +158,12 @@ private constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() =
-                Response(
-                    data,
-                    nextCursor,
-                    additionalProperties.toImmutable(),
-                )
+            fun build() = Response(data, nextCursor, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: CardPurchaseSupplementListPageAsync,
-    ) : Flow<CardPurchaseSupplement> {
+    class AutoPager(private val firstPage: CardPurchaseSupplementListPageAsync) :
+        Flow<CardPurchaseSupplement> {
 
         override suspend fun collect(collector: FlowCollector<CardPurchaseSupplement>) {
             var page = firstPage

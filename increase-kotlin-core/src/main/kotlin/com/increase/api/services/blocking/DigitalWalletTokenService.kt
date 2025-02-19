@@ -13,12 +13,12 @@ interface DigitalWalletTokenService {
     /** Retrieve a Digital Wallet Token */
     fun retrieve(
         params: DigitalWalletTokenRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): DigitalWalletToken
 
     /** List Digital Wallet Tokens */
     fun list(
         params: DigitalWalletTokenListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): DigitalWalletTokenListPage
 }

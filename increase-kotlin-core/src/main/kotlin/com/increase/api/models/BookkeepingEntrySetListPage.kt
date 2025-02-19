@@ -73,13 +73,8 @@ private constructor(
         fun of(
             bookkeepingEntrySetsService: BookkeepingEntrySetService,
             params: BookkeepingEntrySetListParams,
-            response: Response
-        ) =
-            BookkeepingEntrySetListPage(
-                bookkeepingEntrySetsService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = BookkeepingEntrySetListPage(bookkeepingEntrySetsService, params, response)
     }
 
     @NoAutoDetect
@@ -161,18 +156,12 @@ private constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() =
-                Response(
-                    data,
-                    nextCursor,
-                    additionalProperties.toImmutable(),
-                )
+            fun build() = Response(data, nextCursor, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: BookkeepingEntrySetListPage,
-    ) : Sequence<BookkeepingEntrySet> {
+    class AutoPager(private val firstPage: BookkeepingEntrySetListPage) :
+        Sequence<BookkeepingEntrySet> {
 
         override fun iterator(): Iterator<BookkeepingEntrySet> = iterator {
             var page = firstPage

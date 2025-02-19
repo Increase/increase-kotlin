@@ -73,7 +73,7 @@ private constructor(
         fun of(
             proofOfAuthorizationRequestsService: ProofOfAuthorizationRequestService,
             params: ProofOfAuthorizationRequestListParams,
-            response: Response
+            response: Response,
         ) =
             ProofOfAuthorizationRequestListPage(
                 proofOfAuthorizationRequestsService,
@@ -163,18 +163,12 @@ private constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() =
-                Response(
-                    data,
-                    nextCursor,
-                    additionalProperties.toImmutable(),
-                )
+            fun build() = Response(data, nextCursor, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: ProofOfAuthorizationRequestListPage,
-    ) : Sequence<ProofOfAuthorizationRequest> {
+    class AutoPager(private val firstPage: ProofOfAuthorizationRequestListPage) :
+        Sequence<ProofOfAuthorizationRequest> {
 
         override fun iterator(): Iterator<ProofOfAuthorizationRequest> = iterator {
             var page = firstPage

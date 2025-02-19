@@ -75,13 +75,8 @@ private constructor(
         fun of(
             oauthConnectionsService: OAuthConnectionServiceAsync,
             params: OAuthConnectionListParams,
-            response: Response
-        ) =
-            OAuthConnectionListPageAsync(
-                oauthConnectionsService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = OAuthConnectionListPageAsync(oauthConnectionsService, params, response)
     }
 
     @NoAutoDetect
@@ -162,18 +157,11 @@ private constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() =
-                Response(
-                    data,
-                    nextCursor,
-                    additionalProperties.toImmutable(),
-                )
+            fun build() = Response(data, nextCursor, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: OAuthConnectionListPageAsync,
-    ) : Flow<OAuthConnection> {
+    class AutoPager(private val firstPage: OAuthConnectionListPageAsync) : Flow<OAuthConnection> {
 
         override suspend fun collect(collector: FlowCollector<OAuthConnection>) {
             var page = firstPage

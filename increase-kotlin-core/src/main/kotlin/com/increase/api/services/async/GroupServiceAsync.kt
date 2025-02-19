@@ -11,6 +11,6 @@ interface GroupServiceAsync {
     /** Returns details for the currently authenticated Group. */
     suspend fun retrieve(
         params: GroupRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): Group
 }

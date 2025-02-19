@@ -13,12 +13,12 @@ interface InboundWireTransferServiceAsync {
     /** Retrieve an Inbound Wire Transfer */
     suspend fun retrieve(
         params: InboundWireTransferRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundWireTransfer
 
     /** List Inbound Wire Transfers */
     suspend fun list(
         params: InboundWireTransferListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundWireTransferListPageAsync
 }

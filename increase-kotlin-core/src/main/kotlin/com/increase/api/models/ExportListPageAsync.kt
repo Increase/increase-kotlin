@@ -73,11 +73,7 @@ private constructor(
     companion object {
 
         fun of(exportsService: ExportServiceAsync, params: ExportListParams, response: Response) =
-            ExportListPageAsync(
-                exportsService,
-                params,
-                response,
-            )
+            ExportListPageAsync(exportsService, params, response)
     }
 
     @NoAutoDetect
@@ -158,18 +154,11 @@ private constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() =
-                Response(
-                    data,
-                    nextCursor,
-                    additionalProperties.toImmutable(),
-                )
+            fun build() = Response(data, nextCursor, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: ExportListPageAsync,
-    ) : Flow<Export> {
+    class AutoPager(private val firstPage: ExportListPageAsync) : Flow<Export> {
 
         override suspend fun collect(collector: FlowCollector<Export>) {
             var page = firstPage

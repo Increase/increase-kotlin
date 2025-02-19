@@ -21,13 +21,13 @@ interface AchTransferServiceAsync {
      */
     suspend fun acknowledge(
         params: SimulationAchTransferAcknowledgeParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): AchTransfer
 
     /** Simulates receiving a Notification of Change for an [ACH Transfer](#ach-transfers). */
     suspend fun createNotificationOfChange(
         params: SimulationAchTransferCreateNotificationOfChangeParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): AchTransfer
 
     /**
@@ -37,7 +37,7 @@ interface AchTransferServiceAsync {
      */
     suspend fun return_(
         params: SimulationAchTransferReturnParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): AchTransfer
 
     /**
@@ -47,7 +47,7 @@ interface AchTransferServiceAsync {
      */
     suspend fun settle(
         params: SimulationAchTransferSettleParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): AchTransfer
 
     /**
@@ -59,6 +59,6 @@ interface AchTransferServiceAsync {
      */
     suspend fun submit(
         params: SimulationAchTransferSubmitParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): AchTransfer
 }

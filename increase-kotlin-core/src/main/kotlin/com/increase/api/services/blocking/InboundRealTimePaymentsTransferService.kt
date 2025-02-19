@@ -13,12 +13,12 @@ interface InboundRealTimePaymentsTransferService {
     /** Retrieve an Inbound Real-Time Payments Transfer */
     fun retrieve(
         params: InboundRealTimePaymentsTransferRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundRealTimePaymentsTransfer
 
     /** List Inbound Real-Time Payments Transfers */
     fun list(
         params: InboundRealTimePaymentsTransferListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundRealTimePaymentsTransferListPage
 }

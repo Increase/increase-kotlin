@@ -75,13 +75,8 @@ private constructor(
         fun of(
             inboundCheckDepositsService: InboundCheckDepositServiceAsync,
             params: InboundCheckDepositListParams,
-            response: Response
-        ) =
-            InboundCheckDepositListPageAsync(
-                inboundCheckDepositsService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = InboundCheckDepositListPageAsync(inboundCheckDepositsService, params, response)
     }
 
     @NoAutoDetect
@@ -163,18 +158,12 @@ private constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() =
-                Response(
-                    data,
-                    nextCursor,
-                    additionalProperties.toImmutable(),
-                )
+            fun build() = Response(data, nextCursor, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: InboundCheckDepositListPageAsync,
-    ) : Flow<InboundCheckDeposit> {
+    class AutoPager(private val firstPage: InboundCheckDepositListPageAsync) :
+        Flow<InboundCheckDeposit> {
 
         override suspend fun collect(collector: FlowCollector<InboundCheckDeposit>) {
             var page = firstPage

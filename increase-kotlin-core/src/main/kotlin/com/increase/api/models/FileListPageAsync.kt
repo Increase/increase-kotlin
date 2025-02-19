@@ -73,11 +73,7 @@ private constructor(
     companion object {
 
         fun of(filesService: FileServiceAsync, params: FileListParams, response: Response) =
-            FileListPageAsync(
-                filesService,
-                params,
-                response,
-            )
+            FileListPageAsync(filesService, params, response)
     }
 
     @NoAutoDetect
@@ -158,18 +154,11 @@ private constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() =
-                Response(
-                    data,
-                    nextCursor,
-                    additionalProperties.toImmutable(),
-                )
+            fun build() = Response(data, nextCursor, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: FileListPageAsync,
-    ) : Flow<File> {
+    class AutoPager(private val firstPage: FileListPageAsync) : Flow<File> {
 
         override suspend fun collect(collector: FlowCollector<File>) {
             var page = firstPage

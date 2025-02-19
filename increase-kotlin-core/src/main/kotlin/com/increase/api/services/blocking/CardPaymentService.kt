@@ -13,12 +13,12 @@ interface CardPaymentService {
     /** Retrieve a Card Payment */
     fun retrieve(
         params: CardPaymentRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CardPayment
 
     /** List Card Payments */
     fun list(
         params: CardPaymentListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CardPaymentListPage
 }

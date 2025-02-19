@@ -13,12 +13,12 @@ interface TransactionServiceAsync {
     /** Retrieve a Transaction */
     suspend fun retrieve(
         params: TransactionRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): Transaction
 
     /** List Transactions */
     suspend fun list(
         params: TransactionListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): TransactionListPageAsync
 }

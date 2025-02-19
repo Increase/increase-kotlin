@@ -17,10 +17,8 @@ import com.increase.api.models.ProgramListPageAsync
 import com.increase.api.models.ProgramListParams
 import com.increase.api.models.ProgramRetrieveParams
 
-class ProgramServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : ProgramServiceAsync {
+class ProgramServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
+    ProgramServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -30,7 +28,7 @@ internal constructor(
     /** Retrieve a Program */
     override suspend fun retrieve(
         params: ProgramRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): Program {
         val request =
             HttpRequest.builder()
@@ -55,7 +53,7 @@ internal constructor(
     /** List Programs */
     override suspend fun list(
         params: ProgramListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): ProgramListPageAsync {
         val request =
             HttpRequest.builder()
