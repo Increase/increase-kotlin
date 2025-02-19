@@ -25,7 +25,7 @@ import java.util.Objects
  */
 class SimulationInboundRealTimePaymentsTransferCreateParams
 private constructor(
-    private val body: SimulationInboundRealTimePaymentsTransferCreateBody,
+    private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -78,16 +78,16 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): SimulationInboundRealTimePaymentsTransferCreateBody = body
+    internal fun _body(): Body = body
 
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     @NoAutoDetect
-    class SimulationInboundRealTimePaymentsTransferCreateBody
+    class Body
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("account_number_id")
         @ExcludeMissing
         private val accountNumberId: JsonField<String> = JsonMissing.of(),
@@ -177,7 +177,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): SimulationInboundRealTimePaymentsTransferCreateBody = apply {
+        fun validate(): Body = apply {
             if (validated) {
                 return@apply
             }
@@ -199,7 +199,7 @@ private constructor(
             fun builder() = Builder()
         }
 
-        /** A builder for [SimulationInboundRealTimePaymentsTransferCreateBody]. */
+        /** A builder for [Body]. */
         class Builder internal constructor() {
 
             private var accountNumberId: JsonField<String>? = null
@@ -211,25 +211,15 @@ private constructor(
             private var requestForPaymentId: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(
-                simulationInboundRealTimePaymentsTransferCreateBody:
-                    SimulationInboundRealTimePaymentsTransferCreateBody
-            ) = apply {
-                accountNumberId =
-                    simulationInboundRealTimePaymentsTransferCreateBody.accountNumberId
-                amount = simulationInboundRealTimePaymentsTransferCreateBody.amount
-                debtorAccountNumber =
-                    simulationInboundRealTimePaymentsTransferCreateBody.debtorAccountNumber
-                debtorName = simulationInboundRealTimePaymentsTransferCreateBody.debtorName
-                debtorRoutingNumber =
-                    simulationInboundRealTimePaymentsTransferCreateBody.debtorRoutingNumber
-                remittanceInformation =
-                    simulationInboundRealTimePaymentsTransferCreateBody.remittanceInformation
-                requestForPaymentId =
-                    simulationInboundRealTimePaymentsTransferCreateBody.requestForPaymentId
-                additionalProperties =
-                    simulationInboundRealTimePaymentsTransferCreateBody.additionalProperties
-                        .toMutableMap()
+            internal fun from(body: Body) = apply {
+                accountNumberId = body.accountNumberId
+                amount = body.amount
+                debtorAccountNumber = body.debtorAccountNumber
+                debtorName = body.debtorName
+                debtorRoutingNumber = body.debtorRoutingNumber
+                remittanceInformation = body.remittanceInformation
+                requestForPaymentId = body.requestForPaymentId
+                additionalProperties = body.additionalProperties.toMutableMap()
             }
 
             /**
@@ -312,8 +302,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): SimulationInboundRealTimePaymentsTransferCreateBody =
-                SimulationInboundRealTimePaymentsTransferCreateBody(
+            fun build(): Body =
+                Body(
                     checkRequired("accountNumberId", accountNumberId),
                     checkRequired("amount", amount),
                     debtorAccountNumber,
@@ -330,7 +320,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is SimulationInboundRealTimePaymentsTransferCreateBody && accountNumberId == other.accountNumberId && amount == other.amount && debtorAccountNumber == other.debtorAccountNumber && debtorName == other.debtorName && debtorRoutingNumber == other.debtorRoutingNumber && remittanceInformation == other.remittanceInformation && requestForPaymentId == other.requestForPaymentId && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Body && accountNumberId == other.accountNumberId && amount == other.amount && debtorAccountNumber == other.debtorAccountNumber && debtorName == other.debtorName && debtorRoutingNumber == other.debtorRoutingNumber && remittanceInformation == other.remittanceInformation && requestForPaymentId == other.requestForPaymentId && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -340,7 +330,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "SimulationInboundRealTimePaymentsTransferCreateBody{accountNumberId=$accountNumberId, amount=$amount, debtorAccountNumber=$debtorAccountNumber, debtorName=$debtorName, debtorRoutingNumber=$debtorRoutingNumber, remittanceInformation=$remittanceInformation, requestForPaymentId=$requestForPaymentId, additionalProperties=$additionalProperties}"
+            "Body{accountNumberId=$accountNumberId, amount=$amount, debtorAccountNumber=$debtorAccountNumber, debtorName=$debtorName, debtorRoutingNumber=$debtorRoutingNumber, remittanceInformation=$remittanceInformation, requestForPaymentId=$requestForPaymentId, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -354,8 +344,7 @@ private constructor(
     @NoAutoDetect
     class Builder internal constructor() {
 
-        private var body: SimulationInboundRealTimePaymentsTransferCreateBody.Builder =
-            SimulationInboundRealTimePaymentsTransferCreateBody.builder()
+        private var body: Body.Builder = Body.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

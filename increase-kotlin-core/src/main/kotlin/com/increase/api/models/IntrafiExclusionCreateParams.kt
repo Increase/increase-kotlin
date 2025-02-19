@@ -22,7 +22,7 @@ import java.util.Objects
 /** Create an IntraFi Exclusion */
 class IntrafiExclusionCreateParams
 private constructor(
-    private val body: IntrafiExclusionCreateBody,
+    private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -45,16 +45,16 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): IntrafiExclusionCreateBody = body
+    internal fun _body(): Body = body
 
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     @NoAutoDetect
-    class IntrafiExclusionCreateBody
+    class Body
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("bank_name")
         @ExcludeMissing
         private val bankName: JsonField<String> = JsonMissing.of(),
@@ -83,7 +83,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): IntrafiExclusionCreateBody = apply {
+        fun validate(): Body = apply {
             if (validated) {
                 return@apply
             }
@@ -100,18 +100,17 @@ private constructor(
             fun builder() = Builder()
         }
 
-        /** A builder for [IntrafiExclusionCreateBody]. */
+        /** A builder for [Body]. */
         class Builder internal constructor() {
 
             private var bankName: JsonField<String>? = null
             private var entityId: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(intrafiExclusionCreateBody: IntrafiExclusionCreateBody) = apply {
-                bankName = intrafiExclusionCreateBody.bankName
-                entityId = intrafiExclusionCreateBody.entityId
-                additionalProperties =
-                    intrafiExclusionCreateBody.additionalProperties.toMutableMap()
+            internal fun from(body: Body) = apply {
+                bankName = body.bankName
+                entityId = body.entityId
+                additionalProperties = body.additionalProperties.toMutableMap()
             }
 
             /** The name of the financial institution to be excluded. */
@@ -145,8 +144,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): IntrafiExclusionCreateBody =
-                IntrafiExclusionCreateBody(
+            fun build(): Body =
+                Body(
                     checkRequired("bankName", bankName),
                     checkRequired("entityId", entityId),
                     additionalProperties.toImmutable(),
@@ -158,7 +157,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is IntrafiExclusionCreateBody && bankName == other.bankName && entityId == other.entityId && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Body && bankName == other.bankName && entityId == other.entityId && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -168,7 +167,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "IntrafiExclusionCreateBody{bankName=$bankName, entityId=$entityId, additionalProperties=$additionalProperties}"
+            "Body{bankName=$bankName, entityId=$entityId, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -182,7 +181,7 @@ private constructor(
     @NoAutoDetect
     class Builder internal constructor() {
 
-        private var body: IntrafiExclusionCreateBody.Builder = IntrafiExclusionCreateBody.builder()
+        private var body: Body.Builder = Body.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
