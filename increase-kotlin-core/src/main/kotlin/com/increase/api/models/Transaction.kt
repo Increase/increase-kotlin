@@ -21039,6 +21039,12 @@ private constructor(
                      */
                     val ADJUSTED_AMOUNT = of("adjusted_amount")
 
+                    /**
+                     * The recipient was not able to process the check. This usually happens for
+                     * e.g., low quality images.
+                     */
+                    val NON_CONFORMING_ITEM = of("non_conforming_item")
+
                     fun of(value: String) = Reason(JsonField.of(value))
                 }
 
@@ -21059,6 +21065,11 @@ private constructor(
                      * check.
                      */
                     ADJUSTED_AMOUNT,
+                    /**
+                     * The recipient was not able to process the check. This usually happens for
+                     * e.g., low quality images.
+                     */
+                    NON_CONFORMING_ITEM,
                 }
 
                 /**
@@ -21087,6 +21098,11 @@ private constructor(
                      */
                     ADJUSTED_AMOUNT,
                     /**
+                     * The recipient was not able to process the check. This usually happens for
+                     * e.g., low quality images.
+                     */
+                    NON_CONFORMING_ITEM,
+                    /**
                      * An enum member indicating that [Reason] was instantiated with an unknown
                      * value.
                      */
@@ -21105,6 +21121,7 @@ private constructor(
                         LATE_RETURN -> Value.LATE_RETURN
                         WRONG_PAYEE_CREDIT -> Value.WRONG_PAYEE_CREDIT
                         ADJUSTED_AMOUNT -> Value.ADJUSTED_AMOUNT
+                        NON_CONFORMING_ITEM -> Value.NON_CONFORMING_ITEM
                         else -> Value._UNKNOWN
                     }
 
@@ -21122,6 +21139,7 @@ private constructor(
                         LATE_RETURN -> Known.LATE_RETURN
                         WRONG_PAYEE_CREDIT -> Known.WRONG_PAYEE_CREDIT
                         ADJUSTED_AMOUNT -> Known.ADJUSTED_AMOUNT
+                        NON_CONFORMING_ITEM -> Known.NON_CONFORMING_ITEM
                         else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
                     }
 
