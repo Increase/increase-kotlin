@@ -22,7 +22,7 @@ import java.util.Objects
 /** Create a Real-Time Payments Transfer */
 class RealTimePaymentsTransferCreateParams
 private constructor(
-    private val body: RealTimePaymentsTransferCreateBody,
+    private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -123,16 +123,16 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): RealTimePaymentsTransferCreateBody = body
+    internal fun _body(): Body = body
 
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     @NoAutoDetect
-    class RealTimePaymentsTransferCreateBody
+    class Body
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("amount")
         @ExcludeMissing
         private val amount: JsonField<Long> = JsonMissing.of(),
@@ -291,7 +291,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): RealTimePaymentsTransferCreateBody = apply {
+        fun validate(): Body = apply {
             if (validated) {
                 return@apply
             }
@@ -317,7 +317,7 @@ private constructor(
             fun builder() = Builder()
         }
 
-        /** A builder for [RealTimePaymentsTransferCreateBody]. */
+        /** A builder for [Body]. */
         class Builder internal constructor() {
 
             private var amount: JsonField<Long>? = null
@@ -333,24 +333,19 @@ private constructor(
             private var ultimateDebtorName: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(
-                realTimePaymentsTransferCreateBody: RealTimePaymentsTransferCreateBody
-            ) = apply {
-                amount = realTimePaymentsTransferCreateBody.amount
-                creditorName = realTimePaymentsTransferCreateBody.creditorName
-                remittanceInformation = realTimePaymentsTransferCreateBody.remittanceInformation
-                sourceAccountNumberId = realTimePaymentsTransferCreateBody.sourceAccountNumberId
-                debtorName = realTimePaymentsTransferCreateBody.debtorName
-                destinationAccountNumber =
-                    realTimePaymentsTransferCreateBody.destinationAccountNumber
-                destinationRoutingNumber =
-                    realTimePaymentsTransferCreateBody.destinationRoutingNumber
-                externalAccountId = realTimePaymentsTransferCreateBody.externalAccountId
-                requireApproval = realTimePaymentsTransferCreateBody.requireApproval
-                ultimateCreditorName = realTimePaymentsTransferCreateBody.ultimateCreditorName
-                ultimateDebtorName = realTimePaymentsTransferCreateBody.ultimateDebtorName
-                additionalProperties =
-                    realTimePaymentsTransferCreateBody.additionalProperties.toMutableMap()
+            internal fun from(body: Body) = apply {
+                amount = body.amount
+                creditorName = body.creditorName
+                remittanceInformation = body.remittanceInformation
+                sourceAccountNumberId = body.sourceAccountNumberId
+                debtorName = body.debtorName
+                destinationAccountNumber = body.destinationAccountNumber
+                destinationRoutingNumber = body.destinationRoutingNumber
+                externalAccountId = body.externalAccountId
+                requireApproval = body.requireApproval
+                ultimateCreditorName = body.ultimateCreditorName
+                ultimateDebtorName = body.ultimateDebtorName
+                additionalProperties = body.additionalProperties.toMutableMap()
             }
 
             /**
@@ -494,8 +489,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): RealTimePaymentsTransferCreateBody =
-                RealTimePaymentsTransferCreateBody(
+            fun build(): Body =
+                Body(
                     checkRequired("amount", amount),
                     checkRequired("creditorName", creditorName),
                     checkRequired("remittanceInformation", remittanceInformation),
@@ -516,7 +511,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is RealTimePaymentsTransferCreateBody && amount == other.amount && creditorName == other.creditorName && remittanceInformation == other.remittanceInformation && sourceAccountNumberId == other.sourceAccountNumberId && debtorName == other.debtorName && destinationAccountNumber == other.destinationAccountNumber && destinationRoutingNumber == other.destinationRoutingNumber && externalAccountId == other.externalAccountId && requireApproval == other.requireApproval && ultimateCreditorName == other.ultimateCreditorName && ultimateDebtorName == other.ultimateDebtorName && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Body && amount == other.amount && creditorName == other.creditorName && remittanceInformation == other.remittanceInformation && sourceAccountNumberId == other.sourceAccountNumberId && debtorName == other.debtorName && destinationAccountNumber == other.destinationAccountNumber && destinationRoutingNumber == other.destinationRoutingNumber && externalAccountId == other.externalAccountId && requireApproval == other.requireApproval && ultimateCreditorName == other.ultimateCreditorName && ultimateDebtorName == other.ultimateDebtorName && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -526,7 +521,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "RealTimePaymentsTransferCreateBody{amount=$amount, creditorName=$creditorName, remittanceInformation=$remittanceInformation, sourceAccountNumberId=$sourceAccountNumberId, debtorName=$debtorName, destinationAccountNumber=$destinationAccountNumber, destinationRoutingNumber=$destinationRoutingNumber, externalAccountId=$externalAccountId, requireApproval=$requireApproval, ultimateCreditorName=$ultimateCreditorName, ultimateDebtorName=$ultimateDebtorName, additionalProperties=$additionalProperties}"
+            "Body{amount=$amount, creditorName=$creditorName, remittanceInformation=$remittanceInformation, sourceAccountNumberId=$sourceAccountNumberId, debtorName=$debtorName, destinationAccountNumber=$destinationAccountNumber, destinationRoutingNumber=$destinationRoutingNumber, externalAccountId=$externalAccountId, requireApproval=$requireApproval, ultimateCreditorName=$ultimateCreditorName, ultimateDebtorName=$ultimateDebtorName, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -540,8 +535,7 @@ private constructor(
     @NoAutoDetect
     class Builder internal constructor() {
 
-        private var body: RealTimePaymentsTransferCreateBody.Builder =
-            RealTimePaymentsTransferCreateBody.builder()
+        private var body: Body.Builder = Body.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

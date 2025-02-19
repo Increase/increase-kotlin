@@ -24,7 +24,7 @@ import java.util.Objects
 /** Create a Bookkeeping Account */
 class BookkeepingAccountCreateParams
 private constructor(
-    private val body: BookkeepingAccountCreateBody,
+    private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -59,16 +59,16 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): BookkeepingAccountCreateBody = body
+    internal fun _body(): Body = body
 
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     @NoAutoDetect
-    class BookkeepingAccountCreateBody
+    class Body
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("name")
         @ExcludeMissing
         private val name: JsonField<String> = JsonMissing.of(),
@@ -118,7 +118,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): BookkeepingAccountCreateBody = apply {
+        fun validate(): Body = apply {
             if (validated) {
                 return@apply
             }
@@ -137,7 +137,7 @@ private constructor(
             fun builder() = Builder()
         }
 
-        /** A builder for [BookkeepingAccountCreateBody]. */
+        /** A builder for [Body]. */
         class Builder internal constructor() {
 
             private var name: JsonField<String>? = null
@@ -146,13 +146,12 @@ private constructor(
             private var entityId: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(bookkeepingAccountCreateBody: BookkeepingAccountCreateBody) = apply {
-                name = bookkeepingAccountCreateBody.name
-                accountId = bookkeepingAccountCreateBody.accountId
-                complianceCategory = bookkeepingAccountCreateBody.complianceCategory
-                entityId = bookkeepingAccountCreateBody.entityId
-                additionalProperties =
-                    bookkeepingAccountCreateBody.additionalProperties.toMutableMap()
+            internal fun from(body: Body) = apply {
+                name = body.name
+                accountId = body.accountId
+                complianceCategory = body.complianceCategory
+                entityId = body.entityId
+                additionalProperties = body.additionalProperties.toMutableMap()
             }
 
             /** The name you choose for the account. */
@@ -201,8 +200,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): BookkeepingAccountCreateBody =
-                BookkeepingAccountCreateBody(
+            fun build(): Body =
+                Body(
                     checkRequired("name", name),
                     accountId,
                     complianceCategory,
@@ -216,7 +215,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is BookkeepingAccountCreateBody && name == other.name && accountId == other.accountId && complianceCategory == other.complianceCategory && entityId == other.entityId && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Body && name == other.name && accountId == other.accountId && complianceCategory == other.complianceCategory && entityId == other.entityId && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -226,7 +225,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "BookkeepingAccountCreateBody{name=$name, accountId=$accountId, complianceCategory=$complianceCategory, entityId=$entityId, additionalProperties=$additionalProperties}"
+            "Body{name=$name, accountId=$accountId, complianceCategory=$complianceCategory, entityId=$entityId, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -240,8 +239,7 @@ private constructor(
     @NoAutoDetect
     class Builder internal constructor() {
 
-        private var body: BookkeepingAccountCreateBody.Builder =
-            BookkeepingAccountCreateBody.builder()
+        private var body: Body.Builder = Body.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
