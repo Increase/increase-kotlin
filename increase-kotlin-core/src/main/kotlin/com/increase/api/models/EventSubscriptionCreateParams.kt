@@ -24,7 +24,7 @@ import java.util.Objects
 /** Create an Event Subscription */
 class EventSubscriptionCreateParams
 private constructor(
-    private val body: EventSubscriptionCreateBody,
+    private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -77,16 +77,16 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): EventSubscriptionCreateBody = body
+    internal fun _body(): Body = body
 
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     @NoAutoDetect
-    class EventSubscriptionCreateBody
+    class Body
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("url") @ExcludeMissing private val url: JsonField<String> = JsonMissing.of(),
         @JsonProperty("oauth_connection_id")
         @ExcludeMissing
@@ -156,7 +156,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): EventSubscriptionCreateBody = apply {
+        fun validate(): Body = apply {
             if (validated) {
                 return@apply
             }
@@ -175,7 +175,7 @@ private constructor(
             fun builder() = Builder()
         }
 
-        /** A builder for [EventSubscriptionCreateBody]. */
+        /** A builder for [Body]. */
         class Builder internal constructor() {
 
             private var url: JsonField<String>? = null
@@ -184,13 +184,12 @@ private constructor(
             private var sharedSecret: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(eventSubscriptionCreateBody: EventSubscriptionCreateBody) = apply {
-                url = eventSubscriptionCreateBody.url
-                oauthConnectionId = eventSubscriptionCreateBody.oauthConnectionId
-                selectedEventCategory = eventSubscriptionCreateBody.selectedEventCategory
-                sharedSecret = eventSubscriptionCreateBody.sharedSecret
-                additionalProperties =
-                    eventSubscriptionCreateBody.additionalProperties.toMutableMap()
+            internal fun from(body: Body) = apply {
+                url = body.url
+                oauthConnectionId = body.oauthConnectionId
+                selectedEventCategory = body.selectedEventCategory
+                sharedSecret = body.sharedSecret
+                additionalProperties = body.additionalProperties.toMutableMap()
             }
 
             /** The URL you'd like us to send webhooks to. */
@@ -263,8 +262,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): EventSubscriptionCreateBody =
-                EventSubscriptionCreateBody(
+            fun build(): Body =
+                Body(
                     checkRequired("url", url),
                     oauthConnectionId,
                     selectedEventCategory,
@@ -278,7 +277,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is EventSubscriptionCreateBody && url == other.url && oauthConnectionId == other.oauthConnectionId && selectedEventCategory == other.selectedEventCategory && sharedSecret == other.sharedSecret && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Body && url == other.url && oauthConnectionId == other.oauthConnectionId && selectedEventCategory == other.selectedEventCategory && sharedSecret == other.sharedSecret && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -288,7 +287,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "EventSubscriptionCreateBody{url=$url, oauthConnectionId=$oauthConnectionId, selectedEventCategory=$selectedEventCategory, sharedSecret=$sharedSecret, additionalProperties=$additionalProperties}"
+            "Body{url=$url, oauthConnectionId=$oauthConnectionId, selectedEventCategory=$selectedEventCategory, sharedSecret=$sharedSecret, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -302,8 +301,7 @@ private constructor(
     @NoAutoDetect
     class Builder internal constructor() {
 
-        private var body: EventSubscriptionCreateBody.Builder =
-            EventSubscriptionCreateBody.builder()
+        private var body: Body.Builder = Body.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

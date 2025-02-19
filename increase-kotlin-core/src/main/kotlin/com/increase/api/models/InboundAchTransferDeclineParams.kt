@@ -25,7 +25,7 @@ import java.util.Objects
 class InboundAchTransferDeclineParams
 private constructor(
     private val inboundAchTransferId: String,
-    private val body: InboundAchTransferDeclineBody,
+    private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -51,7 +51,7 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): InboundAchTransferDeclineBody = body
+    internal fun _body(): Body = body
 
     override fun _headers(): Headers = additionalHeaders
 
@@ -65,9 +65,9 @@ private constructor(
     }
 
     @NoAutoDetect
-    class InboundAchTransferDeclineBody
+    class Body
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("reason")
         @ExcludeMissing
         private val reason: JsonField<Reason> = JsonMissing.of(),
@@ -95,7 +95,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): InboundAchTransferDeclineBody = apply {
+        fun validate(): Body = apply {
             if (validated) {
                 return@apply
             }
@@ -111,18 +111,16 @@ private constructor(
             fun builder() = Builder()
         }
 
-        /** A builder for [InboundAchTransferDeclineBody]. */
+        /** A builder for [Body]. */
         class Builder internal constructor() {
 
             private var reason: JsonField<Reason> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(inboundAchTransferDeclineBody: InboundAchTransferDeclineBody) =
-                apply {
-                    reason = inboundAchTransferDeclineBody.reason
-                    additionalProperties =
-                        inboundAchTransferDeclineBody.additionalProperties.toMutableMap()
-                }
+            internal fun from(body: Body) = apply {
+                reason = body.reason
+                additionalProperties = body.additionalProperties.toMutableMap()
+            }
 
             /**
              * The reason why this transfer will be returned. If this parameter is unset, the return
@@ -157,8 +155,7 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): InboundAchTransferDeclineBody =
-                InboundAchTransferDeclineBody(reason, additionalProperties.toImmutable())
+            fun build(): Body = Body(reason, additionalProperties.toImmutable())
         }
 
         override fun equals(other: Any?): Boolean {
@@ -166,7 +163,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is InboundAchTransferDeclineBody && reason == other.reason && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Body && reason == other.reason && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -175,8 +172,7 @@ private constructor(
 
         override fun hashCode(): Int = hashCode
 
-        override fun toString() =
-            "InboundAchTransferDeclineBody{reason=$reason, additionalProperties=$additionalProperties}"
+        override fun toString() = "Body{reason=$reason, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -191,8 +187,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var inboundAchTransferId: String? = null
-        private var body: InboundAchTransferDeclineBody.Builder =
-            InboundAchTransferDeclineBody.builder()
+        private var body: Body.Builder = Body.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

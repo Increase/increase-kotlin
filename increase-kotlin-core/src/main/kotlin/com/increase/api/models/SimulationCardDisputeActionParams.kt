@@ -30,7 +30,7 @@ import java.util.Objects
 class SimulationCardDisputeActionParams
 private constructor(
     private val cardDisputeId: String,
-    private val body: SimulationCardDisputeActionBody,
+    private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -56,7 +56,7 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): SimulationCardDisputeActionBody = body
+    internal fun _body(): Body = body
 
     override fun _headers(): Headers = additionalHeaders
 
@@ -70,9 +70,9 @@ private constructor(
     }
 
     @NoAutoDetect
-    class SimulationCardDisputeActionBody
+    class Body
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("status")
         @ExcludeMissing
         private val status: JsonField<Status> = JsonMissing.of(),
@@ -103,7 +103,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): SimulationCardDisputeActionBody = apply {
+        fun validate(): Body = apply {
             if (validated) {
                 return@apply
             }
@@ -120,20 +120,18 @@ private constructor(
             fun builder() = Builder()
         }
 
-        /** A builder for [SimulationCardDisputeActionBody]. */
+        /** A builder for [Body]. */
         class Builder internal constructor() {
 
             private var status: JsonField<Status>? = null
             private var explanation: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(simulationCardDisputeActionBody: SimulationCardDisputeActionBody) =
-                apply {
-                    status = simulationCardDisputeActionBody.status
-                    explanation = simulationCardDisputeActionBody.explanation
-                    additionalProperties =
-                        simulationCardDisputeActionBody.additionalProperties.toMutableMap()
-                }
+            internal fun from(body: Body) = apply {
+                status = body.status
+                explanation = body.explanation
+                additionalProperties = body.additionalProperties.toMutableMap()
+            }
 
             /** The status to move the dispute to. */
             fun status(status: Status) = status(JsonField.of(status))
@@ -168,8 +166,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): SimulationCardDisputeActionBody =
-                SimulationCardDisputeActionBody(
+            fun build(): Body =
+                Body(
                     checkRequired("status", status),
                     explanation,
                     additionalProperties.toImmutable(),
@@ -181,7 +179,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is SimulationCardDisputeActionBody && status == other.status && explanation == other.explanation && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Body && status == other.status && explanation == other.explanation && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -191,7 +189,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "SimulationCardDisputeActionBody{status=$status, explanation=$explanation, additionalProperties=$additionalProperties}"
+            "Body{status=$status, explanation=$explanation, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -206,8 +204,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var cardDisputeId: String? = null
-        private var body: SimulationCardDisputeActionBody.Builder =
-            SimulationCardDisputeActionBody.builder()
+        private var body: Body.Builder = Body.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

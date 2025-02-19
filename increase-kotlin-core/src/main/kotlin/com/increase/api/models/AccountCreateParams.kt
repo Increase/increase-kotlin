@@ -22,7 +22,7 @@ import java.util.Objects
 /** Create an Account */
 class AccountCreateParams
 private constructor(
-    private val body: AccountCreateBody,
+    private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -69,16 +69,16 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): AccountCreateBody = body
+    internal fun _body(): Body = body
 
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     @NoAutoDetect
-    class AccountCreateBody
+    class Body
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("name")
         @ExcludeMissing
         private val name: JsonField<String> = JsonMissing.of(),
@@ -140,7 +140,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): AccountCreateBody = apply {
+        fun validate(): Body = apply {
             if (validated) {
                 return@apply
             }
@@ -159,7 +159,7 @@ private constructor(
             fun builder() = Builder()
         }
 
-        /** A builder for [AccountCreateBody]. */
+        /** A builder for [Body]. */
         class Builder internal constructor() {
 
             private var name: JsonField<String>? = null
@@ -168,12 +168,12 @@ private constructor(
             private var programId: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(accountCreateBody: AccountCreateBody) = apply {
-                name = accountCreateBody.name
-                entityId = accountCreateBody.entityId
-                informationalEntityId = accountCreateBody.informationalEntityId
-                programId = accountCreateBody.programId
-                additionalProperties = accountCreateBody.additionalProperties.toMutableMap()
+            internal fun from(body: Body) = apply {
+                name = body.name
+                entityId = body.entityId
+                informationalEntityId = body.informationalEntityId
+                programId = body.programId
+                additionalProperties = body.additionalProperties.toMutableMap()
             }
 
             /** The name you choose for the Account. */
@@ -234,8 +234,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): AccountCreateBody =
-                AccountCreateBody(
+            fun build(): Body =
+                Body(
                     checkRequired("name", name),
                     entityId,
                     informationalEntityId,
@@ -249,7 +249,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is AccountCreateBody && name == other.name && entityId == other.entityId && informationalEntityId == other.informationalEntityId && programId == other.programId && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Body && name == other.name && entityId == other.entityId && informationalEntityId == other.informationalEntityId && programId == other.programId && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -259,7 +259,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "AccountCreateBody{name=$name, entityId=$entityId, informationalEntityId=$informationalEntityId, programId=$programId, additionalProperties=$additionalProperties}"
+            "Body{name=$name, entityId=$entityId, informationalEntityId=$informationalEntityId, programId=$programId, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -273,7 +273,7 @@ private constructor(
     @NoAutoDetect
     class Builder internal constructor() {
 
-        private var body: AccountCreateBody.Builder = AccountCreateBody.builder()
+        private var body: Body.Builder = Body.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

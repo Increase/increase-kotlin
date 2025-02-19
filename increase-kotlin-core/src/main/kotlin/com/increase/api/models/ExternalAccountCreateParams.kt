@@ -24,7 +24,7 @@ import java.util.Objects
 /** Create an External Account */
 class ExternalAccountCreateParams
 private constructor(
-    private val body: ExternalAccountCreateBody,
+    private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -71,16 +71,16 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): ExternalAccountCreateBody = body
+    internal fun _body(): Body = body
 
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     @NoAutoDetect
-    class ExternalAccountCreateBody
+    class Body
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("account_number")
         @ExcludeMissing
         private val accountNumber: JsonField<String> = JsonMissing.of(),
@@ -150,7 +150,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): ExternalAccountCreateBody = apply {
+        fun validate(): Body = apply {
             if (validated) {
                 return@apply
             }
@@ -170,7 +170,7 @@ private constructor(
             fun builder() = Builder()
         }
 
-        /** A builder for [ExternalAccountCreateBody]. */
+        /** A builder for [Body]. */
         class Builder internal constructor() {
 
             private var accountNumber: JsonField<String>? = null
@@ -180,13 +180,13 @@ private constructor(
             private var funding: JsonField<Funding> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(externalAccountCreateBody: ExternalAccountCreateBody) = apply {
-                accountNumber = externalAccountCreateBody.accountNumber
-                description = externalAccountCreateBody.description
-                routingNumber = externalAccountCreateBody.routingNumber
-                accountHolder = externalAccountCreateBody.accountHolder
-                funding = externalAccountCreateBody.funding
-                additionalProperties = externalAccountCreateBody.additionalProperties.toMutableMap()
+            internal fun from(body: Body) = apply {
+                accountNumber = body.accountNumber
+                description = body.description
+                routingNumber = body.routingNumber
+                accountHolder = body.accountHolder
+                funding = body.funding
+                additionalProperties = body.additionalProperties.toMutableMap()
             }
 
             /** The account number for the destination account. */
@@ -253,8 +253,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): ExternalAccountCreateBody =
-                ExternalAccountCreateBody(
+            fun build(): Body =
+                Body(
                     checkRequired("accountNumber", accountNumber),
                     checkRequired("description", description),
                     checkRequired("routingNumber", routingNumber),
@@ -269,7 +269,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is ExternalAccountCreateBody && accountNumber == other.accountNumber && description == other.description && routingNumber == other.routingNumber && accountHolder == other.accountHolder && funding == other.funding && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Body && accountNumber == other.accountNumber && description == other.description && routingNumber == other.routingNumber && accountHolder == other.accountHolder && funding == other.funding && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -279,7 +279,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "ExternalAccountCreateBody{accountNumber=$accountNumber, description=$description, routingNumber=$routingNumber, accountHolder=$accountHolder, funding=$funding, additionalProperties=$additionalProperties}"
+            "Body{accountNumber=$accountNumber, description=$description, routingNumber=$routingNumber, accountHolder=$accountHolder, funding=$funding, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -293,7 +293,7 @@ private constructor(
     @NoAutoDetect
     class Builder internal constructor() {
 
-        private var body: ExternalAccountCreateBody.Builder = ExternalAccountCreateBody.builder()
+        private var body: Body.Builder = Body.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

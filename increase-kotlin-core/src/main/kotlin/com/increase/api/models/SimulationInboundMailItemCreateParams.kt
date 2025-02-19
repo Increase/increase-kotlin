@@ -25,7 +25,7 @@ import java.util.Objects
  */
 class SimulationInboundMailItemCreateParams
 private constructor(
-    private val body: SimulationInboundMailItemCreateBody,
+    private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -60,16 +60,16 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): SimulationInboundMailItemCreateBody = body
+    internal fun _body(): Body = body
 
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     @NoAutoDetect
-    class SimulationInboundMailItemCreateBody
+    class Body
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("amount")
         @ExcludeMissing
         private val amount: JsonField<Long> = JsonMissing.of(),
@@ -115,7 +115,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): SimulationInboundMailItemCreateBody = apply {
+        fun validate(): Body = apply {
             if (validated) {
                 return@apply
             }
@@ -133,7 +133,7 @@ private constructor(
             fun builder() = Builder()
         }
 
-        /** A builder for [SimulationInboundMailItemCreateBody]. */
+        /** A builder for [Body]. */
         class Builder internal constructor() {
 
             private var amount: JsonField<Long>? = null
@@ -141,14 +141,11 @@ private constructor(
             private var contentsFileId: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(
-                simulationInboundMailItemCreateBody: SimulationInboundMailItemCreateBody
-            ) = apply {
-                amount = simulationInboundMailItemCreateBody.amount
-                lockboxId = simulationInboundMailItemCreateBody.lockboxId
-                contentsFileId = simulationInboundMailItemCreateBody.contentsFileId
-                additionalProperties =
-                    simulationInboundMailItemCreateBody.additionalProperties.toMutableMap()
+            internal fun from(body: Body) = apply {
+                amount = body.amount
+                lockboxId = body.lockboxId
+                contentsFileId = body.contentsFileId
+                additionalProperties = body.additionalProperties.toMutableMap()
             }
 
             /** The amount of the check to be simulated, in cents. */
@@ -197,8 +194,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): SimulationInboundMailItemCreateBody =
-                SimulationInboundMailItemCreateBody(
+            fun build(): Body =
+                Body(
                     checkRequired("amount", amount),
                     checkRequired("lockboxId", lockboxId),
                     contentsFileId,
@@ -211,7 +208,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is SimulationInboundMailItemCreateBody && amount == other.amount && lockboxId == other.lockboxId && contentsFileId == other.contentsFileId && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Body && amount == other.amount && lockboxId == other.lockboxId && contentsFileId == other.contentsFileId && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -221,7 +218,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "SimulationInboundMailItemCreateBody{amount=$amount, lockboxId=$lockboxId, contentsFileId=$contentsFileId, additionalProperties=$additionalProperties}"
+            "Body{amount=$amount, lockboxId=$lockboxId, contentsFileId=$contentsFileId, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -235,8 +232,7 @@ private constructor(
     @NoAutoDetect
     class Builder internal constructor() {
 
-        private var body: SimulationInboundMailItemCreateBody.Builder =
-            SimulationInboundMailItemCreateBody.builder()
+        private var body: Body.Builder = Body.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

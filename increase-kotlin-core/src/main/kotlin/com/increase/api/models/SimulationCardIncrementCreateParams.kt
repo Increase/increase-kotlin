@@ -25,7 +25,7 @@ import java.util.Objects
  */
 class SimulationCardIncrementCreateParams
 private constructor(
-    private val body: SimulationCardIncrementCreateBody,
+    private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -64,16 +64,16 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): SimulationCardIncrementCreateBody = body
+    internal fun _body(): Body = body
 
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     @NoAutoDetect
-    class SimulationCardIncrementCreateBody
+    class Body
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("amount")
         @ExcludeMissing
         private val amount: JsonField<Long> = JsonMissing.of(),
@@ -126,7 +126,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): SimulationCardIncrementCreateBody = apply {
+        fun validate(): Body = apply {
             if (validated) {
                 return@apply
             }
@@ -144,7 +144,7 @@ private constructor(
             fun builder() = Builder()
         }
 
-        /** A builder for [SimulationCardIncrementCreateBody]. */
+        /** A builder for [Body]. */
         class Builder internal constructor() {
 
             private var amount: JsonField<Long>? = null
@@ -152,14 +152,11 @@ private constructor(
             private var eventSubscriptionId: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(
-                simulationCardIncrementCreateBody: SimulationCardIncrementCreateBody
-            ) = apply {
-                amount = simulationCardIncrementCreateBody.amount
-                cardPaymentId = simulationCardIncrementCreateBody.cardPaymentId
-                eventSubscriptionId = simulationCardIncrementCreateBody.eventSubscriptionId
-                additionalProperties =
-                    simulationCardIncrementCreateBody.additionalProperties.toMutableMap()
+            internal fun from(body: Body) = apply {
+                amount = body.amount
+                cardPaymentId = body.cardPaymentId
+                eventSubscriptionId = body.eventSubscriptionId
+                additionalProperties = body.additionalProperties.toMutableMap()
             }
 
             /** The amount of the increment in minor units in the card authorization's currency. */
@@ -214,8 +211,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): SimulationCardIncrementCreateBody =
-                SimulationCardIncrementCreateBody(
+            fun build(): Body =
+                Body(
                     checkRequired("amount", amount),
                     checkRequired("cardPaymentId", cardPaymentId),
                     eventSubscriptionId,
@@ -228,7 +225,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is SimulationCardIncrementCreateBody && amount == other.amount && cardPaymentId == other.cardPaymentId && eventSubscriptionId == other.eventSubscriptionId && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Body && amount == other.amount && cardPaymentId == other.cardPaymentId && eventSubscriptionId == other.eventSubscriptionId && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -238,7 +235,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "SimulationCardIncrementCreateBody{amount=$amount, cardPaymentId=$cardPaymentId, eventSubscriptionId=$eventSubscriptionId, additionalProperties=$additionalProperties}"
+            "Body{amount=$amount, cardPaymentId=$cardPaymentId, eventSubscriptionId=$eventSubscriptionId, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -252,8 +249,7 @@ private constructor(
     @NoAutoDetect
     class Builder internal constructor() {
 
-        private var body: SimulationCardIncrementCreateBody.Builder =
-            SimulationCardIncrementCreateBody.builder()
+        private var body: Body.Builder = Body.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

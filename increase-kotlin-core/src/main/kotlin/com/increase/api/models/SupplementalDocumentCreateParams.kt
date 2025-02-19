@@ -22,7 +22,7 @@ import java.util.Objects
 /** Create a supplemental document for an Entity */
 class SupplementalDocumentCreateParams
 private constructor(
-    private val body: SupplementalDocumentCreateBody,
+    private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -45,16 +45,16 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): SupplementalDocumentCreateBody = body
+    internal fun _body(): Body = body
 
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     @NoAutoDetect
-    class SupplementalDocumentCreateBody
+    class Body
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("entity_id")
         @ExcludeMissing
         private val entityId: JsonField<String> = JsonMissing.of(),
@@ -83,7 +83,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): SupplementalDocumentCreateBody = apply {
+        fun validate(): Body = apply {
             if (validated) {
                 return@apply
             }
@@ -100,20 +100,18 @@ private constructor(
             fun builder() = Builder()
         }
 
-        /** A builder for [SupplementalDocumentCreateBody]. */
+        /** A builder for [Body]. */
         class Builder internal constructor() {
 
             private var entityId: JsonField<String>? = null
             private var fileId: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(supplementalDocumentCreateBody: SupplementalDocumentCreateBody) =
-                apply {
-                    entityId = supplementalDocumentCreateBody.entityId
-                    fileId = supplementalDocumentCreateBody.fileId
-                    additionalProperties =
-                        supplementalDocumentCreateBody.additionalProperties.toMutableMap()
-                }
+            internal fun from(body: Body) = apply {
+                entityId = body.entityId
+                fileId = body.fileId
+                additionalProperties = body.additionalProperties.toMutableMap()
+            }
 
             /** The identifier of the Entity to associate with the supplemental document. */
             fun entityId(entityId: String) = entityId(JsonField.of(entityId))
@@ -146,8 +144,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): SupplementalDocumentCreateBody =
-                SupplementalDocumentCreateBody(
+            fun build(): Body =
+                Body(
                     checkRequired("entityId", entityId),
                     checkRequired("fileId", fileId),
                     additionalProperties.toImmutable(),
@@ -159,7 +157,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is SupplementalDocumentCreateBody && entityId == other.entityId && fileId == other.fileId && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Body && entityId == other.entityId && fileId == other.fileId && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -169,7 +167,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "SupplementalDocumentCreateBody{entityId=$entityId, fileId=$fileId, additionalProperties=$additionalProperties}"
+            "Body{entityId=$entityId, fileId=$fileId, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -183,8 +181,7 @@ private constructor(
     @NoAutoDetect
     class Builder internal constructor() {
 
-        private var body: SupplementalDocumentCreateBody.Builder =
-            SupplementalDocumentCreateBody.builder()
+        private var body: Body.Builder = Body.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

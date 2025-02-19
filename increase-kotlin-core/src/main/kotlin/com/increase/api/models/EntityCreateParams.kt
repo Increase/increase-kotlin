@@ -25,7 +25,7 @@ import java.util.Objects
 /** Create an Entity */
 class EntityCreateParams
 private constructor(
-    private val body: EntityCreateBody,
+    private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -118,16 +118,16 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): EntityCreateBody = body
+    internal fun _body(): Body = body
 
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     @NoAutoDetect
-    class EntityCreateBody
+    class Body
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("structure")
         @ExcludeMissing
         private val structure: JsonField<Structure> = JsonMissing.of(),
@@ -264,7 +264,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): EntityCreateBody = apply {
+        fun validate(): Body = apply {
             if (validated) {
                 return@apply
             }
@@ -288,7 +288,7 @@ private constructor(
             fun builder() = Builder()
         }
 
-        /** A builder for [EntityCreateBody]. */
+        /** A builder for [Body]. */
         class Builder internal constructor() {
 
             private var structure: JsonField<Structure>? = null
@@ -302,18 +302,17 @@ private constructor(
             private var trust: JsonField<Trust> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(entityCreateBody: EntityCreateBody) = apply {
-                structure = entityCreateBody.structure
-                corporation = entityCreateBody.corporation
-                description = entityCreateBody.description
-                governmentAuthority = entityCreateBody.governmentAuthority
-                joint = entityCreateBody.joint
-                naturalPerson = entityCreateBody.naturalPerson
-                supplementalDocuments =
-                    entityCreateBody.supplementalDocuments.map { it.toMutableList() }
-                thirdPartyVerification = entityCreateBody.thirdPartyVerification
-                trust = entityCreateBody.trust
-                additionalProperties = entityCreateBody.additionalProperties.toMutableMap()
+            internal fun from(body: Body) = apply {
+                structure = body.structure
+                corporation = body.corporation
+                description = body.description
+                governmentAuthority = body.governmentAuthority
+                joint = body.joint
+                naturalPerson = body.naturalPerson
+                supplementalDocuments = body.supplementalDocuments.map { it.toMutableList() }
+                thirdPartyVerification = body.thirdPartyVerification
+                trust = body.trust
+                additionalProperties = body.additionalProperties.toMutableMap()
             }
 
             /** The type of Entity to create. */
@@ -456,8 +455,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): EntityCreateBody =
-                EntityCreateBody(
+            fun build(): Body =
+                Body(
                     checkRequired("structure", structure),
                     corporation,
                     description,
@@ -476,7 +475,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is EntityCreateBody && structure == other.structure && corporation == other.corporation && description == other.description && governmentAuthority == other.governmentAuthority && joint == other.joint && naturalPerson == other.naturalPerson && supplementalDocuments == other.supplementalDocuments && thirdPartyVerification == other.thirdPartyVerification && trust == other.trust && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Body && structure == other.structure && corporation == other.corporation && description == other.description && governmentAuthority == other.governmentAuthority && joint == other.joint && naturalPerson == other.naturalPerson && supplementalDocuments == other.supplementalDocuments && thirdPartyVerification == other.thirdPartyVerification && trust == other.trust && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -486,7 +485,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "EntityCreateBody{structure=$structure, corporation=$corporation, description=$description, governmentAuthority=$governmentAuthority, joint=$joint, naturalPerson=$naturalPerson, supplementalDocuments=$supplementalDocuments, thirdPartyVerification=$thirdPartyVerification, trust=$trust, additionalProperties=$additionalProperties}"
+            "Body{structure=$structure, corporation=$corporation, description=$description, governmentAuthority=$governmentAuthority, joint=$joint, naturalPerson=$naturalPerson, supplementalDocuments=$supplementalDocuments, thirdPartyVerification=$thirdPartyVerification, trust=$trust, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -500,7 +499,7 @@ private constructor(
     @NoAutoDetect
     class Builder internal constructor() {
 
-        private var body: EntityCreateBody.Builder = EntityCreateBody.builder()
+        private var body: Body.Builder = Body.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 

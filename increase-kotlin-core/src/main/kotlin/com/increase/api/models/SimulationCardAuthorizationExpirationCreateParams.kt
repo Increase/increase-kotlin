@@ -22,7 +22,7 @@ import java.util.Objects
 /** Simulates expiring a Card Authorization immediately. */
 class SimulationCardAuthorizationExpirationCreateParams
 private constructor(
-    private val body: SimulationCardAuthorizationExpirationCreateBody,
+    private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -39,16 +39,16 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    internal fun _body(): SimulationCardAuthorizationExpirationCreateBody = body
+    internal fun _body(): Body = body
 
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     @NoAutoDetect
-    class SimulationCardAuthorizationExpirationCreateBody
+    class Body
     @JsonCreator
-    internal constructor(
+    private constructor(
         @JsonProperty("card_payment_id")
         @ExcludeMissing
         private val cardPaymentId: JsonField<String> = JsonMissing.of(),
@@ -70,7 +70,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): SimulationCardAuthorizationExpirationCreateBody = apply {
+        fun validate(): Body = apply {
             if (validated) {
                 return@apply
             }
@@ -86,20 +86,15 @@ private constructor(
             fun builder() = Builder()
         }
 
-        /** A builder for [SimulationCardAuthorizationExpirationCreateBody]. */
+        /** A builder for [Body]. */
         class Builder internal constructor() {
 
             private var cardPaymentId: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(
-                simulationCardAuthorizationExpirationCreateBody:
-                    SimulationCardAuthorizationExpirationCreateBody
-            ) = apply {
-                cardPaymentId = simulationCardAuthorizationExpirationCreateBody.cardPaymentId
-                additionalProperties =
-                    simulationCardAuthorizationExpirationCreateBody.additionalProperties
-                        .toMutableMap()
+            internal fun from(body: Body) = apply {
+                cardPaymentId = body.cardPaymentId
+                additionalProperties = body.additionalProperties.toMutableMap()
             }
 
             /** The identifier of the Card Payment to expire. */
@@ -129,8 +124,8 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
-            fun build(): SimulationCardAuthorizationExpirationCreateBody =
-                SimulationCardAuthorizationExpirationCreateBody(
+            fun build(): Body =
+                Body(
                     checkRequired("cardPaymentId", cardPaymentId),
                     additionalProperties.toImmutable(),
                 )
@@ -141,7 +136,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is SimulationCardAuthorizationExpirationCreateBody && cardPaymentId == other.cardPaymentId && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Body && cardPaymentId == other.cardPaymentId && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -151,7 +146,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "SimulationCardAuthorizationExpirationCreateBody{cardPaymentId=$cardPaymentId, additionalProperties=$additionalProperties}"
+            "Body{cardPaymentId=$cardPaymentId, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -165,8 +160,7 @@ private constructor(
     @NoAutoDetect
     class Builder internal constructor() {
 
-        private var body: SimulationCardAuthorizationExpirationCreateBody.Builder =
-            SimulationCardAuthorizationExpirationCreateBody.builder()
+        private var body: Body.Builder = Body.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
