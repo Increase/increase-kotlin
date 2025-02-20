@@ -16,6 +16,6 @@ interface CardSettlementServiceAsync {
      */
     suspend fun create(
         params: SimulationCardSettlementCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): Transaction
 }

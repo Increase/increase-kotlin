@@ -75,13 +75,8 @@ private constructor(
         fun of(
             checkDepositsService: CheckDepositServiceAsync,
             params: CheckDepositListParams,
-            response: Response
-        ) =
-            CheckDepositListPageAsync(
-                checkDepositsService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = CheckDepositListPageAsync(checkDepositsService, params, response)
     }
 
     @NoAutoDetect
@@ -162,18 +157,11 @@ private constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() =
-                Response(
-                    data,
-                    nextCursor,
-                    additionalProperties.toImmutable(),
-                )
+            fun build() = Response(data, nextCursor, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: CheckDepositListPageAsync,
-    ) : Flow<CheckDeposit> {
+    class AutoPager(private val firstPage: CheckDepositListPageAsync) : Flow<CheckDeposit> {
 
         override suspend fun collect(collector: FlowCollector<CheckDeposit>) {
             var page = firstPage

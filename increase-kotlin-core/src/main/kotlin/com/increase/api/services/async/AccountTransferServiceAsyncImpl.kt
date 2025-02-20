@@ -22,9 +22,7 @@ import com.increase.api.models.AccountTransferListParams
 import com.increase.api.models.AccountTransferRetrieveParams
 
 class AccountTransferServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : AccountTransferServiceAsync {
+internal constructor(private val clientOptions: ClientOptions) : AccountTransferServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -34,7 +32,7 @@ internal constructor(
     /** Create an Account Transfer */
     override suspend fun create(
         params: AccountTransferCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): AccountTransfer {
         val request =
             HttpRequest.builder()
@@ -59,7 +57,7 @@ internal constructor(
     /** Retrieve an Account Transfer */
     override suspend fun retrieve(
         params: AccountTransferRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): AccountTransfer {
         val request =
             HttpRequest.builder()
@@ -84,7 +82,7 @@ internal constructor(
     /** List Account Transfers */
     override suspend fun list(
         params: AccountTransferListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): AccountTransferListPageAsync {
         val request =
             HttpRequest.builder()
@@ -109,7 +107,7 @@ internal constructor(
     /** Approve an Account Transfer */
     override suspend fun approve(
         params: AccountTransferApproveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): AccountTransfer {
         val request =
             HttpRequest.builder()
@@ -134,7 +132,7 @@ internal constructor(
     /** Cancel an Account Transfer */
     override suspend fun cancel(
         params: AccountTransferCancelParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): AccountTransfer {
         val request =
             HttpRequest.builder()

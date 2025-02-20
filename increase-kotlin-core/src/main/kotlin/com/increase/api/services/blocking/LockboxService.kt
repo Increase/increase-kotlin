@@ -15,24 +15,24 @@ interface LockboxService {
     /** Create a Lockbox */
     fun create(
         params: LockboxCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): Lockbox
 
     /** Retrieve a Lockbox */
     fun retrieve(
         params: LockboxRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): Lockbox
 
     /** Update a Lockbox */
     fun update(
         params: LockboxUpdateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): Lockbox
 
     /** List Lockboxes */
     fun list(
         params: LockboxListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): LockboxListPage
 }

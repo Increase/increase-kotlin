@@ -18,9 +18,8 @@ import com.increase.api.models.ProofOfAuthorizationRequestListParams
 import com.increase.api.models.ProofOfAuthorizationRequestRetrieveParams
 
 class ProofOfAuthorizationRequestServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : ProofOfAuthorizationRequestServiceAsync {
+internal constructor(private val clientOptions: ClientOptions) :
+    ProofOfAuthorizationRequestServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -31,7 +30,7 @@ internal constructor(
     /** Retrieve a Proof of Authorization Request */
     override suspend fun retrieve(
         params: ProofOfAuthorizationRequestRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): ProofOfAuthorizationRequest {
         val request =
             HttpRequest.builder()
@@ -56,7 +55,7 @@ internal constructor(
     /** List Proof of Authorization Requests */
     override suspend fun list(
         params: ProofOfAuthorizationRequestListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): ProofOfAuthorizationRequestListPageAsync {
         val request =
             HttpRequest.builder()

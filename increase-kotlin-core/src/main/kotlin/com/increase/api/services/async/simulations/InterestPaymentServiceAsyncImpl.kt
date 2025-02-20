@@ -17,9 +17,7 @@ import com.increase.api.models.SimulationInterestPaymentCreateParams
 import com.increase.api.models.Transaction
 
 class InterestPaymentServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : InterestPaymentServiceAsync {
+internal constructor(private val clientOptions: ClientOptions) : InterestPaymentServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -32,7 +30,7 @@ internal constructor(
      */
     override suspend fun create(
         params: SimulationInterestPaymentCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): Transaction {
         val request =
             HttpRequest.builder()

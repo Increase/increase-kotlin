@@ -75,13 +75,8 @@ private constructor(
         fun of(
             achPrenotificationsService: AchPrenotificationServiceAsync,
             params: AchPrenotificationListParams,
-            response: Response
-        ) =
-            AchPrenotificationListPageAsync(
-                achPrenotificationsService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = AchPrenotificationListPageAsync(achPrenotificationsService, params, response)
     }
 
     @NoAutoDetect
@@ -163,18 +158,12 @@ private constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() =
-                Response(
-                    data,
-                    nextCursor,
-                    additionalProperties.toImmutable(),
-                )
+            fun build() = Response(data, nextCursor, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: AchPrenotificationListPageAsync,
-    ) : Flow<AchPrenotification> {
+    class AutoPager(private val firstPage: AchPrenotificationListPageAsync) :
+        Flow<AchPrenotification> {
 
         override suspend fun collect(collector: FlowCollector<AchPrenotification>) {
             var page = firstPage

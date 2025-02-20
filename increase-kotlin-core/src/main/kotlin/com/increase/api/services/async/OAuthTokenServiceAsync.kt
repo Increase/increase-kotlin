@@ -11,6 +11,6 @@ interface OAuthTokenServiceAsync {
     /** Create an OAuth Token */
     suspend fun create(
         params: OAuthTokenCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): OAuthToken
 }

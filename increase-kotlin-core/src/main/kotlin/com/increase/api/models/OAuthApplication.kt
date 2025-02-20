@@ -258,11 +258,7 @@ private constructor(
     }
 
     /** Whether the application is active. */
-    class Status
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -360,11 +356,7 @@ private constructor(
      * A constant representing the object's type. For this resource it will always be
      * `oauth_application`.
      */
-    class Type
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -385,7 +377,7 @@ private constructor(
 
         /** An enum containing [Type]'s known values. */
         enum class Known {
-            OAUTH_APPLICATION,
+            OAUTH_APPLICATION
         }
 
         /**

@@ -14,6 +14,6 @@ interface InboundRealTimePaymentsTransferService {
      */
     fun create(
         params: SimulationInboundRealTimePaymentsTransferCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundRealTimePaymentsTransfer
 }

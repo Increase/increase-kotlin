@@ -77,7 +77,7 @@ private constructor(
             proofOfAuthorizationRequestSubmissionsService:
                 ProofOfAuthorizationRequestSubmissionServiceAsync,
             params: ProofOfAuthorizationRequestSubmissionListParams,
-            response: Response
+            response: Response,
         ) =
             ProofOfAuthorizationRequestSubmissionListPageAsync(
                 proofOfAuthorizationRequestSubmissionsService,
@@ -170,18 +170,12 @@ private constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() =
-                Response(
-                    data,
-                    nextCursor,
-                    additionalProperties.toImmutable(),
-                )
+            fun build() = Response(data, nextCursor, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: ProofOfAuthorizationRequestSubmissionListPageAsync,
-    ) : Flow<ProofOfAuthorizationRequestSubmission> {
+    class AutoPager(private val firstPage: ProofOfAuthorizationRequestSubmissionListPageAsync) :
+        Flow<ProofOfAuthorizationRequestSubmission> {
 
         override suspend fun collect(
             collector: FlowCollector<ProofOfAuthorizationRequestSubmission>

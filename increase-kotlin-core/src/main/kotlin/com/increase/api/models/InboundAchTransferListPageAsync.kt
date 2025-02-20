@@ -75,13 +75,8 @@ private constructor(
         fun of(
             inboundAchTransfersService: InboundAchTransferServiceAsync,
             params: InboundAchTransferListParams,
-            response: Response
-        ) =
-            InboundAchTransferListPageAsync(
-                inboundAchTransfersService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = InboundAchTransferListPageAsync(inboundAchTransfersService, params, response)
     }
 
     @NoAutoDetect
@@ -163,18 +158,12 @@ private constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() =
-                Response(
-                    data,
-                    nextCursor,
-                    additionalProperties.toImmutable(),
-                )
+            fun build() = Response(data, nextCursor, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: InboundAchTransferListPageAsync,
-    ) : Flow<InboundAchTransfer> {
+    class AutoPager(private val firstPage: InboundAchTransferListPageAsync) :
+        Flow<InboundAchTransfer> {
 
         override suspend fun collect(collector: FlowCollector<InboundAchTransfer>) {
             var page = firstPage

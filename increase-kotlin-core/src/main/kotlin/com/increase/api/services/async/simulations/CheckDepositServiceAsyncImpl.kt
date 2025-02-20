@@ -18,10 +18,8 @@ import com.increase.api.models.SimulationCheckDepositRejectParams
 import com.increase.api.models.SimulationCheckDepositReturnParams
 import com.increase.api.models.SimulationCheckDepositSubmitParams
 
-class CheckDepositServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : CheckDepositServiceAsync {
+class CheckDepositServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
+    CheckDepositServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -34,7 +32,7 @@ internal constructor(
      */
     override suspend fun reject(
         params: SimulationCheckDepositRejectParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CheckDeposit {
         val request =
             HttpRequest.builder()
@@ -62,7 +60,7 @@ internal constructor(
      */
     override suspend fun return_(
         params: SimulationCheckDepositReturnParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CheckDeposit {
         val request =
             HttpRequest.builder()
@@ -90,7 +88,7 @@ internal constructor(
      */
     override suspend fun submit(
         params: SimulationCheckDepositSubmitParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CheckDeposit {
         val request =
             HttpRequest.builder()

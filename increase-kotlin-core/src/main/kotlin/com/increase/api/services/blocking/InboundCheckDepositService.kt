@@ -15,24 +15,24 @@ interface InboundCheckDepositService {
     /** Retrieve an Inbound Check Deposit */
     fun retrieve(
         params: InboundCheckDepositRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundCheckDeposit
 
     /** List Inbound Check Deposits */
     fun list(
         params: InboundCheckDepositListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundCheckDepositListPage
 
     /** Decline an Inbound Check Deposit */
     fun decline(
         params: InboundCheckDepositDeclineParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundCheckDeposit
 
     /** Return an Inbound Check Deposit */
     fun return_(
         params: InboundCheckDepositReturnParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundCheckDeposit
 }

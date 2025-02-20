@@ -21,9 +21,7 @@ import com.increase.api.models.InboundCheckDepositRetrieveParams
 import com.increase.api.models.InboundCheckDepositReturnParams
 
 class InboundCheckDepositServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : InboundCheckDepositServiceAsync {
+internal constructor(private val clientOptions: ClientOptions) : InboundCheckDepositServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -33,7 +31,7 @@ internal constructor(
     /** Retrieve an Inbound Check Deposit */
     override suspend fun retrieve(
         params: InboundCheckDepositRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): InboundCheckDeposit {
         val request =
             HttpRequest.builder()
@@ -58,7 +56,7 @@ internal constructor(
     /** List Inbound Check Deposits */
     override suspend fun list(
         params: InboundCheckDepositListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): InboundCheckDepositListPageAsync {
         val request =
             HttpRequest.builder()
@@ -83,7 +81,7 @@ internal constructor(
     /** Decline an Inbound Check Deposit */
     override suspend fun decline(
         params: InboundCheckDepositDeclineParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): InboundCheckDeposit {
         val request =
             HttpRequest.builder()
@@ -108,7 +106,7 @@ internal constructor(
     /** Return an Inbound Check Deposit */
     override suspend fun return_(
         params: InboundCheckDepositReturnParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): InboundCheckDeposit {
         val request =
             HttpRequest.builder()

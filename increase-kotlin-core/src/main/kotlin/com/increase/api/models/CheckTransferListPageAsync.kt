@@ -75,13 +75,8 @@ private constructor(
         fun of(
             checkTransfersService: CheckTransferServiceAsync,
             params: CheckTransferListParams,
-            response: Response
-        ) =
-            CheckTransferListPageAsync(
-                checkTransfersService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = CheckTransferListPageAsync(checkTransfersService, params, response)
     }
 
     @NoAutoDetect
@@ -162,18 +157,11 @@ private constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() =
-                Response(
-                    data,
-                    nextCursor,
-                    additionalProperties.toImmutable(),
-                )
+            fun build() = Response(data, nextCursor, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: CheckTransferListPageAsync,
-    ) : Flow<CheckTransfer> {
+    class AutoPager(private val firstPage: CheckTransferListPageAsync) : Flow<CheckTransfer> {
 
         override suspend fun collect(collector: FlowCollector<CheckTransfer>) {
             var page = firstPage

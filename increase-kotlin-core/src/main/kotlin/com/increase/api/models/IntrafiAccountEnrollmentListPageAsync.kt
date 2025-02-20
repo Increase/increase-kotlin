@@ -75,7 +75,7 @@ private constructor(
         fun of(
             intrafiAccountEnrollmentsService: IntrafiAccountEnrollmentServiceAsync,
             params: IntrafiAccountEnrollmentListParams,
-            response: Response
+            response: Response,
         ) =
             IntrafiAccountEnrollmentListPageAsync(
                 intrafiAccountEnrollmentsService,
@@ -163,18 +163,12 @@ private constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() =
-                Response(
-                    data,
-                    nextCursor,
-                    additionalProperties.toImmutable(),
-                )
+            fun build() = Response(data, nextCursor, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: IntrafiAccountEnrollmentListPageAsync,
-    ) : Flow<IntrafiAccountEnrollment> {
+    class AutoPager(private val firstPage: IntrafiAccountEnrollmentListPageAsync) :
+        Flow<IntrafiAccountEnrollment> {
 
         override suspend fun collect(collector: FlowCollector<IntrafiAccountEnrollment>) {
             var page = firstPage

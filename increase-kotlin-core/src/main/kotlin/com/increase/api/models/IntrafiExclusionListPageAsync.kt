@@ -75,13 +75,8 @@ private constructor(
         fun of(
             intrafiExclusionsService: IntrafiExclusionServiceAsync,
             params: IntrafiExclusionListParams,
-            response: Response
-        ) =
-            IntrafiExclusionListPageAsync(
-                intrafiExclusionsService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = IntrafiExclusionListPageAsync(intrafiExclusionsService, params, response)
     }
 
     @NoAutoDetect
@@ -163,18 +158,11 @@ private constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() =
-                Response(
-                    data,
-                    nextCursor,
-                    additionalProperties.toImmutable(),
-                )
+            fun build() = Response(data, nextCursor, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: IntrafiExclusionListPageAsync,
-    ) : Flow<IntrafiExclusion> {
+    class AutoPager(private val firstPage: IntrafiExclusionListPageAsync) : Flow<IntrafiExclusion> {
 
         override suspend fun collect(collector: FlowCollector<IntrafiExclusion>) {
             var page = firstPage

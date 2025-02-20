@@ -15,24 +15,24 @@ interface ExternalAccountService {
     /** Create an External Account */
     fun create(
         params: ExternalAccountCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): ExternalAccount
 
     /** Retrieve an External Account */
     fun retrieve(
         params: ExternalAccountRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): ExternalAccount
 
     /** Update an External Account */
     fun update(
         params: ExternalAccountUpdateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): ExternalAccount
 
     /** List External Accounts */
     fun list(
         params: ExternalAccountListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): ExternalAccountListPage
 }

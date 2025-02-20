@@ -73,13 +73,8 @@ private constructor(
         fun of(
             pendingTransactionsService: PendingTransactionService,
             params: PendingTransactionListParams,
-            response: Response
-        ) =
-            PendingTransactionListPage(
-                pendingTransactionsService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = PendingTransactionListPage(pendingTransactionsService, params, response)
     }
 
     @NoAutoDetect
@@ -161,18 +156,12 @@ private constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() =
-                Response(
-                    data,
-                    nextCursor,
-                    additionalProperties.toImmutable(),
-                )
+            fun build() = Response(data, nextCursor, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: PendingTransactionListPage,
-    ) : Sequence<PendingTransaction> {
+    class AutoPager(private val firstPage: PendingTransactionListPage) :
+        Sequence<PendingTransaction> {
 
         override fun iterator(): Iterator<PendingTransaction> = iterator {
             var page = firstPage

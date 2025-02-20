@@ -13,12 +13,12 @@ interface SupplementalDocumentServiceAsync {
     /** Create a supplemental document for an Entity */
     suspend fun create(
         params: SupplementalDocumentCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): EntitySupplementalDocument
 
     /** List Entity Supplemental Document Submissions */
     suspend fun list(
         params: SupplementalDocumentListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): SupplementalDocumentListPageAsync
 }

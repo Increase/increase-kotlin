@@ -15,24 +15,24 @@ interface EventSubscriptionService {
     /** Create an Event Subscription */
     fun create(
         params: EventSubscriptionCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): EventSubscription
 
     /** Retrieve an Event Subscription */
     fun retrieve(
         params: EventSubscriptionRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): EventSubscription
 
     /** Update an Event Subscription */
     fun update(
         params: EventSubscriptionUpdateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): EventSubscription
 
     /** List Event Subscriptions */
     fun list(
         params: EventSubscriptionListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): EventSubscriptionListPage
 }

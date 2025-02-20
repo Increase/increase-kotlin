@@ -75,13 +75,8 @@ private constructor(
         fun of(
             cardDisputesService: CardDisputeServiceAsync,
             params: CardDisputeListParams,
-            response: Response
-        ) =
-            CardDisputeListPageAsync(
-                cardDisputesService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = CardDisputeListPageAsync(cardDisputesService, params, response)
     }
 
     @NoAutoDetect
@@ -162,18 +157,11 @@ private constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() =
-                Response(
-                    data,
-                    nextCursor,
-                    additionalProperties.toImmutable(),
-                )
+            fun build() = Response(data, nextCursor, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: CardDisputeListPageAsync,
-    ) : Flow<CardDispute> {
+    class AutoPager(private val firstPage: CardDisputeListPageAsync) : Flow<CardDispute> {
 
         override suspend fun collect(collector: FlowCollector<CardDispute>) {
             var page = firstPage

@@ -13,12 +13,12 @@ interface DigitalWalletTokenServiceAsync {
     /** Retrieve a Digital Wallet Token */
     suspend fun retrieve(
         params: DigitalWalletTokenRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): DigitalWalletToken
 
     /** List Digital Wallet Tokens */
     suspend fun list(
         params: DigitalWalletTokenListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): DigitalWalletTokenListPageAsync
 }

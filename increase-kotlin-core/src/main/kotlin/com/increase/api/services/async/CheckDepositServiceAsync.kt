@@ -14,18 +14,18 @@ interface CheckDepositServiceAsync {
     /** Create a Check Deposit */
     suspend fun create(
         params: CheckDepositCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CheckDeposit
 
     /** Retrieve a Check Deposit */
     suspend fun retrieve(
         params: CheckDepositRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CheckDeposit
 
     /** List Check Deposits */
     suspend fun list(
         params: CheckDepositListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CheckDepositListPageAsync
 }

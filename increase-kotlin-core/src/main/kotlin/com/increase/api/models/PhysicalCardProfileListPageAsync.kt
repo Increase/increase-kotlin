@@ -75,13 +75,8 @@ private constructor(
         fun of(
             physicalCardProfilesService: PhysicalCardProfileServiceAsync,
             params: PhysicalCardProfileListParams,
-            response: Response
-        ) =
-            PhysicalCardProfileListPageAsync(
-                physicalCardProfilesService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = PhysicalCardProfileListPageAsync(physicalCardProfilesService, params, response)
     }
 
     @NoAutoDetect
@@ -163,18 +158,12 @@ private constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() =
-                Response(
-                    data,
-                    nextCursor,
-                    additionalProperties.toImmutable(),
-                )
+            fun build() = Response(data, nextCursor, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: PhysicalCardProfileListPageAsync,
-    ) : Flow<PhysicalCardProfile> {
+    class AutoPager(private val firstPage: PhysicalCardProfileListPageAsync) :
+        Flow<PhysicalCardProfile> {
 
         override suspend fun collect(collector: FlowCollector<PhysicalCardProfile>) {
             var page = firstPage

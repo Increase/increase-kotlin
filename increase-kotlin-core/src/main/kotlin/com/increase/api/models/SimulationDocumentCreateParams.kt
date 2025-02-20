@@ -124,7 +124,7 @@ private constructor(
             fun build(): SimulationDocumentCreateBody =
                 SimulationDocumentCreateBody(
                     checkRequired("accountId", accountId),
-                    additionalProperties.toImmutable()
+                    additionalProperties.toImmutable(),
                 )
         }
 

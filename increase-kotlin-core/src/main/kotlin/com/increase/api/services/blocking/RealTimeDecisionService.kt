@@ -12,12 +12,12 @@ interface RealTimeDecisionService {
     /** Retrieve a Real-Time Decision */
     fun retrieve(
         params: RealTimeDecisionRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): RealTimeDecision
 
     /** Action a Real-Time Decision */
     fun action(
         params: RealTimeDecisionActionParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): RealTimeDecision
 }

@@ -292,11 +292,7 @@ private constructor(
      * The status of the account in the network. An account takes about one business day to go from
      * `pending_enrolling` to `enrolled`.
      */
-    class Status
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -421,11 +417,7 @@ private constructor(
      * A constant representing the object's type. For this resource it will always be
      * `intrafi_account_enrollment`.
      */
-    class Type
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -446,7 +438,7 @@ private constructor(
 
         /** An enum containing [Type]'s known values. */
         enum class Known {
-            INTRAFI_ACCOUNT_ENROLLMENT,
+            INTRAFI_ACCOUNT_ENROLLMENT
         }
 
         /**

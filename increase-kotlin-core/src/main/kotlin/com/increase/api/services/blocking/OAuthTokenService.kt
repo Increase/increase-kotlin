@@ -11,6 +11,6 @@ interface OAuthTokenService {
     /** Create an OAuth Token */
     fun create(
         params: OAuthTokenCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): OAuthToken
 }

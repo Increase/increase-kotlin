@@ -17,9 +17,7 @@ import com.increase.api.models.SimulationInboundFundsHoldReleaseParams
 import com.increase.api.models.SimulationInboundFundsHoldReleaseResponse
 
 class InboundFundsHoldServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : InboundFundsHoldServiceAsync {
+internal constructor(private val clientOptions: ClientOptions) : InboundFundsHoldServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -33,7 +31,7 @@ internal constructor(
      */
     override suspend fun release(
         params: SimulationInboundFundsHoldReleaseParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): SimulationInboundFundsHoldReleaseResponse {
         val request =
             HttpRequest.builder()
@@ -42,7 +40,7 @@ internal constructor(
                     "simulations",
                     "inbound_funds_holds",
                     params.getPathParam(0),
-                    "release"
+                    "release",
                 )
                 .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
                 .build()

@@ -15,24 +15,24 @@ interface PhysicalCardService {
     /** Create a Physical Card */
     fun create(
         params: PhysicalCardCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): PhysicalCard
 
     /** Retrieve a Physical Card */
     fun retrieve(
         params: PhysicalCardRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): PhysicalCard
 
     /** Update a Physical Card */
     fun update(
         params: PhysicalCardUpdateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): PhysicalCard
 
     /** List Physical Cards */
     fun list(
         params: PhysicalCardListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): PhysicalCardListPage
 }

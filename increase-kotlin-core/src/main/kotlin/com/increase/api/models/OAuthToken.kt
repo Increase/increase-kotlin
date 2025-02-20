@@ -156,11 +156,7 @@ private constructor(
     }
 
     /** The type of OAuth token. */
-    class TokenType
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class TokenType @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -181,7 +177,7 @@ private constructor(
 
         /** An enum containing [TokenType]'s known values. */
         enum class Known {
-            BEARER,
+            BEARER
         }
 
         /**
@@ -247,11 +243,7 @@ private constructor(
     /**
      * A constant representing the object's type. For this resource it will always be `oauth_token`.
      */
-    class Type
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -272,7 +264,7 @@ private constructor(
 
         /** An enum containing [Type]'s known values. */
         enum class Known {
-            OAUTH_TOKEN,
+            OAUTH_TOKEN
         }
 
         /**

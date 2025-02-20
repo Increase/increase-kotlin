@@ -11,6 +11,6 @@ interface CardAuthorizationExpirationService {
     /** Simulates expiring a Card Authorization immediately. */
     fun create(
         params: SimulationCardAuthorizationExpirationCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CardPayment
 }

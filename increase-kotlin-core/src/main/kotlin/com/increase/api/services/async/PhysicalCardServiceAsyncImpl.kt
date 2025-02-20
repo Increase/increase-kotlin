@@ -20,10 +20,8 @@ import com.increase.api.models.PhysicalCardListParams
 import com.increase.api.models.PhysicalCardRetrieveParams
 import com.increase.api.models.PhysicalCardUpdateParams
 
-class PhysicalCardServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : PhysicalCardServiceAsync {
+class PhysicalCardServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
+    PhysicalCardServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -33,7 +31,7 @@ internal constructor(
     /** Create a Physical Card */
     override suspend fun create(
         params: PhysicalCardCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): PhysicalCard {
         val request =
             HttpRequest.builder()
@@ -58,7 +56,7 @@ internal constructor(
     /** Retrieve a Physical Card */
     override suspend fun retrieve(
         params: PhysicalCardRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): PhysicalCard {
         val request =
             HttpRequest.builder()
@@ -82,7 +80,7 @@ internal constructor(
     /** Update a Physical Card */
     override suspend fun update(
         params: PhysicalCardUpdateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): PhysicalCard {
         val request =
             HttpRequest.builder()
@@ -108,7 +106,7 @@ internal constructor(
     /** List Physical Cards */
     override suspend fun list(
         params: PhysicalCardListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): PhysicalCardListPageAsync {
         val request =
             HttpRequest.builder()

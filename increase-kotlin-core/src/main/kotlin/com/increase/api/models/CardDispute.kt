@@ -928,11 +928,7 @@ private constructor(
     }
 
     /** The results of the Dispute investigation. */
-    class Status
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -1084,11 +1080,7 @@ private constructor(
      * A constant representing the object's type. For this resource it will always be
      * `card_dispute`.
      */
-    class Type
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -1109,7 +1101,7 @@ private constructor(
 
         /** An enum containing [Type]'s known values. */
         enum class Known {
-            CARD_DISPUTE,
+            CARD_DISPUTE
         }
 
         /**

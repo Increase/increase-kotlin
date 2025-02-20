@@ -13,12 +13,12 @@ interface OAuthConnectionService {
     /** Retrieve an OAuth Connection */
     fun retrieve(
         params: OAuthConnectionRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): OAuthConnection
 
     /** List OAuth Connections */
     fun list(
         params: OAuthConnectionListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): OAuthConnectionListPage
 }

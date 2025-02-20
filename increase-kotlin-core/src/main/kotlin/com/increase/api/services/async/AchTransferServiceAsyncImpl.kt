@@ -21,10 +21,8 @@ import com.increase.api.models.AchTransferListPageAsync
 import com.increase.api.models.AchTransferListParams
 import com.increase.api.models.AchTransferRetrieveParams
 
-class AchTransferServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : AchTransferServiceAsync {
+class AchTransferServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
+    AchTransferServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -34,7 +32,7 @@ internal constructor(
     /** Create an ACH Transfer */
     override suspend fun create(
         params: AchTransferCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): AchTransfer {
         val request =
             HttpRequest.builder()
@@ -59,7 +57,7 @@ internal constructor(
     /** Retrieve an ACH Transfer */
     override suspend fun retrieve(
         params: AchTransferRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): AchTransfer {
         val request =
             HttpRequest.builder()
@@ -84,7 +82,7 @@ internal constructor(
     /** List ACH Transfers */
     override suspend fun list(
         params: AchTransferListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): AchTransferListPageAsync {
         val request =
             HttpRequest.builder()
@@ -109,7 +107,7 @@ internal constructor(
     /** Approves an ACH Transfer in a pending_approval state. */
     override suspend fun approve(
         params: AchTransferApproveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): AchTransfer {
         val request =
             HttpRequest.builder()
@@ -134,7 +132,7 @@ internal constructor(
     /** Cancels an ACH Transfer in a pending_approval state. */
     override suspend fun cancel(
         params: AchTransferCancelParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): AchTransfer {
         val request =
             HttpRequest.builder()

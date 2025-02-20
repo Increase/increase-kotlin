@@ -73,13 +73,8 @@ private constructor(
         fun of(
             inboundAchTransfersService: InboundAchTransferService,
             params: InboundAchTransferListParams,
-            response: Response
-        ) =
-            InboundAchTransferListPage(
-                inboundAchTransfersService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = InboundAchTransferListPage(inboundAchTransfersService, params, response)
     }
 
     @NoAutoDetect
@@ -161,18 +156,12 @@ private constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() =
-                Response(
-                    data,
-                    nextCursor,
-                    additionalProperties.toImmutable(),
-                )
+            fun build() = Response(data, nextCursor, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: InboundAchTransferListPage,
-    ) : Sequence<InboundAchTransfer> {
+    class AutoPager(private val firstPage: InboundAchTransferListPage) :
+        Sequence<InboundAchTransfer> {
 
         override fun iterator(): Iterator<InboundAchTransfer> = iterator {
             var page = firstPage

@@ -524,11 +524,8 @@ private constructor(
         }
 
         /** Whether or not the authentication attempt was approved. */
-        class Decision
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        class Decision @JsonCreator private constructor(private val value: JsonField<String>) :
+            Enum {
 
             /**
              * Returns this class instance's raw value.
@@ -824,11 +821,7 @@ private constructor(
         }
 
         /** Whether or not the challenge was delivered to the cardholder. */
-        class Result
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        class Result @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
             /**
              * Returns this class instance's raw value.
@@ -1767,11 +1760,8 @@ private constructor(
         }
 
         /** Whether or not the authorization was approved. */
-        class Decision
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        class Decision @JsonCreator private constructor(private val value: JsonField<String>) :
+            Enum {
 
             /**
              * Returns this class instance's raw value.
@@ -1871,11 +1861,8 @@ private constructor(
          * The direction describes the direction the funds will move, either from the cardholder to
          * the merchant or from the merchant to the cardholder.
          */
-        class Direction
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        class Direction @JsonCreator private constructor(private val value: JsonField<String>) :
+            Enum {
 
             /**
              * Returns this class instance's raw value.
@@ -2089,11 +2076,8 @@ private constructor(
             }
 
             /** The payment network used to process this card authorization. */
-            class Category
-            @JsonCreator
-            private constructor(
-                private val value: JsonField<String>,
-            ) : Enum {
+            class Category @JsonCreator private constructor(private val value: JsonField<String>) :
+                Enum {
 
                 /**
                  * Returns this class instance's raw value.
@@ -2116,7 +2100,7 @@ private constructor(
                 /** An enum containing [Category]'s known values. */
                 enum class Known {
                     /** Visa */
-                    VISA,
+                    VISA
                 }
 
                 /**
@@ -2370,7 +2354,7 @@ private constructor(
                         Visa(
                             checkRequired(
                                 "electronicCommerceIndicator",
-                                electronicCommerceIndicator
+                                electronicCommerceIndicator,
                             ),
                             checkRequired("pointOfServiceEntryMode", pointOfServiceEntryMode),
                             checkRequired("standInProcessingReason", standInProcessingReason),
@@ -2385,9 +2369,7 @@ private constructor(
                  */
                 class ElectronicCommerceIndicator
                 @JsonCreator
-                private constructor(
-                    private val value: JsonField<String>,
-                ) : Enum {
+                private constructor(private val value: JsonField<String>) : Enum {
 
                     /**
                      * Returns this class instance's raw value.
@@ -2661,9 +2643,7 @@ private constructor(
                  */
                 class PointOfServiceEntryMode
                 @JsonCreator
-                private constructor(
-                    private val value: JsonField<String>,
-                ) : Enum {
+                private constructor(private val value: JsonField<String>) : Enum {
 
                     /**
                      * Returns this class instance's raw value.
@@ -2853,9 +2833,7 @@ private constructor(
                  */
                 class StandInProcessingReason
                 @JsonCreator
-                private constructor(
-                    private val value: JsonField<String>,
-                ) : Enum {
+                private constructor(private val value: JsonField<String>) : Enum {
 
                     /**
                      * Returns this class instance's raw value.
@@ -3294,9 +3272,7 @@ private constructor(
          */
         class ProcessingCategory
         @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        private constructor(private val value: JsonField<String>) : Enum {
 
             /**
              * Returns this class instance's raw value.
@@ -3617,11 +3593,8 @@ private constructor(
              * The type of this request (e.g., an initial authorization or an incremental
              * authorization).
              */
-            class Category
-            @JsonCreator
-            private constructor(
-                private val value: JsonField<String>,
-            ) : Enum {
+            class Category @JsonCreator private constructor(private val value: JsonField<String>) :
+                Enum {
 
                 /**
                  * Returns this class instance's raw value.
@@ -3849,7 +3822,7 @@ private constructor(
                             checkRequired("cardPaymentId", cardPaymentId),
                             checkRequired(
                                 "originalCardAuthorizationId",
-                                originalCardAuthorizationId
+                                originalCardAuthorizationId,
                             ),
                             additionalProperties.toImmutable(),
                         )
@@ -4119,16 +4092,14 @@ private constructor(
                     fun build(): CardVerificationCode =
                         CardVerificationCode(
                             checkRequired("result", result),
-                            additionalProperties.toImmutable()
+                            additionalProperties.toImmutable(),
                         )
                 }
 
                 /** The result of verifying the Card Verification Code. */
                 class Result
                 @JsonCreator
-                private constructor(
-                    private val value: JsonField<String>,
-                ) : Enum {
+                private constructor(private val value: JsonField<String>) : Enum {
 
                     /**
                      * Returns this class instance's raw value.
@@ -4454,9 +4425,7 @@ private constructor(
                 /** The address verification result returned to the card network. */
                 class Result
                 @JsonCreator
-                private constructor(
-                    private val value: JsonField<String>,
-                ) : Enum {
+                private constructor(private val value: JsonField<String>) : Enum {
 
                     /**
                      * Returns this class instance's raw value.
@@ -4654,11 +4623,7 @@ private constructor(
     }
 
     /** The category of the Real-Time Decision. */
-    class Category
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Category @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -5000,11 +4965,8 @@ private constructor(
         }
 
         /** The channel to send the card user their one-time passcode. */
-        class Channel
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        class Channel @JsonCreator private constructor(private val value: JsonField<String>) :
+            Enum {
 
             /**
              * Returns this class instance's raw value.
@@ -5101,11 +5063,8 @@ private constructor(
         }
 
         /** The digital wallet app being used. */
-        class DigitalWallet
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        class DigitalWallet @JsonCreator private constructor(private val value: JsonField<String>) :
+            Enum {
 
             /**
              * Returns this class instance's raw value.
@@ -5221,11 +5180,7 @@ private constructor(
         }
 
         /** Whether your application successfully delivered the one-time passcode. */
-        class Result
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        class Result @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
             /**
              * Returns this class instance's raw value.
@@ -5527,11 +5482,8 @@ private constructor(
          * Whether or not the provisioning request was approved. This will be null until the real
          * time decision is responded to.
          */
-        class Decision
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        class Decision @JsonCreator private constructor(private val value: JsonField<String>) :
+            Enum {
 
             /**
              * Returns this class instance's raw value.
@@ -5628,11 +5580,8 @@ private constructor(
         }
 
         /** The digital wallet app being used. */
-        class DigitalWallet
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        class DigitalWallet @JsonCreator private constructor(private val value: JsonField<String>) :
+            Enum {
 
             /**
              * Returns this class instance's raw value.
@@ -5766,11 +5715,7 @@ private constructor(
     }
 
     /** The status of the Real-Time Decision. */
-    class Status
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -5877,11 +5822,7 @@ private constructor(
      * A constant representing the object's type. For this resource it will always be
      * `real_time_decision`.
      */
-    class Type
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -5902,7 +5843,7 @@ private constructor(
 
         /** An enum containing [Type]'s known values. */
         enum class Known {
-            REAL_TIME_DECISION,
+            REAL_TIME_DECISION
         }
 
         /**

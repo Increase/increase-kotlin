@@ -11,6 +11,6 @@ interface DigitalWalletTokenRequestServiceAsync {
     /** Simulates a user attempting add a [Card](#cards) to a digital wallet such as Apple Pay. */
     suspend fun create(
         params: SimulationDigitalWalletTokenRequestCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): SimulationDigitalWalletTokenRequestCreateResponse
 }

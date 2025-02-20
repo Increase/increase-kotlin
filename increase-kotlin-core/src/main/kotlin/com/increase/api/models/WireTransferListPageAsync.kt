@@ -75,13 +75,8 @@ private constructor(
         fun of(
             wireTransfersService: WireTransferServiceAsync,
             params: WireTransferListParams,
-            response: Response
-        ) =
-            WireTransferListPageAsync(
-                wireTransfersService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = WireTransferListPageAsync(wireTransfersService, params, response)
     }
 
     @NoAutoDetect
@@ -162,18 +157,11 @@ private constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() =
-                Response(
-                    data,
-                    nextCursor,
-                    additionalProperties.toImmutable(),
-                )
+            fun build() = Response(data, nextCursor, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: WireTransferListPageAsync,
-    ) : Flow<WireTransfer> {
+    class AutoPager(private val firstPage: WireTransferListPageAsync) : Flow<WireTransfer> {
 
         override suspend fun collect(collector: FlowCollector<WireTransfer>) {
             var page = firstPage

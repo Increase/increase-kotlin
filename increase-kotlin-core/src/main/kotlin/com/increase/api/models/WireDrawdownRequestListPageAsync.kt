@@ -75,13 +75,8 @@ private constructor(
         fun of(
             wireDrawdownRequestsService: WireDrawdownRequestServiceAsync,
             params: WireDrawdownRequestListParams,
-            response: Response
-        ) =
-            WireDrawdownRequestListPageAsync(
-                wireDrawdownRequestsService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = WireDrawdownRequestListPageAsync(wireDrawdownRequestsService, params, response)
     }
 
     @NoAutoDetect
@@ -163,18 +158,12 @@ private constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() =
-                Response(
-                    data,
-                    nextCursor,
-                    additionalProperties.toImmutable(),
-                )
+            fun build() = Response(data, nextCursor, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: WireDrawdownRequestListPageAsync,
-    ) : Flow<WireDrawdownRequest> {
+    class AutoPager(private val firstPage: WireDrawdownRequestListPageAsync) :
+        Flow<WireDrawdownRequest> {
 
         override suspend fun collect(collector: FlowCollector<WireDrawdownRequest>) {
             var page = firstPage

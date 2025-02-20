@@ -11,6 +11,6 @@ interface DocumentService {
     /** Simulates an tax document being created for an account. */
     fun create(
         params: SimulationDocumentCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): Document
 }

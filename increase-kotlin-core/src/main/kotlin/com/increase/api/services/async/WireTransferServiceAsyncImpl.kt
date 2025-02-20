@@ -21,10 +21,8 @@ import com.increase.api.models.WireTransferListPageAsync
 import com.increase.api.models.WireTransferListParams
 import com.increase.api.models.WireTransferRetrieveParams
 
-class WireTransferServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : WireTransferServiceAsync {
+class WireTransferServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
+    WireTransferServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -34,7 +32,7 @@ internal constructor(
     /** Create a Wire Transfer */
     override suspend fun create(
         params: WireTransferCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): WireTransfer {
         val request =
             HttpRequest.builder()
@@ -59,7 +57,7 @@ internal constructor(
     /** Retrieve a Wire Transfer */
     override suspend fun retrieve(
         params: WireTransferRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): WireTransfer {
         val request =
             HttpRequest.builder()
@@ -84,7 +82,7 @@ internal constructor(
     /** List Wire Transfers */
     override suspend fun list(
         params: WireTransferListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): WireTransferListPageAsync {
         val request =
             HttpRequest.builder()
@@ -109,7 +107,7 @@ internal constructor(
     /** Approve a Wire Transfer */
     override suspend fun approve(
         params: WireTransferApproveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): WireTransfer {
         val request =
             HttpRequest.builder()
@@ -134,7 +132,7 @@ internal constructor(
     /** Cancel a pending Wire Transfer */
     override suspend fun cancel(
         params: WireTransferCancelParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): WireTransfer {
         val request =
             HttpRequest.builder()

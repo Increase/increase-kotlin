@@ -73,13 +73,8 @@ private constructor(
         fun of(
             wireTransfersService: WireTransferService,
             params: WireTransferListParams,
-            response: Response
-        ) =
-            WireTransferListPage(
-                wireTransfersService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = WireTransferListPage(wireTransfersService, params, response)
     }
 
     @NoAutoDetect
@@ -160,18 +155,11 @@ private constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() =
-                Response(
-                    data,
-                    nextCursor,
-                    additionalProperties.toImmutable(),
-                )
+            fun build() = Response(data, nextCursor, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: WireTransferListPage,
-    ) : Sequence<WireTransfer> {
+    class AutoPager(private val firstPage: WireTransferListPage) : Sequence<WireTransfer> {
 
         override fun iterator(): Iterator<WireTransfer> = iterator {
             var page = firstPage

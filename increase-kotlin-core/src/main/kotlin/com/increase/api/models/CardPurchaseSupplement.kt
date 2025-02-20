@@ -707,7 +707,7 @@ private constructor(
                     checkRequired("taxTreatments", taxTreatments),
                     checkRequired(
                         "uniqueValueAddedTaxInvoiceReference",
-                        uniqueValueAddedTaxInvoiceReference
+                        uniqueValueAddedTaxInvoiceReference,
                     ),
                     additionalProperties.toImmutable(),
                 )
@@ -716,9 +716,7 @@ private constructor(
         /** Indicates how the merchant applied the discount. */
         class DiscountTreatmentCode
         @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        private constructor(private val value: JsonField<String>) : Enum {
 
             /**
              * Returns this class instance's raw value.
@@ -834,11 +832,8 @@ private constructor(
         }
 
         /** Indicates how the merchant applied taxes. */
-        class TaxTreatments
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        class TaxTreatments @JsonCreator private constructor(private val value: JsonField<String>) :
+            Enum {
 
             /**
              * Returns this class instance's raw value.
@@ -1460,9 +1455,7 @@ private constructor(
         /** Indicates the type of line item. */
         class DetailIndicator
         @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        private constructor(private val value: JsonField<String>) : Enum {
 
             /**
              * Returns this class instance's raw value.
@@ -1571,9 +1564,7 @@ private constructor(
         /** Indicates how the merchant applied the discount for this specific line item. */
         class DiscountTreatmentCode
         @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        private constructor(private val value: JsonField<String>) : Enum {
 
             /**
              * Returns this class instance's raw value.
@@ -1713,11 +1704,7 @@ private constructor(
      * A constant representing the object's type. For this resource it will always be
      * `card_purchase_supplement`.
      */
-    class Type
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -1738,7 +1725,7 @@ private constructor(
 
         /** An enum containing [Type]'s known values. */
         enum class Known {
-            CARD_PURCHASE_SUPPLEMENT,
+            CARD_PURCHASE_SUPPLEMENT
         }
 
         /**

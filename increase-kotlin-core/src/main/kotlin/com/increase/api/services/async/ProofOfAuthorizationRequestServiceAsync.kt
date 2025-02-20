@@ -13,12 +13,12 @@ interface ProofOfAuthorizationRequestServiceAsync {
     /** Retrieve a Proof of Authorization Request */
     suspend fun retrieve(
         params: ProofOfAuthorizationRequestRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): ProofOfAuthorizationRequest
 
     /** List Proof of Authorization Requests */
     suspend fun list(
         params: ProofOfAuthorizationRequestListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): ProofOfAuthorizationRequestListPageAsync
 }

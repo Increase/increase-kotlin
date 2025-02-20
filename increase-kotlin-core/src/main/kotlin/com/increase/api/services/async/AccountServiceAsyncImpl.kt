@@ -23,10 +23,8 @@ import com.increase.api.models.AccountRetrieveParams
 import com.increase.api.models.AccountUpdateParams
 import com.increase.api.models.BalanceLookup
 
-class AccountServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : AccountServiceAsync {
+class AccountServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
+    AccountServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -36,7 +34,7 @@ internal constructor(
     /** Create an Account */
     override suspend fun create(
         params: AccountCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): Account {
         val request =
             HttpRequest.builder()
@@ -61,7 +59,7 @@ internal constructor(
     /** Retrieve an Account */
     override suspend fun retrieve(
         params: AccountRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): Account {
         val request =
             HttpRequest.builder()
@@ -85,7 +83,7 @@ internal constructor(
     /** Update an Account */
     override suspend fun update(
         params: AccountUpdateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): Account {
         val request =
             HttpRequest.builder()
@@ -111,7 +109,7 @@ internal constructor(
     /** List Accounts */
     override suspend fun list(
         params: AccountListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): AccountListPageAsync {
         val request =
             HttpRequest.builder()
@@ -139,7 +137,7 @@ internal constructor(
      */
     override suspend fun balance(
         params: AccountBalanceParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): BalanceLookup {
         val request =
             HttpRequest.builder()
@@ -163,7 +161,7 @@ internal constructor(
     /** Close an Account */
     override suspend fun close(
         params: AccountCloseParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): Account {
         val request =
             HttpRequest.builder()

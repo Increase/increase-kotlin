@@ -18,18 +18,18 @@ interface FileService {
      */
     fun create(
         params: FileCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): File
 
     /** Retrieve a File */
     fun retrieve(
         params: FileRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): File
 
     /** List Files */
     fun list(
         params: FileListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): FileListPage
 }

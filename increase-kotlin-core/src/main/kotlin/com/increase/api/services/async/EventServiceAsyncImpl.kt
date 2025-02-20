@@ -17,10 +17,8 @@ import com.increase.api.models.EventListPageAsync
 import com.increase.api.models.EventListParams
 import com.increase.api.models.EventRetrieveParams
 
-class EventServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : EventServiceAsync {
+class EventServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
+    EventServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -30,7 +28,7 @@ internal constructor(
     /** Retrieve an Event */
     override suspend fun retrieve(
         params: EventRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): Event {
         val request =
             HttpRequest.builder()
@@ -55,7 +53,7 @@ internal constructor(
     /** List Events */
     override suspend fun list(
         params: EventListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): EventListPageAsync {
         val request =
             HttpRequest.builder()
