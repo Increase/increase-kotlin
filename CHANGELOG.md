@@ -1,5 +1,38 @@
 # Changelog
 
+## 0.177.0 (2025-02-20)
+
+Full Changelog: [v0.176.0...v0.177.0](https://github.com/Increase/increase-kotlin/compare/v0.176.0...v0.177.0)
+
+### Features
+
+* **client:** support `JsonField#asX()` for known values ([#792](https://github.com/Increase/increase-kotlin/issues/792)) ([1b5d350](https://github.com/Increase/increase-kotlin/commit/1b5d3504830ae1e6bf25c97d8e7050bbde38403e))
+* **client:** update enum `asX` methods ([#791](https://github.com/Increase/increase-kotlin/issues/791)) ([ac81831](https://github.com/Increase/increase-kotlin/commit/ac81831edd0e926ac70e928d38a106bf22f23385))
+
+
+### Bug Fixes
+
+* **client:** mark some request bodies as optional ([#800](https://github.com/Increase/increase-kotlin/issues/800)) ([c7f8313](https://github.com/Increase/increase-kotlin/commit/c7f8313ce775147160ecced8eeaf4b999fc215b8))
+
+
+### Chores
+
+* **ci:** update gradle actions to v4 ([#797](https://github.com/Increase/increase-kotlin/issues/797)) ([ebe2e29](https://github.com/Increase/increase-kotlin/commit/ebe2e29fe93ad41abbd47276150c1f03d67f96d9))
+* **client:** remove checked exception related code ([#798](https://github.com/Increase/increase-kotlin/issues/798)) ([04ca4cc](https://github.com/Increase/increase-kotlin/commit/04ca4ccf7d023d341d62d9090d62178faa74d336))
+* **docs:** add faq to readme ([#799](https://github.com/Increase/increase-kotlin/issues/799)) ([710e8d0](https://github.com/Increase/increase-kotlin/commit/710e8d010a157b8a1cef5e3e630045ae65f86772))
+* **docs:** reorganize readme ([#793](https://github.com/Increase/increase-kotlin/issues/793)) ([be3a03d](https://github.com/Increase/increase-kotlin/commit/be3a03d59b4df2e8b38c7371c789325f9c2a0f3f))
+* **internal:** get rid of configuration cache ([#796](https://github.com/Increase/increase-kotlin/issues/796)) ([593aa2a](https://github.com/Increase/increase-kotlin/commit/593aa2a38c5a9c014d6ba81b0aa44c60f659f7e6))
+* **internal:** make body class constructors private ([8d1f5fc](https://github.com/Increase/increase-kotlin/commit/8d1f5fcd6e0e85d9db270d78e4c4fd4bfd011d79))
+* **internal:** make body classes for multipart requests ([8d1f5fc](https://github.com/Increase/increase-kotlin/commit/8d1f5fcd6e0e85d9db270d78e4c4fd4bfd011d79))
+* **internal:** misc formatting changes ([8d1f5fc](https://github.com/Increase/increase-kotlin/commit/8d1f5fcd6e0e85d9db270d78e4c4fd4bfd011d79))
+* **internal:** optimize build and test perf ([555e02f](https://github.com/Increase/increase-kotlin/commit/555e02f8a775d363f2fada05cd65aee30409e707))
+* **internal:** remove unnecessary non-null asserts in tests ([c7f8313](https://github.com/Increase/increase-kotlin/commit/c7f8313ce775147160ecced8eeaf4b999fc215b8))
+* **internal:** rename internal body classes ([8d1f5fc](https://github.com/Increase/increase-kotlin/commit/8d1f5fcd6e0e85d9db270d78e4c4fd4bfd011d79))
+* **internal:** update formatter ([#788](https://github.com/Increase/increase-kotlin/issues/788)) ([555e02f](https://github.com/Increase/increase-kotlin/commit/555e02f8a775d363f2fada05cd65aee30409e707))
+* **internal:** update some formatting in `Values.kt` ([1b5d350](https://github.com/Increase/increase-kotlin/commit/1b5d3504830ae1e6bf25c97d8e7050bbde38403e))
+* **internal:** use `assertNotNull` in tests for type narrowing ([c7f8313](https://github.com/Increase/increase-kotlin/commit/c7f8313ce775147160ecced8eeaf4b999fc215b8))
+* **internal:** use better test example values ([#790](https://github.com/Increase/increase-kotlin/issues/790)) ([8d1f5fc](https://github.com/Increase/increase-kotlin/commit/8d1f5fcd6e0e85d9db270d78e4c4fd4bfd011d79))
+
 ## 0.176.0 (2025-02-19)
 
 Full Changelog: [v0.175.0...v0.176.0](https://github.com/Increase/increase-kotlin/compare/v0.175.0...v0.176.0)
