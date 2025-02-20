@@ -15,10 +15,8 @@ import com.increase.api.errors.IncreaseError
 import com.increase.api.models.Group
 import com.increase.api.models.GroupRetrieveParams
 
-class GroupServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : GroupServiceAsync {
+class GroupServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
+    GroupServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -28,7 +26,7 @@ internal constructor(
     /** Returns details for the currently authenticated Group. */
     override suspend fun retrieve(
         params: GroupRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): Group {
         val request =
             HttpRequest.builder()

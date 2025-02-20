@@ -22,9 +22,7 @@ import com.increase.api.models.DigitalCardProfileListParams
 import com.increase.api.models.DigitalCardProfileRetrieveParams
 
 class DigitalCardProfileServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : DigitalCardProfileServiceAsync {
+internal constructor(private val clientOptions: ClientOptions) : DigitalCardProfileServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -34,7 +32,7 @@ internal constructor(
     /** Create a Digital Card Profile */
     override suspend fun create(
         params: DigitalCardProfileCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): DigitalCardProfile {
         val request =
             HttpRequest.builder()
@@ -59,7 +57,7 @@ internal constructor(
     /** Retrieve a Digital Card Profile */
     override suspend fun retrieve(
         params: DigitalCardProfileRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): DigitalCardProfile {
         val request =
             HttpRequest.builder()
@@ -84,7 +82,7 @@ internal constructor(
     /** List Card Profiles */
     override suspend fun list(
         params: DigitalCardProfileListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): DigitalCardProfileListPageAsync {
         val request =
             HttpRequest.builder()
@@ -109,7 +107,7 @@ internal constructor(
     /** Archive a Digital Card Profile */
     override suspend fun archive(
         params: DigitalCardProfileArchiveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): DigitalCardProfile {
         val request =
             HttpRequest.builder()
@@ -134,7 +132,7 @@ internal constructor(
     /** Clones a Digital Card Profile */
     override suspend fun clone(
         params: DigitalCardProfileCloneParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): DigitalCardProfile {
         val request =
             HttpRequest.builder()

@@ -75,13 +75,8 @@ private constructor(
         fun of(
             accountTransfersService: AccountTransferServiceAsync,
             params: AccountTransferListParams,
-            response: Response
-        ) =
-            AccountTransferListPageAsync(
-                accountTransfersService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = AccountTransferListPageAsync(accountTransfersService, params, response)
     }
 
     @NoAutoDetect
@@ -162,18 +157,11 @@ private constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() =
-                Response(
-                    data,
-                    nextCursor,
-                    additionalProperties.toImmutable(),
-                )
+            fun build() = Response(data, nextCursor, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: AccountTransferListPageAsync,
-    ) : Flow<AccountTransfer> {
+    class AutoPager(private val firstPage: AccountTransferListPageAsync) : Flow<AccountTransfer> {
 
         override suspend fun collect(collector: FlowCollector<AccountTransfer>) {
             var page = firstPage

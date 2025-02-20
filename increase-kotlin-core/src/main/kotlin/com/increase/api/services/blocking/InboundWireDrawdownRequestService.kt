@@ -13,12 +13,12 @@ interface InboundWireDrawdownRequestService {
     /** Retrieve an Inbound Wire Drawdown Request */
     fun retrieve(
         params: InboundWireDrawdownRequestRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundWireDrawdownRequest
 
     /** List Inbound Wire Drawdown Requests */
     fun list(
         params: InboundWireDrawdownRequestListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundWireDrawdownRequestListPage
 }

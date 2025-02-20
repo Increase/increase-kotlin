@@ -169,7 +169,7 @@ private constructor(
             InboundRealTimePaymentsTransferRetrieveParams(
                 checkRequired(
                     "inboundRealTimePaymentsTransferId",
-                    inboundRealTimePaymentsTransferId
+                    inboundRealTimePaymentsTransferId,
                 ),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),

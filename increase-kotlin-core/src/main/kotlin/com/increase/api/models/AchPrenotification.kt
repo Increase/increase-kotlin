@@ -517,9 +517,7 @@ private constructor(
     /** If the notification is for a future credit or debit. */
     class CreditDebitIndicator
     @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -801,11 +799,8 @@ private constructor(
          * The required type of change that is being signaled by the receiving financial
          * institution.
          */
-        class ChangeCode
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        class ChangeCode @JsonCreator private constructor(private val value: JsonField<String>) :
+            Enum {
 
             /**
              * Returns this class instance's raw value.
@@ -1275,9 +1270,7 @@ private constructor(
         /** Why the Prenotification was returned. */
         class ReturnReasonCode
         @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        private constructor(private val value: JsonField<String>) : Enum {
 
             /**
              * Returns this class instance's raw value.
@@ -2471,11 +2464,7 @@ private constructor(
     }
 
     /** The lifecycle status of the ACH Prenotification. */
-    class Status
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -2591,11 +2580,7 @@ private constructor(
      * A constant representing the object's type. For this resource it will always be
      * `ach_prenotification`.
      */
-    class Type
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -2616,7 +2601,7 @@ private constructor(
 
         /** An enum containing [Type]'s known values. */
         enum class Known {
-            ACH_PRENOTIFICATION,
+            ACH_PRENOTIFICATION
         }
 
         /**

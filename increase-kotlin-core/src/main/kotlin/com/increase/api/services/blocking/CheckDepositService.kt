@@ -14,18 +14,18 @@ interface CheckDepositService {
     /** Create a Check Deposit */
     fun create(
         params: CheckDepositCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CheckDeposit
 
     /** Retrieve a Check Deposit */
     fun retrieve(
         params: CheckDepositRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CheckDeposit
 
     /** List Check Deposits */
     fun list(
         params: CheckDepositListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CheckDepositListPage
 }

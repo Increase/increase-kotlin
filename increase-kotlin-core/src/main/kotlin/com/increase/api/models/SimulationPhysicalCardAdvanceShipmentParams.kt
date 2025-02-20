@@ -147,7 +147,7 @@ private constructor(
             fun build(): SimulationPhysicalCardAdvanceShipmentBody =
                 SimulationPhysicalCardAdvanceShipmentBody(
                     checkRequired("shipmentStatus", shipmentStatus),
-                    additionalProperties.toImmutable()
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -337,11 +337,8 @@ private constructor(
     }
 
     /** The shipment status to move the Physical Card to. */
-    class ShipmentStatus
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class ShipmentStatus @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
 
         /**
          * Returns this class instance's raw value.

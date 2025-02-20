@@ -13,12 +13,12 @@ interface InboundMailItemService {
     /** Retrieve an Inbound Mail Item */
     fun retrieve(
         params: InboundMailItemRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundMailItem
 
     /** List Inbound Mail Items */
     fun list(
         params: InboundMailItemListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundMailItemListPage
 }

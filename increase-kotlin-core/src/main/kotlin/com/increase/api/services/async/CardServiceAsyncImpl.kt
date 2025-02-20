@@ -22,10 +22,8 @@ import com.increase.api.models.CardListParams
 import com.increase.api.models.CardRetrieveParams
 import com.increase.api.models.CardUpdateParams
 
-class CardServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : CardServiceAsync {
+class CardServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
+    CardServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -57,7 +55,7 @@ internal constructor(
     /** Retrieve a Card */
     override suspend fun retrieve(
         params: CardRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): Card {
         val request =
             HttpRequest.builder()
@@ -104,7 +102,7 @@ internal constructor(
     /** List Cards */
     override suspend fun list(
         params: CardListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CardListPageAsync {
         val request =
             HttpRequest.builder()
@@ -129,7 +127,7 @@ internal constructor(
     /** Retrieve sensitive details for a Card */
     override suspend fun details(
         params: CardDetailsParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): CardDetails {
         val request =
             HttpRequest.builder()

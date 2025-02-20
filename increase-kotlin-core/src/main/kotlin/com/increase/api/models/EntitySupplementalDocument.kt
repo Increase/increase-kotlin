@@ -226,11 +226,7 @@ private constructor(
      * A constant representing the object's type. For this resource it will always be
      * `entity_supplemental_document`.
      */
-    class Type
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -251,7 +247,7 @@ private constructor(
 
         /** An enum containing [Type]'s known values. */
         enum class Known {
-            ENTITY_SUPPLEMENTAL_DOCUMENT,
+            ENTITY_SUPPLEMENTAL_DOCUMENT
         }
 
         /**

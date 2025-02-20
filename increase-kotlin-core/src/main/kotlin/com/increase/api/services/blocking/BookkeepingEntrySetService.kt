@@ -14,18 +14,18 @@ interface BookkeepingEntrySetService {
     /** Create a Bookkeeping Entry Set */
     fun create(
         params: BookkeepingEntrySetCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): BookkeepingEntrySet
 
     /** Retrieve a Bookkeeping Entry Set */
     fun retrieve(
         params: BookkeepingEntrySetRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): BookkeepingEntrySet
 
     /** List Bookkeeping Entry Sets */
     fun list(
         params: BookkeepingEntrySetListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): BookkeepingEntrySetListPage
 }

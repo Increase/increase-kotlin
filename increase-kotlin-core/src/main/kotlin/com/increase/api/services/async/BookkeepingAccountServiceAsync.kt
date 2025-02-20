@@ -16,24 +16,24 @@ interface BookkeepingAccountServiceAsync {
     /** Create a Bookkeeping Account */
     suspend fun create(
         params: BookkeepingAccountCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): BookkeepingAccount
 
     /** Update a Bookkeeping Account */
     suspend fun update(
         params: BookkeepingAccountUpdateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): BookkeepingAccount
 
     /** List Bookkeeping Accounts */
     suspend fun list(
         params: BookkeepingAccountListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): BookkeepingAccountListPageAsync
 
     /** Retrieve a Bookkeeping Account Balance */
     suspend fun balance(
         params: BookkeepingAccountBalanceParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): BookkeepingBalanceLookup
 }

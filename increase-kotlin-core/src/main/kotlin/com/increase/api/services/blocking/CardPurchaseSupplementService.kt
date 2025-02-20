@@ -13,12 +13,12 @@ interface CardPurchaseSupplementService {
     /** Retrieve a Card Purchase Supplement */
     fun retrieve(
         params: CardPurchaseSupplementRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CardPurchaseSupplement
 
     /** List Card Purchase Supplements */
     fun list(
         params: CardPurchaseSupplementListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CardPurchaseSupplementListPage
 }

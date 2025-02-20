@@ -1173,7 +1173,7 @@ private constructor(
             fun build(): Acknowledgement =
                 Acknowledgement(
                     checkRequired("acknowledgedAt", acknowledgedAt),
-                    additionalProperties.toImmutable()
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -1354,11 +1354,8 @@ private constructor(
          * The type of the resource. We may add additional possible values for this enum over time;
          * your application should be able to handle such additions gracefully.
          */
-        class Category
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        class Category @JsonCreator private constructor(private val value: JsonField<String>) :
+            Enum {
 
             /**
              * Returns this class instance's raw value.
@@ -1570,7 +1567,7 @@ private constructor(
                 fun build(): Freeform =
                     Freeform(
                         checkRequired("entries", entries).map { it.toImmutable() },
-                        additionalProperties.toImmutable()
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -1662,7 +1659,7 @@ private constructor(
                     fun build(): Entry =
                         Entry(
                             checkRequired("paymentRelatedInformation", paymentRelatedInformation),
-                            additionalProperties.toImmutable()
+                            additionalProperties.toImmutable(),
                         )
                 }
 
@@ -1805,7 +1802,7 @@ private constructor(
                 fun build(): PaymentOrderRemittanceAdvice =
                     PaymentOrderRemittanceAdvice(
                         checkRequired("invoices", invoices).map { it.toImmutable() },
-                        additionalProperties.toImmutable()
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -2531,7 +2528,7 @@ private constructor(
                 fun build(): ApiKey =
                     ApiKey(
                         checkRequired("description", description),
-                        additionalProperties.toImmutable()
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -2554,11 +2551,8 @@ private constructor(
         }
 
         /** The type of object that created this transfer. */
-        class Category
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        class Category @JsonCreator private constructor(private val value: JsonField<String>) :
+            Enum {
 
             /**
              * Returns this class instance's raw value.
@@ -2754,7 +2748,7 @@ private constructor(
                 fun build(): OAuthApplication =
                     OAuthApplication(
                         checkRequired("name", name),
-                        additionalProperties.toImmutable()
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -2899,11 +2893,7 @@ private constructor(
      * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transfer's currency. For
      * ACH transfers this is always equal to `usd`.
      */
-    class Currency
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Currency @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -3036,9 +3026,7 @@ private constructor(
     /** The type of entity that owns the account to which the ACH Transfer is being sent. */
     class DestinationAccountHolder
     @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -3148,11 +3136,7 @@ private constructor(
     }
 
     /** The type of the account to which the transfer will be sent. */
-    class Funding
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Funding @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -3579,11 +3563,8 @@ private constructor(
         }
 
         /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the hold's currency. */
-        class Currency
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        class Currency @JsonCreator private constructor(private val value: JsonField<String>) :
+            Enum {
 
             /**
              * Returns this class instance's raw value.
@@ -3716,11 +3697,7 @@ private constructor(
         }
 
         /** The status of the hold. */
-        class Status
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
             /**
              * Returns this class instance's raw value.
@@ -3820,11 +3797,7 @@ private constructor(
          * A constant representing the object's type. For this resource it will always be
          * `inbound_funds_hold`.
          */
-        class Type
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
             /**
              * Returns this class instance's raw value.
@@ -3845,7 +3818,7 @@ private constructor(
 
             /** An enum containing [Type]'s known values. */
             enum class Known {
-                INBOUND_FUNDS_HOLD,
+                INBOUND_FUNDS_HOLD
             }
 
             /**
@@ -3925,11 +3898,7 @@ private constructor(
     }
 
     /** The transfer's network. */
-    class Network
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Network @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -3950,7 +3919,7 @@ private constructor(
 
         /** An enum containing [Network]'s known values. */
         enum class Known {
-            ACH,
+            ACH
         }
 
         /**
@@ -4195,11 +4164,8 @@ private constructor(
          * The required type of change that is being signaled by the receiving financial
          * institution.
          */
-        class ChangeCode
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        class ChangeCode @JsonCreator private constructor(private val value: JsonField<String>) :
+            Enum {
 
             /**
              * Returns this class instance's raw value.
@@ -4669,9 +4635,7 @@ private constructor(
         /** A schedule by which Increase will choose an effective date for the transfer. */
         class SettlementSchedule
         @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        private constructor(private val value: JsonField<String>) : Enum {
 
             /**
              * Returns this class instance's raw value.
@@ -5069,9 +5033,7 @@ private constructor(
          */
         class ReturnReasonCode
         @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        private constructor(private val value: JsonField<String>) : Enum {
 
             /**
              * Returns this class instance's raw value.
@@ -6362,7 +6324,7 @@ private constructor(
             fun build(): Settlement =
                 Settlement(
                     checkRequired("settledAt", settledAt),
-                    additionalProperties.toImmutable()
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -6387,9 +6349,7 @@ private constructor(
     /** The Standard Entry Class (SEC) code to use for the transfer. */
     class StandardEntryClassCode
     @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -6507,11 +6467,7 @@ private constructor(
     }
 
     /** The lifecycle status of the transfer. */
-    class Status
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -6935,9 +6891,7 @@ private constructor(
          */
         class ExpectedSettlementSchedule
         @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        private constructor(private val value: JsonField<String>) : Enum {
 
             /**
              * Returns this class instance's raw value.
@@ -7061,11 +7015,7 @@ private constructor(
      * A constant representing the object's type. For this resource it will always be
      * `ach_transfer`.
      */
-    class Type
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -7086,7 +7036,7 @@ private constructor(
 
         /** An enum containing [Type]'s known values. */
         enum class Known {
-            ACH_TRANSFER,
+            ACH_TRANSFER
         }
 
         /**

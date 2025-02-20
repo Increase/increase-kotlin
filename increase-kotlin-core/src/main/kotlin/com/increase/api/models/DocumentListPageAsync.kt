@@ -75,13 +75,8 @@ private constructor(
         fun of(
             documentsService: DocumentServiceAsync,
             params: DocumentListParams,
-            response: Response
-        ) =
-            DocumentListPageAsync(
-                documentsService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = DocumentListPageAsync(documentsService, params, response)
     }
 
     @NoAutoDetect
@@ -162,18 +157,11 @@ private constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() =
-                Response(
-                    data,
-                    nextCursor,
-                    additionalProperties.toImmutable(),
-                )
+            fun build() = Response(data, nextCursor, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: DocumentListPageAsync,
-    ) : Flow<Document> {
+    class AutoPager(private val firstPage: DocumentListPageAsync) : Flow<Document> {
 
         override suspend fun collect(collector: FlowCollector<Document>) {
             var page = firstPage

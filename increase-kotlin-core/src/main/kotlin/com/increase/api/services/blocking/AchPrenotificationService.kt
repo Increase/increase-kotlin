@@ -14,18 +14,18 @@ interface AchPrenotificationService {
     /** Create an ACH Prenotification */
     fun create(
         params: AchPrenotificationCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): AchPrenotification
 
     /** Retrieve an ACH Prenotification */
     fun retrieve(
         params: AchPrenotificationRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): AchPrenotification
 
     /** List ACH Prenotifications */
     fun list(
         params: AchPrenotificationListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): AchPrenotificationListPage
 }

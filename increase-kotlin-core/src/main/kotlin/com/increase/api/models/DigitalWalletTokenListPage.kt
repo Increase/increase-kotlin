@@ -73,13 +73,8 @@ private constructor(
         fun of(
             digitalWalletTokensService: DigitalWalletTokenService,
             params: DigitalWalletTokenListParams,
-            response: Response
-        ) =
-            DigitalWalletTokenListPage(
-                digitalWalletTokensService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = DigitalWalletTokenListPage(digitalWalletTokensService, params, response)
     }
 
     @NoAutoDetect
@@ -161,18 +156,12 @@ private constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() =
-                Response(
-                    data,
-                    nextCursor,
-                    additionalProperties.toImmutable(),
-                )
+            fun build() = Response(data, nextCursor, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: DigitalWalletTokenListPage,
-    ) : Sequence<DigitalWalletToken> {
+    class AutoPager(private val firstPage: DigitalWalletTokenListPage) :
+        Sequence<DigitalWalletToken> {
 
         override fun iterator(): Iterator<DigitalWalletToken> = iterator {
             var page = firstPage

@@ -18,9 +18,7 @@ import com.increase.api.models.RealTimeDecisionActionParams
 import com.increase.api.models.RealTimeDecisionRetrieveParams
 
 class RealTimeDecisionServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : RealTimeDecisionServiceAsync {
+internal constructor(private val clientOptions: ClientOptions) : RealTimeDecisionServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -30,7 +28,7 @@ internal constructor(
     /** Retrieve a Real-Time Decision */
     override suspend fun retrieve(
         params: RealTimeDecisionRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): RealTimeDecision {
         val request =
             HttpRequest.builder()
@@ -54,7 +52,7 @@ internal constructor(
     /** Action a Real-Time Decision */
     override suspend fun action(
         params: RealTimeDecisionActionParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): RealTimeDecision {
         val request =
             HttpRequest.builder()

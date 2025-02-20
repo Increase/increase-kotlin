@@ -71,11 +71,7 @@ private constructor(
     companion object {
 
         fun of(lockboxesService: LockboxService, params: LockboxListParams, response: Response) =
-            LockboxListPage(
-                lockboxesService,
-                params,
-                response,
-            )
+            LockboxListPage(lockboxesService, params, response)
     }
 
     @NoAutoDetect
@@ -156,18 +152,11 @@ private constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() =
-                Response(
-                    data,
-                    nextCursor,
-                    additionalProperties.toImmutable(),
-                )
+            fun build() = Response(data, nextCursor, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: LockboxListPage,
-    ) : Sequence<Lockbox> {
+    class AutoPager(private val firstPage: LockboxListPage) : Sequence<Lockbox> {
 
         override fun iterator(): Iterator<Lockbox> = iterator {
             var page = firstPage

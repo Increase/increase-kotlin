@@ -18,9 +18,7 @@ import com.increase.api.models.OAuthConnectionListParams
 import com.increase.api.models.OAuthConnectionRetrieveParams
 
 class OAuthConnectionServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : OAuthConnectionServiceAsync {
+internal constructor(private val clientOptions: ClientOptions) : OAuthConnectionServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -30,7 +28,7 @@ internal constructor(
     /** Retrieve an OAuth Connection */
     override suspend fun retrieve(
         params: OAuthConnectionRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): OAuthConnection {
         val request =
             HttpRequest.builder()
@@ -55,7 +53,7 @@ internal constructor(
     /** List OAuth Connections */
     override suspend fun list(
         params: OAuthConnectionListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): OAuthConnectionListPageAsync {
         val request =
             HttpRequest.builder()

@@ -17,9 +17,8 @@ import com.increase.api.models.InboundWireDrawdownRequest
 import com.increase.api.models.SimulationInboundWireDrawdownRequestCreateParams
 
 class InboundWireDrawdownRequestServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : InboundWireDrawdownRequestServiceAsync {
+internal constructor(private val clientOptions: ClientOptions) :
+    InboundWireDrawdownRequestServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -30,7 +29,7 @@ internal constructor(
     /** Simulates receiving an [Inbound Wire Drawdown Request](#inbound-wire-drawdown-requests). */
     override suspend fun create(
         params: SimulationInboundWireDrawdownRequestCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): InboundWireDrawdownRequest {
         val request =
             HttpRequest.builder()

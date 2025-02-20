@@ -14,6 +14,6 @@ interface InterestPaymentServiceAsync {
      */
     suspend fun create(
         params: SimulationInterestPaymentCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): Transaction
 }

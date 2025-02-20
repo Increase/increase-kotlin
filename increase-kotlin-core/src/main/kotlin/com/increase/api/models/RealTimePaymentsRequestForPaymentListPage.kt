@@ -73,7 +73,7 @@ private constructor(
         fun of(
             realTimePaymentsRequestForPaymentsService: RealTimePaymentsRequestForPaymentService,
             params: RealTimePaymentsRequestForPaymentListParams,
-            response: Response
+            response: Response,
         ) =
             RealTimePaymentsRequestForPaymentListPage(
                 realTimePaymentsRequestForPaymentsService,
@@ -164,18 +164,12 @@ private constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() =
-                Response(
-                    data,
-                    nextCursor,
-                    additionalProperties.toImmutable(),
-                )
+            fun build() = Response(data, nextCursor, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: RealTimePaymentsRequestForPaymentListPage,
-    ) : Sequence<RealTimePaymentsRequestForPayment> {
+    class AutoPager(private val firstPage: RealTimePaymentsRequestForPaymentListPage) :
+        Sequence<RealTimePaymentsRequestForPayment> {
 
         override fun iterator(): Iterator<RealTimePaymentsRequestForPayment> = iterator {
             var page = firstPage

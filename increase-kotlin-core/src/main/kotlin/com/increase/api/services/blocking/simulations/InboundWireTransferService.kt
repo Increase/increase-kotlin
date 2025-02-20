@@ -11,6 +11,6 @@ interface InboundWireTransferService {
     /** Simulates an [Inbound Wire Transfer](#inbound-wire-transfers) to your account. */
     fun create(
         params: SimulationInboundWireTransferCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundWireTransfer
 }

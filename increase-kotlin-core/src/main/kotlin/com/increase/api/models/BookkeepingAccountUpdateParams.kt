@@ -135,7 +135,7 @@ private constructor(
             fun build(): BookkeepingAccountUpdateBody =
                 BookkeepingAccountUpdateBody(
                     checkRequired("name", name),
-                    additionalProperties.toImmutable()
+                    additionalProperties.toImmutable(),
                 )
         }
 

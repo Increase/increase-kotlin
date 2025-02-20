@@ -19,10 +19,8 @@ import com.increase.api.models.ExportListPageAsync
 import com.increase.api.models.ExportListParams
 import com.increase.api.models.ExportRetrieveParams
 
-class ExportServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : ExportServiceAsync {
+class ExportServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
+    ExportServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -32,7 +30,7 @@ internal constructor(
     /** Create an Export */
     override suspend fun create(
         params: ExportCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): Export {
         val request =
             HttpRequest.builder()
@@ -57,7 +55,7 @@ internal constructor(
     /** Retrieve an Export */
     override suspend fun retrieve(
         params: ExportRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): Export {
         val request =
             HttpRequest.builder()
@@ -82,7 +80,7 @@ internal constructor(
     /** List Exports */
     override suspend fun list(
         params: ExportListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): ExportListPageAsync {
         val request =
             HttpRequest.builder()

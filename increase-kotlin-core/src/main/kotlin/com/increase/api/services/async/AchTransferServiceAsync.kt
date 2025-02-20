@@ -16,30 +16,30 @@ interface AchTransferServiceAsync {
     /** Create an ACH Transfer */
     suspend fun create(
         params: AchTransferCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): AchTransfer
 
     /** Retrieve an ACH Transfer */
     suspend fun retrieve(
         params: AchTransferRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): AchTransfer
 
     /** List ACH Transfers */
     suspend fun list(
         params: AchTransferListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): AchTransferListPageAsync
 
     /** Approves an ACH Transfer in a pending_approval state. */
     suspend fun approve(
         params: AchTransferApproveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): AchTransfer
 
     /** Cancels an ACH Transfer in a pending_approval state. */
     suspend fun cancel(
         params: AchTransferCancelParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): AchTransfer
 }

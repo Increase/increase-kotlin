@@ -16,30 +16,30 @@ interface AccountTransferService {
     /** Create an Account Transfer */
     fun create(
         params: AccountTransferCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): AccountTransfer
 
     /** Retrieve an Account Transfer */
     fun retrieve(
         params: AccountTransferRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): AccountTransfer
 
     /** List Account Transfers */
     fun list(
         params: AccountTransferListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): AccountTransferListPage
 
     /** Approve an Account Transfer */
     fun approve(
         params: AccountTransferApproveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): AccountTransfer
 
     /** Cancel an Account Transfer */
     fun cancel(
         params: AccountTransferCancelParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): AccountTransfer
 }

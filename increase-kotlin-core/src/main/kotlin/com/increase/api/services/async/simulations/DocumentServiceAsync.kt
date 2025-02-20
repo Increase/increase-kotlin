@@ -11,6 +11,6 @@ interface DocumentServiceAsync {
     /** Simulates an tax document being created for an account. */
     suspend fun create(
         params: SimulationDocumentCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): Document
 }

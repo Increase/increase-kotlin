@@ -14,18 +14,18 @@ interface ProofOfAuthorizationRequestSubmissionService {
     /** Submit Proof of Authorization */
     fun create(
         params: ProofOfAuthorizationRequestSubmissionCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): ProofOfAuthorizationRequestSubmission
 
     /** Retrieve a Proof of Authorization Request Submission */
     fun retrieve(
         params: ProofOfAuthorizationRequestSubmissionRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): ProofOfAuthorizationRequestSubmission
 
     /** List Proof of Authorization Request Submissions */
     fun list(
         params: ProofOfAuthorizationRequestSubmissionListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): ProofOfAuthorizationRequestSubmissionListPage
 }

@@ -14,18 +14,18 @@ interface RealTimePaymentsRequestForPaymentServiceAsync {
     /** Create a Real-Time Payments Request for Payment */
     suspend fun create(
         params: RealTimePaymentsRequestForPaymentCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): RealTimePaymentsRequestForPayment
 
     /** Retrieve a Real-Time Payments Request for Payment */
     suspend fun retrieve(
         params: RealTimePaymentsRequestForPaymentRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): RealTimePaymentsRequestForPayment
 
     /** List Real-Time Payments Request for Payments */
     suspend fun list(
         params: RealTimePaymentsRequestForPaymentListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): RealTimePaymentsRequestForPaymentListPageAsync
 }

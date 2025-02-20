@@ -11,6 +11,6 @@ interface IntrafiBalanceServiceAsync {
     /** Get IntraFi balances by bank */
     suspend fun intrafiBalance(
         params: IntrafiBalanceIntrafiBalanceParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): IntrafiBalance
 }

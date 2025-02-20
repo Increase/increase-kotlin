@@ -15,6 +15,6 @@ interface CardReversalServiceAsync {
      */
     suspend fun create(
         params: SimulationCardReversalCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CardPayment
 }

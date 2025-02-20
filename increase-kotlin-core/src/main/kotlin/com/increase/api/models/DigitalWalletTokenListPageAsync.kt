@@ -75,13 +75,8 @@ private constructor(
         fun of(
             digitalWalletTokensService: DigitalWalletTokenServiceAsync,
             params: DigitalWalletTokenListParams,
-            response: Response
-        ) =
-            DigitalWalletTokenListPageAsync(
-                digitalWalletTokensService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = DigitalWalletTokenListPageAsync(digitalWalletTokensService, params, response)
     }
 
     @NoAutoDetect
@@ -163,18 +158,12 @@ private constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() =
-                Response(
-                    data,
-                    nextCursor,
-                    additionalProperties.toImmutable(),
-                )
+            fun build() = Response(data, nextCursor, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: DigitalWalletTokenListPageAsync,
-    ) : Flow<DigitalWalletToken> {
+    class AutoPager(private val firstPage: DigitalWalletTokenListPageAsync) :
+        Flow<DigitalWalletToken> {
 
         override suspend fun collect(collector: FlowCollector<DigitalWalletToken>) {
             var page = firstPage

@@ -16,30 +16,30 @@ interface WireTransferServiceAsync {
     /** Create a Wire Transfer */
     suspend fun create(
         params: WireTransferCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): WireTransfer
 
     /** Retrieve a Wire Transfer */
     suspend fun retrieve(
         params: WireTransferRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): WireTransfer
 
     /** List Wire Transfers */
     suspend fun list(
         params: WireTransferListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): WireTransferListPageAsync
 
     /** Approve a Wire Transfer */
     suspend fun approve(
         params: WireTransferApproveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): WireTransfer
 
     /** Cancel a pending Wire Transfer */
     suspend fun cancel(
         params: WireTransferCancelParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): WireTransfer
 }

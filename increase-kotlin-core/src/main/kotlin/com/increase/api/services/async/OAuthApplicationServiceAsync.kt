@@ -13,12 +13,12 @@ interface OAuthApplicationServiceAsync {
     /** Retrieve an OAuth Application */
     suspend fun retrieve(
         params: OAuthApplicationRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): OAuthApplication
 
     /** List OAuth Applications */
     suspend fun list(
         params: OAuthApplicationListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): OAuthApplicationListPageAsync
 }

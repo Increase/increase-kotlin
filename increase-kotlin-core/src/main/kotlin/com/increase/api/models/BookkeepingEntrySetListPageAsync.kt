@@ -75,13 +75,8 @@ private constructor(
         fun of(
             bookkeepingEntrySetsService: BookkeepingEntrySetServiceAsync,
             params: BookkeepingEntrySetListParams,
-            response: Response
-        ) =
-            BookkeepingEntrySetListPageAsync(
-                bookkeepingEntrySetsService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = BookkeepingEntrySetListPageAsync(bookkeepingEntrySetsService, params, response)
     }
 
     @NoAutoDetect
@@ -163,18 +158,12 @@ private constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() =
-                Response(
-                    data,
-                    nextCursor,
-                    additionalProperties.toImmutable(),
-                )
+            fun build() = Response(data, nextCursor, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: BookkeepingEntrySetListPageAsync,
-    ) : Flow<BookkeepingEntrySet> {
+    class AutoPager(private val firstPage: BookkeepingEntrySetListPageAsync) :
+        Flow<BookkeepingEntrySet> {
 
         override suspend fun collect(collector: FlowCollector<BookkeepingEntrySet>) {
             var page = firstPage

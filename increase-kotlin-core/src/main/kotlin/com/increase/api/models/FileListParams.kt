@@ -374,13 +374,7 @@ private constructor(
             }
 
             fun build(): CreatedAt =
-                CreatedAt(
-                    after,
-                    before,
-                    onOrAfter,
-                    onOrBefore,
-                    additionalProperties.build(),
-                )
+                CreatedAt(after, before, onOrAfter, onOrBefore, additionalProperties.build())
         }
 
         override fun equals(other: Any?): Boolean {
@@ -402,10 +396,7 @@ private constructor(
     }
 
     class Purpose
-    private constructor(
-        private val in_: List<In>?,
-        private val additionalProperties: QueryParams,
-    ) {
+    private constructor(private val in_: List<In>?, private val additionalProperties: QueryParams) {
 
         /**
          * Filter Files for those with the specified purpose or purposes. For GET requests, this
@@ -504,11 +495,7 @@ private constructor(
             fun build(): Purpose = Purpose(in_?.toImmutable(), additionalProperties.build())
         }
 
-        class In
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        class In @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
             /**
              * Returns this class instance's raw value.

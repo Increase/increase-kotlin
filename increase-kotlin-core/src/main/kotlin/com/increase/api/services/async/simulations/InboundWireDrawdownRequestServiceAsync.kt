@@ -11,6 +11,6 @@ interface InboundWireDrawdownRequestServiceAsync {
     /** Simulates receiving an [Inbound Wire Drawdown Request](#inbound-wire-drawdown-requests). */
     suspend fun create(
         params: SimulationInboundWireDrawdownRequestCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundWireDrawdownRequest
 }

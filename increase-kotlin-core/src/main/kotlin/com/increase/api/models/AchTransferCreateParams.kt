@@ -1457,11 +1457,8 @@ private constructor(
         }
 
         /** The type of addenda to pass with the transfer. */
-        class Category
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        class Category @JsonCreator private constructor(private val value: JsonField<String>) :
+            Enum {
 
             /**
              * Returns this class instance's raw value.
@@ -1682,7 +1679,7 @@ private constructor(
                 fun build(): Freeform =
                     Freeform(
                         checkRequired("entries", entries).map { it.toImmutable() },
-                        additionalProperties.toImmutable()
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -1774,7 +1771,7 @@ private constructor(
                     fun build(): Entry =
                         Entry(
                             checkRequired("paymentRelatedInformation", paymentRelatedInformation),
-                            additionalProperties.toImmutable()
+                            additionalProperties.toImmutable(),
                         )
                 }
 
@@ -1917,7 +1914,7 @@ private constructor(
                 fun build(): PaymentOrderRemittanceAdvice =
                     PaymentOrderRemittanceAdvice(
                         checkRequired("invoices", invoices).map { it.toImmutable() },
-                        additionalProperties.toImmutable()
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -2113,9 +2110,7 @@ private constructor(
     /** The type of entity that owns the account to which the ACH Transfer is being sent. */
     class DestinationAccountHolder
     @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -2225,11 +2220,7 @@ private constructor(
     }
 
     /** The type of the account to which the transfer will be sent. */
-    class Funding
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Funding @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -2440,19 +2431,13 @@ private constructor(
             }
 
             fun build(): PreferredEffectiveDate =
-                PreferredEffectiveDate(
-                    date,
-                    settlementSchedule,
-                    additionalProperties.toImmutable(),
-                )
+                PreferredEffectiveDate(date, settlementSchedule, additionalProperties.toImmutable())
         }
 
         /** A schedule by which Increase will choose an effective date for the transfer. */
         class SettlementSchedule
         @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        private constructor(private val value: JsonField<String>) : Enum {
 
             /**
              * Returns this class instance's raw value.
@@ -2599,9 +2584,7 @@ private constructor(
     /** The Standard Entry Class (SEC) code to use for the transfer. */
     class StandardEntryClassCode
     @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -2719,11 +2702,8 @@ private constructor(
     }
 
     /** The timing of the transaction. */
-    class TransactionTiming
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class TransactionTiming @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
 
         /**
          * Returns this class instance's raw value.

@@ -15,6 +15,6 @@ interface CheckTransferServiceAsync {
      */
     suspend fun mail(
         params: SimulationCheckTransferMailParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CheckTransfer
 }

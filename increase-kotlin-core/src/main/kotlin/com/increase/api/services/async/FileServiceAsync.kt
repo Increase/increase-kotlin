@@ -18,18 +18,18 @@ interface FileServiceAsync {
      */
     suspend fun create(
         params: FileCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): File
 
     /** Retrieve a File */
     suspend fun retrieve(
         params: FileRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): File
 
     /** List Files */
     suspend fun list(
         params: FileListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): FileListPageAsync
 }

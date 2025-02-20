@@ -20,9 +20,8 @@ import com.increase.api.models.RealTimePaymentsTransferListParams
 import com.increase.api.models.RealTimePaymentsTransferRetrieveParams
 
 class RealTimePaymentsTransferServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : RealTimePaymentsTransferServiceAsync {
+internal constructor(private val clientOptions: ClientOptions) :
+    RealTimePaymentsTransferServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -33,7 +32,7 @@ internal constructor(
     /** Create a Real-Time Payments Transfer */
     override suspend fun create(
         params: RealTimePaymentsTransferCreateParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): RealTimePaymentsTransfer {
         val request =
             HttpRequest.builder()
@@ -59,7 +58,7 @@ internal constructor(
     /** Retrieve a Real-Time Payments Transfer */
     override suspend fun retrieve(
         params: RealTimePaymentsTransferRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): RealTimePaymentsTransfer {
         val request =
             HttpRequest.builder()
@@ -84,7 +83,7 @@ internal constructor(
     /** List Real-Time Payments Transfers */
     override suspend fun list(
         params: RealTimePaymentsTransferListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): RealTimePaymentsTransferListPageAsync {
         val request =
             HttpRequest.builder()

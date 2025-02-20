@@ -743,11 +743,7 @@ private constructor(
     }
 
     /** The type of Entity to create. */
-    class Structure
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Structure @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -2168,9 +2164,7 @@ private constructor(
                     /** A method that can be used to verify the individual's identity. */
                     class Method
                     @JsonCreator
-                    private constructor(
-                        private val value: JsonField<String>,
-                    ) : Enum {
+                    private constructor(private val value: JsonField<String>) : Enum {
 
                         /**
                          * Returns this class instance's raw value.
@@ -2928,11 +2922,8 @@ private constructor(
                     "Individual{address=$address, dateOfBirth=$dateOfBirth, identification=$identification, name=$name, confirmedNoUsTaxId=$confirmedNoUsTaxId, additionalProperties=$additionalProperties}"
             }
 
-            class Prong
-            @JsonCreator
-            private constructor(
-                private val value: JsonField<String>,
-            ) : Enum {
+            class Prong @JsonCreator private constructor(private val value: JsonField<String>) :
+                Enum {
 
                 /**
                  * Returns this class instance's raw value.
@@ -3556,7 +3547,7 @@ private constructor(
                 fun build(): AuthorizedPerson =
                     AuthorizedPerson(
                         checkRequired("name", name),
-                        additionalProperties.toImmutable()
+                        additionalProperties.toImmutable(),
                     )
             }
 
@@ -3579,11 +3570,8 @@ private constructor(
         }
 
         /** The category of the government authority. */
-        class Category
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        class Category @JsonCreator private constructor(private val value: JsonField<String>) :
+            Enum {
 
             /**
              * Returns this class instance's raw value.
@@ -3606,7 +3594,7 @@ private constructor(
             /** An enum containing [Category]'s known values. */
             enum class Known {
                 /** The Public Entity is a Municipality. */
-                MUNICIPALITY,
+                MUNICIPALITY
             }
 
             /**
@@ -4432,9 +4420,7 @@ private constructor(
                 /** A method that can be used to verify the individual's identity. */
                 class Method
                 @JsonCreator
-                private constructor(
-                    private val value: JsonField<String>,
-                ) : Enum {
+                private constructor(private val value: JsonField<String>) : Enum {
 
                     /**
                      * Returns this class instance's raw value.
@@ -5801,11 +5787,8 @@ private constructor(
             }
 
             /** A method that can be used to verify the individual's identity. */
-            class Method
-            @JsonCreator
-            private constructor(
-                private val value: JsonField<String>,
-            ) : Enum {
+            class Method @JsonCreator private constructor(private val value: JsonField<String>) :
+                Enum {
 
                 /**
                  * Returns this class instance's raw value.
@@ -6589,7 +6572,7 @@ private constructor(
             fun build(): SupplementalDocument =
                 SupplementalDocument(
                     checkRequired("fileId", fileId),
-                    additionalProperties.toImmutable()
+                    additionalProperties.toImmutable(),
                 )
         }
 
@@ -6717,11 +6700,7 @@ private constructor(
         }
 
         /** The vendor that was used to perform the verification. */
-        class Vendor
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        class Vendor @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
             /**
              * Returns this class instance's raw value.
@@ -7334,11 +7313,8 @@ private constructor(
          * Employer Identification Number. Revocable trusts require information about the individual
          * `grantor` who created the trust.
          */
-        class Category
-        @JsonCreator
-        private constructor(
-            private val value: JsonField<String>,
-        ) : Enum {
+        class Category @JsonCreator private constructor(private val value: JsonField<String>) :
+            Enum {
 
             /**
              * Returns this class instance's raw value.
@@ -7559,11 +7535,8 @@ private constructor(
             }
 
             /** The structure of the trustee. */
-            class Structure
-            @JsonCreator
-            private constructor(
-                private val value: JsonField<String>,
-            ) : Enum {
+            class Structure @JsonCreator private constructor(private val value: JsonField<String>) :
+                Enum {
 
                 /**
                  * Returns this class instance's raw value.
@@ -7586,7 +7559,7 @@ private constructor(
                 /** An enum containing [Structure]'s known values. */
                 enum class Known {
                     /** The trustee is an individual. */
-                    INDIVIDUAL,
+                    INDIVIDUAL
                 }
 
                 /**
@@ -8304,9 +8277,7 @@ private constructor(
                     /** A method that can be used to verify the individual's identity. */
                     class Method
                     @JsonCreator
-                    private constructor(
-                        private val value: JsonField<String>,
-                    ) : Enum {
+                    private constructor(private val value: JsonField<String>) : Enum {
 
                         /**
                          * Returns this class instance's raw value.
@@ -9709,9 +9680,7 @@ private constructor(
                 /** A method that can be used to verify the individual's identity. */
                 class Method
                 @JsonCreator
-                private constructor(
-                    private val value: JsonField<String>,
-                ) : Enum {
+                private constructor(private val value: JsonField<String>) : Enum {
 
                     /**
                      * Returns this class instance's raw value.

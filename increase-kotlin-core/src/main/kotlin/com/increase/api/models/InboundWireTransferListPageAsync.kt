@@ -75,13 +75,8 @@ private constructor(
         fun of(
             inboundWireTransfersService: InboundWireTransferServiceAsync,
             params: InboundWireTransferListParams,
-            response: Response
-        ) =
-            InboundWireTransferListPageAsync(
-                inboundWireTransfersService,
-                params,
-                response,
-            )
+            response: Response,
+        ) = InboundWireTransferListPageAsync(inboundWireTransfersService, params, response)
     }
 
     @NoAutoDetect
@@ -163,18 +158,12 @@ private constructor(
                 this.additionalProperties.put(key, value)
             }
 
-            fun build() =
-                Response(
-                    data,
-                    nextCursor,
-                    additionalProperties.toImmutable(),
-                )
+            fun build() = Response(data, nextCursor, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: InboundWireTransferListPageAsync,
-    ) : Flow<InboundWireTransfer> {
+    class AutoPager(private val firstPage: InboundWireTransferListPageAsync) :
+        Flow<InboundWireTransfer> {
 
         override suspend fun collect(collector: FlowCollector<InboundWireTransfer>) {
             var page = firstPage

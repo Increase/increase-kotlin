@@ -564,26 +564,22 @@ private constructor(
                 checkRequired("updatedAt", updatedAt),
                 checkRequired(
                     "validatedAccountOwnershipViaCredential",
-                    validatedAccountOwnershipViaCredential
+                    validatedAccountOwnershipViaCredential,
                 ),
                 checkRequired(
                     "validatedAccountOwnershipWithAccountStatement",
-                    validatedAccountOwnershipWithAccountStatement
+                    validatedAccountOwnershipWithAccountStatement,
                 ),
                 checkRequired(
                     "validatedAccountOwnershipWithMicrodeposit",
-                    validatedAccountOwnershipWithMicrodeposit
+                    validatedAccountOwnershipWithMicrodeposit,
                 ),
                 additionalProperties.toImmutable(),
             )
     }
 
     /** Status of the proof of authorization request submission. */
-    class Status
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -714,11 +710,7 @@ private constructor(
      * A constant representing the object's type. For this resource it will always be
      * `proof_of_authorization_request_submission`.
      */
-    class Type
-    @JsonCreator
-    private constructor(
-        private val value: JsonField<String>,
-    ) : Enum {
+    class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -740,7 +732,7 @@ private constructor(
 
         /** An enum containing [Type]'s known values. */
         enum class Known {
-            PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION,
+            PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION
         }
 
         /**

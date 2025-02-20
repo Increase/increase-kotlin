@@ -19,10 +19,8 @@ import com.increase.api.models.FileListPageAsync
 import com.increase.api.models.FileListParams
 import com.increase.api.models.FileRetrieveParams
 
-class FileServiceAsyncImpl
-internal constructor(
-    private val clientOptions: ClientOptions,
-) : FileServiceAsync {
+class FileServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
+    FileServiceAsync {
 
     private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
@@ -58,7 +56,7 @@ internal constructor(
     /** Retrieve a File */
     override suspend fun retrieve(
         params: FileRetrieveParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): File {
         val request =
             HttpRequest.builder()
@@ -83,7 +81,7 @@ internal constructor(
     /** List Files */
     override suspend fun list(
         params: FileListParams,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): FileListPageAsync {
         val request =
             HttpRequest.builder()

@@ -13,12 +13,12 @@ interface PendingTransactionService {
     /** Retrieve a Pending Transaction */
     fun retrieve(
         params: PendingTransactionRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): PendingTransaction
 
     /** List Pending Transactions */
     fun list(
         params: PendingTransactionListParams,
-        requestOptions: RequestOptions = RequestOptions.none()
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): PendingTransactionListPage
 }
