@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.178.0 (2025-02-22)
+
+Full Changelog: [v0.177.0...v0.178.0](https://github.com/Increase/increase-kotlin/compare/v0.177.0...v0.178.0)
+
+### Features
+
+* **api:** api update ([#804](https://github.com/Increase/increase-kotlin/issues/804)) ([f222a68](https://github.com/Increase/increase-kotlin/commit/f222a68f40a6a2aa3782278818610a8e266dccdc))
+
+
+### Documentation
+
+* add immutability explanation to readme ([#802](https://github.com/Increase/increase-kotlin/issues/802)) ([4e28d08](https://github.com/Increase/increase-kotlin/commit/4e28d08f3fdfcf43f750bb4fd18037d87deec0b4))
+
 ## 0.177.0 (2025-02-20)
 
 Full Changelog: [v0.176.0...v0.177.0](https://github.com/Increase/increase-kotlin/compare/v0.176.0...v0.177.0)
