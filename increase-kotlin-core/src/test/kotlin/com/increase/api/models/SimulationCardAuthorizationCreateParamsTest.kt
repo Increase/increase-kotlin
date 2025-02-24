@@ -14,7 +14,7 @@ class SimulationCardAuthorizationCreateParamsTest {
             .amount(1000L)
             .authenticatedCardPaymentId("authenticated_card_payment_id")
             .cardId("card_oubs0hwk5rn6knuecxg2")
-            .declineReason(SimulationCardAuthorizationCreateParams.DeclineReason.CARD_NOT_ACTIVE)
+            .declineReason(SimulationCardAuthorizationCreateParams.DeclineReason.ACCOUNT_CLOSED)
             .digitalWalletTokenId("digital_wallet_token_id")
             .direction(SimulationCardAuthorizationCreateParams.Direction.SETTLEMENT)
             .eventSubscriptionId("event_subscription_001dzz0r20rcdxgb013zqb8m04g")
@@ -49,9 +49,7 @@ class SimulationCardAuthorizationCreateParamsTest {
                 .amount(1000L)
                 .authenticatedCardPaymentId("authenticated_card_payment_id")
                 .cardId("card_oubs0hwk5rn6knuecxg2")
-                .declineReason(
-                    SimulationCardAuthorizationCreateParams.DeclineReason.CARD_NOT_ACTIVE
-                )
+                .declineReason(SimulationCardAuthorizationCreateParams.DeclineReason.ACCOUNT_CLOSED)
                 .digitalWalletTokenId("digital_wallet_token_id")
                 .direction(SimulationCardAuthorizationCreateParams.Direction.SETTLEMENT)
                 .eventSubscriptionId("event_subscription_001dzz0r20rcdxgb013zqb8m04g")
@@ -85,7 +83,7 @@ class SimulationCardAuthorizationCreateParamsTest {
         assertThat(body.authenticatedCardPaymentId()).isEqualTo("authenticated_card_payment_id")
         assertThat(body.cardId()).isEqualTo("card_oubs0hwk5rn6knuecxg2")
         assertThat(body.declineReason())
-            .isEqualTo(SimulationCardAuthorizationCreateParams.DeclineReason.CARD_NOT_ACTIVE)
+            .isEqualTo(SimulationCardAuthorizationCreateParams.DeclineReason.ACCOUNT_CLOSED)
         assertThat(body.digitalWalletTokenId()).isEqualTo("digital_wallet_token_id")
         assertThat(body.direction())
             .isEqualTo(SimulationCardAuthorizationCreateParams.Direction.SETTLEMENT)
