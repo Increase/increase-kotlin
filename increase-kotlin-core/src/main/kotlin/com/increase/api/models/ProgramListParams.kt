@@ -41,6 +41,8 @@ private constructor(
 
     companion object {
 
+        fun none(): ProgramListParams = builder().build()
+
         fun builder() = Builder()
     }
 

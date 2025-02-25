@@ -26,9 +26,13 @@ interface IntrafiAccountEnrollmentServiceAsync {
 
     /** List IntraFi Account Enrollments */
     suspend fun list(
-        params: IntrafiAccountEnrollmentListParams,
+        params: IntrafiAccountEnrollmentListParams = IntrafiAccountEnrollmentListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): IntrafiAccountEnrollmentListPageAsync
+
+    /** List IntraFi Account Enrollments */
+    suspend fun list(requestOptions: RequestOptions): IntrafiAccountEnrollmentListPageAsync =
+        list(IntrafiAccountEnrollmentListParams.none(), requestOptions)
 
     /** Unenroll an account from IntraFi */
     suspend fun unenroll(

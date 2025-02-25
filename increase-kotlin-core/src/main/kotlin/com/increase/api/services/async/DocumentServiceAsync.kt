@@ -18,7 +18,11 @@ interface DocumentServiceAsync {
 
     /** List Documents */
     suspend fun list(
-        params: DocumentListParams,
+        params: DocumentListParams = DocumentListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): DocumentListPageAsync
+
+    /** List Documents */
+    suspend fun list(requestOptions: RequestOptions): DocumentListPageAsync =
+        list(DocumentListParams.none(), requestOptions)
 }

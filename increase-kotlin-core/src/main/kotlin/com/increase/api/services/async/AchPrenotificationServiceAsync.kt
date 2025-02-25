@@ -25,7 +25,11 @@ interface AchPrenotificationServiceAsync {
 
     /** List ACH Prenotifications */
     suspend fun list(
-        params: AchPrenotificationListParams,
+        params: AchPrenotificationListParams = AchPrenotificationListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AchPrenotificationListPageAsync
+
+    /** List ACH Prenotifications */
+    suspend fun list(requestOptions: RequestOptions): AchPrenotificationListPageAsync =
+        list(AchPrenotificationListParams.none(), requestOptions)
 }

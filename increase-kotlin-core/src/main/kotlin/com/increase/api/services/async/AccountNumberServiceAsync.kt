@@ -32,7 +32,11 @@ interface AccountNumberServiceAsync {
 
     /** List Account Numbers */
     suspend fun list(
-        params: AccountNumberListParams,
+        params: AccountNumberListParams = AccountNumberListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AccountNumberListPageAsync
+
+    /** List Account Numbers */
+    suspend fun list(requestOptions: RequestOptions): AccountNumberListPageAsync =
+        list(AccountNumberListParams.none(), requestOptions)
 }

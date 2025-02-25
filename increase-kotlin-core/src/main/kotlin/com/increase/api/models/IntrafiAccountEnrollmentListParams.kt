@@ -64,6 +64,8 @@ private constructor(
 
     companion object {
 
+        fun none(): IntrafiAccountEnrollmentListParams = builder().build()
+
         fun builder() = Builder()
     }
 

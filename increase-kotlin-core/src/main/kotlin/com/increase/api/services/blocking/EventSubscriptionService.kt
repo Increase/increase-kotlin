@@ -32,7 +32,11 @@ interface EventSubscriptionService {
 
     /** List Event Subscriptions */
     fun list(
-        params: EventSubscriptionListParams,
+        params: EventSubscriptionListParams = EventSubscriptionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): EventSubscriptionListPage
+
+    /** List Event Subscriptions */
+    fun list(requestOptions: RequestOptions): EventSubscriptionListPage =
+        list(EventSubscriptionListParams.none(), requestOptions)
 }

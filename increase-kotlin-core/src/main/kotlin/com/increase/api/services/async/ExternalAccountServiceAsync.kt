@@ -32,7 +32,11 @@ interface ExternalAccountServiceAsync {
 
     /** List External Accounts */
     suspend fun list(
-        params: ExternalAccountListParams,
+        params: ExternalAccountListParams = ExternalAccountListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ExternalAccountListPageAsync
+
+    /** List External Accounts */
+    suspend fun list(requestOptions: RequestOptions): ExternalAccountListPageAsync =
+        list(ExternalAccountListParams.none(), requestOptions)
 }

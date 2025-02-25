@@ -68,6 +68,8 @@ private constructor(
 
     companion object {
 
+        fun none(): InboundAchTransferListParams = builder().build()
+
         fun builder() = Builder()
     }
 

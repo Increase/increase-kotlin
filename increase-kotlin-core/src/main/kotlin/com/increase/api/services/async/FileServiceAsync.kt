@@ -29,7 +29,11 @@ interface FileServiceAsync {
 
     /** List Files */
     suspend fun list(
-        params: FileListParams,
+        params: FileListParams = FileListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): FileListPageAsync
+
+    /** List Files */
+    suspend fun list(requestOptions: RequestOptions): FileListPageAsync =
+        list(FileListParams.none(), requestOptions)
 }

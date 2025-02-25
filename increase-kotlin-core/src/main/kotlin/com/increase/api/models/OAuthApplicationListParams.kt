@@ -58,6 +58,8 @@ private constructor(
 
     companion object {
 
+        fun none(): OAuthApplicationListParams = builder().build()
+
         fun builder() = Builder()
     }
 

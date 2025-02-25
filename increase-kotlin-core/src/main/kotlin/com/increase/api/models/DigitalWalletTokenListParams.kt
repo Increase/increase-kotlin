@@ -54,6 +54,8 @@ private constructor(
 
     companion object {
 
+        fun none(): DigitalWalletTokenListParams = builder().build()
+
         fun builder() = Builder()
     }
 

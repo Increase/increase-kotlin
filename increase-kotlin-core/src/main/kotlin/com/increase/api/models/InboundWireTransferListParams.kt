@@ -68,6 +68,8 @@ private constructor(
 
     companion object {
 
+        fun none(): InboundWireTransferListParams = builder().build()
+
         fun builder() = Builder()
     }
 

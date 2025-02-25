@@ -29,7 +29,11 @@ interface FileService {
 
     /** List Files */
     fun list(
-        params: FileListParams,
+        params: FileListParams = FileListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): FileListPage
+
+    /** List Files */
+    fun list(requestOptions: RequestOptions): FileListPage =
+        list(FileListParams.none(), requestOptions)
 }

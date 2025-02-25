@@ -27,9 +27,13 @@ interface WireTransferService {
 
     /** List Wire Transfers */
     fun list(
-        params: WireTransferListParams,
+        params: WireTransferListParams = WireTransferListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): WireTransferListPage
+
+    /** List Wire Transfers */
+    fun list(requestOptions: RequestOptions): WireTransferListPage =
+        list(WireTransferListParams.none(), requestOptions)
 
     /** Approve a Wire Transfer */
     fun approve(

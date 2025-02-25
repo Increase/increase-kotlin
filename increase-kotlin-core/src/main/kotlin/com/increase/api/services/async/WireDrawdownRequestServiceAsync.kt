@@ -25,7 +25,11 @@ interface WireDrawdownRequestServiceAsync {
 
     /** List Wire Drawdown Requests */
     suspend fun list(
-        params: WireDrawdownRequestListParams,
+        params: WireDrawdownRequestListParams = WireDrawdownRequestListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): WireDrawdownRequestListPageAsync
+
+    /** List Wire Drawdown Requests */
+    suspend fun list(requestOptions: RequestOptions): WireDrawdownRequestListPageAsync =
+        list(WireDrawdownRequestListParams.none(), requestOptions)
 }

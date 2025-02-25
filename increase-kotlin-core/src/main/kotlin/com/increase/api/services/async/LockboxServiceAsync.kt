@@ -32,7 +32,11 @@ interface LockboxServiceAsync {
 
     /** List Lockboxes */
     suspend fun list(
-        params: LockboxListParams,
+        params: LockboxListParams = LockboxListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LockboxListPageAsync
+
+    /** List Lockboxes */
+    suspend fun list(requestOptions: RequestOptions): LockboxListPageAsync =
+        list(LockboxListParams.none(), requestOptions)
 }

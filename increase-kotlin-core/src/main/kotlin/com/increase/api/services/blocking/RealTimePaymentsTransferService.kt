@@ -25,7 +25,11 @@ interface RealTimePaymentsTransferService {
 
     /** List Real-Time Payments Transfers */
     fun list(
-        params: RealTimePaymentsTransferListParams,
+        params: RealTimePaymentsTransferListParams = RealTimePaymentsTransferListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): RealTimePaymentsTransferListPage
+
+    /** List Real-Time Payments Transfers */
+    fun list(requestOptions: RequestOptions): RealTimePaymentsTransferListPage =
+        list(RealTimePaymentsTransferListParams.none(), requestOptions)
 }

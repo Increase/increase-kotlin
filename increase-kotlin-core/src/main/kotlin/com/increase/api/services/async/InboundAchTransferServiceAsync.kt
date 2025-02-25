@@ -21,9 +21,13 @@ interface InboundAchTransferServiceAsync {
 
     /** List Inbound ACH Transfers */
     suspend fun list(
-        params: InboundAchTransferListParams,
+        params: InboundAchTransferListParams = InboundAchTransferListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundAchTransferListPageAsync
+
+    /** List Inbound ACH Transfers */
+    suspend fun list(requestOptions: RequestOptions): InboundAchTransferListPageAsync =
+        list(InboundAchTransferListParams.none(), requestOptions)
 
     /** Create a notification of change for an Inbound ACH Transfer */
     suspend fun createNotificationOfChange(

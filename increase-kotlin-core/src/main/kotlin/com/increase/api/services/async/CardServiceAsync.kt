@@ -34,9 +34,13 @@ interface CardServiceAsync {
 
     /** List Cards */
     suspend fun list(
-        params: CardListParams,
+        params: CardListParams = CardListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CardListPageAsync
+
+    /** List Cards */
+    suspend fun list(requestOptions: RequestOptions): CardListPageAsync =
+        list(CardListParams.none(), requestOptions)
 
     /** Retrieve sensitive details for a Card */
     suspend fun details(

@@ -18,7 +18,11 @@ interface DeclinedTransactionServiceAsync {
 
     /** List Declined Transactions */
     suspend fun list(
-        params: DeclinedTransactionListParams,
+        params: DeclinedTransactionListParams = DeclinedTransactionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): DeclinedTransactionListPageAsync
+
+    /** List Declined Transactions */
+    suspend fun list(requestOptions: RequestOptions): DeclinedTransactionListPageAsync =
+        list(DeclinedTransactionListParams.none(), requestOptions)
 }

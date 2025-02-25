@@ -63,6 +63,8 @@ private constructor(
 
     companion object {
 
+        fun none(): DocumentListParams = builder().build()
+
         fun builder() = Builder()
     }
 

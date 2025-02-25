@@ -32,9 +32,13 @@ interface EntityService {
 
     /** List Entities */
     fun list(
-        params: EntityListParams,
+        params: EntityListParams = EntityListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): EntityListPage
+
+    /** List Entities */
+    fun list(requestOptions: RequestOptions): EntityListPage =
+        list(EntityListParams.none(), requestOptions)
 
     /** Archive an Entity */
     fun archive(

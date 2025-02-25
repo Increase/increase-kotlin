@@ -46,6 +46,8 @@ private constructor(
 
     companion object {
 
+        fun none(): BookkeepingEntryListParams = builder().build()
+
         fun builder() = Builder()
     }
 

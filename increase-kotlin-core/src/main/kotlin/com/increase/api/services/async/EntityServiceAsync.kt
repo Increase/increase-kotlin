@@ -32,9 +32,13 @@ interface EntityServiceAsync {
 
     /** List Entities */
     suspend fun list(
-        params: EntityListParams,
+        params: EntityListParams = EntityListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): EntityListPageAsync
+
+    /** List Entities */
+    suspend fun list(requestOptions: RequestOptions): EntityListPageAsync =
+        list(EntityListParams.none(), requestOptions)
 
     /** Archive an Entity */
     suspend fun archive(

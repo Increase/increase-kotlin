@@ -25,7 +25,11 @@ interface AchPrenotificationService {
 
     /** List ACH Prenotifications */
     fun list(
-        params: AchPrenotificationListParams,
+        params: AchPrenotificationListParams = AchPrenotificationListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AchPrenotificationListPage
+
+    /** List ACH Prenotifications */
+    fun list(requestOptions: RequestOptions): AchPrenotificationListPage =
+        list(AchPrenotificationListParams.none(), requestOptions)
 }

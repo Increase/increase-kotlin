@@ -59,6 +59,8 @@ private constructor(
 
     companion object {
 
+        fun none(): PhysicalCardProfileListParams = builder().build()
+
         fun builder() = Builder()
     }
 

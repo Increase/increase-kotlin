@@ -18,7 +18,11 @@ interface TransactionService {
 
     /** List Transactions */
     fun list(
-        params: TransactionListParams,
+        params: TransactionListParams = TransactionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): TransactionListPage
+
+    /** List Transactions */
+    fun list(requestOptions: RequestOptions): TransactionListPage =
+        list(TransactionListParams.none(), requestOptions)
 }

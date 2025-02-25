@@ -25,7 +25,11 @@ interface CardDisputeServiceAsync {
 
     /** List Card Disputes */
     suspend fun list(
-        params: CardDisputeListParams,
+        params: CardDisputeListParams = CardDisputeListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CardDisputeListPageAsync
+
+    /** List Card Disputes */
+    suspend fun list(requestOptions: RequestOptions): CardDisputeListPageAsync =
+        list(CardDisputeListParams.none(), requestOptions)
 }

@@ -18,7 +18,11 @@ interface BookkeepingEntryServiceAsync {
 
     /** List Bookkeeping Entries */
     suspend fun list(
-        params: BookkeepingEntryListParams,
+        params: BookkeepingEntryListParams = BookkeepingEntryListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BookkeepingEntryListPageAsync
+
+    /** List Bookkeeping Entries */
+    suspend fun list(requestOptions: RequestOptions): BookkeepingEntryListPageAsync =
+        list(BookkeepingEntryListParams.none(), requestOptions)
 }

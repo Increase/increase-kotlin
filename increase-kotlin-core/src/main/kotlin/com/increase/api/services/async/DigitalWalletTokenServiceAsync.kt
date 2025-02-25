@@ -18,7 +18,11 @@ interface DigitalWalletTokenServiceAsync {
 
     /** List Digital Wallet Tokens */
     suspend fun list(
-        params: DigitalWalletTokenListParams,
+        params: DigitalWalletTokenListParams = DigitalWalletTokenListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): DigitalWalletTokenListPageAsync
+
+    /** List Digital Wallet Tokens */
+    suspend fun list(requestOptions: RequestOptions): DigitalWalletTokenListPageAsync =
+        list(DigitalWalletTokenListParams.none(), requestOptions)
 }
