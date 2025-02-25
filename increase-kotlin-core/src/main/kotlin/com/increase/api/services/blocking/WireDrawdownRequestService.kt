@@ -25,7 +25,11 @@ interface WireDrawdownRequestService {
 
     /** List Wire Drawdown Requests */
     fun list(
-        params: WireDrawdownRequestListParams,
+        params: WireDrawdownRequestListParams = WireDrawdownRequestListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): WireDrawdownRequestListPage
+
+    /** List Wire Drawdown Requests */
+    fun list(requestOptions: RequestOptions): WireDrawdownRequestListPage =
+        list(WireDrawdownRequestListParams.none(), requestOptions)
 }

@@ -18,7 +18,11 @@ interface PendingTransactionServiceAsync {
 
     /** List Pending Transactions */
     suspend fun list(
-        params: PendingTransactionListParams,
+        params: PendingTransactionListParams = PendingTransactionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PendingTransactionListPageAsync
+
+    /** List Pending Transactions */
+    suspend fun list(requestOptions: RequestOptions): PendingTransactionListPageAsync =
+        list(PendingTransactionListParams.none(), requestOptions)
 }

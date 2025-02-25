@@ -32,7 +32,11 @@ interface PhysicalCardService {
 
     /** List Physical Cards */
     fun list(
-        params: PhysicalCardListParams,
+        params: PhysicalCardListParams = PhysicalCardListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PhysicalCardListPage
+
+    /** List Physical Cards */
+    fun list(requestOptions: RequestOptions): PhysicalCardListPage =
+        list(PhysicalCardListParams.none(), requestOptions)
 }

@@ -27,9 +27,13 @@ interface PhysicalCardProfileServiceAsync {
 
     /** List Physical Card Profiles */
     suspend fun list(
-        params: PhysicalCardProfileListParams,
+        params: PhysicalCardProfileListParams = PhysicalCardProfileListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PhysicalCardProfileListPageAsync
+
+    /** List Physical Card Profiles */
+    suspend fun list(requestOptions: RequestOptions): PhysicalCardProfileListPageAsync =
+        list(PhysicalCardProfileListParams.none(), requestOptions)
 
     /** Archive a Physical Card Profile */
     suspend fun archive(

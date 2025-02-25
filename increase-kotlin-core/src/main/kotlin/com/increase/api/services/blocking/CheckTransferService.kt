@@ -28,9 +28,13 @@ interface CheckTransferService {
 
     /** List Check Transfers */
     fun list(
-        params: CheckTransferListParams,
+        params: CheckTransferListParams = CheckTransferListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CheckTransferListPage
+
+    /** List Check Transfers */
+    fun list(requestOptions: RequestOptions): CheckTransferListPage =
+        list(CheckTransferListParams.none(), requestOptions)
 
     /** Approve a Check Transfer */
     fun approve(

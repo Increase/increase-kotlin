@@ -50,6 +50,8 @@ private constructor(
 
     companion object {
 
+        fun none(): BookkeepingAccountListParams = builder().build()
+
         fun builder() = Builder()
     }
 

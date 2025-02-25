@@ -20,9 +20,13 @@ interface InboundCheckDepositServiceAsync {
 
     /** List Inbound Check Deposits */
     suspend fun list(
-        params: InboundCheckDepositListParams,
+        params: InboundCheckDepositListParams = InboundCheckDepositListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundCheckDepositListPageAsync
+
+    /** List Inbound Check Deposits */
+    suspend fun list(requestOptions: RequestOptions): InboundCheckDepositListPageAsync =
+        list(InboundCheckDepositListParams.none(), requestOptions)
 
     /** Decline an Inbound Check Deposit */
     suspend fun decline(

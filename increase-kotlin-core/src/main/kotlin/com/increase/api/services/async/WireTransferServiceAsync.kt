@@ -27,9 +27,13 @@ interface WireTransferServiceAsync {
 
     /** List Wire Transfers */
     suspend fun list(
-        params: WireTransferListParams,
+        params: WireTransferListParams = WireTransferListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): WireTransferListPageAsync
+
+    /** List Wire Transfers */
+    suspend fun list(requestOptions: RequestOptions): WireTransferListPageAsync =
+        list(WireTransferListParams.none(), requestOptions)
 
     /** Approve a Wire Transfer */
     suspend fun approve(

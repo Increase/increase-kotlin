@@ -18,7 +18,11 @@ interface TransactionServiceAsync {
 
     /** List Transactions */
     suspend fun list(
-        params: TransactionListParams,
+        params: TransactionListParams = TransactionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): TransactionListPageAsync
+
+    /** List Transactions */
+    suspend fun list(requestOptions: RequestOptions): TransactionListPageAsync =
+        list(TransactionListParams.none(), requestOptions)
 }

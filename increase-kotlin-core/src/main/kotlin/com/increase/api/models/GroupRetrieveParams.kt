@@ -27,6 +27,8 @@ private constructor(
 
     companion object {
 
+        fun none(): GroupRetrieveParams = builder().build()
+
         fun builder() = Builder()
     }
 

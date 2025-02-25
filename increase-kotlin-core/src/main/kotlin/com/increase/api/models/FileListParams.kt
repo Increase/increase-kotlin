@@ -67,6 +67,8 @@ private constructor(
 
     companion object {
 
+        fun none(): FileListParams = builder().build()
+
         fun builder() = Builder()
     }
 

@@ -18,7 +18,11 @@ interface AccountStatementServiceAsync {
 
     /** List Account Statements */
     suspend fun list(
-        params: AccountStatementListParams,
+        params: AccountStatementListParams = AccountStatementListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AccountStatementListPageAsync
+
+    /** List Account Statements */
+    suspend fun list(requestOptions: RequestOptions): AccountStatementListPageAsync =
+        list(AccountStatementListParams.none(), requestOptions)
 }

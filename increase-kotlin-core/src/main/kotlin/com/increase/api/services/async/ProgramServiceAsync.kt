@@ -18,7 +18,11 @@ interface ProgramServiceAsync {
 
     /** List Programs */
     suspend fun list(
-        params: ProgramListParams,
+        params: ProgramListParams = ProgramListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ProgramListPageAsync
+
+    /** List Programs */
+    suspend fun list(requestOptions: RequestOptions): ProgramListPageAsync =
+        list(ProgramListParams.none(), requestOptions)
 }

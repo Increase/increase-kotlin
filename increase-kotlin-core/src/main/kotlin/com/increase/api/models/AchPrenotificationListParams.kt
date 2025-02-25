@@ -58,6 +58,8 @@ private constructor(
 
     companion object {
 
+        fun none(): AchPrenotificationListParams = builder().build()
+
         fun builder() = Builder()
     }
 
