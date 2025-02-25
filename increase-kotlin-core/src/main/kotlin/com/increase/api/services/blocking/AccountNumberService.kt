@@ -32,7 +32,11 @@ interface AccountNumberService {
 
     /** List Account Numbers */
     fun list(
-        params: AccountNumberListParams,
+        params: AccountNumberListParams = AccountNumberListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AccountNumberListPage
+
+    /** List Account Numbers */
+    fun list(requestOptions: RequestOptions): AccountNumberListPage =
+        list(AccountNumberListParams.none(), requestOptions)
 }

@@ -35,9 +35,13 @@ interface AccountServiceAsync {
 
     /** List Accounts */
     suspend fun list(
-        params: AccountListParams,
+        params: AccountListParams = AccountListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AccountListPageAsync
+
+    /** List Accounts */
+    suspend fun list(requestOptions: RequestOptions): AccountListPageAsync =
+        list(AccountListParams.none(), requestOptions)
 
     /**
      * Retrieve the current and available balances for an account in minor units of the account's

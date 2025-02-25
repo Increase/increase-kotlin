@@ -18,7 +18,11 @@ interface CardPurchaseSupplementService {
 
     /** List Card Purchase Supplements */
     fun list(
-        params: CardPurchaseSupplementListParams,
+        params: CardPurchaseSupplementListParams = CardPurchaseSupplementListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CardPurchaseSupplementListPage
+
+    /** List Card Purchase Supplements */
+    fun list(requestOptions: RequestOptions): CardPurchaseSupplementListPage =
+        list(CardPurchaseSupplementListParams.none(), requestOptions)
 }

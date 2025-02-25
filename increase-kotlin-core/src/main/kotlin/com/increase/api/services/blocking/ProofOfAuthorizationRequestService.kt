@@ -18,7 +18,12 @@ interface ProofOfAuthorizationRequestService {
 
     /** List Proof of Authorization Requests */
     fun list(
-        params: ProofOfAuthorizationRequestListParams,
+        params: ProofOfAuthorizationRequestListParams =
+            ProofOfAuthorizationRequestListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ProofOfAuthorizationRequestListPage
+
+    /** List Proof of Authorization Requests */
+    fun list(requestOptions: RequestOptions): ProofOfAuthorizationRequestListPage =
+        list(ProofOfAuthorizationRequestListParams.none(), requestOptions)
 }

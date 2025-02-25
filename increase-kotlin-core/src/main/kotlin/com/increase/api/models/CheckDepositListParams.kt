@@ -63,6 +63,8 @@ private constructor(
 
     companion object {
 
+        fun none(): CheckDepositListParams = builder().build()
+
         fun builder() = Builder()
     }
 

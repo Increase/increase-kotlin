@@ -18,7 +18,11 @@ interface InboundMailItemServiceAsync {
 
     /** List Inbound Mail Items */
     suspend fun list(
-        params: InboundMailItemListParams,
+        params: InboundMailItemListParams = InboundMailItemListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundMailItemListPageAsync
+
+    /** List Inbound Mail Items */
+    suspend fun list(requestOptions: RequestOptions): InboundMailItemListPageAsync =
+        list(InboundMailItemListParams.none(), requestOptions)
 }

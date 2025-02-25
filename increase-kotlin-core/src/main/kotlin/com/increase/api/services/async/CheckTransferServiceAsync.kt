@@ -28,9 +28,13 @@ interface CheckTransferServiceAsync {
 
     /** List Check Transfers */
     suspend fun list(
-        params: CheckTransferListParams,
+        params: CheckTransferListParams = CheckTransferListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CheckTransferListPageAsync
+
+    /** List Check Transfers */
+    suspend fun list(requestOptions: RequestOptions): CheckTransferListPageAsync =
+        list(CheckTransferListParams.none(), requestOptions)
 
     /** Approve a Check Transfer */
     suspend fun approve(

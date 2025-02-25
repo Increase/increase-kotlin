@@ -25,7 +25,11 @@ interface CheckDepositServiceAsync {
 
     /** List Check Deposits */
     suspend fun list(
-        params: CheckDepositListParams,
+        params: CheckDepositListParams = CheckDepositListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CheckDepositListPageAsync
+
+    /** List Check Deposits */
+    suspend fun list(requestOptions: RequestOptions): CheckDepositListPageAsync =
+        list(CheckDepositListParams.none(), requestOptions)
 }

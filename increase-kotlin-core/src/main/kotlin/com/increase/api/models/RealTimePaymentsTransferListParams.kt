@@ -70,6 +70,8 @@ private constructor(
 
     companion object {
 
+        fun none(): RealTimePaymentsTransferListParams = builder().build()
+
         fun builder() = Builder()
     }
 

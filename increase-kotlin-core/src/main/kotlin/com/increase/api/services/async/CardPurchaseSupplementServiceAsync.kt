@@ -18,7 +18,11 @@ interface CardPurchaseSupplementServiceAsync {
 
     /** List Card Purchase Supplements */
     suspend fun list(
-        params: CardPurchaseSupplementListParams,
+        params: CardPurchaseSupplementListParams = CardPurchaseSupplementListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CardPurchaseSupplementListPageAsync
+
+    /** List Card Purchase Supplements */
+    suspend fun list(requestOptions: RequestOptions): CardPurchaseSupplementListPageAsync =
+        list(CardPurchaseSupplementListParams.none(), requestOptions)
 }

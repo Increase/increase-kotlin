@@ -27,9 +27,13 @@ interface AchTransferServiceAsync {
 
     /** List ACH Transfers */
     suspend fun list(
-        params: AchTransferListParams,
+        params: AchTransferListParams = AchTransferListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AchTransferListPageAsync
+
+    /** List ACH Transfers */
+    suspend fun list(requestOptions: RequestOptions): AchTransferListPageAsync =
+        list(AchTransferListParams.none(), requestOptions)
 
     /** Approves an ACH Transfer in a pending_approval state. */
     suspend fun approve(

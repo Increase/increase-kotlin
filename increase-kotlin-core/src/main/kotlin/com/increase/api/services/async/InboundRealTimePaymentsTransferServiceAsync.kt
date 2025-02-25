@@ -18,7 +18,12 @@ interface InboundRealTimePaymentsTransferServiceAsync {
 
     /** List Inbound Real-Time Payments Transfers */
     suspend fun list(
-        params: InboundRealTimePaymentsTransferListParams,
+        params: InboundRealTimePaymentsTransferListParams =
+            InboundRealTimePaymentsTransferListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundRealTimePaymentsTransferListPageAsync
+
+    /** List Inbound Real-Time Payments Transfers */
+    suspend fun list(requestOptions: RequestOptions): InboundRealTimePaymentsTransferListPageAsync =
+        list(InboundRealTimePaymentsTransferListParams.none(), requestOptions)
 }

@@ -18,7 +18,11 @@ interface InboundWireTransferServiceAsync {
 
     /** List Inbound Wire Transfers */
     suspend fun list(
-        params: InboundWireTransferListParams,
+        params: InboundWireTransferListParams = InboundWireTransferListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundWireTransferListPageAsync
+
+    /** List Inbound Wire Transfers */
+    suspend fun list(requestOptions: RequestOptions): InboundWireTransferListPageAsync =
+        list(InboundWireTransferListParams.none(), requestOptions)
 }

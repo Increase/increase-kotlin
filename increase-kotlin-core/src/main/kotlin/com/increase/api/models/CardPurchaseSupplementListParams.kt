@@ -54,6 +54,8 @@ private constructor(
 
     companion object {
 
+        fun none(): CardPurchaseSupplementListParams = builder().build()
+
         fun builder() = Builder()
     }
 

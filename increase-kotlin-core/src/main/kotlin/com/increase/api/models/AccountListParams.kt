@@ -84,6 +84,8 @@ private constructor(
 
     companion object {
 
+        fun none(): AccountListParams = builder().build()
+
         fun builder() = Builder()
     }
 

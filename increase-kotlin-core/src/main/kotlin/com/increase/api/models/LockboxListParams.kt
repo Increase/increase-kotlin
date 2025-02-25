@@ -63,6 +63,8 @@ private constructor(
 
     companion object {
 
+        fun none(): LockboxListParams = builder().build()
+
         fun builder() = Builder()
     }
 

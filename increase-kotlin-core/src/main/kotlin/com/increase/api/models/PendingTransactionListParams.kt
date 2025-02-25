@@ -72,6 +72,8 @@ private constructor(
 
     companion object {
 
+        fun none(): PendingTransactionListParams = builder().build()
+
         fun builder() = Builder()
     }
 

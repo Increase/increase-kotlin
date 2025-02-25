@@ -62,6 +62,8 @@ private constructor(
 
     companion object {
 
+        fun none(): InboundRealTimePaymentsTransferListParams = builder().build()
+
         fun builder() = Builder()
     }
 

@@ -25,7 +25,11 @@ interface RealTimePaymentsTransferServiceAsync {
 
     /** List Real-Time Payments Transfers */
     suspend fun list(
-        params: RealTimePaymentsTransferListParams,
+        params: RealTimePaymentsTransferListParams = RealTimePaymentsTransferListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): RealTimePaymentsTransferListPageAsync
+
+    /** List Real-Time Payments Transfers */
+    suspend fun list(requestOptions: RequestOptions): RealTimePaymentsTransferListPageAsync =
+        list(RealTimePaymentsTransferListParams.none(), requestOptions)
 }

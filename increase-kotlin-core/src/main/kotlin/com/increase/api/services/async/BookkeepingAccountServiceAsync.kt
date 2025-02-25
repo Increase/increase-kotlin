@@ -27,9 +27,13 @@ interface BookkeepingAccountServiceAsync {
 
     /** List Bookkeeping Accounts */
     suspend fun list(
-        params: BookkeepingAccountListParams,
+        params: BookkeepingAccountListParams = BookkeepingAccountListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BookkeepingAccountListPageAsync
+
+    /** List Bookkeeping Accounts */
+    suspend fun list(requestOptions: RequestOptions): BookkeepingAccountListPageAsync =
+        list(BookkeepingAccountListParams.none(), requestOptions)
 
     /** Retrieve a Bookkeeping Account Balance */
     suspend fun balance(

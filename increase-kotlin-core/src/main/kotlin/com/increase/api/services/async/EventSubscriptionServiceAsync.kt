@@ -32,7 +32,11 @@ interface EventSubscriptionServiceAsync {
 
     /** List Event Subscriptions */
     suspend fun list(
-        params: EventSubscriptionListParams,
+        params: EventSubscriptionListParams = EventSubscriptionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): EventSubscriptionListPageAsync
+
+    /** List Event Subscriptions */
+    suspend fun list(requestOptions: RequestOptions): EventSubscriptionListPageAsync =
+        list(EventSubscriptionListParams.none(), requestOptions)
 }
