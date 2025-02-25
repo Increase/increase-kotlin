@@ -25,7 +25,12 @@ interface RealTimePaymentsRequestForPaymentService {
 
     /** List Real-Time Payments Request for Payments */
     fun list(
-        params: RealTimePaymentsRequestForPaymentListParams,
+        params: RealTimePaymentsRequestForPaymentListParams =
+            RealTimePaymentsRequestForPaymentListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): RealTimePaymentsRequestForPaymentListPage
+
+    /** List Real-Time Payments Request for Payments */
+    fun list(requestOptions: RequestOptions): RealTimePaymentsRequestForPaymentListPage =
+        list(RealTimePaymentsRequestForPaymentListParams.none(), requestOptions)
 }

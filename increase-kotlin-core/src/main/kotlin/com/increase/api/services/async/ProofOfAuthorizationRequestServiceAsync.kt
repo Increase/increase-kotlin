@@ -18,7 +18,12 @@ interface ProofOfAuthorizationRequestServiceAsync {
 
     /** List Proof of Authorization Requests */
     suspend fun list(
-        params: ProofOfAuthorizationRequestListParams,
+        params: ProofOfAuthorizationRequestListParams =
+            ProofOfAuthorizationRequestListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ProofOfAuthorizationRequestListPageAsync
+
+    /** List Proof of Authorization Requests */
+    suspend fun list(requestOptions: RequestOptions): ProofOfAuthorizationRequestListPageAsync =
+        list(ProofOfAuthorizationRequestListParams.none(), requestOptions)
 }

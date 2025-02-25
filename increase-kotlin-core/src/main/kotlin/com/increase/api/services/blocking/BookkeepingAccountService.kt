@@ -27,9 +27,13 @@ interface BookkeepingAccountService {
 
     /** List Bookkeeping Accounts */
     fun list(
-        params: BookkeepingAccountListParams,
+        params: BookkeepingAccountListParams = BookkeepingAccountListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BookkeepingAccountListPage
+
+    /** List Bookkeeping Accounts */
+    fun list(requestOptions: RequestOptions): BookkeepingAccountListPage =
+        list(BookkeepingAccountListParams.none(), requestOptions)
 
     /** Retrieve a Bookkeeping Account Balance */
     fun balance(

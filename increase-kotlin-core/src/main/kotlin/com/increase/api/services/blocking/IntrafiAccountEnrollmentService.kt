@@ -26,9 +26,13 @@ interface IntrafiAccountEnrollmentService {
 
     /** List IntraFi Account Enrollments */
     fun list(
-        params: IntrafiAccountEnrollmentListParams,
+        params: IntrafiAccountEnrollmentListParams = IntrafiAccountEnrollmentListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): IntrafiAccountEnrollmentListPage
+
+    /** List IntraFi Account Enrollments */
+    fun list(requestOptions: RequestOptions): IntrafiAccountEnrollmentListPage =
+        list(IntrafiAccountEnrollmentListParams.none(), requestOptions)
 
     /** Unenroll an account from IntraFi */
     fun unenroll(

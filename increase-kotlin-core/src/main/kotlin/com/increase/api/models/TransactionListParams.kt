@@ -71,6 +71,8 @@ private constructor(
 
     companion object {
 
+        fun none(): TransactionListParams = builder().build()
+
         fun builder() = Builder()
     }
 

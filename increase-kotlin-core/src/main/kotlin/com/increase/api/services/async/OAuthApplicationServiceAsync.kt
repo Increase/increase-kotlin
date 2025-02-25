@@ -18,7 +18,11 @@ interface OAuthApplicationServiceAsync {
 
     /** List OAuth Applications */
     suspend fun list(
-        params: OAuthApplicationListParams,
+        params: OAuthApplicationListParams = OAuthApplicationListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): OAuthApplicationListPageAsync
+
+    /** List OAuth Applications */
+    suspend fun list(requestOptions: RequestOptions): OAuthApplicationListPageAsync =
+        list(OAuthApplicationListParams.none(), requestOptions)
 }

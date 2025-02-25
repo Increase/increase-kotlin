@@ -59,6 +59,8 @@ private constructor(
 
     companion object {
 
+        fun none(): WireDrawdownRequestListParams = builder().build()
+
         fun builder() = Builder()
     }
 

@@ -32,7 +32,11 @@ interface LockboxService {
 
     /** List Lockboxes */
     fun list(
-        params: LockboxListParams,
+        params: LockboxListParams = LockboxListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LockboxListPage
+
+    /** List Lockboxes */
+    fun list(requestOptions: RequestOptions): LockboxListPage =
+        list(LockboxListParams.none(), requestOptions)
 }

@@ -32,7 +32,11 @@ interface ExternalAccountService {
 
     /** List External Accounts */
     fun list(
-        params: ExternalAccountListParams,
+        params: ExternalAccountListParams = ExternalAccountListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ExternalAccountListPage
+
+    /** List External Accounts */
+    fun list(requestOptions: RequestOptions): ExternalAccountListPage =
+        list(ExternalAccountListParams.none(), requestOptions)
 }

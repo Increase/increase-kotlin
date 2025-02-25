@@ -26,9 +26,13 @@ interface IntrafiExclusionServiceAsync {
 
     /** List IntraFi Exclusions */
     suspend fun list(
-        params: IntrafiExclusionListParams,
+        params: IntrafiExclusionListParams = IntrafiExclusionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): IntrafiExclusionListPageAsync
+
+    /** List IntraFi Exclusions */
+    suspend fun list(requestOptions: RequestOptions): IntrafiExclusionListPageAsync =
+        list(IntrafiExclusionListParams.none(), requestOptions)
 
     /** Archive an IntraFi Exclusion */
     suspend fun archive(

@@ -34,9 +34,13 @@ interface CardService {
 
     /** List Cards */
     fun list(
-        params: CardListParams,
+        params: CardListParams = CardListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CardListPage
+
+    /** List Cards */
+    fun list(requestOptions: RequestOptions): CardListPage =
+        list(CardListParams.none(), requestOptions)
 
     /** Retrieve sensitive details for a Card */
     fun details(

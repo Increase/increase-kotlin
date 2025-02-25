@@ -67,6 +67,8 @@ private constructor(
 
     companion object {
 
+        fun none(): EntityListParams = builder().build()
+
         fun builder() = Builder()
     }
 

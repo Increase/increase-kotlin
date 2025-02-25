@@ -25,7 +25,11 @@ interface ExportServiceAsync {
 
     /** List Exports */
     suspend fun list(
-        params: ExportListParams,
+        params: ExportListParams = ExportListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ExportListPageAsync
+
+    /** List Exports */
+    suspend fun list(requestOptions: RequestOptions): ExportListPageAsync =
+        list(ExportListParams.none(), requestOptions)
 }

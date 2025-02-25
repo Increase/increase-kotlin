@@ -25,7 +25,14 @@ interface RealTimePaymentsRequestForPaymentServiceAsync {
 
     /** List Real-Time Payments Request for Payments */
     suspend fun list(
-        params: RealTimePaymentsRequestForPaymentListParams,
+        params: RealTimePaymentsRequestForPaymentListParams =
+            RealTimePaymentsRequestForPaymentListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): RealTimePaymentsRequestForPaymentListPageAsync
+
+    /** List Real-Time Payments Request for Payments */
+    suspend fun list(
+        requestOptions: RequestOptions
+    ): RealTimePaymentsRequestForPaymentListPageAsync =
+        list(RealTimePaymentsRequestForPaymentListParams.none(), requestOptions)
 }

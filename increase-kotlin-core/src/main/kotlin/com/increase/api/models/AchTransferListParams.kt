@@ -70,6 +70,8 @@ private constructor(
 
     companion object {
 
+        fun none(): AchTransferListParams = builder().build()
+
         fun builder() = Builder()
     }
 

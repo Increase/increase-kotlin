@@ -27,9 +27,13 @@ interface DigitalCardProfileServiceAsync {
 
     /** List Card Profiles */
     suspend fun list(
-        params: DigitalCardProfileListParams,
+        params: DigitalCardProfileListParams = DigitalCardProfileListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): DigitalCardProfileListPageAsync
+
+    /** List Card Profiles */
+    suspend fun list(requestOptions: RequestOptions): DigitalCardProfileListPageAsync =
+        list(DigitalCardProfileListParams.none(), requestOptions)
 
     /** Archive a Digital Card Profile */
     suspend fun archive(

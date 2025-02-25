@@ -18,7 +18,11 @@ interface CardPaymentServiceAsync {
 
     /** List Card Payments */
     suspend fun list(
-        params: CardPaymentListParams,
+        params: CardPaymentListParams = CardPaymentListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CardPaymentListPageAsync
+
+    /** List Card Payments */
+    suspend fun list(requestOptions: RequestOptions): CardPaymentListPageAsync =
+        list(CardPaymentListParams.none(), requestOptions)
 }

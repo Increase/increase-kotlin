@@ -18,7 +18,11 @@ interface OAuthConnectionServiceAsync {
 
     /** List OAuth Connections */
     suspend fun list(
-        params: OAuthConnectionListParams,
+        params: OAuthConnectionListParams = OAuthConnectionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): OAuthConnectionListPageAsync
+
+    /** List OAuth Connections */
+    suspend fun list(requestOptions: RequestOptions): OAuthConnectionListPageAsync =
+        list(OAuthConnectionListParams.none(), requestOptions)
 }

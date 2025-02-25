@@ -77,6 +77,8 @@ private constructor(
 
     companion object {
 
+        fun none(): AccountNumberListParams = builder().build()
+
         fun builder() = Builder()
     }
 

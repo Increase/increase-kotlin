@@ -18,7 +18,11 @@ interface CardPaymentService {
 
     /** List Card Payments */
     fun list(
-        params: CardPaymentListParams,
+        params: CardPaymentListParams = CardPaymentListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CardPaymentListPage
+
+    /** List Card Payments */
+    fun list(requestOptions: RequestOptions): CardPaymentListPage =
+        list(CardPaymentListParams.none(), requestOptions)
 }

@@ -32,7 +32,11 @@ interface PhysicalCardServiceAsync {
 
     /** List Physical Cards */
     suspend fun list(
-        params: PhysicalCardListParams,
+        params: PhysicalCardListParams = PhysicalCardListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PhysicalCardListPageAsync
+
+    /** List Physical Cards */
+    suspend fun list(requestOptions: RequestOptions): PhysicalCardListPageAsync =
+        list(PhysicalCardListParams.none(), requestOptions)
 }

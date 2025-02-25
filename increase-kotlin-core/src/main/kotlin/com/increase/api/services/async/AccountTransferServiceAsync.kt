@@ -27,9 +27,13 @@ interface AccountTransferServiceAsync {
 
     /** List Account Transfers */
     suspend fun list(
-        params: AccountTransferListParams,
+        params: AccountTransferListParams = AccountTransferListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AccountTransferListPageAsync
+
+    /** List Account Transfers */
+    suspend fun list(requestOptions: RequestOptions): AccountTransferListPageAsync =
+        list(AccountTransferListParams.none(), requestOptions)
 
     /** Approve an Account Transfer */
     suspend fun approve(

@@ -18,7 +18,11 @@ interface InboundWireDrawdownRequestServiceAsync {
 
     /** List Inbound Wire Drawdown Requests */
     suspend fun list(
-        params: InboundWireDrawdownRequestListParams,
+        params: InboundWireDrawdownRequestListParams = InboundWireDrawdownRequestListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundWireDrawdownRequestListPageAsync
+
+    /** List Inbound Wire Drawdown Requests */
+    suspend fun list(requestOptions: RequestOptions): InboundWireDrawdownRequestListPageAsync =
+        list(InboundWireDrawdownRequestListParams.none(), requestOptions)
 }
