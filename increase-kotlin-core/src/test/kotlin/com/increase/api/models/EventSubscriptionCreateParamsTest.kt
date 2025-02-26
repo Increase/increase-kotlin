@@ -12,7 +12,7 @@ class EventSubscriptionCreateParamsTest {
     fun create() {
         EventSubscriptionCreateParams.builder()
             .url("https://website.com/webhooks")
-            .oauthConnectionId("oauth_connection_id")
+            .oauthConnectionId("x")
             .selectedEventCategory(
                 EventSubscriptionCreateParams.SelectedEventCategory.ACCOUNT_CREATED
             )
@@ -25,7 +25,7 @@ class EventSubscriptionCreateParamsTest {
         val params =
             EventSubscriptionCreateParams.builder()
                 .url("https://website.com/webhooks")
-                .oauthConnectionId("oauth_connection_id")
+                .oauthConnectionId("x")
                 .selectedEventCategory(
                     EventSubscriptionCreateParams.SelectedEventCategory.ACCOUNT_CREATED
                 )
@@ -36,7 +36,7 @@ class EventSubscriptionCreateParamsTest {
 
         assertNotNull(body)
         assertThat(body.url()).isEqualTo("https://website.com/webhooks")
-        assertThat(body.oauthConnectionId()).isEqualTo("oauth_connection_id")
+        assertThat(body.oauthConnectionId()).isEqualTo("x")
         assertThat(body.selectedEventCategory())
             .isEqualTo(EventSubscriptionCreateParams.SelectedEventCategory.ACCOUNT_CREATED)
         assertThat(body.sharedSecret()).isEqualTo("x")
