@@ -1,5 +1,26 @@
 # Changelog
 
+## 0.180.0 (2025-02-26)
+
+Full Changelog: [v0.179.0...v0.180.0](https://github.com/Increase/increase-kotlin/compare/v0.179.0...v0.180.0)
+
+### Features
+
+* **api:** api update ([#813](https://github.com/Increase/increase-kotlin/issues/813)) ([4d16132](https://github.com/Increase/increase-kotlin/commit/4d1613282886fd2f5bc37a56231e5f118d5d7a93))
+* **client:** allow omitting params object when none required ([#811](https://github.com/Increase/increase-kotlin/issues/811)) ([4b68fb5](https://github.com/Increase/increase-kotlin/commit/4b68fb59af91701d9f2e4bcda11a3e63b6e10b71))
+
+
+### Chores
+
+* **internal:** add async service tests ([#812](https://github.com/Increase/increase-kotlin/issues/812)) ([0670a07](https://github.com/Increase/increase-kotlin/commit/0670a072c3ee35c31cc9e1e17dee03da2a0a7f9f))
+* **internal:** improve sync service tests ([0670a07](https://github.com/Increase/increase-kotlin/commit/0670a072c3ee35c31cc9e1e17dee03da2a0a7f9f))
+
+
+### Documentation
+
+* add source file links to readme ([#809](https://github.com/Increase/increase-kotlin/issues/809)) ([28b3810](https://github.com/Increase/increase-kotlin/commit/28b3810983d9f5149e1e8249407db075b97c84f7))
+* readme parameter tweaks ([0670a07](https://github.com/Increase/increase-kotlin/commit/0670a072c3ee35c31cc9e1e17dee03da2a0a7f9f))
+
 ## 0.179.0 (2025-02-24)
 
 Full Changelog: [v0.178.0...v0.179.0](https://github.com/Increase/increase-kotlin/compare/v0.178.0...v0.179.0)
