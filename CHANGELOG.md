@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.181.0 (2025-02-28)
+
+Full Changelog: [v0.180.0...v0.181.0](https://github.com/Increase/increase-kotlin/compare/v0.180.0...v0.181.0)
+
+### Features
+
+* **api:** api update ([#820](https://github.com/Increase/increase-kotlin/issues/820)) ([7dee2c0](https://github.com/Increase/increase-kotlin/commit/7dee2c097e128593e26b7a61cf9a9e448a53968c))
+
+
+### Chores
+
+* **client:** use deep identity methods for primitive array types ([#815](https://github.com/Increase/increase-kotlin/issues/815)) ([2c240d9](https://github.com/Increase/increase-kotlin/commit/2c240d9f0316c638cf23726827850f97fa71b985))
+* **internal:** refactor `ServiceParamsTest` ([#817](https://github.com/Increase/increase-kotlin/issues/817)) ([e021532](https://github.com/Increase/increase-kotlin/commit/e021532643dbdad1e1fbad943a18454289d49dfd))
+
+
+### Documentation
+
+* update URLs from stainlessapi.com to stainless.com ([#819](https://github.com/Increase/increase-kotlin/issues/819)) ([e226761](https://github.com/Increase/increase-kotlin/commit/e22676152dc6c5d3c96af5aa8042980261bfe584))
+
 ## 0.180.0 (2025-02-26)
 
 Full Changelog: [v0.179.0...v0.180.0](https://github.com/Increase/increase-kotlin/compare/v0.179.0...v0.180.0)
