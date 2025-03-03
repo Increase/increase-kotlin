@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.186.0 (2025-03-03)
+
+Full Changelog: [v0.185.0...v0.186.0](https://github.com/Increase/increase-kotlin/compare/v0.185.0...v0.186.0)
+
+### Features
+
+* **api:** api update ([#836](https://github.com/Increase/increase-kotlin/issues/836)) ([b9091de](https://github.com/Increase/increase-kotlin/commit/b9091dec28db3fbac3c6dad501131e52f15ee61d))
+
+
+### Chores
+
+* **internal:** refactor `ErrorHandlingTest` ([#834](https://github.com/Increase/increase-kotlin/issues/834)) ([14fbda4](https://github.com/Increase/increase-kotlin/commit/14fbda455c0732ac48d810a3bd30fb5d9a885519))
+
 ## 0.185.0 (2025-03-01)
 
 Full Changelog: [v0.184.0...v0.185.0](https://github.com/Increase/increase-kotlin/compare/v0.184.0...v0.185.0)
