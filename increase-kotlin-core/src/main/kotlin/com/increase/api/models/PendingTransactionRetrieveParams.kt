@@ -39,6 +39,15 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [PendingTransactionRetrieveParams].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .pendingTransactionId()
+         * ```
+         */
         fun builder() = Builder()
     }
 

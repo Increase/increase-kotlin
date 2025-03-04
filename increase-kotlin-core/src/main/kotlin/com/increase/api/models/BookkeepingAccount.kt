@@ -131,6 +131,20 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [BookkeepingAccount].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .accountId()
+         * .complianceCategory()
+         * .entityId()
+         * .idempotencyKey()
+         * .name()
+         * .type()
+         * ```
+         */
         fun builder() = Builder()
     }
 

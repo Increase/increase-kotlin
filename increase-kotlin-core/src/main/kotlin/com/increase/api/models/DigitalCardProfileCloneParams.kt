@@ -239,6 +239,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Body]. */
             fun builder() = Builder()
         }
 
@@ -396,6 +397,15 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [DigitalCardProfileCloneParams].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .digitalCardProfileId()
+         * ```
+         */
         fun builder() = Builder()
     }
 
@@ -669,6 +679,16 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [TextColor].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .blue()
+             * .green()
+             * .red()
+             * ```
+             */
             fun builder() = Builder()
         }
 

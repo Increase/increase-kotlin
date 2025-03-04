@@ -158,6 +158,21 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [Export].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .category()
+         * .createdAt()
+         * .fileDownloadUrl()
+         * .fileId()
+         * .idempotencyKey()
+         * .status()
+         * .type()
+         * ```
+         */
         fun builder() = Builder()
     }
 

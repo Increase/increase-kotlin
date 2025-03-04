@@ -228,6 +228,18 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Body].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .appIconFileId()
+             * .backgroundImageFileId()
+             * .cardDescription()
+             * .description()
+             * .issuerName()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -385,6 +397,19 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [DigitalCardProfileCreateParams].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .appIconFileId()
+         * .backgroundImageFileId()
+         * .cardDescription()
+         * .description()
+         * .issuerName()
+         * ```
+         */
         fun builder() = Builder()
     }
 
@@ -650,6 +675,16 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [TextColor].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .blue()
+             * .green()
+             * .red()
+             * ```
+             */
             fun builder() = Builder()
         }
 

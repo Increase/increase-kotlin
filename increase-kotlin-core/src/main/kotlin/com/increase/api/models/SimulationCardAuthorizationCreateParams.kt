@@ -442,6 +442,14 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Body].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .amount()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -719,6 +727,15 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [SimulationCardAuthorizationCreateParams].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .amount()
+         * ```
+         */
         fun builder() = Builder()
     }
 
@@ -1465,6 +1482,14 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [NetworkDetails].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .visa()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -1550,6 +1575,7 @@ private constructor(
 
             companion object {
 
+                /** Returns a mutable builder for constructing an instance of [Visa]. */
                 fun builder() = Builder()
             }
 

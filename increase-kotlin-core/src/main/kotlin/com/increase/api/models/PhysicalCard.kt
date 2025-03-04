@@ -165,6 +165,22 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [PhysicalCard].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .cardId()
+         * .cardholder()
+         * .createdAt()
+         * .idempotencyKey()
+         * .physicalCardProfileId()
+         * .shipment()
+         * .status()
+         * .type()
+         * ```
+         */
         fun builder() = Builder()
     }
 
@@ -356,6 +372,15 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Cardholder].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .firstName()
+             * .lastName()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -496,6 +521,17 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Shipment].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .address()
+             * .method()
+             * .status()
+             * .tracking()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -668,6 +704,20 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [Address].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .city()
+                 * .line1()
+                 * .line2()
+                 * .line3()
+                 * .name()
+                 * .postalCode()
+                 * .state()
+                 * ```
+                 */
                 fun builder() = Builder()
             }
 
@@ -1162,6 +1212,17 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [Tracking].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .number()
+                 * .returnNumber()
+                 * .returnReason()
+                 * .shippedAt()
+                 * ```
+                 */
                 fun builder() = Builder()
             }
 

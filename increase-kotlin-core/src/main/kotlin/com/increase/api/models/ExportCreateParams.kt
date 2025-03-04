@@ -212,6 +212,14 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Body].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .category()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -360,6 +368,14 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [ExportCreateParams].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .category()
+         * ```
+         */
         fun builder() = Builder()
     }
 
@@ -766,6 +782,14 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [AccountStatementOfx].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .accountId()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -918,6 +942,7 @@ private constructor(
 
             companion object {
 
+                /** Returns a mutable builder for constructing an instance of [CreatedAt]. */
                 fun builder() = Builder()
             }
 
@@ -1117,6 +1142,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [BalanceCsv]. */
             fun builder() = Builder()
         }
 
@@ -1273,6 +1299,7 @@ private constructor(
 
             companion object {
 
+                /** Returns a mutable builder for constructing an instance of [CreatedAt]. */
                 fun builder() = Builder()
             }
 
@@ -1468,6 +1495,10 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [BookkeepingAccountBalanceCsv].
+             */
             fun builder() = Builder()
         }
 
@@ -1624,6 +1655,7 @@ private constructor(
 
             companion object {
 
+                /** Returns a mutable builder for constructing an instance of [CreatedAt]. */
                 fun builder() = Builder()
             }
 
@@ -1801,6 +1833,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [EntityCsv]. */
             fun builder() = Builder()
         }
 
@@ -1886,6 +1919,14 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [Status].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .in_()
+                 * ```
+                 */
                 fun builder() = Builder()
             }
 
@@ -2170,6 +2211,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [TransactionCsv]. */
             fun builder() = Builder()
         }
 
@@ -2326,6 +2368,7 @@ private constructor(
 
             companion object {
 
+                /** Returns a mutable builder for constructing an instance of [CreatedAt]. */
                 fun builder() = Builder()
             }
 

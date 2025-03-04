@@ -50,6 +50,15 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [IntrafiExclusionArchiveParams].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .intrafiExclusionId()
+         * ```
+         */
         fun builder() = Builder()
     }
 

@@ -39,6 +39,15 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [IntrafiBalanceIntrafiBalanceParams].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .accountId()
+         * ```
+         */
         fun builder() = Builder()
     }
 

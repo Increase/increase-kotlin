@@ -98,6 +98,17 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [SimulationCardAuthorizationCreateResponse].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .declinedTransaction()
+         * .pendingTransaction()
+         * .type()
+         * ```
+         */
         fun builder() = Builder()
     }
 

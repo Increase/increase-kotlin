@@ -196,6 +196,24 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [RealTimeDecision].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .cardAuthentication()
+         * .cardAuthenticationChallenge()
+         * .cardAuthorization()
+         * .category()
+         * .createdAt()
+         * .digitalWalletAuthentication()
+         * .digitalWalletToken()
+         * .status()
+         * .timeoutAt()
+         * .type()
+         * ```
+         */
         fun builder() = Builder()
     }
 
@@ -441,6 +459,17 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [CardAuthentication].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .accountId()
+             * .cardId()
+             * .decision()
+             * .upcomingCardPaymentId()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -739,6 +768,19 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [CardAuthenticationChallenge].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .accountId()
+             * .cardId()
+             * .cardPaymentId()
+             * .oneTimeCode()
+             * .result()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -1365,6 +1407,38 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [CardAuthorization].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .accountId()
+             * .cardId()
+             * .decision()
+             * .digitalWalletTokenId()
+             * .direction()
+             * .merchantAcceptorId()
+             * .merchantCategoryCode()
+             * .merchantCity()
+             * .merchantCountry()
+             * .merchantDescriptor()
+             * .merchantPostalCode()
+             * .merchantState()
+             * .networkDetails()
+             * .networkIdentifiers()
+             * .networkRiskScore()
+             * .physicalCardId()
+             * .presentmentAmount()
+             * .presentmentCurrency()
+             * .processingCategory()
+             * .requestDetails()
+             * .settlementAmount()
+             * .settlementCurrency()
+             * .terminalId()
+             * .upcomingCardPaymentId()
+             * .verification()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -2057,6 +2131,15 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [NetworkDetails].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .category()
+                 * .visa()
+                 * ```
+                 */
                 fun builder() = Builder()
             }
 
@@ -2308,6 +2391,16 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of [Visa].
+                     *
+                     * The following fields are required:
+                     * ```kotlin
+                     * .electronicCommerceIndicator()
+                     * .pointOfServiceEntryMode()
+                     * .standInProcessingReason()
+                     * ```
+                     */
                     fun builder() = Builder()
                 }
 
@@ -3236,6 +3329,16 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [NetworkIdentifiers].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .retrievalReferenceNumber()
+                 * .traceNumber()
+                 * .transactionId()
+                 * ```
+                 */
                 fun builder() = Builder()
             }
 
@@ -3608,6 +3711,16 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [RequestDetails].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .category()
+                 * .incrementalAuthorization()
+                 * .initialAuthorization()
+                 * ```
+                 */
                 fun builder() = Builder()
             }
 
@@ -3858,6 +3971,16 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of
+                     * [IncrementalAuthorization].
+                     *
+                     * The following fields are required:
+                     * ```kotlin
+                     * .cardPaymentId()
+                     * .originalCardAuthorizationId()
+                     * ```
+                     */
                     fun builder() = Builder()
                 }
 
@@ -4034,6 +4157,15 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [Verification].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .cardVerificationCode()
+                 * .cardholderAddress()
+                 * ```
+                 */
                 fun builder() = Builder()
             }
 
@@ -4151,6 +4283,15 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of
+                     * [CardVerificationCode].
+                     *
+                     * The following fields are required:
+                     * ```kotlin
+                     * .result()
+                     * ```
+                     */
                     fun builder() = Builder()
                 }
 
@@ -4435,6 +4576,19 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of
+                     * [CardholderAddress].
+                     *
+                     * The following fields are required:
+                     * ```kotlin
+                     * .actualLine1()
+                     * .actualPostalCode()
+                     * .providedLine1()
+                     * .providedPostalCode()
+                     * .result()
+                     * ```
+                     */
                     fun builder() = Builder()
                 }
 
@@ -4994,6 +5148,21 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [DigitalWalletAuthentication].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .cardId()
+             * .channel()
+             * .digitalWallet()
+             * .email()
+             * .oneTimePasscode()
+             * .phone()
+             * .result()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -5552,6 +5721,17 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [DigitalWalletToken].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .cardId()
+             * .cardProfileId()
+             * .decision()
+             * .digitalWallet()
+             * ```
+             */
             fun builder() = Builder()
         }
 

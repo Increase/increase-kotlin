@@ -39,6 +39,15 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [ProofOfAuthorizationRequestSubmissionRetrieveParams].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .proofOfAuthorizationRequestSubmissionId()
+         * ```
+         */
         fun builder() = Builder()
     }
 

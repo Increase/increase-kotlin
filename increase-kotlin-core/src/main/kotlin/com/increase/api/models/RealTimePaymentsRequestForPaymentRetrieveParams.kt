@@ -39,6 +39,15 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [RealTimePaymentsRequestForPaymentRetrieveParams].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .requestForPaymentId()
+         * ```
+         */
         fun builder() = Builder()
     }
 

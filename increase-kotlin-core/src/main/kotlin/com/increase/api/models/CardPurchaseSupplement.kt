@@ -117,6 +117,19 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [CardPurchaseSupplement].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .cardPaymentId()
+         * .invoice()
+         * .lineItems()
+         * .transactionId()
+         * .type()
+         * ```
+         */
         fun builder() = Builder()
     }
 
@@ -457,6 +470,29 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Invoice].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .discountAmount()
+             * .discountCurrency()
+             * .discountTreatmentCode()
+             * .dutyTaxAmount()
+             * .dutyTaxCurrency()
+             * .orderDate()
+             * .shippingAmount()
+             * .shippingCurrency()
+             * .shippingDestinationCountryCode()
+             * .shippingDestinationPostalCode()
+             * .shippingSourcePostalCode()
+             * .shippingTaxAmount()
+             * .shippingTaxCurrency()
+             * .shippingTaxRate()
+             * .taxTreatments()
+             * .uniqueValueAddedTaxInvoiceReference()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -1222,6 +1258,30 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [LineItem].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .id()
+             * .detailIndicator()
+             * .discountAmount()
+             * .discountCurrency()
+             * .discountTreatmentCode()
+             * .itemCommodityCode()
+             * .itemDescriptor()
+             * .itemQuantity()
+             * .productCode()
+             * .salesTaxAmount()
+             * .salesTaxCurrency()
+             * .salesTaxRate()
+             * .totalAmount()
+             * .totalAmountCurrency()
+             * .unitCost()
+             * .unitCostCurrency()
+             * .unitOfMeasureCode()
+             * ```
+             */
             fun builder() = Builder()
         }
 

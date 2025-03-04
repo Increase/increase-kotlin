@@ -261,6 +261,29 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [AchPrenotification].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .accountNumber()
+         * .addendum()
+         * .companyDescriptiveDate()
+         * .companyDiscretionaryData()
+         * .companyEntryDescription()
+         * .companyName()
+         * .createdAt()
+         * .creditDebitIndicator()
+         * .effectiveDate()
+         * .idempotencyKey()
+         * .notificationsOfChange()
+         * .prenotificationReturn()
+         * .routingNumber()
+         * .status()
+         * .type()
+         * ```
+         */
         fun builder() = Builder()
     }
 
@@ -708,6 +731,16 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [NotificationsOfChange].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .changeCode()
+             * .correctedData()
+             * .createdAt()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -1218,6 +1251,15 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [PrenotificationReturn].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .createdAt()
+             * .returnReasonCode()
+             * ```
+             */
             fun builder() = Builder()
         }
 

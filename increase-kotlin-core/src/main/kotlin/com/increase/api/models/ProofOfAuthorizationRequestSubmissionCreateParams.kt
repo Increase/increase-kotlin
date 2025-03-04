@@ -287,6 +287,22 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Body].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .authorizationTerms()
+             * .authorizedAt()
+             * .authorizerEmail()
+             * .authorizerName()
+             * .customerHasBeenOffboarded()
+             * .proofOfAuthorizationRequestId()
+             * .validatedAccountOwnershipViaCredential()
+             * .validatedAccountOwnershipWithAccountStatement()
+             * .validatedAccountOwnershipWithMicrodeposit()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -510,6 +526,23 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [ProofOfAuthorizationRequestSubmissionCreateParams].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .authorizationTerms()
+         * .authorizedAt()
+         * .authorizerEmail()
+         * .authorizerName()
+         * .customerHasBeenOffboarded()
+         * .proofOfAuthorizationRequestId()
+         * .validatedAccountOwnershipViaCredential()
+         * .validatedAccountOwnershipWithAccountStatement()
+         * .validatedAccountOwnershipWithMicrodeposit()
+         * ```
+         */
         fun builder() = Builder()
     }
 

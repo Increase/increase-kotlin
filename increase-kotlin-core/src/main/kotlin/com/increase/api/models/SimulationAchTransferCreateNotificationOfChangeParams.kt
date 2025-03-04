@@ -114,6 +114,15 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Body].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .changeCode()
+             * .correctedData()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -195,6 +204,17 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [SimulationAchTransferCreateNotificationOfChangeParams].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .achTransferId()
+         * .changeCode()
+         * .correctedData()
+         * ```
+         */
         fun builder() = Builder()
     }
 

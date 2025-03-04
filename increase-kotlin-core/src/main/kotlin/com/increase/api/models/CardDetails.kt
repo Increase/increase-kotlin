@@ -122,6 +122,19 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [CardDetails].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .cardId()
+         * .expirationMonth()
+         * .expirationYear()
+         * .primaryAccountNumber()
+         * .type()
+         * .verificationCode()
+         * ```
+         */
         fun builder() = Builder()
     }
 

@@ -34,6 +34,15 @@ private constructor(
 
         const val SANDBOX_URL = "https://sandbox.increase.com"
 
+        /**
+         * Returns a mutable builder for constructing an instance of [ClientOptions].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .httpClient()
+         * .apiKey()
+         * ```
+         */
         fun builder() = Builder()
 
         fun fromEnv(): ClientOptions = builder().fromEnv().build()

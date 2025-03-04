@@ -29,6 +29,7 @@ private constructor(
 
         fun none(): GroupRetrieveParams = builder().build()
 
+        /** Returns a mutable builder for constructing an instance of [GroupRetrieveParams]. */
         fun builder() = Builder()
     }
 

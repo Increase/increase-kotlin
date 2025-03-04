@@ -59,6 +59,10 @@ private constructor(
 
         fun none(): ProofOfAuthorizationRequestSubmissionListParams = builder().build()
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [ProofOfAuthorizationRequestSubmissionListParams].
+         */
         fun builder() = Builder()
     }
 

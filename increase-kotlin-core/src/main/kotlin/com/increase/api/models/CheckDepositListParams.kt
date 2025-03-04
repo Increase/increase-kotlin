@@ -65,6 +65,7 @@ private constructor(
 
         fun none(): CheckDepositListParams = builder().build()
 
+        /** Returns a mutable builder for constructing an instance of [CheckDepositListParams]. */
         fun builder() = Builder()
     }
 
@@ -279,6 +280,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [CreatedAt]. */
             fun builder() = Builder()
         }
 

@@ -49,6 +49,14 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [EntityArchiveParams].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .entityId()
+         * ```
+         */
         fun builder() = Builder()
     }
 

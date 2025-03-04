@@ -136,6 +136,10 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [IntrafiAccountEnrollmentListPageAsync].
+             */
             fun builder() = Builder()
         }
 

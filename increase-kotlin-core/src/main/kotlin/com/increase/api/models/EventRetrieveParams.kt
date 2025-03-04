@@ -39,6 +39,14 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [EventRetrieveParams].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .eventId()
+         * ```
+         */
         fun builder() = Builder()
     }
 

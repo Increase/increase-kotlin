@@ -153,6 +153,22 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [CardPayment].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .accountId()
+         * .cardId()
+         * .createdAt()
+         * .digitalWalletTokenId()
+         * .elements()
+         * .physicalCardId()
+         * .state()
+         * .type()
+         * ```
+         */
         fun builder() = Builder()
     }
 
@@ -576,6 +592,26 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Element].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .cardAuthentication()
+             * .cardAuthorization()
+             * .cardAuthorizationExpiration()
+             * .cardDecline()
+             * .cardFuelConfirmation()
+             * .cardIncrement()
+             * .cardRefund()
+             * .cardReversal()
+             * .cardSettlement()
+             * .cardValidation()
+             * .category()
+             * .createdAt()
+             * .other()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -1131,6 +1167,30 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [CardAuthentication].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .id()
+                 * .cardId()
+                 * .cardPaymentId()
+                 * .category()
+                 * .challenge()
+                 * .createdAt()
+                 * .denyReason()
+                 * .deviceChannel()
+                 * .merchantAcceptorId()
+                 * .merchantCategoryCode()
+                 * .merchantCountry()
+                 * .merchantName()
+                 * .purchaseAmount()
+                 * .purchaseCurrency()
+                 * .realTimeDecisionId()
+                 * .status()
+                 * .type()
+                 * ```
+                 */
                 fun builder() = Builder()
             }
 
@@ -1607,6 +1667,18 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of [Challenge].
+                     *
+                     * The following fields are required:
+                     * ```kotlin
+                     * .attempts()
+                     * .createdAt()
+                     * .oneTimeCode()
+                     * .verificationMethod()
+                     * .verificationValue()
+                     * ```
+                     */
                     fun builder() = Builder()
                 }
 
@@ -1781,6 +1853,15 @@ private constructor(
 
                     companion object {
 
+                        /**
+                         * Returns a mutable builder for constructing an instance of [Attempt].
+                         *
+                         * The following fields are required:
+                         * ```kotlin
+                         * .createdAt()
+                         * .outcome()
+                         * ```
+                         */
                         fun builder() = Builder()
                     }
 
@@ -3137,6 +3218,40 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [CardAuthorization].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .id()
+                 * .actioner()
+                 * .amount()
+                 * .cardPaymentId()
+                 * .currency()
+                 * .digitalWalletTokenId()
+                 * .direction()
+                 * .expiresAt()
+                 * .merchantAcceptorId()
+                 * .merchantCategoryCode()
+                 * .merchantCity()
+                 * .merchantCountry()
+                 * .merchantDescriptor()
+                 * .merchantPostalCode()
+                 * .merchantState()
+                 * .networkDetails()
+                 * .networkIdentifiers()
+                 * .networkRiskScore()
+                 * .pendingTransactionId()
+                 * .physicalCardId()
+                 * .presentmentAmount()
+                 * .presentmentCurrency()
+                 * .processingCategory()
+                 * .realTimeDecisionId()
+                 * .terminalId()
+                 * .type()
+                 * .verification()
+                 * ```
+                 */
                 fun builder() = Builder()
             }
 
@@ -4032,6 +4147,15 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of [NetworkDetails].
+                     *
+                     * The following fields are required:
+                     * ```kotlin
+                     * .category()
+                     * .visa()
+                     * ```
+                     */
                     fun builder() = Builder()
                 }
 
@@ -4287,6 +4411,16 @@ private constructor(
 
                     companion object {
 
+                        /**
+                         * Returns a mutable builder for constructing an instance of [Visa].
+                         *
+                         * The following fields are required:
+                         * ```kotlin
+                         * .electronicCommerceIndicator()
+                         * .pointOfServiceEntryMode()
+                         * .standInProcessingReason()
+                         * ```
+                         */
                         fun builder() = Builder()
                     }
 
@@ -5235,6 +5369,17 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of
+                     * [NetworkIdentifiers].
+                     *
+                     * The following fields are required:
+                     * ```kotlin
+                     * .retrievalReferenceNumber()
+                     * .traceNumber()
+                     * .transactionId()
+                     * ```
+                     */
                     fun builder() = Builder()
                 }
 
@@ -5709,6 +5854,15 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of [Verification].
+                     *
+                     * The following fields are required:
+                     * ```kotlin
+                     * .cardVerificationCode()
+                     * .cardholderAddress()
+                     * ```
+                     */
                     fun builder() = Builder()
                 }
 
@@ -5827,6 +5981,15 @@ private constructor(
 
                     companion object {
 
+                        /**
+                         * Returns a mutable builder for constructing an instance of
+                         * [CardVerificationCode].
+                         *
+                         * The following fields are required:
+                         * ```kotlin
+                         * .result()
+                         * ```
+                         */
                         fun builder() = Builder()
                     }
 
@@ -6123,6 +6286,19 @@ private constructor(
 
                     companion object {
 
+                        /**
+                         * Returns a mutable builder for constructing an instance of
+                         * [CardholderAddress].
+                         *
+                         * The following fields are required:
+                         * ```kotlin
+                         * .actualLine1()
+                         * .actualPostalCode()
+                         * .providedLine1()
+                         * .providedPostalCode()
+                         * .result()
+                         * ```
+                         */
                         fun builder() = Builder()
                     }
 
@@ -6561,6 +6737,20 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of
+                 * [CardAuthorizationExpiration].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .id()
+                 * .cardAuthorizationId()
+                 * .currency()
+                 * .expiredAmount()
+                 * .network()
+                 * .type()
+                 * ```
+                 */
                 fun builder() = Builder()
             }
 
@@ -7490,6 +7680,40 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [CardDecline].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .id()
+                 * .actioner()
+                 * .amount()
+                 * .cardPaymentId()
+                 * .currency()
+                 * .declinedTransactionId()
+                 * .digitalWalletTokenId()
+                 * .direction()
+                 * .merchantAcceptorId()
+                 * .merchantCategoryCode()
+                 * .merchantCity()
+                 * .merchantCountry()
+                 * .merchantDescriptor()
+                 * .merchantPostalCode()
+                 * .merchantState()
+                 * .networkDetails()
+                 * .networkIdentifiers()
+                 * .networkRiskScore()
+                 * .physicalCardId()
+                 * .presentmentAmount()
+                 * .presentmentCurrency()
+                 * .processingCategory()
+                 * .realTimeDecisionId()
+                 * .realTimeDecisionReason()
+                 * .reason()
+                 * .terminalId()
+                 * .verification()
+                 * ```
+                 */
                 fun builder() = Builder()
             }
 
@@ -8378,6 +8602,15 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of [NetworkDetails].
+                     *
+                     * The following fields are required:
+                     * ```kotlin
+                     * .category()
+                     * .visa()
+                     * ```
+                     */
                     fun builder() = Builder()
                 }
 
@@ -8633,6 +8866,16 @@ private constructor(
 
                     companion object {
 
+                        /**
+                         * Returns a mutable builder for constructing an instance of [Visa].
+                         *
+                         * The following fields are required:
+                         * ```kotlin
+                         * .electronicCommerceIndicator()
+                         * .pointOfServiceEntryMode()
+                         * .standInProcessingReason()
+                         * ```
+                         */
                         fun builder() = Builder()
                     }
 
@@ -9581,6 +9824,17 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of
+                     * [NetworkIdentifiers].
+                     *
+                     * The following fields are required:
+                     * ```kotlin
+                     * .retrievalReferenceNumber()
+                     * .traceNumber()
+                     * .transactionId()
+                     * ```
+                     */
                     fun builder() = Builder()
                 }
 
@@ -10439,6 +10693,15 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of [Verification].
+                     *
+                     * The following fields are required:
+                     * ```kotlin
+                     * .cardVerificationCode()
+                     * .cardholderAddress()
+                     * ```
+                     */
                     fun builder() = Builder()
                 }
 
@@ -10557,6 +10820,15 @@ private constructor(
 
                     companion object {
 
+                        /**
+                         * Returns a mutable builder for constructing an instance of
+                         * [CardVerificationCode].
+                         *
+                         * The following fields are required:
+                         * ```kotlin
+                         * .result()
+                         * ```
+                         */
                         fun builder() = Builder()
                     }
 
@@ -10853,6 +11125,19 @@ private constructor(
 
                     companion object {
 
+                        /**
+                         * Returns a mutable builder for constructing an instance of
+                         * [CardholderAddress].
+                         *
+                         * The following fields are required:
+                         * ```kotlin
+                         * .actualLine1()
+                         * .actualPostalCode()
+                         * .providedLine1()
+                         * .providedPostalCode()
+                         * .result()
+                         * ```
+                         */
                         fun builder() = Builder()
                     }
 
@@ -11324,6 +11609,21 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [CardFuelConfirmation].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .id()
+                 * .cardAuthorizationId()
+                 * .currency()
+                 * .network()
+                 * .networkIdentifiers()
+                 * .pendingTransactionId()
+                 * .type()
+                 * .updatedAuthorizationAmount()
+                 * ```
+                 */
                 fun builder() = Builder()
             }
 
@@ -11807,6 +12107,17 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of
+                     * [NetworkIdentifiers].
+                     *
+                     * The following fields are required:
+                     * ```kotlin
+                     * .retrievalReferenceNumber()
+                     * .traceNumber()
+                     * .transactionId()
+                     * ```
+                     */
                     fun builder() = Builder()
                 }
 
@@ -12255,6 +12566,25 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [CardIncrement].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .id()
+                 * .actioner()
+                 * .amount()
+                 * .cardAuthorizationId()
+                 * .currency()
+                 * .network()
+                 * .networkIdentifiers()
+                 * .networkRiskScore()
+                 * .pendingTransactionId()
+                 * .realTimeDecisionId()
+                 * .type()
+                 * .updatedAuthorizationAmount()
+                 * ```
+                 */
                 fun builder() = Builder()
             }
 
@@ -12931,6 +13261,17 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of
+                     * [NetworkIdentifiers].
+                     *
+                     * The following fields are required:
+                     * ```kotlin
+                     * .retrievalReferenceNumber()
+                     * .traceNumber()
+                     * .transactionId()
+                     * ```
+                     */
                     fun builder() = Builder()
                 }
 
@@ -13465,6 +13806,32 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [CardRefund].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .id()
+                 * .amount()
+                 * .cardPaymentId()
+                 * .cashback()
+                 * .currency()
+                 * .interchange()
+                 * .merchantAcceptorId()
+                 * .merchantCategoryCode()
+                 * .merchantCity()
+                 * .merchantCountry()
+                 * .merchantName()
+                 * .merchantPostalCode()
+                 * .merchantState()
+                 * .networkIdentifiers()
+                 * .presentmentAmount()
+                 * .presentmentCurrency()
+                 * .purchaseDetails()
+                 * .transactionId()
+                 * .type()
+                 * ```
+                 */
                 fun builder() = Builder()
             }
 
@@ -13822,6 +14189,15 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of [Cashback].
+                     *
+                     * The following fields are required:
+                     * ```kotlin
+                     * .amount()
+                     * .currency()
+                     * ```
+                     */
                     fun builder() = Builder()
                 }
 
@@ -14281,6 +14657,16 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of [Interchange].
+                     *
+                     * The following fields are required:
+                     * ```kotlin
+                     * .amount()
+                     * .code()
+                     * .currency()
+                     * ```
+                     */
                     fun builder() = Builder()
                 }
 
@@ -14609,6 +14995,17 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of
+                     * [NetworkIdentifiers].
+                     *
+                     * The following fields are required:
+                     * ```kotlin
+                     * .acquirerBusinessId()
+                     * .acquirerReferenceNumber()
+                     * .transactionId()
+                     * ```
+                     */
                     fun builder() = Builder()
                 }
 
@@ -14887,6 +15284,23 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of [PurchaseDetails].
+                     *
+                     * The following fields are required:
+                     * ```kotlin
+                     * .carRental()
+                     * .customerReferenceIdentifier()
+                     * .localTaxAmount()
+                     * .localTaxCurrency()
+                     * .lodging()
+                     * .nationalTaxAmount()
+                     * .nationalTaxCurrency()
+                     * .purchaseIdentifier()
+                     * .purchaseIdentifierFormat()
+                     * .travel()
+                     * ```
+                     */
                     fun builder() = Builder()
                 }
 
@@ -15355,6 +15769,29 @@ private constructor(
 
                     companion object {
 
+                        /**
+                         * Returns a mutable builder for constructing an instance of [CarRental].
+                         *
+                         * The following fields are required:
+                         * ```kotlin
+                         * .carClassCode()
+                         * .checkoutDate()
+                         * .dailyRentalRateAmount()
+                         * .dailyRentalRateCurrency()
+                         * .daysRented()
+                         * .extraCharges()
+                         * .fuelChargesAmount()
+                         * .fuelChargesCurrency()
+                         * .insuranceChargesAmount()
+                         * .insuranceChargesCurrency()
+                         * .noShowIndicator()
+                         * .oneWayDropOffChargesAmount()
+                         * .oneWayDropOffChargesCurrency()
+                         * .renterName()
+                         * .weeklyRentalRateAmount()
+                         * .weeklyRentalRateCurrency()
+                         * ```
+                         */
                         fun builder() = Builder()
                     }
 
@@ -16247,6 +16684,29 @@ private constructor(
 
                     companion object {
 
+                        /**
+                         * Returns a mutable builder for constructing an instance of [Lodging].
+                         *
+                         * The following fields are required:
+                         * ```kotlin
+                         * .checkInDate()
+                         * .dailyRoomRateAmount()
+                         * .dailyRoomRateCurrency()
+                         * .extraCharges()
+                         * .folioCashAdvancesAmount()
+                         * .folioCashAdvancesCurrency()
+                         * .foodBeverageChargesAmount()
+                         * .foodBeverageChargesCurrency()
+                         * .noShowIndicator()
+                         * .prepaidExpensesAmount()
+                         * .prepaidExpensesCurrency()
+                         * .roomNights()
+                         * .totalRoomTaxAmount()
+                         * .totalRoomTaxCurrency()
+                         * .totalTaxAmount()
+                         * .totalTaxCurrency()
+                         * ```
+                         */
                         fun builder() = Builder()
                     }
 
@@ -17198,6 +17658,25 @@ private constructor(
 
                     companion object {
 
+                        /**
+                         * Returns a mutable builder for constructing an instance of [Travel].
+                         *
+                         * The following fields are required:
+                         * ```kotlin
+                         * .ancillary()
+                         * .computerizedReservationSystem()
+                         * .creditReasonIndicator()
+                         * .departureDate()
+                         * .originationCityAirportCode()
+                         * .passengerName()
+                         * .restrictedTicketIndicator()
+                         * .ticketChangeIndicator()
+                         * .ticketNumber()
+                         * .travelAgencyCode()
+                         * .travelAgencyName()
+                         * .tripLegs()
+                         * ```
+                         */
                         fun builder() = Builder()
                     }
 
@@ -17532,6 +18011,19 @@ private constructor(
 
                         companion object {
 
+                            /**
+                             * Returns a mutable builder for constructing an instance of
+                             * [Ancillary].
+                             *
+                             * The following fields are required:
+                             * ```kotlin
+                             * .connectedTicketDocumentNumber()
+                             * .creditReasonIndicator()
+                             * .passengerNameOrDescription()
+                             * .services()
+                             * .ticketDocumentNumber()
+                             * ```
+                             */
                             fun builder() = Builder()
                         }
 
@@ -17877,6 +18369,16 @@ private constructor(
 
                             companion object {
 
+                                /**
+                                 * Returns a mutable builder for constructing an instance of
+                                 * [Service].
+                                 *
+                                 * The following fields are required:
+                                 * ```kotlin
+                                 * .category()
+                                 * .subCategory()
+                                 * ```
+                                 */
                                 fun builder() = Builder()
                             }
 
@@ -18826,6 +19328,19 @@ private constructor(
 
                         companion object {
 
+                            /**
+                             * Returns a mutable builder for constructing an instance of [TripLeg].
+                             *
+                             * The following fields are required:
+                             * ```kotlin
+                             * .carrierCode()
+                             * .destinationCityAirportCode()
+                             * .fareBasisCode()
+                             * .flightNumber()
+                             * .serviceClass()
+                             * .stopOverCode()
+                             * ```
+                             */
                             fun builder() = Builder()
                         }
 
@@ -19541,6 +20056,31 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [CardReversal].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .id()
+                 * .cardAuthorizationId()
+                 * .currency()
+                 * .merchantAcceptorId()
+                 * .merchantCategoryCode()
+                 * .merchantCity()
+                 * .merchantCountry()
+                 * .merchantDescriptor()
+                 * .merchantPostalCode()
+                 * .merchantState()
+                 * .network()
+                 * .networkIdentifiers()
+                 * .pendingTransactionId()
+                 * .reversalAmount()
+                 * .reversalReason()
+                 * .terminalId()
+                 * .type()
+                 * .updatedAuthorizationAmount()
+                 * ```
+                 */
                 fun builder() = Builder()
             }
 
@@ -20167,6 +20707,17 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of
+                     * [NetworkIdentifiers].
+                     *
+                     * The following fields are required:
+                     * ```kotlin
+                     * .retrievalReferenceNumber()
+                     * .traceNumber()
+                     * .transactionId()
+                     * ```
+                     */
                     fun builder() = Builder()
                 }
 
@@ -20861,6 +21412,34 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [CardSettlement].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .id()
+                 * .amount()
+                 * .cardAuthorization()
+                 * .cardPaymentId()
+                 * .cashback()
+                 * .currency()
+                 * .interchange()
+                 * .merchantAcceptorId()
+                 * .merchantCategoryCode()
+                 * .merchantCity()
+                 * .merchantCountry()
+                 * .merchantName()
+                 * .merchantPostalCode()
+                 * .merchantState()
+                 * .networkIdentifiers()
+                 * .pendingTransactionId()
+                 * .presentmentAmount()
+                 * .presentmentCurrency()
+                 * .purchaseDetails()
+                 * .transactionId()
+                 * .type()
+                 * ```
+                 */
                 fun builder() = Builder()
             }
 
@@ -21248,6 +21827,15 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of [Cashback].
+                     *
+                     * The following fields are required:
+                     * ```kotlin
+                     * .amount()
+                     * .currency()
+                     * ```
+                     */
                     fun builder() = Builder()
                 }
 
@@ -21707,6 +22295,16 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of [Interchange].
+                     *
+                     * The following fields are required:
+                     * ```kotlin
+                     * .amount()
+                     * .code()
+                     * .currency()
+                     * ```
+                     */
                     fun builder() = Builder()
                 }
 
@@ -22035,6 +22633,17 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of
+                     * [NetworkIdentifiers].
+                     *
+                     * The following fields are required:
+                     * ```kotlin
+                     * .acquirerBusinessId()
+                     * .acquirerReferenceNumber()
+                     * .transactionId()
+                     * ```
+                     */
                     fun builder() = Builder()
                 }
 
@@ -22313,6 +22922,23 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of [PurchaseDetails].
+                     *
+                     * The following fields are required:
+                     * ```kotlin
+                     * .carRental()
+                     * .customerReferenceIdentifier()
+                     * .localTaxAmount()
+                     * .localTaxCurrency()
+                     * .lodging()
+                     * .nationalTaxAmount()
+                     * .nationalTaxCurrency()
+                     * .purchaseIdentifier()
+                     * .purchaseIdentifierFormat()
+                     * .travel()
+                     * ```
+                     */
                     fun builder() = Builder()
                 }
 
@@ -22781,6 +23407,29 @@ private constructor(
 
                     companion object {
 
+                        /**
+                         * Returns a mutable builder for constructing an instance of [CarRental].
+                         *
+                         * The following fields are required:
+                         * ```kotlin
+                         * .carClassCode()
+                         * .checkoutDate()
+                         * .dailyRentalRateAmount()
+                         * .dailyRentalRateCurrency()
+                         * .daysRented()
+                         * .extraCharges()
+                         * .fuelChargesAmount()
+                         * .fuelChargesCurrency()
+                         * .insuranceChargesAmount()
+                         * .insuranceChargesCurrency()
+                         * .noShowIndicator()
+                         * .oneWayDropOffChargesAmount()
+                         * .oneWayDropOffChargesCurrency()
+                         * .renterName()
+                         * .weeklyRentalRateAmount()
+                         * .weeklyRentalRateCurrency()
+                         * ```
+                         */
                         fun builder() = Builder()
                     }
 
@@ -23673,6 +24322,29 @@ private constructor(
 
                     companion object {
 
+                        /**
+                         * Returns a mutable builder for constructing an instance of [Lodging].
+                         *
+                         * The following fields are required:
+                         * ```kotlin
+                         * .checkInDate()
+                         * .dailyRoomRateAmount()
+                         * .dailyRoomRateCurrency()
+                         * .extraCharges()
+                         * .folioCashAdvancesAmount()
+                         * .folioCashAdvancesCurrency()
+                         * .foodBeverageChargesAmount()
+                         * .foodBeverageChargesCurrency()
+                         * .noShowIndicator()
+                         * .prepaidExpensesAmount()
+                         * .prepaidExpensesCurrency()
+                         * .roomNights()
+                         * .totalRoomTaxAmount()
+                         * .totalRoomTaxCurrency()
+                         * .totalTaxAmount()
+                         * .totalTaxCurrency()
+                         * ```
+                         */
                         fun builder() = Builder()
                     }
 
@@ -24624,6 +25296,25 @@ private constructor(
 
                     companion object {
 
+                        /**
+                         * Returns a mutable builder for constructing an instance of [Travel].
+                         *
+                         * The following fields are required:
+                         * ```kotlin
+                         * .ancillary()
+                         * .computerizedReservationSystem()
+                         * .creditReasonIndicator()
+                         * .departureDate()
+                         * .originationCityAirportCode()
+                         * .passengerName()
+                         * .restrictedTicketIndicator()
+                         * .ticketChangeIndicator()
+                         * .ticketNumber()
+                         * .travelAgencyCode()
+                         * .travelAgencyName()
+                         * .tripLegs()
+                         * ```
+                         */
                         fun builder() = Builder()
                     }
 
@@ -24958,6 +25649,19 @@ private constructor(
 
                         companion object {
 
+                            /**
+                             * Returns a mutable builder for constructing an instance of
+                             * [Ancillary].
+                             *
+                             * The following fields are required:
+                             * ```kotlin
+                             * .connectedTicketDocumentNumber()
+                             * .creditReasonIndicator()
+                             * .passengerNameOrDescription()
+                             * .services()
+                             * .ticketDocumentNumber()
+                             * ```
+                             */
                             fun builder() = Builder()
                         }
 
@@ -25303,6 +26007,16 @@ private constructor(
 
                             companion object {
 
+                                /**
+                                 * Returns a mutable builder for constructing an instance of
+                                 * [Service].
+                                 *
+                                 * The following fields are required:
+                                 * ```kotlin
+                                 * .category()
+                                 * .subCategory()
+                                 * ```
+                                 */
                                 fun builder() = Builder()
                             }
 
@@ -26252,6 +26966,19 @@ private constructor(
 
                         companion object {
 
+                            /**
+                             * Returns a mutable builder for constructing an instance of [TripLeg].
+                             *
+                             * The following fields are required:
+                             * ```kotlin
+                             * .carrierCode()
+                             * .destinationCityAirportCode()
+                             * .fareBasisCode()
+                             * .flightNumber()
+                             * .serviceClass()
+                             * .stopOverCode()
+                             * ```
+                             */
                             fun builder() = Builder()
                         }
 
@@ -27009,6 +27736,33 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [CardValidation].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .id()
+                 * .actioner()
+                 * .cardPaymentId()
+                 * .currency()
+                 * .digitalWalletTokenId()
+                 * .merchantAcceptorId()
+                 * .merchantCategoryCode()
+                 * .merchantCity()
+                 * .merchantCountry()
+                 * .merchantDescriptor()
+                 * .merchantPostalCode()
+                 * .merchantState()
+                 * .networkDetails()
+                 * .networkIdentifiers()
+                 * .networkRiskScore()
+                 * .physicalCardId()
+                 * .realTimeDecisionId()
+                 * .terminalId()
+                 * .type()
+                 * .verification()
+                 * ```
+                 */
                 fun builder() = Builder()
             }
 
@@ -27669,6 +28423,15 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of [NetworkDetails].
+                     *
+                     * The following fields are required:
+                     * ```kotlin
+                     * .category()
+                     * .visa()
+                     * ```
+                     */
                     fun builder() = Builder()
                 }
 
@@ -27924,6 +28687,16 @@ private constructor(
 
                     companion object {
 
+                        /**
+                         * Returns a mutable builder for constructing an instance of [Visa].
+                         *
+                         * The following fields are required:
+                         * ```kotlin
+                         * .electronicCommerceIndicator()
+                         * .pointOfServiceEntryMode()
+                         * .standInProcessingReason()
+                         * ```
+                         */
                         fun builder() = Builder()
                     }
 
@@ -28872,6 +29645,17 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of
+                     * [NetworkIdentifiers].
+                     *
+                     * The following fields are required:
+                     * ```kotlin
+                     * .retrievalReferenceNumber()
+                     * .traceNumber()
+                     * .transactionId()
+                     * ```
+                     */
                     fun builder() = Builder()
                 }
 
@@ -29154,6 +29938,15 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of [Verification].
+                     *
+                     * The following fields are required:
+                     * ```kotlin
+                     * .cardVerificationCode()
+                     * .cardholderAddress()
+                     * ```
+                     */
                     fun builder() = Builder()
                 }
 
@@ -29272,6 +30065,15 @@ private constructor(
 
                     companion object {
 
+                        /**
+                         * Returns a mutable builder for constructing an instance of
+                         * [CardVerificationCode].
+                         *
+                         * The following fields are required:
+                         * ```kotlin
+                         * .result()
+                         * ```
+                         */
                         fun builder() = Builder()
                     }
 
@@ -29568,6 +30370,19 @@ private constructor(
 
                     companion object {
 
+                        /**
+                         * Returns a mutable builder for constructing an instance of
+                         * [CardholderAddress].
+                         *
+                         * The following fields are required:
+                         * ```kotlin
+                         * .actualLine1()
+                         * .actualPostalCode()
+                         * .providedLine1()
+                         * .providedPostalCode()
+                         * .result()
+                         * ```
+                         */
                         fun builder() = Builder()
                     }
 
@@ -30235,6 +31050,18 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [State].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .authorizedAmount()
+             * .fuelConfirmedAmount()
+             * .incrementedAmount()
+             * .reversedAmount()
+             * .settledAmount()
+             * ```
+             */
             fun builder() = Builder()
         }
 

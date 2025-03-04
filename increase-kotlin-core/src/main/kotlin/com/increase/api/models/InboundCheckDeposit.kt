@@ -330,6 +330,33 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [InboundCheckDeposit].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .acceptedAt()
+         * .accountId()
+         * .accountNumberId()
+         * .adjustments()
+         * .amount()
+         * .backImageFileId()
+         * .bankOfFirstDepositRoutingNumber()
+         * .checkNumber()
+         * .checkTransferId()
+         * .createdAt()
+         * .currency()
+         * .declinedAt()
+         * .declinedTransactionId()
+         * .depositReturn()
+         * .frontImageFileId()
+         * .payeeNameAnalysis()
+         * .status()
+         * .transactionId()
+         * .type()
+         * ```
+         */
         fun builder() = Builder()
     }
 
@@ -726,6 +753,17 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Adjustment].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .adjustedAt()
+             * .amount()
+             * .reason()
+             * .transactionId()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -1184,6 +1222,16 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [DepositReturn].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .reason()
+             * .returnedAt()
+             * .transactionId()
+             * ```
+             */
             fun builder() = Builder()
         }
 

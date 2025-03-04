@@ -238,6 +238,30 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [InboundRealTimePaymentsTransfer].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .accountId()
+         * .accountNumberId()
+         * .amount()
+         * .confirmation()
+         * .createdAt()
+         * .creditorName()
+         * .currency()
+         * .debtorAccountNumber()
+         * .debtorName()
+         * .debtorRoutingNumber()
+         * .decline()
+         * .remittanceInformation()
+         * .status()
+         * .transactionIdentification()
+         * .type()
+         * ```
+         */
         fun builder() = Builder()
     }
 
@@ -511,6 +535,15 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Confirmation].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .confirmedAt()
+             * .transactionId()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -794,6 +827,16 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Decline].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .declinedAt()
+             * .declinedTransactionId()
+             * .reason()
+             * ```
+             */
             fun builder() = Builder()
         }
 

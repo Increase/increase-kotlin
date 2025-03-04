@@ -333,6 +333,34 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [WireDrawdownRequest].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .accountNumberId()
+         * .amount()
+         * .createdAt()
+         * .currency()
+         * .fulfillmentInboundWireTransferId()
+         * .idempotencyKey()
+         * .messageToRecipient()
+         * .originatorAddressLine1()
+         * .originatorAddressLine2()
+         * .originatorAddressLine3()
+         * .originatorName()
+         * .recipientAccountNumber()
+         * .recipientAddressLine1()
+         * .recipientAddressLine2()
+         * .recipientAddressLine3()
+         * .recipientName()
+         * .recipientRoutingNumber()
+         * .status()
+         * .submission()
+         * .type()
+         * ```
+         */
         fun builder() = Builder()
     }
 
@@ -817,6 +845,14 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Submission].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .inputMessageAccountabilityData()
+             * ```
+             */
             fun builder() = Builder()
         }
 

@@ -138,6 +138,20 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [OAuthConnection].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .createdAt()
+         * .deletedAt()
+         * .groupId()
+         * .oauthApplicationId()
+         * .status()
+         * .type()
+         * ```
+         */
         fun builder() = Builder()
     }
 

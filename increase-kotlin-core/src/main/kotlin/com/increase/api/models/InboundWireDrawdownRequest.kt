@@ -359,6 +359,36 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [InboundWireDrawdownRequest].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .amount()
+         * .beneficiaryAccountNumber()
+         * .beneficiaryAddressLine1()
+         * .beneficiaryAddressLine2()
+         * .beneficiaryAddressLine3()
+         * .beneficiaryName()
+         * .beneficiaryRoutingNumber()
+         * .createdAt()
+         * .currency()
+         * .messageToRecipient()
+         * .originatorAccountNumber()
+         * .originatorAddressLine1()
+         * .originatorAddressLine2()
+         * .originatorAddressLine3()
+         * .originatorName()
+         * .originatorRoutingNumber()
+         * .originatorToBeneficiaryInformationLine1()
+         * .originatorToBeneficiaryInformationLine2()
+         * .originatorToBeneficiaryInformationLine3()
+         * .originatorToBeneficiaryInformationLine4()
+         * .recipientAccountNumberId()
+         * .type()
+         * ```
+         */
         fun builder() = Builder()
     }
 
