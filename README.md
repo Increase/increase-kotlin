@@ -2,7 +2,7 @@
 
 <!-- x-release-please-start-version -->
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.increase.api/increase-kotlin)](https://central.sonatype.com/artifact/com.increase.api/increase-kotlin/0.188.0)
+[![Maven Central](https://img.shields.io/maven-central/v/com.increase.api/increase-kotlin)](https://central.sonatype.com/artifact/com.increase.api/increase-kotlin/0.189.0)
 
 <!-- x-release-please-end -->
 
@@ -19,7 +19,7 @@ The REST API documentation can be found on [increase.com](https://increase.com/d
 ### Gradle
 
 ```kotlin
-implementation("com.increase.api:increase-kotlin:0.188.0")
+implementation("com.increase.api:increase-kotlin:0.189.0")
 ```
 
 ### Maven
@@ -28,7 +28,7 @@ implementation("com.increase.api:increase-kotlin:0.188.0")
 <dependency>
     <groupId>com.increase.api</groupId>
     <artifactId>increase-kotlin</artifactId>
-    <version>0.188.0</version>
+    <version>0.189.0</version>
 </dependency>
 ```
 
@@ -159,6 +159,37 @@ val account: Account = client.accounts().create(params)
 ```
 
 The asynchronous client supports the same options as the synchronous one, except most methods are [suspending](https://kotlinlang.org/docs/coroutines-guide.html).
+
+## Raw responses
+
+The SDK defines methods that deserialize responses into instances of Kotlin classes. However, these methods don't provide access to the response headers, status code, or the raw response body.
+
+To access this data, prefix any HTTP method call on a client or service with `withRawResponse()`:
+
+```kotlin
+import com.increase.api.core.http.Headers
+import com.increase.api.core.http.HttpResponseFor
+import com.increase.api.models.Account
+import com.increase.api.models.AccountCreateParams
+
+val params: AccountCreateParams = AccountCreateParams.builder()
+    .name("New Account!")
+    .entityId("entity_n8y8tnk2p9339ti393yi")
+    .programId("program_i2v2os4mwza1oetokh9i")
+    .build()
+val account: HttpResponseFor<Account> = client.accounts().withRawResponse().create(params)
+
+val statusCode: Int = account.statusCode()
+val headers: Headers = account.headers()
+```
+
+You can still deserialize the response into an instance of a Kotlin class if needed:
+
+```kotlin
+import com.increase.api.models.Account
+
+val parsedAccount: Account = account.parse()
+```
 
 ## Error handling
 

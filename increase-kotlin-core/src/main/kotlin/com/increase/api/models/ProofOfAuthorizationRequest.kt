@@ -12,6 +12,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkKnown
 import com.increase.api.core.checkRequired
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
@@ -154,12 +155,8 @@ private constructor(
         /** The ACH Transfers associated with the request. */
         fun addAchTransfer(achTransfer: AchTransfer) = apply {
             achTransfers =
-                (achTransfers ?: JsonField.of(mutableListOf())).apply {
-                    (asKnown()
-                            ?: throw IllegalStateException(
-                                "Field was set to non-list type: ${javaClass.simpleName}"
-                            ))
-                        .add(achTransfer)
+                (achTransfers ?: JsonField.of(mutableListOf())).also {
+                    checkKnown("achTransfers", it).add(achTransfer)
                 }
         }
 

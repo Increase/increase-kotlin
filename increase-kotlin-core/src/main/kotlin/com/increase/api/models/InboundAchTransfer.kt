@@ -12,6 +12,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkKnown
 import com.increase.api.core.checkRequired
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
@@ -1181,12 +1182,8 @@ private constructor(
                 /** Each entry represents an addendum received from the originator. */
                 fun addEntry(entry: Entry) = apply {
                     entries =
-                        (entries ?: JsonField.of(mutableListOf())).apply {
-                            (asKnown()
-                                    ?: throw IllegalStateException(
-                                        "Field was set to non-list type: ${javaClass.simpleName}"
-                                    ))
-                                .add(entry)
+                        (entries ?: JsonField.of(mutableListOf())).also {
+                            checkKnown("entries", it).add(entry)
                         }
                 }
 
