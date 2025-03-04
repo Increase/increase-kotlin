@@ -1065,6 +1065,9 @@ private constructor(
             /** The Card was not active. */
             val CARD_NOT_ACTIVE = of("card_not_active")
 
+            /** The Card has been canceled. */
+            val CARD_CANCELED = of("card_canceled")
+
             /** The Physical Card was not active. */
             val PHYSICAL_CARD_NOT_ACTIVE = of("physical_card_not_active")
 
@@ -1124,6 +1127,8 @@ private constructor(
             ACCOUNT_CLOSED,
             /** The Card was not active. */
             CARD_NOT_ACTIVE,
+            /** The Card has been canceled. */
+            CARD_CANCELED,
             /** The Physical Card was not active. */
             PHYSICAL_CARD_NOT_ACTIVE,
             /** The account's entity was not active. */
@@ -1176,6 +1181,8 @@ private constructor(
             ACCOUNT_CLOSED,
             /** The Card was not active. */
             CARD_NOT_ACTIVE,
+            /** The Card has been canceled. */
+            CARD_CANCELED,
             /** The Physical Card was not active. */
             PHYSICAL_CARD_NOT_ACTIVE,
             /** The account's entity was not active. */
@@ -1230,6 +1237,7 @@ private constructor(
             when (this) {
                 ACCOUNT_CLOSED -> Value.ACCOUNT_CLOSED
                 CARD_NOT_ACTIVE -> Value.CARD_NOT_ACTIVE
+                CARD_CANCELED -> Value.CARD_CANCELED
                 PHYSICAL_CARD_NOT_ACTIVE -> Value.PHYSICAL_CARD_NOT_ACTIVE
                 ENTITY_NOT_ACTIVE -> Value.ENTITY_NOT_ACTIVE
                 GROUP_LOCKED -> Value.GROUP_LOCKED
@@ -1260,6 +1268,7 @@ private constructor(
             when (this) {
                 ACCOUNT_CLOSED -> Known.ACCOUNT_CLOSED
                 CARD_NOT_ACTIVE -> Known.CARD_NOT_ACTIVE
+                CARD_CANCELED -> Known.CARD_CANCELED
                 PHYSICAL_CARD_NOT_ACTIVE -> Known.PHYSICAL_CARD_NOT_ACTIVE
                 ENTITY_NOT_ACTIVE -> Known.ENTITY_NOT_ACTIVE
                 GROUP_LOCKED -> Known.GROUP_LOCKED
