@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.189.0 (2025-03-04)
+
+Full Changelog: [v0.188.0...v0.189.0](https://github.com/Increase/increase-kotlin/compare/v0.188.0...v0.189.0)
+
+### ⚠ BREAKING CHANGES
+
+* **client:** refactor multipart formdata impl ([#845](https://github.com/Increase/increase-kotlin/issues/845))
+
+### Chores
+
+* **client:** refactor multipart formdata impl ([#845](https://github.com/Increase/increase-kotlin/issues/845)) ([430695c](https://github.com/Increase/increase-kotlin/commit/430695c4a25d679fbdf50603b6ba9b005aee67ed))
+
+
+### Documentation
+
+* add raw response readme documentation ([#847](https://github.com/Increase/increase-kotlin/issues/847)) ([524a000](https://github.com/Increase/increase-kotlin/commit/524a000f64e929666584ab219532c6cd050d43e6))
+
 ## 0.188.0 (2025-03-04)
 
 Full Changelog: [v0.187.0...v0.188.0](https://github.com/Increase/increase-kotlin/compare/v0.187.0...v0.188.0)
