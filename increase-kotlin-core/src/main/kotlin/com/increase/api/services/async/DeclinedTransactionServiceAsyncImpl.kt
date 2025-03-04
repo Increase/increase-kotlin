@@ -10,6 +10,8 @@ import com.increase.api.core.handlers.withErrorHandler
 import com.increase.api.core.http.HttpMethod
 import com.increase.api.core.http.HttpRequest
 import com.increase.api.core.http.HttpResponse.Handler
+import com.increase.api.core.http.HttpResponseFor
+import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.errors.IncreaseError
 import com.increase.api.models.DeclinedTransaction
@@ -20,57 +22,91 @@ import com.increase.api.models.DeclinedTransactionRetrieveParams
 class DeclinedTransactionServiceAsyncImpl
 internal constructor(private val clientOptions: ClientOptions) : DeclinedTransactionServiceAsync {
 
-    private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
+    private val withRawResponse: DeclinedTransactionServiceAsync.WithRawResponse by lazy {
+        WithRawResponseImpl(clientOptions)
+    }
 
-    private val retrieveHandler: Handler<DeclinedTransaction> =
-        jsonHandler<DeclinedTransaction>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+    override fun withRawResponse(): DeclinedTransactionServiceAsync.WithRawResponse =
+        withRawResponse
 
-    /** Retrieve a Declined Transaction */
     override suspend fun retrieve(
         params: DeclinedTransactionRetrieveParams,
         requestOptions: RequestOptions,
-    ): DeclinedTransaction {
-        val request =
-            HttpRequest.builder()
-                .method(HttpMethod.GET)
-                .addPathSegments("declined_transactions", params.getPathParam(0))
-                .build()
-                .prepareAsync(clientOptions, params)
-        val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-        val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-        return response
-            .use { retrieveHandler.handle(it) }
-            .also {
-                if (requestOptions.responseValidation!!) {
-                    it.validate()
-                }
-            }
-    }
+    ): DeclinedTransaction =
+        // get /declined_transactions/{declined_transaction_id}
+        withRawResponse().retrieve(params, requestOptions).parse()
 
-    private val listHandler: Handler<DeclinedTransactionListPageAsync.Response> =
-        jsonHandler<DeclinedTransactionListPageAsync.Response>(clientOptions.jsonMapper)
-            .withErrorHandler(errorHandler)
-
-    /** List Declined Transactions */
     override suspend fun list(
         params: DeclinedTransactionListParams,
         requestOptions: RequestOptions,
-    ): DeclinedTransactionListPageAsync {
-        val request =
-            HttpRequest.builder()
-                .method(HttpMethod.GET)
-                .addPathSegments("declined_transactions")
-                .build()
-                .prepareAsync(clientOptions, params)
-        val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-        val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-        return response
-            .use { listHandler.handle(it) }
-            .also {
-                if (requestOptions.responseValidation!!) {
-                    it.validate()
-                }
+    ): DeclinedTransactionListPageAsync =
+        // get /declined_transactions
+        withRawResponse().list(params, requestOptions).parse()
+
+    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
+        DeclinedTransactionServiceAsync.WithRawResponse {
+
+        private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
+
+        private val retrieveHandler: Handler<DeclinedTransaction> =
+            jsonHandler<DeclinedTransaction>(clientOptions.jsonMapper)
+                .withErrorHandler(errorHandler)
+
+        override suspend fun retrieve(
+            params: DeclinedTransactionRetrieveParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<DeclinedTransaction> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .addPathSegments("declined_transactions", params.getPathParam(0))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+            return response.parseable {
+                response
+                    .use { retrieveHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
             }
-            .let { DeclinedTransactionListPageAsync.of(this, params, it) }
+        }
+
+        private val listHandler: Handler<DeclinedTransactionListPageAsync.Response> =
+            jsonHandler<DeclinedTransactionListPageAsync.Response>(clientOptions.jsonMapper)
+                .withErrorHandler(errorHandler)
+
+        override suspend fun list(
+            params: DeclinedTransactionListParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<DeclinedTransactionListPageAsync> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .addPathSegments("declined_transactions")
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+            return response.parseable {
+                response
+                    .use { listHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+                    .let {
+                        DeclinedTransactionListPageAsync.of(
+                            DeclinedTransactionServiceAsyncImpl(clientOptions),
+                            params,
+                            it,
+                        )
+                    }
+            }
+        }
     }
 }

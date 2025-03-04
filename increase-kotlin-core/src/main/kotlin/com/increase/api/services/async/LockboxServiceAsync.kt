@@ -2,7 +2,9 @@
 
 package com.increase.api.services.async
 
+import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
+import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.Lockbox
 import com.increase.api.models.LockboxCreateParams
 import com.increase.api.models.LockboxListPageAsync
@@ -11,6 +13,11 @@ import com.increase.api.models.LockboxRetrieveParams
 import com.increase.api.models.LockboxUpdateParams
 
 interface LockboxServiceAsync {
+
+    /**
+     * Returns a view of this service that provides access to raw HTTP responses for each method.
+     */
+    fun withRawResponse(): WithRawResponse
 
     /** Create a Lockbox */
     suspend fun create(
@@ -39,4 +46,58 @@ interface LockboxServiceAsync {
     /** List Lockboxes */
     suspend fun list(requestOptions: RequestOptions): LockboxListPageAsync =
         list(LockboxListParams.none(), requestOptions)
+
+    /**
+     * A view of [LockboxServiceAsync] that provides access to raw HTTP responses for each method.
+     */
+    interface WithRawResponse {
+
+        /**
+         * Returns a raw HTTP response for `post /lockboxes`, but is otherwise the same as
+         * [LockboxServiceAsync.create].
+         */
+        @MustBeClosed
+        suspend fun create(
+            params: LockboxCreateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<Lockbox>
+
+        /**
+         * Returns a raw HTTP response for `get /lockboxes/{lockbox_id}`, but is otherwise the same
+         * as [LockboxServiceAsync.retrieve].
+         */
+        @MustBeClosed
+        suspend fun retrieve(
+            params: LockboxRetrieveParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<Lockbox>
+
+        /**
+         * Returns a raw HTTP response for `patch /lockboxes/{lockbox_id}`, but is otherwise the
+         * same as [LockboxServiceAsync.update].
+         */
+        @MustBeClosed
+        suspend fun update(
+            params: LockboxUpdateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<Lockbox>
+
+        /**
+         * Returns a raw HTTP response for `get /lockboxes`, but is otherwise the same as
+         * [LockboxServiceAsync.list].
+         */
+        @MustBeClosed
+        suspend fun list(
+            params: LockboxListParams = LockboxListParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<LockboxListPageAsync>
+
+        /**
+         * Returns a raw HTTP response for `get /lockboxes`, but is otherwise the same as
+         * [LockboxServiceAsync.list].
+         */
+        @MustBeClosed
+        suspend fun list(requestOptions: RequestOptions): HttpResponseFor<LockboxListPageAsync> =
+            list(LockboxListParams.none(), requestOptions)
+    }
 }

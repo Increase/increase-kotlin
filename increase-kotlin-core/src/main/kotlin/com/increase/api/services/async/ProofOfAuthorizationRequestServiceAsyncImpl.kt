@@ -10,6 +10,8 @@ import com.increase.api.core.handlers.withErrorHandler
 import com.increase.api.core.http.HttpMethod
 import com.increase.api.core.http.HttpRequest
 import com.increase.api.core.http.HttpResponse.Handler
+import com.increase.api.core.http.HttpResponseFor
+import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.errors.IncreaseError
 import com.increase.api.models.ProofOfAuthorizationRequest
@@ -21,58 +23,91 @@ class ProofOfAuthorizationRequestServiceAsyncImpl
 internal constructor(private val clientOptions: ClientOptions) :
     ProofOfAuthorizationRequestServiceAsync {
 
-    private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
+    private val withRawResponse: ProofOfAuthorizationRequestServiceAsync.WithRawResponse by lazy {
+        WithRawResponseImpl(clientOptions)
+    }
 
-    private val retrieveHandler: Handler<ProofOfAuthorizationRequest> =
-        jsonHandler<ProofOfAuthorizationRequest>(clientOptions.jsonMapper)
-            .withErrorHandler(errorHandler)
+    override fun withRawResponse(): ProofOfAuthorizationRequestServiceAsync.WithRawResponse =
+        withRawResponse
 
-    /** Retrieve a Proof of Authorization Request */
     override suspend fun retrieve(
         params: ProofOfAuthorizationRequestRetrieveParams,
         requestOptions: RequestOptions,
-    ): ProofOfAuthorizationRequest {
-        val request =
-            HttpRequest.builder()
-                .method(HttpMethod.GET)
-                .addPathSegments("proof_of_authorization_requests", params.getPathParam(0))
-                .build()
-                .prepareAsync(clientOptions, params)
-        val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-        val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-        return response
-            .use { retrieveHandler.handle(it) }
-            .also {
-                if (requestOptions.responseValidation!!) {
-                    it.validate()
-                }
-            }
-    }
+    ): ProofOfAuthorizationRequest =
+        // get /proof_of_authorization_requests/{proof_of_authorization_request_id}
+        withRawResponse().retrieve(params, requestOptions).parse()
 
-    private val listHandler: Handler<ProofOfAuthorizationRequestListPageAsync.Response> =
-        jsonHandler<ProofOfAuthorizationRequestListPageAsync.Response>(clientOptions.jsonMapper)
-            .withErrorHandler(errorHandler)
-
-    /** List Proof of Authorization Requests */
     override suspend fun list(
         params: ProofOfAuthorizationRequestListParams,
         requestOptions: RequestOptions,
-    ): ProofOfAuthorizationRequestListPageAsync {
-        val request =
-            HttpRequest.builder()
-                .method(HttpMethod.GET)
-                .addPathSegments("proof_of_authorization_requests")
-                .build()
-                .prepareAsync(clientOptions, params)
-        val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-        val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-        return response
-            .use { listHandler.handle(it) }
-            .also {
-                if (requestOptions.responseValidation!!) {
-                    it.validate()
-                }
+    ): ProofOfAuthorizationRequestListPageAsync =
+        // get /proof_of_authorization_requests
+        withRawResponse().list(params, requestOptions).parse()
+
+    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
+        ProofOfAuthorizationRequestServiceAsync.WithRawResponse {
+
+        private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
+
+        private val retrieveHandler: Handler<ProofOfAuthorizationRequest> =
+            jsonHandler<ProofOfAuthorizationRequest>(clientOptions.jsonMapper)
+                .withErrorHandler(errorHandler)
+
+        override suspend fun retrieve(
+            params: ProofOfAuthorizationRequestRetrieveParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<ProofOfAuthorizationRequest> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .addPathSegments("proof_of_authorization_requests", params.getPathParam(0))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+            return response.parseable {
+                response
+                    .use { retrieveHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
             }
-            .let { ProofOfAuthorizationRequestListPageAsync.of(this, params, it) }
+        }
+
+        private val listHandler: Handler<ProofOfAuthorizationRequestListPageAsync.Response> =
+            jsonHandler<ProofOfAuthorizationRequestListPageAsync.Response>(clientOptions.jsonMapper)
+                .withErrorHandler(errorHandler)
+
+        override suspend fun list(
+            params: ProofOfAuthorizationRequestListParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<ProofOfAuthorizationRequestListPageAsync> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .addPathSegments("proof_of_authorization_requests")
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+            return response.parseable {
+                response
+                    .use { listHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+                    .let {
+                        ProofOfAuthorizationRequestListPageAsync.of(
+                            ProofOfAuthorizationRequestServiceAsyncImpl(clientOptions),
+                            params,
+                            it,
+                        )
+                    }
+            }
+        }
     }
 }
