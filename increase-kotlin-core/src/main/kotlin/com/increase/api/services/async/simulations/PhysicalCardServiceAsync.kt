@@ -2,11 +2,18 @@
 
 package com.increase.api.services.async.simulations
 
+import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
+import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.PhysicalCard
 import com.increase.api.models.SimulationPhysicalCardAdvanceShipmentParams
 
 interface PhysicalCardServiceAsync {
+
+    /**
+     * Returns a view of this service that provides access to raw HTTP responses for each method.
+     */
+    fun withRawResponse(): WithRawResponse
 
     /**
      * This endpoint allows you to simulate advancing the shipment status of a Physical Card, to
@@ -16,4 +23,22 @@ interface PhysicalCardServiceAsync {
         params: SimulationPhysicalCardAdvanceShipmentParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PhysicalCard
+
+    /**
+     * A view of [PhysicalCardServiceAsync] that provides access to raw HTTP responses for each
+     * method.
+     */
+    interface WithRawResponse {
+
+        /**
+         * Returns a raw HTTP response for `post
+         * /simulations/physical_cards/{physical_card_id}/advance_shipment`, but is otherwise the
+         * same as [PhysicalCardServiceAsync.advanceShipment].
+         */
+        @MustBeClosed
+        suspend fun advanceShipment(
+            params: SimulationPhysicalCardAdvanceShipmentParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<PhysicalCard>
+    }
 }

@@ -10,6 +10,8 @@ import com.increase.api.core.handlers.withErrorHandler
 import com.increase.api.core.http.HttpMethod
 import com.increase.api.core.http.HttpRequest
 import com.increase.api.core.http.HttpResponse.Handler
+import com.increase.api.core.http.HttpResponseFor
+import com.increase.api.core.http.parseable
 import com.increase.api.core.json
 import com.increase.api.core.prepareAsync
 import com.increase.api.errors.IncreaseError
@@ -23,87 +25,132 @@ class RealTimePaymentsRequestForPaymentServiceAsyncImpl
 internal constructor(private val clientOptions: ClientOptions) :
     RealTimePaymentsRequestForPaymentServiceAsync {
 
-    private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
+    private val withRawResponse:
+        RealTimePaymentsRequestForPaymentServiceAsync.WithRawResponse by lazy {
+        WithRawResponseImpl(clientOptions)
+    }
 
-    private val createHandler: Handler<RealTimePaymentsRequestForPayment> =
-        jsonHandler<RealTimePaymentsRequestForPayment>(clientOptions.jsonMapper)
-            .withErrorHandler(errorHandler)
+    override fun withRawResponse(): RealTimePaymentsRequestForPaymentServiceAsync.WithRawResponse =
+        withRawResponse
 
-    /** Create a Real-Time Payments Request for Payment */
     override suspend fun create(
         params: RealTimePaymentsRequestForPaymentCreateParams,
         requestOptions: RequestOptions,
-    ): RealTimePaymentsRequestForPayment {
-        val request =
-            HttpRequest.builder()
-                .method(HttpMethod.POST)
-                .addPathSegments("real_time_payments_request_for_payments")
-                .body(json(clientOptions.jsonMapper, params._body()))
-                .build()
-                .prepareAsync(clientOptions, params)
-        val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-        val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-        return response
-            .use { createHandler.handle(it) }
-            .also {
-                if (requestOptions.responseValidation!!) {
-                    it.validate()
-                }
-            }
-    }
+    ): RealTimePaymentsRequestForPayment =
+        // post /real_time_payments_request_for_payments
+        withRawResponse().create(params, requestOptions).parse()
 
-    private val retrieveHandler: Handler<RealTimePaymentsRequestForPayment> =
-        jsonHandler<RealTimePaymentsRequestForPayment>(clientOptions.jsonMapper)
-            .withErrorHandler(errorHandler)
-
-    /** Retrieve a Real-Time Payments Request for Payment */
     override suspend fun retrieve(
         params: RealTimePaymentsRequestForPaymentRetrieveParams,
         requestOptions: RequestOptions,
-    ): RealTimePaymentsRequestForPayment {
-        val request =
-            HttpRequest.builder()
-                .method(HttpMethod.GET)
-                .addPathSegments("real_time_payments_request_for_payments", params.getPathParam(0))
-                .build()
-                .prepareAsync(clientOptions, params)
-        val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-        val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-        return response
-            .use { retrieveHandler.handle(it) }
-            .also {
-                if (requestOptions.responseValidation!!) {
-                    it.validate()
-                }
-            }
-    }
+    ): RealTimePaymentsRequestForPayment =
+        // get /real_time_payments_request_for_payments/{request_for_payment_id}
+        withRawResponse().retrieve(params, requestOptions).parse()
 
-    private val listHandler: Handler<RealTimePaymentsRequestForPaymentListPageAsync.Response> =
-        jsonHandler<RealTimePaymentsRequestForPaymentListPageAsync.Response>(
-                clientOptions.jsonMapper
-            )
-            .withErrorHandler(errorHandler)
-
-    /** List Real-Time Payments Request for Payments */
     override suspend fun list(
         params: RealTimePaymentsRequestForPaymentListParams,
         requestOptions: RequestOptions,
-    ): RealTimePaymentsRequestForPaymentListPageAsync {
-        val request =
-            HttpRequest.builder()
-                .method(HttpMethod.GET)
-                .addPathSegments("real_time_payments_request_for_payments")
-                .build()
-                .prepareAsync(clientOptions, params)
-        val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-        val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-        return response
-            .use { listHandler.handle(it) }
-            .also {
-                if (requestOptions.responseValidation!!) {
-                    it.validate()
-                }
+    ): RealTimePaymentsRequestForPaymentListPageAsync =
+        // get /real_time_payments_request_for_payments
+        withRawResponse().list(params, requestOptions).parse()
+
+    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
+        RealTimePaymentsRequestForPaymentServiceAsync.WithRawResponse {
+
+        private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
+
+        private val createHandler: Handler<RealTimePaymentsRequestForPayment> =
+            jsonHandler<RealTimePaymentsRequestForPayment>(clientOptions.jsonMapper)
+                .withErrorHandler(errorHandler)
+
+        override suspend fun create(
+            params: RealTimePaymentsRequestForPaymentCreateParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<RealTimePaymentsRequestForPayment> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .addPathSegments("real_time_payments_request_for_payments")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+            return response.parseable {
+                response
+                    .use { createHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
             }
-            .let { RealTimePaymentsRequestForPaymentListPageAsync.of(this, params, it) }
+        }
+
+        private val retrieveHandler: Handler<RealTimePaymentsRequestForPayment> =
+            jsonHandler<RealTimePaymentsRequestForPayment>(clientOptions.jsonMapper)
+                .withErrorHandler(errorHandler)
+
+        override suspend fun retrieve(
+            params: RealTimePaymentsRequestForPaymentRetrieveParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<RealTimePaymentsRequestForPayment> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .addPathSegments(
+                        "real_time_payments_request_for_payments",
+                        params.getPathParam(0),
+                    )
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+            return response.parseable {
+                response
+                    .use { retrieveHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val listHandler: Handler<RealTimePaymentsRequestForPaymentListPageAsync.Response> =
+            jsonHandler<RealTimePaymentsRequestForPaymentListPageAsync.Response>(
+                    clientOptions.jsonMapper
+                )
+                .withErrorHandler(errorHandler)
+
+        override suspend fun list(
+            params: RealTimePaymentsRequestForPaymentListParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<RealTimePaymentsRequestForPaymentListPageAsync> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .addPathSegments("real_time_payments_request_for_payments")
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+            return response.parseable {
+                response
+                    .use { listHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+                    .let {
+                        RealTimePaymentsRequestForPaymentListPageAsync.of(
+                            RealTimePaymentsRequestForPaymentServiceAsyncImpl(clientOptions),
+                            params,
+                            it,
+                        )
+                    }
+            }
+        }
     }
 }
