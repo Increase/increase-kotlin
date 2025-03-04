@@ -10,6 +10,8 @@ import com.increase.api.core.handlers.withErrorHandler
 import com.increase.api.core.http.HttpMethod
 import com.increase.api.core.http.HttpRequest
 import com.increase.api.core.http.HttpResponse.Handler
+import com.increase.api.core.http.HttpResponseFor
+import com.increase.api.core.http.parseable
 import com.increase.api.core.json
 import com.increase.api.core.prepareAsync
 import com.increase.api.errors.IncreaseError
@@ -23,90 +25,134 @@ class ProofOfAuthorizationRequestSubmissionServiceAsyncImpl
 internal constructor(private val clientOptions: ClientOptions) :
     ProofOfAuthorizationRequestSubmissionServiceAsync {
 
-    private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
+    private val withRawResponse:
+        ProofOfAuthorizationRequestSubmissionServiceAsync.WithRawResponse by lazy {
+        WithRawResponseImpl(clientOptions)
+    }
 
-    private val createHandler: Handler<ProofOfAuthorizationRequestSubmission> =
-        jsonHandler<ProofOfAuthorizationRequestSubmission>(clientOptions.jsonMapper)
-            .withErrorHandler(errorHandler)
+    override fun withRawResponse():
+        ProofOfAuthorizationRequestSubmissionServiceAsync.WithRawResponse = withRawResponse
 
-    /** Submit Proof of Authorization */
     override suspend fun create(
         params: ProofOfAuthorizationRequestSubmissionCreateParams,
         requestOptions: RequestOptions,
-    ): ProofOfAuthorizationRequestSubmission {
-        val request =
-            HttpRequest.builder()
-                .method(HttpMethod.POST)
-                .addPathSegments("proof_of_authorization_request_submissions")
-                .body(json(clientOptions.jsonMapper, params._body()))
-                .build()
-                .prepareAsync(clientOptions, params)
-        val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-        val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-        return response
-            .use { createHandler.handle(it) }
-            .also {
-                if (requestOptions.responseValidation!!) {
-                    it.validate()
-                }
-            }
-    }
+    ): ProofOfAuthorizationRequestSubmission =
+        // post /proof_of_authorization_request_submissions
+        withRawResponse().create(params, requestOptions).parse()
 
-    private val retrieveHandler: Handler<ProofOfAuthorizationRequestSubmission> =
-        jsonHandler<ProofOfAuthorizationRequestSubmission>(clientOptions.jsonMapper)
-            .withErrorHandler(errorHandler)
-
-    /** Retrieve a Proof of Authorization Request Submission */
     override suspend fun retrieve(
         params: ProofOfAuthorizationRequestSubmissionRetrieveParams,
         requestOptions: RequestOptions,
-    ): ProofOfAuthorizationRequestSubmission {
-        val request =
-            HttpRequest.builder()
-                .method(HttpMethod.GET)
-                .addPathSegments(
-                    "proof_of_authorization_request_submissions",
-                    params.getPathParam(0),
-                )
-                .build()
-                .prepareAsync(clientOptions, params)
-        val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-        val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-        return response
-            .use { retrieveHandler.handle(it) }
-            .also {
-                if (requestOptions.responseValidation!!) {
-                    it.validate()
-                }
-            }
-    }
+    ): ProofOfAuthorizationRequestSubmission =
+        // get
+        // /proof_of_authorization_request_submissions/{proof_of_authorization_request_submission_id}
+        withRawResponse().retrieve(params, requestOptions).parse()
 
-    private val listHandler: Handler<ProofOfAuthorizationRequestSubmissionListPageAsync.Response> =
-        jsonHandler<ProofOfAuthorizationRequestSubmissionListPageAsync.Response>(
-                clientOptions.jsonMapper
-            )
-            .withErrorHandler(errorHandler)
-
-    /** List Proof of Authorization Request Submissions */
     override suspend fun list(
         params: ProofOfAuthorizationRequestSubmissionListParams,
         requestOptions: RequestOptions,
-    ): ProofOfAuthorizationRequestSubmissionListPageAsync {
-        val request =
-            HttpRequest.builder()
-                .method(HttpMethod.GET)
-                .addPathSegments("proof_of_authorization_request_submissions")
-                .build()
-                .prepareAsync(clientOptions, params)
-        val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-        val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-        return response
-            .use { listHandler.handle(it) }
-            .also {
-                if (requestOptions.responseValidation!!) {
-                    it.validate()
-                }
+    ): ProofOfAuthorizationRequestSubmissionListPageAsync =
+        // get /proof_of_authorization_request_submissions
+        withRawResponse().list(params, requestOptions).parse()
+
+    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
+        ProofOfAuthorizationRequestSubmissionServiceAsync.WithRawResponse {
+
+        private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
+
+        private val createHandler: Handler<ProofOfAuthorizationRequestSubmission> =
+            jsonHandler<ProofOfAuthorizationRequestSubmission>(clientOptions.jsonMapper)
+                .withErrorHandler(errorHandler)
+
+        override suspend fun create(
+            params: ProofOfAuthorizationRequestSubmissionCreateParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<ProofOfAuthorizationRequestSubmission> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .addPathSegments("proof_of_authorization_request_submissions")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+            return response.parseable {
+                response
+                    .use { createHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
             }
-            .let { ProofOfAuthorizationRequestSubmissionListPageAsync.of(this, params, it) }
+        }
+
+        private val retrieveHandler: Handler<ProofOfAuthorizationRequestSubmission> =
+            jsonHandler<ProofOfAuthorizationRequestSubmission>(clientOptions.jsonMapper)
+                .withErrorHandler(errorHandler)
+
+        override suspend fun retrieve(
+            params: ProofOfAuthorizationRequestSubmissionRetrieveParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<ProofOfAuthorizationRequestSubmission> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .addPathSegments(
+                        "proof_of_authorization_request_submissions",
+                        params.getPathParam(0),
+                    )
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+            return response.parseable {
+                response
+                    .use { retrieveHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val listHandler:
+            Handler<ProofOfAuthorizationRequestSubmissionListPageAsync.Response> =
+            jsonHandler<ProofOfAuthorizationRequestSubmissionListPageAsync.Response>(
+                    clientOptions.jsonMapper
+                )
+                .withErrorHandler(errorHandler)
+
+        override suspend fun list(
+            params: ProofOfAuthorizationRequestSubmissionListParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<ProofOfAuthorizationRequestSubmissionListPageAsync> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .addPathSegments("proof_of_authorization_request_submissions")
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+            return response.parseable {
+                response
+                    .use { listHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+                    .let {
+                        ProofOfAuthorizationRequestSubmissionListPageAsync.of(
+                            ProofOfAuthorizationRequestSubmissionServiceAsyncImpl(clientOptions),
+                            params,
+                            it,
+                        )
+                    }
+            }
+        }
     }
 }

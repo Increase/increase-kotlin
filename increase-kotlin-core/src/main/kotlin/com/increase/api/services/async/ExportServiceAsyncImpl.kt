@@ -10,6 +10,8 @@ import com.increase.api.core.handlers.withErrorHandler
 import com.increase.api.core.http.HttpMethod
 import com.increase.api.core.http.HttpRequest
 import com.increase.api.core.http.HttpResponse.Handler
+import com.increase.api.core.http.HttpResponseFor
+import com.increase.api.core.http.parseable
 import com.increase.api.core.json
 import com.increase.api.core.prepareAsync
 import com.increase.api.errors.IncreaseError
@@ -22,83 +24,119 @@ import com.increase.api.models.ExportRetrieveParams
 class ExportServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     ExportServiceAsync {
 
-    private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
+    private val withRawResponse: ExportServiceAsync.WithRawResponse by lazy {
+        WithRawResponseImpl(clientOptions)
+    }
 
-    private val createHandler: Handler<Export> =
-        jsonHandler<Export>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+    override fun withRawResponse(): ExportServiceAsync.WithRawResponse = withRawResponse
 
-    /** Create an Export */
     override suspend fun create(
         params: ExportCreateParams,
         requestOptions: RequestOptions,
-    ): Export {
-        val request =
-            HttpRequest.builder()
-                .method(HttpMethod.POST)
-                .addPathSegments("exports")
-                .body(json(clientOptions.jsonMapper, params._body()))
-                .build()
-                .prepareAsync(clientOptions, params)
-        val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-        val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-        return response
-            .use { createHandler.handle(it) }
-            .also {
-                if (requestOptions.responseValidation!!) {
-                    it.validate()
-                }
-            }
-    }
+    ): Export =
+        // post /exports
+        withRawResponse().create(params, requestOptions).parse()
 
-    private val retrieveHandler: Handler<Export> =
-        jsonHandler<Export>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
-
-    /** Retrieve an Export */
     override suspend fun retrieve(
         params: ExportRetrieveParams,
         requestOptions: RequestOptions,
-    ): Export {
-        val request =
-            HttpRequest.builder()
-                .method(HttpMethod.GET)
-                .addPathSegments("exports", params.getPathParam(0))
-                .build()
-                .prepareAsync(clientOptions, params)
-        val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-        val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-        return response
-            .use { retrieveHandler.handle(it) }
-            .also {
-                if (requestOptions.responseValidation!!) {
-                    it.validate()
-                }
-            }
-    }
+    ): Export =
+        // get /exports/{export_id}
+        withRawResponse().retrieve(params, requestOptions).parse()
 
-    private val listHandler: Handler<ExportListPageAsync.Response> =
-        jsonHandler<ExportListPageAsync.Response>(clientOptions.jsonMapper)
-            .withErrorHandler(errorHandler)
-
-    /** List Exports */
     override suspend fun list(
         params: ExportListParams,
         requestOptions: RequestOptions,
-    ): ExportListPageAsync {
-        val request =
-            HttpRequest.builder()
-                .method(HttpMethod.GET)
-                .addPathSegments("exports")
-                .build()
-                .prepareAsync(clientOptions, params)
-        val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-        val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-        return response
-            .use { listHandler.handle(it) }
-            .also {
-                if (requestOptions.responseValidation!!) {
-                    it.validate()
-                }
+    ): ExportListPageAsync =
+        // get /exports
+        withRawResponse().list(params, requestOptions).parse()
+
+    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
+        ExportServiceAsync.WithRawResponse {
+
+        private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
+
+        private val createHandler: Handler<Export> =
+            jsonHandler<Export>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+
+        override suspend fun create(
+            params: ExportCreateParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<Export> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .addPathSegments("exports")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+            return response.parseable {
+                response
+                    .use { createHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
             }
-            .let { ExportListPageAsync.of(this, params, it) }
+        }
+
+        private val retrieveHandler: Handler<Export> =
+            jsonHandler<Export>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+
+        override suspend fun retrieve(
+            params: ExportRetrieveParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<Export> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .addPathSegments("exports", params.getPathParam(0))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+            return response.parseable {
+                response
+                    .use { retrieveHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val listHandler: Handler<ExportListPageAsync.Response> =
+            jsonHandler<ExportListPageAsync.Response>(clientOptions.jsonMapper)
+                .withErrorHandler(errorHandler)
+
+        override suspend fun list(
+            params: ExportListParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<ExportListPageAsync> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .addPathSegments("exports")
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+            return response.parseable {
+                response
+                    .use { listHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+                    .let {
+                        ExportListPageAsync.of(ExportServiceAsyncImpl(clientOptions), params, it)
+                    }
+            }
+        }
     }
 }
