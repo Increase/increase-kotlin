@@ -12,6 +12,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.NoAutoDetect
+import com.increase.api.core.checkKnown
 import com.increase.api.core.checkRequired
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
@@ -176,12 +177,8 @@ private constructor(
          */
         fun addBalance(balance: Balance) = apply {
             balances =
-                (balances ?: JsonField.of(mutableListOf())).apply {
-                    (asKnown()
-                            ?: throw IllegalStateException(
-                                "Field was set to non-list type: ${javaClass.simpleName}"
-                            ))
-                        .add(balance)
+                (balances ?: JsonField.of(mutableListOf())).also {
+                    checkKnown("balances", it).add(balance)
                 }
         }
 
