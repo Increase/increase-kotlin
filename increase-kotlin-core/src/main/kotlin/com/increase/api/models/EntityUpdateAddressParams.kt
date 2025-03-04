@@ -104,6 +104,14 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Body].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .address()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -175,6 +183,15 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [EntityUpdateAddressParams].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .entityId()
+         * .address()
+         * ```
+         */
         fun builder() = Builder()
     }
 
@@ -419,6 +436,17 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Address].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .city()
+             * .line1()
+             * .state()
+             * .zip()
+             * ```
+             */
             fun builder() = Builder()
         }
 

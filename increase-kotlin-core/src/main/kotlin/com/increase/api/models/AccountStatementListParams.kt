@@ -56,6 +56,9 @@ private constructor(
 
         fun none(): AccountStatementListParams = builder().build()
 
+        /**
+         * Returns a mutable builder for constructing an instance of [AccountStatementListParams].
+         */
         fun builder() = Builder()
     }
 
@@ -261,6 +264,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [StatementPeriodStart]. */
             fun builder() = Builder()
         }
 

@@ -128,6 +128,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [AchTransferListPage]. */
             fun builder() = Builder()
         }
 

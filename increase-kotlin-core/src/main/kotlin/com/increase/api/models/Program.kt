@@ -159,6 +159,22 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [Program].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .bank()
+         * .billingAccountId()
+         * .createdAt()
+         * .defaultDigitalCardProfileId()
+         * .interestRate()
+         * .name()
+         * .type()
+         * .updatedAt()
+         * ```
+         */
         fun builder() = Builder()
     }
 

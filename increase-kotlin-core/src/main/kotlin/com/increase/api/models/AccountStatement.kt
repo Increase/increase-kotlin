@@ -170,6 +170,22 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [AccountStatement].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .accountId()
+         * .createdAt()
+         * .endingBalance()
+         * .fileId()
+         * .startingBalance()
+         * .statementPeriodEnd()
+         * .statementPeriodStart()
+         * .type()
+         * ```
+         */
         fun builder() = Builder()
     }
 

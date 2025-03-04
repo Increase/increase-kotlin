@@ -39,6 +39,15 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [BookkeepingEntryRetrieveParams].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .bookkeepingEntryId()
+         * ```
+         */
         fun builder() = Builder()
     }
 

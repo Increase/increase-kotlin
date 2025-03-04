@@ -297,6 +297,31 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [CheckDeposit].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .accountId()
+         * .amount()
+         * .backImageFileId()
+         * .createdAt()
+         * .depositAcceptance()
+         * .depositRejection()
+         * .depositReturn()
+         * .depositSubmission()
+         * .description()
+         * .frontImageFileId()
+         * .idempotencyKey()
+         * .inboundFundsHold()
+         * .inboundMailItemId()
+         * .lockboxId()
+         * .status()
+         * .transactionId()
+         * .type()
+         * ```
+         */
         fun builder() = Builder()
     }
 
@@ -716,6 +741,20 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [DepositAcceptance].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .accountNumber()
+             * .amount()
+             * .auxiliaryOnUs()
+             * .checkDepositId()
+             * .currency()
+             * .routingNumber()
+             * .serialNumber()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -1126,6 +1165,19 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [DepositRejection].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .amount()
+             * .checkDepositId()
+             * .currency()
+             * .declinedTransactionId()
+             * .reason()
+             * .rejectedAt()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -1702,6 +1754,19 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [DepositReturn].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .amount()
+             * .checkDepositId()
+             * .currency()
+             * .returnReason()
+             * .returnedAt()
+             * .transactionId()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -2394,6 +2459,16 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [DepositSubmission].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .backFileId()
+             * .frontFileId()
+             * .submittedAt()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -2662,6 +2737,23 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [InboundFundsHold].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .id()
+             * .amount()
+             * .automaticallyReleasesAt()
+             * .createdAt()
+             * .currency()
+             * .heldTransactionId()
+             * .pendingTransactionId()
+             * .releasedAt()
+             * .status()
+             * .type()
+             * ```
+             */
             fun builder() = Builder()
         }
 

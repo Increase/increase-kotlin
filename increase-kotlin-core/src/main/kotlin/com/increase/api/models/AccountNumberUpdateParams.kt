@@ -146,6 +146,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Body]. */
             fun builder() = Builder()
         }
 
@@ -244,6 +245,14 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [AccountNumberUpdateParams].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .accountNumberId()
+         * ```
+         */
         fun builder() = Builder()
     }
 
@@ -467,6 +476,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [InboundAch]. */
             fun builder() = Builder()
         }
 
@@ -684,6 +694,14 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [InboundChecks].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .status()
+             * ```
+             */
             fun builder() = Builder()
         }
 

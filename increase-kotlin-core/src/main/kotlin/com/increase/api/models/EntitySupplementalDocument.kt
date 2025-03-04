@@ -117,6 +117,18 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [EntitySupplementalDocument].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .createdAt()
+         * .entityId()
+         * .fileId()
+         * .idempotencyKey()
+         * .type()
+         * ```
+         */
         fun builder() = Builder()
     }
 

@@ -17,6 +17,9 @@ class IncreaseOkHttpClientAsync private constructor() {
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [IncreaseOkHttpClientAsync].
+         */
         fun builder() = Builder()
 
         fun fromEnv(): IncreaseClientAsync = builder().fromEnv().build()

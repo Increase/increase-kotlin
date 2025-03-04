@@ -100,6 +100,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Body]. */
             fun builder() = Builder()
         }
 
@@ -164,6 +165,15 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [SimulationRealTimePaymentsTransferCompleteParams].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .realTimePaymentsTransferId()
+         * ```
+         */
         fun builder() = Builder()
     }
 
@@ -366,6 +376,14 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Rejection].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .rejectReasonCode()
+             * ```
+             */
             fun builder() = Builder()
         }
 

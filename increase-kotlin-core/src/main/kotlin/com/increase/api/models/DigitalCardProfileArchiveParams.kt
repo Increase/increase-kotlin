@@ -46,6 +46,15 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [DigitalCardProfileArchiveParams].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .digitalCardProfileId()
+         * ```
+         */
         fun builder() = Builder()
     }
 

@@ -86,6 +86,7 @@ private constructor(
 
         fun none(): AccountListParams = builder().build()
 
+        /** Returns a mutable builder for constructing an instance of [AccountListParams]. */
         fun builder() = Builder()
     }
 
@@ -319,6 +320,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [CreatedAt]. */
             fun builder() = Builder()
         }
 
@@ -454,6 +456,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Status]. */
             fun builder() = Builder()
         }
 

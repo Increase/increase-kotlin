@@ -49,6 +49,15 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [SimulationInboundFundsHoldReleaseParams].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .inboundFundsHoldId()
+         * ```
+         */
         fun builder() = Builder()
     }
 

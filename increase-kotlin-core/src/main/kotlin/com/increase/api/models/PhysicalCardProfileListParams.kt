@@ -61,6 +61,10 @@ private constructor(
 
         fun none(): PhysicalCardProfileListParams = builder().build()
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [PhysicalCardProfileListParams].
+         */
         fun builder() = Builder()
     }
 
@@ -236,6 +240,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Status]. */
             fun builder() = Builder()
         }
 

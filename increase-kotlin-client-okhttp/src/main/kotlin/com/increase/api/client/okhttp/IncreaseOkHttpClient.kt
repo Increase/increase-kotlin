@@ -17,6 +17,7 @@ class IncreaseOkHttpClient private constructor() {
 
     companion object {
 
+        /** Returns a mutable builder for constructing an instance of [IncreaseOkHttpClient]. */
         fun builder() = Builder()
 
         fun fromEnv(): IncreaseClient = builder().fromEnv().build()

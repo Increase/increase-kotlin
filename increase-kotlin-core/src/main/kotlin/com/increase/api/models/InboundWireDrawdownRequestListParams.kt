@@ -43,6 +43,10 @@ private constructor(
 
         fun none(): InboundWireDrawdownRequestListParams = builder().build()
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [InboundWireDrawdownRequestListParams].
+         */
         fun builder() = Builder()
     }
 

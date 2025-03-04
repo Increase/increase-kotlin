@@ -46,6 +46,14 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [AchTransferCancelParams].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .achTransferId()
+         * ```
+         */
         fun builder() = Builder()
     }
 

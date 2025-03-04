@@ -233,6 +233,17 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Body].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .accountId()
+             * .amount()
+             * .fulfillmentMethod()
+             * .sourceAccountNumberId()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -391,6 +402,17 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [CheckTransferCreateParams].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .accountId()
+         * .amount()
+         * .fulfillmentMethod()
+         * .sourceAccountNumberId()
+         * ```
+         */
         fun builder() = Builder()
     }
 
@@ -842,6 +864,16 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [PhysicalCheck].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .mailingAddress()
+             * .memo()
+             * .recipientName()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -1034,6 +1066,17 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [MailingAddress].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .city()
+                 * .line1()
+                 * .postalCode()
+                 * .state()
+                 * ```
+                 */
                 fun builder() = Builder()
             }
 
@@ -1231,6 +1274,18 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [ReturnAddress].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .city()
+                 * .line1()
+                 * .name()
+                 * .postalCode()
+                 * .state()
+                 * ```
+                 */
                 fun builder() = Builder()
             }
 
@@ -1414,6 +1469,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [ThirdParty]. */
             fun builder() = Builder()
         }
 

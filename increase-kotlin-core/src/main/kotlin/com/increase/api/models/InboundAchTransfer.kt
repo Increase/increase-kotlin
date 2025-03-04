@@ -406,6 +406,40 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [InboundAchTransfer].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .acceptance()
+         * .accountId()
+         * .accountNumberId()
+         * .addenda()
+         * .amount()
+         * .automaticallyResolvesAt()
+         * .createdAt()
+         * .decline()
+         * .direction()
+         * .effectiveDate()
+         * .expectedSettlementSchedule()
+         * .internationalAddenda()
+         * .notificationOfChange()
+         * .originatorCompanyDescriptiveDate()
+         * .originatorCompanyDiscretionaryData()
+         * .originatorCompanyEntryDescription()
+         * .originatorCompanyId()
+         * .originatorCompanyName()
+         * .originatorRoutingNumber()
+         * .receiverIdNumber()
+         * .receiverName()
+         * .standardEntryClassCode()
+         * .status()
+         * .traceNumber()
+         * .transferReturn()
+         * .type()
+         * ```
+         */
         fun builder() = Builder()
     }
 
@@ -840,6 +874,15 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Acceptance].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .acceptedAt()
+             * .transactionId()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -964,6 +1007,15 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Addenda].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .category()
+             * .freeform()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -1157,6 +1209,14 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [Freeform].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .entries()
+                 * ```
+                 */
                 fun builder() = Builder()
             }
 
@@ -1255,6 +1315,14 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of [Entry].
+                     *
+                     * The following fields are required:
+                     * ```kotlin
+                     * .paymentRelatedInformation()
+                     * ```
+                     */
                     fun builder() = Builder()
                 }
 
@@ -1424,6 +1492,16 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Decline].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .declinedAt()
+             * .declinedTransactionId()
+             * .reason()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -2595,6 +2673,46 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [InternationalAddenda].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .destinationCountryCode()
+             * .destinationCurrencyCode()
+             * .foreignExchangeIndicator()
+             * .foreignExchangeReference()
+             * .foreignExchangeReferenceIndicator()
+             * .foreignPaymentAmount()
+             * .foreignTraceNumber()
+             * .internationalTransactionTypeCode()
+             * .originatingCurrencyCode()
+             * .originatingDepositoryFinancialInstitutionBranchCountry()
+             * .originatingDepositoryFinancialInstitutionId()
+             * .originatingDepositoryFinancialInstitutionIdQualifier()
+             * .originatingDepositoryFinancialInstitutionName()
+             * .originatorCity()
+             * .originatorCountry()
+             * .originatorIdentification()
+             * .originatorName()
+             * .originatorPostalCode()
+             * .originatorStateOrProvince()
+             * .originatorStreetAddress()
+             * .paymentRelatedInformation()
+             * .paymentRelatedInformation2()
+             * .receiverCity()
+             * .receiverCountry()
+             * .receiverIdentificationNumber()
+             * .receiverPostalCode()
+             * .receiverStateOrProvince()
+             * .receiverStreetAddress()
+             * .receivingCompanyOrIndividualName()
+             * .receivingDepositoryFinancialInstitutionCountry()
+             * .receivingDepositoryFinancialInstitutionId()
+             * .receivingDepositoryFinancialInstitutionIdQualifier()
+             * .receivingDepositoryFinancialInstitutionName()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -4167,6 +4285,15 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [NotificationOfChange].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .updatedAccountNumber()
+             * .updatedRoutingNumber()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -4677,6 +4804,16 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [TransferReturn].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .reason()
+             * .returnedAt()
+             * .transactionId()
+             * ```
+             */
             fun builder() = Builder()
         }
 
