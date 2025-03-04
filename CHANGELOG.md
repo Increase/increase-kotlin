@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.188.0 (2025-03-04)
+
+Full Changelog: [v0.187.0...v0.188.0](https://github.com/Increase/increase-kotlin/compare/v0.187.0...v0.188.0)
+
+### Features
+
+* **api:** api update ([#844](https://github.com/Increase/increase-kotlin/issues/844)) ([5c99606](https://github.com/Increase/increase-kotlin/commit/5c996062dba01d7314bf9341496699fa32835e7f))
+* **client:** allow configuring timeouts granularly ([#841](https://github.com/Increase/increase-kotlin/issues/841)) ([79cd588](https://github.com/Increase/increase-kotlin/commit/79cd5889903a33e4a7d37426e2ca0f94f95b12f1))
+* **client:** support raw response access ([#843](https://github.com/Increase/increase-kotlin/issues/843)) ([7a67a28](https://github.com/Increase/increase-kotlin/commit/7a67a28d916d003a7a483fd1d9dc82a6201c05a8))
+
 ## 0.187.0 (2025-03-04)
 
 Full Changelog: [v0.186.0...v0.187.0](https://github.com/Increase/increase-kotlin/compare/v0.186.0...v0.187.0)
