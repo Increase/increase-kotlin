@@ -67,6 +67,10 @@ private constructor(
 
         fun none(): RealTimePaymentsRequestForPaymentListParams = builder().build()
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [RealTimePaymentsRequestForPaymentListParams].
+         */
         fun builder() = Builder()
     }
 
@@ -288,6 +292,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [CreatedAt]. */
             fun builder() = Builder()
         }
 

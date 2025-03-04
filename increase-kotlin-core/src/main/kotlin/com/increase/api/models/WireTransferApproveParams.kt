@@ -46,6 +46,14 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [WireTransferApproveParams].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .wireTransferId()
+         * ```
+         */
         fun builder() = Builder()
     }
 

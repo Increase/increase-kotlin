@@ -148,6 +148,16 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Body].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .cardId()
+             * .cardholder()
+             * .shipment()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -254,6 +264,16 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [PhysicalCardCreateParams].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .cardId()
+         * .cardholder()
+         * .shipment()
+         * ```
+         */
         fun builder() = Builder()
     }
 
@@ -477,6 +497,15 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Cardholder].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .firstName()
+             * .lastName()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -597,6 +626,15 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Shipment].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .address()
+             * .method()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -763,6 +801,18 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [Address].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .city()
+                 * .line1()
+                 * .name()
+                 * .postalCode()
+                 * .state()
+                 * ```
+                 */
                 fun builder() = Builder()
             }
 

@@ -131,6 +131,20 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [DigitalWalletToken].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .cardId()
+         * .createdAt()
+         * .status()
+         * .tokenRequestor()
+         * .type()
+         * .updates()
+         * ```
+         */
         fun builder() = Builder()
     }
 
@@ -665,6 +679,15 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Update].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .status()
+             * .timestamp()
+             * ```
+             */
             fun builder() = Builder()
         }
 

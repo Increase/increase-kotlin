@@ -273,6 +273,31 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [ProofOfAuthorizationRequestSubmission].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .authorizationTerms()
+         * .authorizedAt()
+         * .authorizerCompany()
+         * .authorizerEmail()
+         * .authorizerIpAddress()
+         * .authorizerName()
+         * .createdAt()
+         * .customerHasBeenOffboarded()
+         * .idempotencyKey()
+         * .proofOfAuthorizationRequestId()
+         * .status()
+         * .type()
+         * .updatedAt()
+         * .validatedAccountOwnershipViaCredential()
+         * .validatedAccountOwnershipWithAccountStatement()
+         * .validatedAccountOwnershipWithMicrodeposit()
+         * ```
+         */
         fun builder() = Builder()
     }
 

@@ -365,6 +365,36 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [CheckTransfer].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .accountId()
+         * .accountNumber()
+         * .amount()
+         * .approval()
+         * .approvedInboundCheckDepositId()
+         * .cancellation()
+         * .checkNumber()
+         * .createdAt()
+         * .createdBy()
+         * .currency()
+         * .fulfillmentMethod()
+         * .idempotencyKey()
+         * .mailing()
+         * .pendingTransactionId()
+         * .physicalCheck()
+         * .routingNumber()
+         * .sourceAccountNumberId()
+         * .status()
+         * .stopPaymentRequest()
+         * .submission()
+         * .thirdParty()
+         * .type()
+         * ```
+         */
         fun builder() = Builder()
     }
 
@@ -772,6 +802,15 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Approval].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .approvedAt()
+             * .approvedBy()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -923,6 +962,15 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Cancellation].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .canceledAt()
+             * .canceledBy()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -1078,6 +1126,17 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [CreatedBy].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .apiKey()
+             * .category()
+             * .oauthApplication()
+             * .user()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -1193,6 +1252,14 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [ApiKey].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .description()
+                 * ```
+                 */
                 fun builder() = Builder()
             }
 
@@ -1426,6 +1493,14 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [OAuthApplication].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .name()
+                 * ```
+                 */
                 fun builder() = Builder()
             }
 
@@ -1530,6 +1605,14 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [User].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .email()
+                 * ```
+                 */
                 fun builder() = Builder()
             }
 
@@ -1942,6 +2025,16 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Mailing].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .imageId()
+             * .mailedAt()
+             * .trackingNumber()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -2168,6 +2261,21 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [PhysicalCheck].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .mailingAddress()
+             * .memo()
+             * .note()
+             * .recipientName()
+             * .returnAddress()
+             * .shippingMethod()
+             * .signatureText()
+             * .trackingUpdates()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -2397,6 +2505,19 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [MailingAddress].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .city()
+                 * .line1()
+                 * .line2()
+                 * .name()
+                 * .postalCode()
+                 * .state()
+                 * ```
+                 */
                 fun builder() = Builder()
             }
 
@@ -2600,6 +2721,19 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [ReturnAddress].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .city()
+                 * .line1()
+                 * .line2()
+                 * .name()
+                 * .postalCode()
+                 * .state()
+                 * ```
+                 */
                 fun builder() = Builder()
             }
 
@@ -2892,6 +3026,16 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [TrackingUpdate].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .category()
+                 * .createdAt()
+                 * .postalCode()
+                 * ```
+                 */
                 fun builder() = Builder()
             }
 
@@ -3385,6 +3529,17 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [StopPaymentRequest].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .reason()
+             * .requestedAt()
+             * .transferId()
+             * .type()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -3753,6 +3908,14 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Submission].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .submittedAt()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -3861,6 +4024,14 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [ThirdParty].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .checkNumber()
+             * ```
+             */
             fun builder() = Builder()
         }
 

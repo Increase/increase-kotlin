@@ -152,6 +152,22 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [Lockbox].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .accountId()
+         * .address()
+         * .createdAt()
+         * .description()
+         * .idempotencyKey()
+         * .recipientName()
+         * .status()
+         * .type()
+         * ```
+         */
         fun builder() = Builder()
     }
 
@@ -397,6 +413,19 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Address].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .city()
+             * .line1()
+             * .line2()
+             * .postalCode()
+             * .recipient()
+             * .state()
+             * ```
+             */
             fun builder() = Builder()
         }
 

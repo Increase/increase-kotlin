@@ -66,6 +66,9 @@ private constructor(
 
         fun none(): ExternalAccountListParams = builder().build()
 
+        /**
+         * Returns a mutable builder for constructing an instance of [ExternalAccountListParams].
+         */
         fun builder() = Builder()
     }
 
@@ -248,6 +251,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Status]. */
             fun builder() = Builder()
         }
 

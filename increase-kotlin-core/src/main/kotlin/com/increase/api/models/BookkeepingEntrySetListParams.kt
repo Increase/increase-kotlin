@@ -57,6 +57,10 @@ private constructor(
 
         fun none(): BookkeepingEntrySetListParams = builder().build()
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [BookkeepingEntrySetListParams].
+         */
         fun builder() = Builder()
     }
 

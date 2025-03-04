@@ -199,6 +199,25 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [CardDispute].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .acceptance()
+         * .amount()
+         * .createdAt()
+         * .disputedTransactionId()
+         * .explanation()
+         * .idempotencyKey()
+         * .loss()
+         * .rejection()
+         * .status()
+         * .type()
+         * .win()
+         * ```
+         */
         fun builder() = Builder()
     }
 
@@ -467,6 +486,16 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Acceptance].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .acceptedAt()
+             * .cardDisputeId()
+             * .transactionId()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -652,6 +681,17 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Loss].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .cardDisputeId()
+             * .explanation()
+             * .lostAt()
+             * .transactionId()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -833,6 +873,16 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Rejection].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .cardDisputeId()
+             * .explanation()
+             * .rejectedAt()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -1237,6 +1287,15 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Win].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .cardDisputeId()
+             * .wonAt()
+             * ```
+             */
             fun builder() = Builder()
         }
 

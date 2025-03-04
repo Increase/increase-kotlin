@@ -116,6 +116,19 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [Document].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .category()
+         * .createdAt()
+         * .entityId()
+         * .fileId()
+         * .type()
+         * ```
+         */
         fun builder() = Builder()
     }
 

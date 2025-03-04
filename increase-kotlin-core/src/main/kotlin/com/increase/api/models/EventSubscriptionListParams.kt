@@ -52,6 +52,9 @@ private constructor(
 
         fun none(): EventSubscriptionListParams = builder().build()
 
+        /**
+         * Returns a mutable builder for constructing an instance of [EventSubscriptionListParams].
+         */
         fun builder() = Builder()
     }
 

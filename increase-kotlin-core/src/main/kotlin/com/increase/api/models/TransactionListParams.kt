@@ -73,6 +73,7 @@ private constructor(
 
         fun none(): TransactionListParams = builder().build()
 
+        /** Returns a mutable builder for constructing an instance of [TransactionListParams]. */
         fun builder() = Builder()
     }
 
@@ -257,6 +258,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Category]. */
             fun builder() = Builder()
         }
 
@@ -931,6 +933,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [CreatedAt]. */
             fun builder() = Builder()
         }
 

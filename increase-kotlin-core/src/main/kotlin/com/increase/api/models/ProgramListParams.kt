@@ -43,6 +43,7 @@ private constructor(
 
         fun none(): ProgramListParams = builder().build()
 
+        /** Returns a mutable builder for constructing an instance of [ProgramListParams]. */
         fun builder() = Builder()
     }
 

@@ -136,6 +136,20 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [BookkeepingEntrySet].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .createdAt()
+         * .date()
+         * .entries()
+         * .idempotencyKey()
+         * .transactionId()
+         * .type()
+         * ```
+         */
         fun builder() = Builder()
     }
 
@@ -320,6 +334,16 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Entry].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .id()
+             * .accountId()
+             * .amount()
+             * ```
+             */
             fun builder() = Builder()
         }
 

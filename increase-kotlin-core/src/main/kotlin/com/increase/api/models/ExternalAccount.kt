@@ -187,6 +187,24 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [ExternalAccount].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .accountHolder()
+         * .accountNumber()
+         * .createdAt()
+         * .description()
+         * .funding()
+         * .idempotencyKey()
+         * .routingNumber()
+         * .status()
+         * .type()
+         * .verificationStatus()
+         * ```
+         */
         fun builder() = Builder()
     }
 

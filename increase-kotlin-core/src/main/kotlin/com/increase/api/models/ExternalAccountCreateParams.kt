@@ -167,6 +167,16 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Body].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .accountNumber()
+             * .description()
+             * .routingNumber()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -286,6 +296,16 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [ExternalAccountCreateParams].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .accountNumber()
+         * .description()
+         * .routingNumber()
+         * ```
+         */
         fun builder() = Builder()
     }
 

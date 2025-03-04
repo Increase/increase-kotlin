@@ -51,6 +51,14 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [RoutingNumberListParams].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .routingNumber()
+         * ```
+         */
         fun builder() = Builder()
     }
 

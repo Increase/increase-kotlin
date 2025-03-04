@@ -39,6 +39,14 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [LockboxRetrieveParams].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .lockboxId()
+         * ```
+         */
         fun builder() = Builder()
     }
 

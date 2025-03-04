@@ -241,6 +241,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Body]. */
             fun builder() = Builder()
         }
 
@@ -394,6 +395,14 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [RealTimeDecisionActionParams].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .realTimeDecisionId()
+         * ```
+         */
         fun builder() = Builder()
     }
 
@@ -666,6 +675,14 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [CardAuthentication].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .decision()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -891,6 +908,15 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [CardAuthenticationChallenge].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .result()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -1129,6 +1155,14 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [CardAuthorization].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .decision()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -1569,6 +1603,15 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [DigitalWalletAuthentication].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .result()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -1788,6 +1831,7 @@ private constructor(
 
             companion object {
 
+                /** Returns a mutable builder for constructing an instance of [Success]. */
                 fun builder() = Builder()
             }
 
@@ -1949,6 +1993,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [DigitalWalletToken]. */
             fun builder() = Builder()
         }
 
@@ -2068,6 +2113,7 @@ private constructor(
 
             companion object {
 
+                /** Returns a mutable builder for constructing an instance of [Approval]. */
                 fun builder() = Builder()
             }
 
@@ -2195,6 +2241,7 @@ private constructor(
 
             companion object {
 
+                /** Returns a mutable builder for constructing an instance of [Decline]. */
                 fun builder() = Builder()
             }
 

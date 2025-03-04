@@ -72,6 +72,7 @@ private constructor(
 
         fun none(): AchTransferListParams = builder().build()
 
+        /** Returns a mutable builder for constructing an instance of [AchTransferListParams]. */
         fun builder() = Builder()
     }
 
@@ -294,6 +295,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [CreatedAt]. */
             fun builder() = Builder()
         }
 

@@ -286,6 +286,14 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Body].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .structure()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -489,6 +497,14 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [EntityCreateParams].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .structure()
+         * ```
+         */
         fun builder() = Builder()
     }
 
@@ -1007,6 +1023,17 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Corporation].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .address()
+             * .beneficialOwners()
+             * .name()
+             * .taxIdentifier()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -1242,6 +1269,17 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [Address].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .city()
+                 * .line1()
+                 * .state()
+                 * .zip()
+                 * ```
+                 */
                 fun builder() = Builder()
             }
 
@@ -1419,6 +1457,15 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [BeneficialOwner].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .individual()
+                 * .prongs()
+                 * ```
+                 */
                 fun builder() = Builder()
             }
 
@@ -1614,6 +1661,17 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of [Individual].
+                     *
+                     * The following fields are required:
+                     * ```kotlin
+                     * .address()
+                     * .dateOfBirth()
+                     * .identification()
+                     * .name()
+                     * ```
+                     */
                     fun builder() = Builder()
                 }
 
@@ -1813,6 +1871,17 @@ private constructor(
 
                     companion object {
 
+                        /**
+                         * Returns a mutable builder for constructing an instance of [Address].
+                         *
+                         * The following fields are required:
+                         * ```kotlin
+                         * .city()
+                         * .line1()
+                         * .state()
+                         * .zip()
+                         * ```
+                         */
                         fun builder() = Builder()
                     }
 
@@ -2043,6 +2112,16 @@ private constructor(
 
                     companion object {
 
+                        /**
+                         * Returns a mutable builder for constructing an instance of
+                         * [Identification].
+                         *
+                         * The following fields are required:
+                         * ```kotlin
+                         * .method()
+                         * .number()
+                         * ```
+                         */
                         fun builder() = Builder()
                     }
 
@@ -2391,6 +2470,17 @@ private constructor(
 
                         companion object {
 
+                            /**
+                             * Returns a mutable builder for constructing an instance of
+                             * [DriversLicense].
+                             *
+                             * The following fields are required:
+                             * ```kotlin
+                             * .expirationDate()
+                             * .fileId()
+                             * .state()
+                             * ```
+                             */
                             fun builder() = Builder()
                         }
 
@@ -2609,6 +2699,16 @@ private constructor(
 
                         companion object {
 
+                            /**
+                             * Returns a mutable builder for constructing an instance of [Other].
+                             *
+                             * The following fields are required:
+                             * ```kotlin
+                             * .country()
+                             * .description()
+                             * .fileId()
+                             * ```
+                             */
                             fun builder() = Builder()
                         }
 
@@ -2804,6 +2904,16 @@ private constructor(
 
                         companion object {
 
+                            /**
+                             * Returns a mutable builder for constructing an instance of [Passport].
+                             *
+                             * The following fields are required:
+                             * ```kotlin
+                             * .country()
+                             * .expirationDate()
+                             * .fileId()
+                             * ```
+                             */
                             fun builder() = Builder()
                         }
 
@@ -3177,6 +3287,18 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [GovernmentAuthority].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .address()
+             * .authorizedPersons()
+             * .category()
+             * .name()
+             * .taxIdentifier()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -3373,6 +3495,17 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [Address].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .city()
+                 * .line1()
+                 * .state()
+                 * .zip()
+                 * ```
+                 */
                 fun builder() = Builder()
             }
 
@@ -3518,6 +3651,14 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [AuthorizedPerson].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .name()
+                 * ```
+                 */
                 fun builder() = Builder()
             }
 
@@ -3751,6 +3892,14 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Joint].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .individuals()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -3913,6 +4062,17 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [Individual].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .address()
+                 * .dateOfBirth()
+                 * .identification()
+                 * .name()
+                 * ```
+                 */
                 fun builder() = Builder()
             }
 
@@ -4108,6 +4268,17 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of [Address].
+                     *
+                     * The following fields are required:
+                     * ```kotlin
+                     * .city()
+                     * .line1()
+                     * .state()
+                     * .zip()
+                     * ```
+                     */
                     fun builder() = Builder()
                 }
 
@@ -4327,6 +4498,15 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of [Identification].
+                     *
+                     * The following fields are required:
+                     * ```kotlin
+                     * .method()
+                     * .number()
+                     * ```
+                     */
                     fun builder() = Builder()
                 }
 
@@ -4657,6 +4837,17 @@ private constructor(
 
                     companion object {
 
+                        /**
+                         * Returns a mutable builder for constructing an instance of
+                         * [DriversLicense].
+                         *
+                         * The following fields are required:
+                         * ```kotlin
+                         * .expirationDate()
+                         * .fileId()
+                         * .state()
+                         * ```
+                         */
                         fun builder() = Builder()
                     }
 
@@ -4868,6 +5059,16 @@ private constructor(
 
                     companion object {
 
+                        /**
+                         * Returns a mutable builder for constructing an instance of [Other].
+                         *
+                         * The following fields are required:
+                         * ```kotlin
+                         * .country()
+                         * .description()
+                         * .fileId()
+                         * ```
+                         */
                         fun builder() = Builder()
                     }
 
@@ -5058,6 +5259,16 @@ private constructor(
 
                     companion object {
 
+                        /**
+                         * Returns a mutable builder for constructing an instance of [Passport].
+                         *
+                         * The following fields are required:
+                         * ```kotlin
+                         * .country()
+                         * .expirationDate()
+                         * .fileId()
+                         * ```
+                         */
                         fun builder() = Builder()
                     }
 
@@ -5303,6 +5514,17 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [NaturalPerson].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .address()
+             * .dateOfBirth()
+             * .identification()
+             * .name()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -5493,6 +5715,17 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [Address].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .city()
+                 * .line1()
+                 * .state()
+                 * .zip()
+                 * ```
+                 */
                 fun builder() = Builder()
             }
 
@@ -5707,6 +5940,15 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [Identification].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .method()
+                 * .number()
+                 * ```
+                 */
                 fun builder() = Builder()
             }
 
@@ -6033,6 +6275,16 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of [DriversLicense].
+                     *
+                     * The following fields are required:
+                     * ```kotlin
+                     * .expirationDate()
+                     * .fileId()
+                     * .state()
+                     * ```
+                     */
                     fun builder() = Builder()
                 }
 
@@ -6230,6 +6482,16 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of [Other].
+                     *
+                     * The following fields are required:
+                     * ```kotlin
+                     * .country()
+                     * .description()
+                     * .fileId()
+                     * ```
+                     */
                     fun builder() = Builder()
                 }
 
@@ -6414,6 +6676,16 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of [Passport].
+                     *
+                     * The following fields are required:
+                     * ```kotlin
+                     * .country()
+                     * .expirationDate()
+                     * .fileId()
+                     * ```
+                     */
                     fun builder() = Builder()
                 }
 
@@ -6574,6 +6846,14 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [SupplementalDocument].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .fileId()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -6688,6 +6968,15 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [ThirdPartyVerification].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .reference()
+             * .vendor()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -7010,6 +7299,17 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Trust].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .address()
+             * .category()
+             * .name()
+             * .trustees()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -7249,6 +7549,17 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [Address].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .city()
+                 * .line1()
+                 * .state()
+                 * .zip()
+                 * ```
+                 */
                 fun builder() = Builder()
             }
 
@@ -7526,6 +7837,14 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [Trustee].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .structure()
+                 * ```
+                 */
                 fun builder() = Builder()
             }
 
@@ -7800,6 +8119,17 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of [Individual].
+                     *
+                     * The following fields are required:
+                     * ```kotlin
+                     * .address()
+                     * .dateOfBirth()
+                     * .identification()
+                     * .name()
+                     * ```
+                     */
                     fun builder() = Builder()
                 }
 
@@ -7999,6 +8329,17 @@ private constructor(
 
                     companion object {
 
+                        /**
+                         * Returns a mutable builder for constructing an instance of [Address].
+                         *
+                         * The following fields are required:
+                         * ```kotlin
+                         * .city()
+                         * .line1()
+                         * .state()
+                         * .zip()
+                         * ```
+                         */
                         fun builder() = Builder()
                     }
 
@@ -8229,6 +8570,16 @@ private constructor(
 
                     companion object {
 
+                        /**
+                         * Returns a mutable builder for constructing an instance of
+                         * [Identification].
+                         *
+                         * The following fields are required:
+                         * ```kotlin
+                         * .method()
+                         * .number()
+                         * ```
+                         */
                         fun builder() = Builder()
                     }
 
@@ -8577,6 +8928,17 @@ private constructor(
 
                         companion object {
 
+                            /**
+                             * Returns a mutable builder for constructing an instance of
+                             * [DriversLicense].
+                             *
+                             * The following fields are required:
+                             * ```kotlin
+                             * .expirationDate()
+                             * .fileId()
+                             * .state()
+                             * ```
+                             */
                             fun builder() = Builder()
                         }
 
@@ -8795,6 +9157,16 @@ private constructor(
 
                         companion object {
 
+                            /**
+                             * Returns a mutable builder for constructing an instance of [Other].
+                             *
+                             * The following fields are required:
+                             * ```kotlin
+                             * .country()
+                             * .description()
+                             * .fileId()
+                             * ```
+                             */
                             fun builder() = Builder()
                         }
 
@@ -8990,6 +9362,16 @@ private constructor(
 
                         companion object {
 
+                            /**
+                             * Returns a mutable builder for constructing an instance of [Passport].
+                             *
+                             * The following fields are required:
+                             * ```kotlin
+                             * .country()
+                             * .expirationDate()
+                             * .fileId()
+                             * ```
+                             */
                             fun builder() = Builder()
                         }
 
@@ -9233,6 +9615,17 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [Grantor].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .address()
+                 * .dateOfBirth()
+                 * .identification()
+                 * .name()
+                 * ```
+                 */
                 fun builder() = Builder()
             }
 
@@ -9428,6 +9821,17 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of [Address].
+                     *
+                     * The following fields are required:
+                     * ```kotlin
+                     * .city()
+                     * .line1()
+                     * .state()
+                     * .zip()
+                     * ```
+                     */
                     fun builder() = Builder()
                 }
 
@@ -9647,6 +10051,15 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of [Identification].
+                     *
+                     * The following fields are required:
+                     * ```kotlin
+                     * .method()
+                     * .number()
+                     * ```
+                     */
                     fun builder() = Builder()
                 }
 
@@ -9977,6 +10390,17 @@ private constructor(
 
                     companion object {
 
+                        /**
+                         * Returns a mutable builder for constructing an instance of
+                         * [DriversLicense].
+                         *
+                         * The following fields are required:
+                         * ```kotlin
+                         * .expirationDate()
+                         * .fileId()
+                         * .state()
+                         * ```
+                         */
                         fun builder() = Builder()
                     }
 
@@ -10188,6 +10612,16 @@ private constructor(
 
                     companion object {
 
+                        /**
+                         * Returns a mutable builder for constructing an instance of [Other].
+                         *
+                         * The following fields are required:
+                         * ```kotlin
+                         * .country()
+                         * .description()
+                         * .fileId()
+                         * ```
+                         */
                         fun builder() = Builder()
                     }
 
@@ -10378,6 +10812,16 @@ private constructor(
 
                     companion object {
 
+                        /**
+                         * Returns a mutable builder for constructing an instance of [Passport].
+                         *
+                         * The following fields are required:
+                         * ```kotlin
+                         * .country()
+                         * .expirationDate()
+                         * .fileId()
+                         * ```
+                         */
                         fun builder() = Builder()
                     }
 

@@ -114,6 +114,19 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [ProofOfAuthorizationRequest].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .achTransfers()
+         * .createdAt()
+         * .dueOn()
+         * .type()
+         * .updatedAt()
+         * ```
+         */
         fun builder() = Builder()
     }
 
@@ -255,6 +268,14 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [AchTransfer].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .id()
+             * ```
+             */
             fun builder() = Builder()
         }
 

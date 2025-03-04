@@ -57,6 +57,9 @@ private constructor(
 
         fun none(): IntrafiExclusionListParams = builder().build()
 
+        /**
+         * Returns a mutable builder for constructing an instance of [IntrafiExclusionListParams].
+         */
         fun builder() = Builder()
     }
 

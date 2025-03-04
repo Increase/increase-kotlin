@@ -52,6 +52,9 @@ private constructor(
 
         fun none(): BookkeepingAccountListParams = builder().build()
 
+        /**
+         * Returns a mutable builder for constructing an instance of [BookkeepingAccountListParams].
+         */
         fun builder() = Builder()
     }
 
