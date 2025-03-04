@@ -2,11 +2,18 @@
 
 package com.increase.api.services.async.simulations
 
+import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
+import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.InboundAchTransfer
 import com.increase.api.models.SimulationInboundAchTransferCreateParams
 
 interface InboundAchTransferServiceAsync {
+
+    /**
+     * Returns a view of this service that provides access to raw HTTP responses for each method.
+     */
+    fun withRawResponse(): WithRawResponse
 
     /**
      * Simulates an inbound ACH transfer to your account. This imitates initiating a transfer to an
@@ -23,4 +30,21 @@ interface InboundAchTransferServiceAsync {
         params: SimulationInboundAchTransferCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundAchTransfer
+
+    /**
+     * A view of [InboundAchTransferServiceAsync] that provides access to raw HTTP responses for
+     * each method.
+     */
+    interface WithRawResponse {
+
+        /**
+         * Returns a raw HTTP response for `post /simulations/inbound_ach_transfers`, but is
+         * otherwise the same as [InboundAchTransferServiceAsync.create].
+         */
+        @MustBeClosed
+        suspend fun create(
+            params: SimulationInboundAchTransferCreateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<InboundAchTransfer>
+    }
 }

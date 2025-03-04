@@ -2,11 +2,18 @@
 
 package com.increase.api.services.async.simulations
 
+import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
+import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.CheckTransfer
 import com.increase.api.models.SimulationCheckTransferMailParams
 
 interface CheckTransferServiceAsync {
+
+    /**
+     * Returns a view of this service that provides access to raw HTTP responses for each method.
+     */
+    fun withRawResponse(): WithRawResponse
 
     /**
      * Simulates the mailing of a [Check Transfer](#check-transfers), which happens periodically
@@ -17,4 +24,22 @@ interface CheckTransferServiceAsync {
         params: SimulationCheckTransferMailParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CheckTransfer
+
+    /**
+     * A view of [CheckTransferServiceAsync] that provides access to raw HTTP responses for each
+     * method.
+     */
+    interface WithRawResponse {
+
+        /**
+         * Returns a raw HTTP response for `post
+         * /simulations/check_transfers/{check_transfer_id}/mail`, but is otherwise the same as
+         * [CheckTransferServiceAsync.mail].
+         */
+        @MustBeClosed
+        suspend fun mail(
+            params: SimulationCheckTransferMailParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<CheckTransfer>
+    }
 }

@@ -2,7 +2,9 @@
 
 package com.increase.api.services.async
 
+import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
+import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.Entity
 import com.increase.api.models.EntityArchiveBeneficialOwnerParams
 import com.increase.api.models.EntityArchiveParams
@@ -17,6 +19,11 @@ import com.increase.api.models.EntityUpdateBeneficialOwnerAddressParams
 import com.increase.api.models.EntityUpdateIndustryCodeParams
 
 interface EntityServiceAsync {
+
+    /**
+     * Returns a view of this service that provides access to raw HTTP responses for each method.
+     */
+    fun withRawResponse(): WithRawResponse
 
     /** Create an Entity */
     suspend fun create(
@@ -85,4 +92,119 @@ interface EntityServiceAsync {
         params: EntityUpdateIndustryCodeParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Entity
+
+    /**
+     * A view of [EntityServiceAsync] that provides access to raw HTTP responses for each method.
+     */
+    interface WithRawResponse {
+
+        /**
+         * Returns a raw HTTP response for `post /entities`, but is otherwise the same as
+         * [EntityServiceAsync.create].
+         */
+        @MustBeClosed
+        suspend fun create(
+            params: EntityCreateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<Entity>
+
+        /**
+         * Returns a raw HTTP response for `get /entities/{entity_id}`, but is otherwise the same as
+         * [EntityServiceAsync.retrieve].
+         */
+        @MustBeClosed
+        suspend fun retrieve(
+            params: EntityRetrieveParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<Entity>
+
+        /**
+         * Returns a raw HTTP response for `get /entities`, but is otherwise the same as
+         * [EntityServiceAsync.list].
+         */
+        @MustBeClosed
+        suspend fun list(
+            params: EntityListParams = EntityListParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<EntityListPageAsync>
+
+        /**
+         * Returns a raw HTTP response for `get /entities`, but is otherwise the same as
+         * [EntityServiceAsync.list].
+         */
+        @MustBeClosed
+        suspend fun list(requestOptions: RequestOptions): HttpResponseFor<EntityListPageAsync> =
+            list(EntityListParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `post /entities/{entity_id}/archive`, but is otherwise
+         * the same as [EntityServiceAsync.archive].
+         */
+        @MustBeClosed
+        suspend fun archive(
+            params: EntityArchiveParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<Entity>
+
+        /**
+         * Returns a raw HTTP response for `post /entities/{entity_id}/archive_beneficial_owner`,
+         * but is otherwise the same as [EntityServiceAsync.archiveBeneficialOwner].
+         */
+        @MustBeClosed
+        suspend fun archiveBeneficialOwner(
+            params: EntityArchiveBeneficialOwnerParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<Entity>
+
+        /**
+         * Returns a raw HTTP response for `post /entities/{entity_id}/confirm`, but is otherwise
+         * the same as [EntityServiceAsync.confirm].
+         */
+        @MustBeClosed
+        suspend fun confirm(
+            params: EntityConfirmParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<Entity>
+
+        /**
+         * Returns a raw HTTP response for `post /entities/{entity_id}/create_beneficial_owner`, but
+         * is otherwise the same as [EntityServiceAsync.createBeneficialOwner].
+         */
+        @MustBeClosed
+        suspend fun createBeneficialOwner(
+            params: EntityCreateBeneficialOwnerParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<Entity>
+
+        /**
+         * Returns a raw HTTP response for `post /entities/{entity_id}/update_address`, but is
+         * otherwise the same as [EntityServiceAsync.updateAddress].
+         */
+        @MustBeClosed
+        suspend fun updateAddress(
+            params: EntityUpdateAddressParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<Entity>
+
+        /**
+         * Returns a raw HTTP response for `post
+         * /entities/{entity_id}/update_beneficial_owner_address`, but is otherwise the same as
+         * [EntityServiceAsync.updateBeneficialOwnerAddress].
+         */
+        @MustBeClosed
+        suspend fun updateBeneficialOwnerAddress(
+            params: EntityUpdateBeneficialOwnerAddressParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<Entity>
+
+        /**
+         * Returns a raw HTTP response for `post /entities/{entity_id}/update_industry_code`, but is
+         * otherwise the same as [EntityServiceAsync.updateIndustryCode].
+         */
+        @MustBeClosed
+        suspend fun updateIndustryCode(
+            params: EntityUpdateIndustryCodeParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<Entity>
+    }
 }

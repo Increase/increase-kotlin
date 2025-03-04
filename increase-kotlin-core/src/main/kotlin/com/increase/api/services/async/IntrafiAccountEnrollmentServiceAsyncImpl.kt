@@ -10,6 +10,8 @@ import com.increase.api.core.handlers.withErrorHandler
 import com.increase.api.core.http.HttpMethod
 import com.increase.api.core.http.HttpRequest
 import com.increase.api.core.http.HttpResponse.Handler
+import com.increase.api.core.http.HttpResponseFor
+import com.increase.api.core.http.parseable
 import com.increase.api.core.json
 import com.increase.api.core.prepareAsync
 import com.increase.api.errors.IncreaseError
@@ -24,112 +26,165 @@ class IntrafiAccountEnrollmentServiceAsyncImpl
 internal constructor(private val clientOptions: ClientOptions) :
     IntrafiAccountEnrollmentServiceAsync {
 
-    private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
+    private val withRawResponse: IntrafiAccountEnrollmentServiceAsync.WithRawResponse by lazy {
+        WithRawResponseImpl(clientOptions)
+    }
 
-    private val createHandler: Handler<IntrafiAccountEnrollment> =
-        jsonHandler<IntrafiAccountEnrollment>(clientOptions.jsonMapper)
-            .withErrorHandler(errorHandler)
+    override fun withRawResponse(): IntrafiAccountEnrollmentServiceAsync.WithRawResponse =
+        withRawResponse
 
-    /** Enroll an account in the IntraFi deposit sweep network */
     override suspend fun create(
         params: IntrafiAccountEnrollmentCreateParams,
         requestOptions: RequestOptions,
-    ): IntrafiAccountEnrollment {
-        val request =
-            HttpRequest.builder()
-                .method(HttpMethod.POST)
-                .addPathSegments("intrafi_account_enrollments")
-                .body(json(clientOptions.jsonMapper, params._body()))
-                .build()
-                .prepareAsync(clientOptions, params)
-        val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-        val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-        return response
-            .use { createHandler.handle(it) }
-            .also {
-                if (requestOptions.responseValidation!!) {
-                    it.validate()
-                }
-            }
-    }
+    ): IntrafiAccountEnrollment =
+        // post /intrafi_account_enrollments
+        withRawResponse().create(params, requestOptions).parse()
 
-    private val retrieveHandler: Handler<IntrafiAccountEnrollment> =
-        jsonHandler<IntrafiAccountEnrollment>(clientOptions.jsonMapper)
-            .withErrorHandler(errorHandler)
-
-    /** Get an IntraFi Account Enrollment */
     override suspend fun retrieve(
         params: IntrafiAccountEnrollmentRetrieveParams,
         requestOptions: RequestOptions,
-    ): IntrafiAccountEnrollment {
-        val request =
-            HttpRequest.builder()
-                .method(HttpMethod.GET)
-                .addPathSegments("intrafi_account_enrollments", params.getPathParam(0))
-                .build()
-                .prepareAsync(clientOptions, params)
-        val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-        val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-        return response
-            .use { retrieveHandler.handle(it) }
-            .also {
-                if (requestOptions.responseValidation!!) {
-                    it.validate()
-                }
-            }
-    }
+    ): IntrafiAccountEnrollment =
+        // get /intrafi_account_enrollments/{intrafi_account_enrollment_id}
+        withRawResponse().retrieve(params, requestOptions).parse()
 
-    private val listHandler: Handler<IntrafiAccountEnrollmentListPageAsync.Response> =
-        jsonHandler<IntrafiAccountEnrollmentListPageAsync.Response>(clientOptions.jsonMapper)
-            .withErrorHandler(errorHandler)
-
-    /** List IntraFi Account Enrollments */
     override suspend fun list(
         params: IntrafiAccountEnrollmentListParams,
         requestOptions: RequestOptions,
-    ): IntrafiAccountEnrollmentListPageAsync {
-        val request =
-            HttpRequest.builder()
-                .method(HttpMethod.GET)
-                .addPathSegments("intrafi_account_enrollments")
-                .build()
-                .prepareAsync(clientOptions, params)
-        val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-        val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-        return response
-            .use { listHandler.handle(it) }
-            .also {
-                if (requestOptions.responseValidation!!) {
-                    it.validate()
-                }
-            }
-            .let { IntrafiAccountEnrollmentListPageAsync.of(this, params, it) }
-    }
+    ): IntrafiAccountEnrollmentListPageAsync =
+        // get /intrafi_account_enrollments
+        withRawResponse().list(params, requestOptions).parse()
 
-    private val unenrollHandler: Handler<IntrafiAccountEnrollment> =
-        jsonHandler<IntrafiAccountEnrollment>(clientOptions.jsonMapper)
-            .withErrorHandler(errorHandler)
-
-    /** Unenroll an account from IntraFi */
     override suspend fun unenroll(
         params: IntrafiAccountEnrollmentUnenrollParams,
         requestOptions: RequestOptions,
-    ): IntrafiAccountEnrollment {
-        val request =
-            HttpRequest.builder()
-                .method(HttpMethod.POST)
-                .addPathSegments("intrafi_account_enrollments", params.getPathParam(0), "unenroll")
-                .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
-                .build()
-                .prepareAsync(clientOptions, params)
-        val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-        val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-        return response
-            .use { unenrollHandler.handle(it) }
-            .also {
-                if (requestOptions.responseValidation!!) {
-                    it.validate()
-                }
+    ): IntrafiAccountEnrollment =
+        // post /intrafi_account_enrollments/{intrafi_account_enrollment_id}/unenroll
+        withRawResponse().unenroll(params, requestOptions).parse()
+
+    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
+        IntrafiAccountEnrollmentServiceAsync.WithRawResponse {
+
+        private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
+
+        private val createHandler: Handler<IntrafiAccountEnrollment> =
+            jsonHandler<IntrafiAccountEnrollment>(clientOptions.jsonMapper)
+                .withErrorHandler(errorHandler)
+
+        override suspend fun create(
+            params: IntrafiAccountEnrollmentCreateParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<IntrafiAccountEnrollment> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .addPathSegments("intrafi_account_enrollments")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+            return response.parseable {
+                response
+                    .use { createHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
             }
+        }
+
+        private val retrieveHandler: Handler<IntrafiAccountEnrollment> =
+            jsonHandler<IntrafiAccountEnrollment>(clientOptions.jsonMapper)
+                .withErrorHandler(errorHandler)
+
+        override suspend fun retrieve(
+            params: IntrafiAccountEnrollmentRetrieveParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<IntrafiAccountEnrollment> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .addPathSegments("intrafi_account_enrollments", params.getPathParam(0))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+            return response.parseable {
+                response
+                    .use { retrieveHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val listHandler: Handler<IntrafiAccountEnrollmentListPageAsync.Response> =
+            jsonHandler<IntrafiAccountEnrollmentListPageAsync.Response>(clientOptions.jsonMapper)
+                .withErrorHandler(errorHandler)
+
+        override suspend fun list(
+            params: IntrafiAccountEnrollmentListParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<IntrafiAccountEnrollmentListPageAsync> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .addPathSegments("intrafi_account_enrollments")
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+            return response.parseable {
+                response
+                    .use { listHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+                    .let {
+                        IntrafiAccountEnrollmentListPageAsync.of(
+                            IntrafiAccountEnrollmentServiceAsyncImpl(clientOptions),
+                            params,
+                            it,
+                        )
+                    }
+            }
+        }
+
+        private val unenrollHandler: Handler<IntrafiAccountEnrollment> =
+            jsonHandler<IntrafiAccountEnrollment>(clientOptions.jsonMapper)
+                .withErrorHandler(errorHandler)
+
+        override suspend fun unenroll(
+            params: IntrafiAccountEnrollmentUnenrollParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<IntrafiAccountEnrollment> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .addPathSegments(
+                        "intrafi_account_enrollments",
+                        params.getPathParam(0),
+                        "unenroll",
+                    )
+                    .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+            return response.parseable {
+                response
+                    .use { unenrollHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
     }
 }
