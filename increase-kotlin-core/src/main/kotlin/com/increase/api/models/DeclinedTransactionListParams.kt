@@ -70,6 +70,10 @@ private constructor(
 
         fun none(): DeclinedTransactionListParams = builder().build()
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [DeclinedTransactionListParams].
+         */
         fun builder() = Builder()
     }
 
@@ -251,6 +255,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Category]. */
             fun builder() = Builder()
         }
 
@@ -571,6 +576,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [CreatedAt]. */
             fun builder() = Builder()
         }
 

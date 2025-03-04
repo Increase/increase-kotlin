@@ -278,6 +278,30 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [AccountTransfer].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .accountId()
+         * .amount()
+         * .approval()
+         * .cancellation()
+         * .createdAt()
+         * .createdBy()
+         * .currency()
+         * .description()
+         * .destinationAccountId()
+         * .destinationTransactionId()
+         * .idempotencyKey()
+         * .network()
+         * .pendingTransactionId()
+         * .status()
+         * .transactionId()
+         * .type()
+         * ```
+         */
         fun builder() = Builder()
     }
 
@@ -604,6 +628,15 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Approval].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .approvedAt()
+             * .approvedBy()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -755,6 +788,15 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Cancellation].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .canceledAt()
+             * .canceledBy()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -910,6 +952,17 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [CreatedBy].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .apiKey()
+             * .category()
+             * .oauthApplication()
+             * .user()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -1025,6 +1078,14 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [ApiKey].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .description()
+                 * ```
+                 */
                 fun builder() = Builder()
             }
 
@@ -1258,6 +1319,14 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [OAuthApplication].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .name()
+                 * ```
+                 */
                 fun builder() = Builder()
             }
 
@@ -1362,6 +1431,14 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [User].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .email()
+                 * ```
+                 */
                 fun builder() = Builder()
             }
 

@@ -176,6 +176,23 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [IntrafiExclusion].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .bankName()
+         * .createdAt()
+         * .entityId()
+         * .excludedAt()
+         * .fdicCertificateNumber()
+         * .idempotencyKey()
+         * .status()
+         * .submittedAt()
+         * .type()
+         * ```
+         */
         fun builder() = Builder()
     }
 

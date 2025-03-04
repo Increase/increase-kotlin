@@ -81,6 +81,16 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [OAuthToken].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .accessToken()
+         * .tokenType()
+         * .type()
+         * ```
+         */
         fun builder() = Builder()
     }
 

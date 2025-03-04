@@ -202,6 +202,20 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Body].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .amount()
+             * .debtor()
+             * .destinationAccountNumberId()
+             * .expiresAt()
+             * .remittanceInformation()
+             * .sourceAccountNumber()
+             * .sourceRoutingNumber()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -342,6 +356,21 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [RealTimePaymentsRequestForPaymentCreateParams].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .amount()
+         * .debtor()
+         * .destinationAccountNumberId()
+         * .expiresAt()
+         * .remittanceInformation()
+         * .sourceAccountNumber()
+         * .sourceRoutingNumber()
+         * ```
+         */
         fun builder() = Builder()
     }
 
@@ -600,6 +629,15 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Debtor].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .address()
+             * .name()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -724,6 +762,14 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [Address].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .country()
+                 * ```
+                 */
                 fun builder() = Builder()
             }
 

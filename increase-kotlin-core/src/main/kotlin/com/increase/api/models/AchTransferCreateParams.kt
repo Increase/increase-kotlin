@@ -571,6 +571,16 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Body].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .accountId()
+             * .amount()
+             * .statementDescriptor()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -925,6 +935,16 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [AchTransferCreateParams].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .accountId()
+         * .amount()
+         * .statementDescriptor()
+         * ```
+         */
         fun builder() = Builder()
     }
 
@@ -1382,6 +1402,14 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Addenda].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .category()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -1619,6 +1647,14 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [Freeform].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .entries()
+                 * ```
+                 */
                 fun builder() = Builder()
             }
 
@@ -1729,6 +1765,14 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of [Entry].
+                     *
+                     * The following fields are required:
+                     * ```kotlin
+                     * .paymentRelatedInformation()
+                     * ```
+                     */
                     fun builder() = Builder()
                 }
 
@@ -1860,6 +1904,15 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of
+                 * [PaymentOrderRemittanceAdvice].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .invoices()
+                 * ```
+                 */
                 fun builder() = Builder()
             }
 
@@ -1981,6 +2034,15 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of [Invoice].
+                     *
+                     * The following fields are required:
+                     * ```kotlin
+                     * .invoiceNumber()
+                     * .paidAmount()
+                     * ```
+                     */
                     fun builder() = Builder()
                 }
 
@@ -2397,6 +2459,9 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [PreferredEffectiveDate].
+             */
             fun builder() = Builder()
         }
 

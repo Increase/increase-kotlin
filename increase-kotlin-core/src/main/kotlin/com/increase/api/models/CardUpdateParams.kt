@@ -188,6 +188,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Body]. */
             fun builder() = Builder()
         }
 
@@ -312,6 +313,14 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [CardUpdateParams].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .cardId()
+         * ```
+         */
         fun builder() = Builder()
     }
 
@@ -589,6 +598,17 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [BillingAddress].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .city()
+             * .line1()
+             * .postalCode()
+             * .state()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -762,6 +782,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [DigitalWallet]. */
             fun builder() = Builder()
         }
 

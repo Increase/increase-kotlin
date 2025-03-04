@@ -102,6 +102,14 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Body].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .beneficialOwner()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -179,6 +187,16 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [EntityCreateBeneficialOwnerParams].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .entityId()
+         * .beneficialOwner()
+         * ```
+         */
         fun builder() = Builder()
     }
 
@@ -412,6 +430,15 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [BeneficialOwner].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .individual()
+             * .prongs()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -600,6 +627,17 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [Individual].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .address()
+                 * .dateOfBirth()
+                 * .identification()
+                 * .name()
+                 * ```
+                 */
                 fun builder() = Builder()
             }
 
@@ -795,6 +833,17 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of [Address].
+                     *
+                     * The following fields are required:
+                     * ```kotlin
+                     * .city()
+                     * .line1()
+                     * .state()
+                     * .zip()
+                     * ```
+                     */
                     fun builder() = Builder()
                 }
 
@@ -1014,6 +1063,15 @@ private constructor(
 
                 companion object {
 
+                    /**
+                     * Returns a mutable builder for constructing an instance of [Identification].
+                     *
+                     * The following fields are required:
+                     * ```kotlin
+                     * .method()
+                     * .number()
+                     * ```
+                     */
                     fun builder() = Builder()
                 }
 
@@ -1344,6 +1402,17 @@ private constructor(
 
                     companion object {
 
+                        /**
+                         * Returns a mutable builder for constructing an instance of
+                         * [DriversLicense].
+                         *
+                         * The following fields are required:
+                         * ```kotlin
+                         * .expirationDate()
+                         * .fileId()
+                         * .state()
+                         * ```
+                         */
                         fun builder() = Builder()
                     }
 
@@ -1555,6 +1624,16 @@ private constructor(
 
                     companion object {
 
+                        /**
+                         * Returns a mutable builder for constructing an instance of [Other].
+                         *
+                         * The following fields are required:
+                         * ```kotlin
+                         * .country()
+                         * .description()
+                         * .fileId()
+                         * ```
+                         */
                         fun builder() = Builder()
                     }
 
@@ -1745,6 +1824,16 @@ private constructor(
 
                     companion object {
 
+                        /**
+                         * Returns a mutable builder for constructing an instance of [Passport].
+                         *
+                         * The following fields are required:
+                         * ```kotlin
+                         * .country()
+                         * .expirationDate()
+                         * .fileId()
+                         * ```
+                         */
                         fun builder() = Builder()
                     }
 

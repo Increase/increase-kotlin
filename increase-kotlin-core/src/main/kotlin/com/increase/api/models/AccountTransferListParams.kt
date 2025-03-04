@@ -65,6 +65,9 @@ private constructor(
 
         fun none(): AccountTransferListParams = builder().build()
 
+        /**
+         * Returns a mutable builder for constructing an instance of [AccountTransferListParams].
+         */
         fun builder() = Builder()
     }
 
@@ -279,6 +282,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [CreatedAt]. */
             fun builder() = Builder()
         }
 

@@ -426,6 +426,42 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [WireTransfer].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .accountId()
+         * .accountNumber()
+         * .amount()
+         * .approval()
+         * .beneficiaryAddressLine1()
+         * .beneficiaryAddressLine2()
+         * .beneficiaryAddressLine3()
+         * .beneficiaryName()
+         * .cancellation()
+         * .createdAt()
+         * .createdBy()
+         * .currency()
+         * .externalAccountId()
+         * .idempotencyKey()
+         * .messageToRecipient()
+         * .network()
+         * .originatorAddressLine1()
+         * .originatorAddressLine2()
+         * .originatorAddressLine3()
+         * .originatorName()
+         * .pendingTransactionId()
+         * .reversal()
+         * .routingNumber()
+         * .sourceAccountNumberId()
+         * .status()
+         * .submission()
+         * .transactionId()
+         * .type()
+         * ```
+         */
         fun builder() = Builder()
     }
 
@@ -885,6 +921,15 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Approval].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .approvedAt()
+             * .approvedBy()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -1036,6 +1081,15 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Cancellation].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .canceledAt()
+             * .canceledBy()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -1191,6 +1245,17 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [CreatedBy].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .apiKey()
+             * .category()
+             * .oauthApplication()
+             * .user()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -1306,6 +1371,14 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [ApiKey].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .description()
+                 * ```
+                 */
                 fun builder() = Builder()
             }
 
@@ -1539,6 +1612,14 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [OAuthApplication].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .name()
+                 * ```
+                 */
                 fun builder() = Builder()
             }
 
@@ -1643,6 +1724,14 @@ private constructor(
 
             companion object {
 
+                /**
+                 * Returns a mutable builder for constructing an instance of [User].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .email()
+                 * ```
+                 */
                 fun builder() = Builder()
             }
 
@@ -2229,6 +2318,30 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Reversal].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .amount()
+             * .createdAt()
+             * .description()
+             * .financialInstitutionToFinancialInstitutionInformation()
+             * .inputCycleDate()
+             * .inputMessageAccountabilityData()
+             * .inputSequenceNumber()
+             * .inputSource()
+             * .originatorRoutingNumber()
+             * .previousMessageInputCycleDate()
+             * .previousMessageInputMessageAccountabilityData()
+             * .previousMessageInputSequenceNumber()
+             * .previousMessageInputSource()
+             * .receiverFinancialInstitutionInformation()
+             * .senderReference()
+             * .transactionId()
+             * .wireTransferId()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -2768,6 +2881,15 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Submission].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .inputMessageAccountabilityData()
+             * .submittedAt()
+             * ```
+             */
             fun builder() = Builder()
         }
 

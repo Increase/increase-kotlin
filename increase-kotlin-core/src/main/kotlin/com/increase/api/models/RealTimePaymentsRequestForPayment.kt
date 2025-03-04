@@ -286,6 +286,31 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [RealTimePaymentsRequestForPayment].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .amount()
+         * .createdAt()
+         * .currency()
+         * .debtorName()
+         * .destinationAccountNumberId()
+         * .expiresAt()
+         * .fulfillmentTransactionId()
+         * .idempotencyKey()
+         * .refusal()
+         * .rejection()
+         * .remittanceInformation()
+         * .sourceAccountNumber()
+         * .sourceRoutingNumber()
+         * .status()
+         * .submission()
+         * .type()
+         * ```
+         */
         fun builder() = Builder()
     }
 
@@ -741,6 +766,14 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Refusal].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .refusalReasonCode()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -1181,6 +1214,14 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Rejection].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .rejectReasonCode()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -1916,6 +1957,14 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Submission].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .paymentInformationIdentification()
+             * ```
+             */
             fun builder() = Builder()
         }
 

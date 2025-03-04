@@ -222,6 +222,27 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [DigitalCardProfile].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .appIconFileId()
+         * .backgroundImageFileId()
+         * .cardDescription()
+         * .contactEmail()
+         * .contactPhone()
+         * .contactWebsite()
+         * .createdAt()
+         * .description()
+         * .idempotencyKey()
+         * .issuerName()
+         * .status()
+         * .textColor()
+         * .type()
+         * ```
+         */
         fun builder() = Builder()
     }
 
@@ -605,6 +626,16 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [TextColor].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .blue()
+             * .green()
+             * .red()
+             * ```
+             */
             fun builder() = Builder()
         }
 

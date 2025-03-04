@@ -314,6 +314,17 @@ private constructor(
 
         companion object {
 
+            /**
+             * Returns a mutable builder for constructing an instance of [Body].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .amount()
+             * .creditorName()
+             * .remittanceInformation()
+             * .sourceAccountNumberId()
+             * ```
+             */
             fun builder() = Builder()
         }
 
@@ -528,6 +539,18 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [RealTimePaymentsTransferCreateParams].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .amount()
+         * .creditorName()
+         * .remittanceInformation()
+         * .sourceAccountNumberId()
+         * ```
+         */
         fun builder() = Builder()
     }
 

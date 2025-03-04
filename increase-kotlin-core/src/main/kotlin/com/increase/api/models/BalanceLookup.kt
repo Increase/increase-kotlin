@@ -104,6 +104,17 @@ private constructor(
 
     companion object {
 
+        /**
+         * Returns a mutable builder for constructing an instance of [BalanceLookup].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .accountId()
+         * .availableBalance()
+         * .currentBalance()
+         * .type()
+         * ```
+         */
         fun builder() = Builder()
     }
 

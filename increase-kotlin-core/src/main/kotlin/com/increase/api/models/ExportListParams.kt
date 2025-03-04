@@ -73,6 +73,7 @@ private constructor(
 
         fun none(): ExportListParams = builder().build()
 
+        /** Returns a mutable builder for constructing an instance of [ExportListParams]. */
         fun builder() = Builder()
     }
 
@@ -258,6 +259,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Category]. */
             fun builder() = Builder()
         }
 
@@ -575,6 +577,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [CreatedAt]. */
             fun builder() = Builder()
         }
 
@@ -710,6 +713,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [Status]. */
             fun builder() = Builder()
         }
 

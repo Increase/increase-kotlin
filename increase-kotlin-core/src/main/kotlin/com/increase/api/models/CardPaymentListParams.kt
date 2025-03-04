@@ -61,6 +61,7 @@ private constructor(
 
         fun none(): CardPaymentListParams = builder().build()
 
+        /** Returns a mutable builder for constructing an instance of [CardPaymentListParams]. */
         fun builder() = Builder()
     }
 
@@ -270,6 +271,7 @@ private constructor(
 
         companion object {
 
+            /** Returns a mutable builder for constructing an instance of [CreatedAt]. */
             fun builder() = Builder()
         }
 
