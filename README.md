@@ -160,6 +160,37 @@ val account: Account = client.accounts().create(params)
 
 The asynchronous client supports the same options as the synchronous one, except most methods are [suspending](https://kotlinlang.org/docs/coroutines-guide.html).
 
+## Raw responses
+
+The SDK defines methods that deserialize responses into instances of Kotlin classes. However, these methods don't provide access to the response headers, status code, or the raw response body.
+
+To access this data, prefix any HTTP method call on a client or service with `withRawResponse()`:
+
+```kotlin
+import com.increase.api.core.http.Headers
+import com.increase.api.core.http.HttpResponseFor
+import com.increase.api.models.Account
+import com.increase.api.models.AccountCreateParams
+
+val params: AccountCreateParams = AccountCreateParams.builder()
+    .name("New Account!")
+    .entityId("entity_n8y8tnk2p9339ti393yi")
+    .programId("program_i2v2os4mwza1oetokh9i")
+    .build()
+val account: HttpResponseFor<Account> = client.accounts().withRawResponse().create(params)
+
+val statusCode: Int = account.statusCode()
+val headers: Headers = account.headers()
+```
+
+You can still deserialize the response into an instance of a Kotlin class if needed:
+
+```kotlin
+import com.increase.api.models.Account
+
+val parsedAccount: Account = account.parse()
+```
+
 ## Error handling
 
 The SDK throws custom unchecked exception types:
