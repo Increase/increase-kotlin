@@ -160,6 +160,70 @@ val account: Account = client.accounts().create(params)
 
 The asynchronous client supports the same options as the synchronous one, except most methods are [suspending](https://kotlinlang.org/docs/coroutines-guide.html).
 
+## File uploads
+
+The SDK defines methods that accept files.
+
+To upload a file, pass a [`Path`](https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html):
+
+```kotlin
+import com.increase.api.models.File
+import com.increase.api.models.FileCreateParams
+import java.nio.file.Paths
+
+val params: FileCreateParams = FileCreateParams.builder()
+    .purpose(FileCreateParams.Purpose.CHECK_IMAGE_FRONT)
+    .file(Paths.get("my/file.txt"))
+    .build()
+val file: File = client.files().create(params)
+```
+
+Or an arbitrary [`InputStream`](https://docs.oracle.com/javase/8/docs/api/java/io/InputStream.html):
+
+```kotlin
+import com.increase.api.models.File
+import com.increase.api.models.FileCreateParams
+import java.net.URL
+
+val params: FileCreateParams = FileCreateParams.builder()
+    .purpose(FileCreateParams.Purpose.CHECK_IMAGE_FRONT)
+    .file(URL("https://example.com").openStream())
+    .build()
+val file: File = client.files().create(params)
+```
+
+Or a `ByteArray`:
+
+```kotlin
+import com.increase.api.models.File
+import com.increase.api.models.FileCreateParams
+
+val params: FileCreateParams = FileCreateParams.builder()
+    .purpose(FileCreateParams.Purpose.CHECK_IMAGE_FRONT)
+    .file("content".toByteArray())
+    .build()
+val file: File = client.files().create(params)
+```
+
+Note that when passing a non-`Path` its filename is unknown so it will not be included in the request. To manually set a filename, pass a `MultipartField`:
+
+```kotlin
+import com.increase.api.core.MultipartField
+import com.increase.api.models.File
+import com.increase.api.models.FileCreateParams
+import java.io.InputStream
+import java.net.URL
+
+val params: FileCreateParams = FileCreateParams.builder()
+    .purpose(FileCreateParams.Purpose.CHECK_IMAGE_FRONT)
+    .file(MultipartField.builder<InputStream>()
+        .value(URL("https://example.com").openStream())
+        .filename("my/file.txt")
+        .build())
+    .build()
+val file: File = client.files().create(params)
+```
+
 ## Raw responses
 
 The SDK defines methods that deserialize responses into instances of Kotlin classes. However, these methods don't provide access to the response headers, status code, or the raw response body.
