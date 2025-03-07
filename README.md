@@ -3,6 +3,7 @@
 <!-- x-release-please-start-version -->
 
 [![Maven Central](https://img.shields.io/maven-central/v/com.increase.api/increase-kotlin)](https://central.sonatype.com/artifact/com.increase.api/increase-kotlin/0.188.0)
+[![javadoc](https://javadoc.io/badge2/com.increase.api/increase-kotlin/0.188.0/javadoc.svg)](https://javadoc.io/doc/com.increase.api/increase-kotlin/0.188.0)
 
 <!-- x-release-please-end -->
 
@@ -10,7 +11,7 @@ The Increase Kotlin SDK provides convenient access to the Increase REST API from
 
 The Increase Kotlin SDK is similar to the Increase Java SDK but with minor differences that make it more ergonomic for use in Kotlin, such as nullable values instead of `Optional`, `Sequence` instead of `Stream`, and suspend functions instead of `CompletableFuture`.
 
-The REST API documentation can be found on [increase.com](https://increase.com/documentation).
+The REST API documentation can be found on [increase.com](https://increase.com/documentation). KDocs are also available on [javadoc.io](https://javadoc.io/doc/com.increase.api/increase-kotlin/0.188.0).
 
 ## Installation
 
