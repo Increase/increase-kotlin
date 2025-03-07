@@ -40,7 +40,7 @@ interface FileService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): FileListPage
 
-    /** List Files */
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): FileListPage =
         list(FileListParams.none(), requestOptions)
 
@@ -77,10 +77,7 @@ interface FileService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<FileListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /files`, but is otherwise the same as
-         * [FileService.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<FileListPage> =
             list(FileListParams.none(), requestOptions)

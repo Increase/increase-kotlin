@@ -32,7 +32,7 @@ interface InboundAchTransferService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundAchTransferListPage
 
-    /** List Inbound ACH Transfers */
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): InboundAchTransferListPage =
         list(InboundAchTransferListParams.none(), requestOptions)
 
@@ -80,10 +80,7 @@ interface InboundAchTransferService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<InboundAchTransferListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /inbound_ach_transfers`, but is otherwise the same
-         * as [InboundAchTransferService.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<InboundAchTransferListPage> =
             list(InboundAchTransferListParams.none(), requestOptions)

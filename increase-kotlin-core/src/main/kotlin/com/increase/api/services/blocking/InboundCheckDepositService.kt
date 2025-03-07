@@ -31,7 +31,7 @@ interface InboundCheckDepositService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundCheckDepositListPage
 
-    /** List Inbound Check Deposits */
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): InboundCheckDepositListPage =
         list(InboundCheckDepositListParams.none(), requestOptions)
 
@@ -73,10 +73,7 @@ interface InboundCheckDepositService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<InboundCheckDepositListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /inbound_check_deposits`, but is otherwise the same
-         * as [InboundCheckDepositService.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<InboundCheckDepositListPage> =
             list(InboundCheckDepositListParams.none(), requestOptions)

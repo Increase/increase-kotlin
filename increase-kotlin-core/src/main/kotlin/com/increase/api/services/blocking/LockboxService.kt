@@ -43,7 +43,7 @@ interface LockboxService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LockboxListPage
 
-    /** List Lockboxes */
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): LockboxListPage =
         list(LockboxListParams.none(), requestOptions)
 
@@ -90,10 +90,7 @@ interface LockboxService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<LockboxListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /lockboxes`, but is otherwise the same as
-         * [LockboxService.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<LockboxListPage> =
             list(LockboxListParams.none(), requestOptions)

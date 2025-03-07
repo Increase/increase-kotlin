@@ -43,7 +43,7 @@ interface LockboxServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LockboxListPageAsync
 
-    /** List Lockboxes */
+    /** @see [list] */
     suspend fun list(requestOptions: RequestOptions): LockboxListPageAsync =
         list(LockboxListParams.none(), requestOptions)
 
@@ -92,10 +92,7 @@ interface LockboxServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<LockboxListPageAsync>
 
-        /**
-         * Returns a raw HTTP response for `get /lockboxes`, but is otherwise the same as
-         * [LockboxServiceAsync.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         suspend fun list(requestOptions: RequestOptions): HttpResponseFor<LockboxListPageAsync> =
             list(LockboxListParams.none(), requestOptions)

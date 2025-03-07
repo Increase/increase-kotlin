@@ -38,7 +38,7 @@ interface PhysicalCardProfileService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PhysicalCardProfileListPage
 
-    /** List Physical Card Profiles */
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): PhysicalCardProfileListPage =
         list(PhysicalCardProfileListParams.none(), requestOptions)
 
@@ -90,10 +90,7 @@ interface PhysicalCardProfileService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PhysicalCardProfileListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /physical_card_profiles`, but is otherwise the same
-         * as [PhysicalCardProfileService.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<PhysicalCardProfileListPage> =
             list(PhysicalCardProfileListParams.none(), requestOptions)

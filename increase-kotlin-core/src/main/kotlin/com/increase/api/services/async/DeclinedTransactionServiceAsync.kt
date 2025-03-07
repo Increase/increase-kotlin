@@ -29,7 +29,7 @@ interface DeclinedTransactionServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): DeclinedTransactionListPageAsync
 
-    /** List Declined Transactions */
+    /** @see [list] */
     suspend fun list(requestOptions: RequestOptions): DeclinedTransactionListPageAsync =
         list(DeclinedTransactionListParams.none(), requestOptions)
 
@@ -59,10 +59,7 @@ interface DeclinedTransactionServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<DeclinedTransactionListPageAsync>
 
-        /**
-         * Returns a raw HTTP response for `get /declined_transactions`, but is otherwise the same
-         * as [DeclinedTransactionServiceAsync.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions

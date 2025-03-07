@@ -36,7 +36,7 @@ interface RealTimePaymentsTransferService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): RealTimePaymentsTransferListPage
 
-    /** List Real-Time Payments Transfers */
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): RealTimePaymentsTransferListPage =
         list(RealTimePaymentsTransferListParams.none(), requestOptions)
 
@@ -77,10 +77,7 @@ interface RealTimePaymentsTransferService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<RealTimePaymentsTransferListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /real_time_payments_transfers`, but is otherwise the
-         * same as [RealTimePaymentsTransferService.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         fun list(
             requestOptions: RequestOptions

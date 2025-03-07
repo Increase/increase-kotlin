@@ -36,7 +36,7 @@ interface WireDrawdownRequestServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): WireDrawdownRequestListPageAsync
 
-    /** List Wire Drawdown Requests */
+    /** @see [list] */
     suspend fun list(requestOptions: RequestOptions): WireDrawdownRequestListPageAsync =
         list(WireDrawdownRequestListParams.none(), requestOptions)
 
@@ -76,10 +76,7 @@ interface WireDrawdownRequestServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<WireDrawdownRequestListPageAsync>
 
-        /**
-         * Returns a raw HTTP response for `get /wire_drawdown_requests`, but is otherwise the same
-         * as [WireDrawdownRequestServiceAsync.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions

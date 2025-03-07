@@ -29,7 +29,7 @@ interface CardPaymentService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CardPaymentListPage
 
-    /** List Card Payments */
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): CardPaymentListPage =
         list(CardPaymentListParams.none(), requestOptions)
 
@@ -58,10 +58,7 @@ interface CardPaymentService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CardPaymentListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /card_payments`, but is otherwise the same as
-         * [CardPaymentService.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<CardPaymentListPage> =
             list(CardPaymentListParams.none(), requestOptions)

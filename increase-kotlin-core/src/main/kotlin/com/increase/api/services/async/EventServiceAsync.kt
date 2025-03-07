@@ -29,7 +29,7 @@ interface EventServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): EventListPageAsync
 
-    /** List Events */
+    /** @see [list] */
     suspend fun list(requestOptions: RequestOptions): EventListPageAsync =
         list(EventListParams.none(), requestOptions)
 
@@ -56,10 +56,7 @@ interface EventServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<EventListPageAsync>
 
-        /**
-         * Returns a raw HTTP response for `get /events`, but is otherwise the same as
-         * [EventServiceAsync.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         suspend fun list(requestOptions: RequestOptions): HttpResponseFor<EventListPageAsync> =
             list(EventListParams.none(), requestOptions)

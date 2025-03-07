@@ -36,7 +36,7 @@ interface BookkeepingEntrySetServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BookkeepingEntrySetListPageAsync
 
-    /** List Bookkeeping Entry Sets */
+    /** @see [list] */
     suspend fun list(requestOptions: RequestOptions): BookkeepingEntrySetListPageAsync =
         list(BookkeepingEntrySetListParams.none(), requestOptions)
 
@@ -76,10 +76,7 @@ interface BookkeepingEntrySetServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<BookkeepingEntrySetListPageAsync>
 
-        /**
-         * Returns a raw HTTP response for `get /bookkeeping_entry_sets`, but is otherwise the same
-         * as [BookkeepingEntrySetServiceAsync.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions
