@@ -36,7 +36,7 @@ interface ExportService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ExportListPage
 
-    /** List Exports */
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): ExportListPage =
         list(ExportListParams.none(), requestOptions)
 
@@ -73,10 +73,7 @@ interface ExportService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ExportListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /exports`, but is otherwise the same as
-         * [ExportService.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<ExportListPage> =
             list(ExportListParams.none(), requestOptions)

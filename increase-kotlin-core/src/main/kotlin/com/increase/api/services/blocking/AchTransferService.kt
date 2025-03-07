@@ -38,7 +38,7 @@ interface AchTransferService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AchTransferListPage
 
-    /** List ACH Transfers */
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): AchTransferListPage =
         list(AchTransferListParams.none(), requestOptions)
 
@@ -89,10 +89,7 @@ interface AchTransferService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AchTransferListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /ach_transfers`, but is otherwise the same as
-         * [AchTransferService.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<AchTransferListPage> =
             list(AchTransferListParams.none(), requestOptions)

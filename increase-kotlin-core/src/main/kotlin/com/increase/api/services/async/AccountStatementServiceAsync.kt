@@ -29,7 +29,7 @@ interface AccountStatementServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AccountStatementListPageAsync
 
-    /** List Account Statements */
+    /** @see [list] */
     suspend fun list(requestOptions: RequestOptions): AccountStatementListPageAsync =
         list(AccountStatementListParams.none(), requestOptions)
 
@@ -59,10 +59,7 @@ interface AccountStatementServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AccountStatementListPageAsync>
 
-        /**
-         * Returns a raw HTTP response for `get /account_statements`, but is otherwise the same as
-         * [AccountStatementServiceAsync.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions

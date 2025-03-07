@@ -29,7 +29,7 @@ interface InboundMailItemServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundMailItemListPageAsync
 
-    /** List Inbound Mail Items */
+    /** @see [list] */
     suspend fun list(requestOptions: RequestOptions): InboundMailItemListPageAsync =
         list(InboundMailItemListParams.none(), requestOptions)
 
@@ -59,10 +59,7 @@ interface InboundMailItemServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<InboundMailItemListPageAsync>
 
-        /**
-         * Returns a raw HTTP response for `get /inbound_mail_items`, but is otherwise the same as
-         * [InboundMailItemServiceAsync.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions

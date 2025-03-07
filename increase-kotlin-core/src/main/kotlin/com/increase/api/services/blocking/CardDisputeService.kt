@@ -36,7 +36,7 @@ interface CardDisputeService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CardDisputeListPage
 
-    /** List Card Disputes */
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): CardDisputeListPage =
         list(CardDisputeListParams.none(), requestOptions)
 
@@ -75,10 +75,7 @@ interface CardDisputeService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CardDisputeListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /card_disputes`, but is otherwise the same as
-         * [CardDisputeService.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<CardDisputeListPage> =
             list(CardDisputeListParams.none(), requestOptions)

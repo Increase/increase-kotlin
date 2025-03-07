@@ -38,7 +38,7 @@ interface AccountTransferServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AccountTransferListPageAsync
 
-    /** List Account Transfers */
+    /** @see [list] */
     suspend fun list(requestOptions: RequestOptions): AccountTransferListPageAsync =
         list(AccountTransferListParams.none(), requestOptions)
 
@@ -90,10 +90,7 @@ interface AccountTransferServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AccountTransferListPageAsync>
 
-        /**
-         * Returns a raw HTTP response for `get /account_transfers`, but is otherwise the same as
-         * [AccountTransferServiceAsync.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions

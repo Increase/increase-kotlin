@@ -43,7 +43,7 @@ interface EventSubscriptionService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): EventSubscriptionListPage
 
-    /** List Event Subscriptions */
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): EventSubscriptionListPage =
         list(EventSubscriptionListParams.none(), requestOptions)
 
@@ -93,10 +93,7 @@ interface EventSubscriptionService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<EventSubscriptionListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /event_subscriptions`, but is otherwise the same as
-         * [EventSubscriptionService.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<EventSubscriptionListPage> =
             list(EventSubscriptionListParams.none(), requestOptions)

@@ -36,7 +36,7 @@ interface CheckDepositService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CheckDepositListPage
 
-    /** List Check Deposits */
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): CheckDepositListPage =
         list(CheckDepositListParams.none(), requestOptions)
 
@@ -75,10 +75,7 @@ interface CheckDepositService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CheckDepositListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /check_deposits`, but is otherwise the same as
-         * [CheckDepositService.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<CheckDepositListPage> =
             list(CheckDepositListParams.none(), requestOptions)

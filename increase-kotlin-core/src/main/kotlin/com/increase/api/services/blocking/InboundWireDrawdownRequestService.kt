@@ -29,7 +29,7 @@ interface InboundWireDrawdownRequestService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundWireDrawdownRequestListPage
 
-    /** List Inbound Wire Drawdown Requests */
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): InboundWireDrawdownRequestListPage =
         list(InboundWireDrawdownRequestListParams.none(), requestOptions)
 
@@ -61,10 +61,7 @@ interface InboundWireDrawdownRequestService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<InboundWireDrawdownRequestListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /inbound_wire_drawdown_requests`, but is otherwise
-         * the same as [InboundWireDrawdownRequestService.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         fun list(
             requestOptions: RequestOptions

@@ -29,7 +29,7 @@ interface PendingTransactionServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PendingTransactionListPageAsync
 
-    /** List Pending Transactions */
+    /** @see [list] */
     suspend fun list(requestOptions: RequestOptions): PendingTransactionListPageAsync =
         list(PendingTransactionListParams.none(), requestOptions)
 
@@ -59,10 +59,7 @@ interface PendingTransactionServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PendingTransactionListPageAsync>
 
-        /**
-         * Returns a raw HTTP response for `get /pending_transactions`, but is otherwise the same as
-         * [PendingTransactionServiceAsync.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions

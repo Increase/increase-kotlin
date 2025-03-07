@@ -29,7 +29,7 @@ interface DeclinedTransactionService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): DeclinedTransactionListPage
 
-    /** List Declined Transactions */
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): DeclinedTransactionListPage =
         list(DeclinedTransactionListParams.none(), requestOptions)
 
@@ -59,10 +59,7 @@ interface DeclinedTransactionService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<DeclinedTransactionListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /declined_transactions`, but is otherwise the same
-         * as [DeclinedTransactionService.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<DeclinedTransactionListPage> =
             list(DeclinedTransactionListParams.none(), requestOptions)

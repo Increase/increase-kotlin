@@ -29,7 +29,7 @@ interface OAuthConnectionService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): OAuthConnectionListPage
 
-    /** List OAuth Connections */
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): OAuthConnectionListPage =
         list(OAuthConnectionListParams.none(), requestOptions)
 
@@ -59,10 +59,7 @@ interface OAuthConnectionService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<OAuthConnectionListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /oauth_connections`, but is otherwise the same as
-         * [OAuthConnectionService.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<OAuthConnectionListPage> =
             list(OAuthConnectionListParams.none(), requestOptions)

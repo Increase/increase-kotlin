@@ -38,7 +38,7 @@ interface BookkeepingAccountService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BookkeepingAccountListPage
 
-    /** List Bookkeeping Accounts */
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): BookkeepingAccountListPage =
         list(BookkeepingAccountListParams.none(), requestOptions)
 
@@ -84,10 +84,7 @@ interface BookkeepingAccountService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<BookkeepingAccountListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /bookkeeping_accounts`, but is otherwise the same as
-         * [BookkeepingAccountService.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<BookkeepingAccountListPage> =
             list(BookkeepingAccountListParams.none(), requestOptions)

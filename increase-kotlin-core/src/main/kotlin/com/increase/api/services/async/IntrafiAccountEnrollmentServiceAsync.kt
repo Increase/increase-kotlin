@@ -37,7 +37,7 @@ interface IntrafiAccountEnrollmentServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): IntrafiAccountEnrollmentListPageAsync
 
-    /** List IntraFi Account Enrollments */
+    /** @see [list] */
     suspend fun list(requestOptions: RequestOptions): IntrafiAccountEnrollmentListPageAsync =
         list(IntrafiAccountEnrollmentListParams.none(), requestOptions)
 
@@ -84,10 +84,7 @@ interface IntrafiAccountEnrollmentServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<IntrafiAccountEnrollmentListPageAsync>
 
-        /**
-         * Returns a raw HTTP response for `get /intrafi_account_enrollments`, but is otherwise the
-         * same as [IntrafiAccountEnrollmentServiceAsync.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions

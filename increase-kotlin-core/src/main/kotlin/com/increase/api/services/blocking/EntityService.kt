@@ -43,7 +43,7 @@ interface EntityService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): EntityListPage
 
-    /** List Entities */
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): EntityListPage =
         list(EntityListParams.none(), requestOptions)
 
@@ -126,10 +126,7 @@ interface EntityService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<EntityListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /entities`, but is otherwise the same as
-         * [EntityService.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<EntityListPage> =
             list(EntityListParams.none(), requestOptions)

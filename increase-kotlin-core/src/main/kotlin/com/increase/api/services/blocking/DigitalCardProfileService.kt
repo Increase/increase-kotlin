@@ -38,7 +38,7 @@ interface DigitalCardProfileService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): DigitalCardProfileListPage
 
-    /** List Card Profiles */
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): DigitalCardProfileListPage =
         list(DigitalCardProfileListParams.none(), requestOptions)
 
@@ -90,10 +90,7 @@ interface DigitalCardProfileService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<DigitalCardProfileListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /digital_card_profiles`, but is otherwise the same
-         * as [DigitalCardProfileService.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<DigitalCardProfileListPage> =
             list(DigitalCardProfileListParams.none(), requestOptions)

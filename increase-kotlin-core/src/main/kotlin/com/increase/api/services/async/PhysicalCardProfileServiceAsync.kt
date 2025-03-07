@@ -38,7 +38,7 @@ interface PhysicalCardProfileServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PhysicalCardProfileListPageAsync
 
-    /** List Physical Card Profiles */
+    /** @see [list] */
     suspend fun list(requestOptions: RequestOptions): PhysicalCardProfileListPageAsync =
         list(PhysicalCardProfileListParams.none(), requestOptions)
 
@@ -90,10 +90,7 @@ interface PhysicalCardProfileServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PhysicalCardProfileListPageAsync>
 
-        /**
-         * Returns a raw HTTP response for `get /physical_card_profiles`, but is otherwise the same
-         * as [PhysicalCardProfileServiceAsync.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions

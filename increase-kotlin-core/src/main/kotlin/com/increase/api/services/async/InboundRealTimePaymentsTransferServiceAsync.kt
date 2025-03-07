@@ -30,7 +30,7 @@ interface InboundRealTimePaymentsTransferServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundRealTimePaymentsTransferListPageAsync
 
-    /** List Inbound Real-Time Payments Transfers */
+    /** @see [list] */
     suspend fun list(requestOptions: RequestOptions): InboundRealTimePaymentsTransferListPageAsync =
         list(InboundRealTimePaymentsTransferListParams.none(), requestOptions)
 
@@ -62,10 +62,7 @@ interface InboundRealTimePaymentsTransferServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<InboundRealTimePaymentsTransferListPageAsync>
 
-        /**
-         * Returns a raw HTTP response for `get /inbound_real_time_payments_transfers`, but is
-         * otherwise the same as [InboundRealTimePaymentsTransferServiceAsync.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions

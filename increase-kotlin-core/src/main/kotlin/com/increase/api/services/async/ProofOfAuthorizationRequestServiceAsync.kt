@@ -30,7 +30,7 @@ interface ProofOfAuthorizationRequestServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ProofOfAuthorizationRequestListPageAsync
 
-    /** List Proof of Authorization Requests */
+    /** @see [list] */
     suspend fun list(requestOptions: RequestOptions): ProofOfAuthorizationRequestListPageAsync =
         list(ProofOfAuthorizationRequestListParams.none(), requestOptions)
 
@@ -62,10 +62,7 @@ interface ProofOfAuthorizationRequestServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ProofOfAuthorizationRequestListPageAsync>
 
-        /**
-         * Returns a raw HTTP response for `get /proof_of_authorization_requests`, but is otherwise
-         * the same as [ProofOfAuthorizationRequestServiceAsync.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions

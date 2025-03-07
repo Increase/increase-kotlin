@@ -36,7 +36,7 @@ interface WireDrawdownRequestService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): WireDrawdownRequestListPage
 
-    /** List Wire Drawdown Requests */
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): WireDrawdownRequestListPage =
         list(WireDrawdownRequestListParams.none(), requestOptions)
 
@@ -76,10 +76,7 @@ interface WireDrawdownRequestService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<WireDrawdownRequestListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /wire_drawdown_requests`, but is otherwise the same
-         * as [WireDrawdownRequestService.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<WireDrawdownRequestListPage> =
             list(WireDrawdownRequestListParams.none(), requestOptions)

@@ -39,7 +39,7 @@ interface CheckTransferService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CheckTransferListPage
 
-    /** List Check Transfers */
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): CheckTransferListPage =
         list(CheckTransferListParams.none(), requestOptions)
 
@@ -96,10 +96,7 @@ interface CheckTransferService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CheckTransferListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /check_transfers`, but is otherwise the same as
-         * [CheckTransferService.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<CheckTransferListPage> =
             list(CheckTransferListParams.none(), requestOptions)
