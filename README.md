@@ -188,7 +188,7 @@ import java.net.URL
 
 val params: FileCreateParams = FileCreateParams.builder()
     .purpose(FileCreateParams.Purpose.CHECK_IMAGE_FRONT)
-    .file(URL("https://example.com").openStream())
+    .file(URL("https://example.com/my/file.txt").openStream())
     .build()
 val file: File = client.files().create(params)
 ```
@@ -218,7 +218,7 @@ import java.net.URL
 val params: FileCreateParams = FileCreateParams.builder()
     .purpose(FileCreateParams.Purpose.CHECK_IMAGE_FRONT)
     .file(MultipartField.builder<InputStream>()
-        .value(URL("https://example.com").openStream())
+        .value(URL("https://example.com/my/file.txt").openStream())
         .filename("my/file.txt")
         .build())
     .build()
