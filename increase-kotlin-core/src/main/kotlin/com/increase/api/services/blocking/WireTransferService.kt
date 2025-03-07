@@ -38,7 +38,7 @@ interface WireTransferService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): WireTransferListPage
 
-    /** List Wire Transfers */
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): WireTransferListPage =
         list(WireTransferListParams.none(), requestOptions)
 
@@ -89,10 +89,7 @@ interface WireTransferService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<WireTransferListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /wire_transfers`, but is otherwise the same as
-         * [WireTransferService.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<WireTransferListPage> =
             list(WireTransferListParams.none(), requestOptions)

@@ -38,7 +38,7 @@ interface DigitalCardProfileServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): DigitalCardProfileListPageAsync
 
-    /** List Card Profiles */
+    /** @see [list] */
     suspend fun list(requestOptions: RequestOptions): DigitalCardProfileListPageAsync =
         list(DigitalCardProfileListParams.none(), requestOptions)
 
@@ -90,10 +90,7 @@ interface DigitalCardProfileServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<DigitalCardProfileListPageAsync>
 
-        /**
-         * Returns a raw HTTP response for `get /digital_card_profiles`, but is otherwise the same
-         * as [DigitalCardProfileServiceAsync.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions

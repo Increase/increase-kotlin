@@ -36,7 +36,7 @@ interface ExportServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ExportListPageAsync
 
-    /** List Exports */
+    /** @see [list] */
     suspend fun list(requestOptions: RequestOptions): ExportListPageAsync =
         list(ExportListParams.none(), requestOptions)
 
@@ -75,10 +75,7 @@ interface ExportServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ExportListPageAsync>
 
-        /**
-         * Returns a raw HTTP response for `get /exports`, but is otherwise the same as
-         * [ExportServiceAsync.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         suspend fun list(requestOptions: RequestOptions): HttpResponseFor<ExportListPageAsync> =
             list(ExportListParams.none(), requestOptions)

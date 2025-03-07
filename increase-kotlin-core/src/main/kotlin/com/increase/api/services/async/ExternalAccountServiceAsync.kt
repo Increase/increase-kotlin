@@ -43,7 +43,7 @@ interface ExternalAccountServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ExternalAccountListPageAsync
 
-    /** List External Accounts */
+    /** @see [list] */
     suspend fun list(requestOptions: RequestOptions): ExternalAccountListPageAsync =
         list(ExternalAccountListParams.none(), requestOptions)
 
@@ -93,10 +93,7 @@ interface ExternalAccountServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ExternalAccountListPageAsync>
 
-        /**
-         * Returns a raw HTTP response for `get /external_accounts`, but is otherwise the same as
-         * [ExternalAccountServiceAsync.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions

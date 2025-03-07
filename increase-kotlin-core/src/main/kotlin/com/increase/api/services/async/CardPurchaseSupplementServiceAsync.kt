@@ -29,7 +29,7 @@ interface CardPurchaseSupplementServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CardPurchaseSupplementListPageAsync
 
-    /** List Card Purchase Supplements */
+    /** @see [list] */
     suspend fun list(requestOptions: RequestOptions): CardPurchaseSupplementListPageAsync =
         list(CardPurchaseSupplementListParams.none(), requestOptions)
 
@@ -60,10 +60,7 @@ interface CardPurchaseSupplementServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CardPurchaseSupplementListPageAsync>
 
-        /**
-         * Returns a raw HTTP response for `get /card_purchase_supplements`, but is otherwise the
-         * same as [CardPurchaseSupplementServiceAsync.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions

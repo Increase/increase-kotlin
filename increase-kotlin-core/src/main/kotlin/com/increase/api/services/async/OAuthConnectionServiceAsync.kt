@@ -29,7 +29,7 @@ interface OAuthConnectionServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): OAuthConnectionListPageAsync
 
-    /** List OAuth Connections */
+    /** @see [list] */
     suspend fun list(requestOptions: RequestOptions): OAuthConnectionListPageAsync =
         list(OAuthConnectionListParams.none(), requestOptions)
 
@@ -59,10 +59,7 @@ interface OAuthConnectionServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<OAuthConnectionListPageAsync>
 
-        /**
-         * Returns a raw HTTP response for `get /oauth_connections`, but is otherwise the same as
-         * [OAuthConnectionServiceAsync.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions

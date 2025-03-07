@@ -43,7 +43,7 @@ interface AccountNumberService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AccountNumberListPage
 
-    /** List Account Numbers */
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): AccountNumberListPage =
         list(AccountNumberListParams.none(), requestOptions)
 
@@ -92,10 +92,7 @@ interface AccountNumberService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AccountNumberListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /account_numbers`, but is otherwise the same as
-         * [AccountNumberService.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<AccountNumberListPage> =
             list(AccountNumberListParams.none(), requestOptions)

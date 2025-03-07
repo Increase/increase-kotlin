@@ -38,7 +38,7 @@ interface AccountTransferService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AccountTransferListPage
 
-    /** List Account Transfers */
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): AccountTransferListPage =
         list(AccountTransferListParams.none(), requestOptions)
 
@@ -90,10 +90,7 @@ interface AccountTransferService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AccountTransferListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /account_transfers`, but is otherwise the same as
-         * [AccountTransferService.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<AccountTransferListPage> =
             list(AccountTransferListParams.none(), requestOptions)

@@ -21,7 +21,7 @@ interface GroupService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Group
 
-    /** Returns details for the currently authenticated Group. */
+    /** @see [retrieve] */
     fun retrieve(requestOptions: RequestOptions): Group =
         retrieve(GroupRetrieveParams.none(), requestOptions)
 
@@ -38,10 +38,7 @@ interface GroupService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Group>
 
-        /**
-         * Returns a raw HTTP response for `get /groups/current`, but is otherwise the same as
-         * [GroupService.retrieve].
-         */
+        /** @see [retrieve] */
         @MustBeClosed
         fun retrieve(requestOptions: RequestOptions): HttpResponseFor<Group> =
             retrieve(GroupRetrieveParams.none(), requestOptions)

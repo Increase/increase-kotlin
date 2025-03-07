@@ -39,7 +39,7 @@ interface CheckTransferServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CheckTransferListPageAsync
 
-    /** List Check Transfers */
+    /** @see [list] */
     suspend fun list(requestOptions: RequestOptions): CheckTransferListPageAsync =
         list(CheckTransferListParams.none(), requestOptions)
 
@@ -97,10 +97,7 @@ interface CheckTransferServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CheckTransferListPageAsync>
 
-        /**
-         * Returns a raw HTTP response for `get /check_transfers`, but is otherwise the same as
-         * [CheckTransferServiceAsync.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions

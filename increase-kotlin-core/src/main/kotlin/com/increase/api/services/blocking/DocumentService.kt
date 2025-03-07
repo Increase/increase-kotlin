@@ -29,7 +29,7 @@ interface DocumentService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): DocumentListPage
 
-    /** List Documents */
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): DocumentListPage =
         list(DocumentListParams.none(), requestOptions)
 
@@ -56,10 +56,7 @@ interface DocumentService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<DocumentListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /documents`, but is otherwise the same as
-         * [DocumentService.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<DocumentListPage> =
             list(DocumentListParams.none(), requestOptions)

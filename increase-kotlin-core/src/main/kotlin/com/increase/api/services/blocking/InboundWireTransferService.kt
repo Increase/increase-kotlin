@@ -29,7 +29,7 @@ interface InboundWireTransferService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundWireTransferListPage
 
-    /** List Inbound Wire Transfers */
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): InboundWireTransferListPage =
         list(InboundWireTransferListParams.none(), requestOptions)
 
@@ -59,10 +59,7 @@ interface InboundWireTransferService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<InboundWireTransferListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /inbound_wire_transfers`, but is otherwise the same
-         * as [InboundWireTransferService.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<InboundWireTransferListPage> =
             list(InboundWireTransferListParams.none(), requestOptions)

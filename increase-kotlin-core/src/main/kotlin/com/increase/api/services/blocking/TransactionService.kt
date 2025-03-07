@@ -29,7 +29,7 @@ interface TransactionService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): TransactionListPage
 
-    /** List Transactions */
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): TransactionListPage =
         list(TransactionListParams.none(), requestOptions)
 
@@ -58,10 +58,7 @@ interface TransactionService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<TransactionListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /transactions`, but is otherwise the same as
-         * [TransactionService.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<TransactionListPage> =
             list(TransactionListParams.none(), requestOptions)

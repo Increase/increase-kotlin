@@ -36,7 +36,7 @@ interface CheckDepositServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CheckDepositListPageAsync
 
-    /** List Check Deposits */
+    /** @see [list] */
     suspend fun list(requestOptions: RequestOptions): CheckDepositListPageAsync =
         list(CheckDepositListParams.none(), requestOptions)
 
@@ -76,10 +76,7 @@ interface CheckDepositServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CheckDepositListPageAsync>
 
-        /**
-         * Returns a raw HTTP response for `get /check_deposits`, but is otherwise the same as
-         * [CheckDepositServiceAsync.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions

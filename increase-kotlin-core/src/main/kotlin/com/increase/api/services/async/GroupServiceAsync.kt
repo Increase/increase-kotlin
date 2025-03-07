@@ -21,7 +21,7 @@ interface GroupServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Group
 
-    /** Returns details for the currently authenticated Group. */
+    /** @see [retrieve] */
     suspend fun retrieve(requestOptions: RequestOptions): Group =
         retrieve(GroupRetrieveParams.none(), requestOptions)
 
@@ -38,10 +38,7 @@ interface GroupServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Group>
 
-        /**
-         * Returns a raw HTTP response for `get /groups/current`, but is otherwise the same as
-         * [GroupServiceAsync.retrieve].
-         */
+        /** @see [retrieve] */
         @MustBeClosed
         suspend fun retrieve(requestOptions: RequestOptions): HttpResponseFor<Group> =
             retrieve(GroupRetrieveParams.none(), requestOptions)

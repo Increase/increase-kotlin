@@ -43,7 +43,7 @@ interface AccountNumberServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AccountNumberListPageAsync
 
-    /** List Account Numbers */
+    /** @see [list] */
     suspend fun list(requestOptions: RequestOptions): AccountNumberListPageAsync =
         list(AccountNumberListParams.none(), requestOptions)
 
@@ -93,10 +93,7 @@ interface AccountNumberServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AccountNumberListPageAsync>
 
-        /**
-         * Returns a raw HTTP response for `get /account_numbers`, but is otherwise the same as
-         * [AccountNumberServiceAsync.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions

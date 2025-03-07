@@ -40,7 +40,7 @@ interface FileServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): FileListPageAsync
 
-    /** List Files */
+    /** @see [list] */
     suspend fun list(requestOptions: RequestOptions): FileListPageAsync =
         list(FileListParams.none(), requestOptions)
 
@@ -77,10 +77,7 @@ interface FileServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<FileListPageAsync>
 
-        /**
-         * Returns a raw HTTP response for `get /files`, but is otherwise the same as
-         * [FileServiceAsync.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         suspend fun list(requestOptions: RequestOptions): HttpResponseFor<FileListPageAsync> =
             list(FileListParams.none(), requestOptions)

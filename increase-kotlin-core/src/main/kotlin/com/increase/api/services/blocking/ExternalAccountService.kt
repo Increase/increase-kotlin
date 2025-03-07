@@ -43,7 +43,7 @@ interface ExternalAccountService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ExternalAccountListPage
 
-    /** List External Accounts */
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): ExternalAccountListPage =
         list(ExternalAccountListParams.none(), requestOptions)
 
@@ -93,10 +93,7 @@ interface ExternalAccountService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ExternalAccountListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /external_accounts`, but is otherwise the same as
-         * [ExternalAccountService.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<ExternalAccountListPage> =
             list(ExternalAccountListParams.none(), requestOptions)

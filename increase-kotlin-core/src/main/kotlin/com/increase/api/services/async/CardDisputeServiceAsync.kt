@@ -36,7 +36,7 @@ interface CardDisputeServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CardDisputeListPageAsync
 
-    /** List Card Disputes */
+    /** @see [list] */
     suspend fun list(requestOptions: RequestOptions): CardDisputeListPageAsync =
         list(CardDisputeListParams.none(), requestOptions)
 
@@ -76,10 +76,7 @@ interface CardDisputeServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CardDisputeListPageAsync>
 
-        /**
-         * Returns a raw HTTP response for `get /card_disputes`, but is otherwise the same as
-         * [CardDisputeServiceAsync.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions

@@ -31,7 +31,7 @@ interface InboundCheckDepositServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundCheckDepositListPageAsync
 
-    /** List Inbound Check Deposits */
+    /** @see [list] */
     suspend fun list(requestOptions: RequestOptions): InboundCheckDepositListPageAsync =
         list(InboundCheckDepositListParams.none(), requestOptions)
 
@@ -73,10 +73,7 @@ interface InboundCheckDepositServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<InboundCheckDepositListPageAsync>
 
-        /**
-         * Returns a raw HTTP response for `get /inbound_check_deposits`, but is otherwise the same
-         * as [InboundCheckDepositServiceAsync.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions
