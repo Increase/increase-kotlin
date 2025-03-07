@@ -96,8 +96,6 @@ import com.increase.api.services.blocking.ProofOfAuthorizationRequestSubmissionS
 import com.increase.api.services.blocking.ProofOfAuthorizationRequestSubmissionServiceImpl
 import com.increase.api.services.blocking.RealTimeDecisionService
 import com.increase.api.services.blocking.RealTimeDecisionServiceImpl
-import com.increase.api.services.blocking.RealTimePaymentsRequestForPaymentService
-import com.increase.api.services.blocking.RealTimePaymentsRequestForPaymentServiceImpl
 import com.increase.api.services.blocking.RealTimePaymentsTransferService
 import com.increase.api.services.blocking.RealTimePaymentsTransferServiceImpl
 import com.increase.api.services.blocking.RoutingNumberService
@@ -323,16 +321,11 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
         IntrafiExclusionServiceImpl(clientOptionsWithUserAgent)
     }
 
-    private val realTimePaymentsRequestForPayments:
-        RealTimePaymentsRequestForPaymentService by lazy {
-        RealTimePaymentsRequestForPaymentServiceImpl(clientOptionsWithUserAgent)
-    }
-
-    private val webhooks: WebhookService by lazy { WebhookServiceImpl(clientOptions) }
-
     private val simulations: SimulationService by lazy {
         SimulationServiceImpl(clientOptionsWithUserAgent)
     }
+
+    private val webhooks: WebhookService by lazy { WebhookServiceImpl(clientOptions) }
 
     override fun async(): IncreaseClientAsync = async
 
@@ -448,12 +441,9 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
 
     override fun intrafiExclusions(): IntrafiExclusionService = intrafiExclusions
 
-    override fun realTimePaymentsRequestForPayments(): RealTimePaymentsRequestForPaymentService =
-        realTimePaymentsRequestForPayments
+    override fun simulations(): SimulationService = simulations
 
     override fun webhooks(): WebhookService = webhooks
-
-    override fun simulations(): SimulationService = simulations
 
     override fun close() = clientOptions.httpClient.close()
 
@@ -674,11 +664,6 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
             IntrafiExclusionServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
-        private val realTimePaymentsRequestForPayments:
-            RealTimePaymentsRequestForPaymentService.WithRawResponse by lazy {
-            RealTimePaymentsRequestForPaymentServiceImpl.WithRawResponseImpl(clientOptions)
-        }
-
         private val simulations: SimulationService.WithRawResponse by lazy {
             SimulationServiceImpl.WithRawResponseImpl(clientOptions)
         }
@@ -814,10 +799,6 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
 
         override fun intrafiExclusions(): IntrafiExclusionService.WithRawResponse =
             intrafiExclusions
-
-        override fun realTimePaymentsRequestForPayments():
-            RealTimePaymentsRequestForPaymentService.WithRawResponse =
-            realTimePaymentsRequestForPayments
 
         override fun simulations(): SimulationService.WithRawResponse = simulations
     }
