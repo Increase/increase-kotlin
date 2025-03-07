@@ -29,7 +29,7 @@ interface OAuthApplicationServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): OAuthApplicationListPageAsync
 
-    /** List OAuth Applications */
+    /** @see [list] */
     suspend fun list(requestOptions: RequestOptions): OAuthApplicationListPageAsync =
         list(OAuthApplicationListParams.none(), requestOptions)
 
@@ -59,10 +59,7 @@ interface OAuthApplicationServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<OAuthApplicationListPageAsync>
 
-        /**
-         * Returns a raw HTTP response for `get /oauth_applications`, but is otherwise the same as
-         * [OAuthApplicationServiceAsync.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions

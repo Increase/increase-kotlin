@@ -37,7 +37,7 @@ interface IntrafiAccountEnrollmentService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): IntrafiAccountEnrollmentListPage
 
-    /** List IntraFi Account Enrollments */
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): IntrafiAccountEnrollmentListPage =
         list(IntrafiAccountEnrollmentListParams.none(), requestOptions)
 
@@ -84,10 +84,7 @@ interface IntrafiAccountEnrollmentService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<IntrafiAccountEnrollmentListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /intrafi_account_enrollments`, but is otherwise the
-         * same as [IntrafiAccountEnrollmentService.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         fun list(
             requestOptions: RequestOptions

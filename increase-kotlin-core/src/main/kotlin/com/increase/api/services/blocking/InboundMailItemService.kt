@@ -29,7 +29,7 @@ interface InboundMailItemService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundMailItemListPage
 
-    /** List Inbound Mail Items */
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): InboundMailItemListPage =
         list(InboundMailItemListParams.none(), requestOptions)
 
@@ -59,10 +59,7 @@ interface InboundMailItemService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<InboundMailItemListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /inbound_mail_items`, but is otherwise the same as
-         * [InboundMailItemService.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<InboundMailItemListPage> =
             list(InboundMailItemListParams.none(), requestOptions)

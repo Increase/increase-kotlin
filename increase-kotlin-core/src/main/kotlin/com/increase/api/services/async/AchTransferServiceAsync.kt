@@ -38,7 +38,7 @@ interface AchTransferServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AchTransferListPageAsync
 
-    /** List ACH Transfers */
+    /** @see [list] */
     suspend fun list(requestOptions: RequestOptions): AchTransferListPageAsync =
         list(AchTransferListParams.none(), requestOptions)
 
@@ -90,10 +90,7 @@ interface AchTransferServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AchTransferListPageAsync>
 
-        /**
-         * Returns a raw HTTP response for `get /ach_transfers`, but is otherwise the same as
-         * [AchTransferServiceAsync.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions

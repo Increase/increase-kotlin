@@ -37,7 +37,7 @@ interface ProofOfAuthorizationRequestSubmissionService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ProofOfAuthorizationRequestSubmissionListPage
 
-    /** List Proof of Authorization Request Submissions */
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): ProofOfAuthorizationRequestSubmissionListPage =
         list(ProofOfAuthorizationRequestSubmissionListParams.none(), requestOptions)
 
@@ -79,10 +79,7 @@ interface ProofOfAuthorizationRequestSubmissionService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ProofOfAuthorizationRequestSubmissionListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /proof_of_authorization_request_submissions`, but is
-         * otherwise the same as [ProofOfAuthorizationRequestSubmissionService.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         fun list(
             requestOptions: RequestOptions

@@ -29,7 +29,7 @@ interface DigitalWalletTokenServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): DigitalWalletTokenListPageAsync
 
-    /** List Digital Wallet Tokens */
+    /** @see [list] */
     suspend fun list(requestOptions: RequestOptions): DigitalWalletTokenListPageAsync =
         list(DigitalWalletTokenListParams.none(), requestOptions)
 
@@ -59,10 +59,7 @@ interface DigitalWalletTokenServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<DigitalWalletTokenListPageAsync>
 
-        /**
-         * Returns a raw HTTP response for `get /digital_wallet_tokens`, but is otherwise the same
-         * as [DigitalWalletTokenServiceAsync.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions

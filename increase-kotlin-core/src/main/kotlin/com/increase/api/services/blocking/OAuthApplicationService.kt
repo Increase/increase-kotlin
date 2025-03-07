@@ -29,7 +29,7 @@ interface OAuthApplicationService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): OAuthApplicationListPage
 
-    /** List OAuth Applications */
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): OAuthApplicationListPage =
         list(OAuthApplicationListParams.none(), requestOptions)
 
@@ -59,10 +59,7 @@ interface OAuthApplicationService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<OAuthApplicationListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /oauth_applications`, but is otherwise the same as
-         * [OAuthApplicationService.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<OAuthApplicationListPage> =
             list(OAuthApplicationListParams.none(), requestOptions)

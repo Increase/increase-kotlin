@@ -37,7 +37,7 @@ interface IntrafiExclusionService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): IntrafiExclusionListPage
 
-    /** List IntraFi Exclusions */
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): IntrafiExclusionListPage =
         list(IntrafiExclusionListParams.none(), requestOptions)
 
@@ -83,10 +83,7 @@ interface IntrafiExclusionService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<IntrafiExclusionListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /intrafi_exclusions`, but is otherwise the same as
-         * [IntrafiExclusionService.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<IntrafiExclusionListPage> =
             list(IntrafiExclusionListParams.none(), requestOptions)

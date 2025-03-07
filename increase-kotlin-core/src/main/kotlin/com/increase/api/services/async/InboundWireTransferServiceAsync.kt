@@ -29,7 +29,7 @@ interface InboundWireTransferServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundWireTransferListPageAsync
 
-    /** List Inbound Wire Transfers */
+    /** @see [list] */
     suspend fun list(requestOptions: RequestOptions): InboundWireTransferListPageAsync =
         list(InboundWireTransferListParams.none(), requestOptions)
 
@@ -59,10 +59,7 @@ interface InboundWireTransferServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<InboundWireTransferListPageAsync>
 
-        /**
-         * Returns a raw HTTP response for `get /inbound_wire_transfers`, but is otherwise the same
-         * as [InboundWireTransferServiceAsync.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions

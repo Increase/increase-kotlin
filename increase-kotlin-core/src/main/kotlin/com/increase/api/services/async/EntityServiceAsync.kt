@@ -43,7 +43,7 @@ interface EntityServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): EntityListPageAsync
 
-    /** List Entities */
+    /** @see [list] */
     suspend fun list(requestOptions: RequestOptions): EntityListPageAsync =
         list(EntityListParams.none(), requestOptions)
 
@@ -128,10 +128,7 @@ interface EntityServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<EntityListPageAsync>
 
-        /**
-         * Returns a raw HTTP response for `get /entities`, but is otherwise the same as
-         * [EntityServiceAsync.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         suspend fun list(requestOptions: RequestOptions): HttpResponseFor<EntityListPageAsync> =
             list(EntityListParams.none(), requestOptions)

@@ -38,7 +38,7 @@ interface BookkeepingAccountServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BookkeepingAccountListPageAsync
 
-    /** List Bookkeeping Accounts */
+    /** @see [list] */
     suspend fun list(requestOptions: RequestOptions): BookkeepingAccountListPageAsync =
         list(BookkeepingAccountListParams.none(), requestOptions)
 
@@ -84,10 +84,7 @@ interface BookkeepingAccountServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<BookkeepingAccountListPageAsync>
 
-        /**
-         * Returns a raw HTTP response for `get /bookkeeping_accounts`, but is otherwise the same as
-         * [BookkeepingAccountServiceAsync.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions

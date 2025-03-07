@@ -36,7 +36,7 @@ interface AchPrenotificationService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AchPrenotificationListPage
 
-    /** List ACH Prenotifications */
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): AchPrenotificationListPage =
         list(AchPrenotificationListParams.none(), requestOptions)
 
@@ -76,10 +76,7 @@ interface AchPrenotificationService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AchPrenotificationListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /ach_prenotifications`, but is otherwise the same as
-         * [AchPrenotificationService.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<AchPrenotificationListPage> =
             list(AchPrenotificationListParams.none(), requestOptions)

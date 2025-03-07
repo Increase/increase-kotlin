@@ -29,7 +29,7 @@ interface ProgramService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ProgramListPage
 
-    /** List Programs */
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): ProgramListPage =
         list(ProgramListParams.none(), requestOptions)
 
@@ -56,10 +56,7 @@ interface ProgramService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ProgramListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /programs`, but is otherwise the same as
-         * [ProgramService.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<ProgramListPage> =
             list(ProgramListParams.none(), requestOptions)

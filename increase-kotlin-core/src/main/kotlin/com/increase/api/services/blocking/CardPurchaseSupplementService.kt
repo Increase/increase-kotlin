@@ -29,7 +29,7 @@ interface CardPurchaseSupplementService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CardPurchaseSupplementListPage
 
-    /** List Card Purchase Supplements */
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): CardPurchaseSupplementListPage =
         list(CardPurchaseSupplementListParams.none(), requestOptions)
 
@@ -60,10 +60,7 @@ interface CardPurchaseSupplementService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CardPurchaseSupplementListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /card_purchase_supplements`, but is otherwise the
-         * same as [CardPurchaseSupplementService.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<CardPurchaseSupplementListPage> =
             list(CardPurchaseSupplementListParams.none(), requestOptions)

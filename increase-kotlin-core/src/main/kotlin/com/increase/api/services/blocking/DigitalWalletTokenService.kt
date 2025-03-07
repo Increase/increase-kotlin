@@ -29,7 +29,7 @@ interface DigitalWalletTokenService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): DigitalWalletTokenListPage
 
-    /** List Digital Wallet Tokens */
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): DigitalWalletTokenListPage =
         list(DigitalWalletTokenListParams.none(), requestOptions)
 
@@ -59,10 +59,7 @@ interface DigitalWalletTokenService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<DigitalWalletTokenListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /digital_wallet_tokens`, but is otherwise the same
-         * as [DigitalWalletTokenService.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<DigitalWalletTokenListPage> =
             list(DigitalWalletTokenListParams.none(), requestOptions)

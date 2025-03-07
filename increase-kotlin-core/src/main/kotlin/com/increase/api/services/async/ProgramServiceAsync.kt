@@ -29,7 +29,7 @@ interface ProgramServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ProgramListPageAsync
 
-    /** List Programs */
+    /** @see [list] */
     suspend fun list(requestOptions: RequestOptions): ProgramListPageAsync =
         list(ProgramListParams.none(), requestOptions)
 
@@ -58,10 +58,7 @@ interface ProgramServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ProgramListPageAsync>
 
-        /**
-         * Returns a raw HTTP response for `get /programs`, but is otherwise the same as
-         * [ProgramServiceAsync.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         suspend fun list(requestOptions: RequestOptions): HttpResponseFor<ProgramListPageAsync> =
             list(ProgramListParams.none(), requestOptions)

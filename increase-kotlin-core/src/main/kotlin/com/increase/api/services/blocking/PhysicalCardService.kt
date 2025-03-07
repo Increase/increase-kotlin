@@ -43,7 +43,7 @@ interface PhysicalCardService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PhysicalCardListPage
 
-    /** List Physical Cards */
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): PhysicalCardListPage =
         list(PhysicalCardListParams.none(), requestOptions)
 
@@ -92,10 +92,7 @@ interface PhysicalCardService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PhysicalCardListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /physical_cards`, but is otherwise the same as
-         * [PhysicalCardService.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<PhysicalCardListPage> =
             list(PhysicalCardListParams.none(), requestOptions)

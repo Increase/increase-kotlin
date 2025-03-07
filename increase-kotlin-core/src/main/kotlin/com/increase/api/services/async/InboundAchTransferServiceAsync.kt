@@ -32,7 +32,7 @@ interface InboundAchTransferServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundAchTransferListPageAsync
 
-    /** List Inbound ACH Transfers */
+    /** @see [list] */
     suspend fun list(requestOptions: RequestOptions): InboundAchTransferListPageAsync =
         list(InboundAchTransferListParams.none(), requestOptions)
 
@@ -80,10 +80,7 @@ interface InboundAchTransferServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<InboundAchTransferListPageAsync>
 
-        /**
-         * Returns a raw HTTP response for `get /inbound_ach_transfers`, but is otherwise the same
-         * as [InboundAchTransferServiceAsync.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions

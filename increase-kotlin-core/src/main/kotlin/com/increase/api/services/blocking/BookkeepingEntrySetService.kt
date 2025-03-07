@@ -36,7 +36,7 @@ interface BookkeepingEntrySetService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BookkeepingEntrySetListPage
 
-    /** List Bookkeeping Entry Sets */
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): BookkeepingEntrySetListPage =
         list(BookkeepingEntrySetListParams.none(), requestOptions)
 
@@ -76,10 +76,7 @@ interface BookkeepingEntrySetService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<BookkeepingEntrySetListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /bookkeeping_entry_sets`, but is otherwise the same
-         * as [BookkeepingEntrySetService.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<BookkeepingEntrySetListPage> =
             list(BookkeepingEntrySetListParams.none(), requestOptions)

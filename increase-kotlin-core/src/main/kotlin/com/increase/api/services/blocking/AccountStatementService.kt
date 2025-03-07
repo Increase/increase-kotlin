@@ -29,7 +29,7 @@ interface AccountStatementService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AccountStatementListPage
 
-    /** List Account Statements */
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): AccountStatementListPage =
         list(AccountStatementListParams.none(), requestOptions)
 
@@ -59,10 +59,7 @@ interface AccountStatementService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AccountStatementListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /account_statements`, but is otherwise the same as
-         * [AccountStatementService.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<AccountStatementListPage> =
             list(AccountStatementListParams.none(), requestOptions)

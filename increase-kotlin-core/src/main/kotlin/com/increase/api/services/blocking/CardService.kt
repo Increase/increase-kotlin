@@ -45,7 +45,7 @@ interface CardService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CardListPage
 
-    /** List Cards */
+    /** @see [list] */
     fun list(requestOptions: RequestOptions): CardListPage =
         list(CardListParams.none(), requestOptions)
 
@@ -98,10 +98,7 @@ interface CardService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CardListPage>
 
-        /**
-         * Returns a raw HTTP response for `get /cards`, but is otherwise the same as
-         * [CardService.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<CardListPage> =
             list(CardListParams.none(), requestOptions)

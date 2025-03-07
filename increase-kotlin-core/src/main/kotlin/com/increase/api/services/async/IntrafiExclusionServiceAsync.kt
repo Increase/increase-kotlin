@@ -37,7 +37,7 @@ interface IntrafiExclusionServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): IntrafiExclusionListPageAsync
 
-    /** List IntraFi Exclusions */
+    /** @see [list] */
     suspend fun list(requestOptions: RequestOptions): IntrafiExclusionListPageAsync =
         list(IntrafiExclusionListParams.none(), requestOptions)
 
@@ -83,10 +83,7 @@ interface IntrafiExclusionServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<IntrafiExclusionListPageAsync>
 
-        /**
-         * Returns a raw HTTP response for `get /intrafi_exclusions`, but is otherwise the same as
-         * [IntrafiExclusionServiceAsync.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions

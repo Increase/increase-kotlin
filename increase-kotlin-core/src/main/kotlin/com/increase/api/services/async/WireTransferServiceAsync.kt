@@ -38,7 +38,7 @@ interface WireTransferServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): WireTransferListPageAsync
 
-    /** List Wire Transfers */
+    /** @see [list] */
     suspend fun list(requestOptions: RequestOptions): WireTransferListPageAsync =
         list(WireTransferListParams.none(), requestOptions)
 
@@ -90,10 +90,7 @@ interface WireTransferServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<WireTransferListPageAsync>
 
-        /**
-         * Returns a raw HTTP response for `get /wire_transfers`, but is otherwise the same as
-         * [WireTransferServiceAsync.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions

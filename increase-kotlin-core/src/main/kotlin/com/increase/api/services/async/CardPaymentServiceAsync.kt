@@ -29,7 +29,7 @@ interface CardPaymentServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CardPaymentListPageAsync
 
-    /** List Card Payments */
+    /** @see [list] */
     suspend fun list(requestOptions: RequestOptions): CardPaymentListPageAsync =
         list(CardPaymentListParams.none(), requestOptions)
 
@@ -59,10 +59,7 @@ interface CardPaymentServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CardPaymentListPageAsync>
 
-        /**
-         * Returns a raw HTTP response for `get /card_payments`, but is otherwise the same as
-         * [CardPaymentServiceAsync.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions

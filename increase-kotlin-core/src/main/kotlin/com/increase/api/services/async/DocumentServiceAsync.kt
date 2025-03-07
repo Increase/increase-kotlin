@@ -29,7 +29,7 @@ interface DocumentServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): DocumentListPageAsync
 
-    /** List Documents */
+    /** @see [list] */
     suspend fun list(requestOptions: RequestOptions): DocumentListPageAsync =
         list(DocumentListParams.none(), requestOptions)
 
@@ -58,10 +58,7 @@ interface DocumentServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<DocumentListPageAsync>
 
-        /**
-         * Returns a raw HTTP response for `get /documents`, but is otherwise the same as
-         * [DocumentServiceAsync.list].
-         */
+        /** @see [list] */
         @MustBeClosed
         suspend fun list(requestOptions: RequestOptions): HttpResponseFor<DocumentListPageAsync> =
             list(DocumentListParams.none(), requestOptions)
