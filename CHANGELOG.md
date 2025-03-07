@@ -1,5 +1,33 @@
 # Changelog
 
+## 0.189.0 (2025-03-07)
+
+Full Changelog: [v0.188.0...v0.189.0](https://github.com/Increase/increase-kotlin/compare/v0.188.0...v0.189.0)
+
+### ⚠ BREAKING CHANGES
+
+* **client:** refactor multipart formdata impl ([#845](https://github.com/Increase/increase-kotlin/issues/845))
+
+### Features
+
+* **api:** api update ([#849](https://github.com/Increase/increase-kotlin/issues/849)) ([f606390](https://github.com/Increase/increase-kotlin/commit/f6063907ef16b34b55cf14cd7d4cb0b9a950e172))
+* **client:** accept `InputStream` and `Path` for file params ([#851](https://github.com/Increase/increase-kotlin/issues/851)) ([95b7c74](https://github.com/Increase/increase-kotlin/commit/95b7c748bed702a42ef77f05f5b8d956ad3cbbcc))
+* **client:** detect binary incompatible jackson versions ([#853](https://github.com/Increase/increase-kotlin/issues/853)) ([f0f5ac0](https://github.com/Increase/increase-kotlin/commit/f0f5ac08b1ab3a8c5311012d14e660a56e532285))
+* generate and publish docs ([#854](https://github.com/Increase/increase-kotlin/issues/854)) ([a688db7](https://github.com/Increase/increase-kotlin/commit/a688db732f081d49f4105bc803e0b8d53cd9218a))
+
+
+### Chores
+
+* **client:** refactor multipart formdata impl ([#845](https://github.com/Increase/increase-kotlin/issues/845)) ([430695c](https://github.com/Increase/increase-kotlin/commit/430695c4a25d679fbdf50603b6ba9b005aee67ed))
+* **internal:** add `.kotlin` to `.gitignore` ([#855](https://github.com/Increase/increase-kotlin/issues/855)) ([df54f89](https://github.com/Increase/increase-kotlin/commit/df54f89c5c12c7fa68fd5c29951d5814ff787b8a))
+
+
+### Documentation
+
+* add raw response readme documentation ([#847](https://github.com/Increase/increase-kotlin/issues/847)) ([524a000](https://github.com/Increase/increase-kotlin/commit/524a000f64e929666584ab219532c6cd050d43e6))
+* document file uploads in readme ([#852](https://github.com/Increase/increase-kotlin/issues/852)) ([c0036db](https://github.com/Increase/increase-kotlin/commit/c0036db08868954c1bc6d0046b3924568c0e49bf))
+* note required fields in `builder` javadoc ([#848](https://github.com/Increase/increase-kotlin/issues/848)) ([e439ad0](https://github.com/Increase/increase-kotlin/commit/e439ad050f660955e0d9ef99be598d92bdce3fee))
+
 ## 0.188.0 (2025-03-04)
 
 Full Changelog: [v0.187.0...v0.188.0](https://github.com/Increase/increase-kotlin/compare/v0.187.0...v0.188.0)
