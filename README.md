@@ -206,7 +206,7 @@ val params: FileCreateParams = FileCreateParams.builder()
 val file: File = client.files().create(params)
 ```
 
-Note that when passing a non-`Path` its filename is unknown so it will not be included in the request. To manually set a filename, pass a `MultipartField`:
+Note that when passing a non-`Path` its filename is unknown so it will not be included in the request. To manually set a filename, pass a [`MultipartField`](increase-kotlin-core/src/main/kotlin/com/increase/api/core/Values.kt):
 
 ```kotlin
 import com.increase.api.core.MultipartField
@@ -463,7 +463,7 @@ val params: AccountCreateParams = AccountCreateParams.builder()
 
 These can be accessed on the built object later using the `_additionalHeaders()`, `_additionalQueryParams()`, and `_additionalBodyProperties()` methods.
 
-To set a documented parameter or property to an undocumented or not yet supported _value_, pass a [`JsonValue`](increase-kotlin-core/src/main/kotlin/com/increase/api/core/JsonValue.kt) object to its setter:
+To set a documented parameter or property to an undocumented or not yet supported _value_, pass a [`JsonValue`](increase-kotlin-core/src/main/kotlin/com/increase/api/core/Values.kt) object to its setter:
 
 ```kotlin
 import com.increase.api.core.JsonValue
@@ -474,6 +474,41 @@ val params: AccountCreateParams = AccountCreateParams.builder()
     .entityId("entity_n8y8tnk2p9339ti393yi")
     .programId("program_i2v2os4mwza1oetokh9i")
     .build()
+```
+
+The most straightforward way to create a [`JsonValue`](increase-kotlin-core/src/main/kotlin/com/increase/api/core/Values.kt) is using its `from(...)` method:
+
+```kotlin
+import com.increase.api.core.JsonValue
+
+// Create primitive JSON values
+val nullValue: JsonValue = JsonValue.from(null)
+val booleanValue: JsonValue = JsonValue.from(true)
+val numberValue: JsonValue = JsonValue.from(42)
+val stringValue: JsonValue = JsonValue.from("Hello World!")
+
+// Create a JSON array value equivalent to `["Hello", "World"]`
+val arrayValue: JsonValue = JsonValue.from(listOf(
+  "Hello", "World"
+))
+
+// Create a JSON object value equivalent to `{ "a": 1, "b": 2 }`
+val objectValue: JsonValue = JsonValue.from(mapOf(
+  "a" to 1, "b" to 2
+))
+
+// Create an arbitrarily nested JSON equivalent to:
+// {
+//   "a": [1, 2],
+//   "b": [3, 4]
+// }
+val complexValue: JsonValue = JsonValue.from(mapOf(
+  "a" to listOf(
+    1, 2
+  ), "b" to listOf(
+    3, 4
+  )
+))
 ```
 
 ### Response properties
