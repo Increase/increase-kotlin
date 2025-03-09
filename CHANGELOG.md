@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.189.1 (2025-03-09)
+
+Full Changelog: [v0.189.0...v0.189.1](https://github.com/Increase/increase-kotlin/compare/v0.189.0...v0.189.1)
+
+### Bug Fixes
+
+* lint error ([ec3a099](https://github.com/Increase/increase-kotlin/commit/ec3a0993aa08275034e345e12dcea0f1d3d9dc29))
+
+
+### Chores
+
+* **internal:** reenable warnings as errors ([#858](https://github.com/Increase/increase-kotlin/issues/858)) ([23a4af6](https://github.com/Increase/increase-kotlin/commit/23a4af620478de304cf782290708249e60c14a53))
+* **internal:** version bump ([#856](https://github.com/Increase/increase-kotlin/issues/856)) ([cd3f617](https://github.com/Increase/increase-kotlin/commit/cd3f61761959c30eec25aa69977e7b0367516747))
+
+
+### Documentation
+
+* make URL purpose clearer in readme ([#859](https://github.com/Increase/increase-kotlin/issues/859)) ([422aeb4](https://github.com/Increase/increase-kotlin/commit/422aeb4533447e05026afa2c192ace9d7832adbe))
+
 ## 0.189.0 (2025-03-07)
 
 Full Changelog: [v0.188.0...v0.189.0](https://github.com/Increase/increase-kotlin/compare/v0.188.0...v0.189.0)
