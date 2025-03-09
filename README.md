@@ -2,8 +2,8 @@
 
 <!-- x-release-please-start-version -->
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.increase.api/increase-kotlin)](https://central.sonatype.com/artifact/com.increase.api/increase-kotlin/0.189.1)
-[![javadoc](https://javadoc.io/badge2/com.increase.api/increase-kotlin/0.189.1/javadoc.svg)](https://javadoc.io/doc/com.increase.api/increase-kotlin/0.189.1)
+[![Maven Central](https://img.shields.io/maven-central/v/com.increase.api/increase-kotlin)](https://central.sonatype.com/artifact/com.increase.api/increase-kotlin/0.189.2)
+[![javadoc](https://javadoc.io/badge2/com.increase.api/increase-kotlin/0.189.2/javadoc.svg)](https://javadoc.io/doc/com.increase.api/increase-kotlin/0.189.2)
 
 <!-- x-release-please-end -->
 
@@ -11,7 +11,7 @@ The Increase Kotlin SDK provides convenient access to the Increase REST API from
 
 The Increase Kotlin SDK is similar to the Increase Java SDK but with minor differences that make it more ergonomic for use in Kotlin, such as nullable values instead of `Optional`, `Sequence` instead of `Stream`, and suspend functions instead of `CompletableFuture`.
 
-The REST API documentation can be found on [increase.com](https://increase.com/documentation). KDocs are also available on [javadoc.io](https://javadoc.io/doc/com.increase.api/increase-kotlin/0.189.0).
+The REST API documentation can be found on [increase.com](https://increase.com/documentation). KDocs are also available on [javadoc.io](https://javadoc.io/doc/com.increase.api/increase-kotlin/0.189.1).
 
 ## Installation
 
@@ -20,7 +20,7 @@ The REST API documentation can be found on [increase.com](https://increase.com/d
 ### Gradle
 
 ```kotlin
-implementation("com.increase.api:increase-kotlin:0.189.1")
+implementation("com.increase.api:increase-kotlin:0.189.2")
 ```
 
 ### Maven
@@ -29,7 +29,7 @@ implementation("com.increase.api:increase-kotlin:0.189.1")
 <dependency>
     <groupId>com.increase.api</groupId>
     <artifactId>increase-kotlin</artifactId>
-    <version>0.189.1</version>
+    <version>0.189.2</version>
 </dependency>
 ```
 
@@ -206,7 +206,7 @@ val params: FileCreateParams = FileCreateParams.builder()
 val file: File = client.files().create(params)
 ```
 
-Note that when passing a non-`Path` its filename is unknown so it will not be included in the request. To manually set a filename, pass a `MultipartField`:
+Note that when passing a non-`Path` its filename is unknown so it will not be included in the request. To manually set a filename, pass a [`MultipartField`](increase-kotlin-core/src/main/kotlin/com/increase/api/core/Values.kt):
 
 ```kotlin
 import com.increase.api.core.MultipartField
@@ -461,9 +461,9 @@ val params: AccountCreateParams = AccountCreateParams.builder()
     .build()
 ```
 
-These can be accessed on the built object later using the `_additionalHeaders()`, `_additionalQueryParams()`, and `_additionalBodyProperties()` methods. You can also set undocumented parameters on nested headers, query params, or body classes using the `putAdditionalProperty` method. These properties can be accessed on the built object later using the `_additionalProperties()` method.
+These can be accessed on the built object later using the `_additionalHeaders()`, `_additionalQueryParams()`, and `_additionalBodyProperties()` methods.
 
-To set a documented parameter or property to an undocumented or not yet supported _value_, pass a [`JsonValue`](increase-kotlin-core/src/main/kotlin/com/increase/api/core/JsonValue.kt) object to its setter:
+To set a documented parameter or property to an undocumented or not yet supported _value_, pass a [`JsonValue`](increase-kotlin-core/src/main/kotlin/com/increase/api/core/Values.kt) object to its setter:
 
 ```kotlin
 import com.increase.api.core.JsonValue
@@ -474,6 +474,41 @@ val params: AccountCreateParams = AccountCreateParams.builder()
     .entityId("entity_n8y8tnk2p9339ti393yi")
     .programId("program_i2v2os4mwza1oetokh9i")
     .build()
+```
+
+The most straightforward way to create a [`JsonValue`](increase-kotlin-core/src/main/kotlin/com/increase/api/core/Values.kt) is using its `from(...)` method:
+
+```kotlin
+import com.increase.api.core.JsonValue
+
+// Create primitive JSON values
+val nullValue: JsonValue = JsonValue.from(null)
+val booleanValue: JsonValue = JsonValue.from(true)
+val numberValue: JsonValue = JsonValue.from(42)
+val stringValue: JsonValue = JsonValue.from("Hello World!")
+
+// Create a JSON array value equivalent to `["Hello", "World"]`
+val arrayValue: JsonValue = JsonValue.from(listOf(
+  "Hello", "World"
+))
+
+// Create a JSON object value equivalent to `{ "a": 1, "b": 2 }`
+val objectValue: JsonValue = JsonValue.from(mapOf(
+  "a" to 1, "b" to 2
+))
+
+// Create an arbitrarily nested JSON equivalent to:
+// {
+//   "a": [1, 2],
+//   "b": [3, 4]
+// }
+val complexValue: JsonValue = JsonValue.from(mapOf(
+  "a" to listOf(
+    1, 2
+  ), "b" to listOf(
+    3, 4
+  )
+))
 ```
 
 ### Response properties

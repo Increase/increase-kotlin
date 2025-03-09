@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.189.2 (2025-03-09)
+
+Full Changelog: [v0.189.1...v0.189.2](https://github.com/Increase/increase-kotlin/compare/v0.189.1...v0.189.2)
+
+### Chores
+
+* **internal:** version bump ([#860](https://github.com/Increase/increase-kotlin/issues/860)) ([4609002](https://github.com/Increase/increase-kotlin/commit/4609002cdb5030cb073c89a59712fca8b9361c9e))
+
+
+### Documentation
+
+* document `JsonValue` construction in readme ([#863](https://github.com/Increase/increase-kotlin/issues/863)) ([4e663d2](https://github.com/Increase/increase-kotlin/commit/4e663d24d4d968cfcae84ad397a2ab54dd75612f))
+* revise readme docs about nested params ([#862](https://github.com/Increase/increase-kotlin/issues/862)) ([70a4104](https://github.com/Increase/increase-kotlin/commit/70a4104174097f312197818cf411895e899f2052))
+
 ## 0.189.1 (2025-03-09)
 
 Full Changelog: [v0.189.0...v0.189.1](https://github.com/Increase/increase-kotlin/compare/v0.189.0...v0.189.1)
