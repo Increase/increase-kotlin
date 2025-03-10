@@ -5,8 +5,8 @@ package com.increase.api.services.async.simulations
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.InboundAchTransfer
-import com.increase.api.models.SimulationInboundAchTransferCreateParams
+import com.increase.api.models.inboundachtransfers.InboundAchTransfer
+import com.increase.api.models.simulations.inboundachtransfers.InboundAchTransferCreateParams
 
 interface InboundAchTransferServiceAsync {
 
@@ -27,7 +27,7 @@ interface InboundAchTransferServiceAsync {
      * whether or not the transfer is allowed.
      */
     suspend fun create(
-        params: SimulationInboundAchTransferCreateParams,
+        params: InboundAchTransferCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundAchTransfer
 
@@ -43,7 +43,7 @@ interface InboundAchTransferServiceAsync {
          */
         @MustBeClosed
         suspend fun create(
-            params: SimulationInboundAchTransferCreateParams,
+            params: InboundAchTransferCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<InboundAchTransfer>
     }

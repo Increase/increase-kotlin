@@ -5,8 +5,8 @@ package com.increase.api.services.async.simulations
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.SimulationCardSettlementCreateParams
-import com.increase.api.models.Transaction
+import com.increase.api.models.simulations.cardsettlements.CardSettlementCreateParams
+import com.increase.api.models.transactions.Transaction
 
 interface CardSettlementServiceAsync {
 
@@ -22,7 +22,7 @@ interface CardSettlementServiceAsync {
      * from the amount originally authorized, for example, when adding a tip to a restaurant bill.
      */
     suspend fun create(
-        params: SimulationCardSettlementCreateParams,
+        params: CardSettlementCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Transaction
 
@@ -38,7 +38,7 @@ interface CardSettlementServiceAsync {
          */
         @MustBeClosed
         suspend fun create(
-            params: SimulationCardSettlementCreateParams,
+            params: CardSettlementCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Transaction>
     }

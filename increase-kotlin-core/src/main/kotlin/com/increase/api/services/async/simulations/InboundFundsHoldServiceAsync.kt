@@ -5,8 +5,8 @@ package com.increase.api.services.async.simulations
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.SimulationInboundFundsHoldReleaseParams
-import com.increase.api.models.SimulationInboundFundsHoldReleaseResponse
+import com.increase.api.models.simulations.inboundfundsholds.InboundFundsHoldReleaseParams
+import com.increase.api.models.simulations.inboundfundsholds.InboundFundsHoldReleaseResponse
 
 interface InboundFundsHoldServiceAsync {
 
@@ -20,9 +20,9 @@ interface InboundFundsHoldServiceAsync {
      * as a result of e.g., an ACH debit.
      */
     suspend fun release(
-        params: SimulationInboundFundsHoldReleaseParams,
+        params: InboundFundsHoldReleaseParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SimulationInboundFundsHoldReleaseResponse
+    ): InboundFundsHoldReleaseResponse
 
     /**
      * A view of [InboundFundsHoldServiceAsync] that provides access to raw HTTP responses for each
@@ -37,8 +37,8 @@ interface InboundFundsHoldServiceAsync {
          */
         @MustBeClosed
         suspend fun release(
-            params: SimulationInboundFundsHoldReleaseParams,
+            params: InboundFundsHoldReleaseParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SimulationInboundFundsHoldReleaseResponse>
+        ): HttpResponseFor<InboundFundsHoldReleaseResponse>
     }
 }

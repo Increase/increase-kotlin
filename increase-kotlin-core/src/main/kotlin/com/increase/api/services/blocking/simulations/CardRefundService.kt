@@ -5,8 +5,8 @@ package com.increase.api.services.blocking.simulations
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.SimulationCardRefundCreateParams
-import com.increase.api.models.Transaction
+import com.increase.api.models.simulations.cardrefunds.CardRefundCreateParams
+import com.increase.api.models.transactions.Transaction
 
 interface CardRefundService {
 
@@ -20,7 +20,7 @@ interface CardRefundService {
      * refunded.
      */
     fun create(
-        params: SimulationCardRefundCreateParams,
+        params: CardRefundCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Transaction
 
@@ -33,7 +33,7 @@ interface CardRefundService {
          */
         @MustBeClosed
         fun create(
-            params: SimulationCardRefundCreateParams,
+            params: CardRefundCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Transaction>
     }

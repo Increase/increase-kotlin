@@ -5,8 +5,8 @@ package com.increase.api.services.blocking.simulations
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.SimulationCardSettlementCreateParams
-import com.increase.api.models.Transaction
+import com.increase.api.models.simulations.cardsettlements.CardSettlementCreateParams
+import com.increase.api.models.transactions.Transaction
 
 interface CardSettlementService {
 
@@ -22,7 +22,7 @@ interface CardSettlementService {
      * from the amount originally authorized, for example, when adding a tip to a restaurant bill.
      */
     fun create(
-        params: SimulationCardSettlementCreateParams,
+        params: CardSettlementCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Transaction
 
@@ -37,7 +37,7 @@ interface CardSettlementService {
          */
         @MustBeClosed
         fun create(
-            params: SimulationCardSettlementCreateParams,
+            params: CardSettlementCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Transaction>
     }
