@@ -5,8 +5,8 @@ package com.increase.api.services.blocking.simulations
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.PhysicalCard
-import com.increase.api.models.SimulationPhysicalCardAdvanceShipmentParams
+import com.increase.api.models.physicalcards.PhysicalCard
+import com.increase.api.models.simulations.physicalcards.PhysicalCardAdvanceShipmentParams
 
 interface PhysicalCardService {
 
@@ -20,7 +20,7 @@ interface PhysicalCardService {
      * simulate e.g., that a physical card was attempted shipped but then failed delivery.
      */
     fun advanceShipment(
-        params: SimulationPhysicalCardAdvanceShipmentParams,
+        params: PhysicalCardAdvanceShipmentParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PhysicalCard
 
@@ -36,7 +36,7 @@ interface PhysicalCardService {
          */
         @MustBeClosed
         fun advanceShipment(
-            params: SimulationPhysicalCardAdvanceShipmentParams,
+            params: PhysicalCardAdvanceShipmentParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PhysicalCard>
     }

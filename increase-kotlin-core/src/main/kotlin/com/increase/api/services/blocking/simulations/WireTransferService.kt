@@ -5,9 +5,9 @@ package com.increase.api.services.blocking.simulations
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.SimulationWireTransferReverseParams
-import com.increase.api.models.SimulationWireTransferSubmitParams
-import com.increase.api.models.WireTransfer
+import com.increase.api.models.simulations.wiretransfers.WireTransferReverseParams
+import com.increase.api.models.simulations.wiretransfers.WireTransferSubmitParams
+import com.increase.api.models.wiretransfers.WireTransfer
 
 interface WireTransferService {
 
@@ -22,7 +22,7 @@ interface WireTransferService {
      * returned funds. This Wire Transfer must first have a `status` of `complete`.
      */
     fun reverse(
-        params: SimulationWireTransferReverseParams,
+        params: WireTransferReverseParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): WireTransfer
 
@@ -31,7 +31,7 @@ interface WireTransferService {
      * transfer must first have a `status` of `pending_approval` or `pending_creating`.
      */
     fun submit(
-        params: SimulationWireTransferSubmitParams,
+        params: WireTransferSubmitParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): WireTransfer
 
@@ -47,7 +47,7 @@ interface WireTransferService {
          */
         @MustBeClosed
         fun reverse(
-            params: SimulationWireTransferReverseParams,
+            params: WireTransferReverseParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<WireTransfer>
 
@@ -58,7 +58,7 @@ interface WireTransferService {
          */
         @MustBeClosed
         fun submit(
-            params: SimulationWireTransferSubmitParams,
+            params: WireTransferSubmitParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<WireTransfer>
     }

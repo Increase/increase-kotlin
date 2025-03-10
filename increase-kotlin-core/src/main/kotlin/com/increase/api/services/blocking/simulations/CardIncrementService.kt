@@ -5,8 +5,8 @@ package com.increase.api.services.blocking.simulations
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.CardPayment
-import com.increase.api.models.SimulationCardIncrementCreateParams
+import com.increase.api.models.cardpayments.CardPayment
+import com.increase.api.models.simulations.cardincrements.CardIncrementCreateParams
 
 interface CardIncrementService {
 
@@ -20,7 +20,7 @@ interface CardIncrementService {
      * incremented multiple times.
      */
     fun create(
-        params: SimulationCardIncrementCreateParams,
+        params: CardIncrementCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CardPayment
 
@@ -35,7 +35,7 @@ interface CardIncrementService {
          */
         @MustBeClosed
         fun create(
-            params: SimulationCardIncrementCreateParams,
+            params: CardIncrementCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CardPayment>
     }

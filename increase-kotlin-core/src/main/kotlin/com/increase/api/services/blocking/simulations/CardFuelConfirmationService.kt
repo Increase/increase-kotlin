@@ -5,8 +5,8 @@ package com.increase.api.services.blocking.simulations
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.CardPayment
-import com.increase.api.models.SimulationCardFuelConfirmationCreateParams
+import com.increase.api.models.cardpayments.CardPayment
+import com.increase.api.models.simulations.cardfuelconfirmations.CardFuelConfirmationCreateParams
 
 interface CardFuelConfirmationService {
 
@@ -21,7 +21,7 @@ interface CardFuelConfirmationService {
      * happen once per authorization.
      */
     fun create(
-        params: SimulationCardFuelConfirmationCreateParams,
+        params: CardFuelConfirmationCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CardPayment
 
@@ -37,7 +37,7 @@ interface CardFuelConfirmationService {
          */
         @MustBeClosed
         fun create(
-            params: SimulationCardFuelConfirmationCreateParams,
+            params: CardFuelConfirmationCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CardPayment>
     }

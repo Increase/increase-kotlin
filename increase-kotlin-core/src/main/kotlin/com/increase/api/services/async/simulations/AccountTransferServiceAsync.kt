@@ -5,8 +5,8 @@ package com.increase.api.services.async.simulations
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.AccountTransfer
-import com.increase.api.models.SimulationAccountTransferCompleteParams
+import com.increase.api.models.accounttransfers.AccountTransfer
+import com.increase.api.models.simulations.accounttransfers.AccountTransferCompleteParams
 
 interface AccountTransferServiceAsync {
 
@@ -22,7 +22,7 @@ interface AccountTransferServiceAsync {
      * `pending_approval`.
      */
     suspend fun complete(
-        params: SimulationAccountTransferCompleteParams,
+        params: AccountTransferCompleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AccountTransfer
 
@@ -39,7 +39,7 @@ interface AccountTransferServiceAsync {
          */
         @MustBeClosed
         suspend fun complete(
-            params: SimulationAccountTransferCompleteParams,
+            params: AccountTransferCompleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AccountTransfer>
     }

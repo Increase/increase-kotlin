@@ -5,8 +5,8 @@ package com.increase.api.services.async.simulations
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.SimulationDigitalWalletTokenRequestCreateParams
-import com.increase.api.models.SimulationDigitalWalletTokenRequestCreateResponse
+import com.increase.api.models.simulations.digitalwallettokenrequests.DigitalWalletTokenRequestCreateParams
+import com.increase.api.models.simulations.digitalwallettokenrequests.DigitalWalletTokenRequestCreateResponse
 
 interface DigitalWalletTokenRequestServiceAsync {
 
@@ -17,9 +17,9 @@ interface DigitalWalletTokenRequestServiceAsync {
 
     /** Simulates a user attempting add a [Card](#cards) to a digital wallet such as Apple Pay. */
     suspend fun create(
-        params: SimulationDigitalWalletTokenRequestCreateParams,
+        params: DigitalWalletTokenRequestCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SimulationDigitalWalletTokenRequestCreateResponse
+    ): DigitalWalletTokenRequestCreateResponse
 
     /**
      * A view of [DigitalWalletTokenRequestServiceAsync] that provides access to raw HTTP responses
@@ -33,8 +33,8 @@ interface DigitalWalletTokenRequestServiceAsync {
          */
         @MustBeClosed
         suspend fun create(
-            params: SimulationDigitalWalletTokenRequestCreateParams,
+            params: DigitalWalletTokenRequestCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SimulationDigitalWalletTokenRequestCreateResponse>
+        ): HttpResponseFor<DigitalWalletTokenRequestCreateResponse>
     }
 }

@@ -15,8 +15,8 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.SimulationDigitalWalletTokenRequestCreateParams
-import com.increase.api.models.SimulationDigitalWalletTokenRequestCreateResponse
+import com.increase.api.models.simulations.digitalwallettokenrequests.DigitalWalletTokenRequestCreateParams
+import com.increase.api.models.simulations.digitalwallettokenrequests.DigitalWalletTokenRequestCreateResponse
 
 class DigitalWalletTokenRequestServiceAsyncImpl
 internal constructor(private val clientOptions: ClientOptions) :
@@ -30,9 +30,9 @@ internal constructor(private val clientOptions: ClientOptions) :
         withRawResponse
 
     override suspend fun create(
-        params: SimulationDigitalWalletTokenRequestCreateParams,
+        params: DigitalWalletTokenRequestCreateParams,
         requestOptions: RequestOptions,
-    ): SimulationDigitalWalletTokenRequestCreateResponse =
+    ): DigitalWalletTokenRequestCreateResponse =
         // post /simulations/digital_wallet_token_requests
         withRawResponse().create(params, requestOptions).parse()
 
@@ -41,14 +41,14 @@ internal constructor(private val clientOptions: ClientOptions) :
 
         private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
-        private val createHandler: Handler<SimulationDigitalWalletTokenRequestCreateResponse> =
-            jsonHandler<SimulationDigitalWalletTokenRequestCreateResponse>(clientOptions.jsonMapper)
+        private val createHandler: Handler<DigitalWalletTokenRequestCreateResponse> =
+            jsonHandler<DigitalWalletTokenRequestCreateResponse>(clientOptions.jsonMapper)
                 .withErrorHandler(errorHandler)
 
         override suspend fun create(
-            params: SimulationDigitalWalletTokenRequestCreateParams,
+            params: DigitalWalletTokenRequestCreateParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<SimulationDigitalWalletTokenRequestCreateResponse> {
+        ): HttpResponseFor<DigitalWalletTokenRequestCreateResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)

@@ -5,8 +5,8 @@ package com.increase.api.services.blocking.simulations
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.InboundMailItem
-import com.increase.api.models.SimulationInboundMailItemCreateParams
+import com.increase.api.models.inboundmailitems.InboundMailItem
+import com.increase.api.models.simulations.inboundmailitems.InboundMailItemCreateParams
 
 interface InboundMailItemService {
 
@@ -20,7 +20,7 @@ interface InboundMailItemService {
      * one of your account's Lockboxes.
      */
     fun create(
-        params: SimulationInboundMailItemCreateParams,
+        params: InboundMailItemCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundMailItem
 
@@ -36,7 +36,7 @@ interface InboundMailItemService {
          */
         @MustBeClosed
         fun create(
-            params: SimulationInboundMailItemCreateParams,
+            params: InboundMailItemCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<InboundMailItem>
     }

@@ -5,8 +5,8 @@ package com.increase.api.services.async.simulations
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.Document
-import com.increase.api.models.SimulationDocumentCreateParams
+import com.increase.api.models.documents.Document
+import com.increase.api.models.simulations.documents.DocumentCreateParams
 
 interface DocumentServiceAsync {
 
@@ -17,7 +17,7 @@ interface DocumentServiceAsync {
 
     /** Simulates an tax document being created for an account. */
     suspend fun create(
-        params: SimulationDocumentCreateParams,
+        params: DocumentCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Document
 
@@ -32,7 +32,7 @@ interface DocumentServiceAsync {
          */
         @MustBeClosed
         suspend fun create(
-            params: SimulationDocumentCreateParams,
+            params: DocumentCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Document>
     }

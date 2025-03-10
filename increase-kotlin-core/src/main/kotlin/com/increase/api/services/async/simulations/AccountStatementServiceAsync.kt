@@ -5,8 +5,8 @@ package com.increase.api.services.async.simulations
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.AccountStatement
-import com.increase.api.models.SimulationAccountStatementCreateParams
+import com.increase.api.models.accountstatements.AccountStatement
+import com.increase.api.models.simulations.accountstatements.AccountStatementCreateParams
 
 interface AccountStatementServiceAsync {
 
@@ -20,7 +20,7 @@ interface AccountStatementServiceAsync {
      * production, Account Statements are generated once per month.
      */
     suspend fun create(
-        params: SimulationAccountStatementCreateParams,
+        params: AccountStatementCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AccountStatement
 
@@ -36,7 +36,7 @@ interface AccountStatementServiceAsync {
          */
         @MustBeClosed
         suspend fun create(
-            params: SimulationAccountStatementCreateParams,
+            params: AccountStatementCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AccountStatement>
     }

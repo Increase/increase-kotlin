@@ -5,9 +5,9 @@ package com.increase.api.services.async.simulations
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.SimulationWireTransferReverseParams
-import com.increase.api.models.SimulationWireTransferSubmitParams
-import com.increase.api.models.WireTransfer
+import com.increase.api.models.simulations.wiretransfers.WireTransferReverseParams
+import com.increase.api.models.simulations.wiretransfers.WireTransferSubmitParams
+import com.increase.api.models.wiretransfers.WireTransfer
 
 interface WireTransferServiceAsync {
 
@@ -22,7 +22,7 @@ interface WireTransferServiceAsync {
      * returned funds. This Wire Transfer must first have a `status` of `complete`.
      */
     suspend fun reverse(
-        params: SimulationWireTransferReverseParams,
+        params: WireTransferReverseParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): WireTransfer
 
@@ -31,7 +31,7 @@ interface WireTransferServiceAsync {
      * transfer must first have a `status` of `pending_approval` or `pending_creating`.
      */
     suspend fun submit(
-        params: SimulationWireTransferSubmitParams,
+        params: WireTransferSubmitParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): WireTransfer
 
@@ -48,7 +48,7 @@ interface WireTransferServiceAsync {
          */
         @MustBeClosed
         suspend fun reverse(
-            params: SimulationWireTransferReverseParams,
+            params: WireTransferReverseParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<WireTransfer>
 
@@ -59,7 +59,7 @@ interface WireTransferServiceAsync {
          */
         @MustBeClosed
         suspend fun submit(
-            params: SimulationWireTransferSubmitParams,
+            params: WireTransferSubmitParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<WireTransfer>
     }

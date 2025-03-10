@@ -4,9 +4,9 @@ package com.increase.api.services.async.simulations
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
-import com.increase.api.models.SimulationCheckDepositRejectParams
-import com.increase.api.models.SimulationCheckDepositReturnParams
-import com.increase.api.models.SimulationCheckDepositSubmitParams
+import com.increase.api.models.simulations.checkdeposits.CheckDepositRejectParams
+import com.increase.api.models.simulations.checkdeposits.CheckDepositReturnParams
+import com.increase.api.models.simulations.checkdeposits.CheckDepositSubmitParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -24,7 +24,7 @@ class CheckDepositServiceAsyncTest {
 
         val checkDeposit =
             checkDepositServiceAsync.reject(
-                SimulationCheckDepositRejectParams.builder()
+                CheckDepositRejectParams.builder()
                     .checkDepositId("check_deposit_f06n9gpg7sxn8t19lfc1")
                     .build()
             )
@@ -43,7 +43,7 @@ class CheckDepositServiceAsyncTest {
 
         val checkDeposit =
             checkDepositServiceAsync.return_(
-                SimulationCheckDepositReturnParams.builder()
+                CheckDepositReturnParams.builder()
                     .checkDepositId("check_deposit_f06n9gpg7sxn8t19lfc1")
                     .build()
             )
@@ -62,7 +62,7 @@ class CheckDepositServiceAsyncTest {
 
         val checkDeposit =
             checkDepositServiceAsync.submit(
-                SimulationCheckDepositSubmitParams.builder()
+                CheckDepositSubmitParams.builder()
                     .checkDepositId("check_deposit_f06n9gpg7sxn8t19lfc1")
                     .build()
             )
