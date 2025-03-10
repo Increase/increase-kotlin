@@ -5,8 +5,8 @@ package com.increase.api.services.blocking.simulations
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.CardDispute
-import com.increase.api.models.SimulationCardDisputeActionParams
+import com.increase.api.models.carddisputes.CardDispute
+import com.increase.api.models.simulations.carddisputes.CardDisputeActionParams
 
 interface CardDisputeService {
 
@@ -22,7 +22,7 @@ interface CardDisputeService {
      * a status of `pending_reviewing`.
      */
     fun action(
-        params: SimulationCardDisputeActionParams,
+        params: CardDisputeActionParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CardDispute
 
@@ -38,7 +38,7 @@ interface CardDisputeService {
          */
         @MustBeClosed
         fun action(
-            params: SimulationCardDisputeActionParams,
+            params: CardDisputeActionParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CardDispute>
     }

@@ -5,8 +5,8 @@ package com.increase.api.services.blocking.simulations
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.SimulationCardAuthorizationCreateParams
-import com.increase.api.models.SimulationCardAuthorizationCreateResponse
+import com.increase.api.models.simulations.cardauthorizations.CardAuthorizationCreateParams
+import com.increase.api.models.simulations.cardauthorizations.CardAuthorizationCreateResponse
 
 interface CardAuthorizationService {
 
@@ -24,9 +24,9 @@ interface CardAuthorizationService {
      * ways purchases can be made.
      */
     fun create(
-        params: SimulationCardAuthorizationCreateParams,
+        params: CardAuthorizationCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SimulationCardAuthorizationCreateResponse
+    ): CardAuthorizationCreateResponse
 
     /**
      * A view of [CardAuthorizationService] that provides access to raw HTTP responses for each
@@ -40,8 +40,8 @@ interface CardAuthorizationService {
          */
         @MustBeClosed
         fun create(
-            params: SimulationCardAuthorizationCreateParams,
+            params: CardAuthorizationCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SimulationCardAuthorizationCreateResponse>
+        ): HttpResponseFor<CardAuthorizationCreateResponse>
     }
 }

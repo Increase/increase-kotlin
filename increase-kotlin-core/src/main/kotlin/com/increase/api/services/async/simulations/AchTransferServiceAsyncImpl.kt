@@ -15,12 +15,12 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.AchTransfer
-import com.increase.api.models.SimulationAchTransferAcknowledgeParams
-import com.increase.api.models.SimulationAchTransferCreateNotificationOfChangeParams
-import com.increase.api.models.SimulationAchTransferReturnParams
-import com.increase.api.models.SimulationAchTransferSettleParams
-import com.increase.api.models.SimulationAchTransferSubmitParams
+import com.increase.api.models.achtransfers.AchTransfer
+import com.increase.api.models.simulations.achtransfers.AchTransferAcknowledgeParams
+import com.increase.api.models.simulations.achtransfers.AchTransferCreateNotificationOfChangeParams
+import com.increase.api.models.simulations.achtransfers.AchTransferReturnParams
+import com.increase.api.models.simulations.achtransfers.AchTransferSettleParams
+import com.increase.api.models.simulations.achtransfers.AchTransferSubmitParams
 
 class AchTransferServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     AchTransferServiceAsync {
@@ -32,35 +32,35 @@ class AchTransferServiceAsyncImpl internal constructor(private val clientOptions
     override fun withRawResponse(): AchTransferServiceAsync.WithRawResponse = withRawResponse
 
     override suspend fun acknowledge(
-        params: SimulationAchTransferAcknowledgeParams,
+        params: AchTransferAcknowledgeParams,
         requestOptions: RequestOptions,
     ): AchTransfer =
         // post /simulations/ach_transfers/{ach_transfer_id}/acknowledge
         withRawResponse().acknowledge(params, requestOptions).parse()
 
     override suspend fun createNotificationOfChange(
-        params: SimulationAchTransferCreateNotificationOfChangeParams,
+        params: AchTransferCreateNotificationOfChangeParams,
         requestOptions: RequestOptions,
     ): AchTransfer =
         // post /simulations/ach_transfers/{ach_transfer_id}/create_notification_of_change
         withRawResponse().createNotificationOfChange(params, requestOptions).parse()
 
     override suspend fun return_(
-        params: SimulationAchTransferReturnParams,
+        params: AchTransferReturnParams,
         requestOptions: RequestOptions,
     ): AchTransfer =
         // post /simulations/ach_transfers/{ach_transfer_id}/return
         withRawResponse().return_(params, requestOptions).parse()
 
     override suspend fun settle(
-        params: SimulationAchTransferSettleParams,
+        params: AchTransferSettleParams,
         requestOptions: RequestOptions,
     ): AchTransfer =
         // post /simulations/ach_transfers/{ach_transfer_id}/settle
         withRawResponse().settle(params, requestOptions).parse()
 
     override suspend fun submit(
-        params: SimulationAchTransferSubmitParams,
+        params: AchTransferSubmitParams,
         requestOptions: RequestOptions,
     ): AchTransfer =
         // post /simulations/ach_transfers/{ach_transfer_id}/submit
@@ -75,7 +75,7 @@ class AchTransferServiceAsyncImpl internal constructor(private val clientOptions
             jsonHandler<AchTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
         override suspend fun acknowledge(
-            params: SimulationAchTransferAcknowledgeParams,
+            params: AchTransferAcknowledgeParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<AchTransfer> {
             val request =
@@ -107,7 +107,7 @@ class AchTransferServiceAsyncImpl internal constructor(private val clientOptions
             jsonHandler<AchTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
         override suspend fun createNotificationOfChange(
-            params: SimulationAchTransferCreateNotificationOfChangeParams,
+            params: AchTransferCreateNotificationOfChangeParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<AchTransfer> {
             val request =
@@ -139,7 +139,7 @@ class AchTransferServiceAsyncImpl internal constructor(private val clientOptions
             jsonHandler<AchTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
         override suspend fun return_(
-            params: SimulationAchTransferReturnParams,
+            params: AchTransferReturnParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<AchTransfer> {
             val request =
@@ -171,7 +171,7 @@ class AchTransferServiceAsyncImpl internal constructor(private val clientOptions
             jsonHandler<AchTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
         override suspend fun settle(
-            params: SimulationAchTransferSettleParams,
+            params: AchTransferSettleParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<AchTransfer> {
             val request =
@@ -203,7 +203,7 @@ class AchTransferServiceAsyncImpl internal constructor(private val clientOptions
             jsonHandler<AchTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
         override suspend fun submit(
-            params: SimulationAchTransferSubmitParams,
+            params: AchTransferSubmitParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<AchTransfer> {
             val request =

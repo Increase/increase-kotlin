@@ -5,8 +5,8 @@ package com.increase.api.services.blocking.simulations
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.Document
-import com.increase.api.models.SimulationDocumentCreateParams
+import com.increase.api.models.documents.Document
+import com.increase.api.models.simulations.documents.DocumentCreateParams
 
 interface DocumentService {
 
@@ -17,7 +17,7 @@ interface DocumentService {
 
     /** Simulates an tax document being created for an account. */
     fun create(
-        params: SimulationDocumentCreateParams,
+        params: DocumentCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Document
 
@@ -30,7 +30,7 @@ interface DocumentService {
          */
         @MustBeClosed
         fun create(
-            params: SimulationDocumentCreateParams,
+            params: DocumentCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Document>
     }

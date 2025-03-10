@@ -5,8 +5,8 @@ package com.increase.api.services.blocking.simulations
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.InboundWireTransfer
-import com.increase.api.models.SimulationInboundWireTransferCreateParams
+import com.increase.api.models.inboundwiretransfers.InboundWireTransfer
+import com.increase.api.models.simulations.inboundwiretransfers.InboundWireTransferCreateParams
 
 interface InboundWireTransferService {
 
@@ -17,7 +17,7 @@ interface InboundWireTransferService {
 
     /** Simulates an [Inbound Wire Transfer](#inbound-wire-transfers) to your account. */
     fun create(
-        params: SimulationInboundWireTransferCreateParams,
+        params: InboundWireTransferCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundWireTransfer
 
@@ -33,7 +33,7 @@ interface InboundWireTransferService {
          */
         @MustBeClosed
         fun create(
-            params: SimulationInboundWireTransferCreateParams,
+            params: InboundWireTransferCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<InboundWireTransfer>
     }

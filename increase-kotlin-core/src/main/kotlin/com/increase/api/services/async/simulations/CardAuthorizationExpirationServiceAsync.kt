@@ -5,8 +5,8 @@ package com.increase.api.services.async.simulations
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.CardPayment
-import com.increase.api.models.SimulationCardAuthorizationExpirationCreateParams
+import com.increase.api.models.cardpayments.CardPayment
+import com.increase.api.models.simulations.cardauthorizationexpirations.CardAuthorizationExpirationCreateParams
 
 interface CardAuthorizationExpirationServiceAsync {
 
@@ -17,7 +17,7 @@ interface CardAuthorizationExpirationServiceAsync {
 
     /** Simulates expiring a Card Authorization immediately. */
     suspend fun create(
-        params: SimulationCardAuthorizationExpirationCreateParams,
+        params: CardAuthorizationExpirationCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CardPayment
 
@@ -33,7 +33,7 @@ interface CardAuthorizationExpirationServiceAsync {
          */
         @MustBeClosed
         suspend fun create(
-            params: SimulationCardAuthorizationExpirationCreateParams,
+            params: CardAuthorizationExpirationCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CardPayment>
     }

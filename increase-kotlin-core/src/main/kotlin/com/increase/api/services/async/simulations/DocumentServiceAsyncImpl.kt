@@ -15,8 +15,8 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.Document
-import com.increase.api.models.SimulationDocumentCreateParams
+import com.increase.api.models.documents.Document
+import com.increase.api.models.simulations.documents.DocumentCreateParams
 
 class DocumentServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     DocumentServiceAsync {
@@ -28,7 +28,7 @@ class DocumentServiceAsyncImpl internal constructor(private val clientOptions: C
     override fun withRawResponse(): DocumentServiceAsync.WithRawResponse = withRawResponse
 
     override suspend fun create(
-        params: SimulationDocumentCreateParams,
+        params: DocumentCreateParams,
         requestOptions: RequestOptions,
     ): Document =
         // post /simulations/documents
@@ -43,7 +43,7 @@ class DocumentServiceAsyncImpl internal constructor(private val clientOptions: C
             jsonHandler<Document>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
         override suspend fun create(
-            params: SimulationDocumentCreateParams,
+            params: DocumentCreateParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<Document> {
             val request =
