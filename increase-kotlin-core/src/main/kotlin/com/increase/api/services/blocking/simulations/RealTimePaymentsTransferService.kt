@@ -5,8 +5,8 @@ package com.increase.api.services.blocking.simulations
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.RealTimePaymentsTransfer
-import com.increase.api.models.SimulationRealTimePaymentsTransferCompleteParams
+import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransfer
+import com.increase.api.models.simulations.realtimepaymentstransfers.RealTimePaymentsTransferCompleteParams
 
 interface RealTimePaymentsTransferService {
 
@@ -21,7 +21,7 @@ interface RealTimePaymentsTransferService {
      * have a `status` of `pending_submission`.
      */
     fun complete(
-        params: SimulationRealTimePaymentsTransferCompleteParams,
+        params: RealTimePaymentsTransferCompleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): RealTimePaymentsTransfer
 
@@ -38,7 +38,7 @@ interface RealTimePaymentsTransferService {
          */
         @MustBeClosed
         fun complete(
-            params: SimulationRealTimePaymentsTransferCompleteParams,
+            params: RealTimePaymentsTransferCompleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<RealTimePaymentsTransfer>
     }

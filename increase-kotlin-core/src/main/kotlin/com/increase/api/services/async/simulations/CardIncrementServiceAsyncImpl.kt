@@ -15,8 +15,8 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.CardPayment
-import com.increase.api.models.SimulationCardIncrementCreateParams
+import com.increase.api.models.cardpayments.CardPayment
+import com.increase.api.models.simulations.cardincrements.CardIncrementCreateParams
 
 class CardIncrementServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     CardIncrementServiceAsync {
@@ -28,7 +28,7 @@ class CardIncrementServiceAsyncImpl internal constructor(private val clientOptio
     override fun withRawResponse(): CardIncrementServiceAsync.WithRawResponse = withRawResponse
 
     override suspend fun create(
-        params: SimulationCardIncrementCreateParams,
+        params: CardIncrementCreateParams,
         requestOptions: RequestOptions,
     ): CardPayment =
         // post /simulations/card_increments
@@ -43,7 +43,7 @@ class CardIncrementServiceAsyncImpl internal constructor(private val clientOptio
             jsonHandler<CardPayment>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
         override suspend fun create(
-            params: SimulationCardIncrementCreateParams,
+            params: CardIncrementCreateParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<CardPayment> {
             val request =

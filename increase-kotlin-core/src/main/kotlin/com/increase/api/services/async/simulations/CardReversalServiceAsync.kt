@@ -5,8 +5,8 @@ package com.increase.api.services.async.simulations
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.CardPayment
-import com.increase.api.models.SimulationCardReversalCreateParams
+import com.increase.api.models.cardpayments.CardPayment
+import com.increase.api.models.simulations.cardreversals.CardReversalCreateParams
 
 interface CardReversalServiceAsync {
 
@@ -21,7 +21,7 @@ interface CardReversalServiceAsync {
      * transaction as complete if the authorization is fully reversed.
      */
     suspend fun create(
-        params: SimulationCardReversalCreateParams,
+        params: CardReversalCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CardPayment
 
@@ -37,7 +37,7 @@ interface CardReversalServiceAsync {
          */
         @MustBeClosed
         suspend fun create(
-            params: SimulationCardReversalCreateParams,
+            params: CardReversalCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CardPayment>
     }

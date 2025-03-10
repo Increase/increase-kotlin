@@ -15,8 +15,8 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.SimulationCardAuthorizationCreateParams
-import com.increase.api.models.SimulationCardAuthorizationCreateResponse
+import com.increase.api.models.simulations.cardauthorizations.CardAuthorizationCreateParams
+import com.increase.api.models.simulations.cardauthorizations.CardAuthorizationCreateResponse
 
 class CardAuthorizationServiceAsyncImpl
 internal constructor(private val clientOptions: ClientOptions) : CardAuthorizationServiceAsync {
@@ -28,9 +28,9 @@ internal constructor(private val clientOptions: ClientOptions) : CardAuthorizati
     override fun withRawResponse(): CardAuthorizationServiceAsync.WithRawResponse = withRawResponse
 
     override suspend fun create(
-        params: SimulationCardAuthorizationCreateParams,
+        params: CardAuthorizationCreateParams,
         requestOptions: RequestOptions,
-    ): SimulationCardAuthorizationCreateResponse =
+    ): CardAuthorizationCreateResponse =
         // post /simulations/card_authorizations
         withRawResponse().create(params, requestOptions).parse()
 
@@ -39,14 +39,14 @@ internal constructor(private val clientOptions: ClientOptions) : CardAuthorizati
 
         private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
-        private val createHandler: Handler<SimulationCardAuthorizationCreateResponse> =
-            jsonHandler<SimulationCardAuthorizationCreateResponse>(clientOptions.jsonMapper)
+        private val createHandler: Handler<CardAuthorizationCreateResponse> =
+            jsonHandler<CardAuthorizationCreateResponse>(clientOptions.jsonMapper)
                 .withErrorHandler(errorHandler)
 
         override suspend fun create(
-            params: SimulationCardAuthorizationCreateParams,
+            params: CardAuthorizationCreateParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<SimulationCardAuthorizationCreateResponse> {
+        ): HttpResponseFor<CardAuthorizationCreateResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)

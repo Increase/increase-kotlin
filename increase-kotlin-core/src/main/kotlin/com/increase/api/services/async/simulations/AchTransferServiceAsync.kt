@@ -5,12 +5,12 @@ package com.increase.api.services.async.simulations
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.AchTransfer
-import com.increase.api.models.SimulationAchTransferAcknowledgeParams
-import com.increase.api.models.SimulationAchTransferCreateNotificationOfChangeParams
-import com.increase.api.models.SimulationAchTransferReturnParams
-import com.increase.api.models.SimulationAchTransferSettleParams
-import com.increase.api.models.SimulationAchTransferSubmitParams
+import com.increase.api.models.achtransfers.AchTransfer
+import com.increase.api.models.simulations.achtransfers.AchTransferAcknowledgeParams
+import com.increase.api.models.simulations.achtransfers.AchTransferCreateNotificationOfChangeParams
+import com.increase.api.models.simulations.achtransfers.AchTransferReturnParams
+import com.increase.api.models.simulations.achtransfers.AchTransferSettleParams
+import com.increase.api.models.simulations.achtransfers.AchTransferSubmitParams
 
 interface AchTransferServiceAsync {
 
@@ -27,13 +27,13 @@ interface AchTransferServiceAsync {
      * acknowledgment subresource to the ACH Transfer.
      */
     suspend fun acknowledge(
-        params: SimulationAchTransferAcknowledgeParams,
+        params: AchTransferAcknowledgeParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AchTransfer
 
     /** Simulates receiving a Notification of Change for an [ACH Transfer](#ach-transfers). */
     suspend fun createNotificationOfChange(
-        params: SimulationAchTransferCreateNotificationOfChangeParams,
+        params: AchTransferCreateNotificationOfChangeParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AchTransfer
 
@@ -43,7 +43,7 @@ interface AchTransferServiceAsync {
      * transfer must first have a `status` of `submitted`.
      */
     suspend fun return_(
-        params: SimulationAchTransferReturnParams,
+        params: AchTransferReturnParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AchTransfer
 
@@ -53,7 +53,7 @@ interface AchTransferServiceAsync {
      * eventually settle on its own following the same Federal Reserve timeline as in production.
      */
     suspend fun settle(
-        params: SimulationAchTransferSettleParams,
+        params: AchTransferSettleParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AchTransfer
 
@@ -65,7 +65,7 @@ interface AchTransferServiceAsync {
      * allows you to skip that delay and transition the ACH Transfer to a status of `submitted`.
      */
     suspend fun submit(
-        params: SimulationAchTransferSubmitParams,
+        params: AchTransferSubmitParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AchTransfer
 
@@ -82,7 +82,7 @@ interface AchTransferServiceAsync {
          */
         @MustBeClosed
         suspend fun acknowledge(
-            params: SimulationAchTransferAcknowledgeParams,
+            params: AchTransferAcknowledgeParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AchTransfer>
 
@@ -93,7 +93,7 @@ interface AchTransferServiceAsync {
          */
         @MustBeClosed
         suspend fun createNotificationOfChange(
-            params: SimulationAchTransferCreateNotificationOfChangeParams,
+            params: AchTransferCreateNotificationOfChangeParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AchTransfer>
 
@@ -104,7 +104,7 @@ interface AchTransferServiceAsync {
          */
         @MustBeClosed
         suspend fun return_(
-            params: SimulationAchTransferReturnParams,
+            params: AchTransferReturnParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AchTransfer>
 
@@ -115,7 +115,7 @@ interface AchTransferServiceAsync {
          */
         @MustBeClosed
         suspend fun settle(
-            params: SimulationAchTransferSettleParams,
+            params: AchTransferSettleParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AchTransfer>
 
@@ -126,7 +126,7 @@ interface AchTransferServiceAsync {
          */
         @MustBeClosed
         suspend fun submit(
-            params: SimulationAchTransferSubmitParams,
+            params: AchTransferSubmitParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AchTransfer>
     }

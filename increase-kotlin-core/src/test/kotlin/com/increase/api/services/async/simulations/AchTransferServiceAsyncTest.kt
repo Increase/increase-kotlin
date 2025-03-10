@@ -4,11 +4,11 @@ package com.increase.api.services.async.simulations
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
-import com.increase.api.models.SimulationAchTransferAcknowledgeParams
-import com.increase.api.models.SimulationAchTransferCreateNotificationOfChangeParams
-import com.increase.api.models.SimulationAchTransferReturnParams
-import com.increase.api.models.SimulationAchTransferSettleParams
-import com.increase.api.models.SimulationAchTransferSubmitParams
+import com.increase.api.models.simulations.achtransfers.AchTransferAcknowledgeParams
+import com.increase.api.models.simulations.achtransfers.AchTransferCreateNotificationOfChangeParams
+import com.increase.api.models.simulations.achtransfers.AchTransferReturnParams
+import com.increase.api.models.simulations.achtransfers.AchTransferSettleParams
+import com.increase.api.models.simulations.achtransfers.AchTransferSubmitParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -26,7 +26,7 @@ class AchTransferServiceAsyncTest {
 
         val achTransfer =
             achTransferServiceAsync.acknowledge(
-                SimulationAchTransferAcknowledgeParams.builder()
+                AchTransferAcknowledgeParams.builder()
                     .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
                     .build()
             )
@@ -45,10 +45,10 @@ class AchTransferServiceAsyncTest {
 
         val achTransfer =
             achTransferServiceAsync.createNotificationOfChange(
-                SimulationAchTransferCreateNotificationOfChangeParams.builder()
+                AchTransferCreateNotificationOfChangeParams.builder()
                     .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
                     .changeCode(
-                        SimulationAchTransferCreateNotificationOfChangeParams.ChangeCode
+                        AchTransferCreateNotificationOfChangeParams.ChangeCode
                             .INCORRECT_ACCOUNT_NUMBER
                     )
                     .correctedData("123456789")
@@ -69,9 +69,9 @@ class AchTransferServiceAsyncTest {
 
         val achTransfer =
             achTransferServiceAsync.return_(
-                SimulationAchTransferReturnParams.builder()
+                AchTransferReturnParams.builder()
                     .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
-                    .reason(SimulationAchTransferReturnParams.Reason.INSUFFICIENT_FUND)
+                    .reason(AchTransferReturnParams.Reason.INSUFFICIENT_FUND)
                     .build()
             )
 
@@ -89,7 +89,7 @@ class AchTransferServiceAsyncTest {
 
         val achTransfer =
             achTransferServiceAsync.settle(
-                SimulationAchTransferSettleParams.builder()
+                AchTransferSettleParams.builder()
                     .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
                     .build()
             )
@@ -108,7 +108,7 @@ class AchTransferServiceAsyncTest {
 
         val achTransfer =
             achTransferServiceAsync.submit(
-                SimulationAchTransferSubmitParams.builder()
+                AchTransferSubmitParams.builder()
                     .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
                     .build()
             )
