@@ -5,8 +5,8 @@ package com.increase.api.services.async.simulations
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.Program
-import com.increase.api.models.SimulationProgramCreateParams
+import com.increase.api.models.programs.Program
+import com.increase.api.models.simulations.programs.ProgramCreateParams
 
 interface ProgramServiceAsync {
 
@@ -21,7 +21,7 @@ interface ProgramServiceAsync {
      * `program_id` is a required field when creating accounts.
      */
     suspend fun create(
-        params: SimulationProgramCreateParams,
+        params: ProgramCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Program
 
@@ -36,7 +36,7 @@ interface ProgramServiceAsync {
          */
         @MustBeClosed
         suspend fun create(
-            params: SimulationProgramCreateParams,
+            params: ProgramCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Program>
     }

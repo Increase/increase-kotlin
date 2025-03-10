@@ -15,8 +15,8 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.errors.IncreaseError
-import com.increase.api.models.InboundWireTransfer
-import com.increase.api.models.SimulationInboundWireTransferCreateParams
+import com.increase.api.models.inboundwiretransfers.InboundWireTransfer
+import com.increase.api.models.simulations.inboundwiretransfers.InboundWireTransferCreateParams
 
 class InboundWireTransferServiceAsyncImpl
 internal constructor(private val clientOptions: ClientOptions) : InboundWireTransferServiceAsync {
@@ -29,7 +29,7 @@ internal constructor(private val clientOptions: ClientOptions) : InboundWireTran
         withRawResponse
 
     override suspend fun create(
-        params: SimulationInboundWireTransferCreateParams,
+        params: InboundWireTransferCreateParams,
         requestOptions: RequestOptions,
     ): InboundWireTransfer =
         // post /simulations/inbound_wire_transfers
@@ -45,7 +45,7 @@ internal constructor(private val clientOptions: ClientOptions) : InboundWireTran
                 .withErrorHandler(errorHandler)
 
         override suspend fun create(
-            params: SimulationInboundWireTransferCreateParams,
+            params: InboundWireTransferCreateParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<InboundWireTransfer> {
             val request =

@@ -5,8 +5,8 @@ package com.increase.api.services.async.simulations
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.CheckTransfer
-import com.increase.api.models.SimulationCheckTransferMailParams
+import com.increase.api.models.checktransfers.CheckTransfer
+import com.increase.api.models.simulations.checktransfers.CheckTransferMailParams
 
 interface CheckTransferServiceAsync {
 
@@ -21,7 +21,7 @@ interface CheckTransferServiceAsync {
      * a `status` of `pending_approval` or `pending_submission`.
      */
     suspend fun mail(
-        params: SimulationCheckTransferMailParams,
+        params: CheckTransferMailParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CheckTransfer
 
@@ -38,7 +38,7 @@ interface CheckTransferServiceAsync {
          */
         @MustBeClosed
         suspend fun mail(
-            params: SimulationCheckTransferMailParams,
+            params: CheckTransferMailParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CheckTransfer>
     }

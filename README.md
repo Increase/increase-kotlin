@@ -44,8 +44,8 @@ This library requires Java 8 or later.
 ```kotlin
 import com.increase.api.client.IncreaseClient
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
-import com.increase.api.models.Account
-import com.increase.api.models.AccountCreateParams
+import com.increase.api.models.accounts.Account
+import com.increase.api.models.accounts.AccountCreateParams
 
 // Configures using the `INCREASE_API_KEY` and `INCREASE_WEBHOOK_SECRET` environment variables
 val client: IncreaseClient = IncreaseOkHttpClient.fromEnv()
@@ -126,8 +126,8 @@ The default client is synchronous. To switch to asynchronous execution, call the
 ```kotlin
 import com.increase.api.client.IncreaseClient
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
-import com.increase.api.models.Account
-import com.increase.api.models.AccountCreateParams
+import com.increase.api.models.accounts.Account
+import com.increase.api.models.accounts.AccountCreateParams
 
 // Configures using the `INCREASE_API_KEY` and `INCREASE_WEBHOOK_SECRET` environment variables
 val client: IncreaseClient = IncreaseOkHttpClient.fromEnv()
@@ -145,8 +145,8 @@ Or create an asynchronous client from the beginning:
 ```kotlin
 import com.increase.api.client.IncreaseClientAsync
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
-import com.increase.api.models.Account
-import com.increase.api.models.AccountCreateParams
+import com.increase.api.models.accounts.Account
+import com.increase.api.models.accounts.AccountCreateParams
 
 // Configures using the `INCREASE_API_KEY` and `INCREASE_WEBHOOK_SECRET` environment variables
 val client: IncreaseClientAsync = IncreaseOkHttpClientAsync.fromEnv()
@@ -168,8 +168,8 @@ The SDK defines methods that accept files.
 To upload a file, pass a [`Path`](https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html):
 
 ```kotlin
-import com.increase.api.models.File
-import com.increase.api.models.FileCreateParams
+import com.increase.api.models.files.File
+import com.increase.api.models.files.FileCreateParams
 import java.nio.file.Paths
 
 val params: FileCreateParams = FileCreateParams.builder()
@@ -182,8 +182,8 @@ val file: File = client.files().create(params)
 Or an arbitrary [`InputStream`](https://docs.oracle.com/javase/8/docs/api/java/io/InputStream.html):
 
 ```kotlin
-import com.increase.api.models.File
-import com.increase.api.models.FileCreateParams
+import com.increase.api.models.files.File
+import com.increase.api.models.files.FileCreateParams
 import java.net.URL
 
 val params: FileCreateParams = FileCreateParams.builder()
@@ -196,8 +196,8 @@ val file: File = client.files().create(params)
 Or a `ByteArray`:
 
 ```kotlin
-import com.increase.api.models.File
-import com.increase.api.models.FileCreateParams
+import com.increase.api.models.files.File
+import com.increase.api.models.files.FileCreateParams
 
 val params: FileCreateParams = FileCreateParams.builder()
     .purpose(FileCreateParams.Purpose.CHECK_IMAGE_FRONT)
@@ -210,8 +210,8 @@ Note that when passing a non-`Path` its filename is unknown so it will not be in
 
 ```kotlin
 import com.increase.api.core.MultipartField
-import com.increase.api.models.File
-import com.increase.api.models.FileCreateParams
+import com.increase.api.models.files.File
+import com.increase.api.models.files.FileCreateParams
 import java.io.InputStream
 import java.net.URL
 
@@ -234,8 +234,8 @@ To access this data, prefix any HTTP method call on a client or service with `wi
 ```kotlin
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.Account
-import com.increase.api.models.AccountCreateParams
+import com.increase.api.models.accounts.Account
+import com.increase.api.models.accounts.AccountCreateParams
 
 val params: AccountCreateParams = AccountCreateParams.builder()
     .name("New Account!")
@@ -251,7 +251,7 @@ val headers: Headers = account.headers()
 You can still deserialize the response into an instance of a Kotlin class if needed:
 
 ```kotlin
-import com.increase.api.models.Account
+import com.increase.api.models.accounts.Account
 
 val parsedAccount: Account = account.parse()
 ```
@@ -290,8 +290,8 @@ To iterate through all results across all pages, you can use `autoPager`, which 
 ### Synchronous
 
 ```kotlin
-import com.increase.api.models.Account
-import com.increase.api.models.AccountListPage
+import com.increase.api.models.accounts.Account
+import com.increase.api.models.accounts.AccountListPage
 
 // As a Sequence:
 client.accounts().list(params).autoPager()
@@ -313,8 +313,8 @@ asyncClient.accounts().list(params).autoPager()
 If none of the above helpers meet your needs, you can also manually request pages one-by-one. A page of results has a `data()` method to fetch the list of objects, as well as top-level `response` and other methods to fetch top-level data about the page. It also has methods `hasNextPage`, `getNextPage`, and `getNextPageParams` methods to help with pagination.
 
 ```kotlin
-import com.increase.api.models.Account
-import com.increase.api.models.AccountListPage
+import com.increase.api.models.accounts.Account
+import com.increase.api.models.accounts.AccountListPage
 
 val page = client.accounts().list(params)
 while (page != null) {
@@ -377,8 +377,8 @@ Requests time out after 1 minute by default.
 To set a custom timeout, configure the method call using the `timeout` method:
 
 ```kotlin
-import com.increase.api.models.Account
-import com.increase.api.models.AccountCreateParams
+import com.increase.api.models.accounts.Account
+import com.increase.api.models.accounts.AccountCreateParams
 
 val account: Account = client.accounts().create(
   params, RequestOptions.builder().timeout(Duration.ofSeconds(30)).build()
@@ -442,7 +442,7 @@ To set undocumented parameters, call the `putAdditionalHeader`, `putAdditionalQu
 
 ```kotlin
 import com.increase.api.core.JsonValue
-import com.increase.api.models.AccountCreateParams
+import com.increase.api.models.accounts.AccountCreateParams
 
 val params: AccountCreateParams = AccountCreateParams.builder()
     .putAdditionalHeader("Secret-Header", "42")
@@ -457,7 +457,7 @@ To set a documented parameter or property to an undocumented or not yet supporte
 
 ```kotlin
 import com.increase.api.core.JsonValue
-import com.increase.api.models.AccountCreateParams
+import com.increase.api.models.accounts.AccountCreateParams
 
 val params: AccountCreateParams = AccountCreateParams.builder()
     .name(JsonValue.from(42))
@@ -553,7 +553,7 @@ By default, the SDK will not throw an exception in this case. It will throw [`In
 If you would prefer to check that the response is completely well-typed upfront, then either call `validate()`:
 
 ```kotlin
-import com.increase.api.models.Account
+import com.increase.api.models.accounts.Account
 
 val account: Account = client.accounts().create(params).validate()
 ```
@@ -561,8 +561,8 @@ val account: Account = client.accounts().create(params).validate()
 Or configure the method call to validate the response using the `responseValidation` method:
 
 ```kotlin
-import com.increase.api.models.Account
-import com.increase.api.models.AccountCreateParams
+import com.increase.api.models.accounts.Account
+import com.increase.api.models.accounts.AccountCreateParams
 
 val account: Account = client.accounts().create(
   params, RequestOptions.builder().responseValidation(true).build()

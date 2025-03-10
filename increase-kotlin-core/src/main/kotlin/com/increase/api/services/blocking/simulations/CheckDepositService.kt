@@ -5,10 +5,10 @@ package com.increase.api.services.blocking.simulations
 import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.CheckDeposit
-import com.increase.api.models.SimulationCheckDepositRejectParams
-import com.increase.api.models.SimulationCheckDepositReturnParams
-import com.increase.api.models.SimulationCheckDepositSubmitParams
+import com.increase.api.models.checkdeposits.CheckDeposit
+import com.increase.api.models.simulations.checkdeposits.CheckDepositRejectParams
+import com.increase.api.models.simulations.checkdeposits.CheckDepositReturnParams
+import com.increase.api.models.simulations.checkdeposits.CheckDepositSubmitParams
 
 interface CheckDepositService {
 
@@ -22,7 +22,7 @@ interface CheckDepositService {
      * poor image quality. This Check Deposit must first have a `status` of `pending`.
      */
     fun reject(
-        params: SimulationCheckDepositRejectParams,
+        params: CheckDepositRejectParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CheckDeposit
 
@@ -31,7 +31,7 @@ interface CheckDepositService {
      * have a `status` of `submitted`.
      */
     fun return_(
-        params: SimulationCheckDepositReturnParams,
+        params: CheckDepositReturnParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CheckDeposit
 
@@ -40,7 +40,7 @@ interface CheckDepositService {
      * Check Deposit must first have a `status` of `pending`.
      */
     fun submit(
-        params: SimulationCheckDepositSubmitParams,
+        params: CheckDepositSubmitParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CheckDeposit
 
@@ -56,7 +56,7 @@ interface CheckDepositService {
          */
         @MustBeClosed
         fun reject(
-            params: SimulationCheckDepositRejectParams,
+            params: CheckDepositRejectParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CheckDeposit>
 
@@ -67,7 +67,7 @@ interface CheckDepositService {
          */
         @MustBeClosed
         fun return_(
-            params: SimulationCheckDepositReturnParams,
+            params: CheckDepositReturnParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CheckDeposit>
 
@@ -78,7 +78,7 @@ interface CheckDepositService {
          */
         @MustBeClosed
         fun submit(
-            params: SimulationCheckDepositSubmitParams,
+            params: CheckDepositSubmitParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CheckDeposit>
     }
