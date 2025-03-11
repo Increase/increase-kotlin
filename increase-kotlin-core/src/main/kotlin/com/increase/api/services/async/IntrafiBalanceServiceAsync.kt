@@ -11,25 +11,30 @@ import com.increase.api.models.intrafibalances.IntrafiBalanceIntrafiBalanceParam
 interface IntrafiBalanceServiceAsync {
 
     /**
-     * Returns a view of this service that provides access to raw HTTP responses for
-     * each method.
+     * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
 
     /** Get IntraFi balances by bank */
-    suspend fun intrafiBalance(params: IntrafiBalanceIntrafiBalanceParams, requestOptions: RequestOptions = RequestOptions.none()): IntrafiBalance
+    suspend fun intrafiBalance(
+        params: IntrafiBalanceIntrafiBalanceParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): IntrafiBalance
 
     /**
-     * A view of [IntrafiBalanceServiceAsync] that provides access to raw HTTP
-     * responses for each method.
+     * A view of [IntrafiBalanceServiceAsync] that provides access to raw HTTP responses for each
+     * method.
      */
     interface WithRawResponse {
 
         /**
-         * Returns a raw HTTP response for `get /accounts/{account_id}/intrafi_balance`,
-         * but is otherwise the same as [IntrafiBalanceServiceAsync.intrafiBalance].
+         * Returns a raw HTTP response for `get /accounts/{account_id}/intrafi_balance`, but is
+         * otherwise the same as [IntrafiBalanceServiceAsync.intrafiBalance].
          */
         @MustBeClosed
-        suspend fun intrafiBalance(params: IntrafiBalanceIntrafiBalanceParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<IntrafiBalance>
+        suspend fun intrafiBalance(
+            params: IntrafiBalanceIntrafiBalanceParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<IntrafiBalance>
     }
 }

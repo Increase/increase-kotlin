@@ -16,64 +16,90 @@ import com.increase.api.models.bookkeepingaccounts.BookkeepingBalanceLookup
 interface BookkeepingAccountServiceAsync {
 
     /**
-     * Returns a view of this service that provides access to raw HTTP responses for
-     * each method.
+     * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
 
     /** Create a Bookkeeping Account */
-    suspend fun create(params: BookkeepingAccountCreateParams, requestOptions: RequestOptions = RequestOptions.none()): BookkeepingAccount
+    suspend fun create(
+        params: BookkeepingAccountCreateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): BookkeepingAccount
 
     /** Update a Bookkeeping Account */
-    suspend fun update(params: BookkeepingAccountUpdateParams, requestOptions: RequestOptions = RequestOptions.none()): BookkeepingAccount
+    suspend fun update(
+        params: BookkeepingAccountUpdateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): BookkeepingAccount
 
     /** List Bookkeeping Accounts */
-    suspend fun list(params: BookkeepingAccountListParams = BookkeepingAccountListParams.none(), requestOptions: RequestOptions = RequestOptions.none()): BookkeepingAccountListPageAsync
+    suspend fun list(
+        params: BookkeepingAccountListParams = BookkeepingAccountListParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): BookkeepingAccountListPageAsync
 
     /** @see [list] */
-    suspend fun list(requestOptions: RequestOptions): BookkeepingAccountListPageAsync = list(BookkeepingAccountListParams.none(), requestOptions)
+    suspend fun list(requestOptions: RequestOptions): BookkeepingAccountListPageAsync =
+        list(BookkeepingAccountListParams.none(), requestOptions)
 
     /** Retrieve a Bookkeeping Account Balance */
-    suspend fun balance(params: BookkeepingAccountBalanceParams, requestOptions: RequestOptions = RequestOptions.none()): BookkeepingBalanceLookup
+    suspend fun balance(
+        params: BookkeepingAccountBalanceParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): BookkeepingBalanceLookup
 
     /**
-     * A view of [BookkeepingAccountServiceAsync] that provides access to raw HTTP
-     * responses for each method.
+     * A view of [BookkeepingAccountServiceAsync] that provides access to raw HTTP responses for
+     * each method.
      */
     interface WithRawResponse {
 
         /**
-         * Returns a raw HTTP response for `post /bookkeeping_accounts`, but is otherwise
-         * the same as [BookkeepingAccountServiceAsync.create].
+         * Returns a raw HTTP response for `post /bookkeeping_accounts`, but is otherwise the same
+         * as [BookkeepingAccountServiceAsync.create].
          */
         @MustBeClosed
-        suspend fun create(params: BookkeepingAccountCreateParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<BookkeepingAccount>
+        suspend fun create(
+            params: BookkeepingAccountCreateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<BookkeepingAccount>
 
         /**
-         * Returns a raw HTTP response for
-         * `patch /bookkeeping_accounts/{bookkeeping_account_id}`, but is otherwise the
-         * same as [BookkeepingAccountServiceAsync.update].
+         * Returns a raw HTTP response for `patch /bookkeeping_accounts/{bookkeeping_account_id}`,
+         * but is otherwise the same as [BookkeepingAccountServiceAsync.update].
          */
         @MustBeClosed
-        suspend fun update(params: BookkeepingAccountUpdateParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<BookkeepingAccount>
+        suspend fun update(
+            params: BookkeepingAccountUpdateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<BookkeepingAccount>
 
         /**
-         * Returns a raw HTTP response for `get /bookkeeping_accounts`, but is otherwise
-         * the same as [BookkeepingAccountServiceAsync.list].
+         * Returns a raw HTTP response for `get /bookkeeping_accounts`, but is otherwise the same as
+         * [BookkeepingAccountServiceAsync.list].
          */
         @MustBeClosed
-        suspend fun list(params: BookkeepingAccountListParams = BookkeepingAccountListParams.none(), requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<BookkeepingAccountListPageAsync>
+        suspend fun list(
+            params: BookkeepingAccountListParams = BookkeepingAccountListParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<BookkeepingAccountListPageAsync>
 
         /** @see [list] */
         @MustBeClosed
-        suspend fun list(requestOptions: RequestOptions): HttpResponseFor<BookkeepingAccountListPageAsync> = list(BookkeepingAccountListParams.none(), requestOptions)
+        suspend fun list(
+            requestOptions: RequestOptions
+        ): HttpResponseFor<BookkeepingAccountListPageAsync> =
+            list(BookkeepingAccountListParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for
-         * `get /bookkeeping_accounts/{bookkeeping_account_id}/balance`, but is otherwise
-         * the same as [BookkeepingAccountServiceAsync.balance].
+         * Returns a raw HTTP response for `get
+         * /bookkeeping_accounts/{bookkeeping_account_id}/balance`, but is otherwise the same as
+         * [BookkeepingAccountServiceAsync.balance].
          */
         @MustBeClosed
-        suspend fun balance(params: BookkeepingAccountBalanceParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<BookkeepingBalanceLookup>
+        suspend fun balance(
+            params: BookkeepingAccountBalanceParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<BookkeepingBalanceLookup>
     }
 }

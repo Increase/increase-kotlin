@@ -13,16 +13,20 @@ class AccountStatementServiceAsyncTest {
 
     @Test
     suspend fun create() {
-      val client = IncreaseOkHttpClientAsync.builder()
-          .baseUrl(TestServerExtension.BASE_URL)
-          .apiKey("My API Key")
-          .build()
-      val accountStatementServiceAsync = client.simulations().accountStatements()
+        val client =
+            IncreaseOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val accountStatementServiceAsync = client.simulations().accountStatements()
 
-      val accountStatement = accountStatementServiceAsync.create(AccountStatementCreateParams.builder()
-          .accountId("account_in71c4amph0vgo2qllky")
-          .build())
+        val accountStatement =
+            accountStatementServiceAsync.create(
+                AccountStatementCreateParams.builder()
+                    .accountId("account_in71c4amph0vgo2qllky")
+                    .build()
+            )
 
-      accountStatement.validate()
+        accountStatement.validate()
     }
 }

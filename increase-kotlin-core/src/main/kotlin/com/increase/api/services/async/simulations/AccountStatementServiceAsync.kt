@@ -11,28 +11,33 @@ import com.increase.api.models.simulations.accountstatements.AccountStatementCre
 interface AccountStatementServiceAsync {
 
     /**
-     * Returns a view of this service that provides access to raw HTTP responses for
-     * each method.
+     * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
 
     /**
-     * Simulates an [Account Statement](#account-statements) being created for an
-     * account. In production, Account Statements are generated once per month.
+     * Simulates an [Account Statement](#account-statements) being created for an account. In
+     * production, Account Statements are generated once per month.
      */
-    suspend fun create(params: AccountStatementCreateParams, requestOptions: RequestOptions = RequestOptions.none()): AccountStatement
+    suspend fun create(
+        params: AccountStatementCreateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): AccountStatement
 
     /**
-     * A view of [AccountStatementServiceAsync] that provides access to raw HTTP
-     * responses for each method.
+     * A view of [AccountStatementServiceAsync] that provides access to raw HTTP responses for each
+     * method.
      */
     interface WithRawResponse {
 
         /**
-         * Returns a raw HTTP response for `post /simulations/account_statements`, but is
-         * otherwise the same as [AccountStatementServiceAsync.create].
+         * Returns a raw HTTP response for `post /simulations/account_statements`, but is otherwise
+         * the same as [AccountStatementServiceAsync.create].
          */
         @MustBeClosed
-        suspend fun create(params: AccountStatementCreateParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<AccountStatement>
+        suspend fun create(
+            params: AccountStatementCreateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<AccountStatement>
     }
 }

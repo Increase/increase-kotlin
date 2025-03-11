@@ -17,33 +17,45 @@ import com.increase.api.models.cards.CardUpdateParams
 interface CardService {
 
     /**
-     * Returns a view of this service that provides access to raw HTTP responses for
-     * each method.
+     * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
 
     /** Create a Card */
-    fun create(params: CardCreateParams, requestOptions: RequestOptions = RequestOptions.none()): Card
+    fun create(
+        params: CardCreateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): Card
 
     /** Retrieve a Card */
-    fun retrieve(params: CardRetrieveParams, requestOptions: RequestOptions = RequestOptions.none()): Card
+    fun retrieve(
+        params: CardRetrieveParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): Card
 
     /** Update a Card */
-    fun update(params: CardUpdateParams, requestOptions: RequestOptions = RequestOptions.none()): Card
+    fun update(
+        params: CardUpdateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): Card
 
     /** List Cards */
-    fun list(params: CardListParams = CardListParams.none(), requestOptions: RequestOptions = RequestOptions.none()): CardListPage
+    fun list(
+        params: CardListParams = CardListParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CardListPage
 
     /** @see [list] */
-    fun list(requestOptions: RequestOptions): CardListPage = list(CardListParams.none(), requestOptions)
+    fun list(requestOptions: RequestOptions): CardListPage =
+        list(CardListParams.none(), requestOptions)
 
     /** Retrieve sensitive details for a Card */
-    fun details(params: CardDetailsParams, requestOptions: RequestOptions = RequestOptions.none()): CardDetails
+    fun details(
+        params: CardDetailsParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CardDetails
 
-    /**
-     * A view of [CardService] that provides access to raw HTTP responses for each
-     * method.
-     */
+    /** A view of [CardService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
 
         /**
@@ -51,38 +63,54 @@ interface CardService {
          * [CardService.create].
          */
         @MustBeClosed
-        fun create(params: CardCreateParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<Card>
+        fun create(
+            params: CardCreateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<Card>
 
         /**
-         * Returns a raw HTTP response for `get /cards/{card_id}`, but is otherwise the
-         * same as [CardService.retrieve].
+         * Returns a raw HTTP response for `get /cards/{card_id}`, but is otherwise the same as
+         * [CardService.retrieve].
          */
         @MustBeClosed
-        fun retrieve(params: CardRetrieveParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<Card>
+        fun retrieve(
+            params: CardRetrieveParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<Card>
 
         /**
-         * Returns a raw HTTP response for `patch /cards/{card_id}`, but is otherwise the
-         * same as [CardService.update].
+         * Returns a raw HTTP response for `patch /cards/{card_id}`, but is otherwise the same as
+         * [CardService.update].
          */
         @MustBeClosed
-        fun update(params: CardUpdateParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<Card>
+        fun update(
+            params: CardUpdateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<Card>
 
         /**
          * Returns a raw HTTP response for `get /cards`, but is otherwise the same as
          * [CardService.list].
          */
         @MustBeClosed
-        fun list(params: CardListParams = CardListParams.none(), requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<CardListPage>
+        fun list(
+            params: CardListParams = CardListParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<CardListPage>
 
         /** @see [list] */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<CardListPage> = list(CardListParams.none(), requestOptions)
+        fun list(requestOptions: RequestOptions): HttpResponseFor<CardListPage> =
+            list(CardListParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `get /cards/{card_id}/details`, but is otherwise
-         * the same as [CardService.details].
+         * Returns a raw HTTP response for `get /cards/{card_id}/details`, but is otherwise the same
+         * as [CardService.details].
          */
         @MustBeClosed
-        fun details(params: CardDetailsParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<CardDetails>
+        fun details(
+            params: CardDetailsParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<CardDetails>
     }
 }

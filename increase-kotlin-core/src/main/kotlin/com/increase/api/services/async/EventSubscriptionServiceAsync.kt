@@ -15,64 +15,89 @@ import com.increase.api.models.eventsubscriptions.EventSubscriptionUpdateParams
 interface EventSubscriptionServiceAsync {
 
     /**
-     * Returns a view of this service that provides access to raw HTTP responses for
-     * each method.
+     * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
 
     /** Create an Event Subscription */
-    suspend fun create(params: EventSubscriptionCreateParams, requestOptions: RequestOptions = RequestOptions.none()): EventSubscription
+    suspend fun create(
+        params: EventSubscriptionCreateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): EventSubscription
 
     /** Retrieve an Event Subscription */
-    suspend fun retrieve(params: EventSubscriptionRetrieveParams, requestOptions: RequestOptions = RequestOptions.none()): EventSubscription
+    suspend fun retrieve(
+        params: EventSubscriptionRetrieveParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): EventSubscription
 
     /** Update an Event Subscription */
-    suspend fun update(params: EventSubscriptionUpdateParams, requestOptions: RequestOptions = RequestOptions.none()): EventSubscription
+    suspend fun update(
+        params: EventSubscriptionUpdateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): EventSubscription
 
     /** List Event Subscriptions */
-    suspend fun list(params: EventSubscriptionListParams = EventSubscriptionListParams.none(), requestOptions: RequestOptions = RequestOptions.none()): EventSubscriptionListPageAsync
+    suspend fun list(
+        params: EventSubscriptionListParams = EventSubscriptionListParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): EventSubscriptionListPageAsync
 
     /** @see [list] */
-    suspend fun list(requestOptions: RequestOptions): EventSubscriptionListPageAsync = list(EventSubscriptionListParams.none(), requestOptions)
+    suspend fun list(requestOptions: RequestOptions): EventSubscriptionListPageAsync =
+        list(EventSubscriptionListParams.none(), requestOptions)
 
     /**
-     * A view of [EventSubscriptionServiceAsync] that provides access to raw HTTP
-     * responses for each method.
+     * A view of [EventSubscriptionServiceAsync] that provides access to raw HTTP responses for each
+     * method.
      */
     interface WithRawResponse {
 
         /**
-         * Returns a raw HTTP response for `post /event_subscriptions`, but is otherwise
-         * the same as [EventSubscriptionServiceAsync.create].
+         * Returns a raw HTTP response for `post /event_subscriptions`, but is otherwise the same as
+         * [EventSubscriptionServiceAsync.create].
          */
         @MustBeClosed
-        suspend fun create(params: EventSubscriptionCreateParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<EventSubscription>
+        suspend fun create(
+            params: EventSubscriptionCreateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<EventSubscription>
 
         /**
-         * Returns a raw HTTP response for
-         * `get /event_subscriptions/{event_subscription_id}`, but is otherwise the same as
-         * [EventSubscriptionServiceAsync.retrieve].
+         * Returns a raw HTTP response for `get /event_subscriptions/{event_subscription_id}`, but
+         * is otherwise the same as [EventSubscriptionServiceAsync.retrieve].
          */
         @MustBeClosed
-        suspend fun retrieve(params: EventSubscriptionRetrieveParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<EventSubscription>
+        suspend fun retrieve(
+            params: EventSubscriptionRetrieveParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<EventSubscription>
 
         /**
-         * Returns a raw HTTP response for
-         * `patch /event_subscriptions/{event_subscription_id}`, but is otherwise the same
-         * as [EventSubscriptionServiceAsync.update].
+         * Returns a raw HTTP response for `patch /event_subscriptions/{event_subscription_id}`, but
+         * is otherwise the same as [EventSubscriptionServiceAsync.update].
          */
         @MustBeClosed
-        suspend fun update(params: EventSubscriptionUpdateParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<EventSubscription>
+        suspend fun update(
+            params: EventSubscriptionUpdateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<EventSubscription>
 
         /**
-         * Returns a raw HTTP response for `get /event_subscriptions`, but is otherwise the
-         * same as [EventSubscriptionServiceAsync.list].
+         * Returns a raw HTTP response for `get /event_subscriptions`, but is otherwise the same as
+         * [EventSubscriptionServiceAsync.list].
          */
         @MustBeClosed
-        suspend fun list(params: EventSubscriptionListParams = EventSubscriptionListParams.none(), requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<EventSubscriptionListPageAsync>
+        suspend fun list(
+            params: EventSubscriptionListParams = EventSubscriptionListParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<EventSubscriptionListPageAsync>
 
         /** @see [list] */
         @MustBeClosed
-        suspend fun list(requestOptions: RequestOptions): HttpResponseFor<EventSubscriptionListPageAsync> = list(EventSubscriptionListParams.none(), requestOptions)
+        suspend fun list(
+            requestOptions: RequestOptions
+        ): HttpResponseFor<EventSubscriptionListPageAsync> =
+            list(EventSubscriptionListParams.none(), requestOptions)
     }
 }

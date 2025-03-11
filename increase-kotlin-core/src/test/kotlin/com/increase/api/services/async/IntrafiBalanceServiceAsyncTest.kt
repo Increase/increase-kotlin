@@ -13,16 +13,20 @@ class IntrafiBalanceServiceAsyncTest {
 
     @Test
     suspend fun intrafiBalance() {
-      val client = IncreaseOkHttpClientAsync.builder()
-          .baseUrl(TestServerExtension.BASE_URL)
-          .apiKey("My API Key")
-          .build()
-      val intrafiBalanceServiceAsync = client.intrafiBalances()
+        val client =
+            IncreaseOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val intrafiBalanceServiceAsync = client.intrafiBalances()
 
-      val intrafiBalance = intrafiBalanceServiceAsync.intrafiBalance(IntrafiBalanceIntrafiBalanceParams.builder()
-          .accountId("account_in71c4amph0vgo2qllky")
-          .build())
+        val intrafiBalance =
+            intrafiBalanceServiceAsync.intrafiBalance(
+                IntrafiBalanceIntrafiBalanceParams.builder()
+                    .accountId("account_in71c4amph0vgo2qllky")
+                    .build()
+            )
 
-      intrafiBalance.validate()
+        intrafiBalance.validate()
     }
 }
