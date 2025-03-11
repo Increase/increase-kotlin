@@ -14,57 +14,95 @@ class RealTimeDecisionServiceAsyncTest {
 
     @Test
     suspend fun retrieve() {
-      val client = IncreaseOkHttpClientAsync.builder()
-          .baseUrl(TestServerExtension.BASE_URL)
-          .apiKey("My API Key")
-          .build()
-      val realTimeDecisionServiceAsync = client.realTimeDecisions()
+        val client =
+            IncreaseOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val realTimeDecisionServiceAsync = client.realTimeDecisions()
 
-      val realTimeDecision = realTimeDecisionServiceAsync.retrieve(RealTimeDecisionRetrieveParams.builder()
-          .realTimeDecisionId("real_time_decision_j76n2e810ezcg3zh5qtn")
-          .build())
+        val realTimeDecision =
+            realTimeDecisionServiceAsync.retrieve(
+                RealTimeDecisionRetrieveParams.builder()
+                    .realTimeDecisionId("real_time_decision_j76n2e810ezcg3zh5qtn")
+                    .build()
+            )
 
-      realTimeDecision.validate()
+        realTimeDecision.validate()
     }
 
     @Test
     suspend fun action() {
-      val client = IncreaseOkHttpClientAsync.builder()
-          .baseUrl(TestServerExtension.BASE_URL)
-          .apiKey("My API Key")
-          .build()
-      val realTimeDecisionServiceAsync = client.realTimeDecisions()
+        val client =
+            IncreaseOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val realTimeDecisionServiceAsync = client.realTimeDecisions()
 
-      val realTimeDecision = realTimeDecisionServiceAsync.action(RealTimeDecisionActionParams.builder()
-          .realTimeDecisionId("real_time_decision_j76n2e810ezcg3zh5qtn")
-          .cardAuthentication(RealTimeDecisionActionParams.CardAuthentication.builder()
-              .decision(RealTimeDecisionActionParams.CardAuthentication.Decision.APPROVE)
-              .build())
-          .cardAuthenticationChallenge(RealTimeDecisionActionParams.CardAuthenticationChallenge.builder()
-              .result(RealTimeDecisionActionParams.CardAuthenticationChallenge.Result.SUCCESS)
-              .build())
-          .cardAuthorization(RealTimeDecisionActionParams.CardAuthorization.builder()
-              .decision(RealTimeDecisionActionParams.CardAuthorization.Decision.APPROVE)
-              .declineReason(RealTimeDecisionActionParams.CardAuthorization.DeclineReason.INSUFFICIENT_FUNDS)
-              .build())
-          .digitalWalletAuthentication(RealTimeDecisionActionParams.DigitalWalletAuthentication.builder()
-              .result(RealTimeDecisionActionParams.DigitalWalletAuthentication.Result.SUCCESS)
-              .success(RealTimeDecisionActionParams.DigitalWalletAuthentication.Success.builder()
-                  .email("x")
-                  .phone("x")
-                  .build())
-              .build())
-          .digitalWalletToken(RealTimeDecisionActionParams.DigitalWalletToken.builder()
-              .approval(RealTimeDecisionActionParams.DigitalWalletToken.Approval.builder()
-                  .email("x")
-                  .phone("x")
-                  .build())
-              .decline(RealTimeDecisionActionParams.DigitalWalletToken.Decline.builder()
-                  .reason("x")
-                  .build())
-              .build())
-          .build())
+        val realTimeDecision =
+            realTimeDecisionServiceAsync.action(
+                RealTimeDecisionActionParams.builder()
+                    .realTimeDecisionId("real_time_decision_j76n2e810ezcg3zh5qtn")
+                    .cardAuthentication(
+                        RealTimeDecisionActionParams.CardAuthentication.builder()
+                            .decision(
+                                RealTimeDecisionActionParams.CardAuthentication.Decision.APPROVE
+                            )
+                            .build()
+                    )
+                    .cardAuthenticationChallenge(
+                        RealTimeDecisionActionParams.CardAuthenticationChallenge.builder()
+                            .result(
+                                RealTimeDecisionActionParams.CardAuthenticationChallenge.Result
+                                    .SUCCESS
+                            )
+                            .build()
+                    )
+                    .cardAuthorization(
+                        RealTimeDecisionActionParams.CardAuthorization.builder()
+                            .decision(
+                                RealTimeDecisionActionParams.CardAuthorization.Decision.APPROVE
+                            )
+                            .declineReason(
+                                RealTimeDecisionActionParams.CardAuthorization.DeclineReason
+                                    .INSUFFICIENT_FUNDS
+                            )
+                            .build()
+                    )
+                    .digitalWalletAuthentication(
+                        RealTimeDecisionActionParams.DigitalWalletAuthentication.builder()
+                            .result(
+                                RealTimeDecisionActionParams.DigitalWalletAuthentication.Result
+                                    .SUCCESS
+                            )
+                            .success(
+                                RealTimeDecisionActionParams.DigitalWalletAuthentication.Success
+                                    .builder()
+                                    .email("x")
+                                    .phone("x")
+                                    .build()
+                            )
+                            .build()
+                    )
+                    .digitalWalletToken(
+                        RealTimeDecisionActionParams.DigitalWalletToken.builder()
+                            .approval(
+                                RealTimeDecisionActionParams.DigitalWalletToken.Approval.builder()
+                                    .email("x")
+                                    .phone("x")
+                                    .build()
+                            )
+                            .decline(
+                                RealTimeDecisionActionParams.DigitalWalletToken.Decline.builder()
+                                    .reason("x")
+                                    .build()
+                            )
+                            .build()
+                    )
+                    .build()
+            )
 
-      realTimeDecision.validate()
+        realTimeDecision.validate()
     }
 }

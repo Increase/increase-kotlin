@@ -13,20 +13,24 @@ class OAuthTokenServiceAsyncTest {
 
     @Test
     suspend fun create() {
-      val client = IncreaseOkHttpClientAsync.builder()
-          .baseUrl(TestServerExtension.BASE_URL)
-          .apiKey("My API Key")
-          .build()
-      val oauthTokenServiceAsync = client.oauthTokens()
+        val client =
+            IncreaseOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val oauthTokenServiceAsync = client.oauthTokens()
 
-      val oauthToken = oauthTokenServiceAsync.create(OAuthTokenCreateParams.builder()
-          .grantType(OAuthTokenCreateParams.GrantType.AUTHORIZATION_CODE)
-          .clientId("12345")
-          .clientSecret("supersecret")
-          .code("123")
-          .productionToken("x")
-          .build())
+        val oauthToken =
+            oauthTokenServiceAsync.create(
+                OAuthTokenCreateParams.builder()
+                    .grantType(OAuthTokenCreateParams.GrantType.AUTHORIZATION_CODE)
+                    .clientId("12345")
+                    .clientSecret("supersecret")
+                    .code("123")
+                    .productionToken("x")
+                    .build()
+            )
 
-      oauthToken.validate()
+        oauthToken.validate()
     }
 }

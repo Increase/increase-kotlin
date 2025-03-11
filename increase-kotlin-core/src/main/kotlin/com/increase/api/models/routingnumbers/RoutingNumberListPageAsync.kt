@@ -15,24 +15,19 @@ import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.services.async.RoutingNumberServiceAsync
 import java.util.Objects
-import java.util.Optional
-import java.util.concurrent.CompletableFuture
-import java.util.concurrent.Executor
-import java.util.function.Predicate
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 
 /**
- * You can use this API to confirm if a routing number is valid, such as when a
- * user is providing you with bank account details. Since routing numbers uniquely
- * identify a bank, this will always return 0 or 1 entry. In Sandbox, the only
- * valid routing number for this method is 110000000.
+ * You can use this API to confirm if a routing number is valid, such as when a user is providing
+ * you with bank account details. Since routing numbers uniquely identify a bank, this will always
+ * return 0 or 1 entry. In Sandbox, the only valid routing number for this method is 110000000.
  */
-class RoutingNumberListPageAsync private constructor(
+class RoutingNumberListPageAsync
+private constructor(
     private val routingNumbersService: RoutingNumberServiceAsync,
     private val params: RoutingNumberListParams,
     private val response: Response,
-
 ) {
 
     fun response(): Response = response
@@ -42,68 +37,70 @@ class RoutingNumberListPageAsync private constructor(
     fun nextCursor(): String? = response().nextCursor()
 
     override fun equals(other: Any?): Boolean {
-      if (this === other) {
-          return true
-      }
+        if (this === other) {
+            return true
+        }
 
-      return /* spotless:off */ other is RoutingNumberListPageAsync && routingNumbersService == other.routingNumbersService && params == other.params && response == other.response /* spotless:on */
+        return /* spotless:off */ other is RoutingNumberListPageAsync && routingNumbersService == other.routingNumbersService && params == other.params && response == other.response /* spotless:on */
     }
 
     override fun hashCode(): Int = /* spotless:off */ Objects.hash(routingNumbersService, params, response) /* spotless:on */
 
-    override fun toString() = "RoutingNumberListPageAsync{routingNumbersService=$routingNumbersService, params=$params, response=$response}"
+    override fun toString() =
+        "RoutingNumberListPageAsync{routingNumbersService=$routingNumbersService, params=$params, response=$response}"
 
     fun hasNextPage(): Boolean {
-      if (data().isEmpty()) {
-        return false;
-      }
+        if (data().isEmpty()) {
+            return false
+        }
 
-      return nextCursor() != null
+        return nextCursor() != null
     }
 
     fun getNextPageParams(): RoutingNumberListParams? {
-      if (!hasNextPage()) {
-        return null
-      }
+        if (!hasNextPage()) {
+            return null
+        }
 
-      return RoutingNumberListParams.builder().from(params).apply {nextCursor()?.let{ this.cursor(it) } }.build()
+        return RoutingNumberListParams.builder()
+            .from(params)
+            .apply { nextCursor()?.let { this.cursor(it) } }
+            .build()
     }
 
     suspend fun getNextPage(): RoutingNumberListPageAsync? {
-      return getNextPageParams()?.let {
-          routingNumbersService.list(it)
-      }
+        return getNextPageParams()?.let { routingNumbersService.list(it) }
     }
 
     fun autoPager(): AutoPager = AutoPager(this)
 
     companion object {
 
-        fun of(routingNumbersService: RoutingNumberServiceAsync, params: RoutingNumberListParams, response: Response) =
-            RoutingNumberListPageAsync(
-              routingNumbersService,
-              params,
-              response,
-            )
+        fun of(
+            routingNumbersService: RoutingNumberServiceAsync,
+            params: RoutingNumberListParams,
+            response: Response,
+        ) = RoutingNumberListPageAsync(routingNumbersService, params, response)
     }
 
     @NoAutoDetect
-    class Response @JsonCreator constructor(
-        @JsonProperty("data") private val data: JsonField<List<RoutingNumberListResponse>> = JsonMissing.of(),
+    class Response
+    @JsonCreator
+    constructor(
+        @JsonProperty("data")
+        private val data: JsonField<List<RoutingNumberListResponse>> = JsonMissing.of(),
         @JsonProperty("next_cursor") private val nextCursor: JsonField<String> = JsonMissing.of(),
-        @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
-
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         fun data(): List<RoutingNumberListResponse> = data.getNullable("data") ?: listOf()
 
         fun nextCursor(): String? = nextCursor.getNullable("next_cursor")
 
-        @JsonProperty("data")
-        fun _data(): JsonField<List<RoutingNumberListResponse>>? = data
+        @JsonProperty("data") fun _data(): JsonField<List<RoutingNumberListResponse>>? = data
 
-        @JsonProperty("next_cursor")
-        fun _nextCursor(): JsonField<String>? = nextCursor
+        @JsonProperty("next_cursor") fun _nextCursor(): JsonField<String>? = nextCursor
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -111,30 +108,30 @@ class RoutingNumberListPageAsync private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): Response =
-            apply {
-                if (validated) {
-                  return@apply
-                }
-
-                data().map { it.validate() }
-                nextCursor()
-                validated = true
+        fun validate(): Response = apply {
+            if (validated) {
+                return@apply
             }
+
+            data().map { it.validate() }
+            nextCursor()
+            validated = true
+        }
 
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return /* spotless:off */ other is Response && data == other.data && nextCursor == other.nextCursor && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Response && data == other.data && nextCursor == other.nextCursor && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         override fun hashCode(): Int = /* spotless:off */ Objects.hash(data, nextCursor, additionalProperties) /* spotless:on */
 
-        override fun toString() = "Response{data=$data, nextCursor=$nextCursor, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "Response{data=$data, nextCursor=$nextCursor, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -151,12 +148,11 @@ class RoutingNumberListPageAsync private constructor(
             private var nextCursor: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(page: Response) =
-                apply {
-                    this.data = page.data
-                    this.nextCursor = page.nextCursor
-                    this.additionalProperties.putAll(page.additionalProperties)
-                }
+            internal fun from(page: Response) = apply {
+                this.data = page.data
+                this.nextCursor = page.nextCursor
+                this.additionalProperties.putAll(page.additionalProperties)
+            }
 
             fun data(data: List<RoutingNumberListResponse>) = data(JsonField.of(data))
 
@@ -166,35 +162,27 @@ class RoutingNumberListPageAsync private constructor(
 
             fun nextCursor(nextCursor: JsonField<String>) = apply { this.nextCursor = nextCursor }
 
-            fun putAdditionalProperty(key: String, value: JsonValue) =
-                apply {
-                    this.additionalProperties.put(key, value)
-                }
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                this.additionalProperties.put(key, value)
+            }
 
-            fun build() =
-                Response(
-                  data,
-                  nextCursor,
-                  additionalProperties.toImmutable(),
-                )
+            fun build() = Response(data, nextCursor, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: RoutingNumberListPageAsync,
-
-    ) : Flow<RoutingNumberListResponse> {
+    class AutoPager(private val firstPage: RoutingNumberListPageAsync) :
+        Flow<RoutingNumberListResponse> {
 
         override suspend fun collect(collector: FlowCollector<RoutingNumberListResponse>) {
-          var page = firstPage
-          var index = 0
-          while (true) {
-            while (index < page.data().size) {
-              collector.emit(page.data()[index++])
+            var page = firstPage
+            var index = 0
+            while (true) {
+                while (index < page.data().size) {
+                    collector.emit(page.data()[index++])
+                }
+                page = page.getNextPage() ?: break
+                index = 0
             }
-            page = page.getNextPage() ?: break
-            index = 0
-          }
         }
     }
 }

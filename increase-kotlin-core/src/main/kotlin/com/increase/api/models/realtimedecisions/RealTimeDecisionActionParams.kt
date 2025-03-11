@@ -22,74 +22,78 @@ import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
 
 /** Action a Real-Time Decision */
-class RealTimeDecisionActionParams private constructor(
+class RealTimeDecisionActionParams
+private constructor(
     private val realTimeDecisionId: String,
     private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-
 ) : Params {
 
     /** The identifier of the Real-Time Decision. */
     fun realTimeDecisionId(): String = realTimeDecisionId
 
     /**
-     * If the Real-Time Decision relates to a 3DS card authentication attempt, this
-     * object contains your response to the authentication.
+     * If the Real-Time Decision relates to a 3DS card authentication attempt, this object contains
+     * your response to the authentication.
      */
     fun cardAuthentication(): CardAuthentication? = body.cardAuthentication()
 
     /**
-     * If the Real-Time Decision relates to 3DS card authentication challenge delivery,
-     * this object contains your response.
+     * If the Real-Time Decision relates to 3DS card authentication challenge delivery, this object
+     * contains your response.
      */
-    fun cardAuthenticationChallenge(): CardAuthenticationChallenge? = body.cardAuthenticationChallenge()
+    fun cardAuthenticationChallenge(): CardAuthenticationChallenge? =
+        body.cardAuthenticationChallenge()
 
     /**
-     * If the Real-Time Decision relates to a card authorization attempt, this object
-     * contains your response to the authorization.
+     * If the Real-Time Decision relates to a card authorization attempt, this object contains your
+     * response to the authorization.
      */
     fun cardAuthorization(): CardAuthorization? = body.cardAuthorization()
 
     /**
-     * If the Real-Time Decision relates to a digital wallet authentication attempt,
-     * this object contains your response to the authentication.
+     * If the Real-Time Decision relates to a digital wallet authentication attempt, this object
+     * contains your response to the authentication.
      */
-    fun digitalWalletAuthentication(): DigitalWalletAuthentication? = body.digitalWalletAuthentication()
+    fun digitalWalletAuthentication(): DigitalWalletAuthentication? =
+        body.digitalWalletAuthentication()
 
     /**
-     * If the Real-Time Decision relates to a digital wallet token provisioning
-     * attempt, this object contains your response to the attempt.
+     * If the Real-Time Decision relates to a digital wallet token provisioning attempt, this object
+     * contains your response to the attempt.
      */
     fun digitalWalletToken(): DigitalWalletToken? = body.digitalWalletToken()
 
     /**
-     * If the Real-Time Decision relates to a 3DS card authentication attempt, this
-     * object contains your response to the authentication.
+     * If the Real-Time Decision relates to a 3DS card authentication attempt, this object contains
+     * your response to the authentication.
      */
     fun _cardAuthentication(): JsonField<CardAuthentication> = body._cardAuthentication()
 
     /**
-     * If the Real-Time Decision relates to 3DS card authentication challenge delivery,
-     * this object contains your response.
+     * If the Real-Time Decision relates to 3DS card authentication challenge delivery, this object
+     * contains your response.
      */
-    fun _cardAuthenticationChallenge(): JsonField<CardAuthenticationChallenge> = body._cardAuthenticationChallenge()
+    fun _cardAuthenticationChallenge(): JsonField<CardAuthenticationChallenge> =
+        body._cardAuthenticationChallenge()
 
     /**
-     * If the Real-Time Decision relates to a card authorization attempt, this object
-     * contains your response to the authorization.
+     * If the Real-Time Decision relates to a card authorization attempt, this object contains your
+     * response to the authorization.
      */
     fun _cardAuthorization(): JsonField<CardAuthorization> = body._cardAuthorization()
 
     /**
-     * If the Real-Time Decision relates to a digital wallet authentication attempt,
-     * this object contains your response to the authentication.
+     * If the Real-Time Decision relates to a digital wallet authentication attempt, this object
+     * contains your response to the authentication.
      */
-    fun _digitalWalletAuthentication(): JsonField<DigitalWalletAuthentication> = body._digitalWalletAuthentication()
+    fun _digitalWalletAuthentication(): JsonField<DigitalWalletAuthentication> =
+        body._digitalWalletAuthentication()
 
     /**
-     * If the Real-Time Decision relates to a digital wallet token provisioning
-     * attempt, this object contains your response to the attempt.
+     * If the Real-Time Decision relates to a digital wallet token provisioning attempt, this object
+     * contains your response to the attempt.
      */
     fun _digitalWalletToken(): JsonField<DigitalWalletToken> = body._digitalWalletToken()
 
@@ -106,88 +110,109 @@ class RealTimeDecisionActionParams private constructor(
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     fun getPathParam(index: Int): String {
-      return when (index) {
-          0 -> realTimeDecisionId
-          else -> ""
-      }
+        return when (index) {
+            0 -> realTimeDecisionId
+            else -> ""
+        }
     }
 
     @NoAutoDetect
-    class Body @JsonCreator private constructor(
-        @JsonProperty("card_authentication") @ExcludeMissing private val cardAuthentication: JsonField<CardAuthentication> = JsonMissing.of(),
-        @JsonProperty("card_authentication_challenge") @ExcludeMissing private val cardAuthenticationChallenge: JsonField<CardAuthenticationChallenge> = JsonMissing.of(),
-        @JsonProperty("card_authorization") @ExcludeMissing private val cardAuthorization: JsonField<CardAuthorization> = JsonMissing.of(),
-        @JsonProperty("digital_wallet_authentication") @ExcludeMissing private val digitalWalletAuthentication: JsonField<DigitalWalletAuthentication> = JsonMissing.of(),
-        @JsonProperty("digital_wallet_token") @ExcludeMissing private val digitalWalletToken: JsonField<DigitalWalletToken> = JsonMissing.of(),
-        @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
-
+    class Body
+    @JsonCreator
+    private constructor(
+        @JsonProperty("card_authentication")
+        @ExcludeMissing
+        private val cardAuthentication: JsonField<CardAuthentication> = JsonMissing.of(),
+        @JsonProperty("card_authentication_challenge")
+        @ExcludeMissing
+        private val cardAuthenticationChallenge: JsonField<CardAuthenticationChallenge> =
+            JsonMissing.of(),
+        @JsonProperty("card_authorization")
+        @ExcludeMissing
+        private val cardAuthorization: JsonField<CardAuthorization> = JsonMissing.of(),
+        @JsonProperty("digital_wallet_authentication")
+        @ExcludeMissing
+        private val digitalWalletAuthentication: JsonField<DigitalWalletAuthentication> =
+            JsonMissing.of(),
+        @JsonProperty("digital_wallet_token")
+        @ExcludeMissing
+        private val digitalWalletToken: JsonField<DigitalWalletToken> = JsonMissing.of(),
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /**
-         * If the Real-Time Decision relates to a 3DS card authentication attempt, this
-         * object contains your response to the authentication.
+         * If the Real-Time Decision relates to a 3DS card authentication attempt, this object
+         * contains your response to the authentication.
          */
-        fun cardAuthentication(): CardAuthentication? = cardAuthentication.getNullable("card_authentication")
+        fun cardAuthentication(): CardAuthentication? =
+            cardAuthentication.getNullable("card_authentication")
 
         /**
-         * If the Real-Time Decision relates to 3DS card authentication challenge delivery,
-         * this object contains your response.
+         * If the Real-Time Decision relates to 3DS card authentication challenge delivery, this
+         * object contains your response.
          */
-        fun cardAuthenticationChallenge(): CardAuthenticationChallenge? = cardAuthenticationChallenge.getNullable("card_authentication_challenge")
+        fun cardAuthenticationChallenge(): CardAuthenticationChallenge? =
+            cardAuthenticationChallenge.getNullable("card_authentication_challenge")
 
         /**
-         * If the Real-Time Decision relates to a card authorization attempt, this object
-         * contains your response to the authorization.
+         * If the Real-Time Decision relates to a card authorization attempt, this object contains
+         * your response to the authorization.
          */
-        fun cardAuthorization(): CardAuthorization? = cardAuthorization.getNullable("card_authorization")
+        fun cardAuthorization(): CardAuthorization? =
+            cardAuthorization.getNullable("card_authorization")
 
         /**
-         * If the Real-Time Decision relates to a digital wallet authentication attempt,
-         * this object contains your response to the authentication.
+         * If the Real-Time Decision relates to a digital wallet authentication attempt, this object
+         * contains your response to the authentication.
          */
-        fun digitalWalletAuthentication(): DigitalWalletAuthentication? = digitalWalletAuthentication.getNullable("digital_wallet_authentication")
+        fun digitalWalletAuthentication(): DigitalWalletAuthentication? =
+            digitalWalletAuthentication.getNullable("digital_wallet_authentication")
 
         /**
-         * If the Real-Time Decision relates to a digital wallet token provisioning
-         * attempt, this object contains your response to the attempt.
+         * If the Real-Time Decision relates to a digital wallet token provisioning attempt, this
+         * object contains your response to the attempt.
          */
-        fun digitalWalletToken(): DigitalWalletToken? = digitalWalletToken.getNullable("digital_wallet_token")
+        fun digitalWalletToken(): DigitalWalletToken? =
+            digitalWalletToken.getNullable("digital_wallet_token")
 
         /**
-         * If the Real-Time Decision relates to a 3DS card authentication attempt, this
-         * object contains your response to the authentication.
+         * If the Real-Time Decision relates to a 3DS card authentication attempt, this object
+         * contains your response to the authentication.
          */
         @JsonProperty("card_authentication")
         @ExcludeMissing
         fun _cardAuthentication(): JsonField<CardAuthentication> = cardAuthentication
 
         /**
-         * If the Real-Time Decision relates to 3DS card authentication challenge delivery,
-         * this object contains your response.
+         * If the Real-Time Decision relates to 3DS card authentication challenge delivery, this
+         * object contains your response.
          */
         @JsonProperty("card_authentication_challenge")
         @ExcludeMissing
-        fun _cardAuthenticationChallenge(): JsonField<CardAuthenticationChallenge> = cardAuthenticationChallenge
+        fun _cardAuthenticationChallenge(): JsonField<CardAuthenticationChallenge> =
+            cardAuthenticationChallenge
 
         /**
-         * If the Real-Time Decision relates to a card authorization attempt, this object
-         * contains your response to the authorization.
+         * If the Real-Time Decision relates to a card authorization attempt, this object contains
+         * your response to the authorization.
          */
         @JsonProperty("card_authorization")
         @ExcludeMissing
         fun _cardAuthorization(): JsonField<CardAuthorization> = cardAuthorization
 
         /**
-         * If the Real-Time Decision relates to a digital wallet authentication attempt,
-         * this object contains your response to the authentication.
+         * If the Real-Time Decision relates to a digital wallet authentication attempt, this object
+         * contains your response to the authentication.
          */
         @JsonProperty("digital_wallet_authentication")
         @ExcludeMissing
-        fun _digitalWalletAuthentication(): JsonField<DigitalWalletAuthentication> = digitalWalletAuthentication
+        fun _digitalWalletAuthentication(): JsonField<DigitalWalletAuthentication> =
+            digitalWalletAuthentication
 
         /**
-         * If the Real-Time Decision relates to a digital wallet token provisioning
-         * attempt, this object contains your response to the attempt.
+         * If the Real-Time Decision relates to a digital wallet token provisioning attempt, this
+         * object contains your response to the attempt.
          */
         @JsonProperty("digital_wallet_token")
         @ExcludeMissing
@@ -199,19 +224,18 @@ class RealTimeDecisionActionParams private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): Body =
-            apply {
-                if (validated) {
-                  return@apply
-                }
-
-                cardAuthentication()?.validate()
-                cardAuthenticationChallenge()?.validate()
-                cardAuthorization()?.validate()
-                digitalWalletAuthentication()?.validate()
-                digitalWalletToken()?.validate()
-                validated = true
+        fun validate(): Body = apply {
+            if (validated) {
+                return@apply
             }
+
+            cardAuthentication()?.validate()
+            cardAuthenticationChallenge()?.validate()
+            cardAuthorization()?.validate()
+            digitalWalletAuthentication()?.validate()
+            digitalWalletToken()?.validate()
+            validated = true
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -225,140 +249,136 @@ class RealTimeDecisionActionParams private constructor(
         class Builder internal constructor() {
 
             private var cardAuthentication: JsonField<CardAuthentication> = JsonMissing.of()
-            private var cardAuthenticationChallenge: JsonField<CardAuthenticationChallenge> = JsonMissing.of()
+            private var cardAuthenticationChallenge: JsonField<CardAuthenticationChallenge> =
+                JsonMissing.of()
             private var cardAuthorization: JsonField<CardAuthorization> = JsonMissing.of()
-            private var digitalWalletAuthentication: JsonField<DigitalWalletAuthentication> = JsonMissing.of()
+            private var digitalWalletAuthentication: JsonField<DigitalWalletAuthentication> =
+                JsonMissing.of()
             private var digitalWalletToken: JsonField<DigitalWalletToken> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(body: Body) =
-                apply {
-                    cardAuthentication = body.cardAuthentication
-                    cardAuthenticationChallenge = body.cardAuthenticationChallenge
-                    cardAuthorization = body.cardAuthorization
-                    digitalWalletAuthentication = body.digitalWalletAuthentication
-                    digitalWalletToken = body.digitalWalletToken
-                    additionalProperties = body.additionalProperties.toMutableMap()
-                }
+            internal fun from(body: Body) = apply {
+                cardAuthentication = body.cardAuthentication
+                cardAuthenticationChallenge = body.cardAuthenticationChallenge
+                cardAuthorization = body.cardAuthorization
+                digitalWalletAuthentication = body.digitalWalletAuthentication
+                digitalWalletToken = body.digitalWalletToken
+                additionalProperties = body.additionalProperties.toMutableMap()
+            }
 
             /**
-             * If the Real-Time Decision relates to a 3DS card authentication attempt, this
-             * object contains your response to the authentication.
+             * If the Real-Time Decision relates to a 3DS card authentication attempt, this object
+             * contains your response to the authentication.
              */
-            fun cardAuthentication(cardAuthentication: CardAuthentication) = cardAuthentication(JsonField.of(cardAuthentication))
+            fun cardAuthentication(cardAuthentication: CardAuthentication) =
+                cardAuthentication(JsonField.of(cardAuthentication))
 
             /**
-             * If the Real-Time Decision relates to a 3DS card authentication attempt, this
-             * object contains your response to the authentication.
+             * If the Real-Time Decision relates to a 3DS card authentication attempt, this object
+             * contains your response to the authentication.
              */
-            fun cardAuthentication(cardAuthentication: JsonField<CardAuthentication>) =
-                apply {
-                    this.cardAuthentication = cardAuthentication
-                }
+            fun cardAuthentication(cardAuthentication: JsonField<CardAuthentication>) = apply {
+                this.cardAuthentication = cardAuthentication
+            }
 
             /**
-             * If the Real-Time Decision relates to 3DS card authentication challenge delivery,
-             * this object contains your response.
+             * If the Real-Time Decision relates to 3DS card authentication challenge delivery, this
+             * object contains your response.
              */
-            fun cardAuthenticationChallenge(cardAuthenticationChallenge: CardAuthenticationChallenge) = cardAuthenticationChallenge(JsonField.of(cardAuthenticationChallenge))
+            fun cardAuthenticationChallenge(
+                cardAuthenticationChallenge: CardAuthenticationChallenge
+            ) = cardAuthenticationChallenge(JsonField.of(cardAuthenticationChallenge))
 
             /**
-             * If the Real-Time Decision relates to 3DS card authentication challenge delivery,
-             * this object contains your response.
+             * If the Real-Time Decision relates to 3DS card authentication challenge delivery, this
+             * object contains your response.
              */
-            fun cardAuthenticationChallenge(cardAuthenticationChallenge: JsonField<CardAuthenticationChallenge>) =
-                apply {
-                    this.cardAuthenticationChallenge = cardAuthenticationChallenge
-                }
-
-            /**
-             * If the Real-Time Decision relates to a card authorization attempt, this object
-             * contains your response to the authorization.
-             */
-            fun cardAuthorization(cardAuthorization: CardAuthorization) = cardAuthorization(JsonField.of(cardAuthorization))
+            fun cardAuthenticationChallenge(
+                cardAuthenticationChallenge: JsonField<CardAuthenticationChallenge>
+            ) = apply { this.cardAuthenticationChallenge = cardAuthenticationChallenge }
 
             /**
              * If the Real-Time Decision relates to a card authorization attempt, this object
              * contains your response to the authorization.
              */
-            fun cardAuthorization(cardAuthorization: JsonField<CardAuthorization>) =
-                apply {
-                    this.cardAuthorization = cardAuthorization
-                }
+            fun cardAuthorization(cardAuthorization: CardAuthorization) =
+                cardAuthorization(JsonField.of(cardAuthorization))
 
             /**
-             * If the Real-Time Decision relates to a digital wallet authentication attempt,
-             * this object contains your response to the authentication.
+             * If the Real-Time Decision relates to a card authorization attempt, this object
+             * contains your response to the authorization.
              */
-            fun digitalWalletAuthentication(digitalWalletAuthentication: DigitalWalletAuthentication) = digitalWalletAuthentication(JsonField.of(digitalWalletAuthentication))
+            fun cardAuthorization(cardAuthorization: JsonField<CardAuthorization>) = apply {
+                this.cardAuthorization = cardAuthorization
+            }
 
             /**
-             * If the Real-Time Decision relates to a digital wallet authentication attempt,
-             * this object contains your response to the authentication.
+             * If the Real-Time Decision relates to a digital wallet authentication attempt, this
+             * object contains your response to the authentication.
              */
-            fun digitalWalletAuthentication(digitalWalletAuthentication: JsonField<DigitalWalletAuthentication>) =
-                apply {
-                    this.digitalWalletAuthentication = digitalWalletAuthentication
-                }
+            fun digitalWalletAuthentication(
+                digitalWalletAuthentication: DigitalWalletAuthentication
+            ) = digitalWalletAuthentication(JsonField.of(digitalWalletAuthentication))
 
             /**
-             * If the Real-Time Decision relates to a digital wallet token provisioning
-             * attempt, this object contains your response to the attempt.
+             * If the Real-Time Decision relates to a digital wallet authentication attempt, this
+             * object contains your response to the authentication.
              */
-            fun digitalWalletToken(digitalWalletToken: DigitalWalletToken) = digitalWalletToken(JsonField.of(digitalWalletToken))
+            fun digitalWalletAuthentication(
+                digitalWalletAuthentication: JsonField<DigitalWalletAuthentication>
+            ) = apply { this.digitalWalletAuthentication = digitalWalletAuthentication }
 
             /**
-             * If the Real-Time Decision relates to a digital wallet token provisioning
-             * attempt, this object contains your response to the attempt.
+             * If the Real-Time Decision relates to a digital wallet token provisioning attempt,
+             * this object contains your response to the attempt.
              */
-            fun digitalWalletToken(digitalWalletToken: JsonField<DigitalWalletToken>) =
-                apply {
-                    this.digitalWalletToken = digitalWalletToken
-                }
+            fun digitalWalletToken(digitalWalletToken: DigitalWalletToken) =
+                digitalWalletToken(JsonField.of(digitalWalletToken))
 
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
-                apply {
-                    this.additionalProperties.clear()
-                    putAllAdditionalProperties(additionalProperties)
-                }
+            /**
+             * If the Real-Time Decision relates to a digital wallet token provisioning attempt,
+             * this object contains your response to the attempt.
+             */
+            fun digitalWalletToken(digitalWalletToken: JsonField<DigitalWalletToken>) = apply {
+                this.digitalWalletToken = digitalWalletToken
+            }
 
-            fun putAdditionalProperty(key: String, value: JsonValue) =
-                apply {
-                    additionalProperties.put(key, value)
-                }
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
 
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                apply {
-                    this.additionalProperties.putAll(additionalProperties)
-                }
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
 
-            fun removeAdditionalProperty(key: String) =
-                apply {
-                    additionalProperties.remove(key)
-                }
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
 
-            fun removeAllAdditionalProperties(keys: Set<String>) =
-                apply {
-                    keys.forEach(::removeAdditionalProperty)
-                }
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
 
             fun build(): Body =
                 Body(
-                  cardAuthentication,
-                  cardAuthenticationChallenge,
-                  cardAuthorization,
-                  digitalWalletAuthentication,
-                  digitalWalletToken,
-                  additionalProperties.toImmutable(),
+                    cardAuthentication,
+                    cardAuthenticationChallenge,
+                    cardAuthorization,
+                    digitalWalletAuthentication,
+                    digitalWalletToken,
+                    additionalProperties.toImmutable(),
                 )
         }
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return /* spotless:off */ other is Body && cardAuthentication == other.cardAuthentication && cardAuthenticationChallenge == other.cardAuthenticationChallenge && cardAuthorization == other.cardAuthorization && digitalWalletAuthentication == other.digitalWalletAuthentication && digitalWalletToken == other.digitalWalletToken && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Body && cardAuthentication == other.cardAuthentication && cardAuthenticationChallenge == other.cardAuthenticationChallenge && cardAuthorization == other.cardAuthorization && digitalWalletAuthentication == other.digitalWalletAuthentication && digitalWalletToken == other.digitalWalletToken && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -367,7 +387,8 @@ class RealTimeDecisionActionParams private constructor(
 
         override fun hashCode(): Int = hashCode
 
-        override fun toString() = "Body{cardAuthentication=$cardAuthentication, cardAuthenticationChallenge=$cardAuthenticationChallenge, cardAuthorization=$cardAuthorization, digitalWalletAuthentication=$digitalWalletAuthentication, digitalWalletToken=$digitalWalletToken, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "Body{cardAuthentication=$cardAuthentication, cardAuthenticationChallenge=$cardAuthenticationChallenge, cardAuthorization=$cardAuthorization, digitalWalletAuthentication=$digitalWalletAuthentication, digitalWalletToken=$digitalWalletToken, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -375,11 +396,9 @@ class RealTimeDecisionActionParams private constructor(
     companion object {
 
         /**
-         * Returns a mutable builder for constructing an instance of
-         * [RealTimeDecisionActionParams].
+         * Returns a mutable builder for constructing an instance of [RealTimeDecisionActionParams].
          *
          * The following fields are required:
-         *
          * ```kotlin
          * .realTimeDecisionId()
          * ```
@@ -396,41 +415,37 @@ class RealTimeDecisionActionParams private constructor(
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
-        internal fun from(realTimeDecisionActionParams: RealTimeDecisionActionParams) =
-            apply {
-                realTimeDecisionId = realTimeDecisionActionParams.realTimeDecisionId
-                body = realTimeDecisionActionParams.body.toBuilder()
-                additionalHeaders = realTimeDecisionActionParams.additionalHeaders.toBuilder()
-                additionalQueryParams = realTimeDecisionActionParams.additionalQueryParams.toBuilder()
-            }
+        internal fun from(realTimeDecisionActionParams: RealTimeDecisionActionParams) = apply {
+            realTimeDecisionId = realTimeDecisionActionParams.realTimeDecisionId
+            body = realTimeDecisionActionParams.body.toBuilder()
+            additionalHeaders = realTimeDecisionActionParams.additionalHeaders.toBuilder()
+            additionalQueryParams = realTimeDecisionActionParams.additionalQueryParams.toBuilder()
+        }
 
         /** The identifier of the Real-Time Decision. */
-        fun realTimeDecisionId(realTimeDecisionId: String) =
-            apply {
-                this.realTimeDecisionId = realTimeDecisionId
-            }
+        fun realTimeDecisionId(realTimeDecisionId: String) = apply {
+            this.realTimeDecisionId = realTimeDecisionId
+        }
 
         /**
-         * If the Real-Time Decision relates to a 3DS card authentication attempt, this
-         * object contains your response to the authentication.
+         * If the Real-Time Decision relates to a 3DS card authentication attempt, this object
+         * contains your response to the authentication.
          */
-        fun cardAuthentication(cardAuthentication: CardAuthentication) =
-            apply {
-                body.cardAuthentication(cardAuthentication)
-            }
+        fun cardAuthentication(cardAuthentication: CardAuthentication) = apply {
+            body.cardAuthentication(cardAuthentication)
+        }
 
         /**
-         * If the Real-Time Decision relates to a 3DS card authentication attempt, this
-         * object contains your response to the authentication.
+         * If the Real-Time Decision relates to a 3DS card authentication attempt, this object
+         * contains your response to the authentication.
          */
-        fun cardAuthentication(cardAuthentication: JsonField<CardAuthentication>) =
-            apply {
-                body.cardAuthentication(cardAuthentication)
-            }
+        fun cardAuthentication(cardAuthentication: JsonField<CardAuthentication>) = apply {
+            body.cardAuthentication(cardAuthentication)
+        }
 
         /**
-         * If the Real-Time Decision relates to 3DS card authentication challenge delivery,
-         * this object contains your response.
+         * If the Real-Time Decision relates to 3DS card authentication challenge delivery, this
+         * object contains your response.
          */
         fun cardAuthenticationChallenge(cardAuthenticationChallenge: CardAuthenticationChallenge) =
             apply {
@@ -438,35 +453,32 @@ class RealTimeDecisionActionParams private constructor(
             }
 
         /**
-         * If the Real-Time Decision relates to 3DS card authentication challenge delivery,
-         * this object contains your response.
+         * If the Real-Time Decision relates to 3DS card authentication challenge delivery, this
+         * object contains your response.
          */
-        fun cardAuthenticationChallenge(cardAuthenticationChallenge: JsonField<CardAuthenticationChallenge>) =
-            apply {
-                body.cardAuthenticationChallenge(cardAuthenticationChallenge)
-            }
+        fun cardAuthenticationChallenge(
+            cardAuthenticationChallenge: JsonField<CardAuthenticationChallenge>
+        ) = apply { body.cardAuthenticationChallenge(cardAuthenticationChallenge) }
 
         /**
-         * If the Real-Time Decision relates to a card authorization attempt, this object
-         * contains your response to the authorization.
+         * If the Real-Time Decision relates to a card authorization attempt, this object contains
+         * your response to the authorization.
          */
-        fun cardAuthorization(cardAuthorization: CardAuthorization) =
-            apply {
-                body.cardAuthorization(cardAuthorization)
-            }
+        fun cardAuthorization(cardAuthorization: CardAuthorization) = apply {
+            body.cardAuthorization(cardAuthorization)
+        }
 
         /**
-         * If the Real-Time Decision relates to a card authorization attempt, this object
-         * contains your response to the authorization.
+         * If the Real-Time Decision relates to a card authorization attempt, this object contains
+         * your response to the authorization.
          */
-        fun cardAuthorization(cardAuthorization: JsonField<CardAuthorization>) =
-            apply {
-                body.cardAuthorization(cardAuthorization)
-            }
+        fun cardAuthorization(cardAuthorization: JsonField<CardAuthorization>) = apply {
+            body.cardAuthorization(cardAuthorization)
+        }
 
         /**
-         * If the Real-Time Decision relates to a digital wallet authentication attempt,
-         * this object contains your response to the authentication.
+         * If the Real-Time Decision relates to a digital wallet authentication attempt, this object
+         * contains your response to the authentication.
          */
         fun digitalWalletAuthentication(digitalWalletAuthentication: DigitalWalletAuthentication) =
             apply {
@@ -474,212 +486,175 @@ class RealTimeDecisionActionParams private constructor(
             }
 
         /**
-         * If the Real-Time Decision relates to a digital wallet authentication attempt,
-         * this object contains your response to the authentication.
+         * If the Real-Time Decision relates to a digital wallet authentication attempt, this object
+         * contains your response to the authentication.
          */
-        fun digitalWalletAuthentication(digitalWalletAuthentication: JsonField<DigitalWalletAuthentication>) =
-            apply {
-                body.digitalWalletAuthentication(digitalWalletAuthentication)
-            }
+        fun digitalWalletAuthentication(
+            digitalWalletAuthentication: JsonField<DigitalWalletAuthentication>
+        ) = apply { body.digitalWalletAuthentication(digitalWalletAuthentication) }
 
         /**
-         * If the Real-Time Decision relates to a digital wallet token provisioning
-         * attempt, this object contains your response to the attempt.
+         * If the Real-Time Decision relates to a digital wallet token provisioning attempt, this
+         * object contains your response to the attempt.
          */
-        fun digitalWalletToken(digitalWalletToken: DigitalWalletToken) =
-            apply {
-                body.digitalWalletToken(digitalWalletToken)
-            }
+        fun digitalWalletToken(digitalWalletToken: DigitalWalletToken) = apply {
+            body.digitalWalletToken(digitalWalletToken)
+        }
 
         /**
-         * If the Real-Time Decision relates to a digital wallet token provisioning
-         * attempt, this object contains your response to the attempt.
+         * If the Real-Time Decision relates to a digital wallet token provisioning attempt, this
+         * object contains your response to the attempt.
          */
-        fun digitalWalletToken(digitalWalletToken: JsonField<DigitalWalletToken>) =
-            apply {
-                body.digitalWalletToken(digitalWalletToken)
-            }
+        fun digitalWalletToken(digitalWalletToken: JsonField<DigitalWalletToken>) = apply {
+            body.digitalWalletToken(digitalWalletToken)
+        }
 
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                body.additionalProperties(additionalBodyProperties)
-            }
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
 
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) =
-            apply {
-                body.putAdditionalProperty(
-                  key, value
-                )
-            }
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
                 body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) =
-            apply {
-                body.removeAdditionalProperty(key)
-            }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) =
-            apply {
-                body.removeAllAdditionalProperties(keys)
-            }
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
+        }
 
-        fun additionalHeaders(additionalHeaders: Headers) =
-            apply {
-                this.additionalHeaders.clear()
-                putAllAdditionalHeaders(additionalHeaders)
-            }
+        fun additionalHeaders(additionalHeaders: Headers) = apply {
+            this.additionalHeaders.clear()
+            putAllAdditionalHeaders(additionalHeaders)
+        }
 
-        fun additionalHeaders(additionalHeaders: Map<String, Iterable<String>>) =
-            apply {
-                this.additionalHeaders.clear()
-                putAllAdditionalHeaders(additionalHeaders)
-            }
+        fun additionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
+            this.additionalHeaders.clear()
+            putAllAdditionalHeaders(additionalHeaders)
+        }
 
-        fun putAdditionalHeader(name: String, value: String) =
-            apply {
-                additionalHeaders.put(name, value)
-            }
+        fun putAdditionalHeader(name: String, value: String) = apply {
+            additionalHeaders.put(name, value)
+        }
 
-        fun putAdditionalHeaders(name: String, values: Iterable<String>) =
-            apply {
-                additionalHeaders.put(name, values)
-            }
+        fun putAdditionalHeaders(name: String, values: Iterable<String>) = apply {
+            additionalHeaders.put(name, values)
+        }
 
-        fun putAllAdditionalHeaders(additionalHeaders: Headers) =
-            apply {
-                this.additionalHeaders.putAll(additionalHeaders)
-            }
+        fun putAllAdditionalHeaders(additionalHeaders: Headers) = apply {
+            this.additionalHeaders.putAll(additionalHeaders)
+        }
 
-        fun putAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) =
-            apply {
-                this.additionalHeaders.putAll(additionalHeaders)
-            }
+        fun putAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
+            this.additionalHeaders.putAll(additionalHeaders)
+        }
 
-        fun replaceAdditionalHeaders(name: String, value: String) =
-            apply {
-                additionalHeaders.replace(name, value)
-            }
+        fun replaceAdditionalHeaders(name: String, value: String) = apply {
+            additionalHeaders.replace(name, value)
+        }
 
-        fun replaceAdditionalHeaders(name: String, values: Iterable<String>) =
-            apply {
-                additionalHeaders.replace(name, values)
-            }
+        fun replaceAdditionalHeaders(name: String, values: Iterable<String>) = apply {
+            additionalHeaders.replace(name, values)
+        }
 
-        fun replaceAllAdditionalHeaders(additionalHeaders: Headers) =
-            apply {
-                this.additionalHeaders.replaceAll(additionalHeaders)
-            }
+        fun replaceAllAdditionalHeaders(additionalHeaders: Headers) = apply {
+            this.additionalHeaders.replaceAll(additionalHeaders)
+        }
 
-        fun replaceAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) =
-            apply {
-                this.additionalHeaders.replaceAll(additionalHeaders)
-            }
+        fun replaceAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
+            this.additionalHeaders.replaceAll(additionalHeaders)
+        }
 
-        fun removeAdditionalHeaders(name: String) =
-            apply {
-                additionalHeaders.remove(name)
-            }
+        fun removeAdditionalHeaders(name: String) = apply { additionalHeaders.remove(name) }
 
-        fun removeAllAdditionalHeaders(names: Set<String>) =
-            apply {
-                additionalHeaders.removeAll(names)
-            }
+        fun removeAllAdditionalHeaders(names: Set<String>) = apply {
+            additionalHeaders.removeAll(names)
+        }
 
-        fun additionalQueryParams(additionalQueryParams: QueryParams) =
-            apply {
-                this.additionalQueryParams.clear()
-                putAllAdditionalQueryParams(additionalQueryParams)
-            }
+        fun additionalQueryParams(additionalQueryParams: QueryParams) = apply {
+            this.additionalQueryParams.clear()
+            putAllAdditionalQueryParams(additionalQueryParams)
+        }
 
-        fun additionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) =
-            apply {
-                this.additionalQueryParams.clear()
-                putAllAdditionalQueryParams(additionalQueryParams)
-            }
+        fun additionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) = apply {
+            this.additionalQueryParams.clear()
+            putAllAdditionalQueryParams(additionalQueryParams)
+        }
 
-        fun putAdditionalQueryParam(key: String, value: String) =
-            apply {
-                additionalQueryParams.put(key, value)
-            }
+        fun putAdditionalQueryParam(key: String, value: String) = apply {
+            additionalQueryParams.put(key, value)
+        }
 
-        fun putAdditionalQueryParams(key: String, values: Iterable<String>) =
-            apply {
-                additionalQueryParams.put(key, values)
-            }
+        fun putAdditionalQueryParams(key: String, values: Iterable<String>) = apply {
+            additionalQueryParams.put(key, values)
+        }
 
-        fun putAllAdditionalQueryParams(additionalQueryParams: QueryParams) =
-            apply {
-                this.additionalQueryParams.putAll(additionalQueryParams)
-            }
+        fun putAllAdditionalQueryParams(additionalQueryParams: QueryParams) = apply {
+            this.additionalQueryParams.putAll(additionalQueryParams)
+        }
 
         fun putAllAdditionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) =
             apply {
                 this.additionalQueryParams.putAll(additionalQueryParams)
             }
 
-        fun replaceAdditionalQueryParams(key: String, value: String) =
-            apply {
-                additionalQueryParams.replace(key, value)
-            }
+        fun replaceAdditionalQueryParams(key: String, value: String) = apply {
+            additionalQueryParams.replace(key, value)
+        }
 
-        fun replaceAdditionalQueryParams(key: String, values: Iterable<String>) =
-            apply {
-                additionalQueryParams.replace(key, values)
-            }
+        fun replaceAdditionalQueryParams(key: String, values: Iterable<String>) = apply {
+            additionalQueryParams.replace(key, values)
+        }
 
-        fun replaceAllAdditionalQueryParams(additionalQueryParams: QueryParams) =
-            apply {
-                this.additionalQueryParams.replaceAll(additionalQueryParams)
-            }
+        fun replaceAllAdditionalQueryParams(additionalQueryParams: QueryParams) = apply {
+            this.additionalQueryParams.replaceAll(additionalQueryParams)
+        }
 
         fun replaceAllAdditionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) =
             apply {
                 this.additionalQueryParams.replaceAll(additionalQueryParams)
             }
 
-        fun removeAdditionalQueryParams(key: String) =
-            apply {
-                additionalQueryParams.remove(key)
-            }
+        fun removeAdditionalQueryParams(key: String) = apply { additionalQueryParams.remove(key) }
 
-        fun removeAllAdditionalQueryParams(keys: Set<String>) =
-            apply {
-                additionalQueryParams.removeAll(keys)
-            }
+        fun removeAllAdditionalQueryParams(keys: Set<String>) = apply {
+            additionalQueryParams.removeAll(keys)
+        }
 
         fun build(): RealTimeDecisionActionParams =
             RealTimeDecisionActionParams(
-              checkRequired(
-                "realTimeDecisionId", realTimeDecisionId
-              ),
-              body.build(),
-              additionalHeaders.build(),
-              additionalQueryParams.build(),
+                checkRequired("realTimeDecisionId", realTimeDecisionId),
+                body.build(),
+                additionalHeaders.build(),
+                additionalQueryParams.build(),
             )
     }
 
     /**
-     * If the Real-Time Decision relates to a 3DS card authentication attempt, this
-     * object contains your response to the authentication.
+     * If the Real-Time Decision relates to a 3DS card authentication attempt, this object contains
+     * your response to the authentication.
      */
     @NoAutoDetect
-    class CardAuthentication @JsonCreator private constructor(
-        @JsonProperty("decision") @ExcludeMissing private val decision: JsonField<Decision> = JsonMissing.of(),
-        @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
-
+    class CardAuthentication
+    @JsonCreator
+    private constructor(
+        @JsonProperty("decision")
+        @ExcludeMissing
+        private val decision: JsonField<Decision> = JsonMissing.of(),
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** Whether the card authentication attempt should be approved or declined. */
         fun decision(): Decision = decision.getRequired("decision")
 
         /** Whether the card authentication attempt should be approved or declined. */
-        @JsonProperty("decision")
-        @ExcludeMissing
-        fun _decision(): JsonField<Decision> = decision
+        @JsonProperty("decision") @ExcludeMissing fun _decision(): JsonField<Decision> = decision
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -687,15 +662,14 @@ class RealTimeDecisionActionParams private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): CardAuthentication =
-            apply {
-                if (validated) {
-                  return@apply
-                }
-
-                decision()
-                validated = true
+        fun validate(): CardAuthentication = apply {
+            if (validated) {
+                return@apply
             }
+
+            decision()
+            validated = true
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -705,7 +679,6 @@ class RealTimeDecisionActionParams private constructor(
              * Returns a mutable builder for constructing an instance of [CardAuthentication].
              *
              * The following fields are required:
-             *
              * ```kotlin
              * .decision()
              * ```
@@ -719,71 +692,56 @@ class RealTimeDecisionActionParams private constructor(
             private var decision: JsonField<Decision>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(cardAuthentication: CardAuthentication) =
-                apply {
-                    decision = cardAuthentication.decision
-                    additionalProperties = cardAuthentication.additionalProperties.toMutableMap()
-                }
+            internal fun from(cardAuthentication: CardAuthentication) = apply {
+                decision = cardAuthentication.decision
+                additionalProperties = cardAuthentication.additionalProperties.toMutableMap()
+            }
 
             /** Whether the card authentication attempt should be approved or declined. */
             fun decision(decision: Decision) = decision(JsonField.of(decision))
 
             /** Whether the card authentication attempt should be approved or declined. */
-            fun decision(decision: JsonField<Decision>) =
-                apply {
-                    this.decision = decision
-                }
+            fun decision(decision: JsonField<Decision>) = apply { this.decision = decision }
 
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
-                apply {
-                    this.additionalProperties.clear()
-                    putAllAdditionalProperties(additionalProperties)
-                }
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
 
-            fun putAdditionalProperty(key: String, value: JsonValue) =
-                apply {
-                    additionalProperties.put(key, value)
-                }
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
 
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                apply {
-                    this.additionalProperties.putAll(additionalProperties)
-                }
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
 
-            fun removeAdditionalProperty(key: String) =
-                apply {
-                    additionalProperties.remove(key)
-                }
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
 
-            fun removeAllAdditionalProperties(keys: Set<String>) =
-                apply {
-                    keys.forEach(::removeAdditionalProperty)
-                }
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
 
             fun build(): CardAuthentication =
                 CardAuthentication(
-                  checkRequired(
-                    "decision", decision
-                  ), additionalProperties.toImmutable()
+                    checkRequired("decision", decision),
+                    additionalProperties.toImmutable(),
                 )
         }
 
         /** Whether the card authentication attempt should be approved or declined. */
-        class Decision @JsonCreator private constructor(
-            private val value: JsonField<String>,
-
-        ) : Enum {
+        class Decision @JsonCreator private constructor(private val value: JsonField<String>) :
+            Enum {
 
             /**
              * Returns this class instance's raw value.
              *
-             * This is usually only useful if this instance was deserialized from data that
-             * doesn't match any known member, and you want to know that value. For example, if
-             * the SDK is on an older version than the API, then the API may respond with new
-             * members that the SDK is unaware of.
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
              */
-            @com.fasterxml.jackson.annotation.JsonValue
-            fun _value(): JsonField<String> = value
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
             companion object {
 
@@ -813,11 +771,9 @@ class RealTimeDecisionActionParams private constructor(
              * An enum containing [Decision]'s known values, as well as an [_UNKNOWN] member.
              *
              * An instance of [Decision] can contain an unknown value in a couple of cases:
-             *
-             * - It was deserialized from data that doesn't match any known member. For
-             *   example, if the SDK is on an older version than the API, then the API may
-             *   respond with new members that the SDK is unaware of.
-             *
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
              * - It was constructed with an arbitrary value using the [of] method.
              */
             enum class Value {
@@ -828,8 +784,7 @@ class RealTimeDecisionActionParams private constructor(
                 /** Deny the authentication attempt. */
                 DENY,
                 /**
-                 * An enum member indicating that [Decision] was instantiated with an unknown
-                 * value.
+                 * An enum member indicating that [Decision] was instantiated with an unknown value.
                  */
                 _UNKNOWN,
             }
@@ -838,8 +793,8 @@ class RealTimeDecisionActionParams private constructor(
              * Returns an enum member corresponding to this class instance's value, or
              * [Value._UNKNOWN] if the class was instantiated with an unknown value.
              *
-             * Use the [known] method instead if you're certain the value is always known or if
-             * you want to throw for the unknown case.
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
              */
             fun value(): Value =
                 when (this) {
@@ -855,8 +810,8 @@ class RealTimeDecisionActionParams private constructor(
              * Use the [value] method instead if you're uncertain the value is always known and
              * don't want to throw for the unknown case.
              *
-             * @throws IncreaseInvalidDataException if this class instance's value is a not a
-             * known member.
+             * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+             *   member.
              */
             fun known(): Known =
                 when (this) {
@@ -872,17 +827,18 @@ class RealTimeDecisionActionParams private constructor(
              * This differs from the [toString] method because that method is primarily for
              * debugging and generally doesn't throw.
              *
-             * @throws IncreaseInvalidDataException if this class instance's value does not
-             * have the expected primitive type.
+             * @throws IncreaseInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
              */
-            fun asString(): String = _value().asString() ?: throw IncreaseInvalidDataException("Value is not a String")
+            fun asString(): String =
+                _value().asString() ?: throw IncreaseInvalidDataException("Value is not a String")
 
             override fun equals(other: Any?): Boolean {
-              if (this === other) {
-                  return true
-              }
+                if (this === other) {
+                    return true
+                }
 
-              return /* spotless:off */ other is Decision && value == other.value /* spotless:on */
+                return /* spotless:off */ other is Decision && value == other.value /* spotless:on */
             }
 
             override fun hashCode() = value.hashCode()
@@ -891,11 +847,11 @@ class RealTimeDecisionActionParams private constructor(
         }
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return /* spotless:off */ other is CardAuthentication && decision == other.decision && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is CardAuthentication && decision == other.decision && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -904,33 +860,34 @@ class RealTimeDecisionActionParams private constructor(
 
         override fun hashCode(): Int = hashCode
 
-        override fun toString() = "CardAuthentication{decision=$decision, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "CardAuthentication{decision=$decision, additionalProperties=$additionalProperties}"
     }
 
     /**
-     * If the Real-Time Decision relates to 3DS card authentication challenge delivery,
-     * this object contains your response.
+     * If the Real-Time Decision relates to 3DS card authentication challenge delivery, this object
+     * contains your response.
      */
     @NoAutoDetect
-    class CardAuthenticationChallenge @JsonCreator private constructor(
-        @JsonProperty("result") @ExcludeMissing private val result: JsonField<Result> = JsonMissing.of(),
-        @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
-
+    class CardAuthenticationChallenge
+    @JsonCreator
+    private constructor(
+        @JsonProperty("result")
+        @ExcludeMissing
+        private val result: JsonField<Result> = JsonMissing.of(),
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /**
-         * Whether the card authentication challenge was successfully delivered to the
-         * cardholder.
+         * Whether the card authentication challenge was successfully delivered to the cardholder.
          */
         fun result(): Result = result.getRequired("result")
 
         /**
-         * Whether the card authentication challenge was successfully delivered to the
-         * cardholder.
+         * Whether the card authentication challenge was successfully delivered to the cardholder.
          */
-        @JsonProperty("result")
-        @ExcludeMissing
-        fun _result(): JsonField<Result> = result
+        @JsonProperty("result") @ExcludeMissing fun _result(): JsonField<Result> = result
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -938,15 +895,14 @@ class RealTimeDecisionActionParams private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): CardAuthenticationChallenge =
-            apply {
-                if (validated) {
-                  return@apply
-                }
-
-                result()
-                validated = true
+        fun validate(): CardAuthenticationChallenge = apply {
+            if (validated) {
+                return@apply
             }
+
+            result()
+            validated = true
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -957,7 +913,6 @@ class RealTimeDecisionActionParams private constructor(
              * [CardAuthenticationChallenge].
              *
              * The following fields are required:
-             *
              * ```kotlin
              * .result()
              * ```
@@ -971,11 +926,11 @@ class RealTimeDecisionActionParams private constructor(
             private var result: JsonField<Result>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(cardAuthenticationChallenge: CardAuthenticationChallenge) =
-                apply {
-                    result = cardAuthenticationChallenge.result
-                    additionalProperties = cardAuthenticationChallenge.additionalProperties.toMutableMap()
-                }
+            internal fun from(cardAuthenticationChallenge: CardAuthenticationChallenge) = apply {
+                result = cardAuthenticationChallenge.result
+                additionalProperties =
+                    cardAuthenticationChallenge.additionalProperties.toMutableMap()
+            }
 
             /**
              * Whether the card authentication challenge was successfully delivered to the
@@ -987,64 +942,48 @@ class RealTimeDecisionActionParams private constructor(
              * Whether the card authentication challenge was successfully delivered to the
              * cardholder.
              */
-            fun result(result: JsonField<Result>) =
-                apply {
-                    this.result = result
-                }
+            fun result(result: JsonField<Result>) = apply { this.result = result }
 
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
-                apply {
-                    this.additionalProperties.clear()
-                    putAllAdditionalProperties(additionalProperties)
-                }
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
 
-            fun putAdditionalProperty(key: String, value: JsonValue) =
-                apply {
-                    additionalProperties.put(key, value)
-                }
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
 
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                apply {
-                    this.additionalProperties.putAll(additionalProperties)
-                }
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
 
-            fun removeAdditionalProperty(key: String) =
-                apply {
-                    additionalProperties.remove(key)
-                }
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
 
-            fun removeAllAdditionalProperties(keys: Set<String>) =
-                apply {
-                    keys.forEach(::removeAdditionalProperty)
-                }
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
 
             fun build(): CardAuthenticationChallenge =
                 CardAuthenticationChallenge(
-                  checkRequired(
-                    "result", result
-                  ), additionalProperties.toImmutable()
+                    checkRequired("result", result),
+                    additionalProperties.toImmutable(),
                 )
         }
 
         /**
-         * Whether the card authentication challenge was successfully delivered to the
-         * cardholder.
+         * Whether the card authentication challenge was successfully delivered to the cardholder.
          */
-        class Result @JsonCreator private constructor(
-            private val value: JsonField<String>,
-
-        ) : Enum {
+        class Result @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
             /**
              * Returns this class instance's raw value.
              *
-             * This is usually only useful if this instance was deserialized from data that
-             * doesn't match any known member, and you want to know that value. For example, if
-             * the SDK is on an older version than the API, then the API may respond with new
-             * members that the SDK is unaware of.
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
              */
-            @com.fasterxml.jackson.annotation.JsonValue
-            fun _value(): JsonField<String> = value
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
             companion object {
 
@@ -1069,11 +1008,9 @@ class RealTimeDecisionActionParams private constructor(
              * An enum containing [Result]'s known values, as well as an [_UNKNOWN] member.
              *
              * An instance of [Result] can contain an unknown value in a couple of cases:
-             *
-             * - It was deserialized from data that doesn't match any known member. For
-             *   example, if the SDK is on an older version than the API, then the API may
-             *   respond with new members that the SDK is unaware of.
-             *
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
              * - It was constructed with an arbitrary value using the [of] method.
              */
             enum class Value {
@@ -1081,7 +1018,9 @@ class RealTimeDecisionActionParams private constructor(
                 SUCCESS,
                 /** Your application was unable to deliver the one-time code to the cardholder. */
                 FAILURE,
-                /** An enum member indicating that [Result] was instantiated with an unknown value. */
+                /**
+                 * An enum member indicating that [Result] was instantiated with an unknown value.
+                 */
                 _UNKNOWN,
             }
 
@@ -1089,8 +1028,8 @@ class RealTimeDecisionActionParams private constructor(
              * Returns an enum member corresponding to this class instance's value, or
              * [Value._UNKNOWN] if the class was instantiated with an unknown value.
              *
-             * Use the [known] method instead if you're certain the value is always known or if
-             * you want to throw for the unknown case.
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
              */
             fun value(): Value =
                 when (this) {
@@ -1105,8 +1044,8 @@ class RealTimeDecisionActionParams private constructor(
              * Use the [value] method instead if you're uncertain the value is always known and
              * don't want to throw for the unknown case.
              *
-             * @throws IncreaseInvalidDataException if this class instance's value is a not a
-             * known member.
+             * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+             *   member.
              */
             fun known(): Known =
                 when (this) {
@@ -1121,17 +1060,18 @@ class RealTimeDecisionActionParams private constructor(
              * This differs from the [toString] method because that method is primarily for
              * debugging and generally doesn't throw.
              *
-             * @throws IncreaseInvalidDataException if this class instance's value does not
-             * have the expected primitive type.
+             * @throws IncreaseInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
              */
-            fun asString(): String = _value().asString() ?: throw IncreaseInvalidDataException("Value is not a String")
+            fun asString(): String =
+                _value().asString() ?: throw IncreaseInvalidDataException("Value is not a String")
 
             override fun equals(other: Any?): Boolean {
-              if (this === other) {
-                  return true
-              }
+                if (this === other) {
+                    return true
+                }
 
-              return /* spotless:off */ other is Result && value == other.value /* spotless:on */
+                return /* spotless:off */ other is Result && value == other.value /* spotless:on */
             }
 
             override fun hashCode() = value.hashCode()
@@ -1140,11 +1080,11 @@ class RealTimeDecisionActionParams private constructor(
         }
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return /* spotless:off */ other is CardAuthenticationChallenge && result == other.result && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is CardAuthenticationChallenge && result == other.result && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -1153,38 +1093,43 @@ class RealTimeDecisionActionParams private constructor(
 
         override fun hashCode(): Int = hashCode
 
-        override fun toString() = "CardAuthenticationChallenge{result=$result, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "CardAuthenticationChallenge{result=$result, additionalProperties=$additionalProperties}"
     }
 
     /**
-     * If the Real-Time Decision relates to a card authorization attempt, this object
-     * contains your response to the authorization.
+     * If the Real-Time Decision relates to a card authorization attempt, this object contains your
+     * response to the authorization.
      */
     @NoAutoDetect
-    class CardAuthorization @JsonCreator private constructor(
-        @JsonProperty("decision") @ExcludeMissing private val decision: JsonField<Decision> = JsonMissing.of(),
-        @JsonProperty("decline_reason") @ExcludeMissing private val declineReason: JsonField<DeclineReason> = JsonMissing.of(),
-        @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
-
+    class CardAuthorization
+    @JsonCreator
+    private constructor(
+        @JsonProperty("decision")
+        @ExcludeMissing
+        private val decision: JsonField<Decision> = JsonMissing.of(),
+        @JsonProperty("decline_reason")
+        @ExcludeMissing
+        private val declineReason: JsonField<DeclineReason> = JsonMissing.of(),
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** Whether the card authorization should be approved or declined. */
         fun decision(): Decision = decision.getRequired("decision")
 
         /**
-         * The reason the card authorization was declined. This translates to a specific
-         * decline code that is sent to the card network.
+         * The reason the card authorization was declined. This translates to a specific decline
+         * code that is sent to the card network.
          */
         fun declineReason(): DeclineReason? = declineReason.getNullable("decline_reason")
 
         /** Whether the card authorization should be approved or declined. */
-        @JsonProperty("decision")
-        @ExcludeMissing
-        fun _decision(): JsonField<Decision> = decision
+        @JsonProperty("decision") @ExcludeMissing fun _decision(): JsonField<Decision> = decision
 
         /**
-         * The reason the card authorization was declined. This translates to a specific
-         * decline code that is sent to the card network.
+         * The reason the card authorization was declined. This translates to a specific decline
+         * code that is sent to the card network.
          */
         @JsonProperty("decline_reason")
         @ExcludeMissing
@@ -1196,16 +1141,15 @@ class RealTimeDecisionActionParams private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): CardAuthorization =
-            apply {
-                if (validated) {
-                  return@apply
-                }
-
-                decision()
-                declineReason()
-                validated = true
+        fun validate(): CardAuthorization = apply {
+            if (validated) {
+                return@apply
             }
+
+            decision()
+            declineReason()
+            validated = true
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -1215,7 +1159,6 @@ class RealTimeDecisionActionParams private constructor(
              * Returns a mutable builder for constructing an instance of [CardAuthorization].
              *
              * The following fields are required:
-             *
              * ```kotlin
              * .decision()
              * ```
@@ -1230,89 +1173,73 @@ class RealTimeDecisionActionParams private constructor(
             private var declineReason: JsonField<DeclineReason> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(cardAuthorization: CardAuthorization) =
-                apply {
-                    decision = cardAuthorization.decision
-                    declineReason = cardAuthorization.declineReason
-                    additionalProperties = cardAuthorization.additionalProperties.toMutableMap()
-                }
+            internal fun from(cardAuthorization: CardAuthorization) = apply {
+                decision = cardAuthorization.decision
+                declineReason = cardAuthorization.declineReason
+                additionalProperties = cardAuthorization.additionalProperties.toMutableMap()
+            }
 
             /** Whether the card authorization should be approved or declined. */
             fun decision(decision: Decision) = decision(JsonField.of(decision))
 
             /** Whether the card authorization should be approved or declined. */
-            fun decision(decision: JsonField<Decision>) =
-                apply {
-                    this.decision = decision
-                }
+            fun decision(decision: JsonField<Decision>) = apply { this.decision = decision }
 
             /**
-             * The reason the card authorization was declined. This translates to a specific
-             * decline code that is sent to the card network.
+             * The reason the card authorization was declined. This translates to a specific decline
+             * code that is sent to the card network.
              */
-            fun declineReason(declineReason: DeclineReason) = declineReason(JsonField.of(declineReason))
+            fun declineReason(declineReason: DeclineReason) =
+                declineReason(JsonField.of(declineReason))
 
             /**
-             * The reason the card authorization was declined. This translates to a specific
-             * decline code that is sent to the card network.
+             * The reason the card authorization was declined. This translates to a specific decline
+             * code that is sent to the card network.
              */
-            fun declineReason(declineReason: JsonField<DeclineReason>) =
-                apply {
-                    this.declineReason = declineReason
-                }
+            fun declineReason(declineReason: JsonField<DeclineReason>) = apply {
+                this.declineReason = declineReason
+            }
 
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
-                apply {
-                    this.additionalProperties.clear()
-                    putAllAdditionalProperties(additionalProperties)
-                }
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
 
-            fun putAdditionalProperty(key: String, value: JsonValue) =
-                apply {
-                    additionalProperties.put(key, value)
-                }
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
 
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                apply {
-                    this.additionalProperties.putAll(additionalProperties)
-                }
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
 
-            fun removeAdditionalProperty(key: String) =
-                apply {
-                    additionalProperties.remove(key)
-                }
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
 
-            fun removeAllAdditionalProperties(keys: Set<String>) =
-                apply {
-                    keys.forEach(::removeAdditionalProperty)
-                }
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
 
             fun build(): CardAuthorization =
                 CardAuthorization(
-                  checkRequired(
-                    "decision", decision
-                  ),
-                  declineReason,
-                  additionalProperties.toImmutable(),
+                    checkRequired("decision", decision),
+                    declineReason,
+                    additionalProperties.toImmutable(),
                 )
         }
 
         /** Whether the card authorization should be approved or declined. */
-        class Decision @JsonCreator private constructor(
-            private val value: JsonField<String>,
-
-        ) : Enum {
+        class Decision @JsonCreator private constructor(private val value: JsonField<String>) :
+            Enum {
 
             /**
              * Returns this class instance's raw value.
              *
-             * This is usually only useful if this instance was deserialized from data that
-             * doesn't match any known member, and you want to know that value. For example, if
-             * the SDK is on an older version than the API, then the API may respond with new
-             * members that the SDK is unaware of.
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
              */
-            @com.fasterxml.jackson.annotation.JsonValue
-            fun _value(): JsonField<String> = value
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
             companion object {
 
@@ -1337,11 +1264,9 @@ class RealTimeDecisionActionParams private constructor(
              * An enum containing [Decision]'s known values, as well as an [_UNKNOWN] member.
              *
              * An instance of [Decision] can contain an unknown value in a couple of cases:
-             *
-             * - It was deserialized from data that doesn't match any known member. For
-             *   example, if the SDK is on an older version than the API, then the API may
-             *   respond with new members that the SDK is unaware of.
-             *
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
              * - It was constructed with an arbitrary value using the [of] method.
              */
             enum class Value {
@@ -1350,8 +1275,7 @@ class RealTimeDecisionActionParams private constructor(
                 /** Decline the authorization. */
                 DECLINE,
                 /**
-                 * An enum member indicating that [Decision] was instantiated with an unknown
-                 * value.
+                 * An enum member indicating that [Decision] was instantiated with an unknown value.
                  */
                 _UNKNOWN,
             }
@@ -1360,8 +1284,8 @@ class RealTimeDecisionActionParams private constructor(
              * Returns an enum member corresponding to this class instance's value, or
              * [Value._UNKNOWN] if the class was instantiated with an unknown value.
              *
-             * Use the [known] method instead if you're certain the value is always known or if
-             * you want to throw for the unknown case.
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
              */
             fun value(): Value =
                 when (this) {
@@ -1376,8 +1300,8 @@ class RealTimeDecisionActionParams private constructor(
              * Use the [value] method instead if you're uncertain the value is always known and
              * don't want to throw for the unknown case.
              *
-             * @throws IncreaseInvalidDataException if this class instance's value is a not a
-             * known member.
+             * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+             *   member.
              */
             fun known(): Known =
                 when (this) {
@@ -1392,17 +1316,18 @@ class RealTimeDecisionActionParams private constructor(
              * This differs from the [toString] method because that method is primarily for
              * debugging and generally doesn't throw.
              *
-             * @throws IncreaseInvalidDataException if this class instance's value does not
-             * have the expected primitive type.
+             * @throws IncreaseInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
              */
-            fun asString(): String = _value().asString() ?: throw IncreaseInvalidDataException("Value is not a String")
+            fun asString(): String =
+                _value().asString() ?: throw IncreaseInvalidDataException("Value is not a String")
 
             override fun equals(other: Any?): Boolean {
-              if (this === other) {
-                  return true
-              }
+                if (this === other) {
+                    return true
+                }
 
-              return /* spotless:off */ other is Decision && value == other.value /* spotless:on */
+                return /* spotless:off */ other is Decision && value == other.value /* spotless:on */
             }
 
             override fun hashCode() = value.hashCode()
@@ -1411,24 +1336,21 @@ class RealTimeDecisionActionParams private constructor(
         }
 
         /**
-         * The reason the card authorization was declined. This translates to a specific
-         * decline code that is sent to the card network.
+         * The reason the card authorization was declined. This translates to a specific decline
+         * code that is sent to the card network.
          */
-        class DeclineReason @JsonCreator private constructor(
-            private val value: JsonField<String>,
-
-        ) : Enum {
+        class DeclineReason @JsonCreator private constructor(private val value: JsonField<String>) :
+            Enum {
 
             /**
              * Returns this class instance's raw value.
              *
-             * This is usually only useful if this instance was deserialized from data that
-             * doesn't match any known member, and you want to know that value. For example, if
-             * the SDK is on an older version than the API, then the API may respond with new
-             * members that the SDK is unaware of.
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
              */
-            @com.fasterxml.jackson.annotation.JsonValue
-            fun _value(): JsonField<String> = value
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
             companion object {
 
@@ -1506,16 +1428,12 @@ class RealTimeDecisionActionParams private constructor(
             }
 
             /**
-             * An enum containing [DeclineReason]'s known values, as well as an [_UNKNOWN]
-             * member.
+             * An enum containing [DeclineReason]'s known values, as well as an [_UNKNOWN] member.
              *
-             * An instance of [DeclineReason] can contain an unknown value in a couple of
-             * cases:
-             *
-             * - It was deserialized from data that doesn't match any known member. For
-             *   example, if the SDK is on an older version than the API, then the API may
-             *   respond with new members that the SDK is unaware of.
-             *
+             * An instance of [DeclineReason] can contain an unknown value in a couple of cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
              * - It was constructed with an arbitrary value using the [of] method.
              */
             enum class Value {
@@ -1560,8 +1478,8 @@ class RealTimeDecisionActionParams private constructor(
              * Returns an enum member corresponding to this class instance's value, or
              * [Value._UNKNOWN] if the class was instantiated with an unknown value.
              *
-             * Use the [known] method instead if you're certain the value is always known or if
-             * you want to throw for the unknown case.
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
              */
             fun value(): Value =
                 when (this) {
@@ -1580,8 +1498,8 @@ class RealTimeDecisionActionParams private constructor(
              * Use the [value] method instead if you're uncertain the value is always known and
              * don't want to throw for the unknown case.
              *
-             * @throws IncreaseInvalidDataException if this class instance's value is a not a
-             * known member.
+             * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+             *   member.
              */
             fun known(): Known =
                 when (this) {
@@ -1600,17 +1518,18 @@ class RealTimeDecisionActionParams private constructor(
              * This differs from the [toString] method because that method is primarily for
              * debugging and generally doesn't throw.
              *
-             * @throws IncreaseInvalidDataException if this class instance's value does not
-             * have the expected primitive type.
+             * @throws IncreaseInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
              */
-            fun asString(): String = _value().asString() ?: throw IncreaseInvalidDataException("Value is not a String")
+            fun asString(): String =
+                _value().asString() ?: throw IncreaseInvalidDataException("Value is not a String")
 
             override fun equals(other: Any?): Boolean {
-              if (this === other) {
-                  return true
-              }
+                if (this === other) {
+                    return true
+                }
 
-              return /* spotless:off */ other is DeclineReason && value == other.value /* spotless:on */
+                return /* spotless:off */ other is DeclineReason && value == other.value /* spotless:on */
             }
 
             override fun hashCode() = value.hashCode()
@@ -1619,11 +1538,11 @@ class RealTimeDecisionActionParams private constructor(
         }
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return /* spotless:off */ other is CardAuthorization && decision == other.decision && declineReason == other.declineReason && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is CardAuthorization && decision == other.decision && declineReason == other.declineReason && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -1632,19 +1551,26 @@ class RealTimeDecisionActionParams private constructor(
 
         override fun hashCode(): Int = hashCode
 
-        override fun toString() = "CardAuthorization{decision=$decision, declineReason=$declineReason, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "CardAuthorization{decision=$decision, declineReason=$declineReason, additionalProperties=$additionalProperties}"
     }
 
     /**
-     * If the Real-Time Decision relates to a digital wallet authentication attempt,
-     * this object contains your response to the authentication.
+     * If the Real-Time Decision relates to a digital wallet authentication attempt, this object
+     * contains your response to the authentication.
      */
     @NoAutoDetect
-    class DigitalWalletAuthentication @JsonCreator private constructor(
-        @JsonProperty("result") @ExcludeMissing private val result: JsonField<Result> = JsonMissing.of(),
-        @JsonProperty("success") @ExcludeMissing private val success: JsonField<Success> = JsonMissing.of(),
-        @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
-
+    class DigitalWalletAuthentication
+    @JsonCreator
+    private constructor(
+        @JsonProperty("result")
+        @ExcludeMissing
+        private val result: JsonField<Result> = JsonMissing.of(),
+        @JsonProperty("success")
+        @ExcludeMissing
+        private val success: JsonField<Success> = JsonMissing.of(),
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** Whether your application was able to deliver the one-time passcode. */
@@ -1653,13 +1579,9 @@ class RealTimeDecisionActionParams private constructor(
         fun success(): Success? = success.getNullable("success")
 
         /** Whether your application was able to deliver the one-time passcode. */
-        @JsonProperty("result")
-        @ExcludeMissing
-        fun _result(): JsonField<Result> = result
+        @JsonProperty("result") @ExcludeMissing fun _result(): JsonField<Result> = result
 
-        @JsonProperty("success")
-        @ExcludeMissing
-        fun _success(): JsonField<Success> = success
+        @JsonProperty("success") @ExcludeMissing fun _success(): JsonField<Success> = success
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -1667,16 +1589,15 @@ class RealTimeDecisionActionParams private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): DigitalWalletAuthentication =
-            apply {
-                if (validated) {
-                  return@apply
-                }
-
-                result()
-                success()?.validate()
-                validated = true
+        fun validate(): DigitalWalletAuthentication = apply {
+            if (validated) {
+                return@apply
             }
+
+            result()
+            success()?.validate()
+            validated = true
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -1687,7 +1608,6 @@ class RealTimeDecisionActionParams private constructor(
              * [DigitalWalletAuthentication].
              *
              * The following fields are required:
-             *
              * ```kotlin
              * .result()
              * ```
@@ -1702,85 +1622,68 @@ class RealTimeDecisionActionParams private constructor(
             private var success: JsonField<Success> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(digitalWalletAuthentication: DigitalWalletAuthentication) =
-                apply {
-                    result = digitalWalletAuthentication.result
-                    success = digitalWalletAuthentication.success
-                    additionalProperties = digitalWalletAuthentication.additionalProperties.toMutableMap()
-                }
+            internal fun from(digitalWalletAuthentication: DigitalWalletAuthentication) = apply {
+                result = digitalWalletAuthentication.result
+                success = digitalWalletAuthentication.success
+                additionalProperties =
+                    digitalWalletAuthentication.additionalProperties.toMutableMap()
+            }
 
             /** Whether your application was able to deliver the one-time passcode. */
             fun result(result: Result) = result(JsonField.of(result))
 
             /** Whether your application was able to deliver the one-time passcode. */
-            fun result(result: JsonField<Result>) =
-                apply {
-                    this.result = result
-                }
+            fun result(result: JsonField<Result>) = apply { this.result = result }
 
             fun success(success: Success) = success(JsonField.of(success))
 
-            fun success(success: JsonField<Success>) =
-                apply {
-                    this.success = success
-                }
+            fun success(success: JsonField<Success>) = apply { this.success = success }
 
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
-                apply {
-                    this.additionalProperties.clear()
-                    putAllAdditionalProperties(additionalProperties)
-                }
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
 
-            fun putAdditionalProperty(key: String, value: JsonValue) =
-                apply {
-                    additionalProperties.put(key, value)
-                }
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
 
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                apply {
-                    this.additionalProperties.putAll(additionalProperties)
-                }
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
 
-            fun removeAdditionalProperty(key: String) =
-                apply {
-                    additionalProperties.remove(key)
-                }
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
 
-            fun removeAllAdditionalProperties(keys: Set<String>) =
-                apply {
-                    keys.forEach(::removeAdditionalProperty)
-                }
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
 
             fun build(): DigitalWalletAuthentication =
                 DigitalWalletAuthentication(
-                  checkRequired(
-                    "result", result
-                  ),
-                  success,
-                  additionalProperties.toImmutable(),
+                    checkRequired("result", result),
+                    success,
+                    additionalProperties.toImmutable(),
                 )
         }
 
         /** Whether your application was able to deliver the one-time passcode. */
-        class Result @JsonCreator private constructor(
-            private val value: JsonField<String>,
-
-        ) : Enum {
+        class Result @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
             /**
              * Returns this class instance's raw value.
              *
-             * This is usually only useful if this instance was deserialized from data that
-             * doesn't match any known member, and you want to know that value. For example, if
-             * the SDK is on an older version than the API, then the API may respond with new
-             * members that the SDK is unaware of.
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
              */
-            @com.fasterxml.jackson.annotation.JsonValue
-            fun _value(): JsonField<String> = value
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
             companion object {
 
-                /** Your application successfully delivered the one-time passcode to the cardholder. */
+                /**
+                 * Your application successfully delivered the one-time passcode to the cardholder.
+                 */
                 val SUCCESS = of("success")
 
                 /** Your application failed to deliver the one-time passcode to the cardholder. */
@@ -1791,7 +1694,9 @@ class RealTimeDecisionActionParams private constructor(
 
             /** An enum containing [Result]'s known values. */
             enum class Known {
-                /** Your application successfully delivered the one-time passcode to the cardholder. */
+                /**
+                 * Your application successfully delivered the one-time passcode to the cardholder.
+                 */
                 SUCCESS,
                 /** Your application failed to deliver the one-time passcode to the cardholder. */
                 FAILURE,
@@ -1801,19 +1706,21 @@ class RealTimeDecisionActionParams private constructor(
              * An enum containing [Result]'s known values, as well as an [_UNKNOWN] member.
              *
              * An instance of [Result] can contain an unknown value in a couple of cases:
-             *
-             * - It was deserialized from data that doesn't match any known member. For
-             *   example, if the SDK is on an older version than the API, then the API may
-             *   respond with new members that the SDK is unaware of.
-             *
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
              * - It was constructed with an arbitrary value using the [of] method.
              */
             enum class Value {
-                /** Your application successfully delivered the one-time passcode to the cardholder. */
+                /**
+                 * Your application successfully delivered the one-time passcode to the cardholder.
+                 */
                 SUCCESS,
                 /** Your application failed to deliver the one-time passcode to the cardholder. */
                 FAILURE,
-                /** An enum member indicating that [Result] was instantiated with an unknown value. */
+                /**
+                 * An enum member indicating that [Result] was instantiated with an unknown value.
+                 */
                 _UNKNOWN,
             }
 
@@ -1821,8 +1728,8 @@ class RealTimeDecisionActionParams private constructor(
              * Returns an enum member corresponding to this class instance's value, or
              * [Value._UNKNOWN] if the class was instantiated with an unknown value.
              *
-             * Use the [known] method instead if you're certain the value is always known or if
-             * you want to throw for the unknown case.
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
              */
             fun value(): Value =
                 when (this) {
@@ -1837,8 +1744,8 @@ class RealTimeDecisionActionParams private constructor(
              * Use the [value] method instead if you're uncertain the value is always known and
              * don't want to throw for the unknown case.
              *
-             * @throws IncreaseInvalidDataException if this class instance's value is a not a
-             * known member.
+             * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+             *   member.
              */
             fun known(): Known =
                 when (this) {
@@ -1853,17 +1760,18 @@ class RealTimeDecisionActionParams private constructor(
              * This differs from the [toString] method because that method is primarily for
              * debugging and generally doesn't throw.
              *
-             * @throws IncreaseInvalidDataException if this class instance's value does not
-             * have the expected primitive type.
+             * @throws IncreaseInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
              */
-            fun asString(): String = _value().asString() ?: throw IncreaseInvalidDataException("Value is not a String")
+            fun asString(): String =
+                _value().asString() ?: throw IncreaseInvalidDataException("Value is not a String")
 
             override fun equals(other: Any?): Boolean {
-              if (this === other) {
-                  return true
-              }
+                if (this === other) {
+                    return true
+                }
 
-              return /* spotless:off */ other is Result && value == other.value /* spotless:on */
+                return /* spotless:off */ other is Result && value == other.value /* spotless:on */
             }
 
             override fun hashCode() = value.hashCode()
@@ -1872,34 +1780,36 @@ class RealTimeDecisionActionParams private constructor(
         }
 
         @NoAutoDetect
-        class Success @JsonCreator private constructor(
-            @JsonProperty("email") @ExcludeMissing private val email: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("phone") @ExcludeMissing private val phone: JsonField<String> = JsonMissing.of(),
-            @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
-
+        class Success
+        @JsonCreator
+        private constructor(
+            @JsonProperty("email")
+            @ExcludeMissing
+            private val email: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("phone")
+            @ExcludeMissing
+            private val phone: JsonField<String> = JsonMissing.of(),
+            @JsonAnySetter
+            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
 
             /** The email address that was used to verify the cardholder via one-time passcode. */
             fun email(): String? = email.getNullable("email")
 
             /**
-             * The phone number that was used to verify the cardholder via one-time passcode
-             * over SMS.
+             * The phone number that was used to verify the cardholder via one-time passcode over
+             * SMS.
              */
             fun phone(): String? = phone.getNullable("phone")
 
             /** The email address that was used to verify the cardholder via one-time passcode. */
-            @JsonProperty("email")
-            @ExcludeMissing
-            fun _email(): JsonField<String> = email
+            @JsonProperty("email") @ExcludeMissing fun _email(): JsonField<String> = email
 
             /**
-             * The phone number that was used to verify the cardholder via one-time passcode
-             * over SMS.
+             * The phone number that was used to verify the cardholder via one-time passcode over
+             * SMS.
              */
-            @JsonProperty("phone")
-            @ExcludeMissing
-            fun _phone(): JsonField<String> = phone
+            @JsonProperty("phone") @ExcludeMissing fun _phone(): JsonField<String> = phone
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -1907,16 +1817,15 @@ class RealTimeDecisionActionParams private constructor(
 
             private var validated: Boolean = false
 
-            fun validate(): Success =
-                apply {
-                    if (validated) {
-                      return@apply
-                    }
-
-                    email()
-                    phone()
-                    validated = true
+            fun validate(): Success = apply {
+                if (validated) {
+                    return@apply
                 }
+
+                email()
+                phone()
+                validated = true
+            }
 
             fun toBuilder() = Builder().from(this)
 
@@ -1933,21 +1842,21 @@ class RealTimeDecisionActionParams private constructor(
                 private var phone: JsonField<String> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-                internal fun from(success: Success) =
-                    apply {
-                        email = success.email
-                        phone = success.phone
-                        additionalProperties = success.additionalProperties.toMutableMap()
-                    }
+                internal fun from(success: Success) = apply {
+                    email = success.email
+                    phone = success.phone
+                    additionalProperties = success.additionalProperties.toMutableMap()
+                }
 
-                /** The email address that was used to verify the cardholder via one-time passcode. */
+                /**
+                 * The email address that was used to verify the cardholder via one-time passcode.
+                 */
                 fun email(email: String) = email(JsonField.of(email))
 
-                /** The email address that was used to verify the cardholder via one-time passcode. */
-                fun email(email: JsonField<String>) =
-                    apply {
-                        this.email = email
-                    }
+                /**
+                 * The email address that was used to verify the cardholder via one-time passcode.
+                 */
+                fun email(email: JsonField<String>) = apply { this.email = email }
 
                 /**
                  * The phone number that was used to verify the cardholder via one-time passcode
@@ -1959,51 +1868,39 @@ class RealTimeDecisionActionParams private constructor(
                  * The phone number that was used to verify the cardholder via one-time passcode
                  * over SMS.
                  */
-                fun phone(phone: JsonField<String>) =
-                    apply {
-                        this.phone = phone
-                    }
+                fun phone(phone: JsonField<String>) = apply { this.phone = phone }
 
-                fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
-                    apply {
-                        this.additionalProperties.clear()
-                        putAllAdditionalProperties(additionalProperties)
-                    }
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
 
-                fun putAdditionalProperty(key: String, value: JsonValue) =
-                    apply {
-                        additionalProperties.put(key, value)
-                    }
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
 
                 fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                     apply {
                         this.additionalProperties.putAll(additionalProperties)
                     }
 
-                fun removeAdditionalProperty(key: String) =
-                    apply {
-                        additionalProperties.remove(key)
-                    }
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
 
-                fun removeAllAdditionalProperties(keys: Set<String>) =
-                    apply {
-                        keys.forEach(::removeAdditionalProperty)
-                    }
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
 
-                fun build(): Success =
-                    Success(
-                      email,
-                      phone,
-                      additionalProperties.toImmutable(),
-                    )
+                fun build(): Success = Success(email, phone, additionalProperties.toImmutable())
             }
 
             override fun equals(other: Any?): Boolean {
-              if (this === other) {
-                  return true
-              }
+                if (this === other) {
+                    return true
+                }
 
-              return /* spotless:off */ other is Success && email == other.email && phone == other.phone && additionalProperties == other.additionalProperties /* spotless:on */
+                return /* spotless:off */ other is Success && email == other.email && phone == other.phone && additionalProperties == other.additionalProperties /* spotless:on */
             }
 
             /* spotless:off */
@@ -2012,15 +1909,16 @@ class RealTimeDecisionActionParams private constructor(
 
             override fun hashCode(): Int = hashCode
 
-            override fun toString() = "Success{email=$email, phone=$phone, additionalProperties=$additionalProperties}"
+            override fun toString() =
+                "Success{email=$email, phone=$phone, additionalProperties=$additionalProperties}"
         }
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return /* spotless:off */ other is DigitalWalletAuthentication && result == other.result && success == other.success && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is DigitalWalletAuthentication && result == other.result && success == other.success && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -2029,48 +1927,51 @@ class RealTimeDecisionActionParams private constructor(
 
         override fun hashCode(): Int = hashCode
 
-        override fun toString() = "DigitalWalletAuthentication{result=$result, success=$success, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "DigitalWalletAuthentication{result=$result, success=$success, additionalProperties=$additionalProperties}"
     }
 
     /**
-     * If the Real-Time Decision relates to a digital wallet token provisioning
-     * attempt, this object contains your response to the attempt.
+     * If the Real-Time Decision relates to a digital wallet token provisioning attempt, this object
+     * contains your response to the attempt.
      */
     @NoAutoDetect
-    class DigitalWalletToken @JsonCreator private constructor(
-        @JsonProperty("approval") @ExcludeMissing private val approval: JsonField<Approval> = JsonMissing.of(),
-        @JsonProperty("decline") @ExcludeMissing private val decline: JsonField<Decline> = JsonMissing.of(),
-        @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
-
+    class DigitalWalletToken
+    @JsonCreator
+    private constructor(
+        @JsonProperty("approval")
+        @ExcludeMissing
+        private val approval: JsonField<Approval> = JsonMissing.of(),
+        @JsonProperty("decline")
+        @ExcludeMissing
+        private val decline: JsonField<Decline> = JsonMissing.of(),
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /**
-         * If your application approves the provisioning attempt, this contains metadata
-         * about the digital wallet token that will be generated.
+         * If your application approves the provisioning attempt, this contains metadata about the
+         * digital wallet token that will be generated.
          */
         fun approval(): Approval? = approval.getNullable("approval")
 
         /**
-         * If your application declines the provisioning attempt, this contains details
-         * about the decline.
+         * If your application declines the provisioning attempt, this contains details about the
+         * decline.
          */
         fun decline(): Decline? = decline.getNullable("decline")
 
         /**
-         * If your application approves the provisioning attempt, this contains metadata
-         * about the digital wallet token that will be generated.
+         * If your application approves the provisioning attempt, this contains metadata about the
+         * digital wallet token that will be generated.
          */
-        @JsonProperty("approval")
-        @ExcludeMissing
-        fun _approval(): JsonField<Approval> = approval
+        @JsonProperty("approval") @ExcludeMissing fun _approval(): JsonField<Approval> = approval
 
         /**
-         * If your application declines the provisioning attempt, this contains details
-         * about the decline.
+         * If your application declines the provisioning attempt, this contains details about the
+         * decline.
          */
-        @JsonProperty("decline")
-        @ExcludeMissing
-        fun _decline(): JsonField<Decline> = decline
+        @JsonProperty("decline") @ExcludeMissing fun _decline(): JsonField<Decline> = decline
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -2078,16 +1979,15 @@ class RealTimeDecisionActionParams private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): DigitalWalletToken =
-            apply {
-                if (validated) {
-                  return@apply
-                }
-
-                approval()?.validate()
-                decline()?.validate()
-                validated = true
+        fun validate(): DigitalWalletToken = apply {
+            if (validated) {
+                return@apply
             }
+
+            approval()?.validate()
+            decline()?.validate()
+            validated = true
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -2104,116 +2004,94 @@ class RealTimeDecisionActionParams private constructor(
             private var decline: JsonField<Decline> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(digitalWalletToken: DigitalWalletToken) =
-                apply {
-                    approval = digitalWalletToken.approval
-                    decline = digitalWalletToken.decline
-                    additionalProperties = digitalWalletToken.additionalProperties.toMutableMap()
-                }
+            internal fun from(digitalWalletToken: DigitalWalletToken) = apply {
+                approval = digitalWalletToken.approval
+                decline = digitalWalletToken.decline
+                additionalProperties = digitalWalletToken.additionalProperties.toMutableMap()
+            }
 
             /**
-             * If your application approves the provisioning attempt, this contains metadata
-             * about the digital wallet token that will be generated.
+             * If your application approves the provisioning attempt, this contains metadata about
+             * the digital wallet token that will be generated.
              */
             fun approval(approval: Approval) = approval(JsonField.of(approval))
 
             /**
-             * If your application approves the provisioning attempt, this contains metadata
-             * about the digital wallet token that will be generated.
+             * If your application approves the provisioning attempt, this contains metadata about
+             * the digital wallet token that will be generated.
              */
-            fun approval(approval: JsonField<Approval>) =
-                apply {
-                    this.approval = approval
-                }
+            fun approval(approval: JsonField<Approval>) = apply { this.approval = approval }
 
             /**
-             * If your application declines the provisioning attempt, this contains details
-             * about the decline.
+             * If your application declines the provisioning attempt, this contains details about
+             * the decline.
              */
             fun decline(decline: Decline) = decline(JsonField.of(decline))
 
             /**
-             * If your application declines the provisioning attempt, this contains details
-             * about the decline.
+             * If your application declines the provisioning attempt, this contains details about
+             * the decline.
              */
-            fun decline(decline: JsonField<Decline>) =
-                apply {
-                    this.decline = decline
-                }
+            fun decline(decline: JsonField<Decline>) = apply { this.decline = decline }
 
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
-                apply {
-                    this.additionalProperties.clear()
-                    putAllAdditionalProperties(additionalProperties)
-                }
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
 
-            fun putAdditionalProperty(key: String, value: JsonValue) =
-                apply {
-                    additionalProperties.put(key, value)
-                }
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
 
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                apply {
-                    this.additionalProperties.putAll(additionalProperties)
-                }
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
 
-            fun removeAdditionalProperty(key: String) =
-                apply {
-                    additionalProperties.remove(key)
-                }
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
 
-            fun removeAllAdditionalProperties(keys: Set<String>) =
-                apply {
-                    keys.forEach(::removeAdditionalProperty)
-                }
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
 
             fun build(): DigitalWalletToken =
-                DigitalWalletToken(
-                  approval,
-                  decline,
-                  additionalProperties.toImmutable(),
-                )
+                DigitalWalletToken(approval, decline, additionalProperties.toImmutable())
         }
 
         /**
-         * If your application approves the provisioning attempt, this contains metadata
-         * about the digital wallet token that will be generated.
+         * If your application approves the provisioning attempt, this contains metadata about the
+         * digital wallet token that will be generated.
          */
         @NoAutoDetect
-        class Approval @JsonCreator private constructor(
-            @JsonProperty("email") @ExcludeMissing private val email: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("phone") @ExcludeMissing private val phone: JsonField<String> = JsonMissing.of(),
-            @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
-
+        class Approval
+        @JsonCreator
+        private constructor(
+            @JsonProperty("email")
+            @ExcludeMissing
+            private val email: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("phone")
+            @ExcludeMissing
+            private val phone: JsonField<String> = JsonMissing.of(),
+            @JsonAnySetter
+            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
 
-            /**
-             * An email address that can be used to verify the cardholder via one-time
-             * passcode.
-             */
+            /** An email address that can be used to verify the cardholder via one-time passcode. */
             fun email(): String? = email.getNullable("email")
 
             /**
-             * A phone number that can be used to verify the cardholder via one-time passcode
-             * over SMS.
+             * A phone number that can be used to verify the cardholder via one-time passcode over
+             * SMS.
              */
             fun phone(): String? = phone.getNullable("phone")
 
-            /**
-             * An email address that can be used to verify the cardholder via one-time
-             * passcode.
-             */
-            @JsonProperty("email")
-            @ExcludeMissing
-            fun _email(): JsonField<String> = email
+            /** An email address that can be used to verify the cardholder via one-time passcode. */
+            @JsonProperty("email") @ExcludeMissing fun _email(): JsonField<String> = email
 
             /**
-             * A phone number that can be used to verify the cardholder via one-time passcode
-             * over SMS.
+             * A phone number that can be used to verify the cardholder via one-time passcode over
+             * SMS.
              */
-            @JsonProperty("phone")
-            @ExcludeMissing
-            fun _phone(): JsonField<String> = phone
+            @JsonProperty("phone") @ExcludeMissing fun _phone(): JsonField<String> = phone
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -2221,16 +2099,15 @@ class RealTimeDecisionActionParams private constructor(
 
             private var validated: Boolean = false
 
-            fun validate(): Approval =
-                apply {
-                    if (validated) {
-                      return@apply
-                    }
-
-                    email()
-                    phone()
-                    validated = true
+            fun validate(): Approval = apply {
+                if (validated) {
+                    return@apply
                 }
+
+                email()
+                phone()
+                validated = true
+            }
 
             fun toBuilder() = Builder().from(this)
 
@@ -2247,27 +2124,21 @@ class RealTimeDecisionActionParams private constructor(
                 private var phone: JsonField<String> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-                internal fun from(approval: Approval) =
-                    apply {
-                        email = approval.email
-                        phone = approval.phone
-                        additionalProperties = approval.additionalProperties.toMutableMap()
-                    }
+                internal fun from(approval: Approval) = apply {
+                    email = approval.email
+                    phone = approval.phone
+                    additionalProperties = approval.additionalProperties.toMutableMap()
+                }
 
                 /**
-                 * An email address that can be used to verify the cardholder via one-time
-                 * passcode.
+                 * An email address that can be used to verify the cardholder via one-time passcode.
                  */
                 fun email(email: String) = email(JsonField.of(email))
 
                 /**
-                 * An email address that can be used to verify the cardholder via one-time
-                 * passcode.
+                 * An email address that can be used to verify the cardholder via one-time passcode.
                  */
-                fun email(email: JsonField<String>) =
-                    apply {
-                        this.email = email
-                    }
+                fun email(email: JsonField<String>) = apply { this.email = email }
 
                 /**
                  * A phone number that can be used to verify the cardholder via one-time passcode
@@ -2279,51 +2150,39 @@ class RealTimeDecisionActionParams private constructor(
                  * A phone number that can be used to verify the cardholder via one-time passcode
                  * over SMS.
                  */
-                fun phone(phone: JsonField<String>) =
-                    apply {
-                        this.phone = phone
-                    }
+                fun phone(phone: JsonField<String>) = apply { this.phone = phone }
 
-                fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
-                    apply {
-                        this.additionalProperties.clear()
-                        putAllAdditionalProperties(additionalProperties)
-                    }
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
 
-                fun putAdditionalProperty(key: String, value: JsonValue) =
-                    apply {
-                        additionalProperties.put(key, value)
-                    }
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
 
                 fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                     apply {
                         this.additionalProperties.putAll(additionalProperties)
                     }
 
-                fun removeAdditionalProperty(key: String) =
-                    apply {
-                        additionalProperties.remove(key)
-                    }
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
 
-                fun removeAllAdditionalProperties(keys: Set<String>) =
-                    apply {
-                        keys.forEach(::removeAdditionalProperty)
-                    }
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
 
-                fun build(): Approval =
-                    Approval(
-                      email,
-                      phone,
-                      additionalProperties.toImmutable(),
-                    )
+                fun build(): Approval = Approval(email, phone, additionalProperties.toImmutable())
             }
 
             override fun equals(other: Any?): Boolean {
-              if (this === other) {
-                  return true
-              }
+                if (this === other) {
+                    return true
+                }
 
-              return /* spotless:off */ other is Approval && email == other.email && phone == other.phone && additionalProperties == other.additionalProperties /* spotless:on */
+                return /* spotless:off */ other is Approval && email == other.email && phone == other.phone && additionalProperties == other.additionalProperties /* spotless:on */
             }
 
             /* spotless:off */
@@ -2332,33 +2191,36 @@ class RealTimeDecisionActionParams private constructor(
 
             override fun hashCode(): Int = hashCode
 
-            override fun toString() = "Approval{email=$email, phone=$phone, additionalProperties=$additionalProperties}"
+            override fun toString() =
+                "Approval{email=$email, phone=$phone, additionalProperties=$additionalProperties}"
         }
 
         /**
-         * If your application declines the provisioning attempt, this contains details
-         * about the decline.
+         * If your application declines the provisioning attempt, this contains details about the
+         * decline.
          */
         @NoAutoDetect
-        class Decline @JsonCreator private constructor(
-            @JsonProperty("reason") @ExcludeMissing private val reason: JsonField<String> = JsonMissing.of(),
-            @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
-
+        class Decline
+        @JsonCreator
+        private constructor(
+            @JsonProperty("reason")
+            @ExcludeMissing
+            private val reason: JsonField<String> = JsonMissing.of(),
+            @JsonAnySetter
+            private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
 
             /**
-             * Why the tokenization attempt was declined. This is for logging purposes only and
-             * is not displayed to the end-user.
+             * Why the tokenization attempt was declined. This is for logging purposes only and is
+             * not displayed to the end-user.
              */
             fun reason(): String? = reason.getNullable("reason")
 
             /**
-             * Why the tokenization attempt was declined. This is for logging purposes only and
-             * is not displayed to the end-user.
+             * Why the tokenization attempt was declined. This is for logging purposes only and is
+             * not displayed to the end-user.
              */
-            @JsonProperty("reason")
-            @ExcludeMissing
-            fun _reason(): JsonField<String> = reason
+            @JsonProperty("reason") @ExcludeMissing fun _reason(): JsonField<String> = reason
 
             @JsonAnyGetter
             @ExcludeMissing
@@ -2366,15 +2228,14 @@ class RealTimeDecisionActionParams private constructor(
 
             private var validated: Boolean = false
 
-            fun validate(): Decline =
-                apply {
-                    if (validated) {
-                      return@apply
-                    }
-
-                    reason()
-                    validated = true
+            fun validate(): Decline = apply {
+                if (validated) {
+                    return@apply
                 }
+
+                reason()
+                validated = true
+            }
 
             fun toBuilder() = Builder().from(this)
 
@@ -2390,11 +2251,10 @@ class RealTimeDecisionActionParams private constructor(
                 private var reason: JsonField<String> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-                internal fun from(decline: Decline) =
-                    apply {
-                        reason = decline.reason
-                        additionalProperties = decline.additionalProperties.toMutableMap()
-                    }
+                internal fun from(decline: Decline) = apply {
+                    reason = decline.reason
+                    additionalProperties = decline.additionalProperties.toMutableMap()
+                }
 
                 /**
                  * Why the tokenization attempt was declined. This is for logging purposes only and
@@ -2406,49 +2266,39 @@ class RealTimeDecisionActionParams private constructor(
                  * Why the tokenization attempt was declined. This is for logging purposes only and
                  * is not displayed to the end-user.
                  */
-                fun reason(reason: JsonField<String>) =
-                    apply {
-                        this.reason = reason
-                    }
+                fun reason(reason: JsonField<String>) = apply { this.reason = reason }
 
-                fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
-                    apply {
-                        this.additionalProperties.clear()
-                        putAllAdditionalProperties(additionalProperties)
-                    }
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
 
-                fun putAdditionalProperty(key: String, value: JsonValue) =
-                    apply {
-                        additionalProperties.put(key, value)
-                    }
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
 
                 fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
                     apply {
                         this.additionalProperties.putAll(additionalProperties)
                     }
 
-                fun removeAdditionalProperty(key: String) =
-                    apply {
-                        additionalProperties.remove(key)
-                    }
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
 
-                fun removeAllAdditionalProperties(keys: Set<String>) =
-                    apply {
-                        keys.forEach(::removeAdditionalProperty)
-                    }
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
 
-                fun build(): Decline =
-                    Decline(
-                      reason, additionalProperties.toImmutable()
-                    )
+                fun build(): Decline = Decline(reason, additionalProperties.toImmutable())
             }
 
             override fun equals(other: Any?): Boolean {
-              if (this === other) {
-                  return true
-              }
+                if (this === other) {
+                    return true
+                }
 
-              return /* spotless:off */ other is Decline && reason == other.reason && additionalProperties == other.additionalProperties /* spotless:on */
+                return /* spotless:off */ other is Decline && reason == other.reason && additionalProperties == other.additionalProperties /* spotless:on */
             }
 
             /* spotless:off */
@@ -2457,15 +2307,16 @@ class RealTimeDecisionActionParams private constructor(
 
             override fun hashCode(): Int = hashCode
 
-            override fun toString() = "Decline{reason=$reason, additionalProperties=$additionalProperties}"
+            override fun toString() =
+                "Decline{reason=$reason, additionalProperties=$additionalProperties}"
         }
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return /* spotless:off */ other is DigitalWalletToken && approval == other.approval && decline == other.decline && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is DigitalWalletToken && approval == other.approval && decline == other.decline && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -2474,18 +2325,20 @@ class RealTimeDecisionActionParams private constructor(
 
         override fun hashCode(): Int = hashCode
 
-        override fun toString() = "DigitalWalletToken{approval=$approval, decline=$decline, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "DigitalWalletToken{approval=$approval, decline=$decline, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
-      if (this === other) {
-          return true
-      }
+        if (this === other) {
+            return true
+        }
 
-      return /* spotless:off */ other is RealTimeDecisionActionParams && realTimeDecisionId == other.realTimeDecisionId && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return /* spotless:off */ other is RealTimeDecisionActionParams && realTimeDecisionId == other.realTimeDecisionId && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
     override fun hashCode(): Int = /* spotless:off */ Objects.hash(realTimeDecisionId, body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
-    override fun toString() = "RealTimeDecisionActionParams{realTimeDecisionId=$realTimeDecisionId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+    override fun toString() =
+        "RealTimeDecisionActionParams{realTimeDecisionId=$realTimeDecisionId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

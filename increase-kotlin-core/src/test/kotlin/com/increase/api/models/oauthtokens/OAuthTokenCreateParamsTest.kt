@@ -10,44 +10,46 @@ class OAuthTokenCreateParamsTest {
 
     @Test
     fun create() {
-      OAuthTokenCreateParams.builder()
-          .grantType(OAuthTokenCreateParams.GrantType.AUTHORIZATION_CODE)
-          .clientId("12345")
-          .clientSecret("supersecret")
-          .code("123")
-          .productionToken("x")
-          .build()
+        OAuthTokenCreateParams.builder()
+            .grantType(OAuthTokenCreateParams.GrantType.AUTHORIZATION_CODE)
+            .clientId("12345")
+            .clientSecret("supersecret")
+            .code("123")
+            .productionToken("x")
+            .build()
     }
 
     @Test
     fun body() {
-      val params = OAuthTokenCreateParams.builder()
-          .grantType(OAuthTokenCreateParams.GrantType.AUTHORIZATION_CODE)
-          .clientId("12345")
-          .clientSecret("supersecret")
-          .code("123")
-          .productionToken("x")
-          .build()
+        val params =
+            OAuthTokenCreateParams.builder()
+                .grantType(OAuthTokenCreateParams.GrantType.AUTHORIZATION_CODE)
+                .clientId("12345")
+                .clientSecret("supersecret")
+                .code("123")
+                .productionToken("x")
+                .build()
 
-      val body = params._body()
+        val body = params._body()
 
-      assertNotNull(body)
-      assertThat(body.grantType()).isEqualTo(OAuthTokenCreateParams.GrantType.AUTHORIZATION_CODE)
-      assertThat(body.clientId()).isEqualTo("12345")
-      assertThat(body.clientSecret()).isEqualTo("supersecret")
-      assertThat(body.code()).isEqualTo("123")
-      assertThat(body.productionToken()).isEqualTo("x")
+        assertNotNull(body)
+        assertThat(body.grantType()).isEqualTo(OAuthTokenCreateParams.GrantType.AUTHORIZATION_CODE)
+        assertThat(body.clientId()).isEqualTo("12345")
+        assertThat(body.clientSecret()).isEqualTo("supersecret")
+        assertThat(body.code()).isEqualTo("123")
+        assertThat(body.productionToken()).isEqualTo("x")
     }
 
     @Test
     fun bodyWithoutOptionalFields() {
-      val params = OAuthTokenCreateParams.builder()
-          .grantType(OAuthTokenCreateParams.GrantType.AUTHORIZATION_CODE)
-          .build()
+        val params =
+            OAuthTokenCreateParams.builder()
+                .grantType(OAuthTokenCreateParams.GrantType.AUTHORIZATION_CODE)
+                .build()
 
-      val body = params._body()
+        val body = params._body()
 
-      assertNotNull(body)
-      assertThat(body.grantType()).isEqualTo(OAuthTokenCreateParams.GrantType.AUTHORIZATION_CODE)
+        assertNotNull(body)
+        assertThat(body.grantType()).isEqualTo(OAuthTokenCreateParams.GrantType.AUTHORIZATION_CODE)
     }
 }

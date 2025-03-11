@@ -18,146 +18,164 @@ import com.increase.api.errors.IncreaseError
 import com.increase.api.models.intrafiexclusions.IntrafiExclusion
 import com.increase.api.models.intrafiexclusions.IntrafiExclusionArchiveParams
 import com.increase.api.models.intrafiexclusions.IntrafiExclusionCreateParams
-import com.increase.api.models.intrafiexclusions.IntrafiExclusionListPage
 import com.increase.api.models.intrafiexclusions.IntrafiExclusionListPageAsync
 import com.increase.api.models.intrafiexclusions.IntrafiExclusionListParams
 import com.increase.api.models.intrafiexclusions.IntrafiExclusionRetrieveParams
 
-class IntrafiExclusionServiceAsyncImpl internal constructor(
-    private val clientOptions: ClientOptions,
+class IntrafiExclusionServiceAsyncImpl
+internal constructor(private val clientOptions: ClientOptions) : IntrafiExclusionServiceAsync {
 
-) : IntrafiExclusionServiceAsync {
-
-    private val withRawResponse: IntrafiExclusionServiceAsync.WithRawResponse by lazy { WithRawResponseImpl(clientOptions) }
+    private val withRawResponse: IntrafiExclusionServiceAsync.WithRawResponse by lazy {
+        WithRawResponseImpl(clientOptions)
+    }
 
     override fun withRawResponse(): IntrafiExclusionServiceAsync.WithRawResponse = withRawResponse
 
-    override suspend fun create(params: IntrafiExclusionCreateParams, requestOptions: RequestOptions): IntrafiExclusion =
+    override suspend fun create(
+        params: IntrafiExclusionCreateParams,
+        requestOptions: RequestOptions,
+    ): IntrafiExclusion =
         // post /intrafi_exclusions
         withRawResponse().create(params, requestOptions).parse()
 
-    override suspend fun retrieve(params: IntrafiExclusionRetrieveParams, requestOptions: RequestOptions): IntrafiExclusion =
+    override suspend fun retrieve(
+        params: IntrafiExclusionRetrieveParams,
+        requestOptions: RequestOptions,
+    ): IntrafiExclusion =
         // get /intrafi_exclusions/{intrafi_exclusion_id}
         withRawResponse().retrieve(params, requestOptions).parse()
 
-    override suspend fun list(params: IntrafiExclusionListParams, requestOptions: RequestOptions): IntrafiExclusionListPageAsync =
+    override suspend fun list(
+        params: IntrafiExclusionListParams,
+        requestOptions: RequestOptions,
+    ): IntrafiExclusionListPageAsync =
         // get /intrafi_exclusions
         withRawResponse().list(params, requestOptions).parse()
 
-    override suspend fun archive(params: IntrafiExclusionArchiveParams, requestOptions: RequestOptions): IntrafiExclusion =
+    override suspend fun archive(
+        params: IntrafiExclusionArchiveParams,
+        requestOptions: RequestOptions,
+    ): IntrafiExclusion =
         // post /intrafi_exclusions/{intrafi_exclusion_id}/archive
         withRawResponse().archive(params, requestOptions).parse()
 
-    class WithRawResponseImpl internal constructor(
-        private val clientOptions: ClientOptions,
-
-    ) : IntrafiExclusionServiceAsync.WithRawResponse {
+    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
+        IntrafiExclusionServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
-        private val createHandler: Handler<IntrafiExclusion> = jsonHandler<IntrafiExclusion>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+        private val createHandler: Handler<IntrafiExclusion> =
+            jsonHandler<IntrafiExclusion>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
-        override suspend fun create(params: IntrafiExclusionCreateParams, requestOptions: RequestOptions): HttpResponseFor<IntrafiExclusion> {
-          val request = HttpRequest.builder()
-            .method(HttpMethod.POST)
-            .addPathSegments("intrafi_exclusions")
-            .body(json(clientOptions.jsonMapper, params._body()))
-            .build()
-            .prepareAsync(clientOptions, params)
-          val requestOptions = requestOptions
-              .applyDefaults(RequestOptions.from(clientOptions))
-          val response = clientOptions.httpClient.executeAsync(
-            request, requestOptions
-          )
-          return response.parseable {
-              response.use {
-                  createHandler.handle(it)
-              }
-              .also {
-                  if (requestOptions.responseValidation!!) {
-                    it.validate()
-                  }
-              }
-          }
+        override suspend fun create(
+            params: IntrafiExclusionCreateParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<IntrafiExclusion> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .addPathSegments("intrafi_exclusions")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+            return response.parseable {
+                response
+                    .use { createHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
         }
 
-        private val retrieveHandler: Handler<IntrafiExclusion> = jsonHandler<IntrafiExclusion>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+        private val retrieveHandler: Handler<IntrafiExclusion> =
+            jsonHandler<IntrafiExclusion>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
-        override suspend fun retrieve(params: IntrafiExclusionRetrieveParams, requestOptions: RequestOptions): HttpResponseFor<IntrafiExclusion> {
-          val request = HttpRequest.builder()
-            .method(HttpMethod.GET)
-            .addPathSegments("intrafi_exclusions", params.getPathParam(0))
-            .build()
-            .prepareAsync(clientOptions, params)
-          val requestOptions = requestOptions
-              .applyDefaults(RequestOptions.from(clientOptions))
-          val response = clientOptions.httpClient.executeAsync(
-            request, requestOptions
-          )
-          return response.parseable {
-              response.use {
-                  retrieveHandler.handle(it)
-              }
-              .also {
-                  if (requestOptions.responseValidation!!) {
-                    it.validate()
-                  }
-              }
-          }
+        override suspend fun retrieve(
+            params: IntrafiExclusionRetrieveParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<IntrafiExclusion> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .addPathSegments("intrafi_exclusions", params.getPathParam(0))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+            return response.parseable {
+                response
+                    .use { retrieveHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
         }
 
-        private val listHandler: Handler<IntrafiExclusionListPageAsync.Response> = jsonHandler<IntrafiExclusionListPageAsync.Response>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+        private val listHandler: Handler<IntrafiExclusionListPageAsync.Response> =
+            jsonHandler<IntrafiExclusionListPageAsync.Response>(clientOptions.jsonMapper)
+                .withErrorHandler(errorHandler)
 
-        override suspend fun list(params: IntrafiExclusionListParams, requestOptions: RequestOptions): HttpResponseFor<IntrafiExclusionListPageAsync> {
-          val request = HttpRequest.builder()
-            .method(HttpMethod.GET)
-            .addPathSegments("intrafi_exclusions")
-            .build()
-            .prepareAsync(clientOptions, params)
-          val requestOptions = requestOptions
-              .applyDefaults(RequestOptions.from(clientOptions))
-          val response = clientOptions.httpClient.executeAsync(
-            request, requestOptions
-          )
-          return response.parseable {
-              response.use {
-                  listHandler.handle(it)
-              }
-              .also {
-                  if (requestOptions.responseValidation!!) {
-                    it.validate()
-                  }
-              }
-              .let {
-                  IntrafiExclusionListPageAsync.of(IntrafiExclusionServiceAsyncImpl(clientOptions), params, it)
-              }
-          }
+        override suspend fun list(
+            params: IntrafiExclusionListParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<IntrafiExclusionListPageAsync> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .addPathSegments("intrafi_exclusions")
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+            return response.parseable {
+                response
+                    .use { listHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+                    .let {
+                        IntrafiExclusionListPageAsync.of(
+                            IntrafiExclusionServiceAsyncImpl(clientOptions),
+                            params,
+                            it,
+                        )
+                    }
+            }
         }
 
-        private val archiveHandler: Handler<IntrafiExclusion> = jsonHandler<IntrafiExclusion>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+        private val archiveHandler: Handler<IntrafiExclusion> =
+            jsonHandler<IntrafiExclusion>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
-        override suspend fun archive(params: IntrafiExclusionArchiveParams, requestOptions: RequestOptions): HttpResponseFor<IntrafiExclusion> {
-          val request = HttpRequest.builder()
-            .method(HttpMethod.POST)
-            .addPathSegments("intrafi_exclusions", params.getPathParam(0), "archive")
-            .apply { params._body()?.let{ body(json(clientOptions.jsonMapper, it)) } }
-            .build()
-            .prepareAsync(clientOptions, params)
-          val requestOptions = requestOptions
-              .applyDefaults(RequestOptions.from(clientOptions))
-          val response = clientOptions.httpClient.executeAsync(
-            request, requestOptions
-          )
-          return response.parseable {
-              response.use {
-                  archiveHandler.handle(it)
-              }
-              .also {
-                  if (requestOptions.responseValidation!!) {
-                    it.validate()
-                  }
-              }
-          }
+        override suspend fun archive(
+            params: IntrafiExclusionArchiveParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<IntrafiExclusion> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .addPathSegments("intrafi_exclusions", params.getPathParam(0), "archive")
+                    .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+            return response.parseable {
+                response
+                    .use { archiveHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
         }
     }
 }

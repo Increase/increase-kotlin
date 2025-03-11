@@ -11,29 +11,30 @@ import com.increase.api.models.simulations.inboundwiredrawdownrequests.InboundWi
 interface InboundWireDrawdownRequestServiceAsync {
 
     /**
-     * Returns a view of this service that provides access to raw HTTP responses for
-     * each method.
+     * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
 
-    /**
-     * Simulates receiving an
-     * [Inbound Wire Drawdown Request](#inbound-wire-drawdown-requests).
-     */
-    suspend fun create(params: InboundWireDrawdownRequestCreateParams, requestOptions: RequestOptions = RequestOptions.none()): InboundWireDrawdownRequest
+    /** Simulates receiving an [Inbound Wire Drawdown Request](#inbound-wire-drawdown-requests). */
+    suspend fun create(
+        params: InboundWireDrawdownRequestCreateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): InboundWireDrawdownRequest
 
     /**
-     * A view of [InboundWireDrawdownRequestServiceAsync] that provides access to raw
-     * HTTP responses for each method.
+     * A view of [InboundWireDrawdownRequestServiceAsync] that provides access to raw HTTP responses
+     * for each method.
      */
     interface WithRawResponse {
 
         /**
-         * Returns a raw HTTP response for
-         * `post /simulations/inbound_wire_drawdown_requests`, but is otherwise the same as
-         * [InboundWireDrawdownRequestServiceAsync.create].
+         * Returns a raw HTTP response for `post /simulations/inbound_wire_drawdown_requests`, but
+         * is otherwise the same as [InboundWireDrawdownRequestServiceAsync.create].
          */
         @MustBeClosed
-        suspend fun create(params: InboundWireDrawdownRequestCreateParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<InboundWireDrawdownRequest>
+        suspend fun create(
+            params: InboundWireDrawdownRequestCreateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<InboundWireDrawdownRequest>
     }
 }

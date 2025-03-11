@@ -20,12 +20,12 @@ import com.increase.api.core.toImmutable
 import java.util.Objects
 
 /** Clones a Digital Card Profile */
-class DigitalCardProfileCloneParams private constructor(
+class DigitalCardProfileCloneParams
+private constructor(
     private val digitalCardProfileId: String,
     private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-
 ) : Params {
 
     /** The identifier of the Digital Card Profile to clone. */
@@ -98,32 +98,53 @@ class DigitalCardProfileCloneParams private constructor(
     override fun _queryParams(): QueryParams = additionalQueryParams
 
     fun getPathParam(index: Int): String {
-      return when (index) {
-          0 -> digitalCardProfileId
-          else -> ""
-      }
+        return when (index) {
+            0 -> digitalCardProfileId
+            else -> ""
+        }
     }
 
     @NoAutoDetect
-    class Body @JsonCreator private constructor(
-        @JsonProperty("app_icon_file_id") @ExcludeMissing private val appIconFileId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("background_image_file_id") @ExcludeMissing private val backgroundImageFileId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("card_description") @ExcludeMissing private val cardDescription: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("contact_email") @ExcludeMissing private val contactEmail: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("contact_phone") @ExcludeMissing private val contactPhone: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("contact_website") @ExcludeMissing private val contactWebsite: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("description") @ExcludeMissing private val description: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("issuer_name") @ExcludeMissing private val issuerName: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("text_color") @ExcludeMissing private val textColor: JsonField<TextColor> = JsonMissing.of(),
-        @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
-
+    class Body
+    @JsonCreator
+    private constructor(
+        @JsonProperty("app_icon_file_id")
+        @ExcludeMissing
+        private val appIconFileId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("background_image_file_id")
+        @ExcludeMissing
+        private val backgroundImageFileId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("card_description")
+        @ExcludeMissing
+        private val cardDescription: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("contact_email")
+        @ExcludeMissing
+        private val contactEmail: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("contact_phone")
+        @ExcludeMissing
+        private val contactPhone: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("contact_website")
+        @ExcludeMissing
+        private val contactWebsite: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("description")
+        @ExcludeMissing
+        private val description: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("issuer_name")
+        @ExcludeMissing
+        private val issuerName: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("text_color")
+        @ExcludeMissing
+        private val textColor: JsonField<TextColor> = JsonMissing.of(),
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The identifier of the File containing the card's icon image. */
         fun appIconFileId(): String? = appIconFileId.getNullable("app_icon_file_id")
 
         /** The identifier of the File containing the card's front image. */
-        fun backgroundImageFileId(): String? = backgroundImageFileId.getNullable("background_image_file_id")
+        fun backgroundImageFileId(): String? =
+            backgroundImageFileId.getNullable("background_image_file_id")
 
         /** A user-facing description for the card itself. */
         fun cardDescription(): String? = cardDescription.getNullable("card_description")
@@ -197,23 +218,22 @@ class DigitalCardProfileCloneParams private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): Body =
-            apply {
-                if (validated) {
-                  return@apply
-                }
-
-                appIconFileId()
-                backgroundImageFileId()
-                cardDescription()
-                contactEmail()
-                contactPhone()
-                contactWebsite()
-                description()
-                issuerName()
-                textColor()?.validate()
-                validated = true
+        fun validate(): Body = apply {
+            if (validated) {
+                return@apply
             }
+
+            appIconFileId()
+            backgroundImageFileId()
+            cardDescription()
+            contactEmail()
+            contactPhone()
+            contactWebsite()
+            description()
+            issuerName()
+            textColor()?.validate()
+            validated = true
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -237,148 +257,130 @@ class DigitalCardProfileCloneParams private constructor(
             private var textColor: JsonField<TextColor> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(body: Body) =
-                apply {
-                    appIconFileId = body.appIconFileId
-                    backgroundImageFileId = body.backgroundImageFileId
-                    cardDescription = body.cardDescription
-                    contactEmail = body.contactEmail
-                    contactPhone = body.contactPhone
-                    contactWebsite = body.contactWebsite
-                    description = body.description
-                    issuerName = body.issuerName
-                    textColor = body.textColor
-                    additionalProperties = body.additionalProperties.toMutableMap()
-                }
+            internal fun from(body: Body) = apply {
+                appIconFileId = body.appIconFileId
+                backgroundImageFileId = body.backgroundImageFileId
+                cardDescription = body.cardDescription
+                contactEmail = body.contactEmail
+                contactPhone = body.contactPhone
+                contactWebsite = body.contactWebsite
+                description = body.description
+                issuerName = body.issuerName
+                textColor = body.textColor
+                additionalProperties = body.additionalProperties.toMutableMap()
+            }
 
             /** The identifier of the File containing the card's icon image. */
             fun appIconFileId(appIconFileId: String) = appIconFileId(JsonField.of(appIconFileId))
 
             /** The identifier of the File containing the card's icon image. */
-            fun appIconFileId(appIconFileId: JsonField<String>) =
-                apply {
-                    this.appIconFileId = appIconFileId
-                }
+            fun appIconFileId(appIconFileId: JsonField<String>) = apply {
+                this.appIconFileId = appIconFileId
+            }
 
             /** The identifier of the File containing the card's front image. */
-            fun backgroundImageFileId(backgroundImageFileId: String) = backgroundImageFileId(JsonField.of(backgroundImageFileId))
+            fun backgroundImageFileId(backgroundImageFileId: String) =
+                backgroundImageFileId(JsonField.of(backgroundImageFileId))
 
             /** The identifier of the File containing the card's front image. */
-            fun backgroundImageFileId(backgroundImageFileId: JsonField<String>) =
-                apply {
-                    this.backgroundImageFileId = backgroundImageFileId
-                }
+            fun backgroundImageFileId(backgroundImageFileId: JsonField<String>) = apply {
+                this.backgroundImageFileId = backgroundImageFileId
+            }
 
             /** A user-facing description for the card itself. */
-            fun cardDescription(cardDescription: String) = cardDescription(JsonField.of(cardDescription))
+            fun cardDescription(cardDescription: String) =
+                cardDescription(JsonField.of(cardDescription))
 
             /** A user-facing description for the card itself. */
-            fun cardDescription(cardDescription: JsonField<String>) =
-                apply {
-                    this.cardDescription = cardDescription
-                }
+            fun cardDescription(cardDescription: JsonField<String>) = apply {
+                this.cardDescription = cardDescription
+            }
 
             /** An email address the user can contact to receive support for their card. */
             fun contactEmail(contactEmail: String) = contactEmail(JsonField.of(contactEmail))
 
             /** An email address the user can contact to receive support for their card. */
-            fun contactEmail(contactEmail: JsonField<String>) =
-                apply {
-                    this.contactEmail = contactEmail
-                }
+            fun contactEmail(contactEmail: JsonField<String>) = apply {
+                this.contactEmail = contactEmail
+            }
 
             /** A phone number the user can contact to receive support for their card. */
             fun contactPhone(contactPhone: String) = contactPhone(JsonField.of(contactPhone))
 
             /** A phone number the user can contact to receive support for their card. */
-            fun contactPhone(contactPhone: JsonField<String>) =
-                apply {
-                    this.contactPhone = contactPhone
-                }
+            fun contactPhone(contactPhone: JsonField<String>) = apply {
+                this.contactPhone = contactPhone
+            }
 
             /** A website the user can visit to view and receive support for their card. */
-            fun contactWebsite(contactWebsite: String) = contactWebsite(JsonField.of(contactWebsite))
+            fun contactWebsite(contactWebsite: String) =
+                contactWebsite(JsonField.of(contactWebsite))
 
             /** A website the user can visit to view and receive support for their card. */
-            fun contactWebsite(contactWebsite: JsonField<String>) =
-                apply {
-                    this.contactWebsite = contactWebsite
-                }
+            fun contactWebsite(contactWebsite: JsonField<String>) = apply {
+                this.contactWebsite = contactWebsite
+            }
 
             /** A description you can use to identify the Card Profile. */
             fun description(description: String) = description(JsonField.of(description))
 
             /** A description you can use to identify the Card Profile. */
-            fun description(description: JsonField<String>) =
-                apply {
-                    this.description = description
-                }
+            fun description(description: JsonField<String>) = apply {
+                this.description = description
+            }
 
             /** A user-facing description for whoever is issuing the card. */
             fun issuerName(issuerName: String) = issuerName(JsonField.of(issuerName))
 
             /** A user-facing description for whoever is issuing the card. */
-            fun issuerName(issuerName: JsonField<String>) =
-                apply {
-                    this.issuerName = issuerName
-                }
+            fun issuerName(issuerName: JsonField<String>) = apply { this.issuerName = issuerName }
 
             /** The Card's text color, specified as an RGB triple. The default is white. */
             fun textColor(textColor: TextColor) = textColor(JsonField.of(textColor))
 
             /** The Card's text color, specified as an RGB triple. The default is white. */
-            fun textColor(textColor: JsonField<TextColor>) =
-                apply {
-                    this.textColor = textColor
-                }
+            fun textColor(textColor: JsonField<TextColor>) = apply { this.textColor = textColor }
 
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
-                apply {
-                    this.additionalProperties.clear()
-                    putAllAdditionalProperties(additionalProperties)
-                }
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
 
-            fun putAdditionalProperty(key: String, value: JsonValue) =
-                apply {
-                    additionalProperties.put(key, value)
-                }
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
 
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                apply {
-                    this.additionalProperties.putAll(additionalProperties)
-                }
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
 
-            fun removeAdditionalProperty(key: String) =
-                apply {
-                    additionalProperties.remove(key)
-                }
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
 
-            fun removeAllAdditionalProperties(keys: Set<String>) =
-                apply {
-                    keys.forEach(::removeAdditionalProperty)
-                }
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
 
             fun build(): Body =
                 Body(
-                  appIconFileId,
-                  backgroundImageFileId,
-                  cardDescription,
-                  contactEmail,
-                  contactPhone,
-                  contactWebsite,
-                  description,
-                  issuerName,
-                  textColor,
-                  additionalProperties.toImmutable(),
+                    appIconFileId,
+                    backgroundImageFileId,
+                    cardDescription,
+                    contactEmail,
+                    contactPhone,
+                    contactWebsite,
+                    description,
+                    issuerName,
+                    textColor,
+                    additionalProperties.toImmutable(),
                 )
         }
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return /* spotless:off */ other is Body && appIconFileId == other.appIconFileId && backgroundImageFileId == other.backgroundImageFileId && cardDescription == other.cardDescription && contactEmail == other.contactEmail && contactPhone == other.contactPhone && contactWebsite == other.contactWebsite && description == other.description && issuerName == other.issuerName && textColor == other.textColor && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Body && appIconFileId == other.appIconFileId && backgroundImageFileId == other.backgroundImageFileId && cardDescription == other.cardDescription && contactEmail == other.contactEmail && contactPhone == other.contactPhone && contactWebsite == other.contactWebsite && description == other.description && issuerName == other.issuerName && textColor == other.textColor && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -387,7 +389,8 @@ class DigitalCardProfileCloneParams private constructor(
 
         override fun hashCode(): Int = hashCode
 
-        override fun toString() = "Body{appIconFileId=$appIconFileId, backgroundImageFileId=$backgroundImageFileId, cardDescription=$cardDescription, contactEmail=$contactEmail, contactPhone=$contactPhone, contactWebsite=$contactWebsite, description=$description, issuerName=$issuerName, textColor=$textColor, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "Body{appIconFileId=$appIconFileId, backgroundImageFileId=$backgroundImageFileId, cardDescription=$cardDescription, contactEmail=$contactEmail, contactPhone=$contactPhone, contactWebsite=$contactWebsite, description=$description, issuerName=$issuerName, textColor=$textColor, additionalProperties=$additionalProperties}"
     }
 
     fun toBuilder() = Builder().from(this)
@@ -399,7 +402,6 @@ class DigitalCardProfileCloneParams private constructor(
          * [DigitalCardProfileCloneParams].
          *
          * The following fields are required:
-         *
          * ```kotlin
          * .digitalCardProfileId()
          * ```
@@ -416,298 +418,226 @@ class DigitalCardProfileCloneParams private constructor(
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
-        internal fun from(digitalCardProfileCloneParams: DigitalCardProfileCloneParams) =
-            apply {
-                digitalCardProfileId = digitalCardProfileCloneParams.digitalCardProfileId
-                body = digitalCardProfileCloneParams.body.toBuilder()
-                additionalHeaders = digitalCardProfileCloneParams.additionalHeaders.toBuilder()
-                additionalQueryParams = digitalCardProfileCloneParams.additionalQueryParams.toBuilder()
-            }
+        internal fun from(digitalCardProfileCloneParams: DigitalCardProfileCloneParams) = apply {
+            digitalCardProfileId = digitalCardProfileCloneParams.digitalCardProfileId
+            body = digitalCardProfileCloneParams.body.toBuilder()
+            additionalHeaders = digitalCardProfileCloneParams.additionalHeaders.toBuilder()
+            additionalQueryParams = digitalCardProfileCloneParams.additionalQueryParams.toBuilder()
+        }
 
         /** The identifier of the Digital Card Profile to clone. */
-        fun digitalCardProfileId(digitalCardProfileId: String) =
-            apply {
-                this.digitalCardProfileId = digitalCardProfileId
-            }
+        fun digitalCardProfileId(digitalCardProfileId: String) = apply {
+            this.digitalCardProfileId = digitalCardProfileId
+        }
 
         /** The identifier of the File containing the card's icon image. */
-        fun appIconFileId(appIconFileId: String) =
-            apply {
-                body.appIconFileId(appIconFileId)
-            }
+        fun appIconFileId(appIconFileId: String) = apply { body.appIconFileId(appIconFileId) }
 
         /** The identifier of the File containing the card's icon image. */
-        fun appIconFileId(appIconFileId: JsonField<String>) =
-            apply {
-                body.appIconFileId(appIconFileId)
-            }
+        fun appIconFileId(appIconFileId: JsonField<String>) = apply {
+            body.appIconFileId(appIconFileId)
+        }
 
         /** The identifier of the File containing the card's front image. */
-        fun backgroundImageFileId(backgroundImageFileId: String) =
-            apply {
-                body.backgroundImageFileId(backgroundImageFileId)
-            }
+        fun backgroundImageFileId(backgroundImageFileId: String) = apply {
+            body.backgroundImageFileId(backgroundImageFileId)
+        }
 
         /** The identifier of the File containing the card's front image. */
-        fun backgroundImageFileId(backgroundImageFileId: JsonField<String>) =
-            apply {
-                body.backgroundImageFileId(backgroundImageFileId)
-            }
+        fun backgroundImageFileId(backgroundImageFileId: JsonField<String>) = apply {
+            body.backgroundImageFileId(backgroundImageFileId)
+        }
 
         /** A user-facing description for the card itself. */
-        fun cardDescription(cardDescription: String) =
-            apply {
-                body.cardDescription(cardDescription)
-            }
+        fun cardDescription(cardDescription: String) = apply {
+            body.cardDescription(cardDescription)
+        }
 
         /** A user-facing description for the card itself. */
-        fun cardDescription(cardDescription: JsonField<String>) =
-            apply {
-                body.cardDescription(cardDescription)
-            }
+        fun cardDescription(cardDescription: JsonField<String>) = apply {
+            body.cardDescription(cardDescription)
+        }
 
         /** An email address the user can contact to receive support for their card. */
-        fun contactEmail(contactEmail: String) =
-            apply {
-                body.contactEmail(contactEmail)
-            }
+        fun contactEmail(contactEmail: String) = apply { body.contactEmail(contactEmail) }
 
         /** An email address the user can contact to receive support for their card. */
-        fun contactEmail(contactEmail: JsonField<String>) =
-            apply {
-                body.contactEmail(contactEmail)
-            }
+        fun contactEmail(contactEmail: JsonField<String>) = apply {
+            body.contactEmail(contactEmail)
+        }
 
         /** A phone number the user can contact to receive support for their card. */
-        fun contactPhone(contactPhone: String) =
-            apply {
-                body.contactPhone(contactPhone)
-            }
+        fun contactPhone(contactPhone: String) = apply { body.contactPhone(contactPhone) }
 
         /** A phone number the user can contact to receive support for their card. */
-        fun contactPhone(contactPhone: JsonField<String>) =
-            apply {
-                body.contactPhone(contactPhone)
-            }
+        fun contactPhone(contactPhone: JsonField<String>) = apply {
+            body.contactPhone(contactPhone)
+        }
 
         /** A website the user can visit to view and receive support for their card. */
-        fun contactWebsite(contactWebsite: String) =
-            apply {
-                body.contactWebsite(contactWebsite)
-            }
+        fun contactWebsite(contactWebsite: String) = apply { body.contactWebsite(contactWebsite) }
 
         /** A website the user can visit to view and receive support for their card. */
-        fun contactWebsite(contactWebsite: JsonField<String>) =
-            apply {
-                body.contactWebsite(contactWebsite)
-            }
+        fun contactWebsite(contactWebsite: JsonField<String>) = apply {
+            body.contactWebsite(contactWebsite)
+        }
 
         /** A description you can use to identify the Card Profile. */
-        fun description(description: String) =
-            apply {
-                body.description(description)
-            }
+        fun description(description: String) = apply { body.description(description) }
 
         /** A description you can use to identify the Card Profile. */
-        fun description(description: JsonField<String>) =
-            apply {
-                body.description(description)
-            }
+        fun description(description: JsonField<String>) = apply { body.description(description) }
 
         /** A user-facing description for whoever is issuing the card. */
-        fun issuerName(issuerName: String) =
-            apply {
-                body.issuerName(issuerName)
-            }
+        fun issuerName(issuerName: String) = apply { body.issuerName(issuerName) }
 
         /** A user-facing description for whoever is issuing the card. */
-        fun issuerName(issuerName: JsonField<String>) =
-            apply {
-                body.issuerName(issuerName)
-            }
+        fun issuerName(issuerName: JsonField<String>) = apply { body.issuerName(issuerName) }
 
         /** The Card's text color, specified as an RGB triple. The default is white. */
-        fun textColor(textColor: TextColor) =
-            apply {
-                body.textColor(textColor)
-            }
+        fun textColor(textColor: TextColor) = apply { body.textColor(textColor) }
 
         /** The Card's text color, specified as an RGB triple. The default is white. */
-        fun textColor(textColor: JsonField<TextColor>) =
-            apply {
-                body.textColor(textColor)
-            }
+        fun textColor(textColor: JsonField<TextColor>) = apply { body.textColor(textColor) }
 
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                body.additionalProperties(additionalBodyProperties)
-            }
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
 
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) =
-            apply {
-                body.putAdditionalProperty(
-                  key, value
-                )
-            }
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
 
         fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
             apply {
                 body.putAllAdditionalProperties(additionalBodyProperties)
             }
 
-        fun removeAdditionalBodyProperty(key: String) =
-            apply {
-                body.removeAdditionalProperty(key)
-            }
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
 
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) =
-            apply {
-                body.removeAllAdditionalProperties(keys)
-            }
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
+        }
 
-        fun additionalHeaders(additionalHeaders: Headers) =
-            apply {
-                this.additionalHeaders.clear()
-                putAllAdditionalHeaders(additionalHeaders)
-            }
+        fun additionalHeaders(additionalHeaders: Headers) = apply {
+            this.additionalHeaders.clear()
+            putAllAdditionalHeaders(additionalHeaders)
+        }
 
-        fun additionalHeaders(additionalHeaders: Map<String, Iterable<String>>) =
-            apply {
-                this.additionalHeaders.clear()
-                putAllAdditionalHeaders(additionalHeaders)
-            }
+        fun additionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
+            this.additionalHeaders.clear()
+            putAllAdditionalHeaders(additionalHeaders)
+        }
 
-        fun putAdditionalHeader(name: String, value: String) =
-            apply {
-                additionalHeaders.put(name, value)
-            }
+        fun putAdditionalHeader(name: String, value: String) = apply {
+            additionalHeaders.put(name, value)
+        }
 
-        fun putAdditionalHeaders(name: String, values: Iterable<String>) =
-            apply {
-                additionalHeaders.put(name, values)
-            }
+        fun putAdditionalHeaders(name: String, values: Iterable<String>) = apply {
+            additionalHeaders.put(name, values)
+        }
 
-        fun putAllAdditionalHeaders(additionalHeaders: Headers) =
-            apply {
-                this.additionalHeaders.putAll(additionalHeaders)
-            }
+        fun putAllAdditionalHeaders(additionalHeaders: Headers) = apply {
+            this.additionalHeaders.putAll(additionalHeaders)
+        }
 
-        fun putAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) =
-            apply {
-                this.additionalHeaders.putAll(additionalHeaders)
-            }
+        fun putAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
+            this.additionalHeaders.putAll(additionalHeaders)
+        }
 
-        fun replaceAdditionalHeaders(name: String, value: String) =
-            apply {
-                additionalHeaders.replace(name, value)
-            }
+        fun replaceAdditionalHeaders(name: String, value: String) = apply {
+            additionalHeaders.replace(name, value)
+        }
 
-        fun replaceAdditionalHeaders(name: String, values: Iterable<String>) =
-            apply {
-                additionalHeaders.replace(name, values)
-            }
+        fun replaceAdditionalHeaders(name: String, values: Iterable<String>) = apply {
+            additionalHeaders.replace(name, values)
+        }
 
-        fun replaceAllAdditionalHeaders(additionalHeaders: Headers) =
-            apply {
-                this.additionalHeaders.replaceAll(additionalHeaders)
-            }
+        fun replaceAllAdditionalHeaders(additionalHeaders: Headers) = apply {
+            this.additionalHeaders.replaceAll(additionalHeaders)
+        }
 
-        fun replaceAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) =
-            apply {
-                this.additionalHeaders.replaceAll(additionalHeaders)
-            }
+        fun replaceAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
+            this.additionalHeaders.replaceAll(additionalHeaders)
+        }
 
-        fun removeAdditionalHeaders(name: String) =
-            apply {
-                additionalHeaders.remove(name)
-            }
+        fun removeAdditionalHeaders(name: String) = apply { additionalHeaders.remove(name) }
 
-        fun removeAllAdditionalHeaders(names: Set<String>) =
-            apply {
-                additionalHeaders.removeAll(names)
-            }
+        fun removeAllAdditionalHeaders(names: Set<String>) = apply {
+            additionalHeaders.removeAll(names)
+        }
 
-        fun additionalQueryParams(additionalQueryParams: QueryParams) =
-            apply {
-                this.additionalQueryParams.clear()
-                putAllAdditionalQueryParams(additionalQueryParams)
-            }
+        fun additionalQueryParams(additionalQueryParams: QueryParams) = apply {
+            this.additionalQueryParams.clear()
+            putAllAdditionalQueryParams(additionalQueryParams)
+        }
 
-        fun additionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) =
-            apply {
-                this.additionalQueryParams.clear()
-                putAllAdditionalQueryParams(additionalQueryParams)
-            }
+        fun additionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) = apply {
+            this.additionalQueryParams.clear()
+            putAllAdditionalQueryParams(additionalQueryParams)
+        }
 
-        fun putAdditionalQueryParam(key: String, value: String) =
-            apply {
-                additionalQueryParams.put(key, value)
-            }
+        fun putAdditionalQueryParam(key: String, value: String) = apply {
+            additionalQueryParams.put(key, value)
+        }
 
-        fun putAdditionalQueryParams(key: String, values: Iterable<String>) =
-            apply {
-                additionalQueryParams.put(key, values)
-            }
+        fun putAdditionalQueryParams(key: String, values: Iterable<String>) = apply {
+            additionalQueryParams.put(key, values)
+        }
 
-        fun putAllAdditionalQueryParams(additionalQueryParams: QueryParams) =
-            apply {
-                this.additionalQueryParams.putAll(additionalQueryParams)
-            }
+        fun putAllAdditionalQueryParams(additionalQueryParams: QueryParams) = apply {
+            this.additionalQueryParams.putAll(additionalQueryParams)
+        }
 
         fun putAllAdditionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) =
             apply {
                 this.additionalQueryParams.putAll(additionalQueryParams)
             }
 
-        fun replaceAdditionalQueryParams(key: String, value: String) =
-            apply {
-                additionalQueryParams.replace(key, value)
-            }
+        fun replaceAdditionalQueryParams(key: String, value: String) = apply {
+            additionalQueryParams.replace(key, value)
+        }
 
-        fun replaceAdditionalQueryParams(key: String, values: Iterable<String>) =
-            apply {
-                additionalQueryParams.replace(key, values)
-            }
+        fun replaceAdditionalQueryParams(key: String, values: Iterable<String>) = apply {
+            additionalQueryParams.replace(key, values)
+        }
 
-        fun replaceAllAdditionalQueryParams(additionalQueryParams: QueryParams) =
-            apply {
-                this.additionalQueryParams.replaceAll(additionalQueryParams)
-            }
+        fun replaceAllAdditionalQueryParams(additionalQueryParams: QueryParams) = apply {
+            this.additionalQueryParams.replaceAll(additionalQueryParams)
+        }
 
         fun replaceAllAdditionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) =
             apply {
                 this.additionalQueryParams.replaceAll(additionalQueryParams)
             }
 
-        fun removeAdditionalQueryParams(key: String) =
-            apply {
-                additionalQueryParams.remove(key)
-            }
+        fun removeAdditionalQueryParams(key: String) = apply { additionalQueryParams.remove(key) }
 
-        fun removeAllAdditionalQueryParams(keys: Set<String>) =
-            apply {
-                additionalQueryParams.removeAll(keys)
-            }
+        fun removeAllAdditionalQueryParams(keys: Set<String>) = apply {
+            additionalQueryParams.removeAll(keys)
+        }
 
         fun build(): DigitalCardProfileCloneParams =
             DigitalCardProfileCloneParams(
-              checkRequired(
-                "digitalCardProfileId", digitalCardProfileId
-              ),
-              body.build(),
-              additionalHeaders.build(),
-              additionalQueryParams.build(),
+                checkRequired("digitalCardProfileId", digitalCardProfileId),
+                body.build(),
+                additionalHeaders.build(),
+                additionalQueryParams.build(),
             )
     }
 
     /** The Card's text color, specified as an RGB triple. The default is white. */
     @NoAutoDetect
-    class TextColor @JsonCreator private constructor(
+    class TextColor
+    @JsonCreator
+    private constructor(
         @JsonProperty("blue") @ExcludeMissing private val blue: JsonField<Long> = JsonMissing.of(),
-        @JsonProperty("green") @ExcludeMissing private val green: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("green")
+        @ExcludeMissing
+        private val green: JsonField<Long> = JsonMissing.of(),
         @JsonProperty("red") @ExcludeMissing private val red: JsonField<Long> = JsonMissing.of(),
-        @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
-
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The value of the blue channel in the RGB color. */
@@ -720,19 +650,13 @@ class DigitalCardProfileCloneParams private constructor(
         fun red(): Long = red.getRequired("red")
 
         /** The value of the blue channel in the RGB color. */
-        @JsonProperty("blue")
-        @ExcludeMissing
-        fun _blue(): JsonField<Long> = blue
+        @JsonProperty("blue") @ExcludeMissing fun _blue(): JsonField<Long> = blue
 
         /** The value of the green channel in the RGB color. */
-        @JsonProperty("green")
-        @ExcludeMissing
-        fun _green(): JsonField<Long> = green
+        @JsonProperty("green") @ExcludeMissing fun _green(): JsonField<Long> = green
 
         /** The value of the red channel in the RGB color. */
-        @JsonProperty("red")
-        @ExcludeMissing
-        fun _red(): JsonField<Long> = red
+        @JsonProperty("red") @ExcludeMissing fun _red(): JsonField<Long> = red
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -740,17 +664,16 @@ class DigitalCardProfileCloneParams private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): TextColor =
-            apply {
-                if (validated) {
-                  return@apply
-                }
-
-                blue()
-                green()
-                red()
-                validated = true
+        fun validate(): TextColor = apply {
+            if (validated) {
+                return@apply
             }
+
+            blue()
+            green()
+            red()
+            validated = true
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -760,7 +683,6 @@ class DigitalCardProfileCloneParams private constructor(
              * Returns a mutable builder for constructing an instance of [TextColor].
              *
              * The following fields are required:
-             *
              * ```kotlin
              * .blue()
              * .green()
@@ -778,88 +700,65 @@ class DigitalCardProfileCloneParams private constructor(
             private var red: JsonField<Long>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(textColor: TextColor) =
-                apply {
-                    blue = textColor.blue
-                    green = textColor.green
-                    red = textColor.red
-                    additionalProperties = textColor.additionalProperties.toMutableMap()
-                }
+            internal fun from(textColor: TextColor) = apply {
+                blue = textColor.blue
+                green = textColor.green
+                red = textColor.red
+                additionalProperties = textColor.additionalProperties.toMutableMap()
+            }
 
             /** The value of the blue channel in the RGB color. */
             fun blue(blue: Long) = blue(JsonField.of(blue))
 
             /** The value of the blue channel in the RGB color. */
-            fun blue(blue: JsonField<Long>) =
-                apply {
-                    this.blue = blue
-                }
+            fun blue(blue: JsonField<Long>) = apply { this.blue = blue }
 
             /** The value of the green channel in the RGB color. */
             fun green(green: Long) = green(JsonField.of(green))
 
             /** The value of the green channel in the RGB color. */
-            fun green(green: JsonField<Long>) =
-                apply {
-                    this.green = green
-                }
+            fun green(green: JsonField<Long>) = apply { this.green = green }
 
             /** The value of the red channel in the RGB color. */
             fun red(red: Long) = red(JsonField.of(red))
 
             /** The value of the red channel in the RGB color. */
-            fun red(red: JsonField<Long>) =
-                apply {
-                    this.red = red
-                }
+            fun red(red: JsonField<Long>) = apply { this.red = red }
 
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
-                apply {
-                    this.additionalProperties.clear()
-                    putAllAdditionalProperties(additionalProperties)
-                }
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
 
-            fun putAdditionalProperty(key: String, value: JsonValue) =
-                apply {
-                    additionalProperties.put(key, value)
-                }
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
 
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                apply {
-                    this.additionalProperties.putAll(additionalProperties)
-                }
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
 
-            fun removeAdditionalProperty(key: String) =
-                apply {
-                    additionalProperties.remove(key)
-                }
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
 
-            fun removeAllAdditionalProperties(keys: Set<String>) =
-                apply {
-                    keys.forEach(::removeAdditionalProperty)
-                }
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
 
             fun build(): TextColor =
                 TextColor(
-                  checkRequired(
-                    "blue", blue
-                  ),
-                  checkRequired(
-                    "green", green
-                  ),
-                  checkRequired(
-                    "red", red
-                  ),
-                  additionalProperties.toImmutable(),
+                    checkRequired("blue", blue),
+                    checkRequired("green", green),
+                    checkRequired("red", red),
+                    additionalProperties.toImmutable(),
                 )
         }
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return /* spotless:off */ other is TextColor && blue == other.blue && green == other.green && red == other.red && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is TextColor && blue == other.blue && green == other.green && red == other.red && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -868,18 +767,20 @@ class DigitalCardProfileCloneParams private constructor(
 
         override fun hashCode(): Int = hashCode
 
-        override fun toString() = "TextColor{blue=$blue, green=$green, red=$red, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "TextColor{blue=$blue, green=$green, red=$red, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
-      if (this === other) {
-          return true
-      }
+        if (this === other) {
+            return true
+        }
 
-      return /* spotless:off */ other is DigitalCardProfileCloneParams && digitalCardProfileId == other.digitalCardProfileId && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return /* spotless:off */ other is DigitalCardProfileCloneParams && digitalCardProfileId == other.digitalCardProfileId && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
     override fun hashCode(): Int = /* spotless:off */ Objects.hash(digitalCardProfileId, body, additionalHeaders, additionalQueryParams) /* spotless:on */
 
-    override fun toString() = "DigitalCardProfileCloneParams{digitalCardProfileId=$digitalCardProfileId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+    override fun toString() =
+        "DigitalCardProfileCloneParams{digitalCardProfileId=$digitalCardProfileId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

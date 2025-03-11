@@ -3,12 +3,12 @@ package com.increase.api.errors
 import com.increase.api.core.http.Headers
 
 abstract class IncreaseServiceException(
-        private val statusCode: Int,
-        private val headers: Headers,
-        private val body: String,
-        private val error: IncreaseError,
-        message: String = "$statusCode: $error",
-        cause: Throwable? = null
+    private val statusCode: Int,
+    private val headers: Headers,
+    private val body: String,
+    private val error: IncreaseError,
+    message: String = "$statusCode: $error",
+    cause: Throwable? = null,
 ) : IncreaseException(message, cause) {
 
     fun statusCode(): Int = statusCode

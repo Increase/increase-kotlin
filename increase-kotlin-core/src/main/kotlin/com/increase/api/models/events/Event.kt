@@ -20,21 +20,29 @@ import java.time.OffsetDateTime
 import java.util.Objects
 
 /**
- * Events are records of things that happened to objects at Increase. Events are
- * accessible via the List Events endpoint and can be delivered to your application
- * via webhooks. For more information, see our
- * [webhooks guide](https://increase.com/documentation/webhooks).
+ * Events are records of things that happened to objects at Increase. Events are accessible via the
+ * List Events endpoint and can be delivered to your application via webhooks. For more information,
+ * see our [webhooks guide](https://increase.com/documentation/webhooks).
  */
 @NoAutoDetect
-class Event @JsonCreator private constructor(
+class Event
+@JsonCreator
+private constructor(
     @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("associated_object_id") @ExcludeMissing private val associatedObjectId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("associated_object_type") @ExcludeMissing private val associatedObjectType: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("category") @ExcludeMissing private val category: JsonField<Category> = JsonMissing.of(),
-    @JsonProperty("created_at") @ExcludeMissing private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("associated_object_id")
+    @ExcludeMissing
+    private val associatedObjectId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("associated_object_type")
+    @ExcludeMissing
+    private val associatedObjectType: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("category")
+    @ExcludeMissing
+    private val category: JsonField<Category> = JsonMissing.of(),
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
     @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
-
 ) {
 
     /** The Event identifier. */
@@ -47,24 +55,19 @@ class Event @JsonCreator private constructor(
     fun associatedObjectType(): String = associatedObjectType.getRequired("associated_object_type")
 
     /**
-     * The category of the Event. We may add additional possible values for this enum
-     * over time; your application should be able to handle such additions gracefully.
+     * The category of the Event. We may add additional possible values for this enum over time;
+     * your application should be able to handle such additions gracefully.
      */
     fun category(): Category = category.getRequired("category")
 
     /** The time the Event was created. */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
-    /**
-     * A constant representing the object's type. For this resource it will always be
-     * `event`.
-     */
+    /** A constant representing the object's type. For this resource it will always be `event`. */
     fun type(): Type = type.getRequired("type")
 
     /** The Event identifier. */
-    @JsonProperty("id")
-    @ExcludeMissing
-    fun _id(): JsonField<String> = id
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /** The identifier of the object that generated this Event. */
     @JsonProperty("associated_object_id")
@@ -77,25 +80,18 @@ class Event @JsonCreator private constructor(
     fun _associatedObjectType(): JsonField<String> = associatedObjectType
 
     /**
-     * The category of the Event. We may add additional possible values for this enum
-     * over time; your application should be able to handle such additions gracefully.
+     * The category of the Event. We may add additional possible values for this enum over time;
+     * your application should be able to handle such additions gracefully.
      */
-    @JsonProperty("category")
-    @ExcludeMissing
-    fun _category(): JsonField<Category> = category
+    @JsonProperty("category") @ExcludeMissing fun _category(): JsonField<Category> = category
 
     /** The time the Event was created. */
     @JsonProperty("created_at")
     @ExcludeMissing
     fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
-    /**
-     * A constant representing the object's type. For this resource it will always be
-     * `event`.
-     */
-    @JsonProperty("type")
-    @ExcludeMissing
-    fun _type(): JsonField<Type> = type
+    /** A constant representing the object's type. For this resource it will always be `event`. */
+    @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -103,20 +99,19 @@ class Event @JsonCreator private constructor(
 
     private var validated: Boolean = false
 
-    fun validate(): Event =
-        apply {
-            if (validated) {
-              return@apply
-            }
-
-            id()
-            associatedObjectId()
-            associatedObjectType()
-            category()
-            createdAt()
-            type()
-            validated = true
+    fun validate(): Event = apply {
+        if (validated) {
+            return@apply
         }
+
+        id()
+        associatedObjectId()
+        associatedObjectType()
+        category()
+        createdAt()
+        type()
+        validated = true
+    }
 
     fun toBuilder() = Builder().from(this)
 
@@ -126,7 +121,6 @@ class Event @JsonCreator private constructor(
          * Returns a mutable builder for constructing an instance of [Event].
          *
          * The following fields are required:
-         *
          * ```kotlin
          * .id()
          * .associatedObjectId()
@@ -150,152 +144,114 @@ class Event @JsonCreator private constructor(
         private var type: JsonField<Type>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-        internal fun from(event: Event) =
-            apply {
-                id = event.id
-                associatedObjectId = event.associatedObjectId
-                associatedObjectType = event.associatedObjectType
-                category = event.category
-                createdAt = event.createdAt
-                type = event.type
-                additionalProperties = event.additionalProperties.toMutableMap()
-            }
+        internal fun from(event: Event) = apply {
+            id = event.id
+            associatedObjectId = event.associatedObjectId
+            associatedObjectType = event.associatedObjectType
+            category = event.category
+            createdAt = event.createdAt
+            type = event.type
+            additionalProperties = event.additionalProperties.toMutableMap()
+        }
 
         /** The Event identifier. */
         fun id(id: String) = id(JsonField.of(id))
 
         /** The Event identifier. */
-        fun id(id: JsonField<String>) =
-            apply {
-                this.id = id
-            }
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The identifier of the object that generated this Event. */
-        fun associatedObjectId(associatedObjectId: String) = associatedObjectId(JsonField.of(associatedObjectId))
+        fun associatedObjectId(associatedObjectId: String) =
+            associatedObjectId(JsonField.of(associatedObjectId))
 
         /** The identifier of the object that generated this Event. */
-        fun associatedObjectId(associatedObjectId: JsonField<String>) =
-            apply {
-                this.associatedObjectId = associatedObjectId
-            }
+        fun associatedObjectId(associatedObjectId: JsonField<String>) = apply {
+            this.associatedObjectId = associatedObjectId
+        }
 
         /** The type of the object that generated this Event. */
-        fun associatedObjectType(associatedObjectType: String) = associatedObjectType(JsonField.of(associatedObjectType))
+        fun associatedObjectType(associatedObjectType: String) =
+            associatedObjectType(JsonField.of(associatedObjectType))
 
         /** The type of the object that generated this Event. */
-        fun associatedObjectType(associatedObjectType: JsonField<String>) =
-            apply {
-                this.associatedObjectType = associatedObjectType
-            }
+        fun associatedObjectType(associatedObjectType: JsonField<String>) = apply {
+            this.associatedObjectType = associatedObjectType
+        }
 
         /**
-         * The category of the Event. We may add additional possible values for this enum
-         * over time; your application should be able to handle such additions gracefully.
+         * The category of the Event. We may add additional possible values for this enum over time;
+         * your application should be able to handle such additions gracefully.
          */
         fun category(category: Category) = category(JsonField.of(category))
 
         /**
-         * The category of the Event. We may add additional possible values for this enum
-         * over time; your application should be able to handle such additions gracefully.
+         * The category of the Event. We may add additional possible values for this enum over time;
+         * your application should be able to handle such additions gracefully.
          */
-        fun category(category: JsonField<Category>) =
-            apply {
-                this.category = category
-            }
+        fun category(category: JsonField<Category>) = apply { this.category = category }
 
         /** The time the Event was created. */
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         /** The time the Event was created. */
-        fun createdAt(createdAt: JsonField<OffsetDateTime>) =
-            apply {
-                this.createdAt = createdAt
-            }
+        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /**
-         * A constant representing the object's type. For this resource it will always be
-         * `event`.
+         * A constant representing the object's type. For this resource it will always be `event`.
          */
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
-         * A constant representing the object's type. For this resource it will always be
-         * `event`.
+         * A constant representing the object's type. For this resource it will always be `event`.
          */
-        fun type(type: JsonField<Type>) =
-            apply {
-                this.type = type
-            }
+        fun type(type: JsonField<Type>) = apply { this.type = type }
 
-        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
-            apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
+        fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+            this.additionalProperties.clear()
+            putAllAdditionalProperties(additionalProperties)
+        }
 
-        fun putAdditionalProperty(key: String, value: JsonValue) =
-            apply {
-                additionalProperties.put(key, value)
-            }
+        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+            additionalProperties.put(key, value)
+        }
 
-        fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-            apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
+        fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+            this.additionalProperties.putAll(additionalProperties)
+        }
 
-        fun removeAdditionalProperty(key: String) =
-            apply {
-                additionalProperties.remove(key)
-            }
+        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
 
-        fun removeAllAdditionalProperties(keys: Set<String>) =
-            apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
+        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalProperty)
+        }
 
         fun build(): Event =
             Event(
-              checkRequired(
-                "id", id
-              ),
-              checkRequired(
-                "associatedObjectId", associatedObjectId
-              ),
-              checkRequired(
-                "associatedObjectType", associatedObjectType
-              ),
-              checkRequired(
-                "category", category
-              ),
-              checkRequired(
-                "createdAt", createdAt
-              ),
-              checkRequired(
-                "type", type
-              ),
-              additionalProperties.toImmutable(),
+                checkRequired("id", id),
+                checkRequired("associatedObjectId", associatedObjectId),
+                checkRequired("associatedObjectType", associatedObjectType),
+                checkRequired("category", category),
+                checkRequired("createdAt", createdAt),
+                checkRequired("type", type),
+                additionalProperties.toImmutable(),
             )
     }
 
     /**
-     * The category of the Event. We may add additional possible values for this enum
-     * over time; your application should be able to handle such additions gracefully.
+     * The category of the Event. We may add additional possible values for this enum over time;
+     * your application should be able to handle such additions gracefully.
      */
-    class Category @JsonCreator private constructor(
-        private val value: JsonField<String>,
-
-    ) : Enum {
+    class Category @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
          *
-         * This is usually only useful if this instance was deserialized from data that
-         * doesn't match any known member, and you want to know that value. For example, if
-         * the SDK is on an older version than the API, then the API may respond with new
-         * members that the SDK is unaware of.
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
          */
-        @com.fasterxml.jackson.annotation.JsonValue
-        fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         companion object {
 
@@ -426,8 +382,8 @@ class Event @JsonCreator private constructor(
             val GROUP_UPDATED = of("group.updated")
 
             /**
-             * Increase may send webhooks with this category to see if a webhook endpoint is
-             * working properly.
+             * Increase may send webhooks with this category to see if a webhook endpoint is working
+             * properly.
              */
             val GROUP_HEARTBEAT = of("group.heartbeat")
 
@@ -456,10 +412,12 @@ class Event @JsonCreator private constructor(
             val INBOUND_MAIL_ITEM_UPDATED = of("inbound_mail_item.updated")
 
             /** Occurs whenever an Inbound Real-Time Payments Transfer is created. */
-            val INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CREATED = of("inbound_real_time_payments_transfer.created")
+            val INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CREATED =
+                of("inbound_real_time_payments_transfer.created")
 
             /** Occurs whenever an Inbound Real-Time Payments Transfer is updated. */
-            val INBOUND_REAL_TIME_PAYMENTS_TRANSFER_UPDATED = of("inbound_real_time_payments_transfer.updated")
+            val INBOUND_REAL_TIME_PAYMENTS_TRANSFER_UPDATED =
+                of("inbound_real_time_payments_transfer.updated")
 
             /** Occurs whenever an Inbound Wire Drawdown Request is created. */
             val INBOUND_WIRE_DRAWDOWN_REQUEST_CREATED = of("inbound_wire_drawdown_request.created")
@@ -513,46 +471,53 @@ class Event @JsonCreator private constructor(
             val PHYSICAL_CARD_PROFILE_UPDATED = of("physical_card_profile.updated")
 
             /** Occurs whenever a Proof of Authorization Request is created. */
-            val PROOF_OF_AUTHORIZATION_REQUEST_CREATED = of("proof_of_authorization_request.created")
+            val PROOF_OF_AUTHORIZATION_REQUEST_CREATED =
+                of("proof_of_authorization_request.created")
 
             /** Occurs whenever a Proof of Authorization Request is updated. */
-            val PROOF_OF_AUTHORIZATION_REQUEST_UPDATED = of("proof_of_authorization_request.updated")
+            val PROOF_OF_AUTHORIZATION_REQUEST_UPDATED =
+                of("proof_of_authorization_request.updated")
 
             /** Occurs whenever a Proof of Authorization Request Submission is created. */
-            val PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION_CREATED = of("proof_of_authorization_request_submission.created")
+            val PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION_CREATED =
+                of("proof_of_authorization_request_submission.created")
 
             /** Occurs whenever a Proof of Authorization Request Submission is updated. */
-            val PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION_UPDATED = of("proof_of_authorization_request_submission.updated")
+            val PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION_UPDATED =
+                of("proof_of_authorization_request_submission.updated")
 
             /**
-             * Occurs whenever a Real-Time Decision is created in response to a card
-             * authorization.
+             * Occurs whenever a Real-Time Decision is created in response to a card authorization.
              */
-            val REAL_TIME_DECISION_CARD_AUTHORIZATION_REQUESTED = of("real_time_decision.card_authorization_requested")
+            val REAL_TIME_DECISION_CARD_AUTHORIZATION_REQUESTED =
+                of("real_time_decision.card_authorization_requested")
 
             /**
              * Occurs whenever a Real-Time Decision is created in response to a digital wallet
              * provisioning attempt.
              */
-            val REAL_TIME_DECISION_DIGITAL_WALLET_TOKEN_REQUESTED = of("real_time_decision.digital_wallet_token_requested")
+            val REAL_TIME_DECISION_DIGITAL_WALLET_TOKEN_REQUESTED =
+                of("real_time_decision.digital_wallet_token_requested")
 
             /**
              * Occurs whenever a Real-Time Decision is created in response to a digital wallet
              * requiring two-factor authentication.
              */
-            val REAL_TIME_DECISION_DIGITAL_WALLET_AUTHENTICATION_REQUESTED = of("real_time_decision.digital_wallet_authentication_requested")
+            val REAL_TIME_DECISION_DIGITAL_WALLET_AUTHENTICATION_REQUESTED =
+                of("real_time_decision.digital_wallet_authentication_requested")
 
             /**
-             * Occurs whenever a Real-Time Decision is created in response to 3DS
-             * authentication.
+             * Occurs whenever a Real-Time Decision is created in response to 3DS authentication.
              */
-            val REAL_TIME_DECISION_CARD_AUTHENTICATION_REQUESTED = of("real_time_decision.card_authentication_requested")
+            val REAL_TIME_DECISION_CARD_AUTHENTICATION_REQUESTED =
+                of("real_time_decision.card_authentication_requested")
 
             /**
-             * Occurs whenever a Real-Time Decision is created in response to 3DS
-             * authentication challenges.
+             * Occurs whenever a Real-Time Decision is created in response to 3DS authentication
+             * challenges.
              */
-            val REAL_TIME_DECISION_CARD_AUTHENTICATION_CHALLENGE_REQUESTED = of("real_time_decision.card_authentication_challenge_requested")
+            val REAL_TIME_DECISION_CARD_AUTHENTICATION_CHALLENGE_REQUESTED =
+                of("real_time_decision.card_authentication_challenge_requested")
 
             /** Occurs whenever a Real-Time Payments Transfer is created. */
             val REAL_TIME_PAYMENTS_TRANSFER_CREATED = of("real_time_payments_transfer.created")
@@ -561,10 +526,12 @@ class Event @JsonCreator private constructor(
             val REAL_TIME_PAYMENTS_TRANSFER_UPDATED = of("real_time_payments_transfer.updated")
 
             /** Occurs whenever a Real-Time Payments Request for Payment is created. */
-            val REAL_TIME_PAYMENTS_REQUEST_FOR_PAYMENT_CREATED = of("real_time_payments_request_for_payment.created")
+            val REAL_TIME_PAYMENTS_REQUEST_FOR_PAYMENT_CREATED =
+                of("real_time_payments_request_for_payment.created")
 
             /** Occurs whenever a Real-Time Payments Request for Payment is updated. */
-            val REAL_TIME_PAYMENTS_REQUEST_FOR_PAYMENT_UPDATED = of("real_time_payments_request_for_payment.updated")
+            val REAL_TIME_PAYMENTS_REQUEST_FOR_PAYMENT_UPDATED =
+                of("real_time_payments_request_for_payment.updated")
 
             /** Occurs whenever a Transaction is created. */
             val TRANSACTION_CREATED = of("transaction.created")
@@ -671,8 +638,8 @@ class Event @JsonCreator private constructor(
             /** Occurs whenever a Group is updated. */
             GROUP_UPDATED,
             /**
-             * Increase may send webhooks with this category to see if a webhook endpoint is
-             * working properly.
+             * Increase may send webhooks with this category to see if a webhook endpoint is working
+             * properly.
              */
             GROUP_HEARTBEAT,
             /** Occurs whenever an Inbound ACH Transfer is created. */
@@ -738,8 +705,7 @@ class Event @JsonCreator private constructor(
             /** Occurs whenever a Proof of Authorization Request Submission is updated. */
             PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION_UPDATED,
             /**
-             * Occurs whenever a Real-Time Decision is created in response to a card
-             * authorization.
+             * Occurs whenever a Real-Time Decision is created in response to a card authorization.
              */
             REAL_TIME_DECISION_CARD_AUTHORIZATION_REQUESTED,
             /**
@@ -753,13 +719,12 @@ class Event @JsonCreator private constructor(
              */
             REAL_TIME_DECISION_DIGITAL_WALLET_AUTHENTICATION_REQUESTED,
             /**
-             * Occurs whenever a Real-Time Decision is created in response to 3DS
-             * authentication.
+             * Occurs whenever a Real-Time Decision is created in response to 3DS authentication.
              */
             REAL_TIME_DECISION_CARD_AUTHENTICATION_REQUESTED,
             /**
-             * Occurs whenever a Real-Time Decision is created in response to 3DS
-             * authentication challenges.
+             * Occurs whenever a Real-Time Decision is created in response to 3DS authentication
+             * challenges.
              */
             REAL_TIME_DECISION_CARD_AUTHENTICATION_CHALLENGE_REQUESTED,
             /** Occurs whenever a Real-Time Payments Transfer is created. */
@@ -786,11 +751,9 @@ class Event @JsonCreator private constructor(
          * An enum containing [Category]'s known values, as well as an [_UNKNOWN] member.
          *
          * An instance of [Category] can contain an unknown value in a couple of cases:
-         *
-         * - It was deserialized from data that doesn't match any known member. For
-         *   example, if the SDK is on an older version than the API, then the API may
-         *   respond with new members that the SDK is unaware of.
-         *
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
@@ -879,8 +842,8 @@ class Event @JsonCreator private constructor(
             /** Occurs whenever a Group is updated. */
             GROUP_UPDATED,
             /**
-             * Increase may send webhooks with this category to see if a webhook endpoint is
-             * working properly.
+             * Increase may send webhooks with this category to see if a webhook endpoint is working
+             * properly.
              */
             GROUP_HEARTBEAT,
             /** Occurs whenever an Inbound ACH Transfer is created. */
@@ -946,8 +909,7 @@ class Event @JsonCreator private constructor(
             /** Occurs whenever a Proof of Authorization Request Submission is updated. */
             PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION_UPDATED,
             /**
-             * Occurs whenever a Real-Time Decision is created in response to a card
-             * authorization.
+             * Occurs whenever a Real-Time Decision is created in response to a card authorization.
              */
             REAL_TIME_DECISION_CARD_AUTHORIZATION_REQUESTED,
             /**
@@ -961,13 +923,12 @@ class Event @JsonCreator private constructor(
              */
             REAL_TIME_DECISION_DIGITAL_WALLET_AUTHENTICATION_REQUESTED,
             /**
-             * Occurs whenever a Real-Time Decision is created in response to 3DS
-             * authentication.
+             * Occurs whenever a Real-Time Decision is created in response to 3DS authentication.
              */
             REAL_TIME_DECISION_CARD_AUTHENTICATION_REQUESTED,
             /**
-             * Occurs whenever a Real-Time Decision is created in response to 3DS
-             * authentication challenges.
+             * Occurs whenever a Real-Time Decision is created in response to 3DS authentication
+             * challenges.
              */
             REAL_TIME_DECISION_CARD_AUTHENTICATION_CHALLENGE_REQUESTED,
             /** Occurs whenever a Real-Time Payments Transfer is created. */
@@ -988,19 +949,16 @@ class Event @JsonCreator private constructor(
             WIRE_TRANSFER_CREATED,
             /** Occurs whenever a Wire Transfer is updated. */
             WIRE_TRANSFER_UPDATED,
-            /**
-             * An enum member indicating that [Category] was instantiated with an unknown
-             * value.
-             */
+            /** An enum member indicating that [Category] was instantiated with an unknown value. */
             _UNKNOWN,
         }
 
         /**
-         * Returns an enum member corresponding to this class instance's value, or
-         * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
          *
-         * Use the [known] method instead if you're certain the value is always known or if
-         * you want to throw for the unknown case.
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
          */
         fun value(): Value =
             when (this) {
@@ -1055,8 +1013,10 @@ class Event @JsonCreator private constructor(
                 INBOUND_CHECK_DEPOSIT_UPDATED -> Value.INBOUND_CHECK_DEPOSIT_UPDATED
                 INBOUND_MAIL_ITEM_CREATED -> Value.INBOUND_MAIL_ITEM_CREATED
                 INBOUND_MAIL_ITEM_UPDATED -> Value.INBOUND_MAIL_ITEM_UPDATED
-                INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CREATED -> Value.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CREATED
-                INBOUND_REAL_TIME_PAYMENTS_TRANSFER_UPDATED -> Value.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_UPDATED
+                INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CREATED ->
+                    Value.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CREATED
+                INBOUND_REAL_TIME_PAYMENTS_TRANSFER_UPDATED ->
+                    Value.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_UPDATED
                 INBOUND_WIRE_DRAWDOWN_REQUEST_CREATED -> Value.INBOUND_WIRE_DRAWDOWN_REQUEST_CREATED
                 INBOUND_WIRE_TRANSFER_CREATED -> Value.INBOUND_WIRE_TRANSFER_CREATED
                 INBOUND_WIRE_TRANSFER_UPDATED -> Value.INBOUND_WIRE_TRANSFER_UPDATED
@@ -1074,19 +1034,30 @@ class Event @JsonCreator private constructor(
                 PHYSICAL_CARD_UPDATED -> Value.PHYSICAL_CARD_UPDATED
                 PHYSICAL_CARD_PROFILE_CREATED -> Value.PHYSICAL_CARD_PROFILE_CREATED
                 PHYSICAL_CARD_PROFILE_UPDATED -> Value.PHYSICAL_CARD_PROFILE_UPDATED
-                PROOF_OF_AUTHORIZATION_REQUEST_CREATED -> Value.PROOF_OF_AUTHORIZATION_REQUEST_CREATED
-                PROOF_OF_AUTHORIZATION_REQUEST_UPDATED -> Value.PROOF_OF_AUTHORIZATION_REQUEST_UPDATED
-                PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION_CREATED -> Value.PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION_CREATED
-                PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION_UPDATED -> Value.PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION_UPDATED
-                REAL_TIME_DECISION_CARD_AUTHORIZATION_REQUESTED -> Value.REAL_TIME_DECISION_CARD_AUTHORIZATION_REQUESTED
-                REAL_TIME_DECISION_DIGITAL_WALLET_TOKEN_REQUESTED -> Value.REAL_TIME_DECISION_DIGITAL_WALLET_TOKEN_REQUESTED
-                REAL_TIME_DECISION_DIGITAL_WALLET_AUTHENTICATION_REQUESTED -> Value.REAL_TIME_DECISION_DIGITAL_WALLET_AUTHENTICATION_REQUESTED
-                REAL_TIME_DECISION_CARD_AUTHENTICATION_REQUESTED -> Value.REAL_TIME_DECISION_CARD_AUTHENTICATION_REQUESTED
-                REAL_TIME_DECISION_CARD_AUTHENTICATION_CHALLENGE_REQUESTED -> Value.REAL_TIME_DECISION_CARD_AUTHENTICATION_CHALLENGE_REQUESTED
+                PROOF_OF_AUTHORIZATION_REQUEST_CREATED ->
+                    Value.PROOF_OF_AUTHORIZATION_REQUEST_CREATED
+                PROOF_OF_AUTHORIZATION_REQUEST_UPDATED ->
+                    Value.PROOF_OF_AUTHORIZATION_REQUEST_UPDATED
+                PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION_CREATED ->
+                    Value.PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION_CREATED
+                PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION_UPDATED ->
+                    Value.PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION_UPDATED
+                REAL_TIME_DECISION_CARD_AUTHORIZATION_REQUESTED ->
+                    Value.REAL_TIME_DECISION_CARD_AUTHORIZATION_REQUESTED
+                REAL_TIME_DECISION_DIGITAL_WALLET_TOKEN_REQUESTED ->
+                    Value.REAL_TIME_DECISION_DIGITAL_WALLET_TOKEN_REQUESTED
+                REAL_TIME_DECISION_DIGITAL_WALLET_AUTHENTICATION_REQUESTED ->
+                    Value.REAL_TIME_DECISION_DIGITAL_WALLET_AUTHENTICATION_REQUESTED
+                REAL_TIME_DECISION_CARD_AUTHENTICATION_REQUESTED ->
+                    Value.REAL_TIME_DECISION_CARD_AUTHENTICATION_REQUESTED
+                REAL_TIME_DECISION_CARD_AUTHENTICATION_CHALLENGE_REQUESTED ->
+                    Value.REAL_TIME_DECISION_CARD_AUTHENTICATION_CHALLENGE_REQUESTED
                 REAL_TIME_PAYMENTS_TRANSFER_CREATED -> Value.REAL_TIME_PAYMENTS_TRANSFER_CREATED
                 REAL_TIME_PAYMENTS_TRANSFER_UPDATED -> Value.REAL_TIME_PAYMENTS_TRANSFER_UPDATED
-                REAL_TIME_PAYMENTS_REQUEST_FOR_PAYMENT_CREATED -> Value.REAL_TIME_PAYMENTS_REQUEST_FOR_PAYMENT_CREATED
-                REAL_TIME_PAYMENTS_REQUEST_FOR_PAYMENT_UPDATED -> Value.REAL_TIME_PAYMENTS_REQUEST_FOR_PAYMENT_UPDATED
+                REAL_TIME_PAYMENTS_REQUEST_FOR_PAYMENT_CREATED ->
+                    Value.REAL_TIME_PAYMENTS_REQUEST_FOR_PAYMENT_CREATED
+                REAL_TIME_PAYMENTS_REQUEST_FOR_PAYMENT_UPDATED ->
+                    Value.REAL_TIME_PAYMENTS_REQUEST_FOR_PAYMENT_UPDATED
                 TRANSACTION_CREATED -> Value.TRANSACTION_CREATED
                 WIRE_DRAWDOWN_REQUEST_CREATED -> Value.WIRE_DRAWDOWN_REQUEST_CREATED
                 WIRE_DRAWDOWN_REQUEST_UPDATED -> Value.WIRE_DRAWDOWN_REQUEST_UPDATED
@@ -1098,11 +1069,11 @@ class Event @JsonCreator private constructor(
         /**
          * Returns an enum member corresponding to this class instance's value.
          *
-         * Use the [value] method instead if you're uncertain the value is always known and
-         * don't want to throw for the unknown case.
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value is a not a
-         * known member.
+         * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+         *   member.
          */
         fun known(): Known =
             when (this) {
@@ -1157,8 +1128,10 @@ class Event @JsonCreator private constructor(
                 INBOUND_CHECK_DEPOSIT_UPDATED -> Known.INBOUND_CHECK_DEPOSIT_UPDATED
                 INBOUND_MAIL_ITEM_CREATED -> Known.INBOUND_MAIL_ITEM_CREATED
                 INBOUND_MAIL_ITEM_UPDATED -> Known.INBOUND_MAIL_ITEM_UPDATED
-                INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CREATED -> Known.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CREATED
-                INBOUND_REAL_TIME_PAYMENTS_TRANSFER_UPDATED -> Known.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_UPDATED
+                INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CREATED ->
+                    Known.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CREATED
+                INBOUND_REAL_TIME_PAYMENTS_TRANSFER_UPDATED ->
+                    Known.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_UPDATED
                 INBOUND_WIRE_DRAWDOWN_REQUEST_CREATED -> Known.INBOUND_WIRE_DRAWDOWN_REQUEST_CREATED
                 INBOUND_WIRE_TRANSFER_CREATED -> Known.INBOUND_WIRE_TRANSFER_CREATED
                 INBOUND_WIRE_TRANSFER_UPDATED -> Known.INBOUND_WIRE_TRANSFER_UPDATED
@@ -1176,19 +1149,30 @@ class Event @JsonCreator private constructor(
                 PHYSICAL_CARD_UPDATED -> Known.PHYSICAL_CARD_UPDATED
                 PHYSICAL_CARD_PROFILE_CREATED -> Known.PHYSICAL_CARD_PROFILE_CREATED
                 PHYSICAL_CARD_PROFILE_UPDATED -> Known.PHYSICAL_CARD_PROFILE_UPDATED
-                PROOF_OF_AUTHORIZATION_REQUEST_CREATED -> Known.PROOF_OF_AUTHORIZATION_REQUEST_CREATED
-                PROOF_OF_AUTHORIZATION_REQUEST_UPDATED -> Known.PROOF_OF_AUTHORIZATION_REQUEST_UPDATED
-                PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION_CREATED -> Known.PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION_CREATED
-                PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION_UPDATED -> Known.PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION_UPDATED
-                REAL_TIME_DECISION_CARD_AUTHORIZATION_REQUESTED -> Known.REAL_TIME_DECISION_CARD_AUTHORIZATION_REQUESTED
-                REAL_TIME_DECISION_DIGITAL_WALLET_TOKEN_REQUESTED -> Known.REAL_TIME_DECISION_DIGITAL_WALLET_TOKEN_REQUESTED
-                REAL_TIME_DECISION_DIGITAL_WALLET_AUTHENTICATION_REQUESTED -> Known.REAL_TIME_DECISION_DIGITAL_WALLET_AUTHENTICATION_REQUESTED
-                REAL_TIME_DECISION_CARD_AUTHENTICATION_REQUESTED -> Known.REAL_TIME_DECISION_CARD_AUTHENTICATION_REQUESTED
-                REAL_TIME_DECISION_CARD_AUTHENTICATION_CHALLENGE_REQUESTED -> Known.REAL_TIME_DECISION_CARD_AUTHENTICATION_CHALLENGE_REQUESTED
+                PROOF_OF_AUTHORIZATION_REQUEST_CREATED ->
+                    Known.PROOF_OF_AUTHORIZATION_REQUEST_CREATED
+                PROOF_OF_AUTHORIZATION_REQUEST_UPDATED ->
+                    Known.PROOF_OF_AUTHORIZATION_REQUEST_UPDATED
+                PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION_CREATED ->
+                    Known.PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION_CREATED
+                PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION_UPDATED ->
+                    Known.PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION_UPDATED
+                REAL_TIME_DECISION_CARD_AUTHORIZATION_REQUESTED ->
+                    Known.REAL_TIME_DECISION_CARD_AUTHORIZATION_REQUESTED
+                REAL_TIME_DECISION_DIGITAL_WALLET_TOKEN_REQUESTED ->
+                    Known.REAL_TIME_DECISION_DIGITAL_WALLET_TOKEN_REQUESTED
+                REAL_TIME_DECISION_DIGITAL_WALLET_AUTHENTICATION_REQUESTED ->
+                    Known.REAL_TIME_DECISION_DIGITAL_WALLET_AUTHENTICATION_REQUESTED
+                REAL_TIME_DECISION_CARD_AUTHENTICATION_REQUESTED ->
+                    Known.REAL_TIME_DECISION_CARD_AUTHENTICATION_REQUESTED
+                REAL_TIME_DECISION_CARD_AUTHENTICATION_CHALLENGE_REQUESTED ->
+                    Known.REAL_TIME_DECISION_CARD_AUTHENTICATION_CHALLENGE_REQUESTED
                 REAL_TIME_PAYMENTS_TRANSFER_CREATED -> Known.REAL_TIME_PAYMENTS_TRANSFER_CREATED
                 REAL_TIME_PAYMENTS_TRANSFER_UPDATED -> Known.REAL_TIME_PAYMENTS_TRANSFER_UPDATED
-                REAL_TIME_PAYMENTS_REQUEST_FOR_PAYMENT_CREATED -> Known.REAL_TIME_PAYMENTS_REQUEST_FOR_PAYMENT_CREATED
-                REAL_TIME_PAYMENTS_REQUEST_FOR_PAYMENT_UPDATED -> Known.REAL_TIME_PAYMENTS_REQUEST_FOR_PAYMENT_UPDATED
+                REAL_TIME_PAYMENTS_REQUEST_FOR_PAYMENT_CREATED ->
+                    Known.REAL_TIME_PAYMENTS_REQUEST_FOR_PAYMENT_CREATED
+                REAL_TIME_PAYMENTS_REQUEST_FOR_PAYMENT_UPDATED ->
+                    Known.REAL_TIME_PAYMENTS_REQUEST_FOR_PAYMENT_UPDATED
                 TRANSACTION_CREATED -> Known.TRANSACTION_CREATED
                 WIRE_DRAWDOWN_REQUEST_CREATED -> Known.WIRE_DRAWDOWN_REQUEST_CREATED
                 WIRE_DRAWDOWN_REQUEST_UPDATED -> Known.WIRE_DRAWDOWN_REQUEST_UPDATED
@@ -1200,20 +1184,21 @@ class Event @JsonCreator private constructor(
         /**
          * Returns this class instance's primitive wire representation.
          *
-         * This differs from the [toString] method because that method is primarily for
-         * debugging and generally doesn't throw.
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value does not
-         * have the expected primitive type.
+         * @throws IncreaseInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
          */
-        fun asString(): String = _value().asString() ?: throw IncreaseInvalidDataException("Value is not a String")
+        fun asString(): String =
+            _value().asString() ?: throw IncreaseInvalidDataException("Value is not a String")
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return /* spotless:off */ other is Category && value == other.value /* spotless:on */
+            return /* spotless:off */ other is Category && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -1221,25 +1206,18 @@ class Event @JsonCreator private constructor(
         override fun toString() = value.toString()
     }
 
-    /**
-     * A constant representing the object's type. For this resource it will always be
-     * `event`.
-     */
-    class Type @JsonCreator private constructor(
-        private val value: JsonField<String>,
-
-    ) : Enum {
+    /** A constant representing the object's type. For this resource it will always be `event`. */
+    class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
          *
-         * This is usually only useful if this instance was deserialized from data that
-         * doesn't match any known member, and you want to know that value. For example, if
-         * the SDK is on an older version than the API, then the API may respond with new
-         * members that the SDK is unaware of.
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
          */
-        @com.fasterxml.jackson.annotation.JsonValue
-        fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         companion object {
 
@@ -1250,18 +1228,16 @@ class Event @JsonCreator private constructor(
 
         /** An enum containing [Type]'s known values. */
         enum class Known {
-            EVENT,
+            EVENT
         }
 
         /**
          * An enum containing [Type]'s known values, as well as an [_UNKNOWN] member.
          *
          * An instance of [Type] can contain an unknown value in a couple of cases:
-         *
-         * - It was deserialized from data that doesn't match any known member. For
-         *   example, if the SDK is on an older version than the API, then the API may
-         *   respond with new members that the SDK is unaware of.
-         *
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
@@ -1271,11 +1247,11 @@ class Event @JsonCreator private constructor(
         }
 
         /**
-         * Returns an enum member corresponding to this class instance's value, or
-         * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
          *
-         * Use the [known] method instead if you're certain the value is always known or if
-         * you want to throw for the unknown case.
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
          */
         fun value(): Value =
             when (this) {
@@ -1286,11 +1262,11 @@ class Event @JsonCreator private constructor(
         /**
          * Returns an enum member corresponding to this class instance's value.
          *
-         * Use the [value] method instead if you're uncertain the value is always known and
-         * don't want to throw for the unknown case.
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value is a not a
-         * known member.
+         * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+         *   member.
          */
         fun known(): Known =
             when (this) {
@@ -1301,20 +1277,21 @@ class Event @JsonCreator private constructor(
         /**
          * Returns this class instance's primitive wire representation.
          *
-         * This differs from the [toString] method because that method is primarily for
-         * debugging and generally doesn't throw.
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value does not
-         * have the expected primitive type.
+         * @throws IncreaseInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
          */
-        fun asString(): String = _value().asString() ?: throw IncreaseInvalidDataException("Value is not a String")
+        fun asString(): String =
+            _value().asString() ?: throw IncreaseInvalidDataException("Value is not a String")
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return /* spotless:off */ other is Type && value == other.value /* spotless:on */
+            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -1323,11 +1300,11 @@ class Event @JsonCreator private constructor(
     }
 
     override fun equals(other: Any?): Boolean {
-      if (this === other) {
-          return true
-      }
+        if (this === other) {
+            return true
+        }
 
-      return /* spotless:off */ other is Event && id == other.id && associatedObjectId == other.associatedObjectId && associatedObjectType == other.associatedObjectType && category == other.category && createdAt == other.createdAt && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is Event && id == other.id && associatedObjectId == other.associatedObjectId && associatedObjectType == other.associatedObjectType && category == other.category && createdAt == other.createdAt && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
@@ -1336,5 +1313,6 @@ class Event @JsonCreator private constructor(
 
     override fun hashCode(): Int = hashCode
 
-    override fun toString() = "Event{id=$id, associatedObjectId=$associatedObjectId, associatedObjectType=$associatedObjectType, category=$category, createdAt=$createdAt, type=$type, additionalProperties=$additionalProperties}"
+    override fun toString() =
+        "Event{id=$id, associatedObjectId=$associatedObjectId, associatedObjectType=$associatedObjectType, category=$category, createdAt=$createdAt, type=$type, additionalProperties=$additionalProperties}"
 }

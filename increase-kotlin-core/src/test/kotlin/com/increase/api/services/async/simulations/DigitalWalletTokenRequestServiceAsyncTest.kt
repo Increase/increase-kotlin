@@ -13,16 +13,21 @@ class DigitalWalletTokenRequestServiceAsyncTest {
 
     @Test
     suspend fun create() {
-      val client = IncreaseOkHttpClientAsync.builder()
-          .baseUrl(TestServerExtension.BASE_URL)
-          .apiKey("My API Key")
-          .build()
-      val digitalWalletTokenRequestServiceAsync = client.simulations().digitalWalletTokenRequests()
+        val client =
+            IncreaseOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val digitalWalletTokenRequestServiceAsync =
+            client.simulations().digitalWalletTokenRequests()
 
-      val digitalWalletTokenRequest = digitalWalletTokenRequestServiceAsync.create(DigitalWalletTokenRequestCreateParams.builder()
-          .cardId("card_oubs0hwk5rn6knuecxg2")
-          .build())
+        val digitalWalletTokenRequest =
+            digitalWalletTokenRequestServiceAsync.create(
+                DigitalWalletTokenRequestCreateParams.builder()
+                    .cardId("card_oubs0hwk5rn6knuecxg2")
+                    .build()
+            )
 
-      digitalWalletTokenRequest.validate()
+        digitalWalletTokenRequest.validate()
     }
 }

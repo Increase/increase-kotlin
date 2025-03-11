@@ -15,16 +15,13 @@ import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.services.blocking.EventSubscriptionService
 import java.util.Objects
-import java.util.Optional
-import java.util.stream.Stream
-import java.util.stream.StreamSupport
 
 /** List Event Subscriptions */
-class EventSubscriptionListPage private constructor(
+class EventSubscriptionListPage
+private constructor(
     private val eventSubscriptionsService: EventSubscriptionService,
     private val params: EventSubscriptionListParams,
     private val response: Response,
-
 ) {
 
     fun response(): Response = response
@@ -34,68 +31,70 @@ class EventSubscriptionListPage private constructor(
     fun nextCursor(): String? = response().nextCursor()
 
     override fun equals(other: Any?): Boolean {
-      if (this === other) {
-          return true
-      }
+        if (this === other) {
+            return true
+        }
 
-      return /* spotless:off */ other is EventSubscriptionListPage && eventSubscriptionsService == other.eventSubscriptionsService && params == other.params && response == other.response /* spotless:on */
+        return /* spotless:off */ other is EventSubscriptionListPage && eventSubscriptionsService == other.eventSubscriptionsService && params == other.params && response == other.response /* spotless:on */
     }
 
     override fun hashCode(): Int = /* spotless:off */ Objects.hash(eventSubscriptionsService, params, response) /* spotless:on */
 
-    override fun toString() = "EventSubscriptionListPage{eventSubscriptionsService=$eventSubscriptionsService, params=$params, response=$response}"
+    override fun toString() =
+        "EventSubscriptionListPage{eventSubscriptionsService=$eventSubscriptionsService, params=$params, response=$response}"
 
     fun hasNextPage(): Boolean {
-      if (data().isEmpty()) {
-        return false;
-      }
+        if (data().isEmpty()) {
+            return false
+        }
 
-      return nextCursor() != null
+        return nextCursor() != null
     }
 
     fun getNextPageParams(): EventSubscriptionListParams? {
-      if (!hasNextPage()) {
-        return null
-      }
+        if (!hasNextPage()) {
+            return null
+        }
 
-      return EventSubscriptionListParams.builder().from(params).apply {nextCursor()?.let{ this.cursor(it) } }.build()
+        return EventSubscriptionListParams.builder()
+            .from(params)
+            .apply { nextCursor()?.let { this.cursor(it) } }
+            .build()
     }
 
     fun getNextPage(): EventSubscriptionListPage? {
-      return getNextPageParams()?.let {
-          eventSubscriptionsService.list(it)
-      }
+        return getNextPageParams()?.let { eventSubscriptionsService.list(it) }
     }
 
     fun autoPager(): AutoPager = AutoPager(this)
 
     companion object {
 
-        fun of(eventSubscriptionsService: EventSubscriptionService, params: EventSubscriptionListParams, response: Response) =
-            EventSubscriptionListPage(
-              eventSubscriptionsService,
-              params,
-              response,
-            )
+        fun of(
+            eventSubscriptionsService: EventSubscriptionService,
+            params: EventSubscriptionListParams,
+            response: Response,
+        ) = EventSubscriptionListPage(eventSubscriptionsService, params, response)
     }
 
     @NoAutoDetect
-    class Response @JsonCreator constructor(
-        @JsonProperty("data") private val data: JsonField<List<EventSubscription>> = JsonMissing.of(),
+    class Response
+    @JsonCreator
+    constructor(
+        @JsonProperty("data")
+        private val data: JsonField<List<EventSubscription>> = JsonMissing.of(),
         @JsonProperty("next_cursor") private val nextCursor: JsonField<String> = JsonMissing.of(),
-        @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
-
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         fun data(): List<EventSubscription> = data.getNullable("data") ?: listOf()
 
         fun nextCursor(): String? = nextCursor.getNullable("next_cursor")
 
-        @JsonProperty("data")
-        fun _data(): JsonField<List<EventSubscription>>? = data
+        @JsonProperty("data") fun _data(): JsonField<List<EventSubscription>>? = data
 
-        @JsonProperty("next_cursor")
-        fun _nextCursor(): JsonField<String>? = nextCursor
+        @JsonProperty("next_cursor") fun _nextCursor(): JsonField<String>? = nextCursor
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -103,30 +102,30 @@ class EventSubscriptionListPage private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): Response =
-            apply {
-                if (validated) {
-                  return@apply
-                }
-
-                data().map { it.validate() }
-                nextCursor()
-                validated = true
+        fun validate(): Response = apply {
+            if (validated) {
+                return@apply
             }
+
+            data().map { it.validate() }
+            nextCursor()
+            validated = true
+        }
 
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return /* spotless:off */ other is Response && data == other.data && nextCursor == other.nextCursor && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Response && data == other.data && nextCursor == other.nextCursor && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         override fun hashCode(): Int = /* spotless:off */ Objects.hash(data, nextCursor, additionalProperties) /* spotless:on */
 
-        override fun toString() = "Response{data=$data, nextCursor=$nextCursor, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "Response{data=$data, nextCursor=$nextCursor, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -143,12 +142,11 @@ class EventSubscriptionListPage private constructor(
             private var nextCursor: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(page: Response) =
-                apply {
-                    this.data = page.data
-                    this.nextCursor = page.nextCursor
-                    this.additionalProperties.putAll(page.additionalProperties)
-                }
+            internal fun from(page: Response) = apply {
+                this.data = page.data
+                this.nextCursor = page.nextCursor
+                this.additionalProperties.putAll(page.additionalProperties)
+            }
 
             fun data(data: List<EventSubscription>) = data(JsonField.of(data))
 
@@ -158,36 +156,27 @@ class EventSubscriptionListPage private constructor(
 
             fun nextCursor(nextCursor: JsonField<String>) = apply { this.nextCursor = nextCursor }
 
-            fun putAdditionalProperty(key: String, value: JsonValue) =
-                apply {
-                    this.additionalProperties.put(key, value)
-                }
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                this.additionalProperties.put(key, value)
+            }
 
-            fun build() =
-                Response(
-                  data,
-                  nextCursor,
-                  additionalProperties.toImmutable(),
-                )
+            fun build() = Response(data, nextCursor, additionalProperties.toImmutable())
         }
     }
 
-    class AutoPager(
-        private val firstPage: EventSubscriptionListPage,
+    class AutoPager(private val firstPage: EventSubscriptionListPage) :
+        Sequence<EventSubscription> {
 
-    ) : Sequence<EventSubscription> {
-
-        override fun iterator(): Iterator<EventSubscription> =
-            iterator {
-                var page = firstPage
-                var index = 0
-                while (true) {
-                  while (index < page.data().size) {
+        override fun iterator(): Iterator<EventSubscription> = iterator {
+            var page = firstPage
+            var index = 0
+            while (true) {
+                while (index < page.data().size) {
                     yield(page.data()[index++])
-                  }
-                  page = page.getNextPage() ?: break
-                  index = 0
                 }
+                page = page.getNextPage() ?: break
+                index = 0
             }
+        }
     }
 }

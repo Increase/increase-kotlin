@@ -5,7 +5,6 @@ package com.increase.api.services.async
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
 import com.increase.api.models.eventsubscriptions.EventSubscriptionCreateParams
-import com.increase.api.models.eventsubscriptions.EventSubscriptionListParams
 import com.increase.api.models.eventsubscriptions.EventSubscriptionRetrieveParams
 import com.increase.api.models.eventsubscriptions.EventSubscriptionUpdateParams
 import org.junit.jupiter.api.Test
@@ -16,63 +15,78 @@ class EventSubscriptionServiceAsyncTest {
 
     @Test
     suspend fun create() {
-      val client = IncreaseOkHttpClientAsync.builder()
-          .baseUrl(TestServerExtension.BASE_URL)
-          .apiKey("My API Key")
-          .build()
-      val eventSubscriptionServiceAsync = client.eventSubscriptions()
+        val client =
+            IncreaseOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val eventSubscriptionServiceAsync = client.eventSubscriptions()
 
-      val eventSubscription = eventSubscriptionServiceAsync.create(EventSubscriptionCreateParams.builder()
-          .url("https://website.com/webhooks")
-          .oauthConnectionId("x")
-          .selectedEventCategory(EventSubscriptionCreateParams.SelectedEventCategory.ACCOUNT_CREATED)
-          .sharedSecret("x")
-          .build())
+        val eventSubscription =
+            eventSubscriptionServiceAsync.create(
+                EventSubscriptionCreateParams.builder()
+                    .url("https://website.com/webhooks")
+                    .oauthConnectionId("x")
+                    .selectedEventCategory(
+                        EventSubscriptionCreateParams.SelectedEventCategory.ACCOUNT_CREATED
+                    )
+                    .sharedSecret("x")
+                    .build()
+            )
 
-      eventSubscription.validate()
+        eventSubscription.validate()
     }
 
     @Test
     suspend fun retrieve() {
-      val client = IncreaseOkHttpClientAsync.builder()
-          .baseUrl(TestServerExtension.BASE_URL)
-          .apiKey("My API Key")
-          .build()
-      val eventSubscriptionServiceAsync = client.eventSubscriptions()
+        val client =
+            IncreaseOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val eventSubscriptionServiceAsync = client.eventSubscriptions()
 
-      val eventSubscription = eventSubscriptionServiceAsync.retrieve(EventSubscriptionRetrieveParams.builder()
-          .eventSubscriptionId("event_subscription_001dzz0r20rcdxgb013zqb8m04g")
-          .build())
+        val eventSubscription =
+            eventSubscriptionServiceAsync.retrieve(
+                EventSubscriptionRetrieveParams.builder()
+                    .eventSubscriptionId("event_subscription_001dzz0r20rcdxgb013zqb8m04g")
+                    .build()
+            )
 
-      eventSubscription.validate()
+        eventSubscription.validate()
     }
 
     @Test
     suspend fun update() {
-      val client = IncreaseOkHttpClientAsync.builder()
-          .baseUrl(TestServerExtension.BASE_URL)
-          .apiKey("My API Key")
-          .build()
-      val eventSubscriptionServiceAsync = client.eventSubscriptions()
+        val client =
+            IncreaseOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val eventSubscriptionServiceAsync = client.eventSubscriptions()
 
-      val eventSubscription = eventSubscriptionServiceAsync.update(EventSubscriptionUpdateParams.builder()
-          .eventSubscriptionId("event_subscription_001dzz0r20rcdxgb013zqb8m04g")
-          .status(EventSubscriptionUpdateParams.Status.ACTIVE)
-          .build())
+        val eventSubscription =
+            eventSubscriptionServiceAsync.update(
+                EventSubscriptionUpdateParams.builder()
+                    .eventSubscriptionId("event_subscription_001dzz0r20rcdxgb013zqb8m04g")
+                    .status(EventSubscriptionUpdateParams.Status.ACTIVE)
+                    .build()
+            )
 
-      eventSubscription.validate()
+        eventSubscription.validate()
     }
 
     @Test
     suspend fun list() {
-      val client = IncreaseOkHttpClientAsync.builder()
-          .baseUrl(TestServerExtension.BASE_URL)
-          .apiKey("My API Key")
-          .build()
-      val eventSubscriptionServiceAsync = client.eventSubscriptions()
+        val client =
+            IncreaseOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val eventSubscriptionServiceAsync = client.eventSubscriptions()
 
-      val page = eventSubscriptionServiceAsync.list()
+        val page = eventSubscriptionServiceAsync.list()
 
-      page.response().validate()
+        page.response().validate()
     }
 }
