@@ -15,58 +15,46 @@ class CheckDepositServiceAsyncTest {
 
     @Test
     suspend fun reject() {
-        val client =
-            IncreaseOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
-        val checkDepositServiceAsync = client.simulations().checkDeposits()
+      val client = IncreaseOkHttpClientAsync.builder()
+          .baseUrl(TestServerExtension.BASE_URL)
+          .apiKey("My API Key")
+          .build()
+      val checkDepositServiceAsync = client.simulations().checkDeposits()
 
-        val checkDeposit =
-            checkDepositServiceAsync.reject(
-                CheckDepositRejectParams.builder()
-                    .checkDepositId("check_deposit_f06n9gpg7sxn8t19lfc1")
-                    .build()
-            )
+      val checkDeposit = checkDepositServiceAsync.reject(CheckDepositRejectParams.builder()
+          .checkDepositId("check_deposit_f06n9gpg7sxn8t19lfc1")
+          .build())
 
-        checkDeposit.validate()
+      checkDeposit.validate()
     }
 
     @Test
     suspend fun return_() {
-        val client =
-            IncreaseOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
-        val checkDepositServiceAsync = client.simulations().checkDeposits()
+      val client = IncreaseOkHttpClientAsync.builder()
+          .baseUrl(TestServerExtension.BASE_URL)
+          .apiKey("My API Key")
+          .build()
+      val checkDepositServiceAsync = client.simulations().checkDeposits()
 
-        val checkDeposit =
-            checkDepositServiceAsync.return_(
-                CheckDepositReturnParams.builder()
-                    .checkDepositId("check_deposit_f06n9gpg7sxn8t19lfc1")
-                    .build()
-            )
+      val checkDeposit = checkDepositServiceAsync.return_(CheckDepositReturnParams.builder()
+          .checkDepositId("check_deposit_f06n9gpg7sxn8t19lfc1")
+          .build())
 
-        checkDeposit.validate()
+      checkDeposit.validate()
     }
 
     @Test
     suspend fun submit() {
-        val client =
-            IncreaseOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
-        val checkDepositServiceAsync = client.simulations().checkDeposits()
+      val client = IncreaseOkHttpClientAsync.builder()
+          .baseUrl(TestServerExtension.BASE_URL)
+          .apiKey("My API Key")
+          .build()
+      val checkDepositServiceAsync = client.simulations().checkDeposits()
 
-        val checkDeposit =
-            checkDepositServiceAsync.submit(
-                CheckDepositSubmitParams.builder()
-                    .checkDepositId("check_deposit_f06n9gpg7sxn8t19lfc1")
-                    .build()
-            )
+      val checkDeposit = checkDepositServiceAsync.submit(CheckDepositSubmitParams.builder()
+          .checkDepositId("check_deposit_f06n9gpg7sxn8t19lfc1")
+          .build())
 
-        checkDeposit.validate()
+      checkDeposit.validate()
     }
 }

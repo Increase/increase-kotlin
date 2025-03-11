@@ -1,7 +1,7 @@
 package com.increase.api.core.http
 
-import com.increase.api.core.RequestOptions
 import java.lang.AutoCloseable
+import com.increase.api.core.RequestOptions
 
 interface HttpClient : AutoCloseable {
 

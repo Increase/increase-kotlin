@@ -11,29 +11,25 @@ import com.increase.api.models.intrafibalances.IntrafiBalanceIntrafiBalanceParam
 interface IntrafiBalanceService {
 
     /**
-     * Returns a view of this service that provides access to raw HTTP responses for each method.
+     * Returns a view of this service that provides access to raw HTTP responses for
+     * each method.
      */
     fun withRawResponse(): WithRawResponse
 
     /** Get IntraFi balances by bank */
-    fun intrafiBalance(
-        params: IntrafiBalanceIntrafiBalanceParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): IntrafiBalance
+    fun intrafiBalance(params: IntrafiBalanceIntrafiBalanceParams, requestOptions: RequestOptions = RequestOptions.none()): IntrafiBalance
 
     /**
-     * A view of [IntrafiBalanceService] that provides access to raw HTTP responses for each method.
+     * A view of [IntrafiBalanceService] that provides access to raw HTTP responses for
+     * each method.
      */
     interface WithRawResponse {
 
         /**
-         * Returns a raw HTTP response for `get /accounts/{account_id}/intrafi_balance`, but is
-         * otherwise the same as [IntrafiBalanceService.intrafiBalance].
+         * Returns a raw HTTP response for `get /accounts/{account_id}/intrafi_balance`,
+         * but is otherwise the same as [IntrafiBalanceService.intrafiBalance].
          */
         @MustBeClosed
-        fun intrafiBalance(
-            params: IntrafiBalanceIntrafiBalanceParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<IntrafiBalance>
+        fun intrafiBalance(params: IntrafiBalanceIntrafiBalanceParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<IntrafiBalance>
     }
 }

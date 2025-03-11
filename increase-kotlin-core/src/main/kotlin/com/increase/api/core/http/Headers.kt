@@ -1,9 +1,11 @@
 package com.increase.api.core.http
 
 import com.increase.api.core.toImmutable
+import java.util.Collections
 import java.util.TreeMap
 
-class Headers private constructor(private val map: Map<String, List<String>>, val size: Int) {
+class Headers
+private constructor(private val map: Map<String, List<String>>, val size: Int) {
 
     fun isEmpty(): Boolean = map.isEmpty()
 
@@ -70,7 +72,7 @@ class Headers private constructor(private val map: Map<String, List<String>>, va
                         values.toImmutable()
                     }
                     .toImmutable(),
-                size,
+                size
             )
     }
 

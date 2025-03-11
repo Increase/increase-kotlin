@@ -13,21 +13,17 @@ class CardReversalServiceAsyncTest {
 
     @Test
     suspend fun create() {
-        val client =
-            IncreaseOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
-        val cardReversalServiceAsync = client.simulations().cardReversals()
+      val client = IncreaseOkHttpClientAsync.builder()
+          .baseUrl(TestServerExtension.BASE_URL)
+          .apiKey("My API Key")
+          .build()
+      val cardReversalServiceAsync = client.simulations().cardReversals()
 
-        val cardPayment =
-            cardReversalServiceAsync.create(
-                CardReversalCreateParams.builder()
-                    .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
-                    .amount(1L)
-                    .build()
-            )
+      val cardPayment = cardReversalServiceAsync.create(CardReversalCreateParams.builder()
+          .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
+          .amount(1L)
+          .build())
 
-        cardPayment.validate()
+      cardPayment.validate()
     }
 }

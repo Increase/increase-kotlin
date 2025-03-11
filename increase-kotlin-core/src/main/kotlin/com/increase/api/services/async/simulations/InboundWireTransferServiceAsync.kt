@@ -11,30 +11,25 @@ import com.increase.api.models.simulations.inboundwiretransfers.InboundWireTrans
 interface InboundWireTransferServiceAsync {
 
     /**
-     * Returns a view of this service that provides access to raw HTTP responses for each method.
+     * Returns a view of this service that provides access to raw HTTP responses for
+     * each method.
      */
     fun withRawResponse(): WithRawResponse
 
     /** Simulates an [Inbound Wire Transfer](#inbound-wire-transfers) to your account. */
-    suspend fun create(
-        params: InboundWireTransferCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): InboundWireTransfer
+    suspend fun create(params: InboundWireTransferCreateParams, requestOptions: RequestOptions = RequestOptions.none()): InboundWireTransfer
 
     /**
-     * A view of [InboundWireTransferServiceAsync] that provides access to raw HTTP responses for
-     * each method.
+     * A view of [InboundWireTransferServiceAsync] that provides access to raw HTTP
+     * responses for each method.
      */
     interface WithRawResponse {
 
         /**
-         * Returns a raw HTTP response for `post /simulations/inbound_wire_transfers`, but is
-         * otherwise the same as [InboundWireTransferServiceAsync.create].
+         * Returns a raw HTTP response for `post /simulations/inbound_wire_transfers`, but
+         * is otherwise the same as [InboundWireTransferServiceAsync.create].
          */
         @MustBeClosed
-        suspend fun create(
-            params: InboundWireTransferCreateParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<InboundWireTransfer>
+        suspend fun create(params: InboundWireTransferCreateParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<InboundWireTransfer>
     }
 }

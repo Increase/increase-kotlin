@@ -13,22 +13,18 @@ class CardDisputeServiceAsyncTest {
 
     @Test
     suspend fun action() {
-        val client =
-            IncreaseOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
-        val cardDisputeServiceAsync = client.simulations().cardDisputes()
+      val client = IncreaseOkHttpClientAsync.builder()
+          .baseUrl(TestServerExtension.BASE_URL)
+          .apiKey("My API Key")
+          .build()
+      val cardDisputeServiceAsync = client.simulations().cardDisputes()
 
-        val cardDispute =
-            cardDisputeServiceAsync.action(
-                CardDisputeActionParams.builder()
-                    .cardDisputeId("card_dispute_h9sc95nbl1cgltpp7men")
-                    .status(CardDisputeActionParams.Status.PENDING_USER_INFORMATION)
-                    .explanation("This was a valid recurring transaction")
-                    .build()
-            )
+      val cardDispute = cardDisputeServiceAsync.action(CardDisputeActionParams.builder()
+          .cardDisputeId("card_dispute_h9sc95nbl1cgltpp7men")
+          .status(CardDisputeActionParams.Status.PENDING_USER_INFORMATION)
+          .explanation("This was a valid recurring transaction")
+          .build())
 
-        cardDispute.validate()
+      cardDispute.validate()
     }
 }

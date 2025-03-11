@@ -13,18 +13,16 @@ class DocumentServiceAsyncTest {
 
     @Test
     suspend fun create() {
-        val client =
-            IncreaseOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
-        val documentServiceAsync = client.simulations().documents()
+      val client = IncreaseOkHttpClientAsync.builder()
+          .baseUrl(TestServerExtension.BASE_URL)
+          .apiKey("My API Key")
+          .build()
+      val documentServiceAsync = client.simulations().documents()
 
-        val document =
-            documentServiceAsync.create(
-                DocumentCreateParams.builder().accountId("account_in71c4amph0vgo2qllky").build()
-            )
+      val document = documentServiceAsync.create(DocumentCreateParams.builder()
+          .accountId("account_in71c4amph0vgo2qllky")
+          .build())
 
-        document.validate()
+      document.validate()
     }
 }

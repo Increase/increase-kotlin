@@ -15,13 +15,16 @@ import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
 import com.increase.api.services.blocking.InboundWireDrawdownRequestService
 import java.util.Objects
+import java.util.Optional
+import java.util.stream.Stream
+import java.util.stream.StreamSupport
 
 /** List Inbound Wire Drawdown Requests */
-class InboundWireDrawdownRequestListPage
-private constructor(
+class InboundWireDrawdownRequestListPage private constructor(
     private val inboundWireDrawdownRequestsService: InboundWireDrawdownRequestService,
     private val params: InboundWireDrawdownRequestListParams,
     private val response: Response,
+
 ) {
 
     fun response(): Response = response
@@ -31,70 +34,68 @@ private constructor(
     fun nextCursor(): String? = response().nextCursor()
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
+      if (this === other) {
+          return true
+      }
 
-        return /* spotless:off */ other is InboundWireDrawdownRequestListPage && inboundWireDrawdownRequestsService == other.inboundWireDrawdownRequestsService && params == other.params && response == other.response /* spotless:on */
+      return /* spotless:off */ other is InboundWireDrawdownRequestListPage && inboundWireDrawdownRequestsService == other.inboundWireDrawdownRequestsService && params == other.params && response == other.response /* spotless:on */
     }
 
     override fun hashCode(): Int = /* spotless:off */ Objects.hash(inboundWireDrawdownRequestsService, params, response) /* spotless:on */
 
-    override fun toString() =
-        "InboundWireDrawdownRequestListPage{inboundWireDrawdownRequestsService=$inboundWireDrawdownRequestsService, params=$params, response=$response}"
+    override fun toString() = "InboundWireDrawdownRequestListPage{inboundWireDrawdownRequestsService=$inboundWireDrawdownRequestsService, params=$params, response=$response}"
 
     fun hasNextPage(): Boolean {
-        if (data().isEmpty()) {
-            return false
-        }
+      if (data().isEmpty()) {
+        return false;
+      }
 
-        return nextCursor() != null
+      return nextCursor() != null
     }
 
     fun getNextPageParams(): InboundWireDrawdownRequestListParams? {
-        if (!hasNextPage()) {
-            return null
-        }
+      if (!hasNextPage()) {
+        return null
+      }
 
-        return InboundWireDrawdownRequestListParams.builder()
-            .from(params)
-            .apply { nextCursor()?.let { this.cursor(it) } }
-            .build()
+      return InboundWireDrawdownRequestListParams.builder().from(params).apply {nextCursor()?.let{ this.cursor(it) } }.build()
     }
 
     fun getNextPage(): InboundWireDrawdownRequestListPage? {
-        return getNextPageParams()?.let { inboundWireDrawdownRequestsService.list(it) }
+      return getNextPageParams()?.let {
+          inboundWireDrawdownRequestsService.list(it)
+      }
     }
 
     fun autoPager(): AutoPager = AutoPager(this)
 
     companion object {
 
-        fun of(
-            inboundWireDrawdownRequestsService: InboundWireDrawdownRequestService,
-            params: InboundWireDrawdownRequestListParams,
-            response: Response,
-        ) = InboundWireDrawdownRequestListPage(inboundWireDrawdownRequestsService, params, response)
+        fun of(inboundWireDrawdownRequestsService: InboundWireDrawdownRequestService, params: InboundWireDrawdownRequestListParams, response: Response) =
+            InboundWireDrawdownRequestListPage(
+              inboundWireDrawdownRequestsService,
+              params,
+              response,
+            )
     }
 
     @NoAutoDetect
-    class Response
-    @JsonCreator
-    constructor(
-        @JsonProperty("data")
-        private val data: JsonField<List<InboundWireDrawdownRequest>> = JsonMissing.of(),
+    class Response @JsonCreator constructor(
+        @JsonProperty("data") private val data: JsonField<List<InboundWireDrawdownRequest>> = JsonMissing.of(),
         @JsonProperty("next_cursor") private val nextCursor: JsonField<String> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+        @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+
     ) {
 
         fun data(): List<InboundWireDrawdownRequest> = data.getNullable("data") ?: listOf()
 
         fun nextCursor(): String? = nextCursor.getNullable("next_cursor")
 
-        @JsonProperty("data") fun _data(): JsonField<List<InboundWireDrawdownRequest>>? = data
+        @JsonProperty("data")
+        fun _data(): JsonField<List<InboundWireDrawdownRequest>>? = data
 
-        @JsonProperty("next_cursor") fun _nextCursor(): JsonField<String>? = nextCursor
+        @JsonProperty("next_cursor")
+        fun _nextCursor(): JsonField<String>? = nextCursor
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -102,30 +103,30 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): Response = apply {
-            if (validated) {
-                return@apply
-            }
+        fun validate(): Response =
+            apply {
+                if (validated) {
+                  return@apply
+                }
 
-            data().map { it.validate() }
-            nextCursor()
-            validated = true
-        }
+                data().map { it.validate() }
+                nextCursor()
+                validated = true
+            }
 
         fun toBuilder() = Builder().from(this)
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return /* spotless:off */ other is Response && data == other.data && nextCursor == other.nextCursor && additionalProperties == other.additionalProperties /* spotless:on */
+          return /* spotless:off */ other is Response && data == other.data && nextCursor == other.nextCursor && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         override fun hashCode(): Int = /* spotless:off */ Objects.hash(data, nextCursor, additionalProperties) /* spotless:on */
 
-        override fun toString() =
-            "Response{data=$data, nextCursor=$nextCursor, additionalProperties=$additionalProperties}"
+        override fun toString() = "Response{data=$data, nextCursor=$nextCursor, additionalProperties=$additionalProperties}"
 
         companion object {
 
@@ -142,11 +143,12 @@ private constructor(
             private var nextCursor: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(page: Response) = apply {
-                this.data = page.data
-                this.nextCursor = page.nextCursor
-                this.additionalProperties.putAll(page.additionalProperties)
-            }
+            internal fun from(page: Response) =
+                apply {
+                    this.data = page.data
+                    this.nextCursor = page.nextCursor
+                    this.additionalProperties.putAll(page.additionalProperties)
+                }
 
             fun data(data: List<InboundWireDrawdownRequest>) = data(JsonField.of(data))
 
@@ -156,27 +158,36 @@ private constructor(
 
             fun nextCursor(nextCursor: JsonField<String>) = apply { this.nextCursor = nextCursor }
 
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                this.additionalProperties.put(key, value)
-            }
+            fun putAdditionalProperty(key: String, value: JsonValue) =
+                apply {
+                    this.additionalProperties.put(key, value)
+                }
 
-            fun build() = Response(data, nextCursor, additionalProperties.toImmutable())
+            fun build() =
+                Response(
+                  data,
+                  nextCursor,
+                  additionalProperties.toImmutable(),
+                )
         }
     }
 
-    class AutoPager(private val firstPage: InboundWireDrawdownRequestListPage) :
-        Sequence<InboundWireDrawdownRequest> {
+    class AutoPager(
+        private val firstPage: InboundWireDrawdownRequestListPage,
 
-        override fun iterator(): Iterator<InboundWireDrawdownRequest> = iterator {
-            var page = firstPage
-            var index = 0
-            while (true) {
-                while (index < page.data().size) {
+    ) : Sequence<InboundWireDrawdownRequest> {
+
+        override fun iterator(): Iterator<InboundWireDrawdownRequest> =
+            iterator {
+                var page = firstPage
+                var index = 0
+                while (true) {
+                  while (index < page.data().size) {
                     yield(page.data()[index++])
+                  }
+                  page = page.getNextPage() ?: break
+                  index = 0
                 }
-                page = page.getNextPage() ?: break
-                index = 0
             }
-        }
     }
 }
