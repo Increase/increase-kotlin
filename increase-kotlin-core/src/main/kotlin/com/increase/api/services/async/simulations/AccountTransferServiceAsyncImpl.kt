@@ -18,57 +18,50 @@ import com.increase.api.errors.IncreaseError
 import com.increase.api.models.accounttransfers.AccountTransfer
 import com.increase.api.models.simulations.accounttransfers.AccountTransferCompleteParams
 
-class AccountTransferServiceAsyncImpl
-internal constructor(private val clientOptions: ClientOptions) : AccountTransferServiceAsync {
+class AccountTransferServiceAsyncImpl internal constructor(
+    private val clientOptions: ClientOptions,
 
-    private val withRawResponse: AccountTransferServiceAsync.WithRawResponse by lazy {
-        WithRawResponseImpl(clientOptions)
-    }
+) : AccountTransferServiceAsync {
+
+    private val withRawResponse: AccountTransferServiceAsync.WithRawResponse by lazy { WithRawResponseImpl(clientOptions) }
 
     override fun withRawResponse(): AccountTransferServiceAsync.WithRawResponse = withRawResponse
 
-    override suspend fun complete(
-        params: AccountTransferCompleteParams,
-        requestOptions: RequestOptions,
-    ): AccountTransfer =
+    override suspend fun complete(params: AccountTransferCompleteParams, requestOptions: RequestOptions): AccountTransfer =
         // post /simulations/account_transfers/{account_transfer_id}/complete
         withRawResponse().complete(params, requestOptions).parse()
 
-    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
-        AccountTransferServiceAsync.WithRawResponse {
+    class WithRawResponseImpl internal constructor(
+        private val clientOptions: ClientOptions,
+
+    ) : AccountTransferServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
-        private val completeHandler: Handler<AccountTransfer> =
-            jsonHandler<AccountTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+        private val completeHandler: Handler<AccountTransfer> = jsonHandler<AccountTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
-        override suspend fun complete(
-            params: AccountTransferCompleteParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<AccountTransfer> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .addPathSegments(
-                        "simulations",
-                        "account_transfers",
-                        params.getPathParam(0),
-                        "complete",
-                    )
-                    .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return response.parseable {
-                response
-                    .use { completeHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+        override suspend fun complete(params: AccountTransferCompleteParams, requestOptions: RequestOptions): HttpResponseFor<AccountTransfer> {
+          val request = HttpRequest.builder()
+            .method(HttpMethod.POST)
+            .addPathSegments("simulations", "account_transfers", params.getPathParam(0), "complete")
+            .apply { params._body()?.let{ body(json(clientOptions.jsonMapper, it)) } }
+            .build()
+            .prepareAsync(clientOptions, params)
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.executeAsync(
+            request, requestOptions
+          )
+          return response.parseable {
+              response.use {
+                  completeHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
     }
 }

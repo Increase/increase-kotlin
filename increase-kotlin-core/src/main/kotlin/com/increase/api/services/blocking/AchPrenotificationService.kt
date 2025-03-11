@@ -14,71 +14,53 @@ import com.increase.api.models.achprenotifications.AchPrenotificationRetrievePar
 interface AchPrenotificationService {
 
     /**
-     * Returns a view of this service that provides access to raw HTTP responses for each method.
+     * Returns a view of this service that provides access to raw HTTP responses for
+     * each method.
      */
     fun withRawResponse(): WithRawResponse
 
     /** Create an ACH Prenotification */
-    fun create(
-        params: AchPrenotificationCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): AchPrenotification
+    fun create(params: AchPrenotificationCreateParams, requestOptions: RequestOptions = RequestOptions.none()): AchPrenotification
 
     /** Retrieve an ACH Prenotification */
-    fun retrieve(
-        params: AchPrenotificationRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): AchPrenotification
+    fun retrieve(params: AchPrenotificationRetrieveParams, requestOptions: RequestOptions = RequestOptions.none()): AchPrenotification
 
     /** List ACH Prenotifications */
-    fun list(
-        params: AchPrenotificationListParams = AchPrenotificationListParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): AchPrenotificationListPage
+    fun list(params: AchPrenotificationListParams = AchPrenotificationListParams.none(), requestOptions: RequestOptions = RequestOptions.none()): AchPrenotificationListPage
 
     /** @see [list] */
-    fun list(requestOptions: RequestOptions): AchPrenotificationListPage =
-        list(AchPrenotificationListParams.none(), requestOptions)
+    fun list(requestOptions: RequestOptions): AchPrenotificationListPage = list(AchPrenotificationListParams.none(), requestOptions)
 
     /**
-     * A view of [AchPrenotificationService] that provides access to raw HTTP responses for each
-     * method.
+     * A view of [AchPrenotificationService] that provides access to raw HTTP responses
+     * for each method.
      */
     interface WithRawResponse {
 
         /**
-         * Returns a raw HTTP response for `post /ach_prenotifications`, but is otherwise the same
-         * as [AchPrenotificationService.create].
+         * Returns a raw HTTP response for `post /ach_prenotifications`, but is otherwise
+         * the same as [AchPrenotificationService.create].
          */
         @MustBeClosed
-        fun create(
-            params: AchPrenotificationCreateParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AchPrenotification>
+        fun create(params: AchPrenotificationCreateParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<AchPrenotification>
 
         /**
-         * Returns a raw HTTP response for `get /ach_prenotifications/{ach_prenotification_id}`, but
-         * is otherwise the same as [AchPrenotificationService.retrieve].
+         * Returns a raw HTTP response for
+         * `get /ach_prenotifications/{ach_prenotification_id}`, but is otherwise the same
+         * as [AchPrenotificationService.retrieve].
          */
         @MustBeClosed
-        fun retrieve(
-            params: AchPrenotificationRetrieveParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AchPrenotification>
+        fun retrieve(params: AchPrenotificationRetrieveParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<AchPrenotification>
 
         /**
-         * Returns a raw HTTP response for `get /ach_prenotifications`, but is otherwise the same as
-         * [AchPrenotificationService.list].
+         * Returns a raw HTTP response for `get /ach_prenotifications`, but is otherwise
+         * the same as [AchPrenotificationService.list].
          */
         @MustBeClosed
-        fun list(
-            params: AchPrenotificationListParams = AchPrenotificationListParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AchPrenotificationListPage>
+        fun list(params: AchPrenotificationListParams = AchPrenotificationListParams.none(), requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<AchPrenotificationListPage>
 
         /** @see [list] */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<AchPrenotificationListPage> =
-            list(AchPrenotificationListParams.none(), requestOptions)
+        fun list(requestOptions: RequestOptions): HttpResponseFor<AchPrenotificationListPage> = list(AchPrenotificationListParams.none(), requestOptions)
     }
 }

@@ -13,16 +13,16 @@ class ProgramServiceAsyncTest {
 
     @Test
     suspend fun create() {
-        val client =
-            IncreaseOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
-        val programServiceAsync = client.simulations().programs()
+      val client = IncreaseOkHttpClientAsync.builder()
+          .baseUrl(TestServerExtension.BASE_URL)
+          .apiKey("My API Key")
+          .build()
+      val programServiceAsync = client.simulations().programs()
 
-        val program =
-            programServiceAsync.create(ProgramCreateParams.builder().name("For Benefit Of").build())
+      val program = programServiceAsync.create(ProgramCreateParams.builder()
+          .name("For Benefit Of")
+          .build())
 
-        program.validate()
+      program.validate()
     }
 }

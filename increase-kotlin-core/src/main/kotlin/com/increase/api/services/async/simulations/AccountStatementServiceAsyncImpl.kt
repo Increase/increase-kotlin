@@ -18,52 +18,50 @@ import com.increase.api.errors.IncreaseError
 import com.increase.api.models.accountstatements.AccountStatement
 import com.increase.api.models.simulations.accountstatements.AccountStatementCreateParams
 
-class AccountStatementServiceAsyncImpl
-internal constructor(private val clientOptions: ClientOptions) : AccountStatementServiceAsync {
+class AccountStatementServiceAsyncImpl internal constructor(
+    private val clientOptions: ClientOptions,
 
-    private val withRawResponse: AccountStatementServiceAsync.WithRawResponse by lazy {
-        WithRawResponseImpl(clientOptions)
-    }
+) : AccountStatementServiceAsync {
+
+    private val withRawResponse: AccountStatementServiceAsync.WithRawResponse by lazy { WithRawResponseImpl(clientOptions) }
 
     override fun withRawResponse(): AccountStatementServiceAsync.WithRawResponse = withRawResponse
 
-    override suspend fun create(
-        params: AccountStatementCreateParams,
-        requestOptions: RequestOptions,
-    ): AccountStatement =
+    override suspend fun create(params: AccountStatementCreateParams, requestOptions: RequestOptions): AccountStatement =
         // post /simulations/account_statements
         withRawResponse().create(params, requestOptions).parse()
 
-    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
-        AccountStatementServiceAsync.WithRawResponse {
+    class WithRawResponseImpl internal constructor(
+        private val clientOptions: ClientOptions,
+
+    ) : AccountStatementServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
-        private val createHandler: Handler<AccountStatement> =
-            jsonHandler<AccountStatement>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+        private val createHandler: Handler<AccountStatement> = jsonHandler<AccountStatement>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
-        override suspend fun create(
-            params: AccountStatementCreateParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<AccountStatement> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .addPathSegments("simulations", "account_statements")
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return response.parseable {
-                response
-                    .use { createHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+        override suspend fun create(params: AccountStatementCreateParams, requestOptions: RequestOptions): HttpResponseFor<AccountStatement> {
+          val request = HttpRequest.builder()
+            .method(HttpMethod.POST)
+            .addPathSegments("simulations", "account_statements")
+            .body(json(clientOptions.jsonMapper, params._body()))
+            .build()
+            .prepareAsync(clientOptions, params)
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.executeAsync(
+            request, requestOptions
+          )
+          return response.parseable {
+              response.use {
+                  createHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
     }
 }

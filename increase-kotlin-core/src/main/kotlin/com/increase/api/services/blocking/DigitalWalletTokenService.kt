@@ -13,55 +13,43 @@ import com.increase.api.models.digitalwallettokens.DigitalWalletTokenRetrievePar
 interface DigitalWalletTokenService {
 
     /**
-     * Returns a view of this service that provides access to raw HTTP responses for each method.
+     * Returns a view of this service that provides access to raw HTTP responses for
+     * each method.
      */
     fun withRawResponse(): WithRawResponse
 
     /** Retrieve a Digital Wallet Token */
-    fun retrieve(
-        params: DigitalWalletTokenRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): DigitalWalletToken
+    fun retrieve(params: DigitalWalletTokenRetrieveParams, requestOptions: RequestOptions = RequestOptions.none()): DigitalWalletToken
 
     /** List Digital Wallet Tokens */
-    fun list(
-        params: DigitalWalletTokenListParams = DigitalWalletTokenListParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): DigitalWalletTokenListPage
+    fun list(params: DigitalWalletTokenListParams = DigitalWalletTokenListParams.none(), requestOptions: RequestOptions = RequestOptions.none()): DigitalWalletTokenListPage
 
     /** @see [list] */
-    fun list(requestOptions: RequestOptions): DigitalWalletTokenListPage =
-        list(DigitalWalletTokenListParams.none(), requestOptions)
+    fun list(requestOptions: RequestOptions): DigitalWalletTokenListPage = list(DigitalWalletTokenListParams.none(), requestOptions)
 
     /**
-     * A view of [DigitalWalletTokenService] that provides access to raw HTTP responses for each
-     * method.
+     * A view of [DigitalWalletTokenService] that provides access to raw HTTP responses
+     * for each method.
      */
     interface WithRawResponse {
 
         /**
-         * Returns a raw HTTP response for `get /digital_wallet_tokens/{digital_wallet_token_id}`,
-         * but is otherwise the same as [DigitalWalletTokenService.retrieve].
+         * Returns a raw HTTP response for
+         * `get /digital_wallet_tokens/{digital_wallet_token_id}`, but is otherwise the
+         * same as [DigitalWalletTokenService.retrieve].
          */
         @MustBeClosed
-        fun retrieve(
-            params: DigitalWalletTokenRetrieveParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<DigitalWalletToken>
+        fun retrieve(params: DigitalWalletTokenRetrieveParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<DigitalWalletToken>
 
         /**
-         * Returns a raw HTTP response for `get /digital_wallet_tokens`, but is otherwise the same
-         * as [DigitalWalletTokenService.list].
+         * Returns a raw HTTP response for `get /digital_wallet_tokens`, but is otherwise
+         * the same as [DigitalWalletTokenService.list].
          */
         @MustBeClosed
-        fun list(
-            params: DigitalWalletTokenListParams = DigitalWalletTokenListParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<DigitalWalletTokenListPage>
+        fun list(params: DigitalWalletTokenListParams = DigitalWalletTokenListParams.none(), requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<DigitalWalletTokenListPage>
 
         /** @see [list] */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<DigitalWalletTokenListPage> =
-            list(DigitalWalletTokenListParams.none(), requestOptions)
+        fun list(requestOptions: RequestOptions): HttpResponseFor<DigitalWalletTokenListPage> = list(DigitalWalletTokenListParams.none(), requestOptions)
     }
 }

@@ -13,20 +13,16 @@ class CardRefundServiceAsyncTest {
 
     @Test
     suspend fun create() {
-        val client =
-            IncreaseOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
-        val cardRefundServiceAsync = client.simulations().cardRefunds()
+      val client = IncreaseOkHttpClientAsync.builder()
+          .baseUrl(TestServerExtension.BASE_URL)
+          .apiKey("My API Key")
+          .build()
+      val cardRefundServiceAsync = client.simulations().cardRefunds()
 
-        val transaction =
-            cardRefundServiceAsync.create(
-                CardRefundCreateParams.builder()
-                    .transactionId("transaction_uyrp7fld2ium70oa7oi")
-                    .build()
-            )
+      val transaction = cardRefundServiceAsync.create(CardRefundCreateParams.builder()
+          .transactionId("transaction_uyrp7fld2ium70oa7oi")
+          .build())
 
-        transaction.validate()
+      transaction.validate()
     }
 }
