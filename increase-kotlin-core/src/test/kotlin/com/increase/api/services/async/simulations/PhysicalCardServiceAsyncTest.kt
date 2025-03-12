@@ -13,21 +13,17 @@ class PhysicalCardServiceAsyncTest {
 
     @Test
     suspend fun advanceShipment() {
-        val client =
-            IncreaseOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
-        val physicalCardServiceAsync = client.simulations().physicalCards()
+      val client = IncreaseOkHttpClientAsync.builder()
+          .baseUrl(TestServerExtension.BASE_URL)
+          .apiKey("My API Key")
+          .build()
+      val physicalCardServiceAsync = client.simulations().physicalCards()
 
-        val physicalCard =
-            physicalCardServiceAsync.advanceShipment(
-                PhysicalCardAdvanceShipmentParams.builder()
-                    .physicalCardId("physical_card_ode8duyq5v2ynhjoharl")
-                    .shipmentStatus(PhysicalCardAdvanceShipmentParams.ShipmentStatus.PENDING)
-                    .build()
-            )
+      val physicalCard = physicalCardServiceAsync.advanceShipment(PhysicalCardAdvanceShipmentParams.builder()
+          .physicalCardId("physical_card_ode8duyq5v2ynhjoharl")
+          .shipmentStatus(PhysicalCardAdvanceShipmentParams.ShipmentStatus.PENDING)
+          .build())
 
-        physicalCard.validate()
+      physicalCard.validate()
     }
 }

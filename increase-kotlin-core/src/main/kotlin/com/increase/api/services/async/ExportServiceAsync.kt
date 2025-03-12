@@ -14,34 +14,26 @@ import com.increase.api.models.exports.ExportRetrieveParams
 interface ExportServiceAsync {
 
     /**
-     * Returns a view of this service that provides access to raw HTTP responses for each method.
+     * Returns a view of this service that provides access to raw HTTP responses for
+     * each method.
      */
     fun withRawResponse(): WithRawResponse
 
     /** Create an Export */
-    suspend fun create(
-        params: ExportCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): Export
+    suspend fun create(params: ExportCreateParams, requestOptions: RequestOptions = RequestOptions.none()): Export
 
     /** Retrieve an Export */
-    suspend fun retrieve(
-        params: ExportRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): Export
+    suspend fun retrieve(params: ExportRetrieveParams, requestOptions: RequestOptions = RequestOptions.none()): Export
 
     /** List Exports */
-    suspend fun list(
-        params: ExportListParams = ExportListParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): ExportListPageAsync
+    suspend fun list(params: ExportListParams = ExportListParams.none(), requestOptions: RequestOptions = RequestOptions.none()): ExportListPageAsync
 
     /** @see [list] */
-    suspend fun list(requestOptions: RequestOptions): ExportListPageAsync =
-        list(ExportListParams.none(), requestOptions)
+    suspend fun list(requestOptions: RequestOptions): ExportListPageAsync = list(ExportListParams.none(), requestOptions)
 
     /**
-     * A view of [ExportServiceAsync] that provides access to raw HTTP responses for each method.
+     * A view of [ExportServiceAsync] that provides access to raw HTTP responses for
+     * each method.
      */
     interface WithRawResponse {
 
@@ -50,34 +42,24 @@ interface ExportServiceAsync {
          * [ExportServiceAsync.create].
          */
         @MustBeClosed
-        suspend fun create(
-            params: ExportCreateParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<Export>
+        suspend fun create(params: ExportCreateParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<Export>
 
         /**
-         * Returns a raw HTTP response for `get /exports/{export_id}`, but is otherwise the same as
-         * [ExportServiceAsync.retrieve].
+         * Returns a raw HTTP response for `get /exports/{export_id}`, but is otherwise the
+         * same as [ExportServiceAsync.retrieve].
          */
         @MustBeClosed
-        suspend fun retrieve(
-            params: ExportRetrieveParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<Export>
+        suspend fun retrieve(params: ExportRetrieveParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<Export>
 
         /**
          * Returns a raw HTTP response for `get /exports`, but is otherwise the same as
          * [ExportServiceAsync.list].
          */
         @MustBeClosed
-        suspend fun list(
-            params: ExportListParams = ExportListParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ExportListPageAsync>
+        suspend fun list(params: ExportListParams = ExportListParams.none(), requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<ExportListPageAsync>
 
         /** @see [list] */
         @MustBeClosed
-        suspend fun list(requestOptions: RequestOptions): HttpResponseFor<ExportListPageAsync> =
-            list(ExportListParams.none(), requestOptions)
+        suspend fun list(requestOptions: RequestOptions): HttpResponseFor<ExportListPageAsync> = list(ExportListParams.none(), requestOptions)
     }
 }

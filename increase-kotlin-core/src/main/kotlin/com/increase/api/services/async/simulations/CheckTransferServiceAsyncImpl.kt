@@ -18,57 +18,50 @@ import com.increase.api.errors.IncreaseError
 import com.increase.api.models.checktransfers.CheckTransfer
 import com.increase.api.models.simulations.checktransfers.CheckTransferMailParams
 
-class CheckTransferServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
-    CheckTransferServiceAsync {
+class CheckTransferServiceAsyncImpl internal constructor(
+    private val clientOptions: ClientOptions,
 
-    private val withRawResponse: CheckTransferServiceAsync.WithRawResponse by lazy {
-        WithRawResponseImpl(clientOptions)
-    }
+) : CheckTransferServiceAsync {
+
+    private val withRawResponse: CheckTransferServiceAsync.WithRawResponse by lazy { WithRawResponseImpl(clientOptions) }
 
     override fun withRawResponse(): CheckTransferServiceAsync.WithRawResponse = withRawResponse
 
-    override suspend fun mail(
-        params: CheckTransferMailParams,
-        requestOptions: RequestOptions,
-    ): CheckTransfer =
+    override suspend fun mail(params: CheckTransferMailParams, requestOptions: RequestOptions): CheckTransfer =
         // post /simulations/check_transfers/{check_transfer_id}/mail
         withRawResponse().mail(params, requestOptions).parse()
 
-    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
-        CheckTransferServiceAsync.WithRawResponse {
+    class WithRawResponseImpl internal constructor(
+        private val clientOptions: ClientOptions,
+
+    ) : CheckTransferServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
-        private val mailHandler: Handler<CheckTransfer> =
-            jsonHandler<CheckTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+        private val mailHandler: Handler<CheckTransfer> = jsonHandler<CheckTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
-        override suspend fun mail(
-            params: CheckTransferMailParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<CheckTransfer> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .addPathSegments(
-                        "simulations",
-                        "check_transfers",
-                        params.getPathParam(0),
-                        "mail",
-                    )
-                    .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return response.parseable {
-                response
-                    .use { mailHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+        override suspend fun mail(params: CheckTransferMailParams, requestOptions: RequestOptions): HttpResponseFor<CheckTransfer> {
+          val request = HttpRequest.builder()
+            .method(HttpMethod.POST)
+            .addPathSegments("simulations", "check_transfers", params.getPathParam(0), "mail")
+            .apply { params._body()?.let{ body(json(clientOptions.jsonMapper, it)) } }
+            .build()
+            .prepareAsync(clientOptions, params)
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.executeAsync(
+            request, requestOptions
+          )
+          return response.parseable {
+              response.use {
+                  mailHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
     }
 }
