@@ -16,75 +16,107 @@ import com.increase.api.models.digitalcardprofiles.DigitalCardProfileRetrievePar
 interface DigitalCardProfileServiceAsync {
 
     /**
-     * Returns a view of this service that provides access to raw HTTP responses for
-     * each method.
+     * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
 
     /** Create a Digital Card Profile */
-    suspend fun create(params: DigitalCardProfileCreateParams, requestOptions: RequestOptions = RequestOptions.none()): DigitalCardProfile
+    suspend fun create(
+        params: DigitalCardProfileCreateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): DigitalCardProfile
 
     /** Retrieve a Digital Card Profile */
-    suspend fun retrieve(params: DigitalCardProfileRetrieveParams, requestOptions: RequestOptions = RequestOptions.none()): DigitalCardProfile
+    suspend fun retrieve(
+        params: DigitalCardProfileRetrieveParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): DigitalCardProfile
 
     /** List Card Profiles */
-    suspend fun list(params: DigitalCardProfileListParams = DigitalCardProfileListParams.none(), requestOptions: RequestOptions = RequestOptions.none()): DigitalCardProfileListPageAsync
+    suspend fun list(
+        params: DigitalCardProfileListParams = DigitalCardProfileListParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): DigitalCardProfileListPageAsync
 
     /** @see [list] */
-    suspend fun list(requestOptions: RequestOptions): DigitalCardProfileListPageAsync = list(DigitalCardProfileListParams.none(), requestOptions)
+    suspend fun list(requestOptions: RequestOptions): DigitalCardProfileListPageAsync =
+        list(DigitalCardProfileListParams.none(), requestOptions)
 
     /** Archive a Digital Card Profile */
-    suspend fun archive(params: DigitalCardProfileArchiveParams, requestOptions: RequestOptions = RequestOptions.none()): DigitalCardProfile
+    suspend fun archive(
+        params: DigitalCardProfileArchiveParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): DigitalCardProfile
 
     /** Clones a Digital Card Profile */
-    suspend fun clone(params: DigitalCardProfileCloneParams, requestOptions: RequestOptions = RequestOptions.none()): DigitalCardProfile
+    suspend fun clone(
+        params: DigitalCardProfileCloneParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): DigitalCardProfile
 
     /**
-     * A view of [DigitalCardProfileServiceAsync] that provides access to raw HTTP
-     * responses for each method.
+     * A view of [DigitalCardProfileServiceAsync] that provides access to raw HTTP responses for
+     * each method.
      */
     interface WithRawResponse {
 
         /**
-         * Returns a raw HTTP response for `post /digital_card_profiles`, but is otherwise
-         * the same as [DigitalCardProfileServiceAsync.create].
+         * Returns a raw HTTP response for `post /digital_card_profiles`, but is otherwise the same
+         * as [DigitalCardProfileServiceAsync.create].
          */
         @MustBeClosed
-        suspend fun create(params: DigitalCardProfileCreateParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<DigitalCardProfile>
+        suspend fun create(
+            params: DigitalCardProfileCreateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<DigitalCardProfile>
 
         /**
-         * Returns a raw HTTP response for
-         * `get /digital_card_profiles/{digital_card_profile_id}`, but is otherwise the
-         * same as [DigitalCardProfileServiceAsync.retrieve].
+         * Returns a raw HTTP response for `get /digital_card_profiles/{digital_card_profile_id}`,
+         * but is otherwise the same as [DigitalCardProfileServiceAsync.retrieve].
          */
         @MustBeClosed
-        suspend fun retrieve(params: DigitalCardProfileRetrieveParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<DigitalCardProfile>
+        suspend fun retrieve(
+            params: DigitalCardProfileRetrieveParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<DigitalCardProfile>
 
         /**
-         * Returns a raw HTTP response for `get /digital_card_profiles`, but is otherwise
-         * the same as [DigitalCardProfileServiceAsync.list].
+         * Returns a raw HTTP response for `get /digital_card_profiles`, but is otherwise the same
+         * as [DigitalCardProfileServiceAsync.list].
          */
         @MustBeClosed
-        suspend fun list(params: DigitalCardProfileListParams = DigitalCardProfileListParams.none(), requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<DigitalCardProfileListPageAsync>
+        suspend fun list(
+            params: DigitalCardProfileListParams = DigitalCardProfileListParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<DigitalCardProfileListPageAsync>
 
         /** @see [list] */
         @MustBeClosed
-        suspend fun list(requestOptions: RequestOptions): HttpResponseFor<DigitalCardProfileListPageAsync> = list(DigitalCardProfileListParams.none(), requestOptions)
+        suspend fun list(
+            requestOptions: RequestOptions
+        ): HttpResponseFor<DigitalCardProfileListPageAsync> =
+            list(DigitalCardProfileListParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for
-         * `post /digital_card_profiles/{digital_card_profile_id}/archive`, but is
-         * otherwise the same as [DigitalCardProfileServiceAsync.archive].
+         * Returns a raw HTTP response for `post
+         * /digital_card_profiles/{digital_card_profile_id}/archive`, but is otherwise the same as
+         * [DigitalCardProfileServiceAsync.archive].
          */
         @MustBeClosed
-        suspend fun archive(params: DigitalCardProfileArchiveParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<DigitalCardProfile>
+        suspend fun archive(
+            params: DigitalCardProfileArchiveParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<DigitalCardProfile>
 
         /**
-         * Returns a raw HTTP response for
-         * `post /digital_card_profiles/{digital_card_profile_id}/clone`, but is otherwise
-         * the same as [DigitalCardProfileServiceAsync.clone].
+         * Returns a raw HTTP response for `post
+         * /digital_card_profiles/{digital_card_profile_id}/clone`, but is otherwise the same as
+         * [DigitalCardProfileServiceAsync.clone].
          */
         @MustBeClosed
-        suspend fun clone(params: DigitalCardProfileCloneParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<DigitalCardProfile>
+        suspend fun clone(
+            params: DigitalCardProfileCloneParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<DigitalCardProfile>
     }
 }

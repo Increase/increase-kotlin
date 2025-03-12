@@ -11,28 +11,33 @@ import com.increase.api.models.simulations.cardincrements.CardIncrementCreatePar
 interface CardIncrementServiceAsync {
 
     /**
-     * Returns a view of this service that provides access to raw HTTP responses for
-     * each method.
+     * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
 
     /**
-     * Simulates the increment of an authorization by a card acquirer. An authorization
-     * can be incremented multiple times.
+     * Simulates the increment of an authorization by a card acquirer. An authorization can be
+     * incremented multiple times.
      */
-    suspend fun create(params: CardIncrementCreateParams, requestOptions: RequestOptions = RequestOptions.none()): CardPayment
+    suspend fun create(
+        params: CardIncrementCreateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CardPayment
 
     /**
-     * A view of [CardIncrementServiceAsync] that provides access to raw HTTP responses
-     * for each method.
+     * A view of [CardIncrementServiceAsync] that provides access to raw HTTP responses for each
+     * method.
      */
     interface WithRawResponse {
 
         /**
-         * Returns a raw HTTP response for `post /simulations/card_increments`, but is
-         * otherwise the same as [CardIncrementServiceAsync.create].
+         * Returns a raw HTTP response for `post /simulations/card_increments`, but is otherwise the
+         * same as [CardIncrementServiceAsync.create].
          */
         @MustBeClosed
-        suspend fun create(params: CardIncrementCreateParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<CardPayment>
+        suspend fun create(
+            params: CardIncrementCreateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<CardPayment>
     }
 }

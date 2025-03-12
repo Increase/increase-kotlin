@@ -14,52 +14,73 @@ import com.increase.api.models.checkdeposits.CheckDepositRetrieveParams
 interface CheckDepositServiceAsync {
 
     /**
-     * Returns a view of this service that provides access to raw HTTP responses for
-     * each method.
+     * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
 
     /** Create a Check Deposit */
-    suspend fun create(params: CheckDepositCreateParams, requestOptions: RequestOptions = RequestOptions.none()): CheckDeposit
+    suspend fun create(
+        params: CheckDepositCreateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CheckDeposit
 
     /** Retrieve a Check Deposit */
-    suspend fun retrieve(params: CheckDepositRetrieveParams, requestOptions: RequestOptions = RequestOptions.none()): CheckDeposit
+    suspend fun retrieve(
+        params: CheckDepositRetrieveParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CheckDeposit
 
     /** List Check Deposits */
-    suspend fun list(params: CheckDepositListParams = CheckDepositListParams.none(), requestOptions: RequestOptions = RequestOptions.none()): CheckDepositListPageAsync
+    suspend fun list(
+        params: CheckDepositListParams = CheckDepositListParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CheckDepositListPageAsync
 
     /** @see [list] */
-    suspend fun list(requestOptions: RequestOptions): CheckDepositListPageAsync = list(CheckDepositListParams.none(), requestOptions)
+    suspend fun list(requestOptions: RequestOptions): CheckDepositListPageAsync =
+        list(CheckDepositListParams.none(), requestOptions)
 
     /**
-     * A view of [CheckDepositServiceAsync] that provides access to raw HTTP responses
-     * for each method.
+     * A view of [CheckDepositServiceAsync] that provides access to raw HTTP responses for each
+     * method.
      */
     interface WithRawResponse {
 
         /**
-         * Returns a raw HTTP response for `post /check_deposits`, but is otherwise the
-         * same as [CheckDepositServiceAsync.create].
+         * Returns a raw HTTP response for `post /check_deposits`, but is otherwise the same as
+         * [CheckDepositServiceAsync.create].
          */
         @MustBeClosed
-        suspend fun create(params: CheckDepositCreateParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<CheckDeposit>
+        suspend fun create(
+            params: CheckDepositCreateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<CheckDeposit>
 
         /**
          * Returns a raw HTTP response for `get /check_deposits/{check_deposit_id}`, but is
          * otherwise the same as [CheckDepositServiceAsync.retrieve].
          */
         @MustBeClosed
-        suspend fun retrieve(params: CheckDepositRetrieveParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<CheckDeposit>
+        suspend fun retrieve(
+            params: CheckDepositRetrieveParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<CheckDeposit>
 
         /**
-         * Returns a raw HTTP response for `get /check_deposits`, but is otherwise the same
-         * as [CheckDepositServiceAsync.list].
+         * Returns a raw HTTP response for `get /check_deposits`, but is otherwise the same as
+         * [CheckDepositServiceAsync.list].
          */
         @MustBeClosed
-        suspend fun list(params: CheckDepositListParams = CheckDepositListParams.none(), requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<CheckDepositListPageAsync>
+        suspend fun list(
+            params: CheckDepositListParams = CheckDepositListParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<CheckDepositListPageAsync>
 
         /** @see [list] */
         @MustBeClosed
-        suspend fun list(requestOptions: RequestOptions): HttpResponseFor<CheckDepositListPageAsync> = list(CheckDepositListParams.none(), requestOptions)
+        suspend fun list(
+            requestOptions: RequestOptions
+        ): HttpResponseFor<CheckDepositListPageAsync> =
+            list(CheckDepositListParams.none(), requestOptions)
     }
 }

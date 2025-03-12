@@ -14,31 +14,39 @@ class WireTransferServiceAsyncTest {
 
     @Test
     suspend fun reverse() {
-      val client = IncreaseOkHttpClientAsync.builder()
-          .baseUrl(TestServerExtension.BASE_URL)
-          .apiKey("My API Key")
-          .build()
-      val wireTransferServiceAsync = client.simulations().wireTransfers()
+        val client =
+            IncreaseOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val wireTransferServiceAsync = client.simulations().wireTransfers()
 
-      val wireTransfer = wireTransferServiceAsync.reverse(WireTransferReverseParams.builder()
-          .wireTransferId("wire_transfer_5akynk7dqsq25qwk9q2u")
-          .build())
+        val wireTransfer =
+            wireTransferServiceAsync.reverse(
+                WireTransferReverseParams.builder()
+                    .wireTransferId("wire_transfer_5akynk7dqsq25qwk9q2u")
+                    .build()
+            )
 
-      wireTransfer.validate()
+        wireTransfer.validate()
     }
 
     @Test
     suspend fun submit() {
-      val client = IncreaseOkHttpClientAsync.builder()
-          .baseUrl(TestServerExtension.BASE_URL)
-          .apiKey("My API Key")
-          .build()
-      val wireTransferServiceAsync = client.simulations().wireTransfers()
+        val client =
+            IncreaseOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val wireTransferServiceAsync = client.simulations().wireTransfers()
 
-      val wireTransfer = wireTransferServiceAsync.submit(WireTransferSubmitParams.builder()
-          .wireTransferId("wire_transfer_5akynk7dqsq25qwk9q2u")
-          .build())
+        val wireTransfer =
+            wireTransferServiceAsync.submit(
+                WireTransferSubmitParams.builder()
+                    .wireTransferId("wire_transfer_5akynk7dqsq25qwk9q2u")
+                    .build()
+            )
 
-      wireTransfer.validate()
+        wireTransfer.validate()
     }
 }

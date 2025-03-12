@@ -18,50 +18,54 @@ import com.increase.api.errors.IncreaseError
 import com.increase.api.models.inboundwiretransfers.InboundWireTransfer
 import com.increase.api.models.simulations.inboundwiretransfers.InboundWireTransferCreateParams
 
-class InboundWireTransferServiceAsyncImpl internal constructor(
-    private val clientOptions: ClientOptions,
+class InboundWireTransferServiceAsyncImpl
+internal constructor(private val clientOptions: ClientOptions) : InboundWireTransferServiceAsync {
 
-) : InboundWireTransferServiceAsync {
+    private val withRawResponse: InboundWireTransferServiceAsync.WithRawResponse by lazy {
+        WithRawResponseImpl(clientOptions)
+    }
 
-    private val withRawResponse: InboundWireTransferServiceAsync.WithRawResponse by lazy { WithRawResponseImpl(clientOptions) }
+    override fun withRawResponse(): InboundWireTransferServiceAsync.WithRawResponse =
+        withRawResponse
 
-    override fun withRawResponse(): InboundWireTransferServiceAsync.WithRawResponse = withRawResponse
-
-    override suspend fun create(params: InboundWireTransferCreateParams, requestOptions: RequestOptions): InboundWireTransfer =
+    override suspend fun create(
+        params: InboundWireTransferCreateParams,
+        requestOptions: RequestOptions,
+    ): InboundWireTransfer =
         // post /simulations/inbound_wire_transfers
         withRawResponse().create(params, requestOptions).parse()
 
-    class WithRawResponseImpl internal constructor(
-        private val clientOptions: ClientOptions,
-
-    ) : InboundWireTransferServiceAsync.WithRawResponse {
+    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
+        InboundWireTransferServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
-        private val createHandler: Handler<InboundWireTransfer> = jsonHandler<InboundWireTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+        private val createHandler: Handler<InboundWireTransfer> =
+            jsonHandler<InboundWireTransfer>(clientOptions.jsonMapper)
+                .withErrorHandler(errorHandler)
 
-        override suspend fun create(params: InboundWireTransferCreateParams, requestOptions: RequestOptions): HttpResponseFor<InboundWireTransfer> {
-          val request = HttpRequest.builder()
-            .method(HttpMethod.POST)
-            .addPathSegments("simulations", "inbound_wire_transfers")
-            .body(json(clientOptions.jsonMapper, params._body()))
-            .build()
-            .prepareAsync(clientOptions, params)
-          val requestOptions = requestOptions
-              .applyDefaults(RequestOptions.from(clientOptions))
-          val response = clientOptions.httpClient.executeAsync(
-            request, requestOptions
-          )
-          return response.parseable {
-              response.use {
-                  createHandler.handle(it)
-              }
-              .also {
-                  if (requestOptions.responseValidation!!) {
-                    it.validate()
-                  }
-              }
-          }
+        override suspend fun create(
+            params: InboundWireTransferCreateParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<InboundWireTransfer> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .addPathSegments("simulations", "inbound_wire_transfers")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+            return response.parseable {
+                response
+                    .use { createHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
         }
     }
 }

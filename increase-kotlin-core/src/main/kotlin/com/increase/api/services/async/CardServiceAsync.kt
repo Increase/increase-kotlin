@@ -17,33 +17,45 @@ import com.increase.api.models.cards.CardUpdateParams
 interface CardServiceAsync {
 
     /**
-     * Returns a view of this service that provides access to raw HTTP responses for
-     * each method.
+     * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
 
     /** Create a Card */
-    suspend fun create(params: CardCreateParams, requestOptions: RequestOptions = RequestOptions.none()): Card
+    suspend fun create(
+        params: CardCreateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): Card
 
     /** Retrieve a Card */
-    suspend fun retrieve(params: CardRetrieveParams, requestOptions: RequestOptions = RequestOptions.none()): Card
+    suspend fun retrieve(
+        params: CardRetrieveParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): Card
 
     /** Update a Card */
-    suspend fun update(params: CardUpdateParams, requestOptions: RequestOptions = RequestOptions.none()): Card
+    suspend fun update(
+        params: CardUpdateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): Card
 
     /** List Cards */
-    suspend fun list(params: CardListParams = CardListParams.none(), requestOptions: RequestOptions = RequestOptions.none()): CardListPageAsync
+    suspend fun list(
+        params: CardListParams = CardListParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CardListPageAsync
 
     /** @see [list] */
-    suspend fun list(requestOptions: RequestOptions): CardListPageAsync = list(CardListParams.none(), requestOptions)
+    suspend fun list(requestOptions: RequestOptions): CardListPageAsync =
+        list(CardListParams.none(), requestOptions)
 
     /** Retrieve sensitive details for a Card */
-    suspend fun details(params: CardDetailsParams, requestOptions: RequestOptions = RequestOptions.none()): CardDetails
+    suspend fun details(
+        params: CardDetailsParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CardDetails
 
-    /**
-     * A view of [CardServiceAsync] that provides access to raw HTTP responses for each
-     * method.
-     */
+    /** A view of [CardServiceAsync] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
 
         /**
@@ -51,38 +63,54 @@ interface CardServiceAsync {
          * [CardServiceAsync.create].
          */
         @MustBeClosed
-        suspend fun create(params: CardCreateParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<Card>
+        suspend fun create(
+            params: CardCreateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<Card>
 
         /**
-         * Returns a raw HTTP response for `get /cards/{card_id}`, but is otherwise the
-         * same as [CardServiceAsync.retrieve].
+         * Returns a raw HTTP response for `get /cards/{card_id}`, but is otherwise the same as
+         * [CardServiceAsync.retrieve].
          */
         @MustBeClosed
-        suspend fun retrieve(params: CardRetrieveParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<Card>
+        suspend fun retrieve(
+            params: CardRetrieveParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<Card>
 
         /**
-         * Returns a raw HTTP response for `patch /cards/{card_id}`, but is otherwise the
-         * same as [CardServiceAsync.update].
+         * Returns a raw HTTP response for `patch /cards/{card_id}`, but is otherwise the same as
+         * [CardServiceAsync.update].
          */
         @MustBeClosed
-        suspend fun update(params: CardUpdateParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<Card>
+        suspend fun update(
+            params: CardUpdateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<Card>
 
         /**
          * Returns a raw HTTP response for `get /cards`, but is otherwise the same as
          * [CardServiceAsync.list].
          */
         @MustBeClosed
-        suspend fun list(params: CardListParams = CardListParams.none(), requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<CardListPageAsync>
+        suspend fun list(
+            params: CardListParams = CardListParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<CardListPageAsync>
 
         /** @see [list] */
         @MustBeClosed
-        suspend fun list(requestOptions: RequestOptions): HttpResponseFor<CardListPageAsync> = list(CardListParams.none(), requestOptions)
+        suspend fun list(requestOptions: RequestOptions): HttpResponseFor<CardListPageAsync> =
+            list(CardListParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `get /cards/{card_id}/details`, but is otherwise
-         * the same as [CardServiceAsync.details].
+         * Returns a raw HTTP response for `get /cards/{card_id}/details`, but is otherwise the same
+         * as [CardServiceAsync.details].
          */
         @MustBeClosed
-        suspend fun details(params: CardDetailsParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<CardDetails>
+        suspend fun details(
+            params: CardDetailsParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<CardDetails>
     }
 }

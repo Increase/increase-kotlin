@@ -2,7 +2,6 @@ package com.increase.api.core.http
 
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.closeWhenPhantomReachable
-import java.util.concurrent.CompletableFuture
 
 /**
  * A delegating wrapper around an `HttpClient` that closes it once it's only phantom reachable.
@@ -19,7 +18,7 @@ internal class PhantomReachableClosingHttpClient(private val httpClient: HttpCli
 
     override suspend fun executeAsync(
         request: HttpRequest,
-        requestOptions: RequestOptions
+        requestOptions: RequestOptions,
     ): HttpResponse = httpClient.executeAsync(request, requestOptions)
 
     override fun close() = httpClient.close()
