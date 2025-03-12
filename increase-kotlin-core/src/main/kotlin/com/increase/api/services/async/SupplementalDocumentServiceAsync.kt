@@ -13,46 +13,35 @@ import com.increase.api.models.supplementaldocuments.SupplementalDocumentListPar
 interface SupplementalDocumentServiceAsync {
 
     /**
-     * Returns a view of this service that provides access to raw HTTP responses for each method.
+     * Returns a view of this service that provides access to raw HTTP responses for
+     * each method.
      */
     fun withRawResponse(): WithRawResponse
 
     /** Create a supplemental document for an Entity */
-    suspend fun create(
-        params: SupplementalDocumentCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): EntitySupplementalDocument
+    suspend fun create(params: SupplementalDocumentCreateParams, requestOptions: RequestOptions = RequestOptions.none()): EntitySupplementalDocument
 
     /** List Entity Supplemental Document Submissions */
-    suspend fun list(
-        params: SupplementalDocumentListParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): SupplementalDocumentListPageAsync
+    suspend fun list(params: SupplementalDocumentListParams, requestOptions: RequestOptions = RequestOptions.none()): SupplementalDocumentListPageAsync
 
     /**
-     * A view of [SupplementalDocumentServiceAsync] that provides access to raw HTTP responses for
-     * each method.
+     * A view of [SupplementalDocumentServiceAsync] that provides access to raw HTTP
+     * responses for each method.
      */
     interface WithRawResponse {
 
         /**
-         * Returns a raw HTTP response for `post /entity_supplemental_documents`, but is otherwise
-         * the same as [SupplementalDocumentServiceAsync.create].
+         * Returns a raw HTTP response for `post /entity_supplemental_documents`, but is
+         * otherwise the same as [SupplementalDocumentServiceAsync.create].
          */
         @MustBeClosed
-        suspend fun create(
-            params: SupplementalDocumentCreateParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<EntitySupplementalDocument>
+        suspend fun create(params: SupplementalDocumentCreateParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<EntitySupplementalDocument>
 
         /**
-         * Returns a raw HTTP response for `get /entity_supplemental_documents`, but is otherwise
-         * the same as [SupplementalDocumentServiceAsync.list].
+         * Returns a raw HTTP response for `get /entity_supplemental_documents`, but is
+         * otherwise the same as [SupplementalDocumentServiceAsync.list].
          */
         @MustBeClosed
-        suspend fun list(
-            params: SupplementalDocumentListParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SupplementalDocumentListPageAsync>
+        suspend fun list(params: SupplementalDocumentListParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<SupplementalDocumentListPageAsync>
     }
 }

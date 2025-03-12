@@ -15,99 +15,86 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.errors.IncreaseError
 import com.increase.api.models.cardpurchasesupplements.CardPurchaseSupplement
+import com.increase.api.models.cardpurchasesupplements.CardPurchaseSupplementListPage
 import com.increase.api.models.cardpurchasesupplements.CardPurchaseSupplementListPageAsync
 import com.increase.api.models.cardpurchasesupplements.CardPurchaseSupplementListParams
 import com.increase.api.models.cardpurchasesupplements.CardPurchaseSupplementRetrieveParams
 
-class CardPurchaseSupplementServiceAsyncImpl
-internal constructor(private val clientOptions: ClientOptions) :
-    CardPurchaseSupplementServiceAsync {
+class CardPurchaseSupplementServiceAsyncImpl internal constructor(
+    private val clientOptions: ClientOptions,
 
-    private val withRawResponse: CardPurchaseSupplementServiceAsync.WithRawResponse by lazy {
-        WithRawResponseImpl(clientOptions)
-    }
+) : CardPurchaseSupplementServiceAsync {
 
-    override fun withRawResponse(): CardPurchaseSupplementServiceAsync.WithRawResponse =
-        withRawResponse
+    private val withRawResponse: CardPurchaseSupplementServiceAsync.WithRawResponse by lazy { WithRawResponseImpl(clientOptions) }
 
-    override suspend fun retrieve(
-        params: CardPurchaseSupplementRetrieveParams,
-        requestOptions: RequestOptions,
-    ): CardPurchaseSupplement =
+    override fun withRawResponse(): CardPurchaseSupplementServiceAsync.WithRawResponse = withRawResponse
+
+    override suspend fun retrieve(params: CardPurchaseSupplementRetrieveParams, requestOptions: RequestOptions): CardPurchaseSupplement =
         // get /card_purchase_supplements/{card_purchase_supplement_id}
         withRawResponse().retrieve(params, requestOptions).parse()
 
-    override suspend fun list(
-        params: CardPurchaseSupplementListParams,
-        requestOptions: RequestOptions,
-    ): CardPurchaseSupplementListPageAsync =
+    override suspend fun list(params: CardPurchaseSupplementListParams, requestOptions: RequestOptions): CardPurchaseSupplementListPageAsync =
         // get /card_purchase_supplements
         withRawResponse().list(params, requestOptions).parse()
 
-    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
-        CardPurchaseSupplementServiceAsync.WithRawResponse {
+    class WithRawResponseImpl internal constructor(
+        private val clientOptions: ClientOptions,
+
+    ) : CardPurchaseSupplementServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
-        private val retrieveHandler: Handler<CardPurchaseSupplement> =
-            jsonHandler<CardPurchaseSupplement>(clientOptions.jsonMapper)
-                .withErrorHandler(errorHandler)
+        private val retrieveHandler: Handler<CardPurchaseSupplement> = jsonHandler<CardPurchaseSupplement>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
-        override suspend fun retrieve(
-            params: CardPurchaseSupplementRetrieveParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<CardPurchaseSupplement> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .addPathSegments("card_purchase_supplements", params.getPathParam(0))
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return response.parseable {
-                response
-                    .use { retrieveHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+        override suspend fun retrieve(params: CardPurchaseSupplementRetrieveParams, requestOptions: RequestOptions): HttpResponseFor<CardPurchaseSupplement> {
+          val request = HttpRequest.builder()
+            .method(HttpMethod.GET)
+            .addPathSegments("card_purchase_supplements", params.getPathParam(0))
+            .build()
+            .prepareAsync(clientOptions, params)
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.executeAsync(
+            request, requestOptions
+          )
+          return response.parseable {
+              response.use {
+                  retrieveHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
 
-        private val listHandler: Handler<CardPurchaseSupplementListPageAsync.Response> =
-            jsonHandler<CardPurchaseSupplementListPageAsync.Response>(clientOptions.jsonMapper)
-                .withErrorHandler(errorHandler)
+        private val listHandler: Handler<CardPurchaseSupplementListPageAsync.Response> = jsonHandler<CardPurchaseSupplementListPageAsync.Response>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
-        override suspend fun list(
-            params: CardPurchaseSupplementListParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<CardPurchaseSupplementListPageAsync> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .addPathSegments("card_purchase_supplements")
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return response.parseable {
-                response
-                    .use { listHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-                    .let {
-                        CardPurchaseSupplementListPageAsync.of(
-                            CardPurchaseSupplementServiceAsyncImpl(clientOptions),
-                            params,
-                            it,
-                        )
-                    }
-            }
+        override suspend fun list(params: CardPurchaseSupplementListParams, requestOptions: RequestOptions): HttpResponseFor<CardPurchaseSupplementListPageAsync> {
+          val request = HttpRequest.builder()
+            .method(HttpMethod.GET)
+            .addPathSegments("card_purchase_supplements")
+            .build()
+            .prepareAsync(clientOptions, params)
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.executeAsync(
+            request, requestOptions
+          )
+          return response.parseable {
+              response.use {
+                  listHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+              .let {
+                  CardPurchaseSupplementListPageAsync.of(CardPurchaseSupplementServiceAsyncImpl(clientOptions), params, it)
+              }
+          }
         }
     }
 }

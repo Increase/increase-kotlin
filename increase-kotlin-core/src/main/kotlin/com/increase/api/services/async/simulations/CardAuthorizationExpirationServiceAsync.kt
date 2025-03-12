@@ -11,30 +11,26 @@ import com.increase.api.models.simulations.cardauthorizationexpirations.CardAuth
 interface CardAuthorizationExpirationServiceAsync {
 
     /**
-     * Returns a view of this service that provides access to raw HTTP responses for each method.
+     * Returns a view of this service that provides access to raw HTTP responses for
+     * each method.
      */
     fun withRawResponse(): WithRawResponse
 
     /** Simulates expiring a Card Authorization immediately. */
-    suspend fun create(
-        params: CardAuthorizationExpirationCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CardPayment
+    suspend fun create(params: CardAuthorizationExpirationCreateParams, requestOptions: RequestOptions = RequestOptions.none()): CardPayment
 
     /**
-     * A view of [CardAuthorizationExpirationServiceAsync] that provides access to raw HTTP
-     * responses for each method.
+     * A view of [CardAuthorizationExpirationServiceAsync] that provides access to raw
+     * HTTP responses for each method.
      */
     interface WithRawResponse {
 
         /**
-         * Returns a raw HTTP response for `post /simulations/card_authorization_expirations`, but
-         * is otherwise the same as [CardAuthorizationExpirationServiceAsync.create].
+         * Returns a raw HTTP response for
+         * `post /simulations/card_authorization_expirations`, but is otherwise the same as
+         * [CardAuthorizationExpirationServiceAsync.create].
          */
         @MustBeClosed
-        suspend fun create(
-            params: CardAuthorizationExpirationCreateParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CardPayment>
+        suspend fun create(params: CardAuthorizationExpirationCreateParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<CardPayment>
     }
 }

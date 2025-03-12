@@ -11,30 +11,25 @@ import com.increase.api.models.oauthtokens.OAuthTokenCreateParams
 interface OAuthTokenServiceAsync {
 
     /**
-     * Returns a view of this service that provides access to raw HTTP responses for each method.
+     * Returns a view of this service that provides access to raw HTTP responses for
+     * each method.
      */
     fun withRawResponse(): WithRawResponse
 
     /** Create an OAuth Token */
-    suspend fun create(
-        params: OAuthTokenCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): OAuthToken
+    suspend fun create(params: OAuthTokenCreateParams, requestOptions: RequestOptions = RequestOptions.none()): OAuthToken
 
     /**
-     * A view of [OAuthTokenServiceAsync] that provides access to raw HTTP responses for each
-     * method.
+     * A view of [OAuthTokenServiceAsync] that provides access to raw HTTP responses
+     * for each method.
      */
     interface WithRawResponse {
 
         /**
-         * Returns a raw HTTP response for `post /oauth/tokens`, but is otherwise the same as
-         * [OAuthTokenServiceAsync.create].
+         * Returns a raw HTTP response for `post /oauth/tokens`, but is otherwise the same
+         * as [OAuthTokenServiceAsync.create].
          */
         @MustBeClosed
-        suspend fun create(
-            params: OAuthTokenCreateParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<OAuthToken>
+        suspend fun create(params: OAuthTokenCreateParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<OAuthToken>
     }
 }

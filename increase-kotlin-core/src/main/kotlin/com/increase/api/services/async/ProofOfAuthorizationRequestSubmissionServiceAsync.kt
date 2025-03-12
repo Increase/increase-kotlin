@@ -14,79 +14,56 @@ import com.increase.api.models.proofofauthorizationrequestsubmissions.ProofOfAut
 interface ProofOfAuthorizationRequestSubmissionServiceAsync {
 
     /**
-     * Returns a view of this service that provides access to raw HTTP responses for each method.
+     * Returns a view of this service that provides access to raw HTTP responses for
+     * each method.
      */
     fun withRawResponse(): WithRawResponse
 
     /** Submit Proof of Authorization */
-    suspend fun create(
-        params: ProofOfAuthorizationRequestSubmissionCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): ProofOfAuthorizationRequestSubmission
+    suspend fun create(params: ProofOfAuthorizationRequestSubmissionCreateParams, requestOptions: RequestOptions = RequestOptions.none()): ProofOfAuthorizationRequestSubmission
 
     /** Retrieve a Proof of Authorization Request Submission */
-    suspend fun retrieve(
-        params: ProofOfAuthorizationRequestSubmissionRetrieveParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): ProofOfAuthorizationRequestSubmission
+    suspend fun retrieve(params: ProofOfAuthorizationRequestSubmissionRetrieveParams, requestOptions: RequestOptions = RequestOptions.none()): ProofOfAuthorizationRequestSubmission
 
     /** List Proof of Authorization Request Submissions */
-    suspend fun list(
-        params: ProofOfAuthorizationRequestSubmissionListParams =
-            ProofOfAuthorizationRequestSubmissionListParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): ProofOfAuthorizationRequestSubmissionListPageAsync
+    suspend fun list(params: ProofOfAuthorizationRequestSubmissionListParams = ProofOfAuthorizationRequestSubmissionListParams.none(), requestOptions: RequestOptions = RequestOptions.none()): ProofOfAuthorizationRequestSubmissionListPageAsync
 
     /** @see [list] */
-    suspend fun list(
-        requestOptions: RequestOptions
-    ): ProofOfAuthorizationRequestSubmissionListPageAsync =
-        list(ProofOfAuthorizationRequestSubmissionListParams.none(), requestOptions)
+    suspend fun list(requestOptions: RequestOptions): ProofOfAuthorizationRequestSubmissionListPageAsync = list(ProofOfAuthorizationRequestSubmissionListParams.none(), requestOptions)
 
     /**
-     * A view of [ProofOfAuthorizationRequestSubmissionServiceAsync] that provides access to raw
-     * HTTP responses for each method.
+     * A view of [ProofOfAuthorizationRequestSubmissionServiceAsync] that provides
+     * access to raw HTTP responses for each method.
      */
     interface WithRawResponse {
 
         /**
-         * Returns a raw HTTP response for `post /proof_of_authorization_request_submissions`, but
-         * is otherwise the same as [ProofOfAuthorizationRequestSubmissionServiceAsync.create].
+         * Returns a raw HTTP response for
+         * `post /proof_of_authorization_request_submissions`, but is otherwise the same as
+         * [ProofOfAuthorizationRequestSubmissionServiceAsync.create].
          */
         @MustBeClosed
-        suspend fun create(
-            params: ProofOfAuthorizationRequestSubmissionCreateParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ProofOfAuthorizationRequestSubmission>
+        suspend fun create(params: ProofOfAuthorizationRequestSubmissionCreateParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<ProofOfAuthorizationRequestSubmission>
 
         /**
-         * Returns a raw HTTP response for `get
-         * /proof_of_authorization_request_submissions/{proof_of_authorization_request_submission_id}`,
+         * Returns a raw HTTP response for
+         * `get /proof_of_authorization_request_submissions/{proof_of_authorization_request_submission_id}`,
          * but is otherwise the same as
          * [ProofOfAuthorizationRequestSubmissionServiceAsync.retrieve].
          */
         @MustBeClosed
-        suspend fun retrieve(
-            params: ProofOfAuthorizationRequestSubmissionRetrieveParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ProofOfAuthorizationRequestSubmission>
+        suspend fun retrieve(params: ProofOfAuthorizationRequestSubmissionRetrieveParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<ProofOfAuthorizationRequestSubmission>
 
         /**
-         * Returns a raw HTTP response for `get /proof_of_authorization_request_submissions`, but is
-         * otherwise the same as [ProofOfAuthorizationRequestSubmissionServiceAsync.list].
+         * Returns a raw HTTP response for
+         * `get /proof_of_authorization_request_submissions`, but is otherwise the same as
+         * [ProofOfAuthorizationRequestSubmissionServiceAsync.list].
          */
         @MustBeClosed
-        suspend fun list(
-            params: ProofOfAuthorizationRequestSubmissionListParams =
-                ProofOfAuthorizationRequestSubmissionListParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ProofOfAuthorizationRequestSubmissionListPageAsync>
+        suspend fun list(params: ProofOfAuthorizationRequestSubmissionListParams = ProofOfAuthorizationRequestSubmissionListParams.none(), requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<ProofOfAuthorizationRequestSubmissionListPageAsync>
 
         /** @see [list] */
         @MustBeClosed
-        suspend fun list(
-            requestOptions: RequestOptions
-        ): HttpResponseFor<ProofOfAuthorizationRequestSubmissionListPageAsync> =
-            list(ProofOfAuthorizationRequestSubmissionListParams.none(), requestOptions)
+        suspend fun list(requestOptions: RequestOptions): HttpResponseFor<ProofOfAuthorizationRequestSubmissionListPageAsync> = list(ProofOfAuthorizationRequestSubmissionListParams.none(), requestOptions)
     }
 }

@@ -18,52 +18,50 @@ import com.increase.api.errors.IncreaseError
 import com.increase.api.models.inboundachtransfers.InboundAchTransfer
 import com.increase.api.models.simulations.inboundachtransfers.InboundAchTransferCreateParams
 
-class InboundAchTransferServiceAsyncImpl
-internal constructor(private val clientOptions: ClientOptions) : InboundAchTransferServiceAsync {
+class InboundAchTransferServiceAsyncImpl internal constructor(
+    private val clientOptions: ClientOptions,
 
-    private val withRawResponse: InboundAchTransferServiceAsync.WithRawResponse by lazy {
-        WithRawResponseImpl(clientOptions)
-    }
+) : InboundAchTransferServiceAsync {
+
+    private val withRawResponse: InboundAchTransferServiceAsync.WithRawResponse by lazy { WithRawResponseImpl(clientOptions) }
 
     override fun withRawResponse(): InboundAchTransferServiceAsync.WithRawResponse = withRawResponse
 
-    override suspend fun create(
-        params: InboundAchTransferCreateParams,
-        requestOptions: RequestOptions,
-    ): InboundAchTransfer =
+    override suspend fun create(params: InboundAchTransferCreateParams, requestOptions: RequestOptions): InboundAchTransfer =
         // post /simulations/inbound_ach_transfers
         withRawResponse().create(params, requestOptions).parse()
 
-    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
-        InboundAchTransferServiceAsync.WithRawResponse {
+    class WithRawResponseImpl internal constructor(
+        private val clientOptions: ClientOptions,
+
+    ) : InboundAchTransferServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
-        private val createHandler: Handler<InboundAchTransfer> =
-            jsonHandler<InboundAchTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+        private val createHandler: Handler<InboundAchTransfer> = jsonHandler<InboundAchTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
-        override suspend fun create(
-            params: InboundAchTransferCreateParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<InboundAchTransfer> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .addPathSegments("simulations", "inbound_ach_transfers")
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return response.parseable {
-                response
-                    .use { createHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
+        override suspend fun create(params: InboundAchTransferCreateParams, requestOptions: RequestOptions): HttpResponseFor<InboundAchTransfer> {
+          val request = HttpRequest.builder()
+            .method(HttpMethod.POST)
+            .addPathSegments("simulations", "inbound_ach_transfers")
+            .body(json(clientOptions.jsonMapper, params._body()))
+            .build()
+            .prepareAsync(clientOptions, params)
+          val requestOptions = requestOptions
+              .applyDefaults(RequestOptions.from(clientOptions))
+          val response = clientOptions.httpClient.executeAsync(
+            request, requestOptions
+          )
+          return response.parseable {
+              response.use {
+                  createHandler.handle(it)
+              }
+              .also {
+                  if (requestOptions.responseValidation!!) {
+                    it.validate()
+                  }
+              }
+          }
         }
     }
 }

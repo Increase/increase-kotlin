@@ -20,30 +20,25 @@ import java.util.Objects
 
 /** The results of a Digital Wallet Token simulation. */
 @NoAutoDetect
-class DigitalWalletTokenRequestCreateResponse
-@JsonCreator
-private constructor(
-    @JsonProperty("decline_reason")
-    @ExcludeMissing
-    private val declineReason: JsonField<DeclineReason> = JsonMissing.of(),
-    @JsonProperty("digital_wallet_token_id")
-    @ExcludeMissing
-    private val digitalWalletTokenId: JsonField<String> = JsonMissing.of(),
+class DigitalWalletTokenRequestCreateResponse @JsonCreator private constructor(
+    @JsonProperty("decline_reason") @ExcludeMissing private val declineReason: JsonField<DeclineReason> = JsonMissing.of(),
+    @JsonProperty("digital_wallet_token_id") @ExcludeMissing private val digitalWalletTokenId: JsonField<String> = JsonMissing.of(),
     @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+
 ) {
 
     /**
-     * If the simulated tokenization attempt was declined, this field contains details as to why.
+     * If the simulated tokenization attempt was declined, this field contains details
+     * as to why.
      */
     fun declineReason(): DeclineReason? = declineReason.getNullable("decline_reason")
 
     /**
-     * If the simulated tokenization attempt was accepted, this field contains the id of the Digital
-     * Wallet Token that was created.
+     * If the simulated tokenization attempt was accepted, this field contains the id
+     * of the Digital Wallet Token that was created.
      */
-    fun digitalWalletTokenId(): String? =
-        digitalWalletTokenId.getNullable("digital_wallet_token_id")
+    fun digitalWalletTokenId(): String? = digitalWalletTokenId.getNullable("digital_wallet_token_id")
 
     /**
      * A constant representing the object's type. For this resource it will always be
@@ -52,15 +47,16 @@ private constructor(
     fun type(): Type = type.getRequired("type")
 
     /**
-     * If the simulated tokenization attempt was declined, this field contains details as to why.
+     * If the simulated tokenization attempt was declined, this field contains details
+     * as to why.
      */
     @JsonProperty("decline_reason")
     @ExcludeMissing
     fun _declineReason(): JsonField<DeclineReason> = declineReason
 
     /**
-     * If the simulated tokenization attempt was accepted, this field contains the id of the Digital
-     * Wallet Token that was created.
+     * If the simulated tokenization attempt was accepted, this field contains the id
+     * of the Digital Wallet Token that was created.
      */
     @JsonProperty("digital_wallet_token_id")
     @ExcludeMissing
@@ -70,7 +66,9 @@ private constructor(
      * A constant representing the object's type. For this resource it will always be
      * `inbound_digital_wallet_token_request_simulation_result`.
      */
-    @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
+    @JsonProperty("type")
+    @ExcludeMissing
+    fun _type(): JsonField<Type> = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -78,16 +76,17 @@ private constructor(
 
     private var validated: Boolean = false
 
-    fun validate(): DigitalWalletTokenRequestCreateResponse = apply {
-        if (validated) {
-            return@apply
-        }
+    fun validate(): DigitalWalletTokenRequestCreateResponse =
+        apply {
+            if (validated) {
+              return@apply
+            }
 
-        declineReason()
-        digitalWalletTokenId()
-        type()
-        validated = true
-    }
+            declineReason()
+            digitalWalletTokenId()
+            type()
+            validated = true
+        }
 
     fun toBuilder() = Builder().from(this)
 
@@ -98,6 +97,7 @@ private constructor(
          * [DigitalWalletTokenRequestCreateResponse].
          *
          * The following fields are required:
+         *
          * ```kotlin
          * .declineReason()
          * .digitalWalletTokenId()
@@ -115,45 +115,43 @@ private constructor(
         private var type: JsonField<Type>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-        internal fun from(
-            digitalWalletTokenRequestCreateResponse: DigitalWalletTokenRequestCreateResponse
-        ) = apply {
-            declineReason = digitalWalletTokenRequestCreateResponse.declineReason
-            digitalWalletTokenId = digitalWalletTokenRequestCreateResponse.digitalWalletTokenId
-            type = digitalWalletTokenRequestCreateResponse.type
-            additionalProperties =
-                digitalWalletTokenRequestCreateResponse.additionalProperties.toMutableMap()
-        }
+        internal fun from(digitalWalletTokenRequestCreateResponse: DigitalWalletTokenRequestCreateResponse) =
+            apply {
+                declineReason = digitalWalletTokenRequestCreateResponse.declineReason
+                digitalWalletTokenId = digitalWalletTokenRequestCreateResponse.digitalWalletTokenId
+                type = digitalWalletTokenRequestCreateResponse.type
+                additionalProperties = digitalWalletTokenRequestCreateResponse.additionalProperties.toMutableMap()
+            }
 
         /**
-         * If the simulated tokenization attempt was declined, this field contains details as to
-         * why.
+         * If the simulated tokenization attempt was declined, this field contains details
+         * as to why.
          */
-        fun declineReason(declineReason: DeclineReason?) =
-            declineReason(JsonField.ofNullable(declineReason))
+        fun declineReason(declineReason: DeclineReason?) = declineReason(JsonField.ofNullable(declineReason))
 
         /**
-         * If the simulated tokenization attempt was declined, this field contains details as to
-         * why.
+         * If the simulated tokenization attempt was declined, this field contains details
+         * as to why.
          */
-        fun declineReason(declineReason: JsonField<DeclineReason>) = apply {
-            this.declineReason = declineReason
-        }
+        fun declineReason(declineReason: JsonField<DeclineReason>) =
+            apply {
+                this.declineReason = declineReason
+            }
 
         /**
-         * If the simulated tokenization attempt was accepted, this field contains the id of the
-         * Digital Wallet Token that was created.
+         * If the simulated tokenization attempt was accepted, this field contains the id
+         * of the Digital Wallet Token that was created.
          */
-        fun digitalWalletTokenId(digitalWalletTokenId: String?) =
-            digitalWalletTokenId(JsonField.ofNullable(digitalWalletTokenId))
+        fun digitalWalletTokenId(digitalWalletTokenId: String?) = digitalWalletTokenId(JsonField.ofNullable(digitalWalletTokenId))
 
         /**
-         * If the simulated tokenization attempt was accepted, this field contains the id of the
-         * Digital Wallet Token that was created.
+         * If the simulated tokenization attempt was accepted, this field contains the id
+         * of the Digital Wallet Token that was created.
          */
-        fun digitalWalletTokenId(digitalWalletTokenId: JsonField<String>) = apply {
-            this.digitalWalletTokenId = digitalWalletTokenId
-        }
+        fun digitalWalletTokenId(digitalWalletTokenId: JsonField<String>) =
+            apply {
+                this.digitalWalletTokenId = digitalWalletTokenId
+            }
 
         /**
          * A constant representing the object's type. For this resource it will always be
@@ -165,51 +163,71 @@ private constructor(
          * A constant representing the object's type. For this resource it will always be
          * `inbound_digital_wallet_token_request_simulation_result`.
          */
-        fun type(type: JsonField<Type>) = apply { this.type = type }
+        fun type(type: JsonField<Type>) =
+            apply {
+                this.type = type
+            }
 
-        fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-            this.additionalProperties.clear()
-            putAllAdditionalProperties(additionalProperties)
-        }
+        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+            apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
 
-        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            additionalProperties.put(key, value)
-        }
+        fun putAdditionalProperty(key: String, value: JsonValue) =
+            apply {
+                additionalProperties.put(key, value)
+            }
 
-        fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-            this.additionalProperties.putAll(additionalProperties)
-        }
+        fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+            apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
 
-        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+        fun removeAdditionalProperty(key: String) =
+            apply {
+                additionalProperties.remove(key)
+            }
 
-        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalProperty)
-        }
+        fun removeAllAdditionalProperties(keys: Set<String>) =
+            apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
 
         fun build(): DigitalWalletTokenRequestCreateResponse =
             DigitalWalletTokenRequestCreateResponse(
-                checkRequired("declineReason", declineReason),
-                checkRequired("digitalWalletTokenId", digitalWalletTokenId),
-                checkRequired("type", type),
-                additionalProperties.toImmutable(),
+              checkRequired(
+                "declineReason", declineReason
+              ),
+              checkRequired(
+                "digitalWalletTokenId", digitalWalletTokenId
+              ),
+              checkRequired(
+                "type", type
+              ),
+              additionalProperties.toImmutable(),
             )
     }
 
     /**
-     * If the simulated tokenization attempt was declined, this field contains details as to why.
+     * If the simulated tokenization attempt was declined, this field contains details
+     * as to why.
      */
-    class DeclineReason @JsonCreator private constructor(private val value: JsonField<String>) :
-        Enum {
+    class DeclineReason @JsonCreator private constructor(
+        private val value: JsonField<String>,
+
+    ) : Enum {
 
         /**
          * Returns this class instance's raw value.
          *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
+         * This is usually only useful if this instance was deserialized from data that
+         * doesn't match any known member, and you want to know that value. For example, if
+         * the SDK is on an older version than the API, then the API may respond with new
+         * members that the SDK is unaware of.
          */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         companion object {
 
@@ -241,12 +259,16 @@ private constructor(
         }
 
         /**
-         * An enum containing [DeclineReason]'s known values, as well as an [_UNKNOWN] member.
+         * An enum containing [DeclineReason]'s known values, as well as an [_UNKNOWN]
+         * member.
          *
-         * An instance of [DeclineReason] can contain an unknown value in a couple of cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
+         * An instance of [DeclineReason] can contain an unknown value in a couple of
+         * cases:
+         *
+         * - It was deserialized from data that doesn't match any known member. For
+         *   example, if the SDK is on an older version than the API, then the API may
+         *   respond with new members that the SDK is unaware of.
+         *
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
@@ -266,11 +288,11 @@ private constructor(
         }
 
         /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
+         * Returns an enum member corresponding to this class instance's value, or
+         * [Value._UNKNOWN] if the class was instantiated with an unknown value.
          *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
+         * Use the [known] method instead if you're certain the value is always known or if
+         * you want to throw for the unknown case.
          */
         fun value(): Value =
             when (this) {
@@ -284,11 +306,11 @@ private constructor(
         /**
          * Returns an enum member corresponding to this class instance's value.
          *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
+         * Use the [value] method instead if you're uncertain the value is always known and
+         * don't want to throw for the unknown case.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value is a not a known
-         *   member.
+         * @throws IncreaseInvalidDataException if this class instance's value is a not a
+         * known member.
          */
         fun known(): Known =
             when (this) {
@@ -302,21 +324,20 @@ private constructor(
         /**
          * Returns this class instance's primitive wire representation.
          *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
+         * This differs from the [toString] method because that method is primarily for
+         * debugging and generally doesn't throw.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value does not have the
-         *   expected primitive type.
+         * @throws IncreaseInvalidDataException if this class instance's value does not
+         * have the expected primitive type.
          */
-        fun asString(): String =
-            _value().asString() ?: throw IncreaseInvalidDataException("Value is not a String")
+        fun asString(): String = _value().asString() ?: throw IncreaseInvalidDataException("Value is not a String")
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return /* spotless:off */ other is DeclineReason && value == other.value /* spotless:on */
+          return /* spotless:off */ other is DeclineReason && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -328,38 +349,43 @@ private constructor(
      * A constant representing the object's type. For this resource it will always be
      * `inbound_digital_wallet_token_request_simulation_result`.
      */
-    class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+    class Type @JsonCreator private constructor(
+        private val value: JsonField<String>,
+
+    ) : Enum {
 
         /**
          * Returns this class instance's raw value.
          *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
+         * This is usually only useful if this instance was deserialized from data that
+         * doesn't match any known member, and you want to know that value. For example, if
+         * the SDK is on an older version than the API, then the API may respond with new
+         * members that the SDK is unaware of.
          */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue
+        fun _value(): JsonField<String> = value
 
         companion object {
 
-            val INBOUND_DIGITAL_WALLET_TOKEN_REQUEST_SIMULATION_RESULT =
-                of("inbound_digital_wallet_token_request_simulation_result")
+            val INBOUND_DIGITAL_WALLET_TOKEN_REQUEST_SIMULATION_RESULT = of("inbound_digital_wallet_token_request_simulation_result")
 
             fun of(value: String) = Type(JsonField.of(value))
         }
 
         /** An enum containing [Type]'s known values. */
         enum class Known {
-            INBOUND_DIGITAL_WALLET_TOKEN_REQUEST_SIMULATION_RESULT
+            INBOUND_DIGITAL_WALLET_TOKEN_REQUEST_SIMULATION_RESULT,
         }
 
         /**
          * An enum containing [Type]'s known values, as well as an [_UNKNOWN] member.
          *
          * An instance of [Type] can contain an unknown value in a couple of cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
+         *
+         * - It was deserialized from data that doesn't match any known member. For
+         *   example, if the SDK is on an older version than the API, then the API may
+         *   respond with new members that the SDK is unaware of.
+         *
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
@@ -369,53 +395,50 @@ private constructor(
         }
 
         /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
+         * Returns an enum member corresponding to this class instance's value, or
+         * [Value._UNKNOWN] if the class was instantiated with an unknown value.
          *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
+         * Use the [known] method instead if you're certain the value is always known or if
+         * you want to throw for the unknown case.
          */
         fun value(): Value =
             when (this) {
-                INBOUND_DIGITAL_WALLET_TOKEN_REQUEST_SIMULATION_RESULT ->
-                    Value.INBOUND_DIGITAL_WALLET_TOKEN_REQUEST_SIMULATION_RESULT
+                INBOUND_DIGITAL_WALLET_TOKEN_REQUEST_SIMULATION_RESULT -> Value.INBOUND_DIGITAL_WALLET_TOKEN_REQUEST_SIMULATION_RESULT
                 else -> Value._UNKNOWN
             }
 
         /**
          * Returns an enum member corresponding to this class instance's value.
          *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
+         * Use the [value] method instead if you're uncertain the value is always known and
+         * don't want to throw for the unknown case.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value is a not a known
-         *   member.
+         * @throws IncreaseInvalidDataException if this class instance's value is a not a
+         * known member.
          */
         fun known(): Known =
             when (this) {
-                INBOUND_DIGITAL_WALLET_TOKEN_REQUEST_SIMULATION_RESULT ->
-                    Known.INBOUND_DIGITAL_WALLET_TOKEN_REQUEST_SIMULATION_RESULT
+                INBOUND_DIGITAL_WALLET_TOKEN_REQUEST_SIMULATION_RESULT -> Known.INBOUND_DIGITAL_WALLET_TOKEN_REQUEST_SIMULATION_RESULT
                 else -> throw IncreaseInvalidDataException("Unknown Type: $value")
             }
 
         /**
          * Returns this class instance's primitive wire representation.
          *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
+         * This differs from the [toString] method because that method is primarily for
+         * debugging and generally doesn't throw.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value does not have the
-         *   expected primitive type.
+         * @throws IncreaseInvalidDataException if this class instance's value does not
+         * have the expected primitive type.
          */
-        fun asString(): String =
-            _value().asString() ?: throw IncreaseInvalidDataException("Value is not a String")
+        fun asString(): String = _value().asString() ?: throw IncreaseInvalidDataException("Value is not a String")
 
         override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
+          if (this === other) {
+              return true
+          }
 
-            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
+          return /* spotless:off */ other is Type && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -424,11 +447,11 @@ private constructor(
     }
 
     override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
+      if (this === other) {
+          return true
+      }
 
-        return /* spotless:off */ other is DigitalWalletTokenRequestCreateResponse && declineReason == other.declineReason && digitalWalletTokenId == other.digitalWalletTokenId && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+      return /* spotless:off */ other is DigitalWalletTokenRequestCreateResponse && declineReason == other.declineReason && digitalWalletTokenId == other.digitalWalletTokenId && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
@@ -437,6 +460,5 @@ private constructor(
 
     override fun hashCode(): Int = hashCode
 
-    override fun toString() =
-        "DigitalWalletTokenRequestCreateResponse{declineReason=$declineReason, digitalWalletTokenId=$digitalWalletTokenId, type=$type, additionalProperties=$additionalProperties}"
+    override fun toString() = "DigitalWalletTokenRequestCreateResponse{declineReason=$declineReason, digitalWalletTokenId=$digitalWalletTokenId, type=$type, additionalProperties=$additionalProperties}"
 }
