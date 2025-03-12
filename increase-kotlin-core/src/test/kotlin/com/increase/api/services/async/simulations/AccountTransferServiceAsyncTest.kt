@@ -13,16 +13,20 @@ class AccountTransferServiceAsyncTest {
 
     @Test
     suspend fun complete() {
-      val client = IncreaseOkHttpClientAsync.builder()
-          .baseUrl(TestServerExtension.BASE_URL)
-          .apiKey("My API Key")
-          .build()
-      val accountTransferServiceAsync = client.simulations().accountTransfers()
+        val client =
+            IncreaseOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val accountTransferServiceAsync = client.simulations().accountTransfers()
 
-      val accountTransfer = accountTransferServiceAsync.complete(AccountTransferCompleteParams.builder()
-          .accountTransferId("account_transfer_7k9qe1ysdgqztnt63l7n")
-          .build())
+        val accountTransfer =
+            accountTransferServiceAsync.complete(
+                AccountTransferCompleteParams.builder()
+                    .accountTransferId("account_transfer_7k9qe1ysdgqztnt63l7n")
+                    .build()
+            )
 
-      accountTransfer.validate()
+        accountTransfer.validate()
     }
 }

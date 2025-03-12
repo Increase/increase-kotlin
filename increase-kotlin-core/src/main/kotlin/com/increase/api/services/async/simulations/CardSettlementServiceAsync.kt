@@ -11,31 +11,35 @@ import com.increase.api.models.transactions.Transaction
 interface CardSettlementServiceAsync {
 
     /**
-     * Returns a view of this service that provides access to raw HTTP responses for
-     * each method.
+     * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
 
     /**
-     * Simulates the settlement of an authorization by a card acquirer. After a card
-     * authorization is created, the merchant will eventually send a settlement. This
-     * simulates that event, which may occur many days after the purchase in
-     * production. The amount settled can be different from the amount originally
-     * authorized, for example, when adding a tip to a restaurant bill.
+     * Simulates the settlement of an authorization by a card acquirer. After a card authorization
+     * is created, the merchant will eventually send a settlement. This simulates that event, which
+     * may occur many days after the purchase in production. The amount settled can be different
+     * from the amount originally authorized, for example, when adding a tip to a restaurant bill.
      */
-    suspend fun create(params: CardSettlementCreateParams, requestOptions: RequestOptions = RequestOptions.none()): Transaction
+    suspend fun create(
+        params: CardSettlementCreateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): Transaction
 
     /**
-     * A view of [CardSettlementServiceAsync] that provides access to raw HTTP
-     * responses for each method.
+     * A view of [CardSettlementServiceAsync] that provides access to raw HTTP responses for each
+     * method.
      */
     interface WithRawResponse {
 
         /**
-         * Returns a raw HTTP response for `post /simulations/card_settlements`, but is
-         * otherwise the same as [CardSettlementServiceAsync.create].
+         * Returns a raw HTTP response for `post /simulations/card_settlements`, but is otherwise
+         * the same as [CardSettlementServiceAsync.create].
          */
         @MustBeClosed
-        suspend fun create(params: CardSettlementCreateParams, requestOptions: RequestOptions = RequestOptions.none()): HttpResponseFor<Transaction>
+        suspend fun create(
+            params: CardSettlementCreateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<Transaction>
     }
 }

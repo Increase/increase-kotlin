@@ -13,16 +13,21 @@ class CardAuthorizationExpirationServiceAsyncTest {
 
     @Test
     suspend fun create() {
-      val client = IncreaseOkHttpClientAsync.builder()
-          .baseUrl(TestServerExtension.BASE_URL)
-          .apiKey("My API Key")
-          .build()
-      val cardAuthorizationExpirationServiceAsync = client.simulations().cardAuthorizationExpirations()
+        val client =
+            IncreaseOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val cardAuthorizationExpirationServiceAsync =
+            client.simulations().cardAuthorizationExpirations()
 
-      val cardPayment = cardAuthorizationExpirationServiceAsync.create(CardAuthorizationExpirationCreateParams.builder()
-          .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
-          .build())
+        val cardPayment =
+            cardAuthorizationExpirationServiceAsync.create(
+                CardAuthorizationExpirationCreateParams.builder()
+                    .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
+                    .build()
+            )
 
-      cardPayment.validate()
+        cardPayment.validate()
     }
 }

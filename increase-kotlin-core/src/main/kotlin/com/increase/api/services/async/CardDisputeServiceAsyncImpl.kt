@@ -17,116 +17,130 @@ import com.increase.api.core.prepareAsync
 import com.increase.api.errors.IncreaseError
 import com.increase.api.models.carddisputes.CardDispute
 import com.increase.api.models.carddisputes.CardDisputeCreateParams
-import com.increase.api.models.carddisputes.CardDisputeListPage
 import com.increase.api.models.carddisputes.CardDisputeListPageAsync
 import com.increase.api.models.carddisputes.CardDisputeListParams
 import com.increase.api.models.carddisputes.CardDisputeRetrieveParams
 
-class CardDisputeServiceAsyncImpl internal constructor(
-    private val clientOptions: ClientOptions,
+class CardDisputeServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
+    CardDisputeServiceAsync {
 
-) : CardDisputeServiceAsync {
-
-    private val withRawResponse: CardDisputeServiceAsync.WithRawResponse by lazy { WithRawResponseImpl(clientOptions) }
+    private val withRawResponse: CardDisputeServiceAsync.WithRawResponse by lazy {
+        WithRawResponseImpl(clientOptions)
+    }
 
     override fun withRawResponse(): CardDisputeServiceAsync.WithRawResponse = withRawResponse
 
-    override suspend fun create(params: CardDisputeCreateParams, requestOptions: RequestOptions): CardDispute =
+    override suspend fun create(
+        params: CardDisputeCreateParams,
+        requestOptions: RequestOptions,
+    ): CardDispute =
         // post /card_disputes
         withRawResponse().create(params, requestOptions).parse()
 
-    override suspend fun retrieve(params: CardDisputeRetrieveParams, requestOptions: RequestOptions): CardDispute =
+    override suspend fun retrieve(
+        params: CardDisputeRetrieveParams,
+        requestOptions: RequestOptions,
+    ): CardDispute =
         // get /card_disputes/{card_dispute_id}
         withRawResponse().retrieve(params, requestOptions).parse()
 
-    override suspend fun list(params: CardDisputeListParams, requestOptions: RequestOptions): CardDisputeListPageAsync =
+    override suspend fun list(
+        params: CardDisputeListParams,
+        requestOptions: RequestOptions,
+    ): CardDisputeListPageAsync =
         // get /card_disputes
         withRawResponse().list(params, requestOptions).parse()
 
-    class WithRawResponseImpl internal constructor(
-        private val clientOptions: ClientOptions,
-
-    ) : CardDisputeServiceAsync.WithRawResponse {
+    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
+        CardDisputeServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<IncreaseError> = errorHandler(clientOptions.jsonMapper)
 
-        private val createHandler: Handler<CardDispute> = jsonHandler<CardDispute>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+        private val createHandler: Handler<CardDispute> =
+            jsonHandler<CardDispute>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
-        override suspend fun create(params: CardDisputeCreateParams, requestOptions: RequestOptions): HttpResponseFor<CardDispute> {
-          val request = HttpRequest.builder()
-            .method(HttpMethod.POST)
-            .addPathSegments("card_disputes")
-            .body(json(clientOptions.jsonMapper, params._body()))
-            .build()
-            .prepareAsync(clientOptions, params)
-          val requestOptions = requestOptions
-              .applyDefaults(RequestOptions.from(clientOptions))
-          val response = clientOptions.httpClient.executeAsync(
-            request, requestOptions
-          )
-          return response.parseable {
-              response.use {
-                  createHandler.handle(it)
-              }
-              .also {
-                  if (requestOptions.responseValidation!!) {
-                    it.validate()
-                  }
-              }
-          }
+        override suspend fun create(
+            params: CardDisputeCreateParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<CardDispute> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .addPathSegments("card_disputes")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+            return response.parseable {
+                response
+                    .use { createHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
         }
 
-        private val retrieveHandler: Handler<CardDispute> = jsonHandler<CardDispute>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+        private val retrieveHandler: Handler<CardDispute> =
+            jsonHandler<CardDispute>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
 
-        override suspend fun retrieve(params: CardDisputeRetrieveParams, requestOptions: RequestOptions): HttpResponseFor<CardDispute> {
-          val request = HttpRequest.builder()
-            .method(HttpMethod.GET)
-            .addPathSegments("card_disputes", params.getPathParam(0))
-            .build()
-            .prepareAsync(clientOptions, params)
-          val requestOptions = requestOptions
-              .applyDefaults(RequestOptions.from(clientOptions))
-          val response = clientOptions.httpClient.executeAsync(
-            request, requestOptions
-          )
-          return response.parseable {
-              response.use {
-                  retrieveHandler.handle(it)
-              }
-              .also {
-                  if (requestOptions.responseValidation!!) {
-                    it.validate()
-                  }
-              }
-          }
+        override suspend fun retrieve(
+            params: CardDisputeRetrieveParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<CardDispute> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .addPathSegments("card_disputes", params.getPathParam(0))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+            return response.parseable {
+                response
+                    .use { retrieveHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
         }
 
-        private val listHandler: Handler<CardDisputeListPageAsync.Response> = jsonHandler<CardDisputeListPageAsync.Response>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+        private val listHandler: Handler<CardDisputeListPageAsync.Response> =
+            jsonHandler<CardDisputeListPageAsync.Response>(clientOptions.jsonMapper)
+                .withErrorHandler(errorHandler)
 
-        override suspend fun list(params: CardDisputeListParams, requestOptions: RequestOptions): HttpResponseFor<CardDisputeListPageAsync> {
-          val request = HttpRequest.builder()
-            .method(HttpMethod.GET)
-            .addPathSegments("card_disputes")
-            .build()
-            .prepareAsync(clientOptions, params)
-          val requestOptions = requestOptions
-              .applyDefaults(RequestOptions.from(clientOptions))
-          val response = clientOptions.httpClient.executeAsync(
-            request, requestOptions
-          )
-          return response.parseable {
-              response.use {
-                  listHandler.handle(it)
-              }
-              .also {
-                  if (requestOptions.responseValidation!!) {
-                    it.validate()
-                  }
-              }
-              .let {
-                  CardDisputeListPageAsync.of(CardDisputeServiceAsyncImpl(clientOptions), params, it)
-              }
-          }
+        override suspend fun list(
+            params: CardDisputeListParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<CardDisputeListPageAsync> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .addPathSegments("card_disputes")
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.executeAsync(request, requestOptions)
+            return response.parseable {
+                response
+                    .use { listHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+                    .let {
+                        CardDisputeListPageAsync.of(
+                            CardDisputeServiceAsyncImpl(clientOptions),
+                            params,
+                            it,
+                        )
+                    }
+            }
         }
     }
 }

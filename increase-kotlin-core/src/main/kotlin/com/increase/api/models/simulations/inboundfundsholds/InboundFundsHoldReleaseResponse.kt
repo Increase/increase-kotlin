@@ -20,50 +20,62 @@ import java.time.OffsetDateTime
 import java.util.Objects
 
 /**
- * We hold funds for certain transaction types to account for return windows where
- * funds might still be clawed back by the sending institution.
+ * We hold funds for certain transaction types to account for return windows where funds might still
+ * be clawed back by the sending institution.
  */
 @NoAutoDetect
-class InboundFundsHoldReleaseResponse @JsonCreator private constructor(
+class InboundFundsHoldReleaseResponse
+@JsonCreator
+private constructor(
     @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
     @JsonProperty("amount") @ExcludeMissing private val amount: JsonField<Long> = JsonMissing.of(),
-    @JsonProperty("automatically_releases_at") @ExcludeMissing private val automaticallyReleasesAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("created_at") @ExcludeMissing private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("currency") @ExcludeMissing private val currency: JsonField<Currency> = JsonMissing.of(),
-    @JsonProperty("held_transaction_id") @ExcludeMissing private val heldTransactionId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("pending_transaction_id") @ExcludeMissing private val pendingTransactionId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("released_at") @ExcludeMissing private val releasedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("status") @ExcludeMissing private val status: JsonField<Status> = JsonMissing.of(),
+    @JsonProperty("automatically_releases_at")
+    @ExcludeMissing
+    private val automaticallyReleasesAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("currency")
+    @ExcludeMissing
+    private val currency: JsonField<Currency> = JsonMissing.of(),
+    @JsonProperty("held_transaction_id")
+    @ExcludeMissing
+    private val heldTransactionId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("pending_transaction_id")
+    @ExcludeMissing
+    private val pendingTransactionId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("released_at")
+    @ExcludeMissing
+    private val releasedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("status")
+    @ExcludeMissing
+    private val status: JsonField<Status> = JsonMissing.of(),
     @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
-
 ) {
 
     /** The Inbound Funds Hold identifier. */
     fun id(): String = id.getRequired("id")
 
     /**
-     * The held amount in the minor unit of the account's currency. For dollars, for
-     * example, this is cents.
+     * The held amount in the minor unit of the account's currency. For dollars, for example, this
+     * is cents.
      */
     fun amount(): Long = amount.getRequired("amount")
 
     /**
-     * When the hold will be released automatically. Certain conditions may cause it to
-     * be released before this time.
+     * When the hold will be released automatically. Certain conditions may cause it to be released
+     * before this time.
      */
-    fun automaticallyReleasesAt(): OffsetDateTime = automaticallyReleasesAt.getRequired("automatically_releases_at")
+    fun automaticallyReleasesAt(): OffsetDateTime =
+        automaticallyReleasesAt.getRequired("automatically_releases_at")
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the hold
-     * was created.
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the hold was created.
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
-    /**
-     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the hold's
-     * currency.
-     */
+    /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the hold's currency. */
     fun currency(): Currency = currency.getRequired("currency")
 
     /** The ID of the Transaction for which funds were held. */
@@ -85,41 +97,31 @@ class InboundFundsHoldReleaseResponse @JsonCreator private constructor(
     fun type(): Type = type.getRequired("type")
 
     /** The Inbound Funds Hold identifier. */
-    @JsonProperty("id")
-    @ExcludeMissing
-    fun _id(): JsonField<String> = id
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /**
-     * The held amount in the minor unit of the account's currency. For dollars, for
-     * example, this is cents.
+     * The held amount in the minor unit of the account's currency. For dollars, for example, this
+     * is cents.
      */
-    @JsonProperty("amount")
-    @ExcludeMissing
-    fun _amount(): JsonField<Long> = amount
+    @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
     /**
-     * When the hold will be released automatically. Certain conditions may cause it to
-     * be released before this time.
+     * When the hold will be released automatically. Certain conditions may cause it to be released
+     * before this time.
      */
     @JsonProperty("automatically_releases_at")
     @ExcludeMissing
     fun _automaticallyReleasesAt(): JsonField<OffsetDateTime> = automaticallyReleasesAt
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the hold
-     * was created.
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the hold was created.
      */
     @JsonProperty("created_at")
     @ExcludeMissing
     fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
-    /**
-     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the hold's
-     * currency.
-     */
-    @JsonProperty("currency")
-    @ExcludeMissing
-    fun _currency(): JsonField<Currency> = currency
+    /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the hold's currency. */
+    @JsonProperty("currency") @ExcludeMissing fun _currency(): JsonField<Currency> = currency
 
     /** The ID of the Transaction for which funds were held. */
     @JsonProperty("held_transaction_id")
@@ -137,17 +139,13 @@ class InboundFundsHoldReleaseResponse @JsonCreator private constructor(
     fun _releasedAt(): JsonField<OffsetDateTime> = releasedAt
 
     /** The status of the hold. */
-    @JsonProperty("status")
-    @ExcludeMissing
-    fun _status(): JsonField<Status> = status
+    @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `inbound_funds_hold`.
      */
-    @JsonProperty("type")
-    @ExcludeMissing
-    fun _type(): JsonField<Type> = type
+    @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -155,24 +153,23 @@ class InboundFundsHoldReleaseResponse @JsonCreator private constructor(
 
     private var validated: Boolean = false
 
-    fun validate(): InboundFundsHoldReleaseResponse =
-        apply {
-            if (validated) {
-              return@apply
-            }
-
-            id()
-            amount()
-            automaticallyReleasesAt()
-            createdAt()
-            currency()
-            heldTransactionId()
-            pendingTransactionId()
-            releasedAt()
-            status()
-            type()
-            validated = true
+    fun validate(): InboundFundsHoldReleaseResponse = apply {
+        if (validated) {
+            return@apply
         }
+
+        id()
+        amount()
+        automaticallyReleasesAt()
+        createdAt()
+        currency()
+        heldTransactionId()
+        pendingTransactionId()
+        releasedAt()
+        status()
+        type()
+        validated = true
+    }
 
     fun toBuilder() = Builder().from(this)
 
@@ -183,7 +180,6 @@ class InboundFundsHoldReleaseResponse @JsonCreator private constructor(
          * [InboundFundsHoldReleaseResponse].
          *
          * The following fields are required:
-         *
          * ```kotlin
          * .id()
          * .amount()
@@ -227,113 +223,92 @@ class InboundFundsHoldReleaseResponse @JsonCreator private constructor(
                 releasedAt = inboundFundsHoldReleaseResponse.releasedAt
                 status = inboundFundsHoldReleaseResponse.status
                 type = inboundFundsHoldReleaseResponse.type
-                additionalProperties = inboundFundsHoldReleaseResponse.additionalProperties.toMutableMap()
+                additionalProperties =
+                    inboundFundsHoldReleaseResponse.additionalProperties.toMutableMap()
             }
 
         /** The Inbound Funds Hold identifier. */
         fun id(id: String) = id(JsonField.of(id))
 
         /** The Inbound Funds Hold identifier. */
-        fun id(id: JsonField<String>) =
-            apply {
-                this.id = id
-            }
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
-         * The held amount in the minor unit of the account's currency. For dollars, for
-         * example, this is cents.
+         * The held amount in the minor unit of the account's currency. For dollars, for example,
+         * this is cents.
          */
         fun amount(amount: Long) = amount(JsonField.of(amount))
 
         /**
-         * The held amount in the minor unit of the account's currency. For dollars, for
-         * example, this is cents.
+         * The held amount in the minor unit of the account's currency. For dollars, for example,
+         * this is cents.
          */
-        fun amount(amount: JsonField<Long>) =
-            apply {
-                this.amount = amount
-            }
+        fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
         /**
-         * When the hold will be released automatically. Certain conditions may cause it to
-         * be released before this time.
+         * When the hold will be released automatically. Certain conditions may cause it to be
+         * released before this time.
          */
-        fun automaticallyReleasesAt(automaticallyReleasesAt: OffsetDateTime) = automaticallyReleasesAt(JsonField.of(automaticallyReleasesAt))
+        fun automaticallyReleasesAt(automaticallyReleasesAt: OffsetDateTime) =
+            automaticallyReleasesAt(JsonField.of(automaticallyReleasesAt))
 
         /**
-         * When the hold will be released automatically. Certain conditions may cause it to
-         * be released before this time.
+         * When the hold will be released automatically. Certain conditions may cause it to be
+         * released before this time.
          */
-        fun automaticallyReleasesAt(automaticallyReleasesAt: JsonField<OffsetDateTime>) =
-            apply {
-                this.automaticallyReleasesAt = automaticallyReleasesAt
-            }
+        fun automaticallyReleasesAt(automaticallyReleasesAt: JsonField<OffsetDateTime>) = apply {
+            this.automaticallyReleasesAt = automaticallyReleasesAt
+        }
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the hold
-         * was created.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the hold was
+         * created.
          */
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the hold
-         * was created.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the hold was
+         * created.
          */
-        fun createdAt(createdAt: JsonField<OffsetDateTime>) =
-            apply {
-                this.createdAt = createdAt
-            }
+        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
-        /**
-         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the hold's
-         * currency.
-         */
+        /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the hold's currency. */
         fun currency(currency: Currency) = currency(JsonField.of(currency))
 
-        /**
-         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the hold's
-         * currency.
-         */
-        fun currency(currency: JsonField<Currency>) =
-            apply {
-                this.currency = currency
-            }
+        /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the hold's currency. */
+        fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
 
         /** The ID of the Transaction for which funds were held. */
-        fun heldTransactionId(heldTransactionId: String?) = heldTransactionId(JsonField.ofNullable(heldTransactionId))
+        fun heldTransactionId(heldTransactionId: String?) =
+            heldTransactionId(JsonField.ofNullable(heldTransactionId))
 
         /** The ID of the Transaction for which funds were held. */
-        fun heldTransactionId(heldTransactionId: JsonField<String>) =
-            apply {
-                this.heldTransactionId = heldTransactionId
-            }
+        fun heldTransactionId(heldTransactionId: JsonField<String>) = apply {
+            this.heldTransactionId = heldTransactionId
+        }
 
         /** The ID of the Pending Transaction representing the held funds. */
-        fun pendingTransactionId(pendingTransactionId: String?) = pendingTransactionId(JsonField.ofNullable(pendingTransactionId))
+        fun pendingTransactionId(pendingTransactionId: String?) =
+            pendingTransactionId(JsonField.ofNullable(pendingTransactionId))
 
         /** The ID of the Pending Transaction representing the held funds. */
-        fun pendingTransactionId(pendingTransactionId: JsonField<String>) =
-            apply {
-                this.pendingTransactionId = pendingTransactionId
-            }
+        fun pendingTransactionId(pendingTransactionId: JsonField<String>) = apply {
+            this.pendingTransactionId = pendingTransactionId
+        }
 
         /** When the hold was released (if it has been released). */
         fun releasedAt(releasedAt: OffsetDateTime?) = releasedAt(JsonField.ofNullable(releasedAt))
 
         /** When the hold was released (if it has been released). */
-        fun releasedAt(releasedAt: JsonField<OffsetDateTime>) =
-            apply {
-                this.releasedAt = releasedAt
-            }
+        fun releasedAt(releasedAt: JsonField<OffsetDateTime>) = apply {
+            this.releasedAt = releasedAt
+        }
 
         /** The status of the hold. */
         fun status(status: Status) = status(JsonField.of(status))
 
         /** The status of the hold. */
-        fun status(status: JsonField<Status>) =
-            apply {
-                this.status = status
-            }
+        fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /**
          * A constant representing the object's type. For this resource it will always be
@@ -345,92 +320,55 @@ class InboundFundsHoldReleaseResponse @JsonCreator private constructor(
          * A constant representing the object's type. For this resource it will always be
          * `inbound_funds_hold`.
          */
-        fun type(type: JsonField<Type>) =
-            apply {
-                this.type = type
-            }
+        fun type(type: JsonField<Type>) = apply { this.type = type }
 
-        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
-            apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
+        fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+            this.additionalProperties.clear()
+            putAllAdditionalProperties(additionalProperties)
+        }
 
-        fun putAdditionalProperty(key: String, value: JsonValue) =
-            apply {
-                additionalProperties.put(key, value)
-            }
+        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+            additionalProperties.put(key, value)
+        }
 
-        fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-            apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
+        fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+            this.additionalProperties.putAll(additionalProperties)
+        }
 
-        fun removeAdditionalProperty(key: String) =
-            apply {
-                additionalProperties.remove(key)
-            }
+        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
 
-        fun removeAllAdditionalProperties(keys: Set<String>) =
-            apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
+        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalProperty)
+        }
 
         fun build(): InboundFundsHoldReleaseResponse =
             InboundFundsHoldReleaseResponse(
-              checkRequired(
-                "id", id
-              ),
-              checkRequired(
-                "amount", amount
-              ),
-              checkRequired(
-                "automaticallyReleasesAt", automaticallyReleasesAt
-              ),
-              checkRequired(
-                "createdAt", createdAt
-              ),
-              checkRequired(
-                "currency", currency
-              ),
-              checkRequired(
-                "heldTransactionId", heldTransactionId
-              ),
-              checkRequired(
-                "pendingTransactionId", pendingTransactionId
-              ),
-              checkRequired(
-                "releasedAt", releasedAt
-              ),
-              checkRequired(
-                "status", status
-              ),
-              checkRequired(
-                "type", type
-              ),
-              additionalProperties.toImmutable(),
+                checkRequired("id", id),
+                checkRequired("amount", amount),
+                checkRequired("automaticallyReleasesAt", automaticallyReleasesAt),
+                checkRequired("createdAt", createdAt),
+                checkRequired("currency", currency),
+                checkRequired("heldTransactionId", heldTransactionId),
+                checkRequired("pendingTransactionId", pendingTransactionId),
+                checkRequired("releasedAt", releasedAt),
+                checkRequired("status", status),
+                checkRequired("type", type),
+                additionalProperties.toImmutable(),
             )
     }
 
-    /**
-     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the hold's
-     * currency.
-     */
-    class Currency @JsonCreator private constructor(
-        private val value: JsonField<String>,
-
-    ) : Enum {
+    /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the hold's currency. */
+    class Currency @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
          *
-         * This is usually only useful if this instance was deserialized from data that
-         * doesn't match any known member, and you want to know that value. For example, if
-         * the SDK is on an older version than the API, then the API may respond with new
-         * members that the SDK is unaware of.
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
          */
-        @com.fasterxml.jackson.annotation.JsonValue
-        fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         companion object {
 
@@ -475,11 +413,9 @@ class InboundFundsHoldReleaseResponse @JsonCreator private constructor(
          * An enum containing [Currency]'s known values, as well as an [_UNKNOWN] member.
          *
          * An instance of [Currency] can contain an unknown value in a couple of cases:
-         *
-         * - It was deserialized from data that doesn't match any known member. For
-         *   example, if the SDK is on an older version than the API, then the API may
-         *   respond with new members that the SDK is unaware of.
-         *
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
@@ -495,19 +431,16 @@ class InboundFundsHoldReleaseResponse @JsonCreator private constructor(
             JPY,
             /** US Dollar (USD) */
             USD,
-            /**
-             * An enum member indicating that [Currency] was instantiated with an unknown
-             * value.
-             */
+            /** An enum member indicating that [Currency] was instantiated with an unknown value. */
             _UNKNOWN,
         }
 
         /**
-         * Returns an enum member corresponding to this class instance's value, or
-         * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
          *
-         * Use the [known] method instead if you're certain the value is always known or if
-         * you want to throw for the unknown case.
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
          */
         fun value(): Value =
             when (this) {
@@ -523,11 +456,11 @@ class InboundFundsHoldReleaseResponse @JsonCreator private constructor(
         /**
          * Returns an enum member corresponding to this class instance's value.
          *
-         * Use the [value] method instead if you're uncertain the value is always known and
-         * don't want to throw for the unknown case.
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value is a not a
-         * known member.
+         * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+         *   member.
          */
         fun known(): Known =
             when (this) {
@@ -543,20 +476,21 @@ class InboundFundsHoldReleaseResponse @JsonCreator private constructor(
         /**
          * Returns this class instance's primitive wire representation.
          *
-         * This differs from the [toString] method because that method is primarily for
-         * debugging and generally doesn't throw.
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value does not
-         * have the expected primitive type.
+         * @throws IncreaseInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
          */
-        fun asString(): String = _value().asString() ?: throw IncreaseInvalidDataException("Value is not a String")
+        fun asString(): String =
+            _value().asString() ?: throw IncreaseInvalidDataException("Value is not a String")
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return /* spotless:off */ other is Currency && value == other.value /* spotless:on */
+            return /* spotless:off */ other is Currency && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -565,21 +499,17 @@ class InboundFundsHoldReleaseResponse @JsonCreator private constructor(
     }
 
     /** The status of the hold. */
-    class Status @JsonCreator private constructor(
-        private val value: JsonField<String>,
-
-    ) : Enum {
+    class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
          *
-         * This is usually only useful if this instance was deserialized from data that
-         * doesn't match any known member, and you want to know that value. For example, if
-         * the SDK is on an older version than the API, then the API may respond with new
-         * members that the SDK is unaware of.
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
          */
-        @com.fasterxml.jackson.annotation.JsonValue
-        fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         companion object {
 
@@ -604,11 +534,9 @@ class InboundFundsHoldReleaseResponse @JsonCreator private constructor(
          * An enum containing [Status]'s known values, as well as an [_UNKNOWN] member.
          *
          * An instance of [Status] can contain an unknown value in a couple of cases:
-         *
-         * - It was deserialized from data that doesn't match any known member. For
-         *   example, if the SDK is on an older version than the API, then the API may
-         *   respond with new members that the SDK is unaware of.
-         *
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
@@ -621,11 +549,11 @@ class InboundFundsHoldReleaseResponse @JsonCreator private constructor(
         }
 
         /**
-         * Returns an enum member corresponding to this class instance's value, or
-         * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
          *
-         * Use the [known] method instead if you're certain the value is always known or if
-         * you want to throw for the unknown case.
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
          */
         fun value(): Value =
             when (this) {
@@ -637,11 +565,11 @@ class InboundFundsHoldReleaseResponse @JsonCreator private constructor(
         /**
          * Returns an enum member corresponding to this class instance's value.
          *
-         * Use the [value] method instead if you're uncertain the value is always known and
-         * don't want to throw for the unknown case.
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value is a not a
-         * known member.
+         * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+         *   member.
          */
         fun known(): Known =
             when (this) {
@@ -653,20 +581,21 @@ class InboundFundsHoldReleaseResponse @JsonCreator private constructor(
         /**
          * Returns this class instance's primitive wire representation.
          *
-         * This differs from the [toString] method because that method is primarily for
-         * debugging and generally doesn't throw.
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value does not
-         * have the expected primitive type.
+         * @throws IncreaseInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
          */
-        fun asString(): String = _value().asString() ?: throw IncreaseInvalidDataException("Value is not a String")
+        fun asString(): String =
+            _value().asString() ?: throw IncreaseInvalidDataException("Value is not a String")
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return /* spotless:off */ other is Status && value == other.value /* spotless:on */
+            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -678,21 +607,17 @@ class InboundFundsHoldReleaseResponse @JsonCreator private constructor(
      * A constant representing the object's type. For this resource it will always be
      * `inbound_funds_hold`.
      */
-    class Type @JsonCreator private constructor(
-        private val value: JsonField<String>,
-
-    ) : Enum {
+    class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
          *
-         * This is usually only useful if this instance was deserialized from data that
-         * doesn't match any known member, and you want to know that value. For example, if
-         * the SDK is on an older version than the API, then the API may respond with new
-         * members that the SDK is unaware of.
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
          */
-        @com.fasterxml.jackson.annotation.JsonValue
-        fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         companion object {
 
@@ -703,18 +628,16 @@ class InboundFundsHoldReleaseResponse @JsonCreator private constructor(
 
         /** An enum containing [Type]'s known values. */
         enum class Known {
-            INBOUND_FUNDS_HOLD,
+            INBOUND_FUNDS_HOLD
         }
 
         /**
          * An enum containing [Type]'s known values, as well as an [_UNKNOWN] member.
          *
          * An instance of [Type] can contain an unknown value in a couple of cases:
-         *
-         * - It was deserialized from data that doesn't match any known member. For
-         *   example, if the SDK is on an older version than the API, then the API may
-         *   respond with new members that the SDK is unaware of.
-         *
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
@@ -724,11 +647,11 @@ class InboundFundsHoldReleaseResponse @JsonCreator private constructor(
         }
 
         /**
-         * Returns an enum member corresponding to this class instance's value, or
-         * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
          *
-         * Use the [known] method instead if you're certain the value is always known or if
-         * you want to throw for the unknown case.
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
          */
         fun value(): Value =
             when (this) {
@@ -739,11 +662,11 @@ class InboundFundsHoldReleaseResponse @JsonCreator private constructor(
         /**
          * Returns an enum member corresponding to this class instance's value.
          *
-         * Use the [value] method instead if you're uncertain the value is always known and
-         * don't want to throw for the unknown case.
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value is a not a
-         * known member.
+         * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+         *   member.
          */
         fun known(): Known =
             when (this) {
@@ -754,20 +677,21 @@ class InboundFundsHoldReleaseResponse @JsonCreator private constructor(
         /**
          * Returns this class instance's primitive wire representation.
          *
-         * This differs from the [toString] method because that method is primarily for
-         * debugging and generally doesn't throw.
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value does not
-         * have the expected primitive type.
+         * @throws IncreaseInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
          */
-        fun asString(): String = _value().asString() ?: throw IncreaseInvalidDataException("Value is not a String")
+        fun asString(): String =
+            _value().asString() ?: throw IncreaseInvalidDataException("Value is not a String")
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return /* spotless:off */ other is Type && value == other.value /* spotless:on */
+            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -776,11 +700,11 @@ class InboundFundsHoldReleaseResponse @JsonCreator private constructor(
     }
 
     override fun equals(other: Any?): Boolean {
-      if (this === other) {
-          return true
-      }
+        if (this === other) {
+            return true
+        }
 
-      return /* spotless:off */ other is InboundFundsHoldReleaseResponse && id == other.id && amount == other.amount && automaticallyReleasesAt == other.automaticallyReleasesAt && createdAt == other.createdAt && currency == other.currency && heldTransactionId == other.heldTransactionId && pendingTransactionId == other.pendingTransactionId && releasedAt == other.releasedAt && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is InboundFundsHoldReleaseResponse && id == other.id && amount == other.amount && automaticallyReleasesAt == other.automaticallyReleasesAt && createdAt == other.createdAt && currency == other.currency && heldTransactionId == other.heldTransactionId && pendingTransactionId == other.pendingTransactionId && releasedAt == other.releasedAt && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
@@ -789,5 +713,6 @@ class InboundFundsHoldReleaseResponse @JsonCreator private constructor(
 
     override fun hashCode(): Int = hashCode
 
-    override fun toString() = "InboundFundsHoldReleaseResponse{id=$id, amount=$amount, automaticallyReleasesAt=$automaticallyReleasesAt, createdAt=$createdAt, currency=$currency, heldTransactionId=$heldTransactionId, pendingTransactionId=$pendingTransactionId, releasedAt=$releasedAt, status=$status, type=$type, additionalProperties=$additionalProperties}"
+    override fun toString() =
+        "InboundFundsHoldReleaseResponse{id=$id, amount=$amount, automaticallyReleasesAt=$automaticallyReleasesAt, createdAt=$createdAt, currency=$currency, heldTransactionId=$heldTransactionId, pendingTransactionId=$pendingTransactionId, releasedAt=$releasedAt, status=$status, type=$type, additionalProperties=$additionalProperties}"
 }

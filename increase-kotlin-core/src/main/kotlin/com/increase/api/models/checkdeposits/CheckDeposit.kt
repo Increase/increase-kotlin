@@ -21,27 +21,58 @@ import java.util.Objects
 
 /** Check Deposits allow you to deposit images of paper checks into your account. */
 @NoAutoDetect
-class CheckDeposit @JsonCreator private constructor(
+class CheckDeposit
+@JsonCreator
+private constructor(
     @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("account_id") @ExcludeMissing private val accountId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("account_id")
+    @ExcludeMissing
+    private val accountId: JsonField<String> = JsonMissing.of(),
     @JsonProperty("amount") @ExcludeMissing private val amount: JsonField<Long> = JsonMissing.of(),
-    @JsonProperty("back_image_file_id") @ExcludeMissing private val backImageFileId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("created_at") @ExcludeMissing private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    @JsonProperty("deposit_acceptance") @ExcludeMissing private val depositAcceptance: JsonField<DepositAcceptance> = JsonMissing.of(),
-    @JsonProperty("deposit_rejection") @ExcludeMissing private val depositRejection: JsonField<DepositRejection> = JsonMissing.of(),
-    @JsonProperty("deposit_return") @ExcludeMissing private val depositReturn: JsonField<DepositReturn> = JsonMissing.of(),
-    @JsonProperty("deposit_submission") @ExcludeMissing private val depositSubmission: JsonField<DepositSubmission> = JsonMissing.of(),
-    @JsonProperty("description") @ExcludeMissing private val description: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("front_image_file_id") @ExcludeMissing private val frontImageFileId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("idempotency_key") @ExcludeMissing private val idempotencyKey: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("inbound_funds_hold") @ExcludeMissing private val inboundFundsHold: JsonField<InboundFundsHold> = JsonMissing.of(),
-    @JsonProperty("inbound_mail_item_id") @ExcludeMissing private val inboundMailItemId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("lockbox_id") @ExcludeMissing private val lockboxId: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("status") @ExcludeMissing private val status: JsonField<Status> = JsonMissing.of(),
-    @JsonProperty("transaction_id") @ExcludeMissing private val transactionId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("back_image_file_id")
+    @ExcludeMissing
+    private val backImageFileId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("created_at")
+    @ExcludeMissing
+    private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    @JsonProperty("deposit_acceptance")
+    @ExcludeMissing
+    private val depositAcceptance: JsonField<DepositAcceptance> = JsonMissing.of(),
+    @JsonProperty("deposit_rejection")
+    @ExcludeMissing
+    private val depositRejection: JsonField<DepositRejection> = JsonMissing.of(),
+    @JsonProperty("deposit_return")
+    @ExcludeMissing
+    private val depositReturn: JsonField<DepositReturn> = JsonMissing.of(),
+    @JsonProperty("deposit_submission")
+    @ExcludeMissing
+    private val depositSubmission: JsonField<DepositSubmission> = JsonMissing.of(),
+    @JsonProperty("description")
+    @ExcludeMissing
+    private val description: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("front_image_file_id")
+    @ExcludeMissing
+    private val frontImageFileId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("idempotency_key")
+    @ExcludeMissing
+    private val idempotencyKey: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("inbound_funds_hold")
+    @ExcludeMissing
+    private val inboundFundsHold: JsonField<InboundFundsHold> = JsonMissing.of(),
+    @JsonProperty("inbound_mail_item_id")
+    @ExcludeMissing
+    private val inboundMailItemId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("lockbox_id")
+    @ExcludeMissing
+    private val lockboxId: JsonField<String> = JsonMissing.of(),
+    @JsonProperty("status")
+    @ExcludeMissing
+    private val status: JsonField<Status> = JsonMissing.of(),
+    @JsonProperty("transaction_id")
+    @ExcludeMissing
+    private val transactionId: JsonField<String> = JsonMissing.of(),
     @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
-
 ) {
 
     /** The deposit's identifier. */
@@ -57,34 +88,32 @@ class CheckDeposit @JsonCreator private constructor(
     fun backImageFileId(): String? = backImageFileId.getNullable("back_image_file_id")
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
-     * the transfer was created.
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the transfer
+     * was created.
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
     /**
-     * If your deposit is successfully parsed and accepted by Increase, this will
-     * contain details of the parsed check.
+     * If your deposit is successfully parsed and accepted by Increase, this will contain details of
+     * the parsed check.
      */
-    fun depositAcceptance(): DepositAcceptance? = depositAcceptance.getNullable("deposit_acceptance")
+    fun depositAcceptance(): DepositAcceptance? =
+        depositAcceptance.getNullable("deposit_acceptance")
 
     /**
-     * If your deposit is rejected by Increase, this will contain details as to why it
-     * was rejected.
+     * If your deposit is rejected by Increase, this will contain details as to why it was rejected.
      */
     fun depositRejection(): DepositRejection? = depositRejection.getNullable("deposit_rejection")
 
-    /**
-     * If your deposit is returned, this will contain details as to why it was
-     * returned.
-     */
+    /** If your deposit is returned, this will contain details as to why it was returned. */
     fun depositReturn(): DepositReturn? = depositReturn.getNullable("deposit_return")
 
     /**
-     * After the check is parsed, it is submitted to the Check21 network for
-     * processing. This will contain details of the submission.
+     * After the check is parsed, it is submitted to the Check21 network for processing. This will
+     * contain details of the submission.
      */
-    fun depositSubmission(): DepositSubmission? = depositSubmission.getNullable("deposit_submission")
+    fun depositSubmission(): DepositSubmission? =
+        depositSubmission.getNullable("deposit_submission")
 
     /** The description of the Check Deposit, for display purposes only. */
     fun description(): String? = description.getNullable("description")
@@ -93,27 +122,27 @@ class CheckDeposit @JsonCreator private constructor(
     fun frontImageFileId(): String = frontImageFileId.getRequired("front_image_file_id")
 
     /**
-     * The idempotency key you chose for this object. This value is unique across
-     * Increase and is used to ensure that a request is only processed once. Learn more
-     * about [idempotency](https://increase.com/documentation/idempotency-keys).
+     * The idempotency key you chose for this object. This value is unique across Increase and is
+     * used to ensure that a request is only processed once. Learn more about
+     * [idempotency](https://increase.com/documentation/idempotency-keys).
      */
     fun idempotencyKey(): String? = idempotencyKey.getNullable("idempotency_key")
 
     /**
-     * Increase will sometimes hold the funds for Check Deposits. If funds are held,
-     * this sub-object will contain details of the hold.
+     * Increase will sometimes hold the funds for Check Deposits. If funds are held, this sub-object
+     * will contain details of the hold.
      */
     fun inboundFundsHold(): InboundFundsHold? = inboundFundsHold.getNullable("inbound_funds_hold")
 
     /**
-     * If the Check Deposit was the result of an Inbound Mail Item, this will contain
-     * the identifier of the Inbound Mail Item.
+     * If the Check Deposit was the result of an Inbound Mail Item, this will contain the identifier
+     * of the Inbound Mail Item.
      */
     fun inboundMailItemId(): String? = inboundMailItemId.getNullable("inbound_mail_item_id")
 
     /**
-     * If the Check Deposit was the result of an Inbound Mail Item, this will contain
-     * the identifier of the Lockbox that received it.
+     * If the Check Deposit was the result of an Inbound Mail Item, this will contain the identifier
+     * of the Lockbox that received it.
      */
     fun lockboxId(): String? = lockboxId.getNullable("lockbox_id")
 
@@ -130,19 +159,13 @@ class CheckDeposit @JsonCreator private constructor(
     fun type(): Type = type.getRequired("type")
 
     /** The deposit's identifier. */
-    @JsonProperty("id")
-    @ExcludeMissing
-    fun _id(): JsonField<String> = id
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /** The Account the check was deposited into. */
-    @JsonProperty("account_id")
-    @ExcludeMissing
-    fun _accountId(): JsonField<String> = accountId
+    @JsonProperty("account_id") @ExcludeMissing fun _accountId(): JsonField<String> = accountId
 
     /** The deposited amount in USD cents. */
-    @JsonProperty("amount")
-    @ExcludeMissing
-    fun _amount(): JsonField<Long> = amount
+    @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
     /** The ID for the File containing the image of the back of the check. */
     @JsonProperty("back_image_file_id")
@@ -150,49 +173,43 @@ class CheckDeposit @JsonCreator private constructor(
     fun _backImageFileId(): JsonField<String> = backImageFileId
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
-     * the transfer was created.
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the transfer
+     * was created.
      */
     @JsonProperty("created_at")
     @ExcludeMissing
     fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /**
-     * If your deposit is successfully parsed and accepted by Increase, this will
-     * contain details of the parsed check.
+     * If your deposit is successfully parsed and accepted by Increase, this will contain details of
+     * the parsed check.
      */
     @JsonProperty("deposit_acceptance")
     @ExcludeMissing
     fun _depositAcceptance(): JsonField<DepositAcceptance> = depositAcceptance
 
     /**
-     * If your deposit is rejected by Increase, this will contain details as to why it
-     * was rejected.
+     * If your deposit is rejected by Increase, this will contain details as to why it was rejected.
      */
     @JsonProperty("deposit_rejection")
     @ExcludeMissing
     fun _depositRejection(): JsonField<DepositRejection> = depositRejection
 
-    /**
-     * If your deposit is returned, this will contain details as to why it was
-     * returned.
-     */
+    /** If your deposit is returned, this will contain details as to why it was returned. */
     @JsonProperty("deposit_return")
     @ExcludeMissing
     fun _depositReturn(): JsonField<DepositReturn> = depositReturn
 
     /**
-     * After the check is parsed, it is submitted to the Check21 network for
-     * processing. This will contain details of the submission.
+     * After the check is parsed, it is submitted to the Check21 network for processing. This will
+     * contain details of the submission.
      */
     @JsonProperty("deposit_submission")
     @ExcludeMissing
     fun _depositSubmission(): JsonField<DepositSubmission> = depositSubmission
 
     /** The description of the Check Deposit, for display purposes only. */
-    @JsonProperty("description")
-    @ExcludeMissing
-    fun _description(): JsonField<String> = description
+    @JsonProperty("description") @ExcludeMissing fun _description(): JsonField<String> = description
 
     /** The ID for the File containing the image of the front of the check. */
     @JsonProperty("front_image_file_id")
@@ -200,42 +217,38 @@ class CheckDeposit @JsonCreator private constructor(
     fun _frontImageFileId(): JsonField<String> = frontImageFileId
 
     /**
-     * The idempotency key you chose for this object. This value is unique across
-     * Increase and is used to ensure that a request is only processed once. Learn more
-     * about [idempotency](https://increase.com/documentation/idempotency-keys).
+     * The idempotency key you chose for this object. This value is unique across Increase and is
+     * used to ensure that a request is only processed once. Learn more about
+     * [idempotency](https://increase.com/documentation/idempotency-keys).
      */
     @JsonProperty("idempotency_key")
     @ExcludeMissing
     fun _idempotencyKey(): JsonField<String> = idempotencyKey
 
     /**
-     * Increase will sometimes hold the funds for Check Deposits. If funds are held,
-     * this sub-object will contain details of the hold.
+     * Increase will sometimes hold the funds for Check Deposits. If funds are held, this sub-object
+     * will contain details of the hold.
      */
     @JsonProperty("inbound_funds_hold")
     @ExcludeMissing
     fun _inboundFundsHold(): JsonField<InboundFundsHold> = inboundFundsHold
 
     /**
-     * If the Check Deposit was the result of an Inbound Mail Item, this will contain
-     * the identifier of the Inbound Mail Item.
+     * If the Check Deposit was the result of an Inbound Mail Item, this will contain the identifier
+     * of the Inbound Mail Item.
      */
     @JsonProperty("inbound_mail_item_id")
     @ExcludeMissing
     fun _inboundMailItemId(): JsonField<String> = inboundMailItemId
 
     /**
-     * If the Check Deposit was the result of an Inbound Mail Item, this will contain
-     * the identifier of the Lockbox that received it.
+     * If the Check Deposit was the result of an Inbound Mail Item, this will contain the identifier
+     * of the Lockbox that received it.
      */
-    @JsonProperty("lockbox_id")
-    @ExcludeMissing
-    fun _lockboxId(): JsonField<String> = lockboxId
+    @JsonProperty("lockbox_id") @ExcludeMissing fun _lockboxId(): JsonField<String> = lockboxId
 
     /** The status of the Check Deposit. */
-    @JsonProperty("status")
-    @ExcludeMissing
-    fun _status(): JsonField<Status> = status
+    @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
     /** The ID for the Transaction created by the deposit. */
     @JsonProperty("transaction_id")
@@ -246,9 +259,7 @@ class CheckDeposit @JsonCreator private constructor(
      * A constant representing the object's type. For this resource it will always be
      * `check_deposit`.
      */
-    @JsonProperty("type")
-    @ExcludeMissing
-    fun _type(): JsonField<Type> = type
+    @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -256,32 +267,31 @@ class CheckDeposit @JsonCreator private constructor(
 
     private var validated: Boolean = false
 
-    fun validate(): CheckDeposit =
-        apply {
-            if (validated) {
-              return@apply
-            }
-
-            id()
-            accountId()
-            amount()
-            backImageFileId()
-            createdAt()
-            depositAcceptance()?.validate()
-            depositRejection()?.validate()
-            depositReturn()?.validate()
-            depositSubmission()?.validate()
-            description()
-            frontImageFileId()
-            idempotencyKey()
-            inboundFundsHold()?.validate()
-            inboundMailItemId()
-            lockboxId()
-            status()
-            transactionId()
-            type()
-            validated = true
+    fun validate(): CheckDeposit = apply {
+        if (validated) {
+            return@apply
         }
+
+        id()
+        accountId()
+        amount()
+        backImageFileId()
+        createdAt()
+        depositAcceptance()?.validate()
+        depositRejection()?.validate()
+        depositReturn()?.validate()
+        depositSubmission()?.validate()
+        description()
+        frontImageFileId()
+        idempotencyKey()
+        inboundFundsHold()?.validate()
+        inboundMailItemId()
+        lockboxId()
+        status()
+        transactionId()
+        type()
+        validated = true
+    }
 
     fun toBuilder() = Builder().from(this)
 
@@ -291,7 +301,6 @@ class CheckDeposit @JsonCreator private constructor(
          * Returns a mutable builder for constructing an instance of [CheckDeposit].
          *
          * The following fields are required:
-         *
          * ```kotlin
          * .id()
          * .accountId()
@@ -339,237 +348,209 @@ class CheckDeposit @JsonCreator private constructor(
         private var type: JsonField<Type>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-        internal fun from(checkDeposit: CheckDeposit) =
-            apply {
-                id = checkDeposit.id
-                accountId = checkDeposit.accountId
-                amount = checkDeposit.amount
-                backImageFileId = checkDeposit.backImageFileId
-                createdAt = checkDeposit.createdAt
-                depositAcceptance = checkDeposit.depositAcceptance
-                depositRejection = checkDeposit.depositRejection
-                depositReturn = checkDeposit.depositReturn
-                depositSubmission = checkDeposit.depositSubmission
-                description = checkDeposit.description
-                frontImageFileId = checkDeposit.frontImageFileId
-                idempotencyKey = checkDeposit.idempotencyKey
-                inboundFundsHold = checkDeposit.inboundFundsHold
-                inboundMailItemId = checkDeposit.inboundMailItemId
-                lockboxId = checkDeposit.lockboxId
-                status = checkDeposit.status
-                transactionId = checkDeposit.transactionId
-                type = checkDeposit.type
-                additionalProperties = checkDeposit.additionalProperties.toMutableMap()
-            }
+        internal fun from(checkDeposit: CheckDeposit) = apply {
+            id = checkDeposit.id
+            accountId = checkDeposit.accountId
+            amount = checkDeposit.amount
+            backImageFileId = checkDeposit.backImageFileId
+            createdAt = checkDeposit.createdAt
+            depositAcceptance = checkDeposit.depositAcceptance
+            depositRejection = checkDeposit.depositRejection
+            depositReturn = checkDeposit.depositReturn
+            depositSubmission = checkDeposit.depositSubmission
+            description = checkDeposit.description
+            frontImageFileId = checkDeposit.frontImageFileId
+            idempotencyKey = checkDeposit.idempotencyKey
+            inboundFundsHold = checkDeposit.inboundFundsHold
+            inboundMailItemId = checkDeposit.inboundMailItemId
+            lockboxId = checkDeposit.lockboxId
+            status = checkDeposit.status
+            transactionId = checkDeposit.transactionId
+            type = checkDeposit.type
+            additionalProperties = checkDeposit.additionalProperties.toMutableMap()
+        }
 
         /** The deposit's identifier. */
         fun id(id: String) = id(JsonField.of(id))
 
         /** The deposit's identifier. */
-        fun id(id: JsonField<String>) =
-            apply {
-                this.id = id
-            }
+        fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The Account the check was deposited into. */
         fun accountId(accountId: String) = accountId(JsonField.of(accountId))
 
         /** The Account the check was deposited into. */
-        fun accountId(accountId: JsonField<String>) =
-            apply {
-                this.accountId = accountId
-            }
+        fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
         /** The deposited amount in USD cents. */
         fun amount(amount: Long) = amount(JsonField.of(amount))
 
         /** The deposited amount in USD cents. */
-        fun amount(amount: JsonField<Long>) =
-            apply {
-                this.amount = amount
-            }
+        fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
         /** The ID for the File containing the image of the back of the check. */
-        fun backImageFileId(backImageFileId: String?) = backImageFileId(JsonField.ofNullable(backImageFileId))
+        fun backImageFileId(backImageFileId: String?) =
+            backImageFileId(JsonField.ofNullable(backImageFileId))
 
         /** The ID for the File containing the image of the back of the check. */
-        fun backImageFileId(backImageFileId: JsonField<String>) =
-            apply {
-                this.backImageFileId = backImageFileId
-            }
+        fun backImageFileId(backImageFileId: JsonField<String>) = apply {
+            this.backImageFileId = backImageFileId
+        }
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
-         * the transfer was created.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+         * transfer was created.
          */
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
-         * the transfer was created.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+         * transfer was created.
          */
-        fun createdAt(createdAt: JsonField<OffsetDateTime>) =
-            apply {
-                this.createdAt = createdAt
-            }
+        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /**
-         * If your deposit is successfully parsed and accepted by Increase, this will
-         * contain details of the parsed check.
+         * If your deposit is successfully parsed and accepted by Increase, this will contain
+         * details of the parsed check.
          */
-        fun depositAcceptance(depositAcceptance: DepositAcceptance?) = depositAcceptance(JsonField.ofNullable(depositAcceptance))
+        fun depositAcceptance(depositAcceptance: DepositAcceptance?) =
+            depositAcceptance(JsonField.ofNullable(depositAcceptance))
 
         /**
-         * If your deposit is successfully parsed and accepted by Increase, this will
-         * contain details of the parsed check.
+         * If your deposit is successfully parsed and accepted by Increase, this will contain
+         * details of the parsed check.
          */
-        fun depositAcceptance(depositAcceptance: JsonField<DepositAcceptance>) =
-            apply {
-                this.depositAcceptance = depositAcceptance
-            }
+        fun depositAcceptance(depositAcceptance: JsonField<DepositAcceptance>) = apply {
+            this.depositAcceptance = depositAcceptance
+        }
 
         /**
-         * If your deposit is rejected by Increase, this will contain details as to why it
-         * was rejected.
+         * If your deposit is rejected by Increase, this will contain details as to why it was
+         * rejected.
          */
-        fun depositRejection(depositRejection: DepositRejection?) = depositRejection(JsonField.ofNullable(depositRejection))
+        fun depositRejection(depositRejection: DepositRejection?) =
+            depositRejection(JsonField.ofNullable(depositRejection))
 
         /**
-         * If your deposit is rejected by Increase, this will contain details as to why it
-         * was rejected.
+         * If your deposit is rejected by Increase, this will contain details as to why it was
+         * rejected.
          */
-        fun depositRejection(depositRejection: JsonField<DepositRejection>) =
-            apply {
-                this.depositRejection = depositRejection
-            }
+        fun depositRejection(depositRejection: JsonField<DepositRejection>) = apply {
+            this.depositRejection = depositRejection
+        }
+
+        /** If your deposit is returned, this will contain details as to why it was returned. */
+        fun depositReturn(depositReturn: DepositReturn?) =
+            depositReturn(JsonField.ofNullable(depositReturn))
+
+        /** If your deposit is returned, this will contain details as to why it was returned. */
+        fun depositReturn(depositReturn: JsonField<DepositReturn>) = apply {
+            this.depositReturn = depositReturn
+        }
 
         /**
-         * If your deposit is returned, this will contain details as to why it was
-         * returned.
+         * After the check is parsed, it is submitted to the Check21 network for processing. This
+         * will contain details of the submission.
          */
-        fun depositReturn(depositReturn: DepositReturn?) = depositReturn(JsonField.ofNullable(depositReturn))
+        fun depositSubmission(depositSubmission: DepositSubmission?) =
+            depositSubmission(JsonField.ofNullable(depositSubmission))
 
         /**
-         * If your deposit is returned, this will contain details as to why it was
-         * returned.
+         * After the check is parsed, it is submitted to the Check21 network for processing. This
+         * will contain details of the submission.
          */
-        fun depositReturn(depositReturn: JsonField<DepositReturn>) =
-            apply {
-                this.depositReturn = depositReturn
-            }
-
-        /**
-         * After the check is parsed, it is submitted to the Check21 network for
-         * processing. This will contain details of the submission.
-         */
-        fun depositSubmission(depositSubmission: DepositSubmission?) = depositSubmission(JsonField.ofNullable(depositSubmission))
-
-        /**
-         * After the check is parsed, it is submitted to the Check21 network for
-         * processing. This will contain details of the submission.
-         */
-        fun depositSubmission(depositSubmission: JsonField<DepositSubmission>) =
-            apply {
-                this.depositSubmission = depositSubmission
-            }
+        fun depositSubmission(depositSubmission: JsonField<DepositSubmission>) = apply {
+            this.depositSubmission = depositSubmission
+        }
 
         /** The description of the Check Deposit, for display purposes only. */
         fun description(description: String?) = description(JsonField.ofNullable(description))
 
         /** The description of the Check Deposit, for display purposes only. */
-        fun description(description: JsonField<String>) =
-            apply {
-                this.description = description
-            }
+        fun description(description: JsonField<String>) = apply { this.description = description }
 
         /** The ID for the File containing the image of the front of the check. */
-        fun frontImageFileId(frontImageFileId: String) = frontImageFileId(JsonField.of(frontImageFileId))
+        fun frontImageFileId(frontImageFileId: String) =
+            frontImageFileId(JsonField.of(frontImageFileId))
 
         /** The ID for the File containing the image of the front of the check. */
-        fun frontImageFileId(frontImageFileId: JsonField<String>) =
-            apply {
-                this.frontImageFileId = frontImageFileId
-            }
+        fun frontImageFileId(frontImageFileId: JsonField<String>) = apply {
+            this.frontImageFileId = frontImageFileId
+        }
 
         /**
-         * The idempotency key you chose for this object. This value is unique across
-         * Increase and is used to ensure that a request is only processed once. Learn more
-         * about [idempotency](https://increase.com/documentation/idempotency-keys).
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
-        fun idempotencyKey(idempotencyKey: String?) = idempotencyKey(JsonField.ofNullable(idempotencyKey))
+        fun idempotencyKey(idempotencyKey: String?) =
+            idempotencyKey(JsonField.ofNullable(idempotencyKey))
 
         /**
-         * The idempotency key you chose for this object. This value is unique across
-         * Increase and is used to ensure that a request is only processed once. Learn more
-         * about [idempotency](https://increase.com/documentation/idempotency-keys).
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
          */
-        fun idempotencyKey(idempotencyKey: JsonField<String>) =
-            apply {
-                this.idempotencyKey = idempotencyKey
-            }
+        fun idempotencyKey(idempotencyKey: JsonField<String>) = apply {
+            this.idempotencyKey = idempotencyKey
+        }
 
         /**
-         * Increase will sometimes hold the funds for Check Deposits. If funds are held,
-         * this sub-object will contain details of the hold.
+         * Increase will sometimes hold the funds for Check Deposits. If funds are held, this
+         * sub-object will contain details of the hold.
          */
-        fun inboundFundsHold(inboundFundsHold: InboundFundsHold?) = inboundFundsHold(JsonField.ofNullable(inboundFundsHold))
+        fun inboundFundsHold(inboundFundsHold: InboundFundsHold?) =
+            inboundFundsHold(JsonField.ofNullable(inboundFundsHold))
 
         /**
-         * Increase will sometimes hold the funds for Check Deposits. If funds are held,
-         * this sub-object will contain details of the hold.
+         * Increase will sometimes hold the funds for Check Deposits. If funds are held, this
+         * sub-object will contain details of the hold.
          */
-        fun inboundFundsHold(inboundFundsHold: JsonField<InboundFundsHold>) =
-            apply {
-                this.inboundFundsHold = inboundFundsHold
-            }
+        fun inboundFundsHold(inboundFundsHold: JsonField<InboundFundsHold>) = apply {
+            this.inboundFundsHold = inboundFundsHold
+        }
 
         /**
-         * If the Check Deposit was the result of an Inbound Mail Item, this will contain
-         * the identifier of the Inbound Mail Item.
+         * If the Check Deposit was the result of an Inbound Mail Item, this will contain the
+         * identifier of the Inbound Mail Item.
          */
-        fun inboundMailItemId(inboundMailItemId: String?) = inboundMailItemId(JsonField.ofNullable(inboundMailItemId))
+        fun inboundMailItemId(inboundMailItemId: String?) =
+            inboundMailItemId(JsonField.ofNullable(inboundMailItemId))
 
         /**
-         * If the Check Deposit was the result of an Inbound Mail Item, this will contain
-         * the identifier of the Inbound Mail Item.
+         * If the Check Deposit was the result of an Inbound Mail Item, this will contain the
+         * identifier of the Inbound Mail Item.
          */
-        fun inboundMailItemId(inboundMailItemId: JsonField<String>) =
-            apply {
-                this.inboundMailItemId = inboundMailItemId
-            }
+        fun inboundMailItemId(inboundMailItemId: JsonField<String>) = apply {
+            this.inboundMailItemId = inboundMailItemId
+        }
 
         /**
-         * If the Check Deposit was the result of an Inbound Mail Item, this will contain
-         * the identifier of the Lockbox that received it.
+         * If the Check Deposit was the result of an Inbound Mail Item, this will contain the
+         * identifier of the Lockbox that received it.
          */
         fun lockboxId(lockboxId: String?) = lockboxId(JsonField.ofNullable(lockboxId))
 
         /**
-         * If the Check Deposit was the result of an Inbound Mail Item, this will contain
-         * the identifier of the Lockbox that received it.
+         * If the Check Deposit was the result of an Inbound Mail Item, this will contain the
+         * identifier of the Lockbox that received it.
          */
-        fun lockboxId(lockboxId: JsonField<String>) =
-            apply {
-                this.lockboxId = lockboxId
-            }
+        fun lockboxId(lockboxId: JsonField<String>) = apply { this.lockboxId = lockboxId }
 
         /** The status of the Check Deposit. */
         fun status(status: Status) = status(JsonField.of(status))
 
         /** The status of the Check Deposit. */
-        fun status(status: JsonField<Status>) =
-            apply {
-                this.status = status
-            }
+        fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /** The ID for the Transaction created by the deposit. */
-        fun transactionId(transactionId: String?) = transactionId(JsonField.ofNullable(transactionId))
+        fun transactionId(transactionId: String?) =
+            transactionId(JsonField.ofNullable(transactionId))
 
         /** The ID for the Transaction created by the deposit. */
-        fun transactionId(transactionId: JsonField<String>) =
-            apply {
-                this.transactionId = transactionId
-            }
+        fun transactionId(transactionId: JsonField<String>) = apply {
+            this.transactionId = transactionId
+        }
 
         /**
          * A constant representing the object's type. For this resource it will always be
@@ -581,126 +562,96 @@ class CheckDeposit @JsonCreator private constructor(
          * A constant representing the object's type. For this resource it will always be
          * `check_deposit`.
          */
-        fun type(type: JsonField<Type>) =
-            apply {
-                this.type = type
-            }
+        fun type(type: JsonField<Type>) = apply { this.type = type }
 
-        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
-            apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
+        fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+            this.additionalProperties.clear()
+            putAllAdditionalProperties(additionalProperties)
+        }
 
-        fun putAdditionalProperty(key: String, value: JsonValue) =
-            apply {
-                additionalProperties.put(key, value)
-            }
+        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+            additionalProperties.put(key, value)
+        }
 
-        fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-            apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
+        fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+            this.additionalProperties.putAll(additionalProperties)
+        }
 
-        fun removeAdditionalProperty(key: String) =
-            apply {
-                additionalProperties.remove(key)
-            }
+        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
 
-        fun removeAllAdditionalProperties(keys: Set<String>) =
-            apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
+        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalProperty)
+        }
 
         fun build(): CheckDeposit =
             CheckDeposit(
-              checkRequired(
-                "id", id
-              ),
-              checkRequired(
-                "accountId", accountId
-              ),
-              checkRequired(
-                "amount", amount
-              ),
-              checkRequired(
-                "backImageFileId", backImageFileId
-              ),
-              checkRequired(
-                "createdAt", createdAt
-              ),
-              checkRequired(
-                "depositAcceptance", depositAcceptance
-              ),
-              checkRequired(
-                "depositRejection", depositRejection
-              ),
-              checkRequired(
-                "depositReturn", depositReturn
-              ),
-              checkRequired(
-                "depositSubmission", depositSubmission
-              ),
-              checkRequired(
-                "description", description
-              ),
-              checkRequired(
-                "frontImageFileId", frontImageFileId
-              ),
-              checkRequired(
-                "idempotencyKey", idempotencyKey
-              ),
-              checkRequired(
-                "inboundFundsHold", inboundFundsHold
-              ),
-              checkRequired(
-                "inboundMailItemId", inboundMailItemId
-              ),
-              checkRequired(
-                "lockboxId", lockboxId
-              ),
-              checkRequired(
-                "status", status
-              ),
-              checkRequired(
-                "transactionId", transactionId
-              ),
-              checkRequired(
-                "type", type
-              ),
-              additionalProperties.toImmutable(),
+                checkRequired("id", id),
+                checkRequired("accountId", accountId),
+                checkRequired("amount", amount),
+                checkRequired("backImageFileId", backImageFileId),
+                checkRequired("createdAt", createdAt),
+                checkRequired("depositAcceptance", depositAcceptance),
+                checkRequired("depositRejection", depositRejection),
+                checkRequired("depositReturn", depositReturn),
+                checkRequired("depositSubmission", depositSubmission),
+                checkRequired("description", description),
+                checkRequired("frontImageFileId", frontImageFileId),
+                checkRequired("idempotencyKey", idempotencyKey),
+                checkRequired("inboundFundsHold", inboundFundsHold),
+                checkRequired("inboundMailItemId", inboundMailItemId),
+                checkRequired("lockboxId", lockboxId),
+                checkRequired("status", status),
+                checkRequired("transactionId", transactionId),
+                checkRequired("type", type),
+                additionalProperties.toImmutable(),
             )
     }
 
     /**
-     * If your deposit is successfully parsed and accepted by Increase, this will
-     * contain details of the parsed check.
+     * If your deposit is successfully parsed and accepted by Increase, this will contain details of
+     * the parsed check.
      */
     @NoAutoDetect
-    class DepositAcceptance @JsonCreator private constructor(
-        @JsonProperty("account_number") @ExcludeMissing private val accountNumber: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("amount") @ExcludeMissing private val amount: JsonField<Long> = JsonMissing.of(),
-        @JsonProperty("auxiliary_on_us") @ExcludeMissing private val auxiliaryOnUs: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("check_deposit_id") @ExcludeMissing private val checkDepositId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("currency") @ExcludeMissing private val currency: JsonField<Currency> = JsonMissing.of(),
-        @JsonProperty("routing_number") @ExcludeMissing private val routingNumber: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("serial_number") @ExcludeMissing private val serialNumber: JsonField<String> = JsonMissing.of(),
-        @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
-
+    class DepositAcceptance
+    @JsonCreator
+    private constructor(
+        @JsonProperty("account_number")
+        @ExcludeMissing
+        private val accountNumber: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("amount")
+        @ExcludeMissing
+        private val amount: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("auxiliary_on_us")
+        @ExcludeMissing
+        private val auxiliaryOnUs: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("check_deposit_id")
+        @ExcludeMissing
+        private val checkDepositId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("currency")
+        @ExcludeMissing
+        private val currency: JsonField<Currency> = JsonMissing.of(),
+        @JsonProperty("routing_number")
+        @ExcludeMissing
+        private val routingNumber: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("serial_number")
+        @ExcludeMissing
+        private val serialNumber: JsonField<String> = JsonMissing.of(),
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The account number printed on the check. */
         fun accountNumber(): String = accountNumber.getRequired("account_number")
 
         /**
-         * The amount to be deposited in the minor unit of the transaction's currency. For
-         * dollars, for example, this is cents.
+         * The amount to be deposited in the minor unit of the transaction's currency. For dollars,
+         * for example, this is cents.
          */
         fun amount(): Long = amount.getRequired("amount")
 
         /**
-         * An additional line of metadata printed on the check. This typically includes the
-         * check number for business checks.
+         * An additional line of metadata printed on the check. This typically includes the check
+         * number for business checks.
          */
         fun auxiliaryOnUs(): String? = auxiliaryOnUs.getNullable("auxiliary_on_us")
 
@@ -708,8 +659,8 @@ class CheckDeposit @JsonCreator private constructor(
         fun checkDepositId(): String = checkDepositId.getRequired("check_deposit_id")
 
         /**
-         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
-         * transaction's currency.
+         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's
+         * currency.
          */
         fun currency(): Currency = currency.getRequired("currency")
 
@@ -717,8 +668,8 @@ class CheckDeposit @JsonCreator private constructor(
         fun routingNumber(): String = routingNumber.getRequired("routing_number")
 
         /**
-         * The check serial number, if present, for consumer checks. For business checks,
-         * the serial number is usually in the `auxiliary_on_us` field.
+         * The check serial number, if present, for consumer checks. For business checks, the serial
+         * number is usually in the `auxiliary_on_us` field.
          */
         fun serialNumber(): String? = serialNumber.getNullable("serial_number")
 
@@ -728,16 +679,14 @@ class CheckDeposit @JsonCreator private constructor(
         fun _accountNumber(): JsonField<String> = accountNumber
 
         /**
-         * The amount to be deposited in the minor unit of the transaction's currency. For
-         * dollars, for example, this is cents.
+         * The amount to be deposited in the minor unit of the transaction's currency. For dollars,
+         * for example, this is cents.
          */
-        @JsonProperty("amount")
-        @ExcludeMissing
-        fun _amount(): JsonField<Long> = amount
+        @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
         /**
-         * An additional line of metadata printed on the check. This typically includes the
-         * check number for business checks.
+         * An additional line of metadata printed on the check. This typically includes the check
+         * number for business checks.
          */
         @JsonProperty("auxiliary_on_us")
         @ExcludeMissing
@@ -749,12 +698,10 @@ class CheckDeposit @JsonCreator private constructor(
         fun _checkDepositId(): JsonField<String> = checkDepositId
 
         /**
-         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
-         * transaction's currency.
+         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's
+         * currency.
          */
-        @JsonProperty("currency")
-        @ExcludeMissing
-        fun _currency(): JsonField<Currency> = currency
+        @JsonProperty("currency") @ExcludeMissing fun _currency(): JsonField<Currency> = currency
 
         /** The routing number printed on the check. */
         @JsonProperty("routing_number")
@@ -762,8 +709,8 @@ class CheckDeposit @JsonCreator private constructor(
         fun _routingNumber(): JsonField<String> = routingNumber
 
         /**
-         * The check serial number, if present, for consumer checks. For business checks,
-         * the serial number is usually in the `auxiliary_on_us` field.
+         * The check serial number, if present, for consumer checks. For business checks, the serial
+         * number is usually in the `auxiliary_on_us` field.
          */
         @JsonProperty("serial_number")
         @ExcludeMissing
@@ -775,21 +722,20 @@ class CheckDeposit @JsonCreator private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): DepositAcceptance =
-            apply {
-                if (validated) {
-                  return@apply
-                }
-
-                accountNumber()
-                amount()
-                auxiliaryOnUs()
-                checkDepositId()
-                currency()
-                routingNumber()
-                serialNumber()
-                validated = true
+        fun validate(): DepositAcceptance = apply {
+            if (validated) {
+                return@apply
             }
+
+            accountNumber()
+            amount()
+            auxiliaryOnUs()
+            checkDepositId()
+            currency()
+            routingNumber()
+            serialNumber()
+            validated = true
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -799,7 +745,6 @@ class CheckDeposit @JsonCreator private constructor(
              * Returns a mutable builder for constructing an instance of [DepositAcceptance].
              *
              * The following fields are required:
-             *
              * ```kotlin
              * .accountNumber()
              * .amount()
@@ -825,26 +770,24 @@ class CheckDeposit @JsonCreator private constructor(
             private var serialNumber: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(depositAcceptance: DepositAcceptance) =
-                apply {
-                    accountNumber = depositAcceptance.accountNumber
-                    amount = depositAcceptance.amount
-                    auxiliaryOnUs = depositAcceptance.auxiliaryOnUs
-                    checkDepositId = depositAcceptance.checkDepositId
-                    currency = depositAcceptance.currency
-                    routingNumber = depositAcceptance.routingNumber
-                    serialNumber = depositAcceptance.serialNumber
-                    additionalProperties = depositAcceptance.additionalProperties.toMutableMap()
-                }
+            internal fun from(depositAcceptance: DepositAcceptance) = apply {
+                accountNumber = depositAcceptance.accountNumber
+                amount = depositAcceptance.amount
+                auxiliaryOnUs = depositAcceptance.auxiliaryOnUs
+                checkDepositId = depositAcceptance.checkDepositId
+                currency = depositAcceptance.currency
+                routingNumber = depositAcceptance.routingNumber
+                serialNumber = depositAcceptance.serialNumber
+                additionalProperties = depositAcceptance.additionalProperties.toMutableMap()
+            }
 
             /** The account number printed on the check. */
             fun accountNumber(accountNumber: String) = accountNumber(JsonField.of(accountNumber))
 
             /** The account number printed on the check. */
-            fun accountNumber(accountNumber: JsonField<String>) =
-                apply {
-                    this.accountNumber = accountNumber
-                }
+            fun accountNumber(accountNumber: JsonField<String>) = apply {
+                this.accountNumber = accountNumber
+            }
 
             /**
              * The amount to be deposited in the minor unit of the transaction's currency. For
@@ -856,146 +799,115 @@ class CheckDeposit @JsonCreator private constructor(
              * The amount to be deposited in the minor unit of the transaction's currency. For
              * dollars, for example, this is cents.
              */
-            fun amount(amount: JsonField<Long>) =
-                apply {
-                    this.amount = amount
-                }
+            fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
             /**
              * An additional line of metadata printed on the check. This typically includes the
              * check number for business checks.
              */
-            fun auxiliaryOnUs(auxiliaryOnUs: String?) = auxiliaryOnUs(JsonField.ofNullable(auxiliaryOnUs))
+            fun auxiliaryOnUs(auxiliaryOnUs: String?) =
+                auxiliaryOnUs(JsonField.ofNullable(auxiliaryOnUs))
 
             /**
              * An additional line of metadata printed on the check. This typically includes the
              * check number for business checks.
              */
-            fun auxiliaryOnUs(auxiliaryOnUs: JsonField<String>) =
-                apply {
-                    this.auxiliaryOnUs = auxiliaryOnUs
-                }
+            fun auxiliaryOnUs(auxiliaryOnUs: JsonField<String>) = apply {
+                this.auxiliaryOnUs = auxiliaryOnUs
+            }
 
             /** The ID of the Check Deposit that was accepted. */
-            fun checkDepositId(checkDepositId: String) = checkDepositId(JsonField.of(checkDepositId))
+            fun checkDepositId(checkDepositId: String) =
+                checkDepositId(JsonField.of(checkDepositId))
 
             /** The ID of the Check Deposit that was accepted. */
-            fun checkDepositId(checkDepositId: JsonField<String>) =
-                apply {
-                    this.checkDepositId = checkDepositId
-                }
+            fun checkDepositId(checkDepositId: JsonField<String>) = apply {
+                this.checkDepositId = checkDepositId
+            }
 
             /**
-             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
-             * transaction's currency.
+             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's
+             * currency.
              */
             fun currency(currency: Currency) = currency(JsonField.of(currency))
 
             /**
-             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
-             * transaction's currency.
+             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's
+             * currency.
              */
-            fun currency(currency: JsonField<Currency>) =
-                apply {
-                    this.currency = currency
-                }
+            fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
 
             /** The routing number printed on the check. */
             fun routingNumber(routingNumber: String) = routingNumber(JsonField.of(routingNumber))
 
             /** The routing number printed on the check. */
-            fun routingNumber(routingNumber: JsonField<String>) =
-                apply {
-                    this.routingNumber = routingNumber
-                }
+            fun routingNumber(routingNumber: JsonField<String>) = apply {
+                this.routingNumber = routingNumber
+            }
 
             /**
-             * The check serial number, if present, for consumer checks. For business checks,
-             * the serial number is usually in the `auxiliary_on_us` field.
+             * The check serial number, if present, for consumer checks. For business checks, the
+             * serial number is usually in the `auxiliary_on_us` field.
              */
-            fun serialNumber(serialNumber: String?) = serialNumber(JsonField.ofNullable(serialNumber))
+            fun serialNumber(serialNumber: String?) =
+                serialNumber(JsonField.ofNullable(serialNumber))
 
             /**
-             * The check serial number, if present, for consumer checks. For business checks,
-             * the serial number is usually in the `auxiliary_on_us` field.
+             * The check serial number, if present, for consumer checks. For business checks, the
+             * serial number is usually in the `auxiliary_on_us` field.
              */
-            fun serialNumber(serialNumber: JsonField<String>) =
-                apply {
-                    this.serialNumber = serialNumber
-                }
+            fun serialNumber(serialNumber: JsonField<String>) = apply {
+                this.serialNumber = serialNumber
+            }
 
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
-                apply {
-                    this.additionalProperties.clear()
-                    putAllAdditionalProperties(additionalProperties)
-                }
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
 
-            fun putAdditionalProperty(key: String, value: JsonValue) =
-                apply {
-                    additionalProperties.put(key, value)
-                }
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
 
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                apply {
-                    this.additionalProperties.putAll(additionalProperties)
-                }
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
 
-            fun removeAdditionalProperty(key: String) =
-                apply {
-                    additionalProperties.remove(key)
-                }
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
 
-            fun removeAllAdditionalProperties(keys: Set<String>) =
-                apply {
-                    keys.forEach(::removeAdditionalProperty)
-                }
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
 
             fun build(): DepositAcceptance =
                 DepositAcceptance(
-                  checkRequired(
-                    "accountNumber", accountNumber
-                  ),
-                  checkRequired(
-                    "amount", amount
-                  ),
-                  checkRequired(
-                    "auxiliaryOnUs", auxiliaryOnUs
-                  ),
-                  checkRequired(
-                    "checkDepositId", checkDepositId
-                  ),
-                  checkRequired(
-                    "currency", currency
-                  ),
-                  checkRequired(
-                    "routingNumber", routingNumber
-                  ),
-                  checkRequired(
-                    "serialNumber", serialNumber
-                  ),
-                  additionalProperties.toImmutable(),
+                    checkRequired("accountNumber", accountNumber),
+                    checkRequired("amount", amount),
+                    checkRequired("auxiliaryOnUs", auxiliaryOnUs),
+                    checkRequired("checkDepositId", checkDepositId),
+                    checkRequired("currency", currency),
+                    checkRequired("routingNumber", routingNumber),
+                    checkRequired("serialNumber", serialNumber),
+                    additionalProperties.toImmutable(),
                 )
         }
 
         /**
-         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
-         * transaction's currency.
+         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's
+         * currency.
          */
-        class Currency @JsonCreator private constructor(
-            private val value: JsonField<String>,
-
-        ) : Enum {
+        class Currency @JsonCreator private constructor(private val value: JsonField<String>) :
+            Enum {
 
             /**
              * Returns this class instance's raw value.
              *
-             * This is usually only useful if this instance was deserialized from data that
-             * doesn't match any known member, and you want to know that value. For example, if
-             * the SDK is on an older version than the API, then the API may respond with new
-             * members that the SDK is unaware of.
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
              */
-            @com.fasterxml.jackson.annotation.JsonValue
-            fun _value(): JsonField<String> = value
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
             companion object {
 
@@ -1040,11 +952,9 @@ class CheckDeposit @JsonCreator private constructor(
              * An enum containing [Currency]'s known values, as well as an [_UNKNOWN] member.
              *
              * An instance of [Currency] can contain an unknown value in a couple of cases:
-             *
-             * - It was deserialized from data that doesn't match any known member. For
-             *   example, if the SDK is on an older version than the API, then the API may
-             *   respond with new members that the SDK is unaware of.
-             *
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
              * - It was constructed with an arbitrary value using the [of] method.
              */
             enum class Value {
@@ -1061,8 +971,7 @@ class CheckDeposit @JsonCreator private constructor(
                 /** US Dollar (USD) */
                 USD,
                 /**
-                 * An enum member indicating that [Currency] was instantiated with an unknown
-                 * value.
+                 * An enum member indicating that [Currency] was instantiated with an unknown value.
                  */
                 _UNKNOWN,
             }
@@ -1071,8 +980,8 @@ class CheckDeposit @JsonCreator private constructor(
              * Returns an enum member corresponding to this class instance's value, or
              * [Value._UNKNOWN] if the class was instantiated with an unknown value.
              *
-             * Use the [known] method instead if you're certain the value is always known or if
-             * you want to throw for the unknown case.
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
              */
             fun value(): Value =
                 when (this) {
@@ -1091,8 +1000,8 @@ class CheckDeposit @JsonCreator private constructor(
              * Use the [value] method instead if you're uncertain the value is always known and
              * don't want to throw for the unknown case.
              *
-             * @throws IncreaseInvalidDataException if this class instance's value is a not a
-             * known member.
+             * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+             *   member.
              */
             fun known(): Known =
                 when (this) {
@@ -1111,17 +1020,18 @@ class CheckDeposit @JsonCreator private constructor(
              * This differs from the [toString] method because that method is primarily for
              * debugging and generally doesn't throw.
              *
-             * @throws IncreaseInvalidDataException if this class instance's value does not
-             * have the expected primitive type.
+             * @throws IncreaseInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
              */
-            fun asString(): String = _value().asString() ?: throw IncreaseInvalidDataException("Value is not a String")
+            fun asString(): String =
+                _value().asString() ?: throw IncreaseInvalidDataException("Value is not a String")
 
             override fun equals(other: Any?): Boolean {
-              if (this === other) {
-                  return true
-              }
+                if (this === other) {
+                    return true
+                }
 
-              return /* spotless:off */ other is Currency && value == other.value /* spotless:on */
+                return /* spotless:off */ other is Currency && value == other.value /* spotless:on */
             }
 
             override fun hashCode() = value.hashCode()
@@ -1130,11 +1040,11 @@ class CheckDeposit @JsonCreator private constructor(
         }
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return /* spotless:off */ other is DepositAcceptance && accountNumber == other.accountNumber && amount == other.amount && auxiliaryOnUs == other.auxiliaryOnUs && checkDepositId == other.checkDepositId && currency == other.currency && routingNumber == other.routingNumber && serialNumber == other.serialNumber && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is DepositAcceptance && accountNumber == other.accountNumber && amount == other.amount && auxiliaryOnUs == other.auxiliaryOnUs && checkDepositId == other.checkDepositId && currency == other.currency && routingNumber == other.routingNumber && serialNumber == other.serialNumber && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -1143,72 +1053,77 @@ class CheckDeposit @JsonCreator private constructor(
 
         override fun hashCode(): Int = hashCode
 
-        override fun toString() = "DepositAcceptance{accountNumber=$accountNumber, amount=$amount, auxiliaryOnUs=$auxiliaryOnUs, checkDepositId=$checkDepositId, currency=$currency, routingNumber=$routingNumber, serialNumber=$serialNumber, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "DepositAcceptance{accountNumber=$accountNumber, amount=$amount, auxiliaryOnUs=$auxiliaryOnUs, checkDepositId=$checkDepositId, currency=$currency, routingNumber=$routingNumber, serialNumber=$serialNumber, additionalProperties=$additionalProperties}"
     }
 
     /**
-     * If your deposit is rejected by Increase, this will contain details as to why it
-     * was rejected.
+     * If your deposit is rejected by Increase, this will contain details as to why it was rejected.
      */
     @NoAutoDetect
-    class DepositRejection @JsonCreator private constructor(
-        @JsonProperty("amount") @ExcludeMissing private val amount: JsonField<Long> = JsonMissing.of(),
-        @JsonProperty("check_deposit_id") @ExcludeMissing private val checkDepositId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("currency") @ExcludeMissing private val currency: JsonField<Currency> = JsonMissing.of(),
-        @JsonProperty("declined_transaction_id") @ExcludeMissing private val declinedTransactionId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("reason") @ExcludeMissing private val reason: JsonField<Reason> = JsonMissing.of(),
-        @JsonProperty("rejected_at") @ExcludeMissing private val rejectedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-        @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
-
+    class DepositRejection
+    @JsonCreator
+    private constructor(
+        @JsonProperty("amount")
+        @ExcludeMissing
+        private val amount: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("check_deposit_id")
+        @ExcludeMissing
+        private val checkDepositId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("currency")
+        @ExcludeMissing
+        private val currency: JsonField<Currency> = JsonMissing.of(),
+        @JsonProperty("declined_transaction_id")
+        @ExcludeMissing
+        private val declinedTransactionId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("reason")
+        @ExcludeMissing
+        private val reason: JsonField<Reason> = JsonMissing.of(),
+        @JsonProperty("rejected_at")
+        @ExcludeMissing
+        private val rejectedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /**
-         * The rejected amount in the minor unit of check's currency. For dollars, for
-         * example, this is cents.
+         * The rejected amount in the minor unit of check's currency. For dollars, for example, this
+         * is cents.
          */
         fun amount(): Long = amount.getRequired("amount")
 
         /** The identifier of the Check Deposit that was rejected. */
         fun checkDepositId(): String = checkDepositId.getRequired("check_deposit_id")
 
-        /**
-         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the check's
-         * currency.
-         */
+        /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the check's currency. */
         fun currency(): Currency = currency.getRequired("currency")
 
         /** The identifier of the associated declined transaction. */
-        fun declinedTransactionId(): String = declinedTransactionId.getRequired("declined_transaction_id")
+        fun declinedTransactionId(): String =
+            declinedTransactionId.getRequired("declined_transaction_id")
 
         /** Why the check deposit was rejected. */
         fun reason(): Reason = reason.getRequired("reason")
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
-         * the check deposit was rejected.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the check
+         * deposit was rejected.
          */
         fun rejectedAt(): OffsetDateTime = rejectedAt.getRequired("rejected_at")
 
         /**
-         * The rejected amount in the minor unit of check's currency. For dollars, for
-         * example, this is cents.
+         * The rejected amount in the minor unit of check's currency. For dollars, for example, this
+         * is cents.
          */
-        @JsonProperty("amount")
-        @ExcludeMissing
-        fun _amount(): JsonField<Long> = amount
+        @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
         /** The identifier of the Check Deposit that was rejected. */
         @JsonProperty("check_deposit_id")
         @ExcludeMissing
         fun _checkDepositId(): JsonField<String> = checkDepositId
 
-        /**
-         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the check's
-         * currency.
-         */
-        @JsonProperty("currency")
-        @ExcludeMissing
-        fun _currency(): JsonField<Currency> = currency
+        /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the check's currency. */
+        @JsonProperty("currency") @ExcludeMissing fun _currency(): JsonField<Currency> = currency
 
         /** The identifier of the associated declined transaction. */
         @JsonProperty("declined_transaction_id")
@@ -1216,13 +1131,11 @@ class CheckDeposit @JsonCreator private constructor(
         fun _declinedTransactionId(): JsonField<String> = declinedTransactionId
 
         /** Why the check deposit was rejected. */
-        @JsonProperty("reason")
-        @ExcludeMissing
-        fun _reason(): JsonField<Reason> = reason
+        @JsonProperty("reason") @ExcludeMissing fun _reason(): JsonField<Reason> = reason
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
-         * the check deposit was rejected.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the check
+         * deposit was rejected.
          */
         @JsonProperty("rejected_at")
         @ExcludeMissing
@@ -1234,20 +1147,19 @@ class CheckDeposit @JsonCreator private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): DepositRejection =
-            apply {
-                if (validated) {
-                  return@apply
-                }
-
-                amount()
-                checkDepositId()
-                currency()
-                declinedTransactionId()
-                reason()
-                rejectedAt()
-                validated = true
+        fun validate(): DepositRejection = apply {
+            if (validated) {
+                return@apply
             }
+
+            amount()
+            checkDepositId()
+            currency()
+            declinedTransactionId()
+            reason()
+            rejectedAt()
+            validated = true
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -1257,7 +1169,6 @@ class CheckDeposit @JsonCreator private constructor(
              * Returns a mutable builder for constructing an instance of [DepositRejection].
              *
              * The following fields are required:
-             *
              * ```kotlin
              * .amount()
              * .checkDepositId()
@@ -1281,158 +1192,120 @@ class CheckDeposit @JsonCreator private constructor(
             private var rejectedAt: JsonField<OffsetDateTime>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(depositRejection: DepositRejection) =
-                apply {
-                    amount = depositRejection.amount
-                    checkDepositId = depositRejection.checkDepositId
-                    currency = depositRejection.currency
-                    declinedTransactionId = depositRejection.declinedTransactionId
-                    reason = depositRejection.reason
-                    rejectedAt = depositRejection.rejectedAt
-                    additionalProperties = depositRejection.additionalProperties.toMutableMap()
-                }
+            internal fun from(depositRejection: DepositRejection) = apply {
+                amount = depositRejection.amount
+                checkDepositId = depositRejection.checkDepositId
+                currency = depositRejection.currency
+                declinedTransactionId = depositRejection.declinedTransactionId
+                reason = depositRejection.reason
+                rejectedAt = depositRejection.rejectedAt
+                additionalProperties = depositRejection.additionalProperties.toMutableMap()
+            }
 
             /**
-             * The rejected amount in the minor unit of check's currency. For dollars, for
-             * example, this is cents.
+             * The rejected amount in the minor unit of check's currency. For dollars, for example,
+             * this is cents.
              */
             fun amount(amount: Long) = amount(JsonField.of(amount))
 
             /**
-             * The rejected amount in the minor unit of check's currency. For dollars, for
-             * example, this is cents.
+             * The rejected amount in the minor unit of check's currency. For dollars, for example,
+             * this is cents.
              */
-            fun amount(amount: JsonField<Long>) =
-                apply {
-                    this.amount = amount
-                }
+            fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
             /** The identifier of the Check Deposit that was rejected. */
-            fun checkDepositId(checkDepositId: String) = checkDepositId(JsonField.of(checkDepositId))
+            fun checkDepositId(checkDepositId: String) =
+                checkDepositId(JsonField.of(checkDepositId))
 
             /** The identifier of the Check Deposit that was rejected. */
-            fun checkDepositId(checkDepositId: JsonField<String>) =
-                apply {
-                    this.checkDepositId = checkDepositId
-                }
+            fun checkDepositId(checkDepositId: JsonField<String>) = apply {
+                this.checkDepositId = checkDepositId
+            }
 
             /**
-             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the check's
-             * currency.
+             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the check's currency.
              */
             fun currency(currency: Currency) = currency(JsonField.of(currency))
 
             /**
-             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the check's
-             * currency.
+             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the check's currency.
              */
-            fun currency(currency: JsonField<Currency>) =
-                apply {
-                    this.currency = currency
-                }
+            fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
 
             /** The identifier of the associated declined transaction. */
-            fun declinedTransactionId(declinedTransactionId: String) = declinedTransactionId(JsonField.of(declinedTransactionId))
+            fun declinedTransactionId(declinedTransactionId: String) =
+                declinedTransactionId(JsonField.of(declinedTransactionId))
 
             /** The identifier of the associated declined transaction. */
-            fun declinedTransactionId(declinedTransactionId: JsonField<String>) =
-                apply {
-                    this.declinedTransactionId = declinedTransactionId
-                }
+            fun declinedTransactionId(declinedTransactionId: JsonField<String>) = apply {
+                this.declinedTransactionId = declinedTransactionId
+            }
 
             /** Why the check deposit was rejected. */
             fun reason(reason: Reason) = reason(JsonField.of(reason))
 
             /** Why the check deposit was rejected. */
-            fun reason(reason: JsonField<Reason>) =
-                apply {
-                    this.reason = reason
-                }
+            fun reason(reason: JsonField<Reason>) = apply { this.reason = reason }
 
             /**
-             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
-             * the check deposit was rejected.
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+             * check deposit was rejected.
              */
             fun rejectedAt(rejectedAt: OffsetDateTime) = rejectedAt(JsonField.of(rejectedAt))
 
             /**
-             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
-             * the check deposit was rejected.
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+             * check deposit was rejected.
              */
-            fun rejectedAt(rejectedAt: JsonField<OffsetDateTime>) =
-                apply {
-                    this.rejectedAt = rejectedAt
-                }
+            fun rejectedAt(rejectedAt: JsonField<OffsetDateTime>) = apply {
+                this.rejectedAt = rejectedAt
+            }
 
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
-                apply {
-                    this.additionalProperties.clear()
-                    putAllAdditionalProperties(additionalProperties)
-                }
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
 
-            fun putAdditionalProperty(key: String, value: JsonValue) =
-                apply {
-                    additionalProperties.put(key, value)
-                }
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
 
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                apply {
-                    this.additionalProperties.putAll(additionalProperties)
-                }
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
 
-            fun removeAdditionalProperty(key: String) =
-                apply {
-                    additionalProperties.remove(key)
-                }
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
 
-            fun removeAllAdditionalProperties(keys: Set<String>) =
-                apply {
-                    keys.forEach(::removeAdditionalProperty)
-                }
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
 
             fun build(): DepositRejection =
                 DepositRejection(
-                  checkRequired(
-                    "amount", amount
-                  ),
-                  checkRequired(
-                    "checkDepositId", checkDepositId
-                  ),
-                  checkRequired(
-                    "currency", currency
-                  ),
-                  checkRequired(
-                    "declinedTransactionId", declinedTransactionId
-                  ),
-                  checkRequired(
-                    "reason", reason
-                  ),
-                  checkRequired(
-                    "rejectedAt", rejectedAt
-                  ),
-                  additionalProperties.toImmutable(),
+                    checkRequired("amount", amount),
+                    checkRequired("checkDepositId", checkDepositId),
+                    checkRequired("currency", currency),
+                    checkRequired("declinedTransactionId", declinedTransactionId),
+                    checkRequired("reason", reason),
+                    checkRequired("rejectedAt", rejectedAt),
+                    additionalProperties.toImmutable(),
                 )
         }
 
-        /**
-         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the check's
-         * currency.
-         */
-        class Currency @JsonCreator private constructor(
-            private val value: JsonField<String>,
-
-        ) : Enum {
+        /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the check's currency. */
+        class Currency @JsonCreator private constructor(private val value: JsonField<String>) :
+            Enum {
 
             /**
              * Returns this class instance's raw value.
              *
-             * This is usually only useful if this instance was deserialized from data that
-             * doesn't match any known member, and you want to know that value. For example, if
-             * the SDK is on an older version than the API, then the API may respond with new
-             * members that the SDK is unaware of.
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
              */
-            @com.fasterxml.jackson.annotation.JsonValue
-            fun _value(): JsonField<String> = value
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
             companion object {
 
@@ -1477,11 +1350,9 @@ class CheckDeposit @JsonCreator private constructor(
              * An enum containing [Currency]'s known values, as well as an [_UNKNOWN] member.
              *
              * An instance of [Currency] can contain an unknown value in a couple of cases:
-             *
-             * - It was deserialized from data that doesn't match any known member. For
-             *   example, if the SDK is on an older version than the API, then the API may
-             *   respond with new members that the SDK is unaware of.
-             *
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
              * - It was constructed with an arbitrary value using the [of] method.
              */
             enum class Value {
@@ -1498,8 +1369,7 @@ class CheckDeposit @JsonCreator private constructor(
                 /** US Dollar (USD) */
                 USD,
                 /**
-                 * An enum member indicating that [Currency] was instantiated with an unknown
-                 * value.
+                 * An enum member indicating that [Currency] was instantiated with an unknown value.
                  */
                 _UNKNOWN,
             }
@@ -1508,8 +1378,8 @@ class CheckDeposit @JsonCreator private constructor(
              * Returns an enum member corresponding to this class instance's value, or
              * [Value._UNKNOWN] if the class was instantiated with an unknown value.
              *
-             * Use the [known] method instead if you're certain the value is always known or if
-             * you want to throw for the unknown case.
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
              */
             fun value(): Value =
                 when (this) {
@@ -1528,8 +1398,8 @@ class CheckDeposit @JsonCreator private constructor(
              * Use the [value] method instead if you're uncertain the value is always known and
              * don't want to throw for the unknown case.
              *
-             * @throws IncreaseInvalidDataException if this class instance's value is a not a
-             * known member.
+             * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+             *   member.
              */
             fun known(): Known =
                 when (this) {
@@ -1548,17 +1418,18 @@ class CheckDeposit @JsonCreator private constructor(
              * This differs from the [toString] method because that method is primarily for
              * debugging and generally doesn't throw.
              *
-             * @throws IncreaseInvalidDataException if this class instance's value does not
-             * have the expected primitive type.
+             * @throws IncreaseInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
              */
-            fun asString(): String = _value().asString() ?: throw IncreaseInvalidDataException("Value is not a String")
+            fun asString(): String =
+                _value().asString() ?: throw IncreaseInvalidDataException("Value is not a String")
 
             override fun equals(other: Any?): Boolean {
-              if (this === other) {
-                  return true
-              }
+                if (this === other) {
+                    return true
+                }
 
-              return /* spotless:off */ other is Currency && value == other.value /* spotless:on */
+                return /* spotless:off */ other is Currency && value == other.value /* spotless:on */
             }
 
             override fun hashCode() = value.hashCode()
@@ -1567,21 +1438,17 @@ class CheckDeposit @JsonCreator private constructor(
         }
 
         /** Why the check deposit was rejected. */
-        class Reason @JsonCreator private constructor(
-            private val value: JsonField<String>,
-
-        ) : Enum {
+        class Reason @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
             /**
              * Returns this class instance's raw value.
              *
-             * This is usually only useful if this instance was deserialized from data that
-             * doesn't match any known member, and you want to know that value. For example, if
-             * the SDK is on an older version than the API, then the API may respond with new
-             * members that the SDK is unaware of.
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
              */
-            @com.fasterxml.jackson.annotation.JsonValue
-            fun _value(): JsonField<String> = value
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
             companion object {
 
@@ -1651,11 +1518,9 @@ class CheckDeposit @JsonCreator private constructor(
              * An enum containing [Reason]'s known values, as well as an [_UNKNOWN] member.
              *
              * An instance of [Reason] can contain an unknown value in a couple of cases:
-             *
-             * - It was deserialized from data that doesn't match any known member. For
-             *   example, if the SDK is on an older version than the API, then the API may
-             *   respond with new members that the SDK is unaware of.
-             *
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
              * - It was constructed with an arbitrary value using the [of] method.
              */
             enum class Value {
@@ -1681,7 +1546,9 @@ class CheckDeposit @JsonCreator private constructor(
                 REQUESTED_BY_USER,
                 /** The check was rejected for an unknown reason. */
                 UNKNOWN,
-                /** An enum member indicating that [Reason] was instantiated with an unknown value. */
+                /**
+                 * An enum member indicating that [Reason] was instantiated with an unknown value.
+                 */
                 _UNKNOWN,
             }
 
@@ -1689,8 +1556,8 @@ class CheckDeposit @JsonCreator private constructor(
              * Returns an enum member corresponding to this class instance's value, or
              * [Value._UNKNOWN] if the class was instantiated with an unknown value.
              *
-             * Use the [known] method instead if you're certain the value is always known or if
-             * you want to throw for the unknown case.
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
              */
             fun value(): Value =
                 when (this) {
@@ -1714,8 +1581,8 @@ class CheckDeposit @JsonCreator private constructor(
              * Use the [value] method instead if you're uncertain the value is always known and
              * don't want to throw for the unknown case.
              *
-             * @throws IncreaseInvalidDataException if this class instance's value is a not a
-             * known member.
+             * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+             *   member.
              */
             fun known(): Known =
                 when (this) {
@@ -1739,17 +1606,18 @@ class CheckDeposit @JsonCreator private constructor(
              * This differs from the [toString] method because that method is primarily for
              * debugging and generally doesn't throw.
              *
-             * @throws IncreaseInvalidDataException if this class instance's value does not
-             * have the expected primitive type.
+             * @throws IncreaseInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
              */
-            fun asString(): String = _value().asString() ?: throw IncreaseInvalidDataException("Value is not a String")
+            fun asString(): String =
+                _value().asString() ?: throw IncreaseInvalidDataException("Value is not a String")
 
             override fun equals(other: Any?): Boolean {
-              if (this === other) {
-                  return true
-              }
+                if (this === other) {
+                    return true
+                }
 
-              return /* spotless:off */ other is Reason && value == other.value /* spotless:on */
+                return /* spotless:off */ other is Reason && value == other.value /* spotless:on */
             }
 
             override fun hashCode() = value.hashCode()
@@ -1758,11 +1626,11 @@ class CheckDeposit @JsonCreator private constructor(
         }
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return /* spotless:off */ other is DepositRejection && amount == other.amount && checkDepositId == other.checkDepositId && currency == other.currency && declinedTransactionId == other.declinedTransactionId && reason == other.reason && rejectedAt == other.rejectedAt && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is DepositRejection && amount == other.amount && checkDepositId == other.checkDepositId && currency == other.currency && declinedTransactionId == other.declinedTransactionId && reason == other.reason && rejectedAt == other.rejectedAt && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -1771,23 +1639,35 @@ class CheckDeposit @JsonCreator private constructor(
 
         override fun hashCode(): Int = hashCode
 
-        override fun toString() = "DepositRejection{amount=$amount, checkDepositId=$checkDepositId, currency=$currency, declinedTransactionId=$declinedTransactionId, reason=$reason, rejectedAt=$rejectedAt, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "DepositRejection{amount=$amount, checkDepositId=$checkDepositId, currency=$currency, declinedTransactionId=$declinedTransactionId, reason=$reason, rejectedAt=$rejectedAt, additionalProperties=$additionalProperties}"
     }
 
-    /**
-     * If your deposit is returned, this will contain details as to why it was
-     * returned.
-     */
+    /** If your deposit is returned, this will contain details as to why it was returned. */
     @NoAutoDetect
-    class DepositReturn @JsonCreator private constructor(
-        @JsonProperty("amount") @ExcludeMissing private val amount: JsonField<Long> = JsonMissing.of(),
-        @JsonProperty("check_deposit_id") @ExcludeMissing private val checkDepositId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("currency") @ExcludeMissing private val currency: JsonField<Currency> = JsonMissing.of(),
-        @JsonProperty("return_reason") @ExcludeMissing private val returnReason: JsonField<ReturnReason> = JsonMissing.of(),
-        @JsonProperty("returned_at") @ExcludeMissing private val returnedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-        @JsonProperty("transaction_id") @ExcludeMissing private val transactionId: JsonField<String> = JsonMissing.of(),
-        @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
-
+    class DepositReturn
+    @JsonCreator
+    private constructor(
+        @JsonProperty("amount")
+        @ExcludeMissing
+        private val amount: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("check_deposit_id")
+        @ExcludeMissing
+        private val checkDepositId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("currency")
+        @ExcludeMissing
+        private val currency: JsonField<Currency> = JsonMissing.of(),
+        @JsonProperty("return_reason")
+        @ExcludeMissing
+        private val returnReason: JsonField<ReturnReason> = JsonMissing.of(),
+        @JsonProperty("returned_at")
+        @ExcludeMissing
+        private val returnedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("transaction_id")
+        @ExcludeMissing
+        private val transactionId: JsonField<String> = JsonMissing.of(),
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The returned amount in USD cents. */
@@ -1797,33 +1677,27 @@ class CheckDeposit @JsonCreator private constructor(
         fun checkDepositId(): String = checkDepositId.getRequired("check_deposit_id")
 
         /**
-         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
-         * transaction's currency.
+         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's
+         * currency.
          */
         fun currency(): Currency = currency.getRequired("currency")
 
-        /**
-         * Why this check was returned by the bank holding the account it was drawn
-         * against.
-         */
+        /** Why this check was returned by the bank holding the account it was drawn against. */
         fun returnReason(): ReturnReason = returnReason.getRequired("return_reason")
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
-         * the check deposit was returned.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the check
+         * deposit was returned.
          */
         fun returnedAt(): OffsetDateTime = returnedAt.getRequired("returned_at")
 
         /**
-         * The identifier of the transaction that reversed the original check deposit
-         * transaction.
+         * The identifier of the transaction that reversed the original check deposit transaction.
          */
         fun transactionId(): String = transactionId.getRequired("transaction_id")
 
         /** The returned amount in USD cents. */
-        @JsonProperty("amount")
-        @ExcludeMissing
-        fun _amount(): JsonField<Long> = amount
+        @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
         /** The identifier of the Check Deposit that was returned. */
         @JsonProperty("check_deposit_id")
@@ -1831,32 +1705,26 @@ class CheckDeposit @JsonCreator private constructor(
         fun _checkDepositId(): JsonField<String> = checkDepositId
 
         /**
-         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
-         * transaction's currency.
+         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's
+         * currency.
          */
-        @JsonProperty("currency")
-        @ExcludeMissing
-        fun _currency(): JsonField<Currency> = currency
+        @JsonProperty("currency") @ExcludeMissing fun _currency(): JsonField<Currency> = currency
 
-        /**
-         * Why this check was returned by the bank holding the account it was drawn
-         * against.
-         */
+        /** Why this check was returned by the bank holding the account it was drawn against. */
         @JsonProperty("return_reason")
         @ExcludeMissing
         fun _returnReason(): JsonField<ReturnReason> = returnReason
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
-         * the check deposit was returned.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the check
+         * deposit was returned.
          */
         @JsonProperty("returned_at")
         @ExcludeMissing
         fun _returnedAt(): JsonField<OffsetDateTime> = returnedAt
 
         /**
-         * The identifier of the transaction that reversed the original check deposit
-         * transaction.
+         * The identifier of the transaction that reversed the original check deposit transaction.
          */
         @JsonProperty("transaction_id")
         @ExcludeMissing
@@ -1868,20 +1736,19 @@ class CheckDeposit @JsonCreator private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): DepositReturn =
-            apply {
-                if (validated) {
-                  return@apply
-                }
-
-                amount()
-                checkDepositId()
-                currency()
-                returnReason()
-                returnedAt()
-                transactionId()
-                validated = true
+        fun validate(): DepositReturn = apply {
+            if (validated) {
+                return@apply
             }
+
+            amount()
+            checkDepositId()
+            currency()
+            returnReason()
+            returnedAt()
+            transactionId()
+            validated = true
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -1891,7 +1758,6 @@ class CheckDeposit @JsonCreator private constructor(
              * Returns a mutable builder for constructing an instance of [DepositReturn].
              *
              * The following fields are required:
-             *
              * ```kotlin
              * .amount()
              * .checkDepositId()
@@ -1915,79 +1781,64 @@ class CheckDeposit @JsonCreator private constructor(
             private var transactionId: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(depositReturn: DepositReturn) =
-                apply {
-                    amount = depositReturn.amount
-                    checkDepositId = depositReturn.checkDepositId
-                    currency = depositReturn.currency
-                    returnReason = depositReturn.returnReason
-                    returnedAt = depositReturn.returnedAt
-                    transactionId = depositReturn.transactionId
-                    additionalProperties = depositReturn.additionalProperties.toMutableMap()
-                }
+            internal fun from(depositReturn: DepositReturn) = apply {
+                amount = depositReturn.amount
+                checkDepositId = depositReturn.checkDepositId
+                currency = depositReturn.currency
+                returnReason = depositReturn.returnReason
+                returnedAt = depositReturn.returnedAt
+                transactionId = depositReturn.transactionId
+                additionalProperties = depositReturn.additionalProperties.toMutableMap()
+            }
 
             /** The returned amount in USD cents. */
             fun amount(amount: Long) = amount(JsonField.of(amount))
 
             /** The returned amount in USD cents. */
-            fun amount(amount: JsonField<Long>) =
-                apply {
-                    this.amount = amount
-                }
+            fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
             /** The identifier of the Check Deposit that was returned. */
-            fun checkDepositId(checkDepositId: String) = checkDepositId(JsonField.of(checkDepositId))
+            fun checkDepositId(checkDepositId: String) =
+                checkDepositId(JsonField.of(checkDepositId))
 
             /** The identifier of the Check Deposit that was returned. */
-            fun checkDepositId(checkDepositId: JsonField<String>) =
-                apply {
-                    this.checkDepositId = checkDepositId
-                }
+            fun checkDepositId(checkDepositId: JsonField<String>) = apply {
+                this.checkDepositId = checkDepositId
+            }
 
             /**
-             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
-             * transaction's currency.
+             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's
+             * currency.
              */
             fun currency(currency: Currency) = currency(JsonField.of(currency))
 
             /**
-             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
-             * transaction's currency.
+             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's
+             * currency.
              */
-            fun currency(currency: JsonField<Currency>) =
-                apply {
-                    this.currency = currency
-                }
+            fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
 
-            /**
-             * Why this check was returned by the bank holding the account it was drawn
-             * against.
-             */
+            /** Why this check was returned by the bank holding the account it was drawn against. */
             fun returnReason(returnReason: ReturnReason) = returnReason(JsonField.of(returnReason))
 
-            /**
-             * Why this check was returned by the bank holding the account it was drawn
-             * against.
-             */
-            fun returnReason(returnReason: JsonField<ReturnReason>) =
-                apply {
-                    this.returnReason = returnReason
-                }
+            /** Why this check was returned by the bank holding the account it was drawn against. */
+            fun returnReason(returnReason: JsonField<ReturnReason>) = apply {
+                this.returnReason = returnReason
+            }
 
             /**
-             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
-             * the check deposit was returned.
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+             * check deposit was returned.
              */
             fun returnedAt(returnedAt: OffsetDateTime) = returnedAt(JsonField.of(returnedAt))
 
             /**
-             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
-             * the check deposit was returned.
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+             * check deposit was returned.
              */
-            fun returnedAt(returnedAt: JsonField<OffsetDateTime>) =
-                apply {
-                    this.returnedAt = returnedAt
-                }
+            fun returnedAt(returnedAt: JsonField<OffsetDateTime>) = apply {
+                this.returnedAt = returnedAt
+            }
 
             /**
              * The identifier of the transaction that reversed the original check deposit
@@ -1999,80 +1850,57 @@ class CheckDeposit @JsonCreator private constructor(
              * The identifier of the transaction that reversed the original check deposit
              * transaction.
              */
-            fun transactionId(transactionId: JsonField<String>) =
-                apply {
-                    this.transactionId = transactionId
-                }
+            fun transactionId(transactionId: JsonField<String>) = apply {
+                this.transactionId = transactionId
+            }
 
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
-                apply {
-                    this.additionalProperties.clear()
-                    putAllAdditionalProperties(additionalProperties)
-                }
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
 
-            fun putAdditionalProperty(key: String, value: JsonValue) =
-                apply {
-                    additionalProperties.put(key, value)
-                }
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
 
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                apply {
-                    this.additionalProperties.putAll(additionalProperties)
-                }
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
 
-            fun removeAdditionalProperty(key: String) =
-                apply {
-                    additionalProperties.remove(key)
-                }
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
 
-            fun removeAllAdditionalProperties(keys: Set<String>) =
-                apply {
-                    keys.forEach(::removeAdditionalProperty)
-                }
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
 
             fun build(): DepositReturn =
                 DepositReturn(
-                  checkRequired(
-                    "amount", amount
-                  ),
-                  checkRequired(
-                    "checkDepositId", checkDepositId
-                  ),
-                  checkRequired(
-                    "currency", currency
-                  ),
-                  checkRequired(
-                    "returnReason", returnReason
-                  ),
-                  checkRequired(
-                    "returnedAt", returnedAt
-                  ),
-                  checkRequired(
-                    "transactionId", transactionId
-                  ),
-                  additionalProperties.toImmutable(),
+                    checkRequired("amount", amount),
+                    checkRequired("checkDepositId", checkDepositId),
+                    checkRequired("currency", currency),
+                    checkRequired("returnReason", returnReason),
+                    checkRequired("returnedAt", returnedAt),
+                    checkRequired("transactionId", transactionId),
+                    additionalProperties.toImmutable(),
                 )
         }
 
         /**
-         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the
-         * transaction's currency.
+         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the transaction's
+         * currency.
          */
-        class Currency @JsonCreator private constructor(
-            private val value: JsonField<String>,
-
-        ) : Enum {
+        class Currency @JsonCreator private constructor(private val value: JsonField<String>) :
+            Enum {
 
             /**
              * Returns this class instance's raw value.
              *
-             * This is usually only useful if this instance was deserialized from data that
-             * doesn't match any known member, and you want to know that value. For example, if
-             * the SDK is on an older version than the API, then the API may respond with new
-             * members that the SDK is unaware of.
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
              */
-            @com.fasterxml.jackson.annotation.JsonValue
-            fun _value(): JsonField<String> = value
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
             companion object {
 
@@ -2117,11 +1945,9 @@ class CheckDeposit @JsonCreator private constructor(
              * An enum containing [Currency]'s known values, as well as an [_UNKNOWN] member.
              *
              * An instance of [Currency] can contain an unknown value in a couple of cases:
-             *
-             * - It was deserialized from data that doesn't match any known member. For
-             *   example, if the SDK is on an older version than the API, then the API may
-             *   respond with new members that the SDK is unaware of.
-             *
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
              * - It was constructed with an arbitrary value using the [of] method.
              */
             enum class Value {
@@ -2138,8 +1964,7 @@ class CheckDeposit @JsonCreator private constructor(
                 /** US Dollar (USD) */
                 USD,
                 /**
-                 * An enum member indicating that [Currency] was instantiated with an unknown
-                 * value.
+                 * An enum member indicating that [Currency] was instantiated with an unknown value.
                  */
                 _UNKNOWN,
             }
@@ -2148,8 +1973,8 @@ class CheckDeposit @JsonCreator private constructor(
              * Returns an enum member corresponding to this class instance's value, or
              * [Value._UNKNOWN] if the class was instantiated with an unknown value.
              *
-             * Use the [known] method instead if you're certain the value is always known or if
-             * you want to throw for the unknown case.
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
              */
             fun value(): Value =
                 when (this) {
@@ -2168,8 +1993,8 @@ class CheckDeposit @JsonCreator private constructor(
              * Use the [value] method instead if you're uncertain the value is always known and
              * don't want to throw for the unknown case.
              *
-             * @throws IncreaseInvalidDataException if this class instance's value is a not a
-             * known member.
+             * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+             *   member.
              */
             fun known(): Known =
                 when (this) {
@@ -2188,17 +2013,18 @@ class CheckDeposit @JsonCreator private constructor(
              * This differs from the [toString] method because that method is primarily for
              * debugging and generally doesn't throw.
              *
-             * @throws IncreaseInvalidDataException if this class instance's value does not
-             * have the expected primitive type.
+             * @throws IncreaseInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
              */
-            fun asString(): String = _value().asString() ?: throw IncreaseInvalidDataException("Value is not a String")
+            fun asString(): String =
+                _value().asString() ?: throw IncreaseInvalidDataException("Value is not a String")
 
             override fun equals(other: Any?): Boolean {
-              if (this === other) {
-                  return true
-              }
+                if (this === other) {
+                    return true
+                }
 
-              return /* spotless:off */ other is Currency && value == other.value /* spotless:on */
+                return /* spotless:off */ other is Currency && value == other.value /* spotless:on */
             }
 
             override fun hashCode() = value.hashCode()
@@ -2206,25 +2032,19 @@ class CheckDeposit @JsonCreator private constructor(
             override fun toString() = value.toString()
         }
 
-        /**
-         * Why this check was returned by the bank holding the account it was drawn
-         * against.
-         */
-        class ReturnReason @JsonCreator private constructor(
-            private val value: JsonField<String>,
-
-        ) : Enum {
+        /** Why this check was returned by the bank holding the account it was drawn against. */
+        class ReturnReason @JsonCreator private constructor(private val value: JsonField<String>) :
+            Enum {
 
             /**
              * Returns this class instance's raw value.
              *
-             * This is usually only useful if this instance was deserialized from data that
-             * doesn't match any known member, and you want to know that value. For example, if
-             * the SDK is on an older version than the API, then the API may respond with new
-             * members that the SDK is unaware of.
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
              */
-            @com.fasterxml.jackson.annotation.JsonValue
-            fun _value(): JsonField<String> = value
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
             companion object {
 
@@ -2366,15 +2186,12 @@ class CheckDeposit @JsonCreator private constructor(
             }
 
             /**
-             * An enum containing [ReturnReason]'s known values, as well as an [_UNKNOWN]
-             * member.
+             * An enum containing [ReturnReason]'s known values, as well as an [_UNKNOWN] member.
              *
              * An instance of [ReturnReason] can contain an unknown value in a couple of cases:
-             *
-             * - It was deserialized from data that doesn't match any known member. For
-             *   example, if the SDK is on an older version than the API, then the API may
-             *   respond with new members that the SDK is unaware of.
-             *
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
              * - It was constructed with an arbitrary value using the [of] method.
              */
             enum class Value {
@@ -2441,8 +2258,8 @@ class CheckDeposit @JsonCreator private constructor(
              * Returns an enum member corresponding to this class instance's value, or
              * [Value._UNKNOWN] if the class was instantiated with an unknown value.
              *
-             * Use the [known] method instead if you're certain the value is always known or if
-             * you want to throw for the unknown case.
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
              */
             fun value(): Value =
                 when (this) {
@@ -2481,8 +2298,8 @@ class CheckDeposit @JsonCreator private constructor(
              * Use the [value] method instead if you're uncertain the value is always known and
              * don't want to throw for the unknown case.
              *
-             * @throws IncreaseInvalidDataException if this class instance's value is a not a
-             * known member.
+             * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+             *   member.
              */
             fun known(): Known =
                 when (this) {
@@ -2521,17 +2338,18 @@ class CheckDeposit @JsonCreator private constructor(
              * This differs from the [toString] method because that method is primarily for
              * debugging and generally doesn't throw.
              *
-             * @throws IncreaseInvalidDataException if this class instance's value does not
-             * have the expected primitive type.
+             * @throws IncreaseInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
              */
-            fun asString(): String = _value().asString() ?: throw IncreaseInvalidDataException("Value is not a String")
+            fun asString(): String =
+                _value().asString() ?: throw IncreaseInvalidDataException("Value is not a String")
 
             override fun equals(other: Any?): Boolean {
-              if (this === other) {
-                  return true
-              }
+                if (this === other) {
+                    return true
+                }
 
-              return /* spotless:off */ other is ReturnReason && value == other.value /* spotless:on */
+                return /* spotless:off */ other is ReturnReason && value == other.value /* spotless:on */
             }
 
             override fun hashCode() = value.hashCode()
@@ -2540,11 +2358,11 @@ class CheckDeposit @JsonCreator private constructor(
         }
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return /* spotless:off */ other is DepositReturn && amount == other.amount && checkDepositId == other.checkDepositId && currency == other.currency && returnReason == other.returnReason && returnedAt == other.returnedAt && transactionId == other.transactionId && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is DepositReturn && amount == other.amount && checkDepositId == other.checkDepositId && currency == other.currency && returnReason == other.returnReason && returnedAt == other.returnedAt && transactionId == other.transactionId && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -2553,61 +2371,68 @@ class CheckDeposit @JsonCreator private constructor(
 
         override fun hashCode(): Int = hashCode
 
-        override fun toString() = "DepositReturn{amount=$amount, checkDepositId=$checkDepositId, currency=$currency, returnReason=$returnReason, returnedAt=$returnedAt, transactionId=$transactionId, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "DepositReturn{amount=$amount, checkDepositId=$checkDepositId, currency=$currency, returnReason=$returnReason, returnedAt=$returnedAt, transactionId=$transactionId, additionalProperties=$additionalProperties}"
     }
 
     /**
-     * After the check is parsed, it is submitted to the Check21 network for
-     * processing. This will contain details of the submission.
+     * After the check is parsed, it is submitted to the Check21 network for processing. This will
+     * contain details of the submission.
      */
     @NoAutoDetect
-    class DepositSubmission @JsonCreator private constructor(
-        @JsonProperty("back_file_id") @ExcludeMissing private val backFileId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("front_file_id") @ExcludeMissing private val frontFileId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("submitted_at") @ExcludeMissing private val submittedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-        @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
-
+    class DepositSubmission
+    @JsonCreator
+    private constructor(
+        @JsonProperty("back_file_id")
+        @ExcludeMissing
+        private val backFileId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("front_file_id")
+        @ExcludeMissing
+        private val frontFileId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("submitted_at")
+        @ExcludeMissing
+        private val submittedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /**
-         * The ID for the File containing the check back image that was submitted to the
-         * Check21 network.
+         * The ID for the File containing the check back image that was submitted to the Check21
+         * network.
          */
         fun backFileId(): String = backFileId.getRequired("back_file_id")
 
         /**
-         * The ID for the File containing the check front image that was submitted to the
-         * Check21 network.
+         * The ID for the File containing the check front image that was submitted to the Check21
+         * network.
          */
         fun frontFileId(): String = frontFileId.getRequired("front_file_id")
 
         /**
-         * When the check deposit was submitted to the Check21 network for processing.
-         * During business days, this happens within a few hours of the check being
-         * accepted by Increase.
+         * When the check deposit was submitted to the Check21 network for processing. During
+         * business days, this happens within a few hours of the check being accepted by Increase.
          */
         fun submittedAt(): OffsetDateTime = submittedAt.getRequired("submitted_at")
 
         /**
-         * The ID for the File containing the check back image that was submitted to the
-         * Check21 network.
+         * The ID for the File containing the check back image that was submitted to the Check21
+         * network.
          */
         @JsonProperty("back_file_id")
         @ExcludeMissing
         fun _backFileId(): JsonField<String> = backFileId
 
         /**
-         * The ID for the File containing the check front image that was submitted to the
-         * Check21 network.
+         * The ID for the File containing the check front image that was submitted to the Check21
+         * network.
          */
         @JsonProperty("front_file_id")
         @ExcludeMissing
         fun _frontFileId(): JsonField<String> = frontFileId
 
         /**
-         * When the check deposit was submitted to the Check21 network for processing.
-         * During business days, this happens within a few hours of the check being
-         * accepted by Increase.
+         * When the check deposit was submitted to the Check21 network for processing. During
+         * business days, this happens within a few hours of the check being accepted by Increase.
          */
         @JsonProperty("submitted_at")
         @ExcludeMissing
@@ -2619,17 +2444,16 @@ class CheckDeposit @JsonCreator private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): DepositSubmission =
-            apply {
-                if (validated) {
-                  return@apply
-                }
-
-                backFileId()
-                frontFileId()
-                submittedAt()
-                validated = true
+        fun validate(): DepositSubmission = apply {
+            if (validated) {
+                return@apply
             }
+
+            backFileId()
+            frontFileId()
+            submittedAt()
+            validated = true
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -2639,7 +2463,6 @@ class CheckDeposit @JsonCreator private constructor(
              * Returns a mutable builder for constructing an instance of [DepositSubmission].
              *
              * The following fields are required:
-             *
              * ```kotlin
              * .backFileId()
              * .frontFileId()
@@ -2657,28 +2480,24 @@ class CheckDeposit @JsonCreator private constructor(
             private var submittedAt: JsonField<OffsetDateTime>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(depositSubmission: DepositSubmission) =
-                apply {
-                    backFileId = depositSubmission.backFileId
-                    frontFileId = depositSubmission.frontFileId
-                    submittedAt = depositSubmission.submittedAt
-                    additionalProperties = depositSubmission.additionalProperties.toMutableMap()
-                }
+            internal fun from(depositSubmission: DepositSubmission) = apply {
+                backFileId = depositSubmission.backFileId
+                frontFileId = depositSubmission.frontFileId
+                submittedAt = depositSubmission.submittedAt
+                additionalProperties = depositSubmission.additionalProperties.toMutableMap()
+            }
 
             /**
-             * The ID for the File containing the check back image that was submitted to the
-             * Check21 network.
+             * The ID for the File containing the check back image that was submitted to the Check21
+             * network.
              */
             fun backFileId(backFileId: String) = backFileId(JsonField.of(backFileId))
 
             /**
-             * The ID for the File containing the check back image that was submitted to the
-             * Check21 network.
+             * The ID for the File containing the check back image that was submitted to the Check21
+             * network.
              */
-            fun backFileId(backFileId: JsonField<String>) =
-                apply {
-                    this.backFileId = backFileId
-                }
+            fun backFileId(backFileId: JsonField<String>) = apply { this.backFileId = backFileId }
 
             /**
              * The ID for the File containing the check front image that was submitted to the
@@ -2690,75 +2509,60 @@ class CheckDeposit @JsonCreator private constructor(
              * The ID for the File containing the check front image that was submitted to the
              * Check21 network.
              */
-            fun frontFileId(frontFileId: JsonField<String>) =
-                apply {
-                    this.frontFileId = frontFileId
-                }
+            fun frontFileId(frontFileId: JsonField<String>) = apply {
+                this.frontFileId = frontFileId
+            }
 
             /**
-             * When the check deposit was submitted to the Check21 network for processing.
-             * During business days, this happens within a few hours of the check being
-             * accepted by Increase.
+             * When the check deposit was submitted to the Check21 network for processing. During
+             * business days, this happens within a few hours of the check being accepted by
+             * Increase.
              */
             fun submittedAt(submittedAt: OffsetDateTime) = submittedAt(JsonField.of(submittedAt))
 
             /**
-             * When the check deposit was submitted to the Check21 network for processing.
-             * During business days, this happens within a few hours of the check being
-             * accepted by Increase.
+             * When the check deposit was submitted to the Check21 network for processing. During
+             * business days, this happens within a few hours of the check being accepted by
+             * Increase.
              */
-            fun submittedAt(submittedAt: JsonField<OffsetDateTime>) =
-                apply {
-                    this.submittedAt = submittedAt
-                }
+            fun submittedAt(submittedAt: JsonField<OffsetDateTime>) = apply {
+                this.submittedAt = submittedAt
+            }
 
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
-                apply {
-                    this.additionalProperties.clear()
-                    putAllAdditionalProperties(additionalProperties)
-                }
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
 
-            fun putAdditionalProperty(key: String, value: JsonValue) =
-                apply {
-                    additionalProperties.put(key, value)
-                }
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
 
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                apply {
-                    this.additionalProperties.putAll(additionalProperties)
-                }
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
 
-            fun removeAdditionalProperty(key: String) =
-                apply {
-                    additionalProperties.remove(key)
-                }
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
 
-            fun removeAllAdditionalProperties(keys: Set<String>) =
-                apply {
-                    keys.forEach(::removeAdditionalProperty)
-                }
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
 
             fun build(): DepositSubmission =
                 DepositSubmission(
-                  checkRequired(
-                    "backFileId", backFileId
-                  ),
-                  checkRequired(
-                    "frontFileId", frontFileId
-                  ),
-                  checkRequired(
-                    "submittedAt", submittedAt
-                  ),
-                  additionalProperties.toImmutable(),
+                    checkRequired("backFileId", backFileId),
+                    checkRequired("frontFileId", frontFileId),
+                    checkRequired("submittedAt", submittedAt),
+                    additionalProperties.toImmutable(),
                 )
         }
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return /* spotless:off */ other is DepositSubmission && backFileId == other.backFileId && frontFileId == other.frontFileId && submittedAt == other.submittedAt && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is DepositSubmission && backFileId == other.backFileId && frontFileId == other.frontFileId && submittedAt == other.submittedAt && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -2767,61 +2571,79 @@ class CheckDeposit @JsonCreator private constructor(
 
         override fun hashCode(): Int = hashCode
 
-        override fun toString() = "DepositSubmission{backFileId=$backFileId, frontFileId=$frontFileId, submittedAt=$submittedAt, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "DepositSubmission{backFileId=$backFileId, frontFileId=$frontFileId, submittedAt=$submittedAt, additionalProperties=$additionalProperties}"
     }
 
     /**
-     * Increase will sometimes hold the funds for Check Deposits. If funds are held,
-     * this sub-object will contain details of the hold.
+     * Increase will sometimes hold the funds for Check Deposits. If funds are held, this sub-object
+     * will contain details of the hold.
      */
     @NoAutoDetect
-    class InboundFundsHold @JsonCreator private constructor(
+    class InboundFundsHold
+    @JsonCreator
+    private constructor(
         @JsonProperty("id") @ExcludeMissing private val id: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("amount") @ExcludeMissing private val amount: JsonField<Long> = JsonMissing.of(),
-        @JsonProperty("automatically_releases_at") @ExcludeMissing private val automaticallyReleasesAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-        @JsonProperty("created_at") @ExcludeMissing private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-        @JsonProperty("currency") @ExcludeMissing private val currency: JsonField<Currency> = JsonMissing.of(),
-        @JsonProperty("held_transaction_id") @ExcludeMissing private val heldTransactionId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("pending_transaction_id") @ExcludeMissing private val pendingTransactionId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("released_at") @ExcludeMissing private val releasedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-        @JsonProperty("status") @ExcludeMissing private val status: JsonField<Status> = JsonMissing.of(),
+        @JsonProperty("amount")
+        @ExcludeMissing
+        private val amount: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("automatically_releases_at")
+        @ExcludeMissing
+        private val automaticallyReleasesAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("created_at")
+        @ExcludeMissing
+        private val createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("currency")
+        @ExcludeMissing
+        private val currency: JsonField<Currency> = JsonMissing.of(),
+        @JsonProperty("held_transaction_id")
+        @ExcludeMissing
+        private val heldTransactionId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("pending_transaction_id")
+        @ExcludeMissing
+        private val pendingTransactionId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("released_at")
+        @ExcludeMissing
+        private val releasedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("status")
+        @ExcludeMissing
+        private val status: JsonField<Status> = JsonMissing.of(),
         @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
-        @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
-
+        @JsonAnySetter
+        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
         /** The Inbound Funds Hold identifier. */
         fun id(): String = id.getRequired("id")
 
         /**
-         * The held amount in the minor unit of the account's currency. For dollars, for
-         * example, this is cents.
+         * The held amount in the minor unit of the account's currency. For dollars, for example,
+         * this is cents.
          */
         fun amount(): Long = amount.getRequired("amount")
 
         /**
-         * When the hold will be released automatically. Certain conditions may cause it to
-         * be released before this time.
+         * When the hold will be released automatically. Certain conditions may cause it to be
+         * released before this time.
          */
-        fun automaticallyReleasesAt(): OffsetDateTime = automaticallyReleasesAt.getRequired("automatically_releases_at")
+        fun automaticallyReleasesAt(): OffsetDateTime =
+            automaticallyReleasesAt.getRequired("automatically_releases_at")
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the hold
-         * was created.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the hold was
+         * created.
          */
         fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
-        /**
-         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the hold's
-         * currency.
-         */
+        /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the hold's currency. */
         fun currency(): Currency = currency.getRequired("currency")
 
         /** The ID of the Transaction for which funds were held. */
         fun heldTransactionId(): String? = heldTransactionId.getNullable("held_transaction_id")
 
         /** The ID of the Pending Transaction representing the held funds. */
-        fun pendingTransactionId(): String? = pendingTransactionId.getNullable("pending_transaction_id")
+        fun pendingTransactionId(): String? =
+            pendingTransactionId.getNullable("pending_transaction_id")
 
         /** When the hold was released (if it has been released). */
         fun releasedAt(): OffsetDateTime? = releasedAt.getNullable("released_at")
@@ -2836,41 +2658,32 @@ class CheckDeposit @JsonCreator private constructor(
         fun type(): Type = type.getRequired("type")
 
         /** The Inbound Funds Hold identifier. */
-        @JsonProperty("id")
-        @ExcludeMissing
-        fun _id(): JsonField<String> = id
+        @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
         /**
-         * The held amount in the minor unit of the account's currency. For dollars, for
-         * example, this is cents.
+         * The held amount in the minor unit of the account's currency. For dollars, for example,
+         * this is cents.
          */
-        @JsonProperty("amount")
-        @ExcludeMissing
-        fun _amount(): JsonField<Long> = amount
+        @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
         /**
-         * When the hold will be released automatically. Certain conditions may cause it to
-         * be released before this time.
+         * When the hold will be released automatically. Certain conditions may cause it to be
+         * released before this time.
          */
         @JsonProperty("automatically_releases_at")
         @ExcludeMissing
         fun _automaticallyReleasesAt(): JsonField<OffsetDateTime> = automaticallyReleasesAt
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the hold
-         * was created.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the hold was
+         * created.
          */
         @JsonProperty("created_at")
         @ExcludeMissing
         fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
-        /**
-         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the hold's
-         * currency.
-         */
-        @JsonProperty("currency")
-        @ExcludeMissing
-        fun _currency(): JsonField<Currency> = currency
+        /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the hold's currency. */
+        @JsonProperty("currency") @ExcludeMissing fun _currency(): JsonField<Currency> = currency
 
         /** The ID of the Transaction for which funds were held. */
         @JsonProperty("held_transaction_id")
@@ -2888,17 +2701,13 @@ class CheckDeposit @JsonCreator private constructor(
         fun _releasedAt(): JsonField<OffsetDateTime> = releasedAt
 
         /** The status of the hold. */
-        @JsonProperty("status")
-        @ExcludeMissing
-        fun _status(): JsonField<Status> = status
+        @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
         /**
          * A constant representing the object's type. For this resource it will always be
          * `inbound_funds_hold`.
          */
-        @JsonProperty("type")
-        @ExcludeMissing
-        fun _type(): JsonField<Type> = type
+        @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
         @JsonAnyGetter
         @ExcludeMissing
@@ -2906,24 +2715,23 @@ class CheckDeposit @JsonCreator private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): InboundFundsHold =
-            apply {
-                if (validated) {
-                  return@apply
-                }
-
-                id()
-                amount()
-                automaticallyReleasesAt()
-                createdAt()
-                currency()
-                heldTransactionId()
-                pendingTransactionId()
-                releasedAt()
-                status()
-                type()
-                validated = true
+        fun validate(): InboundFundsHold = apply {
+            if (validated) {
+                return@apply
             }
+
+            id()
+            amount()
+            automaticallyReleasesAt()
+            createdAt()
+            currency()
+            heldTransactionId()
+            pendingTransactionId()
+            releasedAt()
+            status()
+            type()
+            validated = true
+        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -2933,7 +2741,6 @@ class CheckDeposit @JsonCreator private constructor(
              * Returns a mutable builder for constructing an instance of [InboundFundsHold].
              *
              * The following fields are required:
-             *
              * ```kotlin
              * .id()
              * .amount()
@@ -2965,29 +2772,25 @@ class CheckDeposit @JsonCreator private constructor(
             private var type: JsonField<Type>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(inboundFundsHold: InboundFundsHold) =
-                apply {
-                    id = inboundFundsHold.id
-                    amount = inboundFundsHold.amount
-                    automaticallyReleasesAt = inboundFundsHold.automaticallyReleasesAt
-                    createdAt = inboundFundsHold.createdAt
-                    currency = inboundFundsHold.currency
-                    heldTransactionId = inboundFundsHold.heldTransactionId
-                    pendingTransactionId = inboundFundsHold.pendingTransactionId
-                    releasedAt = inboundFundsHold.releasedAt
-                    status = inboundFundsHold.status
-                    type = inboundFundsHold.type
-                    additionalProperties = inboundFundsHold.additionalProperties.toMutableMap()
-                }
+            internal fun from(inboundFundsHold: InboundFundsHold) = apply {
+                id = inboundFundsHold.id
+                amount = inboundFundsHold.amount
+                automaticallyReleasesAt = inboundFundsHold.automaticallyReleasesAt
+                createdAt = inboundFundsHold.createdAt
+                currency = inboundFundsHold.currency
+                heldTransactionId = inboundFundsHold.heldTransactionId
+                pendingTransactionId = inboundFundsHold.pendingTransactionId
+                releasedAt = inboundFundsHold.releasedAt
+                status = inboundFundsHold.status
+                type = inboundFundsHold.type
+                additionalProperties = inboundFundsHold.additionalProperties.toMutableMap()
+            }
 
             /** The Inbound Funds Hold identifier. */
             fun id(id: String) = id(JsonField.of(id))
 
             /** The Inbound Funds Hold identifier. */
-            fun id(id: JsonField<String>) =
-                apply {
-                    this.id = id
-                }
+            fun id(id: JsonField<String>) = apply { this.id = id }
 
             /**
              * The held amount in the minor unit of the account's currency. For dollars, for
@@ -2999,20 +2802,18 @@ class CheckDeposit @JsonCreator private constructor(
              * The held amount in the minor unit of the account's currency. For dollars, for
              * example, this is cents.
              */
-            fun amount(amount: JsonField<Long>) =
-                apply {
-                    this.amount = amount
-                }
+            fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
             /**
-             * When the hold will be released automatically. Certain conditions may cause it to
-             * be released before this time.
+             * When the hold will be released automatically. Certain conditions may cause it to be
+             * released before this time.
              */
-            fun automaticallyReleasesAt(automaticallyReleasesAt: OffsetDateTime) = automaticallyReleasesAt(JsonField.of(automaticallyReleasesAt))
+            fun automaticallyReleasesAt(automaticallyReleasesAt: OffsetDateTime) =
+                automaticallyReleasesAt(JsonField.of(automaticallyReleasesAt))
 
             /**
-             * When the hold will be released automatically. Certain conditions may cause it to
-             * be released before this time.
+             * When the hold will be released automatically. Certain conditions may cause it to be
+             * released before this time.
              */
             fun automaticallyReleasesAt(automaticallyReleasesAt: JsonField<OffsetDateTime>) =
                 apply {
@@ -3020,70 +2821,61 @@ class CheckDeposit @JsonCreator private constructor(
                 }
 
             /**
-             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the hold
-             * was created.
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the hold was
+             * created.
              */
             fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
             /**
-             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the hold
-             * was created.
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the hold was
+             * created.
              */
-            fun createdAt(createdAt: JsonField<OffsetDateTime>) =
-                apply {
-                    this.createdAt = createdAt
-                }
+            fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
+                this.createdAt = createdAt
+            }
 
             /**
-             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the hold's
-             * currency.
+             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the hold's currency.
              */
             fun currency(currency: Currency) = currency(JsonField.of(currency))
 
             /**
-             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the hold's
-             * currency.
+             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the hold's currency.
              */
-            fun currency(currency: JsonField<Currency>) =
-                apply {
-                    this.currency = currency
-                }
+            fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
 
             /** The ID of the Transaction for which funds were held. */
-            fun heldTransactionId(heldTransactionId: String?) = heldTransactionId(JsonField.ofNullable(heldTransactionId))
+            fun heldTransactionId(heldTransactionId: String?) =
+                heldTransactionId(JsonField.ofNullable(heldTransactionId))
 
             /** The ID of the Transaction for which funds were held. */
-            fun heldTransactionId(heldTransactionId: JsonField<String>) =
-                apply {
-                    this.heldTransactionId = heldTransactionId
-                }
+            fun heldTransactionId(heldTransactionId: JsonField<String>) = apply {
+                this.heldTransactionId = heldTransactionId
+            }
 
             /** The ID of the Pending Transaction representing the held funds. */
-            fun pendingTransactionId(pendingTransactionId: String?) = pendingTransactionId(JsonField.ofNullable(pendingTransactionId))
+            fun pendingTransactionId(pendingTransactionId: String?) =
+                pendingTransactionId(JsonField.ofNullable(pendingTransactionId))
 
             /** The ID of the Pending Transaction representing the held funds. */
-            fun pendingTransactionId(pendingTransactionId: JsonField<String>) =
-                apply {
-                    this.pendingTransactionId = pendingTransactionId
-                }
+            fun pendingTransactionId(pendingTransactionId: JsonField<String>) = apply {
+                this.pendingTransactionId = pendingTransactionId
+            }
 
             /** When the hold was released (if it has been released). */
-            fun releasedAt(releasedAt: OffsetDateTime?) = releasedAt(JsonField.ofNullable(releasedAt))
+            fun releasedAt(releasedAt: OffsetDateTime?) =
+                releasedAt(JsonField.ofNullable(releasedAt))
 
             /** When the hold was released (if it has been released). */
-            fun releasedAt(releasedAt: JsonField<OffsetDateTime>) =
-                apply {
-                    this.releasedAt = releasedAt
-                }
+            fun releasedAt(releasedAt: JsonField<OffsetDateTime>) = apply {
+                this.releasedAt = releasedAt
+            }
 
             /** The status of the hold. */
             fun status(status: Status) = status(JsonField.of(status))
 
             /** The status of the hold. */
-            fun status(status: JsonField<Status>) =
-                apply {
-                    this.status = status
-                }
+            fun status(status: JsonField<Status>) = apply { this.status = status }
 
             /**
              * A constant representing the object's type. For this resource it will always be
@@ -3095,92 +2887,56 @@ class CheckDeposit @JsonCreator private constructor(
              * A constant representing the object's type. For this resource it will always be
              * `inbound_funds_hold`.
              */
-            fun type(type: JsonField<Type>) =
-                apply {
-                    this.type = type
-                }
+            fun type(type: JsonField<Type>) = apply { this.type = type }
 
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
-                apply {
-                    this.additionalProperties.clear()
-                    putAllAdditionalProperties(additionalProperties)
-                }
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
 
-            fun putAdditionalProperty(key: String, value: JsonValue) =
-                apply {
-                    additionalProperties.put(key, value)
-                }
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
 
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                apply {
-                    this.additionalProperties.putAll(additionalProperties)
-                }
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
 
-            fun removeAdditionalProperty(key: String) =
-                apply {
-                    additionalProperties.remove(key)
-                }
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
 
-            fun removeAllAdditionalProperties(keys: Set<String>) =
-                apply {
-                    keys.forEach(::removeAdditionalProperty)
-                }
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
 
             fun build(): InboundFundsHold =
                 InboundFundsHold(
-                  checkRequired(
-                    "id", id
-                  ),
-                  checkRequired(
-                    "amount", amount
-                  ),
-                  checkRequired(
-                    "automaticallyReleasesAt", automaticallyReleasesAt
-                  ),
-                  checkRequired(
-                    "createdAt", createdAt
-                  ),
-                  checkRequired(
-                    "currency", currency
-                  ),
-                  checkRequired(
-                    "heldTransactionId", heldTransactionId
-                  ),
-                  checkRequired(
-                    "pendingTransactionId", pendingTransactionId
-                  ),
-                  checkRequired(
-                    "releasedAt", releasedAt
-                  ),
-                  checkRequired(
-                    "status", status
-                  ),
-                  checkRequired(
-                    "type", type
-                  ),
-                  additionalProperties.toImmutable(),
+                    checkRequired("id", id),
+                    checkRequired("amount", amount),
+                    checkRequired("automaticallyReleasesAt", automaticallyReleasesAt),
+                    checkRequired("createdAt", createdAt),
+                    checkRequired("currency", currency),
+                    checkRequired("heldTransactionId", heldTransactionId),
+                    checkRequired("pendingTransactionId", pendingTransactionId),
+                    checkRequired("releasedAt", releasedAt),
+                    checkRequired("status", status),
+                    checkRequired("type", type),
+                    additionalProperties.toImmutable(),
                 )
         }
 
-        /**
-         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the hold's
-         * currency.
-         */
-        class Currency @JsonCreator private constructor(
-            private val value: JsonField<String>,
-
-        ) : Enum {
+        /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the hold's currency. */
+        class Currency @JsonCreator private constructor(private val value: JsonField<String>) :
+            Enum {
 
             /**
              * Returns this class instance's raw value.
              *
-             * This is usually only useful if this instance was deserialized from data that
-             * doesn't match any known member, and you want to know that value. For example, if
-             * the SDK is on an older version than the API, then the API may respond with new
-             * members that the SDK is unaware of.
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
              */
-            @com.fasterxml.jackson.annotation.JsonValue
-            fun _value(): JsonField<String> = value
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
             companion object {
 
@@ -3225,11 +2981,9 @@ class CheckDeposit @JsonCreator private constructor(
              * An enum containing [Currency]'s known values, as well as an [_UNKNOWN] member.
              *
              * An instance of [Currency] can contain an unknown value in a couple of cases:
-             *
-             * - It was deserialized from data that doesn't match any known member. For
-             *   example, if the SDK is on an older version than the API, then the API may
-             *   respond with new members that the SDK is unaware of.
-             *
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
              * - It was constructed with an arbitrary value using the [of] method.
              */
             enum class Value {
@@ -3246,8 +3000,7 @@ class CheckDeposit @JsonCreator private constructor(
                 /** US Dollar (USD) */
                 USD,
                 /**
-                 * An enum member indicating that [Currency] was instantiated with an unknown
-                 * value.
+                 * An enum member indicating that [Currency] was instantiated with an unknown value.
                  */
                 _UNKNOWN,
             }
@@ -3256,8 +3009,8 @@ class CheckDeposit @JsonCreator private constructor(
              * Returns an enum member corresponding to this class instance's value, or
              * [Value._UNKNOWN] if the class was instantiated with an unknown value.
              *
-             * Use the [known] method instead if you're certain the value is always known or if
-             * you want to throw for the unknown case.
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
              */
             fun value(): Value =
                 when (this) {
@@ -3276,8 +3029,8 @@ class CheckDeposit @JsonCreator private constructor(
              * Use the [value] method instead if you're uncertain the value is always known and
              * don't want to throw for the unknown case.
              *
-             * @throws IncreaseInvalidDataException if this class instance's value is a not a
-             * known member.
+             * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+             *   member.
              */
             fun known(): Known =
                 when (this) {
@@ -3296,17 +3049,18 @@ class CheckDeposit @JsonCreator private constructor(
              * This differs from the [toString] method because that method is primarily for
              * debugging and generally doesn't throw.
              *
-             * @throws IncreaseInvalidDataException if this class instance's value does not
-             * have the expected primitive type.
+             * @throws IncreaseInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
              */
-            fun asString(): String = _value().asString() ?: throw IncreaseInvalidDataException("Value is not a String")
+            fun asString(): String =
+                _value().asString() ?: throw IncreaseInvalidDataException("Value is not a String")
 
             override fun equals(other: Any?): Boolean {
-              if (this === other) {
-                  return true
-              }
+                if (this === other) {
+                    return true
+                }
 
-              return /* spotless:off */ other is Currency && value == other.value /* spotless:on */
+                return /* spotless:off */ other is Currency && value == other.value /* spotless:on */
             }
 
             override fun hashCode() = value.hashCode()
@@ -3315,21 +3069,17 @@ class CheckDeposit @JsonCreator private constructor(
         }
 
         /** The status of the hold. */
-        class Status @JsonCreator private constructor(
-            private val value: JsonField<String>,
-
-        ) : Enum {
+        class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
             /**
              * Returns this class instance's raw value.
              *
-             * This is usually only useful if this instance was deserialized from data that
-             * doesn't match any known member, and you want to know that value. For example, if
-             * the SDK is on an older version than the API, then the API may respond with new
-             * members that the SDK is unaware of.
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
              */
-            @com.fasterxml.jackson.annotation.JsonValue
-            fun _value(): JsonField<String> = value
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
             companion object {
 
@@ -3354,11 +3104,9 @@ class CheckDeposit @JsonCreator private constructor(
              * An enum containing [Status]'s known values, as well as an [_UNKNOWN] member.
              *
              * An instance of [Status] can contain an unknown value in a couple of cases:
-             *
-             * - It was deserialized from data that doesn't match any known member. For
-             *   example, if the SDK is on an older version than the API, then the API may
-             *   respond with new members that the SDK is unaware of.
-             *
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
              * - It was constructed with an arbitrary value using the [of] method.
              */
             enum class Value {
@@ -3366,7 +3114,9 @@ class CheckDeposit @JsonCreator private constructor(
                 HELD,
                 /** Funds have been released. */
                 COMPLETE,
-                /** An enum member indicating that [Status] was instantiated with an unknown value. */
+                /**
+                 * An enum member indicating that [Status] was instantiated with an unknown value.
+                 */
                 _UNKNOWN,
             }
 
@@ -3374,8 +3124,8 @@ class CheckDeposit @JsonCreator private constructor(
              * Returns an enum member corresponding to this class instance's value, or
              * [Value._UNKNOWN] if the class was instantiated with an unknown value.
              *
-             * Use the [known] method instead if you're certain the value is always known or if
-             * you want to throw for the unknown case.
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
              */
             fun value(): Value =
                 when (this) {
@@ -3390,8 +3140,8 @@ class CheckDeposit @JsonCreator private constructor(
              * Use the [value] method instead if you're uncertain the value is always known and
              * don't want to throw for the unknown case.
              *
-             * @throws IncreaseInvalidDataException if this class instance's value is a not a
-             * known member.
+             * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+             *   member.
              */
             fun known(): Known =
                 when (this) {
@@ -3406,17 +3156,18 @@ class CheckDeposit @JsonCreator private constructor(
              * This differs from the [toString] method because that method is primarily for
              * debugging and generally doesn't throw.
              *
-             * @throws IncreaseInvalidDataException if this class instance's value does not
-             * have the expected primitive type.
+             * @throws IncreaseInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
              */
-            fun asString(): String = _value().asString() ?: throw IncreaseInvalidDataException("Value is not a String")
+            fun asString(): String =
+                _value().asString() ?: throw IncreaseInvalidDataException("Value is not a String")
 
             override fun equals(other: Any?): Boolean {
-              if (this === other) {
-                  return true
-              }
+                if (this === other) {
+                    return true
+                }
 
-              return /* spotless:off */ other is Status && value == other.value /* spotless:on */
+                return /* spotless:off */ other is Status && value == other.value /* spotless:on */
             }
 
             override fun hashCode() = value.hashCode()
@@ -3428,21 +3179,17 @@ class CheckDeposit @JsonCreator private constructor(
          * A constant representing the object's type. For this resource it will always be
          * `inbound_funds_hold`.
          */
-        class Type @JsonCreator private constructor(
-            private val value: JsonField<String>,
-
-        ) : Enum {
+        class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
             /**
              * Returns this class instance's raw value.
              *
-             * This is usually only useful if this instance was deserialized from data that
-             * doesn't match any known member, and you want to know that value. For example, if
-             * the SDK is on an older version than the API, then the API may respond with new
-             * members that the SDK is unaware of.
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
              */
-            @com.fasterxml.jackson.annotation.JsonValue
-            fun _value(): JsonField<String> = value
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
             companion object {
 
@@ -3453,18 +3200,16 @@ class CheckDeposit @JsonCreator private constructor(
 
             /** An enum containing [Type]'s known values. */
             enum class Known {
-                INBOUND_FUNDS_HOLD,
+                INBOUND_FUNDS_HOLD
             }
 
             /**
              * An enum containing [Type]'s known values, as well as an [_UNKNOWN] member.
              *
              * An instance of [Type] can contain an unknown value in a couple of cases:
-             *
-             * - It was deserialized from data that doesn't match any known member. For
-             *   example, if the SDK is on an older version than the API, then the API may
-             *   respond with new members that the SDK is unaware of.
-             *
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
              * - It was constructed with an arbitrary value using the [of] method.
              */
             enum class Value {
@@ -3477,8 +3222,8 @@ class CheckDeposit @JsonCreator private constructor(
              * Returns an enum member corresponding to this class instance's value, or
              * [Value._UNKNOWN] if the class was instantiated with an unknown value.
              *
-             * Use the [known] method instead if you're certain the value is always known or if
-             * you want to throw for the unknown case.
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
              */
             fun value(): Value =
                 when (this) {
@@ -3492,8 +3237,8 @@ class CheckDeposit @JsonCreator private constructor(
              * Use the [value] method instead if you're uncertain the value is always known and
              * don't want to throw for the unknown case.
              *
-             * @throws IncreaseInvalidDataException if this class instance's value is a not a
-             * known member.
+             * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+             *   member.
              */
             fun known(): Known =
                 when (this) {
@@ -3507,17 +3252,18 @@ class CheckDeposit @JsonCreator private constructor(
              * This differs from the [toString] method because that method is primarily for
              * debugging and generally doesn't throw.
              *
-             * @throws IncreaseInvalidDataException if this class instance's value does not
-             * have the expected primitive type.
+             * @throws IncreaseInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
              */
-            fun asString(): String = _value().asString() ?: throw IncreaseInvalidDataException("Value is not a String")
+            fun asString(): String =
+                _value().asString() ?: throw IncreaseInvalidDataException("Value is not a String")
 
             override fun equals(other: Any?): Boolean {
-              if (this === other) {
-                  return true
-              }
+                if (this === other) {
+                    return true
+                }
 
-              return /* spotless:off */ other is Type && value == other.value /* spotless:on */
+                return /* spotless:off */ other is Type && value == other.value /* spotless:on */
             }
 
             override fun hashCode() = value.hashCode()
@@ -3526,11 +3272,11 @@ class CheckDeposit @JsonCreator private constructor(
         }
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return /* spotless:off */ other is InboundFundsHold && id == other.id && amount == other.amount && automaticallyReleasesAt == other.automaticallyReleasesAt && createdAt == other.createdAt && currency == other.currency && heldTransactionId == other.heldTransactionId && pendingTransactionId == other.pendingTransactionId && releasedAt == other.releasedAt && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is InboundFundsHold && id == other.id && amount == other.amount && automaticallyReleasesAt == other.automaticallyReleasesAt && createdAt == other.createdAt && currency == other.currency && heldTransactionId == other.heldTransactionId && pendingTransactionId == other.pendingTransactionId && releasedAt == other.releasedAt && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
@@ -3539,25 +3285,22 @@ class CheckDeposit @JsonCreator private constructor(
 
         override fun hashCode(): Int = hashCode
 
-        override fun toString() = "InboundFundsHold{id=$id, amount=$amount, automaticallyReleasesAt=$automaticallyReleasesAt, createdAt=$createdAt, currency=$currency, heldTransactionId=$heldTransactionId, pendingTransactionId=$pendingTransactionId, releasedAt=$releasedAt, status=$status, type=$type, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "InboundFundsHold{id=$id, amount=$amount, automaticallyReleasesAt=$automaticallyReleasesAt, createdAt=$createdAt, currency=$currency, heldTransactionId=$heldTransactionId, pendingTransactionId=$pendingTransactionId, releasedAt=$releasedAt, status=$status, type=$type, additionalProperties=$additionalProperties}"
     }
 
     /** The status of the Check Deposit. */
-    class Status @JsonCreator private constructor(
-        private val value: JsonField<String>,
-
-    ) : Enum {
+    class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
          *
-         * This is usually only useful if this instance was deserialized from data that
-         * doesn't match any known member, and you want to know that value. For example, if
-         * the SDK is on an older version than the API, then the API may respond with new
-         * members that the SDK is unaware of.
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
          */
-        @com.fasterxml.jackson.annotation.JsonValue
-        fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         companion object {
 
@@ -3592,11 +3335,9 @@ class CheckDeposit @JsonCreator private constructor(
          * An enum containing [Status]'s known values, as well as an [_UNKNOWN] member.
          *
          * An instance of [Status] can contain an unknown value in a couple of cases:
-         *
-         * - It was deserialized from data that doesn't match any known member. For
-         *   example, if the SDK is on an older version than the API, then the API may
-         *   respond with new members that the SDK is unaware of.
-         *
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
@@ -3613,11 +3354,11 @@ class CheckDeposit @JsonCreator private constructor(
         }
 
         /**
-         * Returns an enum member corresponding to this class instance's value, or
-         * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
          *
-         * Use the [known] method instead if you're certain the value is always known or if
-         * you want to throw for the unknown case.
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
          */
         fun value(): Value =
             when (this) {
@@ -3631,11 +3372,11 @@ class CheckDeposit @JsonCreator private constructor(
         /**
          * Returns an enum member corresponding to this class instance's value.
          *
-         * Use the [value] method instead if you're uncertain the value is always known and
-         * don't want to throw for the unknown case.
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value is a not a
-         * known member.
+         * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+         *   member.
          */
         fun known(): Known =
             when (this) {
@@ -3649,20 +3390,21 @@ class CheckDeposit @JsonCreator private constructor(
         /**
          * Returns this class instance's primitive wire representation.
          *
-         * This differs from the [toString] method because that method is primarily for
-         * debugging and generally doesn't throw.
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value does not
-         * have the expected primitive type.
+         * @throws IncreaseInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
          */
-        fun asString(): String = _value().asString() ?: throw IncreaseInvalidDataException("Value is not a String")
+        fun asString(): String =
+            _value().asString() ?: throw IncreaseInvalidDataException("Value is not a String")
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return /* spotless:off */ other is Status && value == other.value /* spotless:on */
+            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -3674,21 +3416,17 @@ class CheckDeposit @JsonCreator private constructor(
      * A constant representing the object's type. For this resource it will always be
      * `check_deposit`.
      */
-    class Type @JsonCreator private constructor(
-        private val value: JsonField<String>,
-
-    ) : Enum {
+    class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
          *
-         * This is usually only useful if this instance was deserialized from data that
-         * doesn't match any known member, and you want to know that value. For example, if
-         * the SDK is on an older version than the API, then the API may respond with new
-         * members that the SDK is unaware of.
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
          */
-        @com.fasterxml.jackson.annotation.JsonValue
-        fun _value(): JsonField<String> = value
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         companion object {
 
@@ -3699,18 +3437,16 @@ class CheckDeposit @JsonCreator private constructor(
 
         /** An enum containing [Type]'s known values. */
         enum class Known {
-            CHECK_DEPOSIT,
+            CHECK_DEPOSIT
         }
 
         /**
          * An enum containing [Type]'s known values, as well as an [_UNKNOWN] member.
          *
          * An instance of [Type] can contain an unknown value in a couple of cases:
-         *
-         * - It was deserialized from data that doesn't match any known member. For
-         *   example, if the SDK is on an older version than the API, then the API may
-         *   respond with new members that the SDK is unaware of.
-         *
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
@@ -3720,11 +3456,11 @@ class CheckDeposit @JsonCreator private constructor(
         }
 
         /**
-         * Returns an enum member corresponding to this class instance's value, or
-         * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
          *
-         * Use the [known] method instead if you're certain the value is always known or if
-         * you want to throw for the unknown case.
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
          */
         fun value(): Value =
             when (this) {
@@ -3735,11 +3471,11 @@ class CheckDeposit @JsonCreator private constructor(
         /**
          * Returns an enum member corresponding to this class instance's value.
          *
-         * Use the [value] method instead if you're uncertain the value is always known and
-         * don't want to throw for the unknown case.
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value is a not a
-         * known member.
+         * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+         *   member.
          */
         fun known(): Known =
             when (this) {
@@ -3750,20 +3486,21 @@ class CheckDeposit @JsonCreator private constructor(
         /**
          * Returns this class instance's primitive wire representation.
          *
-         * This differs from the [toString] method because that method is primarily for
-         * debugging and generally doesn't throw.
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
          *
-         * @throws IncreaseInvalidDataException if this class instance's value does not
-         * have the expected primitive type.
+         * @throws IncreaseInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
          */
-        fun asString(): String = _value().asString() ?: throw IncreaseInvalidDataException("Value is not a String")
+        fun asString(): String =
+            _value().asString() ?: throw IncreaseInvalidDataException("Value is not a String")
 
         override fun equals(other: Any?): Boolean {
-          if (this === other) {
-              return true
-          }
+            if (this === other) {
+                return true
+            }
 
-          return /* spotless:off */ other is Type && value == other.value /* spotless:on */
+            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -3772,11 +3509,11 @@ class CheckDeposit @JsonCreator private constructor(
     }
 
     override fun equals(other: Any?): Boolean {
-      if (this === other) {
-          return true
-      }
+        if (this === other) {
+            return true
+        }
 
-      return /* spotless:off */ other is CheckDeposit && id == other.id && accountId == other.accountId && amount == other.amount && backImageFileId == other.backImageFileId && createdAt == other.createdAt && depositAcceptance == other.depositAcceptance && depositRejection == other.depositRejection && depositReturn == other.depositReturn && depositSubmission == other.depositSubmission && description == other.description && frontImageFileId == other.frontImageFileId && idempotencyKey == other.idempotencyKey && inboundFundsHold == other.inboundFundsHold && inboundMailItemId == other.inboundMailItemId && lockboxId == other.lockboxId && status == other.status && transactionId == other.transactionId && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is CheckDeposit && id == other.id && accountId == other.accountId && amount == other.amount && backImageFileId == other.backImageFileId && createdAt == other.createdAt && depositAcceptance == other.depositAcceptance && depositRejection == other.depositRejection && depositReturn == other.depositReturn && depositSubmission == other.depositSubmission && description == other.description && frontImageFileId == other.frontImageFileId && idempotencyKey == other.idempotencyKey && inboundFundsHold == other.inboundFundsHold && inboundMailItemId == other.inboundMailItemId && lockboxId == other.lockboxId && status == other.status && transactionId == other.transactionId && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
@@ -3785,5 +3522,6 @@ class CheckDeposit @JsonCreator private constructor(
 
     override fun hashCode(): Int = hashCode
 
-    override fun toString() = "CheckDeposit{id=$id, accountId=$accountId, amount=$amount, backImageFileId=$backImageFileId, createdAt=$createdAt, depositAcceptance=$depositAcceptance, depositRejection=$depositRejection, depositReturn=$depositReturn, depositSubmission=$depositSubmission, description=$description, frontImageFileId=$frontImageFileId, idempotencyKey=$idempotencyKey, inboundFundsHold=$inboundFundsHold, inboundMailItemId=$inboundMailItemId, lockboxId=$lockboxId, status=$status, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
+    override fun toString() =
+        "CheckDeposit{id=$id, accountId=$accountId, amount=$amount, backImageFileId=$backImageFileId, createdAt=$createdAt, depositAcceptance=$depositAcceptance, depositRejection=$depositRejection, depositReturn=$depositReturn, depositSubmission=$depositSubmission, description=$description, frontImageFileId=$frontImageFileId, idempotencyKey=$idempotencyKey, inboundFundsHold=$inboundFundsHold, inboundMailItemId=$inboundMailItemId, lockboxId=$lockboxId, status=$status, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
 }

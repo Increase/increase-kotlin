@@ -13,18 +13,22 @@ class CardIncrementServiceAsyncTest {
 
     @Test
     suspend fun create() {
-      val client = IncreaseOkHttpClientAsync.builder()
-          .baseUrl(TestServerExtension.BASE_URL)
-          .apiKey("My API Key")
-          .build()
-      val cardIncrementServiceAsync = client.simulations().cardIncrements()
+        val client =
+            IncreaseOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val cardIncrementServiceAsync = client.simulations().cardIncrements()
 
-      val cardPayment = cardIncrementServiceAsync.create(CardIncrementCreateParams.builder()
-          .amount(500L)
-          .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
-          .eventSubscriptionId("event_subscription_id")
-          .build())
+        val cardPayment =
+            cardIncrementServiceAsync.create(
+                CardIncrementCreateParams.builder()
+                    .amount(500L)
+                    .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
+                    .eventSubscriptionId("event_subscription_id")
+                    .build()
+            )
 
-      cardPayment.validate()
+        cardPayment.validate()
     }
 }
