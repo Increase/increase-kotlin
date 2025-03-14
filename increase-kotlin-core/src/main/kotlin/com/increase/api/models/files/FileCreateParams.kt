@@ -471,6 +471,13 @@ private constructor(
             /** An attachment to an Unusual Activity Report. */
             val UNUSUAL_ACTIVITY_REPORT_ATTACHMENT = of("unusual_activity_report_attachment")
 
+            /**
+             * A file containing additional evidence for a Proof of Authorization Request
+             * Submission.
+             */
+            val PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION =
+                of("proof_of_authorization_request_submission")
+
             fun of(value: String) = Purpose(JsonField.of(value))
         }
 
@@ -526,6 +533,11 @@ private constructor(
             ENTITY_SUPPLEMENTAL_DOCUMENT,
             /** An attachment to an Unusual Activity Report. */
             UNUSUAL_ACTIVITY_REPORT_ATTACHMENT,
+            /**
+             * A file containing additional evidence for a Proof of Authorization Request
+             * Submission.
+             */
+            PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION,
         }
 
         /**
@@ -588,6 +600,11 @@ private constructor(
             ENTITY_SUPPLEMENTAL_DOCUMENT,
             /** An attachment to an Unusual Activity Report. */
             UNUSUAL_ACTIVITY_REPORT_ATTACHMENT,
+            /**
+             * A file containing additional evidence for a Proof of Authorization Request
+             * Submission.
+             */
+            PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION,
             /** An enum member indicating that [Purpose] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -617,6 +634,8 @@ private constructor(
                 DOCUMENT_REQUEST -> Value.DOCUMENT_REQUEST
                 ENTITY_SUPPLEMENTAL_DOCUMENT -> Value.ENTITY_SUPPLEMENTAL_DOCUMENT
                 UNUSUAL_ACTIVITY_REPORT_ATTACHMENT -> Value.UNUSUAL_ACTIVITY_REPORT_ATTACHMENT
+                PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION ->
+                    Value.PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION
                 else -> Value._UNKNOWN
             }
 
@@ -647,6 +666,8 @@ private constructor(
                 DOCUMENT_REQUEST -> Known.DOCUMENT_REQUEST
                 ENTITY_SUPPLEMENTAL_DOCUMENT -> Known.ENTITY_SUPPLEMENTAL_DOCUMENT
                 UNUSUAL_ACTIVITY_REPORT_ATTACHMENT -> Known.UNUSUAL_ACTIVITY_REPORT_ATTACHMENT
+                PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION ->
+                    Known.PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION
                 else -> throw IncreaseInvalidDataException("Unknown Purpose: $value")
             }
 

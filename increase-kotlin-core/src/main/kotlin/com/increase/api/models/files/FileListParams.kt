@@ -613,6 +613,13 @@ private constructor(
                 /** A document granting another entity access to the funds into your account. */
                 val DEPOSIT_ACCOUNT_CONTROL_AGREEMENT = of("deposit_account_control_agreement")
 
+                /**
+                 * A file containing additional evidence for a Proof of Authorization Request
+                 * Submission.
+                 */
+                val PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION =
+                    of("proof_of_authorization_request_submission")
+
                 fun of(value: String) = In(JsonField.of(value))
             }
 
@@ -692,6 +699,11 @@ private constructor(
                 UNUSUAL_ACTIVITY_REPORT_ATTACHMENT,
                 /** A document granting another entity access to the funds into your account. */
                 DEPOSIT_ACCOUNT_CONTROL_AGREEMENT,
+                /**
+                 * A file containing additional evidence for a Proof of Authorization Request
+                 * Submission.
+                 */
+                PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION,
             }
 
             /**
@@ -778,6 +790,11 @@ private constructor(
                 UNUSUAL_ACTIVITY_REPORT_ATTACHMENT,
                 /** A document granting another entity access to the funds into your account. */
                 DEPOSIT_ACCOUNT_CONTROL_AGREEMENT,
+                /**
+                 * A file containing additional evidence for a Proof of Authorization Request
+                 * Submission.
+                 */
+                PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION,
                 /** An enum member indicating that [In] was instantiated with an unknown value. */
                 _UNKNOWN,
             }
@@ -816,6 +833,8 @@ private constructor(
                     EXPORT -> Value.EXPORT
                     UNUSUAL_ACTIVITY_REPORT_ATTACHMENT -> Value.UNUSUAL_ACTIVITY_REPORT_ATTACHMENT
                     DEPOSIT_ACCOUNT_CONTROL_AGREEMENT -> Value.DEPOSIT_ACCOUNT_CONTROL_AGREEMENT
+                    PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION ->
+                        Value.PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION
                     else -> Value._UNKNOWN
                 }
 
@@ -855,6 +874,8 @@ private constructor(
                     EXPORT -> Known.EXPORT
                     UNUSUAL_ACTIVITY_REPORT_ATTACHMENT -> Known.UNUSUAL_ACTIVITY_REPORT_ATTACHMENT
                     DEPOSIT_ACCOUNT_CONTROL_AGREEMENT -> Known.DEPOSIT_ACCOUNT_CONTROL_AGREEMENT
+                    PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION ->
+                        Known.PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION
                     else -> throw IncreaseInvalidDataException("Unknown In: $value")
                 }
 
