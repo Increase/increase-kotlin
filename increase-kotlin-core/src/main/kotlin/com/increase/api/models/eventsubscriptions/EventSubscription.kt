@@ -50,87 +50,140 @@ private constructor(
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
-    /** The event subscription identifier. */
+    /**
+     * The event subscription identifier.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun id(): String = id.getRequired("id")
 
-    /** The time the event subscription was created. */
+    /**
+     * The time the event subscription was created.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
      * used to ensure that a request is only processed once. Learn more about
      * [idempotency](https://increase.com/documentation/idempotency-keys).
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun idempotencyKey(): String? = idempotencyKey.getNullable("idempotency_key")
 
     /**
      * If specified, this subscription will only receive webhooks for Events associated with this
      * OAuth Connection.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun oauthConnectionId(): String? = oauthConnectionId.getNullable("oauth_connection_id")
 
     /**
      * If specified, this subscription will only receive webhooks for Events with the specified
      * `category`.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun selectedEventCategory(): SelectedEventCategory? =
         selectedEventCategory.getNullable("selected_event_category")
 
-    /** This indicates if we'll send notifications to this subscription. */
+    /**
+     * This indicates if we'll send notifications to this subscription.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun status(): Status = status.getRequired("status")
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `event_subscription`.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun type(): Type = type.getRequired("type")
 
-    /** The webhook url where we'll send notifications. */
+    /**
+     * The webhook url where we'll send notifications.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun url(): String = url.getRequired("url")
 
-    /** The event subscription identifier. */
+    /**
+     * Returns the raw JSON value of [id].
+     *
+     * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
-    /** The time the event subscription was created. */
+    /**
+     * Returns the raw JSON value of [createdAt].
+     *
+     * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("created_at")
     @ExcludeMissing
     fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /**
-     * The idempotency key you chose for this object. This value is unique across Increase and is
-     * used to ensure that a request is only processed once. Learn more about
-     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     * Returns the raw JSON value of [idempotencyKey].
+     *
+     * Unlike [idempotencyKey], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("idempotency_key")
     @ExcludeMissing
     fun _idempotencyKey(): JsonField<String> = idempotencyKey
 
     /**
-     * If specified, this subscription will only receive webhooks for Events associated with this
-     * OAuth Connection.
+     * Returns the raw JSON value of [oauthConnectionId].
+     *
+     * Unlike [oauthConnectionId], this method doesn't throw if the JSON field has an unexpected
+     * type.
      */
     @JsonProperty("oauth_connection_id")
     @ExcludeMissing
     fun _oauthConnectionId(): JsonField<String> = oauthConnectionId
 
     /**
-     * If specified, this subscription will only receive webhooks for Events with the specified
-     * `category`.
+     * Returns the raw JSON value of [selectedEventCategory].
+     *
+     * Unlike [selectedEventCategory], this method doesn't throw if the JSON field has an unexpected
+     * type.
      */
     @JsonProperty("selected_event_category")
     @ExcludeMissing
     fun _selectedEventCategory(): JsonField<SelectedEventCategory> = selectedEventCategory
 
-    /** This indicates if we'll send notifications to this subscription. */
+    /**
+     * Returns the raw JSON value of [status].
+     *
+     * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
     /**
-     * A constant representing the object's type. For this resource it will always be
-     * `event_subscription`.
+     * Returns the raw JSON value of [type].
+     *
+     * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
-    /** The webhook url where we'll send notifications. */
+    /**
+     * Returns the raw JSON value of [url].
+     *
+     * Unlike [url], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("url") @ExcludeMissing fun _url(): JsonField<String> = url
 
     @JsonAnyGetter
@@ -205,13 +258,24 @@ private constructor(
         /** The event subscription identifier. */
         fun id(id: String) = id(JsonField.of(id))
 
-        /** The event subscription identifier. */
+        /**
+         * Sets [Builder.id] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.id] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The time the event subscription was created. */
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
-        /** The time the event subscription was created. */
+        /**
+         * Sets [Builder.createdAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /**
@@ -223,9 +287,11 @@ private constructor(
             idempotencyKey(JsonField.ofNullable(idempotencyKey))
 
         /**
-         * The idempotency key you chose for this object. This value is unique across Increase and
-         * is used to ensure that a request is only processed once. Learn more about
-         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         * Sets [Builder.idempotencyKey] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.idempotencyKey] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun idempotencyKey(idempotencyKey: JsonField<String>) = apply {
             this.idempotencyKey = idempotencyKey
@@ -239,8 +305,11 @@ private constructor(
             oauthConnectionId(JsonField.ofNullable(oauthConnectionId))
 
         /**
-         * If specified, this subscription will only receive webhooks for Events associated with
-         * this OAuth Connection.
+         * Sets [Builder.oauthConnectionId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.oauthConnectionId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun oauthConnectionId(oauthConnectionId: JsonField<String>) = apply {
             this.oauthConnectionId = oauthConnectionId
@@ -254,8 +323,11 @@ private constructor(
             selectedEventCategory(JsonField.ofNullable(selectedEventCategory))
 
         /**
-         * If specified, this subscription will only receive webhooks for Events with the specified
-         * `category`.
+         * Sets [Builder.selectedEventCategory] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.selectedEventCategory] with a well-typed
+         * [SelectedEventCategory] value instead. This method is primarily for setting the field to
+         * an undocumented or not yet supported value.
          */
         fun selectedEventCategory(selectedEventCategory: JsonField<SelectedEventCategory>) = apply {
             this.selectedEventCategory = selectedEventCategory
@@ -264,7 +336,12 @@ private constructor(
         /** This indicates if we'll send notifications to this subscription. */
         fun status(status: Status) = status(JsonField.of(status))
 
-        /** This indicates if we'll send notifications to this subscription. */
+        /**
+         * Sets [Builder.status] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.status] with a well-typed [Status] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /**
@@ -274,15 +351,22 @@ private constructor(
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
-         * A constant representing the object's type. For this resource it will always be
-         * `event_subscription`.
+         * Sets [Builder.type] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.type] with a well-typed [Type] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
         /** The webhook url where we'll send notifications. */
         fun url(url: String) = url(JsonField.of(url))
 
-        /** The webhook url where we'll send notifications. */
+        /**
+         * Sets [Builder.url] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.url] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun url(url: JsonField<String>) = apply { this.url = url }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {

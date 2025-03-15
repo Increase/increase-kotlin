@@ -119,7 +119,9 @@ private constructor(
         fun limit(limit: Long?) = apply { this.limit = limit }
 
         /**
-         * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
+         * Alias for [Builder.limit].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
          */
         fun limit(limit: Long) = limit(limit as Long?)
 
@@ -447,8 +449,9 @@ private constructor(
             fun in_(in_: List<In>?) = apply { this.in_ = in_?.toMutableList() }
 
             /**
-             * Filter Inbound ACH Transfers to those with the specified status. For GET requests,
-             * this should be encoded as a comma-delimited string, such as `?in=one,two,three`.
+             * Adds a single [In] to [Builder.in_].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
              */
             fun addIn(in_: In) = apply {
                 this.in_ = (this.in_ ?: mutableListOf()).apply { add(in_) }
