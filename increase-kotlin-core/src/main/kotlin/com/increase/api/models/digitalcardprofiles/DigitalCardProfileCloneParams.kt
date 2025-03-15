@@ -17,6 +17,7 @@ import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
+import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
 
 /** Clones a Digital Card Profile */
@@ -31,58 +32,140 @@ private constructor(
     /** The identifier of the Digital Card Profile to clone. */
     fun digitalCardProfileId(): String = digitalCardProfileId
 
-    /** The identifier of the File containing the card's icon image. */
+    /**
+     * The identifier of the File containing the card's icon image.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun appIconFileId(): String? = body.appIconFileId()
 
-    /** The identifier of the File containing the card's front image. */
+    /**
+     * The identifier of the File containing the card's front image.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun backgroundImageFileId(): String? = body.backgroundImageFileId()
 
-    /** A user-facing description for the card itself. */
+    /**
+     * A user-facing description for the card itself.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun cardDescription(): String? = body.cardDescription()
 
-    /** An email address the user can contact to receive support for their card. */
+    /**
+     * An email address the user can contact to receive support for their card.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun contactEmail(): String? = body.contactEmail()
 
-    /** A phone number the user can contact to receive support for their card. */
+    /**
+     * A phone number the user can contact to receive support for their card.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun contactPhone(): String? = body.contactPhone()
 
-    /** A website the user can visit to view and receive support for their card. */
+    /**
+     * A website the user can visit to view and receive support for their card.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun contactWebsite(): String? = body.contactWebsite()
 
-    /** A description you can use to identify the Card Profile. */
+    /**
+     * A description you can use to identify the Card Profile.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun description(): String? = body.description()
 
-    /** A user-facing description for whoever is issuing the card. */
+    /**
+     * A user-facing description for whoever is issuing the card.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun issuerName(): String? = body.issuerName()
 
-    /** The Card's text color, specified as an RGB triple. The default is white. */
+    /**
+     * The Card's text color, specified as an RGB triple. The default is white.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun textColor(): TextColor? = body.textColor()
 
-    /** The identifier of the File containing the card's icon image. */
+    /**
+     * Returns the raw JSON value of [appIconFileId].
+     *
+     * Unlike [appIconFileId], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _appIconFileId(): JsonField<String> = body._appIconFileId()
 
-    /** The identifier of the File containing the card's front image. */
+    /**
+     * Returns the raw JSON value of [backgroundImageFileId].
+     *
+     * Unlike [backgroundImageFileId], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     fun _backgroundImageFileId(): JsonField<String> = body._backgroundImageFileId()
 
-    /** A user-facing description for the card itself. */
+    /**
+     * Returns the raw JSON value of [cardDescription].
+     *
+     * Unlike [cardDescription], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _cardDescription(): JsonField<String> = body._cardDescription()
 
-    /** An email address the user can contact to receive support for their card. */
+    /**
+     * Returns the raw JSON value of [contactEmail].
+     *
+     * Unlike [contactEmail], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _contactEmail(): JsonField<String> = body._contactEmail()
 
-    /** A phone number the user can contact to receive support for their card. */
+    /**
+     * Returns the raw JSON value of [contactPhone].
+     *
+     * Unlike [contactPhone], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _contactPhone(): JsonField<String> = body._contactPhone()
 
-    /** A website the user can visit to view and receive support for their card. */
+    /**
+     * Returns the raw JSON value of [contactWebsite].
+     *
+     * Unlike [contactWebsite], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _contactWebsite(): JsonField<String> = body._contactWebsite()
 
-    /** A description you can use to identify the Card Profile. */
+    /**
+     * Returns the raw JSON value of [description].
+     *
+     * Unlike [description], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _description(): JsonField<String> = body._description()
 
-    /** A user-facing description for whoever is issuing the card. */
+    /**
+     * Returns the raw JSON value of [issuerName].
+     *
+     * Unlike [issuerName], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _issuerName(): JsonField<String> = body._issuerName()
 
-    /** The Card's text color, specified as an RGB triple. The default is white. */
+    /**
+     * Returns the raw JSON value of [textColor].
+     *
+     * Unlike [textColor], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _textColor(): JsonField<TextColor> = body._textColor()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
@@ -139,75 +222,162 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The identifier of the File containing the card's icon image. */
+        /**
+         * The identifier of the File containing the card's icon image.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun appIconFileId(): String? = appIconFileId.getNullable("app_icon_file_id")
 
-        /** The identifier of the File containing the card's front image. */
+        /**
+         * The identifier of the File containing the card's front image.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun backgroundImageFileId(): String? =
             backgroundImageFileId.getNullable("background_image_file_id")
 
-        /** A user-facing description for the card itself. */
+        /**
+         * A user-facing description for the card itself.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun cardDescription(): String? = cardDescription.getNullable("card_description")
 
-        /** An email address the user can contact to receive support for their card. */
+        /**
+         * An email address the user can contact to receive support for their card.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun contactEmail(): String? = contactEmail.getNullable("contact_email")
 
-        /** A phone number the user can contact to receive support for their card. */
+        /**
+         * A phone number the user can contact to receive support for their card.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun contactPhone(): String? = contactPhone.getNullable("contact_phone")
 
-        /** A website the user can visit to view and receive support for their card. */
+        /**
+         * A website the user can visit to view and receive support for their card.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun contactWebsite(): String? = contactWebsite.getNullable("contact_website")
 
-        /** A description you can use to identify the Card Profile. */
+        /**
+         * A description you can use to identify the Card Profile.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun description(): String? = description.getNullable("description")
 
-        /** A user-facing description for whoever is issuing the card. */
+        /**
+         * A user-facing description for whoever is issuing the card.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun issuerName(): String? = issuerName.getNullable("issuer_name")
 
-        /** The Card's text color, specified as an RGB triple. The default is white. */
+        /**
+         * The Card's text color, specified as an RGB triple. The default is white.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun textColor(): TextColor? = textColor.getNullable("text_color")
 
-        /** The identifier of the File containing the card's icon image. */
+        /**
+         * Returns the raw JSON value of [appIconFileId].
+         *
+         * Unlike [appIconFileId], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("app_icon_file_id")
         @ExcludeMissing
         fun _appIconFileId(): JsonField<String> = appIconFileId
 
-        /** The identifier of the File containing the card's front image. */
+        /**
+         * Returns the raw JSON value of [backgroundImageFileId].
+         *
+         * Unlike [backgroundImageFileId], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
         @JsonProperty("background_image_file_id")
         @ExcludeMissing
         fun _backgroundImageFileId(): JsonField<String> = backgroundImageFileId
 
-        /** A user-facing description for the card itself. */
+        /**
+         * Returns the raw JSON value of [cardDescription].
+         *
+         * Unlike [cardDescription], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("card_description")
         @ExcludeMissing
         fun _cardDescription(): JsonField<String> = cardDescription
 
-        /** An email address the user can contact to receive support for their card. */
+        /**
+         * Returns the raw JSON value of [contactEmail].
+         *
+         * Unlike [contactEmail], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("contact_email")
         @ExcludeMissing
         fun _contactEmail(): JsonField<String> = contactEmail
 
-        /** A phone number the user can contact to receive support for their card. */
+        /**
+         * Returns the raw JSON value of [contactPhone].
+         *
+         * Unlike [contactPhone], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("contact_phone")
         @ExcludeMissing
         fun _contactPhone(): JsonField<String> = contactPhone
 
-        /** A website the user can visit to view and receive support for their card. */
+        /**
+         * Returns the raw JSON value of [contactWebsite].
+         *
+         * Unlike [contactWebsite], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("contact_website")
         @ExcludeMissing
         fun _contactWebsite(): JsonField<String> = contactWebsite
 
-        /** A description you can use to identify the Card Profile. */
+        /**
+         * Returns the raw JSON value of [description].
+         *
+         * Unlike [description], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("description")
         @ExcludeMissing
         fun _description(): JsonField<String> = description
 
-        /** A user-facing description for whoever is issuing the card. */
+        /**
+         * Returns the raw JSON value of [issuerName].
+         *
+         * Unlike [issuerName], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("issuer_name")
         @ExcludeMissing
         fun _issuerName(): JsonField<String> = issuerName
 
-        /** The Card's text color, specified as an RGB triple. The default is white. */
+        /**
+         * Returns the raw JSON value of [textColor].
+         *
+         * Unlike [textColor], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("text_color")
         @ExcludeMissing
         fun _textColor(): JsonField<TextColor> = textColor
@@ -273,7 +443,13 @@ private constructor(
             /** The identifier of the File containing the card's icon image. */
             fun appIconFileId(appIconFileId: String) = appIconFileId(JsonField.of(appIconFileId))
 
-            /** The identifier of the File containing the card's icon image. */
+            /**
+             * Sets [Builder.appIconFileId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.appIconFileId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun appIconFileId(appIconFileId: JsonField<String>) = apply {
                 this.appIconFileId = appIconFileId
             }
@@ -282,7 +458,13 @@ private constructor(
             fun backgroundImageFileId(backgroundImageFileId: String) =
                 backgroundImageFileId(JsonField.of(backgroundImageFileId))
 
-            /** The identifier of the File containing the card's front image. */
+            /**
+             * Sets [Builder.backgroundImageFileId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.backgroundImageFileId] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
             fun backgroundImageFileId(backgroundImageFileId: JsonField<String>) = apply {
                 this.backgroundImageFileId = backgroundImageFileId
             }
@@ -291,7 +473,13 @@ private constructor(
             fun cardDescription(cardDescription: String) =
                 cardDescription(JsonField.of(cardDescription))
 
-            /** A user-facing description for the card itself. */
+            /**
+             * Sets [Builder.cardDescription] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.cardDescription] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun cardDescription(cardDescription: JsonField<String>) = apply {
                 this.cardDescription = cardDescription
             }
@@ -299,7 +487,13 @@ private constructor(
             /** An email address the user can contact to receive support for their card. */
             fun contactEmail(contactEmail: String) = contactEmail(JsonField.of(contactEmail))
 
-            /** An email address the user can contact to receive support for their card. */
+            /**
+             * Sets [Builder.contactEmail] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.contactEmail] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun contactEmail(contactEmail: JsonField<String>) = apply {
                 this.contactEmail = contactEmail
             }
@@ -307,7 +501,13 @@ private constructor(
             /** A phone number the user can contact to receive support for their card. */
             fun contactPhone(contactPhone: String) = contactPhone(JsonField.of(contactPhone))
 
-            /** A phone number the user can contact to receive support for their card. */
+            /**
+             * Sets [Builder.contactPhone] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.contactPhone] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun contactPhone(contactPhone: JsonField<String>) = apply {
                 this.contactPhone = contactPhone
             }
@@ -316,7 +516,13 @@ private constructor(
             fun contactWebsite(contactWebsite: String) =
                 contactWebsite(JsonField.of(contactWebsite))
 
-            /** A website the user can visit to view and receive support for their card. */
+            /**
+             * Sets [Builder.contactWebsite] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.contactWebsite] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun contactWebsite(contactWebsite: JsonField<String>) = apply {
                 this.contactWebsite = contactWebsite
             }
@@ -324,7 +530,13 @@ private constructor(
             /** A description you can use to identify the Card Profile. */
             fun description(description: String) = description(JsonField.of(description))
 
-            /** A description you can use to identify the Card Profile. */
+            /**
+             * Sets [Builder.description] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.description] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun description(description: JsonField<String>) = apply {
                 this.description = description
             }
@@ -332,13 +544,25 @@ private constructor(
             /** A user-facing description for whoever is issuing the card. */
             fun issuerName(issuerName: String) = issuerName(JsonField.of(issuerName))
 
-            /** A user-facing description for whoever is issuing the card. */
+            /**
+             * Sets [Builder.issuerName] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.issuerName] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun issuerName(issuerName: JsonField<String>) = apply { this.issuerName = issuerName }
 
             /** The Card's text color, specified as an RGB triple. The default is white. */
             fun textColor(textColor: TextColor) = textColor(JsonField.of(textColor))
 
-            /** The Card's text color, specified as an RGB triple. The default is white. */
+            /**
+             * Sets [Builder.textColor] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.textColor] with a well-typed [TextColor] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun textColor(textColor: JsonField<TextColor>) = apply { this.textColor = textColor }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -433,7 +657,13 @@ private constructor(
         /** The identifier of the File containing the card's icon image. */
         fun appIconFileId(appIconFileId: String) = apply { body.appIconFileId(appIconFileId) }
 
-        /** The identifier of the File containing the card's icon image. */
+        /**
+         * Sets [Builder.appIconFileId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.appIconFileId] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun appIconFileId(appIconFileId: JsonField<String>) = apply {
             body.appIconFileId(appIconFileId)
         }
@@ -443,7 +673,13 @@ private constructor(
             body.backgroundImageFileId(backgroundImageFileId)
         }
 
-        /** The identifier of the File containing the card's front image. */
+        /**
+         * Sets [Builder.backgroundImageFileId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.backgroundImageFileId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun backgroundImageFileId(backgroundImageFileId: JsonField<String>) = apply {
             body.backgroundImageFileId(backgroundImageFileId)
         }
@@ -453,7 +689,13 @@ private constructor(
             body.cardDescription(cardDescription)
         }
 
-        /** A user-facing description for the card itself. */
+        /**
+         * Sets [Builder.cardDescription] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.cardDescription] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun cardDescription(cardDescription: JsonField<String>) = apply {
             body.cardDescription(cardDescription)
         }
@@ -461,7 +703,13 @@ private constructor(
         /** An email address the user can contact to receive support for their card. */
         fun contactEmail(contactEmail: String) = apply { body.contactEmail(contactEmail) }
 
-        /** An email address the user can contact to receive support for their card. */
+        /**
+         * Sets [Builder.contactEmail] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.contactEmail] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun contactEmail(contactEmail: JsonField<String>) = apply {
             body.contactEmail(contactEmail)
         }
@@ -469,7 +717,13 @@ private constructor(
         /** A phone number the user can contact to receive support for their card. */
         fun contactPhone(contactPhone: String) = apply { body.contactPhone(contactPhone) }
 
-        /** A phone number the user can contact to receive support for their card. */
+        /**
+         * Sets [Builder.contactPhone] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.contactPhone] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun contactPhone(contactPhone: JsonField<String>) = apply {
             body.contactPhone(contactPhone)
         }
@@ -477,7 +731,13 @@ private constructor(
         /** A website the user can visit to view and receive support for their card. */
         fun contactWebsite(contactWebsite: String) = apply { body.contactWebsite(contactWebsite) }
 
-        /** A website the user can visit to view and receive support for their card. */
+        /**
+         * Sets [Builder.contactWebsite] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.contactWebsite] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun contactWebsite(contactWebsite: JsonField<String>) = apply {
             body.contactWebsite(contactWebsite)
         }
@@ -485,19 +745,37 @@ private constructor(
         /** A description you can use to identify the Card Profile. */
         fun description(description: String) = apply { body.description(description) }
 
-        /** A description you can use to identify the Card Profile. */
+        /**
+         * Sets [Builder.description] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.description] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun description(description: JsonField<String>) = apply { body.description(description) }
 
         /** A user-facing description for whoever is issuing the card. */
         fun issuerName(issuerName: String) = apply { body.issuerName(issuerName) }
 
-        /** A user-facing description for whoever is issuing the card. */
+        /**
+         * Sets [Builder.issuerName] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.issuerName] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun issuerName(issuerName: JsonField<String>) = apply { body.issuerName(issuerName) }
 
         /** The Card's text color, specified as an RGB triple. The default is white. */
         fun textColor(textColor: TextColor) = apply { body.textColor(textColor) }
 
-        /** The Card's text color, specified as an RGB triple. The default is white. */
+        /**
+         * Sets [Builder.textColor] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.textColor] with a well-typed [TextColor] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun textColor(textColor: JsonField<TextColor>) = apply { body.textColor(textColor) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
@@ -640,22 +918,49 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The value of the blue channel in the RGB color. */
+        /**
+         * The value of the blue channel in the RGB color.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun blue(): Long = blue.getRequired("blue")
 
-        /** The value of the green channel in the RGB color. */
+        /**
+         * The value of the green channel in the RGB color.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun green(): Long = green.getRequired("green")
 
-        /** The value of the red channel in the RGB color. */
+        /**
+         * The value of the red channel in the RGB color.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun red(): Long = red.getRequired("red")
 
-        /** The value of the blue channel in the RGB color. */
+        /**
+         * Returns the raw JSON value of [blue].
+         *
+         * Unlike [blue], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("blue") @ExcludeMissing fun _blue(): JsonField<Long> = blue
 
-        /** The value of the green channel in the RGB color. */
+        /**
+         * Returns the raw JSON value of [green].
+         *
+         * Unlike [green], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("green") @ExcludeMissing fun _green(): JsonField<Long> = green
 
-        /** The value of the red channel in the RGB color. */
+        /**
+         * Returns the raw JSON value of [red].
+         *
+         * Unlike [red], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("red") @ExcludeMissing fun _red(): JsonField<Long> = red
 
         @JsonAnyGetter
@@ -710,19 +1015,37 @@ private constructor(
             /** The value of the blue channel in the RGB color. */
             fun blue(blue: Long) = blue(JsonField.of(blue))
 
-            /** The value of the blue channel in the RGB color. */
+            /**
+             * Sets [Builder.blue] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.blue] with a well-typed [Long] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
             fun blue(blue: JsonField<Long>) = apply { this.blue = blue }
 
             /** The value of the green channel in the RGB color. */
             fun green(green: Long) = green(JsonField.of(green))
 
-            /** The value of the green channel in the RGB color. */
+            /**
+             * Sets [Builder.green] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.green] with a well-typed [Long] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
             fun green(green: JsonField<Long>) = apply { this.green = green }
 
             /** The value of the red channel in the RGB color. */
             fun red(red: Long) = red(JsonField.of(red))
 
-            /** The value of the red channel in the RGB color. */
+            /**
+             * Sets [Builder.red] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.red] with a well-typed [Long] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
             fun red(red: JsonField<Long>) = apply { this.red = red }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
