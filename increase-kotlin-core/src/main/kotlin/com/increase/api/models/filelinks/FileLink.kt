@@ -19,10 +19,7 @@ import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Objects
 
-/**
- * Normally Files can only be downloaded via the API using your Increase API key. File Links let you
- * generate signed URLs for Files that can be used to download the File without an Increase API key.
- */
+/** File Links let you generate a URL that can be used to download a File. */
 @NoAutoDetect
 class FileLink
 @JsonCreator
@@ -40,10 +37,10 @@ private constructor(
     @JsonProperty("idempotency_key")
     @ExcludeMissing
     private val idempotencyKey: JsonField<String> = JsonMissing.of(),
-    @JsonProperty("public_download_url")
-    @ExcludeMissing
-    private val publicDownloadUrl: JsonField<String> = JsonMissing.of(),
     @JsonProperty("type") @ExcludeMissing private val type: JsonField<Type> = JsonMissing.of(),
+    @JsonProperty("unauthenticated_url")
+    @ExcludeMissing
+    private val unauthenticatedUrl: JsonField<String> = JsonMissing.of(),
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
@@ -92,21 +89,21 @@ private constructor(
     fun idempotencyKey(): String? = idempotencyKey.getNullable("idempotency_key")
 
     /**
-     * A URL where the File can be downloaded. The URL will expire after the `expires_at` time. This
-     * URL is unauthenticated and can be used to download the File without an Increase API key.
-     *
-     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
-    fun publicDownloadUrl(): String = publicDownloadUrl.getRequired("public_download_url")
-
-    /**
      * A constant representing the object's type. For this resource it will always be `file_link`.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun type(): Type = type.getRequired("type")
+
+    /**
+     * A URL where the File can be downloaded. The URL will expire after the `expires_at` time. This
+     * URL is unauthenticated and can be used to download the File without an Increase API key.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun unauthenticatedUrl(): String = unauthenticatedUrl.getRequired("unauthenticated_url")
 
     /**
      * Returns the raw JSON value of [id].
@@ -150,21 +147,21 @@ private constructor(
     fun _idempotencyKey(): JsonField<String> = idempotencyKey
 
     /**
-     * Returns the raw JSON value of [publicDownloadUrl].
-     *
-     * Unlike [publicDownloadUrl], this method doesn't throw if the JSON field has an unexpected
-     * type.
-     */
-    @JsonProperty("public_download_url")
-    @ExcludeMissing
-    fun _publicDownloadUrl(): JsonField<String> = publicDownloadUrl
-
-    /**
      * Returns the raw JSON value of [type].
      *
      * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
+
+    /**
+     * Returns the raw JSON value of [unauthenticatedUrl].
+     *
+     * Unlike [unauthenticatedUrl], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("unauthenticated_url")
+    @ExcludeMissing
+    fun _unauthenticatedUrl(): JsonField<String> = unauthenticatedUrl
 
     @JsonAnyGetter
     @ExcludeMissing
@@ -182,8 +179,8 @@ private constructor(
         expiresAt()
         fileId()
         idempotencyKey()
-        publicDownloadUrl()
         type()
+        unauthenticatedUrl()
         validated = true
     }
 
@@ -201,8 +198,8 @@ private constructor(
          * .expiresAt()
          * .fileId()
          * .idempotencyKey()
-         * .publicDownloadUrl()
          * .type()
+         * .unauthenticatedUrl()
          * ```
          */
         fun builder() = Builder()
@@ -216,8 +213,8 @@ private constructor(
         private var expiresAt: JsonField<OffsetDateTime>? = null
         private var fileId: JsonField<String>? = null
         private var idempotencyKey: JsonField<String>? = null
-        private var publicDownloadUrl: JsonField<String>? = null
         private var type: JsonField<Type>? = null
+        private var unauthenticatedUrl: JsonField<String>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(fileLink: FileLink) = apply {
@@ -226,8 +223,8 @@ private constructor(
             expiresAt = fileLink.expiresAt
             fileId = fileLink.fileId
             idempotencyKey = fileLink.idempotencyKey
-            publicDownloadUrl = fileLink.publicDownloadUrl
             type = fileLink.type
+            unauthenticatedUrl = fileLink.unauthenticatedUrl
             additionalProperties = fileLink.additionalProperties.toMutableMap()
         }
 
@@ -303,25 +300,6 @@ private constructor(
         }
 
         /**
-         * A URL where the File can be downloaded. The URL will expire after the `expires_at` time.
-         * This URL is unauthenticated and can be used to download the File without an Increase API
-         * key.
-         */
-        fun publicDownloadUrl(publicDownloadUrl: String) =
-            publicDownloadUrl(JsonField.of(publicDownloadUrl))
-
-        /**
-         * Sets [Builder.publicDownloadUrl] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.publicDownloadUrl] with a well-typed [String] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        fun publicDownloadUrl(publicDownloadUrl: JsonField<String>) = apply {
-            this.publicDownloadUrl = publicDownloadUrl
-        }
-
-        /**
          * A constant representing the object's type. For this resource it will always be
          * `file_link`.
          */
@@ -334,6 +312,25 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun type(type: JsonField<Type>) = apply { this.type = type }
+
+        /**
+         * A URL where the File can be downloaded. The URL will expire after the `expires_at` time.
+         * This URL is unauthenticated and can be used to download the File without an Increase API
+         * key.
+         */
+        fun unauthenticatedUrl(unauthenticatedUrl: String) =
+            unauthenticatedUrl(JsonField.of(unauthenticatedUrl))
+
+        /**
+         * Sets [Builder.unauthenticatedUrl] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.unauthenticatedUrl] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun unauthenticatedUrl(unauthenticatedUrl: JsonField<String>) = apply {
+            this.unauthenticatedUrl = unauthenticatedUrl
+        }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -361,8 +358,8 @@ private constructor(
                 checkRequired("expiresAt", expiresAt),
                 checkRequired("fileId", fileId),
                 checkRequired("idempotencyKey", idempotencyKey),
-                checkRequired("publicDownloadUrl", publicDownloadUrl),
                 checkRequired("type", type),
+                checkRequired("unauthenticatedUrl", unauthenticatedUrl),
                 additionalProperties.toImmutable(),
             )
     }
@@ -467,15 +464,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is FileLink && id == other.id && createdAt == other.createdAt && expiresAt == other.expiresAt && fileId == other.fileId && idempotencyKey == other.idempotencyKey && publicDownloadUrl == other.publicDownloadUrl && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is FileLink && id == other.id && createdAt == other.createdAt && expiresAt == other.expiresAt && fileId == other.fileId && idempotencyKey == other.idempotencyKey && type == other.type && unauthenticatedUrl == other.unauthenticatedUrl && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, createdAt, expiresAt, fileId, idempotencyKey, publicDownloadUrl, type, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, createdAt, expiresAt, fileId, idempotencyKey, type, unauthenticatedUrl, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "FileLink{id=$id, createdAt=$createdAt, expiresAt=$expiresAt, fileId=$fileId, idempotencyKey=$idempotencyKey, publicDownloadUrl=$publicDownloadUrl, type=$type, additionalProperties=$additionalProperties}"
+        "FileLink{id=$id, createdAt=$createdAt, expiresAt=$expiresAt, fileId=$fileId, idempotencyKey=$idempotencyKey, type=$type, unauthenticatedUrl=$unauthenticatedUrl, additionalProperties=$additionalProperties}"
 }
