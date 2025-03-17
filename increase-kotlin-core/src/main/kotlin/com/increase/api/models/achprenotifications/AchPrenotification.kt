@@ -719,6 +719,33 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [AchPrenotification].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .accountNumber()
+         * .addendum()
+         * .companyDescriptiveDate()
+         * .companyDiscretionaryData()
+         * .companyEntryDescription()
+         * .companyName()
+         * .createdAt()
+         * .creditDebitIndicator()
+         * .effectiveDate()
+         * .idempotencyKey()
+         * .notificationsOfChange()
+         * .prenotificationReturn()
+         * .routingNumber()
+         * .status()
+         * .type()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): AchPrenotification =
             AchPrenotification(
                 checkRequired("id", id),
@@ -1051,6 +1078,20 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [NotificationsOfChange].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .changeCode()
+             * .correctedData()
+             * .createdAt()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): NotificationsOfChange =
                 NotificationsOfChange(
                     checkRequired("changeCode", changeCode),
@@ -1566,6 +1607,19 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [PrenotificationReturn].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .createdAt()
+             * .returnReasonCode()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): PrenotificationReturn =
                 PrenotificationReturn(
                     checkRequired("createdAt", createdAt),

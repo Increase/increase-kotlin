@@ -223,6 +223,11 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [IntrafiAccountEnrollmentListParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         */
         fun build(): IntrafiAccountEnrollmentListParams =
             IntrafiAccountEnrollmentListParams(
                 accountId,
@@ -336,6 +341,11 @@ private constructor(
                 additionalProperties.removeAll(keys)
             }
 
+            /**
+             * Returns an immutable instance of [Status].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): Status = Status(in_?.toImmutable(), additionalProperties.build())
         }
 

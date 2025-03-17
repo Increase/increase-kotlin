@@ -522,6 +522,29 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [PendingTransaction].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .accountId()
+         * .amount()
+         * .completedAt()
+         * .createdAt()
+         * .currency()
+         * .description()
+         * .routeId()
+         * .routeType()
+         * .source()
+         * .status()
+         * .type()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): PendingTransaction =
             PendingTransaction(
                 checkRequired("id", id),
@@ -1362,6 +1385,28 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Source].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .accountTransferInstruction()
+             * .achTransferInstruction()
+             * .cardAuthorization()
+             * .category()
+             * .checkDepositInstruction()
+             * .checkTransferInstruction()
+             * .inboundFundsHold()
+             * .inboundWireTransferReversal()
+             * .other()
+             * .realTimePaymentsTransferInstruction()
+             * .wireTransferInstruction()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): Source =
                 Source(
                     checkRequired("accountTransferInstruction", accountTransferInstruction),
@@ -1576,6 +1621,20 @@ private constructor(
                     keys.forEach(::removeAdditionalProperty)
                 }
 
+                /**
+                 * Returns an immutable instance of [AccountTransferInstruction].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .amount()
+                 * .currency()
+                 * .transferId()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
                 fun build(): AccountTransferInstruction =
                     AccountTransferInstruction(
                         checkRequired("amount", amount),
@@ -1900,6 +1959,19 @@ private constructor(
                     keys.forEach(::removeAdditionalProperty)
                 }
 
+                /**
+                 * Returns an immutable instance of [AchTransferInstruction].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .amount()
+                 * .transferId()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
                 fun build(): AchTransferInstruction =
                     AchTransferInstruction(
                         checkRequired("amount", amount),
@@ -3151,6 +3223,44 @@ private constructor(
                     keys.forEach(::removeAdditionalProperty)
                 }
 
+                /**
+                 * Returns an immutable instance of [CardAuthorization].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .id()
+                 * .actioner()
+                 * .amount()
+                 * .cardPaymentId()
+                 * .currency()
+                 * .digitalWalletTokenId()
+                 * .direction()
+                 * .expiresAt()
+                 * .merchantAcceptorId()
+                 * .merchantCategoryCode()
+                 * .merchantCity()
+                 * .merchantCountry()
+                 * .merchantDescriptor()
+                 * .merchantPostalCode()
+                 * .merchantState()
+                 * .networkDetails()
+                 * .networkIdentifiers()
+                 * .networkRiskScore()
+                 * .pendingTransactionId()
+                 * .physicalCardId()
+                 * .presentmentAmount()
+                 * .presentmentCurrency()
+                 * .processingCategory()
+                 * .realTimeDecisionId()
+                 * .terminalId()
+                 * .type()
+                 * .verification()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
                 fun build(): CardAuthorization =
                     CardAuthorization(
                         checkRequired("id", id),
@@ -3718,6 +3828,19 @@ private constructor(
                         keys.forEach(::removeAdditionalProperty)
                     }
 
+                    /**
+                     * Returns an immutable instance of [NetworkDetails].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     *
+                     * The following fields are required:
+                     * ```kotlin
+                     * .category()
+                     * .visa()
+                     * ```
+                     *
+                     * @throws IllegalStateException if any required field is unset.
+                     */
                     fun build(): NetworkDetails =
                         NetworkDetails(
                             checkRequired("category", category),
@@ -4057,6 +4180,20 @@ private constructor(
                             keys.forEach(::removeAdditionalProperty)
                         }
 
+                        /**
+                         * Returns an immutable instance of [Visa].
+                         *
+                         * Further updates to this [Builder] will not mutate the returned instance.
+                         *
+                         * The following fields are required:
+                         * ```kotlin
+                         * .electronicCommerceIndicator()
+                         * .pointOfServiceEntryMode()
+                         * .standInProcessingReason()
+                         * ```
+                         *
+                         * @throws IllegalStateException if any required field is unset.
+                         */
                         fun build(): Visa =
                             Visa(
                                 checkRequired(
@@ -5027,6 +5164,20 @@ private constructor(
                         keys.forEach(::removeAdditionalProperty)
                     }
 
+                    /**
+                     * Returns an immutable instance of [NetworkIdentifiers].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     *
+                     * The following fields are required:
+                     * ```kotlin
+                     * .retrievalReferenceNumber()
+                     * .traceNumber()
+                     * .transactionId()
+                     * ```
+                     *
+                     * @throws IllegalStateException if any required field is unset.
+                     */
                     fun build(): NetworkIdentifiers =
                         NetworkIdentifiers(
                             checkRequired("retrievalReferenceNumber", retrievalReferenceNumber),
@@ -5507,6 +5658,19 @@ private constructor(
                         keys.forEach(::removeAdditionalProperty)
                     }
 
+                    /**
+                     * Returns an immutable instance of [Verification].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     *
+                     * The following fields are required:
+                     * ```kotlin
+                     * .cardVerificationCode()
+                     * .cardholderAddress()
+                     * ```
+                     *
+                     * @throws IllegalStateException if any required field is unset.
+                     */
                     fun build(): Verification =
                         Verification(
                             checkRequired("cardVerificationCode", cardVerificationCode),
@@ -5627,6 +5791,18 @@ private constructor(
                             keys.forEach(::removeAdditionalProperty)
                         }
 
+                        /**
+                         * Returns an immutable instance of [CardVerificationCode].
+                         *
+                         * Further updates to this [Builder] will not mutate the returned instance.
+                         *
+                         * The following fields are required:
+                         * ```kotlin
+                         * .result()
+                         * ```
+                         *
+                         * @throws IllegalStateException if any required field is unset.
+                         */
                         fun build(): CardVerificationCode =
                             CardVerificationCode(
                                 checkRequired("result", result),
@@ -6061,6 +6237,22 @@ private constructor(
                             keys.forEach(::removeAdditionalProperty)
                         }
 
+                        /**
+                         * Returns an immutable instance of [CardholderAddress].
+                         *
+                         * Further updates to this [Builder] will not mutate the returned instance.
+                         *
+                         * The following fields are required:
+                         * ```kotlin
+                         * .actualLine1()
+                         * .actualPostalCode()
+                         * .providedLine1()
+                         * .providedPostalCode()
+                         * .result()
+                         * ```
+                         *
+                         * @throws IllegalStateException if any required field is unset.
+                         */
                         fun build(): CardholderAddress =
                             CardholderAddress(
                                 checkRequired("actualLine1", actualLine1),
@@ -6813,6 +7005,22 @@ private constructor(
                     keys.forEach(::removeAdditionalProperty)
                 }
 
+                /**
+                 * Returns an immutable instance of [CheckDepositInstruction].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .amount()
+                 * .backImageFileId()
+                 * .checkDepositId()
+                 * .currency()
+                 * .frontImageFileId()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
                 fun build(): CheckDepositInstruction =
                     CheckDepositInstruction(
                         checkRequired("amount", amount),
@@ -7180,6 +7388,20 @@ private constructor(
                     keys.forEach(::removeAdditionalProperty)
                 }
 
+                /**
+                 * Returns an immutable instance of [CheckTransferInstruction].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .amount()
+                 * .currency()
+                 * .transferId()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
                 fun build(): CheckTransferInstruction =
                     CheckTransferInstruction(
                         checkRequired("amount", amount),
@@ -7829,6 +8051,27 @@ private constructor(
                     keys.forEach(::removeAdditionalProperty)
                 }
 
+                /**
+                 * Returns an immutable instance of [InboundFundsHold].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .id()
+                 * .amount()
+                 * .automaticallyReleasesAt()
+                 * .createdAt()
+                 * .currency()
+                 * .heldTransactionId()
+                 * .pendingTransactionId()
+                 * .releasedAt()
+                 * .status()
+                 * .type()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
                 fun build(): InboundFundsHold =
                     InboundFundsHold(
                         checkRequired("id", id),
@@ -8339,6 +8582,18 @@ private constructor(
                     keys.forEach(::removeAdditionalProperty)
                 }
 
+                /**
+                 * Returns an immutable instance of [InboundWireTransferReversal].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .inboundWireTransferId()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
                 fun build(): InboundWireTransferReversal =
                     InboundWireTransferReversal(
                         checkRequired("inboundWireTransferId", inboundWireTransferId),
@@ -8518,6 +8773,19 @@ private constructor(
                     keys.forEach(::removeAdditionalProperty)
                 }
 
+                /**
+                 * Returns an immutable instance of [RealTimePaymentsTransferInstruction].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .amount()
+                 * .transferId()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
                 fun build(): RealTimePaymentsTransferInstruction =
                     RealTimePaymentsTransferInstruction(
                         checkRequired("amount", amount),
@@ -8820,6 +9088,22 @@ private constructor(
                     keys.forEach(::removeAdditionalProperty)
                 }
 
+                /**
+                 * Returns an immutable instance of [WireTransferInstruction].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .accountNumber()
+                 * .amount()
+                 * .messageToRecipient()
+                 * .routingNumber()
+                 * .transferId()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
                 fun build(): WireTransferInstruction =
                     WireTransferInstruction(
                         checkRequired("accountNumber", accountNumber),

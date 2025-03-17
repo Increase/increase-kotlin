@@ -1472,6 +1472,52 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [AchTransfer].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .accountId()
+         * .accountNumber()
+         * .acknowledgement()
+         * .addenda()
+         * .amount()
+         * .approval()
+         * .cancellation()
+         * .companyDescriptiveDate()
+         * .companyDiscretionaryData()
+         * .companyEntryDescription()
+         * .companyName()
+         * .createdAt()
+         * .createdBy()
+         * .currency()
+         * .destinationAccountHolder()
+         * .externalAccountId()
+         * .funding()
+         * .idempotencyKey()
+         * .inboundFundsHold()
+         * .individualId()
+         * .individualName()
+         * .network()
+         * .notificationsOfChange()
+         * .pendingTransactionId()
+         * .preferredEffectiveDate()
+         * .return_()
+         * .routingNumber()
+         * .settlement()
+         * .standardEntryClassCode()
+         * .statementDescriptor()
+         * .status()
+         * .submission()
+         * .transactionId()
+         * .type()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): AchTransfer =
             AchTransfer(
                 checkRequired("id", id),
@@ -1625,6 +1671,18 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Acknowledgement].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .acknowledgedAt()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): Acknowledgement =
                 Acknowledgement(
                     checkRequired("acknowledgedAt", acknowledgedAt),
@@ -1836,6 +1894,20 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Addenda].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .category()
+             * .freeform()
+             * .paymentOrderRemittanceAdvice()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): Addenda =
                 Addenda(
                     checkRequired("category", category),
@@ -2093,6 +2165,18 @@ private constructor(
                     keys.forEach(::removeAdditionalProperty)
                 }
 
+                /**
+                 * Returns an immutable instance of [Freeform].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .entries()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
                 fun build(): Freeform =
                     Freeform(
                         checkRequired("entries", entries).map { it.toImmutable() },
@@ -2210,6 +2294,18 @@ private constructor(
                         keys.forEach(::removeAdditionalProperty)
                     }
 
+                    /**
+                     * Returns an immutable instance of [Entry].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     *
+                     * The following fields are required:
+                     * ```kotlin
+                     * .paymentRelatedInformation()
+                     * ```
+                     *
+                     * @throws IllegalStateException if any required field is unset.
+                     */
                     fun build(): Entry =
                         Entry(
                             checkRequired("paymentRelatedInformation", paymentRelatedInformation),
@@ -2379,6 +2475,18 @@ private constructor(
                     keys.forEach(::removeAdditionalProperty)
                 }
 
+                /**
+                 * Returns an immutable instance of [PaymentOrderRemittanceAdvice].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .invoices()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
                 fun build(): PaymentOrderRemittanceAdvice =
                     PaymentOrderRemittanceAdvice(
                         checkRequired("invoices", invoices).map { it.toImmutable() },
@@ -2541,6 +2649,19 @@ private constructor(
                         keys.forEach(::removeAdditionalProperty)
                     }
 
+                    /**
+                     * Returns an immutable instance of [Invoice].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     *
+                     * The following fields are required:
+                     * ```kotlin
+                     * .invoiceNumber()
+                     * .paidAmount()
+                     * ```
+                     *
+                     * @throws IllegalStateException if any required field is unset.
+                     */
                     fun build(): Invoice =
                         Invoice(
                             checkRequired("invoiceNumber", invoiceNumber),
@@ -2752,6 +2873,19 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Approval].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .approvedAt()
+             * .approvedBy()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): Approval =
                 Approval(
                     checkRequired("approvedAt", approvedAt),
@@ -2927,6 +3061,19 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Cancellation].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .canceledAt()
+             * .canceledBy()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): Cancellation =
                 Cancellation(
                     checkRequired("canceledAt", canceledAt),
@@ -3159,6 +3306,21 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [CreatedBy].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .apiKey()
+             * .category()
+             * .oauthApplication()
+             * .user()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): CreatedBy =
                 CreatedBy(
                     checkRequired("apiKey", apiKey),
@@ -3277,6 +3439,18 @@ private constructor(
                     keys.forEach(::removeAdditionalProperty)
                 }
 
+                /**
+                 * Returns an immutable instance of [ApiKey].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .description()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
                 fun build(): ApiKey =
                     ApiKey(
                         checkRequired("description", description),
@@ -3531,6 +3705,18 @@ private constructor(
                     keys.forEach(::removeAdditionalProperty)
                 }
 
+                /**
+                 * Returns an immutable instance of [OAuthApplication].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .name()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
                 fun build(): OAuthApplication =
                     OAuthApplication(
                         checkRequired("name", name),
@@ -3659,6 +3845,18 @@ private constructor(
                     keys.forEach(::removeAdditionalProperty)
                 }
 
+                /**
+                 * Returns an immutable instance of [User].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .email()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
                 fun build(): User =
                     User(checkRequired("email", email), additionalProperties.toImmutable())
             }
@@ -4522,6 +4720,27 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [InboundFundsHold].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .id()
+             * .amount()
+             * .automaticallyReleasesAt()
+             * .createdAt()
+             * .currency()
+             * .heldTransactionId()
+             * .pendingTransactionId()
+             * .releasedAt()
+             * .status()
+             * .type()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): InboundFundsHold =
                 InboundFundsHold(
                     checkRequired("id", id),
@@ -5193,6 +5412,20 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [NotificationsOfChange].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .changeCode()
+             * .correctedData()
+             * .createdAt()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): NotificationsOfChange =
                 NotificationsOfChange(
                     checkRequired("changeCode", changeCode),
@@ -5708,6 +5941,19 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [PreferredEffectiveDate].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .date()
+             * .settlementSchedule()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): PreferredEffectiveDate =
                 PreferredEffectiveDate(
                     checkRequired("date", date),
@@ -6187,6 +6433,23 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Return].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .createdAt()
+             * .rawReturnReasonCode()
+             * .returnReasonCode()
+             * .traceNumber()
+             * .transactionId()
+             * .transferId()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): Return =
                 Return(
                     checkRequired("createdAt", createdAt),
@@ -7518,6 +7781,18 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Settlement].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .settledAt()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): Settlement =
                 Settlement(
                     checkRequired("settledAt", settledAt),
@@ -8138,6 +8413,22 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Submission].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .effectiveDate()
+             * .expectedFundsSettlementAt()
+             * .expectedSettlementSchedule()
+             * .submittedAt()
+             * .traceNumber()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): Submission =
                 Submission(
                     checkRequired("effectiveDate", effectiveDate),

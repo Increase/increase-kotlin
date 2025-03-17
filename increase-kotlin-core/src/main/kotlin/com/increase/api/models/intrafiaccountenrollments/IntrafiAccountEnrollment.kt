@@ -349,6 +349,24 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [IntrafiAccountEnrollment].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .accountId()
+         * .createdAt()
+         * .idempotencyKey()
+         * .intrafiId()
+         * .status()
+         * .type()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): IntrafiAccountEnrollment =
             IntrafiAccountEnrollment(
                 checkRequired("id", id),

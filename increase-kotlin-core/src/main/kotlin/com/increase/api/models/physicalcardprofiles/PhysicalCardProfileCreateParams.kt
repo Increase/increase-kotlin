@@ -323,6 +323,21 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Body].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .carrierImageFileId()
+             * .contactPhone()
+             * .description()
+             * .frontImageFileId()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): Body =
                 Body(
                     checkRequired("carrierImageFileId", carrierImageFileId),
@@ -561,6 +576,21 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [PhysicalCardProfileCreateParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .carrierImageFileId()
+         * .contactPhone()
+         * .description()
+         * .frontImageFileId()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): PhysicalCardProfileCreateParams =
             PhysicalCardProfileCreateParams(
                 body.build(),

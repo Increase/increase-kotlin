@@ -215,6 +215,20 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [CardAuthorizationCreateResponse].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .declinedTransaction()
+         * .pendingTransaction()
+         * .type()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): CardAuthorizationCreateResponse =
             CardAuthorizationCreateResponse(
                 checkRequired("declinedTransaction", declinedTransaction),

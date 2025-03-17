@@ -202,6 +202,18 @@ private constructor(
             keys.forEach(::removeAdditionalBodyProperty)
         }
 
+        /**
+         * Returns an immutable instance of [InboundCheckDepositDeclineParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .inboundCheckDepositId()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): InboundCheckDepositDeclineParams =
             InboundCheckDepositDeclineParams(
                 checkRequired("inboundCheckDepositId", inboundCheckDepositId),

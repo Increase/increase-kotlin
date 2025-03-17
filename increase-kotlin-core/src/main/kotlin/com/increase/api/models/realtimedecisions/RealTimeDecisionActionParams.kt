@@ -427,6 +427,11 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Body].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): Body =
                 Body(
                     cardAuthentication,
@@ -706,6 +711,18 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [RealTimeDecisionActionParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .realTimeDecisionId()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): RealTimeDecisionActionParams =
             RealTimeDecisionActionParams(
                 checkRequired("realTimeDecisionId", realTimeDecisionId),
@@ -817,6 +834,18 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [CardAuthentication].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .decision()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): CardAuthentication =
                 CardAuthentication(
                     checkRequired("decision", decision),
@@ -1066,6 +1095,18 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [CardAuthenticationChallenge].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .result()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): CardAuthenticationChallenge =
                 CardAuthenticationChallenge(
                     checkRequired("result", result),
@@ -1345,6 +1386,18 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [CardAuthorization].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .decision()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): CardAuthorization =
                 CardAuthorization(
                     checkRequired("decision", decision),
@@ -1815,6 +1868,18 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [DigitalWalletAuthentication].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .result()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): DigitalWalletAuthentication =
                 DigitalWalletAuthentication(
                     checkRequired("result", result),
@@ -2069,6 +2134,11 @@ private constructor(
                     keys.forEach(::removeAdditionalProperty)
                 }
 
+                /**
+                 * Returns an immutable instance of [Success].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 */
                 fun build(): Success = Success(email, phone, additionalProperties.toImmutable())
             }
 
@@ -2244,6 +2314,11 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [DigitalWalletToken].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): DigitalWalletToken =
                 DigitalWalletToken(approval, decline, additionalProperties.toImmutable())
         }
@@ -2385,6 +2460,11 @@ private constructor(
                     keys.forEach(::removeAdditionalProperty)
                 }
 
+                /**
+                 * Returns an immutable instance of [Approval].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 */
                 fun build(): Approval = Approval(email, phone, additionalProperties.toImmutable())
             }
 
@@ -2508,6 +2588,11 @@ private constructor(
                     keys.forEach(::removeAdditionalProperty)
                 }
 
+                /**
+                 * Returns an immutable instance of [Decline].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 */
                 fun build(): Decline = Decline(reason, additionalProperties.toImmutable())
             }
 

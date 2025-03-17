@@ -606,6 +606,31 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [DigitalCardProfile].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .appIconFileId()
+         * .backgroundImageFileId()
+         * .cardDescription()
+         * .contactEmail()
+         * .contactPhone()
+         * .contactWebsite()
+         * .createdAt()
+         * .description()
+         * .idempotencyKey()
+         * .issuerName()
+         * .status()
+         * .textColor()
+         * .type()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): DigitalCardProfile =
             DigitalCardProfile(
                 checkRequired("id", id),
@@ -918,6 +943,20 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [TextColor].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .blue()
+             * .green()
+             * .red()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): TextColor =
                 TextColor(
                     checkRequired("blue", blue),

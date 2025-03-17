@@ -497,6 +497,21 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Body].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .accountId()
+             * .amount()
+             * .fulfillmentMethod()
+             * .sourceAccountNumberId()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): Body =
                 Body(
                     checkRequired("accountId", accountId),
@@ -787,6 +802,21 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [CheckTransferCreateParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .accountId()
+         * .amount()
+         * .fulfillmentMethod()
+         * .sourceAccountNumberId()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): CheckTransferCreateParams =
             CheckTransferCreateParams(
                 body.build(),
@@ -1256,6 +1286,20 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [PhysicalCheck].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .mailingAddress()
+             * .memo()
+             * .recipientName()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): PhysicalCheck =
                 PhysicalCheck(
                     checkRequired("mailingAddress", mailingAddress),
@@ -1515,6 +1559,21 @@ private constructor(
                     keys.forEach(::removeAdditionalProperty)
                 }
 
+                /**
+                 * Returns an immutable instance of [MailingAddress].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .city()
+                 * .line1()
+                 * .postalCode()
+                 * .state()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
                 fun build(): MailingAddress =
                     MailingAddress(
                         checkRequired("city", city),
@@ -1828,6 +1887,22 @@ private constructor(
                     keys.forEach(::removeAdditionalProperty)
                 }
 
+                /**
+                 * Returns an immutable instance of [ReturnAddress].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .city()
+                 * .line1()
+                 * .name()
+                 * .postalCode()
+                 * .state()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
                 fun build(): ReturnAddress =
                     ReturnAddress(
                         checkRequired("city", city),
@@ -1982,6 +2057,11 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [ThirdParty].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): ThirdParty = ThirdParty(checkNumber, additionalProperties.toImmutable())
         }
 

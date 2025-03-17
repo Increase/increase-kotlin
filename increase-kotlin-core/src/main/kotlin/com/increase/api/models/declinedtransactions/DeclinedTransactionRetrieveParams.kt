@@ -170,6 +170,18 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [DeclinedTransactionRetrieveParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .declinedTransactionId()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): DeclinedTransactionRetrieveParams =
             DeclinedTransactionRetrieveParams(
                 checkRequired("declinedTransactionId", declinedTransactionId),

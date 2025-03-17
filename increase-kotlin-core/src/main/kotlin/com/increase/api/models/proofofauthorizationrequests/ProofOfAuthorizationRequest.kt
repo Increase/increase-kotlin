@@ -306,6 +306,23 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [ProofOfAuthorizationRequest].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .achTransfers()
+         * .createdAt()
+         * .dueOn()
+         * .type()
+         * .updatedAt()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): ProofOfAuthorizationRequest =
             ProofOfAuthorizationRequest(
                 checkRequired("id", id),
@@ -414,6 +431,18 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [AchTransfer].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .id()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): AchTransfer =
                 AchTransfer(checkRequired("id", id), additionalProperties.toImmutable())
         }

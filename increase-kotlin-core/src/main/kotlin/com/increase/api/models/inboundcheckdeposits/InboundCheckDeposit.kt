@@ -880,6 +880,37 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [InboundCheckDeposit].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .acceptedAt()
+         * .accountId()
+         * .accountNumberId()
+         * .adjustments()
+         * .amount()
+         * .backImageFileId()
+         * .bankOfFirstDepositRoutingNumber()
+         * .checkNumber()
+         * .checkTransferId()
+         * .createdAt()
+         * .currency()
+         * .declinedAt()
+         * .declinedTransactionId()
+         * .depositReturn()
+         * .frontImageFileId()
+         * .payeeNameAnalysis()
+         * .status()
+         * .transactionId()
+         * .type()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): InboundCheckDeposit =
             InboundCheckDeposit(
                 checkRequired("id", id),
@@ -1115,6 +1146,21 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Adjustment].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .adjustedAt()
+             * .amount()
+             * .reason()
+             * .transactionId()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): Adjustment =
                 Adjustment(
                     checkRequired("adjustedAt", adjustedAt),
@@ -1621,6 +1667,20 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [DepositReturn].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .reason()
+             * .returnedAt()
+             * .transactionId()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): DepositReturn =
                 DepositReturn(
                     checkRequired("reason", reason),
