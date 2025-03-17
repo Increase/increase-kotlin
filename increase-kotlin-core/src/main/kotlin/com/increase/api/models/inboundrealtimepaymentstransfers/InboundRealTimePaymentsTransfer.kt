@@ -677,6 +677,33 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [InboundRealTimePaymentsTransfer].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .accountId()
+         * .accountNumberId()
+         * .amount()
+         * .confirmation()
+         * .createdAt()
+         * .creditorName()
+         * .currency()
+         * .debtorAccountNumber()
+         * .debtorName()
+         * .debtorRoutingNumber()
+         * .decline()
+         * .remittanceInformation()
+         * .status()
+         * .transactionIdentification()
+         * .type()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): InboundRealTimePaymentsTransfer =
             InboundRealTimePaymentsTransfer(
                 checkRequired("id", id),
@@ -841,6 +868,19 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Confirmation].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .confirmedAt()
+             * .transactionId()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): Confirmation =
                 Confirmation(
                     checkRequired("confirmedAt", confirmedAt),
@@ -1189,6 +1229,20 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Decline].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .declinedAt()
+             * .declinedTransactionId()
+             * .reason()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): Decline =
                 Decline(
                     checkRequired("declinedAt", declinedAt),

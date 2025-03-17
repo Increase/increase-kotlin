@@ -224,6 +224,11 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [DeclinedTransactionListParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         */
         fun build(): DeclinedTransactionListParams =
             DeclinedTransactionListParams(
                 accountId,
@@ -336,6 +341,11 @@ private constructor(
                 additionalProperties.removeAll(keys)
             }
 
+            /**
+             * Returns an immutable instance of [Category].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): Category = Category(in_?.toImmutable(), additionalProperties.build())
         }
 
@@ -673,6 +683,11 @@ private constructor(
                 additionalProperties.removeAll(keys)
             }
 
+            /**
+             * Returns an immutable instance of [CreatedAt].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): CreatedAt =
                 CreatedAt(after, before, onOrAfter, onOrBefore, additionalProperties.build())
         }

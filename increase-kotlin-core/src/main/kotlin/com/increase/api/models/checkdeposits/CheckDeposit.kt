@@ -782,6 +782,35 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [CheckDeposit].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .accountId()
+         * .amount()
+         * .backImageFileId()
+         * .createdAt()
+         * .depositAcceptance()
+         * .depositRejection()
+         * .depositReturn()
+         * .depositSubmission()
+         * .description()
+         * .frontImageFileId()
+         * .idempotencyKey()
+         * .inboundFundsHold()
+         * .inboundMailItemId()
+         * .lockboxId()
+         * .status()
+         * .transactionId()
+         * .type()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): CheckDeposit =
             CheckDeposit(
                 checkRequired("id", id),
@@ -1156,6 +1185,24 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [DepositAcceptance].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .accountNumber()
+             * .amount()
+             * .auxiliaryOnUs()
+             * .checkDepositId()
+             * .currency()
+             * .routingNumber()
+             * .serialNumber()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): DepositAcceptance =
                 DepositAcceptance(
                     checkRequired("accountNumber", accountNumber),
@@ -1632,6 +1679,23 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [DepositRejection].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .amount()
+             * .checkDepositId()
+             * .currency()
+             * .declinedTransactionId()
+             * .reason()
+             * .rejectedAt()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): DepositRejection =
                 DepositRejection(
                     checkRequired("amount", amount),
@@ -2294,6 +2358,23 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [DepositReturn].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .amount()
+             * .checkDepositId()
+             * .currency()
+             * .returnReason()
+             * .returnedAt()
+             * .transactionId()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): DepositReturn =
                 DepositReturn(
                     checkRequired("amount", amount),
@@ -2989,6 +3070,20 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [DepositSubmission].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .backFileId()
+             * .frontFileId()
+             * .submittedAt()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): DepositSubmission =
                 DepositSubmission(
                     checkRequired("backFileId", backFileId),
@@ -3468,6 +3563,27 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [InboundFundsHold].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .id()
+             * .amount()
+             * .automaticallyReleasesAt()
+             * .createdAt()
+             * .currency()
+             * .heldTransactionId()
+             * .pendingTransactionId()
+             * .releasedAt()
+             * .status()
+             * .type()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): InboundFundsHold =
                 InboundFundsHold(
                     checkRequired("id", id),

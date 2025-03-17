@@ -221,6 +221,11 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Body].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): Body =
                 Body(updatedAccountNumber, updatedRoutingNumber, additionalProperties.toImmutable())
         }
@@ -437,6 +442,18 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [InboundAchTransferCreateNotificationOfChangeParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .inboundAchTransferId()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): InboundAchTransferCreateNotificationOfChangeParams =
             InboundAchTransferCreateNotificationOfChangeParams(
                 checkRequired("inboundAchTransferId", inboundAchTransferId),

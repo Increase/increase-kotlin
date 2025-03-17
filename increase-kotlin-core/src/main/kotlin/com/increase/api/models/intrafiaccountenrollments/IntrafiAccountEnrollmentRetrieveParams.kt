@@ -172,6 +172,18 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [IntrafiAccountEnrollmentRetrieveParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .intrafiAccountEnrollmentId()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): IntrafiAccountEnrollmentRetrieveParams =
             IntrafiAccountEnrollmentRetrieveParams(
                 checkRequired("intrafiAccountEnrollmentId", intrafiAccountEnrollmentId),

@@ -425,6 +425,26 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [AccountStatement].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .accountId()
+         * .createdAt()
+         * .endingBalance()
+         * .fileId()
+         * .startingBalance()
+         * .statementPeriodEnd()
+         * .statementPeriodStart()
+         * .type()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): AccountStatement =
             AccountStatement(
                 checkRequired("id", id),

@@ -208,6 +208,20 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [DigitalWalletTokenRequestCreateResponse].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .declineReason()
+         * .digitalWalletTokenId()
+         * .type()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): DigitalWalletTokenRequestCreateResponse =
             DigitalWalletTokenRequestCreateResponse(
                 checkRequired("declineReason", declineReason),

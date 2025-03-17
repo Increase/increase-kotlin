@@ -225,6 +225,11 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [InboundAchTransferListParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         */
         fun build(): InboundAchTransferListParams =
             InboundAchTransferListParams(
                 accountId,
@@ -385,6 +390,11 @@ private constructor(
                 additionalProperties.removeAll(keys)
             }
 
+            /**
+             * Returns an immutable instance of [CreatedAt].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): CreatedAt =
                 CreatedAt(after, before, onOrAfter, onOrBefore, additionalProperties.build())
         }
@@ -506,6 +516,11 @@ private constructor(
                 additionalProperties.removeAll(keys)
             }
 
+            /**
+             * Returns an immutable instance of [Status].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): Status = Status(in_?.toImmutable(), additionalProperties.build())
         }
 

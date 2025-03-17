@@ -1136,6 +1136,44 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [InboundAchTransfer].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .acceptance()
+         * .accountId()
+         * .accountNumberId()
+         * .addenda()
+         * .amount()
+         * .automaticallyResolvesAt()
+         * .createdAt()
+         * .decline()
+         * .direction()
+         * .effectiveDate()
+         * .expectedSettlementSchedule()
+         * .internationalAddenda()
+         * .notificationOfChange()
+         * .originatorCompanyDescriptiveDate()
+         * .originatorCompanyDiscretionaryData()
+         * .originatorCompanyEntryDescription()
+         * .originatorCompanyId()
+         * .originatorCompanyName()
+         * .originatorRoutingNumber()
+         * .receiverIdNumber()
+         * .receiverName()
+         * .standardEntryClassCode()
+         * .status()
+         * .traceNumber()
+         * .transferReturn()
+         * .type()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): InboundAchTransfer =
             InboundAchTransfer(
                 checkRequired("id", id),
@@ -1317,6 +1355,19 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Acceptance].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .acceptedAt()
+             * .transactionId()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): Acceptance =
                 Acceptance(
                     checkRequired("acceptedAt", acceptedAt),
@@ -1476,6 +1527,19 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Addenda].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .category()
+             * .freeform()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): Addenda =
                 Addenda(
                     checkRequired("category", category),
@@ -1702,6 +1766,18 @@ private constructor(
                     keys.forEach(::removeAdditionalProperty)
                 }
 
+                /**
+                 * Returns an immutable instance of [Freeform].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .entries()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
                 fun build(): Freeform =
                     Freeform(
                         checkRequired("entries", entries).map { it.toImmutable() },
@@ -1819,6 +1895,18 @@ private constructor(
                         keys.forEach(::removeAdditionalProperty)
                     }
 
+                    /**
+                     * Returns an immutable instance of [Entry].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     *
+                     * The following fields are required:
+                     * ```kotlin
+                     * .paymentRelatedInformation()
+                     * ```
+                     *
+                     * @throws IllegalStateException if any required field is unset.
+                     */
                     fun build(): Entry =
                         Entry(
                             checkRequired("paymentRelatedInformation", paymentRelatedInformation),
@@ -2058,6 +2146,20 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Decline].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .declinedAt()
+             * .declinedTransactionId()
+             * .reason()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): Decline =
                 Decline(
                     checkRequired("declinedAt", declinedAt),
@@ -4191,6 +4293,50 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [InternationalAddenda].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .destinationCountryCode()
+             * .destinationCurrencyCode()
+             * .foreignExchangeIndicator()
+             * .foreignExchangeReference()
+             * .foreignExchangeReferenceIndicator()
+             * .foreignPaymentAmount()
+             * .foreignTraceNumber()
+             * .internationalTransactionTypeCode()
+             * .originatingCurrencyCode()
+             * .originatingDepositoryFinancialInstitutionBranchCountry()
+             * .originatingDepositoryFinancialInstitutionId()
+             * .originatingDepositoryFinancialInstitutionIdQualifier()
+             * .originatingDepositoryFinancialInstitutionName()
+             * .originatorCity()
+             * .originatorCountry()
+             * .originatorIdentification()
+             * .originatorName()
+             * .originatorPostalCode()
+             * .originatorStateOrProvince()
+             * .originatorStreetAddress()
+             * .paymentRelatedInformation()
+             * .paymentRelatedInformation2()
+             * .receiverCity()
+             * .receiverCountry()
+             * .receiverIdentificationNumber()
+             * .receiverPostalCode()
+             * .receiverStateOrProvince()
+             * .receiverStreetAddress()
+             * .receivingCompanyOrIndividualName()
+             * .receivingDepositoryFinancialInstitutionCountry()
+             * .receivingDepositoryFinancialInstitutionId()
+             * .receivingDepositoryFinancialInstitutionIdQualifier()
+             * .receivingDepositoryFinancialInstitutionName()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): InternationalAddenda =
                 InternationalAddenda(
                     checkRequired("destinationCountryCode", destinationCountryCode),
@@ -5277,6 +5423,19 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [NotificationOfChange].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .updatedAccountNumber()
+             * .updatedRoutingNumber()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): NotificationOfChange =
                 NotificationOfChange(
                     checkRequired("updatedAccountNumber", updatedAccountNumber),
@@ -5849,6 +6008,20 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [TransferReturn].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .reason()
+             * .returnedAt()
+             * .transactionId()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): TransferReturn =
                 TransferReturn(
                     checkRequired("reason", reason),

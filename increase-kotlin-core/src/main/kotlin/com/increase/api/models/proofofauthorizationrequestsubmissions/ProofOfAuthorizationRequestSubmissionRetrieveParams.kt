@@ -178,6 +178,18 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [ProofOfAuthorizationRequestSubmissionRetrieveParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .proofOfAuthorizationRequestSubmissionId()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): ProofOfAuthorizationRequestSubmissionRetrieveParams =
             ProofOfAuthorizationRequestSubmissionRetrieveParams(
                 checkRequired(
