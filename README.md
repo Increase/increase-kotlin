@@ -2,8 +2,8 @@
 
 <!-- x-release-please-start-version -->
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.increase.api/increase-kotlin)](https://central.sonatype.com/artifact/com.increase.api/increase-kotlin/0.189.1)
-[![javadoc](https://javadoc.io/badge2/com.increase.api/increase-kotlin/0.189.1/javadoc.svg)](https://javadoc.io/doc/com.increase.api/increase-kotlin/0.189.1)
+[![Maven Central](https://img.shields.io/maven-central/v/com.increase.api/increase-kotlin)](https://central.sonatype.com/artifact/com.increase.api/increase-kotlin/0.190.0)
+[![javadoc](https://javadoc.io/badge2/com.increase.api/increase-kotlin/0.190.0/javadoc.svg)](https://javadoc.io/doc/com.increase.api/increase-kotlin/0.190.0)
 
 <!-- x-release-please-end -->
 
@@ -20,7 +20,7 @@ The REST API documentation can be found on [increase.com](https://increase.com/d
 ### Gradle
 
 ```kotlin
-implementation("com.increase.api:increase-kotlin:0.189.1")
+implementation("com.increase.api:increase-kotlin:0.190.0")
 ```
 
 ### Maven
@@ -29,7 +29,7 @@ implementation("com.increase.api:increase-kotlin:0.189.1")
 <dependency>
     <groupId>com.increase.api</groupId>
     <artifactId>increase-kotlin</artifactId>
-    <version>0.189.1</version>
+    <version>0.190.0</version>
 </dependency>
 ```
 

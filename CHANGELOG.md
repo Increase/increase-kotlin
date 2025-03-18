@@ -1,5 +1,30 @@
 # Changelog
 
+## 0.190.0 (2025-03-18)
+
+Full Changelog: [v0.189.1...v0.190.0](https://github.com/Increase/increase-kotlin/compare/v0.189.1...v0.190.0)
+
+### ⚠ BREAKING CHANGES
+
+* **client:** move classes into subpackages and shorten names ([#864](https://github.com/Increase/increase-kotlin/issues/864))
+
+### Features
+
+* **api:** api update ([b6fac6c](https://github.com/Increase/increase-kotlin/commit/b6fac6cd15cad61fd17071c818454ed50f3cbdf7))
+* **api:** api update ([#883](https://github.com/Increase/increase-kotlin/issues/883)) ([a12ad93](https://github.com/Increase/increase-kotlin/commit/a12ad93825596e56de844ed66023cdc575b27919))
+
+
+### Chores
+
+* **client:** move classes into subpackages and shorten names ([#864](https://github.com/Increase/increase-kotlin/issues/864)) ([0ef3617](https://github.com/Increase/increase-kotlin/commit/0ef36170d263970951d03d7cb7800139106547ea))
+* **internal:** version bump ([#860](https://github.com/Increase/increase-kotlin/issues/860)) ([4609002](https://github.com/Increase/increase-kotlin/commit/4609002cdb5030cb073c89a59712fca8b9361c9e))
+
+
+### Documentation
+
+* document `JsonValue` construction in readme ([#863](https://github.com/Increase/increase-kotlin/issues/863)) ([4e663d2](https://github.com/Increase/increase-kotlin/commit/4e663d24d4d968cfcae84ad397a2ab54dd75612f))
+* revise readme docs about nested params ([#862](https://github.com/Increase/increase-kotlin/issues/862)) ([70a4104](https://github.com/Increase/increase-kotlin/commit/70a4104174097f312197818cf411895e899f2052))
+
 ## 0.189.1 (2025-03-09)
 
 Full Changelog: [v0.189.0...v0.189.1](https://github.com/Increase/increase-kotlin/compare/v0.189.0...v0.189.1)
