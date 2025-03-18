@@ -53,7 +53,7 @@ internal constructor(private val clientOptions: ClientOptions) : InboundFundsHol
                     .addPathSegments(
                         "simulations",
                         "inbound_funds_holds",
-                        params.getPathParam(0),
+                        params._pathParam(0),
                         "release",
                     )
                     .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }

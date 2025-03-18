@@ -1024,12 +1024,10 @@ internal class EntityCreateParamsTest {
                     .build()
             )
         assertThat(body.supplementalDocuments())
-            .isEqualTo(
-                listOf(
-                    EntityCreateParams.SupplementalDocument.builder()
-                        .fileId("file_makxrc67oh9l6sg7w9yc")
-                        .build()
-                )
+            .containsExactly(
+                EntityCreateParams.SupplementalDocument.builder()
+                    .fileId("file_makxrc67oh9l6sg7w9yc")
+                    .build()
             )
         assertThat(body.thirdPartyVerification())
             .isEqualTo(

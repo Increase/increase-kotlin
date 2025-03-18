@@ -112,7 +112,7 @@ internal constructor(private val clientOptions: ClientOptions) : PhysicalCardPro
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
-                    .addPathSegments("physical_card_profiles", params.getPathParam(0))
+                    .addPathSegments("physical_card_profiles", params._pathParam(0))
                     .build()
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
@@ -173,7 +173,7 @@ internal constructor(private val clientOptions: ClientOptions) : PhysicalCardPro
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
-                    .addPathSegments("physical_card_profiles", params.getPathParam(0), "archive")
+                    .addPathSegments("physical_card_profiles", params._pathParam(0), "archive")
                     .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -201,7 +201,7 @@ internal constructor(private val clientOptions: ClientOptions) : PhysicalCardPro
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
-                    .addPathSegments("physical_card_profiles", params.getPathParam(0), "clone")
+                    .addPathSegments("physical_card_profiles", params._pathParam(0), "clone")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepareAsync(clientOptions, params)
