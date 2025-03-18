@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.190.1 (2025-03-18)
+
+Full Changelog: [v0.190.0...v0.190.1](https://github.com/Increase/increase-kotlin/compare/v0.190.0...v0.190.1)
+
+### Bug Fixes
+
+* **client:** support kotlin 1.8 runtime ([#886](https://github.com/Increase/increase-kotlin/issues/886)) ([20c6d6a](https://github.com/Increase/increase-kotlin/commit/20c6d6a106d8b97ecb955c9801ffa68cd6273760))
+
+
+### Chores
+
+* **internal:** version bump ([#884](https://github.com/Increase/increase-kotlin/issues/884)) ([3dd4be6](https://github.com/Increase/increase-kotlin/commit/3dd4be6d8acd1799b14865676c570602606a5bff))
+
 ## 0.190.0 (2025-03-18)
 
 Full Changelog: [v0.189.1...v0.190.0](https://github.com/Increase/increase-kotlin/compare/v0.189.1...v0.190.0)
