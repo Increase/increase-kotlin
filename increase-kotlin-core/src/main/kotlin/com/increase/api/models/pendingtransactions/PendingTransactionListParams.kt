@@ -53,20 +53,57 @@ private constructor(
 
     override fun _headers(): Headers = additionalHeaders
 
-    override fun _queryParams(): QueryParams {
-        val queryParams = QueryParams.builder()
-        this.accountId?.let { queryParams.put("account_id", listOf(it.toString())) }
-        this.category?.forEachQueryParam { key, values -> queryParams.put("category.$key", values) }
-        this.createdAt?.forEachQueryParam { key, values ->
-            queryParams.put("created_at.$key", values)
-        }
-        this.cursor?.let { queryParams.put("cursor", listOf(it.toString())) }
-        this.limit?.let { queryParams.put("limit", listOf(it.toString())) }
-        this.routeId?.let { queryParams.put("route_id", listOf(it.toString())) }
-        this.status?.forEachQueryParam { key, values -> queryParams.put("status.$key", values) }
-        queryParams.putAll(additionalQueryParams)
-        return queryParams.build()
-    }
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                accountId?.let { put("account_id", it) }
+                category?.let {
+                    it.in_()?.let { put("category.in", it.joinToString(",") { it.asString() }) }
+                    it._additionalProperties().keys().forEach { key ->
+                        it._additionalProperties().values(key).forEach { value ->
+                            put("category.$key", value)
+                        }
+                    }
+                }
+                createdAt?.let {
+                    it.after()?.let {
+                        put("created_at.after", DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
+                    }
+                    it.before()?.let {
+                        put("created_at.before", DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
+                    }
+                    it.onOrAfter()?.let {
+                        put(
+                            "created_at.on_or_after",
+                            DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it),
+                        )
+                    }
+                    it.onOrBefore()?.let {
+                        put(
+                            "created_at.on_or_before",
+                            DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it),
+                        )
+                    }
+                    it._additionalProperties().keys().forEach { key ->
+                        it._additionalProperties().values(key).forEach { value ->
+                            put("created_at.$key", value)
+                        }
+                    }
+                }
+                cursor?.let { put("cursor", it) }
+                limit?.let { put("limit", it.toString()) }
+                routeId?.let { put("route_id", it) }
+                status?.let {
+                    it.in_()?.let { put("status.in", it.joinToString(",") { it.asString() }) }
+                    it._additionalProperties().keys().forEach { key ->
+                        it._additionalProperties().values(key).forEach { value ->
+                            put("status.$key", value)
+                        }
+                    }
+                }
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     fun toBuilder() = Builder().from(this)
 
@@ -122,7 +159,9 @@ private constructor(
         fun limit(limit: Long?) = apply { this.limit = limit }
 
         /**
-         * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
+         * Alias for [Builder.limit].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
          */
         fun limit(limit: Long) = limit(limit as Long?)
 
@@ -229,6 +268,11 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [PendingTransactionListParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         */
         fun build(): PendingTransactionListParams =
             PendingTransactionListParams(
                 accountId,
@@ -253,11 +297,6 @@ private constructor(
         fun in_(): List<In>? = in_
 
         fun _additionalProperties(): QueryParams = additionalProperties
-
-        internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
-            this.in_?.let { putParam("in", listOf(it.joinToString(separator = ","))) }
-            additionalProperties.keys().forEach { putParam(it, additionalProperties.values(it)) }
-        }
 
         fun toBuilder() = Builder().from(this)
 
@@ -285,8 +324,9 @@ private constructor(
             fun in_(in_: List<In>?) = apply { this.in_ = in_?.toMutableList() }
 
             /**
-             * Return results whose value is in the provided list. For GET requests, this should be
-             * encoded as a comma-delimited string, such as `?in=one,two,three`.
+             * Adds a single [In] to [Builder.in_].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
              */
             fun addIn(in_: In) = apply {
                 this.in_ = (this.in_ ?: mutableListOf()).apply { add(in_) }
@@ -341,6 +381,11 @@ private constructor(
                 additionalProperties.removeAll(keys)
             }
 
+            /**
+             * Returns an immutable instance of [Category].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): Category = Category(in_?.toImmutable(), additionalProperties.build())
         }
 
@@ -636,22 +681,6 @@ private constructor(
 
         fun _additionalProperties(): QueryParams = additionalProperties
 
-        internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
-            this.after?.let {
-                putParam("after", listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it)))
-            }
-            this.before?.let {
-                putParam("before", listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it)))
-            }
-            this.onOrAfter?.let {
-                putParam("on_or_after", listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it)))
-            }
-            this.onOrBefore?.let {
-                putParam("on_or_before", listOf(DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it)))
-            }
-            additionalProperties.keys().forEach { putParam(it, additionalProperties.values(it)) }
-        }
-
         fun toBuilder() = Builder().from(this)
 
         companion object {
@@ -750,6 +779,11 @@ private constructor(
                 additionalProperties.removeAll(keys)
             }
 
+            /**
+             * Returns an immutable instance of [CreatedAt].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): CreatedAt =
                 CreatedAt(after, before, onOrAfter, onOrBefore, additionalProperties.build())
         }
@@ -784,11 +818,6 @@ private constructor(
 
         fun _additionalProperties(): QueryParams = additionalProperties
 
-        internal fun forEachQueryParam(putParam: (String, List<String>) -> Unit) {
-            this.in_?.let { putParam("in", listOf(it.joinToString(separator = ","))) }
-            additionalProperties.keys().forEach { putParam(it, additionalProperties.values(it)) }
-        }
-
         fun toBuilder() = Builder().from(this)
 
         companion object {
@@ -816,9 +845,9 @@ private constructor(
             fun in_(in_: List<In>?) = apply { this.in_ = in_?.toMutableList() }
 
             /**
-             * Filter Pending Transactions for those with the specified status. By default only
-             * Pending Transactions in with status `pending` will be returned. For GET requests,
-             * this should be encoded as a comma-delimited string, such as `?in=one,two,three`.
+             * Adds a single [In] to [Builder.in_].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
              */
             fun addIn(in_: In) = apply {
                 this.in_ = (this.in_ ?: mutableListOf()).apply { add(in_) }
@@ -873,6 +902,11 @@ private constructor(
                 additionalProperties.removeAll(keys)
             }
 
+            /**
+             * Returns an immutable instance of [Status].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): Status = Status(in_?.toImmutable(), additionalProperties.build())
         }
 

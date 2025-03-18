@@ -101,7 +101,7 @@ internal constructor(private val clientOptions: ClientOptions) : EventSubscripti
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
-                    .addPathSegments("event_subscriptions", params.getPathParam(0))
+                    .addPathSegments("event_subscriptions", params._pathParam(0))
                     .build()
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
@@ -127,7 +127,7 @@ internal constructor(private val clientOptions: ClientOptions) : EventSubscripti
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.PATCH)
-                    .addPathSegments("event_subscriptions", params.getPathParam(0))
+                    .addPathSegments("event_subscriptions", params._pathParam(0))
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepareAsync(clientOptions, params)

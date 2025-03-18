@@ -29,28 +29,65 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /** The name you choose for the account. */
+    /**
+     * The name you choose for the account.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun name(): String = body.name()
 
-    /** The entity, if `compliance_category` is `commingled_cash`. */
+    /**
+     * The entity, if `compliance_category` is `commingled_cash`.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun accountId(): String? = body.accountId()
 
-    /** The account compliance category. */
+    /**
+     * The account compliance category.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun complianceCategory(): ComplianceCategory? = body.complianceCategory()
 
-    /** The entity, if `compliance_category` is `customer_balance`. */
+    /**
+     * The entity, if `compliance_category` is `customer_balance`.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun entityId(): String? = body.entityId()
 
-    /** The name you choose for the account. */
+    /**
+     * Returns the raw JSON value of [name].
+     *
+     * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _name(): JsonField<String> = body._name()
 
-    /** The entity, if `compliance_category` is `commingled_cash`. */
+    /**
+     * Returns the raw JSON value of [accountId].
+     *
+     * Unlike [accountId], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _accountId(): JsonField<String> = body._accountId()
 
-    /** The account compliance category. */
+    /**
+     * Returns the raw JSON value of [complianceCategory].
+     *
+     * Unlike [complianceCategory], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     fun _complianceCategory(): JsonField<ComplianceCategory> = body._complianceCategory()
 
-    /** The entity, if `compliance_category` is `customer_balance`. */
+    /**
+     * Returns the raw JSON value of [entityId].
+     *
+     * Unlike [entityId], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _entityId(): JsonField<String> = body._entityId()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
@@ -85,31 +122,68 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The name you choose for the account. */
+        /**
+         * The name you choose for the account.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun name(): String = name.getRequired("name")
 
-        /** The entity, if `compliance_category` is `commingled_cash`. */
+        /**
+         * The entity, if `compliance_category` is `commingled_cash`.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun accountId(): String? = accountId.getNullable("account_id")
 
-        /** The account compliance category. */
+        /**
+         * The account compliance category.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun complianceCategory(): ComplianceCategory? =
             complianceCategory.getNullable("compliance_category")
 
-        /** The entity, if `compliance_category` is `customer_balance`. */
+        /**
+         * The entity, if `compliance_category` is `customer_balance`.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun entityId(): String? = entityId.getNullable("entity_id")
 
-        /** The name you choose for the account. */
+        /**
+         * Returns the raw JSON value of [name].
+         *
+         * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
-        /** The entity, if `compliance_category` is `commingled_cash`. */
+        /**
+         * Returns the raw JSON value of [accountId].
+         *
+         * Unlike [accountId], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("account_id") @ExcludeMissing fun _accountId(): JsonField<String> = accountId
 
-        /** The account compliance category. */
+        /**
+         * Returns the raw JSON value of [complianceCategory].
+         *
+         * Unlike [complianceCategory], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
         @JsonProperty("compliance_category")
         @ExcludeMissing
         fun _complianceCategory(): JsonField<ComplianceCategory> = complianceCategory
 
-        /** The entity, if `compliance_category` is `customer_balance`. */
+        /**
+         * Returns the raw JSON value of [entityId].
+         *
+         * Unlike [entityId], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("entity_id") @ExcludeMissing fun _entityId(): JsonField<String> = entityId
 
         @JsonAnyGetter
@@ -165,20 +239,38 @@ private constructor(
             /** The name you choose for the account. */
             fun name(name: String) = name(JsonField.of(name))
 
-            /** The name you choose for the account. */
+            /**
+             * Sets [Builder.name] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.name] with a well-typed [String] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
             fun name(name: JsonField<String>) = apply { this.name = name }
 
             /** The entity, if `compliance_category` is `commingled_cash`. */
             fun accountId(accountId: String) = accountId(JsonField.of(accountId))
 
-            /** The entity, if `compliance_category` is `commingled_cash`. */
+            /**
+             * Sets [Builder.accountId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.accountId] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
             /** The account compliance category. */
             fun complianceCategory(complianceCategory: ComplianceCategory) =
                 complianceCategory(JsonField.of(complianceCategory))
 
-            /** The account compliance category. */
+            /**
+             * Sets [Builder.complianceCategory] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.complianceCategory] with a well-typed
+             * [ComplianceCategory] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
+             */
             fun complianceCategory(complianceCategory: JsonField<ComplianceCategory>) = apply {
                 this.complianceCategory = complianceCategory
             }
@@ -186,7 +278,13 @@ private constructor(
             /** The entity, if `compliance_category` is `customer_balance`. */
             fun entityId(entityId: String) = entityId(JsonField.of(entityId))
 
-            /** The entity, if `compliance_category` is `customer_balance`. */
+            /**
+             * Sets [Builder.entityId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.entityId] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun entityId(entityId: JsonField<String>) = apply { this.entityId = entityId }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -208,6 +306,18 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Body].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .name()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): Body =
                 Body(
                     checkRequired("name", name),
@@ -269,13 +379,24 @@ private constructor(
         /** The name you choose for the account. */
         fun name(name: String) = apply { body.name(name) }
 
-        /** The name you choose for the account. */
+        /**
+         * Sets [Builder.name] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.name] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun name(name: JsonField<String>) = apply { body.name(name) }
 
         /** The entity, if `compliance_category` is `commingled_cash`. */
         fun accountId(accountId: String) = apply { body.accountId(accountId) }
 
-        /** The entity, if `compliance_category` is `commingled_cash`. */
+        /**
+         * Sets [Builder.accountId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.accountId] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun accountId(accountId: JsonField<String>) = apply { body.accountId(accountId) }
 
         /** The account compliance category. */
@@ -283,7 +404,13 @@ private constructor(
             body.complianceCategory(complianceCategory)
         }
 
-        /** The account compliance category. */
+        /**
+         * Sets [Builder.complianceCategory] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.complianceCategory] with a well-typed
+         * [ComplianceCategory] value instead. This method is primarily for setting the field to an
+         * undocumented or not yet supported value.
+         */
         fun complianceCategory(complianceCategory: JsonField<ComplianceCategory>) = apply {
             body.complianceCategory(complianceCategory)
         }
@@ -291,7 +418,12 @@ private constructor(
         /** The entity, if `compliance_category` is `customer_balance`. */
         fun entityId(entityId: String) = apply { body.entityId(entityId) }
 
-        /** The entity, if `compliance_category` is `customer_balance`. */
+        /**
+         * Sets [Builder.entityId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.entityId] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun entityId(entityId: JsonField<String>) = apply { body.entityId(entityId) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
@@ -411,6 +543,18 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [BookkeepingAccountCreateParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .name()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): BookkeepingAccountCreateParams =
             BookkeepingAccountCreateParams(
                 body.build(),

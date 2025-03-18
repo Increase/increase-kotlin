@@ -57,25 +57,53 @@ private constructor(
     @JsonAnySetter private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
 ) {
 
-    /** The identifier of this exclusion request. */
+    /**
+     * The identifier of this exclusion request.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun id(): String = id.getRequired("id")
 
-    /** The name of the excluded institution. */
+    /**
+     * The name of the excluded institution.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun bankName(): String = bankName.getRequired("bank_name")
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the exclusion
      * was created.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
-    /** The entity for which this institution is excluded. */
+    /**
+     * The entity for which this institution is excluded.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun entityId(): String = entityId.getRequired("entity_id")
 
-    /** When this was exclusion was confirmed by IntraFi. */
+    /**
+     * When this was exclusion was confirmed by IntraFi.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun excludedAt(): OffsetDateTime? = excludedAt.getNullable("excluded_at")
 
-    /** The Federal Deposit Insurance Corporation's certificate number for the institution. */
+    /**
+     * The Federal Deposit Insurance Corporation's certificate number for the institution.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun fdicCertificateNumber(): String? =
         fdicCertificateNumber.getNullable("fdic_certificate_number")
 
@@ -83,68 +111,115 @@ private constructor(
      * The idempotency key you chose for this object. This value is unique across Increase and is
      * used to ensure that a request is only processed once. Learn more about
      * [idempotency](https://increase.com/documentation/idempotency-keys).
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun idempotencyKey(): String? = idempotencyKey.getNullable("idempotency_key")
 
-    /** The status of the exclusion request. */
+    /**
+     * The status of the exclusion request.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun status(): Status = status.getRequired("status")
 
-    /** When this was exclusion was submitted to IntraFi by Increase. */
+    /**
+     * When this was exclusion was submitted to IntraFi by Increase.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun submittedAt(): OffsetDateTime? = submittedAt.getNullable("submitted_at")
 
     /**
      * A constant representing the object's type. For this resource it will always be
      * `intrafi_exclusion`.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun type(): Type = type.getRequired("type")
 
-    /** The identifier of this exclusion request. */
+    /**
+     * Returns the raw JSON value of [id].
+     *
+     * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
-    /** The name of the excluded institution. */
+    /**
+     * Returns the raw JSON value of [bankName].
+     *
+     * Unlike [bankName], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("bank_name") @ExcludeMissing fun _bankName(): JsonField<String> = bankName
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the exclusion
-     * was created.
+     * Returns the raw JSON value of [createdAt].
+     *
+     * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("created_at")
     @ExcludeMissing
     fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
-    /** The entity for which this institution is excluded. */
+    /**
+     * Returns the raw JSON value of [entityId].
+     *
+     * Unlike [entityId], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("entity_id") @ExcludeMissing fun _entityId(): JsonField<String> = entityId
 
-    /** When this was exclusion was confirmed by IntraFi. */
+    /**
+     * Returns the raw JSON value of [excludedAt].
+     *
+     * Unlike [excludedAt], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("excluded_at")
     @ExcludeMissing
     fun _excludedAt(): JsonField<OffsetDateTime> = excludedAt
 
-    /** The Federal Deposit Insurance Corporation's certificate number for the institution. */
+    /**
+     * Returns the raw JSON value of [fdicCertificateNumber].
+     *
+     * Unlike [fdicCertificateNumber], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     @JsonProperty("fdic_certificate_number")
     @ExcludeMissing
     fun _fdicCertificateNumber(): JsonField<String> = fdicCertificateNumber
 
     /**
-     * The idempotency key you chose for this object. This value is unique across Increase and is
-     * used to ensure that a request is only processed once. Learn more about
-     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     * Returns the raw JSON value of [idempotencyKey].
+     *
+     * Unlike [idempotencyKey], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("idempotency_key")
     @ExcludeMissing
     fun _idempotencyKey(): JsonField<String> = idempotencyKey
 
-    /** The status of the exclusion request. */
+    /**
+     * Returns the raw JSON value of [status].
+     *
+     * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
-    /** When this was exclusion was submitted to IntraFi by Increase. */
+    /**
+     * Returns the raw JSON value of [submittedAt].
+     *
+     * Unlike [submittedAt], this method doesn't throw if the JSON field has an unexpected type.
+     */
     @JsonProperty("submitted_at")
     @ExcludeMissing
     fun _submittedAt(): JsonField<OffsetDateTime> = submittedAt
 
     /**
-     * A constant representing the object's type. For this resource it will always be
-     * `intrafi_exclusion`.
+     * Returns the raw JSON value of [type].
+     *
+     * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
@@ -228,13 +303,23 @@ private constructor(
         /** The identifier of this exclusion request. */
         fun id(id: String) = id(JsonField.of(id))
 
-        /** The identifier of this exclusion request. */
+        /**
+         * Sets [Builder.id] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.id] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The name of the excluded institution. */
         fun bankName(bankName: String) = bankName(JsonField.of(bankName))
 
-        /** The name of the excluded institution. */
+        /**
+         * Sets [Builder.bankName] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.bankName] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun bankName(bankName: JsonField<String>) = apply { this.bankName = bankName }
 
         /**
@@ -244,21 +329,35 @@ private constructor(
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-         * exclusion was created.
+         * Sets [Builder.createdAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /** The entity for which this institution is excluded. */
         fun entityId(entityId: String) = entityId(JsonField.of(entityId))
 
-        /** The entity for which this institution is excluded. */
+        /**
+         * Sets [Builder.entityId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.entityId] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun entityId(entityId: JsonField<String>) = apply { this.entityId = entityId }
 
         /** When this was exclusion was confirmed by IntraFi. */
         fun excludedAt(excludedAt: OffsetDateTime?) = excludedAt(JsonField.ofNullable(excludedAt))
 
-        /** When this was exclusion was confirmed by IntraFi. */
+        /**
+         * Sets [Builder.excludedAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.excludedAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun excludedAt(excludedAt: JsonField<OffsetDateTime>) = apply {
             this.excludedAt = excludedAt
         }
@@ -267,7 +366,13 @@ private constructor(
         fun fdicCertificateNumber(fdicCertificateNumber: String?) =
             fdicCertificateNumber(JsonField.ofNullable(fdicCertificateNumber))
 
-        /** The Federal Deposit Insurance Corporation's certificate number for the institution. */
+        /**
+         * Sets [Builder.fdicCertificateNumber] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.fdicCertificateNumber] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun fdicCertificateNumber(fdicCertificateNumber: JsonField<String>) = apply {
             this.fdicCertificateNumber = fdicCertificateNumber
         }
@@ -281,9 +386,11 @@ private constructor(
             idempotencyKey(JsonField.ofNullable(idempotencyKey))
 
         /**
-         * The idempotency key you chose for this object. This value is unique across Increase and
-         * is used to ensure that a request is only processed once. Learn more about
-         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         * Sets [Builder.idempotencyKey] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.idempotencyKey] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun idempotencyKey(idempotencyKey: JsonField<String>) = apply {
             this.idempotencyKey = idempotencyKey
@@ -292,14 +399,25 @@ private constructor(
         /** The status of the exclusion request. */
         fun status(status: Status) = status(JsonField.of(status))
 
-        /** The status of the exclusion request. */
+        /**
+         * Sets [Builder.status] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.status] with a well-typed [Status] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /** When this was exclusion was submitted to IntraFi by Increase. */
         fun submittedAt(submittedAt: OffsetDateTime?) =
             submittedAt(JsonField.ofNullable(submittedAt))
 
-        /** When this was exclusion was submitted to IntraFi by Increase. */
+        /**
+         * Sets [Builder.submittedAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.submittedAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun submittedAt(submittedAt: JsonField<OffsetDateTime>) = apply {
             this.submittedAt = submittedAt
         }
@@ -311,8 +429,10 @@ private constructor(
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
-         * A constant representing the object's type. For this resource it will always be
-         * `intrafi_exclusion`.
+         * Sets [Builder.type] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.type] with a well-typed [Type] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
@@ -335,6 +455,27 @@ private constructor(
             keys.forEach(::removeAdditionalProperty)
         }
 
+        /**
+         * Returns an immutable instance of [IntrafiExclusion].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .id()
+         * .bankName()
+         * .createdAt()
+         * .entityId()
+         * .excludedAt()
+         * .fdicCertificateNumber()
+         * .idempotencyKey()
+         * .status()
+         * .submittedAt()
+         * .type()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): IntrafiExclusion =
             IntrafiExclusion(
                 checkRequired("id", id),

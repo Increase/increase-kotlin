@@ -60,7 +60,7 @@ class WireTransferServiceAsyncImpl internal constructor(private val clientOption
                     .addPathSegments(
                         "simulations",
                         "wire_transfers",
-                        params.getPathParam(0),
+                        params._pathParam(0),
                         "reverse",
                     )
                     .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
@@ -92,7 +92,7 @@ class WireTransferServiceAsyncImpl internal constructor(private val clientOption
                     .addPathSegments(
                         "simulations",
                         "wire_transfers",
-                        params.getPathParam(0),
+                        params._pathParam(0),
                         "submit",
                     )
                     .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }

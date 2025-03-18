@@ -68,7 +68,7 @@ class CheckDepositServiceAsyncImpl internal constructor(private val clientOption
                     .addPathSegments(
                         "simulations",
                         "check_deposits",
-                        params.getPathParam(0),
+                        params._pathParam(0),
                         "reject",
                     )
                     .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
@@ -100,7 +100,7 @@ class CheckDepositServiceAsyncImpl internal constructor(private val clientOption
                     .addPathSegments(
                         "simulations",
                         "check_deposits",
-                        params.getPathParam(0),
+                        params._pathParam(0),
                         "return",
                     )
                     .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
@@ -132,7 +132,7 @@ class CheckDepositServiceAsyncImpl internal constructor(private val clientOption
                     .addPathSegments(
                         "simulations",
                         "check_deposits",
-                        params.getPathParam(0),
+                        params._pathParam(0),
                         "submit",
                     )
                     .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
