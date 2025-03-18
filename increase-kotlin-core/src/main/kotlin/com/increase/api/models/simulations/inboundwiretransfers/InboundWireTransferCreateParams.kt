@@ -17,6 +17,7 @@ import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.immutableEmptyMap
 import com.increase.api.core.toImmutable
+import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Objects
 
 /** Simulates an [Inbound Wire Transfer](#inbound-wire-transfers) to your account. */
@@ -27,71 +28,116 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /** The identifier of the Account Number the inbound Wire Transfer is for. */
+    /**
+     * The identifier of the Account Number the inbound Wire Transfer is for.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun accountNumberId(): String = body.accountNumberId()
 
-    /** The transfer amount in cents. Must be positive. */
+    /**
+     * The transfer amount in cents. Must be positive.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun amount(): Long = body.amount()
 
     /**
      * The sending bank will set beneficiary_address_line1 in production. You can simulate any value
      * here.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun beneficiaryAddressLine1(): String? = body.beneficiaryAddressLine1()
 
     /**
      * The sending bank will set beneficiary_address_line2 in production. You can simulate any value
      * here.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun beneficiaryAddressLine2(): String? = body.beneficiaryAddressLine2()
 
     /**
      * The sending bank will set beneficiary_address_line3 in production. You can simulate any value
      * here.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun beneficiaryAddressLine3(): String? = body.beneficiaryAddressLine3()
 
     /**
      * The sending bank will set beneficiary_name in production. You can simulate any value here.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun beneficiaryName(): String? = body.beneficiaryName()
 
     /**
      * The sending bank will set beneficiary_reference in production. You can simulate any value
      * here.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun beneficiaryReference(): String? = body.beneficiaryReference()
 
     /**
      * The sending bank will set originator_address_line1 in production. You can simulate any value
      * here.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun originatorAddressLine1(): String? = body.originatorAddressLine1()
 
     /**
      * The sending bank will set originator_address_line2 in production. You can simulate any value
      * here.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun originatorAddressLine2(): String? = body.originatorAddressLine2()
 
     /**
      * The sending bank will set originator_address_line3 in production. You can simulate any value
      * here.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun originatorAddressLine3(): String? = body.originatorAddressLine3()
 
-    /** The sending bank will set originator_name in production. You can simulate any value here. */
+    /**
+     * The sending bank will set originator_name in production. You can simulate any value here.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun originatorName(): String? = body.originatorName()
 
     /**
      * The sending bank will set originator_routing_number in production. You can simulate any value
      * here.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun originatorRoutingNumber(): String? = body.originatorRoutingNumber()
 
     /**
      * The sending bank will set originator_to_beneficiary_information_line1 in production. You can
      * simulate any value here.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun originatorToBeneficiaryInformationLine1(): String? =
         body.originatorToBeneficiaryInformationLine1()
@@ -99,6 +145,9 @@ private constructor(
     /**
      * The sending bank will set originator_to_beneficiary_information_line2 in production. You can
      * simulate any value here.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun originatorToBeneficiaryInformationLine2(): String? =
         body.originatorToBeneficiaryInformationLine2()
@@ -106,6 +155,9 @@ private constructor(
     /**
      * The sending bank will set originator_to_beneficiary_information_line3 in production. You can
      * simulate any value here.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun originatorToBeneficiaryInformationLine3(): String? =
         body.originatorToBeneficiaryInformationLine3()
@@ -113,107 +165,153 @@ private constructor(
     /**
      * The sending bank will set originator_to_beneficiary_information_line4 in production. You can
      * simulate any value here.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun originatorToBeneficiaryInformationLine4(): String? =
         body.originatorToBeneficiaryInformationLine4()
 
     /**
      * The sending bank will set sender_reference in production. You can simulate any value here.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun senderReference(): String? = body.senderReference()
 
-    /** The identifier of the Account Number the inbound Wire Transfer is for. */
+    /**
+     * Returns the raw JSON value of [accountNumberId].
+     *
+     * Unlike [accountNumberId], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _accountNumberId(): JsonField<String> = body._accountNumberId()
 
-    /** The transfer amount in cents. Must be positive. */
+    /**
+     * Returns the raw JSON value of [amount].
+     *
+     * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _amount(): JsonField<Long> = body._amount()
 
     /**
-     * The sending bank will set beneficiary_address_line1 in production. You can simulate any value
-     * here.
+     * Returns the raw JSON value of [beneficiaryAddressLine1].
+     *
+     * Unlike [beneficiaryAddressLine1], this method doesn't throw if the JSON field has an
+     * unexpected type.
      */
     fun _beneficiaryAddressLine1(): JsonField<String> = body._beneficiaryAddressLine1()
 
     /**
-     * The sending bank will set beneficiary_address_line2 in production. You can simulate any value
-     * here.
+     * Returns the raw JSON value of [beneficiaryAddressLine2].
+     *
+     * Unlike [beneficiaryAddressLine2], this method doesn't throw if the JSON field has an
+     * unexpected type.
      */
     fun _beneficiaryAddressLine2(): JsonField<String> = body._beneficiaryAddressLine2()
 
     /**
-     * The sending bank will set beneficiary_address_line3 in production. You can simulate any value
-     * here.
+     * Returns the raw JSON value of [beneficiaryAddressLine3].
+     *
+     * Unlike [beneficiaryAddressLine3], this method doesn't throw if the JSON field has an
+     * unexpected type.
      */
     fun _beneficiaryAddressLine3(): JsonField<String> = body._beneficiaryAddressLine3()
 
     /**
-     * The sending bank will set beneficiary_name in production. You can simulate any value here.
+     * Returns the raw JSON value of [beneficiaryName].
+     *
+     * Unlike [beneficiaryName], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _beneficiaryName(): JsonField<String> = body._beneficiaryName()
 
     /**
-     * The sending bank will set beneficiary_reference in production. You can simulate any value
-     * here.
+     * Returns the raw JSON value of [beneficiaryReference].
+     *
+     * Unlike [beneficiaryReference], this method doesn't throw if the JSON field has an unexpected
+     * type.
      */
     fun _beneficiaryReference(): JsonField<String> = body._beneficiaryReference()
 
     /**
-     * The sending bank will set originator_address_line1 in production. You can simulate any value
-     * here.
+     * Returns the raw JSON value of [originatorAddressLine1].
+     *
+     * Unlike [originatorAddressLine1], this method doesn't throw if the JSON field has an
+     * unexpected type.
      */
     fun _originatorAddressLine1(): JsonField<String> = body._originatorAddressLine1()
 
     /**
-     * The sending bank will set originator_address_line2 in production. You can simulate any value
-     * here.
+     * Returns the raw JSON value of [originatorAddressLine2].
+     *
+     * Unlike [originatorAddressLine2], this method doesn't throw if the JSON field has an
+     * unexpected type.
      */
     fun _originatorAddressLine2(): JsonField<String> = body._originatorAddressLine2()
 
     /**
-     * The sending bank will set originator_address_line3 in production. You can simulate any value
-     * here.
+     * Returns the raw JSON value of [originatorAddressLine3].
+     *
+     * Unlike [originatorAddressLine3], this method doesn't throw if the JSON field has an
+     * unexpected type.
      */
     fun _originatorAddressLine3(): JsonField<String> = body._originatorAddressLine3()
 
-    /** The sending bank will set originator_name in production. You can simulate any value here. */
+    /**
+     * Returns the raw JSON value of [originatorName].
+     *
+     * Unlike [originatorName], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _originatorName(): JsonField<String> = body._originatorName()
 
     /**
-     * The sending bank will set originator_routing_number in production. You can simulate any value
-     * here.
+     * Returns the raw JSON value of [originatorRoutingNumber].
+     *
+     * Unlike [originatorRoutingNumber], this method doesn't throw if the JSON field has an
+     * unexpected type.
      */
     fun _originatorRoutingNumber(): JsonField<String> = body._originatorRoutingNumber()
 
     /**
-     * The sending bank will set originator_to_beneficiary_information_line1 in production. You can
-     * simulate any value here.
+     * Returns the raw JSON value of [originatorToBeneficiaryInformationLine1].
+     *
+     * Unlike [originatorToBeneficiaryInformationLine1], this method doesn't throw if the JSON field
+     * has an unexpected type.
      */
     fun _originatorToBeneficiaryInformationLine1(): JsonField<String> =
         body._originatorToBeneficiaryInformationLine1()
 
     /**
-     * The sending bank will set originator_to_beneficiary_information_line2 in production. You can
-     * simulate any value here.
+     * Returns the raw JSON value of [originatorToBeneficiaryInformationLine2].
+     *
+     * Unlike [originatorToBeneficiaryInformationLine2], this method doesn't throw if the JSON field
+     * has an unexpected type.
      */
     fun _originatorToBeneficiaryInformationLine2(): JsonField<String> =
         body._originatorToBeneficiaryInformationLine2()
 
     /**
-     * The sending bank will set originator_to_beneficiary_information_line3 in production. You can
-     * simulate any value here.
+     * Returns the raw JSON value of [originatorToBeneficiaryInformationLine3].
+     *
+     * Unlike [originatorToBeneficiaryInformationLine3], this method doesn't throw if the JSON field
+     * has an unexpected type.
      */
     fun _originatorToBeneficiaryInformationLine3(): JsonField<String> =
         body._originatorToBeneficiaryInformationLine3()
 
     /**
-     * The sending bank will set originator_to_beneficiary_information_line4 in production. You can
-     * simulate any value here.
+     * Returns the raw JSON value of [originatorToBeneficiaryInformationLine4].
+     *
+     * Unlike [originatorToBeneficiaryInformationLine4], this method doesn't throw if the JSON field
+     * has an unexpected type.
      */
     fun _originatorToBeneficiaryInformationLine4(): JsonField<String> =
         body._originatorToBeneficiaryInformationLine4()
 
     /**
-     * The sending bank will set sender_reference in production. You can simulate any value here.
+     * Returns the raw JSON value of [senderReference].
+     *
+     * Unlike [senderReference], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _senderReference(): JsonField<String> = body._senderReference()
 
@@ -288,15 +386,28 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The identifier of the Account Number the inbound Wire Transfer is for. */
+        /**
+         * The identifier of the Account Number the inbound Wire Transfer is for.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun accountNumberId(): String = accountNumberId.getRequired("account_number_id")
 
-        /** The transfer amount in cents. Must be positive. */
+        /**
+         * The transfer amount in cents. Must be positive.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun amount(): Long = amount.getRequired("amount")
 
         /**
          * The sending bank will set beneficiary_address_line1 in production. You can simulate any
          * value here.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
         fun beneficiaryAddressLine1(): String? =
             beneficiaryAddressLine1.getNullable("beneficiary_address_line1")
@@ -304,6 +415,9 @@ private constructor(
         /**
          * The sending bank will set beneficiary_address_line2 in production. You can simulate any
          * value here.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
         fun beneficiaryAddressLine2(): String? =
             beneficiaryAddressLine2.getNullable("beneficiary_address_line2")
@@ -311,6 +425,9 @@ private constructor(
         /**
          * The sending bank will set beneficiary_address_line3 in production. You can simulate any
          * value here.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
         fun beneficiaryAddressLine3(): String? =
             beneficiaryAddressLine3.getNullable("beneficiary_address_line3")
@@ -318,12 +435,18 @@ private constructor(
         /**
          * The sending bank will set beneficiary_name in production. You can simulate any value
          * here.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
         fun beneficiaryName(): String? = beneficiaryName.getNullable("beneficiary_name")
 
         /**
          * The sending bank will set beneficiary_reference in production. You can simulate any value
          * here.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
         fun beneficiaryReference(): String? =
             beneficiaryReference.getNullable("beneficiary_reference")
@@ -331,6 +454,9 @@ private constructor(
         /**
          * The sending bank will set originator_address_line1 in production. You can simulate any
          * value here.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
         fun originatorAddressLine1(): String? =
             originatorAddressLine1.getNullable("originator_address_line1")
@@ -338,6 +464,9 @@ private constructor(
         /**
          * The sending bank will set originator_address_line2 in production. You can simulate any
          * value here.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
         fun originatorAddressLine2(): String? =
             originatorAddressLine2.getNullable("originator_address_line2")
@@ -345,18 +474,27 @@ private constructor(
         /**
          * The sending bank will set originator_address_line3 in production. You can simulate any
          * value here.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
         fun originatorAddressLine3(): String? =
             originatorAddressLine3.getNullable("originator_address_line3")
 
         /**
          * The sending bank will set originator_name in production. You can simulate any value here.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
         fun originatorName(): String? = originatorName.getNullable("originator_name")
 
         /**
          * The sending bank will set originator_routing_number in production. You can simulate any
          * value here.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
         fun originatorRoutingNumber(): String? =
             originatorRoutingNumber.getNullable("originator_routing_number")
@@ -364,6 +502,9 @@ private constructor(
         /**
          * The sending bank will set originator_to_beneficiary_information_line1 in production. You
          * can simulate any value here.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
         fun originatorToBeneficiaryInformationLine1(): String? =
             originatorToBeneficiaryInformationLine1.getNullable(
@@ -373,6 +514,9 @@ private constructor(
         /**
          * The sending bank will set originator_to_beneficiary_information_line2 in production. You
          * can simulate any value here.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
         fun originatorToBeneficiaryInformationLine2(): String? =
             originatorToBeneficiaryInformationLine2.getNullable(
@@ -382,6 +526,9 @@ private constructor(
         /**
          * The sending bank will set originator_to_beneficiary_information_line3 in production. You
          * can simulate any value here.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
         fun originatorToBeneficiaryInformationLine3(): String? =
             originatorToBeneficiaryInformationLine3.getNullable(
@@ -391,6 +538,9 @@ private constructor(
         /**
          * The sending bank will set originator_to_beneficiary_information_line4 in production. You
          * can simulate any value here.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
         fun originatorToBeneficiaryInformationLine4(): String? =
             originatorToBeneficiaryInformationLine4.getNullable(
@@ -400,99 +550,134 @@ private constructor(
         /**
          * The sending bank will set sender_reference in production. You can simulate any value
          * here.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
         fun senderReference(): String? = senderReference.getNullable("sender_reference")
 
-        /** The identifier of the Account Number the inbound Wire Transfer is for. */
+        /**
+         * Returns the raw JSON value of [accountNumberId].
+         *
+         * Unlike [accountNumberId], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("account_number_id")
         @ExcludeMissing
         fun _accountNumberId(): JsonField<String> = accountNumberId
 
-        /** The transfer amount in cents. Must be positive. */
+        /**
+         * Returns the raw JSON value of [amount].
+         *
+         * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
         /**
-         * The sending bank will set beneficiary_address_line1 in production. You can simulate any
-         * value here.
+         * Returns the raw JSON value of [beneficiaryAddressLine1].
+         *
+         * Unlike [beneficiaryAddressLine1], this method doesn't throw if the JSON field has an
+         * unexpected type.
          */
         @JsonProperty("beneficiary_address_line1")
         @ExcludeMissing
         fun _beneficiaryAddressLine1(): JsonField<String> = beneficiaryAddressLine1
 
         /**
-         * The sending bank will set beneficiary_address_line2 in production. You can simulate any
-         * value here.
+         * Returns the raw JSON value of [beneficiaryAddressLine2].
+         *
+         * Unlike [beneficiaryAddressLine2], this method doesn't throw if the JSON field has an
+         * unexpected type.
          */
         @JsonProperty("beneficiary_address_line2")
         @ExcludeMissing
         fun _beneficiaryAddressLine2(): JsonField<String> = beneficiaryAddressLine2
 
         /**
-         * The sending bank will set beneficiary_address_line3 in production. You can simulate any
-         * value here.
+         * Returns the raw JSON value of [beneficiaryAddressLine3].
+         *
+         * Unlike [beneficiaryAddressLine3], this method doesn't throw if the JSON field has an
+         * unexpected type.
          */
         @JsonProperty("beneficiary_address_line3")
         @ExcludeMissing
         fun _beneficiaryAddressLine3(): JsonField<String> = beneficiaryAddressLine3
 
         /**
-         * The sending bank will set beneficiary_name in production. You can simulate any value
-         * here.
+         * Returns the raw JSON value of [beneficiaryName].
+         *
+         * Unlike [beneficiaryName], this method doesn't throw if the JSON field has an unexpected
+         * type.
          */
         @JsonProperty("beneficiary_name")
         @ExcludeMissing
         fun _beneficiaryName(): JsonField<String> = beneficiaryName
 
         /**
-         * The sending bank will set beneficiary_reference in production. You can simulate any value
-         * here.
+         * Returns the raw JSON value of [beneficiaryReference].
+         *
+         * Unlike [beneficiaryReference], this method doesn't throw if the JSON field has an
+         * unexpected type.
          */
         @JsonProperty("beneficiary_reference")
         @ExcludeMissing
         fun _beneficiaryReference(): JsonField<String> = beneficiaryReference
 
         /**
-         * The sending bank will set originator_address_line1 in production. You can simulate any
-         * value here.
+         * Returns the raw JSON value of [originatorAddressLine1].
+         *
+         * Unlike [originatorAddressLine1], this method doesn't throw if the JSON field has an
+         * unexpected type.
          */
         @JsonProperty("originator_address_line1")
         @ExcludeMissing
         fun _originatorAddressLine1(): JsonField<String> = originatorAddressLine1
 
         /**
-         * The sending bank will set originator_address_line2 in production. You can simulate any
-         * value here.
+         * Returns the raw JSON value of [originatorAddressLine2].
+         *
+         * Unlike [originatorAddressLine2], this method doesn't throw if the JSON field has an
+         * unexpected type.
          */
         @JsonProperty("originator_address_line2")
         @ExcludeMissing
         fun _originatorAddressLine2(): JsonField<String> = originatorAddressLine2
 
         /**
-         * The sending bank will set originator_address_line3 in production. You can simulate any
-         * value here.
+         * Returns the raw JSON value of [originatorAddressLine3].
+         *
+         * Unlike [originatorAddressLine3], this method doesn't throw if the JSON field has an
+         * unexpected type.
          */
         @JsonProperty("originator_address_line3")
         @ExcludeMissing
         fun _originatorAddressLine3(): JsonField<String> = originatorAddressLine3
 
         /**
-         * The sending bank will set originator_name in production. You can simulate any value here.
+         * Returns the raw JSON value of [originatorName].
+         *
+         * Unlike [originatorName], this method doesn't throw if the JSON field has an unexpected
+         * type.
          */
         @JsonProperty("originator_name")
         @ExcludeMissing
         fun _originatorName(): JsonField<String> = originatorName
 
         /**
-         * The sending bank will set originator_routing_number in production. You can simulate any
-         * value here.
+         * Returns the raw JSON value of [originatorRoutingNumber].
+         *
+         * Unlike [originatorRoutingNumber], this method doesn't throw if the JSON field has an
+         * unexpected type.
          */
         @JsonProperty("originator_routing_number")
         @ExcludeMissing
         fun _originatorRoutingNumber(): JsonField<String> = originatorRoutingNumber
 
         /**
-         * The sending bank will set originator_to_beneficiary_information_line1 in production. You
-         * can simulate any value here.
+         * Returns the raw JSON value of [originatorToBeneficiaryInformationLine1].
+         *
+         * Unlike [originatorToBeneficiaryInformationLine1], this method doesn't throw if the JSON
+         * field has an unexpected type.
          */
         @JsonProperty("originator_to_beneficiary_information_line1")
         @ExcludeMissing
@@ -500,8 +685,10 @@ private constructor(
             originatorToBeneficiaryInformationLine1
 
         /**
-         * The sending bank will set originator_to_beneficiary_information_line2 in production. You
-         * can simulate any value here.
+         * Returns the raw JSON value of [originatorToBeneficiaryInformationLine2].
+         *
+         * Unlike [originatorToBeneficiaryInformationLine2], this method doesn't throw if the JSON
+         * field has an unexpected type.
          */
         @JsonProperty("originator_to_beneficiary_information_line2")
         @ExcludeMissing
@@ -509,8 +696,10 @@ private constructor(
             originatorToBeneficiaryInformationLine2
 
         /**
-         * The sending bank will set originator_to_beneficiary_information_line3 in production. You
-         * can simulate any value here.
+         * Returns the raw JSON value of [originatorToBeneficiaryInformationLine3].
+         *
+         * Unlike [originatorToBeneficiaryInformationLine3], this method doesn't throw if the JSON
+         * field has an unexpected type.
          */
         @JsonProperty("originator_to_beneficiary_information_line3")
         @ExcludeMissing
@@ -518,8 +707,10 @@ private constructor(
             originatorToBeneficiaryInformationLine3
 
         /**
-         * The sending bank will set originator_to_beneficiary_information_line4 in production. You
-         * can simulate any value here.
+         * Returns the raw JSON value of [originatorToBeneficiaryInformationLine4].
+         *
+         * Unlike [originatorToBeneficiaryInformationLine4], this method doesn't throw if the JSON
+         * field has an unexpected type.
          */
         @JsonProperty("originator_to_beneficiary_information_line4")
         @ExcludeMissing
@@ -527,8 +718,10 @@ private constructor(
             originatorToBeneficiaryInformationLine4
 
         /**
-         * The sending bank will set sender_reference in production. You can simulate any value
-         * here.
+         * Returns the raw JSON value of [senderReference].
+         *
+         * Unlike [senderReference], this method doesn't throw if the JSON field has an unexpected
+         * type.
          */
         @JsonProperty("sender_reference")
         @ExcludeMissing
@@ -636,7 +829,13 @@ private constructor(
             fun accountNumberId(accountNumberId: String) =
                 accountNumberId(JsonField.of(accountNumberId))
 
-            /** The identifier of the Account Number the inbound Wire Transfer is for. */
+            /**
+             * Sets [Builder.accountNumberId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.accountNumberId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun accountNumberId(accountNumberId: JsonField<String>) = apply {
                 this.accountNumberId = accountNumberId
             }
@@ -644,7 +843,13 @@ private constructor(
             /** The transfer amount in cents. Must be positive. */
             fun amount(amount: Long) = amount(JsonField.of(amount))
 
-            /** The transfer amount in cents. Must be positive. */
+            /**
+             * Sets [Builder.amount] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
             fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
             /**
@@ -655,8 +860,11 @@ private constructor(
                 beneficiaryAddressLine1(JsonField.of(beneficiaryAddressLine1))
 
             /**
-             * The sending bank will set beneficiary_address_line1 in production. You can simulate
-             * any value here.
+             * Sets [Builder.beneficiaryAddressLine1] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.beneficiaryAddressLine1] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
              */
             fun beneficiaryAddressLine1(beneficiaryAddressLine1: JsonField<String>) = apply {
                 this.beneficiaryAddressLine1 = beneficiaryAddressLine1
@@ -670,8 +878,11 @@ private constructor(
                 beneficiaryAddressLine2(JsonField.of(beneficiaryAddressLine2))
 
             /**
-             * The sending bank will set beneficiary_address_line2 in production. You can simulate
-             * any value here.
+             * Sets [Builder.beneficiaryAddressLine2] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.beneficiaryAddressLine2] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
              */
             fun beneficiaryAddressLine2(beneficiaryAddressLine2: JsonField<String>) = apply {
                 this.beneficiaryAddressLine2 = beneficiaryAddressLine2
@@ -685,8 +896,11 @@ private constructor(
                 beneficiaryAddressLine3(JsonField.of(beneficiaryAddressLine3))
 
             /**
-             * The sending bank will set beneficiary_address_line3 in production. You can simulate
-             * any value here.
+             * Sets [Builder.beneficiaryAddressLine3] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.beneficiaryAddressLine3] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
              */
             fun beneficiaryAddressLine3(beneficiaryAddressLine3: JsonField<String>) = apply {
                 this.beneficiaryAddressLine3 = beneficiaryAddressLine3
@@ -700,8 +914,11 @@ private constructor(
                 beneficiaryName(JsonField.of(beneficiaryName))
 
             /**
-             * The sending bank will set beneficiary_name in production. You can simulate any value
-             * here.
+             * Sets [Builder.beneficiaryName] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.beneficiaryName] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun beneficiaryName(beneficiaryName: JsonField<String>) = apply {
                 this.beneficiaryName = beneficiaryName
@@ -715,8 +932,11 @@ private constructor(
                 beneficiaryReference(JsonField.of(beneficiaryReference))
 
             /**
-             * The sending bank will set beneficiary_reference in production. You can simulate any
-             * value here.
+             * Sets [Builder.beneficiaryReference] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.beneficiaryReference] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
              */
             fun beneficiaryReference(beneficiaryReference: JsonField<String>) = apply {
                 this.beneficiaryReference = beneficiaryReference
@@ -730,8 +950,11 @@ private constructor(
                 originatorAddressLine1(JsonField.of(originatorAddressLine1))
 
             /**
-             * The sending bank will set originator_address_line1 in production. You can simulate
-             * any value here.
+             * Sets [Builder.originatorAddressLine1] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.originatorAddressLine1] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
              */
             fun originatorAddressLine1(originatorAddressLine1: JsonField<String>) = apply {
                 this.originatorAddressLine1 = originatorAddressLine1
@@ -745,8 +968,11 @@ private constructor(
                 originatorAddressLine2(JsonField.of(originatorAddressLine2))
 
             /**
-             * The sending bank will set originator_address_line2 in production. You can simulate
-             * any value here.
+             * Sets [Builder.originatorAddressLine2] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.originatorAddressLine2] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
              */
             fun originatorAddressLine2(originatorAddressLine2: JsonField<String>) = apply {
                 this.originatorAddressLine2 = originatorAddressLine2
@@ -760,8 +986,11 @@ private constructor(
                 originatorAddressLine3(JsonField.of(originatorAddressLine3))
 
             /**
-             * The sending bank will set originator_address_line3 in production. You can simulate
-             * any value here.
+             * Sets [Builder.originatorAddressLine3] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.originatorAddressLine3] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
              */
             fun originatorAddressLine3(originatorAddressLine3: JsonField<String>) = apply {
                 this.originatorAddressLine3 = originatorAddressLine3
@@ -775,8 +1004,11 @@ private constructor(
                 originatorName(JsonField.of(originatorName))
 
             /**
-             * The sending bank will set originator_name in production. You can simulate any value
-             * here.
+             * Sets [Builder.originatorName] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.originatorName] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun originatorName(originatorName: JsonField<String>) = apply {
                 this.originatorName = originatorName
@@ -790,8 +1022,11 @@ private constructor(
                 originatorRoutingNumber(JsonField.of(originatorRoutingNumber))
 
             /**
-             * The sending bank will set originator_routing_number in production. You can simulate
-             * any value here.
+             * Sets [Builder.originatorRoutingNumber] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.originatorRoutingNumber] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
              */
             fun originatorRoutingNumber(originatorRoutingNumber: JsonField<String>) = apply {
                 this.originatorRoutingNumber = originatorRoutingNumber
@@ -809,8 +1044,11 @@ private constructor(
                 )
 
             /**
-             * The sending bank will set originator_to_beneficiary_information_line1 in production.
-             * You can simulate any value here.
+             * Sets [Builder.originatorToBeneficiaryInformationLine1] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.originatorToBeneficiaryInformationLine1] with a
+             * well-typed [String] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
              */
             fun originatorToBeneficiaryInformationLine1(
                 originatorToBeneficiaryInformationLine1: JsonField<String>
@@ -831,8 +1069,11 @@ private constructor(
                 )
 
             /**
-             * The sending bank will set originator_to_beneficiary_information_line2 in production.
-             * You can simulate any value here.
+             * Sets [Builder.originatorToBeneficiaryInformationLine2] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.originatorToBeneficiaryInformationLine2] with a
+             * well-typed [String] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
              */
             fun originatorToBeneficiaryInformationLine2(
                 originatorToBeneficiaryInformationLine2: JsonField<String>
@@ -853,8 +1094,11 @@ private constructor(
                 )
 
             /**
-             * The sending bank will set originator_to_beneficiary_information_line3 in production.
-             * You can simulate any value here.
+             * Sets [Builder.originatorToBeneficiaryInformationLine3] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.originatorToBeneficiaryInformationLine3] with a
+             * well-typed [String] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
              */
             fun originatorToBeneficiaryInformationLine3(
                 originatorToBeneficiaryInformationLine3: JsonField<String>
@@ -875,8 +1119,11 @@ private constructor(
                 )
 
             /**
-             * The sending bank will set originator_to_beneficiary_information_line4 in production.
-             * You can simulate any value here.
+             * Sets [Builder.originatorToBeneficiaryInformationLine4] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.originatorToBeneficiaryInformationLine4] with a
+             * well-typed [String] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
              */
             fun originatorToBeneficiaryInformationLine4(
                 originatorToBeneficiaryInformationLine4: JsonField<String>
@@ -893,8 +1140,11 @@ private constructor(
                 senderReference(JsonField.of(senderReference))
 
             /**
-             * The sending bank will set sender_reference in production. You can simulate any value
-             * here.
+             * Sets [Builder.senderReference] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.senderReference] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun senderReference(senderReference: JsonField<String>) = apply {
                 this.senderReference = senderReference
@@ -919,6 +1169,19 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Body].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .accountNumberId()
+             * .amount()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): Body =
                 Body(
                     checkRequired("accountNumberId", accountNumberId),
@@ -998,7 +1261,13 @@ private constructor(
             body.accountNumberId(accountNumberId)
         }
 
-        /** The identifier of the Account Number the inbound Wire Transfer is for. */
+        /**
+         * Sets [Builder.accountNumberId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.accountNumberId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun accountNumberId(accountNumberId: JsonField<String>) = apply {
             body.accountNumberId(accountNumberId)
         }
@@ -1006,7 +1275,12 @@ private constructor(
         /** The transfer amount in cents. Must be positive. */
         fun amount(amount: Long) = apply { body.amount(amount) }
 
-        /** The transfer amount in cents. Must be positive. */
+        /**
+         * Sets [Builder.amount] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun amount(amount: JsonField<Long>) = apply { body.amount(amount) }
 
         /**
@@ -1018,8 +1292,11 @@ private constructor(
         }
 
         /**
-         * The sending bank will set beneficiary_address_line1 in production. You can simulate any
-         * value here.
+         * Sets [Builder.beneficiaryAddressLine1] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.beneficiaryAddressLine1] with a well-typed [String]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
          */
         fun beneficiaryAddressLine1(beneficiaryAddressLine1: JsonField<String>) = apply {
             body.beneficiaryAddressLine1(beneficiaryAddressLine1)
@@ -1034,8 +1311,11 @@ private constructor(
         }
 
         /**
-         * The sending bank will set beneficiary_address_line2 in production. You can simulate any
-         * value here.
+         * Sets [Builder.beneficiaryAddressLine2] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.beneficiaryAddressLine2] with a well-typed [String]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
          */
         fun beneficiaryAddressLine2(beneficiaryAddressLine2: JsonField<String>) = apply {
             body.beneficiaryAddressLine2(beneficiaryAddressLine2)
@@ -1050,8 +1330,11 @@ private constructor(
         }
 
         /**
-         * The sending bank will set beneficiary_address_line3 in production. You can simulate any
-         * value here.
+         * Sets [Builder.beneficiaryAddressLine3] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.beneficiaryAddressLine3] with a well-typed [String]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
          */
         fun beneficiaryAddressLine3(beneficiaryAddressLine3: JsonField<String>) = apply {
             body.beneficiaryAddressLine3(beneficiaryAddressLine3)
@@ -1066,8 +1349,11 @@ private constructor(
         }
 
         /**
-         * The sending bank will set beneficiary_name in production. You can simulate any value
-         * here.
+         * Sets [Builder.beneficiaryName] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.beneficiaryName] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun beneficiaryName(beneficiaryName: JsonField<String>) = apply {
             body.beneficiaryName(beneficiaryName)
@@ -1082,8 +1368,11 @@ private constructor(
         }
 
         /**
-         * The sending bank will set beneficiary_reference in production. You can simulate any value
-         * here.
+         * Sets [Builder.beneficiaryReference] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.beneficiaryReference] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun beneficiaryReference(beneficiaryReference: JsonField<String>) = apply {
             body.beneficiaryReference(beneficiaryReference)
@@ -1098,8 +1387,11 @@ private constructor(
         }
 
         /**
-         * The sending bank will set originator_address_line1 in production. You can simulate any
-         * value here.
+         * Sets [Builder.originatorAddressLine1] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.originatorAddressLine1] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun originatorAddressLine1(originatorAddressLine1: JsonField<String>) = apply {
             body.originatorAddressLine1(originatorAddressLine1)
@@ -1114,8 +1406,11 @@ private constructor(
         }
 
         /**
-         * The sending bank will set originator_address_line2 in production. You can simulate any
-         * value here.
+         * Sets [Builder.originatorAddressLine2] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.originatorAddressLine2] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun originatorAddressLine2(originatorAddressLine2: JsonField<String>) = apply {
             body.originatorAddressLine2(originatorAddressLine2)
@@ -1130,8 +1425,11 @@ private constructor(
         }
 
         /**
-         * The sending bank will set originator_address_line3 in production. You can simulate any
-         * value here.
+         * Sets [Builder.originatorAddressLine3] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.originatorAddressLine3] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun originatorAddressLine3(originatorAddressLine3: JsonField<String>) = apply {
             body.originatorAddressLine3(originatorAddressLine3)
@@ -1143,7 +1441,11 @@ private constructor(
         fun originatorName(originatorName: String) = apply { body.originatorName(originatorName) }
 
         /**
-         * The sending bank will set originator_name in production. You can simulate any value here.
+         * Sets [Builder.originatorName] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.originatorName] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun originatorName(originatorName: JsonField<String>) = apply {
             body.originatorName(originatorName)
@@ -1158,8 +1460,11 @@ private constructor(
         }
 
         /**
-         * The sending bank will set originator_routing_number in production. You can simulate any
-         * value here.
+         * Sets [Builder.originatorRoutingNumber] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.originatorRoutingNumber] with a well-typed [String]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
          */
         fun originatorRoutingNumber(originatorRoutingNumber: JsonField<String>) = apply {
             body.originatorRoutingNumber(originatorRoutingNumber)
@@ -1176,8 +1481,11 @@ private constructor(
         }
 
         /**
-         * The sending bank will set originator_to_beneficiary_information_line1 in production. You
-         * can simulate any value here.
+         * Sets [Builder.originatorToBeneficiaryInformationLine1] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.originatorToBeneficiaryInformationLine1] with a
+         * well-typed [String] value instead. This method is primarily for setting the field to an
+         * undocumented or not yet supported value.
          */
         fun originatorToBeneficiaryInformationLine1(
             originatorToBeneficiaryInformationLine1: JsonField<String>
@@ -1196,8 +1504,11 @@ private constructor(
         }
 
         /**
-         * The sending bank will set originator_to_beneficiary_information_line2 in production. You
-         * can simulate any value here.
+         * Sets [Builder.originatorToBeneficiaryInformationLine2] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.originatorToBeneficiaryInformationLine2] with a
+         * well-typed [String] value instead. This method is primarily for setting the field to an
+         * undocumented or not yet supported value.
          */
         fun originatorToBeneficiaryInformationLine2(
             originatorToBeneficiaryInformationLine2: JsonField<String>
@@ -1216,8 +1527,11 @@ private constructor(
         }
 
         /**
-         * The sending bank will set originator_to_beneficiary_information_line3 in production. You
-         * can simulate any value here.
+         * Sets [Builder.originatorToBeneficiaryInformationLine3] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.originatorToBeneficiaryInformationLine3] with a
+         * well-typed [String] value instead. This method is primarily for setting the field to an
+         * undocumented or not yet supported value.
          */
         fun originatorToBeneficiaryInformationLine3(
             originatorToBeneficiaryInformationLine3: JsonField<String>
@@ -1236,8 +1550,11 @@ private constructor(
         }
 
         /**
-         * The sending bank will set originator_to_beneficiary_information_line4 in production. You
-         * can simulate any value here.
+         * Sets [Builder.originatorToBeneficiaryInformationLine4] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.originatorToBeneficiaryInformationLine4] with a
+         * well-typed [String] value instead. This method is primarily for setting the field to an
+         * undocumented or not yet supported value.
          */
         fun originatorToBeneficiaryInformationLine4(
             originatorToBeneficiaryInformationLine4: JsonField<String>
@@ -1254,8 +1571,11 @@ private constructor(
         }
 
         /**
-         * The sending bank will set sender_reference in production. You can simulate any value
-         * here.
+         * Sets [Builder.senderReference] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.senderReference] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun senderReference(senderReference: JsonField<String>) = apply {
             body.senderReference(senderReference)
@@ -1378,6 +1698,19 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [InboundWireTransferCreateParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .accountNumberId()
+         * .amount()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): InboundWireTransferCreateParams =
             InboundWireTransferCreateParams(
                 body.build(),

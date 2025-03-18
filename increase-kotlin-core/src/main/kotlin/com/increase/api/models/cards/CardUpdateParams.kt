@@ -33,46 +33,81 @@ private constructor(
     /** The card identifier. */
     fun cardId(): String = cardId
 
-    /** The card's updated billing address. */
+    /**
+     * The card's updated billing address.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun billingAddress(): BillingAddress? = body.billingAddress()
 
-    /** The description you choose to give the card. */
+    /**
+     * The description you choose to give the card.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun description(): String? = body.description()
 
     /**
      * The contact information used in the two-factor steps for digital wallet card creation. At
      * least one field must be present to complete the digital wallet steps.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun digitalWallet(): DigitalWallet? = body.digitalWallet()
 
     /**
      * The Entity the card belongs to. You only need to supply this in rare situations when the card
      * is not for the Account holder.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun entityId(): String? = body.entityId()
 
-    /** The status to update the Card with. */
+    /**
+     * The status to update the Card with.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun status(): Status? = body.status()
 
-    /** The card's updated billing address. */
+    /**
+     * Returns the raw JSON value of [billingAddress].
+     *
+     * Unlike [billingAddress], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _billingAddress(): JsonField<BillingAddress> = body._billingAddress()
 
-    /** The description you choose to give the card. */
+    /**
+     * Returns the raw JSON value of [description].
+     *
+     * Unlike [description], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _description(): JsonField<String> = body._description()
 
     /**
-     * The contact information used in the two-factor steps for digital wallet card creation. At
-     * least one field must be present to complete the digital wallet steps.
+     * Returns the raw JSON value of [digitalWallet].
+     *
+     * Unlike [digitalWallet], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _digitalWallet(): JsonField<DigitalWallet> = body._digitalWallet()
 
     /**
-     * The Entity the card belongs to. You only need to supply this in rare situations when the card
-     * is not for the Account holder.
+     * Returns the raw JSON value of [entityId].
+     *
+     * Unlike [entityId], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _entityId(): JsonField<String> = body._entityId()
 
-    /** The status to update the Card with. */
+    /**
+     * Returns the raw JSON value of [status].
+     *
+     * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _status(): JsonField<Status> = body._status()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
@@ -83,16 +118,15 @@ private constructor(
 
     internal fun _body(): Body = body
 
-    override fun _headers(): Headers = additionalHeaders
-
-    override fun _queryParams(): QueryParams = additionalQueryParams
-
-    fun getPathParam(index: Int): String {
-        return when (index) {
+    fun _pathParam(index: Int): String =
+        when (index) {
             0 -> cardId
             else -> ""
         }
-    }
+
+    override fun _headers(): Headers = additionalHeaders
+
+    override fun _queryParams(): QueryParams = additionalQueryParams
 
     @NoAutoDetect
     class Body
@@ -117,52 +151,89 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The card's updated billing address. */
+        /**
+         * The card's updated billing address.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun billingAddress(): BillingAddress? = billingAddress.getNullable("billing_address")
 
-        /** The description you choose to give the card. */
+        /**
+         * The description you choose to give the card.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun description(): String? = description.getNullable("description")
 
         /**
          * The contact information used in the two-factor steps for digital wallet card creation. At
          * least one field must be present to complete the digital wallet steps.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
         fun digitalWallet(): DigitalWallet? = digitalWallet.getNullable("digital_wallet")
 
         /**
          * The Entity the card belongs to. You only need to supply this in rare situations when the
          * card is not for the Account holder.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
         fun entityId(): String? = entityId.getNullable("entity_id")
 
-        /** The status to update the Card with. */
+        /**
+         * The status to update the Card with.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun status(): Status? = status.getNullable("status")
 
-        /** The card's updated billing address. */
+        /**
+         * Returns the raw JSON value of [billingAddress].
+         *
+         * Unlike [billingAddress], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("billing_address")
         @ExcludeMissing
         fun _billingAddress(): JsonField<BillingAddress> = billingAddress
 
-        /** The description you choose to give the card. */
+        /**
+         * Returns the raw JSON value of [description].
+         *
+         * Unlike [description], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("description")
         @ExcludeMissing
         fun _description(): JsonField<String> = description
 
         /**
-         * The contact information used in the two-factor steps for digital wallet card creation. At
-         * least one field must be present to complete the digital wallet steps.
+         * Returns the raw JSON value of [digitalWallet].
+         *
+         * Unlike [digitalWallet], this method doesn't throw if the JSON field has an unexpected
+         * type.
          */
         @JsonProperty("digital_wallet")
         @ExcludeMissing
         fun _digitalWallet(): JsonField<DigitalWallet> = digitalWallet
 
         /**
-         * The Entity the card belongs to. You only need to supply this in rare situations when the
-         * card is not for the Account holder.
+         * Returns the raw JSON value of [entityId].
+         *
+         * Unlike [entityId], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("entity_id") @ExcludeMissing fun _entityId(): JsonField<String> = entityId
 
-        /** The status to update the Card with. */
+        /**
+         * Returns the raw JSON value of [status].
+         *
+         * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
         @JsonAnyGetter
@@ -215,7 +286,13 @@ private constructor(
             fun billingAddress(billingAddress: BillingAddress) =
                 billingAddress(JsonField.of(billingAddress))
 
-            /** The card's updated billing address. */
+            /**
+             * Sets [Builder.billingAddress] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.billingAddress] with a well-typed [BillingAddress]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
             fun billingAddress(billingAddress: JsonField<BillingAddress>) = apply {
                 this.billingAddress = billingAddress
             }
@@ -223,7 +300,13 @@ private constructor(
             /** The description you choose to give the card. */
             fun description(description: String) = description(JsonField.of(description))
 
-            /** The description you choose to give the card. */
+            /**
+             * Sets [Builder.description] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.description] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun description(description: JsonField<String>) = apply {
                 this.description = description
             }
@@ -236,8 +319,11 @@ private constructor(
                 digitalWallet(JsonField.of(digitalWallet))
 
             /**
-             * The contact information used in the two-factor steps for digital wallet card
-             * creation. At least one field must be present to complete the digital wallet steps.
+             * Sets [Builder.digitalWallet] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.digitalWallet] with a well-typed [DigitalWallet]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
              */
             fun digitalWallet(digitalWallet: JsonField<DigitalWallet>) = apply {
                 this.digitalWallet = digitalWallet
@@ -250,15 +336,24 @@ private constructor(
             fun entityId(entityId: String) = entityId(JsonField.of(entityId))
 
             /**
-             * The Entity the card belongs to. You only need to supply this in rare situations when
-             * the card is not for the Account holder.
+             * Sets [Builder.entityId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.entityId] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun entityId(entityId: JsonField<String>) = apply { this.entityId = entityId }
 
             /** The status to update the Card with. */
             fun status(status: Status) = status(JsonField.of(status))
 
-            /** The status to update the Card with. */
+            /**
+             * Sets [Builder.status] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.status] with a well-typed [Status] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun status(status: JsonField<Status>) = apply { this.status = status }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -280,6 +375,11 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Body].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): Body =
                 Body(
                     billingAddress,
@@ -348,7 +448,13 @@ private constructor(
             body.billingAddress(billingAddress)
         }
 
-        /** The card's updated billing address. */
+        /**
+         * Sets [Builder.billingAddress] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.billingAddress] with a well-typed [BillingAddress] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun billingAddress(billingAddress: JsonField<BillingAddress>) = apply {
             body.billingAddress(billingAddress)
         }
@@ -356,7 +462,13 @@ private constructor(
         /** The description you choose to give the card. */
         fun description(description: String) = apply { body.description(description) }
 
-        /** The description you choose to give the card. */
+        /**
+         * Sets [Builder.description] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.description] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun description(description: JsonField<String>) = apply { body.description(description) }
 
         /**
@@ -368,8 +480,11 @@ private constructor(
         }
 
         /**
-         * The contact information used in the two-factor steps for digital wallet card creation. At
-         * least one field must be present to complete the digital wallet steps.
+         * Sets [Builder.digitalWallet] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.digitalWallet] with a well-typed [DigitalWallet] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun digitalWallet(digitalWallet: JsonField<DigitalWallet>) = apply {
             body.digitalWallet(digitalWallet)
@@ -382,15 +497,22 @@ private constructor(
         fun entityId(entityId: String) = apply { body.entityId(entityId) }
 
         /**
-         * The Entity the card belongs to. You only need to supply this in rare situations when the
-         * card is not for the Account holder.
+         * Sets [Builder.entityId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.entityId] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun entityId(entityId: JsonField<String>) = apply { body.entityId(entityId) }
 
         /** The status to update the Card with. */
         fun status(status: Status) = apply { body.status(status) }
 
-        /** The status to update the Card with. */
+        /**
+         * Sets [Builder.status] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.status] with a well-typed [Status] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun status(status: JsonField<Status>) = apply { body.status(status) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
@@ -510,6 +632,18 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [CardUpdateParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .cardId()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): CardUpdateParams =
             CardUpdateParams(
                 checkRequired("cardId", cardId),
@@ -543,36 +677,81 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The city of the billing address. */
+        /**
+         * The city of the billing address.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun city(): String = city.getRequired("city")
 
-        /** The first line of the billing address. */
+        /**
+         * The first line of the billing address.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun line1(): String = line1.getRequired("line1")
 
-        /** The postal code of the billing address. */
+        /**
+         * The postal code of the billing address.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun postalCode(): String = postalCode.getRequired("postal_code")
 
-        /** The US state of the billing address. */
+        /**
+         * The US state of the billing address.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun state(): String = state.getRequired("state")
 
-        /** The second line of the billing address. */
+        /**
+         * The second line of the billing address.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun line2(): String? = line2.getNullable("line2")
 
-        /** The city of the billing address. */
+        /**
+         * Returns the raw JSON value of [city].
+         *
+         * Unlike [city], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("city") @ExcludeMissing fun _city(): JsonField<String> = city
 
-        /** The first line of the billing address. */
+        /**
+         * Returns the raw JSON value of [line1].
+         *
+         * Unlike [line1], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("line1") @ExcludeMissing fun _line1(): JsonField<String> = line1
 
-        /** The postal code of the billing address. */
+        /**
+         * Returns the raw JSON value of [postalCode].
+         *
+         * Unlike [postalCode], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("postal_code")
         @ExcludeMissing
         fun _postalCode(): JsonField<String> = postalCode
 
-        /** The US state of the billing address. */
+        /**
+         * Returns the raw JSON value of [state].
+         *
+         * Unlike [state], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("state") @ExcludeMissing fun _state(): JsonField<String> = state
 
-        /** The second line of the billing address. */
+        /**
+         * Returns the raw JSON value of [line2].
+         *
+         * Unlike [line2], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("line2") @ExcludeMissing fun _line2(): JsonField<String> = line2
 
         @JsonAnyGetter
@@ -634,31 +813,61 @@ private constructor(
             /** The city of the billing address. */
             fun city(city: String) = city(JsonField.of(city))
 
-            /** The city of the billing address. */
+            /**
+             * Sets [Builder.city] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.city] with a well-typed [String] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
             fun city(city: JsonField<String>) = apply { this.city = city }
 
             /** The first line of the billing address. */
             fun line1(line1: String) = line1(JsonField.of(line1))
 
-            /** The first line of the billing address. */
+            /**
+             * Sets [Builder.line1] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.line1] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
 
             /** The postal code of the billing address. */
             fun postalCode(postalCode: String) = postalCode(JsonField.of(postalCode))
 
-            /** The postal code of the billing address. */
+            /**
+             * Sets [Builder.postalCode] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.postalCode] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun postalCode(postalCode: JsonField<String>) = apply { this.postalCode = postalCode }
 
             /** The US state of the billing address. */
             fun state(state: String) = state(JsonField.of(state))
 
-            /** The US state of the billing address. */
+            /**
+             * Sets [Builder.state] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.state] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun state(state: JsonField<String>) = apply { this.state = state }
 
             /** The second line of the billing address. */
             fun line2(line2: String) = line2(JsonField.of(line2))
 
-            /** The second line of the billing address. */
+            /**
+             * Sets [Builder.line2] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.line2] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -680,6 +889,21 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [BillingAddress].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .city()
+             * .line1()
+             * .postalCode()
+             * .state()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): BillingAddress =
                 BillingAddress(
                     checkRequired("city", city),
@@ -730,34 +954,53 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The digital card profile assigned to this digital card. */
+        /**
+         * The digital card profile assigned to this digital card.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun digitalCardProfileId(): String? =
             digitalCardProfileId.getNullable("digital_card_profile_id")
 
         /**
          * An email address that can be used to verify the cardholder via one-time passcode over
          * email.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
         fun email(): String? = email.getNullable("email")
 
         /**
          * A phone number that can be used to verify the cardholder via one-time passcode over SMS.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
         fun phone(): String? = phone.getNullable("phone")
 
-        /** The digital card profile assigned to this digital card. */
+        /**
+         * Returns the raw JSON value of [digitalCardProfileId].
+         *
+         * Unlike [digitalCardProfileId], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
         @JsonProperty("digital_card_profile_id")
         @ExcludeMissing
         fun _digitalCardProfileId(): JsonField<String> = digitalCardProfileId
 
         /**
-         * An email address that can be used to verify the cardholder via one-time passcode over
-         * email.
+         * Returns the raw JSON value of [email].
+         *
+         * Unlike [email], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("email") @ExcludeMissing fun _email(): JsonField<String> = email
 
         /**
-         * A phone number that can be used to verify the cardholder via one-time passcode over SMS.
+         * Returns the raw JSON value of [phone].
+         *
+         * Unlike [phone], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("phone") @ExcludeMissing fun _phone(): JsonField<String> = phone
 
@@ -805,7 +1048,13 @@ private constructor(
             fun digitalCardProfileId(digitalCardProfileId: String) =
                 digitalCardProfileId(JsonField.of(digitalCardProfileId))
 
-            /** The digital card profile assigned to this digital card. */
+            /**
+             * Sets [Builder.digitalCardProfileId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.digitalCardProfileId] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
             fun digitalCardProfileId(digitalCardProfileId: JsonField<String>) = apply {
                 this.digitalCardProfileId = digitalCardProfileId
             }
@@ -817,8 +1066,11 @@ private constructor(
             fun email(email: String) = email(JsonField.of(email))
 
             /**
-             * An email address that can be used to verify the cardholder via one-time passcode over
-             * email.
+             * Sets [Builder.email] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.email] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun email(email: JsonField<String>) = apply { this.email = email }
 
@@ -829,8 +1081,11 @@ private constructor(
             fun phone(phone: String) = phone(JsonField.of(phone))
 
             /**
-             * A phone number that can be used to verify the cardholder via one-time passcode over
-             * SMS.
+             * Sets [Builder.phone] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.phone] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun phone(phone: JsonField<String>) = apply { this.phone = phone }
 
@@ -853,6 +1108,11 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [DigitalWallet].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
             fun build(): DigitalWallet =
                 DigitalWallet(
                     digitalCardProfileId,

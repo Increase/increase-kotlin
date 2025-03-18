@@ -39,82 +39,176 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /** The identifier of the Account Number the inbound ACH Transfer is for. */
+    /**
+     * The identifier of the Account Number the inbound ACH Transfer is for.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun accountNumberId(): String = body.accountNumberId()
 
     /**
      * The transfer amount in cents. A positive amount originates a credit transfer pushing funds to
      * the receiving account. A negative amount originates a debit transfer pulling funds from the
      * receiving account.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun amount(): Long = body.amount()
 
-    /** The description of the date of the transfer. */
+    /**
+     * The description of the date of the transfer.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun companyDescriptiveDate(): String? = body.companyDescriptiveDate()
 
-    /** Data associated with the transfer set by the sender. */
+    /**
+     * Data associated with the transfer set by the sender.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun companyDiscretionaryData(): String? = body.companyDiscretionaryData()
 
-    /** The description of the transfer set by the sender. */
+    /**
+     * The description of the transfer set by the sender.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun companyEntryDescription(): String? = body.companyEntryDescription()
 
-    /** The sender's company ID. */
+    /**
+     * The sender's company ID.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun companyId(): String? = body.companyId()
 
-    /** The name of the sender. */
+    /**
+     * The name of the sender.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun companyName(): String? = body.companyName()
 
-    /** The ID of the receiver of the transfer. */
+    /**
+     * The ID of the receiver of the transfer.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun receiverIdNumber(): String? = body.receiverIdNumber()
 
-    /** The name of the receiver of the transfer. */
+    /**
+     * The name of the receiver of the transfer.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun receiverName(): String? = body.receiverName()
 
     /**
      * The time at which the transfer should be resolved. If not provided will resolve immediately.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun resolveAt(): OffsetDateTime? = body.resolveAt()
 
-    /** The standard entry class code for the transfer. */
+    /**
+     * The standard entry class code for the transfer.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun standardEntryClassCode(): StandardEntryClassCode? = body.standardEntryClassCode()
 
-    /** The identifier of the Account Number the inbound ACH Transfer is for. */
+    /**
+     * Returns the raw JSON value of [accountNumberId].
+     *
+     * Unlike [accountNumberId], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _accountNumberId(): JsonField<String> = body._accountNumberId()
 
     /**
-     * The transfer amount in cents. A positive amount originates a credit transfer pushing funds to
-     * the receiving account. A negative amount originates a debit transfer pulling funds from the
-     * receiving account.
+     * Returns the raw JSON value of [amount].
+     *
+     * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _amount(): JsonField<Long> = body._amount()
 
-    /** The description of the date of the transfer. */
+    /**
+     * Returns the raw JSON value of [companyDescriptiveDate].
+     *
+     * Unlike [companyDescriptiveDate], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
     fun _companyDescriptiveDate(): JsonField<String> = body._companyDescriptiveDate()
 
-    /** Data associated with the transfer set by the sender. */
+    /**
+     * Returns the raw JSON value of [companyDiscretionaryData].
+     *
+     * Unlike [companyDiscretionaryData], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
     fun _companyDiscretionaryData(): JsonField<String> = body._companyDiscretionaryData()
 
-    /** The description of the transfer set by the sender. */
+    /**
+     * Returns the raw JSON value of [companyEntryDescription].
+     *
+     * Unlike [companyEntryDescription], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
     fun _companyEntryDescription(): JsonField<String> = body._companyEntryDescription()
 
-    /** The sender's company ID. */
+    /**
+     * Returns the raw JSON value of [companyId].
+     *
+     * Unlike [companyId], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _companyId(): JsonField<String> = body._companyId()
 
-    /** The name of the sender. */
+    /**
+     * Returns the raw JSON value of [companyName].
+     *
+     * Unlike [companyName], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _companyName(): JsonField<String> = body._companyName()
 
-    /** The ID of the receiver of the transfer. */
+    /**
+     * Returns the raw JSON value of [receiverIdNumber].
+     *
+     * Unlike [receiverIdNumber], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     fun _receiverIdNumber(): JsonField<String> = body._receiverIdNumber()
 
-    /** The name of the receiver of the transfer. */
+    /**
+     * Returns the raw JSON value of [receiverName].
+     *
+     * Unlike [receiverName], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _receiverName(): JsonField<String> = body._receiverName()
 
     /**
-     * The time at which the transfer should be resolved. If not provided will resolve immediately.
+     * Returns the raw JSON value of [resolveAt].
+     *
+     * Unlike [resolveAt], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _resolveAt(): JsonField<OffsetDateTime> = body._resolveAt()
 
-    /** The standard entry class code for the transfer. */
+    /**
+     * Returns the raw JSON value of [standardEntryClassCode].
+     *
+     * Unlike [standardEntryClassCode], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
     fun _standardEntryClassCode(): JsonField<StandardEntryClassCode> =
         body._standardEntryClassCode()
 
@@ -171,104 +265,199 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The identifier of the Account Number the inbound ACH Transfer is for. */
+        /**
+         * The identifier of the Account Number the inbound ACH Transfer is for.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun accountNumberId(): String = accountNumberId.getRequired("account_number_id")
 
         /**
          * The transfer amount in cents. A positive amount originates a credit transfer pushing
          * funds to the receiving account. A negative amount originates a debit transfer pulling
          * funds from the receiving account.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun amount(): Long = amount.getRequired("amount")
 
-        /** The description of the date of the transfer. */
+        /**
+         * The description of the date of the transfer.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun companyDescriptiveDate(): String? =
             companyDescriptiveDate.getNullable("company_descriptive_date")
 
-        /** Data associated with the transfer set by the sender. */
+        /**
+         * Data associated with the transfer set by the sender.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun companyDiscretionaryData(): String? =
             companyDiscretionaryData.getNullable("company_discretionary_data")
 
-        /** The description of the transfer set by the sender. */
+        /**
+         * The description of the transfer set by the sender.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun companyEntryDescription(): String? =
             companyEntryDescription.getNullable("company_entry_description")
 
-        /** The sender's company ID. */
+        /**
+         * The sender's company ID.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun companyId(): String? = companyId.getNullable("company_id")
 
-        /** The name of the sender. */
+        /**
+         * The name of the sender.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun companyName(): String? = companyName.getNullable("company_name")
 
-        /** The ID of the receiver of the transfer. */
+        /**
+         * The ID of the receiver of the transfer.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun receiverIdNumber(): String? = receiverIdNumber.getNullable("receiver_id_number")
 
-        /** The name of the receiver of the transfer. */
+        /**
+         * The name of the receiver of the transfer.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun receiverName(): String? = receiverName.getNullable("receiver_name")
 
         /**
          * The time at which the transfer should be resolved. If not provided will resolve
          * immediately.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
         fun resolveAt(): OffsetDateTime? = resolveAt.getNullable("resolve_at")
 
-        /** The standard entry class code for the transfer. */
+        /**
+         * The standard entry class code for the transfer.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun standardEntryClassCode(): StandardEntryClassCode? =
             standardEntryClassCode.getNullable("standard_entry_class_code")
 
-        /** The identifier of the Account Number the inbound ACH Transfer is for. */
+        /**
+         * Returns the raw JSON value of [accountNumberId].
+         *
+         * Unlike [accountNumberId], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("account_number_id")
         @ExcludeMissing
         fun _accountNumberId(): JsonField<String> = accountNumberId
 
         /**
-         * The transfer amount in cents. A positive amount originates a credit transfer pushing
-         * funds to the receiving account. A negative amount originates a debit transfer pulling
-         * funds from the receiving account.
+         * Returns the raw JSON value of [amount].
+         *
+         * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
-        /** The description of the date of the transfer. */
+        /**
+         * Returns the raw JSON value of [companyDescriptiveDate].
+         *
+         * Unlike [companyDescriptiveDate], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
         @JsonProperty("company_descriptive_date")
         @ExcludeMissing
         fun _companyDescriptiveDate(): JsonField<String> = companyDescriptiveDate
 
-        /** Data associated with the transfer set by the sender. */
+        /**
+         * Returns the raw JSON value of [companyDiscretionaryData].
+         *
+         * Unlike [companyDiscretionaryData], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
         @JsonProperty("company_discretionary_data")
         @ExcludeMissing
         fun _companyDiscretionaryData(): JsonField<String> = companyDiscretionaryData
 
-        /** The description of the transfer set by the sender. */
+        /**
+         * Returns the raw JSON value of [companyEntryDescription].
+         *
+         * Unlike [companyEntryDescription], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
         @JsonProperty("company_entry_description")
         @ExcludeMissing
         fun _companyEntryDescription(): JsonField<String> = companyEntryDescription
 
-        /** The sender's company ID. */
+        /**
+         * Returns the raw JSON value of [companyId].
+         *
+         * Unlike [companyId], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("company_id") @ExcludeMissing fun _companyId(): JsonField<String> = companyId
 
-        /** The name of the sender. */
+        /**
+         * Returns the raw JSON value of [companyName].
+         *
+         * Unlike [companyName], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("company_name")
         @ExcludeMissing
         fun _companyName(): JsonField<String> = companyName
 
-        /** The ID of the receiver of the transfer. */
+        /**
+         * Returns the raw JSON value of [receiverIdNumber].
+         *
+         * Unlike [receiverIdNumber], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("receiver_id_number")
         @ExcludeMissing
         fun _receiverIdNumber(): JsonField<String> = receiverIdNumber
 
-        /** The name of the receiver of the transfer. */
+        /**
+         * Returns the raw JSON value of [receiverName].
+         *
+         * Unlike [receiverName], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("receiver_name")
         @ExcludeMissing
         fun _receiverName(): JsonField<String> = receiverName
 
         /**
-         * The time at which the transfer should be resolved. If not provided will resolve
-         * immediately.
+         * Returns the raw JSON value of [resolveAt].
+         *
+         * Unlike [resolveAt], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("resolve_at")
         @ExcludeMissing
         fun _resolveAt(): JsonField<OffsetDateTime> = resolveAt
 
-        /** The standard entry class code for the transfer. */
+        /**
+         * Returns the raw JSON value of [standardEntryClassCode].
+         *
+         * Unlike [standardEntryClassCode], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
         @JsonProperty("standard_entry_class_code")
         @ExcludeMissing
         fun _standardEntryClassCode(): JsonField<StandardEntryClassCode> = standardEntryClassCode
@@ -349,7 +538,13 @@ private constructor(
             fun accountNumberId(accountNumberId: String) =
                 accountNumberId(JsonField.of(accountNumberId))
 
-            /** The identifier of the Account Number the inbound ACH Transfer is for. */
+            /**
+             * Sets [Builder.accountNumberId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.accountNumberId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun accountNumberId(accountNumberId: JsonField<String>) = apply {
                 this.accountNumberId = accountNumberId
             }
@@ -362,9 +557,11 @@ private constructor(
             fun amount(amount: Long) = amount(JsonField.of(amount))
 
             /**
-             * The transfer amount in cents. A positive amount originates a credit transfer pushing
-             * funds to the receiving account. A negative amount originates a debit transfer pulling
-             * funds from the receiving account.
+             * Sets [Builder.amount] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
              */
             fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
@@ -372,7 +569,13 @@ private constructor(
             fun companyDescriptiveDate(companyDescriptiveDate: String) =
                 companyDescriptiveDate(JsonField.of(companyDescriptiveDate))
 
-            /** The description of the date of the transfer. */
+            /**
+             * Sets [Builder.companyDescriptiveDate] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.companyDescriptiveDate] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
             fun companyDescriptiveDate(companyDescriptiveDate: JsonField<String>) = apply {
                 this.companyDescriptiveDate = companyDescriptiveDate
             }
@@ -381,7 +584,13 @@ private constructor(
             fun companyDiscretionaryData(companyDiscretionaryData: String) =
                 companyDiscretionaryData(JsonField.of(companyDiscretionaryData))
 
-            /** Data associated with the transfer set by the sender. */
+            /**
+             * Sets [Builder.companyDiscretionaryData] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.companyDiscretionaryData] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
             fun companyDiscretionaryData(companyDiscretionaryData: JsonField<String>) = apply {
                 this.companyDiscretionaryData = companyDiscretionaryData
             }
@@ -390,7 +599,13 @@ private constructor(
             fun companyEntryDescription(companyEntryDescription: String) =
                 companyEntryDescription(JsonField.of(companyEntryDescription))
 
-            /** The description of the transfer set by the sender. */
+            /**
+             * Sets [Builder.companyEntryDescription] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.companyEntryDescription] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
             fun companyEntryDescription(companyEntryDescription: JsonField<String>) = apply {
                 this.companyEntryDescription = companyEntryDescription
             }
@@ -398,13 +613,25 @@ private constructor(
             /** The sender's company ID. */
             fun companyId(companyId: String) = companyId(JsonField.of(companyId))
 
-            /** The sender's company ID. */
+            /**
+             * Sets [Builder.companyId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.companyId] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun companyId(companyId: JsonField<String>) = apply { this.companyId = companyId }
 
             /** The name of the sender. */
             fun companyName(companyName: String) = companyName(JsonField.of(companyName))
 
-            /** The name of the sender. */
+            /**
+             * Sets [Builder.companyName] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.companyName] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun companyName(companyName: JsonField<String>) = apply {
                 this.companyName = companyName
             }
@@ -413,7 +640,13 @@ private constructor(
             fun receiverIdNumber(receiverIdNumber: String) =
                 receiverIdNumber(JsonField.of(receiverIdNumber))
 
-            /** The ID of the receiver of the transfer. */
+            /**
+             * Sets [Builder.receiverIdNumber] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.receiverIdNumber] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun receiverIdNumber(receiverIdNumber: JsonField<String>) = apply {
                 this.receiverIdNumber = receiverIdNumber
             }
@@ -421,7 +654,13 @@ private constructor(
             /** The name of the receiver of the transfer. */
             fun receiverName(receiverName: String) = receiverName(JsonField.of(receiverName))
 
-            /** The name of the receiver of the transfer. */
+            /**
+             * Sets [Builder.receiverName] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.receiverName] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun receiverName(receiverName: JsonField<String>) = apply {
                 this.receiverName = receiverName
             }
@@ -433,8 +672,11 @@ private constructor(
             fun resolveAt(resolveAt: OffsetDateTime) = resolveAt(JsonField.of(resolveAt))
 
             /**
-             * The time at which the transfer should be resolved. If not provided will resolve
-             * immediately.
+             * Sets [Builder.resolveAt] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.resolveAt] with a well-typed [OffsetDateTime] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun resolveAt(resolveAt: JsonField<OffsetDateTime>) = apply {
                 this.resolveAt = resolveAt
@@ -444,7 +686,13 @@ private constructor(
             fun standardEntryClassCode(standardEntryClassCode: StandardEntryClassCode) =
                 standardEntryClassCode(JsonField.of(standardEntryClassCode))
 
-            /** The standard entry class code for the transfer. */
+            /**
+             * Sets [Builder.standardEntryClassCode] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.standardEntryClassCode] with a well-typed
+             * [StandardEntryClassCode] value instead. This method is primarily for setting the
+             * field to an undocumented or not yet supported value.
+             */
             fun standardEntryClassCode(standardEntryClassCode: JsonField<StandardEntryClassCode>) =
                 apply {
                     this.standardEntryClassCode = standardEntryClassCode
@@ -469,6 +717,19 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Body].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .accountNumberId()
+             * .amount()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): Body =
                 Body(
                     checkRequired("accountNumberId", accountNumberId),
@@ -540,7 +801,13 @@ private constructor(
             body.accountNumberId(accountNumberId)
         }
 
-        /** The identifier of the Account Number the inbound ACH Transfer is for. */
+        /**
+         * Sets [Builder.accountNumberId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.accountNumberId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun accountNumberId(accountNumberId: JsonField<String>) = apply {
             body.accountNumberId(accountNumberId)
         }
@@ -553,9 +820,10 @@ private constructor(
         fun amount(amount: Long) = apply { body.amount(amount) }
 
         /**
-         * The transfer amount in cents. A positive amount originates a credit transfer pushing
-         * funds to the receiving account. A negative amount originates a debit transfer pulling
-         * funds from the receiving account.
+         * Sets [Builder.amount] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun amount(amount: JsonField<Long>) = apply { body.amount(amount) }
 
@@ -564,7 +832,13 @@ private constructor(
             body.companyDescriptiveDate(companyDescriptiveDate)
         }
 
-        /** The description of the date of the transfer. */
+        /**
+         * Sets [Builder.companyDescriptiveDate] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.companyDescriptiveDate] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun companyDescriptiveDate(companyDescriptiveDate: JsonField<String>) = apply {
             body.companyDescriptiveDate(companyDescriptiveDate)
         }
@@ -574,7 +848,13 @@ private constructor(
             body.companyDiscretionaryData(companyDiscretionaryData)
         }
 
-        /** Data associated with the transfer set by the sender. */
+        /**
+         * Sets [Builder.companyDiscretionaryData] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.companyDiscretionaryData] with a well-typed [String]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
         fun companyDiscretionaryData(companyDiscretionaryData: JsonField<String>) = apply {
             body.companyDiscretionaryData(companyDiscretionaryData)
         }
@@ -584,7 +864,13 @@ private constructor(
             body.companyEntryDescription(companyEntryDescription)
         }
 
-        /** The description of the transfer set by the sender. */
+        /**
+         * Sets [Builder.companyEntryDescription] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.companyEntryDescription] with a well-typed [String]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
         fun companyEntryDescription(companyEntryDescription: JsonField<String>) = apply {
             body.companyEntryDescription(companyEntryDescription)
         }
@@ -592,13 +878,25 @@ private constructor(
         /** The sender's company ID. */
         fun companyId(companyId: String) = apply { body.companyId(companyId) }
 
-        /** The sender's company ID. */
+        /**
+         * Sets [Builder.companyId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.companyId] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun companyId(companyId: JsonField<String>) = apply { body.companyId(companyId) }
 
         /** The name of the sender. */
         fun companyName(companyName: String) = apply { body.companyName(companyName) }
 
-        /** The name of the sender. */
+        /**
+         * Sets [Builder.companyName] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.companyName] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun companyName(companyName: JsonField<String>) = apply { body.companyName(companyName) }
 
         /** The ID of the receiver of the transfer. */
@@ -606,7 +904,13 @@ private constructor(
             body.receiverIdNumber(receiverIdNumber)
         }
 
-        /** The ID of the receiver of the transfer. */
+        /**
+         * Sets [Builder.receiverIdNumber] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.receiverIdNumber] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun receiverIdNumber(receiverIdNumber: JsonField<String>) = apply {
             body.receiverIdNumber(receiverIdNumber)
         }
@@ -614,7 +918,13 @@ private constructor(
         /** The name of the receiver of the transfer. */
         fun receiverName(receiverName: String) = apply { body.receiverName(receiverName) }
 
-        /** The name of the receiver of the transfer. */
+        /**
+         * Sets [Builder.receiverName] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.receiverName] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun receiverName(receiverName: JsonField<String>) = apply {
             body.receiverName(receiverName)
         }
@@ -626,8 +936,11 @@ private constructor(
         fun resolveAt(resolveAt: OffsetDateTime) = apply { body.resolveAt(resolveAt) }
 
         /**
-         * The time at which the transfer should be resolved. If not provided will resolve
-         * immediately.
+         * Sets [Builder.resolveAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.resolveAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun resolveAt(resolveAt: JsonField<OffsetDateTime>) = apply { body.resolveAt(resolveAt) }
 
@@ -636,7 +949,13 @@ private constructor(
             body.standardEntryClassCode(standardEntryClassCode)
         }
 
-        /** The standard entry class code for the transfer. */
+        /**
+         * Sets [Builder.standardEntryClassCode] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.standardEntryClassCode] with a well-typed
+         * [StandardEntryClassCode] value instead. This method is primarily for setting the field to
+         * an undocumented or not yet supported value.
+         */
         fun standardEntryClassCode(standardEntryClassCode: JsonField<StandardEntryClassCode>) =
             apply {
                 body.standardEntryClassCode(standardEntryClassCode)
@@ -759,6 +1078,19 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [InboundAchTransferCreateParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .accountNumberId()
+         * .amount()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): InboundAchTransferCreateParams =
             InboundAchTransferCreateParams(
                 body.build(),

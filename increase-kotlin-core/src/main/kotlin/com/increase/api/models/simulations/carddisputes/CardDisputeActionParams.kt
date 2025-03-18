@@ -38,16 +38,34 @@ private constructor(
     /** The dispute you would like to action. */
     fun cardDisputeId(): String = cardDisputeId
 
-    /** The status to move the dispute to. */
+    /**
+     * The status to move the dispute to.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun status(): Status = body.status()
 
-    /** Why the dispute was rejected. Not required for accepting disputes. */
+    /**
+     * Why the dispute was rejected. Not required for accepting disputes.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun explanation(): String? = body.explanation()
 
-    /** The status to move the dispute to. */
+    /**
+     * Returns the raw JSON value of [status].
+     *
+     * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _status(): JsonField<Status> = body._status()
 
-    /** Why the dispute was rejected. Not required for accepting disputes. */
+    /**
+     * Returns the raw JSON value of [explanation].
+     *
+     * Unlike [explanation], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _explanation(): JsonField<String> = body._explanation()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
@@ -58,16 +76,15 @@ private constructor(
 
     internal fun _body(): Body = body
 
-    override fun _headers(): Headers = additionalHeaders
-
-    override fun _queryParams(): QueryParams = additionalQueryParams
-
-    fun getPathParam(index: Int): String {
-        return when (index) {
+    fun _pathParam(index: Int): String =
+        when (index) {
             0 -> cardDisputeId
             else -> ""
         }
-    }
+
+    override fun _headers(): Headers = additionalHeaders
+
+    override fun _queryParams(): QueryParams = additionalQueryParams
 
     @NoAutoDetect
     class Body
@@ -83,16 +100,34 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The status to move the dispute to. */
+        /**
+         * The status to move the dispute to.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun status(): Status = status.getRequired("status")
 
-        /** Why the dispute was rejected. Not required for accepting disputes. */
+        /**
+         * Why the dispute was rejected. Not required for accepting disputes.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun explanation(): String? = explanation.getNullable("explanation")
 
-        /** The status to move the dispute to. */
+        /**
+         * Returns the raw JSON value of [status].
+         *
+         * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
-        /** Why the dispute was rejected. Not required for accepting disputes. */
+        /**
+         * Returns the raw JSON value of [explanation].
+         *
+         * Unlike [explanation], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("explanation")
         @ExcludeMissing
         fun _explanation(): JsonField<String> = explanation
@@ -144,13 +179,25 @@ private constructor(
             /** The status to move the dispute to. */
             fun status(status: Status) = status(JsonField.of(status))
 
-            /** The status to move the dispute to. */
+            /**
+             * Sets [Builder.status] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.status] with a well-typed [Status] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun status(status: JsonField<Status>) = apply { this.status = status }
 
             /** Why the dispute was rejected. Not required for accepting disputes. */
             fun explanation(explanation: String) = explanation(JsonField.of(explanation))
 
-            /** Why the dispute was rejected. Not required for accepting disputes. */
+            /**
+             * Sets [Builder.explanation] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.explanation] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun explanation(explanation: JsonField<String>) = apply {
                 this.explanation = explanation
             }
@@ -174,6 +221,18 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Body].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .status()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): Body =
                 Body(
                     checkRequired("status", status),
@@ -238,13 +297,24 @@ private constructor(
         /** The status to move the dispute to. */
         fun status(status: Status) = apply { body.status(status) }
 
-        /** The status to move the dispute to. */
+        /**
+         * Sets [Builder.status] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.status] with a well-typed [Status] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun status(status: JsonField<Status>) = apply { body.status(status) }
 
         /** Why the dispute was rejected. Not required for accepting disputes. */
         fun explanation(explanation: String) = apply { body.explanation(explanation) }
 
-        /** Why the dispute was rejected. Not required for accepting disputes. */
+        /**
+         * Sets [Builder.explanation] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.explanation] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun explanation(explanation: JsonField<String>) = apply { body.explanation(explanation) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
@@ -364,6 +434,19 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [CardDisputeActionParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .cardDisputeId()
+         * .status()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): CardDisputeActionParams =
             CardDisputeActionParams(
                 checkRequired("cardDisputeId", cardDisputeId),

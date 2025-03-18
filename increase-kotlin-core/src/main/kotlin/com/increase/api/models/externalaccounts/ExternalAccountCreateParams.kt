@@ -29,40 +29,80 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /** The account number for the destination account. */
+    /**
+     * The account number for the destination account.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun accountNumber(): String = body.accountNumber()
 
-    /** The name you choose for the Account. */
+    /**
+     * The name you choose for the Account.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun description(): String = body.description()
 
     /**
      * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the destination
      * account.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun routingNumber(): String = body.routingNumber()
 
-    /** The type of entity that owns the External Account. */
+    /**
+     * The type of entity that owns the External Account.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun accountHolder(): AccountHolder? = body.accountHolder()
 
-    /** The type of the destination account. Defaults to `checking`. */
+    /**
+     * The type of the destination account. Defaults to `checking`.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun funding(): Funding? = body.funding()
 
-    /** The account number for the destination account. */
+    /**
+     * Returns the raw JSON value of [accountNumber].
+     *
+     * Unlike [accountNumber], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _accountNumber(): JsonField<String> = body._accountNumber()
 
-    /** The name you choose for the Account. */
+    /**
+     * Returns the raw JSON value of [description].
+     *
+     * Unlike [description], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _description(): JsonField<String> = body._description()
 
     /**
-     * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the destination
-     * account.
+     * Returns the raw JSON value of [routingNumber].
+     *
+     * Unlike [routingNumber], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _routingNumber(): JsonField<String> = body._routingNumber()
 
-    /** The type of entity that owns the External Account. */
+    /**
+     * Returns the raw JSON value of [accountHolder].
+     *
+     * Unlike [accountHolder], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _accountHolder(): JsonField<AccountHolder> = body._accountHolder()
 
-    /** The type of the destination account. Defaults to `checking`. */
+    /**
+     * Returns the raw JSON value of [funding].
+     *
+     * Unlike [funding], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _funding(): JsonField<Funding> = body._funding()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
@@ -100,48 +140,91 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The account number for the destination account. */
+        /**
+         * The account number for the destination account.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun accountNumber(): String = accountNumber.getRequired("account_number")
 
-        /** The name you choose for the Account. */
+        /**
+         * The name you choose for the Account.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun description(): String = description.getRequired("description")
 
         /**
          * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the destination
          * account.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun routingNumber(): String = routingNumber.getRequired("routing_number")
 
-        /** The type of entity that owns the External Account. */
+        /**
+         * The type of entity that owns the External Account.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun accountHolder(): AccountHolder? = accountHolder.getNullable("account_holder")
 
-        /** The type of the destination account. Defaults to `checking`. */
+        /**
+         * The type of the destination account. Defaults to `checking`.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun funding(): Funding? = funding.getNullable("funding")
 
-        /** The account number for the destination account. */
+        /**
+         * Returns the raw JSON value of [accountNumber].
+         *
+         * Unlike [accountNumber], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("account_number")
         @ExcludeMissing
         fun _accountNumber(): JsonField<String> = accountNumber
 
-        /** The name you choose for the Account. */
+        /**
+         * Returns the raw JSON value of [description].
+         *
+         * Unlike [description], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("description")
         @ExcludeMissing
         fun _description(): JsonField<String> = description
 
         /**
-         * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the destination
-         * account.
+         * Returns the raw JSON value of [routingNumber].
+         *
+         * Unlike [routingNumber], this method doesn't throw if the JSON field has an unexpected
+         * type.
          */
         @JsonProperty("routing_number")
         @ExcludeMissing
         fun _routingNumber(): JsonField<String> = routingNumber
 
-        /** The type of entity that owns the External Account. */
+        /**
+         * Returns the raw JSON value of [accountHolder].
+         *
+         * Unlike [accountHolder], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("account_holder")
         @ExcludeMissing
         fun _accountHolder(): JsonField<AccountHolder> = accountHolder
 
-        /** The type of the destination account. Defaults to `checking`. */
+        /**
+         * Returns the raw JSON value of [funding].
+         *
+         * Unlike [funding], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("funding") @ExcludeMissing fun _funding(): JsonField<Funding> = funding
 
         @JsonAnyGetter
@@ -202,7 +285,13 @@ private constructor(
             /** The account number for the destination account. */
             fun accountNumber(accountNumber: String) = accountNumber(JsonField.of(accountNumber))
 
-            /** The account number for the destination account. */
+            /**
+             * Sets [Builder.accountNumber] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.accountNumber] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun accountNumber(accountNumber: JsonField<String>) = apply {
                 this.accountNumber = accountNumber
             }
@@ -210,7 +299,13 @@ private constructor(
             /** The name you choose for the Account. */
             fun description(description: String) = description(JsonField.of(description))
 
-            /** The name you choose for the Account. */
+            /**
+             * Sets [Builder.description] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.description] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun description(description: JsonField<String>) = apply {
                 this.description = description
             }
@@ -222,8 +317,11 @@ private constructor(
             fun routingNumber(routingNumber: String) = routingNumber(JsonField.of(routingNumber))
 
             /**
-             * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the
-             * destination account.
+             * Sets [Builder.routingNumber] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.routingNumber] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun routingNumber(routingNumber: JsonField<String>) = apply {
                 this.routingNumber = routingNumber
@@ -233,7 +331,13 @@ private constructor(
             fun accountHolder(accountHolder: AccountHolder) =
                 accountHolder(JsonField.of(accountHolder))
 
-            /** The type of entity that owns the External Account. */
+            /**
+             * Sets [Builder.accountHolder] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.accountHolder] with a well-typed [AccountHolder]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
             fun accountHolder(accountHolder: JsonField<AccountHolder>) = apply {
                 this.accountHolder = accountHolder
             }
@@ -241,7 +345,13 @@ private constructor(
             /** The type of the destination account. Defaults to `checking`. */
             fun funding(funding: Funding) = funding(JsonField.of(funding))
 
-            /** The type of the destination account. Defaults to `checking`. */
+            /**
+             * Sets [Builder.funding] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.funding] with a well-typed [Funding] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun funding(funding: JsonField<Funding>) = apply { this.funding = funding }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -263,6 +373,20 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Body].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .accountNumber()
+             * .description()
+             * .routingNumber()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): Body =
                 Body(
                     checkRequired("accountNumber", accountNumber),
@@ -326,7 +450,13 @@ private constructor(
         /** The account number for the destination account. */
         fun accountNumber(accountNumber: String) = apply { body.accountNumber(accountNumber) }
 
-        /** The account number for the destination account. */
+        /**
+         * Sets [Builder.accountNumber] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.accountNumber] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun accountNumber(accountNumber: JsonField<String>) = apply {
             body.accountNumber(accountNumber)
         }
@@ -334,7 +464,13 @@ private constructor(
         /** The name you choose for the Account. */
         fun description(description: String) = apply { body.description(description) }
 
-        /** The name you choose for the Account. */
+        /**
+         * Sets [Builder.description] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.description] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun description(description: JsonField<String>) = apply { body.description(description) }
 
         /**
@@ -344,8 +480,11 @@ private constructor(
         fun routingNumber(routingNumber: String) = apply { body.routingNumber(routingNumber) }
 
         /**
-         * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the destination
-         * account.
+         * Sets [Builder.routingNumber] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.routingNumber] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
         fun routingNumber(routingNumber: JsonField<String>) = apply {
             body.routingNumber(routingNumber)
@@ -356,7 +495,13 @@ private constructor(
             body.accountHolder(accountHolder)
         }
 
-        /** The type of entity that owns the External Account. */
+        /**
+         * Sets [Builder.accountHolder] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.accountHolder] with a well-typed [AccountHolder] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
         fun accountHolder(accountHolder: JsonField<AccountHolder>) = apply {
             body.accountHolder(accountHolder)
         }
@@ -364,7 +509,12 @@ private constructor(
         /** The type of the destination account. Defaults to `checking`. */
         fun funding(funding: Funding) = apply { body.funding(funding) }
 
-        /** The type of the destination account. Defaults to `checking`. */
+        /**
+         * Sets [Builder.funding] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.funding] with a well-typed [Funding] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun funding(funding: JsonField<Funding>) = apply { body.funding(funding) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
@@ -484,6 +634,20 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [ExternalAccountCreateParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .accountNumber()
+         * .description()
+         * .routingNumber()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): ExternalAccountCreateParams =
             ExternalAccountCreateParams(
                 body.build(),
