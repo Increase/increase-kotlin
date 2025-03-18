@@ -57,7 +57,7 @@ private constructor(
                 limit?.let { put("limit", it.toString()) }
                 routingNumber?.let { put("routing_number", it) }
                 status?.let {
-                    it.in_()?.let { put("status.in", it.joinToString(",") { it.asString() }) }
+                    it.in_()?.let { put("status.in", it.joinToString(",") { it.toString() }) }
                     it._additionalProperties().keys().forEach { key ->
                         it._additionalProperties().values(key).forEach { value ->
                             put("status.$key", value)

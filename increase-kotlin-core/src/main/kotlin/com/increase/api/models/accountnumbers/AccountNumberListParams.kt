@@ -63,7 +63,7 @@ private constructor(
                 accountId?.let { put("account_id", it) }
                 achDebitStatus?.let {
                     it.in_()?.let {
-                        put("ach_debit_status.in", it.joinToString(",") { it.asString() })
+                        put("ach_debit_status.in", it.joinToString(",") { it.toString() })
                     }
                     it._additionalProperties().keys().forEach { key ->
                         it._additionalProperties().values(key).forEach { value ->
@@ -100,7 +100,7 @@ private constructor(
                 idempotencyKey?.let { put("idempotency_key", it) }
                 limit?.let { put("limit", it.toString()) }
                 status?.let {
-                    it.in_()?.let { put("status.in", it.joinToString(",") { it.asString() }) }
+                    it.in_()?.let { put("status.in", it.joinToString(",") { it.toString() }) }
                     it._additionalProperties().keys().forEach { key ->
                         it._additionalProperties().values(key).forEach { value ->
                             put("status.$key", value)
