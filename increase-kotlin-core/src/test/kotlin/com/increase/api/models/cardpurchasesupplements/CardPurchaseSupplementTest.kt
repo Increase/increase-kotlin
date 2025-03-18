@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 internal class CardPurchaseSupplementTest {
 
     @Test
-    fun createCardPurchaseSupplement() {
+    fun create() {
         val cardPurchaseSupplement =
             CardPurchaseSupplement.builder()
                 .id("card_purchase_supplement_ijuc45iym4jchnh2sfk3")
@@ -64,7 +64,7 @@ internal class CardPurchaseSupplementTest {
                 .transactionId("transaction_uyrp7fld2ium70oa7oi")
                 .type(CardPurchaseSupplement.Type.CARD_PURCHASE_SUPPLEMENT)
                 .build()
-        assertThat(cardPurchaseSupplement).isNotNull
+
         assertThat(cardPurchaseSupplement.id())
             .isEqualTo("card_purchase_supplement_ijuc45iym4jchnh2sfk3")
         assertThat(cardPurchaseSupplement.cardPaymentId())
