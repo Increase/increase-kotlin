@@ -7,7 +7,7 @@ import kotlin.test.assertNotNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-class EntityCreateParamsTest {
+internal class EntityCreateParamsTest {
 
     @Test
     fun create() {
@@ -1024,12 +1024,10 @@ class EntityCreateParamsTest {
                     .build()
             )
         assertThat(body.supplementalDocuments())
-            .isEqualTo(
-                listOf(
-                    EntityCreateParams.SupplementalDocument.builder()
-                        .fileId("file_makxrc67oh9l6sg7w9yc")
-                        .build()
-                )
+            .containsExactly(
+                EntityCreateParams.SupplementalDocument.builder()
+                    .fileId("file_makxrc67oh9l6sg7w9yc")
+                    .build()
             )
         assertThat(body.thirdPartyVerification())
             .isEqualTo(

@@ -42,15 +42,16 @@ private constructor(
 
     override fun _headers(): Headers = additionalHeaders
 
-    override fun _queryParams(): QueryParams {
-        val queryParams = QueryParams.builder()
-        this.entityId.let { queryParams.put("entity_id", listOf(it.toString())) }
-        this.cursor?.let { queryParams.put("cursor", listOf(it.toString())) }
-        this.idempotencyKey?.let { queryParams.put("idempotency_key", listOf(it.toString())) }
-        this.limit?.let { queryParams.put("limit", listOf(it.toString())) }
-        queryParams.putAll(additionalQueryParams)
-        return queryParams.build()
-    }
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                put("entity_id", entityId)
+                cursor?.let { put("cursor", it) }
+                idempotencyKey?.let { put("idempotency_key", it) }
+                limit?.let { put("limit", it.toString()) }
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     fun toBuilder() = Builder().from(this)
 
@@ -108,7 +109,9 @@ private constructor(
         fun limit(limit: Long?) = apply { this.limit = limit }
 
         /**
-         * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
+         * Alias for [Builder.limit].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
          */
         fun limit(limit: Long) = limit(limit as Long?)
 
@@ -210,6 +213,18 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [SupplementalDocumentListParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .entityId()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): SupplementalDocumentListParams =
             SupplementalDocumentListParams(
                 checkRequired("entityId", entityId),

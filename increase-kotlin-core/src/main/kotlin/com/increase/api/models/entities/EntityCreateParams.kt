@@ -31,86 +31,149 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /** The type of Entity to create. */
+    /**
+     * The type of Entity to create.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun structure(): Structure = body.structure()
 
     /**
      * Details of the corporation entity to create. Required if `structure` is equal to
      * `corporation`.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun corporation(): Corporation? = body.corporation()
 
-    /** The description you choose to give the entity. */
+    /**
+     * The description you choose to give the entity.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun description(): String? = body.description()
 
     /**
      * Details of the Government Authority entity to create. Required if `structure` is equal to
      * `Government Authority`.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun governmentAuthority(): GovernmentAuthority? = body.governmentAuthority()
 
-    /** Details of the joint entity to create. Required if `structure` is equal to `joint`. */
+    /**
+     * Details of the joint entity to create. Required if `structure` is equal to `joint`.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun joint(): Joint? = body.joint()
 
     /**
      * Details of the natural person entity to create. Required if `structure` is equal to
      * `natural_person`. Natural people entities should be submitted with `social_security_number`
      * or `individual_taxpayer_identification_number` identification methods.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun naturalPerson(): NaturalPerson? = body.naturalPerson()
 
-    /** Additional documentation associated with the entity. */
+    /**
+     * Additional documentation associated with the entity.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun supplementalDocuments(): List<SupplementalDocument>? = body.supplementalDocuments()
 
     /**
      * A reference to data stored in a third-party verification service. Your integration may or may
      * not use this field.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
     fun thirdPartyVerification(): ThirdPartyVerification? = body.thirdPartyVerification()
 
-    /** Details of the trust entity to create. Required if `structure` is equal to `trust`. */
+    /**
+     * Details of the trust entity to create. Required if `structure` is equal to `trust`.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun trust(): Trust? = body.trust()
 
-    /** The type of Entity to create. */
+    /**
+     * Returns the raw JSON value of [structure].
+     *
+     * Unlike [structure], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _structure(): JsonField<Structure> = body._structure()
 
     /**
-     * Details of the corporation entity to create. Required if `structure` is equal to
-     * `corporation`.
+     * Returns the raw JSON value of [corporation].
+     *
+     * Unlike [corporation], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _corporation(): JsonField<Corporation> = body._corporation()
 
-    /** The description you choose to give the entity. */
+    /**
+     * Returns the raw JSON value of [description].
+     *
+     * Unlike [description], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _description(): JsonField<String> = body._description()
 
     /**
-     * Details of the Government Authority entity to create. Required if `structure` is equal to
-     * `Government Authority`.
+     * Returns the raw JSON value of [governmentAuthority].
+     *
+     * Unlike [governmentAuthority], this method doesn't throw if the JSON field has an unexpected
+     * type.
      */
     fun _governmentAuthority(): JsonField<GovernmentAuthority> = body._governmentAuthority()
 
-    /** Details of the joint entity to create. Required if `structure` is equal to `joint`. */
+    /**
+     * Returns the raw JSON value of [joint].
+     *
+     * Unlike [joint], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _joint(): JsonField<Joint> = body._joint()
 
     /**
-     * Details of the natural person entity to create. Required if `structure` is equal to
-     * `natural_person`. Natural people entities should be submitted with `social_security_number`
-     * or `individual_taxpayer_identification_number` identification methods.
+     * Returns the raw JSON value of [naturalPerson].
+     *
+     * Unlike [naturalPerson], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _naturalPerson(): JsonField<NaturalPerson> = body._naturalPerson()
 
-    /** Additional documentation associated with the entity. */
+    /**
+     * Returns the raw JSON value of [supplementalDocuments].
+     *
+     * Unlike [supplementalDocuments], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
     fun _supplementalDocuments(): JsonField<List<SupplementalDocument>> =
         body._supplementalDocuments()
 
     /**
-     * A reference to data stored in a third-party verification service. Your integration may or may
-     * not use this field.
+     * Returns the raw JSON value of [thirdPartyVerification].
+     *
+     * Unlike [thirdPartyVerification], this method doesn't throw if the JSON field has an
+     * unexpected type.
      */
     fun _thirdPartyVerification(): JsonField<ThirdPartyVerification> =
         body._thirdPartyVerification()
 
-    /** Details of the trust entity to create. Required if `structure` is equal to `trust`. */
+    /**
+     * Returns the raw JSON value of [trust].
+     *
+     * Unlike [trust], this method doesn't throw if the JSON field has an unexpected type.
+     */
     fun _trust(): JsonField<Trust> = body._trust()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
@@ -160,26 +223,47 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The type of Entity to create. */
+        /**
+         * The type of Entity to create.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun structure(): Structure = structure.getRequired("structure")
 
         /**
          * Details of the corporation entity to create. Required if `structure` is equal to
          * `corporation`.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
         fun corporation(): Corporation? = corporation.getNullable("corporation")
 
-        /** The description you choose to give the entity. */
+        /**
+         * The description you choose to give the entity.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun description(): String? = description.getNullable("description")
 
         /**
          * Details of the Government Authority entity to create. Required if `structure` is equal to
          * `Government Authority`.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
         fun governmentAuthority(): GovernmentAuthority? =
             governmentAuthority.getNullable("government_authority")
 
-        /** Details of the joint entity to create. Required if `structure` is equal to `joint`. */
+        /**
+         * Details of the joint entity to create. Required if `structure` is equal to `joint`.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun joint(): Joint? = joint.getNullable("joint")
 
         /**
@@ -187,76 +271,118 @@ private constructor(
          * `natural_person`. Natural people entities should be submitted with
          * `social_security_number` or `individual_taxpayer_identification_number` identification
          * methods.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
         fun naturalPerson(): NaturalPerson? = naturalPerson.getNullable("natural_person")
 
-        /** Additional documentation associated with the entity. */
+        /**
+         * Additional documentation associated with the entity.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun supplementalDocuments(): List<SupplementalDocument>? =
             supplementalDocuments.getNullable("supplemental_documents")
 
         /**
          * A reference to data stored in a third-party verification service. Your integration may or
          * may not use this field.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
         fun thirdPartyVerification(): ThirdPartyVerification? =
             thirdPartyVerification.getNullable("third_party_verification")
 
-        /** Details of the trust entity to create. Required if `structure` is equal to `trust`. */
+        /**
+         * Details of the trust entity to create. Required if `structure` is equal to `trust`.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun trust(): Trust? = trust.getNullable("trust")
 
-        /** The type of Entity to create. */
+        /**
+         * Returns the raw JSON value of [structure].
+         *
+         * Unlike [structure], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("structure")
         @ExcludeMissing
         fun _structure(): JsonField<Structure> = structure
 
         /**
-         * Details of the corporation entity to create. Required if `structure` is equal to
-         * `corporation`.
+         * Returns the raw JSON value of [corporation].
+         *
+         * Unlike [corporation], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("corporation")
         @ExcludeMissing
         fun _corporation(): JsonField<Corporation> = corporation
 
-        /** The description you choose to give the entity. */
+        /**
+         * Returns the raw JSON value of [description].
+         *
+         * Unlike [description], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("description")
         @ExcludeMissing
         fun _description(): JsonField<String> = description
 
         /**
-         * Details of the Government Authority entity to create. Required if `structure` is equal to
-         * `Government Authority`.
+         * Returns the raw JSON value of [governmentAuthority].
+         *
+         * Unlike [governmentAuthority], this method doesn't throw if the JSON field has an
+         * unexpected type.
          */
         @JsonProperty("government_authority")
         @ExcludeMissing
         fun _governmentAuthority(): JsonField<GovernmentAuthority> = governmentAuthority
 
-        /** Details of the joint entity to create. Required if `structure` is equal to `joint`. */
+        /**
+         * Returns the raw JSON value of [joint].
+         *
+         * Unlike [joint], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("joint") @ExcludeMissing fun _joint(): JsonField<Joint> = joint
 
         /**
-         * Details of the natural person entity to create. Required if `structure` is equal to
-         * `natural_person`. Natural people entities should be submitted with
-         * `social_security_number` or `individual_taxpayer_identification_number` identification
-         * methods.
+         * Returns the raw JSON value of [naturalPerson].
+         *
+         * Unlike [naturalPerson], this method doesn't throw if the JSON field has an unexpected
+         * type.
          */
         @JsonProperty("natural_person")
         @ExcludeMissing
         fun _naturalPerson(): JsonField<NaturalPerson> = naturalPerson
 
-        /** Additional documentation associated with the entity. */
+        /**
+         * Returns the raw JSON value of [supplementalDocuments].
+         *
+         * Unlike [supplementalDocuments], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
         @JsonProperty("supplemental_documents")
         @ExcludeMissing
         fun _supplementalDocuments(): JsonField<List<SupplementalDocument>> = supplementalDocuments
 
         /**
-         * A reference to data stored in a third-party verification service. Your integration may or
-         * may not use this field.
+         * Returns the raw JSON value of [thirdPartyVerification].
+         *
+         * Unlike [thirdPartyVerification], this method doesn't throw if the JSON field has an
+         * unexpected type.
          */
         @JsonProperty("third_party_verification")
         @ExcludeMissing
         fun _thirdPartyVerification(): JsonField<ThirdPartyVerification> = thirdPartyVerification
 
-        /** Details of the trust entity to create. Required if `structure` is equal to `trust`. */
+        /**
+         * Returns the raw JSON value of [trust].
+         *
+         * Unlike [trust], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("trust") @ExcludeMissing fun _trust(): JsonField<Trust> = trust
 
         @JsonAnyGetter
@@ -327,7 +453,13 @@ private constructor(
             /** The type of Entity to create. */
             fun structure(structure: Structure) = structure(JsonField.of(structure))
 
-            /** The type of Entity to create. */
+            /**
+             * Sets [Builder.structure] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.structure] with a well-typed [Structure] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun structure(structure: JsonField<Structure>) = apply { this.structure = structure }
 
             /**
@@ -337,8 +469,11 @@ private constructor(
             fun corporation(corporation: Corporation) = corporation(JsonField.of(corporation))
 
             /**
-             * Details of the corporation entity to create. Required if `structure` is equal to
-             * `corporation`.
+             * Sets [Builder.corporation] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.corporation] with a well-typed [Corporation] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun corporation(corporation: JsonField<Corporation>) = apply {
                 this.corporation = corporation
@@ -347,7 +482,13 @@ private constructor(
             /** The description you choose to give the entity. */
             fun description(description: String) = description(JsonField.of(description))
 
-            /** The description you choose to give the entity. */
+            /**
+             * Sets [Builder.description] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.description] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun description(description: JsonField<String>) = apply {
                 this.description = description
             }
@@ -360,8 +501,11 @@ private constructor(
                 governmentAuthority(JsonField.of(governmentAuthority))
 
             /**
-             * Details of the Government Authority entity to create. Required if `structure` is
-             * equal to `Government Authority`.
+             * Sets [Builder.governmentAuthority] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.governmentAuthority] with a well-typed
+             * [GovernmentAuthority] value instead. This method is primarily for setting the field
+             * to an undocumented or not yet supported value.
              */
             fun governmentAuthority(governmentAuthority: JsonField<GovernmentAuthority>) = apply {
                 this.governmentAuthority = governmentAuthority
@@ -373,7 +517,11 @@ private constructor(
             fun joint(joint: Joint) = joint(JsonField.of(joint))
 
             /**
-             * Details of the joint entity to create. Required if `structure` is equal to `joint`.
+             * Sets [Builder.joint] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.joint] with a well-typed [Joint] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
              */
             fun joint(joint: JsonField<Joint>) = apply { this.joint = joint }
 
@@ -387,10 +535,11 @@ private constructor(
                 naturalPerson(JsonField.of(naturalPerson))
 
             /**
-             * Details of the natural person entity to create. Required if `structure` is equal to
-             * `natural_person`. Natural people entities should be submitted with
-             * `social_security_number` or `individual_taxpayer_identification_number`
-             * identification methods.
+             * Sets [Builder.naturalPerson] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.naturalPerson] with a well-typed [NaturalPerson]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
              */
             fun naturalPerson(naturalPerson: JsonField<NaturalPerson>) = apply {
                 this.naturalPerson = naturalPerson
@@ -400,14 +549,24 @@ private constructor(
             fun supplementalDocuments(supplementalDocuments: List<SupplementalDocument>) =
                 supplementalDocuments(JsonField.of(supplementalDocuments))
 
-            /** Additional documentation associated with the entity. */
+            /**
+             * Sets [Builder.supplementalDocuments] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.supplementalDocuments] with a well-typed
+             * `List<SupplementalDocument>` value instead. This method is primarily for setting the
+             * field to an undocumented or not yet supported value.
+             */
             fun supplementalDocuments(
                 supplementalDocuments: JsonField<List<SupplementalDocument>>
             ) = apply {
                 this.supplementalDocuments = supplementalDocuments.map { it.toMutableList() }
             }
 
-            /** Additional documentation associated with the entity. */
+            /**
+             * Adds a single [SupplementalDocument] to [supplementalDocuments].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
             fun addSupplementalDocument(supplementalDocument: SupplementalDocument) = apply {
                 supplementalDocuments =
                     (supplementalDocuments ?: JsonField.of(mutableListOf())).also {
@@ -423,8 +582,11 @@ private constructor(
                 thirdPartyVerification(JsonField.of(thirdPartyVerification))
 
             /**
-             * A reference to data stored in a third-party verification service. Your integration
-             * may or may not use this field.
+             * Sets [Builder.thirdPartyVerification] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.thirdPartyVerification] with a well-typed
+             * [ThirdPartyVerification] value instead. This method is primarily for setting the
+             * field to an undocumented or not yet supported value.
              */
             fun thirdPartyVerification(thirdPartyVerification: JsonField<ThirdPartyVerification>) =
                 apply {
@@ -437,7 +599,11 @@ private constructor(
             fun trust(trust: Trust) = trust(JsonField.of(trust))
 
             /**
-             * Details of the trust entity to create. Required if `structure` is equal to `trust`.
+             * Sets [Builder.trust] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.trust] with a well-typed [Trust] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
              */
             fun trust(trust: JsonField<Trust>) = apply { this.trust = trust }
 
@@ -460,6 +626,18 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Body].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .structure()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): Body =
                 Body(
                     checkRequired("structure", structure),
@@ -525,7 +703,13 @@ private constructor(
         /** The type of Entity to create. */
         fun structure(structure: Structure) = apply { body.structure(structure) }
 
-        /** The type of Entity to create. */
+        /**
+         * Sets [Builder.structure] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.structure] with a well-typed [Structure] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun structure(structure: JsonField<Structure>) = apply { body.structure(structure) }
 
         /**
@@ -535,8 +719,11 @@ private constructor(
         fun corporation(corporation: Corporation) = apply { body.corporation(corporation) }
 
         /**
-         * Details of the corporation entity to create. Required if `structure` is equal to
-         * `corporation`.
+         * Sets [Builder.corporation] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.corporation] with a well-typed [Corporation] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun corporation(corporation: JsonField<Corporation>) = apply {
             body.corporation(corporation)
@@ -545,7 +732,13 @@ private constructor(
         /** The description you choose to give the entity. */
         fun description(description: String) = apply { body.description(description) }
 
-        /** The description you choose to give the entity. */
+        /**
+         * Sets [Builder.description] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.description] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
         fun description(description: JsonField<String>) = apply { body.description(description) }
 
         /**
@@ -557,8 +750,11 @@ private constructor(
         }
 
         /**
-         * Details of the Government Authority entity to create. Required if `structure` is equal to
-         * `Government Authority`.
+         * Sets [Builder.governmentAuthority] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.governmentAuthority] with a well-typed
+         * [GovernmentAuthority] value instead. This method is primarily for setting the field to an
+         * undocumented or not yet supported value.
          */
         fun governmentAuthority(governmentAuthority: JsonField<GovernmentAuthority>) = apply {
             body.governmentAuthority(governmentAuthority)
@@ -567,7 +763,12 @@ private constructor(
         /** Details of the joint entity to create. Required if `structure` is equal to `joint`. */
         fun joint(joint: Joint) = apply { body.joint(joint) }
 
-        /** Details of the joint entity to create. Required if `structure` is equal to `joint`. */
+        /**
+         * Sets [Builder.joint] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.joint] with a well-typed [Joint] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun joint(joint: JsonField<Joint>) = apply { body.joint(joint) }
 
         /**
@@ -581,10 +782,11 @@ private constructor(
         }
 
         /**
-         * Details of the natural person entity to create. Required if `structure` is equal to
-         * `natural_person`. Natural people entities should be submitted with
-         * `social_security_number` or `individual_taxpayer_identification_number` identification
-         * methods.
+         * Sets [Builder.naturalPerson] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.naturalPerson] with a well-typed [NaturalPerson] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
         fun naturalPerson(naturalPerson: JsonField<NaturalPerson>) = apply {
             body.naturalPerson(naturalPerson)
@@ -595,13 +797,23 @@ private constructor(
             body.supplementalDocuments(supplementalDocuments)
         }
 
-        /** Additional documentation associated with the entity. */
+        /**
+         * Sets [Builder.supplementalDocuments] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.supplementalDocuments] with a well-typed
+         * `List<SupplementalDocument>` value instead. This method is primarily for setting the
+         * field to an undocumented or not yet supported value.
+         */
         fun supplementalDocuments(supplementalDocuments: JsonField<List<SupplementalDocument>>) =
             apply {
                 body.supplementalDocuments(supplementalDocuments)
             }
 
-        /** Additional documentation associated with the entity. */
+        /**
+         * Adds a single [SupplementalDocument] to [supplementalDocuments].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
         fun addSupplementalDocument(supplementalDocument: SupplementalDocument) = apply {
             body.addSupplementalDocument(supplementalDocument)
         }
@@ -615,8 +827,11 @@ private constructor(
         }
 
         /**
-         * A reference to data stored in a third-party verification service. Your integration may or
-         * may not use this field.
+         * Sets [Builder.thirdPartyVerification] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.thirdPartyVerification] with a well-typed
+         * [ThirdPartyVerification] value instead. This method is primarily for setting the field to
+         * an undocumented or not yet supported value.
          */
         fun thirdPartyVerification(thirdPartyVerification: JsonField<ThirdPartyVerification>) =
             apply {
@@ -626,7 +841,12 @@ private constructor(
         /** Details of the trust entity to create. Required if `structure` is equal to `trust`. */
         fun trust(trust: Trust) = apply { body.trust(trust) }
 
-        /** Details of the trust entity to create. Required if `structure` is equal to `trust`. */
+        /**
+         * Sets [Builder.trust] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.trust] with a well-typed [Trust] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
         fun trust(trust: JsonField<Trust>) = apply { body.trust(trust) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
@@ -746,6 +966,18 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        /**
+         * Returns an immutable instance of [EntityCreateParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .structure()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
         fun build(): EntityCreateParams =
             EntityCreateParams(
                 body.build(),
@@ -924,24 +1156,43 @@ private constructor(
         /**
          * The entity's physical address. Mail receiving locations like PO Boxes and PMB's are
          * disallowed.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun address(): Address = address.getRequired("address")
 
         /**
          * The identifying details of anyone controlling or owning 25% or more of the corporation.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun beneficialOwners(): List<BeneficialOwner> =
             beneficialOwners.getRequired("beneficial_owners")
 
-        /** The legal name of the corporation. */
+        /**
+         * The legal name of the corporation.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun name(): String = name.getRequired("name")
 
-        /** The Employer Identification Number (EIN) for the corporation. */
+        /**
+         * The Employer Identification Number (EIN) for the corporation.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun taxIdentifier(): String = taxIdentifier.getRequired("tax_identifier")
 
         /**
          * The two-letter United States Postal Service (USPS) abbreviation for the corporation's
          * state of incorporation.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
         fun incorporationState(): String? = incorporationState.getNullable("incorporation_state")
 
@@ -950,52 +1201,79 @@ private constructor(
          * primary line of business. This is a number, like `5132` for `Software Publishers`. A full
          * list of classification codes is available
          * [here](https://increase.com/documentation/data-dictionary#north-american-industry-classification-system-codes).
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
         fun industryCode(): String? = industryCode.getNullable("industry_code")
 
-        /** The website of the corporation. */
+        /**
+         * The website of the corporation.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun website(): String? = website.getNullable("website")
 
         /**
-         * The entity's physical address. Mail receiving locations like PO Boxes and PMB's are
-         * disallowed.
+         * Returns the raw JSON value of [address].
+         *
+         * Unlike [address], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("address") @ExcludeMissing fun _address(): JsonField<Address> = address
 
         /**
-         * The identifying details of anyone controlling or owning 25% or more of the corporation.
+         * Returns the raw JSON value of [beneficialOwners].
+         *
+         * Unlike [beneficialOwners], this method doesn't throw if the JSON field has an unexpected
+         * type.
          */
         @JsonProperty("beneficial_owners")
         @ExcludeMissing
         fun _beneficialOwners(): JsonField<List<BeneficialOwner>> = beneficialOwners
 
-        /** The legal name of the corporation. */
+        /**
+         * Returns the raw JSON value of [name].
+         *
+         * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
-        /** The Employer Identification Number (EIN) for the corporation. */
+        /**
+         * Returns the raw JSON value of [taxIdentifier].
+         *
+         * Unlike [taxIdentifier], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("tax_identifier")
         @ExcludeMissing
         fun _taxIdentifier(): JsonField<String> = taxIdentifier
 
         /**
-         * The two-letter United States Postal Service (USPS) abbreviation for the corporation's
-         * state of incorporation.
+         * Returns the raw JSON value of [incorporationState].
+         *
+         * Unlike [incorporationState], this method doesn't throw if the JSON field has an
+         * unexpected type.
          */
         @JsonProperty("incorporation_state")
         @ExcludeMissing
         fun _incorporationState(): JsonField<String> = incorporationState
 
         /**
-         * The North American Industry Classification System (NAICS) code for the corporation's
-         * primary line of business. This is a number, like `5132` for `Software Publishers`. A full
-         * list of classification codes is available
-         * [here](https://increase.com/documentation/data-dictionary#north-american-industry-classification-system-codes).
+         * Returns the raw JSON value of [industryCode].
+         *
+         * Unlike [industryCode], this method doesn't throw if the JSON field has an unexpected
+         * type.
          */
         @JsonProperty("industry_code")
         @ExcludeMissing
         fun _industryCode(): JsonField<String> = industryCode
 
-        /** The website of the corporation. */
+        /**
+         * Returns the raw JSON value of [website].
+         *
+         * Unlike [website], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("website") @ExcludeMissing fun _website(): JsonField<String> = website
 
         @JsonAnyGetter
@@ -1067,8 +1345,11 @@ private constructor(
             fun address(address: Address) = address(JsonField.of(address))
 
             /**
-             * The entity's physical address. Mail receiving locations like PO Boxes and PMB's are
-             * disallowed.
+             * Sets [Builder.address] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.address] with a well-typed [Address] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun address(address: JsonField<Address>) = apply { this.address = address }
 
@@ -1080,16 +1361,20 @@ private constructor(
                 beneficialOwners(JsonField.of(beneficialOwners))
 
             /**
-             * The identifying details of anyone controlling or owning 25% or more of the
-             * corporation.
+             * Sets [Builder.beneficialOwners] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.beneficialOwners] with a well-typed
+             * `List<BeneficialOwner>` value instead. This method is primarily for setting the field
+             * to an undocumented or not yet supported value.
              */
             fun beneficialOwners(beneficialOwners: JsonField<List<BeneficialOwner>>) = apply {
                 this.beneficialOwners = beneficialOwners.map { it.toMutableList() }
             }
 
             /**
-             * The identifying details of anyone controlling or owning 25% or more of the
-             * corporation.
+             * Adds a single [BeneficialOwner] to [beneficialOwners].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
              */
             fun addBeneficialOwner(beneficialOwner: BeneficialOwner) = apply {
                 beneficialOwners =
@@ -1101,13 +1386,25 @@ private constructor(
             /** The legal name of the corporation. */
             fun name(name: String) = name(JsonField.of(name))
 
-            /** The legal name of the corporation. */
+            /**
+             * Sets [Builder.name] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.name] with a well-typed [String] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
             fun name(name: JsonField<String>) = apply { this.name = name }
 
             /** The Employer Identification Number (EIN) for the corporation. */
             fun taxIdentifier(taxIdentifier: String) = taxIdentifier(JsonField.of(taxIdentifier))
 
-            /** The Employer Identification Number (EIN) for the corporation. */
+            /**
+             * Sets [Builder.taxIdentifier] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.taxIdentifier] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun taxIdentifier(taxIdentifier: JsonField<String>) = apply {
                 this.taxIdentifier = taxIdentifier
             }
@@ -1120,8 +1417,11 @@ private constructor(
                 incorporationState(JsonField.of(incorporationState))
 
             /**
-             * The two-letter United States Postal Service (USPS) abbreviation for the corporation's
-             * state of incorporation.
+             * Sets [Builder.incorporationState] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.incorporationState] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun incorporationState(incorporationState: JsonField<String>) = apply {
                 this.incorporationState = incorporationState
@@ -1136,10 +1436,11 @@ private constructor(
             fun industryCode(industryCode: String) = industryCode(JsonField.of(industryCode))
 
             /**
-             * The North American Industry Classification System (NAICS) code for the corporation's
-             * primary line of business. This is a number, like `5132` for `Software Publishers`. A
-             * full list of classification codes is available
-             * [here](https://increase.com/documentation/data-dictionary#north-american-industry-classification-system-codes).
+             * Sets [Builder.industryCode] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.industryCode] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun industryCode(industryCode: JsonField<String>) = apply {
                 this.industryCode = industryCode
@@ -1148,7 +1449,13 @@ private constructor(
             /** The website of the corporation. */
             fun website(website: String) = website(JsonField.of(website))
 
-            /** The website of the corporation. */
+            /**
+             * Sets [Builder.website] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.website] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun website(website: JsonField<String>) = apply { this.website = website }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -1170,6 +1477,21 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Corporation].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .address()
+             * .beneficialOwners()
+             * .name()
+             * .taxIdentifier()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): Corporation =
                 Corporation(
                     checkRequired("address", address),
@@ -1210,40 +1532,84 @@ private constructor(
             private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
 
-            /** The city of the address. */
+            /**
+             * The city of the address.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
             fun city(): String = city.getRequired("city")
 
-            /** The first line of the address. This is usually the street number and street. */
+            /**
+             * The first line of the address. This is usually the street number and street.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
             fun line1(): String = line1.getRequired("line1")
 
             /**
              * The two-letter United States Postal Service (USPS) abbreviation for the state of the
              * address.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
              */
             fun state(): String = state.getRequired("state")
 
-            /** The ZIP code of the address. */
+            /**
+             * The ZIP code of the address.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
             fun zip(): String = zip.getRequired("zip")
 
-            /** The second line of the address. This might be the floor or room number. */
+            /**
+             * The second line of the address. This might be the floor or room number.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
             fun line2(): String? = line2.getNullable("line2")
 
-            /** The city of the address. */
+            /**
+             * Returns the raw JSON value of [city].
+             *
+             * Unlike [city], this method doesn't throw if the JSON field has an unexpected type.
+             */
             @JsonProperty("city") @ExcludeMissing fun _city(): JsonField<String> = city
 
-            /** The first line of the address. This is usually the street number and street. */
+            /**
+             * Returns the raw JSON value of [line1].
+             *
+             * Unlike [line1], this method doesn't throw if the JSON field has an unexpected type.
+             */
             @JsonProperty("line1") @ExcludeMissing fun _line1(): JsonField<String> = line1
 
             /**
-             * The two-letter United States Postal Service (USPS) abbreviation for the state of the
-             * address.
+             * Returns the raw JSON value of [state].
+             *
+             * Unlike [state], this method doesn't throw if the JSON field has an unexpected type.
              */
             @JsonProperty("state") @ExcludeMissing fun _state(): JsonField<String> = state
 
-            /** The ZIP code of the address. */
+            /**
+             * Returns the raw JSON value of [zip].
+             *
+             * Unlike [zip], this method doesn't throw if the JSON field has an unexpected type.
+             */
             @JsonProperty("zip") @ExcludeMissing fun _zip(): JsonField<String> = zip
 
-            /** The second line of the address. This might be the floor or room number. */
+            /**
+             * Returns the raw JSON value of [line2].
+             *
+             * Unlike [line2], this method doesn't throw if the JSON field has an unexpected type.
+             */
             @JsonProperty("line2") @ExcludeMissing fun _line2(): JsonField<String> = line2
 
             @JsonAnyGetter
@@ -1305,13 +1671,25 @@ private constructor(
                 /** The city of the address. */
                 fun city(city: String) = city(JsonField.of(city))
 
-                /** The city of the address. */
+                /**
+                 * Sets [Builder.city] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.city] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
                 fun city(city: JsonField<String>) = apply { this.city = city }
 
                 /** The first line of the address. This is usually the street number and street. */
                 fun line1(line1: String) = line1(JsonField.of(line1))
 
-                /** The first line of the address. This is usually the street number and street. */
+                /**
+                 * Sets [Builder.line1] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.line1] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
                 fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
 
                 /**
@@ -1321,21 +1699,36 @@ private constructor(
                 fun state(state: String) = state(JsonField.of(state))
 
                 /**
-                 * The two-letter United States Postal Service (USPS) abbreviation for the state of
-                 * the address.
+                 * Sets [Builder.state] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.state] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
                  */
                 fun state(state: JsonField<String>) = apply { this.state = state }
 
                 /** The ZIP code of the address. */
                 fun zip(zip: String) = zip(JsonField.of(zip))
 
-                /** The ZIP code of the address. */
+                /**
+                 * Sets [Builder.zip] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.zip] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
                 fun zip(zip: JsonField<String>) = apply { this.zip = zip }
 
                 /** The second line of the address. This might be the floor or room number. */
                 fun line2(line2: String) = line2(JsonField.of(line2))
 
-                /** The second line of the address. This might be the floor or room number. */
+                /**
+                 * Sets [Builder.line2] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.line2] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
                 fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -1360,6 +1753,21 @@ private constructor(
                     keys.forEach(::removeAdditionalProperty)
                 }
 
+                /**
+                 * Returns an immutable instance of [Address].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .city()
+                 * .line1()
+                 * .state()
+                 * .zip()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
                 fun build(): Address =
                     Address(
                         checkRequired("city", city),
@@ -1406,32 +1814,57 @@ private constructor(
             private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
 
-            /** Personal details for the beneficial owner. */
+            /**
+             * Personal details for the beneficial owner.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
             fun individual(): Individual = individual.getRequired("individual")
 
             /**
              * Why this person is considered a beneficial owner of the entity. At least one option
              * is required, if a person is both a control person and owner, submit an array
              * containing both.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
              */
             fun prongs(): List<Prong> = prongs.getRequired("prongs")
 
-            /** This person's role or title within the entity. */
+            /**
+             * This person's role or title within the entity.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
             fun companyTitle(): String? = companyTitle.getNullable("company_title")
 
-            /** Personal details for the beneficial owner. */
+            /**
+             * Returns the raw JSON value of [individual].
+             *
+             * Unlike [individual], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
             @JsonProperty("individual")
             @ExcludeMissing
             fun _individual(): JsonField<Individual> = individual
 
             /**
-             * Why this person is considered a beneficial owner of the entity. At least one option
-             * is required, if a person is both a control person and owner, submit an array
-             * containing both.
+             * Returns the raw JSON value of [prongs].
+             *
+             * Unlike [prongs], this method doesn't throw if the JSON field has an unexpected type.
              */
             @JsonProperty("prongs") @ExcludeMissing fun _prongs(): JsonField<List<Prong>> = prongs
 
-            /** This person's role or title within the entity. */
+            /**
+             * Returns the raw JSON value of [companyTitle].
+             *
+             * Unlike [companyTitle], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
             @JsonProperty("company_title")
             @ExcludeMissing
             fun _companyTitle(): JsonField<String> = companyTitle
@@ -1487,7 +1920,13 @@ private constructor(
                 /** Personal details for the beneficial owner. */
                 fun individual(individual: Individual) = individual(JsonField.of(individual))
 
-                /** Personal details for the beneficial owner. */
+                /**
+                 * Sets [Builder.individual] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.individual] with a well-typed [Individual] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
                 fun individual(individual: JsonField<Individual>) = apply {
                     this.individual = individual
                 }
@@ -1500,18 +1939,20 @@ private constructor(
                 fun prongs(prongs: List<Prong>) = prongs(JsonField.of(prongs))
 
                 /**
-                 * Why this person is considered a beneficial owner of the entity. At least one
-                 * option is required, if a person is both a control person and owner, submit an
-                 * array containing both.
+                 * Sets [Builder.prongs] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.prongs] with a well-typed `List<Prong>` value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
                  */
                 fun prongs(prongs: JsonField<List<Prong>>) = apply {
                     this.prongs = prongs.map { it.toMutableList() }
                 }
 
                 /**
-                 * Why this person is considered a beneficial owner of the entity. At least one
-                 * option is required, if a person is both a control person and owner, submit an
-                 * array containing both.
+                 * Adds a single [Prong] to [prongs].
+                 *
+                 * @throws IllegalStateException if the field was previously set to a non-list.
                  */
                 fun addProng(prong: Prong) = apply {
                     prongs =
@@ -1523,7 +1964,13 @@ private constructor(
                 /** This person's role or title within the entity. */
                 fun companyTitle(companyTitle: String) = companyTitle(JsonField.of(companyTitle))
 
-                /** This person's role or title within the entity. */
+                /**
+                 * Sets [Builder.companyTitle] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.companyTitle] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
                 fun companyTitle(companyTitle: JsonField<String>) = apply {
                     this.companyTitle = companyTitle
                 }
@@ -1550,6 +1997,19 @@ private constructor(
                     keys.forEach(::removeAdditionalProperty)
                 }
 
+                /**
+                 * Returns an immutable instance of [BeneficialOwner].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .individual()
+                 * .prongs()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
                 fun build(): BeneficialOwner =
                     BeneficialOwner(
                         checkRequired("individual", individual),
@@ -1586,16 +2046,38 @@ private constructor(
                 /**
                  * The individual's physical address. Mail receiving locations like PO Boxes and
                  * PMB's are disallowed.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
+                 *   is unexpectedly missing or null (e.g. if the server responded with an
+                 *   unexpected value).
                  */
                 fun address(): Address = address.getRequired("address")
 
-                /** The person's date of birth in YYYY-MM-DD format. */
+                /**
+                 * The person's date of birth in YYYY-MM-DD format.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
+                 *   is unexpectedly missing or null (e.g. if the server responded with an
+                 *   unexpected value).
+                 */
                 fun dateOfBirth(): LocalDate = dateOfBirth.getRequired("date_of_birth")
 
-                /** A means of verifying the person's identity. */
+                /**
+                 * A means of verifying the person's identity.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
+                 *   is unexpectedly missing or null (e.g. if the server responded with an
+                 *   unexpected value).
+                 */
                 fun identification(): Identification = identification.getRequired("identification")
 
-                /** The person's legal name. */
+                /**
+                 * The person's legal name.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
+                 *   is unexpectedly missing or null (e.g. if the server responded with an
+                 *   unexpected value).
+                 */
                 fun name(): String = name.getRequired("name")
 
                 /**
@@ -1603,36 +2085,56 @@ private constructor(
                  * license, or other document if you've confirmed the individual does not have a US
                  * tax id (either a Social Security Number or Individual Taxpayer Identification
                  * Number).
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                 *   (e.g. if the server responded with an unexpected value).
                  */
                 fun confirmedNoUsTaxId(): Boolean? =
                     confirmedNoUsTaxId.getNullable("confirmed_no_us_tax_id")
 
                 /**
-                 * The individual's physical address. Mail receiving locations like PO Boxes and
-                 * PMB's are disallowed.
+                 * Returns the raw JSON value of [address].
+                 *
+                 * Unlike [address], this method doesn't throw if the JSON field has an unexpected
+                 * type.
                  */
                 @JsonProperty("address")
                 @ExcludeMissing
                 fun _address(): JsonField<Address> = address
 
-                /** The person's date of birth in YYYY-MM-DD format. */
+                /**
+                 * Returns the raw JSON value of [dateOfBirth].
+                 *
+                 * Unlike [dateOfBirth], this method doesn't throw if the JSON field has an
+                 * unexpected type.
+                 */
                 @JsonProperty("date_of_birth")
                 @ExcludeMissing
                 fun _dateOfBirth(): JsonField<LocalDate> = dateOfBirth
 
-                /** A means of verifying the person's identity. */
+                /**
+                 * Returns the raw JSON value of [identification].
+                 *
+                 * Unlike [identification], this method doesn't throw if the JSON field has an
+                 * unexpected type.
+                 */
                 @JsonProperty("identification")
                 @ExcludeMissing
                 fun _identification(): JsonField<Identification> = identification
 
-                /** The person's legal name. */
+                /**
+                 * Returns the raw JSON value of [name].
+                 *
+                 * Unlike [name], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
                 @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
                 /**
-                 * The identification method for an individual can only be a passport, driver's
-                 * license, or other document if you've confirmed the individual does not have a US
-                 * tax id (either a Social Security Number or Individual Taxpayer Identification
-                 * Number).
+                 * Returns the raw JSON value of [confirmedNoUsTaxId].
+                 *
+                 * Unlike [confirmedNoUsTaxId], this method doesn't throw if the JSON field has an
+                 * unexpected type.
                  */
                 @JsonProperty("confirmed_no_us_tax_id")
                 @ExcludeMissing
@@ -1701,15 +2203,24 @@ private constructor(
                     fun address(address: Address) = address(JsonField.of(address))
 
                     /**
-                     * The individual's physical address. Mail receiving locations like PO Boxes and
-                     * PMB's are disallowed.
+                     * Sets [Builder.address] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.address] with a well-typed [Address] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
                      */
                     fun address(address: JsonField<Address>) = apply { this.address = address }
 
                     /** The person's date of birth in YYYY-MM-DD format. */
                     fun dateOfBirth(dateOfBirth: LocalDate) = dateOfBirth(JsonField.of(dateOfBirth))
 
-                    /** The person's date of birth in YYYY-MM-DD format. */
+                    /**
+                     * Sets [Builder.dateOfBirth] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.dateOfBirth] with a well-typed [LocalDate]
+                     * value instead. This method is primarily for setting the field to an
+                     * undocumented or not yet supported value.
+                     */
                     fun dateOfBirth(dateOfBirth: JsonField<LocalDate>) = apply {
                         this.dateOfBirth = dateOfBirth
                     }
@@ -1718,7 +2229,13 @@ private constructor(
                     fun identification(identification: Identification) =
                         identification(JsonField.of(identification))
 
-                    /** A means of verifying the person's identity. */
+                    /**
+                     * Sets [Builder.identification] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.identification] with a well-typed
+                     * [Identification] value instead. This method is primarily for setting the
+                     * field to an undocumented or not yet supported value.
+                     */
                     fun identification(identification: JsonField<Identification>) = apply {
                         this.identification = identification
                     }
@@ -1726,7 +2243,13 @@ private constructor(
                     /** The person's legal name. */
                     fun name(name: String) = name(JsonField.of(name))
 
-                    /** The person's legal name. */
+                    /**
+                     * Sets [Builder.name] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.name] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
                     fun name(name: JsonField<String>) = apply { this.name = name }
 
                     /**
@@ -1739,10 +2262,11 @@ private constructor(
                         confirmedNoUsTaxId(JsonField.of(confirmedNoUsTaxId))
 
                     /**
-                     * The identification method for an individual can only be a passport, driver's
-                     * license, or other document if you've confirmed the individual does not have a
-                     * US tax id (either a Social Security Number or Individual Taxpayer
-                     * Identification Number).
+                     * Sets [Builder.confirmedNoUsTaxId] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.confirmedNoUsTaxId] with a well-typed
+                     * [Boolean] value instead. This method is primarily for setting the field to an
+                     * undocumented or not yet supported value.
                      */
                     fun confirmedNoUsTaxId(confirmedNoUsTaxId: JsonField<Boolean>) = apply {
                         this.confirmedNoUsTaxId = confirmedNoUsTaxId
@@ -1770,6 +2294,21 @@ private constructor(
                         keys.forEach(::removeAdditionalProperty)
                     }
 
+                    /**
+                     * Returns an immutable instance of [Individual].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     *
+                     * The following fields are required:
+                     * ```kotlin
+                     * .address()
+                     * .dateOfBirth()
+                     * .identification()
+                     * .name()
+                     * ```
+                     *
+                     * @throws IllegalStateException if any required field is unset.
+                     */
                     fun build(): Individual =
                         Individual(
                             checkRequired("address", address),
@@ -1808,44 +2347,89 @@ private constructor(
                     private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
                 ) {
 
-                    /** The city of the address. */
+                    /**
+                     * The city of the address.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   or is unexpectedly missing or null (e.g. if the server responded with an
+                     *   unexpected value).
+                     */
                     fun city(): String = city.getRequired("city")
 
                     /**
                      * The first line of the address. This is usually the street number and street.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   or is unexpectedly missing or null (e.g. if the server responded with an
+                     *   unexpected value).
                      */
                     fun line1(): String = line1.getRequired("line1")
 
                     /**
                      * The two-letter United States Postal Service (USPS) abbreviation for the state
                      * of the address.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   or is unexpectedly missing or null (e.g. if the server responded with an
+                     *   unexpected value).
                      */
                     fun state(): String = state.getRequired("state")
 
-                    /** The ZIP code of the address. */
+                    /**
+                     * The ZIP code of the address.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   or is unexpectedly missing or null (e.g. if the server responded with an
+                     *   unexpected value).
+                     */
                     fun zip(): String = zip.getRequired("zip")
 
-                    /** The second line of the address. This might be the floor or room number. */
+                    /**
+                     * The second line of the address. This might be the floor or room number.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
+                     */
                     fun line2(): String? = line2.getNullable("line2")
 
-                    /** The city of the address. */
+                    /**
+                     * Returns the raw JSON value of [city].
+                     *
+                     * Unlike [city], this method doesn't throw if the JSON field has an unexpected
+                     * type.
+                     */
                     @JsonProperty("city") @ExcludeMissing fun _city(): JsonField<String> = city
 
                     /**
-                     * The first line of the address. This is usually the street number and street.
+                     * Returns the raw JSON value of [line1].
+                     *
+                     * Unlike [line1], this method doesn't throw if the JSON field has an unexpected
+                     * type.
                      */
                     @JsonProperty("line1") @ExcludeMissing fun _line1(): JsonField<String> = line1
 
                     /**
-                     * The two-letter United States Postal Service (USPS) abbreviation for the state
-                     * of the address.
+                     * Returns the raw JSON value of [state].
+                     *
+                     * Unlike [state], this method doesn't throw if the JSON field has an unexpected
+                     * type.
                      */
                     @JsonProperty("state") @ExcludeMissing fun _state(): JsonField<String> = state
 
-                    /** The ZIP code of the address. */
+                    /**
+                     * Returns the raw JSON value of [zip].
+                     *
+                     * Unlike [zip], this method doesn't throw if the JSON field has an unexpected
+                     * type.
+                     */
                     @JsonProperty("zip") @ExcludeMissing fun _zip(): JsonField<String> = zip
 
-                    /** The second line of the address. This might be the floor or room number. */
+                    /**
+                     * Returns the raw JSON value of [line2].
+                     *
+                     * Unlike [line2], this method doesn't throw if the JSON field has an unexpected
+                     * type.
+                     */
                     @JsonProperty("line2") @ExcludeMissing fun _line2(): JsonField<String> = line2
 
                     @JsonAnyGetter
@@ -1908,7 +2492,13 @@ private constructor(
                         /** The city of the address. */
                         fun city(city: String) = city(JsonField.of(city))
 
-                        /** The city of the address. */
+                        /**
+                         * Sets [Builder.city] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.city] with a well-typed [String] value
+                         * instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
+                         */
                         fun city(city: JsonField<String>) = apply { this.city = city }
 
                         /**
@@ -1918,8 +2508,11 @@ private constructor(
                         fun line1(line1: String) = line1(JsonField.of(line1))
 
                         /**
-                         * The first line of the address. This is usually the street number and
-                         * street.
+                         * Sets [Builder.line1] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.line1] with a well-typed [String] value
+                         * instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
                          */
                         fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
 
@@ -1930,15 +2523,24 @@ private constructor(
                         fun state(state: String) = state(JsonField.of(state))
 
                         /**
-                         * The two-letter United States Postal Service (USPS) abbreviation for the
-                         * state of the address.
+                         * Sets [Builder.state] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.state] with a well-typed [String] value
+                         * instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
                          */
                         fun state(state: JsonField<String>) = apply { this.state = state }
 
                         /** The ZIP code of the address. */
                         fun zip(zip: String) = zip(JsonField.of(zip))
 
-                        /** The ZIP code of the address. */
+                        /**
+                         * Sets [Builder.zip] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.zip] with a well-typed [String] value
+                         * instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
+                         */
                         fun zip(zip: JsonField<String>) = apply { this.zip = zip }
 
                         /**
@@ -1947,7 +2549,11 @@ private constructor(
                         fun line2(line2: String) = line2(JsonField.of(line2))
 
                         /**
-                         * The second line of the address. This might be the floor or room number.
+                         * Sets [Builder.line2] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.line2] with a well-typed [String] value
+                         * instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
                          */
                         fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
 
@@ -1973,6 +2579,21 @@ private constructor(
                             keys.forEach(::removeAdditionalProperty)
                         }
 
+                        /**
+                         * Returns an immutable instance of [Address].
+                         *
+                         * Further updates to this [Builder] will not mutate the returned instance.
+                         *
+                         * The following fields are required:
+                         * ```kotlin
+                         * .city()
+                         * .line1()
+                         * .state()
+                         * .zip()
+                         * ```
+                         *
+                         * @throws IllegalStateException if any required field is unset.
+                         */
                         fun build(): Address =
                             Address(
                                 checkRequired("city", city),
@@ -2026,18 +2647,31 @@ private constructor(
                     private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
                 ) {
 
-                    /** A method that can be used to verify the individual's identity. */
+                    /**
+                     * A method that can be used to verify the individual's identity.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   or is unexpectedly missing or null (e.g. if the server responded with an
+                     *   unexpected value).
+                     */
                     fun method(): Method = method.getRequired("method")
 
                     /**
                      * An identification number that can be used to verify the individual's
                      * identity, such as a social security number.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   or is unexpectedly missing or null (e.g. if the server responded with an
+                     *   unexpected value).
                      */
                     fun number(): String = number.getRequired("number")
 
                     /**
                      * Information about the United States driver's license used for identification.
                      * Required if `method` is equal to `drivers_license`.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
                      */
                     fun driversLicense(): DriversLicense? =
                         driversLicense.getNullable("drivers_license")
@@ -2045,45 +2679,64 @@ private constructor(
                     /**
                      * Information about the identification document provided. Required if `method`
                      * is equal to `other`.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
                      */
                     fun other(): Other? = other.getNullable("other")
 
                     /**
                      * Information about the passport used for identification. Required if `method`
                      * is equal to `passport`.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
                      */
                     fun passport(): Passport? = passport.getNullable("passport")
 
-                    /** A method that can be used to verify the individual's identity. */
+                    /**
+                     * Returns the raw JSON value of [method].
+                     *
+                     * Unlike [method], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
                     @JsonProperty("method")
                     @ExcludeMissing
                     fun _method(): JsonField<Method> = method
 
                     /**
-                     * An identification number that can be used to verify the individual's
-                     * identity, such as a social security number.
+                     * Returns the raw JSON value of [number].
+                     *
+                     * Unlike [number], this method doesn't throw if the JSON field has an
+                     * unexpected type.
                      */
                     @JsonProperty("number")
                     @ExcludeMissing
                     fun _number(): JsonField<String> = number
 
                     /**
-                     * Information about the United States driver's license used for identification.
-                     * Required if `method` is equal to `drivers_license`.
+                     * Returns the raw JSON value of [driversLicense].
+                     *
+                     * Unlike [driversLicense], this method doesn't throw if the JSON field has an
+                     * unexpected type.
                      */
                     @JsonProperty("drivers_license")
                     @ExcludeMissing
                     fun _driversLicense(): JsonField<DriversLicense> = driversLicense
 
                     /**
-                     * Information about the identification document provided. Required if `method`
-                     * is equal to `other`.
+                     * Returns the raw JSON value of [other].
+                     *
+                     * Unlike [other], this method doesn't throw if the JSON field has an unexpected
+                     * type.
                      */
                     @JsonProperty("other") @ExcludeMissing fun _other(): JsonField<Other> = other
 
                     /**
-                     * Information about the passport used for identification. Required if `method`
-                     * is equal to `passport`.
+                     * Returns the raw JSON value of [passport].
+                     *
+                     * Unlike [passport], this method doesn't throw if the JSON field has an
+                     * unexpected type.
                      */
                     @JsonProperty("passport")
                     @ExcludeMissing
@@ -2149,7 +2802,13 @@ private constructor(
                         /** A method that can be used to verify the individual's identity. */
                         fun method(method: Method) = method(JsonField.of(method))
 
-                        /** A method that can be used to verify the individual's identity. */
+                        /**
+                         * Sets [Builder.method] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.method] with a well-typed [Method] value
+                         * instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
+                         */
                         fun method(method: JsonField<Method>) = apply { this.method = method }
 
                         /**
@@ -2159,8 +2818,11 @@ private constructor(
                         fun number(number: String) = number(JsonField.of(number))
 
                         /**
-                         * An identification number that can be used to verify the individual's
-                         * identity, such as a social security number.
+                         * Sets [Builder.number] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.number] with a well-typed [String] value
+                         * instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
                          */
                         fun number(number: JsonField<String>) = apply { this.number = number }
 
@@ -2172,8 +2834,11 @@ private constructor(
                             driversLicense(JsonField.of(driversLicense))
 
                         /**
-                         * Information about the United States driver's license used for
-                         * identification. Required if `method` is equal to `drivers_license`.
+                         * Sets [Builder.driversLicense] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.driversLicense] with a well-typed
+                         * [DriversLicense] value instead. This method is primarily for setting the
+                         * field to an undocumented or not yet supported value.
                          */
                         fun driversLicense(driversLicense: JsonField<DriversLicense>) = apply {
                             this.driversLicense = driversLicense
@@ -2186,8 +2851,11 @@ private constructor(
                         fun other(other: Other) = other(JsonField.of(other))
 
                         /**
-                         * Information about the identification document provided. Required if
-                         * `method` is equal to `other`.
+                         * Sets [Builder.other] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.other] with a well-typed [Other] value
+                         * instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
                          */
                         fun other(other: JsonField<Other>) = apply { this.other = other }
 
@@ -2198,8 +2866,11 @@ private constructor(
                         fun passport(passport: Passport) = passport(JsonField.of(passport))
 
                         /**
-                         * Information about the passport used for identification. Required if
-                         * `method` is equal to `passport`.
+                         * Sets [Builder.passport] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.passport] with a well-typed [Passport]
+                         * value instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
                          */
                         fun passport(passport: JsonField<Passport>) = apply {
                             this.passport = passport
@@ -2227,6 +2898,19 @@ private constructor(
                             keys.forEach(::removeAdditionalProperty)
                         }
 
+                        /**
+                         * Returns an immutable instance of [Identification].
+                         *
+                         * Further updates to this [Builder] will not mutate the returned instance.
+                         *
+                         * The following fields are required:
+                         * ```kotlin
+                         * .method()
+                         * .number()
+                         * ```
+                         *
+                         * @throws IllegalStateException if any required field is unset.
+                         */
                         fun build(): Identification =
                             Identification(
                                 checkRequired("method", method),
@@ -2407,42 +3091,77 @@ private constructor(
                             immutableEmptyMap(),
                     ) {
 
-                        /** The driver's license's expiration date in YYYY-MM-DD format. */
+                        /**
+                         * The driver's license's expiration date in YYYY-MM-DD format.
+                         *
+                         * @throws IncreaseInvalidDataException if the JSON field has an unexpected
+                         *   type or is unexpectedly missing or null (e.g. if the server responded
+                         *   with an unexpected value).
+                         */
                         fun expirationDate(): LocalDate =
                             expirationDate.getRequired("expiration_date")
 
                         /**
                          * The identifier of the File containing the front of the driver's license.
+                         *
+                         * @throws IncreaseInvalidDataException if the JSON field has an unexpected
+                         *   type or is unexpectedly missing or null (e.g. if the server responded
+                         *   with an unexpected value).
                          */
                         fun fileId(): String = fileId.getRequired("file_id")
 
-                        /** The state that issued the provided driver's license. */
+                        /**
+                         * The state that issued the provided driver's license.
+                         *
+                         * @throws IncreaseInvalidDataException if the JSON field has an unexpected
+                         *   type or is unexpectedly missing or null (e.g. if the server responded
+                         *   with an unexpected value).
+                         */
                         fun state(): String = state.getRequired("state")
 
                         /**
                          * The identifier of the File containing the back of the driver's license.
+                         *
+                         * @throws IncreaseInvalidDataException if the JSON field has an unexpected
+                         *   type (e.g. if the server responded with an unexpected value).
                          */
                         fun backFileId(): String? = backFileId.getNullable("back_file_id")
 
-                        /** The driver's license's expiration date in YYYY-MM-DD format. */
+                        /**
+                         * Returns the raw JSON value of [expirationDate].
+                         *
+                         * Unlike [expirationDate], this method doesn't throw if the JSON field has
+                         * an unexpected type.
+                         */
                         @JsonProperty("expiration_date")
                         @ExcludeMissing
                         fun _expirationDate(): JsonField<LocalDate> = expirationDate
 
                         /**
-                         * The identifier of the File containing the front of the driver's license.
+                         * Returns the raw JSON value of [fileId].
+                         *
+                         * Unlike [fileId], this method doesn't throw if the JSON field has an
+                         * unexpected type.
                          */
                         @JsonProperty("file_id")
                         @ExcludeMissing
                         fun _fileId(): JsonField<String> = fileId
 
-                        /** The state that issued the provided driver's license. */
+                        /**
+                         * Returns the raw JSON value of [state].
+                         *
+                         * Unlike [state], this method doesn't throw if the JSON field has an
+                         * unexpected type.
+                         */
                         @JsonProperty("state")
                         @ExcludeMissing
                         fun _state(): JsonField<String> = state
 
                         /**
-                         * The identifier of the File containing the back of the driver's license.
+                         * Returns the raw JSON value of [backFileId].
+                         *
+                         * Unlike [backFileId], this method doesn't throw if the JSON field has an
+                         * unexpected type.
                          */
                         @JsonProperty("back_file_id")
                         @ExcludeMissing
@@ -2507,7 +3226,13 @@ private constructor(
                             fun expirationDate(expirationDate: LocalDate) =
                                 expirationDate(JsonField.of(expirationDate))
 
-                            /** The driver's license's expiration date in YYYY-MM-DD format. */
+                            /**
+                             * Sets [Builder.expirationDate] to an arbitrary JSON value.
+                             *
+                             * You should usually call [Builder.expirationDate] with a well-typed
+                             * [LocalDate] value instead. This method is primarily for setting the
+                             * field to an undocumented or not yet supported value.
+                             */
                             fun expirationDate(expirationDate: JsonField<LocalDate>) = apply {
                                 this.expirationDate = expirationDate
                             }
@@ -2519,15 +3244,24 @@ private constructor(
                             fun fileId(fileId: String) = fileId(JsonField.of(fileId))
 
                             /**
-                             * The identifier of the File containing the front of the driver's
-                             * license.
+                             * Sets [Builder.fileId] to an arbitrary JSON value.
+                             *
+                             * You should usually call [Builder.fileId] with a well-typed [String]
+                             * value instead. This method is primarily for setting the field to an
+                             * undocumented or not yet supported value.
                              */
                             fun fileId(fileId: JsonField<String>) = apply { this.fileId = fileId }
 
                             /** The state that issued the provided driver's license. */
                             fun state(state: String) = state(JsonField.of(state))
 
-                            /** The state that issued the provided driver's license. */
+                            /**
+                             * Sets [Builder.state] to an arbitrary JSON value.
+                             *
+                             * You should usually call [Builder.state] with a well-typed [String]
+                             * value instead. This method is primarily for setting the field to an
+                             * undocumented or not yet supported value.
+                             */
                             fun state(state: JsonField<String>) = apply { this.state = state }
 
                             /**
@@ -2538,8 +3272,11 @@ private constructor(
                                 backFileId(JsonField.of(backFileId))
 
                             /**
-                             * The identifier of the File containing the back of the driver's
-                             * license.
+                             * Sets [Builder.backFileId] to an arbitrary JSON value.
+                             *
+                             * You should usually call [Builder.backFileId] with a well-typed
+                             * [String] value instead. This method is primarily for setting the
+                             * field to an undocumented or not yet supported value.
                              */
                             fun backFileId(backFileId: JsonField<String>) = apply {
                                 this.backFileId = backFileId
@@ -2567,6 +3304,21 @@ private constructor(
                                 keys.forEach(::removeAdditionalProperty)
                             }
 
+                            /**
+                             * Returns an immutable instance of [DriversLicense].
+                             *
+                             * Further updates to this [Builder] will not mutate the returned
+                             * instance.
+                             *
+                             * The following fields are required:
+                             * ```kotlin
+                             * .expirationDate()
+                             * .fileId()
+                             * .state()
+                             * ```
+                             *
+                             * @throws IllegalStateException if any required field is unset.
+                             */
                             fun build(): DriversLicense =
                                 DriversLicense(
                                     checkRequired("expirationDate", expirationDate),
@@ -2626,52 +3378,95 @@ private constructor(
                         /**
                          * The two-character ISO 3166-1 code representing the country that issued
                          * the document.
+                         *
+                         * @throws IncreaseInvalidDataException if the JSON field has an unexpected
+                         *   type or is unexpectedly missing or null (e.g. if the server responded
+                         *   with an unexpected value).
                          */
                         fun country(): String = country.getRequired("country")
 
-                        /** A description of the document submitted. */
+                        /**
+                         * A description of the document submitted.
+                         *
+                         * @throws IncreaseInvalidDataException if the JSON field has an unexpected
+                         *   type or is unexpectedly missing or null (e.g. if the server responded
+                         *   with an unexpected value).
+                         */
                         fun description(): String = description.getRequired("description")
 
-                        /** The identifier of the File containing the front of the document. */
+                        /**
+                         * The identifier of the File containing the front of the document.
+                         *
+                         * @throws IncreaseInvalidDataException if the JSON field has an unexpected
+                         *   type or is unexpectedly missing or null (e.g. if the server responded
+                         *   with an unexpected value).
+                         */
                         fun fileId(): String = fileId.getRequired("file_id")
 
                         /**
                          * The identifier of the File containing the back of the document. Not every
                          * document has a reverse side.
+                         *
+                         * @throws IncreaseInvalidDataException if the JSON field has an unexpected
+                         *   type (e.g. if the server responded with an unexpected value).
                          */
                         fun backFileId(): String? = backFileId.getNullable("back_file_id")
 
-                        /** The document's expiration date in YYYY-MM-DD format. */
+                        /**
+                         * The document's expiration date in YYYY-MM-DD format.
+                         *
+                         * @throws IncreaseInvalidDataException if the JSON field has an unexpected
+                         *   type (e.g. if the server responded with an unexpected value).
+                         */
                         fun expirationDate(): LocalDate? =
                             expirationDate.getNullable("expiration_date")
 
                         /**
-                         * The two-character ISO 3166-1 code representing the country that issued
-                         * the document.
+                         * Returns the raw JSON value of [country].
+                         *
+                         * Unlike [country], this method doesn't throw if the JSON field has an
+                         * unexpected type.
                          */
                         @JsonProperty("country")
                         @ExcludeMissing
                         fun _country(): JsonField<String> = country
 
-                        /** A description of the document submitted. */
+                        /**
+                         * Returns the raw JSON value of [description].
+                         *
+                         * Unlike [description], this method doesn't throw if the JSON field has an
+                         * unexpected type.
+                         */
                         @JsonProperty("description")
                         @ExcludeMissing
                         fun _description(): JsonField<String> = description
 
-                        /** The identifier of the File containing the front of the document. */
+                        /**
+                         * Returns the raw JSON value of [fileId].
+                         *
+                         * Unlike [fileId], this method doesn't throw if the JSON field has an
+                         * unexpected type.
+                         */
                         @JsonProperty("file_id")
                         @ExcludeMissing
                         fun _fileId(): JsonField<String> = fileId
 
                         /**
-                         * The identifier of the File containing the back of the document. Not every
-                         * document has a reverse side.
+                         * Returns the raw JSON value of [backFileId].
+                         *
+                         * Unlike [backFileId], this method doesn't throw if the JSON field has an
+                         * unexpected type.
                          */
                         @JsonProperty("back_file_id")
                         @ExcludeMissing
                         fun _backFileId(): JsonField<String> = backFileId
 
-                        /** The document's expiration date in YYYY-MM-DD format. */
+                        /**
+                         * Returns the raw JSON value of [expirationDate].
+                         *
+                         * Unlike [expirationDate], this method doesn't throw if the JSON field has
+                         * an unexpected type.
+                         */
                         @JsonProperty("expiration_date")
                         @ExcludeMissing
                         fun _expirationDate(): JsonField<LocalDate> = expirationDate
@@ -2739,8 +3534,11 @@ private constructor(
                             fun country(country: String) = country(JsonField.of(country))
 
                             /**
-                             * The two-character ISO 3166-1 code representing the country that
-                             * issued the document.
+                             * Sets [Builder.country] to an arbitrary JSON value.
+                             *
+                             * You should usually call [Builder.country] with a well-typed [String]
+                             * value instead. This method is primarily for setting the field to an
+                             * undocumented or not yet supported value.
                              */
                             fun country(country: JsonField<String>) = apply {
                                 this.country = country
@@ -2750,7 +3548,13 @@ private constructor(
                             fun description(description: String) =
                                 description(JsonField.of(description))
 
-                            /** A description of the document submitted. */
+                            /**
+                             * Sets [Builder.description] to an arbitrary JSON value.
+                             *
+                             * You should usually call [Builder.description] with a well-typed
+                             * [String] value instead. This method is primarily for setting the
+                             * field to an undocumented or not yet supported value.
+                             */
                             fun description(description: JsonField<String>) = apply {
                                 this.description = description
                             }
@@ -2758,7 +3562,13 @@ private constructor(
                             /** The identifier of the File containing the front of the document. */
                             fun fileId(fileId: String) = fileId(JsonField.of(fileId))
 
-                            /** The identifier of the File containing the front of the document. */
+                            /**
+                             * Sets [Builder.fileId] to an arbitrary JSON value.
+                             *
+                             * You should usually call [Builder.fileId] with a well-typed [String]
+                             * value instead. This method is primarily for setting the field to an
+                             * undocumented or not yet supported value.
+                             */
                             fun fileId(fileId: JsonField<String>) = apply { this.fileId = fileId }
 
                             /**
@@ -2769,8 +3579,11 @@ private constructor(
                                 backFileId(JsonField.of(backFileId))
 
                             /**
-                             * The identifier of the File containing the back of the document. Not
-                             * every document has a reverse side.
+                             * Sets [Builder.backFileId] to an arbitrary JSON value.
+                             *
+                             * You should usually call [Builder.backFileId] with a well-typed
+                             * [String] value instead. This method is primarily for setting the
+                             * field to an undocumented or not yet supported value.
                              */
                             fun backFileId(backFileId: JsonField<String>) = apply {
                                 this.backFileId = backFileId
@@ -2780,7 +3593,13 @@ private constructor(
                             fun expirationDate(expirationDate: LocalDate) =
                                 expirationDate(JsonField.of(expirationDate))
 
-                            /** The document's expiration date in YYYY-MM-DD format. */
+                            /**
+                             * Sets [Builder.expirationDate] to an arbitrary JSON value.
+                             *
+                             * You should usually call [Builder.expirationDate] with a well-typed
+                             * [LocalDate] value instead. This method is primarily for setting the
+                             * field to an undocumented or not yet supported value.
+                             */
                             fun expirationDate(expirationDate: JsonField<LocalDate>) = apply {
                                 this.expirationDate = expirationDate
                             }
@@ -2807,6 +3626,21 @@ private constructor(
                                 keys.forEach(::removeAdditionalProperty)
                             }
 
+                            /**
+                             * Returns an immutable instance of [Other].
+                             *
+                             * Further updates to this [Builder] will not mutate the returned
+                             * instance.
+                             *
+                             * The following fields are required:
+                             * ```kotlin
+                             * .country()
+                             * .description()
+                             * .fileId()
+                             * ```
+                             *
+                             * @throws IllegalStateException if any required field is unset.
+                             */
                             fun build(): Other =
                                 Other(
                                     checkRequired("country", country),
@@ -2858,27 +3692,60 @@ private constructor(
                             immutableEmptyMap(),
                     ) {
 
-                        /** The country that issued the passport. */
+                        /**
+                         * The country that issued the passport.
+                         *
+                         * @throws IncreaseInvalidDataException if the JSON field has an unexpected
+                         *   type or is unexpectedly missing or null (e.g. if the server responded
+                         *   with an unexpected value).
+                         */
                         fun country(): String = country.getRequired("country")
 
-                        /** The passport's expiration date in YYYY-MM-DD format. */
+                        /**
+                         * The passport's expiration date in YYYY-MM-DD format.
+                         *
+                         * @throws IncreaseInvalidDataException if the JSON field has an unexpected
+                         *   type or is unexpectedly missing or null (e.g. if the server responded
+                         *   with an unexpected value).
+                         */
                         fun expirationDate(): LocalDate =
                             expirationDate.getRequired("expiration_date")
 
-                        /** The identifier of the File containing the passport. */
+                        /**
+                         * The identifier of the File containing the passport.
+                         *
+                         * @throws IncreaseInvalidDataException if the JSON field has an unexpected
+                         *   type or is unexpectedly missing or null (e.g. if the server responded
+                         *   with an unexpected value).
+                         */
                         fun fileId(): String = fileId.getRequired("file_id")
 
-                        /** The country that issued the passport. */
+                        /**
+                         * Returns the raw JSON value of [country].
+                         *
+                         * Unlike [country], this method doesn't throw if the JSON field has an
+                         * unexpected type.
+                         */
                         @JsonProperty("country")
                         @ExcludeMissing
                         fun _country(): JsonField<String> = country
 
-                        /** The passport's expiration date in YYYY-MM-DD format. */
+                        /**
+                         * Returns the raw JSON value of [expirationDate].
+                         *
+                         * Unlike [expirationDate], this method doesn't throw if the JSON field has
+                         * an unexpected type.
+                         */
                         @JsonProperty("expiration_date")
                         @ExcludeMissing
                         fun _expirationDate(): JsonField<LocalDate> = expirationDate
 
-                        /** The identifier of the File containing the passport. */
+                        /**
+                         * Returns the raw JSON value of [fileId].
+                         *
+                         * Unlike [fileId], this method doesn't throw if the JSON field has an
+                         * unexpected type.
+                         */
                         @JsonProperty("file_id")
                         @ExcludeMissing
                         fun _fileId(): JsonField<String> = fileId
@@ -2936,7 +3803,13 @@ private constructor(
                             /** The country that issued the passport. */
                             fun country(country: String) = country(JsonField.of(country))
 
-                            /** The country that issued the passport. */
+                            /**
+                             * Sets [Builder.country] to an arbitrary JSON value.
+                             *
+                             * You should usually call [Builder.country] with a well-typed [String]
+                             * value instead. This method is primarily for setting the field to an
+                             * undocumented or not yet supported value.
+                             */
                             fun country(country: JsonField<String>) = apply {
                                 this.country = country
                             }
@@ -2945,7 +3818,13 @@ private constructor(
                             fun expirationDate(expirationDate: LocalDate) =
                                 expirationDate(JsonField.of(expirationDate))
 
-                            /** The passport's expiration date in YYYY-MM-DD format. */
+                            /**
+                             * Sets [Builder.expirationDate] to an arbitrary JSON value.
+                             *
+                             * You should usually call [Builder.expirationDate] with a well-typed
+                             * [LocalDate] value instead. This method is primarily for setting the
+                             * field to an undocumented or not yet supported value.
+                             */
                             fun expirationDate(expirationDate: JsonField<LocalDate>) = apply {
                                 this.expirationDate = expirationDate
                             }
@@ -2953,7 +3832,13 @@ private constructor(
                             /** The identifier of the File containing the passport. */
                             fun fileId(fileId: String) = fileId(JsonField.of(fileId))
 
-                            /** The identifier of the File containing the passport. */
+                            /**
+                             * Sets [Builder.fileId] to an arbitrary JSON value.
+                             *
+                             * You should usually call [Builder.fileId] with a well-typed [String]
+                             * value instead. This method is primarily for setting the field to an
+                             * undocumented or not yet supported value.
+                             */
                             fun fileId(fileId: JsonField<String>) = apply { this.fileId = fileId }
 
                             fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
@@ -2978,6 +3863,21 @@ private constructor(
                                 keys.forEach(::removeAdditionalProperty)
                             }
 
+                            /**
+                             * Returns an immutable instance of [Passport].
+                             *
+                             * Further updates to this [Builder] will not mutate the returned
+                             * instance.
+                             *
+                             * The following fields are required:
+                             * ```kotlin
+                             * .country()
+                             * .expirationDate()
+                             * .fileId()
+                             * ```
+                             *
+                             * @throws IllegalStateException if any required field is unset.
+                             */
                             fun build(): Passport =
                                 Passport(
                                     checkRequired("country", country),
@@ -3219,48 +4119,99 @@ private constructor(
         /**
          * The entity's physical address. Mail receiving locations like PO Boxes and PMB's are
          * disallowed.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun address(): Address = address.getRequired("address")
 
-        /** The identifying details of authorized officials acting on the entity's behalf. */
+        /**
+         * The identifying details of authorized officials acting on the entity's behalf.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun authorizedPersons(): List<AuthorizedPerson> =
             authorizedPersons.getRequired("authorized_persons")
 
-        /** The category of the government authority. */
+        /**
+         * The category of the government authority.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun category(): Category = category.getRequired("category")
 
-        /** The legal name of the government authority. */
+        /**
+         * The legal name of the government authority.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun name(): String = name.getRequired("name")
 
-        /** The Employer Identification Number (EIN) for the government authority. */
+        /**
+         * The Employer Identification Number (EIN) for the government authority.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun taxIdentifier(): String = taxIdentifier.getRequired("tax_identifier")
 
-        /** The website of the government authority. */
+        /**
+         * The website of the government authority.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun website(): String? = website.getNullable("website")
 
         /**
-         * The entity's physical address. Mail receiving locations like PO Boxes and PMB's are
-         * disallowed.
+         * Returns the raw JSON value of [address].
+         *
+         * Unlike [address], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("address") @ExcludeMissing fun _address(): JsonField<Address> = address
 
-        /** The identifying details of authorized officials acting on the entity's behalf. */
+        /**
+         * Returns the raw JSON value of [authorizedPersons].
+         *
+         * Unlike [authorizedPersons], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("authorized_persons")
         @ExcludeMissing
         fun _authorizedPersons(): JsonField<List<AuthorizedPerson>> = authorizedPersons
 
-        /** The category of the government authority. */
+        /**
+         * Returns the raw JSON value of [category].
+         *
+         * Unlike [category], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("category") @ExcludeMissing fun _category(): JsonField<Category> = category
 
-        /** The legal name of the government authority. */
+        /**
+         * Returns the raw JSON value of [name].
+         *
+         * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
-        /** The Employer Identification Number (EIN) for the government authority. */
+        /**
+         * Returns the raw JSON value of [taxIdentifier].
+         *
+         * Unlike [taxIdentifier], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("tax_identifier")
         @ExcludeMissing
         fun _taxIdentifier(): JsonField<String> = taxIdentifier
 
-        /** The website of the government authority. */
+        /**
+         * Returns the raw JSON value of [website].
+         *
+         * Unlike [website], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("website") @ExcludeMissing fun _website(): JsonField<String> = website
 
         @JsonAnyGetter
@@ -3330,8 +4281,11 @@ private constructor(
             fun address(address: Address) = address(JsonField.of(address))
 
             /**
-             * The entity's physical address. Mail receiving locations like PO Boxes and PMB's are
-             * disallowed.
+             * Sets [Builder.address] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.address] with a well-typed [Address] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun address(address: JsonField<Address>) = apply { this.address = address }
 
@@ -3339,12 +4293,22 @@ private constructor(
             fun authorizedPersons(authorizedPersons: List<AuthorizedPerson>) =
                 authorizedPersons(JsonField.of(authorizedPersons))
 
-            /** The identifying details of authorized officials acting on the entity's behalf. */
+            /**
+             * Sets [Builder.authorizedPersons] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.authorizedPersons] with a well-typed
+             * `List<AuthorizedPerson>` value instead. This method is primarily for setting the
+             * field to an undocumented or not yet supported value.
+             */
             fun authorizedPersons(authorizedPersons: JsonField<List<AuthorizedPerson>>) = apply {
                 this.authorizedPersons = authorizedPersons.map { it.toMutableList() }
             }
 
-            /** The identifying details of authorized officials acting on the entity's behalf. */
+            /**
+             * Adds a single [AuthorizedPerson] to [authorizedPersons].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
             fun addAuthorizedPerson(authorizedPerson: AuthorizedPerson) = apply {
                 authorizedPersons =
                     (authorizedPersons ?: JsonField.of(mutableListOf())).also {
@@ -3355,19 +4319,37 @@ private constructor(
             /** The category of the government authority. */
             fun category(category: Category) = category(JsonField.of(category))
 
-            /** The category of the government authority. */
+            /**
+             * Sets [Builder.category] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.category] with a well-typed [Category] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun category(category: JsonField<Category>) = apply { this.category = category }
 
             /** The legal name of the government authority. */
             fun name(name: String) = name(JsonField.of(name))
 
-            /** The legal name of the government authority. */
+            /**
+             * Sets [Builder.name] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.name] with a well-typed [String] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
             fun name(name: JsonField<String>) = apply { this.name = name }
 
             /** The Employer Identification Number (EIN) for the government authority. */
             fun taxIdentifier(taxIdentifier: String) = taxIdentifier(JsonField.of(taxIdentifier))
 
-            /** The Employer Identification Number (EIN) for the government authority. */
+            /**
+             * Sets [Builder.taxIdentifier] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.taxIdentifier] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun taxIdentifier(taxIdentifier: JsonField<String>) = apply {
                 this.taxIdentifier = taxIdentifier
             }
@@ -3375,7 +4357,13 @@ private constructor(
             /** The website of the government authority. */
             fun website(website: String) = website(JsonField.of(website))
 
-            /** The website of the government authority. */
+            /**
+             * Sets [Builder.website] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.website] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun website(website: JsonField<String>) = apply { this.website = website }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -3397,6 +4385,22 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [GovernmentAuthority].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .address()
+             * .authorizedPersons()
+             * .category()
+             * .name()
+             * .taxIdentifier()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): GovernmentAuthority =
                 GovernmentAuthority(
                     checkRequired("address", address),
@@ -3436,40 +4440,84 @@ private constructor(
             private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
 
-            /** The city of the address. */
+            /**
+             * The city of the address.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
             fun city(): String = city.getRequired("city")
 
-            /** The first line of the address. This is usually the street number and street. */
+            /**
+             * The first line of the address. This is usually the street number and street.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
             fun line1(): String = line1.getRequired("line1")
 
             /**
              * The two-letter United States Postal Service (USPS) abbreviation for the state of the
              * address.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
              */
             fun state(): String = state.getRequired("state")
 
-            /** The ZIP code of the address. */
+            /**
+             * The ZIP code of the address.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
             fun zip(): String = zip.getRequired("zip")
 
-            /** The second line of the address. This might be the floor or room number. */
+            /**
+             * The second line of the address. This might be the floor or room number.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
             fun line2(): String? = line2.getNullable("line2")
 
-            /** The city of the address. */
+            /**
+             * Returns the raw JSON value of [city].
+             *
+             * Unlike [city], this method doesn't throw if the JSON field has an unexpected type.
+             */
             @JsonProperty("city") @ExcludeMissing fun _city(): JsonField<String> = city
 
-            /** The first line of the address. This is usually the street number and street. */
+            /**
+             * Returns the raw JSON value of [line1].
+             *
+             * Unlike [line1], this method doesn't throw if the JSON field has an unexpected type.
+             */
             @JsonProperty("line1") @ExcludeMissing fun _line1(): JsonField<String> = line1
 
             /**
-             * The two-letter United States Postal Service (USPS) abbreviation for the state of the
-             * address.
+             * Returns the raw JSON value of [state].
+             *
+             * Unlike [state], this method doesn't throw if the JSON field has an unexpected type.
              */
             @JsonProperty("state") @ExcludeMissing fun _state(): JsonField<String> = state
 
-            /** The ZIP code of the address. */
+            /**
+             * Returns the raw JSON value of [zip].
+             *
+             * Unlike [zip], this method doesn't throw if the JSON field has an unexpected type.
+             */
             @JsonProperty("zip") @ExcludeMissing fun _zip(): JsonField<String> = zip
 
-            /** The second line of the address. This might be the floor or room number. */
+            /**
+             * Returns the raw JSON value of [line2].
+             *
+             * Unlike [line2], this method doesn't throw if the JSON field has an unexpected type.
+             */
             @JsonProperty("line2") @ExcludeMissing fun _line2(): JsonField<String> = line2
 
             @JsonAnyGetter
@@ -3531,13 +4579,25 @@ private constructor(
                 /** The city of the address. */
                 fun city(city: String) = city(JsonField.of(city))
 
-                /** The city of the address. */
+                /**
+                 * Sets [Builder.city] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.city] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
                 fun city(city: JsonField<String>) = apply { this.city = city }
 
                 /** The first line of the address. This is usually the street number and street. */
                 fun line1(line1: String) = line1(JsonField.of(line1))
 
-                /** The first line of the address. This is usually the street number and street. */
+                /**
+                 * Sets [Builder.line1] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.line1] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
                 fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
 
                 /**
@@ -3547,21 +4607,36 @@ private constructor(
                 fun state(state: String) = state(JsonField.of(state))
 
                 /**
-                 * The two-letter United States Postal Service (USPS) abbreviation for the state of
-                 * the address.
+                 * Sets [Builder.state] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.state] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
                  */
                 fun state(state: JsonField<String>) = apply { this.state = state }
 
                 /** The ZIP code of the address. */
                 fun zip(zip: String) = zip(JsonField.of(zip))
 
-                /** The ZIP code of the address. */
+                /**
+                 * Sets [Builder.zip] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.zip] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
                 fun zip(zip: JsonField<String>) = apply { this.zip = zip }
 
                 /** The second line of the address. This might be the floor or room number. */
                 fun line2(line2: String) = line2(JsonField.of(line2))
 
-                /** The second line of the address. This might be the floor or room number. */
+                /**
+                 * Sets [Builder.line2] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.line2] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
                 fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -3586,6 +4661,21 @@ private constructor(
                     keys.forEach(::removeAdditionalProperty)
                 }
 
+                /**
+                 * Returns an immutable instance of [Address].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .city()
+                 * .line1()
+                 * .state()
+                 * .zip()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
                 fun build(): Address =
                     Address(
                         checkRequired("city", city),
@@ -3626,10 +4716,20 @@ private constructor(
             private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
 
-            /** The person's legal name. */
+            /**
+             * The person's legal name.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
             fun name(): String = name.getRequired("name")
 
-            /** The person's legal name. */
+            /**
+             * Returns the raw JSON value of [name].
+             *
+             * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
+             */
             @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
             @JsonAnyGetter
@@ -3676,7 +4776,13 @@ private constructor(
                 /** The person's legal name. */
                 fun name(name: String) = name(JsonField.of(name))
 
-                /** The person's legal name. */
+                /**
+                 * Sets [Builder.name] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.name] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
                 fun name(name: JsonField<String>) = apply { this.name = name }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -3701,6 +4807,18 @@ private constructor(
                     keys.forEach(::removeAdditionalProperty)
                 }
 
+                /**
+                 * Returns an immutable instance of [AuthorizedPerson].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .name()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
                 fun build(): AuthorizedPerson =
                     AuthorizedPerson(
                         checkRequired("name", name),
@@ -3858,18 +4976,36 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The two individuals that share control of the entity. */
+        /**
+         * The two individuals that share control of the entity.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun individuals(): List<Individual> = individuals.getRequired("individuals")
 
-        /** The name of the joint entity. */
+        /**
+         * The name of the joint entity.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun name(): String? = name.getNullable("name")
 
-        /** The two individuals that share control of the entity. */
+        /**
+         * Returns the raw JSON value of [individuals].
+         *
+         * Unlike [individuals], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("individuals")
         @ExcludeMissing
         fun _individuals(): JsonField<List<Individual>> = individuals
 
-        /** The name of the joint entity. */
+        /**
+         * Returns the raw JSON value of [name].
+         *
+         * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
         @JsonAnyGetter
@@ -3919,12 +5055,22 @@ private constructor(
             /** The two individuals that share control of the entity. */
             fun individuals(individuals: List<Individual>) = individuals(JsonField.of(individuals))
 
-            /** The two individuals that share control of the entity. */
+            /**
+             * Sets [Builder.individuals] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.individuals] with a well-typed `List<Individual>`
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
             fun individuals(individuals: JsonField<List<Individual>>) = apply {
                 this.individuals = individuals.map { it.toMutableList() }
             }
 
-            /** The two individuals that share control of the entity. */
+            /**
+             * Adds a single [Individual] to [individuals].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
             fun addIndividual(individual: Individual) = apply {
                 individuals =
                     (individuals ?: JsonField.of(mutableListOf())).also {
@@ -3935,7 +5081,13 @@ private constructor(
             /** The name of the joint entity. */
             fun name(name: String) = name(JsonField.of(name))
 
-            /** The name of the joint entity. */
+            /**
+             * Sets [Builder.name] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.name] with a well-typed [String] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
             fun name(name: JsonField<String>) = apply { this.name = name }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -3957,6 +5109,18 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Joint].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .individuals()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): Joint =
                 Joint(
                     checkRequired("individuals", individuals).map { it.toImmutable() },
@@ -3991,49 +5155,90 @@ private constructor(
             /**
              * The individual's physical address. Mail receiving locations like PO Boxes and PMB's
              * are disallowed.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
              */
             fun address(): Address = address.getRequired("address")
 
-            /** The person's date of birth in YYYY-MM-DD format. */
+            /**
+             * The person's date of birth in YYYY-MM-DD format.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
             fun dateOfBirth(): LocalDate = dateOfBirth.getRequired("date_of_birth")
 
-            /** A means of verifying the person's identity. */
+            /**
+             * A means of verifying the person's identity.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
             fun identification(): Identification = identification.getRequired("identification")
 
-            /** The person's legal name. */
+            /**
+             * The person's legal name.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
             fun name(): String = name.getRequired("name")
 
             /**
              * The identification method for an individual can only be a passport, driver's license,
              * or other document if you've confirmed the individual does not have a US tax id
              * (either a Social Security Number or Individual Taxpayer Identification Number).
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
              */
             fun confirmedNoUsTaxId(): Boolean? =
                 confirmedNoUsTaxId.getNullable("confirmed_no_us_tax_id")
 
             /**
-             * The individual's physical address. Mail receiving locations like PO Boxes and PMB's
-             * are disallowed.
+             * Returns the raw JSON value of [address].
+             *
+             * Unlike [address], this method doesn't throw if the JSON field has an unexpected type.
              */
             @JsonProperty("address") @ExcludeMissing fun _address(): JsonField<Address> = address
 
-            /** The person's date of birth in YYYY-MM-DD format. */
+            /**
+             * Returns the raw JSON value of [dateOfBirth].
+             *
+             * Unlike [dateOfBirth], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
             @JsonProperty("date_of_birth")
             @ExcludeMissing
             fun _dateOfBirth(): JsonField<LocalDate> = dateOfBirth
 
-            /** A means of verifying the person's identity. */
+            /**
+             * Returns the raw JSON value of [identification].
+             *
+             * Unlike [identification], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
             @JsonProperty("identification")
             @ExcludeMissing
             fun _identification(): JsonField<Identification> = identification
 
-            /** The person's legal name. */
+            /**
+             * Returns the raw JSON value of [name].
+             *
+             * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
+             */
             @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
             /**
-             * The identification method for an individual can only be a passport, driver's license,
-             * or other document if you've confirmed the individual does not have a US tax id
-             * (either a Social Security Number or Individual Taxpayer Identification Number).
+             * Returns the raw JSON value of [confirmedNoUsTaxId].
+             *
+             * Unlike [confirmedNoUsTaxId], this method doesn't throw if the JSON field has an
+             * unexpected type.
              */
             @JsonProperty("confirmed_no_us_tax_id")
             @ExcludeMissing
@@ -4102,15 +5307,24 @@ private constructor(
                 fun address(address: Address) = address(JsonField.of(address))
 
                 /**
-                 * The individual's physical address. Mail receiving locations like PO Boxes and
-                 * PMB's are disallowed.
+                 * Sets [Builder.address] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.address] with a well-typed [Address] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
                  */
                 fun address(address: JsonField<Address>) = apply { this.address = address }
 
                 /** The person's date of birth in YYYY-MM-DD format. */
                 fun dateOfBirth(dateOfBirth: LocalDate) = dateOfBirth(JsonField.of(dateOfBirth))
 
-                /** The person's date of birth in YYYY-MM-DD format. */
+                /**
+                 * Sets [Builder.dateOfBirth] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.dateOfBirth] with a well-typed [LocalDate] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
                 fun dateOfBirth(dateOfBirth: JsonField<LocalDate>) = apply {
                     this.dateOfBirth = dateOfBirth
                 }
@@ -4119,7 +5333,13 @@ private constructor(
                 fun identification(identification: Identification) =
                     identification(JsonField.of(identification))
 
-                /** A means of verifying the person's identity. */
+                /**
+                 * Sets [Builder.identification] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.identification] with a well-typed
+                 * [Identification] value instead. This method is primarily for setting the field to
+                 * an undocumented or not yet supported value.
+                 */
                 fun identification(identification: JsonField<Identification>) = apply {
                     this.identification = identification
                 }
@@ -4127,7 +5347,13 @@ private constructor(
                 /** The person's legal name. */
                 fun name(name: String) = name(JsonField.of(name))
 
-                /** The person's legal name. */
+                /**
+                 * Sets [Builder.name] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.name] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
                 fun name(name: JsonField<String>) = apply { this.name = name }
 
                 /**
@@ -4140,10 +5366,11 @@ private constructor(
                     confirmedNoUsTaxId(JsonField.of(confirmedNoUsTaxId))
 
                 /**
-                 * The identification method for an individual can only be a passport, driver's
-                 * license, or other document if you've confirmed the individual does not have a US
-                 * tax id (either a Social Security Number or Individual Taxpayer Identification
-                 * Number).
+                 * Sets [Builder.confirmedNoUsTaxId] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.confirmedNoUsTaxId] with a well-typed [Boolean]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
                  */
                 fun confirmedNoUsTaxId(confirmedNoUsTaxId: JsonField<Boolean>) = apply {
                     this.confirmedNoUsTaxId = confirmedNoUsTaxId
@@ -4171,6 +5398,21 @@ private constructor(
                     keys.forEach(::removeAdditionalProperty)
                 }
 
+                /**
+                 * Returns an immutable instance of [Individual].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .address()
+                 * .dateOfBirth()
+                 * .identification()
+                 * .name()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
                 fun build(): Individual =
                     Individual(
                         checkRequired("address", address),
@@ -4209,40 +5451,88 @@ private constructor(
                 private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
             ) {
 
-                /** The city of the address. */
+                /**
+                 * The city of the address.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
+                 *   is unexpectedly missing or null (e.g. if the server responded with an
+                 *   unexpected value).
+                 */
                 fun city(): String = city.getRequired("city")
 
-                /** The first line of the address. This is usually the street number and street. */
+                /**
+                 * The first line of the address. This is usually the street number and street.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
+                 *   is unexpectedly missing or null (e.g. if the server responded with an
+                 *   unexpected value).
+                 */
                 fun line1(): String = line1.getRequired("line1")
 
                 /**
                  * The two-letter United States Postal Service (USPS) abbreviation for the state of
                  * the address.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
+                 *   is unexpectedly missing or null (e.g. if the server responded with an
+                 *   unexpected value).
                  */
                 fun state(): String = state.getRequired("state")
 
-                /** The ZIP code of the address. */
+                /**
+                 * The ZIP code of the address.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
+                 *   is unexpectedly missing or null (e.g. if the server responded with an
+                 *   unexpected value).
+                 */
                 fun zip(): String = zip.getRequired("zip")
 
-                /** The second line of the address. This might be the floor or room number. */
+                /**
+                 * The second line of the address. This might be the floor or room number.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                 *   (e.g. if the server responded with an unexpected value).
+                 */
                 fun line2(): String? = line2.getNullable("line2")
 
-                /** The city of the address. */
+                /**
+                 * Returns the raw JSON value of [city].
+                 *
+                 * Unlike [city], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
                 @JsonProperty("city") @ExcludeMissing fun _city(): JsonField<String> = city
 
-                /** The first line of the address. This is usually the street number and street. */
+                /**
+                 * Returns the raw JSON value of [line1].
+                 *
+                 * Unlike [line1], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
                 @JsonProperty("line1") @ExcludeMissing fun _line1(): JsonField<String> = line1
 
                 /**
-                 * The two-letter United States Postal Service (USPS) abbreviation for the state of
-                 * the address.
+                 * Returns the raw JSON value of [state].
+                 *
+                 * Unlike [state], this method doesn't throw if the JSON field has an unexpected
+                 * type.
                  */
                 @JsonProperty("state") @ExcludeMissing fun _state(): JsonField<String> = state
 
-                /** The ZIP code of the address. */
+                /**
+                 * Returns the raw JSON value of [zip].
+                 *
+                 * Unlike [zip], this method doesn't throw if the JSON field has an unexpected type.
+                 */
                 @JsonProperty("zip") @ExcludeMissing fun _zip(): JsonField<String> = zip
 
-                /** The second line of the address. This might be the floor or room number. */
+                /**
+                 * Returns the raw JSON value of [line2].
+                 *
+                 * Unlike [line2], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
                 @JsonProperty("line2") @ExcludeMissing fun _line2(): JsonField<String> = line2
 
                 @JsonAnyGetter
@@ -4304,7 +5594,13 @@ private constructor(
                     /** The city of the address. */
                     fun city(city: String) = city(JsonField.of(city))
 
-                    /** The city of the address. */
+                    /**
+                     * Sets [Builder.city] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.city] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
                     fun city(city: JsonField<String>) = apply { this.city = city }
 
                     /**
@@ -4313,7 +5609,11 @@ private constructor(
                     fun line1(line1: String) = line1(JsonField.of(line1))
 
                     /**
-                     * The first line of the address. This is usually the street number and street.
+                     * Sets [Builder.line1] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.line1] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
                      */
                     fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
 
@@ -4324,21 +5624,36 @@ private constructor(
                     fun state(state: String) = state(JsonField.of(state))
 
                     /**
-                     * The two-letter United States Postal Service (USPS) abbreviation for the state
-                     * of the address.
+                     * Sets [Builder.state] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.state] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
                      */
                     fun state(state: JsonField<String>) = apply { this.state = state }
 
                     /** The ZIP code of the address. */
                     fun zip(zip: String) = zip(JsonField.of(zip))
 
-                    /** The ZIP code of the address. */
+                    /**
+                     * Sets [Builder.zip] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.zip] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
                     fun zip(zip: JsonField<String>) = apply { this.zip = zip }
 
                     /** The second line of the address. This might be the floor or room number. */
                     fun line2(line2: String) = line2(JsonField.of(line2))
 
-                    /** The second line of the address. This might be the floor or room number. */
+                    /**
+                     * Sets [Builder.line2] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.line2] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
                     fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
 
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -4363,6 +5678,21 @@ private constructor(
                         keys.forEach(::removeAdditionalProperty)
                     }
 
+                    /**
+                     * Returns an immutable instance of [Address].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     *
+                     * The following fields are required:
+                     * ```kotlin
+                     * .city()
+                     * .line1()
+                     * .state()
+                     * .zip()
+                     * ```
+                     *
+                     * @throws IllegalStateException if any required field is unset.
+                     */
                     fun build(): Address =
                         Address(
                             checkRequired("city", city),
@@ -4416,18 +5746,31 @@ private constructor(
                 private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
             ) {
 
-                /** A method that can be used to verify the individual's identity. */
+                /**
+                 * A method that can be used to verify the individual's identity.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
+                 *   is unexpectedly missing or null (e.g. if the server responded with an
+                 *   unexpected value).
+                 */
                 fun method(): Method = method.getRequired("method")
 
                 /**
                  * An identification number that can be used to verify the individual's identity,
                  * such as a social security number.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
+                 *   is unexpectedly missing or null (e.g. if the server responded with an
+                 *   unexpected value).
                  */
                 fun number(): String = number.getRequired("number")
 
                 /**
                  * Information about the United States driver's license used for identification.
                  * Required if `method` is equal to `drivers_license`.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                 *   (e.g. if the server responded with an unexpected value).
                  */
                 fun driversLicense(): DriversLicense? =
                     driversLicense.getNullable("drivers_license")
@@ -4435,41 +5778,60 @@ private constructor(
                 /**
                  * Information about the identification document provided. Required if `method` is
                  * equal to `other`.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                 *   (e.g. if the server responded with an unexpected value).
                  */
                 fun other(): Other? = other.getNullable("other")
 
                 /**
                  * Information about the passport used for identification. Required if `method` is
                  * equal to `passport`.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                 *   (e.g. if the server responded with an unexpected value).
                  */
                 fun passport(): Passport? = passport.getNullable("passport")
 
-                /** A method that can be used to verify the individual's identity. */
+                /**
+                 * Returns the raw JSON value of [method].
+                 *
+                 * Unlike [method], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
                 @JsonProperty("method") @ExcludeMissing fun _method(): JsonField<Method> = method
 
                 /**
-                 * An identification number that can be used to verify the individual's identity,
-                 * such as a social security number.
+                 * Returns the raw JSON value of [number].
+                 *
+                 * Unlike [number], this method doesn't throw if the JSON field has an unexpected
+                 * type.
                  */
                 @JsonProperty("number") @ExcludeMissing fun _number(): JsonField<String> = number
 
                 /**
-                 * Information about the United States driver's license used for identification.
-                 * Required if `method` is equal to `drivers_license`.
+                 * Returns the raw JSON value of [driversLicense].
+                 *
+                 * Unlike [driversLicense], this method doesn't throw if the JSON field has an
+                 * unexpected type.
                  */
                 @JsonProperty("drivers_license")
                 @ExcludeMissing
                 fun _driversLicense(): JsonField<DriversLicense> = driversLicense
 
                 /**
-                 * Information about the identification document provided. Required if `method` is
-                 * equal to `other`.
+                 * Returns the raw JSON value of [other].
+                 *
+                 * Unlike [other], this method doesn't throw if the JSON field has an unexpected
+                 * type.
                  */
                 @JsonProperty("other") @ExcludeMissing fun _other(): JsonField<Other> = other
 
                 /**
-                 * Information about the passport used for identification. Required if `method` is
-                 * equal to `passport`.
+                 * Returns the raw JSON value of [passport].
+                 *
+                 * Unlike [passport], this method doesn't throw if the JSON field has an unexpected
+                 * type.
                  */
                 @JsonProperty("passport")
                 @ExcludeMissing
@@ -4532,7 +5894,13 @@ private constructor(
                     /** A method that can be used to verify the individual's identity. */
                     fun method(method: Method) = method(JsonField.of(method))
 
-                    /** A method that can be used to verify the individual's identity. */
+                    /**
+                     * Sets [Builder.method] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.method] with a well-typed [Method] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
                     fun method(method: JsonField<Method>) = apply { this.method = method }
 
                     /**
@@ -4542,8 +5910,11 @@ private constructor(
                     fun number(number: String) = number(JsonField.of(number))
 
                     /**
-                     * An identification number that can be used to verify the individual's
-                     * identity, such as a social security number.
+                     * Sets [Builder.number] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.number] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
                      */
                     fun number(number: JsonField<String>) = apply { this.number = number }
 
@@ -4555,8 +5926,11 @@ private constructor(
                         driversLicense(JsonField.of(driversLicense))
 
                     /**
-                     * Information about the United States driver's license used for identification.
-                     * Required if `method` is equal to `drivers_license`.
+                     * Sets [Builder.driversLicense] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.driversLicense] with a well-typed
+                     * [DriversLicense] value instead. This method is primarily for setting the
+                     * field to an undocumented or not yet supported value.
                      */
                     fun driversLicense(driversLicense: JsonField<DriversLicense>) = apply {
                         this.driversLicense = driversLicense
@@ -4569,8 +5943,11 @@ private constructor(
                     fun other(other: Other) = other(JsonField.of(other))
 
                     /**
-                     * Information about the identification document provided. Required if `method`
-                     * is equal to `other`.
+                     * Sets [Builder.other] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.other] with a well-typed [Other] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
                      */
                     fun other(other: JsonField<Other>) = apply { this.other = other }
 
@@ -4581,8 +5958,11 @@ private constructor(
                     fun passport(passport: Passport) = passport(JsonField.of(passport))
 
                     /**
-                     * Information about the passport used for identification. Required if `method`
-                     * is equal to `passport`.
+                     * Sets [Builder.passport] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.passport] with a well-typed [Passport] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
                      */
                     fun passport(passport: JsonField<Passport>) = apply { this.passport = passport }
 
@@ -4608,6 +5988,19 @@ private constructor(
                         keys.forEach(::removeAdditionalProperty)
                     }
 
+                    /**
+                     * Returns an immutable instance of [Identification].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     *
+                     * The following fields are required:
+                     * ```kotlin
+                     * .method()
+                     * .number()
+                     * ```
+                     *
+                     * @throws IllegalStateException if any required field is unset.
+                     */
                     fun build(): Identification =
                         Identification(
                             checkRequired("method", method),
@@ -4785,32 +6178,75 @@ private constructor(
                     private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
                 ) {
 
-                    /** The driver's license's expiration date in YYYY-MM-DD format. */
+                    /**
+                     * The driver's license's expiration date in YYYY-MM-DD format.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   or is unexpectedly missing or null (e.g. if the server responded with an
+                     *   unexpected value).
+                     */
                     fun expirationDate(): LocalDate = expirationDate.getRequired("expiration_date")
 
-                    /** The identifier of the File containing the front of the driver's license. */
+                    /**
+                     * The identifier of the File containing the front of the driver's license.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   or is unexpectedly missing or null (e.g. if the server responded with an
+                     *   unexpected value).
+                     */
                     fun fileId(): String = fileId.getRequired("file_id")
 
-                    /** The state that issued the provided driver's license. */
+                    /**
+                     * The state that issued the provided driver's license.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   or is unexpectedly missing or null (e.g. if the server responded with an
+                     *   unexpected value).
+                     */
                     fun state(): String = state.getRequired("state")
 
-                    /** The identifier of the File containing the back of the driver's license. */
+                    /**
+                     * The identifier of the File containing the back of the driver's license.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
+                     */
                     fun backFileId(): String? = backFileId.getNullable("back_file_id")
 
-                    /** The driver's license's expiration date in YYYY-MM-DD format. */
+                    /**
+                     * Returns the raw JSON value of [expirationDate].
+                     *
+                     * Unlike [expirationDate], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
                     @JsonProperty("expiration_date")
                     @ExcludeMissing
                     fun _expirationDate(): JsonField<LocalDate> = expirationDate
 
-                    /** The identifier of the File containing the front of the driver's license. */
+                    /**
+                     * Returns the raw JSON value of [fileId].
+                     *
+                     * Unlike [fileId], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
                     @JsonProperty("file_id")
                     @ExcludeMissing
                     fun _fileId(): JsonField<String> = fileId
 
-                    /** The state that issued the provided driver's license. */
+                    /**
+                     * Returns the raw JSON value of [state].
+                     *
+                     * Unlike [state], this method doesn't throw if the JSON field has an unexpected
+                     * type.
+                     */
                     @JsonProperty("state") @ExcludeMissing fun _state(): JsonField<String> = state
 
-                    /** The identifier of the File containing the back of the driver's license. */
+                    /**
+                     * Returns the raw JSON value of [backFileId].
+                     *
+                     * Unlike [backFileId], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
                     @JsonProperty("back_file_id")
                     @ExcludeMissing
                     fun _backFileId(): JsonField<String> = backFileId
@@ -4874,7 +6310,13 @@ private constructor(
                         fun expirationDate(expirationDate: LocalDate) =
                             expirationDate(JsonField.of(expirationDate))
 
-                        /** The driver's license's expiration date in YYYY-MM-DD format. */
+                        /**
+                         * Sets [Builder.expirationDate] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.expirationDate] with a well-typed
+                         * [LocalDate] value instead. This method is primarily for setting the field
+                         * to an undocumented or not yet supported value.
+                         */
                         fun expirationDate(expirationDate: JsonField<LocalDate>) = apply {
                             this.expirationDate = expirationDate
                         }
@@ -4885,14 +6327,24 @@ private constructor(
                         fun fileId(fileId: String) = fileId(JsonField.of(fileId))
 
                         /**
-                         * The identifier of the File containing the front of the driver's license.
+                         * Sets [Builder.fileId] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.fileId] with a well-typed [String] value
+                         * instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
                          */
                         fun fileId(fileId: JsonField<String>) = apply { this.fileId = fileId }
 
                         /** The state that issued the provided driver's license. */
                         fun state(state: String) = state(JsonField.of(state))
 
-                        /** The state that issued the provided driver's license. */
+                        /**
+                         * Sets [Builder.state] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.state] with a well-typed [String] value
+                         * instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
+                         */
                         fun state(state: JsonField<String>) = apply { this.state = state }
 
                         /**
@@ -4901,7 +6353,11 @@ private constructor(
                         fun backFileId(backFileId: String) = backFileId(JsonField.of(backFileId))
 
                         /**
-                         * The identifier of the File containing the back of the driver's license.
+                         * Sets [Builder.backFileId] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.backFileId] with a well-typed [String]
+                         * value instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
                          */
                         fun backFileId(backFileId: JsonField<String>) = apply {
                             this.backFileId = backFileId
@@ -4929,6 +6385,20 @@ private constructor(
                             keys.forEach(::removeAdditionalProperty)
                         }
 
+                        /**
+                         * Returns an immutable instance of [DriversLicense].
+                         *
+                         * Further updates to this [Builder] will not mutate the returned instance.
+                         *
+                         * The following fields are required:
+                         * ```kotlin
+                         * .expirationDate()
+                         * .fileId()
+                         * .state()
+                         * ```
+                         *
+                         * @throws IllegalStateException if any required field is unset.
+                         */
                         fun build(): DriversLicense =
                             DriversLicense(
                                 checkRequired("expirationDate", expirationDate),
@@ -4987,51 +6457,94 @@ private constructor(
                     /**
                      * The two-character ISO 3166-1 code representing the country that issued the
                      * document.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   or is unexpectedly missing or null (e.g. if the server responded with an
+                     *   unexpected value).
                      */
                     fun country(): String = country.getRequired("country")
 
-                    /** A description of the document submitted. */
+                    /**
+                     * A description of the document submitted.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   or is unexpectedly missing or null (e.g. if the server responded with an
+                     *   unexpected value).
+                     */
                     fun description(): String = description.getRequired("description")
 
-                    /** The identifier of the File containing the front of the document. */
+                    /**
+                     * The identifier of the File containing the front of the document.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   or is unexpectedly missing or null (e.g. if the server responded with an
+                     *   unexpected value).
+                     */
                     fun fileId(): String = fileId.getRequired("file_id")
 
                     /**
                      * The identifier of the File containing the back of the document. Not every
                      * document has a reverse side.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
                      */
                     fun backFileId(): String? = backFileId.getNullable("back_file_id")
 
-                    /** The document's expiration date in YYYY-MM-DD format. */
+                    /**
+                     * The document's expiration date in YYYY-MM-DD format.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
+                     */
                     fun expirationDate(): LocalDate? = expirationDate.getNullable("expiration_date")
 
                     /**
-                     * The two-character ISO 3166-1 code representing the country that issued the
-                     * document.
+                     * Returns the raw JSON value of [country].
+                     *
+                     * Unlike [country], this method doesn't throw if the JSON field has an
+                     * unexpected type.
                      */
                     @JsonProperty("country")
                     @ExcludeMissing
                     fun _country(): JsonField<String> = country
 
-                    /** A description of the document submitted. */
+                    /**
+                     * Returns the raw JSON value of [description].
+                     *
+                     * Unlike [description], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
                     @JsonProperty("description")
                     @ExcludeMissing
                     fun _description(): JsonField<String> = description
 
-                    /** The identifier of the File containing the front of the document. */
+                    /**
+                     * Returns the raw JSON value of [fileId].
+                     *
+                     * Unlike [fileId], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
                     @JsonProperty("file_id")
                     @ExcludeMissing
                     fun _fileId(): JsonField<String> = fileId
 
                     /**
-                     * The identifier of the File containing the back of the document. Not every
-                     * document has a reverse side.
+                     * Returns the raw JSON value of [backFileId].
+                     *
+                     * Unlike [backFileId], this method doesn't throw if the JSON field has an
+                     * unexpected type.
                      */
                     @JsonProperty("back_file_id")
                     @ExcludeMissing
                     fun _backFileId(): JsonField<String> = backFileId
 
-                    /** The document's expiration date in YYYY-MM-DD format. */
+                    /**
+                     * Returns the raw JSON value of [expirationDate].
+                     *
+                     * Unlike [expirationDate], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
                     @JsonProperty("expiration_date")
                     @ExcludeMissing
                     fun _expirationDate(): JsonField<LocalDate> = expirationDate
@@ -5099,8 +6612,11 @@ private constructor(
                         fun country(country: String) = country(JsonField.of(country))
 
                         /**
-                         * The two-character ISO 3166-1 code representing the country that issued
-                         * the document.
+                         * Sets [Builder.country] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.country] with a well-typed [String]
+                         * value instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
                          */
                         fun country(country: JsonField<String>) = apply { this.country = country }
 
@@ -5108,7 +6624,13 @@ private constructor(
                         fun description(description: String) =
                             description(JsonField.of(description))
 
-                        /** A description of the document submitted. */
+                        /**
+                         * Sets [Builder.description] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.description] with a well-typed [String]
+                         * value instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
+                         */
                         fun description(description: JsonField<String>) = apply {
                             this.description = description
                         }
@@ -5116,7 +6638,13 @@ private constructor(
                         /** The identifier of the File containing the front of the document. */
                         fun fileId(fileId: String) = fileId(JsonField.of(fileId))
 
-                        /** The identifier of the File containing the front of the document. */
+                        /**
+                         * Sets [Builder.fileId] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.fileId] with a well-typed [String] value
+                         * instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
+                         */
                         fun fileId(fileId: JsonField<String>) = apply { this.fileId = fileId }
 
                         /**
@@ -5126,8 +6654,11 @@ private constructor(
                         fun backFileId(backFileId: String) = backFileId(JsonField.of(backFileId))
 
                         /**
-                         * The identifier of the File containing the back of the document. Not every
-                         * document has a reverse side.
+                         * Sets [Builder.backFileId] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.backFileId] with a well-typed [String]
+                         * value instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
                          */
                         fun backFileId(backFileId: JsonField<String>) = apply {
                             this.backFileId = backFileId
@@ -5137,7 +6668,13 @@ private constructor(
                         fun expirationDate(expirationDate: LocalDate) =
                             expirationDate(JsonField.of(expirationDate))
 
-                        /** The document's expiration date in YYYY-MM-DD format. */
+                        /**
+                         * Sets [Builder.expirationDate] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.expirationDate] with a well-typed
+                         * [LocalDate] value instead. This method is primarily for setting the field
+                         * to an undocumented or not yet supported value.
+                         */
                         fun expirationDate(expirationDate: JsonField<LocalDate>) = apply {
                             this.expirationDate = expirationDate
                         }
@@ -5164,6 +6701,20 @@ private constructor(
                             keys.forEach(::removeAdditionalProperty)
                         }
 
+                        /**
+                         * Returns an immutable instance of [Other].
+                         *
+                         * Further updates to this [Builder] will not mutate the returned instance.
+                         *
+                         * The following fields are required:
+                         * ```kotlin
+                         * .country()
+                         * .description()
+                         * .fileId()
+                         * ```
+                         *
+                         * @throws IllegalStateException if any required field is unset.
+                         */
                         fun build(): Other =
                             Other(
                                 checkRequired("country", country),
@@ -5214,26 +6765,59 @@ private constructor(
                     private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
                 ) {
 
-                    /** The country that issued the passport. */
+                    /**
+                     * The country that issued the passport.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   or is unexpectedly missing or null (e.g. if the server responded with an
+                     *   unexpected value).
+                     */
                     fun country(): String = country.getRequired("country")
 
-                    /** The passport's expiration date in YYYY-MM-DD format. */
+                    /**
+                     * The passport's expiration date in YYYY-MM-DD format.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   or is unexpectedly missing or null (e.g. if the server responded with an
+                     *   unexpected value).
+                     */
                     fun expirationDate(): LocalDate = expirationDate.getRequired("expiration_date")
 
-                    /** The identifier of the File containing the passport. */
+                    /**
+                     * The identifier of the File containing the passport.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   or is unexpectedly missing or null (e.g. if the server responded with an
+                     *   unexpected value).
+                     */
                     fun fileId(): String = fileId.getRequired("file_id")
 
-                    /** The country that issued the passport. */
+                    /**
+                     * Returns the raw JSON value of [country].
+                     *
+                     * Unlike [country], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
                     @JsonProperty("country")
                     @ExcludeMissing
                     fun _country(): JsonField<String> = country
 
-                    /** The passport's expiration date in YYYY-MM-DD format. */
+                    /**
+                     * Returns the raw JSON value of [expirationDate].
+                     *
+                     * Unlike [expirationDate], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
                     @JsonProperty("expiration_date")
                     @ExcludeMissing
                     fun _expirationDate(): JsonField<LocalDate> = expirationDate
 
-                    /** The identifier of the File containing the passport. */
+                    /**
+                     * Returns the raw JSON value of [fileId].
+                     *
+                     * Unlike [fileId], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
                     @JsonProperty("file_id")
                     @ExcludeMissing
                     fun _fileId(): JsonField<String> = fileId
@@ -5291,14 +6875,26 @@ private constructor(
                         /** The country that issued the passport. */
                         fun country(country: String) = country(JsonField.of(country))
 
-                        /** The country that issued the passport. */
+                        /**
+                         * Sets [Builder.country] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.country] with a well-typed [String]
+                         * value instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
+                         */
                         fun country(country: JsonField<String>) = apply { this.country = country }
 
                         /** The passport's expiration date in YYYY-MM-DD format. */
                         fun expirationDate(expirationDate: LocalDate) =
                             expirationDate(JsonField.of(expirationDate))
 
-                        /** The passport's expiration date in YYYY-MM-DD format. */
+                        /**
+                         * Sets [Builder.expirationDate] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.expirationDate] with a well-typed
+                         * [LocalDate] value instead. This method is primarily for setting the field
+                         * to an undocumented or not yet supported value.
+                         */
                         fun expirationDate(expirationDate: JsonField<LocalDate>) = apply {
                             this.expirationDate = expirationDate
                         }
@@ -5306,7 +6902,13 @@ private constructor(
                         /** The identifier of the File containing the passport. */
                         fun fileId(fileId: String) = fileId(JsonField.of(fileId))
 
-                        /** The identifier of the File containing the passport. */
+                        /**
+                         * Sets [Builder.fileId] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.fileId] with a well-typed [String] value
+                         * instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
+                         */
                         fun fileId(fileId: JsonField<String>) = apply { this.fileId = fileId }
 
                         fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
@@ -5331,6 +6933,20 @@ private constructor(
                             keys.forEach(::removeAdditionalProperty)
                         }
 
+                        /**
+                         * Returns an immutable instance of [Passport].
+                         *
+                         * Further updates to this [Builder] will not mutate the returned instance.
+                         *
+                         * The following fields are required:
+                         * ```kotlin
+                         * .country()
+                         * .expirationDate()
+                         * .fileId()
+                         * ```
+                         *
+                         * @throws IllegalStateException if any required field is unset.
+                         */
                         fun build(): Passport =
                             Passport(
                                 checkRequired("country", country),
@@ -5443,49 +7059,85 @@ private constructor(
         /**
          * The individual's physical address. Mail receiving locations like PO Boxes and PMB's are
          * disallowed.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun address(): Address = address.getRequired("address")
 
-        /** The person's date of birth in YYYY-MM-DD format. */
+        /**
+         * The person's date of birth in YYYY-MM-DD format.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun dateOfBirth(): LocalDate = dateOfBirth.getRequired("date_of_birth")
 
-        /** A means of verifying the person's identity. */
+        /**
+         * A means of verifying the person's identity.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun identification(): Identification = identification.getRequired("identification")
 
-        /** The person's legal name. */
+        /**
+         * The person's legal name.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun name(): String = name.getRequired("name")
 
         /**
          * The identification method for an individual can only be a passport, driver's license, or
          * other document if you've confirmed the individual does not have a US tax id (either a
          * Social Security Number or Individual Taxpayer Identification Number).
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
         fun confirmedNoUsTaxId(): Boolean? =
             confirmedNoUsTaxId.getNullable("confirmed_no_us_tax_id")
 
         /**
-         * The individual's physical address. Mail receiving locations like PO Boxes and PMB's are
-         * disallowed.
+         * Returns the raw JSON value of [address].
+         *
+         * Unlike [address], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("address") @ExcludeMissing fun _address(): JsonField<Address> = address
 
-        /** The person's date of birth in YYYY-MM-DD format. */
+        /**
+         * Returns the raw JSON value of [dateOfBirth].
+         *
+         * Unlike [dateOfBirth], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("date_of_birth")
         @ExcludeMissing
         fun _dateOfBirth(): JsonField<LocalDate> = dateOfBirth
 
-        /** A means of verifying the person's identity. */
+        /**
+         * Returns the raw JSON value of [identification].
+         *
+         * Unlike [identification], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
         @JsonProperty("identification")
         @ExcludeMissing
         fun _identification(): JsonField<Identification> = identification
 
-        /** The person's legal name. */
+        /**
+         * Returns the raw JSON value of [name].
+         *
+         * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
         /**
-         * The identification method for an individual can only be a passport, driver's license, or
-         * other document if you've confirmed the individual does not have a US tax id (either a
-         * Social Security Number or Individual Taxpayer Identification Number).
+         * Returns the raw JSON value of [confirmedNoUsTaxId].
+         *
+         * Unlike [confirmedNoUsTaxId], this method doesn't throw if the JSON field has an
+         * unexpected type.
          */
         @JsonProperty("confirmed_no_us_tax_id")
         @ExcludeMissing
@@ -5554,15 +7206,24 @@ private constructor(
             fun address(address: Address) = address(JsonField.of(address))
 
             /**
-             * The individual's physical address. Mail receiving locations like PO Boxes and PMB's
-             * are disallowed.
+             * Sets [Builder.address] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.address] with a well-typed [Address] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun address(address: JsonField<Address>) = apply { this.address = address }
 
             /** The person's date of birth in YYYY-MM-DD format. */
             fun dateOfBirth(dateOfBirth: LocalDate) = dateOfBirth(JsonField.of(dateOfBirth))
 
-            /** The person's date of birth in YYYY-MM-DD format. */
+            /**
+             * Sets [Builder.dateOfBirth] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.dateOfBirth] with a well-typed [LocalDate] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun dateOfBirth(dateOfBirth: JsonField<LocalDate>) = apply {
                 this.dateOfBirth = dateOfBirth
             }
@@ -5571,7 +7232,13 @@ private constructor(
             fun identification(identification: Identification) =
                 identification(JsonField.of(identification))
 
-            /** A means of verifying the person's identity. */
+            /**
+             * Sets [Builder.identification] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.identification] with a well-typed [Identification]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
             fun identification(identification: JsonField<Identification>) = apply {
                 this.identification = identification
             }
@@ -5579,7 +7246,13 @@ private constructor(
             /** The person's legal name. */
             fun name(name: String) = name(JsonField.of(name))
 
-            /** The person's legal name. */
+            /**
+             * Sets [Builder.name] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.name] with a well-typed [String] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
             fun name(name: JsonField<String>) = apply { this.name = name }
 
             /**
@@ -5591,9 +7264,11 @@ private constructor(
                 confirmedNoUsTaxId(JsonField.of(confirmedNoUsTaxId))
 
             /**
-             * The identification method for an individual can only be a passport, driver's license,
-             * or other document if you've confirmed the individual does not have a US tax id
-             * (either a Social Security Number or Individual Taxpayer Identification Number).
+             * Sets [Builder.confirmedNoUsTaxId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.confirmedNoUsTaxId] with a well-typed [Boolean]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
              */
             fun confirmedNoUsTaxId(confirmedNoUsTaxId: JsonField<Boolean>) = apply {
                 this.confirmedNoUsTaxId = confirmedNoUsTaxId
@@ -5618,6 +7293,21 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [NaturalPerson].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .address()
+             * .dateOfBirth()
+             * .identification()
+             * .name()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): NaturalPerson =
                 NaturalPerson(
                     checkRequired("address", address),
@@ -5656,40 +7346,84 @@ private constructor(
             private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
 
-            /** The city of the address. */
+            /**
+             * The city of the address.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
             fun city(): String = city.getRequired("city")
 
-            /** The first line of the address. This is usually the street number and street. */
+            /**
+             * The first line of the address. This is usually the street number and street.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
             fun line1(): String = line1.getRequired("line1")
 
             /**
              * The two-letter United States Postal Service (USPS) abbreviation for the state of the
              * address.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
              */
             fun state(): String = state.getRequired("state")
 
-            /** The ZIP code of the address. */
+            /**
+             * The ZIP code of the address.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
             fun zip(): String = zip.getRequired("zip")
 
-            /** The second line of the address. This might be the floor or room number. */
+            /**
+             * The second line of the address. This might be the floor or room number.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
             fun line2(): String? = line2.getNullable("line2")
 
-            /** The city of the address. */
+            /**
+             * Returns the raw JSON value of [city].
+             *
+             * Unlike [city], this method doesn't throw if the JSON field has an unexpected type.
+             */
             @JsonProperty("city") @ExcludeMissing fun _city(): JsonField<String> = city
 
-            /** The first line of the address. This is usually the street number and street. */
+            /**
+             * Returns the raw JSON value of [line1].
+             *
+             * Unlike [line1], this method doesn't throw if the JSON field has an unexpected type.
+             */
             @JsonProperty("line1") @ExcludeMissing fun _line1(): JsonField<String> = line1
 
             /**
-             * The two-letter United States Postal Service (USPS) abbreviation for the state of the
-             * address.
+             * Returns the raw JSON value of [state].
+             *
+             * Unlike [state], this method doesn't throw if the JSON field has an unexpected type.
              */
             @JsonProperty("state") @ExcludeMissing fun _state(): JsonField<String> = state
 
-            /** The ZIP code of the address. */
+            /**
+             * Returns the raw JSON value of [zip].
+             *
+             * Unlike [zip], this method doesn't throw if the JSON field has an unexpected type.
+             */
             @JsonProperty("zip") @ExcludeMissing fun _zip(): JsonField<String> = zip
 
-            /** The second line of the address. This might be the floor or room number. */
+            /**
+             * Returns the raw JSON value of [line2].
+             *
+             * Unlike [line2], this method doesn't throw if the JSON field has an unexpected type.
+             */
             @JsonProperty("line2") @ExcludeMissing fun _line2(): JsonField<String> = line2
 
             @JsonAnyGetter
@@ -5751,13 +7485,25 @@ private constructor(
                 /** The city of the address. */
                 fun city(city: String) = city(JsonField.of(city))
 
-                /** The city of the address. */
+                /**
+                 * Sets [Builder.city] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.city] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
                 fun city(city: JsonField<String>) = apply { this.city = city }
 
                 /** The first line of the address. This is usually the street number and street. */
                 fun line1(line1: String) = line1(JsonField.of(line1))
 
-                /** The first line of the address. This is usually the street number and street. */
+                /**
+                 * Sets [Builder.line1] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.line1] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
                 fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
 
                 /**
@@ -5767,21 +7513,36 @@ private constructor(
                 fun state(state: String) = state(JsonField.of(state))
 
                 /**
-                 * The two-letter United States Postal Service (USPS) abbreviation for the state of
-                 * the address.
+                 * Sets [Builder.state] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.state] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
                  */
                 fun state(state: JsonField<String>) = apply { this.state = state }
 
                 /** The ZIP code of the address. */
                 fun zip(zip: String) = zip(JsonField.of(zip))
 
-                /** The ZIP code of the address. */
+                /**
+                 * Sets [Builder.zip] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.zip] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
                 fun zip(zip: JsonField<String>) = apply { this.zip = zip }
 
                 /** The second line of the address. This might be the floor or room number. */
                 fun line2(line2: String) = line2(JsonField.of(line2))
 
-                /** The second line of the address. This might be the floor or room number. */
+                /**
+                 * Sets [Builder.line2] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.line2] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
                 fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -5806,6 +7567,21 @@ private constructor(
                     keys.forEach(::removeAdditionalProperty)
                 }
 
+                /**
+                 * Returns an immutable instance of [Address].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .city()
+                 * .line1()
+                 * .state()
+                 * .zip()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
                 fun build(): Address =
                     Address(
                         checkRequired("city", city),
@@ -5859,59 +7635,88 @@ private constructor(
             private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
 
-            /** A method that can be used to verify the individual's identity. */
+            /**
+             * A method that can be used to verify the individual's identity.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
             fun method(): Method = method.getRequired("method")
 
             /**
              * An identification number that can be used to verify the individual's identity, such
              * as a social security number.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
              */
             fun number(): String = number.getRequired("number")
 
             /**
              * Information about the United States driver's license used for identification.
              * Required if `method` is equal to `drivers_license`.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
              */
             fun driversLicense(): DriversLicense? = driversLicense.getNullable("drivers_license")
 
             /**
              * Information about the identification document provided. Required if `method` is equal
              * to `other`.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
              */
             fun other(): Other? = other.getNullable("other")
 
             /**
              * Information about the passport used for identification. Required if `method` is equal
              * to `passport`.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
              */
             fun passport(): Passport? = passport.getNullable("passport")
 
-            /** A method that can be used to verify the individual's identity. */
+            /**
+             * Returns the raw JSON value of [method].
+             *
+             * Unlike [method], this method doesn't throw if the JSON field has an unexpected type.
+             */
             @JsonProperty("method") @ExcludeMissing fun _method(): JsonField<Method> = method
 
             /**
-             * An identification number that can be used to verify the individual's identity, such
-             * as a social security number.
+             * Returns the raw JSON value of [number].
+             *
+             * Unlike [number], this method doesn't throw if the JSON field has an unexpected type.
              */
             @JsonProperty("number") @ExcludeMissing fun _number(): JsonField<String> = number
 
             /**
-             * Information about the United States driver's license used for identification.
-             * Required if `method` is equal to `drivers_license`.
+             * Returns the raw JSON value of [driversLicense].
+             *
+             * Unlike [driversLicense], this method doesn't throw if the JSON field has an
+             * unexpected type.
              */
             @JsonProperty("drivers_license")
             @ExcludeMissing
             fun _driversLicense(): JsonField<DriversLicense> = driversLicense
 
             /**
-             * Information about the identification document provided. Required if `method` is equal
-             * to `other`.
+             * Returns the raw JSON value of [other].
+             *
+             * Unlike [other], this method doesn't throw if the JSON field has an unexpected type.
              */
             @JsonProperty("other") @ExcludeMissing fun _other(): JsonField<Other> = other
 
             /**
-             * Information about the passport used for identification. Required if `method` is equal
-             * to `passport`.
+             * Returns the raw JSON value of [passport].
+             *
+             * Unlike [passport], this method doesn't throw if the JSON field has an unexpected
+             * type.
              */
             @JsonProperty("passport")
             @ExcludeMissing
@@ -5974,7 +7779,13 @@ private constructor(
                 /** A method that can be used to verify the individual's identity. */
                 fun method(method: Method) = method(JsonField.of(method))
 
-                /** A method that can be used to verify the individual's identity. */
+                /**
+                 * Sets [Builder.method] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.method] with a well-typed [Method] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
                 fun method(method: JsonField<Method>) = apply { this.method = method }
 
                 /**
@@ -5984,8 +7795,11 @@ private constructor(
                 fun number(number: String) = number(JsonField.of(number))
 
                 /**
-                 * An identification number that can be used to verify the individual's identity,
-                 * such as a social security number.
+                 * Sets [Builder.number] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.number] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
                  */
                 fun number(number: JsonField<String>) = apply { this.number = number }
 
@@ -5997,8 +7811,11 @@ private constructor(
                     driversLicense(JsonField.of(driversLicense))
 
                 /**
-                 * Information about the United States driver's license used for identification.
-                 * Required if `method` is equal to `drivers_license`.
+                 * Sets [Builder.driversLicense] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.driversLicense] with a well-typed
+                 * [DriversLicense] value instead. This method is primarily for setting the field to
+                 * an undocumented or not yet supported value.
                  */
                 fun driversLicense(driversLicense: JsonField<DriversLicense>) = apply {
                     this.driversLicense = driversLicense
@@ -6011,8 +7828,11 @@ private constructor(
                 fun other(other: Other) = other(JsonField.of(other))
 
                 /**
-                 * Information about the identification document provided. Required if `method` is
-                 * equal to `other`.
+                 * Sets [Builder.other] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.other] with a well-typed [Other] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
                  */
                 fun other(other: JsonField<Other>) = apply { this.other = other }
 
@@ -6023,8 +7843,11 @@ private constructor(
                 fun passport(passport: Passport) = passport(JsonField.of(passport))
 
                 /**
-                 * Information about the passport used for identification. Required if `method` is
-                 * equal to `passport`.
+                 * Sets [Builder.passport] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.passport] with a well-typed [Passport] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
                  */
                 fun passport(passport: JsonField<Passport>) = apply { this.passport = passport }
 
@@ -6050,6 +7873,19 @@ private constructor(
                     keys.forEach(::removeAdditionalProperty)
                 }
 
+                /**
+                 * Returns an immutable instance of [Identification].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .method()
+                 * .number()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
                 fun build(): Identification =
                     Identification(
                         checkRequired("method", method),
@@ -6225,30 +8061,73 @@ private constructor(
                 private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
             ) {
 
-                /** The driver's license's expiration date in YYYY-MM-DD format. */
+                /**
+                 * The driver's license's expiration date in YYYY-MM-DD format.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
+                 *   is unexpectedly missing or null (e.g. if the server responded with an
+                 *   unexpected value).
+                 */
                 fun expirationDate(): LocalDate = expirationDate.getRequired("expiration_date")
 
-                /** The identifier of the File containing the front of the driver's license. */
+                /**
+                 * The identifier of the File containing the front of the driver's license.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
+                 *   is unexpectedly missing or null (e.g. if the server responded with an
+                 *   unexpected value).
+                 */
                 fun fileId(): String = fileId.getRequired("file_id")
 
-                /** The state that issued the provided driver's license. */
+                /**
+                 * The state that issued the provided driver's license.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
+                 *   is unexpectedly missing or null (e.g. if the server responded with an
+                 *   unexpected value).
+                 */
                 fun state(): String = state.getRequired("state")
 
-                /** The identifier of the File containing the back of the driver's license. */
+                /**
+                 * The identifier of the File containing the back of the driver's license.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                 *   (e.g. if the server responded with an unexpected value).
+                 */
                 fun backFileId(): String? = backFileId.getNullable("back_file_id")
 
-                /** The driver's license's expiration date in YYYY-MM-DD format. */
+                /**
+                 * Returns the raw JSON value of [expirationDate].
+                 *
+                 * Unlike [expirationDate], this method doesn't throw if the JSON field has an
+                 * unexpected type.
+                 */
                 @JsonProperty("expiration_date")
                 @ExcludeMissing
                 fun _expirationDate(): JsonField<LocalDate> = expirationDate
 
-                /** The identifier of the File containing the front of the driver's license. */
+                /**
+                 * Returns the raw JSON value of [fileId].
+                 *
+                 * Unlike [fileId], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
                 @JsonProperty("file_id") @ExcludeMissing fun _fileId(): JsonField<String> = fileId
 
-                /** The state that issued the provided driver's license. */
+                /**
+                 * Returns the raw JSON value of [state].
+                 *
+                 * Unlike [state], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
                 @JsonProperty("state") @ExcludeMissing fun _state(): JsonField<String> = state
 
-                /** The identifier of the File containing the back of the driver's license. */
+                /**
+                 * Returns the raw JSON value of [backFileId].
+                 *
+                 * Unlike [backFileId], this method doesn't throw if the JSON field has an
+                 * unexpected type.
+                 */
                 @JsonProperty("back_file_id")
                 @ExcludeMissing
                 fun _backFileId(): JsonField<String> = backFileId
@@ -6309,7 +8188,13 @@ private constructor(
                     fun expirationDate(expirationDate: LocalDate) =
                         expirationDate(JsonField.of(expirationDate))
 
-                    /** The driver's license's expiration date in YYYY-MM-DD format. */
+                    /**
+                     * Sets [Builder.expirationDate] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.expirationDate] with a well-typed
+                     * [LocalDate] value instead. This method is primarily for setting the field to
+                     * an undocumented or not yet supported value.
+                     */
                     fun expirationDate(expirationDate: JsonField<LocalDate>) = apply {
                         this.expirationDate = expirationDate
                     }
@@ -6317,19 +8202,37 @@ private constructor(
                     /** The identifier of the File containing the front of the driver's license. */
                     fun fileId(fileId: String) = fileId(JsonField.of(fileId))
 
-                    /** The identifier of the File containing the front of the driver's license. */
+                    /**
+                     * Sets [Builder.fileId] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.fileId] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
                     fun fileId(fileId: JsonField<String>) = apply { this.fileId = fileId }
 
                     /** The state that issued the provided driver's license. */
                     fun state(state: String) = state(JsonField.of(state))
 
-                    /** The state that issued the provided driver's license. */
+                    /**
+                     * Sets [Builder.state] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.state] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
                     fun state(state: JsonField<String>) = apply { this.state = state }
 
                     /** The identifier of the File containing the back of the driver's license. */
                     fun backFileId(backFileId: String) = backFileId(JsonField.of(backFileId))
 
-                    /** The identifier of the File containing the back of the driver's license. */
+                    /**
+                     * Sets [Builder.backFileId] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.backFileId] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
                     fun backFileId(backFileId: JsonField<String>) = apply {
                         this.backFileId = backFileId
                     }
@@ -6356,6 +8259,20 @@ private constructor(
                         keys.forEach(::removeAdditionalProperty)
                     }
 
+                    /**
+                     * Returns an immutable instance of [DriversLicense].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     *
+                     * The following fields are required:
+                     * ```kotlin
+                     * .expirationDate()
+                     * .fileId()
+                     * .state()
+                     * ```
+                     *
+                     * @throws IllegalStateException if any required field is unset.
+                     */
                     fun build(): DriversLicense =
                         DriversLicense(
                             checkRequired("expirationDate", expirationDate),
@@ -6414,47 +8331,90 @@ private constructor(
                 /**
                  * The two-character ISO 3166-1 code representing the country that issued the
                  * document.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
+                 *   is unexpectedly missing or null (e.g. if the server responded with an
+                 *   unexpected value).
                  */
                 fun country(): String = country.getRequired("country")
 
-                /** A description of the document submitted. */
+                /**
+                 * A description of the document submitted.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
+                 *   is unexpectedly missing or null (e.g. if the server responded with an
+                 *   unexpected value).
+                 */
                 fun description(): String = description.getRequired("description")
 
-                /** The identifier of the File containing the front of the document. */
+                /**
+                 * The identifier of the File containing the front of the document.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
+                 *   is unexpectedly missing or null (e.g. if the server responded with an
+                 *   unexpected value).
+                 */
                 fun fileId(): String = fileId.getRequired("file_id")
 
                 /**
                  * The identifier of the File containing the back of the document. Not every
                  * document has a reverse side.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                 *   (e.g. if the server responded with an unexpected value).
                  */
                 fun backFileId(): String? = backFileId.getNullable("back_file_id")
 
-                /** The document's expiration date in YYYY-MM-DD format. */
+                /**
+                 * The document's expiration date in YYYY-MM-DD format.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                 *   (e.g. if the server responded with an unexpected value).
+                 */
                 fun expirationDate(): LocalDate? = expirationDate.getNullable("expiration_date")
 
                 /**
-                 * The two-character ISO 3166-1 code representing the country that issued the
-                 * document.
+                 * Returns the raw JSON value of [country].
+                 *
+                 * Unlike [country], this method doesn't throw if the JSON field has an unexpected
+                 * type.
                  */
                 @JsonProperty("country") @ExcludeMissing fun _country(): JsonField<String> = country
 
-                /** A description of the document submitted. */
+                /**
+                 * Returns the raw JSON value of [description].
+                 *
+                 * Unlike [description], this method doesn't throw if the JSON field has an
+                 * unexpected type.
+                 */
                 @JsonProperty("description")
                 @ExcludeMissing
                 fun _description(): JsonField<String> = description
 
-                /** The identifier of the File containing the front of the document. */
+                /**
+                 * Returns the raw JSON value of [fileId].
+                 *
+                 * Unlike [fileId], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
                 @JsonProperty("file_id") @ExcludeMissing fun _fileId(): JsonField<String> = fileId
 
                 /**
-                 * The identifier of the File containing the back of the document. Not every
-                 * document has a reverse side.
+                 * Returns the raw JSON value of [backFileId].
+                 *
+                 * Unlike [backFileId], this method doesn't throw if the JSON field has an
+                 * unexpected type.
                  */
                 @JsonProperty("back_file_id")
                 @ExcludeMissing
                 fun _backFileId(): JsonField<String> = backFileId
 
-                /** The document's expiration date in YYYY-MM-DD format. */
+                /**
+                 * Returns the raw JSON value of [expirationDate].
+                 *
+                 * Unlike [expirationDate], this method doesn't throw if the JSON field has an
+                 * unexpected type.
+                 */
                 @JsonProperty("expiration_date")
                 @ExcludeMissing
                 fun _expirationDate(): JsonField<LocalDate> = expirationDate
@@ -6521,15 +8481,24 @@ private constructor(
                     fun country(country: String) = country(JsonField.of(country))
 
                     /**
-                     * The two-character ISO 3166-1 code representing the country that issued the
-                     * document.
+                     * Sets [Builder.country] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.country] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
                      */
                     fun country(country: JsonField<String>) = apply { this.country = country }
 
                     /** A description of the document submitted. */
                     fun description(description: String) = description(JsonField.of(description))
 
-                    /** A description of the document submitted. */
+                    /**
+                     * Sets [Builder.description] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.description] with a well-typed [String]
+                     * value instead. This method is primarily for setting the field to an
+                     * undocumented or not yet supported value.
+                     */
                     fun description(description: JsonField<String>) = apply {
                         this.description = description
                     }
@@ -6537,7 +8506,13 @@ private constructor(
                     /** The identifier of the File containing the front of the document. */
                     fun fileId(fileId: String) = fileId(JsonField.of(fileId))
 
-                    /** The identifier of the File containing the front of the document. */
+                    /**
+                     * Sets [Builder.fileId] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.fileId] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
                     fun fileId(fileId: JsonField<String>) = apply { this.fileId = fileId }
 
                     /**
@@ -6547,8 +8522,11 @@ private constructor(
                     fun backFileId(backFileId: String) = backFileId(JsonField.of(backFileId))
 
                     /**
-                     * The identifier of the File containing the back of the document. Not every
-                     * document has a reverse side.
+                     * Sets [Builder.backFileId] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.backFileId] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
                      */
                     fun backFileId(backFileId: JsonField<String>) = apply {
                         this.backFileId = backFileId
@@ -6558,7 +8536,13 @@ private constructor(
                     fun expirationDate(expirationDate: LocalDate) =
                         expirationDate(JsonField.of(expirationDate))
 
-                    /** The document's expiration date in YYYY-MM-DD format. */
+                    /**
+                     * Sets [Builder.expirationDate] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.expirationDate] with a well-typed
+                     * [LocalDate] value instead. This method is primarily for setting the field to
+                     * an undocumented or not yet supported value.
+                     */
                     fun expirationDate(expirationDate: JsonField<LocalDate>) = apply {
                         this.expirationDate = expirationDate
                     }
@@ -6585,6 +8569,20 @@ private constructor(
                         keys.forEach(::removeAdditionalProperty)
                     }
 
+                    /**
+                     * Returns an immutable instance of [Other].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     *
+                     * The following fields are required:
+                     * ```kotlin
+                     * .country()
+                     * .description()
+                     * .fileId()
+                     * ```
+                     *
+                     * @throws IllegalStateException if any required field is unset.
+                     */
                     fun build(): Other =
                         Other(
                             checkRequired("country", country),
@@ -6635,24 +8633,57 @@ private constructor(
                 private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
             ) {
 
-                /** The country that issued the passport. */
+                /**
+                 * The country that issued the passport.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
+                 *   is unexpectedly missing or null (e.g. if the server responded with an
+                 *   unexpected value).
+                 */
                 fun country(): String = country.getRequired("country")
 
-                /** The passport's expiration date in YYYY-MM-DD format. */
+                /**
+                 * The passport's expiration date in YYYY-MM-DD format.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
+                 *   is unexpectedly missing or null (e.g. if the server responded with an
+                 *   unexpected value).
+                 */
                 fun expirationDate(): LocalDate = expirationDate.getRequired("expiration_date")
 
-                /** The identifier of the File containing the passport. */
+                /**
+                 * The identifier of the File containing the passport.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
+                 *   is unexpectedly missing or null (e.g. if the server responded with an
+                 *   unexpected value).
+                 */
                 fun fileId(): String = fileId.getRequired("file_id")
 
-                /** The country that issued the passport. */
+                /**
+                 * Returns the raw JSON value of [country].
+                 *
+                 * Unlike [country], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
                 @JsonProperty("country") @ExcludeMissing fun _country(): JsonField<String> = country
 
-                /** The passport's expiration date in YYYY-MM-DD format. */
+                /**
+                 * Returns the raw JSON value of [expirationDate].
+                 *
+                 * Unlike [expirationDate], this method doesn't throw if the JSON field has an
+                 * unexpected type.
+                 */
                 @JsonProperty("expiration_date")
                 @ExcludeMissing
                 fun _expirationDate(): JsonField<LocalDate> = expirationDate
 
-                /** The identifier of the File containing the passport. */
+                /**
+                 * Returns the raw JSON value of [fileId].
+                 *
+                 * Unlike [fileId], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
                 @JsonProperty("file_id") @ExcludeMissing fun _fileId(): JsonField<String> = fileId
 
                 @JsonAnyGetter
@@ -6707,14 +8738,26 @@ private constructor(
                     /** The country that issued the passport. */
                     fun country(country: String) = country(JsonField.of(country))
 
-                    /** The country that issued the passport. */
+                    /**
+                     * Sets [Builder.country] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.country] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
                     fun country(country: JsonField<String>) = apply { this.country = country }
 
                     /** The passport's expiration date in YYYY-MM-DD format. */
                     fun expirationDate(expirationDate: LocalDate) =
                         expirationDate(JsonField.of(expirationDate))
 
-                    /** The passport's expiration date in YYYY-MM-DD format. */
+                    /**
+                     * Sets [Builder.expirationDate] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.expirationDate] with a well-typed
+                     * [LocalDate] value instead. This method is primarily for setting the field to
+                     * an undocumented or not yet supported value.
+                     */
                     fun expirationDate(expirationDate: JsonField<LocalDate>) = apply {
                         this.expirationDate = expirationDate
                     }
@@ -6722,7 +8765,13 @@ private constructor(
                     /** The identifier of the File containing the passport. */
                     fun fileId(fileId: String) = fileId(JsonField.of(fileId))
 
-                    /** The identifier of the File containing the passport. */
+                    /**
+                     * Sets [Builder.fileId] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.fileId] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
                     fun fileId(fileId: JsonField<String>) = apply { this.fileId = fileId }
 
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -6747,6 +8796,20 @@ private constructor(
                         keys.forEach(::removeAdditionalProperty)
                     }
 
+                    /**
+                     * Returns an immutable instance of [Passport].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     *
+                     * The following fields are required:
+                     * ```kotlin
+                     * .country()
+                     * .expirationDate()
+                     * .fileId()
+                     * ```
+                     *
+                     * @throws IllegalStateException if any required field is unset.
+                     */
                     fun build(): Passport =
                         Passport(
                             checkRequired("country", country),
@@ -6821,10 +8884,19 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The identifier of the File containing the document. */
+        /**
+         * The identifier of the File containing the document.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun fileId(): String = fileId.getRequired("file_id")
 
-        /** The identifier of the File containing the document. */
+        /**
+         * Returns the raw JSON value of [fileId].
+         *
+         * Unlike [fileId], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("file_id") @ExcludeMissing fun _fileId(): JsonField<String> = fileId
 
         @JsonAnyGetter
@@ -6871,7 +8943,13 @@ private constructor(
             /** The identifier of the File containing the document. */
             fun fileId(fileId: String) = fileId(JsonField.of(fileId))
 
-            /** The identifier of the File containing the document. */
+            /**
+             * Sets [Builder.fileId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.fileId] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun fileId(fileId: JsonField<String>) = apply { this.fileId = fileId }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -6893,6 +8971,18 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [SupplementalDocument].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .fileId()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): SupplementalDocument =
                 SupplementalDocument(
                     checkRequired("fileId", fileId),
@@ -6936,16 +9026,34 @@ private constructor(
         private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
     ) {
 
-        /** The reference identifier for the third party verification. */
+        /**
+         * The reference identifier for the third party verification.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun reference(): String = reference.getRequired("reference")
 
-        /** The vendor that was used to perform the verification. */
+        /**
+         * The vendor that was used to perform the verification.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun vendor(): Vendor = vendor.getRequired("vendor")
 
-        /** The reference identifier for the third party verification. */
+        /**
+         * Returns the raw JSON value of [reference].
+         *
+         * Unlike [reference], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("reference") @ExcludeMissing fun _reference(): JsonField<String> = reference
 
-        /** The vendor that was used to perform the verification. */
+        /**
+         * Returns the raw JSON value of [vendor].
+         *
+         * Unlike [vendor], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("vendor") @ExcludeMissing fun _vendor(): JsonField<Vendor> = vendor
 
         @JsonAnyGetter
@@ -6996,13 +9104,25 @@ private constructor(
             /** The reference identifier for the third party verification. */
             fun reference(reference: String) = reference(JsonField.of(reference))
 
-            /** The reference identifier for the third party verification. */
+            /**
+             * Sets [Builder.reference] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.reference] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun reference(reference: JsonField<String>) = apply { this.reference = reference }
 
             /** The vendor that was used to perform the verification. */
             fun vendor(vendor: Vendor) = vendor(JsonField.of(vendor))
 
-            /** The vendor that was used to perform the verification. */
+            /**
+             * Sets [Builder.vendor] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.vendor] with a well-typed [Vendor] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun vendor(vendor: JsonField<Vendor>) = apply { this.vendor = vendor }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -7024,6 +9144,19 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [ThirdPartyVerification].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .reference()
+             * .vendor()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): ThirdPartyVerification =
                 ThirdPartyVerification(
                     checkRequired("reference", reference),
@@ -7193,6 +9326,9 @@ private constructor(
         /**
          * The trust's physical address. Mail receiving locations like PO Boxes and PMB's are
          * disallowed.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun address(): Address = address.getRequired("address")
 
@@ -7200,74 +9336,125 @@ private constructor(
          * Whether the trust is `revocable` or `irrevocable`. Irrevocable trusts require their own
          * Employer Identification Number. Revocable trusts require information about the individual
          * `grantor` who created the trust.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun category(): Category = category.getRequired("category")
 
-        /** The legal name of the trust. */
+        /**
+         * The legal name of the trust.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun name(): String = name.getRequired("name")
 
-        /** The trustees of the trust. */
+        /**
+         * The trustees of the trust.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
         fun trustees(): List<Trustee> = trustees.getRequired("trustees")
 
-        /** The identifier of the File containing the formation document of the trust. */
+        /**
+         * The identifier of the File containing the formation document of the trust.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun formationDocumentFileId(): String? =
             formationDocumentFileId.getNullable("formation_document_file_id")
 
         /**
          * The two-letter United States Postal Service (USPS) abbreviation for the state in which
          * the trust was formed.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
         fun formationState(): String? = formationState.getNullable("formation_state")
 
-        /** The grantor of the trust. Required if `category` is equal to `revocable`. */
+        /**
+         * The grantor of the trust. Required if `category` is equal to `revocable`.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
         fun grantor(): Grantor? = grantor.getNullable("grantor")
 
         /**
          * The Employer Identification Number (EIN) for the trust. Required if `category` is equal
          * to `irrevocable`.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
         fun taxIdentifier(): String? = taxIdentifier.getNullable("tax_identifier")
 
         /**
-         * The trust's physical address. Mail receiving locations like PO Boxes and PMB's are
-         * disallowed.
+         * Returns the raw JSON value of [address].
+         *
+         * Unlike [address], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("address") @ExcludeMissing fun _address(): JsonField<Address> = address
 
         /**
-         * Whether the trust is `revocable` or `irrevocable`. Irrevocable trusts require their own
-         * Employer Identification Number. Revocable trusts require information about the individual
-         * `grantor` who created the trust.
+         * Returns the raw JSON value of [category].
+         *
+         * Unlike [category], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("category") @ExcludeMissing fun _category(): JsonField<Category> = category
 
-        /** The legal name of the trust. */
+        /**
+         * Returns the raw JSON value of [name].
+         *
+         * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
-        /** The trustees of the trust. */
+        /**
+         * Returns the raw JSON value of [trustees].
+         *
+         * Unlike [trustees], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("trustees")
         @ExcludeMissing
         fun _trustees(): JsonField<List<Trustee>> = trustees
 
-        /** The identifier of the File containing the formation document of the trust. */
+        /**
+         * Returns the raw JSON value of [formationDocumentFileId].
+         *
+         * Unlike [formationDocumentFileId], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
         @JsonProperty("formation_document_file_id")
         @ExcludeMissing
         fun _formationDocumentFileId(): JsonField<String> = formationDocumentFileId
 
         /**
-         * The two-letter United States Postal Service (USPS) abbreviation for the state in which
-         * the trust was formed.
+         * Returns the raw JSON value of [formationState].
+         *
+         * Unlike [formationState], this method doesn't throw if the JSON field has an unexpected
+         * type.
          */
         @JsonProperty("formation_state")
         @ExcludeMissing
         fun _formationState(): JsonField<String> = formationState
 
-        /** The grantor of the trust. Required if `category` is equal to `revocable`. */
+        /**
+         * Returns the raw JSON value of [grantor].
+         *
+         * Unlike [grantor], this method doesn't throw if the JSON field has an unexpected type.
+         */
         @JsonProperty("grantor") @ExcludeMissing fun _grantor(): JsonField<Grantor> = grantor
 
         /**
-         * The Employer Identification Number (EIN) for the trust. Required if `category` is equal
-         * to `irrevocable`.
+         * Returns the raw JSON value of [taxIdentifier].
+         *
+         * Unlike [taxIdentifier], this method doesn't throw if the JSON field has an unexpected
+         * type.
          */
         @JsonProperty("tax_identifier")
         @ExcludeMissing
@@ -7345,8 +9532,11 @@ private constructor(
             fun address(address: Address) = address(JsonField.of(address))
 
             /**
-             * The trust's physical address. Mail receiving locations like PO Boxes and PMB's are
-             * disallowed.
+             * Sets [Builder.address] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.address] with a well-typed [Address] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun address(address: JsonField<Address>) = apply { this.address = address }
 
@@ -7358,27 +9548,45 @@ private constructor(
             fun category(category: Category) = category(JsonField.of(category))
 
             /**
-             * Whether the trust is `revocable` or `irrevocable`. Irrevocable trusts require their
-             * own Employer Identification Number. Revocable trusts require information about the
-             * individual `grantor` who created the trust.
+             * Sets [Builder.category] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.category] with a well-typed [Category] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun category(category: JsonField<Category>) = apply { this.category = category }
 
             /** The legal name of the trust. */
             fun name(name: String) = name(JsonField.of(name))
 
-            /** The legal name of the trust. */
+            /**
+             * Sets [Builder.name] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.name] with a well-typed [String] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
             fun name(name: JsonField<String>) = apply { this.name = name }
 
             /** The trustees of the trust. */
             fun trustees(trustees: List<Trustee>) = trustees(JsonField.of(trustees))
 
-            /** The trustees of the trust. */
+            /**
+             * Sets [Builder.trustees] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.trustees] with a well-typed `List<Trustee>` value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun trustees(trustees: JsonField<List<Trustee>>) = apply {
                 this.trustees = trustees.map { it.toMutableList() }
             }
 
-            /** The trustees of the trust. */
+            /**
+             * Adds a single [Trustee] to [trustees].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
             fun addTrustee(trustee: Trustee) = apply {
                 trustees =
                     (trustees ?: JsonField.of(mutableListOf())).also {
@@ -7390,7 +9598,13 @@ private constructor(
             fun formationDocumentFileId(formationDocumentFileId: String) =
                 formationDocumentFileId(JsonField.of(formationDocumentFileId))
 
-            /** The identifier of the File containing the formation document of the trust. */
+            /**
+             * Sets [Builder.formationDocumentFileId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.formationDocumentFileId] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
             fun formationDocumentFileId(formationDocumentFileId: JsonField<String>) = apply {
                 this.formationDocumentFileId = formationDocumentFileId
             }
@@ -7403,8 +9617,11 @@ private constructor(
                 formationState(JsonField.of(formationState))
 
             /**
-             * The two-letter United States Postal Service (USPS) abbreviation for the state in
-             * which the trust was formed.
+             * Sets [Builder.formationState] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.formationState] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun formationState(formationState: JsonField<String>) = apply {
                 this.formationState = formationState
@@ -7413,7 +9630,13 @@ private constructor(
             /** The grantor of the trust. Required if `category` is equal to `revocable`. */
             fun grantor(grantor: Grantor) = grantor(JsonField.of(grantor))
 
-            /** The grantor of the trust. Required if `category` is equal to `revocable`. */
+            /**
+             * Sets [Builder.grantor] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.grantor] with a well-typed [Grantor] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
             fun grantor(grantor: JsonField<Grantor>) = apply { this.grantor = grantor }
 
             /**
@@ -7423,8 +9646,11 @@ private constructor(
             fun taxIdentifier(taxIdentifier: String) = taxIdentifier(JsonField.of(taxIdentifier))
 
             /**
-             * The Employer Identification Number (EIN) for the trust. Required if `category` is
-             * equal to `irrevocable`.
+             * Sets [Builder.taxIdentifier] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.taxIdentifier] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
             fun taxIdentifier(taxIdentifier: JsonField<String>) = apply {
                 this.taxIdentifier = taxIdentifier
@@ -7449,6 +9675,21 @@ private constructor(
                 keys.forEach(::removeAdditionalProperty)
             }
 
+            /**
+             * Returns an immutable instance of [Trust].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .address()
+             * .category()
+             * .name()
+             * .trustees()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
             fun build(): Trust =
                 Trust(
                     checkRequired("address", address),
@@ -7490,40 +9731,84 @@ private constructor(
             private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
 
-            /** The city of the address. */
+            /**
+             * The city of the address.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
             fun city(): String = city.getRequired("city")
 
-            /** The first line of the address. This is usually the street number and street. */
+            /**
+             * The first line of the address. This is usually the street number and street.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
             fun line1(): String = line1.getRequired("line1")
 
             /**
              * The two-letter United States Postal Service (USPS) abbreviation for the state of the
              * address.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
              */
             fun state(): String = state.getRequired("state")
 
-            /** The ZIP code of the address. */
+            /**
+             * The ZIP code of the address.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
             fun zip(): String = zip.getRequired("zip")
 
-            /** The second line of the address. This might be the floor or room number. */
+            /**
+             * The second line of the address. This might be the floor or room number.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
             fun line2(): String? = line2.getNullable("line2")
 
-            /** The city of the address. */
+            /**
+             * Returns the raw JSON value of [city].
+             *
+             * Unlike [city], this method doesn't throw if the JSON field has an unexpected type.
+             */
             @JsonProperty("city") @ExcludeMissing fun _city(): JsonField<String> = city
 
-            /** The first line of the address. This is usually the street number and street. */
+            /**
+             * Returns the raw JSON value of [line1].
+             *
+             * Unlike [line1], this method doesn't throw if the JSON field has an unexpected type.
+             */
             @JsonProperty("line1") @ExcludeMissing fun _line1(): JsonField<String> = line1
 
             /**
-             * The two-letter United States Postal Service (USPS) abbreviation for the state of the
-             * address.
+             * Returns the raw JSON value of [state].
+             *
+             * Unlike [state], this method doesn't throw if the JSON field has an unexpected type.
              */
             @JsonProperty("state") @ExcludeMissing fun _state(): JsonField<String> = state
 
-            /** The ZIP code of the address. */
+            /**
+             * Returns the raw JSON value of [zip].
+             *
+             * Unlike [zip], this method doesn't throw if the JSON field has an unexpected type.
+             */
             @JsonProperty("zip") @ExcludeMissing fun _zip(): JsonField<String> = zip
 
-            /** The second line of the address. This might be the floor or room number. */
+            /**
+             * Returns the raw JSON value of [line2].
+             *
+             * Unlike [line2], this method doesn't throw if the JSON field has an unexpected type.
+             */
             @JsonProperty("line2") @ExcludeMissing fun _line2(): JsonField<String> = line2
 
             @JsonAnyGetter
@@ -7585,13 +9870,25 @@ private constructor(
                 /** The city of the address. */
                 fun city(city: String) = city(JsonField.of(city))
 
-                /** The city of the address. */
+                /**
+                 * Sets [Builder.city] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.city] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
                 fun city(city: JsonField<String>) = apply { this.city = city }
 
                 /** The first line of the address. This is usually the street number and street. */
                 fun line1(line1: String) = line1(JsonField.of(line1))
 
-                /** The first line of the address. This is usually the street number and street. */
+                /**
+                 * Sets [Builder.line1] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.line1] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
                 fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
 
                 /**
@@ -7601,21 +9898,36 @@ private constructor(
                 fun state(state: String) = state(JsonField.of(state))
 
                 /**
-                 * The two-letter United States Postal Service (USPS) abbreviation for the state of
-                 * the address.
+                 * Sets [Builder.state] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.state] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
                  */
                 fun state(state: JsonField<String>) = apply { this.state = state }
 
                 /** The ZIP code of the address. */
                 fun zip(zip: String) = zip(JsonField.of(zip))
 
-                /** The ZIP code of the address. */
+                /**
+                 * Sets [Builder.zip] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.zip] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
                 fun zip(zip: JsonField<String>) = apply { this.zip = zip }
 
                 /** The second line of the address. This might be the floor or room number. */
                 fun line2(line2: String) = line2(JsonField.of(line2))
 
-                /** The second line of the address. This might be the floor or room number. */
+                /**
+                 * Sets [Builder.line2] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.line2] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
                 fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -7640,6 +9952,21 @@ private constructor(
                     keys.forEach(::removeAdditionalProperty)
                 }
 
+                /**
+                 * Returns an immutable instance of [Address].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .city()
+                 * .line1()
+                 * .state()
+                 * .zip()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
                 fun build(): Address =
                     Address(
                         checkRequired("city", city),
@@ -7795,23 +10122,39 @@ private constructor(
             private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
         ) {
 
-            /** The structure of the trustee. */
+            /**
+             * The structure of the trustee.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
             fun structure(): Structure = structure.getRequired("structure")
 
             /**
              * Details of the individual trustee. Required when the trustee `structure` is equal to
              * `individual`.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
              */
             fun individual(): Individual? = individual.getNullable("individual")
 
-            /** The structure of the trustee. */
+            /**
+             * Returns the raw JSON value of [structure].
+             *
+             * Unlike [structure], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
             @JsonProperty("structure")
             @ExcludeMissing
             fun _structure(): JsonField<Structure> = structure
 
             /**
-             * Details of the individual trustee. Required when the trustee `structure` is equal to
-             * `individual`.
+             * Returns the raw JSON value of [individual].
+             *
+             * Unlike [individual], this method doesn't throw if the JSON field has an unexpected
+             * type.
              */
             @JsonProperty("individual")
             @ExcludeMissing
@@ -7864,7 +10207,13 @@ private constructor(
                 /** The structure of the trustee. */
                 fun structure(structure: Structure) = structure(JsonField.of(structure))
 
-                /** The structure of the trustee. */
+                /**
+                 * Sets [Builder.structure] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.structure] with a well-typed [Structure] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
                 fun structure(structure: JsonField<Structure>) = apply {
                     this.structure = structure
                 }
@@ -7876,8 +10225,11 @@ private constructor(
                 fun individual(individual: Individual) = individual(JsonField.of(individual))
 
                 /**
-                 * Details of the individual trustee. Required when the trustee `structure` is equal
-                 * to `individual`.
+                 * Sets [Builder.individual] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.individual] with a well-typed [Individual] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
                  */
                 fun individual(individual: JsonField<Individual>) = apply {
                     this.individual = individual
@@ -7905,6 +10257,18 @@ private constructor(
                     keys.forEach(::removeAdditionalProperty)
                 }
 
+                /**
+                 * Returns an immutable instance of [Trustee].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .structure()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
                 fun build(): Trustee =
                     Trustee(
                         checkRequired("structure", structure),
@@ -8044,16 +10408,38 @@ private constructor(
                 /**
                  * The individual's physical address. Mail receiving locations like PO Boxes and
                  * PMB's are disallowed.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
+                 *   is unexpectedly missing or null (e.g. if the server responded with an
+                 *   unexpected value).
                  */
                 fun address(): Address = address.getRequired("address")
 
-                /** The person's date of birth in YYYY-MM-DD format. */
+                /**
+                 * The person's date of birth in YYYY-MM-DD format.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
+                 *   is unexpectedly missing or null (e.g. if the server responded with an
+                 *   unexpected value).
+                 */
                 fun dateOfBirth(): LocalDate = dateOfBirth.getRequired("date_of_birth")
 
-                /** A means of verifying the person's identity. */
+                /**
+                 * A means of verifying the person's identity.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
+                 *   is unexpectedly missing or null (e.g. if the server responded with an
+                 *   unexpected value).
+                 */
                 fun identification(): Identification = identification.getRequired("identification")
 
-                /** The person's legal name. */
+                /**
+                 * The person's legal name.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
+                 *   is unexpectedly missing or null (e.g. if the server responded with an
+                 *   unexpected value).
+                 */
                 fun name(): String = name.getRequired("name")
 
                 /**
@@ -8061,36 +10447,56 @@ private constructor(
                  * license, or other document if you've confirmed the individual does not have a US
                  * tax id (either a Social Security Number or Individual Taxpayer Identification
                  * Number).
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                 *   (e.g. if the server responded with an unexpected value).
                  */
                 fun confirmedNoUsTaxId(): Boolean? =
                     confirmedNoUsTaxId.getNullable("confirmed_no_us_tax_id")
 
                 /**
-                 * The individual's physical address. Mail receiving locations like PO Boxes and
-                 * PMB's are disallowed.
+                 * Returns the raw JSON value of [address].
+                 *
+                 * Unlike [address], this method doesn't throw if the JSON field has an unexpected
+                 * type.
                  */
                 @JsonProperty("address")
                 @ExcludeMissing
                 fun _address(): JsonField<Address> = address
 
-                /** The person's date of birth in YYYY-MM-DD format. */
+                /**
+                 * Returns the raw JSON value of [dateOfBirth].
+                 *
+                 * Unlike [dateOfBirth], this method doesn't throw if the JSON field has an
+                 * unexpected type.
+                 */
                 @JsonProperty("date_of_birth")
                 @ExcludeMissing
                 fun _dateOfBirth(): JsonField<LocalDate> = dateOfBirth
 
-                /** A means of verifying the person's identity. */
+                /**
+                 * Returns the raw JSON value of [identification].
+                 *
+                 * Unlike [identification], this method doesn't throw if the JSON field has an
+                 * unexpected type.
+                 */
                 @JsonProperty("identification")
                 @ExcludeMissing
                 fun _identification(): JsonField<Identification> = identification
 
-                /** The person's legal name. */
+                /**
+                 * Returns the raw JSON value of [name].
+                 *
+                 * Unlike [name], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
                 @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
                 /**
-                 * The identification method for an individual can only be a passport, driver's
-                 * license, or other document if you've confirmed the individual does not have a US
-                 * tax id (either a Social Security Number or Individual Taxpayer Identification
-                 * Number).
+                 * Returns the raw JSON value of [confirmedNoUsTaxId].
+                 *
+                 * Unlike [confirmedNoUsTaxId], this method doesn't throw if the JSON field has an
+                 * unexpected type.
                  */
                 @JsonProperty("confirmed_no_us_tax_id")
                 @ExcludeMissing
@@ -8159,15 +10565,24 @@ private constructor(
                     fun address(address: Address) = address(JsonField.of(address))
 
                     /**
-                     * The individual's physical address. Mail receiving locations like PO Boxes and
-                     * PMB's are disallowed.
+                     * Sets [Builder.address] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.address] with a well-typed [Address] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
                      */
                     fun address(address: JsonField<Address>) = apply { this.address = address }
 
                     /** The person's date of birth in YYYY-MM-DD format. */
                     fun dateOfBirth(dateOfBirth: LocalDate) = dateOfBirth(JsonField.of(dateOfBirth))
 
-                    /** The person's date of birth in YYYY-MM-DD format. */
+                    /**
+                     * Sets [Builder.dateOfBirth] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.dateOfBirth] with a well-typed [LocalDate]
+                     * value instead. This method is primarily for setting the field to an
+                     * undocumented or not yet supported value.
+                     */
                     fun dateOfBirth(dateOfBirth: JsonField<LocalDate>) = apply {
                         this.dateOfBirth = dateOfBirth
                     }
@@ -8176,7 +10591,13 @@ private constructor(
                     fun identification(identification: Identification) =
                         identification(JsonField.of(identification))
 
-                    /** A means of verifying the person's identity. */
+                    /**
+                     * Sets [Builder.identification] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.identification] with a well-typed
+                     * [Identification] value instead. This method is primarily for setting the
+                     * field to an undocumented or not yet supported value.
+                     */
                     fun identification(identification: JsonField<Identification>) = apply {
                         this.identification = identification
                     }
@@ -8184,7 +10605,13 @@ private constructor(
                     /** The person's legal name. */
                     fun name(name: String) = name(JsonField.of(name))
 
-                    /** The person's legal name. */
+                    /**
+                     * Sets [Builder.name] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.name] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
                     fun name(name: JsonField<String>) = apply { this.name = name }
 
                     /**
@@ -8197,10 +10624,11 @@ private constructor(
                         confirmedNoUsTaxId(JsonField.of(confirmedNoUsTaxId))
 
                     /**
-                     * The identification method for an individual can only be a passport, driver's
-                     * license, or other document if you've confirmed the individual does not have a
-                     * US tax id (either a Social Security Number or Individual Taxpayer
-                     * Identification Number).
+                     * Sets [Builder.confirmedNoUsTaxId] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.confirmedNoUsTaxId] with a well-typed
+                     * [Boolean] value instead. This method is primarily for setting the field to an
+                     * undocumented or not yet supported value.
                      */
                     fun confirmedNoUsTaxId(confirmedNoUsTaxId: JsonField<Boolean>) = apply {
                         this.confirmedNoUsTaxId = confirmedNoUsTaxId
@@ -8228,6 +10656,21 @@ private constructor(
                         keys.forEach(::removeAdditionalProperty)
                     }
 
+                    /**
+                     * Returns an immutable instance of [Individual].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     *
+                     * The following fields are required:
+                     * ```kotlin
+                     * .address()
+                     * .dateOfBirth()
+                     * .identification()
+                     * .name()
+                     * ```
+                     *
+                     * @throws IllegalStateException if any required field is unset.
+                     */
                     fun build(): Individual =
                         Individual(
                             checkRequired("address", address),
@@ -8266,44 +10709,89 @@ private constructor(
                     private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
                 ) {
 
-                    /** The city of the address. */
+                    /**
+                     * The city of the address.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   or is unexpectedly missing or null (e.g. if the server responded with an
+                     *   unexpected value).
+                     */
                     fun city(): String = city.getRequired("city")
 
                     /**
                      * The first line of the address. This is usually the street number and street.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   or is unexpectedly missing or null (e.g. if the server responded with an
+                     *   unexpected value).
                      */
                     fun line1(): String = line1.getRequired("line1")
 
                     /**
                      * The two-letter United States Postal Service (USPS) abbreviation for the state
                      * of the address.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   or is unexpectedly missing or null (e.g. if the server responded with an
+                     *   unexpected value).
                      */
                     fun state(): String = state.getRequired("state")
 
-                    /** The ZIP code of the address. */
+                    /**
+                     * The ZIP code of the address.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   or is unexpectedly missing or null (e.g. if the server responded with an
+                     *   unexpected value).
+                     */
                     fun zip(): String = zip.getRequired("zip")
 
-                    /** The second line of the address. This might be the floor or room number. */
+                    /**
+                     * The second line of the address. This might be the floor or room number.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
+                     */
                     fun line2(): String? = line2.getNullable("line2")
 
-                    /** The city of the address. */
+                    /**
+                     * Returns the raw JSON value of [city].
+                     *
+                     * Unlike [city], this method doesn't throw if the JSON field has an unexpected
+                     * type.
+                     */
                     @JsonProperty("city") @ExcludeMissing fun _city(): JsonField<String> = city
 
                     /**
-                     * The first line of the address. This is usually the street number and street.
+                     * Returns the raw JSON value of [line1].
+                     *
+                     * Unlike [line1], this method doesn't throw if the JSON field has an unexpected
+                     * type.
                      */
                     @JsonProperty("line1") @ExcludeMissing fun _line1(): JsonField<String> = line1
 
                     /**
-                     * The two-letter United States Postal Service (USPS) abbreviation for the state
-                     * of the address.
+                     * Returns the raw JSON value of [state].
+                     *
+                     * Unlike [state], this method doesn't throw if the JSON field has an unexpected
+                     * type.
                      */
                     @JsonProperty("state") @ExcludeMissing fun _state(): JsonField<String> = state
 
-                    /** The ZIP code of the address. */
+                    /**
+                     * Returns the raw JSON value of [zip].
+                     *
+                     * Unlike [zip], this method doesn't throw if the JSON field has an unexpected
+                     * type.
+                     */
                     @JsonProperty("zip") @ExcludeMissing fun _zip(): JsonField<String> = zip
 
-                    /** The second line of the address. This might be the floor or room number. */
+                    /**
+                     * Returns the raw JSON value of [line2].
+                     *
+                     * Unlike [line2], this method doesn't throw if the JSON field has an unexpected
+                     * type.
+                     */
                     @JsonProperty("line2") @ExcludeMissing fun _line2(): JsonField<String> = line2
 
                     @JsonAnyGetter
@@ -8366,7 +10854,13 @@ private constructor(
                         /** The city of the address. */
                         fun city(city: String) = city(JsonField.of(city))
 
-                        /** The city of the address. */
+                        /**
+                         * Sets [Builder.city] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.city] with a well-typed [String] value
+                         * instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
+                         */
                         fun city(city: JsonField<String>) = apply { this.city = city }
 
                         /**
@@ -8376,8 +10870,11 @@ private constructor(
                         fun line1(line1: String) = line1(JsonField.of(line1))
 
                         /**
-                         * The first line of the address. This is usually the street number and
-                         * street.
+                         * Sets [Builder.line1] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.line1] with a well-typed [String] value
+                         * instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
                          */
                         fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
 
@@ -8388,15 +10885,24 @@ private constructor(
                         fun state(state: String) = state(JsonField.of(state))
 
                         /**
-                         * The two-letter United States Postal Service (USPS) abbreviation for the
-                         * state of the address.
+                         * Sets [Builder.state] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.state] with a well-typed [String] value
+                         * instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
                          */
                         fun state(state: JsonField<String>) = apply { this.state = state }
 
                         /** The ZIP code of the address. */
                         fun zip(zip: String) = zip(JsonField.of(zip))
 
-                        /** The ZIP code of the address. */
+                        /**
+                         * Sets [Builder.zip] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.zip] with a well-typed [String] value
+                         * instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
+                         */
                         fun zip(zip: JsonField<String>) = apply { this.zip = zip }
 
                         /**
@@ -8405,7 +10911,11 @@ private constructor(
                         fun line2(line2: String) = line2(JsonField.of(line2))
 
                         /**
-                         * The second line of the address. This might be the floor or room number.
+                         * Sets [Builder.line2] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.line2] with a well-typed [String] value
+                         * instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
                          */
                         fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
 
@@ -8431,6 +10941,21 @@ private constructor(
                             keys.forEach(::removeAdditionalProperty)
                         }
 
+                        /**
+                         * Returns an immutable instance of [Address].
+                         *
+                         * Further updates to this [Builder] will not mutate the returned instance.
+                         *
+                         * The following fields are required:
+                         * ```kotlin
+                         * .city()
+                         * .line1()
+                         * .state()
+                         * .zip()
+                         * ```
+                         *
+                         * @throws IllegalStateException if any required field is unset.
+                         */
                         fun build(): Address =
                             Address(
                                 checkRequired("city", city),
@@ -8484,18 +11009,31 @@ private constructor(
                     private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
                 ) {
 
-                    /** A method that can be used to verify the individual's identity. */
+                    /**
+                     * A method that can be used to verify the individual's identity.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   or is unexpectedly missing or null (e.g. if the server responded with an
+                     *   unexpected value).
+                     */
                     fun method(): Method = method.getRequired("method")
 
                     /**
                      * An identification number that can be used to verify the individual's
                      * identity, such as a social security number.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   or is unexpectedly missing or null (e.g. if the server responded with an
+                     *   unexpected value).
                      */
                     fun number(): String = number.getRequired("number")
 
                     /**
                      * Information about the United States driver's license used for identification.
                      * Required if `method` is equal to `drivers_license`.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
                      */
                     fun driversLicense(): DriversLicense? =
                         driversLicense.getNullable("drivers_license")
@@ -8503,45 +11041,64 @@ private constructor(
                     /**
                      * Information about the identification document provided. Required if `method`
                      * is equal to `other`.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
                      */
                     fun other(): Other? = other.getNullable("other")
 
                     /**
                      * Information about the passport used for identification. Required if `method`
                      * is equal to `passport`.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
                      */
                     fun passport(): Passport? = passport.getNullable("passport")
 
-                    /** A method that can be used to verify the individual's identity. */
+                    /**
+                     * Returns the raw JSON value of [method].
+                     *
+                     * Unlike [method], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
                     @JsonProperty("method")
                     @ExcludeMissing
                     fun _method(): JsonField<Method> = method
 
                     /**
-                     * An identification number that can be used to verify the individual's
-                     * identity, such as a social security number.
+                     * Returns the raw JSON value of [number].
+                     *
+                     * Unlike [number], this method doesn't throw if the JSON field has an
+                     * unexpected type.
                      */
                     @JsonProperty("number")
                     @ExcludeMissing
                     fun _number(): JsonField<String> = number
 
                     /**
-                     * Information about the United States driver's license used for identification.
-                     * Required if `method` is equal to `drivers_license`.
+                     * Returns the raw JSON value of [driversLicense].
+                     *
+                     * Unlike [driversLicense], this method doesn't throw if the JSON field has an
+                     * unexpected type.
                      */
                     @JsonProperty("drivers_license")
                     @ExcludeMissing
                     fun _driversLicense(): JsonField<DriversLicense> = driversLicense
 
                     /**
-                     * Information about the identification document provided. Required if `method`
-                     * is equal to `other`.
+                     * Returns the raw JSON value of [other].
+                     *
+                     * Unlike [other], this method doesn't throw if the JSON field has an unexpected
+                     * type.
                      */
                     @JsonProperty("other") @ExcludeMissing fun _other(): JsonField<Other> = other
 
                     /**
-                     * Information about the passport used for identification. Required if `method`
-                     * is equal to `passport`.
+                     * Returns the raw JSON value of [passport].
+                     *
+                     * Unlike [passport], this method doesn't throw if the JSON field has an
+                     * unexpected type.
                      */
                     @JsonProperty("passport")
                     @ExcludeMissing
@@ -8607,7 +11164,13 @@ private constructor(
                         /** A method that can be used to verify the individual's identity. */
                         fun method(method: Method) = method(JsonField.of(method))
 
-                        /** A method that can be used to verify the individual's identity. */
+                        /**
+                         * Sets [Builder.method] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.method] with a well-typed [Method] value
+                         * instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
+                         */
                         fun method(method: JsonField<Method>) = apply { this.method = method }
 
                         /**
@@ -8617,8 +11180,11 @@ private constructor(
                         fun number(number: String) = number(JsonField.of(number))
 
                         /**
-                         * An identification number that can be used to verify the individual's
-                         * identity, such as a social security number.
+                         * Sets [Builder.number] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.number] with a well-typed [String] value
+                         * instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
                          */
                         fun number(number: JsonField<String>) = apply { this.number = number }
 
@@ -8630,8 +11196,11 @@ private constructor(
                             driversLicense(JsonField.of(driversLicense))
 
                         /**
-                         * Information about the United States driver's license used for
-                         * identification. Required if `method` is equal to `drivers_license`.
+                         * Sets [Builder.driversLicense] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.driversLicense] with a well-typed
+                         * [DriversLicense] value instead. This method is primarily for setting the
+                         * field to an undocumented or not yet supported value.
                          */
                         fun driversLicense(driversLicense: JsonField<DriversLicense>) = apply {
                             this.driversLicense = driversLicense
@@ -8644,8 +11213,11 @@ private constructor(
                         fun other(other: Other) = other(JsonField.of(other))
 
                         /**
-                         * Information about the identification document provided. Required if
-                         * `method` is equal to `other`.
+                         * Sets [Builder.other] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.other] with a well-typed [Other] value
+                         * instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
                          */
                         fun other(other: JsonField<Other>) = apply { this.other = other }
 
@@ -8656,8 +11228,11 @@ private constructor(
                         fun passport(passport: Passport) = passport(JsonField.of(passport))
 
                         /**
-                         * Information about the passport used for identification. Required if
-                         * `method` is equal to `passport`.
+                         * Sets [Builder.passport] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.passport] with a well-typed [Passport]
+                         * value instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
                          */
                         fun passport(passport: JsonField<Passport>) = apply {
                             this.passport = passport
@@ -8685,6 +11260,19 @@ private constructor(
                             keys.forEach(::removeAdditionalProperty)
                         }
 
+                        /**
+                         * Returns an immutable instance of [Identification].
+                         *
+                         * Further updates to this [Builder] will not mutate the returned instance.
+                         *
+                         * The following fields are required:
+                         * ```kotlin
+                         * .method()
+                         * .number()
+                         * ```
+                         *
+                         * @throws IllegalStateException if any required field is unset.
+                         */
                         fun build(): Identification =
                             Identification(
                                 checkRequired("method", method),
@@ -8865,42 +11453,77 @@ private constructor(
                             immutableEmptyMap(),
                     ) {
 
-                        /** The driver's license's expiration date in YYYY-MM-DD format. */
+                        /**
+                         * The driver's license's expiration date in YYYY-MM-DD format.
+                         *
+                         * @throws IncreaseInvalidDataException if the JSON field has an unexpected
+                         *   type or is unexpectedly missing or null (e.g. if the server responded
+                         *   with an unexpected value).
+                         */
                         fun expirationDate(): LocalDate =
                             expirationDate.getRequired("expiration_date")
 
                         /**
                          * The identifier of the File containing the front of the driver's license.
+                         *
+                         * @throws IncreaseInvalidDataException if the JSON field has an unexpected
+                         *   type or is unexpectedly missing or null (e.g. if the server responded
+                         *   with an unexpected value).
                          */
                         fun fileId(): String = fileId.getRequired("file_id")
 
-                        /** The state that issued the provided driver's license. */
+                        /**
+                         * The state that issued the provided driver's license.
+                         *
+                         * @throws IncreaseInvalidDataException if the JSON field has an unexpected
+                         *   type or is unexpectedly missing or null (e.g. if the server responded
+                         *   with an unexpected value).
+                         */
                         fun state(): String = state.getRequired("state")
 
                         /**
                          * The identifier of the File containing the back of the driver's license.
+                         *
+                         * @throws IncreaseInvalidDataException if the JSON field has an unexpected
+                         *   type (e.g. if the server responded with an unexpected value).
                          */
                         fun backFileId(): String? = backFileId.getNullable("back_file_id")
 
-                        /** The driver's license's expiration date in YYYY-MM-DD format. */
+                        /**
+                         * Returns the raw JSON value of [expirationDate].
+                         *
+                         * Unlike [expirationDate], this method doesn't throw if the JSON field has
+                         * an unexpected type.
+                         */
                         @JsonProperty("expiration_date")
                         @ExcludeMissing
                         fun _expirationDate(): JsonField<LocalDate> = expirationDate
 
                         /**
-                         * The identifier of the File containing the front of the driver's license.
+                         * Returns the raw JSON value of [fileId].
+                         *
+                         * Unlike [fileId], this method doesn't throw if the JSON field has an
+                         * unexpected type.
                          */
                         @JsonProperty("file_id")
                         @ExcludeMissing
                         fun _fileId(): JsonField<String> = fileId
 
-                        /** The state that issued the provided driver's license. */
+                        /**
+                         * Returns the raw JSON value of [state].
+                         *
+                         * Unlike [state], this method doesn't throw if the JSON field has an
+                         * unexpected type.
+                         */
                         @JsonProperty("state")
                         @ExcludeMissing
                         fun _state(): JsonField<String> = state
 
                         /**
-                         * The identifier of the File containing the back of the driver's license.
+                         * Returns the raw JSON value of [backFileId].
+                         *
+                         * Unlike [backFileId], this method doesn't throw if the JSON field has an
+                         * unexpected type.
                          */
                         @JsonProperty("back_file_id")
                         @ExcludeMissing
@@ -8965,7 +11588,13 @@ private constructor(
                             fun expirationDate(expirationDate: LocalDate) =
                                 expirationDate(JsonField.of(expirationDate))
 
-                            /** The driver's license's expiration date in YYYY-MM-DD format. */
+                            /**
+                             * Sets [Builder.expirationDate] to an arbitrary JSON value.
+                             *
+                             * You should usually call [Builder.expirationDate] with a well-typed
+                             * [LocalDate] value instead. This method is primarily for setting the
+                             * field to an undocumented or not yet supported value.
+                             */
                             fun expirationDate(expirationDate: JsonField<LocalDate>) = apply {
                                 this.expirationDate = expirationDate
                             }
@@ -8977,15 +11606,24 @@ private constructor(
                             fun fileId(fileId: String) = fileId(JsonField.of(fileId))
 
                             /**
-                             * The identifier of the File containing the front of the driver's
-                             * license.
+                             * Sets [Builder.fileId] to an arbitrary JSON value.
+                             *
+                             * You should usually call [Builder.fileId] with a well-typed [String]
+                             * value instead. This method is primarily for setting the field to an
+                             * undocumented or not yet supported value.
                              */
                             fun fileId(fileId: JsonField<String>) = apply { this.fileId = fileId }
 
                             /** The state that issued the provided driver's license. */
                             fun state(state: String) = state(JsonField.of(state))
 
-                            /** The state that issued the provided driver's license. */
+                            /**
+                             * Sets [Builder.state] to an arbitrary JSON value.
+                             *
+                             * You should usually call [Builder.state] with a well-typed [String]
+                             * value instead. This method is primarily for setting the field to an
+                             * undocumented or not yet supported value.
+                             */
                             fun state(state: JsonField<String>) = apply { this.state = state }
 
                             /**
@@ -8996,8 +11634,11 @@ private constructor(
                                 backFileId(JsonField.of(backFileId))
 
                             /**
-                             * The identifier of the File containing the back of the driver's
-                             * license.
+                             * Sets [Builder.backFileId] to an arbitrary JSON value.
+                             *
+                             * You should usually call [Builder.backFileId] with a well-typed
+                             * [String] value instead. This method is primarily for setting the
+                             * field to an undocumented or not yet supported value.
                              */
                             fun backFileId(backFileId: JsonField<String>) = apply {
                                 this.backFileId = backFileId
@@ -9025,6 +11666,21 @@ private constructor(
                                 keys.forEach(::removeAdditionalProperty)
                             }
 
+                            /**
+                             * Returns an immutable instance of [DriversLicense].
+                             *
+                             * Further updates to this [Builder] will not mutate the returned
+                             * instance.
+                             *
+                             * The following fields are required:
+                             * ```kotlin
+                             * .expirationDate()
+                             * .fileId()
+                             * .state()
+                             * ```
+                             *
+                             * @throws IllegalStateException if any required field is unset.
+                             */
                             fun build(): DriversLicense =
                                 DriversLicense(
                                     checkRequired("expirationDate", expirationDate),
@@ -9084,52 +11740,95 @@ private constructor(
                         /**
                          * The two-character ISO 3166-1 code representing the country that issued
                          * the document.
+                         *
+                         * @throws IncreaseInvalidDataException if the JSON field has an unexpected
+                         *   type or is unexpectedly missing or null (e.g. if the server responded
+                         *   with an unexpected value).
                          */
                         fun country(): String = country.getRequired("country")
 
-                        /** A description of the document submitted. */
+                        /**
+                         * A description of the document submitted.
+                         *
+                         * @throws IncreaseInvalidDataException if the JSON field has an unexpected
+                         *   type or is unexpectedly missing or null (e.g. if the server responded
+                         *   with an unexpected value).
+                         */
                         fun description(): String = description.getRequired("description")
 
-                        /** The identifier of the File containing the front of the document. */
+                        /**
+                         * The identifier of the File containing the front of the document.
+                         *
+                         * @throws IncreaseInvalidDataException if the JSON field has an unexpected
+                         *   type or is unexpectedly missing or null (e.g. if the server responded
+                         *   with an unexpected value).
+                         */
                         fun fileId(): String = fileId.getRequired("file_id")
 
                         /**
                          * The identifier of the File containing the back of the document. Not every
                          * document has a reverse side.
+                         *
+                         * @throws IncreaseInvalidDataException if the JSON field has an unexpected
+                         *   type (e.g. if the server responded with an unexpected value).
                          */
                         fun backFileId(): String? = backFileId.getNullable("back_file_id")
 
-                        /** The document's expiration date in YYYY-MM-DD format. */
+                        /**
+                         * The document's expiration date in YYYY-MM-DD format.
+                         *
+                         * @throws IncreaseInvalidDataException if the JSON field has an unexpected
+                         *   type (e.g. if the server responded with an unexpected value).
+                         */
                         fun expirationDate(): LocalDate? =
                             expirationDate.getNullable("expiration_date")
 
                         /**
-                         * The two-character ISO 3166-1 code representing the country that issued
-                         * the document.
+                         * Returns the raw JSON value of [country].
+                         *
+                         * Unlike [country], this method doesn't throw if the JSON field has an
+                         * unexpected type.
                          */
                         @JsonProperty("country")
                         @ExcludeMissing
                         fun _country(): JsonField<String> = country
 
-                        /** A description of the document submitted. */
+                        /**
+                         * Returns the raw JSON value of [description].
+                         *
+                         * Unlike [description], this method doesn't throw if the JSON field has an
+                         * unexpected type.
+                         */
                         @JsonProperty("description")
                         @ExcludeMissing
                         fun _description(): JsonField<String> = description
 
-                        /** The identifier of the File containing the front of the document. */
+                        /**
+                         * Returns the raw JSON value of [fileId].
+                         *
+                         * Unlike [fileId], this method doesn't throw if the JSON field has an
+                         * unexpected type.
+                         */
                         @JsonProperty("file_id")
                         @ExcludeMissing
                         fun _fileId(): JsonField<String> = fileId
 
                         /**
-                         * The identifier of the File containing the back of the document. Not every
-                         * document has a reverse side.
+                         * Returns the raw JSON value of [backFileId].
+                         *
+                         * Unlike [backFileId], this method doesn't throw if the JSON field has an
+                         * unexpected type.
                          */
                         @JsonProperty("back_file_id")
                         @ExcludeMissing
                         fun _backFileId(): JsonField<String> = backFileId
 
-                        /** The document's expiration date in YYYY-MM-DD format. */
+                        /**
+                         * Returns the raw JSON value of [expirationDate].
+                         *
+                         * Unlike [expirationDate], this method doesn't throw if the JSON field has
+                         * an unexpected type.
+                         */
                         @JsonProperty("expiration_date")
                         @ExcludeMissing
                         fun _expirationDate(): JsonField<LocalDate> = expirationDate
@@ -9197,8 +11896,11 @@ private constructor(
                             fun country(country: String) = country(JsonField.of(country))
 
                             /**
-                             * The two-character ISO 3166-1 code representing the country that
-                             * issued the document.
+                             * Sets [Builder.country] to an arbitrary JSON value.
+                             *
+                             * You should usually call [Builder.country] with a well-typed [String]
+                             * value instead. This method is primarily for setting the field to an
+                             * undocumented or not yet supported value.
                              */
                             fun country(country: JsonField<String>) = apply {
                                 this.country = country
@@ -9208,7 +11910,13 @@ private constructor(
                             fun description(description: String) =
                                 description(JsonField.of(description))
 
-                            /** A description of the document submitted. */
+                            /**
+                             * Sets [Builder.description] to an arbitrary JSON value.
+                             *
+                             * You should usually call [Builder.description] with a well-typed
+                             * [String] value instead. This method is primarily for setting the
+                             * field to an undocumented or not yet supported value.
+                             */
                             fun description(description: JsonField<String>) = apply {
                                 this.description = description
                             }
@@ -9216,7 +11924,13 @@ private constructor(
                             /** The identifier of the File containing the front of the document. */
                             fun fileId(fileId: String) = fileId(JsonField.of(fileId))
 
-                            /** The identifier of the File containing the front of the document. */
+                            /**
+                             * Sets [Builder.fileId] to an arbitrary JSON value.
+                             *
+                             * You should usually call [Builder.fileId] with a well-typed [String]
+                             * value instead. This method is primarily for setting the field to an
+                             * undocumented or not yet supported value.
+                             */
                             fun fileId(fileId: JsonField<String>) = apply { this.fileId = fileId }
 
                             /**
@@ -9227,8 +11941,11 @@ private constructor(
                                 backFileId(JsonField.of(backFileId))
 
                             /**
-                             * The identifier of the File containing the back of the document. Not
-                             * every document has a reverse side.
+                             * Sets [Builder.backFileId] to an arbitrary JSON value.
+                             *
+                             * You should usually call [Builder.backFileId] with a well-typed
+                             * [String] value instead. This method is primarily for setting the
+                             * field to an undocumented or not yet supported value.
                              */
                             fun backFileId(backFileId: JsonField<String>) = apply {
                                 this.backFileId = backFileId
@@ -9238,7 +11955,13 @@ private constructor(
                             fun expirationDate(expirationDate: LocalDate) =
                                 expirationDate(JsonField.of(expirationDate))
 
-                            /** The document's expiration date in YYYY-MM-DD format. */
+                            /**
+                             * Sets [Builder.expirationDate] to an arbitrary JSON value.
+                             *
+                             * You should usually call [Builder.expirationDate] with a well-typed
+                             * [LocalDate] value instead. This method is primarily for setting the
+                             * field to an undocumented or not yet supported value.
+                             */
                             fun expirationDate(expirationDate: JsonField<LocalDate>) = apply {
                                 this.expirationDate = expirationDate
                             }
@@ -9265,6 +11988,21 @@ private constructor(
                                 keys.forEach(::removeAdditionalProperty)
                             }
 
+                            /**
+                             * Returns an immutable instance of [Other].
+                             *
+                             * Further updates to this [Builder] will not mutate the returned
+                             * instance.
+                             *
+                             * The following fields are required:
+                             * ```kotlin
+                             * .country()
+                             * .description()
+                             * .fileId()
+                             * ```
+                             *
+                             * @throws IllegalStateException if any required field is unset.
+                             */
                             fun build(): Other =
                                 Other(
                                     checkRequired("country", country),
@@ -9316,27 +12054,60 @@ private constructor(
                             immutableEmptyMap(),
                     ) {
 
-                        /** The country that issued the passport. */
+                        /**
+                         * The country that issued the passport.
+                         *
+                         * @throws IncreaseInvalidDataException if the JSON field has an unexpected
+                         *   type or is unexpectedly missing or null (e.g. if the server responded
+                         *   with an unexpected value).
+                         */
                         fun country(): String = country.getRequired("country")
 
-                        /** The passport's expiration date in YYYY-MM-DD format. */
+                        /**
+                         * The passport's expiration date in YYYY-MM-DD format.
+                         *
+                         * @throws IncreaseInvalidDataException if the JSON field has an unexpected
+                         *   type or is unexpectedly missing or null (e.g. if the server responded
+                         *   with an unexpected value).
+                         */
                         fun expirationDate(): LocalDate =
                             expirationDate.getRequired("expiration_date")
 
-                        /** The identifier of the File containing the passport. */
+                        /**
+                         * The identifier of the File containing the passport.
+                         *
+                         * @throws IncreaseInvalidDataException if the JSON field has an unexpected
+                         *   type or is unexpectedly missing or null (e.g. if the server responded
+                         *   with an unexpected value).
+                         */
                         fun fileId(): String = fileId.getRequired("file_id")
 
-                        /** The country that issued the passport. */
+                        /**
+                         * Returns the raw JSON value of [country].
+                         *
+                         * Unlike [country], this method doesn't throw if the JSON field has an
+                         * unexpected type.
+                         */
                         @JsonProperty("country")
                         @ExcludeMissing
                         fun _country(): JsonField<String> = country
 
-                        /** The passport's expiration date in YYYY-MM-DD format. */
+                        /**
+                         * Returns the raw JSON value of [expirationDate].
+                         *
+                         * Unlike [expirationDate], this method doesn't throw if the JSON field has
+                         * an unexpected type.
+                         */
                         @JsonProperty("expiration_date")
                         @ExcludeMissing
                         fun _expirationDate(): JsonField<LocalDate> = expirationDate
 
-                        /** The identifier of the File containing the passport. */
+                        /**
+                         * Returns the raw JSON value of [fileId].
+                         *
+                         * Unlike [fileId], this method doesn't throw if the JSON field has an
+                         * unexpected type.
+                         */
                         @JsonProperty("file_id")
                         @ExcludeMissing
                         fun _fileId(): JsonField<String> = fileId
@@ -9394,7 +12165,13 @@ private constructor(
                             /** The country that issued the passport. */
                             fun country(country: String) = country(JsonField.of(country))
 
-                            /** The country that issued the passport. */
+                            /**
+                             * Sets [Builder.country] to an arbitrary JSON value.
+                             *
+                             * You should usually call [Builder.country] with a well-typed [String]
+                             * value instead. This method is primarily for setting the field to an
+                             * undocumented or not yet supported value.
+                             */
                             fun country(country: JsonField<String>) = apply {
                                 this.country = country
                             }
@@ -9403,7 +12180,13 @@ private constructor(
                             fun expirationDate(expirationDate: LocalDate) =
                                 expirationDate(JsonField.of(expirationDate))
 
-                            /** The passport's expiration date in YYYY-MM-DD format. */
+                            /**
+                             * Sets [Builder.expirationDate] to an arbitrary JSON value.
+                             *
+                             * You should usually call [Builder.expirationDate] with a well-typed
+                             * [LocalDate] value instead. This method is primarily for setting the
+                             * field to an undocumented or not yet supported value.
+                             */
                             fun expirationDate(expirationDate: JsonField<LocalDate>) = apply {
                                 this.expirationDate = expirationDate
                             }
@@ -9411,7 +12194,13 @@ private constructor(
                             /** The identifier of the File containing the passport. */
                             fun fileId(fileId: String) = fileId(JsonField.of(fileId))
 
-                            /** The identifier of the File containing the passport. */
+                            /**
+                             * Sets [Builder.fileId] to an arbitrary JSON value.
+                             *
+                             * You should usually call [Builder.fileId] with a well-typed [String]
+                             * value instead. This method is primarily for setting the field to an
+                             * undocumented or not yet supported value.
+                             */
                             fun fileId(fileId: JsonField<String>) = apply { this.fileId = fileId }
 
                             fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
@@ -9436,6 +12225,21 @@ private constructor(
                                 keys.forEach(::removeAdditionalProperty)
                             }
 
+                            /**
+                             * Returns an immutable instance of [Passport].
+                             *
+                             * Further updates to this [Builder] will not mutate the returned
+                             * instance.
+                             *
+                             * The following fields are required:
+                             * ```kotlin
+                             * .country()
+                             * .expirationDate()
+                             * .fileId()
+                             * ```
+                             *
+                             * @throws IllegalStateException if any required field is unset.
+                             */
                             fun build(): Passport =
                                 Passport(
                                     checkRequired("country", country),
@@ -9544,49 +12348,90 @@ private constructor(
             /**
              * The individual's physical address. Mail receiving locations like PO Boxes and PMB's
              * are disallowed.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
              */
             fun address(): Address = address.getRequired("address")
 
-            /** The person's date of birth in YYYY-MM-DD format. */
+            /**
+             * The person's date of birth in YYYY-MM-DD format.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
             fun dateOfBirth(): LocalDate = dateOfBirth.getRequired("date_of_birth")
 
-            /** A means of verifying the person's identity. */
+            /**
+             * A means of verifying the person's identity.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
             fun identification(): Identification = identification.getRequired("identification")
 
-            /** The person's legal name. */
+            /**
+             * The person's legal name.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
             fun name(): String = name.getRequired("name")
 
             /**
              * The identification method for an individual can only be a passport, driver's license,
              * or other document if you've confirmed the individual does not have a US tax id
              * (either a Social Security Number or Individual Taxpayer Identification Number).
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
              */
             fun confirmedNoUsTaxId(): Boolean? =
                 confirmedNoUsTaxId.getNullable("confirmed_no_us_tax_id")
 
             /**
-             * The individual's physical address. Mail receiving locations like PO Boxes and PMB's
-             * are disallowed.
+             * Returns the raw JSON value of [address].
+             *
+             * Unlike [address], this method doesn't throw if the JSON field has an unexpected type.
              */
             @JsonProperty("address") @ExcludeMissing fun _address(): JsonField<Address> = address
 
-            /** The person's date of birth in YYYY-MM-DD format. */
+            /**
+             * Returns the raw JSON value of [dateOfBirth].
+             *
+             * Unlike [dateOfBirth], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
             @JsonProperty("date_of_birth")
             @ExcludeMissing
             fun _dateOfBirth(): JsonField<LocalDate> = dateOfBirth
 
-            /** A means of verifying the person's identity. */
+            /**
+             * Returns the raw JSON value of [identification].
+             *
+             * Unlike [identification], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
             @JsonProperty("identification")
             @ExcludeMissing
             fun _identification(): JsonField<Identification> = identification
 
-            /** The person's legal name. */
+            /**
+             * Returns the raw JSON value of [name].
+             *
+             * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
+             */
             @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
             /**
-             * The identification method for an individual can only be a passport, driver's license,
-             * or other document if you've confirmed the individual does not have a US tax id
-             * (either a Social Security Number or Individual Taxpayer Identification Number).
+             * Returns the raw JSON value of [confirmedNoUsTaxId].
+             *
+             * Unlike [confirmedNoUsTaxId], this method doesn't throw if the JSON field has an
+             * unexpected type.
              */
             @JsonProperty("confirmed_no_us_tax_id")
             @ExcludeMissing
@@ -9655,15 +12500,24 @@ private constructor(
                 fun address(address: Address) = address(JsonField.of(address))
 
                 /**
-                 * The individual's physical address. Mail receiving locations like PO Boxes and
-                 * PMB's are disallowed.
+                 * Sets [Builder.address] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.address] with a well-typed [Address] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
                  */
                 fun address(address: JsonField<Address>) = apply { this.address = address }
 
                 /** The person's date of birth in YYYY-MM-DD format. */
                 fun dateOfBirth(dateOfBirth: LocalDate) = dateOfBirth(JsonField.of(dateOfBirth))
 
-                /** The person's date of birth in YYYY-MM-DD format. */
+                /**
+                 * Sets [Builder.dateOfBirth] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.dateOfBirth] with a well-typed [LocalDate] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
                 fun dateOfBirth(dateOfBirth: JsonField<LocalDate>) = apply {
                     this.dateOfBirth = dateOfBirth
                 }
@@ -9672,7 +12526,13 @@ private constructor(
                 fun identification(identification: Identification) =
                     identification(JsonField.of(identification))
 
-                /** A means of verifying the person's identity. */
+                /**
+                 * Sets [Builder.identification] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.identification] with a well-typed
+                 * [Identification] value instead. This method is primarily for setting the field to
+                 * an undocumented or not yet supported value.
+                 */
                 fun identification(identification: JsonField<Identification>) = apply {
                     this.identification = identification
                 }
@@ -9680,7 +12540,13 @@ private constructor(
                 /** The person's legal name. */
                 fun name(name: String) = name(JsonField.of(name))
 
-                /** The person's legal name. */
+                /**
+                 * Sets [Builder.name] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.name] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
                 fun name(name: JsonField<String>) = apply { this.name = name }
 
                 /**
@@ -9693,10 +12559,11 @@ private constructor(
                     confirmedNoUsTaxId(JsonField.of(confirmedNoUsTaxId))
 
                 /**
-                 * The identification method for an individual can only be a passport, driver's
-                 * license, or other document if you've confirmed the individual does not have a US
-                 * tax id (either a Social Security Number or Individual Taxpayer Identification
-                 * Number).
+                 * Sets [Builder.confirmedNoUsTaxId] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.confirmedNoUsTaxId] with a well-typed [Boolean]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
                  */
                 fun confirmedNoUsTaxId(confirmedNoUsTaxId: JsonField<Boolean>) = apply {
                     this.confirmedNoUsTaxId = confirmedNoUsTaxId
@@ -9724,6 +12591,21 @@ private constructor(
                     keys.forEach(::removeAdditionalProperty)
                 }
 
+                /**
+                 * Returns an immutable instance of [Grantor].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .address()
+                 * .dateOfBirth()
+                 * .identification()
+                 * .name()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
                 fun build(): Grantor =
                     Grantor(
                         checkRequired("address", address),
@@ -9762,40 +12644,88 @@ private constructor(
                 private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
             ) {
 
-                /** The city of the address. */
+                /**
+                 * The city of the address.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
+                 *   is unexpectedly missing or null (e.g. if the server responded with an
+                 *   unexpected value).
+                 */
                 fun city(): String = city.getRequired("city")
 
-                /** The first line of the address. This is usually the street number and street. */
+                /**
+                 * The first line of the address. This is usually the street number and street.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
+                 *   is unexpectedly missing or null (e.g. if the server responded with an
+                 *   unexpected value).
+                 */
                 fun line1(): String = line1.getRequired("line1")
 
                 /**
                  * The two-letter United States Postal Service (USPS) abbreviation for the state of
                  * the address.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
+                 *   is unexpectedly missing or null (e.g. if the server responded with an
+                 *   unexpected value).
                  */
                 fun state(): String = state.getRequired("state")
 
-                /** The ZIP code of the address. */
+                /**
+                 * The ZIP code of the address.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
+                 *   is unexpectedly missing or null (e.g. if the server responded with an
+                 *   unexpected value).
+                 */
                 fun zip(): String = zip.getRequired("zip")
 
-                /** The second line of the address. This might be the floor or room number. */
+                /**
+                 * The second line of the address. This might be the floor or room number.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                 *   (e.g. if the server responded with an unexpected value).
+                 */
                 fun line2(): String? = line2.getNullable("line2")
 
-                /** The city of the address. */
+                /**
+                 * Returns the raw JSON value of [city].
+                 *
+                 * Unlike [city], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
                 @JsonProperty("city") @ExcludeMissing fun _city(): JsonField<String> = city
 
-                /** The first line of the address. This is usually the street number and street. */
+                /**
+                 * Returns the raw JSON value of [line1].
+                 *
+                 * Unlike [line1], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
                 @JsonProperty("line1") @ExcludeMissing fun _line1(): JsonField<String> = line1
 
                 /**
-                 * The two-letter United States Postal Service (USPS) abbreviation for the state of
-                 * the address.
+                 * Returns the raw JSON value of [state].
+                 *
+                 * Unlike [state], this method doesn't throw if the JSON field has an unexpected
+                 * type.
                  */
                 @JsonProperty("state") @ExcludeMissing fun _state(): JsonField<String> = state
 
-                /** The ZIP code of the address. */
+                /**
+                 * Returns the raw JSON value of [zip].
+                 *
+                 * Unlike [zip], this method doesn't throw if the JSON field has an unexpected type.
+                 */
                 @JsonProperty("zip") @ExcludeMissing fun _zip(): JsonField<String> = zip
 
-                /** The second line of the address. This might be the floor or room number. */
+                /**
+                 * Returns the raw JSON value of [line2].
+                 *
+                 * Unlike [line2], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
                 @JsonProperty("line2") @ExcludeMissing fun _line2(): JsonField<String> = line2
 
                 @JsonAnyGetter
@@ -9857,7 +12787,13 @@ private constructor(
                     /** The city of the address. */
                     fun city(city: String) = city(JsonField.of(city))
 
-                    /** The city of the address. */
+                    /**
+                     * Sets [Builder.city] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.city] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
                     fun city(city: JsonField<String>) = apply { this.city = city }
 
                     /**
@@ -9866,7 +12802,11 @@ private constructor(
                     fun line1(line1: String) = line1(JsonField.of(line1))
 
                     /**
-                     * The first line of the address. This is usually the street number and street.
+                     * Sets [Builder.line1] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.line1] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
                      */
                     fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
 
@@ -9877,21 +12817,36 @@ private constructor(
                     fun state(state: String) = state(JsonField.of(state))
 
                     /**
-                     * The two-letter United States Postal Service (USPS) abbreviation for the state
-                     * of the address.
+                     * Sets [Builder.state] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.state] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
                      */
                     fun state(state: JsonField<String>) = apply { this.state = state }
 
                     /** The ZIP code of the address. */
                     fun zip(zip: String) = zip(JsonField.of(zip))
 
-                    /** The ZIP code of the address. */
+                    /**
+                     * Sets [Builder.zip] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.zip] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
                     fun zip(zip: JsonField<String>) = apply { this.zip = zip }
 
                     /** The second line of the address. This might be the floor or room number. */
                     fun line2(line2: String) = line2(JsonField.of(line2))
 
-                    /** The second line of the address. This might be the floor or room number. */
+                    /**
+                     * Sets [Builder.line2] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.line2] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
                     fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
 
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -9916,6 +12871,21 @@ private constructor(
                         keys.forEach(::removeAdditionalProperty)
                     }
 
+                    /**
+                     * Returns an immutable instance of [Address].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     *
+                     * The following fields are required:
+                     * ```kotlin
+                     * .city()
+                     * .line1()
+                     * .state()
+                     * .zip()
+                     * ```
+                     *
+                     * @throws IllegalStateException if any required field is unset.
+                     */
                     fun build(): Address =
                         Address(
                             checkRequired("city", city),
@@ -9969,18 +12939,31 @@ private constructor(
                 private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
             ) {
 
-                /** A method that can be used to verify the individual's identity. */
+                /**
+                 * A method that can be used to verify the individual's identity.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
+                 *   is unexpectedly missing or null (e.g. if the server responded with an
+                 *   unexpected value).
+                 */
                 fun method(): Method = method.getRequired("method")
 
                 /**
                  * An identification number that can be used to verify the individual's identity,
                  * such as a social security number.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
+                 *   is unexpectedly missing or null (e.g. if the server responded with an
+                 *   unexpected value).
                  */
                 fun number(): String = number.getRequired("number")
 
                 /**
                  * Information about the United States driver's license used for identification.
                  * Required if `method` is equal to `drivers_license`.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                 *   (e.g. if the server responded with an unexpected value).
                  */
                 fun driversLicense(): DriversLicense? =
                     driversLicense.getNullable("drivers_license")
@@ -9988,41 +12971,60 @@ private constructor(
                 /**
                  * Information about the identification document provided. Required if `method` is
                  * equal to `other`.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                 *   (e.g. if the server responded with an unexpected value).
                  */
                 fun other(): Other? = other.getNullable("other")
 
                 /**
                  * Information about the passport used for identification. Required if `method` is
                  * equal to `passport`.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                 *   (e.g. if the server responded with an unexpected value).
                  */
                 fun passport(): Passport? = passport.getNullable("passport")
 
-                /** A method that can be used to verify the individual's identity. */
+                /**
+                 * Returns the raw JSON value of [method].
+                 *
+                 * Unlike [method], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
                 @JsonProperty("method") @ExcludeMissing fun _method(): JsonField<Method> = method
 
                 /**
-                 * An identification number that can be used to verify the individual's identity,
-                 * such as a social security number.
+                 * Returns the raw JSON value of [number].
+                 *
+                 * Unlike [number], this method doesn't throw if the JSON field has an unexpected
+                 * type.
                  */
                 @JsonProperty("number") @ExcludeMissing fun _number(): JsonField<String> = number
 
                 /**
-                 * Information about the United States driver's license used for identification.
-                 * Required if `method` is equal to `drivers_license`.
+                 * Returns the raw JSON value of [driversLicense].
+                 *
+                 * Unlike [driversLicense], this method doesn't throw if the JSON field has an
+                 * unexpected type.
                  */
                 @JsonProperty("drivers_license")
                 @ExcludeMissing
                 fun _driversLicense(): JsonField<DriversLicense> = driversLicense
 
                 /**
-                 * Information about the identification document provided. Required if `method` is
-                 * equal to `other`.
+                 * Returns the raw JSON value of [other].
+                 *
+                 * Unlike [other], this method doesn't throw if the JSON field has an unexpected
+                 * type.
                  */
                 @JsonProperty("other") @ExcludeMissing fun _other(): JsonField<Other> = other
 
                 /**
-                 * Information about the passport used for identification. Required if `method` is
-                 * equal to `passport`.
+                 * Returns the raw JSON value of [passport].
+                 *
+                 * Unlike [passport], this method doesn't throw if the JSON field has an unexpected
+                 * type.
                  */
                 @JsonProperty("passport")
                 @ExcludeMissing
@@ -10085,7 +13087,13 @@ private constructor(
                     /** A method that can be used to verify the individual's identity. */
                     fun method(method: Method) = method(JsonField.of(method))
 
-                    /** A method that can be used to verify the individual's identity. */
+                    /**
+                     * Sets [Builder.method] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.method] with a well-typed [Method] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
                     fun method(method: JsonField<Method>) = apply { this.method = method }
 
                     /**
@@ -10095,8 +13103,11 @@ private constructor(
                     fun number(number: String) = number(JsonField.of(number))
 
                     /**
-                     * An identification number that can be used to verify the individual's
-                     * identity, such as a social security number.
+                     * Sets [Builder.number] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.number] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
                      */
                     fun number(number: JsonField<String>) = apply { this.number = number }
 
@@ -10108,8 +13119,11 @@ private constructor(
                         driversLicense(JsonField.of(driversLicense))
 
                     /**
-                     * Information about the United States driver's license used for identification.
-                     * Required if `method` is equal to `drivers_license`.
+                     * Sets [Builder.driversLicense] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.driversLicense] with a well-typed
+                     * [DriversLicense] value instead. This method is primarily for setting the
+                     * field to an undocumented or not yet supported value.
                      */
                     fun driversLicense(driversLicense: JsonField<DriversLicense>) = apply {
                         this.driversLicense = driversLicense
@@ -10122,8 +13136,11 @@ private constructor(
                     fun other(other: Other) = other(JsonField.of(other))
 
                     /**
-                     * Information about the identification document provided. Required if `method`
-                     * is equal to `other`.
+                     * Sets [Builder.other] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.other] with a well-typed [Other] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
                      */
                     fun other(other: JsonField<Other>) = apply { this.other = other }
 
@@ -10134,8 +13151,11 @@ private constructor(
                     fun passport(passport: Passport) = passport(JsonField.of(passport))
 
                     /**
-                     * Information about the passport used for identification. Required if `method`
-                     * is equal to `passport`.
+                     * Sets [Builder.passport] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.passport] with a well-typed [Passport] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
                      */
                     fun passport(passport: JsonField<Passport>) = apply { this.passport = passport }
 
@@ -10161,6 +13181,19 @@ private constructor(
                         keys.forEach(::removeAdditionalProperty)
                     }
 
+                    /**
+                     * Returns an immutable instance of [Identification].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     *
+                     * The following fields are required:
+                     * ```kotlin
+                     * .method()
+                     * .number()
+                     * ```
+                     *
+                     * @throws IllegalStateException if any required field is unset.
+                     */
                     fun build(): Identification =
                         Identification(
                             checkRequired("method", method),
@@ -10338,32 +13371,75 @@ private constructor(
                     private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
                 ) {
 
-                    /** The driver's license's expiration date in YYYY-MM-DD format. */
+                    /**
+                     * The driver's license's expiration date in YYYY-MM-DD format.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   or is unexpectedly missing or null (e.g. if the server responded with an
+                     *   unexpected value).
+                     */
                     fun expirationDate(): LocalDate = expirationDate.getRequired("expiration_date")
 
-                    /** The identifier of the File containing the front of the driver's license. */
+                    /**
+                     * The identifier of the File containing the front of the driver's license.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   or is unexpectedly missing or null (e.g. if the server responded with an
+                     *   unexpected value).
+                     */
                     fun fileId(): String = fileId.getRequired("file_id")
 
-                    /** The state that issued the provided driver's license. */
+                    /**
+                     * The state that issued the provided driver's license.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   or is unexpectedly missing or null (e.g. if the server responded with an
+                     *   unexpected value).
+                     */
                     fun state(): String = state.getRequired("state")
 
-                    /** The identifier of the File containing the back of the driver's license. */
+                    /**
+                     * The identifier of the File containing the back of the driver's license.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
+                     */
                     fun backFileId(): String? = backFileId.getNullable("back_file_id")
 
-                    /** The driver's license's expiration date in YYYY-MM-DD format. */
+                    /**
+                     * Returns the raw JSON value of [expirationDate].
+                     *
+                     * Unlike [expirationDate], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
                     @JsonProperty("expiration_date")
                     @ExcludeMissing
                     fun _expirationDate(): JsonField<LocalDate> = expirationDate
 
-                    /** The identifier of the File containing the front of the driver's license. */
+                    /**
+                     * Returns the raw JSON value of [fileId].
+                     *
+                     * Unlike [fileId], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
                     @JsonProperty("file_id")
                     @ExcludeMissing
                     fun _fileId(): JsonField<String> = fileId
 
-                    /** The state that issued the provided driver's license. */
+                    /**
+                     * Returns the raw JSON value of [state].
+                     *
+                     * Unlike [state], this method doesn't throw if the JSON field has an unexpected
+                     * type.
+                     */
                     @JsonProperty("state") @ExcludeMissing fun _state(): JsonField<String> = state
 
-                    /** The identifier of the File containing the back of the driver's license. */
+                    /**
+                     * Returns the raw JSON value of [backFileId].
+                     *
+                     * Unlike [backFileId], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
                     @JsonProperty("back_file_id")
                     @ExcludeMissing
                     fun _backFileId(): JsonField<String> = backFileId
@@ -10427,7 +13503,13 @@ private constructor(
                         fun expirationDate(expirationDate: LocalDate) =
                             expirationDate(JsonField.of(expirationDate))
 
-                        /** The driver's license's expiration date in YYYY-MM-DD format. */
+                        /**
+                         * Sets [Builder.expirationDate] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.expirationDate] with a well-typed
+                         * [LocalDate] value instead. This method is primarily for setting the field
+                         * to an undocumented or not yet supported value.
+                         */
                         fun expirationDate(expirationDate: JsonField<LocalDate>) = apply {
                             this.expirationDate = expirationDate
                         }
@@ -10438,14 +13520,24 @@ private constructor(
                         fun fileId(fileId: String) = fileId(JsonField.of(fileId))
 
                         /**
-                         * The identifier of the File containing the front of the driver's license.
+                         * Sets [Builder.fileId] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.fileId] with a well-typed [String] value
+                         * instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
                          */
                         fun fileId(fileId: JsonField<String>) = apply { this.fileId = fileId }
 
                         /** The state that issued the provided driver's license. */
                         fun state(state: String) = state(JsonField.of(state))
 
-                        /** The state that issued the provided driver's license. */
+                        /**
+                         * Sets [Builder.state] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.state] with a well-typed [String] value
+                         * instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
+                         */
                         fun state(state: JsonField<String>) = apply { this.state = state }
 
                         /**
@@ -10454,7 +13546,11 @@ private constructor(
                         fun backFileId(backFileId: String) = backFileId(JsonField.of(backFileId))
 
                         /**
-                         * The identifier of the File containing the back of the driver's license.
+                         * Sets [Builder.backFileId] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.backFileId] with a well-typed [String]
+                         * value instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
                          */
                         fun backFileId(backFileId: JsonField<String>) = apply {
                             this.backFileId = backFileId
@@ -10482,6 +13578,20 @@ private constructor(
                             keys.forEach(::removeAdditionalProperty)
                         }
 
+                        /**
+                         * Returns an immutable instance of [DriversLicense].
+                         *
+                         * Further updates to this [Builder] will not mutate the returned instance.
+                         *
+                         * The following fields are required:
+                         * ```kotlin
+                         * .expirationDate()
+                         * .fileId()
+                         * .state()
+                         * ```
+                         *
+                         * @throws IllegalStateException if any required field is unset.
+                         */
                         fun build(): DriversLicense =
                             DriversLicense(
                                 checkRequired("expirationDate", expirationDate),
@@ -10540,51 +13650,94 @@ private constructor(
                     /**
                      * The two-character ISO 3166-1 code representing the country that issued the
                      * document.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   or is unexpectedly missing or null (e.g. if the server responded with an
+                     *   unexpected value).
                      */
                     fun country(): String = country.getRequired("country")
 
-                    /** A description of the document submitted. */
+                    /**
+                     * A description of the document submitted.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   or is unexpectedly missing or null (e.g. if the server responded with an
+                     *   unexpected value).
+                     */
                     fun description(): String = description.getRequired("description")
 
-                    /** The identifier of the File containing the front of the document. */
+                    /**
+                     * The identifier of the File containing the front of the document.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   or is unexpectedly missing or null (e.g. if the server responded with an
+                     *   unexpected value).
+                     */
                     fun fileId(): String = fileId.getRequired("file_id")
 
                     /**
                      * The identifier of the File containing the back of the document. Not every
                      * document has a reverse side.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
                      */
                     fun backFileId(): String? = backFileId.getNullable("back_file_id")
 
-                    /** The document's expiration date in YYYY-MM-DD format. */
+                    /**
+                     * The document's expiration date in YYYY-MM-DD format.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
+                     */
                     fun expirationDate(): LocalDate? = expirationDate.getNullable("expiration_date")
 
                     /**
-                     * The two-character ISO 3166-1 code representing the country that issued the
-                     * document.
+                     * Returns the raw JSON value of [country].
+                     *
+                     * Unlike [country], this method doesn't throw if the JSON field has an
+                     * unexpected type.
                      */
                     @JsonProperty("country")
                     @ExcludeMissing
                     fun _country(): JsonField<String> = country
 
-                    /** A description of the document submitted. */
+                    /**
+                     * Returns the raw JSON value of [description].
+                     *
+                     * Unlike [description], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
                     @JsonProperty("description")
                     @ExcludeMissing
                     fun _description(): JsonField<String> = description
 
-                    /** The identifier of the File containing the front of the document. */
+                    /**
+                     * Returns the raw JSON value of [fileId].
+                     *
+                     * Unlike [fileId], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
                     @JsonProperty("file_id")
                     @ExcludeMissing
                     fun _fileId(): JsonField<String> = fileId
 
                     /**
-                     * The identifier of the File containing the back of the document. Not every
-                     * document has a reverse side.
+                     * Returns the raw JSON value of [backFileId].
+                     *
+                     * Unlike [backFileId], this method doesn't throw if the JSON field has an
+                     * unexpected type.
                      */
                     @JsonProperty("back_file_id")
                     @ExcludeMissing
                     fun _backFileId(): JsonField<String> = backFileId
 
-                    /** The document's expiration date in YYYY-MM-DD format. */
+                    /**
+                     * Returns the raw JSON value of [expirationDate].
+                     *
+                     * Unlike [expirationDate], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
                     @JsonProperty("expiration_date")
                     @ExcludeMissing
                     fun _expirationDate(): JsonField<LocalDate> = expirationDate
@@ -10652,8 +13805,11 @@ private constructor(
                         fun country(country: String) = country(JsonField.of(country))
 
                         /**
-                         * The two-character ISO 3166-1 code representing the country that issued
-                         * the document.
+                         * Sets [Builder.country] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.country] with a well-typed [String]
+                         * value instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
                          */
                         fun country(country: JsonField<String>) = apply { this.country = country }
 
@@ -10661,7 +13817,13 @@ private constructor(
                         fun description(description: String) =
                             description(JsonField.of(description))
 
-                        /** A description of the document submitted. */
+                        /**
+                         * Sets [Builder.description] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.description] with a well-typed [String]
+                         * value instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
+                         */
                         fun description(description: JsonField<String>) = apply {
                             this.description = description
                         }
@@ -10669,7 +13831,13 @@ private constructor(
                         /** The identifier of the File containing the front of the document. */
                         fun fileId(fileId: String) = fileId(JsonField.of(fileId))
 
-                        /** The identifier of the File containing the front of the document. */
+                        /**
+                         * Sets [Builder.fileId] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.fileId] with a well-typed [String] value
+                         * instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
+                         */
                         fun fileId(fileId: JsonField<String>) = apply { this.fileId = fileId }
 
                         /**
@@ -10679,8 +13847,11 @@ private constructor(
                         fun backFileId(backFileId: String) = backFileId(JsonField.of(backFileId))
 
                         /**
-                         * The identifier of the File containing the back of the document. Not every
-                         * document has a reverse side.
+                         * Sets [Builder.backFileId] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.backFileId] with a well-typed [String]
+                         * value instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
                          */
                         fun backFileId(backFileId: JsonField<String>) = apply {
                             this.backFileId = backFileId
@@ -10690,7 +13861,13 @@ private constructor(
                         fun expirationDate(expirationDate: LocalDate) =
                             expirationDate(JsonField.of(expirationDate))
 
-                        /** The document's expiration date in YYYY-MM-DD format. */
+                        /**
+                         * Sets [Builder.expirationDate] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.expirationDate] with a well-typed
+                         * [LocalDate] value instead. This method is primarily for setting the field
+                         * to an undocumented or not yet supported value.
+                         */
                         fun expirationDate(expirationDate: JsonField<LocalDate>) = apply {
                             this.expirationDate = expirationDate
                         }
@@ -10717,6 +13894,20 @@ private constructor(
                             keys.forEach(::removeAdditionalProperty)
                         }
 
+                        /**
+                         * Returns an immutable instance of [Other].
+                         *
+                         * Further updates to this [Builder] will not mutate the returned instance.
+                         *
+                         * The following fields are required:
+                         * ```kotlin
+                         * .country()
+                         * .description()
+                         * .fileId()
+                         * ```
+                         *
+                         * @throws IllegalStateException if any required field is unset.
+                         */
                         fun build(): Other =
                             Other(
                                 checkRequired("country", country),
@@ -10767,26 +13958,59 @@ private constructor(
                     private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
                 ) {
 
-                    /** The country that issued the passport. */
+                    /**
+                     * The country that issued the passport.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   or is unexpectedly missing or null (e.g. if the server responded with an
+                     *   unexpected value).
+                     */
                     fun country(): String = country.getRequired("country")
 
-                    /** The passport's expiration date in YYYY-MM-DD format. */
+                    /**
+                     * The passport's expiration date in YYYY-MM-DD format.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   or is unexpectedly missing or null (e.g. if the server responded with an
+                     *   unexpected value).
+                     */
                     fun expirationDate(): LocalDate = expirationDate.getRequired("expiration_date")
 
-                    /** The identifier of the File containing the passport. */
+                    /**
+                     * The identifier of the File containing the passport.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   or is unexpectedly missing or null (e.g. if the server responded with an
+                     *   unexpected value).
+                     */
                     fun fileId(): String = fileId.getRequired("file_id")
 
-                    /** The country that issued the passport. */
+                    /**
+                     * Returns the raw JSON value of [country].
+                     *
+                     * Unlike [country], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
                     @JsonProperty("country")
                     @ExcludeMissing
                     fun _country(): JsonField<String> = country
 
-                    /** The passport's expiration date in YYYY-MM-DD format. */
+                    /**
+                     * Returns the raw JSON value of [expirationDate].
+                     *
+                     * Unlike [expirationDate], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
                     @JsonProperty("expiration_date")
                     @ExcludeMissing
                     fun _expirationDate(): JsonField<LocalDate> = expirationDate
 
-                    /** The identifier of the File containing the passport. */
+                    /**
+                     * Returns the raw JSON value of [fileId].
+                     *
+                     * Unlike [fileId], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
                     @JsonProperty("file_id")
                     @ExcludeMissing
                     fun _fileId(): JsonField<String> = fileId
@@ -10844,14 +14068,26 @@ private constructor(
                         /** The country that issued the passport. */
                         fun country(country: String) = country(JsonField.of(country))
 
-                        /** The country that issued the passport. */
+                        /**
+                         * Sets [Builder.country] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.country] with a well-typed [String]
+                         * value instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
+                         */
                         fun country(country: JsonField<String>) = apply { this.country = country }
 
                         /** The passport's expiration date in YYYY-MM-DD format. */
                         fun expirationDate(expirationDate: LocalDate) =
                             expirationDate(JsonField.of(expirationDate))
 
-                        /** The passport's expiration date in YYYY-MM-DD format. */
+                        /**
+                         * Sets [Builder.expirationDate] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.expirationDate] with a well-typed
+                         * [LocalDate] value instead. This method is primarily for setting the field
+                         * to an undocumented or not yet supported value.
+                         */
                         fun expirationDate(expirationDate: JsonField<LocalDate>) = apply {
                             this.expirationDate = expirationDate
                         }
@@ -10859,7 +14095,13 @@ private constructor(
                         /** The identifier of the File containing the passport. */
                         fun fileId(fileId: String) = fileId(JsonField.of(fileId))
 
-                        /** The identifier of the File containing the passport. */
+                        /**
+                         * Sets [Builder.fileId] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.fileId] with a well-typed [String] value
+                         * instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
+                         */
                         fun fileId(fileId: JsonField<String>) = apply { this.fileId = fileId }
 
                         fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
@@ -10884,6 +14126,20 @@ private constructor(
                             keys.forEach(::removeAdditionalProperty)
                         }
 
+                        /**
+                         * Returns an immutable instance of [Passport].
+                         *
+                         * Further updates to this [Builder] will not mutate the returned instance.
+                         *
+                         * The following fields are required:
+                         * ```kotlin
+                         * .country()
+                         * .expirationDate()
+                         * .fileId()
+                         * ```
+                         *
+                         * @throws IllegalStateException if any required field is unset.
+                         */
                         fun build(): Passport =
                             Passport(
                                 checkRequired("country", country),

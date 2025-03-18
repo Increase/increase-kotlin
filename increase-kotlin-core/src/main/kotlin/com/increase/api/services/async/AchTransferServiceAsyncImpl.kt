@@ -109,7 +109,7 @@ class AchTransferServiceAsyncImpl internal constructor(private val clientOptions
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
-                    .addPathSegments("ach_transfers", params.getPathParam(0))
+                    .addPathSegments("ach_transfers", params._pathParam(0))
                     .build()
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
@@ -169,7 +169,7 @@ class AchTransferServiceAsyncImpl internal constructor(private val clientOptions
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
-                    .addPathSegments("ach_transfers", params.getPathParam(0), "approve")
+                    .addPathSegments("ach_transfers", params._pathParam(0), "approve")
                     .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -196,7 +196,7 @@ class AchTransferServiceAsyncImpl internal constructor(private val clientOptions
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
-                    .addPathSegments("ach_transfers", params.getPathParam(0), "cancel")
+                    .addPathSegments("ach_transfers", params._pathParam(0), "cancel")
                     .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
                     .build()
                     .prepareAsync(clientOptions, params)
