@@ -57,7 +57,7 @@ private constructor(
         QueryParams.builder()
             .apply {
                 category?.let {
-                    it.in_()?.let { put("category.in", it.joinToString(",") { it.asString() }) }
+                    it.in_()?.let { put("category.in", it.joinToString(",") { it.toString() }) }
                     it._additionalProperties().keys().forEach { key ->
                         it._additionalProperties().values(key).forEach { value ->
                             put("category.$key", value)
@@ -93,7 +93,7 @@ private constructor(
                 idempotencyKey?.let { put("idempotency_key", it) }
                 limit?.let { put("limit", it.toString()) }
                 status?.let {
-                    it.in_()?.let { put("status.in", it.joinToString(",") { it.asString() }) }
+                    it.in_()?.let { put("status.in", it.joinToString(",") { it.toString() }) }
                     it._additionalProperties().keys().forEach { key ->
                         it._additionalProperties().values(key).forEach { value ->
                             put("status.$key", value)

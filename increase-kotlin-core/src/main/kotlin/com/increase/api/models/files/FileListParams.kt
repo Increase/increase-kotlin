@@ -82,7 +82,7 @@ private constructor(
                 idempotencyKey?.let { put("idempotency_key", it) }
                 limit?.let { put("limit", it.toString()) }
                 purpose?.let {
-                    it.in_()?.let { put("purpose.in", it.joinToString(",") { it.asString() }) }
+                    it.in_()?.let { put("purpose.in", it.joinToString(",") { it.toString() }) }
                     it._additionalProperties().keys().forEach { key ->
                         it._additionalProperties().values(key).forEach { value ->
                             put("purpose.$key", value)

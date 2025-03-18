@@ -55,7 +55,7 @@ private constructor(
             .apply {
                 accountId?.let { put("account_id", it) }
                 category?.let {
-                    it.in_()?.let { put("category.in", it.joinToString(",") { it.asString() }) }
+                    it.in_()?.let { put("category.in", it.joinToString(",") { it.toString() }) }
                     it._additionalProperties().keys().forEach { key ->
                         it._additionalProperties().values(key).forEach { value ->
                             put("category.$key", value)
