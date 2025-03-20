@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.191.0 (2025-03-20)
+
+Full Changelog: [v0.190.1...v0.191.0](https://github.com/Increase/increase-kotlin/compare/v0.190.1...v0.191.0)
+
+### ⚠ BREAKING CHANGES
+
+* **client:** refactor exception structure and methods ([#890](https://github.com/Increase/increase-kotlin/issues/890))
+
+### Bug Fixes
+
+* compilation error ([eeb3e7c](https://github.com/Increase/increase-kotlin/commit/eeb3e7cc0162ca160f72fdd3bc5d6601995a8727))
+
+
+### Chores
+
+* **client:** refactor exception structure and methods ([#890](https://github.com/Increase/increase-kotlin/issues/890)) ([ae600b7](https://github.com/Increase/increase-kotlin/commit/ae600b74b016e1a306002c4eb9d7588f4ef19220))
+* **internal:** refactor enum query param serialization ([#887](https://github.com/Increase/increase-kotlin/issues/887)) ([ba315d7](https://github.com/Increase/increase-kotlin/commit/ba315d740ac2e93bf71e8f1759c5369cf76af887))
+
 ## 0.190.1 (2025-03-18)
 
 Full Changelog: [v0.190.0...v0.190.1](https://github.com/Increase/increase-kotlin/compare/v0.190.0...v0.190.1)
