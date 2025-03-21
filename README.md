@@ -7,7 +7,7 @@
 
 <!-- x-release-please-end -->
 
-The Increase Kotlin SDK provides convenient access to the Increase REST API from applications written in Kotlin.
+The Increase Kotlin SDK provides convenient access to the [Increase REST API](https://increase.com/documentation) from applications written in Kotlin.
 
 The Increase Kotlin SDK is similar to the Increase Java SDK but with minor differences that make it more ergonomic for use in Kotlin, such as nullable values instead of `Optional`, `Sequence` instead of `Stream`, and suspend functions instead of `CompletableFuture`.
 
@@ -31,9 +31,9 @@ implementation("com.increase.api:increase-kotlin:0.191.0")
 
 ```xml
 <dependency>
-    <groupId>com.increase.api</groupId>
-    <artifactId>increase-kotlin</artifactId>
-    <version>0.191.0</version>
+  <groupId>com.increase.api</groupId>
+  <artifactId>increase-kotlin</artifactId>
+  <version>0.191.0</version>
 </dependency>
 ```
 
