@@ -1,5 +1,28 @@
 # Changelog
 
+## 0.192.0 (2025-03-22)
+
+Full Changelog: [v0.191.0...v0.192.0](https://github.com/Increase/increase-kotlin/compare/v0.191.0...v0.192.0)
+
+### Features
+
+* **api:** api update ([#898](https://github.com/Increase/increase-kotlin/issues/898)) ([7943f21](https://github.com/Increase/increase-kotlin/commit/7943f21fa693704a2b4e0a444d49ce3b7a9b720c))
+
+
+### Chores
+
+* **internal:** fix release please markers ([3fa3bc7](https://github.com/Increase/increase-kotlin/commit/3fa3bc75290e8e7732468e528d8f46ca9f113517))
+* **internal:** make multipart assertions more robust ([360c619](https://github.com/Increase/increase-kotlin/commit/360c6196ee8d5d706083012c0a8b8e2f3af53888))
+* **internal:** remove unnecessary `assertNotNull` calls ([360c619](https://github.com/Increase/increase-kotlin/commit/360c6196ee8d5d706083012c0a8b8e2f3af53888))
+* **internal:** remove unnecessary import ([#895](https://github.com/Increase/increase-kotlin/issues/895)) ([ee83f26](https://github.com/Increase/increase-kotlin/commit/ee83f263877ac7d348c580fdbb543a06e9dd26e8))
+
+
+### Documentation
+
+* minor readme tweak ([#897](https://github.com/Increase/increase-kotlin/issues/897)) ([909fd1a](https://github.com/Increase/increase-kotlin/commit/909fd1aa1244a512871c430c98b4dfd4a43d2fda))
+* refine comments on multipart params ([#894](https://github.com/Increase/increase-kotlin/issues/894)) ([360c619](https://github.com/Increase/increase-kotlin/commit/360c6196ee8d5d706083012c0a8b8e2f3af53888))
+* update readme exception docs ([#896](https://github.com/Increase/increase-kotlin/issues/896)) ([b851f89](https://github.com/Increase/increase-kotlin/commit/b851f895747a3784e0075d4496648342d57ae3df))
+
 ## 0.191.0 (2025-03-20)
 
 Full Changelog: [v0.190.1...v0.191.0](https://github.com/Increase/increase-kotlin/compare/v0.190.1...v0.191.0)
