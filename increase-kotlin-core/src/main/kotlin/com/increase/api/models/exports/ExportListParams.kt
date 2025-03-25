@@ -5,7 +5,6 @@ package com.increase.api.models.exports
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.increase.api.core.Enum
 import com.increase.api.core.JsonField
-import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.Params
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
@@ -51,59 +50,6 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    override fun _headers(): Headers = additionalHeaders
-
-    override fun _queryParams(): QueryParams =
-        QueryParams.builder()
-            .apply {
-                category?.let {
-                    it.in_()?.let { put("category.in", it.joinToString(",") { it.toString() }) }
-                    it._additionalProperties().keys().forEach { key ->
-                        it._additionalProperties().values(key).forEach { value ->
-                            put("category.$key", value)
-                        }
-                    }
-                }
-                createdAt?.let {
-                    it.after()?.let {
-                        put("created_at.after", DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
-                    }
-                    it.before()?.let {
-                        put("created_at.before", DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
-                    }
-                    it.onOrAfter()?.let {
-                        put(
-                            "created_at.on_or_after",
-                            DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it),
-                        )
-                    }
-                    it.onOrBefore()?.let {
-                        put(
-                            "created_at.on_or_before",
-                            DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it),
-                        )
-                    }
-                    it._additionalProperties().keys().forEach { key ->
-                        it._additionalProperties().values(key).forEach { value ->
-                            put("created_at.$key", value)
-                        }
-                    }
-                }
-                cursor?.let { put("cursor", it) }
-                idempotencyKey?.let { put("idempotency_key", it) }
-                limit?.let { put("limit", it.toString()) }
-                status?.let {
-                    it.in_()?.let { put("status.in", it.joinToString(",") { it.toString() }) }
-                    it._additionalProperties().keys().forEach { key ->
-                        it._additionalProperties().values(key).forEach { value ->
-                            put("status.$key", value)
-                        }
-                    }
-                }
-                putAll(additionalQueryParams)
-            }
-            .build()
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -115,7 +61,6 @@ private constructor(
     }
 
     /** A builder for [ExportListParams]. */
-    @NoAutoDetect
     class Builder internal constructor() {
 
         private var category: Category? = null
@@ -282,6 +227,59 @@ private constructor(
                 additionalQueryParams.build(),
             )
     }
+
+    override fun _headers(): Headers = additionalHeaders
+
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                category?.let {
+                    it.in_()?.let { put("category.in", it.joinToString(",") { it.toString() }) }
+                    it._additionalProperties().keys().forEach { key ->
+                        it._additionalProperties().values(key).forEach { value ->
+                            put("category.$key", value)
+                        }
+                    }
+                }
+                createdAt?.let {
+                    it.after()?.let {
+                        put("created_at.after", DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
+                    }
+                    it.before()?.let {
+                        put("created_at.before", DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
+                    }
+                    it.onOrAfter()?.let {
+                        put(
+                            "created_at.on_or_after",
+                            DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it),
+                        )
+                    }
+                    it.onOrBefore()?.let {
+                        put(
+                            "created_at.on_or_before",
+                            DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it),
+                        )
+                    }
+                    it._additionalProperties().keys().forEach { key ->
+                        it._additionalProperties().values(key).forEach { value ->
+                            put("created_at.$key", value)
+                        }
+                    }
+                }
+                cursor?.let { put("cursor", it) }
+                idempotencyKey?.let { put("idempotency_key", it) }
+                limit?.let { put("limit", it.toString()) }
+                status?.let {
+                    it.in_()?.let { put("status.in", it.joinToString(",") { it.toString() }) }
+                    it._additionalProperties().keys().forEach { key ->
+                        it._additionalProperties().values(key).forEach { value ->
+                            put("status.$key", value)
+                        }
+                    }
+                }
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     class Category
     private constructor(private val in_: List<In>?, private val additionalProperties: QueryParams) {

@@ -10,10 +10,8 @@ import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
-import com.increase.api.core.immutableEmptyMap
-import com.increase.api.core.toImmutable
 import com.increase.api.services.async.EntityServiceAsync
+import java.util.Collections
 import java.util.Objects
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
@@ -76,15 +74,17 @@ private constructor(
             EntityListPageAsync(entitiesService, params, response)
     }
 
-    @NoAutoDetect
-    class Response
-    @JsonCreator
-    constructor(
-        @JsonProperty("data") private val data: JsonField<List<Entity>> = JsonMissing.of(),
-        @JsonProperty("next_cursor") private val nextCursor: JsonField<String> = JsonMissing.of(),
-        @JsonAnySetter
-        private val additionalProperties: Map<String, JsonValue> = immutableEmptyMap(),
+    class Response(
+        private val data: JsonField<List<Entity>>,
+        private val nextCursor: JsonField<String>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("data") data: JsonField<List<Entity>> = JsonMissing.of(),
+            @JsonProperty("next_cursor") nextCursor: JsonField<String> = JsonMissing.of(),
+        ) : this(data, nextCursor, mutableMapOf())
 
         fun data(): List<Entity> = data.getNullable("data") ?: listOf()
 
@@ -94,9 +94,15 @@ private constructor(
 
         @JsonProperty("next_cursor") fun _nextCursor(): JsonField<String>? = nextCursor
 
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
         @JsonAnyGetter
         @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
 
         private var validated: Boolean = false
 
@@ -160,7 +166,7 @@ private constructor(
              *
              * Further updates to this [Builder] will not mutate the returned instance.
              */
-            fun build(): Response = Response(data, nextCursor, additionalProperties.toImmutable())
+            fun build(): Response = Response(data, nextCursor, additionalProperties.toMutableMap())
         }
     }
 
