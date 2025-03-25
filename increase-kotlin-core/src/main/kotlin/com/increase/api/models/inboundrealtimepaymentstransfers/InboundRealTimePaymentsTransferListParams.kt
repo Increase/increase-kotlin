@@ -2,7 +2,6 @@
 
 package com.increase.api.models.inboundrealtimepaymentstransfers
 
-import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.Params
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
@@ -43,44 +42,6 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    override fun _headers(): Headers = additionalHeaders
-
-    override fun _queryParams(): QueryParams =
-        QueryParams.builder()
-            .apply {
-                accountId?.let { put("account_id", it) }
-                accountNumberId?.let { put("account_number_id", it) }
-                createdAt?.let {
-                    it.after()?.let {
-                        put("created_at.after", DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
-                    }
-                    it.before()?.let {
-                        put("created_at.before", DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
-                    }
-                    it.onOrAfter()?.let {
-                        put(
-                            "created_at.on_or_after",
-                            DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it),
-                        )
-                    }
-                    it.onOrBefore()?.let {
-                        put(
-                            "created_at.on_or_before",
-                            DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it),
-                        )
-                    }
-                    it._additionalProperties().keys().forEach { key ->
-                        it._additionalProperties().values(key).forEach { value ->
-                            put("created_at.$key", value)
-                        }
-                    }
-                }
-                cursor?.let { put("cursor", it) }
-                limit?.let { put("limit", it.toString()) }
-                putAll(additionalQueryParams)
-            }
-            .build()
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -95,7 +56,6 @@ private constructor(
     }
 
     /** A builder for [InboundRealTimePaymentsTransferListParams]. */
-    @NoAutoDetect
     class Builder internal constructor() {
 
         private var accountId: String? = null
@@ -264,6 +224,44 @@ private constructor(
                 additionalQueryParams.build(),
             )
     }
+
+    override fun _headers(): Headers = additionalHeaders
+
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                accountId?.let { put("account_id", it) }
+                accountNumberId?.let { put("account_number_id", it) }
+                createdAt?.let {
+                    it.after()?.let {
+                        put("created_at.after", DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
+                    }
+                    it.before()?.let {
+                        put("created_at.before", DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
+                    }
+                    it.onOrAfter()?.let {
+                        put(
+                            "created_at.on_or_after",
+                            DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it),
+                        )
+                    }
+                    it.onOrBefore()?.let {
+                        put(
+                            "created_at.on_or_before",
+                            DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it),
+                        )
+                    }
+                    it._additionalProperties().keys().forEach { key ->
+                        it._additionalProperties().values(key).forEach { value ->
+                            put("created_at.$key", value)
+                        }
+                    }
+                }
+                cursor?.let { put("cursor", it) }
+                limit?.let { put("limit", it.toString()) }
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     class CreatedAt
     private constructor(

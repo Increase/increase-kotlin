@@ -2,13 +2,15 @@
 
 package com.increase.api.models.simulations.accounttransfers
 
+import com.fasterxml.jackson.annotation.JsonAnyGetter
+import com.fasterxml.jackson.annotation.JsonAnySetter
+import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonValue
-import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.Params
 import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
-import com.increase.api.core.toImmutable
+import java.util.Collections
 import java.util.Objects
 
 /**
@@ -21,7 +23,7 @@ private constructor(
     private val accountTransferId: String,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
+    private val additionalBodyProperties: MutableMap<String, JsonValue>,
 ) : Params {
 
     /** The identifier of the Account Transfer you wish to complete. */
@@ -31,19 +33,15 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    @JsonAnySetter
+    private fun putAdditionalBodyProperty(key: String, value: JsonValue) {
+        additionalBodyProperties.put(key, value)
+    }
 
-    internal fun _body(): Map<String, JsonValue>? = additionalBodyProperties.ifEmpty { null }
-
-    fun _pathParam(index: Int): String =
-        when (index) {
-            0 -> accountTransferId
-            else -> ""
-        }
-
-    override fun _headers(): Headers = additionalHeaders
-
-    override fun _queryParams(): QueryParams = additionalQueryParams
+    @JsonAnyGetter
+    @ExcludeMissing
+    fun _additionalBodyProperties(): Map<String, JsonValue> =
+        Collections.unmodifiableMap(additionalBodyProperties)
 
     fun toBuilder() = Builder().from(this)
 
@@ -62,7 +60,6 @@ private constructor(
     }
 
     /** A builder for [AccountTransferCompleteParams]. */
-    @NoAutoDetect
     class Builder internal constructor() {
 
         private var accountTransferId: String? = null
@@ -220,9 +217,21 @@ private constructor(
                 checkRequired("accountTransferId", accountTransferId),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
+                additionalBodyProperties.toMutableMap(),
             )
     }
+
+    internal fun _body(): Map<String, JsonValue>? = additionalBodyProperties.ifEmpty { null }
+
+    fun _pathParam(index: Int): String =
+        when (index) {
+            0 -> accountTransferId
+            else -> ""
+        }
+
+    override fun _headers(): Headers = additionalHeaders
+
+    override fun _queryParams(): QueryParams = additionalQueryParams
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {

@@ -5,7 +5,6 @@ package com.increase.api.models.oauthconnections
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.increase.api.core.Enum
 import com.increase.api.core.JsonField
-import com.increase.api.core.NoAutoDetect
 import com.increase.api.core.Params
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
@@ -39,26 +38,6 @@ private constructor(
 
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
-    override fun _headers(): Headers = additionalHeaders
-
-    override fun _queryParams(): QueryParams =
-        QueryParams.builder()
-            .apply {
-                cursor?.let { put("cursor", it) }
-                limit?.let { put("limit", it.toString()) }
-                oauthApplicationId?.let { put("oauth_application_id", it) }
-                status?.let {
-                    it.in_()?.let { put("status.in", it.joinToString(",") { it.toString() }) }
-                    it._additionalProperties().keys().forEach { key ->
-                        it._additionalProperties().values(key).forEach { value ->
-                            put("status.$key", value)
-                        }
-                    }
-                }
-                putAll(additionalQueryParams)
-            }
-            .build()
-
     fun toBuilder() = Builder().from(this)
 
     companion object {
@@ -72,7 +51,6 @@ private constructor(
     }
 
     /** A builder for [OAuthConnectionListParams]. */
-    @NoAutoDetect
     class Builder internal constructor() {
 
         private var cursor: String? = null
@@ -226,6 +204,26 @@ private constructor(
                 additionalQueryParams.build(),
             )
     }
+
+    override fun _headers(): Headers = additionalHeaders
+
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                cursor?.let { put("cursor", it) }
+                limit?.let { put("limit", it.toString()) }
+                oauthApplicationId?.let { put("oauth_application_id", it) }
+                status?.let {
+                    it.in_()?.let { put("status.in", it.joinToString(",") { it.toString() }) }
+                    it._additionalProperties().keys().forEach { key ->
+                        it._additionalProperties().values(key).forEach { value ->
+                            put("status.$key", value)
+                        }
+                    }
+                }
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     class Status
     private constructor(private val in_: List<In>?, private val additionalProperties: QueryParams) {
