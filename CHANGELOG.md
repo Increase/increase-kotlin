@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.194.0 (2025-03-26)
+
+Full Changelog: [v0.193.0...v0.194.0](https://github.com/Increase/increase-kotlin/compare/v0.193.0...v0.194.0)
+
+### Features
+
+* **api:** api update ([#905](https://github.com/Increase/increase-kotlin/issues/905)) ([b36549b](https://github.com/Increase/increase-kotlin/commit/b36549b0af77934b593c46221bce50ac4f0f7747))
+* **client:** support a lower jackson version ([#903](https://github.com/Increase/increase-kotlin/issues/903)) ([ad562e9](https://github.com/Increase/increase-kotlin/commit/ad562e954ca5ab2adff027d8b6e9120fdbd6f900))
+* **client:** throw on incompatible jackson version ([ad562e9](https://github.com/Increase/increase-kotlin/commit/ad562e954ca5ab2adff027d8b6e9120fdbd6f900))
+
+
+### Bug Fixes
+
+* **client:** map deserialization bug ([08c44c8](https://github.com/Increase/increase-kotlin/commit/08c44c8ea27dd9e88ba59aba7cd468ac58a379ed))
+
+
+### Chores
+
+* **internal:** delete unused methods and annotations ([#906](https://github.com/Increase/increase-kotlin/issues/906)) ([08c44c8](https://github.com/Increase/increase-kotlin/commit/08c44c8ea27dd9e88ba59aba7cd468ac58a379ed))
+
 ## 0.193.0 (2025-03-22)
 
 Full Changelog: [v0.192.0...v0.193.0](https://github.com/Increase/increase-kotlin/compare/v0.192.0...v0.193.0)
