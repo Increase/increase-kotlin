@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.194.1 (2025-03-28)
+
+Full Changelog: [v0.194.0...v0.194.1](https://github.com/Increase/increase-kotlin/compare/v0.194.0...v0.194.1)
+
+### Bug Fixes
+
+* **client:** don't call `validate()` during deserialization if we don't have to ([#908](https://github.com/Increase/increase-kotlin/issues/908)) ([5b5f70e](https://github.com/Increase/increase-kotlin/commit/5b5f70e27e09ba3f6ac947f02b75a99fee5b7399))
+
 ## 0.194.0 (2025-03-26)
 
 Full Changelog: [v0.193.0...v0.194.0](https://github.com/Increase/increase-kotlin/compare/v0.193.0...v0.194.0)
