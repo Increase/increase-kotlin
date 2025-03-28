@@ -2,8 +2,8 @@
 
 <!-- x-release-please-start-version -->
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.increase.api/increase-kotlin)](https://central.sonatype.com/artifact/com.increase.api/increase-kotlin/0.194.1)
-[![javadoc](https://javadoc.io/badge2/com.increase.api/increase-kotlin/0.194.1/javadoc.svg)](https://javadoc.io/doc/com.increase.api/increase-kotlin/0.194.1)
+[![Maven Central](https://img.shields.io/maven-central/v/com.increase.api/increase-kotlin)](https://central.sonatype.com/artifact/com.increase.api/increase-kotlin/0.195.0)
+[![javadoc](https://javadoc.io/badge2/com.increase.api/increase-kotlin/0.195.0/javadoc.svg)](https://javadoc.io/doc/com.increase.api/increase-kotlin/0.195.0)
 
 <!-- x-release-please-end -->
 
@@ -13,7 +13,7 @@ The Increase Kotlin SDK is similar to the Increase Java SDK but with minor diffe
 
 <!-- x-release-please-start-version -->
 
-The REST API documentation can be found on [increase.com](https://increase.com/documentation). KDocs are also available on [javadoc.io](https://javadoc.io/doc/com.increase.api/increase-kotlin/0.194.1).
+The REST API documentation can be found on [increase.com](https://increase.com/documentation). KDocs are also available on [javadoc.io](https://javadoc.io/doc/com.increase.api/increase-kotlin/0.195.0).
 
 <!-- x-release-please-end -->
 
@@ -24,7 +24,7 @@ The REST API documentation can be found on [increase.com](https://increase.com/d
 ### Gradle
 
 ```kotlin
-implementation("com.increase.api:increase-kotlin:0.194.1")
+implementation("com.increase.api:increase-kotlin:0.195.0")
 ```
 
 ### Maven
@@ -33,7 +33,7 @@ implementation("com.increase.api:increase-kotlin:0.194.1")
 <dependency>
   <groupId>com.increase.api</groupId>
   <artifactId>increase-kotlin</artifactId>
-  <version>0.194.1</version>
+  <version>0.195.0</version>
 </dependency>
 ```
 
