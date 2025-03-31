@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.197.1 (2025-03-31)
+
+Full Changelog: [v0.197.0...v0.197.1](https://github.com/Increase/increase-kotlin/compare/v0.197.0...v0.197.1)
+
+### Bug Fixes
+
+* **client:** limit json deserialization coercion ([#920](https://github.com/Increase/increase-kotlin/issues/920)) ([fa9139f](https://github.com/Increase/increase-kotlin/commit/fa9139f0d0f934e3af2eafec16046bab2ddc0e6b))
+
 ## 0.197.0 (2025-03-31)
 
 Full Changelog: [v0.196.0...v0.197.0](https://github.com/Increase/increase-kotlin/compare/v0.196.0...v0.197.0)
