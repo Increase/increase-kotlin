@@ -5204,6 +5204,7 @@ private constructor(
     class ThirdParty
     private constructor(
         private val checkNumber: JsonField<String>,
+        private val recipientName: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -5211,16 +5212,27 @@ private constructor(
         private constructor(
             @JsonProperty("check_number")
             @ExcludeMissing
-            checkNumber: JsonField<String> = JsonMissing.of()
-        ) : this(checkNumber, mutableMapOf())
+            checkNumber: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("recipient_name")
+            @ExcludeMissing
+            recipientName: JsonField<String> = JsonMissing.of(),
+        ) : this(checkNumber, recipientName, mutableMapOf())
 
         /**
-         * The check number that will be printed on the check.
+         * The check number that you will print on the check.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
         fun checkNumber(): String? = checkNumber.getNullable("check_number")
+
+        /**
+         * The name that you will print on the check.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun recipientName(): String? = recipientName.getNullable("recipient_name")
 
         /**
          * Returns the raw JSON value of [checkNumber].
@@ -5230,6 +5242,16 @@ private constructor(
         @JsonProperty("check_number")
         @ExcludeMissing
         fun _checkNumber(): JsonField<String> = checkNumber
+
+        /**
+         * Returns the raw JSON value of [recipientName].
+         *
+         * Unlike [recipientName], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("recipient_name")
+        @ExcludeMissing
+        fun _recipientName(): JsonField<String> = recipientName
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -5251,6 +5273,7 @@ private constructor(
              * The following fields are required:
              * ```kotlin
              * .checkNumber()
+             * .recipientName()
              * ```
              */
             fun builder() = Builder()
@@ -5260,14 +5283,16 @@ private constructor(
         class Builder internal constructor() {
 
             private var checkNumber: JsonField<String>? = null
+            private var recipientName: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(thirdParty: ThirdParty) = apply {
                 checkNumber = thirdParty.checkNumber
+                recipientName = thirdParty.recipientName
                 additionalProperties = thirdParty.additionalProperties.toMutableMap()
             }
 
-            /** The check number that will be printed on the check. */
+            /** The check number that you will print on the check. */
             fun checkNumber(checkNumber: String?) = checkNumber(JsonField.ofNullable(checkNumber))
 
             /**
@@ -5279,6 +5304,21 @@ private constructor(
              */
             fun checkNumber(checkNumber: JsonField<String>) = apply {
                 this.checkNumber = checkNumber
+            }
+
+            /** The name that you will print on the check. */
+            fun recipientName(recipientName: String?) =
+                recipientName(JsonField.ofNullable(recipientName))
+
+            /**
+             * Sets [Builder.recipientName] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.recipientName] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun recipientName(recipientName: JsonField<String>) = apply {
+                this.recipientName = recipientName
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -5308,6 +5348,7 @@ private constructor(
              * The following fields are required:
              * ```kotlin
              * .checkNumber()
+             * .recipientName()
              * ```
              *
              * @throws IllegalStateException if any required field is unset.
@@ -5315,6 +5356,7 @@ private constructor(
             fun build(): ThirdParty =
                 ThirdParty(
                     checkRequired("checkNumber", checkNumber),
+                    checkRequired("recipientName", recipientName),
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -5327,6 +5369,7 @@ private constructor(
             }
 
             checkNumber()
+            recipientName()
             validated = true
         }
 
@@ -5335,17 +5378,17 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is ThirdParty && checkNumber == other.checkNumber && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is ThirdParty && checkNumber == other.checkNumber && recipientName == other.recipientName && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(checkNumber, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(checkNumber, recipientName, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "ThirdParty{checkNumber=$checkNumber, additionalProperties=$additionalProperties}"
+            "ThirdParty{checkNumber=$checkNumber, recipientName=$recipientName, additionalProperties=$additionalProperties}"
     }
 
     /**
