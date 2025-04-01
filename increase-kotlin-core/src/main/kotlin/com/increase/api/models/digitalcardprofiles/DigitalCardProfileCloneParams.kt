@@ -926,6 +926,31 @@ private constructor(
             validated = true
         }
 
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int =
+            (if (appIconFileId.asKnown() == null) 0 else 1) +
+                (if (backgroundImageFileId.asKnown() == null) 0 else 1) +
+                (if (cardDescription.asKnown() == null) 0 else 1) +
+                (if (contactEmail.asKnown() == null) 0 else 1) +
+                (if (contactPhone.asKnown() == null) 0 else 1) +
+                (if (contactWebsite.asKnown() == null) 0 else 1) +
+                (if (description.asKnown() == null) 0 else 1) +
+                (if (issuerName.asKnown() == null) 0 else 1) +
+                (textColor.asKnown()?.validity() ?: 0)
+
         override fun equals(other: Any?): Boolean {
             if (this === other) {
                 return true
@@ -1137,6 +1162,25 @@ private constructor(
             red()
             validated = true
         }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int =
+            (if (blue.asKnown() == null) 0 else 1) +
+                (if (green.asKnown() == null) 0 else 1) +
+                (if (red.asKnown() == null) 0 else 1)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {

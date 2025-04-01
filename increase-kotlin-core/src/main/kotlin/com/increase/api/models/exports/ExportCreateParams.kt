@@ -749,7 +749,7 @@ private constructor(
                 return@apply
             }
 
-            category()
+            category().validate()
             accountStatementOfx()?.validate()
             balanceCsv()?.validate()
             bookkeepingAccountBalanceCsv()?.validate()
@@ -757,6 +757,28 @@ private constructor(
             transactionCsv()?.validate()
             validated = true
         }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int =
+            (category.asKnown()?.validity() ?: 0) +
+                (accountStatementOfx.asKnown()?.validity() ?: 0) +
+                (balanceCsv.asKnown()?.validity() ?: 0) +
+                (bookkeepingAccountBalanceCsv.asKnown()?.validity() ?: 0) +
+                (entityCsv.asKnown()?.validity() ?: 0) +
+                (transactionCsv.asKnown()?.validity() ?: 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -912,6 +934,33 @@ private constructor(
          */
         fun asString(): String =
             _value().asString() ?: throw IncreaseInvalidDataException("Value is not a String")
+
+        private var validated: Boolean = false
+
+        fun validate(): Category = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -1090,6 +1139,23 @@ private constructor(
             createdAt()?.validate()
             validated = true
         }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int =
+            (if (accountId.asKnown() == null) 0 else 1) + (createdAt.asKnown()?.validity() ?: 0)
 
         /** Filter results by time range on the `created_at` attribute. */
         class CreatedAt
@@ -1338,6 +1404,26 @@ private constructor(
                 onOrBefore()
                 validated = true
             }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            internal fun validity(): Int =
+                (if (after.asKnown() == null) 0 else 1) +
+                    (if (before.asKnown() == null) 0 else 1) +
+                    (if (onOrAfter.asKnown() == null) 0 else 1) +
+                    (if (onOrBefore.asKnown() == null) 0 else 1)
 
             override fun equals(other: Any?): Boolean {
                 if (this === other) {
@@ -1554,6 +1640,25 @@ private constructor(
             validated = true
         }
 
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int =
+            (if (accountId.asKnown() == null) 0 else 1) +
+                (createdAt.asKnown()?.validity() ?: 0) +
+                (if (programId.asKnown() == null) 0 else 1)
+
         /** Filter results by time range on the `created_at` attribute. */
         class CreatedAt
         private constructor(
@@ -1801,6 +1906,26 @@ private constructor(
                 onOrBefore()
                 validated = true
             }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            internal fun validity(): Int =
+                (if (after.asKnown() == null) 0 else 1) +
+                    (if (before.asKnown() == null) 0 else 1) +
+                    (if (onOrAfter.asKnown() == null) 0 else 1) +
+                    (if (onOrBefore.asKnown() == null) 0 else 1)
 
             override fun equals(other: Any?): Boolean {
                 if (this === other) {
@@ -2001,6 +2126,24 @@ private constructor(
             validated = true
         }
 
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int =
+            (if (bookkeepingAccountId.asKnown() == null) 0 else 1) +
+                (createdAt.asKnown()?.validity() ?: 0)
+
         /** Filter results by time range on the `created_at` attribute. */
         class CreatedAt
         private constructor(
@@ -2249,6 +2392,26 @@ private constructor(
                 validated = true
             }
 
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            internal fun validity(): Int =
+                (if (after.asKnown() == null) 0 else 1) +
+                    (if (before.asKnown() == null) 0 else 1) +
+                    (if (onOrAfter.asKnown() == null) 0 else 1) +
+                    (if (onOrBefore.asKnown() == null) 0 else 1)
+
             override fun equals(other: Any?): Boolean {
                 if (this === other) {
                     return true
@@ -2390,6 +2553,22 @@ private constructor(
             status()?.validate()
             validated = true
         }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int = (status.asKnown()?.validity() ?: 0)
 
         /** Entity statuses to filter by. */
         class Status
@@ -2533,9 +2712,25 @@ private constructor(
                     return@apply
                 }
 
-                in_()
+                in_().forEach { it.validate() }
                 validated = true
             }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            internal fun validity(): Int = (in_.asKnown()?.sumOf { it.validity().toInt() } ?: 0)
 
             class In @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
@@ -2645,6 +2840,33 @@ private constructor(
                 fun asString(): String =
                     _value().asString()
                         ?: throw IncreaseInvalidDataException("Value is not a String")
+
+                private var validated: Boolean = false
+
+                fun validate(): In = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
                 override fun equals(other: Any?): Boolean {
                     if (this === other) {
@@ -2873,6 +3095,25 @@ private constructor(
             validated = true
         }
 
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int =
+            (if (accountId.asKnown() == null) 0 else 1) +
+                (createdAt.asKnown()?.validity() ?: 0) +
+                (if (programId.asKnown() == null) 0 else 1)
+
         /** Filter results by time range on the `created_at` attribute. */
         class CreatedAt
         private constructor(
@@ -3120,6 +3361,26 @@ private constructor(
                 onOrBefore()
                 validated = true
             }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            internal fun validity(): Int =
+                (if (after.asKnown() == null) 0 else 1) +
+                    (if (before.asKnown() == null) 0 else 1) +
+                    (if (onOrAfter.asKnown() == null) 0 else 1) +
+                    (if (onOrBefore.asKnown() == null) 0 else 1)
 
             override fun equals(other: Any?): Boolean {
                 if (this === other) {

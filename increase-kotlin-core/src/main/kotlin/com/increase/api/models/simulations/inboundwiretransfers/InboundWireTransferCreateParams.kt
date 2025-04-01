@@ -1739,6 +1739,39 @@ private constructor(
             validated = true
         }
 
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int =
+            (if (accountNumberId.asKnown() == null) 0 else 1) +
+                (if (amount.asKnown() == null) 0 else 1) +
+                (if (beneficiaryAddressLine1.asKnown() == null) 0 else 1) +
+                (if (beneficiaryAddressLine2.asKnown() == null) 0 else 1) +
+                (if (beneficiaryAddressLine3.asKnown() == null) 0 else 1) +
+                (if (beneficiaryName.asKnown() == null) 0 else 1) +
+                (if (beneficiaryReference.asKnown() == null) 0 else 1) +
+                (if (originatorAddressLine1.asKnown() == null) 0 else 1) +
+                (if (originatorAddressLine2.asKnown() == null) 0 else 1) +
+                (if (originatorAddressLine3.asKnown() == null) 0 else 1) +
+                (if (originatorName.asKnown() == null) 0 else 1) +
+                (if (originatorRoutingNumber.asKnown() == null) 0 else 1) +
+                (if (originatorToBeneficiaryInformationLine1.asKnown() == null) 0 else 1) +
+                (if (originatorToBeneficiaryInformationLine2.asKnown() == null) 0 else 1) +
+                (if (originatorToBeneficiaryInformationLine3.asKnown() == null) 0 else 1) +
+                (if (originatorToBeneficiaryInformationLine4.asKnown() == null) 0 else 1) +
+                (if (senderReference.asKnown() == null) 0 else 1)
+
         override fun equals(other: Any?): Boolean {
             if (this === other) {
                 return true

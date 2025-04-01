@@ -1235,10 +1235,50 @@ private constructor(
         originatorToBeneficiaryInformationLine3()
         originatorToBeneficiaryInformationLine4()
         senderReference()
-        status()
-        type()
+        status().validate()
+        type().validate()
         validated = true
     }
+
+    fun isValid(): Boolean =
+        try {
+            validate()
+            true
+        } catch (e: IncreaseInvalidDataException) {
+            false
+        }
+
+    /**
+     * Returns a score indicating how many valid values are contained in this object recursively.
+     *
+     * Used for best match union deserialization.
+     */
+    internal fun validity(): Int =
+        (if (id.asKnown() == null) 0 else 1) +
+            (if (accountId.asKnown() == null) 0 else 1) +
+            (if (accountNumberId.asKnown() == null) 0 else 1) +
+            (if (amount.asKnown() == null) 0 else 1) +
+            (if (beneficiaryAddressLine1.asKnown() == null) 0 else 1) +
+            (if (beneficiaryAddressLine2.asKnown() == null) 0 else 1) +
+            (if (beneficiaryAddressLine3.asKnown() == null) 0 else 1) +
+            (if (beneficiaryName.asKnown() == null) 0 else 1) +
+            (if (beneficiaryReference.asKnown() == null) 0 else 1) +
+            (if (createdAt.asKnown() == null) 0 else 1) +
+            (if (description.asKnown() == null) 0 else 1) +
+            (if (inputMessageAccountabilityData.asKnown() == null) 0 else 1) +
+            (if (originatorAddressLine1.asKnown() == null) 0 else 1) +
+            (if (originatorAddressLine2.asKnown() == null) 0 else 1) +
+            (if (originatorAddressLine3.asKnown() == null) 0 else 1) +
+            (if (originatorName.asKnown() == null) 0 else 1) +
+            (if (originatorRoutingNumber.asKnown() == null) 0 else 1) +
+            (if (originatorToBeneficiaryInformation.asKnown() == null) 0 else 1) +
+            (if (originatorToBeneficiaryInformationLine1.asKnown() == null) 0 else 1) +
+            (if (originatorToBeneficiaryInformationLine2.asKnown() == null) 0 else 1) +
+            (if (originatorToBeneficiaryInformationLine3.asKnown() == null) 0 else 1) +
+            (if (originatorToBeneficiaryInformationLine4.asKnown() == null) 0 else 1) +
+            (if (senderReference.asKnown() == null) 0 else 1) +
+            (status.asKnown()?.validity() ?: 0) +
+            (type.asKnown()?.validity() ?: 0)
 
     /** The status of the transfer. */
     class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
@@ -1359,6 +1399,33 @@ private constructor(
         fun asString(): String =
             _value().asString() ?: throw IncreaseInvalidDataException("Value is not a String")
 
+        private var validated: Boolean = false
+
+        fun validate(): Status = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
         override fun equals(other: Any?): Boolean {
             if (this === other) {
                 return true
@@ -1454,6 +1521,33 @@ private constructor(
          */
         fun asString(): String =
             _value().asString() ?: throw IncreaseInvalidDataException("Value is not a String")
+
+        private var validated: Boolean = false
+
+        fun validate(): Type = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
