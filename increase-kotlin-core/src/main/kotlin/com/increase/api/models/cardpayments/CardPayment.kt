@@ -474,9 +474,33 @@ private constructor(
         elements().forEach { it.validate() }
         physicalCardId()
         state().validate()
-        type()
+        type().validate()
         validated = true
     }
+
+    fun isValid(): Boolean =
+        try {
+            validate()
+            true
+        } catch (e: IncreaseInvalidDataException) {
+            false
+        }
+
+    /**
+     * Returns a score indicating how many valid values are contained in this object recursively.
+     *
+     * Used for best match union deserialization.
+     */
+    internal fun validity(): Int =
+        (if (id.asKnown() == null) 0 else 1) +
+            (if (accountId.asKnown() == null) 0 else 1) +
+            (if (cardId.asKnown() == null) 0 else 1) +
+            (if (createdAt.asKnown() == null) 0 else 1) +
+            (if (digitalWalletTokenId.asKnown() == null) 0 else 1) +
+            (elements.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
+            (if (physicalCardId.asKnown() == null) 0 else 1) +
+            (state.asKnown()?.validity() ?: 0) +
+            (type.asKnown()?.validity() ?: 0)
 
     class Element
     private constructor(
@@ -1182,10 +1206,38 @@ private constructor(
             cardReversal()?.validate()
             cardSettlement()?.validate()
             cardValidation()?.validate()
-            category()
+            category().validate()
             createdAt()
             validated = true
         }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int =
+            (cardAuthentication.asKnown()?.validity() ?: 0) +
+                (cardAuthorization.asKnown()?.validity() ?: 0) +
+                (cardAuthorizationExpiration.asKnown()?.validity() ?: 0) +
+                (cardDecline.asKnown()?.validity() ?: 0) +
+                (cardFuelConfirmation.asKnown()?.validity() ?: 0) +
+                (cardIncrement.asKnown()?.validity() ?: 0) +
+                (cardRefund.asKnown()?.validity() ?: 0) +
+                (cardReversal.asKnown()?.validity() ?: 0) +
+                (cardSettlement.asKnown()?.validity() ?: 0) +
+                (cardValidation.asKnown()?.validity() ?: 0) +
+                (category.asKnown()?.validity() ?: 0) +
+                (if (createdAt.asKnown() == null) 0 else 1)
 
         /**
          * A Card Authentication object. This field will be present in the JSON response if and only
@@ -2026,11 +2078,11 @@ private constructor(
                 id()
                 cardId()
                 cardPaymentId()
-                category()
+                category()?.validate()
                 challenge()?.validate()
                 createdAt()
-                denyReason()
-                deviceChannel()
+                denyReason()?.validate()
+                deviceChannel()?.validate()
                 merchantAcceptorId()
                 merchantCategoryCode()
                 merchantCountry()
@@ -2038,10 +2090,43 @@ private constructor(
                 purchaseAmount()
                 purchaseCurrency()
                 realTimeDecisionId()
-                status()
-                type()
+                status().validate()
+                type().validate()
                 validated = true
             }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            internal fun validity(): Int =
+                (if (id.asKnown() == null) 0 else 1) +
+                    (if (cardId.asKnown() == null) 0 else 1) +
+                    (if (cardPaymentId.asKnown() == null) 0 else 1) +
+                    (category.asKnown()?.validity() ?: 0) +
+                    (challenge.asKnown()?.validity() ?: 0) +
+                    (if (createdAt.asKnown() == null) 0 else 1) +
+                    (denyReason.asKnown()?.validity() ?: 0) +
+                    (deviceChannel.asKnown()?.validity() ?: 0) +
+                    (if (merchantAcceptorId.asKnown() == null) 0 else 1) +
+                    (if (merchantCategoryCode.asKnown() == null) 0 else 1) +
+                    (if (merchantCountry.asKnown() == null) 0 else 1) +
+                    (if (merchantName.asKnown() == null) 0 else 1) +
+                    (if (purchaseAmount.asKnown() == null) 0 else 1) +
+                    (if (purchaseCurrency.asKnown() == null) 0 else 1) +
+                    (if (realTimeDecisionId.asKnown() == null) 0 else 1) +
+                    (status.asKnown()?.validity() ?: 0) +
+                    (type.asKnown()?.validity() ?: 0)
 
             /** The category of the card authentication attempt. */
             class Category @JsonCreator private constructor(private val value: JsonField<String>) :
@@ -2139,6 +2224,33 @@ private constructor(
                 fun asString(): String =
                     _value().asString()
                         ?: throw IncreaseInvalidDataException("Value is not a String")
+
+                private var validated: Boolean = false
+
+                fun validate(): Category = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
                 override fun equals(other: Any?): Boolean {
                     if (this === other) {
@@ -2486,10 +2598,31 @@ private constructor(
                     attempts().forEach { it.validate() }
                     createdAt()
                     oneTimeCode()
-                    verificationMethod()
+                    verificationMethod().validate()
                     verificationValue()
                     validated = true
                 }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int =
+                    (attempts.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
+                        (if (createdAt.asKnown() == null) 0 else 1) +
+                        (if (oneTimeCode.asKnown() == null) 0 else 1) +
+                        (verificationMethod.asKnown()?.validity() ?: 0) +
+                        (if (verificationValue.asKnown() == null) 0 else 1)
 
                 class Attempt
                 private constructor(
@@ -2668,9 +2801,27 @@ private constructor(
                         }
 
                         createdAt()
-                        outcome()
+                        outcome().validate()
                         validated = true
                     }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: IncreaseInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    internal fun validity(): Int =
+                        (if (createdAt.asKnown() == null) 0 else 1) +
+                            (outcome.asKnown()?.validity() ?: 0)
 
                     /** The outcome of the Card Authentication Challenge Attempt. */
                     class Outcome
@@ -2773,6 +2924,33 @@ private constructor(
                         fun asString(): String =
                             _value().asString()
                                 ?: throw IncreaseInvalidDataException("Value is not a String")
+
+                        private var validated: Boolean = false
+
+                        fun validate(): Outcome = apply {
+                            if (validated) {
+                                return@apply
+                            }
+
+                            known()
+                            validated = true
+                        }
+
+                        fun isValid(): Boolean =
+                            try {
+                                validate()
+                                true
+                            } catch (e: IncreaseInvalidDataException) {
+                                false
+                            }
+
+                        /**
+                         * Returns a score indicating how many valid values are contained in this
+                         * object recursively.
+                         *
+                         * Used for best match union deserialization.
+                         */
+                        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
                         override fun equals(other: Any?): Boolean {
                             if (this === other) {
@@ -2917,6 +3095,33 @@ private constructor(
                     fun asString(): String =
                         _value().asString()
                             ?: throw IncreaseInvalidDataException("Value is not a String")
+
+                    private var validated: Boolean = false
+
+                    fun validate(): VerificationMethod = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        known()
+                        validated = true
+                    }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: IncreaseInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
                     override fun equals(other: Any?): Boolean {
                         if (this === other) {
@@ -3083,6 +3288,33 @@ private constructor(
                     _value().asString()
                         ?: throw IncreaseInvalidDataException("Value is not a String")
 
+                private var validated: Boolean = false
+
+                fun validate(): DenyReason = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
                 override fun equals(other: Any?): Boolean {
                     if (this === other) {
                         return true
@@ -3203,6 +3435,33 @@ private constructor(
                 fun asString(): String =
                     _value().asString()
                         ?: throw IncreaseInvalidDataException("Value is not a String")
+
+                private var validated: Boolean = false
+
+                fun validate(): DeviceChannel = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
                 override fun equals(other: Any?): Boolean {
                     if (this === other) {
@@ -3377,6 +3636,33 @@ private constructor(
                     _value().asString()
                         ?: throw IncreaseInvalidDataException("Value is not a String")
 
+                private var validated: Boolean = false
+
+                fun validate(): Status = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
                 override fun equals(other: Any?): Boolean {
                     if (this === other) {
                         return true
@@ -3476,6 +3762,33 @@ private constructor(
                 fun asString(): String =
                     _value().asString()
                         ?: throw IncreaseInvalidDataException("Value is not a String")
+
+                private var validated: Boolean = false
+
+                fun validate(): Type = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
                 override fun equals(other: Any?): Boolean {
                     if (this === other) {
@@ -4832,12 +5145,12 @@ private constructor(
                 }
 
                 id()
-                actioner()
+                actioner().validate()
                 amount()
                 cardPaymentId()
-                currency()
+                currency().validate()
                 digitalWalletTokenId()
-                direction()
+                direction().validate()
                 expiresAt()
                 merchantAcceptorId()
                 merchantCategoryCode()
@@ -4853,13 +5166,56 @@ private constructor(
                 physicalCardId()
                 presentmentAmount()
                 presentmentCurrency()
-                processingCategory()
+                processingCategory().validate()
                 realTimeDecisionId()
                 terminalId()
-                type()
+                type().validate()
                 verification().validate()
                 validated = true
             }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            internal fun validity(): Int =
+                (if (id.asKnown() == null) 0 else 1) +
+                    (actioner.asKnown()?.validity() ?: 0) +
+                    (if (amount.asKnown() == null) 0 else 1) +
+                    (if (cardPaymentId.asKnown() == null) 0 else 1) +
+                    (currency.asKnown()?.validity() ?: 0) +
+                    (if (digitalWalletTokenId.asKnown() == null) 0 else 1) +
+                    (direction.asKnown()?.validity() ?: 0) +
+                    (if (expiresAt.asKnown() == null) 0 else 1) +
+                    (if (merchantAcceptorId.asKnown() == null) 0 else 1) +
+                    (if (merchantCategoryCode.asKnown() == null) 0 else 1) +
+                    (if (merchantCity.asKnown() == null) 0 else 1) +
+                    (if (merchantCountry.asKnown() == null) 0 else 1) +
+                    (if (merchantDescriptor.asKnown() == null) 0 else 1) +
+                    (if (merchantPostalCode.asKnown() == null) 0 else 1) +
+                    (if (merchantState.asKnown() == null) 0 else 1) +
+                    (networkDetails.asKnown()?.validity() ?: 0) +
+                    (networkIdentifiers.asKnown()?.validity() ?: 0) +
+                    (if (networkRiskScore.asKnown() == null) 0 else 1) +
+                    (if (pendingTransactionId.asKnown() == null) 0 else 1) +
+                    (if (physicalCardId.asKnown() == null) 0 else 1) +
+                    (if (presentmentAmount.asKnown() == null) 0 else 1) +
+                    (if (presentmentCurrency.asKnown() == null) 0 else 1) +
+                    (processingCategory.asKnown()?.validity() ?: 0) +
+                    (if (realTimeDecisionId.asKnown() == null) 0 else 1) +
+                    (if (terminalId.asKnown() == null) 0 else 1) +
+                    (type.asKnown()?.validity() ?: 0) +
+                    (verification.asKnown()?.validity() ?: 0)
 
             /**
              * Whether this authorization was approved by Increase, the card network through
@@ -4969,6 +5325,33 @@ private constructor(
                 fun asString(): String =
                     _value().asString()
                         ?: throw IncreaseInvalidDataException("Value is not a String")
+
+                private var validated: Boolean = false
+
+                fun validate(): Actioner = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
                 override fun equals(other: Any?): Boolean {
                     if (this === other) {
@@ -5119,6 +5502,33 @@ private constructor(
                     _value().asString()
                         ?: throw IncreaseInvalidDataException("Value is not a String")
 
+                private var validated: Boolean = false
+
+                fun validate(): Currency = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
                 override fun equals(other: Any?): Boolean {
                     if (this === other) {
                         return true
@@ -5240,6 +5650,33 @@ private constructor(
                 fun asString(): String =
                     _value().asString()
                         ?: throw IncreaseInvalidDataException("Value is not a String")
+
+                private var validated: Boolean = false
+
+                fun validate(): Direction = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
                 override fun equals(other: Any?): Boolean {
                     if (this === other) {
@@ -5418,10 +5855,27 @@ private constructor(
                         return@apply
                     }
 
-                    category()
+                    category().validate()
                     visa()?.validate()
                     validated = true
                 }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int =
+                    (category.asKnown()?.validity() ?: 0) + (visa.asKnown()?.validity() ?: 0)
 
                 /** The payment network used to process this card authorization. */
                 class Category
@@ -5513,6 +5967,33 @@ private constructor(
                     fun asString(): String =
                         _value().asString()
                             ?: throw IncreaseInvalidDataException("Value is not a String")
+
+                    private var validated: Boolean = false
+
+                    fun validate(): Category = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        known()
+                        validated = true
+                    }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: IncreaseInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
                     override fun equals(other: Any?): Boolean {
                         if (this === other) {
@@ -5788,11 +6269,30 @@ private constructor(
                             return@apply
                         }
 
-                        electronicCommerceIndicator()
-                        pointOfServiceEntryMode()
-                        standInProcessingReason()
+                        electronicCommerceIndicator()?.validate()
+                        pointOfServiceEntryMode()?.validate()
+                        standInProcessingReason()?.validate()
                         validated = true
                     }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: IncreaseInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    internal fun validity(): Int =
+                        (electronicCommerceIndicator.asKnown()?.validity() ?: 0) +
+                            (pointOfServiceEntryMode.asKnown()?.validity() ?: 0) +
+                            (standInProcessingReason.asKnown()?.validity() ?: 0)
 
                     /**
                      * For electronic commerce transactions, this identifies the level of security
@@ -6072,6 +6572,33 @@ private constructor(
                             _value().asString()
                                 ?: throw IncreaseInvalidDataException("Value is not a String")
 
+                        private var validated: Boolean = false
+
+                        fun validate(): ElectronicCommerceIndicator = apply {
+                            if (validated) {
+                                return@apply
+                            }
+
+                            known()
+                            validated = true
+                        }
+
+                        fun isValid(): Boolean =
+                            try {
+                                validate()
+                                true
+                            } catch (e: IncreaseInvalidDataException) {
+                                false
+                            }
+
+                        /**
+                         * Returns a score indicating how many valid values are contained in this
+                         * object recursively.
+                         *
+                         * Used for best match union deserialization.
+                         */
+                        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
                         override fun equals(other: Any?): Boolean {
                             if (this === other) {
                                 return true
@@ -6275,6 +6802,33 @@ private constructor(
                         fun asString(): String =
                             _value().asString()
                                 ?: throw IncreaseInvalidDataException("Value is not a String")
+
+                        private var validated: Boolean = false
+
+                        fun validate(): PointOfServiceEntryMode = apply {
+                            if (validated) {
+                                return@apply
+                            }
+
+                            known()
+                            validated = true
+                        }
+
+                        fun isValid(): Boolean =
+                            try {
+                                validate()
+                                true
+                            } catch (e: IncreaseInvalidDataException) {
+                                false
+                            }
+
+                        /**
+                         * Returns a score indicating how many valid values are contained in this
+                         * object recursively.
+                         *
+                         * Used for best match union deserialization.
+                         */
+                        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
                         override fun equals(other: Any?): Boolean {
                             if (this === other) {
@@ -6496,6 +7050,33 @@ private constructor(
                         fun asString(): String =
                             _value().asString()
                                 ?: throw IncreaseInvalidDataException("Value is not a String")
+
+                        private var validated: Boolean = false
+
+                        fun validate(): StandInProcessingReason = apply {
+                            if (validated) {
+                                return@apply
+                            }
+
+                            known()
+                            validated = true
+                        }
+
+                        fun isValid(): Boolean =
+                            try {
+                                validate()
+                                true
+                            } catch (e: IncreaseInvalidDataException) {
+                                false
+                            }
+
+                        /**
+                         * Returns a score indicating how many valid values are contained in this
+                         * object recursively.
+                         *
+                         * Used for best match union deserialization.
+                         */
+                        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
                         override fun equals(other: Any?): Boolean {
                             if (this === other) {
@@ -6785,6 +7366,25 @@ private constructor(
                     validated = true
                 }
 
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int =
+                    (if (retrievalReferenceNumber.asKnown() == null) 0 else 1) +
+                        (if (traceNumber.asKnown() == null) 0 else 1) +
+                        (if (transactionId.asKnown() == null) 0 else 1)
+
                 override fun equals(other: Any?): Boolean {
                     if (this === other) {
                         return true
@@ -6982,6 +7582,33 @@ private constructor(
                     _value().asString()
                         ?: throw IncreaseInvalidDataException("Value is not a String")
 
+                private var validated: Boolean = false
+
+                fun validate(): ProcessingCategory = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
                 override fun equals(other: Any?): Boolean {
                     if (this === other) {
                         return true
@@ -7081,6 +7708,33 @@ private constructor(
                 fun asString(): String =
                     _value().asString()
                         ?: throw IncreaseInvalidDataException("Value is not a String")
+
+                private var validated: Boolean = false
+
+                fun validate(): Type = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
                 override fun equals(other: Any?): Boolean {
                     if (this === other) {
@@ -7285,6 +7939,24 @@ private constructor(
                     validated = true
                 }
 
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int =
+                    (cardVerificationCode.asKnown()?.validity() ?: 0) +
+                        (cardholderAddress.asKnown()?.validity() ?: 0)
+
                 /**
                  * Fields related to verification of the Card Verification Code, a 3-digit code on
                  * the back of the card.
@@ -7420,9 +8092,25 @@ private constructor(
                             return@apply
                         }
 
-                        result()
+                        result().validate()
                         validated = true
                     }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: IncreaseInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    internal fun validity(): Int = (result.asKnown()?.validity() ?: 0)
 
                     /** The result of verifying the Card Verification Code. */
                     class Result
@@ -7539,6 +8227,33 @@ private constructor(
                         fun asString(): String =
                             _value().asString()
                                 ?: throw IncreaseInvalidDataException("Value is not a String")
+
+                        private var validated: Boolean = false
+
+                        fun validate(): Result = apply {
+                            if (validated) {
+                                return@apply
+                            }
+
+                            known()
+                            validated = true
+                        }
+
+                        fun isValid(): Boolean =
+                            try {
+                                validate()
+                                true
+                            } catch (e: IncreaseInvalidDataException) {
+                                false
+                            }
+
+                        /**
+                         * Returns a score indicating how many valid values are contained in this
+                         * object recursively.
+                         *
+                         * Used for best match union deserialization.
+                         */
+                        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
                         override fun equals(other: Any?): Boolean {
                             if (this === other) {
@@ -7893,9 +8608,30 @@ private constructor(
                         actualPostalCode()
                         providedLine1()
                         providedPostalCode()
-                        result()
+                        result().validate()
                         validated = true
                     }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: IncreaseInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    internal fun validity(): Int =
+                        (if (actualLine1.asKnown() == null) 0 else 1) +
+                            (if (actualPostalCode.asKnown() == null) 0 else 1) +
+                            (if (providedLine1.asKnown() == null) 0 else 1) +
+                            (if (providedPostalCode.asKnown() == null) 0 else 1) +
+                            (result.asKnown()?.validity() ?: 0)
 
                     /** The address verification result returned to the card network. */
                     class Result
@@ -8042,6 +8778,33 @@ private constructor(
                         fun asString(): String =
                             _value().asString()
                                 ?: throw IncreaseInvalidDataException("Value is not a String")
+
+                        private var validated: Boolean = false
+
+                        fun validate(): Result = apply {
+                            if (validated) {
+                                return@apply
+                            }
+
+                            known()
+                            validated = true
+                        }
+
+                        fun isValid(): Boolean =
+                            try {
+                                validate()
+                                true
+                            } catch (e: IncreaseInvalidDataException) {
+                                false
+                            }
+
+                        /**
+                         * Returns a score indicating how many valid values are contained in this
+                         * object recursively.
+                         *
+                         * Used for best match union deserialization.
+                         */
+                        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
                         override fun equals(other: Any?): Boolean {
                             if (this === other) {
@@ -8461,12 +9224,34 @@ private constructor(
 
                 id()
                 cardAuthorizationId()
-                currency()
+                currency().validate()
                 expiredAmount()
-                network()
-                type()
+                network().validate()
+                type().validate()
                 validated = true
             }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            internal fun validity(): Int =
+                (if (id.asKnown() == null) 0 else 1) +
+                    (if (cardAuthorizationId.asKnown() == null) 0 else 1) +
+                    (currency.asKnown()?.validity() ?: 0) +
+                    (if (expiredAmount.asKnown() == null) 0 else 1) +
+                    (network.asKnown()?.validity() ?: 0) +
+                    (type.asKnown()?.validity() ?: 0)
 
             /**
              * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the reversal's
@@ -8604,6 +9389,33 @@ private constructor(
                     _value().asString()
                         ?: throw IncreaseInvalidDataException("Value is not a String")
 
+                private var validated: Boolean = false
+
+                fun validate(): Currency = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
                 override fun equals(other: Any?): Boolean {
                     if (this === other) {
                         return true
@@ -8705,6 +9517,33 @@ private constructor(
                     _value().asString()
                         ?: throw IncreaseInvalidDataException("Value is not a String")
 
+                private var validated: Boolean = false
+
+                fun validate(): Network = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
                 override fun equals(other: Any?): Boolean {
                     if (this === other) {
                         return true
@@ -8804,6 +9643,33 @@ private constructor(
                 fun asString(): String =
                     _value().asString()
                         ?: throw IncreaseInvalidDataException("Value is not a String")
+
+                private var validated: Boolean = false
+
+                fun validate(): Type = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
                 override fun equals(other: Any?): Boolean {
                     if (this === other) {
@@ -10158,13 +11024,13 @@ private constructor(
                 }
 
                 id()
-                actioner()
+                actioner().validate()
                 amount()
                 cardPaymentId()
-                currency()
+                currency().validate()
                 declinedTransactionId()
                 digitalWalletTokenId()
-                direction()
+                direction().validate()
                 merchantAcceptorId()
                 merchantCategoryCode()
                 merchantCity()
@@ -10178,14 +11044,57 @@ private constructor(
                 physicalCardId()
                 presentmentAmount()
                 presentmentCurrency()
-                processingCategory()
+                processingCategory().validate()
                 realTimeDecisionId()
-                realTimeDecisionReason()
-                reason()
+                realTimeDecisionReason()?.validate()
+                reason().validate()
                 terminalId()
                 verification().validate()
                 validated = true
             }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            internal fun validity(): Int =
+                (if (id.asKnown() == null) 0 else 1) +
+                    (actioner.asKnown()?.validity() ?: 0) +
+                    (if (amount.asKnown() == null) 0 else 1) +
+                    (if (cardPaymentId.asKnown() == null) 0 else 1) +
+                    (currency.asKnown()?.validity() ?: 0) +
+                    (if (declinedTransactionId.asKnown() == null) 0 else 1) +
+                    (if (digitalWalletTokenId.asKnown() == null) 0 else 1) +
+                    (direction.asKnown()?.validity() ?: 0) +
+                    (if (merchantAcceptorId.asKnown() == null) 0 else 1) +
+                    (if (merchantCategoryCode.asKnown() == null) 0 else 1) +
+                    (if (merchantCity.asKnown() == null) 0 else 1) +
+                    (if (merchantCountry.asKnown() == null) 0 else 1) +
+                    (if (merchantDescriptor.asKnown() == null) 0 else 1) +
+                    (if (merchantPostalCode.asKnown() == null) 0 else 1) +
+                    (if (merchantState.asKnown() == null) 0 else 1) +
+                    (networkDetails.asKnown()?.validity() ?: 0) +
+                    (networkIdentifiers.asKnown()?.validity() ?: 0) +
+                    (if (networkRiskScore.asKnown() == null) 0 else 1) +
+                    (if (physicalCardId.asKnown() == null) 0 else 1) +
+                    (if (presentmentAmount.asKnown() == null) 0 else 1) +
+                    (if (presentmentCurrency.asKnown() == null) 0 else 1) +
+                    (processingCategory.asKnown()?.validity() ?: 0) +
+                    (if (realTimeDecisionId.asKnown() == null) 0 else 1) +
+                    (realTimeDecisionReason.asKnown()?.validity() ?: 0) +
+                    (reason.asKnown()?.validity() ?: 0) +
+                    (if (terminalId.asKnown() == null) 0 else 1) +
+                    (verification.asKnown()?.validity() ?: 0)
 
             /**
              * Whether this authorization was approved by Increase, the card network through
@@ -10295,6 +11204,33 @@ private constructor(
                 fun asString(): String =
                     _value().asString()
                         ?: throw IncreaseInvalidDataException("Value is not a String")
+
+                private var validated: Boolean = false
+
+                fun validate(): Actioner = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
                 override fun equals(other: Any?): Boolean {
                     if (this === other) {
@@ -10445,6 +11381,33 @@ private constructor(
                     _value().asString()
                         ?: throw IncreaseInvalidDataException("Value is not a String")
 
+                private var validated: Boolean = false
+
+                fun validate(): Currency = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
                 override fun equals(other: Any?): Boolean {
                     if (this === other) {
                         return true
@@ -10566,6 +11529,33 @@ private constructor(
                 fun asString(): String =
                     _value().asString()
                         ?: throw IncreaseInvalidDataException("Value is not a String")
+
+                private var validated: Boolean = false
+
+                fun validate(): Direction = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
                 override fun equals(other: Any?): Boolean {
                     if (this === other) {
@@ -10744,10 +11734,27 @@ private constructor(
                         return@apply
                     }
 
-                    category()
+                    category().validate()
                     visa()?.validate()
                     validated = true
                 }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int =
+                    (category.asKnown()?.validity() ?: 0) + (visa.asKnown()?.validity() ?: 0)
 
                 /** The payment network used to process this card authorization. */
                 class Category
@@ -10839,6 +11846,33 @@ private constructor(
                     fun asString(): String =
                         _value().asString()
                             ?: throw IncreaseInvalidDataException("Value is not a String")
+
+                    private var validated: Boolean = false
+
+                    fun validate(): Category = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        known()
+                        validated = true
+                    }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: IncreaseInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
                     override fun equals(other: Any?): Boolean {
                         if (this === other) {
@@ -11114,11 +12148,30 @@ private constructor(
                             return@apply
                         }
 
-                        electronicCommerceIndicator()
-                        pointOfServiceEntryMode()
-                        standInProcessingReason()
+                        electronicCommerceIndicator()?.validate()
+                        pointOfServiceEntryMode()?.validate()
+                        standInProcessingReason()?.validate()
                         validated = true
                     }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: IncreaseInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    internal fun validity(): Int =
+                        (electronicCommerceIndicator.asKnown()?.validity() ?: 0) +
+                            (pointOfServiceEntryMode.asKnown()?.validity() ?: 0) +
+                            (standInProcessingReason.asKnown()?.validity() ?: 0)
 
                     /**
                      * For electronic commerce transactions, this identifies the level of security
@@ -11398,6 +12451,33 @@ private constructor(
                             _value().asString()
                                 ?: throw IncreaseInvalidDataException("Value is not a String")
 
+                        private var validated: Boolean = false
+
+                        fun validate(): ElectronicCommerceIndicator = apply {
+                            if (validated) {
+                                return@apply
+                            }
+
+                            known()
+                            validated = true
+                        }
+
+                        fun isValid(): Boolean =
+                            try {
+                                validate()
+                                true
+                            } catch (e: IncreaseInvalidDataException) {
+                                false
+                            }
+
+                        /**
+                         * Returns a score indicating how many valid values are contained in this
+                         * object recursively.
+                         *
+                         * Used for best match union deserialization.
+                         */
+                        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
                         override fun equals(other: Any?): Boolean {
                             if (this === other) {
                                 return true
@@ -11601,6 +12681,33 @@ private constructor(
                         fun asString(): String =
                             _value().asString()
                                 ?: throw IncreaseInvalidDataException("Value is not a String")
+
+                        private var validated: Boolean = false
+
+                        fun validate(): PointOfServiceEntryMode = apply {
+                            if (validated) {
+                                return@apply
+                            }
+
+                            known()
+                            validated = true
+                        }
+
+                        fun isValid(): Boolean =
+                            try {
+                                validate()
+                                true
+                            } catch (e: IncreaseInvalidDataException) {
+                                false
+                            }
+
+                        /**
+                         * Returns a score indicating how many valid values are contained in this
+                         * object recursively.
+                         *
+                         * Used for best match union deserialization.
+                         */
+                        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
                         override fun equals(other: Any?): Boolean {
                             if (this === other) {
@@ -11822,6 +12929,33 @@ private constructor(
                         fun asString(): String =
                             _value().asString()
                                 ?: throw IncreaseInvalidDataException("Value is not a String")
+
+                        private var validated: Boolean = false
+
+                        fun validate(): StandInProcessingReason = apply {
+                            if (validated) {
+                                return@apply
+                            }
+
+                            known()
+                            validated = true
+                        }
+
+                        fun isValid(): Boolean =
+                            try {
+                                validate()
+                                true
+                            } catch (e: IncreaseInvalidDataException) {
+                                false
+                            }
+
+                        /**
+                         * Returns a score indicating how many valid values are contained in this
+                         * object recursively.
+                         *
+                         * Used for best match union deserialization.
+                         */
+                        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
                         override fun equals(other: Any?): Boolean {
                             if (this === other) {
@@ -12111,6 +13245,25 @@ private constructor(
                     validated = true
                 }
 
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int =
+                    (if (retrievalReferenceNumber.asKnown() == null) 0 else 1) +
+                        (if (traceNumber.asKnown() == null) 0 else 1) +
+                        (if (transactionId.asKnown() == null) 0 else 1)
+
                 override fun equals(other: Any?): Boolean {
                     if (this === other) {
                         return true
@@ -12307,6 +13460,33 @@ private constructor(
                 fun asString(): String =
                     _value().asString()
                         ?: throw IncreaseInvalidDataException("Value is not a String")
+
+                private var validated: Boolean = false
+
+                fun validate(): ProcessingCategory = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
                 override fun equals(other: Any?): Boolean {
                     if (this === other) {
@@ -12513,6 +13693,33 @@ private constructor(
                 fun asString(): String =
                     _value().asString()
                         ?: throw IncreaseInvalidDataException("Value is not a String")
+
+                private var validated: Boolean = false
+
+                fun validate(): RealTimeDecisionReason = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
                 override fun equals(other: Any?): Boolean {
                     if (this === other) {
@@ -12792,6 +13999,33 @@ private constructor(
                     _value().asString()
                         ?: throw IncreaseInvalidDataException("Value is not a String")
 
+                private var validated: Boolean = false
+
+                fun validate(): Reason = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
                 override fun equals(other: Any?): Boolean {
                     if (this === other) {
                         return true
@@ -12995,6 +14229,24 @@ private constructor(
                     validated = true
                 }
 
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int =
+                    (cardVerificationCode.asKnown()?.validity() ?: 0) +
+                        (cardholderAddress.asKnown()?.validity() ?: 0)
+
                 /**
                  * Fields related to verification of the Card Verification Code, a 3-digit code on
                  * the back of the card.
@@ -13130,9 +14382,25 @@ private constructor(
                             return@apply
                         }
 
-                        result()
+                        result().validate()
                         validated = true
                     }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: IncreaseInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    internal fun validity(): Int = (result.asKnown()?.validity() ?: 0)
 
                     /** The result of verifying the Card Verification Code. */
                     class Result
@@ -13249,6 +14517,33 @@ private constructor(
                         fun asString(): String =
                             _value().asString()
                                 ?: throw IncreaseInvalidDataException("Value is not a String")
+
+                        private var validated: Boolean = false
+
+                        fun validate(): Result = apply {
+                            if (validated) {
+                                return@apply
+                            }
+
+                            known()
+                            validated = true
+                        }
+
+                        fun isValid(): Boolean =
+                            try {
+                                validate()
+                                true
+                            } catch (e: IncreaseInvalidDataException) {
+                                false
+                            }
+
+                        /**
+                         * Returns a score indicating how many valid values are contained in this
+                         * object recursively.
+                         *
+                         * Used for best match union deserialization.
+                         */
+                        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
                         override fun equals(other: Any?): Boolean {
                             if (this === other) {
@@ -13603,9 +14898,30 @@ private constructor(
                         actualPostalCode()
                         providedLine1()
                         providedPostalCode()
-                        result()
+                        result().validate()
                         validated = true
                     }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: IncreaseInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    internal fun validity(): Int =
+                        (if (actualLine1.asKnown() == null) 0 else 1) +
+                            (if (actualPostalCode.asKnown() == null) 0 else 1) +
+                            (if (providedLine1.asKnown() == null) 0 else 1) +
+                            (if (providedPostalCode.asKnown() == null) 0 else 1) +
+                            (result.asKnown()?.validity() ?: 0)
 
                     /** The address verification result returned to the card network. */
                     class Result
@@ -13752,6 +15068,33 @@ private constructor(
                         fun asString(): String =
                             _value().asString()
                                 ?: throw IncreaseInvalidDataException("Value is not a String")
+
+                        private var validated: Boolean = false
+
+                        fun validate(): Result = apply {
+                            if (validated) {
+                                return@apply
+                            }
+
+                            known()
+                            validated = true
+                        }
+
+                        fun isValid(): Boolean =
+                            try {
+                                validate()
+                                true
+                            } catch (e: IncreaseInvalidDataException) {
+                                false
+                            }
+
+                        /**
+                         * Returns a score indicating how many valid values are contained in this
+                         * object recursively.
+                         *
+                         * Used for best match union deserialization.
+                         */
+                        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
                         override fun equals(other: Any?): Boolean {
                             if (this === other) {
@@ -14264,14 +15607,38 @@ private constructor(
 
                 id()
                 cardAuthorizationId()
-                currency()
-                network()
+                currency().validate()
+                network().validate()
                 networkIdentifiers().validate()
                 pendingTransactionId()
-                type()
+                type().validate()
                 updatedAuthorizationAmount()
                 validated = true
             }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            internal fun validity(): Int =
+                (if (id.asKnown() == null) 0 else 1) +
+                    (if (cardAuthorizationId.asKnown() == null) 0 else 1) +
+                    (currency.asKnown()?.validity() ?: 0) +
+                    (network.asKnown()?.validity() ?: 0) +
+                    (networkIdentifiers.asKnown()?.validity() ?: 0) +
+                    (if (pendingTransactionId.asKnown() == null) 0 else 1) +
+                    (type.asKnown()?.validity() ?: 0) +
+                    (if (updatedAuthorizationAmount.asKnown() == null) 0 else 1)
 
             /**
              * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the increment's
@@ -14409,6 +15776,33 @@ private constructor(
                     _value().asString()
                         ?: throw IncreaseInvalidDataException("Value is not a String")
 
+                private var validated: Boolean = false
+
+                fun validate(): Currency = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
                 override fun equals(other: Any?): Boolean {
                     if (this === other) {
                         return true
@@ -14509,6 +15903,33 @@ private constructor(
                 fun asString(): String =
                     _value().asString()
                         ?: throw IncreaseInvalidDataException("Value is not a String")
+
+                private var validated: Boolean = false
+
+                fun validate(): Network = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
                 override fun equals(other: Any?): Boolean {
                     if (this === other) {
@@ -14762,6 +16183,25 @@ private constructor(
                     validated = true
                 }
 
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int =
+                    (if (retrievalReferenceNumber.asKnown() == null) 0 else 1) +
+                        (if (traceNumber.asKnown() == null) 0 else 1) +
+                        (if (transactionId.asKnown() == null) 0 else 1)
+
                 override fun equals(other: Any?): Boolean {
                     if (this === other) {
                         return true
@@ -14866,6 +16306,33 @@ private constructor(
                 fun asString(): String =
                     _value().asString()
                         ?: throw IncreaseInvalidDataException("Value is not a String")
+
+                private var validated: Boolean = false
+
+                fun validate(): Type = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
                 override fun equals(other: Any?): Boolean {
                     if (this === other) {
@@ -15527,19 +16994,47 @@ private constructor(
                 }
 
                 id()
-                actioner()
+                actioner().validate()
                 amount()
                 cardAuthorizationId()
-                currency()
-                network()
+                currency().validate()
+                network().validate()
                 networkIdentifiers().validate()
                 networkRiskScore()
                 pendingTransactionId()
                 realTimeDecisionId()
-                type()
+                type().validate()
                 updatedAuthorizationAmount()
                 validated = true
             }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            internal fun validity(): Int =
+                (if (id.asKnown() == null) 0 else 1) +
+                    (actioner.asKnown()?.validity() ?: 0) +
+                    (if (amount.asKnown() == null) 0 else 1) +
+                    (if (cardAuthorizationId.asKnown() == null) 0 else 1) +
+                    (currency.asKnown()?.validity() ?: 0) +
+                    (network.asKnown()?.validity() ?: 0) +
+                    (networkIdentifiers.asKnown()?.validity() ?: 0) +
+                    (if (networkRiskScore.asKnown() == null) 0 else 1) +
+                    (if (pendingTransactionId.asKnown() == null) 0 else 1) +
+                    (if (realTimeDecisionId.asKnown() == null) 0 else 1) +
+                    (type.asKnown()?.validity() ?: 0) +
+                    (if (updatedAuthorizationAmount.asKnown() == null) 0 else 1)
 
             /**
              * Whether this authorization was approved by Increase, the card network through
@@ -15649,6 +17144,33 @@ private constructor(
                 fun asString(): String =
                     _value().asString()
                         ?: throw IncreaseInvalidDataException("Value is not a String")
+
+                private var validated: Boolean = false
+
+                fun validate(): Actioner = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
                 override fun equals(other: Any?): Boolean {
                     if (this === other) {
@@ -15799,6 +17321,33 @@ private constructor(
                     _value().asString()
                         ?: throw IncreaseInvalidDataException("Value is not a String")
 
+                private var validated: Boolean = false
+
+                fun validate(): Currency = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
                 override fun equals(other: Any?): Boolean {
                     if (this === other) {
                         return true
@@ -15899,6 +17448,33 @@ private constructor(
                 fun asString(): String =
                     _value().asString()
                         ?: throw IncreaseInvalidDataException("Value is not a String")
+
+                private var validated: Boolean = false
+
+                fun validate(): Network = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
                 override fun equals(other: Any?): Boolean {
                     if (this === other) {
@@ -16152,6 +17728,25 @@ private constructor(
                     validated = true
                 }
 
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int =
+                    (if (retrievalReferenceNumber.asKnown() == null) 0 else 1) +
+                        (if (traceNumber.asKnown() == null) 0 else 1) +
+                        (if (transactionId.asKnown() == null) 0 else 1)
+
                 override fun equals(other: Any?): Boolean {
                     if (this === other) {
                         return true
@@ -16256,6 +17851,33 @@ private constructor(
                 fun asString(): String =
                     _value().asString()
                         ?: throw IncreaseInvalidDataException("Value is not a String")
+
+                private var validated: Boolean = false
+
+                fun validate(): Type = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
                 override fun equals(other: Any?): Boolean {
                     if (this === other) {
@@ -17222,7 +18844,7 @@ private constructor(
                 amount()
                 cardPaymentId()
                 cashback()?.validate()
-                currency()
+                currency().validate()
                 interchange()?.validate()
                 merchantAcceptorId()
                 merchantCategoryCode()
@@ -17236,9 +18858,44 @@ private constructor(
                 presentmentCurrency()
                 purchaseDetails()?.validate()
                 transactionId()
-                type()
+                type().validate()
                 validated = true
             }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            internal fun validity(): Int =
+                (if (id.asKnown() == null) 0 else 1) +
+                    (if (amount.asKnown() == null) 0 else 1) +
+                    (if (cardPaymentId.asKnown() == null) 0 else 1) +
+                    (cashback.asKnown()?.validity() ?: 0) +
+                    (currency.asKnown()?.validity() ?: 0) +
+                    (interchange.asKnown()?.validity() ?: 0) +
+                    (if (merchantAcceptorId.asKnown() == null) 0 else 1) +
+                    (if (merchantCategoryCode.asKnown() == null) 0 else 1) +
+                    (if (merchantCity.asKnown() == null) 0 else 1) +
+                    (if (merchantCountry.asKnown() == null) 0 else 1) +
+                    (if (merchantName.asKnown() == null) 0 else 1) +
+                    (if (merchantPostalCode.asKnown() == null) 0 else 1) +
+                    (if (merchantState.asKnown() == null) 0 else 1) +
+                    (networkIdentifiers.asKnown()?.validity() ?: 0) +
+                    (if (presentmentAmount.asKnown() == null) 0 else 1) +
+                    (if (presentmentCurrency.asKnown() == null) 0 else 1) +
+                    (purchaseDetails.asKnown()?.validity() ?: 0) +
+                    (if (transactionId.asKnown() == null) 0 else 1) +
+                    (type.asKnown()?.validity() ?: 0)
 
             /**
              * Cashback debited for this transaction, if eligible. Cashback is paid out in
@@ -17419,9 +19076,26 @@ private constructor(
                     }
 
                     amount()
-                    currency()
+                    currency().validate()
                     validated = true
                 }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int =
+                    (if (amount.asKnown() == null) 0 else 1) + (currency.asKnown()?.validity() ?: 0)
 
                 /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the cashback. */
                 class Currency
@@ -17558,6 +19232,33 @@ private constructor(
                     fun asString(): String =
                         _value().asString()
                             ?: throw IncreaseInvalidDataException("Value is not a String")
+
+                    private var validated: Boolean = false
+
+                    fun validate(): Currency = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        known()
+                        validated = true
+                    }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: IncreaseInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
                     override fun equals(other: Any?): Boolean {
                         if (this === other) {
@@ -17725,6 +19426,33 @@ private constructor(
                 fun asString(): String =
                     _value().asString()
                         ?: throw IncreaseInvalidDataException("Value is not a String")
+
+                private var validated: Boolean = false
+
+                fun validate(): Currency = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
                 override fun equals(other: Any?): Boolean {
                     if (this === other) {
@@ -17955,9 +19683,28 @@ private constructor(
 
                     amount()
                     code()
-                    currency()
+                    currency().validate()
                     validated = true
                 }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int =
+                    (if (amount.asKnown() == null) 0 else 1) +
+                        (if (code.asKnown() == null) 0 else 1) +
+                        (currency.asKnown()?.validity() ?: 0)
 
                 /**
                  * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the interchange
@@ -18097,6 +19844,33 @@ private constructor(
                     fun asString(): String =
                         _value().asString()
                             ?: throw IncreaseInvalidDataException("Value is not a String")
+
+                    private var validated: Boolean = false
+
+                    fun validate(): Currency = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        known()
+                        validated = true
+                    }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: IncreaseInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
                     override fun equals(other: Any?): Boolean {
                         if (this === other) {
@@ -18364,6 +20138,25 @@ private constructor(
                     transactionId()
                     validated = true
                 }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int =
+                    (if (acquirerBusinessId.asKnown() == null) 0 else 1) +
+                        (if (acquirerReferenceNumber.asKnown() == null) 0 else 1) +
+                        (if (transactionId.asKnown() == null) 0 else 1)
 
                 override fun equals(other: Any?): Boolean {
                     if (this === other) {
@@ -18947,10 +20740,36 @@ private constructor(
                     nationalTaxAmount()
                     nationalTaxCurrency()
                     purchaseIdentifier()
-                    purchaseIdentifierFormat()
+                    purchaseIdentifierFormat()?.validate()
                     travel()?.validate()
                     validated = true
                 }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int =
+                    (carRental.asKnown()?.validity() ?: 0) +
+                        (if (customerReferenceIdentifier.asKnown() == null) 0 else 1) +
+                        (if (localTaxAmount.asKnown() == null) 0 else 1) +
+                        (if (localTaxCurrency.asKnown() == null) 0 else 1) +
+                        (lodging.asKnown()?.validity() ?: 0) +
+                        (if (nationalTaxAmount.asKnown() == null) 0 else 1) +
+                        (if (nationalTaxCurrency.asKnown() == null) 0 else 1) +
+                        (if (purchaseIdentifier.asKnown() == null) 0 else 1) +
+                        (purchaseIdentifierFormat.asKnown()?.validity() ?: 0) +
+                        (travel.asKnown()?.validity() ?: 0)
 
                 /** Fields specific to car rentals. */
                 class CarRental
@@ -19847,12 +21666,12 @@ private constructor(
                         dailyRentalRateAmount()
                         dailyRentalRateCurrency()
                         daysRented()
-                        extraCharges()
+                        extraCharges()?.validate()
                         fuelChargesAmount()
                         fuelChargesCurrency()
                         insuranceChargesAmount()
                         insuranceChargesCurrency()
-                        noShowIndicator()
+                        noShowIndicator()?.validate()
                         oneWayDropOffChargesAmount()
                         oneWayDropOffChargesCurrency()
                         renterName()
@@ -19860,6 +21679,38 @@ private constructor(
                         weeklyRentalRateCurrency()
                         validated = true
                     }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: IncreaseInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    internal fun validity(): Int =
+                        (if (carClassCode.asKnown() == null) 0 else 1) +
+                            (if (checkoutDate.asKnown() == null) 0 else 1) +
+                            (if (dailyRentalRateAmount.asKnown() == null) 0 else 1) +
+                            (if (dailyRentalRateCurrency.asKnown() == null) 0 else 1) +
+                            (if (daysRented.asKnown() == null) 0 else 1) +
+                            (extraCharges.asKnown()?.validity() ?: 0) +
+                            (if (fuelChargesAmount.asKnown() == null) 0 else 1) +
+                            (if (fuelChargesCurrency.asKnown() == null) 0 else 1) +
+                            (if (insuranceChargesAmount.asKnown() == null) 0 else 1) +
+                            (if (insuranceChargesCurrency.asKnown() == null) 0 else 1) +
+                            (noShowIndicator.asKnown()?.validity() ?: 0) +
+                            (if (oneWayDropOffChargesAmount.asKnown() == null) 0 else 1) +
+                            (if (oneWayDropOffChargesCurrency.asKnown() == null) 0 else 1) +
+                            (if (renterName.asKnown() == null) 0 else 1) +
+                            (if (weeklyRentalRateAmount.asKnown() == null) 0 else 1) +
+                            (if (weeklyRentalRateCurrency.asKnown() == null) 0 else 1)
 
                     /** Additional charges (gas, late fee, etc.) being billed. */
                     class ExtraCharges
@@ -20001,6 +21852,33 @@ private constructor(
                             _value().asString()
                                 ?: throw IncreaseInvalidDataException("Value is not a String")
 
+                        private var validated: Boolean = false
+
+                        fun validate(): ExtraCharges = apply {
+                            if (validated) {
+                                return@apply
+                            }
+
+                            known()
+                            validated = true
+                        }
+
+                        fun isValid(): Boolean =
+                            try {
+                                validate()
+                                true
+                            } catch (e: IncreaseInvalidDataException) {
+                                false
+                            }
+
+                        /**
+                         * Returns a score indicating how many valid values are contained in this
+                         * object recursively.
+                         *
+                         * Used for best match union deserialization.
+                         */
+                        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
                         override fun equals(other: Any?): Boolean {
                             if (this === other) {
                                 return true
@@ -20123,6 +22001,33 @@ private constructor(
                         fun asString(): String =
                             _value().asString()
                                 ?: throw IncreaseInvalidDataException("Value is not a String")
+
+                        private var validated: Boolean = false
+
+                        fun validate(): NoShowIndicator = apply {
+                            if (validated) {
+                                return@apply
+                            }
+
+                            known()
+                            validated = true
+                        }
+
+                        fun isValid(): Boolean =
+                            try {
+                                validate()
+                                true
+                            } catch (e: IncreaseInvalidDataException) {
+                                false
+                            }
+
+                        /**
+                         * Returns a score indicating how many valid values are contained in this
+                         * object recursively.
+                         *
+                         * Used for best match union deserialization.
+                         */
+                        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
                         override fun equals(other: Any?): Boolean {
                             if (this === other) {
@@ -21053,12 +22958,12 @@ private constructor(
                         checkInDate()
                         dailyRoomRateAmount()
                         dailyRoomRateCurrency()
-                        extraCharges()
+                        extraCharges()?.validate()
                         folioCashAdvancesAmount()
                         folioCashAdvancesCurrency()
                         foodBeverageChargesAmount()
                         foodBeverageChargesCurrency()
-                        noShowIndicator()
+                        noShowIndicator()?.validate()
                         prepaidExpensesAmount()
                         prepaidExpensesCurrency()
                         roomNights()
@@ -21068,6 +22973,38 @@ private constructor(
                         totalTaxCurrency()
                         validated = true
                     }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: IncreaseInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    internal fun validity(): Int =
+                        (if (checkInDate.asKnown() == null) 0 else 1) +
+                            (if (dailyRoomRateAmount.asKnown() == null) 0 else 1) +
+                            (if (dailyRoomRateCurrency.asKnown() == null) 0 else 1) +
+                            (extraCharges.asKnown()?.validity() ?: 0) +
+                            (if (folioCashAdvancesAmount.asKnown() == null) 0 else 1) +
+                            (if (folioCashAdvancesCurrency.asKnown() == null) 0 else 1) +
+                            (if (foodBeverageChargesAmount.asKnown() == null) 0 else 1) +
+                            (if (foodBeverageChargesCurrency.asKnown() == null) 0 else 1) +
+                            (noShowIndicator.asKnown()?.validity() ?: 0) +
+                            (if (prepaidExpensesAmount.asKnown() == null) 0 else 1) +
+                            (if (prepaidExpensesCurrency.asKnown() == null) 0 else 1) +
+                            (if (roomNights.asKnown() == null) 0 else 1) +
+                            (if (totalRoomTaxAmount.asKnown() == null) 0 else 1) +
+                            (if (totalRoomTaxCurrency.asKnown() == null) 0 else 1) +
+                            (if (totalTaxAmount.asKnown() == null) 0 else 1) +
+                            (if (totalTaxCurrency.asKnown() == null) 0 else 1)
 
                     /** Additional charges (phone, late check-out, etc.) being billed. */
                     class ExtraCharges
@@ -21218,6 +23155,33 @@ private constructor(
                             _value().asString()
                                 ?: throw IncreaseInvalidDataException("Value is not a String")
 
+                        private var validated: Boolean = false
+
+                        fun validate(): ExtraCharges = apply {
+                            if (validated) {
+                                return@apply
+                            }
+
+                            known()
+                            validated = true
+                        }
+
+                        fun isValid(): Boolean =
+                            try {
+                                validate()
+                                true
+                            } catch (e: IncreaseInvalidDataException) {
+                                false
+                            }
+
+                        /**
+                         * Returns a score indicating how many valid values are contained in this
+                         * object recursively.
+                         *
+                         * Used for best match union deserialization.
+                         */
+                        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
                         override fun equals(other: Any?): Boolean {
                             if (this === other) {
                                 return true
@@ -21337,6 +23301,33 @@ private constructor(
                         fun asString(): String =
                             _value().asString()
                                 ?: throw IncreaseInvalidDataException("Value is not a String")
+
+                        private var validated: Boolean = false
+
+                        fun validate(): NoShowIndicator = apply {
+                            if (validated) {
+                                return@apply
+                            }
+
+                            known()
+                            validated = true
+                        }
+
+                        fun isValid(): Boolean =
+                            try {
+                                validate()
+                                true
+                            } catch (e: IncreaseInvalidDataException) {
+                                false
+                            }
+
+                        /**
+                         * Returns a score indicating how many valid values are contained in this
+                         * object recursively.
+                         *
+                         * Used for best match union deserialization.
+                         */
+                        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
                         override fun equals(other: Any?): Boolean {
                             if (this === other) {
@@ -21499,6 +23490,33 @@ private constructor(
                     fun asString(): String =
                         _value().asString()
                             ?: throw IncreaseInvalidDataException("Value is not a String")
+
+                    private var validated: Boolean = false
+
+                    fun validate(): PurchaseIdentifierFormat = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        known()
+                        validated = true
+                    }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: IncreaseInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
                     override fun equals(other: Any?): Boolean {
                         if (this === other) {
@@ -22177,18 +24195,46 @@ private constructor(
 
                         ancillary()?.validate()
                         computerizedReservationSystem()
-                        creditReasonIndicator()
+                        creditReasonIndicator()?.validate()
                         departureDate()
                         originationCityAirportCode()
                         passengerName()
-                        restrictedTicketIndicator()
-                        ticketChangeIndicator()
+                        restrictedTicketIndicator()?.validate()
+                        ticketChangeIndicator()?.validate()
                         ticketNumber()
                         travelAgencyCode()
                         travelAgencyName()
                         tripLegs()?.forEach { it.validate() }
                         validated = true
                     }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: IncreaseInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    internal fun validity(): Int =
+                        (ancillary.asKnown()?.validity() ?: 0) +
+                            (if (computerizedReservationSystem.asKnown() == null) 0 else 1) +
+                            (creditReasonIndicator.asKnown()?.validity() ?: 0) +
+                            (if (departureDate.asKnown() == null) 0 else 1) +
+                            (if (originationCityAirportCode.asKnown() == null) 0 else 1) +
+                            (if (passengerName.asKnown() == null) 0 else 1) +
+                            (restrictedTicketIndicator.asKnown()?.validity() ?: 0) +
+                            (ticketChangeIndicator.asKnown()?.validity() ?: 0) +
+                            (if (ticketNumber.asKnown() == null) 0 else 1) +
+                            (if (travelAgencyCode.asKnown() == null) 0 else 1) +
+                            (if (travelAgencyName.asKnown() == null) 0 else 1) +
+                            (tripLegs.asKnown()?.sumOf { it.validity().toInt() } ?: 0)
 
                     /** Ancillary purchases in addition to the airfare. */
                     class Ancillary
@@ -22552,12 +24598,33 @@ private constructor(
                             }
 
                             connectedTicketDocumentNumber()
-                            creditReasonIndicator()
+                            creditReasonIndicator()?.validate()
                             passengerNameOrDescription()
                             services().forEach { it.validate() }
                             ticketDocumentNumber()
                             validated = true
                         }
+
+                        fun isValid(): Boolean =
+                            try {
+                                validate()
+                                true
+                            } catch (e: IncreaseInvalidDataException) {
+                                false
+                            }
+
+                        /**
+                         * Returns a score indicating how many valid values are contained in this
+                         * object recursively.
+                         *
+                         * Used for best match union deserialization.
+                         */
+                        internal fun validity(): Int =
+                            (if (connectedTicketDocumentNumber.asKnown() == null) 0 else 1) +
+                                (creditReasonIndicator.asKnown()?.validity() ?: 0) +
+                                (if (passengerNameOrDescription.asKnown() == null) 0 else 1) +
+                                (services.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
+                                (if (ticketDocumentNumber.asKnown() == null) 0 else 1)
 
                         /** Indicates the reason for a credit to the cardholder. */
                         class CreditReasonIndicator
@@ -22700,6 +24767,33 @@ private constructor(
                             fun asString(): String =
                                 _value().asString()
                                     ?: throw IncreaseInvalidDataException("Value is not a String")
+
+                            private var validated: Boolean = false
+
+                            fun validate(): CreditReasonIndicator = apply {
+                                if (validated) {
+                                    return@apply
+                                }
+
+                                known()
+                                validated = true
+                            }
+
+                            fun isValid(): Boolean =
+                                try {
+                                    validate()
+                                    true
+                                } catch (e: IncreaseInvalidDataException) {
+                                    false
+                                }
+
+                            /**
+                             * Returns a score indicating how many valid values are contained in
+                             * this object recursively.
+                             *
+                             * Used for best match union deserialization.
+                             */
+                            internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
                             override fun equals(other: Any?): Boolean {
                                 if (this === other) {
@@ -22893,10 +24987,28 @@ private constructor(
                                     return@apply
                                 }
 
-                                category()
+                                category()?.validate()
                                 subCategory()
                                 validated = true
                             }
+
+                            fun isValid(): Boolean =
+                                try {
+                                    validate()
+                                    true
+                                } catch (e: IncreaseInvalidDataException) {
+                                    false
+                                }
+
+                            /**
+                             * Returns a score indicating how many valid values are contained in
+                             * this object recursively.
+                             *
+                             * Used for best match union deserialization.
+                             */
+                            internal fun validity(): Int =
+                                (category.asKnown()?.validity() ?: 0) +
+                                    (if (subCategory.asKnown() == null) 0 else 1)
 
                             /** Category of the ancillary service. */
                             class Category
@@ -23207,6 +25319,34 @@ private constructor(
                                             "Value is not a String"
                                         )
 
+                                private var validated: Boolean = false
+
+                                fun validate(): Category = apply {
+                                    if (validated) {
+                                        return@apply
+                                    }
+
+                                    known()
+                                    validated = true
+                                }
+
+                                fun isValid(): Boolean =
+                                    try {
+                                        validate()
+                                        true
+                                    } catch (e: IncreaseInvalidDataException) {
+                                        false
+                                    }
+
+                                /**
+                                 * Returns a score indicating how many valid values are contained in
+                                 * this object recursively.
+                                 *
+                                 * Used for best match union deserialization.
+                                 */
+                                internal fun validity(): Int =
+                                    if (value() == Value._UNKNOWN) 0 else 1
+
                                 override fun equals(other: Any?): Boolean {
                                     if (this === other) {
                                         return true
@@ -23418,6 +25558,33 @@ private constructor(
                             _value().asString()
                                 ?: throw IncreaseInvalidDataException("Value is not a String")
 
+                        private var validated: Boolean = false
+
+                        fun validate(): CreditReasonIndicator = apply {
+                            if (validated) {
+                                return@apply
+                            }
+
+                            known()
+                            validated = true
+                        }
+
+                        fun isValid(): Boolean =
+                            try {
+                                validate()
+                                true
+                            } catch (e: IncreaseInvalidDataException) {
+                                false
+                            }
+
+                        /**
+                         * Returns a score indicating how many valid values are contained in this
+                         * object recursively.
+                         *
+                         * Used for best match union deserialization.
+                         */
+                        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
                         override fun equals(other: Any?): Boolean {
                             if (this === other) {
                                 return true
@@ -23537,6 +25704,33 @@ private constructor(
                         fun asString(): String =
                             _value().asString()
                                 ?: throw IncreaseInvalidDataException("Value is not a String")
+
+                        private var validated: Boolean = false
+
+                        fun validate(): RestrictedTicketIndicator = apply {
+                            if (validated) {
+                                return@apply
+                            }
+
+                            known()
+                            validated = true
+                        }
+
+                        fun isValid(): Boolean =
+                            try {
+                                validate()
+                                true
+                            } catch (e: IncreaseInvalidDataException) {
+                                false
+                            }
+
+                        /**
+                         * Returns a score indicating how many valid values are contained in this
+                         * object recursively.
+                         *
+                         * Used for best match union deserialization.
+                         */
+                        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
                         override fun equals(other: Any?): Boolean {
                             if (this === other) {
@@ -23663,6 +25857,33 @@ private constructor(
                         fun asString(): String =
                             _value().asString()
                                 ?: throw IncreaseInvalidDataException("Value is not a String")
+
+                        private var validated: Boolean = false
+
+                        fun validate(): TicketChangeIndicator = apply {
+                            if (validated) {
+                                return@apply
+                            }
+
+                            known()
+                            validated = true
+                        }
+
+                        fun isValid(): Boolean =
+                            try {
+                                validate()
+                                true
+                            } catch (e: IncreaseInvalidDataException) {
+                                false
+                            }
+
+                        /**
+                         * Returns a score indicating how many valid values are contained in this
+                         * object recursively.
+                         *
+                         * Used for best match union deserialization.
+                         */
+                        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
                         override fun equals(other: Any?): Boolean {
                             if (this === other) {
@@ -24042,9 +26263,31 @@ private constructor(
                             fareBasisCode()
                             flightNumber()
                             serviceClass()
-                            stopOverCode()
+                            stopOverCode()?.validate()
                             validated = true
                         }
+
+                        fun isValid(): Boolean =
+                            try {
+                                validate()
+                                true
+                            } catch (e: IncreaseInvalidDataException) {
+                                false
+                            }
+
+                        /**
+                         * Returns a score indicating how many valid values are contained in this
+                         * object recursively.
+                         *
+                         * Used for best match union deserialization.
+                         */
+                        internal fun validity(): Int =
+                            (if (carrierCode.asKnown() == null) 0 else 1) +
+                                (if (destinationCityAirportCode.asKnown() == null) 0 else 1) +
+                                (if (fareBasisCode.asKnown() == null) 0 else 1) +
+                                (if (flightNumber.asKnown() == null) 0 else 1) +
+                                (if (serviceClass.asKnown() == null) 0 else 1) +
+                                (stopOverCode.asKnown()?.validity() ?: 0)
 
                         /** Indicates whether a stopover is allowed on this ticket. */
                         class StopOverCode
@@ -24159,6 +26402,33 @@ private constructor(
                             fun asString(): String =
                                 _value().asString()
                                     ?: throw IncreaseInvalidDataException("Value is not a String")
+
+                            private var validated: Boolean = false
+
+                            fun validate(): StopOverCode = apply {
+                                if (validated) {
+                                    return@apply
+                                }
+
+                                known()
+                                validated = true
+                            }
+
+                            fun isValid(): Boolean =
+                                try {
+                                    validate()
+                                    true
+                                } catch (e: IncreaseInvalidDataException) {
+                                    false
+                                }
+
+                            /**
+                             * Returns a score indicating how many valid values are contained in
+                             * this object recursively.
+                             *
+                             * Used for best match union deserialization.
+                             */
+                            internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
                             override fun equals(other: Any?): Boolean {
                                 if (this === other) {
@@ -24313,6 +26583,33 @@ private constructor(
                 fun asString(): String =
                     _value().asString()
                         ?: throw IncreaseInvalidDataException("Value is not a String")
+
+                private var validated: Boolean = false
+
+                fun validate(): Type = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
                 override fun equals(other: Any?): Boolean {
                     if (this === other) {
@@ -25241,7 +27538,7 @@ private constructor(
 
                 id()
                 cardAuthorizationId()
-                currency()
+                currency().validate()
                 merchantAcceptorId()
                 merchantCategoryCode()
                 merchantCity()
@@ -25249,16 +27546,50 @@ private constructor(
                 merchantDescriptor()
                 merchantPostalCode()
                 merchantState()
-                network()
+                network().validate()
                 networkIdentifiers().validate()
                 pendingTransactionId()
                 reversalAmount()
-                reversalReason()
+                reversalReason()?.validate()
                 terminalId()
-                type()
+                type().validate()
                 updatedAuthorizationAmount()
                 validated = true
             }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            internal fun validity(): Int =
+                (if (id.asKnown() == null) 0 else 1) +
+                    (if (cardAuthorizationId.asKnown() == null) 0 else 1) +
+                    (currency.asKnown()?.validity() ?: 0) +
+                    (if (merchantAcceptorId.asKnown() == null) 0 else 1) +
+                    (if (merchantCategoryCode.asKnown() == null) 0 else 1) +
+                    (if (merchantCity.asKnown() == null) 0 else 1) +
+                    (if (merchantCountry.asKnown() == null) 0 else 1) +
+                    (if (merchantDescriptor.asKnown() == null) 0 else 1) +
+                    (if (merchantPostalCode.asKnown() == null) 0 else 1) +
+                    (if (merchantState.asKnown() == null) 0 else 1) +
+                    (network.asKnown()?.validity() ?: 0) +
+                    (networkIdentifiers.asKnown()?.validity() ?: 0) +
+                    (if (pendingTransactionId.asKnown() == null) 0 else 1) +
+                    (if (reversalAmount.asKnown() == null) 0 else 1) +
+                    (reversalReason.asKnown()?.validity() ?: 0) +
+                    (if (terminalId.asKnown() == null) 0 else 1) +
+                    (type.asKnown()?.validity() ?: 0) +
+                    (if (updatedAuthorizationAmount.asKnown() == null) 0 else 1)
 
             /**
              * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the reversal's
@@ -25396,6 +27727,33 @@ private constructor(
                     _value().asString()
                         ?: throw IncreaseInvalidDataException("Value is not a String")
 
+                private var validated: Boolean = false
+
+                fun validate(): Currency = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
                 override fun equals(other: Any?): Boolean {
                     if (this === other) {
                         return true
@@ -25496,6 +27854,33 @@ private constructor(
                 fun asString(): String =
                     _value().asString()
                         ?: throw IncreaseInvalidDataException("Value is not a String")
+
+                private var validated: Boolean = false
+
+                fun validate(): Network = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
                 override fun equals(other: Any?): Boolean {
                     if (this === other) {
@@ -25749,6 +28134,25 @@ private constructor(
                     validated = true
                 }
 
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int =
+                    (if (retrievalReferenceNumber.asKnown() == null) 0 else 1) +
+                        (if (traceNumber.asKnown() == null) 0 else 1) +
+                        (if (transactionId.asKnown() == null) 0 else 1)
+
                 override fun equals(other: Any?): Boolean {
                     if (this === other) {
                         return true
@@ -25885,6 +28289,33 @@ private constructor(
                     _value().asString()
                         ?: throw IncreaseInvalidDataException("Value is not a String")
 
+                private var validated: Boolean = false
+
+                fun validate(): ReversalReason = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
                 override fun equals(other: Any?): Boolean {
                     if (this === other) {
                         return true
@@ -25984,6 +28415,33 @@ private constructor(
                 fun asString(): String =
                     _value().asString()
                         ?: throw IncreaseInvalidDataException("Value is not a String")
+
+                private var validated: Boolean = false
+
+                fun validate(): Type = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
                 override fun equals(other: Any?): Boolean {
                     if (this === other) {
@@ -27041,7 +29499,7 @@ private constructor(
                 cardAuthorization()
                 cardPaymentId()
                 cashback()?.validate()
-                currency()
+                currency().validate()
                 interchange()?.validate()
                 merchantAcceptorId()
                 merchantCategoryCode()
@@ -27056,9 +29514,46 @@ private constructor(
                 presentmentCurrency()
                 purchaseDetails()?.validate()
                 transactionId()
-                type()
+                type().validate()
                 validated = true
             }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            internal fun validity(): Int =
+                (if (id.asKnown() == null) 0 else 1) +
+                    (if (amount.asKnown() == null) 0 else 1) +
+                    (if (cardAuthorization.asKnown() == null) 0 else 1) +
+                    (if (cardPaymentId.asKnown() == null) 0 else 1) +
+                    (cashback.asKnown()?.validity() ?: 0) +
+                    (currency.asKnown()?.validity() ?: 0) +
+                    (interchange.asKnown()?.validity() ?: 0) +
+                    (if (merchantAcceptorId.asKnown() == null) 0 else 1) +
+                    (if (merchantCategoryCode.asKnown() == null) 0 else 1) +
+                    (if (merchantCity.asKnown() == null) 0 else 1) +
+                    (if (merchantCountry.asKnown() == null) 0 else 1) +
+                    (if (merchantName.asKnown() == null) 0 else 1) +
+                    (if (merchantPostalCode.asKnown() == null) 0 else 1) +
+                    (if (merchantState.asKnown() == null) 0 else 1) +
+                    (networkIdentifiers.asKnown()?.validity() ?: 0) +
+                    (if (pendingTransactionId.asKnown() == null) 0 else 1) +
+                    (if (presentmentAmount.asKnown() == null) 0 else 1) +
+                    (if (presentmentCurrency.asKnown() == null) 0 else 1) +
+                    (purchaseDetails.asKnown()?.validity() ?: 0) +
+                    (if (transactionId.asKnown() == null) 0 else 1) +
+                    (type.asKnown()?.validity() ?: 0)
 
             /**
              * Cashback earned on this transaction, if eligible. Cashback is paid out in aggregate,
@@ -27239,9 +29734,26 @@ private constructor(
                     }
 
                     amount()
-                    currency()
+                    currency().validate()
                     validated = true
                 }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int =
+                    (if (amount.asKnown() == null) 0 else 1) + (currency.asKnown()?.validity() ?: 0)
 
                 /** The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the cashback. */
                 class Currency
@@ -27378,6 +29890,33 @@ private constructor(
                     fun asString(): String =
                         _value().asString()
                             ?: throw IncreaseInvalidDataException("Value is not a String")
+
+                    private var validated: Boolean = false
+
+                    fun validate(): Currency = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        known()
+                        validated = true
+                    }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: IncreaseInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
                     override fun equals(other: Any?): Boolean {
                         if (this === other) {
@@ -27545,6 +30084,33 @@ private constructor(
                 fun asString(): String =
                     _value().asString()
                         ?: throw IncreaseInvalidDataException("Value is not a String")
+
+                private var validated: Boolean = false
+
+                fun validate(): Currency = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
                 override fun equals(other: Any?): Boolean {
                     if (this === other) {
@@ -27775,9 +30341,28 @@ private constructor(
 
                     amount()
                     code()
-                    currency()
+                    currency().validate()
                     validated = true
                 }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int =
+                    (if (amount.asKnown() == null) 0 else 1) +
+                        (if (code.asKnown() == null) 0 else 1) +
+                        (currency.asKnown()?.validity() ?: 0)
 
                 /**
                  * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the interchange
@@ -27917,6 +30502,33 @@ private constructor(
                     fun asString(): String =
                         _value().asString()
                             ?: throw IncreaseInvalidDataException("Value is not a String")
+
+                    private var validated: Boolean = false
+
+                    fun validate(): Currency = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        known()
+                        validated = true
+                    }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: IncreaseInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
                     override fun equals(other: Any?): Boolean {
                         if (this === other) {
@@ -28184,6 +30796,25 @@ private constructor(
                     transactionId()
                     validated = true
                 }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int =
+                    (if (acquirerBusinessId.asKnown() == null) 0 else 1) +
+                        (if (acquirerReferenceNumber.asKnown() == null) 0 else 1) +
+                        (if (transactionId.asKnown() == null) 0 else 1)
 
                 override fun equals(other: Any?): Boolean {
                     if (this === other) {
@@ -28767,10 +31398,36 @@ private constructor(
                     nationalTaxAmount()
                     nationalTaxCurrency()
                     purchaseIdentifier()
-                    purchaseIdentifierFormat()
+                    purchaseIdentifierFormat()?.validate()
                     travel()?.validate()
                     validated = true
                 }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int =
+                    (carRental.asKnown()?.validity() ?: 0) +
+                        (if (customerReferenceIdentifier.asKnown() == null) 0 else 1) +
+                        (if (localTaxAmount.asKnown() == null) 0 else 1) +
+                        (if (localTaxCurrency.asKnown() == null) 0 else 1) +
+                        (lodging.asKnown()?.validity() ?: 0) +
+                        (if (nationalTaxAmount.asKnown() == null) 0 else 1) +
+                        (if (nationalTaxCurrency.asKnown() == null) 0 else 1) +
+                        (if (purchaseIdentifier.asKnown() == null) 0 else 1) +
+                        (purchaseIdentifierFormat.asKnown()?.validity() ?: 0) +
+                        (travel.asKnown()?.validity() ?: 0)
 
                 /** Fields specific to car rentals. */
                 class CarRental
@@ -29667,12 +32324,12 @@ private constructor(
                         dailyRentalRateAmount()
                         dailyRentalRateCurrency()
                         daysRented()
-                        extraCharges()
+                        extraCharges()?.validate()
                         fuelChargesAmount()
                         fuelChargesCurrency()
                         insuranceChargesAmount()
                         insuranceChargesCurrency()
-                        noShowIndicator()
+                        noShowIndicator()?.validate()
                         oneWayDropOffChargesAmount()
                         oneWayDropOffChargesCurrency()
                         renterName()
@@ -29680,6 +32337,38 @@ private constructor(
                         weeklyRentalRateCurrency()
                         validated = true
                     }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: IncreaseInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    internal fun validity(): Int =
+                        (if (carClassCode.asKnown() == null) 0 else 1) +
+                            (if (checkoutDate.asKnown() == null) 0 else 1) +
+                            (if (dailyRentalRateAmount.asKnown() == null) 0 else 1) +
+                            (if (dailyRentalRateCurrency.asKnown() == null) 0 else 1) +
+                            (if (daysRented.asKnown() == null) 0 else 1) +
+                            (extraCharges.asKnown()?.validity() ?: 0) +
+                            (if (fuelChargesAmount.asKnown() == null) 0 else 1) +
+                            (if (fuelChargesCurrency.asKnown() == null) 0 else 1) +
+                            (if (insuranceChargesAmount.asKnown() == null) 0 else 1) +
+                            (if (insuranceChargesCurrency.asKnown() == null) 0 else 1) +
+                            (noShowIndicator.asKnown()?.validity() ?: 0) +
+                            (if (oneWayDropOffChargesAmount.asKnown() == null) 0 else 1) +
+                            (if (oneWayDropOffChargesCurrency.asKnown() == null) 0 else 1) +
+                            (if (renterName.asKnown() == null) 0 else 1) +
+                            (if (weeklyRentalRateAmount.asKnown() == null) 0 else 1) +
+                            (if (weeklyRentalRateCurrency.asKnown() == null) 0 else 1)
 
                     /** Additional charges (gas, late fee, etc.) being billed. */
                     class ExtraCharges
@@ -29821,6 +32510,33 @@ private constructor(
                             _value().asString()
                                 ?: throw IncreaseInvalidDataException("Value is not a String")
 
+                        private var validated: Boolean = false
+
+                        fun validate(): ExtraCharges = apply {
+                            if (validated) {
+                                return@apply
+                            }
+
+                            known()
+                            validated = true
+                        }
+
+                        fun isValid(): Boolean =
+                            try {
+                                validate()
+                                true
+                            } catch (e: IncreaseInvalidDataException) {
+                                false
+                            }
+
+                        /**
+                         * Returns a score indicating how many valid values are contained in this
+                         * object recursively.
+                         *
+                         * Used for best match union deserialization.
+                         */
+                        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
                         override fun equals(other: Any?): Boolean {
                             if (this === other) {
                                 return true
@@ -29943,6 +32659,33 @@ private constructor(
                         fun asString(): String =
                             _value().asString()
                                 ?: throw IncreaseInvalidDataException("Value is not a String")
+
+                        private var validated: Boolean = false
+
+                        fun validate(): NoShowIndicator = apply {
+                            if (validated) {
+                                return@apply
+                            }
+
+                            known()
+                            validated = true
+                        }
+
+                        fun isValid(): Boolean =
+                            try {
+                                validate()
+                                true
+                            } catch (e: IncreaseInvalidDataException) {
+                                false
+                            }
+
+                        /**
+                         * Returns a score indicating how many valid values are contained in this
+                         * object recursively.
+                         *
+                         * Used for best match union deserialization.
+                         */
+                        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
                         override fun equals(other: Any?): Boolean {
                             if (this === other) {
@@ -30873,12 +33616,12 @@ private constructor(
                         checkInDate()
                         dailyRoomRateAmount()
                         dailyRoomRateCurrency()
-                        extraCharges()
+                        extraCharges()?.validate()
                         folioCashAdvancesAmount()
                         folioCashAdvancesCurrency()
                         foodBeverageChargesAmount()
                         foodBeverageChargesCurrency()
-                        noShowIndicator()
+                        noShowIndicator()?.validate()
                         prepaidExpensesAmount()
                         prepaidExpensesCurrency()
                         roomNights()
@@ -30888,6 +33631,38 @@ private constructor(
                         totalTaxCurrency()
                         validated = true
                     }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: IncreaseInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    internal fun validity(): Int =
+                        (if (checkInDate.asKnown() == null) 0 else 1) +
+                            (if (dailyRoomRateAmount.asKnown() == null) 0 else 1) +
+                            (if (dailyRoomRateCurrency.asKnown() == null) 0 else 1) +
+                            (extraCharges.asKnown()?.validity() ?: 0) +
+                            (if (folioCashAdvancesAmount.asKnown() == null) 0 else 1) +
+                            (if (folioCashAdvancesCurrency.asKnown() == null) 0 else 1) +
+                            (if (foodBeverageChargesAmount.asKnown() == null) 0 else 1) +
+                            (if (foodBeverageChargesCurrency.asKnown() == null) 0 else 1) +
+                            (noShowIndicator.asKnown()?.validity() ?: 0) +
+                            (if (prepaidExpensesAmount.asKnown() == null) 0 else 1) +
+                            (if (prepaidExpensesCurrency.asKnown() == null) 0 else 1) +
+                            (if (roomNights.asKnown() == null) 0 else 1) +
+                            (if (totalRoomTaxAmount.asKnown() == null) 0 else 1) +
+                            (if (totalRoomTaxCurrency.asKnown() == null) 0 else 1) +
+                            (if (totalTaxAmount.asKnown() == null) 0 else 1) +
+                            (if (totalTaxCurrency.asKnown() == null) 0 else 1)
 
                     /** Additional charges (phone, late check-out, etc.) being billed. */
                     class ExtraCharges
@@ -31038,6 +33813,33 @@ private constructor(
                             _value().asString()
                                 ?: throw IncreaseInvalidDataException("Value is not a String")
 
+                        private var validated: Boolean = false
+
+                        fun validate(): ExtraCharges = apply {
+                            if (validated) {
+                                return@apply
+                            }
+
+                            known()
+                            validated = true
+                        }
+
+                        fun isValid(): Boolean =
+                            try {
+                                validate()
+                                true
+                            } catch (e: IncreaseInvalidDataException) {
+                                false
+                            }
+
+                        /**
+                         * Returns a score indicating how many valid values are contained in this
+                         * object recursively.
+                         *
+                         * Used for best match union deserialization.
+                         */
+                        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
                         override fun equals(other: Any?): Boolean {
                             if (this === other) {
                                 return true
@@ -31157,6 +33959,33 @@ private constructor(
                         fun asString(): String =
                             _value().asString()
                                 ?: throw IncreaseInvalidDataException("Value is not a String")
+
+                        private var validated: Boolean = false
+
+                        fun validate(): NoShowIndicator = apply {
+                            if (validated) {
+                                return@apply
+                            }
+
+                            known()
+                            validated = true
+                        }
+
+                        fun isValid(): Boolean =
+                            try {
+                                validate()
+                                true
+                            } catch (e: IncreaseInvalidDataException) {
+                                false
+                            }
+
+                        /**
+                         * Returns a score indicating how many valid values are contained in this
+                         * object recursively.
+                         *
+                         * Used for best match union deserialization.
+                         */
+                        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
                         override fun equals(other: Any?): Boolean {
                             if (this === other) {
@@ -31319,6 +34148,33 @@ private constructor(
                     fun asString(): String =
                         _value().asString()
                             ?: throw IncreaseInvalidDataException("Value is not a String")
+
+                    private var validated: Boolean = false
+
+                    fun validate(): PurchaseIdentifierFormat = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        known()
+                        validated = true
+                    }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: IncreaseInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
                     override fun equals(other: Any?): Boolean {
                         if (this === other) {
@@ -31997,18 +34853,46 @@ private constructor(
 
                         ancillary()?.validate()
                         computerizedReservationSystem()
-                        creditReasonIndicator()
+                        creditReasonIndicator()?.validate()
                         departureDate()
                         originationCityAirportCode()
                         passengerName()
-                        restrictedTicketIndicator()
-                        ticketChangeIndicator()
+                        restrictedTicketIndicator()?.validate()
+                        ticketChangeIndicator()?.validate()
                         ticketNumber()
                         travelAgencyCode()
                         travelAgencyName()
                         tripLegs()?.forEach { it.validate() }
                         validated = true
                     }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: IncreaseInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    internal fun validity(): Int =
+                        (ancillary.asKnown()?.validity() ?: 0) +
+                            (if (computerizedReservationSystem.asKnown() == null) 0 else 1) +
+                            (creditReasonIndicator.asKnown()?.validity() ?: 0) +
+                            (if (departureDate.asKnown() == null) 0 else 1) +
+                            (if (originationCityAirportCode.asKnown() == null) 0 else 1) +
+                            (if (passengerName.asKnown() == null) 0 else 1) +
+                            (restrictedTicketIndicator.asKnown()?.validity() ?: 0) +
+                            (ticketChangeIndicator.asKnown()?.validity() ?: 0) +
+                            (if (ticketNumber.asKnown() == null) 0 else 1) +
+                            (if (travelAgencyCode.asKnown() == null) 0 else 1) +
+                            (if (travelAgencyName.asKnown() == null) 0 else 1) +
+                            (tripLegs.asKnown()?.sumOf { it.validity().toInt() } ?: 0)
 
                     /** Ancillary purchases in addition to the airfare. */
                     class Ancillary
@@ -32372,12 +35256,33 @@ private constructor(
                             }
 
                             connectedTicketDocumentNumber()
-                            creditReasonIndicator()
+                            creditReasonIndicator()?.validate()
                             passengerNameOrDescription()
                             services().forEach { it.validate() }
                             ticketDocumentNumber()
                             validated = true
                         }
+
+                        fun isValid(): Boolean =
+                            try {
+                                validate()
+                                true
+                            } catch (e: IncreaseInvalidDataException) {
+                                false
+                            }
+
+                        /**
+                         * Returns a score indicating how many valid values are contained in this
+                         * object recursively.
+                         *
+                         * Used for best match union deserialization.
+                         */
+                        internal fun validity(): Int =
+                            (if (connectedTicketDocumentNumber.asKnown() == null) 0 else 1) +
+                                (creditReasonIndicator.asKnown()?.validity() ?: 0) +
+                                (if (passengerNameOrDescription.asKnown() == null) 0 else 1) +
+                                (services.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
+                                (if (ticketDocumentNumber.asKnown() == null) 0 else 1)
 
                         /** Indicates the reason for a credit to the cardholder. */
                         class CreditReasonIndicator
@@ -32520,6 +35425,33 @@ private constructor(
                             fun asString(): String =
                                 _value().asString()
                                     ?: throw IncreaseInvalidDataException("Value is not a String")
+
+                            private var validated: Boolean = false
+
+                            fun validate(): CreditReasonIndicator = apply {
+                                if (validated) {
+                                    return@apply
+                                }
+
+                                known()
+                                validated = true
+                            }
+
+                            fun isValid(): Boolean =
+                                try {
+                                    validate()
+                                    true
+                                } catch (e: IncreaseInvalidDataException) {
+                                    false
+                                }
+
+                            /**
+                             * Returns a score indicating how many valid values are contained in
+                             * this object recursively.
+                             *
+                             * Used for best match union deserialization.
+                             */
+                            internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
                             override fun equals(other: Any?): Boolean {
                                 if (this === other) {
@@ -32713,10 +35645,28 @@ private constructor(
                                     return@apply
                                 }
 
-                                category()
+                                category()?.validate()
                                 subCategory()
                                 validated = true
                             }
+
+                            fun isValid(): Boolean =
+                                try {
+                                    validate()
+                                    true
+                                } catch (e: IncreaseInvalidDataException) {
+                                    false
+                                }
+
+                            /**
+                             * Returns a score indicating how many valid values are contained in
+                             * this object recursively.
+                             *
+                             * Used for best match union deserialization.
+                             */
+                            internal fun validity(): Int =
+                                (category.asKnown()?.validity() ?: 0) +
+                                    (if (subCategory.asKnown() == null) 0 else 1)
 
                             /** Category of the ancillary service. */
                             class Category
@@ -33027,6 +35977,34 @@ private constructor(
                                             "Value is not a String"
                                         )
 
+                                private var validated: Boolean = false
+
+                                fun validate(): Category = apply {
+                                    if (validated) {
+                                        return@apply
+                                    }
+
+                                    known()
+                                    validated = true
+                                }
+
+                                fun isValid(): Boolean =
+                                    try {
+                                        validate()
+                                        true
+                                    } catch (e: IncreaseInvalidDataException) {
+                                        false
+                                    }
+
+                                /**
+                                 * Returns a score indicating how many valid values are contained in
+                                 * this object recursively.
+                                 *
+                                 * Used for best match union deserialization.
+                                 */
+                                internal fun validity(): Int =
+                                    if (value() == Value._UNKNOWN) 0 else 1
+
                                 override fun equals(other: Any?): Boolean {
                                     if (this === other) {
                                         return true
@@ -33238,6 +36216,33 @@ private constructor(
                             _value().asString()
                                 ?: throw IncreaseInvalidDataException("Value is not a String")
 
+                        private var validated: Boolean = false
+
+                        fun validate(): CreditReasonIndicator = apply {
+                            if (validated) {
+                                return@apply
+                            }
+
+                            known()
+                            validated = true
+                        }
+
+                        fun isValid(): Boolean =
+                            try {
+                                validate()
+                                true
+                            } catch (e: IncreaseInvalidDataException) {
+                                false
+                            }
+
+                        /**
+                         * Returns a score indicating how many valid values are contained in this
+                         * object recursively.
+                         *
+                         * Used for best match union deserialization.
+                         */
+                        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
                         override fun equals(other: Any?): Boolean {
                             if (this === other) {
                                 return true
@@ -33357,6 +36362,33 @@ private constructor(
                         fun asString(): String =
                             _value().asString()
                                 ?: throw IncreaseInvalidDataException("Value is not a String")
+
+                        private var validated: Boolean = false
+
+                        fun validate(): RestrictedTicketIndicator = apply {
+                            if (validated) {
+                                return@apply
+                            }
+
+                            known()
+                            validated = true
+                        }
+
+                        fun isValid(): Boolean =
+                            try {
+                                validate()
+                                true
+                            } catch (e: IncreaseInvalidDataException) {
+                                false
+                            }
+
+                        /**
+                         * Returns a score indicating how many valid values are contained in this
+                         * object recursively.
+                         *
+                         * Used for best match union deserialization.
+                         */
+                        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
                         override fun equals(other: Any?): Boolean {
                             if (this === other) {
@@ -33483,6 +36515,33 @@ private constructor(
                         fun asString(): String =
                             _value().asString()
                                 ?: throw IncreaseInvalidDataException("Value is not a String")
+
+                        private var validated: Boolean = false
+
+                        fun validate(): TicketChangeIndicator = apply {
+                            if (validated) {
+                                return@apply
+                            }
+
+                            known()
+                            validated = true
+                        }
+
+                        fun isValid(): Boolean =
+                            try {
+                                validate()
+                                true
+                            } catch (e: IncreaseInvalidDataException) {
+                                false
+                            }
+
+                        /**
+                         * Returns a score indicating how many valid values are contained in this
+                         * object recursively.
+                         *
+                         * Used for best match union deserialization.
+                         */
+                        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
                         override fun equals(other: Any?): Boolean {
                             if (this === other) {
@@ -33862,9 +36921,31 @@ private constructor(
                             fareBasisCode()
                             flightNumber()
                             serviceClass()
-                            stopOverCode()
+                            stopOverCode()?.validate()
                             validated = true
                         }
+
+                        fun isValid(): Boolean =
+                            try {
+                                validate()
+                                true
+                            } catch (e: IncreaseInvalidDataException) {
+                                false
+                            }
+
+                        /**
+                         * Returns a score indicating how many valid values are contained in this
+                         * object recursively.
+                         *
+                         * Used for best match union deserialization.
+                         */
+                        internal fun validity(): Int =
+                            (if (carrierCode.asKnown() == null) 0 else 1) +
+                                (if (destinationCityAirportCode.asKnown() == null) 0 else 1) +
+                                (if (fareBasisCode.asKnown() == null) 0 else 1) +
+                                (if (flightNumber.asKnown() == null) 0 else 1) +
+                                (if (serviceClass.asKnown() == null) 0 else 1) +
+                                (stopOverCode.asKnown()?.validity() ?: 0)
 
                         /** Indicates whether a stopover is allowed on this ticket. */
                         class StopOverCode
@@ -33979,6 +37060,33 @@ private constructor(
                             fun asString(): String =
                                 _value().asString()
                                     ?: throw IncreaseInvalidDataException("Value is not a String")
+
+                            private var validated: Boolean = false
+
+                            fun validate(): StopOverCode = apply {
+                                if (validated) {
+                                    return@apply
+                                }
+
+                                known()
+                                validated = true
+                            }
+
+                            fun isValid(): Boolean =
+                                try {
+                                    validate()
+                                    true
+                                } catch (e: IncreaseInvalidDataException) {
+                                    false
+                                }
+
+                            /**
+                             * Returns a score indicating how many valid values are contained in
+                             * this object recursively.
+                             *
+                             * Used for best match union deserialization.
+                             */
+                            internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
                             override fun equals(other: Any?): Boolean {
                                 if (this === other) {
@@ -34133,6 +37241,33 @@ private constructor(
                 fun asString(): String =
                     _value().asString()
                         ?: throw IncreaseInvalidDataException("Value is not a String")
+
+                private var validated: Boolean = false
+
+                fun validate(): Type = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
                 override fun equals(other: Any?): Boolean {
                     if (this === other) {
@@ -35168,9 +38303,9 @@ private constructor(
                 }
 
                 id()
-                actioner()
+                actioner().validate()
                 cardPaymentId()
-                currency()
+                currency().validate()
                 digitalWalletTokenId()
                 merchantAcceptorId()
                 merchantCategoryCode()
@@ -35185,10 +38320,46 @@ private constructor(
                 physicalCardId()
                 realTimeDecisionId()
                 terminalId()
-                type()
+                type().validate()
                 verification().validate()
                 validated = true
             }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            internal fun validity(): Int =
+                (if (id.asKnown() == null) 0 else 1) +
+                    (actioner.asKnown()?.validity() ?: 0) +
+                    (if (cardPaymentId.asKnown() == null) 0 else 1) +
+                    (currency.asKnown()?.validity() ?: 0) +
+                    (if (digitalWalletTokenId.asKnown() == null) 0 else 1) +
+                    (if (merchantAcceptorId.asKnown() == null) 0 else 1) +
+                    (if (merchantCategoryCode.asKnown() == null) 0 else 1) +
+                    (if (merchantCity.asKnown() == null) 0 else 1) +
+                    (if (merchantCountry.asKnown() == null) 0 else 1) +
+                    (if (merchantDescriptor.asKnown() == null) 0 else 1) +
+                    (if (merchantPostalCode.asKnown() == null) 0 else 1) +
+                    (if (merchantState.asKnown() == null) 0 else 1) +
+                    (networkDetails.asKnown()?.validity() ?: 0) +
+                    (networkIdentifiers.asKnown()?.validity() ?: 0) +
+                    (if (networkRiskScore.asKnown() == null) 0 else 1) +
+                    (if (physicalCardId.asKnown() == null) 0 else 1) +
+                    (if (realTimeDecisionId.asKnown() == null) 0 else 1) +
+                    (if (terminalId.asKnown() == null) 0 else 1) +
+                    (type.asKnown()?.validity() ?: 0) +
+                    (verification.asKnown()?.validity() ?: 0)
 
             /**
              * Whether this authorization was approved by Increase, the card network through
@@ -35298,6 +38469,33 @@ private constructor(
                 fun asString(): String =
                     _value().asString()
                         ?: throw IncreaseInvalidDataException("Value is not a String")
+
+                private var validated: Boolean = false
+
+                fun validate(): Actioner = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
                 override fun equals(other: Any?): Boolean {
                     if (this === other) {
@@ -35447,6 +38645,33 @@ private constructor(
                 fun asString(): String =
                     _value().asString()
                         ?: throw IncreaseInvalidDataException("Value is not a String")
+
+                private var validated: Boolean = false
+
+                fun validate(): Currency = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
                 override fun equals(other: Any?): Boolean {
                     if (this === other) {
@@ -35625,10 +38850,27 @@ private constructor(
                         return@apply
                     }
 
-                    category()
+                    category().validate()
                     visa()?.validate()
                     validated = true
                 }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int =
+                    (category.asKnown()?.validity() ?: 0) + (visa.asKnown()?.validity() ?: 0)
 
                 /** The payment network used to process this card authorization. */
                 class Category
@@ -35720,6 +38962,33 @@ private constructor(
                     fun asString(): String =
                         _value().asString()
                             ?: throw IncreaseInvalidDataException("Value is not a String")
+
+                    private var validated: Boolean = false
+
+                    fun validate(): Category = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        known()
+                        validated = true
+                    }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: IncreaseInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
                     override fun equals(other: Any?): Boolean {
                         if (this === other) {
@@ -35995,11 +39264,30 @@ private constructor(
                             return@apply
                         }
 
-                        electronicCommerceIndicator()
-                        pointOfServiceEntryMode()
-                        standInProcessingReason()
+                        electronicCommerceIndicator()?.validate()
+                        pointOfServiceEntryMode()?.validate()
+                        standInProcessingReason()?.validate()
                         validated = true
                     }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: IncreaseInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    internal fun validity(): Int =
+                        (electronicCommerceIndicator.asKnown()?.validity() ?: 0) +
+                            (pointOfServiceEntryMode.asKnown()?.validity() ?: 0) +
+                            (standInProcessingReason.asKnown()?.validity() ?: 0)
 
                     /**
                      * For electronic commerce transactions, this identifies the level of security
@@ -36279,6 +39567,33 @@ private constructor(
                             _value().asString()
                                 ?: throw IncreaseInvalidDataException("Value is not a String")
 
+                        private var validated: Boolean = false
+
+                        fun validate(): ElectronicCommerceIndicator = apply {
+                            if (validated) {
+                                return@apply
+                            }
+
+                            known()
+                            validated = true
+                        }
+
+                        fun isValid(): Boolean =
+                            try {
+                                validate()
+                                true
+                            } catch (e: IncreaseInvalidDataException) {
+                                false
+                            }
+
+                        /**
+                         * Returns a score indicating how many valid values are contained in this
+                         * object recursively.
+                         *
+                         * Used for best match union deserialization.
+                         */
+                        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
                         override fun equals(other: Any?): Boolean {
                             if (this === other) {
                                 return true
@@ -36482,6 +39797,33 @@ private constructor(
                         fun asString(): String =
                             _value().asString()
                                 ?: throw IncreaseInvalidDataException("Value is not a String")
+
+                        private var validated: Boolean = false
+
+                        fun validate(): PointOfServiceEntryMode = apply {
+                            if (validated) {
+                                return@apply
+                            }
+
+                            known()
+                            validated = true
+                        }
+
+                        fun isValid(): Boolean =
+                            try {
+                                validate()
+                                true
+                            } catch (e: IncreaseInvalidDataException) {
+                                false
+                            }
+
+                        /**
+                         * Returns a score indicating how many valid values are contained in this
+                         * object recursively.
+                         *
+                         * Used for best match union deserialization.
+                         */
+                        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
                         override fun equals(other: Any?): Boolean {
                             if (this === other) {
@@ -36703,6 +40045,33 @@ private constructor(
                         fun asString(): String =
                             _value().asString()
                                 ?: throw IncreaseInvalidDataException("Value is not a String")
+
+                        private var validated: Boolean = false
+
+                        fun validate(): StandInProcessingReason = apply {
+                            if (validated) {
+                                return@apply
+                            }
+
+                            known()
+                            validated = true
+                        }
+
+                        fun isValid(): Boolean =
+                            try {
+                                validate()
+                                true
+                            } catch (e: IncreaseInvalidDataException) {
+                                false
+                            }
+
+                        /**
+                         * Returns a score indicating how many valid values are contained in this
+                         * object recursively.
+                         *
+                         * Used for best match union deserialization.
+                         */
+                        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
                         override fun equals(other: Any?): Boolean {
                             if (this === other) {
@@ -36992,6 +40361,25 @@ private constructor(
                     validated = true
                 }
 
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int =
+                    (if (retrievalReferenceNumber.asKnown() == null) 0 else 1) +
+                        (if (traceNumber.asKnown() == null) 0 else 1) +
+                        (if (transactionId.asKnown() == null) 0 else 1)
+
                 override fun equals(other: Any?): Boolean {
                     if (this === other) {
                         return true
@@ -37096,6 +40484,33 @@ private constructor(
                 fun asString(): String =
                     _value().asString()
                         ?: throw IncreaseInvalidDataException("Value is not a String")
+
+                private var validated: Boolean = false
+
+                fun validate(): Type = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
                 override fun equals(other: Any?): Boolean {
                     if (this === other) {
@@ -37300,6 +40715,24 @@ private constructor(
                     validated = true
                 }
 
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int =
+                    (cardVerificationCode.asKnown()?.validity() ?: 0) +
+                        (cardholderAddress.asKnown()?.validity() ?: 0)
+
                 /**
                  * Fields related to verification of the Card Verification Code, a 3-digit code on
                  * the back of the card.
@@ -37435,9 +40868,25 @@ private constructor(
                             return@apply
                         }
 
-                        result()
+                        result().validate()
                         validated = true
                     }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: IncreaseInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    internal fun validity(): Int = (result.asKnown()?.validity() ?: 0)
 
                     /** The result of verifying the Card Verification Code. */
                     class Result
@@ -37554,6 +41003,33 @@ private constructor(
                         fun asString(): String =
                             _value().asString()
                                 ?: throw IncreaseInvalidDataException("Value is not a String")
+
+                        private var validated: Boolean = false
+
+                        fun validate(): Result = apply {
+                            if (validated) {
+                                return@apply
+                            }
+
+                            known()
+                            validated = true
+                        }
+
+                        fun isValid(): Boolean =
+                            try {
+                                validate()
+                                true
+                            } catch (e: IncreaseInvalidDataException) {
+                                false
+                            }
+
+                        /**
+                         * Returns a score indicating how many valid values are contained in this
+                         * object recursively.
+                         *
+                         * Used for best match union deserialization.
+                         */
+                        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
                         override fun equals(other: Any?): Boolean {
                             if (this === other) {
@@ -37908,9 +41384,30 @@ private constructor(
                         actualPostalCode()
                         providedLine1()
                         providedPostalCode()
-                        result()
+                        result().validate()
                         validated = true
                     }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: IncreaseInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    internal fun validity(): Int =
+                        (if (actualLine1.asKnown() == null) 0 else 1) +
+                            (if (actualPostalCode.asKnown() == null) 0 else 1) +
+                            (if (providedLine1.asKnown() == null) 0 else 1) +
+                            (if (providedPostalCode.asKnown() == null) 0 else 1) +
+                            (result.asKnown()?.validity() ?: 0)
 
                     /** The address verification result returned to the card network. */
                     class Result
@@ -38057,6 +41554,33 @@ private constructor(
                         fun asString(): String =
                             _value().asString()
                                 ?: throw IncreaseInvalidDataException("Value is not a String")
+
+                        private var validated: Boolean = false
+
+                        fun validate(): Result = apply {
+                            if (validated) {
+                                return@apply
+                            }
+
+                            known()
+                            validated = true
+                        }
+
+                        fun isValid(): Boolean =
+                            try {
+                                validate()
+                                true
+                            } catch (e: IncreaseInvalidDataException) {
+                                false
+                            }
+
+                        /**
+                         * Returns a score indicating how many valid values are contained in this
+                         * object recursively.
+                         *
+                         * Used for best match union deserialization.
+                         */
+                        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
                         override fun equals(other: Any?): Boolean {
                             if (this === other) {
@@ -38321,6 +41845,33 @@ private constructor(
              */
             fun asString(): String =
                 _value().asString() ?: throw IncreaseInvalidDataException("Value is not a String")
+
+            private var validated: Boolean = false
+
+            fun validate(): Category = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
             override fun equals(other: Any?): Boolean {
                 if (this === other) {
@@ -38682,6 +42233,27 @@ private constructor(
             validated = true
         }
 
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int =
+            (if (authorizedAmount.asKnown() == null) 0 else 1) +
+                (if (fuelConfirmedAmount.asKnown() == null) 0 else 1) +
+                (if (incrementedAmount.asKnown() == null) 0 else 1) +
+                (if (reversedAmount.asKnown() == null) 0 else 1) +
+                (if (settledAmount.asKnown() == null) 0 else 1)
+
         override fun equals(other: Any?): Boolean {
             if (this === other) {
                 return true
@@ -38782,6 +42354,33 @@ private constructor(
          */
         fun asString(): String =
             _value().asString() ?: throw IncreaseInvalidDataException("Value is not a String")
+
+        private var validated: Boolean = false
+
+        fun validate(): Type = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {

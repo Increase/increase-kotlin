@@ -378,12 +378,34 @@ private constructor(
         id()
         cardId()
         createdAt()
-        status()
-        tokenRequestor()
-        type()
+        status().validate()
+        tokenRequestor().validate()
+        type().validate()
         updates().forEach { it.validate() }
         validated = true
     }
+
+    fun isValid(): Boolean =
+        try {
+            validate()
+            true
+        } catch (e: IncreaseInvalidDataException) {
+            false
+        }
+
+    /**
+     * Returns a score indicating how many valid values are contained in this object recursively.
+     *
+     * Used for best match union deserialization.
+     */
+    internal fun validity(): Int =
+        (if (id.asKnown() == null) 0 else 1) +
+            (if (cardId.asKnown() == null) 0 else 1) +
+            (if (createdAt.asKnown() == null) 0 else 1) +
+            (status.asKnown()?.validity() ?: 0) +
+            (tokenRequestor.asKnown()?.validity() ?: 0) +
+            (type.asKnown()?.validity() ?: 0) +
+            (updates.asKnown()?.sumOf { it.validity().toInt() } ?: 0)
 
     /** This indicates if payments can be made with the Digital Wallet Token. */
     class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
@@ -503,6 +525,33 @@ private constructor(
          */
         fun asString(): String =
             _value().asString() ?: throw IncreaseInvalidDataException("Value is not a String")
+
+        private var validated: Boolean = false
+
+        fun validate(): Status = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -631,6 +680,33 @@ private constructor(
         fun asString(): String =
             _value().asString() ?: throw IncreaseInvalidDataException("Value is not a String")
 
+        private var validated: Boolean = false
+
+        fun validate(): TokenRequestor = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
         override fun equals(other: Any?): Boolean {
             if (this === other) {
                 return true
@@ -726,6 +802,33 @@ private constructor(
          */
         fun asString(): String =
             _value().asString() ?: throw IncreaseInvalidDataException("Value is not a String")
+
+        private var validated: Boolean = false
+
+        fun validate(): Type = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -903,10 +1006,27 @@ private constructor(
                 return@apply
             }
 
-            status()
+            status().validate()
             timestamp()
             validated = true
         }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int =
+            (status.asKnown()?.validity() ?: 0) + (if (timestamp.asKnown() == null) 0 else 1)
 
         /** The status the update changed this Digital Wallet Token to. */
         class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
@@ -1028,6 +1148,33 @@ private constructor(
              */
             fun asString(): String =
                 _value().asString() ?: throw IncreaseInvalidDataException("Value is not a String")
+
+            private var validated: Boolean = false
+
+            fun validate(): Status = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
             override fun equals(other: Any?): Boolean {
                 if (this === other) {

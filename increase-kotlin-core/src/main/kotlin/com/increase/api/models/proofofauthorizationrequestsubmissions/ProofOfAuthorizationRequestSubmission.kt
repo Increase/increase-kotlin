@@ -965,14 +965,47 @@ private constructor(
         customerHasBeenOffboarded()
         idempotencyKey()
         proofOfAuthorizationRequestId()
-        status()
-        type()
+        status().validate()
+        type().validate()
         updatedAt()
         validatedAccountOwnershipViaCredential()
         validatedAccountOwnershipWithAccountStatement()
         validatedAccountOwnershipWithMicrodeposit()
         validated = true
     }
+
+    fun isValid(): Boolean =
+        try {
+            validate()
+            true
+        } catch (e: IncreaseInvalidDataException) {
+            false
+        }
+
+    /**
+     * Returns a score indicating how many valid values are contained in this object recursively.
+     *
+     * Used for best match union deserialization.
+     */
+    internal fun validity(): Int =
+        (if (id.asKnown() == null) 0 else 1) +
+            (if (additionalEvidenceFileId.asKnown() == null) 0 else 1) +
+            (if (authorizationTerms.asKnown() == null) 0 else 1) +
+            (if (authorizedAt.asKnown() == null) 0 else 1) +
+            (if (authorizerCompany.asKnown() == null) 0 else 1) +
+            (if (authorizerEmail.asKnown() == null) 0 else 1) +
+            (if (authorizerIpAddress.asKnown() == null) 0 else 1) +
+            (if (authorizerName.asKnown() == null) 0 else 1) +
+            (if (createdAt.asKnown() == null) 0 else 1) +
+            (if (customerHasBeenOffboarded.asKnown() == null) 0 else 1) +
+            (if (idempotencyKey.asKnown() == null) 0 else 1) +
+            (if (proofOfAuthorizationRequestId.asKnown() == null) 0 else 1) +
+            (status.asKnown()?.validity() ?: 0) +
+            (type.asKnown()?.validity() ?: 0) +
+            (if (updatedAt.asKnown() == null) 0 else 1) +
+            (if (validatedAccountOwnershipViaCredential.asKnown() == null) 0 else 1) +
+            (if (validatedAccountOwnershipWithAccountStatement.asKnown() == null) 0 else 1) +
+            (if (validatedAccountOwnershipWithMicrodeposit.asKnown() == null) 0 else 1)
 
     /** Status of the proof of authorization request submission. */
     class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
@@ -1099,6 +1132,33 @@ private constructor(
         fun asString(): String =
             _value().asString() ?: throw IncreaseInvalidDataException("Value is not a String")
 
+        private var validated: Boolean = false
+
+        fun validate(): Status = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
         override fun equals(other: Any?): Boolean {
             if (this === other) {
                 return true
@@ -1197,6 +1257,33 @@ private constructor(
          */
         fun asString(): String =
             _value().asString() ?: throw IncreaseInvalidDataException("Value is not a String")
+
+        private var validated: Boolean = false
+
+        fun validate(): Type = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
