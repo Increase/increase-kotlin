@@ -349,9 +349,30 @@ private constructor(
         invoice()?.validate()
         lineItems()?.forEach { it.validate() }
         transactionId()
-        type()
+        type().validate()
         validated = true
     }
+
+    fun isValid(): Boolean =
+        try {
+            validate()
+            true
+        } catch (e: IncreaseInvalidDataException) {
+            false
+        }
+
+    /**
+     * Returns a score indicating how many valid values are contained in this object recursively.
+     *
+     * Used for best match union deserialization.
+     */
+    internal fun validity(): Int =
+        (if (id.asKnown() == null) 0 else 1) +
+            (if (cardPaymentId.asKnown() == null) 0 else 1) +
+            (invoice.asKnown()?.validity() ?: 0) +
+            (lineItems.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
+            (if (transactionId.asKnown() == null) 0 else 1) +
+            (type.asKnown()?.validity() ?: 0)
 
     /** Invoice-level information about the payment. */
     class Invoice
@@ -1177,7 +1198,7 @@ private constructor(
 
             discountAmount()
             discountCurrency()
-            discountTreatmentCode()
+            discountTreatmentCode()?.validate()
             dutyTaxAmount()
             dutyTaxCurrency()
             orderDate()
@@ -1189,10 +1210,42 @@ private constructor(
             shippingTaxAmount()
             shippingTaxCurrency()
             shippingTaxRate()
-            taxTreatments()
+            taxTreatments()?.validate()
             uniqueValueAddedTaxInvoiceReference()
             validated = true
         }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int =
+            (if (discountAmount.asKnown() == null) 0 else 1) +
+                (if (discountCurrency.asKnown() == null) 0 else 1) +
+                (discountTreatmentCode.asKnown()?.validity() ?: 0) +
+                (if (dutyTaxAmount.asKnown() == null) 0 else 1) +
+                (if (dutyTaxCurrency.asKnown() == null) 0 else 1) +
+                (if (orderDate.asKnown() == null) 0 else 1) +
+                (if (shippingAmount.asKnown() == null) 0 else 1) +
+                (if (shippingCurrency.asKnown() == null) 0 else 1) +
+                (if (shippingDestinationCountryCode.asKnown() == null) 0 else 1) +
+                (if (shippingDestinationPostalCode.asKnown() == null) 0 else 1) +
+                (if (shippingSourcePostalCode.asKnown() == null) 0 else 1) +
+                (if (shippingTaxAmount.asKnown() == null) 0 else 1) +
+                (if (shippingTaxCurrency.asKnown() == null) 0 else 1) +
+                (if (shippingTaxRate.asKnown() == null) 0 else 1) +
+                (taxTreatments.asKnown()?.validity() ?: 0) +
+                (if (uniqueValueAddedTaxInvoiceReference.asKnown() == null) 0 else 1)
 
         /** Indicates how the merchant applied the discount. */
         class DiscountTreatmentCode
@@ -1308,6 +1361,33 @@ private constructor(
              */
             fun asString(): String =
                 _value().asString() ?: throw IncreaseInvalidDataException("Value is not a String")
+
+            private var validated: Boolean = false
+
+            fun validate(): DiscountTreatmentCode = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
             override fun equals(other: Any?): Boolean {
                 if (this === other) {
@@ -1444,6 +1524,33 @@ private constructor(
              */
             fun asString(): String =
                 _value().asString() ?: throw IncreaseInvalidDataException("Value is not a String")
+
+            private var validated: Boolean = false
+
+            fun validate(): TaxTreatments = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
             override fun equals(other: Any?): Boolean {
                 if (this === other) {
@@ -2302,10 +2409,10 @@ private constructor(
             }
 
             id()
-            detailIndicator()
+            detailIndicator()?.validate()
             discountAmount()
             discountCurrency()
-            discountTreatmentCode()
+            discountTreatmentCode()?.validate()
             itemCommodityCode()
             itemDescriptor()
             itemQuantity()
@@ -2320,6 +2427,39 @@ private constructor(
             unitOfMeasureCode()
             validated = true
         }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int =
+            (if (id.asKnown() == null) 0 else 1) +
+                (detailIndicator.asKnown()?.validity() ?: 0) +
+                (if (discountAmount.asKnown() == null) 0 else 1) +
+                (if (discountCurrency.asKnown() == null) 0 else 1) +
+                (discountTreatmentCode.asKnown()?.validity() ?: 0) +
+                (if (itemCommodityCode.asKnown() == null) 0 else 1) +
+                (if (itemDescriptor.asKnown() == null) 0 else 1) +
+                (if (itemQuantity.asKnown() == null) 0 else 1) +
+                (if (productCode.asKnown() == null) 0 else 1) +
+                (if (salesTaxAmount.asKnown() == null) 0 else 1) +
+                (if (salesTaxCurrency.asKnown() == null) 0 else 1) +
+                (if (salesTaxRate.asKnown() == null) 0 else 1) +
+                (if (totalAmount.asKnown() == null) 0 else 1) +
+                (if (totalAmountCurrency.asKnown() == null) 0 else 1) +
+                (if (unitCost.asKnown() == null) 0 else 1) +
+                (if (unitCostCurrency.asKnown() == null) 0 else 1) +
+                (if (unitOfMeasureCode.asKnown() == null) 0 else 1)
 
         /** Indicates the type of line item. */
         class DetailIndicator
@@ -2426,6 +2566,33 @@ private constructor(
              */
             fun asString(): String =
                 _value().asString() ?: throw IncreaseInvalidDataException("Value is not a String")
+
+            private var validated: Boolean = false
+
+            fun validate(): DetailIndicator = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
             override fun equals(other: Any?): Boolean {
                 if (this === other) {
@@ -2558,6 +2725,33 @@ private constructor(
             fun asString(): String =
                 _value().asString() ?: throw IncreaseInvalidDataException("Value is not a String")
 
+            private var validated: Boolean = false
+
+            fun validate(): DiscountTreatmentCode = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
             override fun equals(other: Any?): Boolean {
                 if (this === other) {
                     return true
@@ -2671,6 +2865,33 @@ private constructor(
          */
         fun asString(): String =
             _value().asString() ?: throw IncreaseInvalidDataException("Value is not a String")
+
+        private var validated: Boolean = false
+
+        fun validate(): Type = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
