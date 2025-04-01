@@ -1308,6 +1308,35 @@ private constructor(
             validated = true
         }
 
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int =
+            (if (accountNumberId.asKnown() == null) 0 else 1) +
+                (if (amount.asKnown() == null) 0 else 1) +
+                (if (messageToRecipient.asKnown() == null) 0 else 1) +
+                (if (recipientAccountNumber.asKnown() == null) 0 else 1) +
+                (if (recipientName.asKnown() == null) 0 else 1) +
+                (if (recipientRoutingNumber.asKnown() == null) 0 else 1) +
+                (if (originatorAddressLine1.asKnown() == null) 0 else 1) +
+                (if (originatorAddressLine2.asKnown() == null) 0 else 1) +
+                (if (originatorAddressLine3.asKnown() == null) 0 else 1) +
+                (if (originatorName.asKnown() == null) 0 else 1) +
+                (if (recipientAddressLine1.asKnown() == null) 0 else 1) +
+                (if (recipientAddressLine2.asKnown() == null) 0 else 1) +
+                (if (recipientAddressLine3.asKnown() == null) 0 else 1)
+
         override fun equals(other: Any?): Boolean {
             if (this === other) {
                 return true
