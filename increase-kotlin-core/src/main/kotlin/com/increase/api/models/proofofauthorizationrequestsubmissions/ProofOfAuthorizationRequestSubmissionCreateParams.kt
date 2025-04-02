@@ -270,6 +270,20 @@ private constructor(
                 proofOfAuthorizationRequestSubmissionCreateParams.additionalQueryParams.toBuilder()
         }
 
+        /**
+         * Sets the entire request body.
+         *
+         * This is generally only useful if you are already constructing the body separately.
+         * Otherwise, it's more convenient to use the top-level setters instead:
+         * - [authorizationTerms]
+         * - [authorizedAt]
+         * - [authorizerEmail]
+         * - [authorizerName]
+         * - [customerHasBeenOffboarded]
+         * - etc.
+         */
+        fun body(body: Body) = apply { this.body = body.toBuilder() }
+
         /** Terms of authorization. */
         fun authorizationTerms(authorizationTerms: String) = apply {
             body.authorizationTerms(authorizationTerms)
@@ -624,7 +638,7 @@ private constructor(
             )
     }
 
-    internal fun _body(): Body = body
+    fun _body(): Body = body
 
     override fun _headers(): Headers = additionalHeaders
 

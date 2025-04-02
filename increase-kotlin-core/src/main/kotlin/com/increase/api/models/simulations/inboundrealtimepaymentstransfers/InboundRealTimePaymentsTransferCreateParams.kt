@@ -178,6 +178,20 @@ private constructor(
                 inboundRealTimePaymentsTransferCreateParams.additionalQueryParams.toBuilder()
         }
 
+        /**
+         * Sets the entire request body.
+         *
+         * This is generally only useful if you are already constructing the body separately.
+         * Otherwise, it's more convenient to use the top-level setters instead:
+         * - [accountNumberId]
+         * - [amount]
+         * - [debtorAccountNumber]
+         * - [debtorName]
+         * - [debtorRoutingNumber]
+         * - etc.
+         */
+        fun body(body: Body) = apply { this.body = body.toBuilder() }
+
         /** The identifier of the Account Number the inbound Real-Time Payments Transfer is for. */
         fun accountNumberId(accountNumberId: String) = apply {
             body.accountNumberId(accountNumberId)
@@ -419,7 +433,7 @@ private constructor(
             )
     }
 
-    internal fun _body(): Body = body
+    fun _body(): Body = body
 
     override fun _headers(): Headers = additionalHeaders
 
