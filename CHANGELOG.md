@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.201.0 (2025-04-02)
+
+Full Changelog: [v0.200.0...v0.201.0](https://github.com/Increase/increase-kotlin/compare/v0.200.0...v0.201.0)
+
+### Features
+
+* **api:** api update ([#936](https://github.com/Increase/increase-kotlin/issues/936)) ([7ffd1e1](https://github.com/Increase/increase-kotlin/commit/7ffd1e176163389e6d8543f9c94905dbacb74cbf))
+* **client:** add enum validation method ([36e3b34](https://github.com/Increase/increase-kotlin/commit/36e3b345abf27600a9894895bd5110b6c1ff2f7c))
+* **client:** expose request body setter and getter ([#935](https://github.com/Increase/increase-kotlin/issues/935)) ([07d59fb](https://github.com/Increase/increase-kotlin/commit/07d59fbb9a6c5f7b93dc9072b61d333238daec97))
+* **client:** make union deserialization more robust ([#932](https://github.com/Increase/increase-kotlin/issues/932)) ([36e3b34](https://github.com/Increase/increase-kotlin/commit/36e3b345abf27600a9894895bd5110b6c1ff2f7c))
+
+
+### Chores
+
+* **client:** remove unnecessary json state from some query param classes ([36e3b34](https://github.com/Increase/increase-kotlin/commit/36e3b345abf27600a9894895bd5110b6c1ff2f7c))
+* **internal:** add invalid json deserialization tests ([36e3b34](https://github.com/Increase/increase-kotlin/commit/36e3b345abf27600a9894895bd5110b6c1ff2f7c))
+* **internal:** add json roundtripping tests ([36e3b34](https://github.com/Increase/increase-kotlin/commit/36e3b345abf27600a9894895bd5110b6c1ff2f7c))
+* **internal:** codegen related update ([#934](https://github.com/Increase/increase-kotlin/issues/934)) ([eb7bed1](https://github.com/Increase/increase-kotlin/commit/eb7bed19d1db0a0963251426203a18a21aab0669))
+
 ## 0.200.0 (2025-04-01)
 
 Full Changelog: [v0.199.0...v0.200.0](https://github.com/Increase/increase-kotlin/compare/v0.199.0...v0.200.0)
