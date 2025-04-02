@@ -114,6 +114,17 @@ private constructor(
         }
 
         /**
+         * Sets the entire request body.
+         *
+         * This is generally only useful if you are already constructing the body separately.
+         * Otherwise, it's more convenient to use the top-level setters instead:
+         * - [file]
+         * - [purpose]
+         * - [description]
+         */
+        fun body(body: Body) = apply { this.body = body.toBuilder() }
+
+        /**
          * The file contents. This should follow the specifications of
          * [RFC 7578](https://datatracker.ietf.org/doc/html/rfc7578) which defines file transfers
          * for the multipart/form-data protocol.
@@ -283,7 +294,7 @@ private constructor(
             FileCreateParams(body.build(), additionalHeaders.build(), additionalQueryParams.build())
     }
 
-    internal fun _body(): Map<String, MultipartField<*>> =
+    fun _body(): Map<String, MultipartField<*>> =
         mapOf("file" to _file(), "purpose" to _purpose(), "description" to _description())
             .toImmutable()
 

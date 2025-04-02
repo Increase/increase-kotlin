@@ -209,6 +209,20 @@ private constructor(
             additionalQueryParams = entityCreateParams.additionalQueryParams.toBuilder()
         }
 
+        /**
+         * Sets the entire request body.
+         *
+         * This is generally only useful if you are already constructing the body separately.
+         * Otherwise, it's more convenient to use the top-level setters instead:
+         * - [structure]
+         * - [corporation]
+         * - [description]
+         * - [governmentAuthority]
+         * - [joint]
+         * - etc.
+         */
+        fun body(body: Body) = apply { this.body = body.toBuilder() }
+
         /** The type of Entity to create. */
         fun structure(structure: Structure) = apply { body.structure(structure) }
 
@@ -495,7 +509,7 @@ private constructor(
             )
     }
 
-    internal fun _body(): Body = body
+    fun _body(): Body = body
 
     override fun _headers(): Headers = additionalHeaders
 

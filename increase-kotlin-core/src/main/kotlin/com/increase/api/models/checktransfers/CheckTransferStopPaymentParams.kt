@@ -88,6 +88,15 @@ private constructor(
             this.checkTransferId = checkTransferId
         }
 
+        /**
+         * Sets the entire request body.
+         *
+         * This is generally only useful if you are already constructing the body separately.
+         * Otherwise, it's more convenient to use the top-level setters instead:
+         * - [reason]
+         */
+        fun body(body: Body) = apply { this.body = body.toBuilder() }
+
         /** The reason why this transfer should be stopped. */
         fun reason(reason: Reason) = apply { body.reason(reason) }
 
@@ -237,7 +246,7 @@ private constructor(
             )
     }
 
-    internal fun _body(): Body = body
+    fun _body(): Body = body
 
     fun _pathParam(index: Int): String =
         when (index) {
