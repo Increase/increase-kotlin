@@ -115,6 +115,17 @@ private constructor(
         /** The identifier of the Lockbox. */
         fun lockboxId(lockboxId: String) = apply { this.lockboxId = lockboxId }
 
+        /**
+         * Sets the entire request body.
+         *
+         * This is generally only useful if you are already constructing the body separately.
+         * Otherwise, it's more convenient to use the top-level setters instead:
+         * - [description]
+         * - [recipientName]
+         * - [status]
+         */
+        fun body(body: Body) = apply { this.body = body.toBuilder() }
+
         /** The description you choose for the Lockbox. */
         fun description(description: String) = apply { body.description(description) }
 
@@ -290,7 +301,7 @@ private constructor(
             )
     }
 
-    internal fun _body(): Body = body
+    fun _body(): Body = body
 
     fun _pathParam(index: Int): String =
         when (index) {

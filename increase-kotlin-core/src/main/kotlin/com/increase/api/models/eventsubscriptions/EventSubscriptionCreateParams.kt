@@ -127,6 +127,18 @@ private constructor(
             additionalQueryParams = eventSubscriptionCreateParams.additionalQueryParams.toBuilder()
         }
 
+        /**
+         * Sets the entire request body.
+         *
+         * This is generally only useful if you are already constructing the body separately.
+         * Otherwise, it's more convenient to use the top-level setters instead:
+         * - [url]
+         * - [oauthConnectionId]
+         * - [selectedEventCategory]
+         * - [sharedSecret]
+         */
+        fun body(body: Body) = apply { this.body = body.toBuilder() }
+
         /** The URL you'd like us to send webhooks to. */
         fun url(url: String) = apply { body.url(url) }
 
@@ -330,7 +342,7 @@ private constructor(
             )
     }
 
-    internal fun _body(): Body = body
+    fun _body(): Body = body
 
     override fun _headers(): Headers = additionalHeaders
 

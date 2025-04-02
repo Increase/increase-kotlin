@@ -162,6 +162,20 @@ private constructor(
             additionalQueryParams = exportCreateParams.additionalQueryParams.toBuilder()
         }
 
+        /**
+         * Sets the entire request body.
+         *
+         * This is generally only useful if you are already constructing the body separately.
+         * Otherwise, it's more convenient to use the top-level setters instead:
+         * - [category]
+         * - [accountStatementOfx]
+         * - [balanceCsv]
+         * - [bookkeepingAccountBalanceCsv]
+         * - [entityCsv]
+         * - etc.
+         */
+        fun body(body: Body) = apply { this.body = body.toBuilder() }
+
         /** The type of Export to create. */
         fun category(category: Category) = apply { body.category(category) }
 
@@ -392,7 +406,7 @@ private constructor(
             )
     }
 
-    internal fun _body(): Body = body
+    fun _body(): Body = body
 
     override fun _headers(): Headers = additionalHeaders
 
