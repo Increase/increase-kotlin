@@ -3007,7 +3007,7 @@ private constructor(
                         /** The one-time code was sent via email. */
                         val EMAIL = of("email")
 
-                        /** The one-time code was not successfully delievered. */
+                        /** The one-time code was not successfully delivered. */
                         val NONE_AVAILABLE = of("none_available")
 
                         fun of(value: String) = VerificationMethod(JsonField.of(value))
@@ -3019,7 +3019,7 @@ private constructor(
                         TEXT_MESSAGE,
                         /** The one-time code was sent via email. */
                         EMAIL,
-                        /** The one-time code was not successfully delievered. */
+                        /** The one-time code was not successfully delivered. */
                         NONE_AVAILABLE,
                     }
 
@@ -3039,7 +3039,7 @@ private constructor(
                         TEXT_MESSAGE,
                         /** The one-time code was sent via email. */
                         EMAIL,
-                        /** The one-time code was not successfully delievered. */
+                        /** The one-time code was not successfully delivered. */
                         NONE_AVAILABLE,
                         /**
                          * An enum member indicating that [VerificationMethod] was instantiated with
@@ -8651,7 +8651,7 @@ private constructor(
 
                         companion object {
 
-                            /** No adress was provided in the authorization request. */
+                            /** No address was provided in the authorization request. */
                             val NOT_CHECKED = of("not_checked")
 
                             /** Postal code matches, but the street address was not verified. */
@@ -8677,7 +8677,7 @@ private constructor(
 
                         /** An enum containing [Result]'s known values. */
                         enum class Known {
-                            /** No adress was provided in the authorization request. */
+                            /** No address was provided in the authorization request. */
                             NOT_CHECKED,
                             /** Postal code matches, but the street address was not verified. */
                             POSTAL_CODE_MATCH_ADDRESS_NOT_CHECKED,
@@ -8703,7 +8703,7 @@ private constructor(
                          * - It was constructed with an arbitrary value using the [of] method.
                          */
                         enum class Value {
-                            /** No adress was provided in the authorization request. */
+                            /** No address was provided in the authorization request. */
                             NOT_CHECKED,
                             /** Postal code matches, but the street address was not verified. */
                             POSTAL_CODE_MATCH_ADDRESS_NOT_CHECKED,
@@ -14941,7 +14941,7 @@ private constructor(
 
                         companion object {
 
-                            /** No adress was provided in the authorization request. */
+                            /** No address was provided in the authorization request. */
                             val NOT_CHECKED = of("not_checked")
 
                             /** Postal code matches, but the street address was not verified. */
@@ -14967,7 +14967,7 @@ private constructor(
 
                         /** An enum containing [Result]'s known values. */
                         enum class Known {
-                            /** No adress was provided in the authorization request. */
+                            /** No address was provided in the authorization request. */
                             NOT_CHECKED,
                             /** Postal code matches, but the street address was not verified. */
                             POSTAL_CODE_MATCH_ADDRESS_NOT_CHECKED,
@@ -14993,7 +14993,7 @@ private constructor(
                          * - It was constructed with an arbitrary value using the [of] method.
                          */
                         enum class Value {
-                            /** No adress was provided in the authorization request. */
+                            /** No address was provided in the authorization request. */
                             NOT_CHECKED,
                             /** Postal code matches, but the street address was not verified. */
                             POSTAL_CODE_MATCH_ADDRESS_NOT_CHECKED,
@@ -41427,7 +41427,7 @@ private constructor(
 
                         companion object {
 
-                            /** No adress was provided in the authorization request. */
+                            /** No address was provided in the authorization request. */
                             val NOT_CHECKED = of("not_checked")
 
                             /** Postal code matches, but the street address was not verified. */
@@ -41453,7 +41453,7 @@ private constructor(
 
                         /** An enum containing [Result]'s known values. */
                         enum class Known {
-                            /** No adress was provided in the authorization request. */
+                            /** No address was provided in the authorization request. */
                             NOT_CHECKED,
                             /** Postal code matches, but the street address was not verified. */
                             POSTAL_CODE_MATCH_ADDRESS_NOT_CHECKED,
@@ -41479,7 +41479,7 @@ private constructor(
                          * - It was constructed with an arbitrary value using the [of] method.
                          */
                         enum class Value {
-                            /** No adress was provided in the authorization request. */
+                            /** No address was provided in the authorization request. */
                             NOT_CHECKED,
                             /** Postal code matches, but the street address was not verified. */
                             POSTAL_CODE_MATCH_ADDRESS_NOT_CHECKED,
