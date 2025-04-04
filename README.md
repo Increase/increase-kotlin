@@ -505,6 +505,19 @@ val complexValue: JsonValue = JsonValue.from(mapOf(
 ))
 ```
 
+Normally a `Builder` class's `build` method will throw [`IllegalStateException`](https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalStateException.html) if any required parameter or property is unset.
+
+To forcibly omit a required parameter or property, pass [`JsonMissing`](increase-kotlin-core/src/main/kotlin/com/increase/api/core/Values.kt):
+
+```kotlin
+import com.increase.api.core.JsonMissing
+import com.increase.api.models.accounts.AccountCreateParams
+
+val params: AccountCreateParams = AccountCreateParams.builder()
+    .name(JsonMissing.of())
+    .build()
+```
+
 ### Response properties
 
 To access undocumented response properties, call the `_additionalProperties()` method:
