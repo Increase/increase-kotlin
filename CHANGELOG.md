@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.202.1 (2025-04-04)
+
+Full Changelog: [v0.202.0...v0.202.1](https://github.com/Increase/increase-kotlin/compare/v0.202.0...v0.202.1)
+
+### Documentation
+
+* add comments to `JsonField` classes ([#942](https://github.com/Increase/increase-kotlin/issues/942)) ([4da9d34](https://github.com/Increase/increase-kotlin/commit/4da9d347151e49b6c1b0e75a54ec6c4e6bcb1049))
+* document how to forcibly omit required field ([abdab25](https://github.com/Increase/increase-kotlin/commit/abdab25be3958f0fae76d390cde5587cf0f227d1))
+* swap examples used in readme ([#944](https://github.com/Increase/increase-kotlin/issues/944)) ([abdab25](https://github.com/Increase/increase-kotlin/commit/abdab25be3958f0fae76d390cde5587cf0f227d1))
+
 ## 0.202.0 (2025-04-04)
 
 Full Changelog: [v0.201.0...v0.202.0](https://github.com/Increase/increase-kotlin/compare/v0.201.0...v0.202.0)
