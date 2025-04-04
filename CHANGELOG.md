@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.202.0 (2025-04-04)
+
+Full Changelog: [v0.201.0...v0.202.0](https://github.com/Increase/increase-kotlin/compare/v0.201.0...v0.202.0)
+
+### Features
+
+* **api:** api update ([#940](https://github.com/Increase/increase-kotlin/issues/940)) ([6f9c98b](https://github.com/Increase/increase-kotlin/commit/6f9c98b04b3b4136aef129b21bffa2c3c811b403))
+
+
+### Performance Improvements
+
+* **client:** cached parsed type in `HttpResponseFor` ([#938](https://github.com/Increase/increase-kotlin/issues/938)) ([0bcea8a](https://github.com/Increase/increase-kotlin/commit/0bcea8a828bf62b49ff9df285c636f426b34cfac))
+
 ## 0.201.0 (2025-04-02)
 
 Full Changelog: [v0.200.0...v0.201.0](https://github.com/Increase/increase-kotlin/compare/v0.200.0...v0.201.0)
