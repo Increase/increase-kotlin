@@ -6431,7 +6431,7 @@ private constructor(
 
                     companion object {
 
-                        /** No adress was provided in the authorization request. */
+                        /** No address was provided in the authorization request. */
                         val NOT_CHECKED = of("not_checked")
 
                         /** Postal code matches, but the street address was not verified. */
@@ -6457,7 +6457,7 @@ private constructor(
 
                     /** An enum containing [Result]'s known values. */
                     enum class Known {
-                        /** No adress was provided in the authorization request. */
+                        /** No address was provided in the authorization request. */
                         NOT_CHECKED,
                         /** Postal code matches, but the street address was not verified. */
                         POSTAL_CODE_MATCH_ADDRESS_NOT_CHECKED,
@@ -6481,7 +6481,7 @@ private constructor(
                      * - It was constructed with an arbitrary value using the [of] method.
                      */
                     enum class Value {
-                        /** No adress was provided in the authorization request. */
+                        /** No address was provided in the authorization request. */
                         NOT_CHECKED,
                         /** Postal code matches, but the street address was not verified. */
                         POSTAL_CODE_MATCH_ADDRESS_NOT_CHECKED,
