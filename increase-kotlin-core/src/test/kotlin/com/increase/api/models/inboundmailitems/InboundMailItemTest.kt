@@ -19,8 +19,8 @@ internal class InboundMailItemTest {
                 .fileId("file_makxrc67oh9l6sg7w9yc")
                 .lockboxId("lockbox_3xt21ok13q19advds4t5")
                 .recipientName("Ian Crease")
-                .rejectionReason(InboundMailItem.RejectionReason.NO_MATCHING_LOCKBOX)
-                .status(InboundMailItem.Status.PENDING)
+                .rejectionReason(null)
+                .status(InboundMailItem.Status.PROCESSED)
                 .type(InboundMailItem.Type.INBOUND_MAIL_ITEM)
                 .build()
 
@@ -30,9 +30,8 @@ internal class InboundMailItemTest {
         assertThat(inboundMailItem.fileId()).isEqualTo("file_makxrc67oh9l6sg7w9yc")
         assertThat(inboundMailItem.lockboxId()).isEqualTo("lockbox_3xt21ok13q19advds4t5")
         assertThat(inboundMailItem.recipientName()).isEqualTo("Ian Crease")
-        assertThat(inboundMailItem.rejectionReason())
-            .isEqualTo(InboundMailItem.RejectionReason.NO_MATCHING_LOCKBOX)
-        assertThat(inboundMailItem.status()).isEqualTo(InboundMailItem.Status.PENDING)
+        assertThat(inboundMailItem.rejectionReason()).isNull()
+        assertThat(inboundMailItem.status()).isEqualTo(InboundMailItem.Status.PROCESSED)
         assertThat(inboundMailItem.type()).isEqualTo(InboundMailItem.Type.INBOUND_MAIL_ITEM)
     }
 
@@ -46,8 +45,8 @@ internal class InboundMailItemTest {
                 .fileId("file_makxrc67oh9l6sg7w9yc")
                 .lockboxId("lockbox_3xt21ok13q19advds4t5")
                 .recipientName("Ian Crease")
-                .rejectionReason(InboundMailItem.RejectionReason.NO_MATCHING_LOCKBOX)
-                .status(InboundMailItem.Status.PENDING)
+                .rejectionReason(null)
+                .status(InboundMailItem.Status.PROCESSED)
                 .type(InboundMailItem.Type.INBOUND_MAIL_ITEM)
                 .build()
 
