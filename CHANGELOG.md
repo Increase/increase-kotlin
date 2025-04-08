@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.203.0 (2025-04-08)
+
+Full Changelog: [v0.202.0...v0.203.0](https://github.com/Increase/increase-kotlin/compare/v0.202.0...v0.203.0)
+
+### Features
+
+* **api:** api update ([#946](https://github.com/Increase/increase-kotlin/issues/946)) ([94e6727](https://github.com/Increase/increase-kotlin/commit/94e6727e3a6555dd6919c35a291bcc384c40a6e7))
+
+
+### Chores
+
+* **tests:** improve enum examples ([#945](https://github.com/Increase/increase-kotlin/issues/945)) ([bd83a70](https://github.com/Increase/increase-kotlin/commit/bd83a7059f94ae9bf5a217365309eec7b395fe6d))
+
+
+### Documentation
+
+* add comments to `JsonField` classes ([#942](https://github.com/Increase/increase-kotlin/issues/942)) ([4da9d34](https://github.com/Increase/increase-kotlin/commit/4da9d347151e49b6c1b0e75a54ec6c4e6bcb1049))
+* document how to forcibly omit required field ([abdab25](https://github.com/Increase/increase-kotlin/commit/abdab25be3958f0fae76d390cde5587cf0f227d1))
+* swap examples used in readme ([#944](https://github.com/Increase/increase-kotlin/issues/944)) ([abdab25](https://github.com/Increase/increase-kotlin/commit/abdab25be3958f0fae76d390cde5587cf0f227d1))
+
 ## 0.202.0 (2025-04-04)
 
 Full Changelog: [v0.201.0...v0.202.0](https://github.com/Increase/increase-kotlin/compare/v0.201.0...v0.202.0)
