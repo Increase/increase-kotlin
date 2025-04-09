@@ -2,19 +2,17 @@
 
 package com.increase.api.models.cardpayments
 
+import com.increase.api.core.checkRequired
 import com.increase.api.services.blocking.CardPaymentService
 import java.util.Objects
 
-/** List Card Payments */
+/** @see [CardPaymentService.list] */
 class CardPaymentListPage
 private constructor(
-    private val cardPaymentsService: CardPaymentService,
+    private val service: CardPaymentService,
     private val params: CardPaymentListParams,
     private val response: CardPaymentListPageResponse,
 ) {
-
-    /** Returns the response that this page was parsed from. */
-    fun response(): CardPaymentListPageResponse = response
 
     /**
      * Delegates to [CardPaymentListPageResponse], but gracefully handles missing data.
@@ -30,19 +28,6 @@ private constructor(
      */
     fun nextCursor(): String? = response._nextCursor().getNullable("next_cursor")
 
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is CardPaymentListPage && cardPaymentsService == other.cardPaymentsService && params == other.params && response == other.response /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(cardPaymentsService, params, response) /* spotless:on */
-
-    override fun toString() =
-        "CardPaymentListPage{cardPaymentsService=$cardPaymentsService, params=$params, response=$response}"
-
     fun hasNextPage(): Boolean = data().isNotEmpty() && nextCursor() != null
 
     fun getNextPageParams(): CardPaymentListParams? {
@@ -53,19 +38,74 @@ private constructor(
         return params.toBuilder().apply { nextCursor()?.let { cursor(it) } }.build()
     }
 
-    fun getNextPage(): CardPaymentListPage? {
-        return getNextPageParams()?.let { cardPaymentsService.list(it) }
-    }
+    fun getNextPage(): CardPaymentListPage? = getNextPageParams()?.let { service.list(it) }
 
     fun autoPager(): AutoPager = AutoPager(this)
 
+    /** The parameters that were used to request this page. */
+    fun params(): CardPaymentListParams = params
+
+    /** The response that this page was parsed from. */
+    fun response(): CardPaymentListPageResponse = response
+
+    fun toBuilder() = Builder().from(this)
+
     companion object {
 
-        fun of(
-            cardPaymentsService: CardPaymentService,
-            params: CardPaymentListParams,
-            response: CardPaymentListPageResponse,
-        ) = CardPaymentListPage(cardPaymentsService, params, response)
+        /**
+         * Returns a mutable builder for constructing an instance of [CardPaymentListPage].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .service()
+         * .params()
+         * .response()
+         * ```
+         */
+        fun builder() = Builder()
+    }
+
+    /** A builder for [CardPaymentListPage]. */
+    class Builder internal constructor() {
+
+        private var service: CardPaymentService? = null
+        private var params: CardPaymentListParams? = null
+        private var response: CardPaymentListPageResponse? = null
+
+        internal fun from(cardPaymentListPage: CardPaymentListPage) = apply {
+            service = cardPaymentListPage.service
+            params = cardPaymentListPage.params
+            response = cardPaymentListPage.response
+        }
+
+        fun service(service: CardPaymentService) = apply { this.service = service }
+
+        /** The parameters that were used to request this page. */
+        fun params(params: CardPaymentListParams) = apply { this.params = params }
+
+        /** The response that this page was parsed from. */
+        fun response(response: CardPaymentListPageResponse) = apply { this.response = response }
+
+        /**
+         * Returns an immutable instance of [CardPaymentListPage].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .service()
+         * .params()
+         * .response()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
+        fun build(): CardPaymentListPage =
+            CardPaymentListPage(
+                checkRequired("service", service),
+                checkRequired("params", params),
+                checkRequired("response", response),
+            )
     }
 
     class AutoPager(private val firstPage: CardPaymentListPage) : Sequence<CardPayment> {
@@ -82,4 +122,17 @@ private constructor(
             }
         }
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is CardPaymentListPage && service == other.service && params == other.params && response == other.response /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(service, params, response) /* spotless:on */
+
+    override fun toString() =
+        "CardPaymentListPage{service=$service, params=$params, response=$response}"
 }

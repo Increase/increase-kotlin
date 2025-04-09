@@ -2,21 +2,19 @@
 
 package com.increase.api.models.lockboxes
 
+import com.increase.api.core.checkRequired
 import com.increase.api.services.async.LockboxServiceAsync
 import java.util.Objects
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 
-/** List Lockboxes */
+/** @see [LockboxServiceAsync.list] */
 class LockboxListPageAsync
 private constructor(
-    private val lockboxesService: LockboxServiceAsync,
+    private val service: LockboxServiceAsync,
     private val params: LockboxListParams,
     private val response: LockboxListPageResponse,
 ) {
-
-    /** Returns the response that this page was parsed from. */
-    fun response(): LockboxListPageResponse = response
 
     /**
      * Delegates to [LockboxListPageResponse], but gracefully handles missing data.
@@ -32,19 +30,6 @@ private constructor(
      */
     fun nextCursor(): String? = response._nextCursor().getNullable("next_cursor")
 
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is LockboxListPageAsync && lockboxesService == other.lockboxesService && params == other.params && response == other.response /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(lockboxesService, params, response) /* spotless:on */
-
-    override fun toString() =
-        "LockboxListPageAsync{lockboxesService=$lockboxesService, params=$params, response=$response}"
-
     fun hasNextPage(): Boolean = data().isNotEmpty() && nextCursor() != null
 
     fun getNextPageParams(): LockboxListParams? {
@@ -55,19 +40,74 @@ private constructor(
         return params.toBuilder().apply { nextCursor()?.let { cursor(it) } }.build()
     }
 
-    suspend fun getNextPage(): LockboxListPageAsync? {
-        return getNextPageParams()?.let { lockboxesService.list(it) }
-    }
+    suspend fun getNextPage(): LockboxListPageAsync? = getNextPageParams()?.let { service.list(it) }
 
     fun autoPager(): AutoPager = AutoPager(this)
 
+    /** The parameters that were used to request this page. */
+    fun params(): LockboxListParams = params
+
+    /** The response that this page was parsed from. */
+    fun response(): LockboxListPageResponse = response
+
+    fun toBuilder() = Builder().from(this)
+
     companion object {
 
-        fun of(
-            lockboxesService: LockboxServiceAsync,
-            params: LockboxListParams,
-            response: LockboxListPageResponse,
-        ) = LockboxListPageAsync(lockboxesService, params, response)
+        /**
+         * Returns a mutable builder for constructing an instance of [LockboxListPageAsync].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .service()
+         * .params()
+         * .response()
+         * ```
+         */
+        fun builder() = Builder()
+    }
+
+    /** A builder for [LockboxListPageAsync]. */
+    class Builder internal constructor() {
+
+        private var service: LockboxServiceAsync? = null
+        private var params: LockboxListParams? = null
+        private var response: LockboxListPageResponse? = null
+
+        internal fun from(lockboxListPageAsync: LockboxListPageAsync) = apply {
+            service = lockboxListPageAsync.service
+            params = lockboxListPageAsync.params
+            response = lockboxListPageAsync.response
+        }
+
+        fun service(service: LockboxServiceAsync) = apply { this.service = service }
+
+        /** The parameters that were used to request this page. */
+        fun params(params: LockboxListParams) = apply { this.params = params }
+
+        /** The response that this page was parsed from. */
+        fun response(response: LockboxListPageResponse) = apply { this.response = response }
+
+        /**
+         * Returns an immutable instance of [LockboxListPageAsync].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .service()
+         * .params()
+         * .response()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
+        fun build(): LockboxListPageAsync =
+            LockboxListPageAsync(
+                checkRequired("service", service),
+                checkRequired("params", params),
+                checkRequired("response", response),
+            )
     }
 
     class AutoPager(private val firstPage: LockboxListPageAsync) : Flow<Lockbox> {
@@ -84,4 +124,17 @@ private constructor(
             }
         }
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is LockboxListPageAsync && service == other.service && params == other.params && response == other.response /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(service, params, response) /* spotless:on */
+
+    override fun toString() =
+        "LockboxListPageAsync{service=$service, params=$params, response=$response}"
 }

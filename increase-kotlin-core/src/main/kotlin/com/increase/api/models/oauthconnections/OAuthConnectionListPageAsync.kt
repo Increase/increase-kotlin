@@ -2,21 +2,19 @@
 
 package com.increase.api.models.oauthconnections
 
+import com.increase.api.core.checkRequired
 import com.increase.api.services.async.OAuthConnectionServiceAsync
 import java.util.Objects
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 
-/** List OAuth Connections */
+/** @see [OAuthConnectionServiceAsync.list] */
 class OAuthConnectionListPageAsync
 private constructor(
-    private val oauthConnectionsService: OAuthConnectionServiceAsync,
+    private val service: OAuthConnectionServiceAsync,
     private val params: OAuthConnectionListParams,
     private val response: OAuthConnectionListPageResponse,
 ) {
-
-    /** Returns the response that this page was parsed from. */
-    fun response(): OAuthConnectionListPageResponse = response
 
     /**
      * Delegates to [OAuthConnectionListPageResponse], but gracefully handles missing data.
@@ -32,19 +30,6 @@ private constructor(
      */
     fun nextCursor(): String? = response._nextCursor().getNullable("next_cursor")
 
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is OAuthConnectionListPageAsync && oauthConnectionsService == other.oauthConnectionsService && params == other.params && response == other.response /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(oauthConnectionsService, params, response) /* spotless:on */
-
-    override fun toString() =
-        "OAuthConnectionListPageAsync{oauthConnectionsService=$oauthConnectionsService, params=$params, response=$response}"
-
     fun hasNextPage(): Boolean = data().isNotEmpty() && nextCursor() != null
 
     fun getNextPageParams(): OAuthConnectionListParams? {
@@ -55,19 +40,75 @@ private constructor(
         return params.toBuilder().apply { nextCursor()?.let { cursor(it) } }.build()
     }
 
-    suspend fun getNextPage(): OAuthConnectionListPageAsync? {
-        return getNextPageParams()?.let { oauthConnectionsService.list(it) }
-    }
+    suspend fun getNextPage(): OAuthConnectionListPageAsync? =
+        getNextPageParams()?.let { service.list(it) }
 
     fun autoPager(): AutoPager = AutoPager(this)
 
+    /** The parameters that were used to request this page. */
+    fun params(): OAuthConnectionListParams = params
+
+    /** The response that this page was parsed from. */
+    fun response(): OAuthConnectionListPageResponse = response
+
+    fun toBuilder() = Builder().from(this)
+
     companion object {
 
-        fun of(
-            oauthConnectionsService: OAuthConnectionServiceAsync,
-            params: OAuthConnectionListParams,
-            response: OAuthConnectionListPageResponse,
-        ) = OAuthConnectionListPageAsync(oauthConnectionsService, params, response)
+        /**
+         * Returns a mutable builder for constructing an instance of [OAuthConnectionListPageAsync].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .service()
+         * .params()
+         * .response()
+         * ```
+         */
+        fun builder() = Builder()
+    }
+
+    /** A builder for [OAuthConnectionListPageAsync]. */
+    class Builder internal constructor() {
+
+        private var service: OAuthConnectionServiceAsync? = null
+        private var params: OAuthConnectionListParams? = null
+        private var response: OAuthConnectionListPageResponse? = null
+
+        internal fun from(oauthConnectionListPageAsync: OAuthConnectionListPageAsync) = apply {
+            service = oauthConnectionListPageAsync.service
+            params = oauthConnectionListPageAsync.params
+            response = oauthConnectionListPageAsync.response
+        }
+
+        fun service(service: OAuthConnectionServiceAsync) = apply { this.service = service }
+
+        /** The parameters that were used to request this page. */
+        fun params(params: OAuthConnectionListParams) = apply { this.params = params }
+
+        /** The response that this page was parsed from. */
+        fun response(response: OAuthConnectionListPageResponse) = apply { this.response = response }
+
+        /**
+         * Returns an immutable instance of [OAuthConnectionListPageAsync].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .service()
+         * .params()
+         * .response()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
+        fun build(): OAuthConnectionListPageAsync =
+            OAuthConnectionListPageAsync(
+                checkRequired("service", service),
+                checkRequired("params", params),
+                checkRequired("response", response),
+            )
     }
 
     class AutoPager(private val firstPage: OAuthConnectionListPageAsync) : Flow<OAuthConnection> {
@@ -84,4 +125,17 @@ private constructor(
             }
         }
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is OAuthConnectionListPageAsync && service == other.service && params == other.params && response == other.response /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(service, params, response) /* spotless:on */
+
+    override fun toString() =
+        "OAuthConnectionListPageAsync{service=$service, params=$params, response=$response}"
 }

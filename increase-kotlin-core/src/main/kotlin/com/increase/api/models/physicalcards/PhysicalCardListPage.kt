@@ -2,19 +2,17 @@
 
 package com.increase.api.models.physicalcards
 
+import com.increase.api.core.checkRequired
 import com.increase.api.services.blocking.PhysicalCardService
 import java.util.Objects
 
-/** List Physical Cards */
+/** @see [PhysicalCardService.list] */
 class PhysicalCardListPage
 private constructor(
-    private val physicalCardsService: PhysicalCardService,
+    private val service: PhysicalCardService,
     private val params: PhysicalCardListParams,
     private val response: PhysicalCardListPageResponse,
 ) {
-
-    /** Returns the response that this page was parsed from. */
-    fun response(): PhysicalCardListPageResponse = response
 
     /**
      * Delegates to [PhysicalCardListPageResponse], but gracefully handles missing data.
@@ -30,19 +28,6 @@ private constructor(
      */
     fun nextCursor(): String? = response._nextCursor().getNullable("next_cursor")
 
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is PhysicalCardListPage && physicalCardsService == other.physicalCardsService && params == other.params && response == other.response /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(physicalCardsService, params, response) /* spotless:on */
-
-    override fun toString() =
-        "PhysicalCardListPage{physicalCardsService=$physicalCardsService, params=$params, response=$response}"
-
     fun hasNextPage(): Boolean = data().isNotEmpty() && nextCursor() != null
 
     fun getNextPageParams(): PhysicalCardListParams? {
@@ -53,19 +38,74 @@ private constructor(
         return params.toBuilder().apply { nextCursor()?.let { cursor(it) } }.build()
     }
 
-    fun getNextPage(): PhysicalCardListPage? {
-        return getNextPageParams()?.let { physicalCardsService.list(it) }
-    }
+    fun getNextPage(): PhysicalCardListPage? = getNextPageParams()?.let { service.list(it) }
 
     fun autoPager(): AutoPager = AutoPager(this)
 
+    /** The parameters that were used to request this page. */
+    fun params(): PhysicalCardListParams = params
+
+    /** The response that this page was parsed from. */
+    fun response(): PhysicalCardListPageResponse = response
+
+    fun toBuilder() = Builder().from(this)
+
     companion object {
 
-        fun of(
-            physicalCardsService: PhysicalCardService,
-            params: PhysicalCardListParams,
-            response: PhysicalCardListPageResponse,
-        ) = PhysicalCardListPage(physicalCardsService, params, response)
+        /**
+         * Returns a mutable builder for constructing an instance of [PhysicalCardListPage].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .service()
+         * .params()
+         * .response()
+         * ```
+         */
+        fun builder() = Builder()
+    }
+
+    /** A builder for [PhysicalCardListPage]. */
+    class Builder internal constructor() {
+
+        private var service: PhysicalCardService? = null
+        private var params: PhysicalCardListParams? = null
+        private var response: PhysicalCardListPageResponse? = null
+
+        internal fun from(physicalCardListPage: PhysicalCardListPage) = apply {
+            service = physicalCardListPage.service
+            params = physicalCardListPage.params
+            response = physicalCardListPage.response
+        }
+
+        fun service(service: PhysicalCardService) = apply { this.service = service }
+
+        /** The parameters that were used to request this page. */
+        fun params(params: PhysicalCardListParams) = apply { this.params = params }
+
+        /** The response that this page was parsed from. */
+        fun response(response: PhysicalCardListPageResponse) = apply { this.response = response }
+
+        /**
+         * Returns an immutable instance of [PhysicalCardListPage].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .service()
+         * .params()
+         * .response()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
+        fun build(): PhysicalCardListPage =
+            PhysicalCardListPage(
+                checkRequired("service", service),
+                checkRequired("params", params),
+                checkRequired("response", response),
+            )
     }
 
     class AutoPager(private val firstPage: PhysicalCardListPage) : Sequence<PhysicalCard> {
@@ -82,4 +122,17 @@ private constructor(
             }
         }
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is PhysicalCardListPage && service == other.service && params == other.params && response == other.response /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(service, params, response) /* spotless:on */
+
+    override fun toString() =
+        "PhysicalCardListPage{service=$service, params=$params, response=$response}"
 }

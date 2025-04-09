@@ -99,7 +99,11 @@ class ProgramServiceAsyncImpl internal constructor(private val clientOptions: Cl
                         }
                     }
                     .let {
-                        ProgramListPageAsync.of(ProgramServiceAsyncImpl(clientOptions), params, it)
+                        ProgramListPageAsync.builder()
+                            .service(ProgramServiceAsyncImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

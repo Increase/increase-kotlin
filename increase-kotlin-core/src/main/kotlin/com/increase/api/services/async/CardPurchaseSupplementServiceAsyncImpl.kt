@@ -102,11 +102,11 @@ internal constructor(private val clientOptions: ClientOptions) :
                         }
                     }
                     .let {
-                        CardPurchaseSupplementListPageAsync.of(
-                            CardPurchaseSupplementServiceAsyncImpl(clientOptions),
-                            params,
-                            it,
-                        )
+                        CardPurchaseSupplementListPageAsync.builder()
+                            .service(CardPurchaseSupplementServiceAsyncImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

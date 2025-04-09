@@ -2,21 +2,19 @@
 
 package com.increase.api.models.inboundwiredrawdownrequests
 
+import com.increase.api.core.checkRequired
 import com.increase.api.services.async.InboundWireDrawdownRequestServiceAsync
 import java.util.Objects
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 
-/** List Inbound Wire Drawdown Requests */
+/** @see [InboundWireDrawdownRequestServiceAsync.list] */
 class InboundWireDrawdownRequestListPageAsync
 private constructor(
-    private val inboundWireDrawdownRequestsService: InboundWireDrawdownRequestServiceAsync,
+    private val service: InboundWireDrawdownRequestServiceAsync,
     private val params: InboundWireDrawdownRequestListParams,
     private val response: InboundWireDrawdownRequestListPageResponse,
 ) {
-
-    /** Returns the response that this page was parsed from. */
-    fun response(): InboundWireDrawdownRequestListPageResponse = response
 
     /**
      * Delegates to [InboundWireDrawdownRequestListPageResponse], but gracefully handles missing
@@ -35,19 +33,6 @@ private constructor(
      */
     fun nextCursor(): String? = response._nextCursor().getNullable("next_cursor")
 
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is InboundWireDrawdownRequestListPageAsync && inboundWireDrawdownRequestsService == other.inboundWireDrawdownRequestsService && params == other.params && response == other.response /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(inboundWireDrawdownRequestsService, params, response) /* spotless:on */
-
-    override fun toString() =
-        "InboundWireDrawdownRequestListPageAsync{inboundWireDrawdownRequestsService=$inboundWireDrawdownRequestsService, params=$params, response=$response}"
-
     fun hasNextPage(): Boolean = data().isNotEmpty() && nextCursor() != null
 
     fun getNextPageParams(): InboundWireDrawdownRequestListParams? {
@@ -58,23 +43,81 @@ private constructor(
         return params.toBuilder().apply { nextCursor()?.let { cursor(it) } }.build()
     }
 
-    suspend fun getNextPage(): InboundWireDrawdownRequestListPageAsync? {
-        return getNextPageParams()?.let { inboundWireDrawdownRequestsService.list(it) }
-    }
+    suspend fun getNextPage(): InboundWireDrawdownRequestListPageAsync? =
+        getNextPageParams()?.let { service.list(it) }
 
     fun autoPager(): AutoPager = AutoPager(this)
 
+    /** The parameters that were used to request this page. */
+    fun params(): InboundWireDrawdownRequestListParams = params
+
+    /** The response that this page was parsed from. */
+    fun response(): InboundWireDrawdownRequestListPageResponse = response
+
+    fun toBuilder() = Builder().from(this)
+
     companion object {
 
-        fun of(
-            inboundWireDrawdownRequestsService: InboundWireDrawdownRequestServiceAsync,
-            params: InboundWireDrawdownRequestListParams,
-            response: InboundWireDrawdownRequestListPageResponse,
-        ) =
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [InboundWireDrawdownRequestListPageAsync].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .service()
+         * .params()
+         * .response()
+         * ```
+         */
+        fun builder() = Builder()
+    }
+
+    /** A builder for [InboundWireDrawdownRequestListPageAsync]. */
+    class Builder internal constructor() {
+
+        private var service: InboundWireDrawdownRequestServiceAsync? = null
+        private var params: InboundWireDrawdownRequestListParams? = null
+        private var response: InboundWireDrawdownRequestListPageResponse? = null
+
+        internal fun from(
+            inboundWireDrawdownRequestListPageAsync: InboundWireDrawdownRequestListPageAsync
+        ) = apply {
+            service = inboundWireDrawdownRequestListPageAsync.service
+            params = inboundWireDrawdownRequestListPageAsync.params
+            response = inboundWireDrawdownRequestListPageAsync.response
+        }
+
+        fun service(service: InboundWireDrawdownRequestServiceAsync) = apply {
+            this.service = service
+        }
+
+        /** The parameters that were used to request this page. */
+        fun params(params: InboundWireDrawdownRequestListParams) = apply { this.params = params }
+
+        /** The response that this page was parsed from. */
+        fun response(response: InboundWireDrawdownRequestListPageResponse) = apply {
+            this.response = response
+        }
+
+        /**
+         * Returns an immutable instance of [InboundWireDrawdownRequestListPageAsync].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .service()
+         * .params()
+         * .response()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
+        fun build(): InboundWireDrawdownRequestListPageAsync =
             InboundWireDrawdownRequestListPageAsync(
-                inboundWireDrawdownRequestsService,
-                params,
-                response,
+                checkRequired("service", service),
+                checkRequired("params", params),
+                checkRequired("response", response),
             )
     }
 
@@ -93,4 +136,17 @@ private constructor(
             }
         }
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is InboundWireDrawdownRequestListPageAsync && service == other.service && params == other.params && response == other.response /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(service, params, response) /* spotless:on */
+
+    override fun toString() =
+        "InboundWireDrawdownRequestListPageAsync{service=$service, params=$params, response=$response}"
 }
