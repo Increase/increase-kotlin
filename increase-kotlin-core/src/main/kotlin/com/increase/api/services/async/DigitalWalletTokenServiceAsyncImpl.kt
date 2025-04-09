@@ -99,11 +99,11 @@ internal constructor(private val clientOptions: ClientOptions) : DigitalWalletTo
                         }
                     }
                     .let {
-                        DigitalWalletTokenListPageAsync.of(
-                            DigitalWalletTokenServiceAsyncImpl(clientOptions),
-                            params,
-                            it,
-                        )
+                        DigitalWalletTokenListPageAsync.builder()
+                            .service(DigitalWalletTokenServiceAsyncImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

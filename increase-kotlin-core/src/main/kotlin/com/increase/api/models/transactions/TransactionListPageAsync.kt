@@ -2,21 +2,19 @@
 
 package com.increase.api.models.transactions
 
+import com.increase.api.core.checkRequired
 import com.increase.api.services.async.TransactionServiceAsync
 import java.util.Objects
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 
-/** List Transactions */
+/** @see [TransactionServiceAsync.list] */
 class TransactionListPageAsync
 private constructor(
-    private val transactionsService: TransactionServiceAsync,
+    private val service: TransactionServiceAsync,
     private val params: TransactionListParams,
     private val response: TransactionListPageResponse,
 ) {
-
-    /** Returns the response that this page was parsed from. */
-    fun response(): TransactionListPageResponse = response
 
     /**
      * Delegates to [TransactionListPageResponse], but gracefully handles missing data.
@@ -32,19 +30,6 @@ private constructor(
      */
     fun nextCursor(): String? = response._nextCursor().getNullable("next_cursor")
 
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is TransactionListPageAsync && transactionsService == other.transactionsService && params == other.params && response == other.response /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(transactionsService, params, response) /* spotless:on */
-
-    override fun toString() =
-        "TransactionListPageAsync{transactionsService=$transactionsService, params=$params, response=$response}"
-
     fun hasNextPage(): Boolean = data().isNotEmpty() && nextCursor() != null
 
     fun getNextPageParams(): TransactionListParams? {
@@ -55,19 +40,75 @@ private constructor(
         return params.toBuilder().apply { nextCursor()?.let { cursor(it) } }.build()
     }
 
-    suspend fun getNextPage(): TransactionListPageAsync? {
-        return getNextPageParams()?.let { transactionsService.list(it) }
-    }
+    suspend fun getNextPage(): TransactionListPageAsync? =
+        getNextPageParams()?.let { service.list(it) }
 
     fun autoPager(): AutoPager = AutoPager(this)
 
+    /** The parameters that were used to request this page. */
+    fun params(): TransactionListParams = params
+
+    /** The response that this page was parsed from. */
+    fun response(): TransactionListPageResponse = response
+
+    fun toBuilder() = Builder().from(this)
+
     companion object {
 
-        fun of(
-            transactionsService: TransactionServiceAsync,
-            params: TransactionListParams,
-            response: TransactionListPageResponse,
-        ) = TransactionListPageAsync(transactionsService, params, response)
+        /**
+         * Returns a mutable builder for constructing an instance of [TransactionListPageAsync].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .service()
+         * .params()
+         * .response()
+         * ```
+         */
+        fun builder() = Builder()
+    }
+
+    /** A builder for [TransactionListPageAsync]. */
+    class Builder internal constructor() {
+
+        private var service: TransactionServiceAsync? = null
+        private var params: TransactionListParams? = null
+        private var response: TransactionListPageResponse? = null
+
+        internal fun from(transactionListPageAsync: TransactionListPageAsync) = apply {
+            service = transactionListPageAsync.service
+            params = transactionListPageAsync.params
+            response = transactionListPageAsync.response
+        }
+
+        fun service(service: TransactionServiceAsync) = apply { this.service = service }
+
+        /** The parameters that were used to request this page. */
+        fun params(params: TransactionListParams) = apply { this.params = params }
+
+        /** The response that this page was parsed from. */
+        fun response(response: TransactionListPageResponse) = apply { this.response = response }
+
+        /**
+         * Returns an immutable instance of [TransactionListPageAsync].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .service()
+         * .params()
+         * .response()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
+        fun build(): TransactionListPageAsync =
+            TransactionListPageAsync(
+                checkRequired("service", service),
+                checkRequired("params", params),
+                checkRequired("response", response),
+            )
     }
 
     class AutoPager(private val firstPage: TransactionListPageAsync) : Flow<Transaction> {
@@ -84,4 +125,17 @@ private constructor(
             }
         }
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is TransactionListPageAsync && service == other.service && params == other.params && response == other.response /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(service, params, response) /* spotless:on */
+
+    override fun toString() =
+        "TransactionListPageAsync{service=$service, params=$params, response=$response}"
 }

@@ -2,21 +2,19 @@
 
 package com.increase.api.models.supplementaldocuments
 
+import com.increase.api.core.checkRequired
 import com.increase.api.services.async.SupplementalDocumentServiceAsync
 import java.util.Objects
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 
-/** List Entity Supplemental Document Submissions */
+/** @see [SupplementalDocumentServiceAsync.list] */
 class SupplementalDocumentListPageAsync
 private constructor(
-    private val supplementalDocumentsService: SupplementalDocumentServiceAsync,
+    private val service: SupplementalDocumentServiceAsync,
     private val params: SupplementalDocumentListParams,
     private val response: SupplementalDocumentListPageResponse,
 ) {
-
-    /** Returns the response that this page was parsed from. */
-    fun response(): SupplementalDocumentListPageResponse = response
 
     /**
      * Delegates to [SupplementalDocumentListPageResponse], but gracefully handles missing data.
@@ -33,19 +31,6 @@ private constructor(
      */
     fun nextCursor(): String? = response._nextCursor().getNullable("next_cursor")
 
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is SupplementalDocumentListPageAsync && supplementalDocumentsService == other.supplementalDocumentsService && params == other.params && response == other.response /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(supplementalDocumentsService, params, response) /* spotless:on */
-
-    override fun toString() =
-        "SupplementalDocumentListPageAsync{supplementalDocumentsService=$supplementalDocumentsService, params=$params, response=$response}"
-
     fun hasNextPage(): Boolean = data().isNotEmpty() && nextCursor() != null
 
     fun getNextPageParams(): SupplementalDocumentListParams? {
@@ -56,19 +41,79 @@ private constructor(
         return params.toBuilder().apply { nextCursor()?.let { cursor(it) } }.build()
     }
 
-    suspend fun getNextPage(): SupplementalDocumentListPageAsync? {
-        return getNextPageParams()?.let { supplementalDocumentsService.list(it) }
-    }
+    suspend fun getNextPage(): SupplementalDocumentListPageAsync? =
+        getNextPageParams()?.let { service.list(it) }
 
     fun autoPager(): AutoPager = AutoPager(this)
 
+    /** The parameters that were used to request this page. */
+    fun params(): SupplementalDocumentListParams = params
+
+    /** The response that this page was parsed from. */
+    fun response(): SupplementalDocumentListPageResponse = response
+
+    fun toBuilder() = Builder().from(this)
+
     companion object {
 
-        fun of(
-            supplementalDocumentsService: SupplementalDocumentServiceAsync,
-            params: SupplementalDocumentListParams,
-            response: SupplementalDocumentListPageResponse,
-        ) = SupplementalDocumentListPageAsync(supplementalDocumentsService, params, response)
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [SupplementalDocumentListPageAsync].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .service()
+         * .params()
+         * .response()
+         * ```
+         */
+        fun builder() = Builder()
+    }
+
+    /** A builder for [SupplementalDocumentListPageAsync]. */
+    class Builder internal constructor() {
+
+        private var service: SupplementalDocumentServiceAsync? = null
+        private var params: SupplementalDocumentListParams? = null
+        private var response: SupplementalDocumentListPageResponse? = null
+
+        internal fun from(supplementalDocumentListPageAsync: SupplementalDocumentListPageAsync) =
+            apply {
+                service = supplementalDocumentListPageAsync.service
+                params = supplementalDocumentListPageAsync.params
+                response = supplementalDocumentListPageAsync.response
+            }
+
+        fun service(service: SupplementalDocumentServiceAsync) = apply { this.service = service }
+
+        /** The parameters that were used to request this page. */
+        fun params(params: SupplementalDocumentListParams) = apply { this.params = params }
+
+        /** The response that this page was parsed from. */
+        fun response(response: SupplementalDocumentListPageResponse) = apply {
+            this.response = response
+        }
+
+        /**
+         * Returns an immutable instance of [SupplementalDocumentListPageAsync].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .service()
+         * .params()
+         * .response()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
+        fun build(): SupplementalDocumentListPageAsync =
+            SupplementalDocumentListPageAsync(
+                checkRequired("service", service),
+                checkRequired("params", params),
+                checkRequired("response", response),
+            )
     }
 
     class AutoPager(private val firstPage: SupplementalDocumentListPageAsync) :
@@ -86,4 +131,17 @@ private constructor(
             }
         }
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is SupplementalDocumentListPageAsync && service == other.service && params == other.params && response == other.response /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(service, params, response) /* spotless:on */
+
+    override fun toString() =
+        "SupplementalDocumentListPageAsync{service=$service, params=$params, response=$response}"
 }

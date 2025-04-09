@@ -99,11 +99,11 @@ internal constructor(private val clientOptions: ClientOptions) : PendingTransact
                         }
                     }
                     .let {
-                        PendingTransactionListPageAsync.of(
-                            PendingTransactionServiceAsyncImpl(clientOptions),
-                            params,
-                            it,
-                        )
+                        PendingTransactionListPageAsync.builder()
+                            .service(PendingTransactionServiceAsyncImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

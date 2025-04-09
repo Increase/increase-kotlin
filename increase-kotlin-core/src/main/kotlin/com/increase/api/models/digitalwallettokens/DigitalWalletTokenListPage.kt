@@ -2,19 +2,17 @@
 
 package com.increase.api.models.digitalwallettokens
 
+import com.increase.api.core.checkRequired
 import com.increase.api.services.blocking.DigitalWalletTokenService
 import java.util.Objects
 
-/** List Digital Wallet Tokens */
+/** @see [DigitalWalletTokenService.list] */
 class DigitalWalletTokenListPage
 private constructor(
-    private val digitalWalletTokensService: DigitalWalletTokenService,
+    private val service: DigitalWalletTokenService,
     private val params: DigitalWalletTokenListParams,
     private val response: DigitalWalletTokenListPageResponse,
 ) {
-
-    /** Returns the response that this page was parsed from. */
-    fun response(): DigitalWalletTokenListPageResponse = response
 
     /**
      * Delegates to [DigitalWalletTokenListPageResponse], but gracefully handles missing data.
@@ -30,19 +28,6 @@ private constructor(
      */
     fun nextCursor(): String? = response._nextCursor().getNullable("next_cursor")
 
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is DigitalWalletTokenListPage && digitalWalletTokensService == other.digitalWalletTokensService && params == other.params && response == other.response /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(digitalWalletTokensService, params, response) /* spotless:on */
-
-    override fun toString() =
-        "DigitalWalletTokenListPage{digitalWalletTokensService=$digitalWalletTokensService, params=$params, response=$response}"
-
     fun hasNextPage(): Boolean = data().isNotEmpty() && nextCursor() != null
 
     fun getNextPageParams(): DigitalWalletTokenListParams? {
@@ -53,19 +38,76 @@ private constructor(
         return params.toBuilder().apply { nextCursor()?.let { cursor(it) } }.build()
     }
 
-    fun getNextPage(): DigitalWalletTokenListPage? {
-        return getNextPageParams()?.let { digitalWalletTokensService.list(it) }
-    }
+    fun getNextPage(): DigitalWalletTokenListPage? = getNextPageParams()?.let { service.list(it) }
 
     fun autoPager(): AutoPager = AutoPager(this)
 
+    /** The parameters that were used to request this page. */
+    fun params(): DigitalWalletTokenListParams = params
+
+    /** The response that this page was parsed from. */
+    fun response(): DigitalWalletTokenListPageResponse = response
+
+    fun toBuilder() = Builder().from(this)
+
     companion object {
 
-        fun of(
-            digitalWalletTokensService: DigitalWalletTokenService,
-            params: DigitalWalletTokenListParams,
-            response: DigitalWalletTokenListPageResponse,
-        ) = DigitalWalletTokenListPage(digitalWalletTokensService, params, response)
+        /**
+         * Returns a mutable builder for constructing an instance of [DigitalWalletTokenListPage].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .service()
+         * .params()
+         * .response()
+         * ```
+         */
+        fun builder() = Builder()
+    }
+
+    /** A builder for [DigitalWalletTokenListPage]. */
+    class Builder internal constructor() {
+
+        private var service: DigitalWalletTokenService? = null
+        private var params: DigitalWalletTokenListParams? = null
+        private var response: DigitalWalletTokenListPageResponse? = null
+
+        internal fun from(digitalWalletTokenListPage: DigitalWalletTokenListPage) = apply {
+            service = digitalWalletTokenListPage.service
+            params = digitalWalletTokenListPage.params
+            response = digitalWalletTokenListPage.response
+        }
+
+        fun service(service: DigitalWalletTokenService) = apply { this.service = service }
+
+        /** The parameters that were used to request this page. */
+        fun params(params: DigitalWalletTokenListParams) = apply { this.params = params }
+
+        /** The response that this page was parsed from. */
+        fun response(response: DigitalWalletTokenListPageResponse) = apply {
+            this.response = response
+        }
+
+        /**
+         * Returns an immutable instance of [DigitalWalletTokenListPage].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .service()
+         * .params()
+         * .response()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
+        fun build(): DigitalWalletTokenListPage =
+            DigitalWalletTokenListPage(
+                checkRequired("service", service),
+                checkRequired("params", params),
+                checkRequired("response", response),
+            )
     }
 
     class AutoPager(private val firstPage: DigitalWalletTokenListPage) :
@@ -83,4 +125,17 @@ private constructor(
             }
         }
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is DigitalWalletTokenListPage && service == other.service && params == other.params && response == other.response /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(service, params, response) /* spotless:on */
+
+    override fun toString() =
+        "DigitalWalletTokenListPage{service=$service, params=$params, response=$response}"
 }

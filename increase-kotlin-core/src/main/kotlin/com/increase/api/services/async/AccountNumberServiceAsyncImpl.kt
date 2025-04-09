@@ -170,11 +170,11 @@ class AccountNumberServiceAsyncImpl internal constructor(private val clientOptio
                         }
                     }
                     .let {
-                        AccountNumberListPageAsync.of(
-                            AccountNumberServiceAsyncImpl(clientOptions),
-                            params,
-                            it,
-                        )
+                        AccountNumberListPageAsync.builder()
+                            .service(AccountNumberServiceAsyncImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

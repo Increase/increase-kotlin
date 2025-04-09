@@ -99,11 +99,11 @@ internal constructor(private val clientOptions: ClientOptions) : OAuthApplicatio
                         }
                     }
                     .let {
-                        OAuthApplicationListPageAsync.of(
-                            OAuthApplicationServiceAsyncImpl(clientOptions),
-                            params,
-                            it,
-                        )
+                        OAuthApplicationListPageAsync.builder()
+                            .service(OAuthApplicationServiceAsyncImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

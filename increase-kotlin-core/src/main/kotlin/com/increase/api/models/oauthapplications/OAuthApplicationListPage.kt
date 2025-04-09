@@ -2,19 +2,17 @@
 
 package com.increase.api.models.oauthapplications
 
+import com.increase.api.core.checkRequired
 import com.increase.api.services.blocking.OAuthApplicationService
 import java.util.Objects
 
-/** List OAuth Applications */
+/** @see [OAuthApplicationService.list] */
 class OAuthApplicationListPage
 private constructor(
-    private val oauthApplicationsService: OAuthApplicationService,
+    private val service: OAuthApplicationService,
     private val params: OAuthApplicationListParams,
     private val response: OAuthApplicationListPageResponse,
 ) {
-
-    /** Returns the response that this page was parsed from. */
-    fun response(): OAuthApplicationListPageResponse = response
 
     /**
      * Delegates to [OAuthApplicationListPageResponse], but gracefully handles missing data.
@@ -30,19 +28,6 @@ private constructor(
      */
     fun nextCursor(): String? = response._nextCursor().getNullable("next_cursor")
 
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is OAuthApplicationListPage && oauthApplicationsService == other.oauthApplicationsService && params == other.params && response == other.response /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(oauthApplicationsService, params, response) /* spotless:on */
-
-    override fun toString() =
-        "OAuthApplicationListPage{oauthApplicationsService=$oauthApplicationsService, params=$params, response=$response}"
-
     fun hasNextPage(): Boolean = data().isNotEmpty() && nextCursor() != null
 
     fun getNextPageParams(): OAuthApplicationListParams? {
@@ -53,19 +38,76 @@ private constructor(
         return params.toBuilder().apply { nextCursor()?.let { cursor(it) } }.build()
     }
 
-    fun getNextPage(): OAuthApplicationListPage? {
-        return getNextPageParams()?.let { oauthApplicationsService.list(it) }
-    }
+    fun getNextPage(): OAuthApplicationListPage? = getNextPageParams()?.let { service.list(it) }
 
     fun autoPager(): AutoPager = AutoPager(this)
 
+    /** The parameters that were used to request this page. */
+    fun params(): OAuthApplicationListParams = params
+
+    /** The response that this page was parsed from. */
+    fun response(): OAuthApplicationListPageResponse = response
+
+    fun toBuilder() = Builder().from(this)
+
     companion object {
 
-        fun of(
-            oauthApplicationsService: OAuthApplicationService,
-            params: OAuthApplicationListParams,
-            response: OAuthApplicationListPageResponse,
-        ) = OAuthApplicationListPage(oauthApplicationsService, params, response)
+        /**
+         * Returns a mutable builder for constructing an instance of [OAuthApplicationListPage].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .service()
+         * .params()
+         * .response()
+         * ```
+         */
+        fun builder() = Builder()
+    }
+
+    /** A builder for [OAuthApplicationListPage]. */
+    class Builder internal constructor() {
+
+        private var service: OAuthApplicationService? = null
+        private var params: OAuthApplicationListParams? = null
+        private var response: OAuthApplicationListPageResponse? = null
+
+        internal fun from(oauthApplicationListPage: OAuthApplicationListPage) = apply {
+            service = oauthApplicationListPage.service
+            params = oauthApplicationListPage.params
+            response = oauthApplicationListPage.response
+        }
+
+        fun service(service: OAuthApplicationService) = apply { this.service = service }
+
+        /** The parameters that were used to request this page. */
+        fun params(params: OAuthApplicationListParams) = apply { this.params = params }
+
+        /** The response that this page was parsed from. */
+        fun response(response: OAuthApplicationListPageResponse) = apply {
+            this.response = response
+        }
+
+        /**
+         * Returns an immutable instance of [OAuthApplicationListPage].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .service()
+         * .params()
+         * .response()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
+        fun build(): OAuthApplicationListPage =
+            OAuthApplicationListPage(
+                checkRequired("service", service),
+                checkRequired("params", params),
+                checkRequired("response", response),
+            )
     }
 
     class AutoPager(private val firstPage: OAuthApplicationListPage) : Sequence<OAuthApplication> {
@@ -82,4 +124,17 @@ private constructor(
             }
         }
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is OAuthApplicationListPage && service == other.service && params == other.params && response == other.response /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(service, params, response) /* spotless:on */
+
+    override fun toString() =
+        "OAuthApplicationListPage{service=$service, params=$params, response=$response}"
 }

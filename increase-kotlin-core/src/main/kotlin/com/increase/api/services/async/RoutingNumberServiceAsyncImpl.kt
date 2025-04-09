@@ -64,11 +64,11 @@ class RoutingNumberServiceAsyncImpl internal constructor(private val clientOptio
                         }
                     }
                     .let {
-                        RoutingNumberListPageAsync.of(
-                            RoutingNumberServiceAsyncImpl(clientOptions),
-                            params,
-                            it,
-                        )
+                        RoutingNumberListPageAsync.builder()
+                            .service(RoutingNumberServiceAsyncImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }
