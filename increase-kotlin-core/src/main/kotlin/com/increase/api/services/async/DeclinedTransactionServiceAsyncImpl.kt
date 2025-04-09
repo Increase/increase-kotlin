@@ -101,11 +101,11 @@ internal constructor(private val clientOptions: ClientOptions) : DeclinedTransac
                         }
                     }
                     .let {
-                        DeclinedTransactionListPageAsync.of(
-                            DeclinedTransactionServiceAsyncImpl(clientOptions),
-                            params,
-                            it,
-                        )
+                        DeclinedTransactionListPageAsync.builder()
+                            .service(DeclinedTransactionServiceAsyncImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

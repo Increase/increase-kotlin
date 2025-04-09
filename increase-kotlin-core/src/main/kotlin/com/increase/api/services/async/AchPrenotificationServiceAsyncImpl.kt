@@ -135,11 +135,11 @@ internal constructor(private val clientOptions: ClientOptions) : AchPrenotificat
                         }
                     }
                     .let {
-                        AchPrenotificationListPageAsync.of(
-                            AchPrenotificationServiceAsyncImpl(clientOptions),
-                            params,
-                            it,
-                        )
+                        AchPrenotificationListPageAsync.builder()
+                            .service(AchPrenotificationServiceAsyncImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }
