@@ -18,6 +18,7 @@ import com.increase.api.core.prepareAsync
 import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransfer
 import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransferCreateParams
 import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransferListPageAsync
+import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransferListPageResponse
 import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransferListParams
 import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransferRetrieveParams
 
@@ -113,8 +114,8 @@ internal constructor(private val clientOptions: ClientOptions) :
             }
         }
 
-        private val listHandler: Handler<RealTimePaymentsTransferListPageAsync.Response> =
-            jsonHandler<RealTimePaymentsTransferListPageAsync.Response>(clientOptions.jsonMapper)
+        private val listHandler: Handler<RealTimePaymentsTransferListPageResponse> =
+            jsonHandler<RealTimePaymentsTransferListPageResponse>(clientOptions.jsonMapper)
                 .withErrorHandler(errorHandler)
 
         override suspend fun list(
