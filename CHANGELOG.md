@@ -1,5 +1,36 @@
 # Changelog
 
+## 0.205.0 (2025-04-09)
+
+Full Changelog: [v0.204.0...v0.205.0](https://github.com/Increase/increase-kotlin/compare/v0.204.0...v0.205.0)
+
+### Features
+
+* **client:** make pagination robust to missing data ([49492cb](https://github.com/Increase/increase-kotlin/commit/49492cbeac36f733f8e5dc7fbfed440c16571e1d))
+* **client:** support setting base URL via env var ([#949](https://github.com/Increase/increase-kotlin/issues/949)) ([7c96b57](https://github.com/Increase/increase-kotlin/commit/7c96b57710469e07de2b60d121b53e9d7a71591b))
+
+
+### Bug Fixes
+
+* **client:** bump to better jackson version ([#952](https://github.com/Increase/increase-kotlin/issues/952)) ([78e48d0](https://github.com/Increase/increase-kotlin/commit/78e48d0a4af89f6b2760db785dd8c5847d770d7b))
+
+
+### Chores
+
+* **internal:** expand CI branch coverage ([#951](https://github.com/Increase/increase-kotlin/issues/951)) ([bbcce29](https://github.com/Increase/increase-kotlin/commit/bbcce291cbd4080dfc930c9e686a7db30958bd42))
+* **internal:** reduce CI branch coverage ([0e921c0](https://github.com/Increase/increase-kotlin/commit/0e921c088eda4004935d74cf0c3204438217fdf1))
+
+
+### Documentation
+
+* add comments for page methods ([49492cb](https://github.com/Increase/increase-kotlin/commit/49492cbeac36f733f8e5dc7fbfed440c16571e1d))
+
+
+### Refactors
+
+* **client:** deduplicate page response classes ([#953](https://github.com/Increase/increase-kotlin/issues/953)) ([49492cb](https://github.com/Increase/increase-kotlin/commit/49492cbeac36f733f8e5dc7fbfed440c16571e1d))
+* **client:** migrate pages to builder pattern ([#954](https://github.com/Increase/increase-kotlin/issues/954)) ([df8dd59](https://github.com/Increase/increase-kotlin/commit/df8dd59d3393476aac0abc21a5254a42f99cbb72))
+
 ## 0.204.0 (2025-04-08)
 
 Full Changelog: [v0.203.0...v0.204.0](https://github.com/Increase/increase-kotlin/compare/v0.203.0...v0.204.0)
