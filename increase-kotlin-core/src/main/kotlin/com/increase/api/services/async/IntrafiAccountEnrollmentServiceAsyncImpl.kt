@@ -147,11 +147,11 @@ internal constructor(private val clientOptions: ClientOptions) :
                         }
                     }
                     .let {
-                        IntrafiAccountEnrollmentListPageAsync.of(
-                            IntrafiAccountEnrollmentServiceAsyncImpl(clientOptions),
-                            params,
-                            it,
-                        )
+                        IntrafiAccountEnrollmentListPageAsync.builder()
+                            .service(IntrafiAccountEnrollmentServiceAsyncImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

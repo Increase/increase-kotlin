@@ -145,11 +145,11 @@ internal constructor(private val clientOptions: ClientOptions) : BookkeepingAcco
                         }
                     }
                     .let {
-                        BookkeepingAccountListPageAsync.of(
-                            BookkeepingAccountServiceAsyncImpl(clientOptions),
-                            params,
-                            it,
-                        )
+                        BookkeepingAccountListPageAsync.builder()
+                            .service(BookkeepingAccountServiceAsyncImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

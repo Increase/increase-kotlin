@@ -99,11 +99,11 @@ internal constructor(private val clientOptions: ClientOptions) : BookkeepingEntr
                         }
                     }
                     .let {
-                        BookkeepingEntryListPageAsync.of(
-                            BookkeepingEntryServiceAsyncImpl(clientOptions),
-                            params,
-                            it,
-                        )
+                        BookkeepingEntryListPageAsync.builder()
+                            .service(BookkeepingEntryServiceAsyncImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

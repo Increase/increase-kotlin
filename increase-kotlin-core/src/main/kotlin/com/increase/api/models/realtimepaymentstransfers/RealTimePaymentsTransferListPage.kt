@@ -2,19 +2,17 @@
 
 package com.increase.api.models.realtimepaymentstransfers
 
+import com.increase.api.core.checkRequired
 import com.increase.api.services.blocking.RealTimePaymentsTransferService
 import java.util.Objects
 
-/** List Real-Time Payments Transfers */
+/** @see [RealTimePaymentsTransferService.list] */
 class RealTimePaymentsTransferListPage
 private constructor(
-    private val realTimePaymentsTransfersService: RealTimePaymentsTransferService,
+    private val service: RealTimePaymentsTransferService,
     private val params: RealTimePaymentsTransferListParams,
     private val response: RealTimePaymentsTransferListPageResponse,
 ) {
-
-    /** Returns the response that this page was parsed from. */
-    fun response(): RealTimePaymentsTransferListPageResponse = response
 
     /**
      * Delegates to [RealTimePaymentsTransferListPageResponse], but gracefully handles missing data.
@@ -30,19 +28,6 @@ private constructor(
      */
     fun nextCursor(): String? = response._nextCursor().getNullable("next_cursor")
 
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is RealTimePaymentsTransferListPage && realTimePaymentsTransfersService == other.realTimePaymentsTransfersService && params == other.params && response == other.response /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(realTimePaymentsTransfersService, params, response) /* spotless:on */
-
-    override fun toString() =
-        "RealTimePaymentsTransferListPage{realTimePaymentsTransfersService=$realTimePaymentsTransfersService, params=$params, response=$response}"
-
     fun hasNextPage(): Boolean = data().isNotEmpty() && nextCursor() != null
 
     fun getNextPageParams(): RealTimePaymentsTransferListParams? {
@@ -53,19 +38,79 @@ private constructor(
         return params.toBuilder().apply { nextCursor()?.let { cursor(it) } }.build()
     }
 
-    fun getNextPage(): RealTimePaymentsTransferListPage? {
-        return getNextPageParams()?.let { realTimePaymentsTransfersService.list(it) }
-    }
+    fun getNextPage(): RealTimePaymentsTransferListPage? =
+        getNextPageParams()?.let { service.list(it) }
 
     fun autoPager(): AutoPager = AutoPager(this)
 
+    /** The parameters that were used to request this page. */
+    fun params(): RealTimePaymentsTransferListParams = params
+
+    /** The response that this page was parsed from. */
+    fun response(): RealTimePaymentsTransferListPageResponse = response
+
+    fun toBuilder() = Builder().from(this)
+
     companion object {
 
-        fun of(
-            realTimePaymentsTransfersService: RealTimePaymentsTransferService,
-            params: RealTimePaymentsTransferListParams,
-            response: RealTimePaymentsTransferListPageResponse,
-        ) = RealTimePaymentsTransferListPage(realTimePaymentsTransfersService, params, response)
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [RealTimePaymentsTransferListPage].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .service()
+         * .params()
+         * .response()
+         * ```
+         */
+        fun builder() = Builder()
+    }
+
+    /** A builder for [RealTimePaymentsTransferListPage]. */
+    class Builder internal constructor() {
+
+        private var service: RealTimePaymentsTransferService? = null
+        private var params: RealTimePaymentsTransferListParams? = null
+        private var response: RealTimePaymentsTransferListPageResponse? = null
+
+        internal fun from(realTimePaymentsTransferListPage: RealTimePaymentsTransferListPage) =
+            apply {
+                service = realTimePaymentsTransferListPage.service
+                params = realTimePaymentsTransferListPage.params
+                response = realTimePaymentsTransferListPage.response
+            }
+
+        fun service(service: RealTimePaymentsTransferService) = apply { this.service = service }
+
+        /** The parameters that were used to request this page. */
+        fun params(params: RealTimePaymentsTransferListParams) = apply { this.params = params }
+
+        /** The response that this page was parsed from. */
+        fun response(response: RealTimePaymentsTransferListPageResponse) = apply {
+            this.response = response
+        }
+
+        /**
+         * Returns an immutable instance of [RealTimePaymentsTransferListPage].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .service()
+         * .params()
+         * .response()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
+        fun build(): RealTimePaymentsTransferListPage =
+            RealTimePaymentsTransferListPage(
+                checkRequired("service", service),
+                checkRequired("params", params),
+                checkRequired("response", response),
+            )
     }
 
     class AutoPager(private val firstPage: RealTimePaymentsTransferListPage) :
@@ -83,4 +128,17 @@ private constructor(
             }
         }
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is RealTimePaymentsTransferListPage && service == other.service && params == other.params && response == other.response /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(service, params, response) /* spotless:on */
+
+    override fun toString() =
+        "RealTimePaymentsTransferListPage{service=$service, params=$params, response=$response}"
 }

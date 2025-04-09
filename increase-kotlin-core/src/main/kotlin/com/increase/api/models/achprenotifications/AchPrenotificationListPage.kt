@@ -2,19 +2,17 @@
 
 package com.increase.api.models.achprenotifications
 
+import com.increase.api.core.checkRequired
 import com.increase.api.services.blocking.AchPrenotificationService
 import java.util.Objects
 
-/** List ACH Prenotifications */
+/** @see [AchPrenotificationService.list] */
 class AchPrenotificationListPage
 private constructor(
-    private val achPrenotificationsService: AchPrenotificationService,
+    private val service: AchPrenotificationService,
     private val params: AchPrenotificationListParams,
     private val response: AchPrenotificationListPageResponse,
 ) {
-
-    /** Returns the response that this page was parsed from. */
-    fun response(): AchPrenotificationListPageResponse = response
 
     /**
      * Delegates to [AchPrenotificationListPageResponse], but gracefully handles missing data.
@@ -30,19 +28,6 @@ private constructor(
      */
     fun nextCursor(): String? = response._nextCursor().getNullable("next_cursor")
 
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is AchPrenotificationListPage && achPrenotificationsService == other.achPrenotificationsService && params == other.params && response == other.response /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(achPrenotificationsService, params, response) /* spotless:on */
-
-    override fun toString() =
-        "AchPrenotificationListPage{achPrenotificationsService=$achPrenotificationsService, params=$params, response=$response}"
-
     fun hasNextPage(): Boolean = data().isNotEmpty() && nextCursor() != null
 
     fun getNextPageParams(): AchPrenotificationListParams? {
@@ -53,19 +38,76 @@ private constructor(
         return params.toBuilder().apply { nextCursor()?.let { cursor(it) } }.build()
     }
 
-    fun getNextPage(): AchPrenotificationListPage? {
-        return getNextPageParams()?.let { achPrenotificationsService.list(it) }
-    }
+    fun getNextPage(): AchPrenotificationListPage? = getNextPageParams()?.let { service.list(it) }
 
     fun autoPager(): AutoPager = AutoPager(this)
 
+    /** The parameters that were used to request this page. */
+    fun params(): AchPrenotificationListParams = params
+
+    /** The response that this page was parsed from. */
+    fun response(): AchPrenotificationListPageResponse = response
+
+    fun toBuilder() = Builder().from(this)
+
     companion object {
 
-        fun of(
-            achPrenotificationsService: AchPrenotificationService,
-            params: AchPrenotificationListParams,
-            response: AchPrenotificationListPageResponse,
-        ) = AchPrenotificationListPage(achPrenotificationsService, params, response)
+        /**
+         * Returns a mutable builder for constructing an instance of [AchPrenotificationListPage].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .service()
+         * .params()
+         * .response()
+         * ```
+         */
+        fun builder() = Builder()
+    }
+
+    /** A builder for [AchPrenotificationListPage]. */
+    class Builder internal constructor() {
+
+        private var service: AchPrenotificationService? = null
+        private var params: AchPrenotificationListParams? = null
+        private var response: AchPrenotificationListPageResponse? = null
+
+        internal fun from(achPrenotificationListPage: AchPrenotificationListPage) = apply {
+            service = achPrenotificationListPage.service
+            params = achPrenotificationListPage.params
+            response = achPrenotificationListPage.response
+        }
+
+        fun service(service: AchPrenotificationService) = apply { this.service = service }
+
+        /** The parameters that were used to request this page. */
+        fun params(params: AchPrenotificationListParams) = apply { this.params = params }
+
+        /** The response that this page was parsed from. */
+        fun response(response: AchPrenotificationListPageResponse) = apply {
+            this.response = response
+        }
+
+        /**
+         * Returns an immutable instance of [AchPrenotificationListPage].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .service()
+         * .params()
+         * .response()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
+        fun build(): AchPrenotificationListPage =
+            AchPrenotificationListPage(
+                checkRequired("service", service),
+                checkRequired("params", params),
+                checkRequired("response", response),
+            )
     }
 
     class AutoPager(private val firstPage: AchPrenotificationListPage) :
@@ -83,4 +125,17 @@ private constructor(
             }
         }
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is AchPrenotificationListPage && service == other.service && params == other.params && response == other.response /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(service, params, response) /* spotless:on */
+
+    override fun toString() =
+        "AchPrenotificationListPage{service=$service, params=$params, response=$response}"
 }

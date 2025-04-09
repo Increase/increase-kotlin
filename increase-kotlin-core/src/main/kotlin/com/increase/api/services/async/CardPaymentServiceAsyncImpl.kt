@@ -99,11 +99,11 @@ class CardPaymentServiceAsyncImpl internal constructor(private val clientOptions
                         }
                     }
                     .let {
-                        CardPaymentListPageAsync.of(
-                            CardPaymentServiceAsyncImpl(clientOptions),
-                            params,
-                            it,
-                        )
+                        CardPaymentListPageAsync.builder()
+                            .service(CardPaymentServiceAsyncImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

@@ -2,19 +2,17 @@
 
 package com.increase.api.models.eventsubscriptions
 
+import com.increase.api.core.checkRequired
 import com.increase.api.services.blocking.EventSubscriptionService
 import java.util.Objects
 
-/** List Event Subscriptions */
+/** @see [EventSubscriptionService.list] */
 class EventSubscriptionListPage
 private constructor(
-    private val eventSubscriptionsService: EventSubscriptionService,
+    private val service: EventSubscriptionService,
     private val params: EventSubscriptionListParams,
     private val response: EventSubscriptionListPageResponse,
 ) {
-
-    /** Returns the response that this page was parsed from. */
-    fun response(): EventSubscriptionListPageResponse = response
 
     /**
      * Delegates to [EventSubscriptionListPageResponse], but gracefully handles missing data.
@@ -30,19 +28,6 @@ private constructor(
      */
     fun nextCursor(): String? = response._nextCursor().getNullable("next_cursor")
 
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is EventSubscriptionListPage && eventSubscriptionsService == other.eventSubscriptionsService && params == other.params && response == other.response /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(eventSubscriptionsService, params, response) /* spotless:on */
-
-    override fun toString() =
-        "EventSubscriptionListPage{eventSubscriptionsService=$eventSubscriptionsService, params=$params, response=$response}"
-
     fun hasNextPage(): Boolean = data().isNotEmpty() && nextCursor() != null
 
     fun getNextPageParams(): EventSubscriptionListParams? {
@@ -53,19 +38,76 @@ private constructor(
         return params.toBuilder().apply { nextCursor()?.let { cursor(it) } }.build()
     }
 
-    fun getNextPage(): EventSubscriptionListPage? {
-        return getNextPageParams()?.let { eventSubscriptionsService.list(it) }
-    }
+    fun getNextPage(): EventSubscriptionListPage? = getNextPageParams()?.let { service.list(it) }
 
     fun autoPager(): AutoPager = AutoPager(this)
 
+    /** The parameters that were used to request this page. */
+    fun params(): EventSubscriptionListParams = params
+
+    /** The response that this page was parsed from. */
+    fun response(): EventSubscriptionListPageResponse = response
+
+    fun toBuilder() = Builder().from(this)
+
     companion object {
 
-        fun of(
-            eventSubscriptionsService: EventSubscriptionService,
-            params: EventSubscriptionListParams,
-            response: EventSubscriptionListPageResponse,
-        ) = EventSubscriptionListPage(eventSubscriptionsService, params, response)
+        /**
+         * Returns a mutable builder for constructing an instance of [EventSubscriptionListPage].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .service()
+         * .params()
+         * .response()
+         * ```
+         */
+        fun builder() = Builder()
+    }
+
+    /** A builder for [EventSubscriptionListPage]. */
+    class Builder internal constructor() {
+
+        private var service: EventSubscriptionService? = null
+        private var params: EventSubscriptionListParams? = null
+        private var response: EventSubscriptionListPageResponse? = null
+
+        internal fun from(eventSubscriptionListPage: EventSubscriptionListPage) = apply {
+            service = eventSubscriptionListPage.service
+            params = eventSubscriptionListPage.params
+            response = eventSubscriptionListPage.response
+        }
+
+        fun service(service: EventSubscriptionService) = apply { this.service = service }
+
+        /** The parameters that were used to request this page. */
+        fun params(params: EventSubscriptionListParams) = apply { this.params = params }
+
+        /** The response that this page was parsed from. */
+        fun response(response: EventSubscriptionListPageResponse) = apply {
+            this.response = response
+        }
+
+        /**
+         * Returns an immutable instance of [EventSubscriptionListPage].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .service()
+         * .params()
+         * .response()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
+        fun build(): EventSubscriptionListPage =
+            EventSubscriptionListPage(
+                checkRequired("service", service),
+                checkRequired("params", params),
+                checkRequired("response", response),
+            )
     }
 
     class AutoPager(private val firstPage: EventSubscriptionListPage) :
@@ -83,4 +125,17 @@ private constructor(
             }
         }
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is EventSubscriptionListPage && service == other.service && params == other.params && response == other.response /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(service, params, response) /* spotless:on */
+
+    override fun toString() =
+        "EventSubscriptionListPage{service=$service, params=$params, response=$response}"
 }

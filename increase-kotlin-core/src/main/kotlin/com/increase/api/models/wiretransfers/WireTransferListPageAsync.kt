@@ -2,21 +2,19 @@
 
 package com.increase.api.models.wiretransfers
 
+import com.increase.api.core.checkRequired
 import com.increase.api.services.async.WireTransferServiceAsync
 import java.util.Objects
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 
-/** List Wire Transfers */
+/** @see [WireTransferServiceAsync.list] */
 class WireTransferListPageAsync
 private constructor(
-    private val wireTransfersService: WireTransferServiceAsync,
+    private val service: WireTransferServiceAsync,
     private val params: WireTransferListParams,
     private val response: WireTransferListPageResponse,
 ) {
-
-    /** Returns the response that this page was parsed from. */
-    fun response(): WireTransferListPageResponse = response
 
     /**
      * Delegates to [WireTransferListPageResponse], but gracefully handles missing data.
@@ -32,19 +30,6 @@ private constructor(
      */
     fun nextCursor(): String? = response._nextCursor().getNullable("next_cursor")
 
-    override fun equals(other: Any?): Boolean {
-        if (this === other) {
-            return true
-        }
-
-        return /* spotless:off */ other is WireTransferListPageAsync && wireTransfersService == other.wireTransfersService && params == other.params && response == other.response /* spotless:on */
-    }
-
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(wireTransfersService, params, response) /* spotless:on */
-
-    override fun toString() =
-        "WireTransferListPageAsync{wireTransfersService=$wireTransfersService, params=$params, response=$response}"
-
     fun hasNextPage(): Boolean = data().isNotEmpty() && nextCursor() != null
 
     fun getNextPageParams(): WireTransferListParams? {
@@ -55,19 +40,75 @@ private constructor(
         return params.toBuilder().apply { nextCursor()?.let { cursor(it) } }.build()
     }
 
-    suspend fun getNextPage(): WireTransferListPageAsync? {
-        return getNextPageParams()?.let { wireTransfersService.list(it) }
-    }
+    suspend fun getNextPage(): WireTransferListPageAsync? =
+        getNextPageParams()?.let { service.list(it) }
 
     fun autoPager(): AutoPager = AutoPager(this)
 
+    /** The parameters that were used to request this page. */
+    fun params(): WireTransferListParams = params
+
+    /** The response that this page was parsed from. */
+    fun response(): WireTransferListPageResponse = response
+
+    fun toBuilder() = Builder().from(this)
+
     companion object {
 
-        fun of(
-            wireTransfersService: WireTransferServiceAsync,
-            params: WireTransferListParams,
-            response: WireTransferListPageResponse,
-        ) = WireTransferListPageAsync(wireTransfersService, params, response)
+        /**
+         * Returns a mutable builder for constructing an instance of [WireTransferListPageAsync].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .service()
+         * .params()
+         * .response()
+         * ```
+         */
+        fun builder() = Builder()
+    }
+
+    /** A builder for [WireTransferListPageAsync]. */
+    class Builder internal constructor() {
+
+        private var service: WireTransferServiceAsync? = null
+        private var params: WireTransferListParams? = null
+        private var response: WireTransferListPageResponse? = null
+
+        internal fun from(wireTransferListPageAsync: WireTransferListPageAsync) = apply {
+            service = wireTransferListPageAsync.service
+            params = wireTransferListPageAsync.params
+            response = wireTransferListPageAsync.response
+        }
+
+        fun service(service: WireTransferServiceAsync) = apply { this.service = service }
+
+        /** The parameters that were used to request this page. */
+        fun params(params: WireTransferListParams) = apply { this.params = params }
+
+        /** The response that this page was parsed from. */
+        fun response(response: WireTransferListPageResponse) = apply { this.response = response }
+
+        /**
+         * Returns an immutable instance of [WireTransferListPageAsync].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .service()
+         * .params()
+         * .response()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
+        fun build(): WireTransferListPageAsync =
+            WireTransferListPageAsync(
+                checkRequired("service", service),
+                checkRequired("params", params),
+                checkRequired("response", response),
+            )
     }
 
     class AutoPager(private val firstPage: WireTransferListPageAsync) : Flow<WireTransfer> {
@@ -84,4 +125,17 @@ private constructor(
             }
         }
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return /* spotless:off */ other is WireTransferListPageAsync && service == other.service && params == other.params && response == other.response /* spotless:on */
+    }
+
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(service, params, response) /* spotless:on */
+
+    override fun toString() =
+        "WireTransferListPageAsync{service=$service, params=$params, response=$response}"
 }
