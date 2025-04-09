@@ -51,7 +51,7 @@ import com.increase.api.client.okhttp.IncreaseOkHttpClient
 import com.increase.api.models.accounts.Account
 import com.increase.api.models.accounts.AccountCreateParams
 
-// Configures using the `INCREASE_API_KEY` and `INCREASE_WEBHOOK_SECRET` environment variables
+// Configures using the `INCREASE_API_KEY`, `INCREASE_WEBHOOK_SECRET` and `INCREASE_BASE_URL` environment variables
 val client: IncreaseClient = IncreaseOkHttpClient.fromEnv()
 
 val params: AccountCreateParams = AccountCreateParams.builder()
@@ -70,7 +70,7 @@ Configure the client using environment variables:
 import com.increase.api.client.IncreaseClient
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
 
-// Configures using the `INCREASE_API_KEY` and `INCREASE_WEBHOOK_SECRET` environment variables
+// Configures using the `INCREASE_API_KEY`, `INCREASE_WEBHOOK_SECRET` and `INCREASE_BASE_URL` environment variables
 val client: IncreaseClient = IncreaseOkHttpClient.fromEnv()
 ```
 
@@ -92,7 +92,7 @@ import com.increase.api.client.IncreaseClient
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
 
 val client: IncreaseClient = IncreaseOkHttpClient.builder()
-    // Configures using the `INCREASE_API_KEY` and `INCREASE_WEBHOOK_SECRET` environment variables
+    // Configures using the `INCREASE_API_KEY`, `INCREASE_WEBHOOK_SECRET` and `INCREASE_BASE_URL` environment variables
     .fromEnv()
     .apiKey("My API Key")
     .build()
@@ -100,10 +100,11 @@ val client: IncreaseClient = IncreaseOkHttpClient.builder()
 
 See this table for the available options:
 
-| Setter          | Environment variable      | Required | Default value |
-| --------------- | ------------------------- | -------- | ------------- |
-| `apiKey`        | `INCREASE_API_KEY`        | true     | -             |
-| `webhookSecret` | `INCREASE_WEBHOOK_SECRET` | false    | -             |
+| Setter          | Environment variable      | Required | Default value                |
+| --------------- | ------------------------- | -------- | ---------------------------- |
+| `apiKey`        | `INCREASE_API_KEY`        | true     | -                            |
+| `webhookSecret` | `INCREASE_WEBHOOK_SECRET` | false    | -                            |
+| `baseUrl`       | `INCREASE_BASE_URL`       | true     | `"https://api.increase.com"` |
 
 > [!TIP]
 > Don't create more than one client in the same application. Each client has a connection pool and
@@ -133,7 +134,7 @@ import com.increase.api.client.okhttp.IncreaseOkHttpClient
 import com.increase.api.models.accounts.Account
 import com.increase.api.models.accounts.AccountCreateParams
 
-// Configures using the `INCREASE_API_KEY` and `INCREASE_WEBHOOK_SECRET` environment variables
+// Configures using the `INCREASE_API_KEY`, `INCREASE_WEBHOOK_SECRET` and `INCREASE_BASE_URL` environment variables
 val client: IncreaseClient = IncreaseOkHttpClient.fromEnv()
 
 val params: AccountCreateParams = AccountCreateParams.builder()
@@ -152,7 +153,7 @@ import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
 import com.increase.api.models.accounts.Account
 import com.increase.api.models.accounts.AccountCreateParams
 
-// Configures using the `INCREASE_API_KEY` and `INCREASE_WEBHOOK_SECRET` environment variables
+// Configures using the `INCREASE_API_KEY`, `INCREASE_WEBHOOK_SECRET` and `INCREASE_BASE_URL` environment variables
 val client: IncreaseClientAsync = IncreaseOkHttpClientAsync.fromEnv()
 
 val params: AccountCreateParams = AccountCreateParams.builder()
