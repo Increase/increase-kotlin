@@ -1035,9 +1035,11 @@ private constructor(
         private val mailingAddress: JsonField<MailingAddress>,
         private val memo: JsonField<String>,
         private val recipientName: JsonField<String>,
+        private val attachmentFileId: JsonField<String>,
         private val checkNumber: JsonField<String>,
         private val note: JsonField<String>,
         private val returnAddress: JsonField<ReturnAddress>,
+        private val shippingMethod: JsonField<ShippingMethod>,
         private val signatureText: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
@@ -1051,6 +1053,9 @@ private constructor(
             @JsonProperty("recipient_name")
             @ExcludeMissing
             recipientName: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("attachment_file_id")
+            @ExcludeMissing
+            attachmentFileId: JsonField<String> = JsonMissing.of(),
             @JsonProperty("check_number")
             @ExcludeMissing
             checkNumber: JsonField<String> = JsonMissing.of(),
@@ -1058,6 +1063,9 @@ private constructor(
             @JsonProperty("return_address")
             @ExcludeMissing
             returnAddress: JsonField<ReturnAddress> = JsonMissing.of(),
+            @JsonProperty("shipping_method")
+            @ExcludeMissing
+            shippingMethod: JsonField<ShippingMethod> = JsonMissing.of(),
             @JsonProperty("signature_text")
             @ExcludeMissing
             signatureText: JsonField<String> = JsonMissing.of(),
@@ -1065,9 +1073,11 @@ private constructor(
             mailingAddress,
             memo,
             recipientName,
+            attachmentFileId,
             checkNumber,
             note,
             returnAddress,
+            shippingMethod,
             signatureText,
             mutableMapOf(),
         )
@@ -1097,6 +1107,16 @@ private constructor(
         fun recipientName(): String = recipientName.getRequired("recipient_name")
 
         /**
+         * The ID of a File to be attached to the check. This must have `purpose: check_attachment`.
+         * For details on pricing and restrictions, see
+         * https://increase.com/documentation/originating-checks#printing-checks .
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun attachmentFileId(): String? = attachmentFileId.getNullable("attachment_file_id")
+
+        /**
          * The check number Increase should print on the check. This should not contain leading
          * zeroes and must be unique across the `source_account_number`. If this is omitted,
          * Increase will generate a check number for you.
@@ -1122,6 +1142,15 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun returnAddress(): ReturnAddress? = returnAddress.getNullable("return_address")
+
+        /**
+         * How to ship the check. For details on pricing, timing, and restrictions, see
+         * https://increase.com/documentation/originating-checks#printing-checks .
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun shippingMethod(): ShippingMethod? = shippingMethod.getNullable("shipping_method")
 
         /**
          * The text that will appear as the signature on the check in cursive font. If not provided,
@@ -1160,6 +1189,16 @@ private constructor(
         fun _recipientName(): JsonField<String> = recipientName
 
         /**
+         * Returns the raw JSON value of [attachmentFileId].
+         *
+         * Unlike [attachmentFileId], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("attachment_file_id")
+        @ExcludeMissing
+        fun _attachmentFileId(): JsonField<String> = attachmentFileId
+
+        /**
          * Returns the raw JSON value of [checkNumber].
          *
          * Unlike [checkNumber], this method doesn't throw if the JSON field has an unexpected type.
@@ -1184,6 +1223,16 @@ private constructor(
         @JsonProperty("return_address")
         @ExcludeMissing
         fun _returnAddress(): JsonField<ReturnAddress> = returnAddress
+
+        /**
+         * Returns the raw JSON value of [shippingMethod].
+         *
+         * Unlike [shippingMethod], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("shipping_method")
+        @ExcludeMissing
+        fun _shippingMethod(): JsonField<ShippingMethod> = shippingMethod
 
         /**
          * Returns the raw JSON value of [signatureText].
@@ -1228,9 +1277,11 @@ private constructor(
             private var mailingAddress: JsonField<MailingAddress>? = null
             private var memo: JsonField<String>? = null
             private var recipientName: JsonField<String>? = null
+            private var attachmentFileId: JsonField<String> = JsonMissing.of()
             private var checkNumber: JsonField<String> = JsonMissing.of()
             private var note: JsonField<String> = JsonMissing.of()
             private var returnAddress: JsonField<ReturnAddress> = JsonMissing.of()
+            private var shippingMethod: JsonField<ShippingMethod> = JsonMissing.of()
             private var signatureText: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -1238,9 +1289,11 @@ private constructor(
                 mailingAddress = physicalCheck.mailingAddress
                 memo = physicalCheck.memo
                 recipientName = physicalCheck.recipientName
+                attachmentFileId = physicalCheck.attachmentFileId
                 checkNumber = physicalCheck.checkNumber
                 note = physicalCheck.note
                 returnAddress = physicalCheck.returnAddress
+                shippingMethod = physicalCheck.shippingMethod
                 signatureText = physicalCheck.signatureText
                 additionalProperties = physicalCheck.additionalProperties.toMutableMap()
             }
@@ -1284,6 +1337,25 @@ private constructor(
              */
             fun recipientName(recipientName: JsonField<String>) = apply {
                 this.recipientName = recipientName
+            }
+
+            /**
+             * The ID of a File to be attached to the check. This must have `purpose:
+             * check_attachment`. For details on pricing and restrictions, see
+             * https://increase.com/documentation/originating-checks#printing-checks .
+             */
+            fun attachmentFileId(attachmentFileId: String) =
+                attachmentFileId(JsonField.of(attachmentFileId))
+
+            /**
+             * Sets [Builder.attachmentFileId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.attachmentFileId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun attachmentFileId(attachmentFileId: JsonField<String>) = apply {
+                this.attachmentFileId = attachmentFileId
             }
 
             /**
@@ -1332,6 +1404,24 @@ private constructor(
              */
             fun returnAddress(returnAddress: JsonField<ReturnAddress>) = apply {
                 this.returnAddress = returnAddress
+            }
+
+            /**
+             * How to ship the check. For details on pricing, timing, and restrictions, see
+             * https://increase.com/documentation/originating-checks#printing-checks .
+             */
+            fun shippingMethod(shippingMethod: ShippingMethod) =
+                shippingMethod(JsonField.of(shippingMethod))
+
+            /**
+             * Sets [Builder.shippingMethod] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.shippingMethod] with a well-typed [ShippingMethod]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun shippingMethod(shippingMethod: JsonField<ShippingMethod>) = apply {
+                this.shippingMethod = shippingMethod
             }
 
             /**
@@ -1389,9 +1479,11 @@ private constructor(
                     checkRequired("mailingAddress", mailingAddress),
                     checkRequired("memo", memo),
                     checkRequired("recipientName", recipientName),
+                    attachmentFileId,
                     checkNumber,
                     note,
                     returnAddress,
+                    shippingMethod,
                     signatureText,
                     additionalProperties.toMutableMap(),
                 )
@@ -1407,9 +1499,11 @@ private constructor(
             mailingAddress().validate()
             memo()
             recipientName()
+            attachmentFileId()
             checkNumber()
             note()
             returnAddress()?.validate()
+            shippingMethod()?.validate()
             signatureText()
             validated = true
         }
@@ -1432,9 +1526,11 @@ private constructor(
             (mailingAddress.asKnown()?.validity() ?: 0) +
                 (if (memo.asKnown() == null) 0 else 1) +
                 (if (recipientName.asKnown() == null) 0 else 1) +
+                (if (attachmentFileId.asKnown() == null) 0 else 1) +
                 (if (checkNumber.asKnown() == null) 0 else 1) +
                 (if (note.asKnown() == null) 0 else 1) +
                 (returnAddress.asKnown()?.validity() ?: 0) +
+                (shippingMethod.asKnown()?.validity() ?: 0) +
                 (if (signatureText.asKnown() == null) 0 else 1)
 
         /** Details for where Increase will mail the check. */
@@ -2107,22 +2203,162 @@ private constructor(
                 "ReturnAddress{city=$city, line1=$line1, name=$name, postalCode=$postalCode, state=$state, line2=$line2, additionalProperties=$additionalProperties}"
         }
 
+        /**
+         * How to ship the check. For details on pricing, timing, and restrictions, see
+         * https://increase.com/documentation/originating-checks#printing-checks .
+         */
+        class ShippingMethod
+        @JsonCreator
+        private constructor(private val value: JsonField<String>) : Enum {
+
+            /**
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
+             */
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            companion object {
+
+                /** USPS First Class */
+                val USPS_FIRST_CLASS = of("usps_first_class")
+
+                /** FedEx Overnight */
+                val FEDEX_OVERNIGHT = of("fedex_overnight")
+
+                fun of(value: String) = ShippingMethod(JsonField.of(value))
+            }
+
+            /** An enum containing [ShippingMethod]'s known values. */
+            enum class Known {
+                /** USPS First Class */
+                USPS_FIRST_CLASS,
+                /** FedEx Overnight */
+                FEDEX_OVERNIGHT,
+            }
+
+            /**
+             * An enum containing [ShippingMethod]'s known values, as well as an [_UNKNOWN] member.
+             *
+             * An instance of [ShippingMethod] can contain an unknown value in a couple of cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
+            enum class Value {
+                /** USPS First Class */
+                USPS_FIRST_CLASS,
+                /** FedEx Overnight */
+                FEDEX_OVERNIGHT,
+                /**
+                 * An enum member indicating that [ShippingMethod] was instantiated with an unknown
+                 * value.
+                 */
+                _UNKNOWN,
+            }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
+            fun value(): Value =
+                when (this) {
+                    USPS_FIRST_CLASS -> Value.USPS_FIRST_CLASS
+                    FEDEX_OVERNIGHT -> Value.FEDEX_OVERNIGHT
+                    else -> Value._UNKNOWN
+                }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+             *   member.
+             */
+            fun known(): Known =
+                when (this) {
+                    USPS_FIRST_CLASS -> Known.USPS_FIRST_CLASS
+                    FEDEX_OVERNIGHT -> Known.FEDEX_OVERNIGHT
+                    else -> throw IncreaseInvalidDataException("Unknown ShippingMethod: $value")
+                }
+
+            /**
+             * Returns this class instance's primitive wire representation.
+             *
+             * This differs from the [toString] method because that method is primarily for
+             * debugging and generally doesn't throw.
+             *
+             * @throws IncreaseInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
+             */
+            fun asString(): String =
+                _value().asString() ?: throw IncreaseInvalidDataException("Value is not a String")
+
+            private var validated: Boolean = false
+
+            fun validate(): ShippingMethod = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return /* spotless:off */ other is ShippingMethod && value == other.value /* spotless:on */
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+        }
+
         override fun equals(other: Any?): Boolean {
             if (this === other) {
                 return true
             }
 
-            return /* spotless:off */ other is PhysicalCheck && mailingAddress == other.mailingAddress && memo == other.memo && recipientName == other.recipientName && checkNumber == other.checkNumber && note == other.note && returnAddress == other.returnAddress && signatureText == other.signatureText && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is PhysicalCheck && mailingAddress == other.mailingAddress && memo == other.memo && recipientName == other.recipientName && attachmentFileId == other.attachmentFileId && checkNumber == other.checkNumber && note == other.note && returnAddress == other.returnAddress && shippingMethod == other.shippingMethod && signatureText == other.signatureText && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(mailingAddress, memo, recipientName, checkNumber, note, returnAddress, signatureText, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(mailingAddress, memo, recipientName, attachmentFileId, checkNumber, note, returnAddress, shippingMethod, signatureText, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "PhysicalCheck{mailingAddress=$mailingAddress, memo=$memo, recipientName=$recipientName, checkNumber=$checkNumber, note=$note, returnAddress=$returnAddress, signatureText=$signatureText, additionalProperties=$additionalProperties}"
+            "PhysicalCheck{mailingAddress=$mailingAddress, memo=$memo, recipientName=$recipientName, attachmentFileId=$attachmentFileId, checkNumber=$checkNumber, note=$note, returnAddress=$returnAddress, shippingMethod=$shippingMethod, signatureText=$signatureText, additionalProperties=$additionalProperties}"
     }
 
     /**
