@@ -34,6 +34,7 @@ private constructor(
     private val frontImageFileId: JsonField<String>,
     private val idempotencyKey: JsonField<String>,
     private val isDefault: JsonField<Boolean>,
+    private val programId: JsonField<String>,
     private val status: JsonField<Status>,
     private val type: JsonField<Type>,
     private val additionalProperties: MutableMap<String, JsonValue>,
@@ -67,6 +68,7 @@ private constructor(
         @JsonProperty("is_default")
         @ExcludeMissing
         isDefault: JsonField<Boolean> = JsonMissing.of(),
+        @JsonProperty("program_id") @ExcludeMissing programId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
         @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
     ) : this(
@@ -80,6 +82,7 @@ private constructor(
         frontImageFileId,
         idempotencyKey,
         isDefault,
+        programId,
         status,
         type,
         mutableMapOf(),
@@ -167,6 +170,14 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun isDefault(): Boolean = isDefault.getRequired("is_default")
+
+    /**
+     * The identifier for the Program this Physical Card Profile belongs to.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun programId(): String = programId.getRequired("program_id")
 
     /**
      * The status of the Physical Card Profile.
@@ -270,6 +281,13 @@ private constructor(
     @JsonProperty("is_default") @ExcludeMissing fun _isDefault(): JsonField<Boolean> = isDefault
 
     /**
+     * Returns the raw JSON value of [programId].
+     *
+     * Unlike [programId], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("program_id") @ExcludeMissing fun _programId(): JsonField<String> = programId
+
+    /**
      * Returns the raw JSON value of [status].
      *
      * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
@@ -312,6 +330,7 @@ private constructor(
          * .frontImageFileId()
          * .idempotencyKey()
          * .isDefault()
+         * .programId()
          * .status()
          * .type()
          * ```
@@ -332,6 +351,7 @@ private constructor(
         private var frontImageFileId: JsonField<String>? = null
         private var idempotencyKey: JsonField<String>? = null
         private var isDefault: JsonField<Boolean>? = null
+        private var programId: JsonField<String>? = null
         private var status: JsonField<Status>? = null
         private var type: JsonField<Type>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -347,6 +367,7 @@ private constructor(
             frontImageFileId = physicalCardProfile.frontImageFileId
             idempotencyKey = physicalCardProfile.idempotencyKey
             isDefault = physicalCardProfile.isDefault
+            programId = physicalCardProfile.programId
             status = physicalCardProfile.status
             type = physicalCardProfile.type
             additionalProperties = physicalCardProfile.additionalProperties.toMutableMap()
@@ -493,6 +514,18 @@ private constructor(
          */
         fun isDefault(isDefault: JsonField<Boolean>) = apply { this.isDefault = isDefault }
 
+        /** The identifier for the Program this Physical Card Profile belongs to. */
+        fun programId(programId: String) = programId(JsonField.of(programId))
+
+        /**
+         * Sets [Builder.programId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.programId] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun programId(programId: JsonField<String>) = apply { this.programId = programId }
+
         /** The status of the Physical Card Profile. */
         fun status(status: Status) = status(JsonField.of(status))
 
@@ -554,6 +587,7 @@ private constructor(
          * .frontImageFileId()
          * .idempotencyKey()
          * .isDefault()
+         * .programId()
          * .status()
          * .type()
          * ```
@@ -572,6 +606,7 @@ private constructor(
                 checkRequired("frontImageFileId", frontImageFileId),
                 checkRequired("idempotencyKey", idempotencyKey),
                 checkRequired("isDefault", isDefault),
+                checkRequired("programId", programId),
                 checkRequired("status", status),
                 checkRequired("type", type),
                 additionalProperties.toMutableMap(),
@@ -595,6 +630,7 @@ private constructor(
         frontImageFileId()
         idempotencyKey()
         isDefault()
+        programId()
         status().validate()
         type().validate()
         validated = true
@@ -624,6 +660,7 @@ private constructor(
             (if (frontImageFileId.asKnown() == null) 0 else 1) +
             (if (idempotencyKey.asKnown() == null) 0 else 1) +
             (if (isDefault.asKnown() == null) 0 else 1) +
+            (if (programId.asKnown() == null) 0 else 1) +
             (status.asKnown()?.validity() ?: 0) +
             (type.asKnown()?.validity() ?: 0)
 
@@ -1064,15 +1101,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is PhysicalCardProfile && id == other.id && backImageFileId == other.backImageFileId && carrierImageFileId == other.carrierImageFileId && contactPhone == other.contactPhone && createdAt == other.createdAt && creator == other.creator && description == other.description && frontImageFileId == other.frontImageFileId && idempotencyKey == other.idempotencyKey && isDefault == other.isDefault && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is PhysicalCardProfile && id == other.id && backImageFileId == other.backImageFileId && carrierImageFileId == other.carrierImageFileId && contactPhone == other.contactPhone && createdAt == other.createdAt && creator == other.creator && description == other.description && frontImageFileId == other.frontImageFileId && idempotencyKey == other.idempotencyKey && isDefault == other.isDefault && programId == other.programId && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, backImageFileId, carrierImageFileId, contactPhone, createdAt, creator, description, frontImageFileId, idempotencyKey, isDefault, status, type, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, backImageFileId, carrierImageFileId, contactPhone, createdAt, creator, description, frontImageFileId, idempotencyKey, isDefault, programId, status, type, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "PhysicalCardProfile{id=$id, backImageFileId=$backImageFileId, carrierImageFileId=$carrierImageFileId, contactPhone=$contactPhone, createdAt=$createdAt, creator=$creator, description=$description, frontImageFileId=$frontImageFileId, idempotencyKey=$idempotencyKey, isDefault=$isDefault, status=$status, type=$type, additionalProperties=$additionalProperties}"
+        "PhysicalCardProfile{id=$id, backImageFileId=$backImageFileId, carrierImageFileId=$carrierImageFileId, contactPhone=$contactPhone, createdAt=$createdAt, creator=$creator, description=$description, frontImageFileId=$frontImageFileId, idempotencyKey=$idempotencyKey, isDefault=$isDefault, programId=$programId, status=$status, type=$type, additionalProperties=$additionalProperties}"
 }
