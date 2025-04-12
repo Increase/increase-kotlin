@@ -47,12 +47,7 @@ internal class CheckTransferCreateParamsTest {
                     .build()
             )
             .requireApproval(true)
-            .thirdParty(
-                CheckTransferCreateParams.ThirdParty.builder()
-                    .checkNumber("x")
-                    .recipientName("x")
-                    .build()
-            )
+            .thirdParty(CheckTransferCreateParams.ThirdParty.builder().recipientName("x").build())
             .build()
     }
 
@@ -98,10 +93,7 @@ internal class CheckTransferCreateParamsTest {
                 )
                 .requireApproval(true)
                 .thirdParty(
-                    CheckTransferCreateParams.ThirdParty.builder()
-                        .checkNumber("x")
-                        .recipientName("x")
-                        .build()
+                    CheckTransferCreateParams.ThirdParty.builder().recipientName("x").build()
                 )
                 .build()
 
@@ -147,12 +139,7 @@ internal class CheckTransferCreateParamsTest {
             )
         assertThat(body.requireApproval()).isEqualTo(true)
         assertThat(body.thirdParty())
-            .isEqualTo(
-                CheckTransferCreateParams.ThirdParty.builder()
-                    .checkNumber("x")
-                    .recipientName("x")
-                    .build()
-            )
+            .isEqualTo(CheckTransferCreateParams.ThirdParty.builder().recipientName("x").build())
     }
 
     @Test
