@@ -37,6 +37,7 @@ private constructor(
     private val companyDescriptiveDate: JsonField<String>,
     private val companyDiscretionaryData: JsonField<String>,
     private val companyEntryDescription: JsonField<String>,
+    private val companyId: JsonField<String>,
     private val companyName: JsonField<String>,
     private val createdAt: JsonField<OffsetDateTime>,
     private val createdBy: JsonField<CreatedBy>,
@@ -89,6 +90,7 @@ private constructor(
         @JsonProperty("company_entry_description")
         @ExcludeMissing
         companyEntryDescription: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("company_id") @ExcludeMissing companyId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("company_name")
         @ExcludeMissing
         companyName: JsonField<String> = JsonMissing.of(),
@@ -161,6 +163,7 @@ private constructor(
         companyDescriptiveDate,
         companyDiscretionaryData,
         companyEntryDescription,
+        companyId,
         companyName,
         createdAt,
         createdBy,
@@ -283,6 +286,14 @@ private constructor(
      */
     fun companyEntryDescription(): String? =
         companyEntryDescription.getNullable("company_entry_description")
+
+    /**
+     * The company ID associated with the transfer.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun companyId(): String = companyId.getRequired("company_id")
 
     /**
      * The name by which the recipient knows you.
@@ -590,6 +601,13 @@ private constructor(
     fun _companyEntryDescription(): JsonField<String> = companyEntryDescription
 
     /**
+     * Returns the raw JSON value of [companyId].
+     *
+     * Unlike [companyId], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("company_id") @ExcludeMissing fun _companyId(): JsonField<String> = companyId
+
+    /**
      * Returns the raw JSON value of [companyName].
      *
      * Unlike [companyName], this method doesn't throw if the JSON field has an unexpected type.
@@ -829,6 +847,7 @@ private constructor(
          * .companyDescriptiveDate()
          * .companyDiscretionaryData()
          * .companyEntryDescription()
+         * .companyId()
          * .companyName()
          * .createdAt()
          * .createdBy()
@@ -872,6 +891,7 @@ private constructor(
         private var companyDescriptiveDate: JsonField<String>? = null
         private var companyDiscretionaryData: JsonField<String>? = null
         private var companyEntryDescription: JsonField<String>? = null
+        private var companyId: JsonField<String>? = null
         private var companyName: JsonField<String>? = null
         private var createdAt: JsonField<OffsetDateTime>? = null
         private var createdBy: JsonField<CreatedBy>? = null
@@ -910,6 +930,7 @@ private constructor(
             companyDescriptiveDate = achTransfer.companyDescriptiveDate
             companyDiscretionaryData = achTransfer.companyDiscretionaryData
             companyEntryDescription = achTransfer.companyEntryDescription
+            companyId = achTransfer.companyId
             companyName = achTransfer.companyName
             createdAt = achTransfer.createdAt
             createdBy = achTransfer.createdBy
@@ -1095,6 +1116,18 @@ private constructor(
         fun companyEntryDescription(companyEntryDescription: JsonField<String>) = apply {
             this.companyEntryDescription = companyEntryDescription
         }
+
+        /** The company ID associated with the transfer. */
+        fun companyId(companyId: String) = companyId(JsonField.of(companyId))
+
+        /**
+         * Sets [Builder.companyId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.companyId] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun companyId(companyId: JsonField<String>) = apply { this.companyId = companyId }
 
         /** The name by which the recipient knows you. */
         fun companyName(companyName: String?) = companyName(JsonField.ofNullable(companyName))
@@ -1508,6 +1541,7 @@ private constructor(
          * .companyDescriptiveDate()
          * .companyDiscretionaryData()
          * .companyEntryDescription()
+         * .companyId()
          * .companyName()
          * .createdAt()
          * .createdBy()
@@ -1549,6 +1583,7 @@ private constructor(
                 checkRequired("companyDescriptiveDate", companyDescriptiveDate),
                 checkRequired("companyDiscretionaryData", companyDiscretionaryData),
                 checkRequired("companyEntryDescription", companyEntryDescription),
+                checkRequired("companyId", companyId),
                 checkRequired("companyName", companyName),
                 checkRequired("createdAt", createdAt),
                 checkRequired("createdBy", createdBy),
@@ -1597,6 +1632,7 @@ private constructor(
         companyDescriptiveDate()
         companyDiscretionaryData()
         companyEntryDescription()
+        companyId()
         companyName()
         createdAt()
         createdBy()?.validate()
@@ -1649,6 +1685,7 @@ private constructor(
             (if (companyDescriptiveDate.asKnown() == null) 0 else 1) +
             (if (companyDiscretionaryData.asKnown() == null) 0 else 1) +
             (if (companyEntryDescription.asKnown() == null) 0 else 1) +
+            (if (companyId.asKnown() == null) 0 else 1) +
             (if (companyName.asKnown() == null) 0 else 1) +
             (if (createdAt.asKnown() == null) 0 else 1) +
             (createdBy.asKnown()?.validity() ?: 0) +
@@ -9736,15 +9773,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is AchTransfer && id == other.id && accountId == other.accountId && accountNumber == other.accountNumber && acknowledgement == other.acknowledgement && addenda == other.addenda && amount == other.amount && approval == other.approval && cancellation == other.cancellation && companyDescriptiveDate == other.companyDescriptiveDate && companyDiscretionaryData == other.companyDiscretionaryData && companyEntryDescription == other.companyEntryDescription && companyName == other.companyName && createdAt == other.createdAt && createdBy == other.createdBy && currency == other.currency && destinationAccountHolder == other.destinationAccountHolder && externalAccountId == other.externalAccountId && funding == other.funding && idempotencyKey == other.idempotencyKey && inboundFundsHold == other.inboundFundsHold && individualId == other.individualId && individualName == other.individualName && network == other.network && notificationsOfChange == other.notificationsOfChange && pendingTransactionId == other.pendingTransactionId && preferredEffectiveDate == other.preferredEffectiveDate && return_ == other.return_ && routingNumber == other.routingNumber && settlement == other.settlement && standardEntryClassCode == other.standardEntryClassCode && statementDescriptor == other.statementDescriptor && status == other.status && submission == other.submission && transactionId == other.transactionId && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is AchTransfer && id == other.id && accountId == other.accountId && accountNumber == other.accountNumber && acknowledgement == other.acknowledgement && addenda == other.addenda && amount == other.amount && approval == other.approval && cancellation == other.cancellation && companyDescriptiveDate == other.companyDescriptiveDate && companyDiscretionaryData == other.companyDiscretionaryData && companyEntryDescription == other.companyEntryDescription && companyId == other.companyId && companyName == other.companyName && createdAt == other.createdAt && createdBy == other.createdBy && currency == other.currency && destinationAccountHolder == other.destinationAccountHolder && externalAccountId == other.externalAccountId && funding == other.funding && idempotencyKey == other.idempotencyKey && inboundFundsHold == other.inboundFundsHold && individualId == other.individualId && individualName == other.individualName && network == other.network && notificationsOfChange == other.notificationsOfChange && pendingTransactionId == other.pendingTransactionId && preferredEffectiveDate == other.preferredEffectiveDate && return_ == other.return_ && routingNumber == other.routingNumber && settlement == other.settlement && standardEntryClassCode == other.standardEntryClassCode && statementDescriptor == other.statementDescriptor && status == other.status && submission == other.submission && transactionId == other.transactionId && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, accountId, accountNumber, acknowledgement, addenda, amount, approval, cancellation, companyDescriptiveDate, companyDiscretionaryData, companyEntryDescription, companyName, createdAt, createdBy, currency, destinationAccountHolder, externalAccountId, funding, idempotencyKey, inboundFundsHold, individualId, individualName, network, notificationsOfChange, pendingTransactionId, preferredEffectiveDate, return_, routingNumber, settlement, standardEntryClassCode, statementDescriptor, status, submission, transactionId, type, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, accountId, accountNumber, acknowledgement, addenda, amount, approval, cancellation, companyDescriptiveDate, companyDiscretionaryData, companyEntryDescription, companyId, companyName, createdAt, createdBy, currency, destinationAccountHolder, externalAccountId, funding, idempotencyKey, inboundFundsHold, individualId, individualName, network, notificationsOfChange, pendingTransactionId, preferredEffectiveDate, return_, routingNumber, settlement, standardEntryClassCode, statementDescriptor, status, submission, transactionId, type, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "AchTransfer{id=$id, accountId=$accountId, accountNumber=$accountNumber, acknowledgement=$acknowledgement, addenda=$addenda, amount=$amount, approval=$approval, cancellation=$cancellation, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, createdAt=$createdAt, createdBy=$createdBy, currency=$currency, destinationAccountHolder=$destinationAccountHolder, externalAccountId=$externalAccountId, funding=$funding, idempotencyKey=$idempotencyKey, inboundFundsHold=$inboundFundsHold, individualId=$individualId, individualName=$individualName, network=$network, notificationsOfChange=$notificationsOfChange, pendingTransactionId=$pendingTransactionId, preferredEffectiveDate=$preferredEffectiveDate, return_=$return_, routingNumber=$routingNumber, settlement=$settlement, standardEntryClassCode=$standardEntryClassCode, statementDescriptor=$statementDescriptor, status=$status, submission=$submission, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
+        "AchTransfer{id=$id, accountId=$accountId, accountNumber=$accountNumber, acknowledgement=$acknowledgement, addenda=$addenda, amount=$amount, approval=$approval, cancellation=$cancellation, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyId=$companyId, companyName=$companyName, createdAt=$createdAt, createdBy=$createdBy, currency=$currency, destinationAccountHolder=$destinationAccountHolder, externalAccountId=$externalAccountId, funding=$funding, idempotencyKey=$idempotencyKey, inboundFundsHold=$inboundFundsHold, individualId=$individualId, individualName=$individualName, network=$network, notificationsOfChange=$notificationsOfChange, pendingTransactionId=$pendingTransactionId, preferredEffectiveDate=$preferredEffectiveDate, return_=$return_, routingNumber=$routingNumber, settlement=$settlement, standardEntryClassCode=$standardEntryClassCode, statementDescriptor=$statementDescriptor, status=$status, submission=$submission, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
 }
