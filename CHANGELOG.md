@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.209.0 (2025-04-17)
+
+Full Changelog: [v0.208.0...v0.209.0](https://github.com/Increase/increase-kotlin/compare/v0.208.0...v0.209.0)
+
+### Features
+
+* **api:** api update ([42e5d25](https://github.com/Increase/increase-kotlin/commit/42e5d2549d5a3494b4226ef2413b8067a68365f9))
+
+
+### Performance Improvements
+
+* **internal:** improve compilation+test speed ([0e6d5bb](https://github.com/Increase/increase-kotlin/commit/0e6d5bb66eed9418b1e0cdf94fb979a7ad4731b6))
+
+
+### Documentation
+
+* **client:** update jackson compat error message ([d973077](https://github.com/Increase/increase-kotlin/commit/d97307712a4cb15abafc7e3c109629ff7a006bd2))
+* explain http client customization ([14daf2e](https://github.com/Increase/increase-kotlin/commit/14daf2e9ee776b71cf3af9de93de7ac21b2948ac))
+* explain jackson compat in readme ([7bcbf4f](https://github.com/Increase/increase-kotlin/commit/7bcbf4fa2e5508a2b0b3129883597fd0db73bea7))
+
 ## 0.208.0 (2025-04-14)
 
 Full Changelog: [v0.207.0...v0.208.0](https://github.com/Increase/increase-kotlin/compare/v0.207.0...v0.208.0)
