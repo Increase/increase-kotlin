@@ -100,6 +100,10 @@ internal class EntityCreateParamsTest {
                     )
                     .name("National Phonograph Company")
                     .taxIdentifier("602214076")
+                    .beneficialOwnershipExemptionReason(
+                        EntityCreateParams.Corporation.BeneficialOwnershipExemptionReason
+                            .REGULATED_FINANCIAL_INSTITUTION
+                    )
                     .incorporationState("NY")
                     .industryCode("x")
                     .website("https://example.com")
@@ -492,6 +496,10 @@ internal class EntityCreateParamsTest {
                         )
                         .name("National Phonograph Company")
                         .taxIdentifier("602214076")
+                        .beneficialOwnershipExemptionReason(
+                            EntityCreateParams.Corporation.BeneficialOwnershipExemptionReason
+                                .REGULATED_FINANCIAL_INSTITUTION
+                        )
                         .incorporationState("NY")
                         .industryCode("x")
                         .website("https://example.com")
@@ -881,6 +889,10 @@ internal class EntityCreateParamsTest {
                     )
                     .name("National Phonograph Company")
                     .taxIdentifier("602214076")
+                    .beneficialOwnershipExemptionReason(
+                        EntityCreateParams.Corporation.BeneficialOwnershipExemptionReason
+                            .REGULATED_FINANCIAL_INSTITUTION
+                    )
                     .incorporationState("NY")
                     .industryCode("x")
                     .website("https://example.com")
