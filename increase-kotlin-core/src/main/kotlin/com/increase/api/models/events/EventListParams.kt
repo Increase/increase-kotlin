@@ -598,14 +598,6 @@ private constructor(
                 val PROOF_OF_AUTHORIZATION_REQUEST_UPDATED =
                     of("proof_of_authorization_request.updated")
 
-                /** Occurs whenever a Proof of Authorization Request Submission is created. */
-                val PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION_CREATED =
-                    of("proof_of_authorization_request_submission.created")
-
-                /** Occurs whenever a Proof of Authorization Request Submission is updated. */
-                val PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION_UPDATED =
-                    of("proof_of_authorization_request_submission.updated")
-
                 /**
                  * Occurs whenever a Real-Time Decision is created in response to a card
                  * authorization.
@@ -822,10 +814,6 @@ private constructor(
                 PROOF_OF_AUTHORIZATION_REQUEST_CREATED,
                 /** Occurs whenever a Proof of Authorization Request is updated. */
                 PROOF_OF_AUTHORIZATION_REQUEST_UPDATED,
-                /** Occurs whenever a Proof of Authorization Request Submission is created. */
-                PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION_CREATED,
-                /** Occurs whenever a Proof of Authorization Request Submission is updated. */
-                PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION_UPDATED,
                 /**
                  * Occurs whenever a Real-Time Decision is created in response to a card
                  * authorization.
@@ -1028,10 +1016,6 @@ private constructor(
                 PROOF_OF_AUTHORIZATION_REQUEST_CREATED,
                 /** Occurs whenever a Proof of Authorization Request is updated. */
                 PROOF_OF_AUTHORIZATION_REQUEST_UPDATED,
-                /** Occurs whenever a Proof of Authorization Request Submission is created. */
-                PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION_CREATED,
-                /** Occurs whenever a Proof of Authorization Request Submission is updated. */
-                PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION_UPDATED,
                 /**
                  * Occurs whenever a Real-Time Decision is created in response to a card
                  * authorization.
@@ -1165,10 +1149,6 @@ private constructor(
                         Value.PROOF_OF_AUTHORIZATION_REQUEST_CREATED
                     PROOF_OF_AUTHORIZATION_REQUEST_UPDATED ->
                         Value.PROOF_OF_AUTHORIZATION_REQUEST_UPDATED
-                    PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION_CREATED ->
-                        Value.PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION_CREATED
-                    PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION_UPDATED ->
-                        Value.PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION_UPDATED
                     REAL_TIME_DECISION_CARD_AUTHORIZATION_REQUESTED ->
                         Value.REAL_TIME_DECISION_CARD_AUTHORIZATION_REQUESTED
                     REAL_TIME_DECISION_DIGITAL_WALLET_TOKEN_REQUESTED ->
@@ -1281,10 +1261,6 @@ private constructor(
                         Known.PROOF_OF_AUTHORIZATION_REQUEST_CREATED
                     PROOF_OF_AUTHORIZATION_REQUEST_UPDATED ->
                         Known.PROOF_OF_AUTHORIZATION_REQUEST_UPDATED
-                    PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION_CREATED ->
-                        Known.PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION_CREATED
-                    PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION_UPDATED ->
-                        Known.PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION_UPDATED
                     REAL_TIME_DECISION_CARD_AUTHORIZATION_REQUESTED ->
                         Known.REAL_TIME_DECISION_CARD_AUTHORIZATION_REQUESTED
                     REAL_TIME_DECISION_DIGITAL_WALLET_TOKEN_REQUESTED ->
