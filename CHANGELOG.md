@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.211.0 (2025-04-22)
+
+Full Changelog: [v0.210.0...v0.211.0](https://github.com/Increase/increase-kotlin/compare/v0.210.0...v0.211.0)
+
+### Features
+
+* **api:** api update ([9ed7f7d](https://github.com/Increase/increase-kotlin/commit/9ed7f7df80f9f8cc4af51ee99857e7c0df756671))
+
+
+### Chores
+
+* **ci:** add timeout thresholds for CI jobs ([d11e8d7](https://github.com/Increase/increase-kotlin/commit/d11e8d7549c15ba32e84219688556149f137489d))
+
 ## 0.210.0 (2025-04-18)
 
 Full Changelog: [v0.209.0...v0.210.0](https://github.com/Increase/increase-kotlin/compare/v0.209.0...v0.210.0)
