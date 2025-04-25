@@ -1,5 +1,26 @@
 # Changelog
 
+## 0.212.0 (2025-04-25)
+
+Full Changelog: [v0.211.0...v0.212.0](https://github.com/Increase/increase-kotlin/compare/v0.211.0...v0.212.0)
+
+### Features
+
+* **api:** api update ([caa0307](https://github.com/Increase/increase-kotlin/commit/caa0307ce144410c2d5b553f1b1f8763e39b77fe))
+
+
+### Bug Fixes
+
+* **client:** add missing convenience methods ([c41383a](https://github.com/Increase/increase-kotlin/commit/c41383a9bbe73ff1a67500f5ece7c85306f4a9d0))
+
+
+### Chores
+
+* **ci:** only use depot for staging repos ([1a5c826](https://github.com/Increase/increase-kotlin/commit/1a5c8266dd4435b8bdd91e543d8cb56602054b75))
+* **ci:** run on more branches and use depot runners ([1f68319](https://github.com/Increase/increase-kotlin/commit/1f68319e15f2ada0caa8ef532fd7f98435abc391))
+* **internal:** java 17 -&gt; 21 on ci ([797b77c](https://github.com/Increase/increase-kotlin/commit/797b77cfc1e1111d6f8602c1f364f998b03e7284))
+* **internal:** use `byteInputStream()` in tests ([c41383a](https://github.com/Increase/increase-kotlin/commit/c41383a9bbe73ff1a67500f5ece7c85306f4a9d0))
+
 ## 0.211.0 (2025-04-22)
 
 Full Changelog: [v0.210.0...v0.211.0](https://github.com/Increase/increase-kotlin/compare/v0.210.0...v0.211.0)
