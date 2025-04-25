@@ -60,6 +60,16 @@ private constructor(
     fun sourceAccountNumberId(): String = body.sourceAccountNumberId()
 
     /**
+     * The check number Increase should use for the check. This should not contain leading zeroes
+     * and must be unique across the `source_account_number`. If this is omitted, Increase will
+     * generate a check number for you.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun checkNumber(): String? = body.checkNumber()
+
+    /**
      * Details relating to the physical check that Increase will print and mail. This is required if
      * `fulfillment_method` is equal to `physical_check`. It must not be included if any other
      * `fulfillment_method` is provided.
@@ -116,6 +126,13 @@ private constructor(
      * type.
      */
     fun _sourceAccountNumberId(): JsonField<String> = body._sourceAccountNumberId()
+
+    /**
+     * Returns the raw JSON value of [checkNumber].
+     *
+     * Unlike [checkNumber], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _checkNumber(): JsonField<String> = body._checkNumber()
 
     /**
      * Returns the raw JSON value of [physicalCheck].
@@ -184,7 +201,7 @@ private constructor(
          * - [amount]
          * - [fulfillmentMethod]
          * - [sourceAccountNumberId]
-         * - [physicalCheck]
+         * - [checkNumber]
          * - etc.
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
@@ -246,6 +263,22 @@ private constructor(
         fun sourceAccountNumberId(sourceAccountNumberId: JsonField<String>) = apply {
             body.sourceAccountNumberId(sourceAccountNumberId)
         }
+
+        /**
+         * The check number Increase should use for the check. This should not contain leading
+         * zeroes and must be unique across the `source_account_number`. If this is omitted,
+         * Increase will generate a check number for you.
+         */
+        fun checkNumber(checkNumber: String) = apply { body.checkNumber(checkNumber) }
+
+        /**
+         * Sets [Builder.checkNumber] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.checkNumber] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun checkNumber(checkNumber: JsonField<String>) = apply { body.checkNumber(checkNumber) }
 
         /**
          * Details relating to the physical check that Increase will print and mail. This is
@@ -451,6 +484,7 @@ private constructor(
         private val amount: JsonField<Long>,
         private val fulfillmentMethod: JsonField<FulfillmentMethod>,
         private val sourceAccountNumberId: JsonField<String>,
+        private val checkNumber: JsonField<String>,
         private val physicalCheck: JsonField<PhysicalCheck>,
         private val requireApproval: JsonField<Boolean>,
         private val thirdParty: JsonField<ThirdParty>,
@@ -469,6 +503,9 @@ private constructor(
             @JsonProperty("source_account_number_id")
             @ExcludeMissing
             sourceAccountNumberId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("check_number")
+            @ExcludeMissing
+            checkNumber: JsonField<String> = JsonMissing.of(),
             @JsonProperty("physical_check")
             @ExcludeMissing
             physicalCheck: JsonField<PhysicalCheck> = JsonMissing.of(),
@@ -483,6 +520,7 @@ private constructor(
             amount,
             fulfillmentMethod,
             sourceAccountNumberId,
+            checkNumber,
             physicalCheck,
             requireApproval,
             thirdParty,
@@ -523,6 +561,16 @@ private constructor(
          */
         fun sourceAccountNumberId(): String =
             sourceAccountNumberId.getRequired("source_account_number_id")
+
+        /**
+         * The check number Increase should use for the check. This should not contain leading
+         * zeroes and must be unique across the `source_account_number`. If this is omitted,
+         * Increase will generate a check number for you.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun checkNumber(): String? = checkNumber.getNullable("check_number")
 
         /**
          * Details relating to the physical check that Increase will print and mail. This is
@@ -585,6 +633,15 @@ private constructor(
         @JsonProperty("source_account_number_id")
         @ExcludeMissing
         fun _sourceAccountNumberId(): JsonField<String> = sourceAccountNumberId
+
+        /**
+         * Returns the raw JSON value of [checkNumber].
+         *
+         * Unlike [checkNumber], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("check_number")
+        @ExcludeMissing
+        fun _checkNumber(): JsonField<String> = checkNumber
 
         /**
          * Returns the raw JSON value of [physicalCheck].
@@ -650,6 +707,7 @@ private constructor(
             private var amount: JsonField<Long>? = null
             private var fulfillmentMethod: JsonField<FulfillmentMethod>? = null
             private var sourceAccountNumberId: JsonField<String>? = null
+            private var checkNumber: JsonField<String> = JsonMissing.of()
             private var physicalCheck: JsonField<PhysicalCheck> = JsonMissing.of()
             private var requireApproval: JsonField<Boolean> = JsonMissing.of()
             private var thirdParty: JsonField<ThirdParty> = JsonMissing.of()
@@ -660,6 +718,7 @@ private constructor(
                 amount = body.amount
                 fulfillmentMethod = body.fulfillmentMethod
                 sourceAccountNumberId = body.sourceAccountNumberId
+                checkNumber = body.checkNumber
                 physicalCheck = body.physicalCheck
                 requireApproval = body.requireApproval
                 thirdParty = body.thirdParty
@@ -721,6 +780,24 @@ private constructor(
              */
             fun sourceAccountNumberId(sourceAccountNumberId: JsonField<String>) = apply {
                 this.sourceAccountNumberId = sourceAccountNumberId
+            }
+
+            /**
+             * The check number Increase should use for the check. This should not contain leading
+             * zeroes and must be unique across the `source_account_number`. If this is omitted,
+             * Increase will generate a check number for you.
+             */
+            fun checkNumber(checkNumber: String) = checkNumber(JsonField.of(checkNumber))
+
+            /**
+             * Sets [Builder.checkNumber] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.checkNumber] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun checkNumber(checkNumber: JsonField<String>) = apply {
+                this.checkNumber = checkNumber
             }
 
             /**
@@ -815,6 +892,7 @@ private constructor(
                     checkRequired("amount", amount),
                     checkRequired("fulfillmentMethod", fulfillmentMethod),
                     checkRequired("sourceAccountNumberId", sourceAccountNumberId),
+                    checkNumber,
                     physicalCheck,
                     requireApproval,
                     thirdParty,
@@ -833,6 +911,7 @@ private constructor(
             amount()
             fulfillmentMethod().validate()
             sourceAccountNumberId()
+            checkNumber()
             physicalCheck()?.validate()
             requireApproval()
             thirdParty()?.validate()
@@ -858,6 +937,7 @@ private constructor(
                 (if (amount.asKnown() == null) 0 else 1) +
                 (fulfillmentMethod.asKnown()?.validity() ?: 0) +
                 (if (sourceAccountNumberId.asKnown() == null) 0 else 1) +
+                (if (checkNumber.asKnown() == null) 0 else 1) +
                 (physicalCheck.asKnown()?.validity() ?: 0) +
                 (if (requireApproval.asKnown() == null) 0 else 1) +
                 (thirdParty.asKnown()?.validity() ?: 0)
@@ -867,17 +947,17 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Body && accountId == other.accountId && amount == other.amount && fulfillmentMethod == other.fulfillmentMethod && sourceAccountNumberId == other.sourceAccountNumberId && physicalCheck == other.physicalCheck && requireApproval == other.requireApproval && thirdParty == other.thirdParty && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Body && accountId == other.accountId && amount == other.amount && fulfillmentMethod == other.fulfillmentMethod && sourceAccountNumberId == other.sourceAccountNumberId && checkNumber == other.checkNumber && physicalCheck == other.physicalCheck && requireApproval == other.requireApproval && thirdParty == other.thirdParty && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(accountId, amount, fulfillmentMethod, sourceAccountNumberId, physicalCheck, requireApproval, thirdParty, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(accountId, amount, fulfillmentMethod, sourceAccountNumberId, checkNumber, physicalCheck, requireApproval, thirdParty, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{accountId=$accountId, amount=$amount, fulfillmentMethod=$fulfillmentMethod, sourceAccountNumberId=$sourceAccountNumberId, physicalCheck=$physicalCheck, requireApproval=$requireApproval, thirdParty=$thirdParty, additionalProperties=$additionalProperties}"
+            "Body{accountId=$accountId, amount=$amount, fulfillmentMethod=$fulfillmentMethod, sourceAccountNumberId=$sourceAccountNumberId, checkNumber=$checkNumber, physicalCheck=$physicalCheck, requireApproval=$requireApproval, thirdParty=$thirdParty, additionalProperties=$additionalProperties}"
     }
 
     /** Whether Increase will print and mail the check or if you will do it yourself. */
@@ -1036,7 +1116,6 @@ private constructor(
         private val memo: JsonField<String>,
         private val recipientName: JsonField<String>,
         private val attachmentFileId: JsonField<String>,
-        private val checkNumber: JsonField<String>,
         private val note: JsonField<String>,
         private val returnAddress: JsonField<ReturnAddress>,
         private val shippingMethod: JsonField<ShippingMethod>,
@@ -1056,9 +1135,6 @@ private constructor(
             @JsonProperty("attachment_file_id")
             @ExcludeMissing
             attachmentFileId: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("check_number")
-            @ExcludeMissing
-            checkNumber: JsonField<String> = JsonMissing.of(),
             @JsonProperty("note") @ExcludeMissing note: JsonField<String> = JsonMissing.of(),
             @JsonProperty("return_address")
             @ExcludeMissing
@@ -1074,7 +1150,6 @@ private constructor(
             memo,
             recipientName,
             attachmentFileId,
-            checkNumber,
             note,
             returnAddress,
             shippingMethod,
@@ -1115,16 +1190,6 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun attachmentFileId(): String? = attachmentFileId.getNullable("attachment_file_id")
-
-        /**
-         * The check number Increase should print on the check. This should not contain leading
-         * zeroes and must be unique across the `source_account_number`. If this is omitted,
-         * Increase will generate a check number for you.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun checkNumber(): String? = checkNumber.getNullable("check_number")
 
         /**
          * The descriptor that will be printed on the letter included with the check.
@@ -1199,15 +1264,6 @@ private constructor(
         fun _attachmentFileId(): JsonField<String> = attachmentFileId
 
         /**
-         * Returns the raw JSON value of [checkNumber].
-         *
-         * Unlike [checkNumber], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("check_number")
-        @ExcludeMissing
-        fun _checkNumber(): JsonField<String> = checkNumber
-
-        /**
          * Returns the raw JSON value of [note].
          *
          * Unlike [note], this method doesn't throw if the JSON field has an unexpected type.
@@ -1278,7 +1334,6 @@ private constructor(
             private var memo: JsonField<String>? = null
             private var recipientName: JsonField<String>? = null
             private var attachmentFileId: JsonField<String> = JsonMissing.of()
-            private var checkNumber: JsonField<String> = JsonMissing.of()
             private var note: JsonField<String> = JsonMissing.of()
             private var returnAddress: JsonField<ReturnAddress> = JsonMissing.of()
             private var shippingMethod: JsonField<ShippingMethod> = JsonMissing.of()
@@ -1290,7 +1345,6 @@ private constructor(
                 memo = physicalCheck.memo
                 recipientName = physicalCheck.recipientName
                 attachmentFileId = physicalCheck.attachmentFileId
-                checkNumber = physicalCheck.checkNumber
                 note = physicalCheck.note
                 returnAddress = physicalCheck.returnAddress
                 shippingMethod = physicalCheck.shippingMethod
@@ -1356,24 +1410,6 @@ private constructor(
              */
             fun attachmentFileId(attachmentFileId: JsonField<String>) = apply {
                 this.attachmentFileId = attachmentFileId
-            }
-
-            /**
-             * The check number Increase should print on the check. This should not contain leading
-             * zeroes and must be unique across the `source_account_number`. If this is omitted,
-             * Increase will generate a check number for you.
-             */
-            fun checkNumber(checkNumber: String) = checkNumber(JsonField.of(checkNumber))
-
-            /**
-             * Sets [Builder.checkNumber] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.checkNumber] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun checkNumber(checkNumber: JsonField<String>) = apply {
-                this.checkNumber = checkNumber
             }
 
             /** The descriptor that will be printed on the letter included with the check. */
@@ -1480,7 +1516,6 @@ private constructor(
                     checkRequired("memo", memo),
                     checkRequired("recipientName", recipientName),
                     attachmentFileId,
-                    checkNumber,
                     note,
                     returnAddress,
                     shippingMethod,
@@ -1500,7 +1535,6 @@ private constructor(
             memo()
             recipientName()
             attachmentFileId()
-            checkNumber()
             note()
             returnAddress()?.validate()
             shippingMethod()?.validate()
@@ -1527,7 +1561,6 @@ private constructor(
                 (if (memo.asKnown() == null) 0 else 1) +
                 (if (recipientName.asKnown() == null) 0 else 1) +
                 (if (attachmentFileId.asKnown() == null) 0 else 1) +
-                (if (checkNumber.asKnown() == null) 0 else 1) +
                 (if (note.asKnown() == null) 0 else 1) +
                 (returnAddress.asKnown()?.validity() ?: 0) +
                 (shippingMethod.asKnown()?.validity() ?: 0) +
@@ -2348,17 +2381,17 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is PhysicalCheck && mailingAddress == other.mailingAddress && memo == other.memo && recipientName == other.recipientName && attachmentFileId == other.attachmentFileId && checkNumber == other.checkNumber && note == other.note && returnAddress == other.returnAddress && shippingMethod == other.shippingMethod && signatureText == other.signatureText && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is PhysicalCheck && mailingAddress == other.mailingAddress && memo == other.memo && recipientName == other.recipientName && attachmentFileId == other.attachmentFileId && note == other.note && returnAddress == other.returnAddress && shippingMethod == other.shippingMethod && signatureText == other.signatureText && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(mailingAddress, memo, recipientName, attachmentFileId, checkNumber, note, returnAddress, shippingMethod, signatureText, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(mailingAddress, memo, recipientName, attachmentFileId, note, returnAddress, shippingMethod, signatureText, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "PhysicalCheck{mailingAddress=$mailingAddress, memo=$memo, recipientName=$recipientName, attachmentFileId=$attachmentFileId, checkNumber=$checkNumber, note=$note, returnAddress=$returnAddress, shippingMethod=$shippingMethod, signatureText=$signatureText, additionalProperties=$additionalProperties}"
+            "PhysicalCheck{mailingAddress=$mailingAddress, memo=$memo, recipientName=$recipientName, attachmentFileId=$attachmentFileId, note=$note, returnAddress=$returnAddress, shippingMethod=$shippingMethod, signatureText=$signatureText, additionalProperties=$additionalProperties}"
     }
 
     /**
