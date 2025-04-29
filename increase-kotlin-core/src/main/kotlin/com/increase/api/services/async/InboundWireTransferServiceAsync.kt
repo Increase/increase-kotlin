@@ -9,6 +9,7 @@ import com.increase.api.models.inboundwiretransfers.InboundWireTransfer
 import com.increase.api.models.inboundwiretransfers.InboundWireTransferListPageAsync
 import com.increase.api.models.inboundwiretransfers.InboundWireTransferListParams
 import com.increase.api.models.inboundwiretransfers.InboundWireTransferRetrieveParams
+import com.increase.api.models.inboundwiretransfers.InboundWireTransferReverseParams
 
 interface InboundWireTransferServiceAsync {
 
@@ -32,6 +33,12 @@ interface InboundWireTransferServiceAsync {
     /** @see [list] */
     suspend fun list(requestOptions: RequestOptions): InboundWireTransferListPageAsync =
         list(InboundWireTransferListParams.none(), requestOptions)
+
+    /** Reverse an Inbound Wire Transfer */
+    suspend fun reverse(
+        params: InboundWireTransferReverseParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): InboundWireTransfer
 
     /**
      * A view of [InboundWireTransferServiceAsync] that provides access to raw HTTP responses for
@@ -65,5 +72,16 @@ interface InboundWireTransferServiceAsync {
             requestOptions: RequestOptions
         ): HttpResponseFor<InboundWireTransferListPageAsync> =
             list(InboundWireTransferListParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `post
+         * /inbound_wire_transfers/{inbound_wire_transfer_id}/reverse`, but is otherwise the same as
+         * [InboundWireTransferServiceAsync.reverse].
+         */
+        @MustBeClosed
+        suspend fun reverse(
+            params: InboundWireTransferReverseParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<InboundWireTransfer>
     }
 }
