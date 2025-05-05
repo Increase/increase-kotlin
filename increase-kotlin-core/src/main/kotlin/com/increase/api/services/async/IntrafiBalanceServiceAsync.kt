@@ -15,7 +15,10 @@ interface IntrafiBalanceServiceAsync {
      */
     fun withRawResponse(): WithRawResponse
 
-    /** Get IntraFi balances by bank */
+    /**
+     * Returns the IntraFi balance for the given account. IntraFi may sweep funds to multiple banks.
+     * This endpoint will include both the total balance and the amount swept to each institution.
+     */
     suspend fun intrafiBalance(
         params: IntrafiBalanceIntrafiBalanceParams,
         requestOptions: RequestOptions = RequestOptions.none(),
