@@ -2023,6 +2023,7 @@ private constructor(
 
             class Update
             private constructor(
+                private val carrierEstimatedDeliveryAt: JsonField<OffsetDateTime>,
                 private val category: JsonField<Category>,
                 private val city: JsonField<String>,
                 private val createdAt: JsonField<OffsetDateTime>,
@@ -2033,6 +2034,9 @@ private constructor(
 
                 @JsonCreator
                 private constructor(
+                    @JsonProperty("carrier_estimated_delivery_at")
+                    @ExcludeMissing
+                    carrierEstimatedDeliveryAt: JsonField<OffsetDateTime> = JsonMissing.of(),
                     @JsonProperty("category")
                     @ExcludeMissing
                     category: JsonField<Category> = JsonMissing.of(),
@@ -2048,7 +2052,25 @@ private constructor(
                     @JsonProperty("state")
                     @ExcludeMissing
                     state: JsonField<String> = JsonMissing.of(),
-                ) : this(category, city, createdAt, postalCode, state, mutableMapOf())
+                ) : this(
+                    carrierEstimatedDeliveryAt,
+                    category,
+                    city,
+                    createdAt,
+                    postalCode,
+                    state,
+                    mutableMapOf(),
+                )
+
+                /**
+                 * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time when the
+                 * carrier expects the card to be delivered.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                 *   (e.g. if the server responded with an unexpected value).
+                 */
+                fun carrierEstimatedDeliveryAt(): OffsetDateTime? =
+                    carrierEstimatedDeliveryAt.getNullable("carrier_estimated_delivery_at")
 
                 /**
                  * The type of tracking event.
@@ -2092,6 +2114,17 @@ private constructor(
                  *   (e.g. if the server responded with an unexpected value).
                  */
                 fun state(): String? = state.getNullable("state")
+
+                /**
+                 * Returns the raw JSON value of [carrierEstimatedDeliveryAt].
+                 *
+                 * Unlike [carrierEstimatedDeliveryAt], this method doesn't throw if the JSON field
+                 * has an unexpected type.
+                 */
+                @JsonProperty("carrier_estimated_delivery_at")
+                @ExcludeMissing
+                fun _carrierEstimatedDeliveryAt(): JsonField<OffsetDateTime> =
+                    carrierEstimatedDeliveryAt
 
                 /**
                  * Returns the raw JSON value of [category].
@@ -2158,6 +2191,7 @@ private constructor(
                      *
                      * The following fields are required:
                      * ```kotlin
+                     * .carrierEstimatedDeliveryAt()
                      * .category()
                      * .city()
                      * .createdAt()
@@ -2171,6 +2205,7 @@ private constructor(
                 /** A builder for [Update]. */
                 class Builder internal constructor() {
 
+                    private var carrierEstimatedDeliveryAt: JsonField<OffsetDateTime>? = null
                     private var category: JsonField<Category>? = null
                     private var city: JsonField<String>? = null
                     private var createdAt: JsonField<OffsetDateTime>? = null
@@ -2179,6 +2214,7 @@ private constructor(
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                     internal fun from(update: Update) = apply {
+                        carrierEstimatedDeliveryAt = update.carrierEstimatedDeliveryAt
                         category = update.category
                         city = update.city
                         createdAt = update.createdAt
@@ -2186,6 +2222,24 @@ private constructor(
                         state = update.state
                         additionalProperties = update.additionalProperties.toMutableMap()
                     }
+
+                    /**
+                     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time when the
+                     * carrier expects the card to be delivered.
+                     */
+                    fun carrierEstimatedDeliveryAt(carrierEstimatedDeliveryAt: OffsetDateTime?) =
+                        carrierEstimatedDeliveryAt(JsonField.ofNullable(carrierEstimatedDeliveryAt))
+
+                    /**
+                     * Sets [Builder.carrierEstimatedDeliveryAt] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.carrierEstimatedDeliveryAt] with a
+                     * well-typed [OffsetDateTime] value instead. This method is primarily for
+                     * setting the field to an undocumented or not yet supported value.
+                     */
+                    fun carrierEstimatedDeliveryAt(
+                        carrierEstimatedDeliveryAt: JsonField<OffsetDateTime>
+                    ) = apply { this.carrierEstimatedDeliveryAt = carrierEstimatedDeliveryAt }
 
                     /** The type of tracking event. */
                     fun category(category: Category) = category(JsonField.of(category))
@@ -2284,6 +2338,7 @@ private constructor(
                      *
                      * The following fields are required:
                      * ```kotlin
+                     * .carrierEstimatedDeliveryAt()
                      * .category()
                      * .city()
                      * .createdAt()
@@ -2295,6 +2350,7 @@ private constructor(
                      */
                     fun build(): Update =
                         Update(
+                            checkRequired("carrierEstimatedDeliveryAt", carrierEstimatedDeliveryAt),
                             checkRequired("category", category),
                             checkRequired("city", city),
                             checkRequired("createdAt", createdAt),
@@ -2311,6 +2367,7 @@ private constructor(
                         return@apply
                     }
 
+                    carrierEstimatedDeliveryAt()
                     category().validate()
                     city()
                     createdAt()
@@ -2334,7 +2391,8 @@ private constructor(
                  * Used for best match union deserialization.
                  */
                 internal fun validity(): Int =
-                    (category.asKnown()?.validity() ?: 0) +
+                    (if (carrierEstimatedDeliveryAt.asKnown() == null) 0 else 1) +
+                        (category.asKnown()?.validity() ?: 0) +
                         (if (city.asKnown() == null) 0 else 1) +
                         (if (createdAt.asKnown() == null) 0 else 1) +
                         (if (postalCode.asKnown() == null) 0 else 1) +
@@ -2503,17 +2561,17 @@ private constructor(
                         return true
                     }
 
-                    return /* spotless:off */ other is Update && category == other.category && city == other.city && createdAt == other.createdAt && postalCode == other.postalCode && state == other.state && additionalProperties == other.additionalProperties /* spotless:on */
+                    return /* spotless:off */ other is Update && carrierEstimatedDeliveryAt == other.carrierEstimatedDeliveryAt && category == other.category && city == other.city && createdAt == other.createdAt && postalCode == other.postalCode && state == other.state && additionalProperties == other.additionalProperties /* spotless:on */
                 }
 
                 /* spotless:off */
-                private val hashCode: Int by lazy { Objects.hash(category, city, createdAt, postalCode, state, additionalProperties) }
+                private val hashCode: Int by lazy { Objects.hash(carrierEstimatedDeliveryAt, category, city, createdAt, postalCode, state, additionalProperties) }
                 /* spotless:on */
 
                 override fun hashCode(): Int = hashCode
 
                 override fun toString() =
-                    "Update{category=$category, city=$city, createdAt=$createdAt, postalCode=$postalCode, state=$state, additionalProperties=$additionalProperties}"
+                    "Update{carrierEstimatedDeliveryAt=$carrierEstimatedDeliveryAt, category=$category, city=$city, createdAt=$createdAt, postalCode=$postalCode, state=$state, additionalProperties=$additionalProperties}"
             }
 
             override fun equals(other: Any?): Boolean {
