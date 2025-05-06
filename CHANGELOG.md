@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.219.0 (2025-05-06)
+
+Full Changelog: [v0.218.0...v0.219.0](https://github.com/Increase/increase-kotlin/compare/v0.218.0...v0.219.0)
+
+### Features
+
+* **api:** api update ([7d68cac](https://github.com/Increase/increase-kotlin/commit/7d68cacae2b5ee946a34867d24b586776c22e9c4))
+* **api:** api update ([9b7fd99](https://github.com/Increase/increase-kotlin/commit/9b7fd99a0d5d5f35582d609009f168b06fcb1b9b))
+
+
+### Chores
+
+* **internal:** remove flaky `-Xbackend-threads=0` option ([7b58536](https://github.com/Increase/increase-kotlin/commit/7b585365f5ec96df7a87ec9274eb7b2783027694))
+
 ## 0.218.0 (2025-05-05)
 
 Full Changelog: [v0.217.0...v0.218.0](https://github.com/Increase/increase-kotlin/compare/v0.217.0...v0.218.0)
