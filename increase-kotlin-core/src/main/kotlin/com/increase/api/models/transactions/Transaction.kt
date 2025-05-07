@@ -26486,25 +26486,29 @@ private constructor(
                     /** The check doesn't allow ACH conversion. */
                     val ACH_CONVERSION_NOT_SUPPORTED = of("ach_conversion_not_supported")
 
-                    /** The account is closed. */
+                    /** The account is closed. (Check21 return code `D`) */
                     val CLOSED_ACCOUNT = of("closed_account")
 
-                    /** The check has already been deposited. */
+                    /** The check has already been deposited. (Check21 return code `Y`) */
                     val DUPLICATE_SUBMISSION = of("duplicate_submission")
 
-                    /** Insufficient funds */
+                    /** Insufficient funds (Check21 return code `A`) */
                     val INSUFFICIENT_FUNDS = of("insufficient_funds")
 
-                    /** No account was found matching the check details. */
+                    /**
+                     * No account was found matching the check details. (Check21 return code `E`)
+                     */
                     val NO_ACCOUNT = of("no_account")
 
-                    /** The check was not authorized. */
+                    /** The check was not authorized. (Check21 return code `Q`) */
                     val NOT_AUTHORIZED = of("not_authorized")
 
-                    /** The check is too old. */
+                    /** The check is too old. (Check21 return code `G`) */
                     val STALE_DATED = of("stale_dated")
 
-                    /** The payment has been stopped by the account holder. */
+                    /**
+                     * The payment has been stopped by the account holder. (Check21 return code `C`)
+                     */
                     val STOP_PAYMENT = of("stop_payment")
 
                     /** The reason for the return is unknown. */
@@ -26513,52 +26517,65 @@ private constructor(
                     /** The image doesn't match the details submitted. */
                     val UNMATCHED_DETAILS = of("unmatched_details")
 
-                    /** The image could not be read. */
+                    /** The image could not be read. (Check21 return code `U`) */
                     val UNREADABLE_IMAGE = of("unreadable_image")
 
-                    /** The check endorsement was irregular. */
+                    /** The check endorsement was irregular. (Check21 return code `J`) */
                     val ENDORSEMENT_IRREGULAR = of("endorsement_irregular")
 
-                    /** The check present was either altered or fake. */
+                    /** The check present was either altered or fake. (Check21 return code `N`) */
                     val ALTERED_OR_FICTITIOUS_ITEM = of("altered_or_fictitious_item")
 
-                    /** The account this check is drawn on is frozen. */
+                    /** The account this check is drawn on is frozen. (Check21 return code `F`) */
                     val FROZEN_OR_BLOCKED_ACCOUNT = of("frozen_or_blocked_account")
 
-                    /** The check is post dated. */
+                    /** The check is post dated. (Check21 return code `H`) */
                     val POST_DATED = of("post_dated")
 
-                    /** The endorsement was missing. */
+                    /** The endorsement was missing. (Check21 return code `I`) */
                     val ENDORSEMENT_MISSING = of("endorsement_missing")
 
-                    /** The check signature was missing. */
+                    /** The check signature was missing. (Check21 return code `K`) */
                     val SIGNATURE_MISSING = of("signature_missing")
 
-                    /** The bank suspects a stop payment will be placed. */
+                    /**
+                     * The bank suspects a stop payment will be placed. (Check21 return code `T`)
+                     */
                     val STOP_PAYMENT_SUSPECT = of("stop_payment_suspect")
 
-                    /** The bank cannot read the image. */
+                    /** The bank cannot read the image. (Check21 return code `U`) */
                     val UNUSABLE_IMAGE = of("unusable_image")
 
-                    /** The check image fails the bank's security check. */
+                    /**
+                     * The check image fails the bank's security check. (Check21 return code `V`)
+                     */
                     val IMAGE_FAILS_SECURITY_CHECK = of("image_fails_security_check")
 
-                    /** The bank cannot determine the amount. */
+                    /** The bank cannot determine the amount. (Check21 return code `W`) */
                     val CANNOT_DETERMINE_AMOUNT = of("cannot_determine_amount")
 
-                    /** The signature is inconsistent with prior signatures. */
+                    /**
+                     * The signature is inconsistent with prior signatures. (Check21 return code
+                     * `L`)
+                     */
                     val SIGNATURE_IRREGULAR = of("signature_irregular")
 
-                    /** The check is a non-cash item and cannot be drawn against the account. */
+                    /**
+                     * The check is a non-cash item and cannot be drawn against the account.
+                     * (Check21 return code `M`)
+                     */
                     val NON_CASH_ITEM = of("non_cash_item")
 
-                    /** The bank is unable to process this check. */
+                    /** The bank is unable to process this check. (Check21 return code `O`) */
                     val UNABLE_TO_PROCESS = of("unable_to_process")
 
-                    /** The check exceeds the bank or customer's limit. */
+                    /** The check exceeds the bank or customer's limit. (Check21 return code `P`) */
                     val ITEM_EXCEEDS_DOLLAR_LIMIT = of("item_exceeds_dollar_limit")
 
-                    /** The bank sold this account and no longer services this customer. */
+                    /**
+                     * The bank sold this account and no longer services this customer. (Check21
+                     * return code `R`)
+                     */
                     val BRANCH_OR_ACCOUNT_SOLD = of("branch_or_account_sold")
 
                     fun of(value: String) = ReturnReason(JsonField.of(value))
@@ -26568,55 +26585,72 @@ private constructor(
                 enum class Known {
                     /** The check doesn't allow ACH conversion. */
                     ACH_CONVERSION_NOT_SUPPORTED,
-                    /** The account is closed. */
+                    /** The account is closed. (Check21 return code `D`) */
                     CLOSED_ACCOUNT,
-                    /** The check has already been deposited. */
+                    /** The check has already been deposited. (Check21 return code `Y`) */
                     DUPLICATE_SUBMISSION,
-                    /** Insufficient funds */
+                    /** Insufficient funds (Check21 return code `A`) */
                     INSUFFICIENT_FUNDS,
-                    /** No account was found matching the check details. */
+                    /**
+                     * No account was found matching the check details. (Check21 return code `E`)
+                     */
                     NO_ACCOUNT,
-                    /** The check was not authorized. */
+                    /** The check was not authorized. (Check21 return code `Q`) */
                     NOT_AUTHORIZED,
-                    /** The check is too old. */
+                    /** The check is too old. (Check21 return code `G`) */
                     STALE_DATED,
-                    /** The payment has been stopped by the account holder. */
+                    /**
+                     * The payment has been stopped by the account holder. (Check21 return code `C`)
+                     */
                     STOP_PAYMENT,
                     /** The reason for the return is unknown. */
                     UNKNOWN_REASON,
                     /** The image doesn't match the details submitted. */
                     UNMATCHED_DETAILS,
-                    /** The image could not be read. */
+                    /** The image could not be read. (Check21 return code `U`) */
                     UNREADABLE_IMAGE,
-                    /** The check endorsement was irregular. */
+                    /** The check endorsement was irregular. (Check21 return code `J`) */
                     ENDORSEMENT_IRREGULAR,
-                    /** The check present was either altered or fake. */
+                    /** The check present was either altered or fake. (Check21 return code `N`) */
                     ALTERED_OR_FICTITIOUS_ITEM,
-                    /** The account this check is drawn on is frozen. */
+                    /** The account this check is drawn on is frozen. (Check21 return code `F`) */
                     FROZEN_OR_BLOCKED_ACCOUNT,
-                    /** The check is post dated. */
+                    /** The check is post dated. (Check21 return code `H`) */
                     POST_DATED,
-                    /** The endorsement was missing. */
+                    /** The endorsement was missing. (Check21 return code `I`) */
                     ENDORSEMENT_MISSING,
-                    /** The check signature was missing. */
+                    /** The check signature was missing. (Check21 return code `K`) */
                     SIGNATURE_MISSING,
-                    /** The bank suspects a stop payment will be placed. */
+                    /**
+                     * The bank suspects a stop payment will be placed. (Check21 return code `T`)
+                     */
                     STOP_PAYMENT_SUSPECT,
-                    /** The bank cannot read the image. */
+                    /** The bank cannot read the image. (Check21 return code `U`) */
                     UNUSABLE_IMAGE,
-                    /** The check image fails the bank's security check. */
+                    /**
+                     * The check image fails the bank's security check. (Check21 return code `V`)
+                     */
                     IMAGE_FAILS_SECURITY_CHECK,
-                    /** The bank cannot determine the amount. */
+                    /** The bank cannot determine the amount. (Check21 return code `W`) */
                     CANNOT_DETERMINE_AMOUNT,
-                    /** The signature is inconsistent with prior signatures. */
+                    /**
+                     * The signature is inconsistent with prior signatures. (Check21 return code
+                     * `L`)
+                     */
                     SIGNATURE_IRREGULAR,
-                    /** The check is a non-cash item and cannot be drawn against the account. */
+                    /**
+                     * The check is a non-cash item and cannot be drawn against the account.
+                     * (Check21 return code `M`)
+                     */
                     NON_CASH_ITEM,
-                    /** The bank is unable to process this check. */
+                    /** The bank is unable to process this check. (Check21 return code `O`) */
                     UNABLE_TO_PROCESS,
-                    /** The check exceeds the bank or customer's limit. */
+                    /** The check exceeds the bank or customer's limit. (Check21 return code `P`) */
                     ITEM_EXCEEDS_DOLLAR_LIMIT,
-                    /** The bank sold this account and no longer services this customer. */
+                    /**
+                     * The bank sold this account and no longer services this customer. (Check21
+                     * return code `R`)
+                     */
                     BRANCH_OR_ACCOUNT_SOLD,
                 }
 
@@ -26633,55 +26667,72 @@ private constructor(
                 enum class Value {
                     /** The check doesn't allow ACH conversion. */
                     ACH_CONVERSION_NOT_SUPPORTED,
-                    /** The account is closed. */
+                    /** The account is closed. (Check21 return code `D`) */
                     CLOSED_ACCOUNT,
-                    /** The check has already been deposited. */
+                    /** The check has already been deposited. (Check21 return code `Y`) */
                     DUPLICATE_SUBMISSION,
-                    /** Insufficient funds */
+                    /** Insufficient funds (Check21 return code `A`) */
                     INSUFFICIENT_FUNDS,
-                    /** No account was found matching the check details. */
+                    /**
+                     * No account was found matching the check details. (Check21 return code `E`)
+                     */
                     NO_ACCOUNT,
-                    /** The check was not authorized. */
+                    /** The check was not authorized. (Check21 return code `Q`) */
                     NOT_AUTHORIZED,
-                    /** The check is too old. */
+                    /** The check is too old. (Check21 return code `G`) */
                     STALE_DATED,
-                    /** The payment has been stopped by the account holder. */
+                    /**
+                     * The payment has been stopped by the account holder. (Check21 return code `C`)
+                     */
                     STOP_PAYMENT,
                     /** The reason for the return is unknown. */
                     UNKNOWN_REASON,
                     /** The image doesn't match the details submitted. */
                     UNMATCHED_DETAILS,
-                    /** The image could not be read. */
+                    /** The image could not be read. (Check21 return code `U`) */
                     UNREADABLE_IMAGE,
-                    /** The check endorsement was irregular. */
+                    /** The check endorsement was irregular. (Check21 return code `J`) */
                     ENDORSEMENT_IRREGULAR,
-                    /** The check present was either altered or fake. */
+                    /** The check present was either altered or fake. (Check21 return code `N`) */
                     ALTERED_OR_FICTITIOUS_ITEM,
-                    /** The account this check is drawn on is frozen. */
+                    /** The account this check is drawn on is frozen. (Check21 return code `F`) */
                     FROZEN_OR_BLOCKED_ACCOUNT,
-                    /** The check is post dated. */
+                    /** The check is post dated. (Check21 return code `H`) */
                     POST_DATED,
-                    /** The endorsement was missing. */
+                    /** The endorsement was missing. (Check21 return code `I`) */
                     ENDORSEMENT_MISSING,
-                    /** The check signature was missing. */
+                    /** The check signature was missing. (Check21 return code `K`) */
                     SIGNATURE_MISSING,
-                    /** The bank suspects a stop payment will be placed. */
+                    /**
+                     * The bank suspects a stop payment will be placed. (Check21 return code `T`)
+                     */
                     STOP_PAYMENT_SUSPECT,
-                    /** The bank cannot read the image. */
+                    /** The bank cannot read the image. (Check21 return code `U`) */
                     UNUSABLE_IMAGE,
-                    /** The check image fails the bank's security check. */
+                    /**
+                     * The check image fails the bank's security check. (Check21 return code `V`)
+                     */
                     IMAGE_FAILS_SECURITY_CHECK,
-                    /** The bank cannot determine the amount. */
+                    /** The bank cannot determine the amount. (Check21 return code `W`) */
                     CANNOT_DETERMINE_AMOUNT,
-                    /** The signature is inconsistent with prior signatures. */
+                    /**
+                     * The signature is inconsistent with prior signatures. (Check21 return code
+                     * `L`)
+                     */
                     SIGNATURE_IRREGULAR,
-                    /** The check is a non-cash item and cannot be drawn against the account. */
+                    /**
+                     * The check is a non-cash item and cannot be drawn against the account.
+                     * (Check21 return code `M`)
+                     */
                     NON_CASH_ITEM,
-                    /** The bank is unable to process this check. */
+                    /** The bank is unable to process this check. (Check21 return code `O`) */
                     UNABLE_TO_PROCESS,
-                    /** The check exceeds the bank or customer's limit. */
+                    /** The check exceeds the bank or customer's limit. (Check21 return code `P`) */
                     ITEM_EXCEEDS_DOLLAR_LIMIT,
-                    /** The bank sold this account and no longer services this customer. */
+                    /**
+                     * The bank sold this account and no longer services this customer. (Check21
+                     * return code `R`)
+                     */
                     BRANCH_OR_ACCOUNT_SOLD,
                     /**
                      * An enum member indicating that [ReturnReason] was instantiated with an
