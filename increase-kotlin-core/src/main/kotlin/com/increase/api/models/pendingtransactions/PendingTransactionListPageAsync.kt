@@ -2,11 +2,11 @@
 
 package com.increase.api.models.pendingtransactions
 
+import com.increase.api.core.AutoPagerAsync
+import com.increase.api.core.PageAsync
 import com.increase.api.core.checkRequired
 import com.increase.api.services.async.PendingTransactionServiceAsync
 import java.util.Objects
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.FlowCollector
 
 /** @see [PendingTransactionServiceAsync.list] */
 class PendingTransactionListPageAsync
@@ -14,7 +14,7 @@ private constructor(
     private val service: PendingTransactionServiceAsync,
     private val params: PendingTransactionListParams,
     private val response: PendingTransactionListPageResponse,
-) {
+) : PageAsync<PendingTransaction> {
 
     /**
      * Delegates to [PendingTransactionListPageResponse], but gracefully handles missing data.
@@ -30,20 +30,20 @@ private constructor(
      */
     fun nextCursor(): String? = response._nextCursor().getNullable("next_cursor")
 
-    fun hasNextPage(): Boolean = data().isNotEmpty() && nextCursor() != null
+    override fun items(): List<PendingTransaction> = data()
 
-    fun getNextPageParams(): PendingTransactionListParams? {
-        if (!hasNextPage()) {
-            return null
-        }
+    override fun hasNextPage(): Boolean = items().isNotEmpty() && nextCursor() != null
 
-        return params.toBuilder().apply { nextCursor()?.let { cursor(it) } }.build()
+    fun nextPageParams(): PendingTransactionListParams {
+        val nextCursor =
+            nextCursor() ?: throw IllegalStateException("Cannot construct next page params")
+        return params.toBuilder().cursor(nextCursor).build()
     }
 
-    suspend fun getNextPage(): PendingTransactionListPageAsync? =
-        getNextPageParams()?.let { service.list(it) }
+    override suspend fun nextPage(): PendingTransactionListPageAsync =
+        service.list(nextPageParams())
 
-    fun autoPager(): AutoPager = AutoPager(this)
+    fun autoPager(): AutoPagerAsync<PendingTransaction> = AutoPagerAsync.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): PendingTransactionListParams = params
@@ -113,22 +113,6 @@ private constructor(
                 checkRequired("params", params),
                 checkRequired("response", response),
             )
-    }
-
-    class AutoPager(private val firstPage: PendingTransactionListPageAsync) :
-        Flow<PendingTransaction> {
-
-        override suspend fun collect(collector: FlowCollector<PendingTransaction>) {
-            var page = firstPage
-            var index = 0
-            while (true) {
-                while (index < page.data().size) {
-                    collector.emit(page.data()[index++])
-                }
-                page = page.getNextPage() ?: break
-                index = 0
-            }
-        }
     }
 
     override fun equals(other: Any?): Boolean {

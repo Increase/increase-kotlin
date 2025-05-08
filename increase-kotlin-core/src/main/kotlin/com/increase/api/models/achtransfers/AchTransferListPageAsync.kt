@@ -2,11 +2,11 @@
 
 package com.increase.api.models.achtransfers
 
+import com.increase.api.core.AutoPagerAsync
+import com.increase.api.core.PageAsync
 import com.increase.api.core.checkRequired
 import com.increase.api.services.async.AchTransferServiceAsync
 import java.util.Objects
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.FlowCollector
 
 /** @see [AchTransferServiceAsync.list] */
 class AchTransferListPageAsync
@@ -14,7 +14,7 @@ private constructor(
     private val service: AchTransferServiceAsync,
     private val params: AchTransferListParams,
     private val response: AchTransferListPageResponse,
-) {
+) : PageAsync<AchTransfer> {
 
     /**
      * Delegates to [AchTransferListPageResponse], but gracefully handles missing data.
@@ -30,20 +30,19 @@ private constructor(
      */
     fun nextCursor(): String? = response._nextCursor().getNullable("next_cursor")
 
-    fun hasNextPage(): Boolean = data().isNotEmpty() && nextCursor() != null
+    override fun items(): List<AchTransfer> = data()
 
-    fun getNextPageParams(): AchTransferListParams? {
-        if (!hasNextPage()) {
-            return null
-        }
+    override fun hasNextPage(): Boolean = items().isNotEmpty() && nextCursor() != null
 
-        return params.toBuilder().apply { nextCursor()?.let { cursor(it) } }.build()
+    fun nextPageParams(): AchTransferListParams {
+        val nextCursor =
+            nextCursor() ?: throw IllegalStateException("Cannot construct next page params")
+        return params.toBuilder().cursor(nextCursor).build()
     }
 
-    suspend fun getNextPage(): AchTransferListPageAsync? =
-        getNextPageParams()?.let { service.list(it) }
+    override suspend fun nextPage(): AchTransferListPageAsync = service.list(nextPageParams())
 
-    fun autoPager(): AutoPager = AutoPager(this)
+    fun autoPager(): AutoPagerAsync<AchTransfer> = AutoPagerAsync.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): AchTransferListParams = params
@@ -109,21 +108,6 @@ private constructor(
                 checkRequired("params", params),
                 checkRequired("response", response),
             )
-    }
-
-    class AutoPager(private val firstPage: AchTransferListPageAsync) : Flow<AchTransfer> {
-
-        override suspend fun collect(collector: FlowCollector<AchTransfer>) {
-            var page = firstPage
-            var index = 0
-            while (true) {
-                while (index < page.data().size) {
-                    collector.emit(page.data()[index++])
-                }
-                page = page.getNextPage() ?: break
-                index = 0
-            }
-        }
     }
 
     override fun equals(other: Any?): Boolean {

@@ -2,11 +2,11 @@
 
 package com.increase.api.models.inboundrealtimepaymentstransfers
 
+import com.increase.api.core.AutoPagerAsync
+import com.increase.api.core.PageAsync
 import com.increase.api.core.checkRequired
 import com.increase.api.services.async.InboundRealTimePaymentsTransferServiceAsync
 import java.util.Objects
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.FlowCollector
 
 /** @see [InboundRealTimePaymentsTransferServiceAsync.list] */
 class InboundRealTimePaymentsTransferListPageAsync
@@ -14,7 +14,7 @@ private constructor(
     private val service: InboundRealTimePaymentsTransferServiceAsync,
     private val params: InboundRealTimePaymentsTransferListParams,
     private val response: InboundRealTimePaymentsTransferListPageResponse,
-) {
+) : PageAsync<InboundRealTimePaymentsTransfer> {
 
     /**
      * Delegates to [InboundRealTimePaymentsTransferListPageResponse], but gracefully handles
@@ -33,20 +33,20 @@ private constructor(
      */
     fun nextCursor(): String? = response._nextCursor().getNullable("next_cursor")
 
-    fun hasNextPage(): Boolean = data().isNotEmpty() && nextCursor() != null
+    override fun items(): List<InboundRealTimePaymentsTransfer> = data()
 
-    fun getNextPageParams(): InboundRealTimePaymentsTransferListParams? {
-        if (!hasNextPage()) {
-            return null
-        }
+    override fun hasNextPage(): Boolean = items().isNotEmpty() && nextCursor() != null
 
-        return params.toBuilder().apply { nextCursor()?.let { cursor(it) } }.build()
+    fun nextPageParams(): InboundRealTimePaymentsTransferListParams {
+        val nextCursor =
+            nextCursor() ?: throw IllegalStateException("Cannot construct next page params")
+        return params.toBuilder().cursor(nextCursor).build()
     }
 
-    suspend fun getNextPage(): InboundRealTimePaymentsTransferListPageAsync? =
-        getNextPageParams()?.let { service.list(it) }
+    override suspend fun nextPage(): InboundRealTimePaymentsTransferListPageAsync =
+        service.list(nextPageParams())
 
-    fun autoPager(): AutoPager = AutoPager(this)
+    fun autoPager(): AutoPagerAsync<InboundRealTimePaymentsTransfer> = AutoPagerAsync.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): InboundRealTimePaymentsTransferListParams = params
@@ -122,22 +122,6 @@ private constructor(
                 checkRequired("params", params),
                 checkRequired("response", response),
             )
-    }
-
-    class AutoPager(private val firstPage: InboundRealTimePaymentsTransferListPageAsync) :
-        Flow<InboundRealTimePaymentsTransfer> {
-
-        override suspend fun collect(collector: FlowCollector<InboundRealTimePaymentsTransfer>) {
-            var page = firstPage
-            var index = 0
-            while (true) {
-                while (index < page.data().size) {
-                    collector.emit(page.data()[index++])
-                }
-                page = page.getNextPage() ?: break
-                index = 0
-            }
-        }
     }
 
     override fun equals(other: Any?): Boolean {

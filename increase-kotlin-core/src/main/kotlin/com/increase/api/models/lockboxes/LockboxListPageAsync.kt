@@ -2,11 +2,11 @@
 
 package com.increase.api.models.lockboxes
 
+import com.increase.api.core.AutoPagerAsync
+import com.increase.api.core.PageAsync
 import com.increase.api.core.checkRequired
 import com.increase.api.services.async.LockboxServiceAsync
 import java.util.Objects
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.FlowCollector
 
 /** @see [LockboxServiceAsync.list] */
 class LockboxListPageAsync
@@ -14,7 +14,7 @@ private constructor(
     private val service: LockboxServiceAsync,
     private val params: LockboxListParams,
     private val response: LockboxListPageResponse,
-) {
+) : PageAsync<Lockbox> {
 
     /**
      * Delegates to [LockboxListPageResponse], but gracefully handles missing data.
@@ -30,19 +30,19 @@ private constructor(
      */
     fun nextCursor(): String? = response._nextCursor().getNullable("next_cursor")
 
-    fun hasNextPage(): Boolean = data().isNotEmpty() && nextCursor() != null
+    override fun items(): List<Lockbox> = data()
 
-    fun getNextPageParams(): LockboxListParams? {
-        if (!hasNextPage()) {
-            return null
-        }
+    override fun hasNextPage(): Boolean = items().isNotEmpty() && nextCursor() != null
 
-        return params.toBuilder().apply { nextCursor()?.let { cursor(it) } }.build()
+    fun nextPageParams(): LockboxListParams {
+        val nextCursor =
+            nextCursor() ?: throw IllegalStateException("Cannot construct next page params")
+        return params.toBuilder().cursor(nextCursor).build()
     }
 
-    suspend fun getNextPage(): LockboxListPageAsync? = getNextPageParams()?.let { service.list(it) }
+    override suspend fun nextPage(): LockboxListPageAsync = service.list(nextPageParams())
 
-    fun autoPager(): AutoPager = AutoPager(this)
+    fun autoPager(): AutoPagerAsync<Lockbox> = AutoPagerAsync.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): LockboxListParams = params
@@ -108,21 +108,6 @@ private constructor(
                 checkRequired("params", params),
                 checkRequired("response", response),
             )
-    }
-
-    class AutoPager(private val firstPage: LockboxListPageAsync) : Flow<Lockbox> {
-
-        override suspend fun collect(collector: FlowCollector<Lockbox>) {
-            var page = firstPage
-            var index = 0
-            while (true) {
-                while (index < page.data().size) {
-                    collector.emit(page.data()[index++])
-                }
-                page = page.getNextPage() ?: break
-                index = 0
-            }
-        }
     }
 
     override fun equals(other: Any?): Boolean {

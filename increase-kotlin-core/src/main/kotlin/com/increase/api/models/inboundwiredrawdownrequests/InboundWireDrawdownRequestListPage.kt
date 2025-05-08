@@ -2,6 +2,8 @@
 
 package com.increase.api.models.inboundwiredrawdownrequests
 
+import com.increase.api.core.AutoPager
+import com.increase.api.core.Page
 import com.increase.api.core.checkRequired
 import com.increase.api.services.blocking.InboundWireDrawdownRequestService
 import java.util.Objects
@@ -12,7 +14,7 @@ private constructor(
     private val service: InboundWireDrawdownRequestService,
     private val params: InboundWireDrawdownRequestListParams,
     private val response: InboundWireDrawdownRequestListPageResponse,
-) {
+) : Page<InboundWireDrawdownRequest> {
 
     /**
      * Delegates to [InboundWireDrawdownRequestListPageResponse], but gracefully handles missing
@@ -31,20 +33,19 @@ private constructor(
      */
     fun nextCursor(): String? = response._nextCursor().getNullable("next_cursor")
 
-    fun hasNextPage(): Boolean = data().isNotEmpty() && nextCursor() != null
+    override fun items(): List<InboundWireDrawdownRequest> = data()
 
-    fun getNextPageParams(): InboundWireDrawdownRequestListParams? {
-        if (!hasNextPage()) {
-            return null
-        }
+    override fun hasNextPage(): Boolean = items().isNotEmpty() && nextCursor() != null
 
-        return params.toBuilder().apply { nextCursor()?.let { cursor(it) } }.build()
+    fun nextPageParams(): InboundWireDrawdownRequestListParams {
+        val nextCursor =
+            nextCursor() ?: throw IllegalStateException("Cannot construct next page params")
+        return params.toBuilder().cursor(nextCursor).build()
     }
 
-    fun getNextPage(): InboundWireDrawdownRequestListPage? =
-        getNextPageParams()?.let { service.list(it) }
+    override fun nextPage(): InboundWireDrawdownRequestListPage = service.list(nextPageParams())
 
-    fun autoPager(): AutoPager = AutoPager(this)
+    fun autoPager(): AutoPager<InboundWireDrawdownRequest> = AutoPager.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): InboundWireDrawdownRequestListParams = params
@@ -114,22 +115,6 @@ private constructor(
                 checkRequired("params", params),
                 checkRequired("response", response),
             )
-    }
-
-    class AutoPager(private val firstPage: InboundWireDrawdownRequestListPage) :
-        Sequence<InboundWireDrawdownRequest> {
-
-        override fun iterator(): Iterator<InboundWireDrawdownRequest> = iterator {
-            var page = firstPage
-            var index = 0
-            while (true) {
-                while (index < page.data().size) {
-                    yield(page.data()[index++])
-                }
-                page = page.getNextPage() ?: break
-                index = 0
-            }
-        }
     }
 
     override fun equals(other: Any?): Boolean {

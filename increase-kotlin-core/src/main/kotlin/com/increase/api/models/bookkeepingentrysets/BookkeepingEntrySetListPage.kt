@@ -2,6 +2,8 @@
 
 package com.increase.api.models.bookkeepingentrysets
 
+import com.increase.api.core.AutoPager
+import com.increase.api.core.Page
 import com.increase.api.core.checkRequired
 import com.increase.api.services.blocking.BookkeepingEntrySetService
 import java.util.Objects
@@ -12,7 +14,7 @@ private constructor(
     private val service: BookkeepingEntrySetService,
     private val params: BookkeepingEntrySetListParams,
     private val response: BookkeepingEntrySetListPageResponse,
-) {
+) : Page<BookkeepingEntrySet> {
 
     /**
      * Delegates to [BookkeepingEntrySetListPageResponse], but gracefully handles missing data.
@@ -28,19 +30,19 @@ private constructor(
      */
     fun nextCursor(): String? = response._nextCursor().getNullable("next_cursor")
 
-    fun hasNextPage(): Boolean = data().isNotEmpty() && nextCursor() != null
+    override fun items(): List<BookkeepingEntrySet> = data()
 
-    fun getNextPageParams(): BookkeepingEntrySetListParams? {
-        if (!hasNextPage()) {
-            return null
-        }
+    override fun hasNextPage(): Boolean = items().isNotEmpty() && nextCursor() != null
 
-        return params.toBuilder().apply { nextCursor()?.let { cursor(it) } }.build()
+    fun nextPageParams(): BookkeepingEntrySetListParams {
+        val nextCursor =
+            nextCursor() ?: throw IllegalStateException("Cannot construct next page params")
+        return params.toBuilder().cursor(nextCursor).build()
     }
 
-    fun getNextPage(): BookkeepingEntrySetListPage? = getNextPageParams()?.let { service.list(it) }
+    override fun nextPage(): BookkeepingEntrySetListPage = service.list(nextPageParams())
 
-    fun autoPager(): AutoPager = AutoPager(this)
+    fun autoPager(): AutoPager<BookkeepingEntrySet> = AutoPager.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): BookkeepingEntrySetListParams = params
@@ -108,22 +110,6 @@ private constructor(
                 checkRequired("params", params),
                 checkRequired("response", response),
             )
-    }
-
-    class AutoPager(private val firstPage: BookkeepingEntrySetListPage) :
-        Sequence<BookkeepingEntrySet> {
-
-        override fun iterator(): Iterator<BookkeepingEntrySet> = iterator {
-            var page = firstPage
-            var index = 0
-            while (true) {
-                while (index < page.data().size) {
-                    yield(page.data()[index++])
-                }
-                page = page.getNextPage() ?: break
-                index = 0
-            }
-        }
     }
 
     override fun equals(other: Any?): Boolean {
