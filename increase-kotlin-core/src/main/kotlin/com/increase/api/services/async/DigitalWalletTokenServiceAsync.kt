@@ -19,9 +19,27 @@ interface DigitalWalletTokenServiceAsync {
 
     /** Retrieve a Digital Wallet Token */
     suspend fun retrieve(
+        digitalWalletTokenId: String,
+        params: DigitalWalletTokenRetrieveParams = DigitalWalletTokenRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): DigitalWalletToken =
+        retrieve(
+            params.toBuilder().digitalWalletTokenId(digitalWalletTokenId).build(),
+            requestOptions,
+        )
+
+    /** @see [retrieve] */
+    suspend fun retrieve(
         params: DigitalWalletTokenRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): DigitalWalletToken
+
+    /** @see [retrieve] */
+    suspend fun retrieve(
+        digitalWalletTokenId: String,
+        requestOptions: RequestOptions,
+    ): DigitalWalletToken =
+        retrieve(digitalWalletTokenId, DigitalWalletTokenRetrieveParams.none(), requestOptions)
 
     /** List Digital Wallet Tokens */
     suspend fun list(
@@ -45,9 +63,29 @@ interface DigitalWalletTokenServiceAsync {
          */
         @MustBeClosed
         suspend fun retrieve(
+            digitalWalletTokenId: String,
+            params: DigitalWalletTokenRetrieveParams = DigitalWalletTokenRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<DigitalWalletToken> =
+            retrieve(
+                params.toBuilder().digitalWalletTokenId(digitalWalletTokenId).build(),
+                requestOptions,
+            )
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        suspend fun retrieve(
             params: DigitalWalletTokenRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<DigitalWalletToken>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        suspend fun retrieve(
+            digitalWalletTokenId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<DigitalWalletToken> =
+            retrieve(digitalWalletTokenId, DigitalWalletTokenRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /digital_wallet_tokens`, but is otherwise the same

@@ -21,14 +21,14 @@ import java.util.Objects
 /** Clones a Digital Card Profile */
 class DigitalCardProfileCloneParams
 private constructor(
-    private val digitalCardProfileId: String,
+    private val digitalCardProfileId: String?,
     private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** The identifier of the Digital Card Profile to clone. */
-    fun digitalCardProfileId(): String = digitalCardProfileId
+    fun digitalCardProfileId(): String? = digitalCardProfileId
 
     /**
      * The identifier of the File containing the card's icon image.
@@ -176,14 +176,11 @@ private constructor(
 
     companion object {
 
+        fun none(): DigitalCardProfileCloneParams = builder().build()
+
         /**
          * Returns a mutable builder for constructing an instance of
          * [DigitalCardProfileCloneParams].
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .digitalCardProfileId()
-         * ```
          */
         fun builder() = Builder()
     }
@@ -204,7 +201,7 @@ private constructor(
         }
 
         /** The identifier of the Digital Card Profile to clone. */
-        fun digitalCardProfileId(digitalCardProfileId: String) = apply {
+        fun digitalCardProfileId(digitalCardProfileId: String?) = apply {
             this.digitalCardProfileId = digitalCardProfileId
         }
 
@@ -467,17 +464,10 @@ private constructor(
          * Returns an immutable instance of [DigitalCardProfileCloneParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .digitalCardProfileId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): DigitalCardProfileCloneParams =
             DigitalCardProfileCloneParams(
-                checkRequired("digitalCardProfileId", digitalCardProfileId),
+                digitalCardProfileId,
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -488,7 +478,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> digitalCardProfileId
+            0 -> digitalCardProfileId ?: ""
             else -> ""
         }
 

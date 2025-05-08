@@ -19,9 +19,32 @@ interface InboundWireDrawdownRequestServiceAsync {
 
     /** Retrieve an Inbound Wire Drawdown Request */
     suspend fun retrieve(
+        inboundWireDrawdownRequestId: String,
+        params: InboundWireDrawdownRequestRetrieveParams =
+            InboundWireDrawdownRequestRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): InboundWireDrawdownRequest =
+        retrieve(
+            params.toBuilder().inboundWireDrawdownRequestId(inboundWireDrawdownRequestId).build(),
+            requestOptions,
+        )
+
+    /** @see [retrieve] */
+    suspend fun retrieve(
         params: InboundWireDrawdownRequestRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundWireDrawdownRequest
+
+    /** @see [retrieve] */
+    suspend fun retrieve(
+        inboundWireDrawdownRequestId: String,
+        requestOptions: RequestOptions,
+    ): InboundWireDrawdownRequest =
+        retrieve(
+            inboundWireDrawdownRequestId,
+            InboundWireDrawdownRequestRetrieveParams.none(),
+            requestOptions,
+        )
 
     /** List Inbound Wire Drawdown Requests */
     suspend fun list(
@@ -46,9 +69,37 @@ interface InboundWireDrawdownRequestServiceAsync {
          */
         @MustBeClosed
         suspend fun retrieve(
+            inboundWireDrawdownRequestId: String,
+            params: InboundWireDrawdownRequestRetrieveParams =
+                InboundWireDrawdownRequestRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<InboundWireDrawdownRequest> =
+            retrieve(
+                params
+                    .toBuilder()
+                    .inboundWireDrawdownRequestId(inboundWireDrawdownRequestId)
+                    .build(),
+                requestOptions,
+            )
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        suspend fun retrieve(
             params: InboundWireDrawdownRequestRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<InboundWireDrawdownRequest>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        suspend fun retrieve(
+            inboundWireDrawdownRequestId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<InboundWireDrawdownRequest> =
+            retrieve(
+                inboundWireDrawdownRequestId,
+                InboundWireDrawdownRequestRetrieveParams.none(),
+                requestOptions,
+            )
 
         /**
          * Returns a raw HTTP response for `get /inbound_wire_drawdown_requests`, but is otherwise

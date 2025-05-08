@@ -3,7 +3,6 @@
 package com.increase.api.models.oauthapplications
 
 import com.increase.api.core.Params
-import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import java.util.Objects
@@ -11,13 +10,13 @@ import java.util.Objects
 /** Retrieve an OAuth Application */
 class OAuthApplicationRetrieveParams
 private constructor(
-    private val oauthApplicationId: String,
+    private val oauthApplicationId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** The identifier of the OAuth Application. */
-    fun oauthApplicationId(): String = oauthApplicationId
+    fun oauthApplicationId(): String? = oauthApplicationId
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
@@ -27,14 +26,11 @@ private constructor(
 
     companion object {
 
+        fun none(): OAuthApplicationRetrieveParams = builder().build()
+
         /**
          * Returns a mutable builder for constructing an instance of
          * [OAuthApplicationRetrieveParams].
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .oauthApplicationId()
-         * ```
          */
         fun builder() = Builder()
     }
@@ -53,7 +49,7 @@ private constructor(
         }
 
         /** The identifier of the OAuth Application. */
-        fun oauthApplicationId(oauthApplicationId: String) = apply {
+        fun oauthApplicationId(oauthApplicationId: String?) = apply {
             this.oauthApplicationId = oauthApplicationId
         }
 
@@ -159,17 +155,10 @@ private constructor(
          * Returns an immutable instance of [OAuthApplicationRetrieveParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .oauthApplicationId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): OAuthApplicationRetrieveParams =
             OAuthApplicationRetrieveParams(
-                checkRequired("oauthApplicationId", oauthApplicationId),
+                oauthApplicationId,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -177,7 +166,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> oauthApplicationId
+            0 -> oauthApplicationId ?: ""
             else -> ""
         }
 

@@ -27,9 +27,24 @@ interface IntrafiExclusionServiceAsync {
 
     /** Get an IntraFi Exclusion */
     suspend fun retrieve(
+        intrafiExclusionId: String,
+        params: IntrafiExclusionRetrieveParams = IntrafiExclusionRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): IntrafiExclusion =
+        retrieve(params.toBuilder().intrafiExclusionId(intrafiExclusionId).build(), requestOptions)
+
+    /** @see [retrieve] */
+    suspend fun retrieve(
         params: IntrafiExclusionRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): IntrafiExclusion
+
+    /** @see [retrieve] */
+    suspend fun retrieve(
+        intrafiExclusionId: String,
+        requestOptions: RequestOptions,
+    ): IntrafiExclusion =
+        retrieve(intrafiExclusionId, IntrafiExclusionRetrieveParams.none(), requestOptions)
 
     /** List IntraFi Exclusions */
     suspend fun list(
@@ -43,9 +58,24 @@ interface IntrafiExclusionServiceAsync {
 
     /** Archive an IntraFi Exclusion */
     suspend fun archive(
+        intrafiExclusionId: String,
+        params: IntrafiExclusionArchiveParams = IntrafiExclusionArchiveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): IntrafiExclusion =
+        archive(params.toBuilder().intrafiExclusionId(intrafiExclusionId).build(), requestOptions)
+
+    /** @see [archive] */
+    suspend fun archive(
         params: IntrafiExclusionArchiveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): IntrafiExclusion
+
+    /** @see [archive] */
+    suspend fun archive(
+        intrafiExclusionId: String,
+        requestOptions: RequestOptions,
+    ): IntrafiExclusion =
+        archive(intrafiExclusionId, IntrafiExclusionArchiveParams.none(), requestOptions)
 
     /**
      * A view of [IntrafiExclusionServiceAsync] that provides access to raw HTTP responses for each
@@ -69,9 +99,29 @@ interface IntrafiExclusionServiceAsync {
          */
         @MustBeClosed
         suspend fun retrieve(
+            intrafiExclusionId: String,
+            params: IntrafiExclusionRetrieveParams = IntrafiExclusionRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<IntrafiExclusion> =
+            retrieve(
+                params.toBuilder().intrafiExclusionId(intrafiExclusionId).build(),
+                requestOptions,
+            )
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        suspend fun retrieve(
             params: IntrafiExclusionRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<IntrafiExclusion>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        suspend fun retrieve(
+            intrafiExclusionId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<IntrafiExclusion> =
+            retrieve(intrafiExclusionId, IntrafiExclusionRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /intrafi_exclusions`, but is otherwise the same as
@@ -97,8 +147,28 @@ interface IntrafiExclusionServiceAsync {
          */
         @MustBeClosed
         suspend fun archive(
+            intrafiExclusionId: String,
+            params: IntrafiExclusionArchiveParams = IntrafiExclusionArchiveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<IntrafiExclusion> =
+            archive(
+                params.toBuilder().intrafiExclusionId(intrafiExclusionId).build(),
+                requestOptions,
+            )
+
+        /** @see [archive] */
+        @MustBeClosed
+        suspend fun archive(
             params: IntrafiExclusionArchiveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<IntrafiExclusion>
+
+        /** @see [archive] */
+        @MustBeClosed
+        suspend fun archive(
+            intrafiExclusionId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<IntrafiExclusion> =
+            archive(intrafiExclusionId, IntrafiExclusionArchiveParams.none(), requestOptions)
     }
 }

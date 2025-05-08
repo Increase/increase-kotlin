@@ -22,6 +22,13 @@ interface CardDisputeServiceAsync {
      * a status of `pending_reviewing`.
      */
     suspend fun action(
+        cardDisputeId: String,
+        params: CardDisputeActionParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CardDispute = action(params.toBuilder().cardDisputeId(cardDisputeId).build(), requestOptions)
+
+    /** @see [action] */
+    suspend fun action(
         params: CardDisputeActionParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CardDispute
@@ -37,6 +44,15 @@ interface CardDisputeServiceAsync {
          * /simulations/card_disputes/{card_dispute_id}/action`, but is otherwise the same as
          * [CardDisputeServiceAsync.action].
          */
+        @MustBeClosed
+        suspend fun action(
+            cardDisputeId: String,
+            params: CardDisputeActionParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<CardDispute> =
+            action(params.toBuilder().cardDisputeId(cardDisputeId).build(), requestOptions)
+
+        /** @see [action] */
         @MustBeClosed
         suspend fun action(
             params: CardDisputeActionParams,

@@ -4,7 +4,6 @@ package com.increase.api.models.intrafiexclusions
 
 import com.increase.api.core.JsonValue
 import com.increase.api.core.Params
-import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.toImmutable
@@ -13,7 +12,7 @@ import java.util.Objects
 /** Archive an IntraFi Exclusion */
 class IntrafiExclusionArchiveParams
 private constructor(
-    private val intrafiExclusionId: String,
+    private val intrafiExclusionId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
     private val additionalBodyProperties: Map<String, JsonValue>,
@@ -24,7 +23,7 @@ private constructor(
      * an exclusion removal to be processed. Removing an exclusion does not guarantee that funds
      * will be swept to the previously-excluded bank.
      */
-    fun intrafiExclusionId(): String = intrafiExclusionId
+    fun intrafiExclusionId(): String? = intrafiExclusionId
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
 
@@ -36,14 +35,11 @@ private constructor(
 
     companion object {
 
+        fun none(): IntrafiExclusionArchiveParams = builder().build()
+
         /**
          * Returns a mutable builder for constructing an instance of
          * [IntrafiExclusionArchiveParams].
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .intrafiExclusionId()
-         * ```
          */
         fun builder() = Builder()
     }
@@ -69,7 +65,7 @@ private constructor(
          * for an exclusion removal to be processed. Removing an exclusion does not guarantee that
          * funds will be swept to the previously-excluded bank.
          */
-        fun intrafiExclusionId(intrafiExclusionId: String) = apply {
+        fun intrafiExclusionId(intrafiExclusionId: String?) = apply {
             this.intrafiExclusionId = intrafiExclusionId
         }
 
@@ -197,17 +193,10 @@ private constructor(
          * Returns an immutable instance of [IntrafiExclusionArchiveParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .intrafiExclusionId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): IntrafiExclusionArchiveParams =
             IntrafiExclusionArchiveParams(
-                checkRequired("intrafiExclusionId", intrafiExclusionId),
+                intrafiExclusionId,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
                 additionalBodyProperties.toImmutable(),
@@ -218,7 +207,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> intrafiExclusionId
+            0 -> intrafiExclusionId ?: ""
             else -> ""
         }
 

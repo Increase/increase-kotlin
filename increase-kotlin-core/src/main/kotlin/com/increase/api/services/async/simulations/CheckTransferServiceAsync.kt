@@ -21,9 +21,21 @@ interface CheckTransferServiceAsync {
      * a `status` of `pending_approval` or `pending_submission`.
      */
     suspend fun mail(
+        checkTransferId: String,
+        params: CheckTransferMailParams = CheckTransferMailParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CheckTransfer =
+        mail(params.toBuilder().checkTransferId(checkTransferId).build(), requestOptions)
+
+    /** @see [mail] */
+    suspend fun mail(
         params: CheckTransferMailParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CheckTransfer
+
+    /** @see [mail] */
+    suspend fun mail(checkTransferId: String, requestOptions: RequestOptions): CheckTransfer =
+        mail(checkTransferId, CheckTransferMailParams.none(), requestOptions)
 
     /**
      * A view of [CheckTransferServiceAsync] that provides access to raw HTTP responses for each
@@ -38,8 +50,25 @@ interface CheckTransferServiceAsync {
          */
         @MustBeClosed
         suspend fun mail(
+            checkTransferId: String,
+            params: CheckTransferMailParams = CheckTransferMailParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<CheckTransfer> =
+            mail(params.toBuilder().checkTransferId(checkTransferId).build(), requestOptions)
+
+        /** @see [mail] */
+        @MustBeClosed
+        suspend fun mail(
             params: CheckTransferMailParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CheckTransfer>
+
+        /** @see [mail] */
+        @MustBeClosed
+        suspend fun mail(
+            checkTransferId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<CheckTransfer> =
+            mail(checkTransferId, CheckTransferMailParams.none(), requestOptions)
     }
 }

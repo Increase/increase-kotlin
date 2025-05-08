@@ -21,14 +21,14 @@ import java.util.Objects
 /** Update a Natural Person or Corporation's address */
 class EntityUpdateAddressParams
 private constructor(
-    private val entityId: String,
+    private val entityId: String?,
     private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** The identifier of the Entity whose address is being updated. */
-    fun entityId(): String = entityId
+    fun entityId(): String? = entityId
 
     /**
      * The entity's physical address. Mail receiving locations like PO Boxes and PMB's are
@@ -61,7 +61,6 @@ private constructor(
          *
          * The following fields are required:
          * ```kotlin
-         * .entityId()
          * .address()
          * ```
          */
@@ -84,7 +83,7 @@ private constructor(
         }
 
         /** The identifier of the Entity whose address is being updated. */
-        fun entityId(entityId: String) = apply { this.entityId = entityId }
+        fun entityId(entityId: String?) = apply { this.entityId = entityId }
 
         /**
          * Sets the entire request body.
@@ -233,7 +232,6 @@ private constructor(
          *
          * The following fields are required:
          * ```kotlin
-         * .entityId()
          * .address()
          * ```
          *
@@ -241,7 +239,7 @@ private constructor(
          */
         fun build(): EntityUpdateAddressParams =
             EntityUpdateAddressParams(
-                checkRequired("entityId", entityId),
+                entityId,
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -252,7 +250,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> entityId
+            0 -> entityId ?: ""
             else -> ""
         }
 

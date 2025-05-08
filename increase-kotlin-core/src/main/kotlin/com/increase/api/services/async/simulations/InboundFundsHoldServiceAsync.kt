@@ -20,9 +20,24 @@ interface InboundFundsHoldServiceAsync {
      * as a result of e.g., an ACH debit.
      */
     suspend fun release(
+        inboundFundsHoldId: String,
+        params: InboundFundsHoldReleaseParams = InboundFundsHoldReleaseParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): InboundFundsHoldReleaseResponse =
+        release(params.toBuilder().inboundFundsHoldId(inboundFundsHoldId).build(), requestOptions)
+
+    /** @see [release] */
+    suspend fun release(
         params: InboundFundsHoldReleaseParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundFundsHoldReleaseResponse
+
+    /** @see [release] */
+    suspend fun release(
+        inboundFundsHoldId: String,
+        requestOptions: RequestOptions,
+    ): InboundFundsHoldReleaseResponse =
+        release(inboundFundsHoldId, InboundFundsHoldReleaseParams.none(), requestOptions)
 
     /**
      * A view of [InboundFundsHoldServiceAsync] that provides access to raw HTTP responses for each
@@ -37,8 +52,28 @@ interface InboundFundsHoldServiceAsync {
          */
         @MustBeClosed
         suspend fun release(
+            inboundFundsHoldId: String,
+            params: InboundFundsHoldReleaseParams = InboundFundsHoldReleaseParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<InboundFundsHoldReleaseResponse> =
+            release(
+                params.toBuilder().inboundFundsHoldId(inboundFundsHoldId).build(),
+                requestOptions,
+            )
+
+        /** @see [release] */
+        @MustBeClosed
+        suspend fun release(
             params: InboundFundsHoldReleaseParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<InboundFundsHoldReleaseResponse>
+
+        /** @see [release] */
+        @MustBeClosed
+        suspend fun release(
+            inboundFundsHoldId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<InboundFundsHoldReleaseResponse> =
+            release(inboundFundsHoldId, InboundFundsHoldReleaseParams.none(), requestOptions)
     }
 }

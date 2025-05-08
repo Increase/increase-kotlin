@@ -22,14 +22,14 @@ import java.util.Objects
 /** Update a Card */
 class CardUpdateParams
 private constructor(
-    private val cardId: String,
+    private val cardId: String?,
     private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** The card identifier. */
-    fun cardId(): String = cardId
+    fun cardId(): String? = cardId
 
     /**
      * The card's updated billing address.
@@ -118,14 +118,9 @@ private constructor(
 
     companion object {
 
-        /**
-         * Returns a mutable builder for constructing an instance of [CardUpdateParams].
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .cardId()
-         * ```
-         */
+        fun none(): CardUpdateParams = builder().build()
+
+        /** Returns a mutable builder for constructing an instance of [CardUpdateParams]. */
         fun builder() = Builder()
     }
 
@@ -145,7 +140,7 @@ private constructor(
         }
 
         /** The card identifier. */
-        fun cardId(cardId: String) = apply { this.cardId = cardId }
+        fun cardId(cardId: String?) = apply { this.cardId = cardId }
 
         /**
          * Sets the entire request body.
@@ -354,17 +349,10 @@ private constructor(
          * Returns an immutable instance of [CardUpdateParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .cardId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): CardUpdateParams =
             CardUpdateParams(
-                checkRequired("cardId", cardId),
+                cardId,
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -375,7 +363,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> cardId
+            0 -> cardId ?: ""
             else -> ""
         }
 

@@ -19,9 +19,21 @@ interface AccountStatementService {
 
     /** Retrieve an Account Statement */
     fun retrieve(
+        accountStatementId: String,
+        params: AccountStatementRetrieveParams = AccountStatementRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): AccountStatement =
+        retrieve(params.toBuilder().accountStatementId(accountStatementId).build(), requestOptions)
+
+    /** @see [retrieve] */
+    fun retrieve(
         params: AccountStatementRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AccountStatement
+
+    /** @see [retrieve] */
+    fun retrieve(accountStatementId: String, requestOptions: RequestOptions): AccountStatement =
+        retrieve(accountStatementId, AccountStatementRetrieveParams.none(), requestOptions)
 
     /** List Account Statements */
     fun list(
@@ -45,9 +57,29 @@ interface AccountStatementService {
          */
         @MustBeClosed
         fun retrieve(
+            accountStatementId: String,
+            params: AccountStatementRetrieveParams = AccountStatementRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<AccountStatement> =
+            retrieve(
+                params.toBuilder().accountStatementId(accountStatementId).build(),
+                requestOptions,
+            )
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
             params: AccountStatementRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AccountStatement>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            accountStatementId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<AccountStatement> =
+            retrieve(accountStatementId, AccountStatementRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /account_statements`, but is otherwise the same as

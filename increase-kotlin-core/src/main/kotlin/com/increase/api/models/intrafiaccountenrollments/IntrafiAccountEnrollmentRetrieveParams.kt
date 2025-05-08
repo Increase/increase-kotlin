@@ -3,7 +3,6 @@
 package com.increase.api.models.intrafiaccountenrollments
 
 import com.increase.api.core.Params
-import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import java.util.Objects
@@ -11,13 +10,13 @@ import java.util.Objects
 /** Get an IntraFi Account Enrollment */
 class IntrafiAccountEnrollmentRetrieveParams
 private constructor(
-    private val intrafiAccountEnrollmentId: String,
+    private val intrafiAccountEnrollmentId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** The identifier of the IntraFi Account Enrollment to retrieve. */
-    fun intrafiAccountEnrollmentId(): String = intrafiAccountEnrollmentId
+    fun intrafiAccountEnrollmentId(): String? = intrafiAccountEnrollmentId
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
@@ -27,14 +26,11 @@ private constructor(
 
     companion object {
 
+        fun none(): IntrafiAccountEnrollmentRetrieveParams = builder().build()
+
         /**
          * Returns a mutable builder for constructing an instance of
          * [IntrafiAccountEnrollmentRetrieveParams].
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .intrafiAccountEnrollmentId()
-         * ```
          */
         fun builder() = Builder()
     }
@@ -57,7 +53,7 @@ private constructor(
         }
 
         /** The identifier of the IntraFi Account Enrollment to retrieve. */
-        fun intrafiAccountEnrollmentId(intrafiAccountEnrollmentId: String) = apply {
+        fun intrafiAccountEnrollmentId(intrafiAccountEnrollmentId: String?) = apply {
             this.intrafiAccountEnrollmentId = intrafiAccountEnrollmentId
         }
 
@@ -163,17 +159,10 @@ private constructor(
          * Returns an immutable instance of [IntrafiAccountEnrollmentRetrieveParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .intrafiAccountEnrollmentId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): IntrafiAccountEnrollmentRetrieveParams =
             IntrafiAccountEnrollmentRetrieveParams(
-                checkRequired("intrafiAccountEnrollmentId", intrafiAccountEnrollmentId),
+                intrafiAccountEnrollmentId,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -181,7 +170,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> intrafiAccountEnrollmentId
+            0 -> intrafiAccountEnrollmentId ?: ""
             else -> ""
         }
 

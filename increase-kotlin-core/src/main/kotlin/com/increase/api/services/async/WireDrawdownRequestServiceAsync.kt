@@ -26,9 +26,27 @@ interface WireDrawdownRequestServiceAsync {
 
     /** Retrieve a Wire Drawdown Request */
     suspend fun retrieve(
+        wireDrawdownRequestId: String,
+        params: WireDrawdownRequestRetrieveParams = WireDrawdownRequestRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): WireDrawdownRequest =
+        retrieve(
+            params.toBuilder().wireDrawdownRequestId(wireDrawdownRequestId).build(),
+            requestOptions,
+        )
+
+    /** @see [retrieve] */
+    suspend fun retrieve(
         params: WireDrawdownRequestRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): WireDrawdownRequest
+
+    /** @see [retrieve] */
+    suspend fun retrieve(
+        wireDrawdownRequestId: String,
+        requestOptions: RequestOptions,
+    ): WireDrawdownRequest =
+        retrieve(wireDrawdownRequestId, WireDrawdownRequestRetrieveParams.none(), requestOptions)
 
     /** List Wire Drawdown Requests */
     suspend fun list(
@@ -62,9 +80,33 @@ interface WireDrawdownRequestServiceAsync {
          */
         @MustBeClosed
         suspend fun retrieve(
+            wireDrawdownRequestId: String,
+            params: WireDrawdownRequestRetrieveParams = WireDrawdownRequestRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<WireDrawdownRequest> =
+            retrieve(
+                params.toBuilder().wireDrawdownRequestId(wireDrawdownRequestId).build(),
+                requestOptions,
+            )
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        suspend fun retrieve(
             params: WireDrawdownRequestRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<WireDrawdownRequest>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        suspend fun retrieve(
+            wireDrawdownRequestId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<WireDrawdownRequest> =
+            retrieve(
+                wireDrawdownRequestId,
+                WireDrawdownRequestRetrieveParams.none(),
+                requestOptions,
+            )
 
         /**
          * Returns a raw HTTP response for `get /wire_drawdown_requests`, but is otherwise the same

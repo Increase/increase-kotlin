@@ -26,9 +26,21 @@ interface CardDisputeServiceAsync {
 
     /** Retrieve a Card Dispute */
     suspend fun retrieve(
+        cardDisputeId: String,
+        params: CardDisputeRetrieveParams = CardDisputeRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CardDispute =
+        retrieve(params.toBuilder().cardDisputeId(cardDisputeId).build(), requestOptions)
+
+    /** @see [retrieve] */
+    suspend fun retrieve(
         params: CardDisputeRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CardDispute
+
+    /** @see [retrieve] */
+    suspend fun retrieve(cardDisputeId: String, requestOptions: RequestOptions): CardDispute =
+        retrieve(cardDisputeId, CardDisputeRetrieveParams.none(), requestOptions)
 
     /** List Card Disputes */
     suspend fun list(
@@ -62,9 +74,26 @@ interface CardDisputeServiceAsync {
          */
         @MustBeClosed
         suspend fun retrieve(
+            cardDisputeId: String,
+            params: CardDisputeRetrieveParams = CardDisputeRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<CardDispute> =
+            retrieve(params.toBuilder().cardDisputeId(cardDisputeId).build(), requestOptions)
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        suspend fun retrieve(
             params: CardDisputeRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CardDispute>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        suspend fun retrieve(
+            cardDisputeId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<CardDispute> =
+            retrieve(cardDisputeId, CardDisputeRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /card_disputes`, but is otherwise the same as

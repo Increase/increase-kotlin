@@ -19,9 +19,20 @@ interface ProgramServiceAsync {
 
     /** Retrieve a Program */
     suspend fun retrieve(
+        programId: String,
+        params: ProgramRetrieveParams = ProgramRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): Program = retrieve(params.toBuilder().programId(programId).build(), requestOptions)
+
+    /** @see [retrieve] */
+    suspend fun retrieve(
         params: ProgramRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Program
+
+    /** @see [retrieve] */
+    suspend fun retrieve(programId: String, requestOptions: RequestOptions): Program =
+        retrieve(programId, ProgramRetrieveParams.none(), requestOptions)
 
     /** List Programs */
     suspend fun list(
@@ -44,9 +55,26 @@ interface ProgramServiceAsync {
          */
         @MustBeClosed
         suspend fun retrieve(
+            programId: String,
+            params: ProgramRetrieveParams = ProgramRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<Program> =
+            retrieve(params.toBuilder().programId(programId).build(), requestOptions)
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        suspend fun retrieve(
             params: ProgramRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Program>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        suspend fun retrieve(
+            programId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<Program> =
+            retrieve(programId, ProgramRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /programs`, but is otherwise the same as

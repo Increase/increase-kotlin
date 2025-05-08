@@ -20,9 +20,21 @@ interface IntrafiBalanceServiceAsync {
      * This endpoint will include both the total balance and the amount swept to each institution.
      */
     suspend fun intrafiBalance(
+        accountId: String,
+        params: IntrafiBalanceIntrafiBalanceParams = IntrafiBalanceIntrafiBalanceParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): IntrafiBalance =
+        intrafiBalance(params.toBuilder().accountId(accountId).build(), requestOptions)
+
+    /** @see [intrafiBalance] */
+    suspend fun intrafiBalance(
         params: IntrafiBalanceIntrafiBalanceParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): IntrafiBalance
+
+    /** @see [intrafiBalance] */
+    suspend fun intrafiBalance(accountId: String, requestOptions: RequestOptions): IntrafiBalance =
+        intrafiBalance(accountId, IntrafiBalanceIntrafiBalanceParams.none(), requestOptions)
 
     /**
      * A view of [IntrafiBalanceServiceAsync] that provides access to raw HTTP responses for each
@@ -36,8 +48,25 @@ interface IntrafiBalanceServiceAsync {
          */
         @MustBeClosed
         suspend fun intrafiBalance(
+            accountId: String,
+            params: IntrafiBalanceIntrafiBalanceParams = IntrafiBalanceIntrafiBalanceParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<IntrafiBalance> =
+            intrafiBalance(params.toBuilder().accountId(accountId).build(), requestOptions)
+
+        /** @see [intrafiBalance] */
+        @MustBeClosed
+        suspend fun intrafiBalance(
             params: IntrafiBalanceIntrafiBalanceParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<IntrafiBalance>
+
+        /** @see [intrafiBalance] */
+        @MustBeClosed
+        suspend fun intrafiBalance(
+            accountId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<IntrafiBalance> =
+            intrafiBalance(accountId, IntrafiBalanceIntrafiBalanceParams.none(), requestOptions)
     }
 }

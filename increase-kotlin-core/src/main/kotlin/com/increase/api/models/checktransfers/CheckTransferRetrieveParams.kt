@@ -3,7 +3,6 @@
 package com.increase.api.models.checktransfers
 
 import com.increase.api.core.Params
-import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import java.util.Objects
@@ -11,13 +10,13 @@ import java.util.Objects
 /** Retrieve a Check Transfer */
 class CheckTransferRetrieveParams
 private constructor(
-    private val checkTransferId: String,
+    private val checkTransferId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** The identifier of the Check Transfer. */
-    fun checkTransferId(): String = checkTransferId
+    fun checkTransferId(): String? = checkTransferId
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
@@ -27,13 +26,10 @@ private constructor(
 
     companion object {
 
+        fun none(): CheckTransferRetrieveParams = builder().build()
+
         /**
          * Returns a mutable builder for constructing an instance of [CheckTransferRetrieveParams].
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .checkTransferId()
-         * ```
          */
         fun builder() = Builder()
     }
@@ -52,7 +48,7 @@ private constructor(
         }
 
         /** The identifier of the Check Transfer. */
-        fun checkTransferId(checkTransferId: String) = apply {
+        fun checkTransferId(checkTransferId: String?) = apply {
             this.checkTransferId = checkTransferId
         }
 
@@ -158,17 +154,10 @@ private constructor(
          * Returns an immutable instance of [CheckTransferRetrieveParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .checkTransferId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): CheckTransferRetrieveParams =
             CheckTransferRetrieveParams(
-                checkRequired("checkTransferId", checkTransferId),
+                checkTransferId,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -176,7 +165,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> checkTransferId
+            0 -> checkTransferId ?: ""
             else -> ""
         }
 

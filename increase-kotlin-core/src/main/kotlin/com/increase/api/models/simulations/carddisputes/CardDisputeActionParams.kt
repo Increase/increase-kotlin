@@ -27,14 +27,14 @@ import java.util.Objects
  */
 class CardDisputeActionParams
 private constructor(
-    private val cardDisputeId: String,
+    private val cardDisputeId: String?,
     private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** The dispute you would like to action. */
-    fun cardDisputeId(): String = cardDisputeId
+    fun cardDisputeId(): String? = cardDisputeId
 
     /**
      * The status to move the dispute to.
@@ -81,7 +81,6 @@ private constructor(
          *
          * The following fields are required:
          * ```kotlin
-         * .cardDisputeId()
          * .status()
          * ```
          */
@@ -104,7 +103,7 @@ private constructor(
         }
 
         /** The dispute you would like to action. */
-        fun cardDisputeId(cardDisputeId: String) = apply { this.cardDisputeId = cardDisputeId }
+        fun cardDisputeId(cardDisputeId: String?) = apply { this.cardDisputeId = cardDisputeId }
 
         /**
          * Sets the entire request body.
@@ -263,7 +262,6 @@ private constructor(
          *
          * The following fields are required:
          * ```kotlin
-         * .cardDisputeId()
          * .status()
          * ```
          *
@@ -271,7 +269,7 @@ private constructor(
          */
         fun build(): CardDisputeActionParams =
             CardDisputeActionParams(
-                checkRequired("cardDisputeId", cardDisputeId),
+                cardDisputeId,
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -282,7 +280,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> cardDisputeId
+            0 -> cardDisputeId ?: ""
             else -> ""
         }
 

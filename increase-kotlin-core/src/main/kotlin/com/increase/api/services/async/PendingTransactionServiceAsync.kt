@@ -19,9 +19,27 @@ interface PendingTransactionServiceAsync {
 
     /** Retrieve a Pending Transaction */
     suspend fun retrieve(
+        pendingTransactionId: String,
+        params: PendingTransactionRetrieveParams = PendingTransactionRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): PendingTransaction =
+        retrieve(
+            params.toBuilder().pendingTransactionId(pendingTransactionId).build(),
+            requestOptions,
+        )
+
+    /** @see [retrieve] */
+    suspend fun retrieve(
         params: PendingTransactionRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PendingTransaction
+
+    /** @see [retrieve] */
+    suspend fun retrieve(
+        pendingTransactionId: String,
+        requestOptions: RequestOptions,
+    ): PendingTransaction =
+        retrieve(pendingTransactionId, PendingTransactionRetrieveParams.none(), requestOptions)
 
     /** List Pending Transactions */
     suspend fun list(
@@ -45,9 +63,29 @@ interface PendingTransactionServiceAsync {
          */
         @MustBeClosed
         suspend fun retrieve(
+            pendingTransactionId: String,
+            params: PendingTransactionRetrieveParams = PendingTransactionRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<PendingTransaction> =
+            retrieve(
+                params.toBuilder().pendingTransactionId(pendingTransactionId).build(),
+                requestOptions,
+            )
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        suspend fun retrieve(
             params: PendingTransactionRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PendingTransaction>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        suspend fun retrieve(
+            pendingTransactionId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<PendingTransaction> =
+            retrieve(pendingTransactionId, PendingTransactionRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /pending_transactions`, but is otherwise the same as

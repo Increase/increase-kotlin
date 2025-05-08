@@ -27,15 +27,39 @@ interface AccountNumberServiceAsync {
 
     /** Retrieve an Account Number */
     suspend fun retrieve(
+        accountNumberId: String,
+        params: AccountNumberRetrieveParams = AccountNumberRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): AccountNumber =
+        retrieve(params.toBuilder().accountNumberId(accountNumberId).build(), requestOptions)
+
+    /** @see [retrieve] */
+    suspend fun retrieve(
         params: AccountNumberRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AccountNumber
 
+    /** @see [retrieve] */
+    suspend fun retrieve(accountNumberId: String, requestOptions: RequestOptions): AccountNumber =
+        retrieve(accountNumberId, AccountNumberRetrieveParams.none(), requestOptions)
+
     /** Update an Account Number */
+    suspend fun update(
+        accountNumberId: String,
+        params: AccountNumberUpdateParams = AccountNumberUpdateParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): AccountNumber =
+        update(params.toBuilder().accountNumberId(accountNumberId).build(), requestOptions)
+
+    /** @see [update] */
     suspend fun update(
         params: AccountNumberUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AccountNumber
+
+    /** @see [update] */
+    suspend fun update(accountNumberId: String, requestOptions: RequestOptions): AccountNumber =
+        update(accountNumberId, AccountNumberUpdateParams.none(), requestOptions)
 
     /** List Account Numbers */
     suspend fun list(
@@ -69,9 +93,26 @@ interface AccountNumberServiceAsync {
          */
         @MustBeClosed
         suspend fun retrieve(
+            accountNumberId: String,
+            params: AccountNumberRetrieveParams = AccountNumberRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<AccountNumber> =
+            retrieve(params.toBuilder().accountNumberId(accountNumberId).build(), requestOptions)
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        suspend fun retrieve(
             params: AccountNumberRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AccountNumber>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        suspend fun retrieve(
+            accountNumberId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<AccountNumber> =
+            retrieve(accountNumberId, AccountNumberRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `patch /account_numbers/{account_number_id}`, but is
@@ -79,9 +120,26 @@ interface AccountNumberServiceAsync {
          */
         @MustBeClosed
         suspend fun update(
+            accountNumberId: String,
+            params: AccountNumberUpdateParams = AccountNumberUpdateParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<AccountNumber> =
+            update(params.toBuilder().accountNumberId(accountNumberId).build(), requestOptions)
+
+        /** @see [update] */
+        @MustBeClosed
+        suspend fun update(
             params: AccountNumberUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AccountNumber>
+
+        /** @see [update] */
+        @MustBeClosed
+        suspend fun update(
+            accountNumberId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<AccountNumber> =
+            update(accountNumberId, AccountNumberUpdateParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /account_numbers`, but is otherwise the same as

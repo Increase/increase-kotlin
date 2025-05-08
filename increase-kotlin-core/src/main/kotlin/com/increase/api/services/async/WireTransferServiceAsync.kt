@@ -28,9 +28,21 @@ interface WireTransferServiceAsync {
 
     /** Retrieve a Wire Transfer */
     suspend fun retrieve(
+        wireTransferId: String,
+        params: WireTransferRetrieveParams = WireTransferRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): WireTransfer =
+        retrieve(params.toBuilder().wireTransferId(wireTransferId).build(), requestOptions)
+
+    /** @see [retrieve] */
+    suspend fun retrieve(
         params: WireTransferRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): WireTransfer
+
+    /** @see [retrieve] */
+    suspend fun retrieve(wireTransferId: String, requestOptions: RequestOptions): WireTransfer =
+        retrieve(wireTransferId, WireTransferRetrieveParams.none(), requestOptions)
 
     /** List Wire Transfers */
     suspend fun list(
@@ -44,15 +56,39 @@ interface WireTransferServiceAsync {
 
     /** Approve a Wire Transfer */
     suspend fun approve(
+        wireTransferId: String,
+        params: WireTransferApproveParams = WireTransferApproveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): WireTransfer =
+        approve(params.toBuilder().wireTransferId(wireTransferId).build(), requestOptions)
+
+    /** @see [approve] */
+    suspend fun approve(
         params: WireTransferApproveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): WireTransfer
 
+    /** @see [approve] */
+    suspend fun approve(wireTransferId: String, requestOptions: RequestOptions): WireTransfer =
+        approve(wireTransferId, WireTransferApproveParams.none(), requestOptions)
+
     /** Cancel a pending Wire Transfer */
+    suspend fun cancel(
+        wireTransferId: String,
+        params: WireTransferCancelParams = WireTransferCancelParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): WireTransfer =
+        cancel(params.toBuilder().wireTransferId(wireTransferId).build(), requestOptions)
+
+    /** @see [cancel] */
     suspend fun cancel(
         params: WireTransferCancelParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): WireTransfer
+
+    /** @see [cancel] */
+    suspend fun cancel(wireTransferId: String, requestOptions: RequestOptions): WireTransfer =
+        cancel(wireTransferId, WireTransferCancelParams.none(), requestOptions)
 
     /**
      * A view of [WireTransferServiceAsync] that provides access to raw HTTP responses for each
@@ -76,9 +112,26 @@ interface WireTransferServiceAsync {
          */
         @MustBeClosed
         suspend fun retrieve(
+            wireTransferId: String,
+            params: WireTransferRetrieveParams = WireTransferRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<WireTransfer> =
+            retrieve(params.toBuilder().wireTransferId(wireTransferId).build(), requestOptions)
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        suspend fun retrieve(
             params: WireTransferRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<WireTransfer>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        suspend fun retrieve(
+            wireTransferId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<WireTransfer> =
+            retrieve(wireTransferId, WireTransferRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /wire_transfers`, but is otherwise the same as
@@ -103,9 +156,26 @@ interface WireTransferServiceAsync {
          */
         @MustBeClosed
         suspend fun approve(
+            wireTransferId: String,
+            params: WireTransferApproveParams = WireTransferApproveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<WireTransfer> =
+            approve(params.toBuilder().wireTransferId(wireTransferId).build(), requestOptions)
+
+        /** @see [approve] */
+        @MustBeClosed
+        suspend fun approve(
             params: WireTransferApproveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<WireTransfer>
+
+        /** @see [approve] */
+        @MustBeClosed
+        suspend fun approve(
+            wireTransferId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<WireTransfer> =
+            approve(wireTransferId, WireTransferApproveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `post /wire_transfers/{wire_transfer_id}/cancel`, but is
@@ -113,8 +183,25 @@ interface WireTransferServiceAsync {
          */
         @MustBeClosed
         suspend fun cancel(
+            wireTransferId: String,
+            params: WireTransferCancelParams = WireTransferCancelParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<WireTransfer> =
+            cancel(params.toBuilder().wireTransferId(wireTransferId).build(), requestOptions)
+
+        /** @see [cancel] */
+        @MustBeClosed
+        suspend fun cancel(
             params: WireTransferCancelParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<WireTransfer>
+
+        /** @see [cancel] */
+        @MustBeClosed
+        suspend fun cancel(
+            wireTransferId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<WireTransfer> =
+            cancel(wireTransferId, WireTransferCancelParams.none(), requestOptions)
     }
 }

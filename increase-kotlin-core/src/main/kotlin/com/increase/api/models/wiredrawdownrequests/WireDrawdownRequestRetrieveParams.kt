@@ -3,7 +3,6 @@
 package com.increase.api.models.wiredrawdownrequests
 
 import com.increase.api.core.Params
-import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import java.util.Objects
@@ -11,13 +10,13 @@ import java.util.Objects
 /** Retrieve a Wire Drawdown Request */
 class WireDrawdownRequestRetrieveParams
 private constructor(
-    private val wireDrawdownRequestId: String,
+    private val wireDrawdownRequestId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** The identifier of the Wire Drawdown Request to retrieve. */
-    fun wireDrawdownRequestId(): String = wireDrawdownRequestId
+    fun wireDrawdownRequestId(): String? = wireDrawdownRequestId
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
@@ -27,14 +26,11 @@ private constructor(
 
     companion object {
 
+        fun none(): WireDrawdownRequestRetrieveParams = builder().build()
+
         /**
          * Returns a mutable builder for constructing an instance of
          * [WireDrawdownRequestRetrieveParams].
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .wireDrawdownRequestId()
-         * ```
          */
         fun builder() = Builder()
     }
@@ -55,7 +51,7 @@ private constructor(
             }
 
         /** The identifier of the Wire Drawdown Request to retrieve. */
-        fun wireDrawdownRequestId(wireDrawdownRequestId: String) = apply {
+        fun wireDrawdownRequestId(wireDrawdownRequestId: String?) = apply {
             this.wireDrawdownRequestId = wireDrawdownRequestId
         }
 
@@ -161,17 +157,10 @@ private constructor(
          * Returns an immutable instance of [WireDrawdownRequestRetrieveParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .wireDrawdownRequestId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): WireDrawdownRequestRetrieveParams =
             WireDrawdownRequestRetrieveParams(
-                checkRequired("wireDrawdownRequestId", wireDrawdownRequestId),
+                wireDrawdownRequestId,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -179,7 +168,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> wireDrawdownRequestId
+            0 -> wireDrawdownRequestId ?: ""
             else -> ""
         }
 

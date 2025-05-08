@@ -3,7 +3,6 @@
 package com.increase.api.models.accountstatements
 
 import com.increase.api.core.Params
-import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import java.util.Objects
@@ -11,13 +10,13 @@ import java.util.Objects
 /** Retrieve an Account Statement */
 class AccountStatementRetrieveParams
 private constructor(
-    private val accountStatementId: String,
+    private val accountStatementId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** The identifier of the Account Statement to retrieve. */
-    fun accountStatementId(): String = accountStatementId
+    fun accountStatementId(): String? = accountStatementId
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
@@ -27,14 +26,11 @@ private constructor(
 
     companion object {
 
+        fun none(): AccountStatementRetrieveParams = builder().build()
+
         /**
          * Returns a mutable builder for constructing an instance of
          * [AccountStatementRetrieveParams].
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .accountStatementId()
-         * ```
          */
         fun builder() = Builder()
     }
@@ -53,7 +49,7 @@ private constructor(
         }
 
         /** The identifier of the Account Statement to retrieve. */
-        fun accountStatementId(accountStatementId: String) = apply {
+        fun accountStatementId(accountStatementId: String?) = apply {
             this.accountStatementId = accountStatementId
         }
 
@@ -159,17 +155,10 @@ private constructor(
          * Returns an immutable instance of [AccountStatementRetrieveParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .accountStatementId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): AccountStatementRetrieveParams =
             AccountStatementRetrieveParams(
-                checkRequired("accountStatementId", accountStatementId),
+                accountStatementId,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -177,7 +166,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> accountStatementId
+            0 -> accountStatementId ?: ""
             else -> ""
         }
 

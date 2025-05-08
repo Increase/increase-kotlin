@@ -3,7 +3,6 @@
 package com.increase.api.models.entities
 
 import com.increase.api.core.Params
-import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import java.util.Objects
@@ -11,13 +10,13 @@ import java.util.Objects
 /** Retrieve an Entity */
 class EntityRetrieveParams
 private constructor(
-    private val entityId: String,
+    private val entityId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** The identifier of the Entity to retrieve. */
-    fun entityId(): String = entityId
+    fun entityId(): String? = entityId
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
@@ -27,14 +26,9 @@ private constructor(
 
     companion object {
 
-        /**
-         * Returns a mutable builder for constructing an instance of [EntityRetrieveParams].
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .entityId()
-         * ```
-         */
+        fun none(): EntityRetrieveParams = builder().build()
+
+        /** Returns a mutable builder for constructing an instance of [EntityRetrieveParams]. */
         fun builder() = Builder()
     }
 
@@ -52,7 +46,7 @@ private constructor(
         }
 
         /** The identifier of the Entity to retrieve. */
-        fun entityId(entityId: String) = apply { this.entityId = entityId }
+        fun entityId(entityId: String?) = apply { this.entityId = entityId }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -156,25 +150,14 @@ private constructor(
          * Returns an immutable instance of [EntityRetrieveParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .entityId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): EntityRetrieveParams =
-            EntityRetrieveParams(
-                checkRequired("entityId", entityId),
-                additionalHeaders.build(),
-                additionalQueryParams.build(),
-            )
+            EntityRetrieveParams(entityId, additionalHeaders.build(), additionalQueryParams.build())
     }
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> entityId
+            0 -> entityId ?: ""
             else -> ""
         }
 

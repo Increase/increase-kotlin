@@ -21,14 +21,14 @@ import java.util.Objects
 /** Update a Bookkeeping Account */
 class BookkeepingAccountUpdateParams
 private constructor(
-    private val bookkeepingAccountId: String,
+    private val bookkeepingAccountId: String?,
     private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** The bookkeeping account you would like to update. */
-    fun bookkeepingAccountId(): String = bookkeepingAccountId
+    fun bookkeepingAccountId(): String? = bookkeepingAccountId
 
     /**
      * The name you choose for the account.
@@ -61,7 +61,6 @@ private constructor(
          *
          * The following fields are required:
          * ```kotlin
-         * .bookkeepingAccountId()
          * .name()
          * ```
          */
@@ -84,7 +83,7 @@ private constructor(
         }
 
         /** The bookkeeping account you would like to update. */
-        fun bookkeepingAccountId(bookkeepingAccountId: String) = apply {
+        fun bookkeepingAccountId(bookkeepingAccountId: String?) = apply {
             this.bookkeepingAccountId = bookkeepingAccountId
         }
 
@@ -232,7 +231,6 @@ private constructor(
          *
          * The following fields are required:
          * ```kotlin
-         * .bookkeepingAccountId()
          * .name()
          * ```
          *
@@ -240,7 +238,7 @@ private constructor(
          */
         fun build(): BookkeepingAccountUpdateParams =
             BookkeepingAccountUpdateParams(
-                checkRequired("bookkeepingAccountId", bookkeepingAccountId),
+                bookkeepingAccountId,
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -251,7 +249,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> bookkeepingAccountId
+            0 -> bookkeepingAccountId ?: ""
             else -> ""
         }
 

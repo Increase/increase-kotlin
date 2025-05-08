@@ -22,7 +22,7 @@ import java.util.Objects
 /** Return an Inbound ACH Transfer */
 class InboundAchTransferTransferReturnParams
 private constructor(
-    private val inboundAchTransferId: String,
+    private val inboundAchTransferId: String?,
     private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -32,7 +32,7 @@ private constructor(
      * The identifier of the Inbound ACH Transfer to return to the originating financial
      * institution.
      */
-    fun inboundAchTransferId(): String = inboundAchTransferId
+    fun inboundAchTransferId(): String? = inboundAchTransferId
 
     /**
      * The reason why this transfer will be returned. The most usual return codes are
@@ -66,7 +66,6 @@ private constructor(
          *
          * The following fields are required:
          * ```kotlin
-         * .inboundAchTransferId()
          * .reason()
          * ```
          */
@@ -95,7 +94,7 @@ private constructor(
          * The identifier of the Inbound ACH Transfer to return to the originating financial
          * institution.
          */
-        fun inboundAchTransferId(inboundAchTransferId: String) = apply {
+        fun inboundAchTransferId(inboundAchTransferId: String?) = apply {
             this.inboundAchTransferId = inboundAchTransferId
         }
 
@@ -246,7 +245,6 @@ private constructor(
          *
          * The following fields are required:
          * ```kotlin
-         * .inboundAchTransferId()
          * .reason()
          * ```
          *
@@ -254,7 +252,7 @@ private constructor(
          */
         fun build(): InboundAchTransferTransferReturnParams =
             InboundAchTransferTransferReturnParams(
-                checkRequired("inboundAchTransferId", inboundAchTransferId),
+                inboundAchTransferId,
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -265,7 +263,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> inboundAchTransferId
+            0 -> inboundAchTransferId ?: ""
             else -> ""
         }
 

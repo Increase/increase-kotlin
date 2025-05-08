@@ -5,7 +5,6 @@ package com.increase.api.services.async
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
 import com.increase.api.models.checkdeposits.CheckDepositCreateParams
-import com.increase.api.models.checkdeposits.CheckDepositRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -44,12 +43,7 @@ internal class CheckDepositServiceAsyncTest {
                 .build()
         val checkDepositServiceAsync = client.checkDeposits()
 
-        val checkDeposit =
-            checkDepositServiceAsync.retrieve(
-                CheckDepositRetrieveParams.builder()
-                    .checkDepositId("check_deposit_f06n9gpg7sxn8t19lfc1")
-                    .build()
-            )
+        val checkDeposit = checkDepositServiceAsync.retrieve("check_deposit_f06n9gpg7sxn8t19lfc1")
 
         checkDeposit.validate()
     }

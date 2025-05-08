@@ -3,7 +3,6 @@
 package com.increase.api.models.achtransfers
 
 import com.increase.api.core.Params
-import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import java.util.Objects
@@ -11,13 +10,13 @@ import java.util.Objects
 /** Retrieve an ACH Transfer */
 class AchTransferRetrieveParams
 private constructor(
-    private val achTransferId: String,
+    private val achTransferId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** The identifier of the ACH Transfer. */
-    fun achTransferId(): String = achTransferId
+    fun achTransferId(): String? = achTransferId
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
@@ -27,13 +26,10 @@ private constructor(
 
     companion object {
 
+        fun none(): AchTransferRetrieveParams = builder().build()
+
         /**
          * Returns a mutable builder for constructing an instance of [AchTransferRetrieveParams].
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .achTransferId()
-         * ```
          */
         fun builder() = Builder()
     }
@@ -52,7 +48,7 @@ private constructor(
         }
 
         /** The identifier of the ACH Transfer. */
-        fun achTransferId(achTransferId: String) = apply { this.achTransferId = achTransferId }
+        fun achTransferId(achTransferId: String?) = apply { this.achTransferId = achTransferId }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -156,17 +152,10 @@ private constructor(
          * Returns an immutable instance of [AchTransferRetrieveParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .achTransferId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): AchTransferRetrieveParams =
             AchTransferRetrieveParams(
-                checkRequired("achTransferId", achTransferId),
+                achTransferId,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -174,7 +163,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> achTransferId
+            0 -> achTransferId ?: ""
             else -> ""
         }
 

@@ -19,9 +19,21 @@ interface TransactionServiceAsync {
 
     /** Retrieve a Transaction */
     suspend fun retrieve(
+        transactionId: String,
+        params: TransactionRetrieveParams = TransactionRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): Transaction =
+        retrieve(params.toBuilder().transactionId(transactionId).build(), requestOptions)
+
+    /** @see [retrieve] */
+    suspend fun retrieve(
         params: TransactionRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Transaction
+
+    /** @see [retrieve] */
+    suspend fun retrieve(transactionId: String, requestOptions: RequestOptions): Transaction =
+        retrieve(transactionId, TransactionRetrieveParams.none(), requestOptions)
 
     /** List Transactions */
     suspend fun list(
@@ -45,9 +57,26 @@ interface TransactionServiceAsync {
          */
         @MustBeClosed
         suspend fun retrieve(
+            transactionId: String,
+            params: TransactionRetrieveParams = TransactionRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<Transaction> =
+            retrieve(params.toBuilder().transactionId(transactionId).build(), requestOptions)
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        suspend fun retrieve(
             params: TransactionRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Transaction>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        suspend fun retrieve(
+            transactionId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<Transaction> =
+            retrieve(transactionId, TransactionRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /transactions`, but is otherwise the same as

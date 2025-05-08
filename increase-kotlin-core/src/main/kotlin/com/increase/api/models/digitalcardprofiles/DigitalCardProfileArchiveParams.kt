@@ -4,7 +4,6 @@ package com.increase.api.models.digitalcardprofiles
 
 import com.increase.api.core.JsonValue
 import com.increase.api.core.Params
-import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.toImmutable
@@ -13,14 +12,14 @@ import java.util.Objects
 /** Archive a Digital Card Profile */
 class DigitalCardProfileArchiveParams
 private constructor(
-    private val digitalCardProfileId: String,
+    private val digitalCardProfileId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
     private val additionalBodyProperties: Map<String, JsonValue>,
 ) : Params {
 
     /** The identifier of the Digital Card Profile to archive. */
-    fun digitalCardProfileId(): String = digitalCardProfileId
+    fun digitalCardProfileId(): String? = digitalCardProfileId
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
 
@@ -32,14 +31,11 @@ private constructor(
 
     companion object {
 
+        fun none(): DigitalCardProfileArchiveParams = builder().build()
+
         /**
          * Returns a mutable builder for constructing an instance of
          * [DigitalCardProfileArchiveParams].
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .digitalCardProfileId()
-         * ```
          */
         fun builder() = Builder()
     }
@@ -63,7 +59,7 @@ private constructor(
             }
 
         /** The identifier of the Digital Card Profile to archive. */
-        fun digitalCardProfileId(digitalCardProfileId: String) = apply {
+        fun digitalCardProfileId(digitalCardProfileId: String?) = apply {
             this.digitalCardProfileId = digitalCardProfileId
         }
 
@@ -191,17 +187,10 @@ private constructor(
          * Returns an immutable instance of [DigitalCardProfileArchiveParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .digitalCardProfileId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): DigitalCardProfileArchiveParams =
             DigitalCardProfileArchiveParams(
-                checkRequired("digitalCardProfileId", digitalCardProfileId),
+                digitalCardProfileId,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
                 additionalBodyProperties.toImmutable(),
@@ -212,7 +201,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> digitalCardProfileId
+            0 -> digitalCardProfileId ?: ""
             else -> ""
         }
 

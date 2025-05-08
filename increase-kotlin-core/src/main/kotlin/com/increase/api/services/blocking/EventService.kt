@@ -19,9 +19,20 @@ interface EventService {
 
     /** Retrieve an Event */
     fun retrieve(
+        eventId: String,
+        params: EventRetrieveParams = EventRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): Event = retrieve(params.toBuilder().eventId(eventId).build(), requestOptions)
+
+    /** @see [retrieve] */
+    fun retrieve(
         params: EventRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Event
+
+    /** @see [retrieve] */
+    fun retrieve(eventId: String, requestOptions: RequestOptions): Event =
+        retrieve(eventId, EventRetrieveParams.none(), requestOptions)
 
     /** List Events */
     fun list(
@@ -42,9 +53,23 @@ interface EventService {
          */
         @MustBeClosed
         fun retrieve(
+            eventId: String,
+            params: EventRetrieveParams = EventRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<Event> =
+            retrieve(params.toBuilder().eventId(eventId).build(), requestOptions)
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
             params: EventRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Event>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(eventId: String, requestOptions: RequestOptions): HttpResponseFor<Event> =
+            retrieve(eventId, EventRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /events`, but is otherwise the same as

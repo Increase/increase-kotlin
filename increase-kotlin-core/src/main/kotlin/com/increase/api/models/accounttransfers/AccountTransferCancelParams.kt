@@ -4,7 +4,6 @@ package com.increase.api.models.accounttransfers
 
 import com.increase.api.core.JsonValue
 import com.increase.api.core.Params
-import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.toImmutable
@@ -13,14 +12,14 @@ import java.util.Objects
 /** Cancel an Account Transfer */
 class AccountTransferCancelParams
 private constructor(
-    private val accountTransferId: String,
+    private val accountTransferId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
     private val additionalBodyProperties: Map<String, JsonValue>,
 ) : Params {
 
     /** The identifier of the pending Account Transfer to cancel. */
-    fun accountTransferId(): String = accountTransferId
+    fun accountTransferId(): String? = accountTransferId
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
 
@@ -32,13 +31,10 @@ private constructor(
 
     companion object {
 
+        fun none(): AccountTransferCancelParams = builder().build()
+
         /**
          * Returns a mutable builder for constructing an instance of [AccountTransferCancelParams].
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .accountTransferId()
-         * ```
          */
         fun builder() = Builder()
     }
@@ -60,7 +56,7 @@ private constructor(
         }
 
         /** The identifier of the pending Account Transfer to cancel. */
-        fun accountTransferId(accountTransferId: String) = apply {
+        fun accountTransferId(accountTransferId: String?) = apply {
             this.accountTransferId = accountTransferId
         }
 
@@ -188,17 +184,10 @@ private constructor(
          * Returns an immutable instance of [AccountTransferCancelParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .accountTransferId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): AccountTransferCancelParams =
             AccountTransferCancelParams(
-                checkRequired("accountTransferId", accountTransferId),
+                accountTransferId,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
                 additionalBodyProperties.toImmutable(),
@@ -209,7 +198,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> accountTransferId
+            0 -> accountTransferId ?: ""
             else -> ""
         }
 
