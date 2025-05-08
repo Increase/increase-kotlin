@@ -2,11 +2,11 @@
 
 package com.increase.api.models.exports
 
+import com.increase.api.core.AutoPagerAsync
+import com.increase.api.core.PageAsync
 import com.increase.api.core.checkRequired
 import com.increase.api.services.async.ExportServiceAsync
 import java.util.Objects
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.FlowCollector
 
 /** @see [ExportServiceAsync.list] */
 class ExportListPageAsync
@@ -14,7 +14,7 @@ private constructor(
     private val service: ExportServiceAsync,
     private val params: ExportListParams,
     private val response: ExportListPageResponse,
-) {
+) : PageAsync<Export> {
 
     /**
      * Delegates to [ExportListPageResponse], but gracefully handles missing data.
@@ -30,19 +30,19 @@ private constructor(
      */
     fun nextCursor(): String? = response._nextCursor().getNullable("next_cursor")
 
-    fun hasNextPage(): Boolean = data().isNotEmpty() && nextCursor() != null
+    override fun items(): List<Export> = data()
 
-    fun getNextPageParams(): ExportListParams? {
-        if (!hasNextPage()) {
-            return null
-        }
+    override fun hasNextPage(): Boolean = items().isNotEmpty() && nextCursor() != null
 
-        return params.toBuilder().apply { nextCursor()?.let { cursor(it) } }.build()
+    fun nextPageParams(): ExportListParams {
+        val nextCursor =
+            nextCursor() ?: throw IllegalStateException("Cannot construct next page params")
+        return params.toBuilder().cursor(nextCursor).build()
     }
 
-    suspend fun getNextPage(): ExportListPageAsync? = getNextPageParams()?.let { service.list(it) }
+    override suspend fun nextPage(): ExportListPageAsync = service.list(nextPageParams())
 
-    fun autoPager(): AutoPager = AutoPager(this)
+    fun autoPager(): AutoPagerAsync<Export> = AutoPagerAsync.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): ExportListParams = params
@@ -108,21 +108,6 @@ private constructor(
                 checkRequired("params", params),
                 checkRequired("response", response),
             )
-    }
-
-    class AutoPager(private val firstPage: ExportListPageAsync) : Flow<Export> {
-
-        override suspend fun collect(collector: FlowCollector<Export>) {
-            var page = firstPage
-            var index = 0
-            while (true) {
-                while (index < page.data().size) {
-                    collector.emit(page.data()[index++])
-                }
-                page = page.getNextPage() ?: break
-                index = 0
-            }
-        }
     }
 
     override fun equals(other: Any?): Boolean {

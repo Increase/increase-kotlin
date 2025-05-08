@@ -2,11 +2,11 @@
 
 package com.increase.api.models.externalaccounts
 
+import com.increase.api.core.AutoPagerAsync
+import com.increase.api.core.PageAsync
 import com.increase.api.core.checkRequired
 import com.increase.api.services.async.ExternalAccountServiceAsync
 import java.util.Objects
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.FlowCollector
 
 /** @see [ExternalAccountServiceAsync.list] */
 class ExternalAccountListPageAsync
@@ -14,7 +14,7 @@ private constructor(
     private val service: ExternalAccountServiceAsync,
     private val params: ExternalAccountListParams,
     private val response: ExternalAccountListPageResponse,
-) {
+) : PageAsync<ExternalAccount> {
 
     /**
      * Delegates to [ExternalAccountListPageResponse], but gracefully handles missing data.
@@ -30,20 +30,19 @@ private constructor(
      */
     fun nextCursor(): String? = response._nextCursor().getNullable("next_cursor")
 
-    fun hasNextPage(): Boolean = data().isNotEmpty() && nextCursor() != null
+    override fun items(): List<ExternalAccount> = data()
 
-    fun getNextPageParams(): ExternalAccountListParams? {
-        if (!hasNextPage()) {
-            return null
-        }
+    override fun hasNextPage(): Boolean = items().isNotEmpty() && nextCursor() != null
 
-        return params.toBuilder().apply { nextCursor()?.let { cursor(it) } }.build()
+    fun nextPageParams(): ExternalAccountListParams {
+        val nextCursor =
+            nextCursor() ?: throw IllegalStateException("Cannot construct next page params")
+        return params.toBuilder().cursor(nextCursor).build()
     }
 
-    suspend fun getNextPage(): ExternalAccountListPageAsync? =
-        getNextPageParams()?.let { service.list(it) }
+    override suspend fun nextPage(): ExternalAccountListPageAsync = service.list(nextPageParams())
 
-    fun autoPager(): AutoPager = AutoPager(this)
+    fun autoPager(): AutoPagerAsync<ExternalAccount> = AutoPagerAsync.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): ExternalAccountListParams = params
@@ -109,21 +108,6 @@ private constructor(
                 checkRequired("params", params),
                 checkRequired("response", response),
             )
-    }
-
-    class AutoPager(private val firstPage: ExternalAccountListPageAsync) : Flow<ExternalAccount> {
-
-        override suspend fun collect(collector: FlowCollector<ExternalAccount>) {
-            var page = firstPage
-            var index = 0
-            while (true) {
-                while (index < page.data().size) {
-                    collector.emit(page.data()[index++])
-                }
-                page = page.getNextPage() ?: break
-                index = 0
-            }
-        }
     }
 
     override fun equals(other: Any?): Boolean {

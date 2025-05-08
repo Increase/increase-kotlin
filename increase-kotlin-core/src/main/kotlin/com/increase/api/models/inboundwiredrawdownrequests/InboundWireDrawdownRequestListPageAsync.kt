@@ -2,11 +2,11 @@
 
 package com.increase.api.models.inboundwiredrawdownrequests
 
+import com.increase.api.core.AutoPagerAsync
+import com.increase.api.core.PageAsync
 import com.increase.api.core.checkRequired
 import com.increase.api.services.async.InboundWireDrawdownRequestServiceAsync
 import java.util.Objects
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.FlowCollector
 
 /** @see [InboundWireDrawdownRequestServiceAsync.list] */
 class InboundWireDrawdownRequestListPageAsync
@@ -14,7 +14,7 @@ private constructor(
     private val service: InboundWireDrawdownRequestServiceAsync,
     private val params: InboundWireDrawdownRequestListParams,
     private val response: InboundWireDrawdownRequestListPageResponse,
-) {
+) : PageAsync<InboundWireDrawdownRequest> {
 
     /**
      * Delegates to [InboundWireDrawdownRequestListPageResponse], but gracefully handles missing
@@ -33,20 +33,20 @@ private constructor(
      */
     fun nextCursor(): String? = response._nextCursor().getNullable("next_cursor")
 
-    fun hasNextPage(): Boolean = data().isNotEmpty() && nextCursor() != null
+    override fun items(): List<InboundWireDrawdownRequest> = data()
 
-    fun getNextPageParams(): InboundWireDrawdownRequestListParams? {
-        if (!hasNextPage()) {
-            return null
-        }
+    override fun hasNextPage(): Boolean = items().isNotEmpty() && nextCursor() != null
 
-        return params.toBuilder().apply { nextCursor()?.let { cursor(it) } }.build()
+    fun nextPageParams(): InboundWireDrawdownRequestListParams {
+        val nextCursor =
+            nextCursor() ?: throw IllegalStateException("Cannot construct next page params")
+        return params.toBuilder().cursor(nextCursor).build()
     }
 
-    suspend fun getNextPage(): InboundWireDrawdownRequestListPageAsync? =
-        getNextPageParams()?.let { service.list(it) }
+    override suspend fun nextPage(): InboundWireDrawdownRequestListPageAsync =
+        service.list(nextPageParams())
 
-    fun autoPager(): AutoPager = AutoPager(this)
+    fun autoPager(): AutoPagerAsync<InboundWireDrawdownRequest> = AutoPagerAsync.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): InboundWireDrawdownRequestListParams = params
@@ -119,22 +119,6 @@ private constructor(
                 checkRequired("params", params),
                 checkRequired("response", response),
             )
-    }
-
-    class AutoPager(private val firstPage: InboundWireDrawdownRequestListPageAsync) :
-        Flow<InboundWireDrawdownRequest> {
-
-        override suspend fun collect(collector: FlowCollector<InboundWireDrawdownRequest>) {
-            var page = firstPage
-            var index = 0
-            while (true) {
-                while (index < page.data().size) {
-                    collector.emit(page.data()[index++])
-                }
-                page = page.getNextPage() ?: break
-                index = 0
-            }
-        }
     }
 
     override fun equals(other: Any?): Boolean {

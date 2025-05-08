@@ -2,11 +2,11 @@
 
 package com.increase.api.models.achprenotifications
 
+import com.increase.api.core.AutoPagerAsync
+import com.increase.api.core.PageAsync
 import com.increase.api.core.checkRequired
 import com.increase.api.services.async.AchPrenotificationServiceAsync
 import java.util.Objects
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.FlowCollector
 
 /** @see [AchPrenotificationServiceAsync.list] */
 class AchPrenotificationListPageAsync
@@ -14,7 +14,7 @@ private constructor(
     private val service: AchPrenotificationServiceAsync,
     private val params: AchPrenotificationListParams,
     private val response: AchPrenotificationListPageResponse,
-) {
+) : PageAsync<AchPrenotification> {
 
     /**
      * Delegates to [AchPrenotificationListPageResponse], but gracefully handles missing data.
@@ -30,20 +30,20 @@ private constructor(
      */
     fun nextCursor(): String? = response._nextCursor().getNullable("next_cursor")
 
-    fun hasNextPage(): Boolean = data().isNotEmpty() && nextCursor() != null
+    override fun items(): List<AchPrenotification> = data()
 
-    fun getNextPageParams(): AchPrenotificationListParams? {
-        if (!hasNextPage()) {
-            return null
-        }
+    override fun hasNextPage(): Boolean = items().isNotEmpty() && nextCursor() != null
 
-        return params.toBuilder().apply { nextCursor()?.let { cursor(it) } }.build()
+    fun nextPageParams(): AchPrenotificationListParams {
+        val nextCursor =
+            nextCursor() ?: throw IllegalStateException("Cannot construct next page params")
+        return params.toBuilder().cursor(nextCursor).build()
     }
 
-    suspend fun getNextPage(): AchPrenotificationListPageAsync? =
-        getNextPageParams()?.let { service.list(it) }
+    override suspend fun nextPage(): AchPrenotificationListPageAsync =
+        service.list(nextPageParams())
 
-    fun autoPager(): AutoPager = AutoPager(this)
+    fun autoPager(): AutoPagerAsync<AchPrenotification> = AutoPagerAsync.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): AchPrenotificationListParams = params
@@ -113,22 +113,6 @@ private constructor(
                 checkRequired("params", params),
                 checkRequired("response", response),
             )
-    }
-
-    class AutoPager(private val firstPage: AchPrenotificationListPageAsync) :
-        Flow<AchPrenotification> {
-
-        override suspend fun collect(collector: FlowCollector<AchPrenotification>) {
-            var page = firstPage
-            var index = 0
-            while (true) {
-                while (index < page.data().size) {
-                    collector.emit(page.data()[index++])
-                }
-                page = page.getNextPage() ?: break
-                index = 0
-            }
-        }
     }
 
     override fun equals(other: Any?): Boolean {

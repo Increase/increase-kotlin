@@ -2,11 +2,11 @@
 
 package com.increase.api.models.declinedtransactions
 
+import com.increase.api.core.AutoPagerAsync
+import com.increase.api.core.PageAsync
 import com.increase.api.core.checkRequired
 import com.increase.api.services.async.DeclinedTransactionServiceAsync
 import java.util.Objects
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.FlowCollector
 
 /** @see [DeclinedTransactionServiceAsync.list] */
 class DeclinedTransactionListPageAsync
@@ -14,7 +14,7 @@ private constructor(
     private val service: DeclinedTransactionServiceAsync,
     private val params: DeclinedTransactionListParams,
     private val response: DeclinedTransactionListPageResponse,
-) {
+) : PageAsync<DeclinedTransaction> {
 
     /**
      * Delegates to [DeclinedTransactionListPageResponse], but gracefully handles missing data.
@@ -30,20 +30,20 @@ private constructor(
      */
     fun nextCursor(): String? = response._nextCursor().getNullable("next_cursor")
 
-    fun hasNextPage(): Boolean = data().isNotEmpty() && nextCursor() != null
+    override fun items(): List<DeclinedTransaction> = data()
 
-    fun getNextPageParams(): DeclinedTransactionListParams? {
-        if (!hasNextPage()) {
-            return null
-        }
+    override fun hasNextPage(): Boolean = items().isNotEmpty() && nextCursor() != null
 
-        return params.toBuilder().apply { nextCursor()?.let { cursor(it) } }.build()
+    fun nextPageParams(): DeclinedTransactionListParams {
+        val nextCursor =
+            nextCursor() ?: throw IllegalStateException("Cannot construct next page params")
+        return params.toBuilder().cursor(nextCursor).build()
     }
 
-    suspend fun getNextPage(): DeclinedTransactionListPageAsync? =
-        getNextPageParams()?.let { service.list(it) }
+    override suspend fun nextPage(): DeclinedTransactionListPageAsync =
+        service.list(nextPageParams())
 
-    fun autoPager(): AutoPager = AutoPager(this)
+    fun autoPager(): AutoPagerAsync<DeclinedTransaction> = AutoPagerAsync.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): DeclinedTransactionListParams = params
@@ -113,22 +113,6 @@ private constructor(
                 checkRequired("params", params),
                 checkRequired("response", response),
             )
-    }
-
-    class AutoPager(private val firstPage: DeclinedTransactionListPageAsync) :
-        Flow<DeclinedTransaction> {
-
-        override suspend fun collect(collector: FlowCollector<DeclinedTransaction>) {
-            var page = firstPage
-            var index = 0
-            while (true) {
-                while (index < page.data().size) {
-                    collector.emit(page.data()[index++])
-                }
-                page = page.getNextPage() ?: break
-                index = 0
-            }
-        }
     }
 
     override fun equals(other: Any?): Boolean {

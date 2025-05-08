@@ -2,11 +2,11 @@
 
 package com.increase.api.models.digitalcardprofiles
 
+import com.increase.api.core.AutoPagerAsync
+import com.increase.api.core.PageAsync
 import com.increase.api.core.checkRequired
 import com.increase.api.services.async.DigitalCardProfileServiceAsync
 import java.util.Objects
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.FlowCollector
 
 /** @see [DigitalCardProfileServiceAsync.list] */
 class DigitalCardProfileListPageAsync
@@ -14,7 +14,7 @@ private constructor(
     private val service: DigitalCardProfileServiceAsync,
     private val params: DigitalCardProfileListParams,
     private val response: DigitalCardProfileListPageResponse,
-) {
+) : PageAsync<DigitalCardProfile> {
 
     /**
      * Delegates to [DigitalCardProfileListPageResponse], but gracefully handles missing data.
@@ -30,20 +30,20 @@ private constructor(
      */
     fun nextCursor(): String? = response._nextCursor().getNullable("next_cursor")
 
-    fun hasNextPage(): Boolean = data().isNotEmpty() && nextCursor() != null
+    override fun items(): List<DigitalCardProfile> = data()
 
-    fun getNextPageParams(): DigitalCardProfileListParams? {
-        if (!hasNextPage()) {
-            return null
-        }
+    override fun hasNextPage(): Boolean = items().isNotEmpty() && nextCursor() != null
 
-        return params.toBuilder().apply { nextCursor()?.let { cursor(it) } }.build()
+    fun nextPageParams(): DigitalCardProfileListParams {
+        val nextCursor =
+            nextCursor() ?: throw IllegalStateException("Cannot construct next page params")
+        return params.toBuilder().cursor(nextCursor).build()
     }
 
-    suspend fun getNextPage(): DigitalCardProfileListPageAsync? =
-        getNextPageParams()?.let { service.list(it) }
+    override suspend fun nextPage(): DigitalCardProfileListPageAsync =
+        service.list(nextPageParams())
 
-    fun autoPager(): AutoPager = AutoPager(this)
+    fun autoPager(): AutoPagerAsync<DigitalCardProfile> = AutoPagerAsync.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): DigitalCardProfileListParams = params
@@ -113,22 +113,6 @@ private constructor(
                 checkRequired("params", params),
                 checkRequired("response", response),
             )
-    }
-
-    class AutoPager(private val firstPage: DigitalCardProfileListPageAsync) :
-        Flow<DigitalCardProfile> {
-
-        override suspend fun collect(collector: FlowCollector<DigitalCardProfile>) {
-            var page = firstPage
-            var index = 0
-            while (true) {
-                while (index < page.data().size) {
-                    collector.emit(page.data()[index++])
-                }
-                page = page.getNextPage() ?: break
-                index = 0
-            }
-        }
     }
 
     override fun equals(other: Any?): Boolean {

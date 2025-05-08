@@ -2,6 +2,8 @@
 
 package com.increase.api.models.wiretransfers
 
+import com.increase.api.core.AutoPager
+import com.increase.api.core.Page
 import com.increase.api.core.checkRequired
 import com.increase.api.services.blocking.WireTransferService
 import java.util.Objects
@@ -12,7 +14,7 @@ private constructor(
     private val service: WireTransferService,
     private val params: WireTransferListParams,
     private val response: WireTransferListPageResponse,
-) {
+) : Page<WireTransfer> {
 
     /**
      * Delegates to [WireTransferListPageResponse], but gracefully handles missing data.
@@ -28,19 +30,19 @@ private constructor(
      */
     fun nextCursor(): String? = response._nextCursor().getNullable("next_cursor")
 
-    fun hasNextPage(): Boolean = data().isNotEmpty() && nextCursor() != null
+    override fun items(): List<WireTransfer> = data()
 
-    fun getNextPageParams(): WireTransferListParams? {
-        if (!hasNextPage()) {
-            return null
-        }
+    override fun hasNextPage(): Boolean = items().isNotEmpty() && nextCursor() != null
 
-        return params.toBuilder().apply { nextCursor()?.let { cursor(it) } }.build()
+    fun nextPageParams(): WireTransferListParams {
+        val nextCursor =
+            nextCursor() ?: throw IllegalStateException("Cannot construct next page params")
+        return params.toBuilder().cursor(nextCursor).build()
     }
 
-    fun getNextPage(): WireTransferListPage? = getNextPageParams()?.let { service.list(it) }
+    override fun nextPage(): WireTransferListPage = service.list(nextPageParams())
 
-    fun autoPager(): AutoPager = AutoPager(this)
+    fun autoPager(): AutoPager<WireTransfer> = AutoPager.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): WireTransferListParams = params
@@ -106,21 +108,6 @@ private constructor(
                 checkRequired("params", params),
                 checkRequired("response", response),
             )
-    }
-
-    class AutoPager(private val firstPage: WireTransferListPage) : Sequence<WireTransfer> {
-
-        override fun iterator(): Iterator<WireTransfer> = iterator {
-            var page = firstPage
-            var index = 0
-            while (true) {
-                while (index < page.data().size) {
-                    yield(page.data()[index++])
-                }
-                page = page.getNextPage() ?: break
-                index = 0
-            }
-        }
     }
 
     override fun equals(other: Any?): Boolean {

@@ -2,6 +2,8 @@
 
 package com.increase.api.models.cardpayments
 
+import com.increase.api.core.AutoPager
+import com.increase.api.core.Page
 import com.increase.api.core.checkRequired
 import com.increase.api.services.blocking.CardPaymentService
 import java.util.Objects
@@ -12,7 +14,7 @@ private constructor(
     private val service: CardPaymentService,
     private val params: CardPaymentListParams,
     private val response: CardPaymentListPageResponse,
-) {
+) : Page<CardPayment> {
 
     /**
      * Delegates to [CardPaymentListPageResponse], but gracefully handles missing data.
@@ -28,19 +30,19 @@ private constructor(
      */
     fun nextCursor(): String? = response._nextCursor().getNullable("next_cursor")
 
-    fun hasNextPage(): Boolean = data().isNotEmpty() && nextCursor() != null
+    override fun items(): List<CardPayment> = data()
 
-    fun getNextPageParams(): CardPaymentListParams? {
-        if (!hasNextPage()) {
-            return null
-        }
+    override fun hasNextPage(): Boolean = items().isNotEmpty() && nextCursor() != null
 
-        return params.toBuilder().apply { nextCursor()?.let { cursor(it) } }.build()
+    fun nextPageParams(): CardPaymentListParams {
+        val nextCursor =
+            nextCursor() ?: throw IllegalStateException("Cannot construct next page params")
+        return params.toBuilder().cursor(nextCursor).build()
     }
 
-    fun getNextPage(): CardPaymentListPage? = getNextPageParams()?.let { service.list(it) }
+    override fun nextPage(): CardPaymentListPage = service.list(nextPageParams())
 
-    fun autoPager(): AutoPager = AutoPager(this)
+    fun autoPager(): AutoPager<CardPayment> = AutoPager.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): CardPaymentListParams = params
@@ -106,21 +108,6 @@ private constructor(
                 checkRequired("params", params),
                 checkRequired("response", response),
             )
-    }
-
-    class AutoPager(private val firstPage: CardPaymentListPage) : Sequence<CardPayment> {
-
-        override fun iterator(): Iterator<CardPayment> = iterator {
-            var page = firstPage
-            var index = 0
-            while (true) {
-                while (index < page.data().size) {
-                    yield(page.data()[index++])
-                }
-                page = page.getNextPage() ?: break
-                index = 0
-            }
-        }
     }
 
     override fun equals(other: Any?): Boolean {
