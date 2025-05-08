@@ -20,9 +20,21 @@ interface IntrafiBalanceService {
      * This endpoint will include both the total balance and the amount swept to each institution.
      */
     fun intrafiBalance(
+        accountId: String,
+        params: IntrafiBalanceIntrafiBalanceParams = IntrafiBalanceIntrafiBalanceParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): IntrafiBalance =
+        intrafiBalance(params.toBuilder().accountId(accountId).build(), requestOptions)
+
+    /** @see [intrafiBalance] */
+    fun intrafiBalance(
         params: IntrafiBalanceIntrafiBalanceParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): IntrafiBalance
+
+    /** @see [intrafiBalance] */
+    fun intrafiBalance(accountId: String, requestOptions: RequestOptions): IntrafiBalance =
+        intrafiBalance(accountId, IntrafiBalanceIntrafiBalanceParams.none(), requestOptions)
 
     /**
      * A view of [IntrafiBalanceService] that provides access to raw HTTP responses for each method.
@@ -35,8 +47,25 @@ interface IntrafiBalanceService {
          */
         @MustBeClosed
         fun intrafiBalance(
+            accountId: String,
+            params: IntrafiBalanceIntrafiBalanceParams = IntrafiBalanceIntrafiBalanceParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<IntrafiBalance> =
+            intrafiBalance(params.toBuilder().accountId(accountId).build(), requestOptions)
+
+        /** @see [intrafiBalance] */
+        @MustBeClosed
+        fun intrafiBalance(
             params: IntrafiBalanceIntrafiBalanceParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<IntrafiBalance>
+
+        /** @see [intrafiBalance] */
+        @MustBeClosed
+        fun intrafiBalance(
+            accountId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<IntrafiBalance> =
+            intrafiBalance(accountId, IntrafiBalanceIntrafiBalanceParams.none(), requestOptions)
     }
 }

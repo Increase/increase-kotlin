@@ -3,7 +3,6 @@
 package com.increase.api.models.declinedtransactions
 
 import com.increase.api.core.Params
-import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import java.util.Objects
@@ -11,13 +10,13 @@ import java.util.Objects
 /** Retrieve a Declined Transaction */
 class DeclinedTransactionRetrieveParams
 private constructor(
-    private val declinedTransactionId: String,
+    private val declinedTransactionId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** The identifier of the Declined Transaction. */
-    fun declinedTransactionId(): String = declinedTransactionId
+    fun declinedTransactionId(): String? = declinedTransactionId
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
@@ -27,14 +26,11 @@ private constructor(
 
     companion object {
 
+        fun none(): DeclinedTransactionRetrieveParams = builder().build()
+
         /**
          * Returns a mutable builder for constructing an instance of
          * [DeclinedTransactionRetrieveParams].
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .declinedTransactionId()
-         * ```
          */
         fun builder() = Builder()
     }
@@ -55,7 +51,7 @@ private constructor(
             }
 
         /** The identifier of the Declined Transaction. */
-        fun declinedTransactionId(declinedTransactionId: String) = apply {
+        fun declinedTransactionId(declinedTransactionId: String?) = apply {
             this.declinedTransactionId = declinedTransactionId
         }
 
@@ -161,17 +157,10 @@ private constructor(
          * Returns an immutable instance of [DeclinedTransactionRetrieveParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .declinedTransactionId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): DeclinedTransactionRetrieveParams =
             DeclinedTransactionRetrieveParams(
-                checkRequired("declinedTransactionId", declinedTransactionId),
+                declinedTransactionId,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -179,7 +168,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> declinedTransactionId
+            0 -> declinedTransactionId ?: ""
             else -> ""
         }
 

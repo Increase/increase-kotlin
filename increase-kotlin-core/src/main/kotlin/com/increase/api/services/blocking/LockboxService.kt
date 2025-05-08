@@ -27,15 +27,37 @@ interface LockboxService {
 
     /** Retrieve a Lockbox */
     fun retrieve(
+        lockboxId: String,
+        params: LockboxRetrieveParams = LockboxRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): Lockbox = retrieve(params.toBuilder().lockboxId(lockboxId).build(), requestOptions)
+
+    /** @see [retrieve] */
+    fun retrieve(
         params: LockboxRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Lockbox
 
+    /** @see [retrieve] */
+    fun retrieve(lockboxId: String, requestOptions: RequestOptions): Lockbox =
+        retrieve(lockboxId, LockboxRetrieveParams.none(), requestOptions)
+
     /** Update a Lockbox */
+    fun update(
+        lockboxId: String,
+        params: LockboxUpdateParams = LockboxUpdateParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): Lockbox = update(params.toBuilder().lockboxId(lockboxId).build(), requestOptions)
+
+    /** @see [update] */
     fun update(
         params: LockboxUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Lockbox
+
+    /** @see [update] */
+    fun update(lockboxId: String, requestOptions: RequestOptions): Lockbox =
+        update(lockboxId, LockboxUpdateParams.none(), requestOptions)
 
     /** List Lockboxes */
     fun list(
@@ -66,9 +88,23 @@ interface LockboxService {
          */
         @MustBeClosed
         fun retrieve(
+            lockboxId: String,
+            params: LockboxRetrieveParams = LockboxRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<Lockbox> =
+            retrieve(params.toBuilder().lockboxId(lockboxId).build(), requestOptions)
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
             params: LockboxRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Lockbox>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(lockboxId: String, requestOptions: RequestOptions): HttpResponseFor<Lockbox> =
+            retrieve(lockboxId, LockboxRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `patch /lockboxes/{lockbox_id}`, but is otherwise the
@@ -76,9 +112,23 @@ interface LockboxService {
          */
         @MustBeClosed
         fun update(
+            lockboxId: String,
+            params: LockboxUpdateParams = LockboxUpdateParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<Lockbox> =
+            update(params.toBuilder().lockboxId(lockboxId).build(), requestOptions)
+
+        /** @see [update] */
+        @MustBeClosed
+        fun update(
             params: LockboxUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Lockbox>
+
+        /** @see [update] */
+        @MustBeClosed
+        fun update(lockboxId: String, requestOptions: RequestOptions): HttpResponseFor<Lockbox> =
+            update(lockboxId, LockboxUpdateParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /lockboxes`, but is otherwise the same as

@@ -28,9 +28,21 @@ interface AccountTransferService {
 
     /** Retrieve an Account Transfer */
     fun retrieve(
+        accountTransferId: String,
+        params: AccountTransferRetrieveParams = AccountTransferRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): AccountTransfer =
+        retrieve(params.toBuilder().accountTransferId(accountTransferId).build(), requestOptions)
+
+    /** @see [retrieve] */
+    fun retrieve(
         params: AccountTransferRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AccountTransfer
+
+    /** @see [retrieve] */
+    fun retrieve(accountTransferId: String, requestOptions: RequestOptions): AccountTransfer =
+        retrieve(accountTransferId, AccountTransferRetrieveParams.none(), requestOptions)
 
     /** List Account Transfers */
     fun list(
@@ -44,15 +56,39 @@ interface AccountTransferService {
 
     /** Approve an Account Transfer */
     fun approve(
+        accountTransferId: String,
+        params: AccountTransferApproveParams = AccountTransferApproveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): AccountTransfer =
+        approve(params.toBuilder().accountTransferId(accountTransferId).build(), requestOptions)
+
+    /** @see [approve] */
+    fun approve(
         params: AccountTransferApproveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AccountTransfer
 
+    /** @see [approve] */
+    fun approve(accountTransferId: String, requestOptions: RequestOptions): AccountTransfer =
+        approve(accountTransferId, AccountTransferApproveParams.none(), requestOptions)
+
     /** Cancel an Account Transfer */
+    fun cancel(
+        accountTransferId: String,
+        params: AccountTransferCancelParams = AccountTransferCancelParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): AccountTransfer =
+        cancel(params.toBuilder().accountTransferId(accountTransferId).build(), requestOptions)
+
+    /** @see [cancel] */
     fun cancel(
         params: AccountTransferCancelParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AccountTransfer
+
+    /** @see [cancel] */
+    fun cancel(accountTransferId: String, requestOptions: RequestOptions): AccountTransfer =
+        cancel(accountTransferId, AccountTransferCancelParams.none(), requestOptions)
 
     /**
      * A view of [AccountTransferService] that provides access to raw HTTP responses for each
@@ -76,9 +112,29 @@ interface AccountTransferService {
          */
         @MustBeClosed
         fun retrieve(
+            accountTransferId: String,
+            params: AccountTransferRetrieveParams = AccountTransferRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<AccountTransfer> =
+            retrieve(
+                params.toBuilder().accountTransferId(accountTransferId).build(),
+                requestOptions,
+            )
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
             params: AccountTransferRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AccountTransfer>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            accountTransferId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<AccountTransfer> =
+            retrieve(accountTransferId, AccountTransferRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /account_transfers`, but is otherwise the same as
@@ -101,9 +157,26 @@ interface AccountTransferService {
          */
         @MustBeClosed
         fun approve(
+            accountTransferId: String,
+            params: AccountTransferApproveParams = AccountTransferApproveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<AccountTransfer> =
+            approve(params.toBuilder().accountTransferId(accountTransferId).build(), requestOptions)
+
+        /** @see [approve] */
+        @MustBeClosed
+        fun approve(
             params: AccountTransferApproveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AccountTransfer>
+
+        /** @see [approve] */
+        @MustBeClosed
+        fun approve(
+            accountTransferId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<AccountTransfer> =
+            approve(accountTransferId, AccountTransferApproveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `post /account_transfers/{account_transfer_id}/cancel`,
@@ -111,8 +184,25 @@ interface AccountTransferService {
          */
         @MustBeClosed
         fun cancel(
+            accountTransferId: String,
+            params: AccountTransferCancelParams = AccountTransferCancelParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<AccountTransfer> =
+            cancel(params.toBuilder().accountTransferId(accountTransferId).build(), requestOptions)
+
+        /** @see [cancel] */
+        @MustBeClosed
+        fun cancel(
             params: AccountTransferCancelParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AccountTransfer>
+
+        /** @see [cancel] */
+        @MustBeClosed
+        fun cancel(
+            accountTransferId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<AccountTransfer> =
+            cancel(accountTransferId, AccountTransferCancelParams.none(), requestOptions)
     }
 }

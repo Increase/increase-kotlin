@@ -19,9 +19,20 @@ interface DocumentServiceAsync {
 
     /** Retrieve a Document */
     suspend fun retrieve(
+        documentId: String,
+        params: DocumentRetrieveParams = DocumentRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): Document = retrieve(params.toBuilder().documentId(documentId).build(), requestOptions)
+
+    /** @see [retrieve] */
+    suspend fun retrieve(
         params: DocumentRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Document
+
+    /** @see [retrieve] */
+    suspend fun retrieve(documentId: String, requestOptions: RequestOptions): Document =
+        retrieve(documentId, DocumentRetrieveParams.none(), requestOptions)
 
     /** List Documents */
     suspend fun list(
@@ -44,9 +55,26 @@ interface DocumentServiceAsync {
          */
         @MustBeClosed
         suspend fun retrieve(
+            documentId: String,
+            params: DocumentRetrieveParams = DocumentRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<Document> =
+            retrieve(params.toBuilder().documentId(documentId).build(), requestOptions)
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        suspend fun retrieve(
             params: DocumentRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Document>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        suspend fun retrieve(
+            documentId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<Document> =
+            retrieve(documentId, DocumentRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /documents`, but is otherwise the same as

@@ -27,11 +27,34 @@ interface AchTransferService {
      * acknowledgment subresource to the ACH Transfer.
      */
     fun acknowledge(
+        achTransferId: String,
+        params: AchTransferAcknowledgeParams = AchTransferAcknowledgeParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): AchTransfer =
+        acknowledge(params.toBuilder().achTransferId(achTransferId).build(), requestOptions)
+
+    /** @see [acknowledge] */
+    fun acknowledge(
         params: AchTransferAcknowledgeParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AchTransfer
 
+    /** @see [acknowledge] */
+    fun acknowledge(achTransferId: String, requestOptions: RequestOptions): AchTransfer =
+        acknowledge(achTransferId, AchTransferAcknowledgeParams.none(), requestOptions)
+
     /** Simulates receiving a Notification of Change for an [ACH Transfer](#ach-transfers). */
+    fun createNotificationOfChange(
+        achTransferId: String,
+        params: AchTransferCreateNotificationOfChangeParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): AchTransfer =
+        createNotificationOfChange(
+            params.toBuilder().achTransferId(achTransferId).build(),
+            requestOptions,
+        )
+
+    /** @see [createNotificationOfChange] */
     fun createNotificationOfChange(
         params: AchTransferCreateNotificationOfChangeParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -43,9 +66,21 @@ interface AchTransferService {
      * transfer must first have a `status` of `submitted`.
      */
     fun return_(
+        achTransferId: String,
+        params: AchTransferReturnParams = AchTransferReturnParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): AchTransfer =
+        return_(params.toBuilder().achTransferId(achTransferId).build(), requestOptions)
+
+    /** @see [return_] */
+    fun return_(
         params: AchTransferReturnParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AchTransfer
+
+    /** @see [return_] */
+    fun return_(achTransferId: String, requestOptions: RequestOptions): AchTransfer =
+        return_(achTransferId, AchTransferReturnParams.none(), requestOptions)
 
     /**
      * Simulates the settlement of an [ACH Transfer](#ach-transfers) by the Federal Reserve. This
@@ -55,9 +90,20 @@ interface AchTransferService {
      * the same Federal Reserve timeline as in production.
      */
     fun settle(
+        achTransferId: String,
+        params: AchTransferSettleParams = AchTransferSettleParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): AchTransfer = settle(params.toBuilder().achTransferId(achTransferId).build(), requestOptions)
+
+    /** @see [settle] */
+    fun settle(
         params: AchTransferSettleParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AchTransfer
+
+    /** @see [settle] */
+    fun settle(achTransferId: String, requestOptions: RequestOptions): AchTransfer =
+        settle(achTransferId, AchTransferSettleParams.none(), requestOptions)
 
     /**
      * Simulates the submission of an [ACH Transfer](#ach-transfers) to the Federal Reserve. This
@@ -67,9 +113,20 @@ interface AchTransferService {
      * allows you to skip that delay and transition the ACH Transfer to a status of `submitted`.
      */
     fun submit(
+        achTransferId: String,
+        params: AchTransferSubmitParams = AchTransferSubmitParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): AchTransfer = submit(params.toBuilder().achTransferId(achTransferId).build(), requestOptions)
+
+    /** @see [submit] */
+    fun submit(
         params: AchTransferSubmitParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AchTransfer
+
+    /** @see [submit] */
+    fun submit(achTransferId: String, requestOptions: RequestOptions): AchTransfer =
+        submit(achTransferId, AchTransferSubmitParams.none(), requestOptions)
 
     /**
      * A view of [AchTransferService] that provides access to raw HTTP responses for each method.
@@ -83,15 +140,44 @@ interface AchTransferService {
          */
         @MustBeClosed
         fun acknowledge(
+            achTransferId: String,
+            params: AchTransferAcknowledgeParams = AchTransferAcknowledgeParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<AchTransfer> =
+            acknowledge(params.toBuilder().achTransferId(achTransferId).build(), requestOptions)
+
+        /** @see [acknowledge] */
+        @MustBeClosed
+        fun acknowledge(
             params: AchTransferAcknowledgeParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AchTransfer>
+
+        /** @see [acknowledge] */
+        @MustBeClosed
+        fun acknowledge(
+            achTransferId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<AchTransfer> =
+            acknowledge(achTransferId, AchTransferAcknowledgeParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `post
          * /simulations/ach_transfers/{ach_transfer_id}/create_notification_of_change`, but is
          * otherwise the same as [AchTransferService.createNotificationOfChange].
          */
+        @MustBeClosed
+        fun createNotificationOfChange(
+            achTransferId: String,
+            params: AchTransferCreateNotificationOfChangeParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<AchTransfer> =
+            createNotificationOfChange(
+                params.toBuilder().achTransferId(achTransferId).build(),
+                requestOptions,
+            )
+
+        /** @see [createNotificationOfChange] */
         @MustBeClosed
         fun createNotificationOfChange(
             params: AchTransferCreateNotificationOfChangeParams,
@@ -105,9 +191,26 @@ interface AchTransferService {
          */
         @MustBeClosed
         fun return_(
+            achTransferId: String,
+            params: AchTransferReturnParams = AchTransferReturnParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<AchTransfer> =
+            return_(params.toBuilder().achTransferId(achTransferId).build(), requestOptions)
+
+        /** @see [return_] */
+        @MustBeClosed
+        fun return_(
             params: AchTransferReturnParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AchTransfer>
+
+        /** @see [return_] */
+        @MustBeClosed
+        fun return_(
+            achTransferId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<AchTransfer> =
+            return_(achTransferId, AchTransferReturnParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `post
@@ -116,9 +219,26 @@ interface AchTransferService {
          */
         @MustBeClosed
         fun settle(
+            achTransferId: String,
+            params: AchTransferSettleParams = AchTransferSettleParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<AchTransfer> =
+            settle(params.toBuilder().achTransferId(achTransferId).build(), requestOptions)
+
+        /** @see [settle] */
+        @MustBeClosed
+        fun settle(
             params: AchTransferSettleParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AchTransfer>
+
+        /** @see [settle] */
+        @MustBeClosed
+        fun settle(
+            achTransferId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<AchTransfer> =
+            settle(achTransferId, AchTransferSettleParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `post
@@ -127,8 +247,25 @@ interface AchTransferService {
          */
         @MustBeClosed
         fun submit(
+            achTransferId: String,
+            params: AchTransferSubmitParams = AchTransferSubmitParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<AchTransfer> =
+            submit(params.toBuilder().achTransferId(achTransferId).build(), requestOptions)
+
+        /** @see [submit] */
+        @MustBeClosed
+        fun submit(
             params: AchTransferSubmitParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AchTransfer>
+
+        /** @see [submit] */
+        @MustBeClosed
+        fun submit(
+            achTransferId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<AchTransfer> =
+            submit(achTransferId, AchTransferSubmitParams.none(), requestOptions)
     }
 }

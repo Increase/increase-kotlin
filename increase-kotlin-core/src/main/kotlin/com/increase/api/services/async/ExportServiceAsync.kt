@@ -26,9 +26,20 @@ interface ExportServiceAsync {
 
     /** Retrieve an Export */
     suspend fun retrieve(
+        exportId: String,
+        params: ExportRetrieveParams = ExportRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): Export = retrieve(params.toBuilder().exportId(exportId).build(), requestOptions)
+
+    /** @see [retrieve] */
+    suspend fun retrieve(
         params: ExportRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Export
+
+    /** @see [retrieve] */
+    suspend fun retrieve(exportId: String, requestOptions: RequestOptions): Export =
+        retrieve(exportId, ExportRetrieveParams.none(), requestOptions)
 
     /** List Exports */
     suspend fun list(
@@ -61,9 +72,25 @@ interface ExportServiceAsync {
          */
         @MustBeClosed
         suspend fun retrieve(
+            exportId: String,
+            params: ExportRetrieveParams = ExportRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<Export> =
+            retrieve(params.toBuilder().exportId(exportId).build(), requestOptions)
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        suspend fun retrieve(
             params: ExportRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Export>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        suspend fun retrieve(
+            exportId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<Export> = retrieve(exportId, ExportRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /exports`, but is otherwise the same as

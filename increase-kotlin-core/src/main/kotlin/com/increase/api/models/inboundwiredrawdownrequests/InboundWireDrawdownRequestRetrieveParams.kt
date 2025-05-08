@@ -3,7 +3,6 @@
 package com.increase.api.models.inboundwiredrawdownrequests
 
 import com.increase.api.core.Params
-import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import java.util.Objects
@@ -11,13 +10,13 @@ import java.util.Objects
 /** Retrieve an Inbound Wire Drawdown Request */
 class InboundWireDrawdownRequestRetrieveParams
 private constructor(
-    private val inboundWireDrawdownRequestId: String,
+    private val inboundWireDrawdownRequestId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** The identifier of the Inbound Wire Drawdown Request to retrieve. */
-    fun inboundWireDrawdownRequestId(): String = inboundWireDrawdownRequestId
+    fun inboundWireDrawdownRequestId(): String? = inboundWireDrawdownRequestId
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
@@ -27,14 +26,11 @@ private constructor(
 
     companion object {
 
+        fun none(): InboundWireDrawdownRequestRetrieveParams = builder().build()
+
         /**
          * Returns a mutable builder for constructing an instance of
          * [InboundWireDrawdownRequestRetrieveParams].
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .inboundWireDrawdownRequestId()
-         * ```
          */
         fun builder() = Builder()
     }
@@ -58,7 +54,7 @@ private constructor(
         }
 
         /** The identifier of the Inbound Wire Drawdown Request to retrieve. */
-        fun inboundWireDrawdownRequestId(inboundWireDrawdownRequestId: String) = apply {
+        fun inboundWireDrawdownRequestId(inboundWireDrawdownRequestId: String?) = apply {
             this.inboundWireDrawdownRequestId = inboundWireDrawdownRequestId
         }
 
@@ -164,17 +160,10 @@ private constructor(
          * Returns an immutable instance of [InboundWireDrawdownRequestRetrieveParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .inboundWireDrawdownRequestId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): InboundWireDrawdownRequestRetrieveParams =
             InboundWireDrawdownRequestRetrieveParams(
-                checkRequired("inboundWireDrawdownRequestId", inboundWireDrawdownRequestId),
+                inboundWireDrawdownRequestId,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -182,7 +171,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> inboundWireDrawdownRequestId
+            0 -> inboundWireDrawdownRequestId ?: ""
             else -> ""
         }
 

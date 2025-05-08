@@ -22,14 +22,14 @@ import java.util.Objects
 /** Reverse an Inbound Wire Transfer */
 class InboundWireTransferReverseParams
 private constructor(
-    private val inboundWireTransferId: String,
+    private val inboundWireTransferId: String?,
     private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** The identifier of the Inbound Wire Transfer to reverse. */
-    fun inboundWireTransferId(): String = inboundWireTransferId
+    fun inboundWireTransferId(): String? = inboundWireTransferId
 
     /**
      * Reason for the reversal.
@@ -62,7 +62,6 @@ private constructor(
          *
          * The following fields are required:
          * ```kotlin
-         * .inboundWireTransferId()
          * .reason()
          * ```
          */
@@ -87,7 +86,7 @@ private constructor(
             }
 
         /** The identifier of the Inbound Wire Transfer to reverse. */
-        fun inboundWireTransferId(inboundWireTransferId: String) = apply {
+        fun inboundWireTransferId(inboundWireTransferId: String?) = apply {
             this.inboundWireTransferId = inboundWireTransferId
         }
 
@@ -235,7 +234,6 @@ private constructor(
          *
          * The following fields are required:
          * ```kotlin
-         * .inboundWireTransferId()
          * .reason()
          * ```
          *
@@ -243,7 +241,7 @@ private constructor(
          */
         fun build(): InboundWireTransferReverseParams =
             InboundWireTransferReverseParams(
-                checkRequired("inboundWireTransferId", inboundWireTransferId),
+                inboundWireTransferId,
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -254,7 +252,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> inboundWireTransferId
+            0 -> inboundWireTransferId ?: ""
             else -> ""
         }
 

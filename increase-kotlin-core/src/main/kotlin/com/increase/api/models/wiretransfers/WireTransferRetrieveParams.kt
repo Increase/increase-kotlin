@@ -3,7 +3,6 @@
 package com.increase.api.models.wiretransfers
 
 import com.increase.api.core.Params
-import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import java.util.Objects
@@ -11,13 +10,13 @@ import java.util.Objects
 /** Retrieve a Wire Transfer */
 class WireTransferRetrieveParams
 private constructor(
-    private val wireTransferId: String,
+    private val wireTransferId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** The identifier of the Wire Transfer. */
-    fun wireTransferId(): String = wireTransferId
+    fun wireTransferId(): String? = wireTransferId
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
@@ -27,13 +26,10 @@ private constructor(
 
     companion object {
 
+        fun none(): WireTransferRetrieveParams = builder().build()
+
         /**
          * Returns a mutable builder for constructing an instance of [WireTransferRetrieveParams].
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .wireTransferId()
-         * ```
          */
         fun builder() = Builder()
     }
@@ -52,7 +48,7 @@ private constructor(
         }
 
         /** The identifier of the Wire Transfer. */
-        fun wireTransferId(wireTransferId: String) = apply { this.wireTransferId = wireTransferId }
+        fun wireTransferId(wireTransferId: String?) = apply { this.wireTransferId = wireTransferId }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -156,17 +152,10 @@ private constructor(
          * Returns an immutable instance of [WireTransferRetrieveParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .wireTransferId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): WireTransferRetrieveParams =
             WireTransferRetrieveParams(
-                checkRequired("wireTransferId", wireTransferId),
+                wireTransferId,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -174,7 +163,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> wireTransferId
+            0 -> wireTransferId ?: ""
             else -> ""
         }
 

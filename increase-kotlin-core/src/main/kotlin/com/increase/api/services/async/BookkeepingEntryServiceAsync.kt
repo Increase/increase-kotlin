@@ -19,9 +19,24 @@ interface BookkeepingEntryServiceAsync {
 
     /** Retrieve a Bookkeeping Entry */
     suspend fun retrieve(
+        bookkeepingEntryId: String,
+        params: BookkeepingEntryRetrieveParams = BookkeepingEntryRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): BookkeepingEntry =
+        retrieve(params.toBuilder().bookkeepingEntryId(bookkeepingEntryId).build(), requestOptions)
+
+    /** @see [retrieve] */
+    suspend fun retrieve(
         params: BookkeepingEntryRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BookkeepingEntry
+
+    /** @see [retrieve] */
+    suspend fun retrieve(
+        bookkeepingEntryId: String,
+        requestOptions: RequestOptions,
+    ): BookkeepingEntry =
+        retrieve(bookkeepingEntryId, BookkeepingEntryRetrieveParams.none(), requestOptions)
 
     /** List Bookkeeping Entries */
     suspend fun list(
@@ -45,9 +60,29 @@ interface BookkeepingEntryServiceAsync {
          */
         @MustBeClosed
         suspend fun retrieve(
+            bookkeepingEntryId: String,
+            params: BookkeepingEntryRetrieveParams = BookkeepingEntryRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<BookkeepingEntry> =
+            retrieve(
+                params.toBuilder().bookkeepingEntryId(bookkeepingEntryId).build(),
+                requestOptions,
+            )
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        suspend fun retrieve(
             params: BookkeepingEntryRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<BookkeepingEntry>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        suspend fun retrieve(
+            bookkeepingEntryId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<BookkeepingEntry> =
+            retrieve(bookkeepingEntryId, BookkeepingEntryRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /bookkeeping_entries`, but is otherwise the same as

@@ -18,15 +18,39 @@ interface RealTimeDecisionService {
 
     /** Retrieve a Real-Time Decision */
     fun retrieve(
+        realTimeDecisionId: String,
+        params: RealTimeDecisionRetrieveParams = RealTimeDecisionRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): RealTimeDecision =
+        retrieve(params.toBuilder().realTimeDecisionId(realTimeDecisionId).build(), requestOptions)
+
+    /** @see [retrieve] */
+    fun retrieve(
         params: RealTimeDecisionRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): RealTimeDecision
 
+    /** @see [retrieve] */
+    fun retrieve(realTimeDecisionId: String, requestOptions: RequestOptions): RealTimeDecision =
+        retrieve(realTimeDecisionId, RealTimeDecisionRetrieveParams.none(), requestOptions)
+
     /** Action a Real-Time Decision */
+    fun action(
+        realTimeDecisionId: String,
+        params: RealTimeDecisionActionParams = RealTimeDecisionActionParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): RealTimeDecision =
+        action(params.toBuilder().realTimeDecisionId(realTimeDecisionId).build(), requestOptions)
+
+    /** @see [action] */
     fun action(
         params: RealTimeDecisionActionParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): RealTimeDecision
+
+    /** @see [action] */
+    fun action(realTimeDecisionId: String, requestOptions: RequestOptions): RealTimeDecision =
+        action(realTimeDecisionId, RealTimeDecisionActionParams.none(), requestOptions)
 
     /**
      * A view of [RealTimeDecisionService] that provides access to raw HTTP responses for each
@@ -40,9 +64,29 @@ interface RealTimeDecisionService {
          */
         @MustBeClosed
         fun retrieve(
+            realTimeDecisionId: String,
+            params: RealTimeDecisionRetrieveParams = RealTimeDecisionRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<RealTimeDecision> =
+            retrieve(
+                params.toBuilder().realTimeDecisionId(realTimeDecisionId).build(),
+                requestOptions,
+            )
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
             params: RealTimeDecisionRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<RealTimeDecision>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            realTimeDecisionId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<RealTimeDecision> =
+            retrieve(realTimeDecisionId, RealTimeDecisionRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `post
@@ -51,8 +95,28 @@ interface RealTimeDecisionService {
          */
         @MustBeClosed
         fun action(
+            realTimeDecisionId: String,
+            params: RealTimeDecisionActionParams = RealTimeDecisionActionParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<RealTimeDecision> =
+            action(
+                params.toBuilder().realTimeDecisionId(realTimeDecisionId).build(),
+                requestOptions,
+            )
+
+        /** @see [action] */
+        @MustBeClosed
+        fun action(
             params: RealTimeDecisionActionParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<RealTimeDecision>
+
+        /** @see [action] */
+        @MustBeClosed
+        fun action(
+            realTimeDecisionId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<RealTimeDecision> =
+            action(realTimeDecisionId, RealTimeDecisionActionParams.none(), requestOptions)
     }
 }

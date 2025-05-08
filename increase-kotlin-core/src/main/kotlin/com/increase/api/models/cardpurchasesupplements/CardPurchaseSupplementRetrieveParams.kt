@@ -3,7 +3,6 @@
 package com.increase.api.models.cardpurchasesupplements
 
 import com.increase.api.core.Params
-import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import java.util.Objects
@@ -11,13 +10,13 @@ import java.util.Objects
 /** Retrieve a Card Purchase Supplement */
 class CardPurchaseSupplementRetrieveParams
 private constructor(
-    private val cardPurchaseSupplementId: String,
+    private val cardPurchaseSupplementId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** The identifier of the Card Purchase Supplement. */
-    fun cardPurchaseSupplementId(): String = cardPurchaseSupplementId
+    fun cardPurchaseSupplementId(): String? = cardPurchaseSupplementId
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
@@ -27,14 +26,11 @@ private constructor(
 
     companion object {
 
+        fun none(): CardPurchaseSupplementRetrieveParams = builder().build()
+
         /**
          * Returns a mutable builder for constructing an instance of
          * [CardPurchaseSupplementRetrieveParams].
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .cardPurchaseSupplementId()
-         * ```
          */
         fun builder() = Builder()
     }
@@ -56,7 +52,7 @@ private constructor(
         }
 
         /** The identifier of the Card Purchase Supplement. */
-        fun cardPurchaseSupplementId(cardPurchaseSupplementId: String) = apply {
+        fun cardPurchaseSupplementId(cardPurchaseSupplementId: String?) = apply {
             this.cardPurchaseSupplementId = cardPurchaseSupplementId
         }
 
@@ -162,17 +158,10 @@ private constructor(
          * Returns an immutable instance of [CardPurchaseSupplementRetrieveParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .cardPurchaseSupplementId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): CardPurchaseSupplementRetrieveParams =
             CardPurchaseSupplementRetrieveParams(
-                checkRequired("cardPurchaseSupplementId", cardPurchaseSupplementId),
+                cardPurchaseSupplementId,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -180,7 +169,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> cardPurchaseSupplementId
+            0 -> cardPurchaseSupplementId ?: ""
             else -> ""
         }
 

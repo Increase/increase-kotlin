@@ -30,9 +30,20 @@ interface FileService {
 
     /** Retrieve a File */
     fun retrieve(
+        fileId: String,
+        params: FileRetrieveParams = FileRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): File = retrieve(params.toBuilder().fileId(fileId).build(), requestOptions)
+
+    /** @see [retrieve] */
+    fun retrieve(
         params: FileRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): File
+
+    /** @see [retrieve] */
+    fun retrieve(fileId: String, requestOptions: RequestOptions): File =
+        retrieve(fileId, FileRetrieveParams.none(), requestOptions)
 
     /** List Files */
     fun list(
@@ -63,9 +74,23 @@ interface FileService {
          */
         @MustBeClosed
         fun retrieve(
+            fileId: String,
+            params: FileRetrieveParams = FileRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<File> =
+            retrieve(params.toBuilder().fileId(fileId).build(), requestOptions)
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
             params: FileRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<File>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(fileId: String, requestOptions: RequestOptions): HttpResponseFor<File> =
+            retrieve(fileId, FileRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /files`, but is otherwise the same as

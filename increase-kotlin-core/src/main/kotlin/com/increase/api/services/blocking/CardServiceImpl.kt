@@ -5,6 +5,7 @@ package com.increase.api.services.blocking
 import com.increase.api.core.ClientOptions
 import com.increase.api.core.JsonValue
 import com.increase.api.core.RequestOptions
+import com.increase.api.core.checkRequired
 import com.increase.api.core.handlers.errorHandler
 import com.increase.api.core.handlers.jsonHandler
 import com.increase.api.core.handlers.withErrorHandler
@@ -92,6 +93,9 @@ class CardServiceImpl internal constructor(private val clientOptions: ClientOpti
             params: CardRetrieveParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<Card> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("cardId", params.cardId())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -118,6 +122,9 @@ class CardServiceImpl internal constructor(private val clientOptions: ClientOpti
             params: CardUpdateParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<Card> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("cardId", params.cardId())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.PATCH)
@@ -179,6 +186,9 @@ class CardServiceImpl internal constructor(private val clientOptions: ClientOpti
             params: CardDetailsParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<CardDetails> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("cardId", params.cardId())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)

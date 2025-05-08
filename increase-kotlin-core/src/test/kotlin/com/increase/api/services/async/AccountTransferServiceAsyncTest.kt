@@ -4,10 +4,7 @@ package com.increase.api.services.async
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
-import com.increase.api.models.accounttransfers.AccountTransferApproveParams
-import com.increase.api.models.accounttransfers.AccountTransferCancelParams
 import com.increase.api.models.accounttransfers.AccountTransferCreateParams
-import com.increase.api.models.accounttransfers.AccountTransferRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -47,11 +44,7 @@ internal class AccountTransferServiceAsyncTest {
         val accountTransferServiceAsync = client.accountTransfers()
 
         val accountTransfer =
-            accountTransferServiceAsync.retrieve(
-                AccountTransferRetrieveParams.builder()
-                    .accountTransferId("account_transfer_7k9qe1ysdgqztnt63l7n")
-                    .build()
-            )
+            accountTransferServiceAsync.retrieve("account_transfer_7k9qe1ysdgqztnt63l7n")
 
         accountTransfer.validate()
     }
@@ -80,11 +73,7 @@ internal class AccountTransferServiceAsyncTest {
         val accountTransferServiceAsync = client.accountTransfers()
 
         val accountTransfer =
-            accountTransferServiceAsync.approve(
-                AccountTransferApproveParams.builder()
-                    .accountTransferId("account_transfer_7k9qe1ysdgqztnt63l7n")
-                    .build()
-            )
+            accountTransferServiceAsync.approve("account_transfer_7k9qe1ysdgqztnt63l7n")
 
         accountTransfer.validate()
     }
@@ -99,11 +88,7 @@ internal class AccountTransferServiceAsyncTest {
         val accountTransferServiceAsync = client.accountTransfers()
 
         val accountTransfer =
-            accountTransferServiceAsync.cancel(
-                AccountTransferCancelParams.builder()
-                    .accountTransferId("account_transfer_7k9qe1ysdgqztnt63l7n")
-                    .build()
-            )
+            accountTransferServiceAsync.cancel("account_transfer_7k9qe1ysdgqztnt63l7n")
 
         accountTransfer.validate()
     }

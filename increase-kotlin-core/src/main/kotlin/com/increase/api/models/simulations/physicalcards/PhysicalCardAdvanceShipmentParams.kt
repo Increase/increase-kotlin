@@ -25,14 +25,14 @@ import java.util.Objects
  */
 class PhysicalCardAdvanceShipmentParams
 private constructor(
-    private val physicalCardId: String,
+    private val physicalCardId: String?,
     private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** The Physical Card you would like to action. */
-    fun physicalCardId(): String = physicalCardId
+    fun physicalCardId(): String? = physicalCardId
 
     /**
      * The shipment status to move the Physical Card to.
@@ -65,7 +65,6 @@ private constructor(
          *
          * The following fields are required:
          * ```kotlin
-         * .physicalCardId()
          * .shipmentStatus()
          * ```
          */
@@ -90,7 +89,7 @@ private constructor(
             }
 
         /** The Physical Card you would like to action. */
-        fun physicalCardId(physicalCardId: String) = apply { this.physicalCardId = physicalCardId }
+        fun physicalCardId(physicalCardId: String?) = apply { this.physicalCardId = physicalCardId }
 
         /**
          * Sets the entire request body.
@@ -241,7 +240,6 @@ private constructor(
          *
          * The following fields are required:
          * ```kotlin
-         * .physicalCardId()
          * .shipmentStatus()
          * ```
          *
@@ -249,7 +247,7 @@ private constructor(
          */
         fun build(): PhysicalCardAdvanceShipmentParams =
             PhysicalCardAdvanceShipmentParams(
-                checkRequired("physicalCardId", physicalCardId),
+                physicalCardId,
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -260,7 +258,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> physicalCardId
+            0 -> physicalCardId ?: ""
             else -> ""
         }
 

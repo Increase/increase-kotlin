@@ -3,7 +3,6 @@
 package com.increase.api.models.inboundmailitems
 
 import com.increase.api.core.Params
-import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import java.util.Objects
@@ -11,13 +10,13 @@ import java.util.Objects
 /** Retrieve an Inbound Mail Item */
 class InboundMailItemRetrieveParams
 private constructor(
-    private val inboundMailItemId: String,
+    private val inboundMailItemId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** The identifier of the Inbound Mail Item to retrieve. */
-    fun inboundMailItemId(): String = inboundMailItemId
+    fun inboundMailItemId(): String? = inboundMailItemId
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
@@ -27,14 +26,11 @@ private constructor(
 
     companion object {
 
+        fun none(): InboundMailItemRetrieveParams = builder().build()
+
         /**
          * Returns a mutable builder for constructing an instance of
          * [InboundMailItemRetrieveParams].
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .inboundMailItemId()
-         * ```
          */
         fun builder() = Builder()
     }
@@ -53,7 +49,7 @@ private constructor(
         }
 
         /** The identifier of the Inbound Mail Item to retrieve. */
-        fun inboundMailItemId(inboundMailItemId: String) = apply {
+        fun inboundMailItemId(inboundMailItemId: String?) = apply {
             this.inboundMailItemId = inboundMailItemId
         }
 
@@ -159,17 +155,10 @@ private constructor(
          * Returns an immutable instance of [InboundMailItemRetrieveParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .inboundMailItemId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): InboundMailItemRetrieveParams =
             InboundMailItemRetrieveParams(
-                checkRequired("inboundMailItemId", inboundMailItemId),
+                inboundMailItemId,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -177,7 +166,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> inboundMailItemId
+            0 -> inboundMailItemId ?: ""
             else -> ""
         }
 

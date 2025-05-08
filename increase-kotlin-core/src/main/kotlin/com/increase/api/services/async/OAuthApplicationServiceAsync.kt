@@ -19,9 +19,24 @@ interface OAuthApplicationServiceAsync {
 
     /** Retrieve an OAuth Application */
     suspend fun retrieve(
+        oauthApplicationId: String,
+        params: OAuthApplicationRetrieveParams = OAuthApplicationRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): OAuthApplication =
+        retrieve(params.toBuilder().oauthApplicationId(oauthApplicationId).build(), requestOptions)
+
+    /** @see [retrieve] */
+    suspend fun retrieve(
         params: OAuthApplicationRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): OAuthApplication
+
+    /** @see [retrieve] */
+    suspend fun retrieve(
+        oauthApplicationId: String,
+        requestOptions: RequestOptions,
+    ): OAuthApplication =
+        retrieve(oauthApplicationId, OAuthApplicationRetrieveParams.none(), requestOptions)
 
     /** List OAuth Applications */
     suspend fun list(
@@ -45,9 +60,29 @@ interface OAuthApplicationServiceAsync {
          */
         @MustBeClosed
         suspend fun retrieve(
+            oauthApplicationId: String,
+            params: OAuthApplicationRetrieveParams = OAuthApplicationRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<OAuthApplication> =
+            retrieve(
+                params.toBuilder().oauthApplicationId(oauthApplicationId).build(),
+                requestOptions,
+            )
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        suspend fun retrieve(
             params: OAuthApplicationRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<OAuthApplication>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        suspend fun retrieve(
+            oauthApplicationId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<OAuthApplication> =
+            retrieve(oauthApplicationId, OAuthApplicationRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /oauth_applications`, but is otherwise the same as

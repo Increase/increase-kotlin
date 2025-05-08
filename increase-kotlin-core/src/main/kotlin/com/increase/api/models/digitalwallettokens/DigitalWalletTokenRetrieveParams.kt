@@ -3,7 +3,6 @@
 package com.increase.api.models.digitalwallettokens
 
 import com.increase.api.core.Params
-import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import java.util.Objects
@@ -11,13 +10,13 @@ import java.util.Objects
 /** Retrieve a Digital Wallet Token */
 class DigitalWalletTokenRetrieveParams
 private constructor(
-    private val digitalWalletTokenId: String,
+    private val digitalWalletTokenId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** The identifier of the Digital Wallet Token. */
-    fun digitalWalletTokenId(): String = digitalWalletTokenId
+    fun digitalWalletTokenId(): String? = digitalWalletTokenId
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
@@ -27,14 +26,11 @@ private constructor(
 
     companion object {
 
+        fun none(): DigitalWalletTokenRetrieveParams = builder().build()
+
         /**
          * Returns a mutable builder for constructing an instance of
          * [DigitalWalletTokenRetrieveParams].
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .digitalWalletTokenId()
-         * ```
          */
         fun builder() = Builder()
     }
@@ -55,7 +51,7 @@ private constructor(
             }
 
         /** The identifier of the Digital Wallet Token. */
-        fun digitalWalletTokenId(digitalWalletTokenId: String) = apply {
+        fun digitalWalletTokenId(digitalWalletTokenId: String?) = apply {
             this.digitalWalletTokenId = digitalWalletTokenId
         }
 
@@ -161,17 +157,10 @@ private constructor(
          * Returns an immutable instance of [DigitalWalletTokenRetrieveParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .digitalWalletTokenId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): DigitalWalletTokenRetrieveParams =
             DigitalWalletTokenRetrieveParams(
-                checkRequired("digitalWalletTokenId", digitalWalletTokenId),
+                digitalWalletTokenId,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -179,7 +168,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> digitalWalletTokenId
+            0 -> digitalWalletTokenId ?: ""
             else -> ""
         }
 

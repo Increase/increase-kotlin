@@ -4,7 +4,6 @@ package com.increase.api.models.simulations.wiretransfers
 
 import com.increase.api.core.JsonValue
 import com.increase.api.core.Params
-import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.toImmutable
@@ -17,14 +16,14 @@ import java.util.Objects
  */
 class WireTransferReverseParams
 private constructor(
-    private val wireTransferId: String,
+    private val wireTransferId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
     private val additionalBodyProperties: Map<String, JsonValue>,
 ) : Params {
 
     /** The identifier of the Wire Transfer you wish to reverse. */
-    fun wireTransferId(): String = wireTransferId
+    fun wireTransferId(): String? = wireTransferId
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
 
@@ -36,13 +35,10 @@ private constructor(
 
     companion object {
 
+        fun none(): WireTransferReverseParams = builder().build()
+
         /**
          * Returns a mutable builder for constructing an instance of [WireTransferReverseParams].
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .wireTransferId()
-         * ```
          */
         fun builder() = Builder()
     }
@@ -64,7 +60,7 @@ private constructor(
         }
 
         /** The identifier of the Wire Transfer you wish to reverse. */
-        fun wireTransferId(wireTransferId: String) = apply { this.wireTransferId = wireTransferId }
+        fun wireTransferId(wireTransferId: String?) = apply { this.wireTransferId = wireTransferId }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -190,17 +186,10 @@ private constructor(
          * Returns an immutable instance of [WireTransferReverseParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .wireTransferId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): WireTransferReverseParams =
             WireTransferReverseParams(
-                checkRequired("wireTransferId", wireTransferId),
+                wireTransferId,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
                 additionalBodyProperties.toImmutable(),
@@ -211,7 +200,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> wireTransferId
+            0 -> wireTransferId ?: ""
             else -> ""
         }
 

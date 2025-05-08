@@ -3,7 +3,6 @@
 package com.increase.api.models.digitalcardprofiles
 
 import com.increase.api.core.Params
-import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import java.util.Objects
@@ -11,13 +10,13 @@ import java.util.Objects
 /** Retrieve a Digital Card Profile */
 class DigitalCardProfileRetrieveParams
 private constructor(
-    private val digitalCardProfileId: String,
+    private val digitalCardProfileId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** The identifier of the Digital Card Profile. */
-    fun digitalCardProfileId(): String = digitalCardProfileId
+    fun digitalCardProfileId(): String? = digitalCardProfileId
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
@@ -27,14 +26,11 @@ private constructor(
 
     companion object {
 
+        fun none(): DigitalCardProfileRetrieveParams = builder().build()
+
         /**
          * Returns a mutable builder for constructing an instance of
          * [DigitalCardProfileRetrieveParams].
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .digitalCardProfileId()
-         * ```
          */
         fun builder() = Builder()
     }
@@ -55,7 +51,7 @@ private constructor(
             }
 
         /** The identifier of the Digital Card Profile. */
-        fun digitalCardProfileId(digitalCardProfileId: String) = apply {
+        fun digitalCardProfileId(digitalCardProfileId: String?) = apply {
             this.digitalCardProfileId = digitalCardProfileId
         }
 
@@ -161,17 +157,10 @@ private constructor(
          * Returns an immutable instance of [DigitalCardProfileRetrieveParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .digitalCardProfileId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): DigitalCardProfileRetrieveParams =
             DigitalCardProfileRetrieveParams(
-                checkRequired("digitalCardProfileId", digitalCardProfileId),
+                digitalCardProfileId,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -179,7 +168,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> digitalCardProfileId
+            0 -> digitalCardProfileId ?: ""
             else -> ""
         }
 

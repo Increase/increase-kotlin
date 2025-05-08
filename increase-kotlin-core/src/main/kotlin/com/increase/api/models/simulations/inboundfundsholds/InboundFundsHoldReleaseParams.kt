@@ -4,7 +4,6 @@ package com.increase.api.models.simulations.inboundfundsholds
 
 import com.increase.api.core.JsonValue
 import com.increase.api.core.Params
-import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.toImmutable
@@ -16,14 +15,14 @@ import java.util.Objects
  */
 class InboundFundsHoldReleaseParams
 private constructor(
-    private val inboundFundsHoldId: String,
+    private val inboundFundsHoldId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
     private val additionalBodyProperties: Map<String, JsonValue>,
 ) : Params {
 
     /** The inbound funds hold to release. */
-    fun inboundFundsHoldId(): String = inboundFundsHoldId
+    fun inboundFundsHoldId(): String? = inboundFundsHoldId
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
 
@@ -35,14 +34,11 @@ private constructor(
 
     companion object {
 
+        fun none(): InboundFundsHoldReleaseParams = builder().build()
+
         /**
          * Returns a mutable builder for constructing an instance of
          * [InboundFundsHoldReleaseParams].
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .inboundFundsHoldId()
-         * ```
          */
         fun builder() = Builder()
     }
@@ -64,7 +60,7 @@ private constructor(
         }
 
         /** The inbound funds hold to release. */
-        fun inboundFundsHoldId(inboundFundsHoldId: String) = apply {
+        fun inboundFundsHoldId(inboundFundsHoldId: String?) = apply {
             this.inboundFundsHoldId = inboundFundsHoldId
         }
 
@@ -192,17 +188,10 @@ private constructor(
          * Returns an immutable instance of [InboundFundsHoldReleaseParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .inboundFundsHoldId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): InboundFundsHoldReleaseParams =
             InboundFundsHoldReleaseParams(
-                checkRequired("inboundFundsHoldId", inboundFundsHoldId),
+                inboundFundsHoldId,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
                 additionalBodyProperties.toImmutable(),
@@ -213,7 +202,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> inboundFundsHoldId
+            0 -> inboundFundsHoldId ?: ""
             else -> ""
         }
 

@@ -11,7 +11,6 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.Params
-import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.errors.IncreaseInvalidDataException
@@ -21,14 +20,14 @@ import java.util.Objects
 /** Update an Account */
 class AccountUpdateParams
 private constructor(
-    private val accountId: String,
+    private val accountId: String?,
     private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** The identifier of the Account to update. */
-    fun accountId(): String = accountId
+    fun accountId(): String? = accountId
 
     /**
      * The new name of the Account.
@@ -55,14 +54,9 @@ private constructor(
 
     companion object {
 
-        /**
-         * Returns a mutable builder for constructing an instance of [AccountUpdateParams].
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .accountId()
-         * ```
-         */
+        fun none(): AccountUpdateParams = builder().build()
+
+        /** Returns a mutable builder for constructing an instance of [AccountUpdateParams]. */
         fun builder() = Builder()
     }
 
@@ -82,7 +76,7 @@ private constructor(
         }
 
         /** The identifier of the Account to update. */
-        fun accountId(accountId: String) = apply { this.accountId = accountId }
+        fun accountId(accountId: String?) = apply { this.accountId = accountId }
 
         /**
          * Sets the entire request body.
@@ -225,17 +219,10 @@ private constructor(
          * Returns an immutable instance of [AccountUpdateParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .accountId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): AccountUpdateParams =
             AccountUpdateParams(
-                checkRequired("accountId", accountId),
+                accountId,
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -246,7 +233,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> accountId
+            0 -> accountId ?: ""
             else -> ""
         }
 

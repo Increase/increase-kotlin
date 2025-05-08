@@ -5,6 +5,7 @@ package com.increase.api.services.blocking
 import com.increase.api.core.ClientOptions
 import com.increase.api.core.JsonValue
 import com.increase.api.core.RequestOptions
+import com.increase.api.core.checkRequired
 import com.increase.api.core.handlers.errorHandler
 import com.increase.api.core.handlers.jsonHandler
 import com.increase.api.core.handlers.withErrorHandler
@@ -132,6 +133,9 @@ class EntityServiceImpl internal constructor(private val clientOptions: ClientOp
             params: EntityRetrieveParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<Entity> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("entityId", params.entityId())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -192,6 +196,9 @@ class EntityServiceImpl internal constructor(private val clientOptions: ClientOp
             params: EntityArchiveParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<Entity> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("entityId", params.entityId())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -219,6 +226,9 @@ class EntityServiceImpl internal constructor(private val clientOptions: ClientOp
             params: EntityArchiveBeneficialOwnerParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<Entity> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("entityId", params.entityId())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -246,6 +256,9 @@ class EntityServiceImpl internal constructor(private val clientOptions: ClientOp
             params: EntityConfirmParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<Entity> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("entityId", params.entityId())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -273,6 +286,9 @@ class EntityServiceImpl internal constructor(private val clientOptions: ClientOp
             params: EntityCreateBeneficialOwnerParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<Entity> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("entityId", params.entityId())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -300,6 +316,9 @@ class EntityServiceImpl internal constructor(private val clientOptions: ClientOp
             params: EntityUpdateAddressParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<Entity> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("entityId", params.entityId())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -327,6 +346,9 @@ class EntityServiceImpl internal constructor(private val clientOptions: ClientOp
             params: EntityUpdateBeneficialOwnerAddressParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<Entity> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("entityId", params.entityId())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -358,6 +380,9 @@ class EntityServiceImpl internal constructor(private val clientOptions: ClientOp
             params: EntityUpdateIndustryCodeParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<Entity> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("entityId", params.entityId())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)

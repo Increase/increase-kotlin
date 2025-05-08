@@ -26,9 +26,21 @@ interface CheckDepositService {
 
     /** Retrieve a Check Deposit */
     fun retrieve(
+        checkDepositId: String,
+        params: CheckDepositRetrieveParams = CheckDepositRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CheckDeposit =
+        retrieve(params.toBuilder().checkDepositId(checkDepositId).build(), requestOptions)
+
+    /** @see [retrieve] */
+    fun retrieve(
         params: CheckDepositRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CheckDeposit
+
+    /** @see [retrieve] */
+    fun retrieve(checkDepositId: String, requestOptions: RequestOptions): CheckDeposit =
+        retrieve(checkDepositId, CheckDepositRetrieveParams.none(), requestOptions)
 
     /** List Check Deposits */
     fun list(
@@ -61,9 +73,26 @@ interface CheckDepositService {
          */
         @MustBeClosed
         fun retrieve(
+            checkDepositId: String,
+            params: CheckDepositRetrieveParams = CheckDepositRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<CheckDeposit> =
+            retrieve(params.toBuilder().checkDepositId(checkDepositId).build(), requestOptions)
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
             params: CheckDepositRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CheckDeposit>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            checkDepositId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<CheckDeposit> =
+            retrieve(checkDepositId, CheckDepositRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /check_deposits`, but is otherwise the same as

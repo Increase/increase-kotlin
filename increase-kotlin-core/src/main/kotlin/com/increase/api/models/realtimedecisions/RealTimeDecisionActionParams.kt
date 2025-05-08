@@ -22,14 +22,14 @@ import java.util.Objects
 /** Action a Real-Time Decision */
 class RealTimeDecisionActionParams
 private constructor(
-    private val realTimeDecisionId: String,
+    private val realTimeDecisionId: String?,
     private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** The identifier of the Real-Time Decision. */
-    fun realTimeDecisionId(): String = realTimeDecisionId
+    fun realTimeDecisionId(): String? = realTimeDecisionId
 
     /**
      * If the Real-Time Decision relates to a 3DS card authentication attempt, this object contains
@@ -130,13 +130,10 @@ private constructor(
 
     companion object {
 
+        fun none(): RealTimeDecisionActionParams = builder().build()
+
         /**
          * Returns a mutable builder for constructing an instance of [RealTimeDecisionActionParams].
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .realTimeDecisionId()
-         * ```
          */
         fun builder() = Builder()
     }
@@ -157,7 +154,7 @@ private constructor(
         }
 
         /** The identifier of the Real-Time Decision. */
-        fun realTimeDecisionId(realTimeDecisionId: String) = apply {
+        fun realTimeDecisionId(realTimeDecisionId: String?) = apply {
             this.realTimeDecisionId = realTimeDecisionId
         }
 
@@ -393,17 +390,10 @@ private constructor(
          * Returns an immutable instance of [RealTimeDecisionActionParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .realTimeDecisionId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): RealTimeDecisionActionParams =
             RealTimeDecisionActionParams(
-                checkRequired("realTimeDecisionId", realTimeDecisionId),
+                realTimeDecisionId,
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -414,7 +404,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> realTimeDecisionId
+            0 -> realTimeDecisionId ?: ""
             else -> ""
         }
 

@@ -21,7 +21,7 @@ import java.util.Objects
 /** Update the industry code for a corporate Entity */
 class EntityUpdateIndustryCodeParams
 private constructor(
-    private val entityId: String,
+    private val entityId: String?,
     private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -30,7 +30,7 @@ private constructor(
     /**
      * The identifier of the Entity to update. This endpoint only accepts `corporation` entities.
      */
-    fun entityId(): String = entityId
+    fun entityId(): String? = entityId
 
     /**
      * The North American Industry Classification System (NAICS) code for the corporation's primary
@@ -66,7 +66,6 @@ private constructor(
          *
          * The following fields are required:
          * ```kotlin
-         * .entityId()
          * .industryCode()
          * ```
          */
@@ -92,7 +91,7 @@ private constructor(
          * The identifier of the Entity to update. This endpoint only accepts `corporation`
          * entities.
          */
-        fun entityId(entityId: String) = apply { this.entityId = entityId }
+        fun entityId(entityId: String?) = apply { this.entityId = entityId }
 
         /**
          * Sets the entire request body.
@@ -246,7 +245,6 @@ private constructor(
          *
          * The following fields are required:
          * ```kotlin
-         * .entityId()
          * .industryCode()
          * ```
          *
@@ -254,7 +252,7 @@ private constructor(
          */
         fun build(): EntityUpdateIndustryCodeParams =
             EntityUpdateIndustryCodeParams(
-                checkRequired("entityId", entityId),
+                entityId,
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -265,7 +263,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> entityId
+            0 -> entityId ?: ""
             else -> ""
         }
 

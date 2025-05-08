@@ -22,18 +22,42 @@ interface WireTransferServiceAsync {
      * returned funds. This Wire Transfer must first have a `status` of `complete`.
      */
     suspend fun reverse(
+        wireTransferId: String,
+        params: WireTransferReverseParams = WireTransferReverseParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): WireTransfer =
+        reverse(params.toBuilder().wireTransferId(wireTransferId).build(), requestOptions)
+
+    /** @see [reverse] */
+    suspend fun reverse(
         params: WireTransferReverseParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): WireTransfer
+
+    /** @see [reverse] */
+    suspend fun reverse(wireTransferId: String, requestOptions: RequestOptions): WireTransfer =
+        reverse(wireTransferId, WireTransferReverseParams.none(), requestOptions)
 
     /**
      * Simulates the submission of a [Wire Transfer](#wire-transfers) to the Federal Reserve. This
      * transfer must first have a `status` of `pending_approval` or `pending_creating`.
      */
     suspend fun submit(
+        wireTransferId: String,
+        params: WireTransferSubmitParams = WireTransferSubmitParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): WireTransfer =
+        submit(params.toBuilder().wireTransferId(wireTransferId).build(), requestOptions)
+
+    /** @see [submit] */
+    suspend fun submit(
         params: WireTransferSubmitParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): WireTransfer
+
+    /** @see [submit] */
+    suspend fun submit(wireTransferId: String, requestOptions: RequestOptions): WireTransfer =
+        submit(wireTransferId, WireTransferSubmitParams.none(), requestOptions)
 
     /**
      * A view of [WireTransferServiceAsync] that provides access to raw HTTP responses for each
@@ -48,9 +72,26 @@ interface WireTransferServiceAsync {
          */
         @MustBeClosed
         suspend fun reverse(
+            wireTransferId: String,
+            params: WireTransferReverseParams = WireTransferReverseParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<WireTransfer> =
+            reverse(params.toBuilder().wireTransferId(wireTransferId).build(), requestOptions)
+
+        /** @see [reverse] */
+        @MustBeClosed
+        suspend fun reverse(
             params: WireTransferReverseParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<WireTransfer>
+
+        /** @see [reverse] */
+        @MustBeClosed
+        suspend fun reverse(
+            wireTransferId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<WireTransfer> =
+            reverse(wireTransferId, WireTransferReverseParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `post
@@ -59,8 +100,25 @@ interface WireTransferServiceAsync {
          */
         @MustBeClosed
         suspend fun submit(
+            wireTransferId: String,
+            params: WireTransferSubmitParams = WireTransferSubmitParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<WireTransfer> =
+            submit(params.toBuilder().wireTransferId(wireTransferId).build(), requestOptions)
+
+        /** @see [submit] */
+        @MustBeClosed
+        suspend fun submit(
             params: WireTransferSubmitParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<WireTransfer>
+
+        /** @see [submit] */
+        @MustBeClosed
+        suspend fun submit(
+            wireTransferId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<WireTransfer> =
+            submit(wireTransferId, WireTransferSubmitParams.none(), requestOptions)
     }
 }

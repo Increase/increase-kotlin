@@ -4,10 +4,8 @@ package com.increase.api.services.async
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
-import com.increase.api.models.physicalcardprofiles.PhysicalCardProfileArchiveParams
 import com.increase.api.models.physicalcardprofiles.PhysicalCardProfileCloneParams
 import com.increase.api.models.physicalcardprofiles.PhysicalCardProfileCreateParams
-import com.increase.api.models.physicalcardprofiles.PhysicalCardProfileRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -47,11 +45,7 @@ internal class PhysicalCardProfileServiceAsyncTest {
         val physicalCardProfileServiceAsync = client.physicalCardProfiles()
 
         val physicalCardProfile =
-            physicalCardProfileServiceAsync.retrieve(
-                PhysicalCardProfileRetrieveParams.builder()
-                    .physicalCardProfileId("physical_card_profile_m534d5rn9qyy9ufqxoec")
-                    .build()
-            )
+            physicalCardProfileServiceAsync.retrieve("physical_card_profile_m534d5rn9qyy9ufqxoec")
 
         physicalCardProfile.validate()
     }
@@ -80,11 +74,7 @@ internal class PhysicalCardProfileServiceAsyncTest {
         val physicalCardProfileServiceAsync = client.physicalCardProfiles()
 
         val physicalCardProfile =
-            physicalCardProfileServiceAsync.archive(
-                PhysicalCardProfileArchiveParams.builder()
-                    .physicalCardProfileId("physical_card_profile_m534d5rn9qyy9ufqxoec")
-                    .build()
-            )
+            physicalCardProfileServiceAsync.archive("physical_card_profile_m534d5rn9qyy9ufqxoec")
 
         physicalCardProfile.validate()
     }

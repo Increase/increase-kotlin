@@ -3,7 +3,6 @@
 package com.increase.api.models.lockboxes
 
 import com.increase.api.core.Params
-import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import java.util.Objects
@@ -11,13 +10,13 @@ import java.util.Objects
 /** Retrieve a Lockbox */
 class LockboxRetrieveParams
 private constructor(
-    private val lockboxId: String,
+    private val lockboxId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** The identifier of the Lockbox to retrieve. */
-    fun lockboxId(): String = lockboxId
+    fun lockboxId(): String? = lockboxId
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
@@ -27,14 +26,9 @@ private constructor(
 
     companion object {
 
-        /**
-         * Returns a mutable builder for constructing an instance of [LockboxRetrieveParams].
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .lockboxId()
-         * ```
-         */
+        fun none(): LockboxRetrieveParams = builder().build()
+
+        /** Returns a mutable builder for constructing an instance of [LockboxRetrieveParams]. */
         fun builder() = Builder()
     }
 
@@ -52,7 +46,7 @@ private constructor(
         }
 
         /** The identifier of the Lockbox to retrieve. */
-        fun lockboxId(lockboxId: String) = apply { this.lockboxId = lockboxId }
+        fun lockboxId(lockboxId: String?) = apply { this.lockboxId = lockboxId }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -156,17 +150,10 @@ private constructor(
          * Returns an immutable instance of [LockboxRetrieveParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .lockboxId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): LockboxRetrieveParams =
             LockboxRetrieveParams(
-                checkRequired("lockboxId", lockboxId),
+                lockboxId,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -174,7 +161,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> lockboxId
+            0 -> lockboxId ?: ""
             else -> ""
         }
 
