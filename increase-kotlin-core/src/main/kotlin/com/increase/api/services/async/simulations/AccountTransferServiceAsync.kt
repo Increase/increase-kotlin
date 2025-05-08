@@ -22,9 +22,24 @@ interface AccountTransferServiceAsync {
      * `pending_approval`.
      */
     suspend fun complete(
+        accountTransferId: String,
+        params: AccountTransferCompleteParams = AccountTransferCompleteParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): AccountTransfer =
+        complete(params.toBuilder().accountTransferId(accountTransferId).build(), requestOptions)
+
+    /** @see [complete] */
+    suspend fun complete(
         params: AccountTransferCompleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AccountTransfer
+
+    /** @see [complete] */
+    suspend fun complete(
+        accountTransferId: String,
+        requestOptions: RequestOptions,
+    ): AccountTransfer =
+        complete(accountTransferId, AccountTransferCompleteParams.none(), requestOptions)
 
     /**
      * A view of [AccountTransferServiceAsync] that provides access to raw HTTP responses for each
@@ -39,8 +54,28 @@ interface AccountTransferServiceAsync {
          */
         @MustBeClosed
         suspend fun complete(
+            accountTransferId: String,
+            params: AccountTransferCompleteParams = AccountTransferCompleteParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<AccountTransfer> =
+            complete(
+                params.toBuilder().accountTransferId(accountTransferId).build(),
+                requestOptions,
+            )
+
+        /** @see [complete] */
+        @MustBeClosed
+        suspend fun complete(
             params: AccountTransferCompleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AccountTransfer>
+
+        /** @see [complete] */
+        @MustBeClosed
+        suspend fun complete(
+            accountTransferId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<AccountTransfer> =
+            complete(accountTransferId, AccountTransferCompleteParams.none(), requestOptions)
     }
 }

@@ -19,9 +19,24 @@ interface InboundMailItemServiceAsync {
 
     /** Retrieve an Inbound Mail Item */
     suspend fun retrieve(
+        inboundMailItemId: String,
+        params: InboundMailItemRetrieveParams = InboundMailItemRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): InboundMailItem =
+        retrieve(params.toBuilder().inboundMailItemId(inboundMailItemId).build(), requestOptions)
+
+    /** @see [retrieve] */
+    suspend fun retrieve(
         params: InboundMailItemRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundMailItem
+
+    /** @see [retrieve] */
+    suspend fun retrieve(
+        inboundMailItemId: String,
+        requestOptions: RequestOptions,
+    ): InboundMailItem =
+        retrieve(inboundMailItemId, InboundMailItemRetrieveParams.none(), requestOptions)
 
     /** List Inbound Mail Items */
     suspend fun list(
@@ -45,9 +60,29 @@ interface InboundMailItemServiceAsync {
          */
         @MustBeClosed
         suspend fun retrieve(
+            inboundMailItemId: String,
+            params: InboundMailItemRetrieveParams = InboundMailItemRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<InboundMailItem> =
+            retrieve(
+                params.toBuilder().inboundMailItemId(inboundMailItemId).build(),
+                requestOptions,
+            )
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        suspend fun retrieve(
             params: InboundMailItemRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<InboundMailItem>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        suspend fun retrieve(
+            inboundMailItemId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<InboundMailItem> =
+            retrieve(inboundMailItemId, InboundMailItemRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /inbound_mail_items`, but is otherwise the same as

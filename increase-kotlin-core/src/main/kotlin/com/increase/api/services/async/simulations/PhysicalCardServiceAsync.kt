@@ -20,6 +20,14 @@ interface PhysicalCardServiceAsync {
      * simulate e.g., that a physical card was attempted shipped but then failed delivery.
      */
     suspend fun advanceShipment(
+        physicalCardId: String,
+        params: PhysicalCardAdvanceShipmentParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): PhysicalCard =
+        advanceShipment(params.toBuilder().physicalCardId(physicalCardId).build(), requestOptions)
+
+    /** @see [advanceShipment] */
+    suspend fun advanceShipment(
         params: PhysicalCardAdvanceShipmentParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PhysicalCard
@@ -35,6 +43,18 @@ interface PhysicalCardServiceAsync {
          * /simulations/physical_cards/{physical_card_id}/advance_shipment`, but is otherwise the
          * same as [PhysicalCardServiceAsync.advanceShipment].
          */
+        @MustBeClosed
+        suspend fun advanceShipment(
+            physicalCardId: String,
+            params: PhysicalCardAdvanceShipmentParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<PhysicalCard> =
+            advanceShipment(
+                params.toBuilder().physicalCardId(physicalCardId).build(),
+                requestOptions,
+            )
+
+        /** @see [advanceShipment] */
         @MustBeClosed
         suspend fun advanceShipment(
             params: PhysicalCardAdvanceShipmentParams,

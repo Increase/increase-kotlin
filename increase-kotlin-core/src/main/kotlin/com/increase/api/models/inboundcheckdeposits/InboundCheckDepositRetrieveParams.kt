@@ -3,7 +3,6 @@
 package com.increase.api.models.inboundcheckdeposits
 
 import com.increase.api.core.Params
-import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import java.util.Objects
@@ -11,13 +10,13 @@ import java.util.Objects
 /** Retrieve an Inbound Check Deposit */
 class InboundCheckDepositRetrieveParams
 private constructor(
-    private val inboundCheckDepositId: String,
+    private val inboundCheckDepositId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** The identifier of the Inbound Check Deposit to get details for. */
-    fun inboundCheckDepositId(): String = inboundCheckDepositId
+    fun inboundCheckDepositId(): String? = inboundCheckDepositId
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
@@ -27,14 +26,11 @@ private constructor(
 
     companion object {
 
+        fun none(): InboundCheckDepositRetrieveParams = builder().build()
+
         /**
          * Returns a mutable builder for constructing an instance of
          * [InboundCheckDepositRetrieveParams].
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .inboundCheckDepositId()
-         * ```
          */
         fun builder() = Builder()
     }
@@ -55,7 +51,7 @@ private constructor(
             }
 
         /** The identifier of the Inbound Check Deposit to get details for. */
-        fun inboundCheckDepositId(inboundCheckDepositId: String) = apply {
+        fun inboundCheckDepositId(inboundCheckDepositId: String?) = apply {
             this.inboundCheckDepositId = inboundCheckDepositId
         }
 
@@ -161,17 +157,10 @@ private constructor(
          * Returns an immutable instance of [InboundCheckDepositRetrieveParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .inboundCheckDepositId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): InboundCheckDepositRetrieveParams =
             InboundCheckDepositRetrieveParams(
-                checkRequired("inboundCheckDepositId", inboundCheckDepositId),
+                inboundCheckDepositId,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -179,7 +168,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> inboundCheckDepositId
+            0 -> inboundCheckDepositId ?: ""
             else -> ""
         }
 

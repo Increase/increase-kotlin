@@ -11,7 +11,6 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.Params
-import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.errors.IncreaseInvalidDataException
@@ -26,14 +25,14 @@ import java.util.Objects
  */
 class EntityConfirmParams
 private constructor(
-    private val entityId: String,
+    private val entityId: String?,
     private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** The identifier of the Entity to confirm the details of. */
-    fun entityId(): String = entityId
+    fun entityId(): String? = entityId
 
     /**
      * When your user confirmed the Entity's details. If not provided, the current time will be
@@ -61,14 +60,9 @@ private constructor(
 
     companion object {
 
-        /**
-         * Returns a mutable builder for constructing an instance of [EntityConfirmParams].
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .entityId()
-         * ```
-         */
+        fun none(): EntityConfirmParams = builder().build()
+
+        /** Returns a mutable builder for constructing an instance of [EntityConfirmParams]. */
         fun builder() = Builder()
     }
 
@@ -88,7 +82,7 @@ private constructor(
         }
 
         /** The identifier of the Entity to confirm the details of. */
-        fun entityId(entityId: String) = apply { this.entityId = entityId }
+        fun entityId(entityId: String?) = apply { this.entityId = entityId }
 
         /**
          * Sets the entire request body.
@@ -237,17 +231,10 @@ private constructor(
          * Returns an immutable instance of [EntityConfirmParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .entityId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): EntityConfirmParams =
             EntityConfirmParams(
-                checkRequired("entityId", entityId),
+                entityId,
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -258,7 +245,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> entityId
+            0 -> entityId ?: ""
             else -> ""
         }
 

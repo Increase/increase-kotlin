@@ -19,9 +19,21 @@ interface OAuthConnectionService {
 
     /** Retrieve an OAuth Connection */
     fun retrieve(
+        oauthConnectionId: String,
+        params: OAuthConnectionRetrieveParams = OAuthConnectionRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): OAuthConnection =
+        retrieve(params.toBuilder().oauthConnectionId(oauthConnectionId).build(), requestOptions)
+
+    /** @see [retrieve] */
+    fun retrieve(
         params: OAuthConnectionRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): OAuthConnection
+
+    /** @see [retrieve] */
+    fun retrieve(oauthConnectionId: String, requestOptions: RequestOptions): OAuthConnection =
+        retrieve(oauthConnectionId, OAuthConnectionRetrieveParams.none(), requestOptions)
 
     /** List OAuth Connections */
     fun list(
@@ -45,9 +57,29 @@ interface OAuthConnectionService {
          */
         @MustBeClosed
         fun retrieve(
+            oauthConnectionId: String,
+            params: OAuthConnectionRetrieveParams = OAuthConnectionRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<OAuthConnection> =
+            retrieve(
+                params.toBuilder().oauthConnectionId(oauthConnectionId).build(),
+                requestOptions,
+            )
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
             params: OAuthConnectionRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<OAuthConnection>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            oauthConnectionId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<OAuthConnection> =
+            retrieve(oauthConnectionId, OAuthConnectionRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /oauth_connections`, but is otherwise the same as

@@ -22,14 +22,14 @@ import java.util.Objects
 /** Simulates receiving a Notification of Change for an [ACH Transfer](#ach-transfers). */
 class AchTransferCreateNotificationOfChangeParams
 private constructor(
-    private val achTransferId: String,
+    private val achTransferId: String?,
     private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** The identifier of the ACH Transfer you wish to create a notification of change for. */
-    fun achTransferId(): String = achTransferId
+    fun achTransferId(): String? = achTransferId
 
     /**
      * The reason for the notification of change.
@@ -77,7 +77,6 @@ private constructor(
          *
          * The following fields are required:
          * ```kotlin
-         * .achTransferId()
          * .changeCode()
          * .correctedData()
          * ```
@@ -105,7 +104,7 @@ private constructor(
         }
 
         /** The identifier of the ACH Transfer you wish to create a notification of change for. */
-        fun achTransferId(achTransferId: String) = apply { this.achTransferId = achTransferId }
+        fun achTransferId(achTransferId: String?) = apply { this.achTransferId = achTransferId }
 
         /**
          * Sets the entire request body.
@@ -267,7 +266,6 @@ private constructor(
          *
          * The following fields are required:
          * ```kotlin
-         * .achTransferId()
          * .changeCode()
          * .correctedData()
          * ```
@@ -276,7 +274,7 @@ private constructor(
          */
         fun build(): AchTransferCreateNotificationOfChangeParams =
             AchTransferCreateNotificationOfChangeParams(
-                checkRequired("achTransferId", achTransferId),
+                achTransferId,
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -287,7 +285,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> achTransferId
+            0 -> achTransferId ?: ""
             else -> ""
         }
 

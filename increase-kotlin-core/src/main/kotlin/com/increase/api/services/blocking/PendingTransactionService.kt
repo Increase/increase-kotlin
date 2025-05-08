@@ -19,9 +19,24 @@ interface PendingTransactionService {
 
     /** Retrieve a Pending Transaction */
     fun retrieve(
+        pendingTransactionId: String,
+        params: PendingTransactionRetrieveParams = PendingTransactionRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): PendingTransaction =
+        retrieve(
+            params.toBuilder().pendingTransactionId(pendingTransactionId).build(),
+            requestOptions,
+        )
+
+    /** @see [retrieve] */
+    fun retrieve(
         params: PendingTransactionRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PendingTransaction
+
+    /** @see [retrieve] */
+    fun retrieve(pendingTransactionId: String, requestOptions: RequestOptions): PendingTransaction =
+        retrieve(pendingTransactionId, PendingTransactionRetrieveParams.none(), requestOptions)
 
     /** List Pending Transactions */
     fun list(
@@ -45,9 +60,29 @@ interface PendingTransactionService {
          */
         @MustBeClosed
         fun retrieve(
+            pendingTransactionId: String,
+            params: PendingTransactionRetrieveParams = PendingTransactionRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<PendingTransaction> =
+            retrieve(
+                params.toBuilder().pendingTransactionId(pendingTransactionId).build(),
+                requestOptions,
+            )
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
             params: PendingTransactionRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PendingTransaction>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            pendingTransactionId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<PendingTransaction> =
+            retrieve(pendingTransactionId, PendingTransactionRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /pending_transactions`, but is otherwise the same as

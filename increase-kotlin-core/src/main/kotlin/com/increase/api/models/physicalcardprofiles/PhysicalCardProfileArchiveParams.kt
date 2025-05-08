@@ -4,7 +4,6 @@ package com.increase.api.models.physicalcardprofiles
 
 import com.increase.api.core.JsonValue
 import com.increase.api.core.Params
-import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.toImmutable
@@ -13,14 +12,14 @@ import java.util.Objects
 /** Archive a Physical Card Profile */
 class PhysicalCardProfileArchiveParams
 private constructor(
-    private val physicalCardProfileId: String,
+    private val physicalCardProfileId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
     private val additionalBodyProperties: Map<String, JsonValue>,
 ) : Params {
 
     /** The identifier of the Physical Card Profile to archive. */
-    fun physicalCardProfileId(): String = physicalCardProfileId
+    fun physicalCardProfileId(): String? = physicalCardProfileId
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
 
@@ -32,14 +31,11 @@ private constructor(
 
     companion object {
 
+        fun none(): PhysicalCardProfileArchiveParams = builder().build()
+
         /**
          * Returns a mutable builder for constructing an instance of
          * [PhysicalCardProfileArchiveParams].
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .physicalCardProfileId()
-         * ```
          */
         fun builder() = Builder()
     }
@@ -63,7 +59,7 @@ private constructor(
             }
 
         /** The identifier of the Physical Card Profile to archive. */
-        fun physicalCardProfileId(physicalCardProfileId: String) = apply {
+        fun physicalCardProfileId(physicalCardProfileId: String?) = apply {
             this.physicalCardProfileId = physicalCardProfileId
         }
 
@@ -191,17 +187,10 @@ private constructor(
          * Returns an immutable instance of [PhysicalCardProfileArchiveParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .physicalCardProfileId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): PhysicalCardProfileArchiveParams =
             PhysicalCardProfileArchiveParams(
-                checkRequired("physicalCardProfileId", physicalCardProfileId),
+                physicalCardProfileId,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
                 additionalBodyProperties.toImmutable(),
@@ -212,7 +201,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> physicalCardProfileId
+            0 -> physicalCardProfileId ?: ""
             else -> ""
         }
 

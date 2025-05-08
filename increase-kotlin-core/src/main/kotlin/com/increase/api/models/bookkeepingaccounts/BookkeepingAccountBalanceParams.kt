@@ -3,7 +3,6 @@
 package com.increase.api.models.bookkeepingaccounts
 
 import com.increase.api.core.Params
-import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import java.time.OffsetDateTime
@@ -13,14 +12,14 @@ import java.util.Objects
 /** Retrieve a Bookkeeping Account Balance */
 class BookkeepingAccountBalanceParams
 private constructor(
-    private val bookkeepingAccountId: String,
+    private val bookkeepingAccountId: String?,
     private val atTime: OffsetDateTime?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** The identifier of the Bookkeeping Account to retrieve. */
-    fun bookkeepingAccountId(): String = bookkeepingAccountId
+    fun bookkeepingAccountId(): String? = bookkeepingAccountId
 
     /** The moment to query the balance at. If not set, returns the current balances. */
     fun atTime(): OffsetDateTime? = atTime
@@ -33,14 +32,11 @@ private constructor(
 
     companion object {
 
+        fun none(): BookkeepingAccountBalanceParams = builder().build()
+
         /**
          * Returns a mutable builder for constructing an instance of
          * [BookkeepingAccountBalanceParams].
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .bookkeepingAccountId()
-         * ```
          */
         fun builder() = Builder()
     }
@@ -63,7 +59,7 @@ private constructor(
             }
 
         /** The identifier of the Bookkeeping Account to retrieve. */
-        fun bookkeepingAccountId(bookkeepingAccountId: String) = apply {
+        fun bookkeepingAccountId(bookkeepingAccountId: String?) = apply {
             this.bookkeepingAccountId = bookkeepingAccountId
         }
 
@@ -172,17 +168,10 @@ private constructor(
          * Returns an immutable instance of [BookkeepingAccountBalanceParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .bookkeepingAccountId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): BookkeepingAccountBalanceParams =
             BookkeepingAccountBalanceParams(
-                checkRequired("bookkeepingAccountId", bookkeepingAccountId),
+                bookkeepingAccountId,
                 atTime,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -191,7 +180,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> bookkeepingAccountId
+            0 -> bookkeepingAccountId ?: ""
             else -> ""
         }
 

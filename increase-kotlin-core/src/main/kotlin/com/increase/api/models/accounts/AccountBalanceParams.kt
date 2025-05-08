@@ -3,7 +3,6 @@
 package com.increase.api.models.accounts
 
 import com.increase.api.core.Params
-import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import java.time.OffsetDateTime
@@ -16,14 +15,14 @@ import java.util.Objects
  */
 class AccountBalanceParams
 private constructor(
-    private val accountId: String,
+    private val accountId: String?,
     private val atTime: OffsetDateTime?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** The identifier of the Account to retrieve. */
-    fun accountId(): String = accountId
+    fun accountId(): String? = accountId
 
     /** The moment to query the balance at. If not set, returns the current balances. */
     fun atTime(): OffsetDateTime? = atTime
@@ -36,14 +35,9 @@ private constructor(
 
     companion object {
 
-        /**
-         * Returns a mutable builder for constructing an instance of [AccountBalanceParams].
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .accountId()
-         * ```
-         */
+        fun none(): AccountBalanceParams = builder().build()
+
+        /** Returns a mutable builder for constructing an instance of [AccountBalanceParams]. */
         fun builder() = Builder()
     }
 
@@ -63,7 +57,7 @@ private constructor(
         }
 
         /** The identifier of the Account to retrieve. */
-        fun accountId(accountId: String) = apply { this.accountId = accountId }
+        fun accountId(accountId: String?) = apply { this.accountId = accountId }
 
         /** The moment to query the balance at. If not set, returns the current balances. */
         fun atTime(atTime: OffsetDateTime?) = apply { this.atTime = atTime }
@@ -170,17 +164,10 @@ private constructor(
          * Returns an immutable instance of [AccountBalanceParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .accountId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): AccountBalanceParams =
             AccountBalanceParams(
-                checkRequired("accountId", accountId),
+                accountId,
                 atTime,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -189,7 +176,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> accountId
+            0 -> accountId ?: ""
             else -> ""
         }
 

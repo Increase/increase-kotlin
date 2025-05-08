@@ -27,15 +27,42 @@ interface EventSubscriptionService {
 
     /** Retrieve an Event Subscription */
     fun retrieve(
+        eventSubscriptionId: String,
+        params: EventSubscriptionRetrieveParams = EventSubscriptionRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): EventSubscription =
+        retrieve(
+            params.toBuilder().eventSubscriptionId(eventSubscriptionId).build(),
+            requestOptions,
+        )
+
+    /** @see [retrieve] */
+    fun retrieve(
         params: EventSubscriptionRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): EventSubscription
 
+    /** @see [retrieve] */
+    fun retrieve(eventSubscriptionId: String, requestOptions: RequestOptions): EventSubscription =
+        retrieve(eventSubscriptionId, EventSubscriptionRetrieveParams.none(), requestOptions)
+
     /** Update an Event Subscription */
+    fun update(
+        eventSubscriptionId: String,
+        params: EventSubscriptionUpdateParams = EventSubscriptionUpdateParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): EventSubscription =
+        update(params.toBuilder().eventSubscriptionId(eventSubscriptionId).build(), requestOptions)
+
+    /** @see [update] */
     fun update(
         params: EventSubscriptionUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): EventSubscription
+
+    /** @see [update] */
+    fun update(eventSubscriptionId: String, requestOptions: RequestOptions): EventSubscription =
+        update(eventSubscriptionId, EventSubscriptionUpdateParams.none(), requestOptions)
 
     /** List Event Subscriptions */
     fun list(
@@ -69,9 +96,29 @@ interface EventSubscriptionService {
          */
         @MustBeClosed
         fun retrieve(
+            eventSubscriptionId: String,
+            params: EventSubscriptionRetrieveParams = EventSubscriptionRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<EventSubscription> =
+            retrieve(
+                params.toBuilder().eventSubscriptionId(eventSubscriptionId).build(),
+                requestOptions,
+            )
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
             params: EventSubscriptionRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<EventSubscription>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            eventSubscriptionId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<EventSubscription> =
+            retrieve(eventSubscriptionId, EventSubscriptionRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `patch /event_subscriptions/{event_subscription_id}`, but
@@ -79,9 +126,29 @@ interface EventSubscriptionService {
          */
         @MustBeClosed
         fun update(
+            eventSubscriptionId: String,
+            params: EventSubscriptionUpdateParams = EventSubscriptionUpdateParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<EventSubscription> =
+            update(
+                params.toBuilder().eventSubscriptionId(eventSubscriptionId).build(),
+                requestOptions,
+            )
+
+        /** @see [update] */
+        @MustBeClosed
+        fun update(
             params: EventSubscriptionUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<EventSubscription>
+
+        /** @see [update] */
+        @MustBeClosed
+        fun update(
+            eventSubscriptionId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<EventSubscription> =
+            update(eventSubscriptionId, EventSubscriptionUpdateParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /event_subscriptions`, but is otherwise the same as

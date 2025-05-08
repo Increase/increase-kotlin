@@ -19,9 +19,24 @@ interface AccountStatementServiceAsync {
 
     /** Retrieve an Account Statement */
     suspend fun retrieve(
+        accountStatementId: String,
+        params: AccountStatementRetrieveParams = AccountStatementRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): AccountStatement =
+        retrieve(params.toBuilder().accountStatementId(accountStatementId).build(), requestOptions)
+
+    /** @see [retrieve] */
+    suspend fun retrieve(
         params: AccountStatementRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AccountStatement
+
+    /** @see [retrieve] */
+    suspend fun retrieve(
+        accountStatementId: String,
+        requestOptions: RequestOptions,
+    ): AccountStatement =
+        retrieve(accountStatementId, AccountStatementRetrieveParams.none(), requestOptions)
 
     /** List Account Statements */
     suspend fun list(
@@ -45,9 +60,29 @@ interface AccountStatementServiceAsync {
          */
         @MustBeClosed
         suspend fun retrieve(
+            accountStatementId: String,
+            params: AccountStatementRetrieveParams = AccountStatementRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<AccountStatement> =
+            retrieve(
+                params.toBuilder().accountStatementId(accountStatementId).build(),
+                requestOptions,
+            )
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        suspend fun retrieve(
             params: AccountStatementRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AccountStatement>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        suspend fun retrieve(
+            accountStatementId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<AccountStatement> =
+            retrieve(accountStatementId, AccountStatementRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /account_statements`, but is otherwise the same as

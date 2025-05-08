@@ -27,11 +27,31 @@ interface PhysicalCardServiceAsync {
 
     /** Retrieve a Physical Card */
     suspend fun retrieve(
+        physicalCardId: String,
+        params: PhysicalCardRetrieveParams = PhysicalCardRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): PhysicalCard =
+        retrieve(params.toBuilder().physicalCardId(physicalCardId).build(), requestOptions)
+
+    /** @see [retrieve] */
+    suspend fun retrieve(
         params: PhysicalCardRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PhysicalCard
 
+    /** @see [retrieve] */
+    suspend fun retrieve(physicalCardId: String, requestOptions: RequestOptions): PhysicalCard =
+        retrieve(physicalCardId, PhysicalCardRetrieveParams.none(), requestOptions)
+
     /** Update a Physical Card */
+    suspend fun update(
+        physicalCardId: String,
+        params: PhysicalCardUpdateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): PhysicalCard =
+        update(params.toBuilder().physicalCardId(physicalCardId).build(), requestOptions)
+
+    /** @see [update] */
     suspend fun update(
         params: PhysicalCardUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -69,14 +89,40 @@ interface PhysicalCardServiceAsync {
          */
         @MustBeClosed
         suspend fun retrieve(
+            physicalCardId: String,
+            params: PhysicalCardRetrieveParams = PhysicalCardRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<PhysicalCard> =
+            retrieve(params.toBuilder().physicalCardId(physicalCardId).build(), requestOptions)
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        suspend fun retrieve(
             params: PhysicalCardRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PhysicalCard>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        suspend fun retrieve(
+            physicalCardId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<PhysicalCard> =
+            retrieve(physicalCardId, PhysicalCardRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `patch /physical_cards/{physical_card_id}`, but is
          * otherwise the same as [PhysicalCardServiceAsync.update].
          */
+        @MustBeClosed
+        suspend fun update(
+            physicalCardId: String,
+            params: PhysicalCardUpdateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<PhysicalCard> =
+            update(params.toBuilder().physicalCardId(physicalCardId).build(), requestOptions)
+
+        /** @see [update] */
         @MustBeClosed
         suspend fun update(
             params: PhysicalCardUpdateParams,

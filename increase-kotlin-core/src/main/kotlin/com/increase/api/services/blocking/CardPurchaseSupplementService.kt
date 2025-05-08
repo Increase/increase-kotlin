@@ -19,9 +19,31 @@ interface CardPurchaseSupplementService {
 
     /** Retrieve a Card Purchase Supplement */
     fun retrieve(
+        cardPurchaseSupplementId: String,
+        params: CardPurchaseSupplementRetrieveParams = CardPurchaseSupplementRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CardPurchaseSupplement =
+        retrieve(
+            params.toBuilder().cardPurchaseSupplementId(cardPurchaseSupplementId).build(),
+            requestOptions,
+        )
+
+    /** @see [retrieve] */
+    fun retrieve(
         params: CardPurchaseSupplementRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CardPurchaseSupplement
+
+    /** @see [retrieve] */
+    fun retrieve(
+        cardPurchaseSupplementId: String,
+        requestOptions: RequestOptions,
+    ): CardPurchaseSupplement =
+        retrieve(
+            cardPurchaseSupplementId,
+            CardPurchaseSupplementRetrieveParams.none(),
+            requestOptions,
+        )
 
     /** List Card Purchase Supplements */
     fun list(
@@ -46,9 +68,34 @@ interface CardPurchaseSupplementService {
          */
         @MustBeClosed
         fun retrieve(
+            cardPurchaseSupplementId: String,
+            params: CardPurchaseSupplementRetrieveParams =
+                CardPurchaseSupplementRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<CardPurchaseSupplement> =
+            retrieve(
+                params.toBuilder().cardPurchaseSupplementId(cardPurchaseSupplementId).build(),
+                requestOptions,
+            )
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
             params: CardPurchaseSupplementRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CardPurchaseSupplement>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            cardPurchaseSupplementId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<CardPurchaseSupplement> =
+            retrieve(
+                cardPurchaseSupplementId,
+                CardPurchaseSupplementRetrieveParams.none(),
+                requestOptions,
+            )
 
         /**
          * Returns a raw HTTP response for `get /card_purchase_supplements`, but is otherwise the

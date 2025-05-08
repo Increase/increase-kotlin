@@ -3,7 +3,6 @@
 package com.increase.api.models.physicalcards
 
 import com.increase.api.core.Params
-import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import java.util.Objects
@@ -11,13 +10,13 @@ import java.util.Objects
 /** Retrieve a Physical Card */
 class PhysicalCardRetrieveParams
 private constructor(
-    private val physicalCardId: String,
+    private val physicalCardId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** The identifier of the Physical Card. */
-    fun physicalCardId(): String = physicalCardId
+    fun physicalCardId(): String? = physicalCardId
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
@@ -27,13 +26,10 @@ private constructor(
 
     companion object {
 
+        fun none(): PhysicalCardRetrieveParams = builder().build()
+
         /**
          * Returns a mutable builder for constructing an instance of [PhysicalCardRetrieveParams].
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .physicalCardId()
-         * ```
          */
         fun builder() = Builder()
     }
@@ -52,7 +48,7 @@ private constructor(
         }
 
         /** The identifier of the Physical Card. */
-        fun physicalCardId(physicalCardId: String) = apply { this.physicalCardId = physicalCardId }
+        fun physicalCardId(physicalCardId: String?) = apply { this.physicalCardId = physicalCardId }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -156,17 +152,10 @@ private constructor(
          * Returns an immutable instance of [PhysicalCardRetrieveParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .physicalCardId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): PhysicalCardRetrieveParams =
             PhysicalCardRetrieveParams(
-                checkRequired("physicalCardId", physicalCardId),
+                physicalCardId,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -174,7 +163,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> physicalCardId
+            0 -> physicalCardId ?: ""
             else -> ""
         }
 

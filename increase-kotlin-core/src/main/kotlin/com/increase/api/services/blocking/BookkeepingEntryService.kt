@@ -19,9 +19,21 @@ interface BookkeepingEntryService {
 
     /** Retrieve a Bookkeeping Entry */
     fun retrieve(
+        bookkeepingEntryId: String,
+        params: BookkeepingEntryRetrieveParams = BookkeepingEntryRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): BookkeepingEntry =
+        retrieve(params.toBuilder().bookkeepingEntryId(bookkeepingEntryId).build(), requestOptions)
+
+    /** @see [retrieve] */
+    fun retrieve(
         params: BookkeepingEntryRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BookkeepingEntry
+
+    /** @see [retrieve] */
+    fun retrieve(bookkeepingEntryId: String, requestOptions: RequestOptions): BookkeepingEntry =
+        retrieve(bookkeepingEntryId, BookkeepingEntryRetrieveParams.none(), requestOptions)
 
     /** List Bookkeeping Entries */
     fun list(
@@ -45,9 +57,29 @@ interface BookkeepingEntryService {
          */
         @MustBeClosed
         fun retrieve(
+            bookkeepingEntryId: String,
+            params: BookkeepingEntryRetrieveParams = BookkeepingEntryRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<BookkeepingEntry> =
+            retrieve(
+                params.toBuilder().bookkeepingEntryId(bookkeepingEntryId).build(),
+                requestOptions,
+            )
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
             params: BookkeepingEntryRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<BookkeepingEntry>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            bookkeepingEntryId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<BookkeepingEntry> =
+            retrieve(bookkeepingEntryId, BookkeepingEntryRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /bookkeeping_entries`, but is otherwise the same as

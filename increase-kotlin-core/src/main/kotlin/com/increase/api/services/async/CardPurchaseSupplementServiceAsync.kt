@@ -19,9 +19,31 @@ interface CardPurchaseSupplementServiceAsync {
 
     /** Retrieve a Card Purchase Supplement */
     suspend fun retrieve(
+        cardPurchaseSupplementId: String,
+        params: CardPurchaseSupplementRetrieveParams = CardPurchaseSupplementRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CardPurchaseSupplement =
+        retrieve(
+            params.toBuilder().cardPurchaseSupplementId(cardPurchaseSupplementId).build(),
+            requestOptions,
+        )
+
+    /** @see [retrieve] */
+    suspend fun retrieve(
         params: CardPurchaseSupplementRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CardPurchaseSupplement
+
+    /** @see [retrieve] */
+    suspend fun retrieve(
+        cardPurchaseSupplementId: String,
+        requestOptions: RequestOptions,
+    ): CardPurchaseSupplement =
+        retrieve(
+            cardPurchaseSupplementId,
+            CardPurchaseSupplementRetrieveParams.none(),
+            requestOptions,
+        )
 
     /** List Card Purchase Supplements */
     suspend fun list(
@@ -46,9 +68,34 @@ interface CardPurchaseSupplementServiceAsync {
          */
         @MustBeClosed
         suspend fun retrieve(
+            cardPurchaseSupplementId: String,
+            params: CardPurchaseSupplementRetrieveParams =
+                CardPurchaseSupplementRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<CardPurchaseSupplement> =
+            retrieve(
+                params.toBuilder().cardPurchaseSupplementId(cardPurchaseSupplementId).build(),
+                requestOptions,
+            )
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        suspend fun retrieve(
             params: CardPurchaseSupplementRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CardPurchaseSupplement>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        suspend fun retrieve(
+            cardPurchaseSupplementId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<CardPurchaseSupplement> =
+            retrieve(
+                cardPurchaseSupplementId,
+                CardPurchaseSupplementRetrieveParams.none(),
+                requestOptions,
+            )
 
         /**
          * Returns a raw HTTP response for `get /card_purchase_supplements`, but is otherwise the

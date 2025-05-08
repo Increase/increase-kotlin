@@ -3,7 +3,6 @@
 package com.increase.api.models.exports
 
 import com.increase.api.core.Params
-import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import java.util.Objects
@@ -11,13 +10,13 @@ import java.util.Objects
 /** Retrieve an Export */
 class ExportRetrieveParams
 private constructor(
-    private val exportId: String,
+    private val exportId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** The identifier of the Export to retrieve. */
-    fun exportId(): String = exportId
+    fun exportId(): String? = exportId
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
@@ -27,14 +26,9 @@ private constructor(
 
     companion object {
 
-        /**
-         * Returns a mutable builder for constructing an instance of [ExportRetrieveParams].
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .exportId()
-         * ```
-         */
+        fun none(): ExportRetrieveParams = builder().build()
+
+        /** Returns a mutable builder for constructing an instance of [ExportRetrieveParams]. */
         fun builder() = Builder()
     }
 
@@ -52,7 +46,7 @@ private constructor(
         }
 
         /** The identifier of the Export to retrieve. */
-        fun exportId(exportId: String) = apply { this.exportId = exportId }
+        fun exportId(exportId: String?) = apply { this.exportId = exportId }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -156,25 +150,14 @@ private constructor(
          * Returns an immutable instance of [ExportRetrieveParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .exportId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): ExportRetrieveParams =
-            ExportRetrieveParams(
-                checkRequired("exportId", exportId),
-                additionalHeaders.build(),
-                additionalQueryParams.build(),
-            )
+            ExportRetrieveParams(exportId, additionalHeaders.build(), additionalQueryParams.build())
     }
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> exportId
+            0 -> exportId ?: ""
             else -> ""
         }
 

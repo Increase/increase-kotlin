@@ -19,9 +19,21 @@ interface InboundMailItemService {
 
     /** Retrieve an Inbound Mail Item */
     fun retrieve(
+        inboundMailItemId: String,
+        params: InboundMailItemRetrieveParams = InboundMailItemRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): InboundMailItem =
+        retrieve(params.toBuilder().inboundMailItemId(inboundMailItemId).build(), requestOptions)
+
+    /** @see [retrieve] */
+    fun retrieve(
         params: InboundMailItemRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundMailItem
+
+    /** @see [retrieve] */
+    fun retrieve(inboundMailItemId: String, requestOptions: RequestOptions): InboundMailItem =
+        retrieve(inboundMailItemId, InboundMailItemRetrieveParams.none(), requestOptions)
 
     /** List Inbound Mail Items */
     fun list(
@@ -45,9 +57,29 @@ interface InboundMailItemService {
          */
         @MustBeClosed
         fun retrieve(
+            inboundMailItemId: String,
+            params: InboundMailItemRetrieveParams = InboundMailItemRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<InboundMailItem> =
+            retrieve(
+                params.toBuilder().inboundMailItemId(inboundMailItemId).build(),
+                requestOptions,
+            )
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
             params: InboundMailItemRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<InboundMailItem>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            inboundMailItemId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<InboundMailItem> =
+            retrieve(inboundMailItemId, InboundMailItemRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /inbound_mail_items`, but is otherwise the same as

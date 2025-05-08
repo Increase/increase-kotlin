@@ -12,7 +12,6 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.Params
-import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.errors.IncreaseInvalidDataException
@@ -22,14 +21,14 @@ import java.util.Objects
 /** Update an External Account */
 class ExternalAccountUpdateParams
 private constructor(
-    private val externalAccountId: String,
+    private val externalAccountId: String?,
     private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** The external account identifier. */
-    fun externalAccountId(): String = externalAccountId
+    fun externalAccountId(): String? = externalAccountId
 
     /**
      * The type of entity that owns the External Account.
@@ -101,13 +100,10 @@ private constructor(
 
     companion object {
 
+        fun none(): ExternalAccountUpdateParams = builder().build()
+
         /**
          * Returns a mutable builder for constructing an instance of [ExternalAccountUpdateParams].
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .externalAccountId()
-         * ```
          */
         fun builder() = Builder()
     }
@@ -128,7 +124,7 @@ private constructor(
         }
 
         /** The external account identifier. */
-        fun externalAccountId(externalAccountId: String) = apply {
+        fun externalAccountId(externalAccountId: String?) = apply {
             this.externalAccountId = externalAccountId
         }
 
@@ -315,17 +311,10 @@ private constructor(
          * Returns an immutable instance of [ExternalAccountUpdateParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .externalAccountId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): ExternalAccountUpdateParams =
             ExternalAccountUpdateParams(
-                checkRequired("externalAccountId", externalAccountId),
+                externalAccountId,
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -336,7 +325,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> externalAccountId
+            0 -> externalAccountId ?: ""
             else -> ""
         }
 

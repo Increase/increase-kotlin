@@ -5,6 +5,7 @@ package com.increase.api.services.blocking
 import com.increase.api.core.ClientOptions
 import com.increase.api.core.JsonValue
 import com.increase.api.core.RequestOptions
+import com.increase.api.core.checkRequired
 import com.increase.api.core.handlers.errorHandler
 import com.increase.api.core.handlers.jsonHandler
 import com.increase.api.core.handlers.withErrorHandler
@@ -115,6 +116,9 @@ class CheckTransferServiceImpl internal constructor(private val clientOptions: C
             params: CheckTransferRetrieveParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<CheckTransfer> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("checkTransferId", params.checkTransferId())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -175,6 +179,9 @@ class CheckTransferServiceImpl internal constructor(private val clientOptions: C
             params: CheckTransferApproveParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<CheckTransfer> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("checkTransferId", params.checkTransferId())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -202,6 +209,9 @@ class CheckTransferServiceImpl internal constructor(private val clientOptions: C
             params: CheckTransferCancelParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<CheckTransfer> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("checkTransferId", params.checkTransferId())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -229,6 +239,9 @@ class CheckTransferServiceImpl internal constructor(private val clientOptions: C
             params: CheckTransferStopPaymentParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<CheckTransfer> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("checkTransferId", params.checkTransferId())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)

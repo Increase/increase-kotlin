@@ -3,7 +3,6 @@
 package com.increase.api.models.inboundrealtimepaymentstransfers
 
 import com.increase.api.core.Params
-import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import java.util.Objects
@@ -11,13 +10,13 @@ import java.util.Objects
 /** Retrieve an Inbound Real-Time Payments Transfer */
 class InboundRealTimePaymentsTransferRetrieveParams
 private constructor(
-    private val inboundRealTimePaymentsTransferId: String,
+    private val inboundRealTimePaymentsTransferId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** The identifier of the Inbound Real-Time Payments Transfer to get details for. */
-    fun inboundRealTimePaymentsTransferId(): String = inboundRealTimePaymentsTransferId
+    fun inboundRealTimePaymentsTransferId(): String? = inboundRealTimePaymentsTransferId
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
@@ -27,14 +26,11 @@ private constructor(
 
     companion object {
 
+        fun none(): InboundRealTimePaymentsTransferRetrieveParams = builder().build()
+
         /**
          * Returns a mutable builder for constructing an instance of
          * [InboundRealTimePaymentsTransferRetrieveParams].
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .inboundRealTimePaymentsTransferId()
-         * ```
          */
         fun builder() = Builder()
     }
@@ -59,7 +55,7 @@ private constructor(
         }
 
         /** The identifier of the Inbound Real-Time Payments Transfer to get details for. */
-        fun inboundRealTimePaymentsTransferId(inboundRealTimePaymentsTransferId: String) = apply {
+        fun inboundRealTimePaymentsTransferId(inboundRealTimePaymentsTransferId: String?) = apply {
             this.inboundRealTimePaymentsTransferId = inboundRealTimePaymentsTransferId
         }
 
@@ -165,20 +161,10 @@ private constructor(
          * Returns an immutable instance of [InboundRealTimePaymentsTransferRetrieveParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .inboundRealTimePaymentsTransferId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): InboundRealTimePaymentsTransferRetrieveParams =
             InboundRealTimePaymentsTransferRetrieveParams(
-                checkRequired(
-                    "inboundRealTimePaymentsTransferId",
-                    inboundRealTimePaymentsTransferId,
-                ),
+                inboundRealTimePaymentsTransferId,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -186,7 +172,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> inboundRealTimePaymentsTransferId
+            0 -> inboundRealTimePaymentsTransferId ?: ""
             else -> ""
         }
 

@@ -5,7 +5,6 @@ package com.increase.api.services.async
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
 import com.increase.api.models.files.FileCreateParams
-import com.increase.api.models.files.FileRetrieveParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -42,10 +41,7 @@ internal class FileServiceAsyncTest {
                 .build()
         val fileServiceAsync = client.files()
 
-        val file =
-            fileServiceAsync.retrieve(
-                FileRetrieveParams.builder().fileId("file_makxrc67oh9l6sg7w9yc").build()
-            )
+        val file = fileServiceAsync.retrieve("file_makxrc67oh9l6sg7w9yc")
 
         file.validate()
     }

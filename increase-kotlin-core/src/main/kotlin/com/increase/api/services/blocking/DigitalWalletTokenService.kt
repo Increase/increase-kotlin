@@ -19,9 +19,24 @@ interface DigitalWalletTokenService {
 
     /** Retrieve a Digital Wallet Token */
     fun retrieve(
+        digitalWalletTokenId: String,
+        params: DigitalWalletTokenRetrieveParams = DigitalWalletTokenRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): DigitalWalletToken =
+        retrieve(
+            params.toBuilder().digitalWalletTokenId(digitalWalletTokenId).build(),
+            requestOptions,
+        )
+
+    /** @see [retrieve] */
+    fun retrieve(
         params: DigitalWalletTokenRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): DigitalWalletToken
+
+    /** @see [retrieve] */
+    fun retrieve(digitalWalletTokenId: String, requestOptions: RequestOptions): DigitalWalletToken =
+        retrieve(digitalWalletTokenId, DigitalWalletTokenRetrieveParams.none(), requestOptions)
 
     /** List Digital Wallet Tokens */
     fun list(
@@ -45,9 +60,29 @@ interface DigitalWalletTokenService {
          */
         @MustBeClosed
         fun retrieve(
+            digitalWalletTokenId: String,
+            params: DigitalWalletTokenRetrieveParams = DigitalWalletTokenRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<DigitalWalletToken> =
+            retrieve(
+                params.toBuilder().digitalWalletTokenId(digitalWalletTokenId).build(),
+                requestOptions,
+            )
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
             params: DigitalWalletTokenRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<DigitalWalletToken>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            digitalWalletTokenId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<DigitalWalletToken> =
+            retrieve(digitalWalletTokenId, DigitalWalletTokenRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /digital_wallet_tokens`, but is otherwise the same

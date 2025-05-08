@@ -5,6 +5,7 @@ package com.increase.api.services.blocking
 import com.increase.api.core.ClientOptions
 import com.increase.api.core.JsonValue
 import com.increase.api.core.RequestOptions
+import com.increase.api.core.checkRequired
 import com.increase.api.core.handlers.errorHandler
 import com.increase.api.core.handlers.jsonHandler
 import com.increase.api.core.handlers.withErrorHandler
@@ -80,6 +81,9 @@ class InboundAchTransferServiceImpl internal constructor(private val clientOptio
             params: InboundAchTransferRetrieveParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<InboundAchTransfer> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("inboundAchTransferId", params.inboundAchTransferId())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -140,6 +144,9 @@ class InboundAchTransferServiceImpl internal constructor(private val clientOptio
             params: InboundAchTransferCreateNotificationOfChangeParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<InboundAchTransfer> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("inboundAchTransferId", params.inboundAchTransferId())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -171,6 +178,9 @@ class InboundAchTransferServiceImpl internal constructor(private val clientOptio
             params: InboundAchTransferDeclineParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<InboundAchTransfer> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("inboundAchTransferId", params.inboundAchTransferId())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -198,6 +208,9 @@ class InboundAchTransferServiceImpl internal constructor(private val clientOptio
             params: InboundAchTransferTransferReturnParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<InboundAchTransfer> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("inboundAchTransferId", params.inboundAchTransferId())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)

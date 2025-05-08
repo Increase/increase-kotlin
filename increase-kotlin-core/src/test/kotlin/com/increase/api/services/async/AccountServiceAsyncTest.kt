@@ -5,9 +5,7 @@ package com.increase.api.services.async
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
 import com.increase.api.models.accounts.AccountBalanceParams
-import com.increase.api.models.accounts.AccountCloseParams
 import com.increase.api.models.accounts.AccountCreateParams
-import com.increase.api.models.accounts.AccountRetrieveParams
 import com.increase.api.models.accounts.AccountUpdateParams
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.Test
@@ -47,10 +45,7 @@ internal class AccountServiceAsyncTest {
                 .build()
         val accountServiceAsync = client.accounts()
 
-        val account =
-            accountServiceAsync.retrieve(
-                AccountRetrieveParams.builder().accountId("account_in71c4amph0vgo2qllky").build()
-            )
+        val account = accountServiceAsync.retrieve("account_in71c4amph0vgo2qllky")
 
         account.validate()
     }
@@ -118,10 +113,7 @@ internal class AccountServiceAsyncTest {
                 .build()
         val accountServiceAsync = client.accounts()
 
-        val account =
-            accountServiceAsync.close(
-                AccountCloseParams.builder().accountId("account_in71c4amph0vgo2qllky").build()
-            )
+        val account = accountServiceAsync.close("account_in71c4amph0vgo2qllky")
 
         account.validate()
     }

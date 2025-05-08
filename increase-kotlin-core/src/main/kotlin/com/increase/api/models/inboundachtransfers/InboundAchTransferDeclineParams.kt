@@ -12,7 +12,6 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.Params
-import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.errors.IncreaseInvalidDataException
@@ -22,14 +21,14 @@ import java.util.Objects
 /** Decline an Inbound ACH Transfer */
 class InboundAchTransferDeclineParams
 private constructor(
-    private val inboundAchTransferId: String,
+    private val inboundAchTransferId: String?,
     private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** The identifier of the Inbound ACH Transfer to decline. */
-    fun inboundAchTransferId(): String = inboundAchTransferId
+    fun inboundAchTransferId(): String? = inboundAchTransferId
 
     /**
      * The reason why this transfer will be returned. If this parameter is unset, the return codes
@@ -57,14 +56,11 @@ private constructor(
 
     companion object {
 
+        fun none(): InboundAchTransferDeclineParams = builder().build()
+
         /**
          * Returns a mutable builder for constructing an instance of
          * [InboundAchTransferDeclineParams].
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .inboundAchTransferId()
-         * ```
          */
         fun builder() = Builder()
     }
@@ -87,7 +83,7 @@ private constructor(
             }
 
         /** The identifier of the Inbound ACH Transfer to decline. */
-        fun inboundAchTransferId(inboundAchTransferId: String) = apply {
+        fun inboundAchTransferId(inboundAchTransferId: String?) = apply {
             this.inboundAchTransferId = inboundAchTransferId
         }
 
@@ -236,17 +232,10 @@ private constructor(
          * Returns an immutable instance of [InboundAchTransferDeclineParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .inboundAchTransferId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): InboundAchTransferDeclineParams =
             InboundAchTransferDeclineParams(
-                checkRequired("inboundAchTransferId", inboundAchTransferId),
+                inboundAchTransferId,
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -257,7 +246,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> inboundAchTransferId
+            0 -> inboundAchTransferId ?: ""
             else -> ""
         }
 

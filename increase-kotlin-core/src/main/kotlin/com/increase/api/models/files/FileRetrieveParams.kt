@@ -3,7 +3,6 @@
 package com.increase.api.models.files
 
 import com.increase.api.core.Params
-import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import java.util.Objects
@@ -11,13 +10,13 @@ import java.util.Objects
 /** Retrieve a File */
 class FileRetrieveParams
 private constructor(
-    private val fileId: String,
+    private val fileId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** The identifier of the File. */
-    fun fileId(): String = fileId
+    fun fileId(): String? = fileId
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
@@ -27,14 +26,9 @@ private constructor(
 
     companion object {
 
-        /**
-         * Returns a mutable builder for constructing an instance of [FileRetrieveParams].
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .fileId()
-         * ```
-         */
+        fun none(): FileRetrieveParams = builder().build()
+
+        /** Returns a mutable builder for constructing an instance of [FileRetrieveParams]. */
         fun builder() = Builder()
     }
 
@@ -52,7 +46,7 @@ private constructor(
         }
 
         /** The identifier of the File. */
-        fun fileId(fileId: String) = apply { this.fileId = fileId }
+        fun fileId(fileId: String?) = apply { this.fileId = fileId }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -156,25 +150,14 @@ private constructor(
          * Returns an immutable instance of [FileRetrieveParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .fileId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): FileRetrieveParams =
-            FileRetrieveParams(
-                checkRequired("fileId", fileId),
-                additionalHeaders.build(),
-                additionalQueryParams.build(),
-            )
+            FileRetrieveParams(fileId, additionalHeaders.build(), additionalQueryParams.build())
     }
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> fileId
+            0 -> fileId ?: ""
             else -> ""
         }
 

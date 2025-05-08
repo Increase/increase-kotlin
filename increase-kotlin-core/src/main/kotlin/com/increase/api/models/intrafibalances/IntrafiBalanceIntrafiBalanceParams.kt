@@ -3,7 +3,6 @@
 package com.increase.api.models.intrafibalances
 
 import com.increase.api.core.Params
-import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import java.util.Objects
@@ -14,13 +13,13 @@ import java.util.Objects
  */
 class IntrafiBalanceIntrafiBalanceParams
 private constructor(
-    private val accountId: String,
+    private val accountId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** The identifier of the Account to get balances for. */
-    fun accountId(): String = accountId
+    fun accountId(): String? = accountId
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
@@ -30,14 +29,11 @@ private constructor(
 
     companion object {
 
+        fun none(): IntrafiBalanceIntrafiBalanceParams = builder().build()
+
         /**
          * Returns a mutable builder for constructing an instance of
          * [IntrafiBalanceIntrafiBalanceParams].
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .accountId()
-         * ```
          */
         fun builder() = Builder()
     }
@@ -58,7 +54,7 @@ private constructor(
             }
 
         /** The identifier of the Account to get balances for. */
-        fun accountId(accountId: String) = apply { this.accountId = accountId }
+        fun accountId(accountId: String?) = apply { this.accountId = accountId }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -162,17 +158,10 @@ private constructor(
          * Returns an immutable instance of [IntrafiBalanceIntrafiBalanceParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .accountId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): IntrafiBalanceIntrafiBalanceParams =
             IntrafiBalanceIntrafiBalanceParams(
-                checkRequired("accountId", accountId),
+                accountId,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -180,7 +169,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> accountId
+            0 -> accountId ?: ""
             else -> ""
         }
 

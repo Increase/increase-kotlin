@@ -4,7 +4,6 @@ package com.increase.api.models.simulations.achtransfers
 
 import com.increase.api.core.JsonValue
 import com.increase.api.core.Params
-import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.toImmutable
@@ -19,14 +18,14 @@ import java.util.Objects
  */
 class AchTransferSubmitParams
 private constructor(
-    private val achTransferId: String,
+    private val achTransferId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
     private val additionalBodyProperties: Map<String, JsonValue>,
 ) : Params {
 
     /** The identifier of the ACH Transfer you wish to submit. */
-    fun achTransferId(): String = achTransferId
+    fun achTransferId(): String? = achTransferId
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
 
@@ -38,14 +37,9 @@ private constructor(
 
     companion object {
 
-        /**
-         * Returns a mutable builder for constructing an instance of [AchTransferSubmitParams].
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .achTransferId()
-         * ```
-         */
+        fun none(): AchTransferSubmitParams = builder().build()
+
+        /** Returns a mutable builder for constructing an instance of [AchTransferSubmitParams]. */
         fun builder() = Builder()
     }
 
@@ -66,7 +60,7 @@ private constructor(
         }
 
         /** The identifier of the ACH Transfer you wish to submit. */
-        fun achTransferId(achTransferId: String) = apply { this.achTransferId = achTransferId }
+        fun achTransferId(achTransferId: String?) = apply { this.achTransferId = achTransferId }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -192,17 +186,10 @@ private constructor(
          * Returns an immutable instance of [AchTransferSubmitParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .achTransferId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): AchTransferSubmitParams =
             AchTransferSubmitParams(
-                checkRequired("achTransferId", achTransferId),
+                achTransferId,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
                 additionalBodyProperties.toImmutable(),
@@ -213,7 +200,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> achTransferId
+            0 -> achTransferId ?: ""
             else -> ""
         }
 

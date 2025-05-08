@@ -27,15 +27,39 @@ interface ExternalAccountService {
 
     /** Retrieve an External Account */
     fun retrieve(
+        externalAccountId: String,
+        params: ExternalAccountRetrieveParams = ExternalAccountRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): ExternalAccount =
+        retrieve(params.toBuilder().externalAccountId(externalAccountId).build(), requestOptions)
+
+    /** @see [retrieve] */
+    fun retrieve(
         params: ExternalAccountRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ExternalAccount
 
+    /** @see [retrieve] */
+    fun retrieve(externalAccountId: String, requestOptions: RequestOptions): ExternalAccount =
+        retrieve(externalAccountId, ExternalAccountRetrieveParams.none(), requestOptions)
+
     /** Update an External Account */
+    fun update(
+        externalAccountId: String,
+        params: ExternalAccountUpdateParams = ExternalAccountUpdateParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): ExternalAccount =
+        update(params.toBuilder().externalAccountId(externalAccountId).build(), requestOptions)
+
+    /** @see [update] */
     fun update(
         params: ExternalAccountUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ExternalAccount
+
+    /** @see [update] */
+    fun update(externalAccountId: String, requestOptions: RequestOptions): ExternalAccount =
+        update(externalAccountId, ExternalAccountUpdateParams.none(), requestOptions)
 
     /** List External Accounts */
     fun list(
@@ -69,9 +93,29 @@ interface ExternalAccountService {
          */
         @MustBeClosed
         fun retrieve(
+            externalAccountId: String,
+            params: ExternalAccountRetrieveParams = ExternalAccountRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<ExternalAccount> =
+            retrieve(
+                params.toBuilder().externalAccountId(externalAccountId).build(),
+                requestOptions,
+            )
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
             params: ExternalAccountRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ExternalAccount>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            externalAccountId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<ExternalAccount> =
+            retrieve(externalAccountId, ExternalAccountRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `patch /external_accounts/{external_account_id}`, but is
@@ -79,9 +123,26 @@ interface ExternalAccountService {
          */
         @MustBeClosed
         fun update(
+            externalAccountId: String,
+            params: ExternalAccountUpdateParams = ExternalAccountUpdateParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<ExternalAccount> =
+            update(params.toBuilder().externalAccountId(externalAccountId).build(), requestOptions)
+
+        /** @see [update] */
+        @MustBeClosed
+        fun update(
             params: ExternalAccountUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ExternalAccount>
+
+        /** @see [update] */
+        @MustBeClosed
+        fun update(
+            externalAccountId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<ExternalAccount> =
+            update(externalAccountId, ExternalAccountUpdateParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /external_accounts`, but is otherwise the same as

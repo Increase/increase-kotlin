@@ -22,14 +22,14 @@ import java.util.Objects
 /** Return an Inbound Check Deposit */
 class InboundCheckDepositReturnParams
 private constructor(
-    private val inboundCheckDepositId: String,
+    private val inboundCheckDepositId: String?,
     private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** The identifier of the Inbound Check Deposit to return. */
-    fun inboundCheckDepositId(): String = inboundCheckDepositId
+    fun inboundCheckDepositId(): String? = inboundCheckDepositId
 
     /**
      * The reason to return the Inbound Check Deposit.
@@ -62,7 +62,6 @@ private constructor(
          *
          * The following fields are required:
          * ```kotlin
-         * .inboundCheckDepositId()
          * .reason()
          * ```
          */
@@ -87,7 +86,7 @@ private constructor(
             }
 
         /** The identifier of the Inbound Check Deposit to return. */
-        fun inboundCheckDepositId(inboundCheckDepositId: String) = apply {
+        fun inboundCheckDepositId(inboundCheckDepositId: String?) = apply {
             this.inboundCheckDepositId = inboundCheckDepositId
         }
 
@@ -235,7 +234,6 @@ private constructor(
          *
          * The following fields are required:
          * ```kotlin
-         * .inboundCheckDepositId()
          * .reason()
          * ```
          *
@@ -243,7 +241,7 @@ private constructor(
          */
         fun build(): InboundCheckDepositReturnParams =
             InboundCheckDepositReturnParams(
-                checkRequired("inboundCheckDepositId", inboundCheckDepositId),
+                inboundCheckDepositId,
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -254,7 +252,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> inboundCheckDepositId
+            0 -> inboundCheckDepositId ?: ""
             else -> ""
         }
 

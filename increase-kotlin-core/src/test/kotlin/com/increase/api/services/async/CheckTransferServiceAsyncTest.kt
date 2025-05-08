@@ -4,10 +4,7 @@ package com.increase.api.services.async
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
-import com.increase.api.models.checktransfers.CheckTransferApproveParams
-import com.increase.api.models.checktransfers.CheckTransferCancelParams
 import com.increase.api.models.checktransfers.CheckTransferCreateParams
-import com.increase.api.models.checktransfers.CheckTransferRetrieveParams
 import com.increase.api.models.checktransfers.CheckTransferStopPaymentParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -83,12 +80,7 @@ internal class CheckTransferServiceAsyncTest {
                 .build()
         val checkTransferServiceAsync = client.checkTransfers()
 
-        val checkTransfer =
-            checkTransferServiceAsync.retrieve(
-                CheckTransferRetrieveParams.builder()
-                    .checkTransferId("check_transfer_30b43acfu9vw8fyc4f5")
-                    .build()
-            )
+        val checkTransfer = checkTransferServiceAsync.retrieve("check_transfer_30b43acfu9vw8fyc4f5")
 
         checkTransfer.validate()
     }
@@ -116,12 +108,7 @@ internal class CheckTransferServiceAsyncTest {
                 .build()
         val checkTransferServiceAsync = client.checkTransfers()
 
-        val checkTransfer =
-            checkTransferServiceAsync.approve(
-                CheckTransferApproveParams.builder()
-                    .checkTransferId("check_transfer_30b43acfu9vw8fyc4f5")
-                    .build()
-            )
+        val checkTransfer = checkTransferServiceAsync.approve("check_transfer_30b43acfu9vw8fyc4f5")
 
         checkTransfer.validate()
     }
@@ -135,12 +122,7 @@ internal class CheckTransferServiceAsyncTest {
                 .build()
         val checkTransferServiceAsync = client.checkTransfers()
 
-        val checkTransfer =
-            checkTransferServiceAsync.cancel(
-                CheckTransferCancelParams.builder()
-                    .checkTransferId("check_transfer_30b43acfu9vw8fyc4f5")
-                    .build()
-            )
+        val checkTransfer = checkTransferServiceAsync.cancel("check_transfer_30b43acfu9vw8fyc4f5")
 
         checkTransfer.validate()
     }

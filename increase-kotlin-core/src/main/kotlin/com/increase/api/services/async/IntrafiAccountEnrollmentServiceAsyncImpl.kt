@@ -5,6 +5,7 @@ package com.increase.api.services.async
 import com.increase.api.core.ClientOptions
 import com.increase.api.core.JsonValue
 import com.increase.api.core.RequestOptions
+import com.increase.api.core.checkRequired
 import com.increase.api.core.handlers.errorHandler
 import com.increase.api.core.handlers.jsonHandler
 import com.increase.api.core.handlers.withErrorHandler
@@ -103,6 +104,9 @@ internal constructor(private val clientOptions: ClientOptions) :
             params: IntrafiAccountEnrollmentRetrieveParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<IntrafiAccountEnrollment> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("intrafiAccountEnrollmentId", params.intrafiAccountEnrollmentId())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -164,6 +168,9 @@ internal constructor(private val clientOptions: ClientOptions) :
             params: IntrafiAccountEnrollmentUnenrollParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<IntrafiAccountEnrollment> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("intrafiAccountEnrollmentId", params.intrafiAccountEnrollmentId())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)

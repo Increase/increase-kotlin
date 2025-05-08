@@ -21,9 +21,27 @@ interface InboundCheckDepositServiceAsync {
 
     /** Retrieve an Inbound Check Deposit */
     suspend fun retrieve(
+        inboundCheckDepositId: String,
+        params: InboundCheckDepositRetrieveParams = InboundCheckDepositRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): InboundCheckDeposit =
+        retrieve(
+            params.toBuilder().inboundCheckDepositId(inboundCheckDepositId).build(),
+            requestOptions,
+        )
+
+    /** @see [retrieve] */
+    suspend fun retrieve(
         params: InboundCheckDepositRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundCheckDeposit
+
+    /** @see [retrieve] */
+    suspend fun retrieve(
+        inboundCheckDepositId: String,
+        requestOptions: RequestOptions,
+    ): InboundCheckDeposit =
+        retrieve(inboundCheckDepositId, InboundCheckDepositRetrieveParams.none(), requestOptions)
 
     /** List Inbound Check Deposits */
     suspend fun list(
@@ -37,11 +55,40 @@ interface InboundCheckDepositServiceAsync {
 
     /** Decline an Inbound Check Deposit */
     suspend fun decline(
+        inboundCheckDepositId: String,
+        params: InboundCheckDepositDeclineParams = InboundCheckDepositDeclineParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): InboundCheckDeposit =
+        decline(
+            params.toBuilder().inboundCheckDepositId(inboundCheckDepositId).build(),
+            requestOptions,
+        )
+
+    /** @see [decline] */
+    suspend fun decline(
         params: InboundCheckDepositDeclineParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundCheckDeposit
 
+    /** @see [decline] */
+    suspend fun decline(
+        inboundCheckDepositId: String,
+        requestOptions: RequestOptions,
+    ): InboundCheckDeposit =
+        decline(inboundCheckDepositId, InboundCheckDepositDeclineParams.none(), requestOptions)
+
     /** Return an Inbound Check Deposit */
+    suspend fun return_(
+        inboundCheckDepositId: String,
+        params: InboundCheckDepositReturnParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): InboundCheckDeposit =
+        return_(
+            params.toBuilder().inboundCheckDepositId(inboundCheckDepositId).build(),
+            requestOptions,
+        )
+
+    /** @see [return_] */
     suspend fun return_(
         params: InboundCheckDepositReturnParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -59,9 +106,33 @@ interface InboundCheckDepositServiceAsync {
          */
         @MustBeClosed
         suspend fun retrieve(
+            inboundCheckDepositId: String,
+            params: InboundCheckDepositRetrieveParams = InboundCheckDepositRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<InboundCheckDeposit> =
+            retrieve(
+                params.toBuilder().inboundCheckDepositId(inboundCheckDepositId).build(),
+                requestOptions,
+            )
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        suspend fun retrieve(
             params: InboundCheckDepositRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<InboundCheckDeposit>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        suspend fun retrieve(
+            inboundCheckDepositId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<InboundCheckDeposit> =
+            retrieve(
+                inboundCheckDepositId,
+                InboundCheckDepositRetrieveParams.none(),
+                requestOptions,
+            )
 
         /**
          * Returns a raw HTTP response for `get /inbound_check_deposits`, but is otherwise the same
@@ -87,15 +158,47 @@ interface InboundCheckDepositServiceAsync {
          */
         @MustBeClosed
         suspend fun decline(
+            inboundCheckDepositId: String,
+            params: InboundCheckDepositDeclineParams = InboundCheckDepositDeclineParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<InboundCheckDeposit> =
+            decline(
+                params.toBuilder().inboundCheckDepositId(inboundCheckDepositId).build(),
+                requestOptions,
+            )
+
+        /** @see [decline] */
+        @MustBeClosed
+        suspend fun decline(
             params: InboundCheckDepositDeclineParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<InboundCheckDeposit>
+
+        /** @see [decline] */
+        @MustBeClosed
+        suspend fun decline(
+            inboundCheckDepositId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<InboundCheckDeposit> =
+            decline(inboundCheckDepositId, InboundCheckDepositDeclineParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `post
          * /inbound_check_deposits/{inbound_check_deposit_id}/return`, but is otherwise the same as
          * [InboundCheckDepositServiceAsync.return_].
          */
+        @MustBeClosed
+        suspend fun return_(
+            inboundCheckDepositId: String,
+            params: InboundCheckDepositReturnParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<InboundCheckDeposit> =
+            return_(
+                params.toBuilder().inboundCheckDepositId(inboundCheckDepositId).build(),
+                requestOptions,
+            )
+
+        /** @see [return_] */
         @MustBeClosed
         suspend fun return_(
             params: InboundCheckDepositReturnParams,

@@ -4,7 +4,6 @@ package com.increase.api.models.inboundcheckdeposits
 
 import com.increase.api.core.JsonValue
 import com.increase.api.core.Params
-import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.core.toImmutable
@@ -13,14 +12,14 @@ import java.util.Objects
 /** Decline an Inbound Check Deposit */
 class InboundCheckDepositDeclineParams
 private constructor(
-    private val inboundCheckDepositId: String,
+    private val inboundCheckDepositId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
     private val additionalBodyProperties: Map<String, JsonValue>,
 ) : Params {
 
     /** The identifier of the Inbound Check Deposit to decline. */
-    fun inboundCheckDepositId(): String = inboundCheckDepositId
+    fun inboundCheckDepositId(): String? = inboundCheckDepositId
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
 
@@ -32,14 +31,11 @@ private constructor(
 
     companion object {
 
+        fun none(): InboundCheckDepositDeclineParams = builder().build()
+
         /**
          * Returns a mutable builder for constructing an instance of
          * [InboundCheckDepositDeclineParams].
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .inboundCheckDepositId()
-         * ```
          */
         fun builder() = Builder()
     }
@@ -63,7 +59,7 @@ private constructor(
             }
 
         /** The identifier of the Inbound Check Deposit to decline. */
-        fun inboundCheckDepositId(inboundCheckDepositId: String) = apply {
+        fun inboundCheckDepositId(inboundCheckDepositId: String?) = apply {
             this.inboundCheckDepositId = inboundCheckDepositId
         }
 
@@ -191,17 +187,10 @@ private constructor(
          * Returns an immutable instance of [InboundCheckDepositDeclineParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .inboundCheckDepositId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): InboundCheckDepositDeclineParams =
             InboundCheckDepositDeclineParams(
-                checkRequired("inboundCheckDepositId", inboundCheckDepositId),
+                inboundCheckDepositId,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
                 additionalBodyProperties.toImmutable(),
@@ -212,7 +201,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> inboundCheckDepositId
+            0 -> inboundCheckDepositId ?: ""
             else -> ""
         }
 

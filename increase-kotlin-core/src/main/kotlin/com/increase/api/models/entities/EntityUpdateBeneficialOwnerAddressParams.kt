@@ -21,7 +21,7 @@ import java.util.Objects
 /** Update the address for a beneficial owner belonging to a corporate Entity */
 class EntityUpdateBeneficialOwnerAddressParams
 private constructor(
-    private val entityId: String,
+    private val entityId: String?,
     private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -31,7 +31,7 @@ private constructor(
      * The identifier of the Entity associated with the Beneficial Owner whose address is being
      * updated.
      */
-    fun entityId(): String = entityId
+    fun entityId(): String? = entityId
 
     /**
      * The individual's physical address. Mail receiving locations like PO Boxes and PMB's are
@@ -81,7 +81,6 @@ private constructor(
          *
          * The following fields are required:
          * ```kotlin
-         * .entityId()
          * .address()
          * .beneficialOwnerId()
          * ```
@@ -112,7 +111,7 @@ private constructor(
          * The identifier of the Entity associated with the Beneficial Owner whose address is being
          * updated.
          */
-        fun entityId(entityId: String) = apply { this.entityId = entityId }
+        fun entityId(entityId: String?) = apply { this.entityId = entityId }
 
         /**
          * Sets the entire request body.
@@ -280,7 +279,6 @@ private constructor(
          *
          * The following fields are required:
          * ```kotlin
-         * .entityId()
          * .address()
          * .beneficialOwnerId()
          * ```
@@ -289,7 +287,7 @@ private constructor(
          */
         fun build(): EntityUpdateBeneficialOwnerAddressParams =
             EntityUpdateBeneficialOwnerAddressParams(
-                checkRequired("entityId", entityId),
+                entityId,
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -300,7 +298,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> entityId
+            0 -> entityId ?: ""
             else -> ""
         }
 

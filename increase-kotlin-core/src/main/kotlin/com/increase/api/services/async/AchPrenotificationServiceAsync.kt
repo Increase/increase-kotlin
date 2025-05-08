@@ -26,9 +26,27 @@ interface AchPrenotificationServiceAsync {
 
     /** Retrieve an ACH Prenotification */
     suspend fun retrieve(
+        achPrenotificationId: String,
+        params: AchPrenotificationRetrieveParams = AchPrenotificationRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): AchPrenotification =
+        retrieve(
+            params.toBuilder().achPrenotificationId(achPrenotificationId).build(),
+            requestOptions,
+        )
+
+    /** @see [retrieve] */
+    suspend fun retrieve(
         params: AchPrenotificationRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AchPrenotification
+
+    /** @see [retrieve] */
+    suspend fun retrieve(
+        achPrenotificationId: String,
+        requestOptions: RequestOptions,
+    ): AchPrenotification =
+        retrieve(achPrenotificationId, AchPrenotificationRetrieveParams.none(), requestOptions)
 
     /** List ACH Prenotifications */
     suspend fun list(
@@ -62,9 +80,29 @@ interface AchPrenotificationServiceAsync {
          */
         @MustBeClosed
         suspend fun retrieve(
+            achPrenotificationId: String,
+            params: AchPrenotificationRetrieveParams = AchPrenotificationRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<AchPrenotification> =
+            retrieve(
+                params.toBuilder().achPrenotificationId(achPrenotificationId).build(),
+                requestOptions,
+            )
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        suspend fun retrieve(
             params: AchPrenotificationRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AchPrenotification>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        suspend fun retrieve(
+            achPrenotificationId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<AchPrenotification> =
+            retrieve(achPrenotificationId, AchPrenotificationRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /ach_prenotifications`, but is otherwise the same as

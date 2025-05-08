@@ -3,7 +3,6 @@
 package com.increase.api.models.pendingtransactions
 
 import com.increase.api.core.Params
-import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import java.util.Objects
@@ -11,13 +10,13 @@ import java.util.Objects
 /** Retrieve a Pending Transaction */
 class PendingTransactionRetrieveParams
 private constructor(
-    private val pendingTransactionId: String,
+    private val pendingTransactionId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** The identifier of the Pending Transaction. */
-    fun pendingTransactionId(): String = pendingTransactionId
+    fun pendingTransactionId(): String? = pendingTransactionId
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
@@ -27,14 +26,11 @@ private constructor(
 
     companion object {
 
+        fun none(): PendingTransactionRetrieveParams = builder().build()
+
         /**
          * Returns a mutable builder for constructing an instance of
          * [PendingTransactionRetrieveParams].
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .pendingTransactionId()
-         * ```
          */
         fun builder() = Builder()
     }
@@ -55,7 +51,7 @@ private constructor(
             }
 
         /** The identifier of the Pending Transaction. */
-        fun pendingTransactionId(pendingTransactionId: String) = apply {
+        fun pendingTransactionId(pendingTransactionId: String?) = apply {
             this.pendingTransactionId = pendingTransactionId
         }
 
@@ -161,17 +157,10 @@ private constructor(
          * Returns an immutable instance of [PendingTransactionRetrieveParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .pendingTransactionId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): PendingTransactionRetrieveParams =
             PendingTransactionRetrieveParams(
-                checkRequired("pendingTransactionId", pendingTransactionId),
+                pendingTransactionId,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -179,7 +168,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> pendingTransactionId
+            0 -> pendingTransactionId ?: ""
             else -> ""
         }
 

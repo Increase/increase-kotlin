@@ -19,9 +19,21 @@ interface OAuthApplicationService {
 
     /** Retrieve an OAuth Application */
     fun retrieve(
+        oauthApplicationId: String,
+        params: OAuthApplicationRetrieveParams = OAuthApplicationRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): OAuthApplication =
+        retrieve(params.toBuilder().oauthApplicationId(oauthApplicationId).build(), requestOptions)
+
+    /** @see [retrieve] */
+    fun retrieve(
         params: OAuthApplicationRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): OAuthApplication
+
+    /** @see [retrieve] */
+    fun retrieve(oauthApplicationId: String, requestOptions: RequestOptions): OAuthApplication =
+        retrieve(oauthApplicationId, OAuthApplicationRetrieveParams.none(), requestOptions)
 
     /** List OAuth Applications */
     fun list(
@@ -45,9 +57,29 @@ interface OAuthApplicationService {
          */
         @MustBeClosed
         fun retrieve(
+            oauthApplicationId: String,
+            params: OAuthApplicationRetrieveParams = OAuthApplicationRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<OAuthApplication> =
+            retrieve(
+                params.toBuilder().oauthApplicationId(oauthApplicationId).build(),
+                requestOptions,
+            )
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
             params: OAuthApplicationRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<OAuthApplication>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            oauthApplicationId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<OAuthApplication> =
+            retrieve(oauthApplicationId, OAuthApplicationRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /oauth_applications`, but is otherwise the same as

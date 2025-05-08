@@ -19,9 +19,21 @@ interface CardPaymentService {
 
     /** Retrieve a Card Payment */
     fun retrieve(
+        cardPaymentId: String,
+        params: CardPaymentRetrieveParams = CardPaymentRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CardPayment =
+        retrieve(params.toBuilder().cardPaymentId(cardPaymentId).build(), requestOptions)
+
+    /** @see [retrieve] */
+    fun retrieve(
         params: CardPaymentRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CardPayment
+
+    /** @see [retrieve] */
+    fun retrieve(cardPaymentId: String, requestOptions: RequestOptions): CardPayment =
+        retrieve(cardPaymentId, CardPaymentRetrieveParams.none(), requestOptions)
 
     /** List Card Payments */
     fun list(
@@ -44,9 +56,26 @@ interface CardPaymentService {
          */
         @MustBeClosed
         fun retrieve(
+            cardPaymentId: String,
+            params: CardPaymentRetrieveParams = CardPaymentRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<CardPayment> =
+            retrieve(params.toBuilder().cardPaymentId(cardPaymentId).build(), requestOptions)
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
             params: CardPaymentRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CardPayment>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
+            cardPaymentId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<CardPayment> =
+            retrieve(cardPaymentId, CardPaymentRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /card_payments`, but is otherwise the same as

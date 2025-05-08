@@ -26,14 +26,14 @@ import java.util.Objects
  */
 class RealTimePaymentsTransferCompleteParams
 private constructor(
-    private val realTimePaymentsTransferId: String,
+    private val realTimePaymentsTransferId: String?,
     private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** The identifier of the Real-Time Payments Transfer you wish to complete. */
-    fun realTimePaymentsTransferId(): String = realTimePaymentsTransferId
+    fun realTimePaymentsTransferId(): String? = realTimePaymentsTransferId
 
     /**
      * If set, the simulation will reject the transfer.
@@ -60,14 +60,11 @@ private constructor(
 
     companion object {
 
+        fun none(): RealTimePaymentsTransferCompleteParams = builder().build()
+
         /**
          * Returns a mutable builder for constructing an instance of
          * [RealTimePaymentsTransferCompleteParams].
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .realTimePaymentsTransferId()
-         * ```
          */
         fun builder() = Builder()
     }
@@ -92,7 +89,7 @@ private constructor(
         }
 
         /** The identifier of the Real-Time Payments Transfer you wish to complete. */
-        fun realTimePaymentsTransferId(realTimePaymentsTransferId: String) = apply {
+        fun realTimePaymentsTransferId(realTimePaymentsTransferId: String?) = apply {
             this.realTimePaymentsTransferId = realTimePaymentsTransferId
         }
 
@@ -238,17 +235,10 @@ private constructor(
          * Returns an immutable instance of [RealTimePaymentsTransferCompleteParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```kotlin
-         * .realTimePaymentsTransferId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): RealTimePaymentsTransferCompleteParams =
             RealTimePaymentsTransferCompleteParams(
-                checkRequired("realTimePaymentsTransferId", realTimePaymentsTransferId),
+                realTimePaymentsTransferId,
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -259,7 +249,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> realTimePaymentsTransferId
+            0 -> realTimePaymentsTransferId ?: ""
             else -> ""
         }
 

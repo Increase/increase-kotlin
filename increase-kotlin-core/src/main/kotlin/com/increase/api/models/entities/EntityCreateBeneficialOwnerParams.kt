@@ -25,14 +25,14 @@ import java.util.Objects
 /** Create a beneficial owner for a corporate Entity */
 class EntityCreateBeneficialOwnerParams
 private constructor(
-    private val entityId: String,
+    private val entityId: String?,
     private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     /** The identifier of the Entity to associate with the new Beneficial Owner. */
-    fun entityId(): String = entityId
+    fun entityId(): String? = entityId
 
     /**
      * The identifying details of anyone controlling or owning 25% or more of the corporation.
@@ -65,7 +65,6 @@ private constructor(
          *
          * The following fields are required:
          * ```kotlin
-         * .entityId()
          * .beneficialOwner()
          * ```
          */
@@ -90,7 +89,7 @@ private constructor(
             }
 
         /** The identifier of the Entity to associate with the new Beneficial Owner. */
-        fun entityId(entityId: String) = apply { this.entityId = entityId }
+        fun entityId(entityId: String?) = apply { this.entityId = entityId }
 
         /**
          * Sets the entire request body.
@@ -243,7 +242,6 @@ private constructor(
          *
          * The following fields are required:
          * ```kotlin
-         * .entityId()
          * .beneficialOwner()
          * ```
          *
@@ -251,7 +249,7 @@ private constructor(
          */
         fun build(): EntityCreateBeneficialOwnerParams =
             EntityCreateBeneficialOwnerParams(
-                checkRequired("entityId", entityId),
+                entityId,
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -262,7 +260,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> entityId
+            0 -> entityId ?: ""
             else -> ""
         }
 

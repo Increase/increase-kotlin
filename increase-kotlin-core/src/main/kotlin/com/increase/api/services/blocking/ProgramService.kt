@@ -19,9 +19,20 @@ interface ProgramService {
 
     /** Retrieve a Program */
     fun retrieve(
+        programId: String,
+        params: ProgramRetrieveParams = ProgramRetrieveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): Program = retrieve(params.toBuilder().programId(programId).build(), requestOptions)
+
+    /** @see [retrieve] */
+    fun retrieve(
         params: ProgramRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Program
+
+    /** @see [retrieve] */
+    fun retrieve(programId: String, requestOptions: RequestOptions): Program =
+        retrieve(programId, ProgramRetrieveParams.none(), requestOptions)
 
     /** List Programs */
     fun list(
@@ -42,9 +53,23 @@ interface ProgramService {
          */
         @MustBeClosed
         fun retrieve(
+            programId: String,
+            params: ProgramRetrieveParams = ProgramRetrieveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<Program> =
+            retrieve(params.toBuilder().programId(programId).build(), requestOptions)
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(
             params: ProgramRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Program>
+
+        /** @see [retrieve] */
+        @MustBeClosed
+        fun retrieve(programId: String, requestOptions: RequestOptions): HttpResponseFor<Program> =
+            retrieve(programId, ProgramRetrieveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /programs`, but is otherwise the same as

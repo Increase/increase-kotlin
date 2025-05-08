@@ -4,8 +4,6 @@ package com.increase.api.services.async
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
-import com.increase.api.models.inboundcheckdeposits.InboundCheckDepositDeclineParams
-import com.increase.api.models.inboundcheckdeposits.InboundCheckDepositRetrieveParams
 import com.increase.api.models.inboundcheckdeposits.InboundCheckDepositReturnParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -23,11 +21,7 @@ internal class InboundCheckDepositServiceAsyncTest {
         val inboundCheckDepositServiceAsync = client.inboundCheckDeposits()
 
         val inboundCheckDeposit =
-            inboundCheckDepositServiceAsync.retrieve(
-                InboundCheckDepositRetrieveParams.builder()
-                    .inboundCheckDepositId("inbound_check_deposit_zoshvqybq0cjjm31mra")
-                    .build()
-            )
+            inboundCheckDepositServiceAsync.retrieve("inbound_check_deposit_zoshvqybq0cjjm31mra")
 
         inboundCheckDeposit.validate()
     }
@@ -56,11 +50,7 @@ internal class InboundCheckDepositServiceAsyncTest {
         val inboundCheckDepositServiceAsync = client.inboundCheckDeposits()
 
         val inboundCheckDeposit =
-            inboundCheckDepositServiceAsync.decline(
-                InboundCheckDepositDeclineParams.builder()
-                    .inboundCheckDepositId("inbound_check_deposit_zoshvqybq0cjjm31mra")
-                    .build()
-            )
+            inboundCheckDepositServiceAsync.decline("inbound_check_deposit_zoshvqybq0cjjm31mra")
 
         inboundCheckDeposit.validate()
     }
