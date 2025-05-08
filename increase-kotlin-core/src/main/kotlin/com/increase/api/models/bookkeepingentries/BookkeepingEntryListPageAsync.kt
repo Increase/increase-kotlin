@@ -2,11 +2,11 @@
 
 package com.increase.api.models.bookkeepingentries
 
+import com.increase.api.core.AutoPagerAsync
+import com.increase.api.core.PageAsync
 import com.increase.api.core.checkRequired
 import com.increase.api.services.async.BookkeepingEntryServiceAsync
 import java.util.Objects
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.FlowCollector
 
 /** @see [BookkeepingEntryServiceAsync.list] */
 class BookkeepingEntryListPageAsync
@@ -14,7 +14,7 @@ private constructor(
     private val service: BookkeepingEntryServiceAsync,
     private val params: BookkeepingEntryListParams,
     private val response: BookkeepingEntryListPageResponse,
-) {
+) : PageAsync<BookkeepingEntry> {
 
     /**
      * Delegates to [BookkeepingEntryListPageResponse], but gracefully handles missing data.
@@ -30,20 +30,19 @@ private constructor(
      */
     fun nextCursor(): String? = response._nextCursor().getNullable("next_cursor")
 
-    fun hasNextPage(): Boolean = data().isNotEmpty() && nextCursor() != null
+    override fun items(): List<BookkeepingEntry> = data()
 
-    fun getNextPageParams(): BookkeepingEntryListParams? {
-        if (!hasNextPage()) {
-            return null
-        }
+    override fun hasNextPage(): Boolean = items().isNotEmpty() && nextCursor() != null
 
-        return params.toBuilder().apply { nextCursor()?.let { cursor(it) } }.build()
+    fun nextPageParams(): BookkeepingEntryListParams {
+        val nextCursor =
+            nextCursor() ?: throw IllegalStateException("Cannot construct next page params")
+        return params.toBuilder().cursor(nextCursor).build()
     }
 
-    suspend fun getNextPage(): BookkeepingEntryListPageAsync? =
-        getNextPageParams()?.let { service.list(it) }
+    override suspend fun nextPage(): BookkeepingEntryListPageAsync = service.list(nextPageParams())
 
-    fun autoPager(): AutoPager = AutoPager(this)
+    fun autoPager(): AutoPagerAsync<BookkeepingEntry> = AutoPagerAsync.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): BookkeepingEntryListParams = params
@@ -112,21 +111,6 @@ private constructor(
                 checkRequired("params", params),
                 checkRequired("response", response),
             )
-    }
-
-    class AutoPager(private val firstPage: BookkeepingEntryListPageAsync) : Flow<BookkeepingEntry> {
-
-        override suspend fun collect(collector: FlowCollector<BookkeepingEntry>) {
-            var page = firstPage
-            var index = 0
-            while (true) {
-                while (index < page.data().size) {
-                    collector.emit(page.data()[index++])
-                }
-                page = page.getNextPage() ?: break
-                index = 0
-            }
-        }
     }
 
     override fun equals(other: Any?): Boolean {

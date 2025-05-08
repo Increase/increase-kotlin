@@ -2,11 +2,11 @@
 
 package com.increase.api.models.checktransfers
 
+import com.increase.api.core.AutoPagerAsync
+import com.increase.api.core.PageAsync
 import com.increase.api.core.checkRequired
 import com.increase.api.services.async.CheckTransferServiceAsync
 import java.util.Objects
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.FlowCollector
 
 /** @see [CheckTransferServiceAsync.list] */
 class CheckTransferListPageAsync
@@ -14,7 +14,7 @@ private constructor(
     private val service: CheckTransferServiceAsync,
     private val params: CheckTransferListParams,
     private val response: CheckTransferListPageResponse,
-) {
+) : PageAsync<CheckTransfer> {
 
     /**
      * Delegates to [CheckTransferListPageResponse], but gracefully handles missing data.
@@ -30,20 +30,19 @@ private constructor(
      */
     fun nextCursor(): String? = response._nextCursor().getNullable("next_cursor")
 
-    fun hasNextPage(): Boolean = data().isNotEmpty() && nextCursor() != null
+    override fun items(): List<CheckTransfer> = data()
 
-    fun getNextPageParams(): CheckTransferListParams? {
-        if (!hasNextPage()) {
-            return null
-        }
+    override fun hasNextPage(): Boolean = items().isNotEmpty() && nextCursor() != null
 
-        return params.toBuilder().apply { nextCursor()?.let { cursor(it) } }.build()
+    fun nextPageParams(): CheckTransferListParams {
+        val nextCursor =
+            nextCursor() ?: throw IllegalStateException("Cannot construct next page params")
+        return params.toBuilder().cursor(nextCursor).build()
     }
 
-    suspend fun getNextPage(): CheckTransferListPageAsync? =
-        getNextPageParams()?.let { service.list(it) }
+    override suspend fun nextPage(): CheckTransferListPageAsync = service.list(nextPageParams())
 
-    fun autoPager(): AutoPager = AutoPager(this)
+    fun autoPager(): AutoPagerAsync<CheckTransfer> = AutoPagerAsync.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): CheckTransferListParams = params
@@ -109,21 +108,6 @@ private constructor(
                 checkRequired("params", params),
                 checkRequired("response", response),
             )
-    }
-
-    class AutoPager(private val firstPage: CheckTransferListPageAsync) : Flow<CheckTransfer> {
-
-        override suspend fun collect(collector: FlowCollector<CheckTransfer>) {
-            var page = firstPage
-            var index = 0
-            while (true) {
-                while (index < page.data().size) {
-                    collector.emit(page.data()[index++])
-                }
-                page = page.getNextPage() ?: break
-                index = 0
-            }
-        }
     }
 
     override fun equals(other: Any?): Boolean {

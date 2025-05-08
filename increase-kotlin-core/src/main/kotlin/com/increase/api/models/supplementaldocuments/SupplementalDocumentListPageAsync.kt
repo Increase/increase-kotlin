@@ -2,11 +2,11 @@
 
 package com.increase.api.models.supplementaldocuments
 
+import com.increase.api.core.AutoPagerAsync
+import com.increase.api.core.PageAsync
 import com.increase.api.core.checkRequired
 import com.increase.api.services.async.SupplementalDocumentServiceAsync
 import java.util.Objects
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.FlowCollector
 
 /** @see [SupplementalDocumentServiceAsync.list] */
 class SupplementalDocumentListPageAsync
@@ -14,7 +14,7 @@ private constructor(
     private val service: SupplementalDocumentServiceAsync,
     private val params: SupplementalDocumentListParams,
     private val response: SupplementalDocumentListPageResponse,
-) {
+) : PageAsync<EntitySupplementalDocument> {
 
     /**
      * Delegates to [SupplementalDocumentListPageResponse], but gracefully handles missing data.
@@ -31,20 +31,20 @@ private constructor(
      */
     fun nextCursor(): String? = response._nextCursor().getNullable("next_cursor")
 
-    fun hasNextPage(): Boolean = data().isNotEmpty() && nextCursor() != null
+    override fun items(): List<EntitySupplementalDocument> = data()
 
-    fun getNextPageParams(): SupplementalDocumentListParams? {
-        if (!hasNextPage()) {
-            return null
-        }
+    override fun hasNextPage(): Boolean = items().isNotEmpty() && nextCursor() != null
 
-        return params.toBuilder().apply { nextCursor()?.let { cursor(it) } }.build()
+    fun nextPageParams(): SupplementalDocumentListParams {
+        val nextCursor =
+            nextCursor() ?: throw IllegalStateException("Cannot construct next page params")
+        return params.toBuilder().cursor(nextCursor).build()
     }
 
-    suspend fun getNextPage(): SupplementalDocumentListPageAsync? =
-        getNextPageParams()?.let { service.list(it) }
+    override suspend fun nextPage(): SupplementalDocumentListPageAsync =
+        service.list(nextPageParams())
 
-    fun autoPager(): AutoPager = AutoPager(this)
+    fun autoPager(): AutoPagerAsync<EntitySupplementalDocument> = AutoPagerAsync.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): SupplementalDocumentListParams = params
@@ -114,22 +114,6 @@ private constructor(
                 checkRequired("params", params),
                 checkRequired("response", response),
             )
-    }
-
-    class AutoPager(private val firstPage: SupplementalDocumentListPageAsync) :
-        Flow<EntitySupplementalDocument> {
-
-        override suspend fun collect(collector: FlowCollector<EntitySupplementalDocument>) {
-            var page = firstPage
-            var index = 0
-            while (true) {
-                while (index < page.data().size) {
-                    collector.emit(page.data()[index++])
-                }
-                page = page.getNextPage() ?: break
-                index = 0
-            }
-        }
     }
 
     override fun equals(other: Any?): Boolean {

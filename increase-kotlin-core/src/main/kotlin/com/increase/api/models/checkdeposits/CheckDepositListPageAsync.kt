@@ -2,11 +2,11 @@
 
 package com.increase.api.models.checkdeposits
 
+import com.increase.api.core.AutoPagerAsync
+import com.increase.api.core.PageAsync
 import com.increase.api.core.checkRequired
 import com.increase.api.services.async.CheckDepositServiceAsync
 import java.util.Objects
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.FlowCollector
 
 /** @see [CheckDepositServiceAsync.list] */
 class CheckDepositListPageAsync
@@ -14,7 +14,7 @@ private constructor(
     private val service: CheckDepositServiceAsync,
     private val params: CheckDepositListParams,
     private val response: CheckDepositListPageResponse,
-) {
+) : PageAsync<CheckDeposit> {
 
     /**
      * Delegates to [CheckDepositListPageResponse], but gracefully handles missing data.
@@ -30,20 +30,19 @@ private constructor(
      */
     fun nextCursor(): String? = response._nextCursor().getNullable("next_cursor")
 
-    fun hasNextPage(): Boolean = data().isNotEmpty() && nextCursor() != null
+    override fun items(): List<CheckDeposit> = data()
 
-    fun getNextPageParams(): CheckDepositListParams? {
-        if (!hasNextPage()) {
-            return null
-        }
+    override fun hasNextPage(): Boolean = items().isNotEmpty() && nextCursor() != null
 
-        return params.toBuilder().apply { nextCursor()?.let { cursor(it) } }.build()
+    fun nextPageParams(): CheckDepositListParams {
+        val nextCursor =
+            nextCursor() ?: throw IllegalStateException("Cannot construct next page params")
+        return params.toBuilder().cursor(nextCursor).build()
     }
 
-    suspend fun getNextPage(): CheckDepositListPageAsync? =
-        getNextPageParams()?.let { service.list(it) }
+    override suspend fun nextPage(): CheckDepositListPageAsync = service.list(nextPageParams())
 
-    fun autoPager(): AutoPager = AutoPager(this)
+    fun autoPager(): AutoPagerAsync<CheckDeposit> = AutoPagerAsync.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): CheckDepositListParams = params
@@ -109,21 +108,6 @@ private constructor(
                 checkRequired("params", params),
                 checkRequired("response", response),
             )
-    }
-
-    class AutoPager(private val firstPage: CheckDepositListPageAsync) : Flow<CheckDeposit> {
-
-        override suspend fun collect(collector: FlowCollector<CheckDeposit>) {
-            var page = firstPage
-            var index = 0
-            while (true) {
-                while (index < page.data().size) {
-                    collector.emit(page.data()[index++])
-                }
-                page = page.getNextPage() ?: break
-                index = 0
-            }
-        }
     }
 
     override fun equals(other: Any?): Boolean {

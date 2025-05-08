@@ -2,11 +2,11 @@
 
 package com.increase.api.models.physicalcards
 
+import com.increase.api.core.AutoPagerAsync
+import com.increase.api.core.PageAsync
 import com.increase.api.core.checkRequired
 import com.increase.api.services.async.PhysicalCardServiceAsync
 import java.util.Objects
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.FlowCollector
 
 /** @see [PhysicalCardServiceAsync.list] */
 class PhysicalCardListPageAsync
@@ -14,7 +14,7 @@ private constructor(
     private val service: PhysicalCardServiceAsync,
     private val params: PhysicalCardListParams,
     private val response: PhysicalCardListPageResponse,
-) {
+) : PageAsync<PhysicalCard> {
 
     /**
      * Delegates to [PhysicalCardListPageResponse], but gracefully handles missing data.
@@ -30,20 +30,19 @@ private constructor(
      */
     fun nextCursor(): String? = response._nextCursor().getNullable("next_cursor")
 
-    fun hasNextPage(): Boolean = data().isNotEmpty() && nextCursor() != null
+    override fun items(): List<PhysicalCard> = data()
 
-    fun getNextPageParams(): PhysicalCardListParams? {
-        if (!hasNextPage()) {
-            return null
-        }
+    override fun hasNextPage(): Boolean = items().isNotEmpty() && nextCursor() != null
 
-        return params.toBuilder().apply { nextCursor()?.let { cursor(it) } }.build()
+    fun nextPageParams(): PhysicalCardListParams {
+        val nextCursor =
+            nextCursor() ?: throw IllegalStateException("Cannot construct next page params")
+        return params.toBuilder().cursor(nextCursor).build()
     }
 
-    suspend fun getNextPage(): PhysicalCardListPageAsync? =
-        getNextPageParams()?.let { service.list(it) }
+    override suspend fun nextPage(): PhysicalCardListPageAsync = service.list(nextPageParams())
 
-    fun autoPager(): AutoPager = AutoPager(this)
+    fun autoPager(): AutoPagerAsync<PhysicalCard> = AutoPagerAsync.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): PhysicalCardListParams = params
@@ -109,21 +108,6 @@ private constructor(
                 checkRequired("params", params),
                 checkRequired("response", response),
             )
-    }
-
-    class AutoPager(private val firstPage: PhysicalCardListPageAsync) : Flow<PhysicalCard> {
-
-        override suspend fun collect(collector: FlowCollector<PhysicalCard>) {
-            var page = firstPage
-            var index = 0
-            while (true) {
-                while (index < page.data().size) {
-                    collector.emit(page.data()[index++])
-                }
-                page = page.getNextPage() ?: break
-                index = 0
-            }
-        }
     }
 
     override fun equals(other: Any?): Boolean {
