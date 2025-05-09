@@ -67,6 +67,15 @@ private constructor(
     fun programId(): String = body.programId()
 
     /**
+     * Text printed on the front of the card. Reach out to
+     * [support@increase.com](mailto:support@increase.com) for more information.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun frontText(): FrontText? = body.frontText()
+
+    /**
      * Returns the raw JSON value of [carrierImageFileId].
      *
      * Unlike [carrierImageFileId], this method doesn't throw if the JSON field has an unexpected
@@ -102,6 +111,13 @@ private constructor(
      * Unlike [programId], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _programId(): JsonField<String> = body._programId()
+
+    /**
+     * Returns the raw JSON value of [frontText].
+     *
+     * Unlike [frontText], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _frontText(): JsonField<FrontText> = body._frontText()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
@@ -227,6 +243,21 @@ private constructor(
          * value.
          */
         fun programId(programId: JsonField<String>) = apply { body.programId(programId) }
+
+        /**
+         * Text printed on the front of the card. Reach out to
+         * [support@increase.com](mailto:support@increase.com) for more information.
+         */
+        fun frontText(frontText: FrontText) = apply { body.frontText(frontText) }
+
+        /**
+         * Sets [Builder.frontText] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.frontText] with a well-typed [FrontText] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun frontText(frontText: JsonField<FrontText>) = apply { body.frontText(frontText) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             body.additionalProperties(additionalBodyProperties)
@@ -382,6 +413,7 @@ private constructor(
         private val description: JsonField<String>,
         private val frontImageFileId: JsonField<String>,
         private val programId: JsonField<String>,
+        private val frontText: JsonField<FrontText>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -402,12 +434,16 @@ private constructor(
             @JsonProperty("program_id")
             @ExcludeMissing
             programId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("front_text")
+            @ExcludeMissing
+            frontText: JsonField<FrontText> = JsonMissing.of(),
         ) : this(
             carrierImageFileId,
             contactPhone,
             description,
             frontImageFileId,
             programId,
+            frontText,
             mutableMapOf(),
         )
 
@@ -450,6 +486,15 @@ private constructor(
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun programId(): String = programId.getRequired("program_id")
+
+        /**
+         * Text printed on the front of the card. Reach out to
+         * [support@increase.com](mailto:support@increase.com) for more information.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun frontText(): FrontText? = frontText.getNullable("front_text")
 
         /**
          * Returns the raw JSON value of [carrierImageFileId].
@@ -497,6 +542,15 @@ private constructor(
          */
         @JsonProperty("program_id") @ExcludeMissing fun _programId(): JsonField<String> = programId
 
+        /**
+         * Returns the raw JSON value of [frontText].
+         *
+         * Unlike [frontText], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("front_text")
+        @ExcludeMissing
+        fun _frontText(): JsonField<FrontText> = frontText
+
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
             additionalProperties.put(key, value)
@@ -534,6 +588,7 @@ private constructor(
             private var description: JsonField<String>? = null
             private var frontImageFileId: JsonField<String>? = null
             private var programId: JsonField<String>? = null
+            private var frontText: JsonField<FrontText> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(body: Body) = apply {
@@ -542,6 +597,7 @@ private constructor(
                 description = body.description
                 frontImageFileId = body.frontImageFileId
                 programId = body.programId
+                frontText = body.frontText
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
@@ -615,6 +671,21 @@ private constructor(
              */
             fun programId(programId: JsonField<String>) = apply { this.programId = programId }
 
+            /**
+             * Text printed on the front of the card. Reach out to
+             * [support@increase.com](mailto:support@increase.com) for more information.
+             */
+            fun frontText(frontText: FrontText) = frontText(JsonField.of(frontText))
+
+            /**
+             * Sets [Builder.frontText] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.frontText] with a well-typed [FrontText] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun frontText(frontText: JsonField<FrontText>) = apply { this.frontText = frontText }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 putAllAdditionalProperties(additionalProperties)
@@ -657,6 +728,7 @@ private constructor(
                     checkRequired("description", description),
                     checkRequired("frontImageFileId", frontImageFileId),
                     checkRequired("programId", programId),
+                    frontText,
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -673,6 +745,7 @@ private constructor(
             description()
             frontImageFileId()
             programId()
+            frontText()?.validate()
             validated = true
         }
 
@@ -695,24 +768,222 @@ private constructor(
                 (if (contactPhone.asKnown() == null) 0 else 1) +
                 (if (description.asKnown() == null) 0 else 1) +
                 (if (frontImageFileId.asKnown() == null) 0 else 1) +
-                (if (programId.asKnown() == null) 0 else 1)
+                (if (programId.asKnown() == null) 0 else 1) +
+                (frontText.asKnown()?.validity() ?: 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
                 return true
             }
 
-            return /* spotless:off */ other is Body && carrierImageFileId == other.carrierImageFileId && contactPhone == other.contactPhone && description == other.description && frontImageFileId == other.frontImageFileId && programId == other.programId && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Body && carrierImageFileId == other.carrierImageFileId && contactPhone == other.contactPhone && description == other.description && frontImageFileId == other.frontImageFileId && programId == other.programId && frontText == other.frontText && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(carrierImageFileId, contactPhone, description, frontImageFileId, programId, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(carrierImageFileId, contactPhone, description, frontImageFileId, programId, frontText, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{carrierImageFileId=$carrierImageFileId, contactPhone=$contactPhone, description=$description, frontImageFileId=$frontImageFileId, programId=$programId, additionalProperties=$additionalProperties}"
+            "Body{carrierImageFileId=$carrierImageFileId, contactPhone=$contactPhone, description=$description, frontImageFileId=$frontImageFileId, programId=$programId, frontText=$frontText, additionalProperties=$additionalProperties}"
+    }
+
+    /**
+     * Text printed on the front of the card. Reach out to
+     * [support@increase.com](mailto:support@increase.com) for more information.
+     */
+    class FrontText
+    private constructor(
+        private val line1: JsonField<String>,
+        private val line2: JsonField<String>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("line1") @ExcludeMissing line1: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("line2") @ExcludeMissing line2: JsonField<String> = JsonMissing.of(),
+        ) : this(line1, line2, mutableMapOf())
+
+        /**
+         * The first line of text on the front of the card.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun line1(): String = line1.getRequired("line1")
+
+        /**
+         * The second line of text on the front of the card. Providing a second line moves the first
+         * line slightly higher and prints the second line in the spot where the first line would
+         * have otherwise been printed.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun line2(): String? = line2.getNullable("line2")
+
+        /**
+         * Returns the raw JSON value of [line1].
+         *
+         * Unlike [line1], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("line1") @ExcludeMissing fun _line1(): JsonField<String> = line1
+
+        /**
+         * Returns the raw JSON value of [line2].
+         *
+         * Unlike [line2], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("line2") @ExcludeMissing fun _line2(): JsonField<String> = line2
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [FrontText].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .line1()
+             * ```
+             */
+            fun builder() = Builder()
+        }
+
+        /** A builder for [FrontText]. */
+        class Builder internal constructor() {
+
+            private var line1: JsonField<String>? = null
+            private var line2: JsonField<String> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            internal fun from(frontText: FrontText) = apply {
+                line1 = frontText.line1
+                line2 = frontText.line2
+                additionalProperties = frontText.additionalProperties.toMutableMap()
+            }
+
+            /** The first line of text on the front of the card. */
+            fun line1(line1: String) = line1(JsonField.of(line1))
+
+            /**
+             * Sets [Builder.line1] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.line1] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
+
+            /**
+             * The second line of text on the front of the card. Providing a second line moves the
+             * first line slightly higher and prints the second line in the spot where the first
+             * line would have otherwise been printed.
+             */
+            fun line2(line2: String) = line2(JsonField.of(line2))
+
+            /**
+             * Sets [Builder.line2] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.line2] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [FrontText].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .line1()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): FrontText =
+                FrontText(checkRequired("line1", line1), line2, additionalProperties.toMutableMap())
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): FrontText = apply {
+            if (validated) {
+                return@apply
+            }
+
+            line1()
+            line2()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int =
+            (if (line1.asKnown() == null) 0 else 1) + (if (line2.asKnown() == null) 0 else 1)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return /* spotless:off */ other is FrontText && line1 == other.line1 && line2 == other.line2 && additionalProperties == other.additionalProperties /* spotless:on */
+        }
+
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(line1, line2, additionalProperties) }
+        /* spotless:on */
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "FrontText{line1=$line1, line2=$line2, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
