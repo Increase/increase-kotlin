@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.221.0 (2025-05-09)
+
+Full Changelog: [v0.220.0...v0.221.0](https://github.com/Increase/increase-kotlin/compare/v0.220.0...v0.221.0)
+
+### ⚠ BREAKING CHANGES
+
+* **client:** extract auto pagination to shared classes
+* **client:** **Migration:** - If you were referencing the `AutoPager` class on a specific `*Page` or `*PageAsync` type, then you should instead reference the shared `AutoPager` and `AutoPagerAsync` types, under the `core` package
+    - If you were referencing `getNextPage` or `getNextPageParams`:
+       - Swap to `nextPage()` and `nextPageParams()`
+       - Note that these both now return non-nullable types (use `hasNextPage()` before calling these, since they will throw if it's impossible to get another page)
+
+### Features
+
+* **api:** api update ([4089b9f](https://github.com/Increase/increase-kotlin/commit/4089b9fac02ba9f3d57e94794e07d19d1b96c29e))
+* **client:** allow providing some params positionally ([9295901](https://github.com/Increase/increase-kotlin/commit/9295901d9889d12e22fedbec7e4569ca933b5afa))
+* **client:** extract auto pagination to shared classes ([a5b0df9](https://github.com/Increase/increase-kotlin/commit/a5b0df97479d38cceb9f32d2b4dd04b8981d8f91))
+
 ## 0.220.0 (2025-05-07)
 
 Full Changelog: [v0.219.0...v0.220.0](https://github.com/Increase/increase-kotlin/compare/v0.219.0...v0.220.0)
