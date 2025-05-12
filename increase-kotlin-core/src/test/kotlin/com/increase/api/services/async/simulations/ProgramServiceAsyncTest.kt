@@ -21,7 +21,12 @@ internal class ProgramServiceAsyncTest {
         val programServiceAsync = client.simulations().programs()
 
         val program =
-            programServiceAsync.create(ProgramCreateParams.builder().name("For Benefit Of").build())
+            programServiceAsync.create(
+                ProgramCreateParams.builder()
+                    .name("For Benefit Of")
+                    .reserveAccountId("reserve_account_id")
+                    .build()
+            )
 
         program.validate()
     }
