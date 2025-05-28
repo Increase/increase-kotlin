@@ -594,6 +594,12 @@ private constructor(
             /** Occurs whenever an Outbound Card Push Transfer is updated. */
             val OUTBOUND_CARD_PUSH_TRANSFER_UPDATED = of("outbound_card_push_transfer.updated")
 
+            /** Occurs whenever an Outbound Card Validation is created. */
+            val OUTBOUND_CARD_VALIDATION_CREATED = of("outbound_card_validation.created")
+
+            /** Occurs whenever an Outbound Card Validation is updated. */
+            val OUTBOUND_CARD_VALIDATION_UPDATED = of("outbound_card_validation.updated")
+
             /** Occurs whenever a Pending Transaction is created. */
             val PENDING_TRANSACTION_CREATED = of("pending_transaction.created")
 
@@ -822,6 +828,10 @@ private constructor(
             OUTBOUND_CARD_PUSH_TRANSFER_CREATED,
             /** Occurs whenever an Outbound Card Push Transfer is updated. */
             OUTBOUND_CARD_PUSH_TRANSFER_UPDATED,
+            /** Occurs whenever an Outbound Card Validation is created. */
+            OUTBOUND_CARD_VALIDATION_CREATED,
+            /** Occurs whenever an Outbound Card Validation is updated. */
+            OUTBOUND_CARD_VALIDATION_UPDATED,
             /** Occurs whenever a Pending Transaction is created. */
             PENDING_TRANSACTION_CREATED,
             /** Occurs whenever a Pending Transaction is updated. */
@@ -1026,6 +1036,10 @@ private constructor(
             OUTBOUND_CARD_PUSH_TRANSFER_CREATED,
             /** Occurs whenever an Outbound Card Push Transfer is updated. */
             OUTBOUND_CARD_PUSH_TRANSFER_UPDATED,
+            /** Occurs whenever an Outbound Card Validation is created. */
+            OUTBOUND_CARD_VALIDATION_CREATED,
+            /** Occurs whenever an Outbound Card Validation is updated. */
+            OUTBOUND_CARD_VALIDATION_UPDATED,
             /** Occurs whenever a Pending Transaction is created. */
             PENDING_TRANSACTION_CREATED,
             /** Occurs whenever a Pending Transaction is updated. */
@@ -1164,6 +1178,8 @@ private constructor(
                 OAUTH_CONNECTION_DEACTIVATED -> Value.OAUTH_CONNECTION_DEACTIVATED
                 OUTBOUND_CARD_PUSH_TRANSFER_CREATED -> Value.OUTBOUND_CARD_PUSH_TRANSFER_CREATED
                 OUTBOUND_CARD_PUSH_TRANSFER_UPDATED -> Value.OUTBOUND_CARD_PUSH_TRANSFER_UPDATED
+                OUTBOUND_CARD_VALIDATION_CREATED -> Value.OUTBOUND_CARD_VALIDATION_CREATED
+                OUTBOUND_CARD_VALIDATION_UPDATED -> Value.OUTBOUND_CARD_VALIDATION_UPDATED
                 PENDING_TRANSACTION_CREATED -> Value.PENDING_TRANSACTION_CREATED
                 PENDING_TRANSACTION_UPDATED -> Value.PENDING_TRANSACTION_UPDATED
                 PHYSICAL_CARD_CREATED -> Value.PHYSICAL_CARD_CREATED
@@ -1277,6 +1293,8 @@ private constructor(
                 OAUTH_CONNECTION_DEACTIVATED -> Known.OAUTH_CONNECTION_DEACTIVATED
                 OUTBOUND_CARD_PUSH_TRANSFER_CREATED -> Known.OUTBOUND_CARD_PUSH_TRANSFER_CREATED
                 OUTBOUND_CARD_PUSH_TRANSFER_UPDATED -> Known.OUTBOUND_CARD_PUSH_TRANSFER_UPDATED
+                OUTBOUND_CARD_VALIDATION_CREATED -> Known.OUTBOUND_CARD_VALIDATION_CREATED
+                OUTBOUND_CARD_VALIDATION_UPDATED -> Known.OUTBOUND_CARD_VALIDATION_UPDATED
                 PENDING_TRANSACTION_CREATED -> Known.PENDING_TRANSACTION_CREATED
                 PENDING_TRANSACTION_UPDATED -> Known.PENDING_TRANSACTION_UPDATED
                 PHYSICAL_CARD_CREATED -> Known.PHYSICAL_CARD_CREATED
