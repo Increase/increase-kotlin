@@ -21,6 +21,7 @@ private constructor(
     private val createdAt: CreatedAt?,
     private val cursor: String?,
     private val entityId: String?,
+    private val idempotencyKey: String?,
     private val limit: Long?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -35,6 +36,13 @@ private constructor(
 
     /** Filter Documents to ones belonging to the specified Entity. */
     fun entityId(): String? = entityId
+
+    /**
+     * Filter records to the one with the specified `idempotency_key` you chose for that object.
+     * This value is unique across Increase and is used to ensure that a request is only processed
+     * once. Learn more about [idempotency](https://increase.com/documentation/idempotency-keys).
+     */
+    fun idempotencyKey(): String? = idempotencyKey
 
     /** Limit the size of the list that is returned. The default (and maximum) is 100 objects. */
     fun limit(): Long? = limit
@@ -60,6 +68,7 @@ private constructor(
         private var createdAt: CreatedAt? = null
         private var cursor: String? = null
         private var entityId: String? = null
+        private var idempotencyKey: String? = null
         private var limit: Long? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
@@ -69,6 +78,7 @@ private constructor(
             createdAt = documentListParams.createdAt
             cursor = documentListParams.cursor
             entityId = documentListParams.entityId
+            idempotencyKey = documentListParams.idempotencyKey
             limit = documentListParams.limit
             additionalHeaders = documentListParams.additionalHeaders.toBuilder()
             additionalQueryParams = documentListParams.additionalQueryParams.toBuilder()
@@ -83,6 +93,14 @@ private constructor(
 
         /** Filter Documents to ones belonging to the specified Entity. */
         fun entityId(entityId: String?) = apply { this.entityId = entityId }
+
+        /**
+         * Filter records to the one with the specified `idempotency_key` you chose for that object.
+         * This value is unique across Increase and is used to ensure that a request is only
+         * processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        fun idempotencyKey(idempotencyKey: String?) = apply { this.idempotencyKey = idempotencyKey }
 
         /**
          * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
@@ -205,6 +223,7 @@ private constructor(
                 createdAt,
                 cursor,
                 entityId,
+                idempotencyKey,
                 limit,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -251,6 +270,7 @@ private constructor(
                 }
                 cursor?.let { put("cursor", it) }
                 entityId?.let { put("entity_id", it) }
+                idempotencyKey?.let { put("idempotency_key", it) }
                 limit?.let { put("limit", it.toString()) }
                 putAll(additionalQueryParams)
             }
@@ -391,6 +411,9 @@ private constructor(
                  */
                 val COMPANY_INFORMATION = of("company_information")
 
+                /** An account verification letter. */
+                val ACCOUNT_VERIFICATION_LETTER = of("account_verification_letter")
+
                 fun of(value: String) = In(JsonField.of(value))
             }
 
@@ -410,6 +433,8 @@ private constructor(
                  * our due diligence process.
                  */
                 COMPANY_INFORMATION,
+                /** An account verification letter. */
+                ACCOUNT_VERIFICATION_LETTER,
             }
 
             /**
@@ -436,6 +461,8 @@ private constructor(
                  * our due diligence process.
                  */
                 COMPANY_INFORMATION,
+                /** An account verification letter. */
+                ACCOUNT_VERIFICATION_LETTER,
                 /** An enum member indicating that [In] was instantiated with an unknown value. */
                 _UNKNOWN,
             }
@@ -453,6 +480,7 @@ private constructor(
                     FORM_1099_MISC -> Value.FORM_1099_MISC
                     PROOF_OF_AUTHORIZATION -> Value.PROOF_OF_AUTHORIZATION
                     COMPANY_INFORMATION -> Value.COMPANY_INFORMATION
+                    ACCOUNT_VERIFICATION_LETTER -> Value.ACCOUNT_VERIFICATION_LETTER
                     else -> Value._UNKNOWN
                 }
 
@@ -471,6 +499,7 @@ private constructor(
                     FORM_1099_MISC -> Known.FORM_1099_MISC
                     PROOF_OF_AUTHORIZATION -> Known.PROOF_OF_AUTHORIZATION
                     COMPANY_INFORMATION -> Known.COMPANY_INFORMATION
+                    ACCOUNT_VERIFICATION_LETTER -> Known.ACCOUNT_VERIFICATION_LETTER
                     else -> throw IncreaseInvalidDataException("Unknown In: $value")
                 }
 
@@ -706,11 +735,11 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is DocumentListParams && category == other.category && createdAt == other.createdAt && cursor == other.cursor && entityId == other.entityId && limit == other.limit && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return /* spotless:off */ other is DocumentListParams && category == other.category && createdAt == other.createdAt && cursor == other.cursor && entityId == other.entityId && idempotencyKey == other.idempotencyKey && limit == other.limit && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(category, createdAt, cursor, entityId, limit, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int = /* spotless:off */ Objects.hash(category, createdAt, cursor, entityId, idempotencyKey, limit, additionalHeaders, additionalQueryParams) /* spotless:on */
 
     override fun toString() =
-        "DocumentListParams{category=$category, createdAt=$createdAt, cursor=$cursor, entityId=$entityId, limit=$limit, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "DocumentListParams{category=$category, createdAt=$createdAt, cursor=$cursor, entityId=$entityId, idempotencyKey=$idempotencyKey, limit=$limit, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }
