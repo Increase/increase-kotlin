@@ -639,6 +639,9 @@ private constructor(
                 val PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION =
                     of("proof_of_authorization_request_submission")
 
+                /** An account verification letter. */
+                val ACCOUNT_VERIFICATION_LETTER = of("account_verification_letter")
+
                 fun of(value: String) = In(JsonField.of(value))
             }
 
@@ -718,6 +721,8 @@ private constructor(
                  * Submission.
                  */
                 PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION,
+                /** An account verification letter. */
+                ACCOUNT_VERIFICATION_LETTER,
             }
 
             /**
@@ -804,6 +809,8 @@ private constructor(
                  * Submission.
                  */
                 PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION,
+                /** An account verification letter. */
+                ACCOUNT_VERIFICATION_LETTER,
                 /** An enum member indicating that [In] was instantiated with an unknown value. */
                 _UNKNOWN,
             }
@@ -843,6 +850,7 @@ private constructor(
                     DEPOSIT_ACCOUNT_CONTROL_AGREEMENT -> Value.DEPOSIT_ACCOUNT_CONTROL_AGREEMENT
                     PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION ->
                         Value.PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION
+                    ACCOUNT_VERIFICATION_LETTER -> Value.ACCOUNT_VERIFICATION_LETTER
                     else -> Value._UNKNOWN
                 }
 
@@ -883,6 +891,7 @@ private constructor(
                     DEPOSIT_ACCOUNT_CONTROL_AGREEMENT -> Known.DEPOSIT_ACCOUNT_CONTROL_AGREEMENT
                     PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION ->
                         Known.PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION
+                    ACCOUNT_VERIFICATION_LETTER -> Known.ACCOUNT_VERIFICATION_LETTER
                     else -> throw IncreaseInvalidDataException("Unknown In: $value")
                 }
 
