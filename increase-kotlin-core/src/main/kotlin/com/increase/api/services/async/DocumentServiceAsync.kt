@@ -6,6 +6,7 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.documents.Document
+import com.increase.api.models.documents.DocumentCreateParams
 import com.increase.api.models.documents.DocumentListPageAsync
 import com.increase.api.models.documents.DocumentListParams
 import com.increase.api.models.documents.DocumentRetrieveParams
@@ -16,6 +17,12 @@ interface DocumentServiceAsync {
      * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
+
+    /** Create a Document */
+    suspend fun create(
+        params: DocumentCreateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): Document
 
     /** Retrieve a Document */
     suspend fun retrieve(
@@ -48,6 +55,16 @@ interface DocumentServiceAsync {
      * A view of [DocumentServiceAsync] that provides access to raw HTTP responses for each method.
      */
     interface WithRawResponse {
+
+        /**
+         * Returns a raw HTTP response for `post /documents`, but is otherwise the same as
+         * [DocumentServiceAsync.create].
+         */
+        @MustBeClosed
+        suspend fun create(
+            params: DocumentCreateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<Document>
 
         /**
          * Returns a raw HTTP response for `get /documents/{document_id}`, but is otherwise the same
