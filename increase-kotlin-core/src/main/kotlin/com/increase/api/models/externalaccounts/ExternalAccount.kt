@@ -33,7 +33,6 @@ private constructor(
     private val routingNumber: JsonField<String>,
     private val status: JsonField<Status>,
     private val type: JsonField<Type>,
-    private val verificationStatus: JsonField<VerificationStatus>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -61,9 +60,6 @@ private constructor(
         routingNumber: JsonField<String> = JsonMissing.of(),
         @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
         @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
-        @JsonProperty("verification_status")
-        @ExcludeMissing
-        verificationStatus: JsonField<VerificationStatus> = JsonMissing.of(),
     ) : this(
         id,
         accountHolder,
@@ -75,7 +71,6 @@ private constructor(
         routingNumber,
         status,
         type,
-        verificationStatus,
         mutableMapOf(),
     )
 
@@ -164,15 +159,6 @@ private constructor(
     fun type(): Type = type.getRequired("type")
 
     /**
-     * If you have verified ownership of the External Account.
-     *
-     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
-    fun verificationStatus(): VerificationStatus =
-        verificationStatus.getRequired("verification_status")
-
-    /**
      * Returns the raw JSON value of [id].
      *
      * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
@@ -252,16 +238,6 @@ private constructor(
      */
     @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
-    /**
-     * Returns the raw JSON value of [verificationStatus].
-     *
-     * Unlike [verificationStatus], this method doesn't throw if the JSON field has an unexpected
-     * type.
-     */
-    @JsonProperty("verification_status")
-    @ExcludeMissing
-    fun _verificationStatus(): JsonField<VerificationStatus> = verificationStatus
-
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
         additionalProperties.put(key, value)
@@ -291,7 +267,6 @@ private constructor(
          * .routingNumber()
          * .status()
          * .type()
-         * .verificationStatus()
          * ```
          */
         fun builder() = Builder()
@@ -310,7 +285,6 @@ private constructor(
         private var routingNumber: JsonField<String>? = null
         private var status: JsonField<Status>? = null
         private var type: JsonField<Type>? = null
-        private var verificationStatus: JsonField<VerificationStatus>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         internal fun from(externalAccount: ExternalAccount) = apply {
@@ -324,7 +298,6 @@ private constructor(
             routingNumber = externalAccount.routingNumber
             status = externalAccount.status
             type = externalAccount.type
-            verificationStatus = externalAccount.verificationStatus
             additionalProperties = externalAccount.additionalProperties.toMutableMap()
         }
 
@@ -463,21 +436,6 @@ private constructor(
          */
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
-        /** If you have verified ownership of the External Account. */
-        fun verificationStatus(verificationStatus: VerificationStatus) =
-            verificationStatus(JsonField.of(verificationStatus))
-
-        /**
-         * Sets [Builder.verificationStatus] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.verificationStatus] with a well-typed
-         * [VerificationStatus] value instead. This method is primarily for setting the field to an
-         * undocumented or not yet supported value.
-         */
-        fun verificationStatus(verificationStatus: JsonField<VerificationStatus>) = apply {
-            this.verificationStatus = verificationStatus
-        }
-
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
             putAllAdditionalProperties(additionalProperties)
@@ -514,7 +472,6 @@ private constructor(
          * .routingNumber()
          * .status()
          * .type()
-         * .verificationStatus()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
@@ -531,7 +488,6 @@ private constructor(
                 checkRequired("routingNumber", routingNumber),
                 checkRequired("status", status),
                 checkRequired("type", type),
-                checkRequired("verificationStatus", verificationStatus),
                 additionalProperties.toMutableMap(),
             )
     }
@@ -553,7 +509,6 @@ private constructor(
         routingNumber()
         status().validate()
         type().validate()
-        verificationStatus().validate()
         validated = true
     }
 
@@ -580,8 +535,7 @@ private constructor(
             (if (idempotencyKey.asKnown() == null) 0 else 1) +
             (if (routingNumber.asKnown() == null) 0 else 1) +
             (status.asKnown()?.validity() ?: 0) +
-            (type.asKnown()?.validity() ?: 0) +
-            (verificationStatus.asKnown()?.validity() ?: 0)
+            (type.asKnown()?.validity() ?: 0)
 
     /** The type of entity that owns the External Account. */
     class AccountHolder @JsonCreator private constructor(private val value: JsonField<String>) :
@@ -1124,166 +1078,20 @@ private constructor(
         override fun toString() = value.toString()
     }
 
-    /** If you have verified ownership of the External Account. */
-    class VerificationStatus
-    @JsonCreator
-    private constructor(private val value: JsonField<String>) : Enum {
-
-        /**
-         * Returns this class instance's raw value.
-         *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
-         */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        companion object {
-
-            /** The External Account has not been verified. */
-            val UNVERIFIED = of("unverified")
-
-            /** The External Account is in the process of being verified. */
-            val PENDING = of("pending")
-
-            /** The External Account is verified. */
-            val VERIFIED = of("verified")
-
-            fun of(value: String) = VerificationStatus(JsonField.of(value))
-        }
-
-        /** An enum containing [VerificationStatus]'s known values. */
-        enum class Known {
-            /** The External Account has not been verified. */
-            UNVERIFIED,
-            /** The External Account is in the process of being verified. */
-            PENDING,
-            /** The External Account is verified. */
-            VERIFIED,
-        }
-
-        /**
-         * An enum containing [VerificationStatus]'s known values, as well as an [_UNKNOWN] member.
-         *
-         * An instance of [VerificationStatus] can contain an unknown value in a couple of cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
-         * - It was constructed with an arbitrary value using the [of] method.
-         */
-        enum class Value {
-            /** The External Account has not been verified. */
-            UNVERIFIED,
-            /** The External Account is in the process of being verified. */
-            PENDING,
-            /** The External Account is verified. */
-            VERIFIED,
-            /**
-             * An enum member indicating that [VerificationStatus] was instantiated with an unknown
-             * value.
-             */
-            _UNKNOWN,
-        }
-
-        /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
-         *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
-         */
-        fun value(): Value =
-            when (this) {
-                UNVERIFIED -> Value.UNVERIFIED
-                PENDING -> Value.PENDING
-                VERIFIED -> Value.VERIFIED
-                else -> Value._UNKNOWN
-            }
-
-        /**
-         * Returns an enum member corresponding to this class instance's value.
-         *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
-         *
-         * @throws IncreaseInvalidDataException if this class instance's value is a not a known
-         *   member.
-         */
-        fun known(): Known =
-            when (this) {
-                UNVERIFIED -> Known.UNVERIFIED
-                PENDING -> Known.PENDING
-                VERIFIED -> Known.VERIFIED
-                else -> throw IncreaseInvalidDataException("Unknown VerificationStatus: $value")
-            }
-
-        /**
-         * Returns this class instance's primitive wire representation.
-         *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
-         *
-         * @throws IncreaseInvalidDataException if this class instance's value does not have the
-         *   expected primitive type.
-         */
-        fun asString(): String =
-            _value().asString() ?: throw IncreaseInvalidDataException("Value is not a String")
-
-        private var validated: Boolean = false
-
-        fun validate(): VerificationStatus = apply {
-            if (validated) {
-                return@apply
-            }
-
-            known()
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: IncreaseInvalidDataException) {
-                false
-            }
-
-        /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
-         *
-         * Used for best match union deserialization.
-         */
-        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return /* spotless:off */ other is VerificationStatus && value == other.value /* spotless:on */
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-    }
-
     override fun equals(other: Any?): Boolean {
         if (this === other) {
             return true
         }
 
-        return /* spotless:off */ other is ExternalAccount && id == other.id && accountHolder == other.accountHolder && accountNumber == other.accountNumber && createdAt == other.createdAt && description == other.description && funding == other.funding && idempotencyKey == other.idempotencyKey && routingNumber == other.routingNumber && status == other.status && type == other.type && verificationStatus == other.verificationStatus && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is ExternalAccount && id == other.id && accountHolder == other.accountHolder && accountNumber == other.accountNumber && createdAt == other.createdAt && description == other.description && funding == other.funding && idempotencyKey == other.idempotencyKey && routingNumber == other.routingNumber && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, accountHolder, accountNumber, createdAt, description, funding, idempotencyKey, routingNumber, status, type, verificationStatus, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, accountHolder, accountNumber, createdAt, description, funding, idempotencyKey, routingNumber, status, type, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "ExternalAccount{id=$id, accountHolder=$accountHolder, accountNumber=$accountNumber, createdAt=$createdAt, description=$description, funding=$funding, idempotencyKey=$idempotencyKey, routingNumber=$routingNumber, status=$status, type=$type, verificationStatus=$verificationStatus, additionalProperties=$additionalProperties}"
+        "ExternalAccount{id=$id, accountHolder=$accountHolder, accountNumber=$accountNumber, createdAt=$createdAt, description=$description, funding=$funding, idempotencyKey=$idempotencyKey, routingNumber=$routingNumber, status=$status, type=$type, additionalProperties=$additionalProperties}"
 }
