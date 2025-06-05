@@ -6,6 +6,8 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransfer
+import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransferApproveParams
+import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransferCancelParams
 import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransferCreateParams
 import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransferListPageAsync
 import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransferListParams
@@ -62,6 +64,63 @@ interface RealTimePaymentsTransferServiceAsync {
     /** @see [list] */
     suspend fun list(requestOptions: RequestOptions): RealTimePaymentsTransferListPageAsync =
         list(RealTimePaymentsTransferListParams.none(), requestOptions)
+
+    /** Approves an Real-Time Payments Transfer in a pending_approval state. */
+    suspend fun approve(
+        realTimePaymentsTransferId: String,
+        params: RealTimePaymentsTransferApproveParams =
+            RealTimePaymentsTransferApproveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): RealTimePaymentsTransfer =
+        approve(
+            params.toBuilder().realTimePaymentsTransferId(realTimePaymentsTransferId).build(),
+            requestOptions,
+        )
+
+    /** @see [approve] */
+    suspend fun approve(
+        params: RealTimePaymentsTransferApproveParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): RealTimePaymentsTransfer
+
+    /** @see [approve] */
+    suspend fun approve(
+        realTimePaymentsTransferId: String,
+        requestOptions: RequestOptions,
+    ): RealTimePaymentsTransfer =
+        approve(
+            realTimePaymentsTransferId,
+            RealTimePaymentsTransferApproveParams.none(),
+            requestOptions,
+        )
+
+    /** Cancels an Real-Time Payments Transfer in a pending_approval state. */
+    suspend fun cancel(
+        realTimePaymentsTransferId: String,
+        params: RealTimePaymentsTransferCancelParams = RealTimePaymentsTransferCancelParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): RealTimePaymentsTransfer =
+        cancel(
+            params.toBuilder().realTimePaymentsTransferId(realTimePaymentsTransferId).build(),
+            requestOptions,
+        )
+
+    /** @see [cancel] */
+    suspend fun cancel(
+        params: RealTimePaymentsTransferCancelParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): RealTimePaymentsTransfer
+
+    /** @see [cancel] */
+    suspend fun cancel(
+        realTimePaymentsTransferId: String,
+        requestOptions: RequestOptions,
+    ): RealTimePaymentsTransfer =
+        cancel(
+            realTimePaymentsTransferId,
+            RealTimePaymentsTransferCancelParams.none(),
+            requestOptions,
+        )
 
     /**
      * A view of [RealTimePaymentsTransferServiceAsync] that provides access to raw HTTP responses
@@ -131,5 +190,77 @@ interface RealTimePaymentsTransferServiceAsync {
             requestOptions: RequestOptions
         ): HttpResponseFor<RealTimePaymentsTransferListPageAsync> =
             list(RealTimePaymentsTransferListParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `post
+         * /real_time_payments_transfers/{real_time_payments_transfer_id}/approve`, but is otherwise
+         * the same as [RealTimePaymentsTransferServiceAsync.approve].
+         */
+        @MustBeClosed
+        suspend fun approve(
+            realTimePaymentsTransferId: String,
+            params: RealTimePaymentsTransferApproveParams =
+                RealTimePaymentsTransferApproveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<RealTimePaymentsTransfer> =
+            approve(
+                params.toBuilder().realTimePaymentsTransferId(realTimePaymentsTransferId).build(),
+                requestOptions,
+            )
+
+        /** @see [approve] */
+        @MustBeClosed
+        suspend fun approve(
+            params: RealTimePaymentsTransferApproveParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<RealTimePaymentsTransfer>
+
+        /** @see [approve] */
+        @MustBeClosed
+        suspend fun approve(
+            realTimePaymentsTransferId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<RealTimePaymentsTransfer> =
+            approve(
+                realTimePaymentsTransferId,
+                RealTimePaymentsTransferApproveParams.none(),
+                requestOptions,
+            )
+
+        /**
+         * Returns a raw HTTP response for `post
+         * /real_time_payments_transfers/{real_time_payments_transfer_id}/cancel`, but is otherwise
+         * the same as [RealTimePaymentsTransferServiceAsync.cancel].
+         */
+        @MustBeClosed
+        suspend fun cancel(
+            realTimePaymentsTransferId: String,
+            params: RealTimePaymentsTransferCancelParams =
+                RealTimePaymentsTransferCancelParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<RealTimePaymentsTransfer> =
+            cancel(
+                params.toBuilder().realTimePaymentsTransferId(realTimePaymentsTransferId).build(),
+                requestOptions,
+            )
+
+        /** @see [cancel] */
+        @MustBeClosed
+        suspend fun cancel(
+            params: RealTimePaymentsTransferCancelParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<RealTimePaymentsTransfer>
+
+        /** @see [cancel] */
+        @MustBeClosed
+        suspend fun cancel(
+            realTimePaymentsTransferId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<RealTimePaymentsTransfer> =
+            cancel(
+                realTimePaymentsTransferId,
+                RealTimePaymentsTransferCancelParams.none(),
+                requestOptions,
+            )
     }
 }

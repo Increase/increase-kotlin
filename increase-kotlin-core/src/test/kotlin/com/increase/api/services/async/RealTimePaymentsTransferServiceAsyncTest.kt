@@ -70,4 +70,38 @@ internal class RealTimePaymentsTransferServiceAsyncTest {
 
         page.response().validate()
     }
+
+    @Test
+    suspend fun approve() {
+        val client =
+            IncreaseOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val realTimePaymentsTransferServiceAsync = client.realTimePaymentsTransfers()
+
+        val realTimePaymentsTransfer =
+            realTimePaymentsTransferServiceAsync.approve(
+                "real_time_payments_transfer_iyuhl5kdn7ssmup83mvq"
+            )
+
+        realTimePaymentsTransfer.validate()
+    }
+
+    @Test
+    suspend fun cancel() {
+        val client =
+            IncreaseOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val realTimePaymentsTransferServiceAsync = client.realTimePaymentsTransfers()
+
+        val realTimePaymentsTransfer =
+            realTimePaymentsTransferServiceAsync.cancel(
+                "real_time_payments_transfer_iyuhl5kdn7ssmup83mvq"
+            )
+
+        realTimePaymentsTransfer.validate()
+    }
 }
