@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.232.0 (2025-06-05)
+
+Full Changelog: [v0.231.0...v0.232.0](https://github.com/Increase/increase-kotlin/compare/v0.231.0...v0.232.0)
+
+### Features
+
+* **api:** api update ([5a24583](https://github.com/Increase/increase-kotlin/commit/5a245832bff6f89485165ee145135ae58a7c49bd))
+
+
+### Chores
+
+* fix idempotency ([05fba6a](https://github.com/Increase/increase-kotlin/commit/05fba6a6f0a54aec4f7cda431eafdbd0fcfc0457))
+* Update SECURITY.md ([fdafc2e](https://github.com/Increase/increase-kotlin/commit/fdafc2ee31e6a5e859f41de7c4670bd217203fcb))
+
 ## 0.231.0 (2025-06-03)
 
 Full Changelog: [v0.230.0...v0.231.0](https://github.com/Increase/increase-kotlin/compare/v0.230.0...v0.231.0)
