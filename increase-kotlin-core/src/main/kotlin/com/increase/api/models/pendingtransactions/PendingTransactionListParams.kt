@@ -432,6 +432,12 @@ private constructor(
                 val INBOUND_FUNDS_HOLD = of("inbound_funds_hold")
 
                 /**
+                 * Group Initiated Hold Source: details will be under the `group_initiated_hold`
+                 * object.
+                 */
+                val GROUP_INITIATED_HOLD = of("group_initiated_hold")
+
+                /**
                  * Real-Time Payments Transfer Instruction: details will be under the
                  * `real_time_payments_transfer_instruction` object.
                  */
@@ -496,6 +502,11 @@ private constructor(
                 /** Inbound Funds Hold: details will be under the `inbound_funds_hold` object. */
                 INBOUND_FUNDS_HOLD,
                 /**
+                 * Group Initiated Hold Source: details will be under the `group_initiated_hold`
+                 * object.
+                 */
+                GROUP_INITIATED_HOLD,
+                /**
                  * Real-Time Payments Transfer Instruction: details will be under the
                  * `real_time_payments_transfer_instruction` object.
                  */
@@ -559,6 +570,11 @@ private constructor(
                 /** Inbound Funds Hold: details will be under the `inbound_funds_hold` object. */
                 INBOUND_FUNDS_HOLD,
                 /**
+                 * Group Initiated Hold Source: details will be under the `group_initiated_hold`
+                 * object.
+                 */
+                GROUP_INITIATED_HOLD,
+                /**
                  * Real-Time Payments Transfer Instruction: details will be under the
                  * `real_time_payments_transfer_instruction` object.
                  */
@@ -604,6 +620,7 @@ private constructor(
                     CHECK_DEPOSIT_INSTRUCTION -> Value.CHECK_DEPOSIT_INSTRUCTION
                     CHECK_TRANSFER_INSTRUCTION -> Value.CHECK_TRANSFER_INSTRUCTION
                     INBOUND_FUNDS_HOLD -> Value.INBOUND_FUNDS_HOLD
+                    GROUP_INITIATED_HOLD -> Value.GROUP_INITIATED_HOLD
                     REAL_TIME_PAYMENTS_TRANSFER_INSTRUCTION ->
                         Value.REAL_TIME_PAYMENTS_TRANSFER_INSTRUCTION
                     WIRE_TRANSFER_INSTRUCTION -> Value.WIRE_TRANSFER_INSTRUCTION
@@ -632,6 +649,7 @@ private constructor(
                     CHECK_DEPOSIT_INSTRUCTION -> Known.CHECK_DEPOSIT_INSTRUCTION
                     CHECK_TRANSFER_INSTRUCTION -> Known.CHECK_TRANSFER_INSTRUCTION
                     INBOUND_FUNDS_HOLD -> Known.INBOUND_FUNDS_HOLD
+                    GROUP_INITIATED_HOLD -> Known.GROUP_INITIATED_HOLD
                     REAL_TIME_PAYMENTS_TRANSFER_INSTRUCTION ->
                         Known.REAL_TIME_PAYMENTS_TRANSFER_INSTRUCTION
                     WIRE_TRANSFER_INSTRUCTION -> Known.WIRE_TRANSFER_INSTRUCTION
