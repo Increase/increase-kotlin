@@ -939,6 +939,7 @@ private constructor(
         private val category: JsonField<Category>,
         private val checkDepositInstruction: JsonField<CheckDepositInstruction>,
         private val checkTransferInstruction: JsonField<CheckTransferInstruction>,
+        private val groupInitiatedHold: JsonField<GroupInitiatedHold>,
         private val inboundFundsHold: JsonField<InboundFundsHold>,
         private val inboundWireTransferReversal: JsonField<InboundWireTransferReversal>,
         private val other: JsonValue,
@@ -971,6 +972,9 @@ private constructor(
             @JsonProperty("check_transfer_instruction")
             @ExcludeMissing
             checkTransferInstruction: JsonField<CheckTransferInstruction> = JsonMissing.of(),
+            @JsonProperty("group_initiated_hold")
+            @ExcludeMissing
+            groupInitiatedHold: JsonField<GroupInitiatedHold> = JsonMissing.of(),
             @JsonProperty("inbound_funds_hold")
             @ExcludeMissing
             inboundFundsHold: JsonField<InboundFundsHold> = JsonMissing.of(),
@@ -999,6 +1003,7 @@ private constructor(
             category,
             checkDepositInstruction,
             checkTransferInstruction,
+            groupInitiatedHold,
             inboundFundsHold,
             inboundWireTransferReversal,
             other,
@@ -1068,6 +1073,16 @@ private constructor(
          */
         fun checkTransferInstruction(): CheckTransferInstruction? =
             checkTransferInstruction.getNullable("check_transfer_instruction")
+
+        /**
+         * A Group Initiated Hold Source object. This field will be present in the JSON response if
+         * and only if `category` is equal to `group_initiated_hold`.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun groupInitiatedHold(): GroupInitiatedHold? =
+            groupInitiatedHold.getNullable("group_initiated_hold")
 
         /**
          * An Inbound Funds Hold object. This field will be present in the JSON response if and only
@@ -1203,6 +1218,16 @@ private constructor(
             checkTransferInstruction
 
         /**
+         * Returns the raw JSON value of [groupInitiatedHold].
+         *
+         * Unlike [groupInitiatedHold], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("group_initiated_hold")
+        @ExcludeMissing
+        fun _groupInitiatedHold(): JsonField<GroupInitiatedHold> = groupInitiatedHold
+
+        /**
          * Returns the raw JSON value of [inboundFundsHold].
          *
          * Unlike [inboundFundsHold], this method doesn't throw if the JSON field has an unexpected
@@ -1291,6 +1316,7 @@ private constructor(
              * .category()
              * .checkDepositInstruction()
              * .checkTransferInstruction()
+             * .groupInitiatedHold()
              * .inboundFundsHold()
              * .inboundWireTransferReversal()
              * .other()
@@ -1312,6 +1338,7 @@ private constructor(
             private var category: JsonField<Category>? = null
             private var checkDepositInstruction: JsonField<CheckDepositInstruction>? = null
             private var checkTransferInstruction: JsonField<CheckTransferInstruction>? = null
+            private var groupInitiatedHold: JsonField<GroupInitiatedHold>? = null
             private var inboundFundsHold: JsonField<InboundFundsHold>? = null
             private var inboundWireTransferReversal: JsonField<InboundWireTransferReversal>? = null
             private var other: JsonValue? = null
@@ -1332,6 +1359,7 @@ private constructor(
                 category = source.category
                 checkDepositInstruction = source.checkDepositInstruction
                 checkTransferInstruction = source.checkTransferInstruction
+                groupInitiatedHold = source.groupInitiatedHold
                 inboundFundsHold = source.inboundFundsHold
                 inboundWireTransferReversal = source.inboundWireTransferReversal
                 other = source.other
@@ -1450,6 +1478,24 @@ private constructor(
             fun checkTransferInstruction(
                 checkTransferInstruction: JsonField<CheckTransferInstruction>
             ) = apply { this.checkTransferInstruction = checkTransferInstruction }
+
+            /**
+             * A Group Initiated Hold Source object. This field will be present in the JSON response
+             * if and only if `category` is equal to `group_initiated_hold`.
+             */
+            fun groupInitiatedHold(groupInitiatedHold: GroupInitiatedHold?) =
+                groupInitiatedHold(JsonField.ofNullable(groupInitiatedHold))
+
+            /**
+             * Sets [Builder.groupInitiatedHold] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.groupInitiatedHold] with a well-typed
+             * [GroupInitiatedHold] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
+             */
+            fun groupInitiatedHold(groupInitiatedHold: JsonField<GroupInitiatedHold>) = apply {
+                this.groupInitiatedHold = groupInitiatedHold
+            }
 
             /**
              * An Inbound Funds Hold object. This field will be present in the JSON response if and
@@ -1616,6 +1662,7 @@ private constructor(
              * .category()
              * .checkDepositInstruction()
              * .checkTransferInstruction()
+             * .groupInitiatedHold()
              * .inboundFundsHold()
              * .inboundWireTransferReversal()
              * .other()
@@ -1635,6 +1682,7 @@ private constructor(
                     checkRequired("category", category),
                     checkRequired("checkDepositInstruction", checkDepositInstruction),
                     checkRequired("checkTransferInstruction", checkTransferInstruction),
+                    checkRequired("groupInitiatedHold", groupInitiatedHold),
                     checkRequired("inboundFundsHold", inboundFundsHold),
                     checkRequired("inboundWireTransferReversal", inboundWireTransferReversal),
                     checkRequired("other", other),
@@ -1665,6 +1713,7 @@ private constructor(
             category().validate()
             checkDepositInstruction()?.validate()
             checkTransferInstruction()?.validate()
+            groupInitiatedHold()?.validate()
             inboundFundsHold()?.validate()
             inboundWireTransferReversal()?.validate()
             outboundCardPushTransferInstruction()?.validate()
@@ -1695,6 +1744,7 @@ private constructor(
                 (category.asKnown()?.validity() ?: 0) +
                 (checkDepositInstruction.asKnown()?.validity() ?: 0) +
                 (checkTransferInstruction.asKnown()?.validity() ?: 0) +
+                (groupInitiatedHold.asKnown()?.validity() ?: 0) +
                 (inboundFundsHold.asKnown()?.validity() ?: 0) +
                 (inboundWireTransferReversal.asKnown()?.validity() ?: 0) +
                 (outboundCardPushTransferInstruction.asKnown()?.validity() ?: 0) +
@@ -7463,6 +7513,12 @@ private constructor(
                 val INBOUND_FUNDS_HOLD = of("inbound_funds_hold")
 
                 /**
+                 * Group Initiated Hold Source: details will be under the `group_initiated_hold`
+                 * object.
+                 */
+                val GROUP_INITIATED_HOLD = of("group_initiated_hold")
+
+                /**
                  * Real-Time Payments Transfer Instruction: details will be under the
                  * `real_time_payments_transfer_instruction` object.
                  */
@@ -7527,6 +7583,11 @@ private constructor(
                 /** Inbound Funds Hold: details will be under the `inbound_funds_hold` object. */
                 INBOUND_FUNDS_HOLD,
                 /**
+                 * Group Initiated Hold Source: details will be under the `group_initiated_hold`
+                 * object.
+                 */
+                GROUP_INITIATED_HOLD,
+                /**
                  * Real-Time Payments Transfer Instruction: details will be under the
                  * `real_time_payments_transfer_instruction` object.
                  */
@@ -7590,6 +7651,11 @@ private constructor(
                 /** Inbound Funds Hold: details will be under the `inbound_funds_hold` object. */
                 INBOUND_FUNDS_HOLD,
                 /**
+                 * Group Initiated Hold Source: details will be under the `group_initiated_hold`
+                 * object.
+                 */
+                GROUP_INITIATED_HOLD,
+                /**
                  * Real-Time Payments Transfer Instruction: details will be under the
                  * `real_time_payments_transfer_instruction` object.
                  */
@@ -7637,6 +7703,7 @@ private constructor(
                     CHECK_DEPOSIT_INSTRUCTION -> Value.CHECK_DEPOSIT_INSTRUCTION
                     CHECK_TRANSFER_INSTRUCTION -> Value.CHECK_TRANSFER_INSTRUCTION
                     INBOUND_FUNDS_HOLD -> Value.INBOUND_FUNDS_HOLD
+                    GROUP_INITIATED_HOLD -> Value.GROUP_INITIATED_HOLD
                     REAL_TIME_PAYMENTS_TRANSFER_INSTRUCTION ->
                         Value.REAL_TIME_PAYMENTS_TRANSFER_INSTRUCTION
                     WIRE_TRANSFER_INSTRUCTION -> Value.WIRE_TRANSFER_INSTRUCTION
@@ -7665,6 +7732,7 @@ private constructor(
                     CHECK_DEPOSIT_INSTRUCTION -> Known.CHECK_DEPOSIT_INSTRUCTION
                     CHECK_TRANSFER_INSTRUCTION -> Known.CHECK_TRANSFER_INSTRUCTION
                     INBOUND_FUNDS_HOLD -> Known.INBOUND_FUNDS_HOLD
+                    GROUP_INITIATED_HOLD -> Known.GROUP_INITIATED_HOLD
                     REAL_TIME_PAYMENTS_TRANSFER_INSTRUCTION ->
                         Known.REAL_TIME_PAYMENTS_TRANSFER_INSTRUCTION
                     WIRE_TRANSFER_INSTRUCTION -> Known.WIRE_TRANSFER_INSTRUCTION
@@ -8696,6 +8764,168 @@ private constructor(
 
             override fun toString() =
                 "CheckTransferInstruction{amount=$amount, currency=$currency, transferId=$transferId, additionalProperties=$additionalProperties}"
+        }
+
+        /**
+         * A Group Initiated Hold Source object. This field will be present in the JSON response if
+         * and only if `category` is equal to `group_initiated_hold`.
+         */
+        class GroupInitiatedHold
+        private constructor(
+            private val id: JsonField<String>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of()
+            ) : this(id, mutableMapOf())
+
+            /**
+             * The Group Initiated Hold identifier.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun id(): String = id.getRequired("id")
+
+            /**
+             * Returns the raw JSON value of [id].
+             *
+             * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /**
+                 * Returns a mutable builder for constructing an instance of [GroupInitiatedHold].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .id()
+                 * ```
+                 */
+                fun builder() = Builder()
+            }
+
+            /** A builder for [GroupInitiatedHold]. */
+            class Builder internal constructor() {
+
+                private var id: JsonField<String>? = null
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                internal fun from(groupInitiatedHold: GroupInitiatedHold) = apply {
+                    id = groupInitiatedHold.id
+                    additionalProperties = groupInitiatedHold.additionalProperties.toMutableMap()
+                }
+
+                /** The Group Initiated Hold identifier. */
+                fun id(id: String) = id(JsonField.of(id))
+
+                /**
+                 * Sets [Builder.id] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.id] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
+                fun id(id: JsonField<String>) = apply { this.id = id }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [GroupInitiatedHold].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .id()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
+                fun build(): GroupInitiatedHold =
+                    GroupInitiatedHold(checkRequired("id", id), additionalProperties.toMutableMap())
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): GroupInitiatedHold = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                id()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            internal fun validity(): Int = (if (id.asKnown() == null) 0 else 1)
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return /* spotless:off */ other is GroupInitiatedHold && id == other.id && additionalProperties == other.additionalProperties /* spotless:on */
+            }
+
+            /* spotless:off */
+            private val hashCode: Int by lazy { Objects.hash(id, additionalProperties) }
+            /* spotless:on */
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "GroupInitiatedHold{id=$id, additionalProperties=$additionalProperties}"
         }
 
         /**
@@ -10868,17 +11098,17 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Source && accountTransferInstruction == other.accountTransferInstruction && achTransferInstruction == other.achTransferInstruction && cardAuthorization == other.cardAuthorization && category == other.category && checkDepositInstruction == other.checkDepositInstruction && checkTransferInstruction == other.checkTransferInstruction && inboundFundsHold == other.inboundFundsHold && inboundWireTransferReversal == other.inboundWireTransferReversal && this.other == other.other && outboundCardPushTransferInstruction == other.outboundCardPushTransferInstruction && realTimePaymentsTransferInstruction == other.realTimePaymentsTransferInstruction && swiftTransferInstruction == other.swiftTransferInstruction && wireTransferInstruction == other.wireTransferInstruction && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Source && accountTransferInstruction == other.accountTransferInstruction && achTransferInstruction == other.achTransferInstruction && cardAuthorization == other.cardAuthorization && category == other.category && checkDepositInstruction == other.checkDepositInstruction && checkTransferInstruction == other.checkTransferInstruction && groupInitiatedHold == other.groupInitiatedHold && inboundFundsHold == other.inboundFundsHold && inboundWireTransferReversal == other.inboundWireTransferReversal && this.other == other.other && outboundCardPushTransferInstruction == other.outboundCardPushTransferInstruction && realTimePaymentsTransferInstruction == other.realTimePaymentsTransferInstruction && swiftTransferInstruction == other.swiftTransferInstruction && wireTransferInstruction == other.wireTransferInstruction && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(accountTransferInstruction, achTransferInstruction, cardAuthorization, category, checkDepositInstruction, checkTransferInstruction, inboundFundsHold, inboundWireTransferReversal, other, outboundCardPushTransferInstruction, realTimePaymentsTransferInstruction, swiftTransferInstruction, wireTransferInstruction, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(accountTransferInstruction, achTransferInstruction, cardAuthorization, category, checkDepositInstruction, checkTransferInstruction, groupInitiatedHold, inboundFundsHold, inboundWireTransferReversal, other, outboundCardPushTransferInstruction, realTimePaymentsTransferInstruction, swiftTransferInstruction, wireTransferInstruction, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Source{accountTransferInstruction=$accountTransferInstruction, achTransferInstruction=$achTransferInstruction, cardAuthorization=$cardAuthorization, category=$category, checkDepositInstruction=$checkDepositInstruction, checkTransferInstruction=$checkTransferInstruction, inboundFundsHold=$inboundFundsHold, inboundWireTransferReversal=$inboundWireTransferReversal, other=$other, outboundCardPushTransferInstruction=$outboundCardPushTransferInstruction, realTimePaymentsTransferInstruction=$realTimePaymentsTransferInstruction, swiftTransferInstruction=$swiftTransferInstruction, wireTransferInstruction=$wireTransferInstruction, additionalProperties=$additionalProperties}"
+            "Source{accountTransferInstruction=$accountTransferInstruction, achTransferInstruction=$achTransferInstruction, cardAuthorization=$cardAuthorization, category=$category, checkDepositInstruction=$checkDepositInstruction, checkTransferInstruction=$checkTransferInstruction, groupInitiatedHold=$groupInitiatedHold, inboundFundsHold=$inboundFundsHold, inboundWireTransferReversal=$inboundWireTransferReversal, other=$other, outboundCardPushTransferInstruction=$outboundCardPushTransferInstruction, realTimePaymentsTransferInstruction=$realTimePaymentsTransferInstruction, swiftTransferInstruction=$swiftTransferInstruction, wireTransferInstruction=$wireTransferInstruction, additionalProperties=$additionalProperties}"
     }
 
     /** Whether the Pending Transaction has been confirmed and has an associated Transaction. */
