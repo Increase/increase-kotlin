@@ -80,6 +80,7 @@ internal constructor(private val clientOptions: ClientOptions) : InboundCheckDep
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("inbound_check_deposits", params._pathParam(0))
                     .build()
                     .prepare(clientOptions, params)
@@ -107,6 +108,7 @@ internal constructor(private val clientOptions: ClientOptions) : InboundCheckDep
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("inbound_check_deposits")
                     .build()
                     .prepare(clientOptions, params)
@@ -144,6 +146,7 @@ internal constructor(private val clientOptions: ClientOptions) : InboundCheckDep
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("inbound_check_deposits", params._pathParam(0), "decline")
                     .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
                     .build()
@@ -175,6 +178,7 @@ internal constructor(private val clientOptions: ClientOptions) : InboundCheckDep
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("inbound_check_deposits", params._pathParam(0), "return")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()

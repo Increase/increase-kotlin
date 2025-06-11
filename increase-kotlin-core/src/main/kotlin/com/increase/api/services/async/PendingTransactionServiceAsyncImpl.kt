@@ -62,6 +62,7 @@ internal constructor(private val clientOptions: ClientOptions) : PendingTransact
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("pending_transactions", params._pathParam(0))
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -89,6 +90,7 @@ internal constructor(private val clientOptions: ClientOptions) : PendingTransact
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("pending_transactions")
                     .build()
                     .prepareAsync(clientOptions, params)

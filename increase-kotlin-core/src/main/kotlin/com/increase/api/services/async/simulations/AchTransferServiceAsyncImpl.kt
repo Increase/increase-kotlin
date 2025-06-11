@@ -85,6 +85,7 @@ class AchTransferServiceAsyncImpl internal constructor(private val clientOptions
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments(
                         "simulations",
                         "ach_transfers",
@@ -120,6 +121,7 @@ class AchTransferServiceAsyncImpl internal constructor(private val clientOptions
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments(
                         "simulations",
                         "ach_transfers",
@@ -155,6 +157,7 @@ class AchTransferServiceAsyncImpl internal constructor(private val clientOptions
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("simulations", "ach_transfers", params._pathParam(0), "return")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -185,6 +188,7 @@ class AchTransferServiceAsyncImpl internal constructor(private val clientOptions
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("simulations", "ach_transfers", params._pathParam(0), "settle")
                     .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
                     .build()
@@ -215,6 +219,7 @@ class AchTransferServiceAsyncImpl internal constructor(private val clientOptions
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("simulations", "ach_transfers", params._pathParam(0), "submit")
                     .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
                     .build()

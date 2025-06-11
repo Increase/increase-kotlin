@@ -76,6 +76,7 @@ class AccountNumberServiceAsyncImpl internal constructor(private val clientOptio
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("account_numbers")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -106,6 +107,7 @@ class AccountNumberServiceAsyncImpl internal constructor(private val clientOptio
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("account_numbers", params._pathParam(0))
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -135,6 +137,7 @@ class AccountNumberServiceAsyncImpl internal constructor(private val clientOptio
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.PATCH)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("account_numbers", params._pathParam(0))
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -163,6 +166,7 @@ class AccountNumberServiceAsyncImpl internal constructor(private val clientOptio
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("account_numbers")
                     .build()
                     .prepareAsync(clientOptions, params)

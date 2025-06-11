@@ -68,6 +68,7 @@ class AchPrenotificationServiceImpl internal constructor(private val clientOptio
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("ach_prenotifications")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -98,6 +99,7 @@ class AchPrenotificationServiceImpl internal constructor(private val clientOptio
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("ach_prenotifications", params._pathParam(0))
                     .build()
                     .prepare(clientOptions, params)
@@ -125,6 +127,7 @@ class AchPrenotificationServiceImpl internal constructor(private val clientOptio
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("ach_prenotifications")
                     .build()
                     .prepare(clientOptions, params)

@@ -62,6 +62,7 @@ internal constructor(private val clientOptions: ClientOptions) : DigitalWalletTo
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("digital_wallet_tokens", params._pathParam(0))
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -89,6 +90,7 @@ internal constructor(private val clientOptions: ClientOptions) : DigitalWalletTo
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("digital_wallet_tokens")
                     .build()
                     .prepareAsync(clientOptions, params)

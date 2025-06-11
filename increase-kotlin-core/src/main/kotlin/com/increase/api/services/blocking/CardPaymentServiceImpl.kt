@@ -62,6 +62,7 @@ class CardPaymentServiceImpl internal constructor(private val clientOptions: Cli
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("card_payments", params._pathParam(0))
                     .build()
                     .prepare(clientOptions, params)
@@ -89,6 +90,7 @@ class CardPaymentServiceImpl internal constructor(private val clientOptions: Cli
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("card_payments")
                     .build()
                     .prepare(clientOptions, params)

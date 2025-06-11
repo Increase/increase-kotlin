@@ -62,6 +62,7 @@ class BookkeepingEntryServiceImpl internal constructor(private val clientOptions
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("bookkeeping_entries", params._pathParam(0))
                     .build()
                     .prepare(clientOptions, params)
@@ -89,6 +90,7 @@ class BookkeepingEntryServiceImpl internal constructor(private val clientOptions
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("bookkeeping_entries")
                     .build()
                     .prepare(clientOptions, params)

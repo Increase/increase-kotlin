@@ -124,6 +124,7 @@ class EntityServiceAsyncImpl internal constructor(private val clientOptions: Cli
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("entities")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -154,6 +155,7 @@ class EntityServiceAsyncImpl internal constructor(private val clientOptions: Cli
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("entities", params._pathParam(0))
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -181,6 +183,7 @@ class EntityServiceAsyncImpl internal constructor(private val clientOptions: Cli
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("entities")
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -217,6 +220,7 @@ class EntityServiceAsyncImpl internal constructor(private val clientOptions: Cli
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("entities", params._pathParam(0), "archive")
                     .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
                     .build()
@@ -247,6 +251,7 @@ class EntityServiceAsyncImpl internal constructor(private val clientOptions: Cli
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("entities", params._pathParam(0), "archive_beneficial_owner")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -277,6 +282,7 @@ class EntityServiceAsyncImpl internal constructor(private val clientOptions: Cli
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("entities", params._pathParam(0), "confirm")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -307,6 +313,7 @@ class EntityServiceAsyncImpl internal constructor(private val clientOptions: Cli
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("entities", params._pathParam(0), "create_beneficial_owner")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -337,6 +344,7 @@ class EntityServiceAsyncImpl internal constructor(private val clientOptions: Cli
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("entities", params._pathParam(0), "update_address")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -367,6 +375,7 @@ class EntityServiceAsyncImpl internal constructor(private val clientOptions: Cli
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments(
                         "entities",
                         params._pathParam(0),
@@ -401,6 +410,7 @@ class EntityServiceAsyncImpl internal constructor(private val clientOptions: Cli
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("entities", params._pathParam(0), "update_industry_code")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()

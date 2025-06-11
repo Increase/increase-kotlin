@@ -69,6 +69,7 @@ class CheckDepositServiceImpl internal constructor(private val clientOptions: Cl
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments(
                         "simulations",
                         "check_deposits",
@@ -104,6 +105,7 @@ class CheckDepositServiceImpl internal constructor(private val clientOptions: Cl
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments(
                         "simulations",
                         "check_deposits",
@@ -139,6 +141,7 @@ class CheckDepositServiceImpl internal constructor(private val clientOptions: Cl
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments(
                         "simulations",
                         "check_deposits",
