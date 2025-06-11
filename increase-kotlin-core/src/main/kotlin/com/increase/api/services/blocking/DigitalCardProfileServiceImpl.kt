@@ -84,6 +84,7 @@ class DigitalCardProfileServiceImpl internal constructor(private val clientOptio
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("digital_card_profiles")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -114,6 +115,7 @@ class DigitalCardProfileServiceImpl internal constructor(private val clientOptio
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("digital_card_profiles", params._pathParam(0))
                     .build()
                     .prepare(clientOptions, params)
@@ -141,6 +143,7 @@ class DigitalCardProfileServiceImpl internal constructor(private val clientOptio
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("digital_card_profiles")
                     .build()
                     .prepare(clientOptions, params)
@@ -177,6 +180,7 @@ class DigitalCardProfileServiceImpl internal constructor(private val clientOptio
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("digital_card_profiles", params._pathParam(0), "archive")
                     .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
                     .build()
@@ -207,6 +211,7 @@ class DigitalCardProfileServiceImpl internal constructor(private val clientOptio
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("digital_card_profiles", params._pathParam(0), "clone")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()

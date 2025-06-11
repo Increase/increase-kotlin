@@ -87,6 +87,7 @@ class InboundAchTransferServiceImpl internal constructor(private val clientOptio
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("inbound_ach_transfers", params._pathParam(0))
                     .build()
                     .prepare(clientOptions, params)
@@ -114,6 +115,7 @@ class InboundAchTransferServiceImpl internal constructor(private val clientOptio
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("inbound_ach_transfers")
                     .build()
                     .prepare(clientOptions, params)
@@ -150,6 +152,7 @@ class InboundAchTransferServiceImpl internal constructor(private val clientOptio
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments(
                         "inbound_ach_transfers",
                         params._pathParam(0),
@@ -184,6 +187,7 @@ class InboundAchTransferServiceImpl internal constructor(private val clientOptio
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("inbound_ach_transfers", params._pathParam(0), "decline")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -214,6 +218,7 @@ class InboundAchTransferServiceImpl internal constructor(private val clientOptio
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments(
                         "inbound_ach_transfers",
                         params._pathParam(0),

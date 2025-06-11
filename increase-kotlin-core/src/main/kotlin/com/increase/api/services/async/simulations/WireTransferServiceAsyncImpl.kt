@@ -61,6 +61,7 @@ class WireTransferServiceAsyncImpl internal constructor(private val clientOption
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments(
                         "simulations",
                         "wire_transfers",
@@ -96,6 +97,7 @@ class WireTransferServiceAsyncImpl internal constructor(private val clientOption
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments(
                         "simulations",
                         "wire_transfers",

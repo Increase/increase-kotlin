@@ -62,6 +62,7 @@ class CardPaymentServiceAsyncImpl internal constructor(private val clientOptions
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("card_payments", params._pathParam(0))
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -89,6 +90,7 @@ class CardPaymentServiceAsyncImpl internal constructor(private val clientOptions
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("card_payments")
                     .build()
                     .prepareAsync(clientOptions, params)

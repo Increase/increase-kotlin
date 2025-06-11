@@ -92,6 +92,7 @@ class CheckTransferServiceImpl internal constructor(private val clientOptions: C
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("check_transfers")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -122,6 +123,7 @@ class CheckTransferServiceImpl internal constructor(private val clientOptions: C
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("check_transfers", params._pathParam(0))
                     .build()
                     .prepare(clientOptions, params)
@@ -149,6 +151,7 @@ class CheckTransferServiceImpl internal constructor(private val clientOptions: C
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("check_transfers")
                     .build()
                     .prepare(clientOptions, params)
@@ -185,6 +188,7 @@ class CheckTransferServiceImpl internal constructor(private val clientOptions: C
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("check_transfers", params._pathParam(0), "approve")
                     .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
                     .build()
@@ -215,6 +219,7 @@ class CheckTransferServiceImpl internal constructor(private val clientOptions: C
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("check_transfers", params._pathParam(0), "cancel")
                     .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
                     .build()
@@ -245,6 +250,7 @@ class CheckTransferServiceImpl internal constructor(private val clientOptions: C
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("check_transfers", params._pathParam(0), "stop_payment")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()

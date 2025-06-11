@@ -76,6 +76,7 @@ internal constructor(private val clientOptions: ClientOptions) : IntrafiExclusio
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("intrafi_exclusions")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -106,6 +107,7 @@ internal constructor(private val clientOptions: ClientOptions) : IntrafiExclusio
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("intrafi_exclusions", params._pathParam(0))
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -133,6 +135,7 @@ internal constructor(private val clientOptions: ClientOptions) : IntrafiExclusio
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("intrafi_exclusions")
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -169,6 +172,7 @@ internal constructor(private val clientOptions: ClientOptions) : IntrafiExclusio
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("intrafi_exclusions", params._pathParam(0), "archive")
                     .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
                     .build()
