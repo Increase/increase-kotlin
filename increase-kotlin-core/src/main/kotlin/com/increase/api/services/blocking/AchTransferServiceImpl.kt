@@ -84,6 +84,7 @@ class AchTransferServiceImpl internal constructor(private val clientOptions: Cli
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("ach_transfers")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -114,6 +115,7 @@ class AchTransferServiceImpl internal constructor(private val clientOptions: Cli
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("ach_transfers", params._pathParam(0))
                     .build()
                     .prepare(clientOptions, params)
@@ -141,6 +143,7 @@ class AchTransferServiceImpl internal constructor(private val clientOptions: Cli
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("ach_transfers")
                     .build()
                     .prepare(clientOptions, params)
@@ -177,6 +180,7 @@ class AchTransferServiceImpl internal constructor(private val clientOptions: Cli
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("ach_transfers", params._pathParam(0), "approve")
                     .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
                     .build()
@@ -207,6 +211,7 @@ class AchTransferServiceImpl internal constructor(private val clientOptions: Cli
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("ach_transfers", params._pathParam(0), "cancel")
                     .apply { params._body()?.let { body(json(clientOptions.jsonMapper, it)) } }
                     .build()

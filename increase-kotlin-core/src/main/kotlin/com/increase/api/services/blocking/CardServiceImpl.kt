@@ -69,6 +69,7 @@ class CardServiceImpl internal constructor(private val clientOptions: ClientOpti
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("cards")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -99,6 +100,7 @@ class CardServiceImpl internal constructor(private val clientOptions: ClientOpti
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("cards", params._pathParam(0))
                     .build()
                     .prepare(clientOptions, params)
@@ -128,6 +130,7 @@ class CardServiceImpl internal constructor(private val clientOptions: ClientOpti
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.PATCH)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("cards", params._pathParam(0))
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -156,6 +159,7 @@ class CardServiceImpl internal constructor(private val clientOptions: ClientOpti
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("cards")
                     .build()
                     .prepare(clientOptions, params)
@@ -192,6 +196,7 @@ class CardServiceImpl internal constructor(private val clientOptions: ClientOpti
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("cards", params._pathParam(0), "details")
                     .build()
                     .prepare(clientOptions, params)

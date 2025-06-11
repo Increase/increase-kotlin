@@ -79,6 +79,7 @@ internal constructor(private val clientOptions: ClientOptions) :
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("intrafi_account_enrollments")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -110,6 +111,7 @@ internal constructor(private val clientOptions: ClientOptions) :
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("intrafi_account_enrollments", params._pathParam(0))
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -137,6 +139,7 @@ internal constructor(private val clientOptions: ClientOptions) :
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("intrafi_account_enrollments")
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -174,6 +177,7 @@ internal constructor(private val clientOptions: ClientOptions) :
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments(
                         "intrafi_account_enrollments",
                         params._pathParam(0),

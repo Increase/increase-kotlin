@@ -68,6 +68,7 @@ class CardDisputeServiceAsyncImpl internal constructor(private val clientOptions
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("card_disputes")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -98,6 +99,7 @@ class CardDisputeServiceAsyncImpl internal constructor(private val clientOptions
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("card_disputes", params._pathParam(0))
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -125,6 +127,7 @@ class CardDisputeServiceAsyncImpl internal constructor(private val clientOptions
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("card_disputes")
                     .build()
                     .prepareAsync(clientOptions, params)
