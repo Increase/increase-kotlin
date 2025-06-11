@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.234.0 (2025-06-11)
+
+Full Changelog: [v0.233.0...v0.234.0](https://github.com/Increase/increase-kotlin/compare/v0.233.0...v0.234.0)
+
+### Features
+
+* **api:** api update ([189d19f](https://github.com/Increase/increase-kotlin/commit/189d19ff8513f4aa8d23b2ca7333fe365a40d4c0))
+* **client:** implement per-endpoint base URL support ([659c47f](https://github.com/Increase/increase-kotlin/commit/659c47f99437c12b510fc78efc9a8cf9e1cc532d))
+
 ## 0.233.0 (2025-06-08)
 
 Full Changelog: [v0.232.0...v0.233.0](https://github.com/Increase/increase-kotlin/compare/v0.232.0...v0.233.0)
