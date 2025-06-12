@@ -3,6 +3,7 @@
 package com.increase.api.services.blocking.simulations
 
 import com.google.errorprone.annotations.MustBeClosed
+import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.inboundwiretransfers.InboundWireTransfer
@@ -15,6 +16,13 @@ interface InboundWireTransferService {
      */
     fun withRawResponse(): WithRawResponse
 
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: (ClientOptions.Builder) -> Unit): InboundWireTransferService
+
     /** Simulates an [Inbound Wire Transfer](#inbound-wire-transfers) to your account. */
     fun create(
         params: InboundWireTransferCreateParams,
@@ -26,6 +34,15 @@ interface InboundWireTransferService {
      * method.
      */
     interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): InboundWireTransferService.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `post /simulations/inbound_wire_transfers`, but is

@@ -29,6 +29,9 @@ class WireTransferServiceAsyncImpl internal constructor(private val clientOption
 
     override fun withRawResponse(): WireTransferServiceAsync.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): WireTransferServiceAsync =
+        WireTransferServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override suspend fun reverse(
         params: WireTransferReverseParams,
         requestOptions: RequestOptions,
@@ -47,6 +50,13 @@ class WireTransferServiceAsyncImpl internal constructor(private val clientOption
         WireTransferServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): WireTransferServiceAsync.WithRawResponse =
+            WireTransferServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val reverseHandler: Handler<WireTransfer> =
             jsonHandler<WireTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

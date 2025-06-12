@@ -28,6 +28,11 @@ internal constructor(private val clientOptions: ClientOptions) : InboundFundsHol
 
     override fun withRawResponse(): InboundFundsHoldServiceAsync.WithRawResponse = withRawResponse
 
+    override fun withOptions(
+        modifier: (ClientOptions.Builder) -> Unit
+    ): InboundFundsHoldServiceAsync =
+        InboundFundsHoldServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override suspend fun release(
         params: InboundFundsHoldReleaseParams,
         requestOptions: RequestOptions,
@@ -39,6 +44,13 @@ internal constructor(private val clientOptions: ClientOptions) : InboundFundsHol
         InboundFundsHoldServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): InboundFundsHoldServiceAsync.WithRawResponse =
+            InboundFundsHoldServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val releaseHandler: Handler<InboundFundsHoldReleaseResponse> =
             jsonHandler<InboundFundsHoldReleaseResponse>(clientOptions.jsonMapper)

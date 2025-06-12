@@ -27,6 +27,11 @@ internal constructor(private val clientOptions: ClientOptions) : CardAuthorizati
 
     override fun withRawResponse(): CardAuthorizationServiceAsync.WithRawResponse = withRawResponse
 
+    override fun withOptions(
+        modifier: (ClientOptions.Builder) -> Unit
+    ): CardAuthorizationServiceAsync =
+        CardAuthorizationServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override suspend fun create(
         params: CardAuthorizationCreateParams,
         requestOptions: RequestOptions,
@@ -38,6 +43,13 @@ internal constructor(private val clientOptions: ClientOptions) : CardAuthorizati
         CardAuthorizationServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): CardAuthorizationServiceAsync.WithRawResponse =
+            CardAuthorizationServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val createHandler: Handler<CardAuthorizationCreateResponse> =
             jsonHandler<CardAuthorizationCreateResponse>(clientOptions.jsonMapper)

@@ -30,6 +30,11 @@ internal constructor(private val clientOptions: ClientOptions) : InboundMailItem
 
     override fun withRawResponse(): InboundMailItemServiceAsync.WithRawResponse = withRawResponse
 
+    override fun withOptions(
+        modifier: (ClientOptions.Builder) -> Unit
+    ): InboundMailItemServiceAsync =
+        InboundMailItemServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override suspend fun retrieve(
         params: InboundMailItemRetrieveParams,
         requestOptions: RequestOptions,
@@ -48,6 +53,13 @@ internal constructor(private val clientOptions: ClientOptions) : InboundMailItem
         InboundMailItemServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): InboundMailItemServiceAsync.WithRawResponse =
+            InboundMailItemServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val retrieveHandler: Handler<InboundMailItem> =
             jsonHandler<InboundMailItem>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

@@ -32,6 +32,9 @@ class CardDisputeServiceImpl internal constructor(private val clientOptions: Cli
 
     override fun withRawResponse(): CardDisputeService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): CardDisputeService =
+        CardDisputeServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun create(
         params: CardDisputeCreateParams,
         requestOptions: RequestOptions,
@@ -57,6 +60,13 @@ class CardDisputeServiceImpl internal constructor(private val clientOptions: Cli
         CardDisputeService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): CardDisputeService.WithRawResponse =
+            CardDisputeServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val createHandler: Handler<CardDispute> =
             jsonHandler<CardDispute>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

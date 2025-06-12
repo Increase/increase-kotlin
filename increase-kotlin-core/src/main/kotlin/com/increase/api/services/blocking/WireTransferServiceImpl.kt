@@ -34,6 +34,9 @@ class WireTransferServiceImpl internal constructor(private val clientOptions: Cl
 
     override fun withRawResponse(): WireTransferService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): WireTransferService =
+        WireTransferServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun create(
         params: WireTransferCreateParams,
         requestOptions: RequestOptions,
@@ -73,6 +76,13 @@ class WireTransferServiceImpl internal constructor(private val clientOptions: Cl
         WireTransferService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): WireTransferService.WithRawResponse =
+            WireTransferServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val createHandler: Handler<WireTransfer> =
             jsonHandler<WireTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

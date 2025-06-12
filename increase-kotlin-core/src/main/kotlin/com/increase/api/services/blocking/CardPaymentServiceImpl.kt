@@ -30,6 +30,9 @@ class CardPaymentServiceImpl internal constructor(private val clientOptions: Cli
 
     override fun withRawResponse(): CardPaymentService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): CardPaymentService =
+        CardPaymentServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun retrieve(
         params: CardPaymentRetrieveParams,
         requestOptions: RequestOptions,
@@ -48,6 +51,13 @@ class CardPaymentServiceImpl internal constructor(private val clientOptions: Cli
         CardPaymentService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): CardPaymentService.WithRawResponse =
+            CardPaymentServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val retrieveHandler: Handler<CardPayment> =
             jsonHandler<CardPayment>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

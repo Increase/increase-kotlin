@@ -33,6 +33,9 @@ class ExternalAccountServiceImpl internal constructor(private val clientOptions:
 
     override fun withRawResponse(): ExternalAccountService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): ExternalAccountService =
+        ExternalAccountServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun create(
         params: ExternalAccountCreateParams,
         requestOptions: RequestOptions,
@@ -65,6 +68,13 @@ class ExternalAccountServiceImpl internal constructor(private val clientOptions:
         ExternalAccountService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): ExternalAccountService.WithRawResponse =
+            ExternalAccountServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val createHandler: Handler<ExternalAccount> =
             jsonHandler<ExternalAccount>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

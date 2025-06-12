@@ -34,6 +34,11 @@ internal constructor(private val clientOptions: ClientOptions) : PhysicalCardPro
 
     override fun withRawResponse(): PhysicalCardProfileService.WithRawResponse = withRawResponse
 
+    override fun withOptions(
+        modifier: (ClientOptions.Builder) -> Unit
+    ): PhysicalCardProfileService =
+        PhysicalCardProfileServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun create(
         params: PhysicalCardProfileCreateParams,
         requestOptions: RequestOptions,
@@ -73,6 +78,13 @@ internal constructor(private val clientOptions: ClientOptions) : PhysicalCardPro
         PhysicalCardProfileService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): PhysicalCardProfileService.WithRawResponse =
+            PhysicalCardProfileServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val createHandler: Handler<PhysicalCardProfile> =
             jsonHandler<PhysicalCardProfile>(clientOptions.jsonMapper)

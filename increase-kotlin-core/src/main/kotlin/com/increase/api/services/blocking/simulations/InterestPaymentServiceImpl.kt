@@ -27,6 +27,9 @@ class InterestPaymentServiceImpl internal constructor(private val clientOptions:
 
     override fun withRawResponse(): InterestPaymentService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): InterestPaymentService =
+        InterestPaymentServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun create(
         params: InterestPaymentCreateParams,
         requestOptions: RequestOptions,
@@ -38,6 +41,13 @@ class InterestPaymentServiceImpl internal constructor(private val clientOptions:
         InterestPaymentService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): InterestPaymentService.WithRawResponse =
+            InterestPaymentServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val createHandler: Handler<Transaction> =
             jsonHandler<Transaction>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

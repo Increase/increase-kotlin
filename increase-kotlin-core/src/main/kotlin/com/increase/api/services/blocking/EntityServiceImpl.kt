@@ -39,6 +39,9 @@ class EntityServiceImpl internal constructor(private val clientOptions: ClientOp
 
     override fun withRawResponse(): EntityService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): EntityService =
+        EntityServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun create(params: EntityCreateParams, requestOptions: RequestOptions): Entity =
         // post /entities
         withRawResponse().create(params, requestOptions).parse()
@@ -98,6 +101,11 @@ class EntityServiceImpl internal constructor(private val clientOptions: ClientOp
         EntityService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): EntityService.WithRawResponse =
+            EntityServiceImpl.WithRawResponseImpl(clientOptions.toBuilder().apply(modifier).build())
 
         private val createHandler: Handler<Entity> =
             jsonHandler<Entity>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

@@ -28,6 +28,11 @@ internal constructor(private val clientOptions: ClientOptions) : InboundCheckDep
     override fun withRawResponse(): InboundCheckDepositServiceAsync.WithRawResponse =
         withRawResponse
 
+    override fun withOptions(
+        modifier: (ClientOptions.Builder) -> Unit
+    ): InboundCheckDepositServiceAsync =
+        InboundCheckDepositServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override suspend fun create(
         params: InboundCheckDepositCreateParams,
         requestOptions: RequestOptions,
@@ -39,6 +44,13 @@ internal constructor(private val clientOptions: ClientOptions) : InboundCheckDep
         InboundCheckDepositServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): InboundCheckDepositServiceAsync.WithRawResponse =
+            InboundCheckDepositServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val createHandler: Handler<InboundCheckDeposit> =
             jsonHandler<InboundCheckDeposit>(clientOptions.jsonMapper)

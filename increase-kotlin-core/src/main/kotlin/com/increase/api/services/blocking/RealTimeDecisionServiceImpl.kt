@@ -29,6 +29,9 @@ class RealTimeDecisionServiceImpl internal constructor(private val clientOptions
 
     override fun withRawResponse(): RealTimeDecisionService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): RealTimeDecisionService =
+        RealTimeDecisionServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun retrieve(
         params: RealTimeDecisionRetrieveParams,
         requestOptions: RequestOptions,
@@ -47,6 +50,13 @@ class RealTimeDecisionServiceImpl internal constructor(private val clientOptions
         RealTimeDecisionService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): RealTimeDecisionService.WithRawResponse =
+            RealTimeDecisionServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val retrieveHandler: Handler<RealTimeDecision> =
             jsonHandler<RealTimeDecision>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

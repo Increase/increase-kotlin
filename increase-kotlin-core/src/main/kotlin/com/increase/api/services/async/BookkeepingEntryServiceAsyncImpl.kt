@@ -30,6 +30,11 @@ internal constructor(private val clientOptions: ClientOptions) : BookkeepingEntr
 
     override fun withRawResponse(): BookkeepingEntryServiceAsync.WithRawResponse = withRawResponse
 
+    override fun withOptions(
+        modifier: (ClientOptions.Builder) -> Unit
+    ): BookkeepingEntryServiceAsync =
+        BookkeepingEntryServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override suspend fun retrieve(
         params: BookkeepingEntryRetrieveParams,
         requestOptions: RequestOptions,
@@ -48,6 +53,13 @@ internal constructor(private val clientOptions: ClientOptions) : BookkeepingEntr
         BookkeepingEntryServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): BookkeepingEntryServiceAsync.WithRawResponse =
+            BookkeepingEntryServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val retrieveHandler: Handler<BookkeepingEntry> =
             jsonHandler<BookkeepingEntry>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

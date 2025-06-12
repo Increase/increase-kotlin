@@ -34,6 +34,11 @@ internal constructor(private val clientOptions: ClientOptions) : DigitalCardProf
 
     override fun withRawResponse(): DigitalCardProfileServiceAsync.WithRawResponse = withRawResponse
 
+    override fun withOptions(
+        modifier: (ClientOptions.Builder) -> Unit
+    ): DigitalCardProfileServiceAsync =
+        DigitalCardProfileServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override suspend fun create(
         params: DigitalCardProfileCreateParams,
         requestOptions: RequestOptions,
@@ -73,6 +78,13 @@ internal constructor(private val clientOptions: ClientOptions) : DigitalCardProf
         DigitalCardProfileServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): DigitalCardProfileServiceAsync.WithRawResponse =
+            DigitalCardProfileServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val createHandler: Handler<DigitalCardProfile> =
             jsonHandler<DigitalCardProfile>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

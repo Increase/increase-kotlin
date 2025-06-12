@@ -32,6 +32,9 @@ class AchPrenotificationServiceImpl internal constructor(private val clientOptio
 
     override fun withRawResponse(): AchPrenotificationService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): AchPrenotificationService =
+        AchPrenotificationServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun create(
         params: AchPrenotificationCreateParams,
         requestOptions: RequestOptions,
@@ -57,6 +60,13 @@ class AchPrenotificationServiceImpl internal constructor(private val clientOptio
         AchPrenotificationService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): AchPrenotificationService.WithRawResponse =
+            AchPrenotificationServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val createHandler: Handler<AchPrenotification> =
             jsonHandler<AchPrenotification>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

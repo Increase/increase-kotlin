@@ -33,6 +33,9 @@ class PendingTransactionServiceImpl internal constructor(private val clientOptio
 
     override fun withRawResponse(): PendingTransactionService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): PendingTransactionService =
+        PendingTransactionServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun create(
         params: PendingTransactionCreateParams,
         requestOptions: RequestOptions,
@@ -65,6 +68,13 @@ class PendingTransactionServiceImpl internal constructor(private val clientOptio
         PendingTransactionService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): PendingTransactionService.WithRawResponse =
+            PendingTransactionServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val createHandler: Handler<PendingTransaction> =
             jsonHandler<PendingTransaction>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

@@ -335,6 +335,9 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
 
     override fun withRawResponse(): IncreaseClientAsync.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): IncreaseClientAsync =
+        IncreaseClientAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun accounts(): AccountServiceAsync = accounts
 
     override fun accountNumbers(): AccountNumberServiceAsync = accountNumbers
@@ -662,6 +665,13 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
         private val simulations: SimulationServiceAsync.WithRawResponse by lazy {
             SimulationServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): IncreaseClientAsync.WithRawResponse =
+            IncreaseClientAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         override fun accounts(): AccountServiceAsync.WithRawResponse = accounts
 

@@ -27,6 +27,11 @@ internal constructor(private val clientOptions: ClientOptions) : InboundWireTran
 
     override fun withRawResponse(): InboundWireTransferService.WithRawResponse = withRawResponse
 
+    override fun withOptions(
+        modifier: (ClientOptions.Builder) -> Unit
+    ): InboundWireTransferService =
+        InboundWireTransferServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun create(
         params: InboundWireTransferCreateParams,
         requestOptions: RequestOptions,
@@ -38,6 +43,13 @@ internal constructor(private val clientOptions: ClientOptions) : InboundWireTran
         InboundWireTransferService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): InboundWireTransferService.WithRawResponse =
+            InboundWireTransferServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val createHandler: Handler<InboundWireTransfer> =
             jsonHandler<InboundWireTransfer>(clientOptions.jsonMapper)

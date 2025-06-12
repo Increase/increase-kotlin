@@ -33,6 +33,9 @@ class LockboxServiceImpl internal constructor(private val clientOptions: ClientO
 
     override fun withRawResponse(): LockboxService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): LockboxService =
+        LockboxServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun create(params: LockboxCreateParams, requestOptions: RequestOptions): Lockbox =
         // post /lockboxes
         withRawResponse().create(params, requestOptions).parse()
@@ -53,6 +56,13 @@ class LockboxServiceImpl internal constructor(private val clientOptions: ClientO
         LockboxService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): LockboxService.WithRawResponse =
+            LockboxServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val createHandler: Handler<Lockbox> =
             jsonHandler<Lockbox>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

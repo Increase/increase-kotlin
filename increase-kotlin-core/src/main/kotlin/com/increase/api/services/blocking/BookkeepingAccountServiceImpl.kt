@@ -34,6 +34,9 @@ class BookkeepingAccountServiceImpl internal constructor(private val clientOptio
 
     override fun withRawResponse(): BookkeepingAccountService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): BookkeepingAccountService =
+        BookkeepingAccountServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun create(
         params: BookkeepingAccountCreateParams,
         requestOptions: RequestOptions,
@@ -66,6 +69,13 @@ class BookkeepingAccountServiceImpl internal constructor(private val clientOptio
         BookkeepingAccountService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): BookkeepingAccountService.WithRawResponse =
+            BookkeepingAccountServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val createHandler: Handler<BookkeepingAccount> =
             jsonHandler<BookkeepingAccount>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

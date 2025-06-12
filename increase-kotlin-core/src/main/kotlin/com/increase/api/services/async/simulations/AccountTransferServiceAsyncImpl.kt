@@ -28,6 +28,11 @@ internal constructor(private val clientOptions: ClientOptions) : AccountTransfer
 
     override fun withRawResponse(): AccountTransferServiceAsync.WithRawResponse = withRawResponse
 
+    override fun withOptions(
+        modifier: (ClientOptions.Builder) -> Unit
+    ): AccountTransferServiceAsync =
+        AccountTransferServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override suspend fun complete(
         params: AccountTransferCompleteParams,
         requestOptions: RequestOptions,
@@ -39,6 +44,13 @@ internal constructor(private val clientOptions: ClientOptions) : AccountTransfer
         AccountTransferServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): AccountTransferServiceAsync.WithRawResponse =
+            AccountTransferServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val completeHandler: Handler<AccountTransfer> =
             jsonHandler<AccountTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

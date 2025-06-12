@@ -32,6 +32,9 @@ class ExportServiceAsyncImpl internal constructor(private val clientOptions: Cli
 
     override fun withRawResponse(): ExportServiceAsync.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): ExportServiceAsync =
+        ExportServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override suspend fun create(
         params: ExportCreateParams,
         requestOptions: RequestOptions,
@@ -57,6 +60,13 @@ class ExportServiceAsyncImpl internal constructor(private val clientOptions: Cli
         ExportServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): ExportServiceAsync.WithRawResponse =
+            ExportServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val createHandler: Handler<Export> =
             jsonHandler<Export>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

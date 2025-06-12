@@ -27,6 +27,9 @@ class CardRefundServiceImpl internal constructor(private val clientOptions: Clie
 
     override fun withRawResponse(): CardRefundService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): CardRefundService =
+        CardRefundServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun create(
         params: CardRefundCreateParams,
         requestOptions: RequestOptions,
@@ -38,6 +41,13 @@ class CardRefundServiceImpl internal constructor(private val clientOptions: Clie
         CardRefundService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): CardRefundService.WithRawResponse =
+            CardRefundServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val createHandler: Handler<Transaction> =
             jsonHandler<Transaction>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

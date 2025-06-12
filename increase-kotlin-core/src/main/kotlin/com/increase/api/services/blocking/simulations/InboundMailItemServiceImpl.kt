@@ -27,6 +27,9 @@ class InboundMailItemServiceImpl internal constructor(private val clientOptions:
 
     override fun withRawResponse(): InboundMailItemService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): InboundMailItemService =
+        InboundMailItemServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun create(
         params: InboundMailItemCreateParams,
         requestOptions: RequestOptions,
@@ -38,6 +41,13 @@ class InboundMailItemServiceImpl internal constructor(private val clientOptions:
         InboundMailItemService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): InboundMailItemService.WithRawResponse =
+            InboundMailItemServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val createHandler: Handler<InboundMailItem> =
             jsonHandler<InboundMailItem>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

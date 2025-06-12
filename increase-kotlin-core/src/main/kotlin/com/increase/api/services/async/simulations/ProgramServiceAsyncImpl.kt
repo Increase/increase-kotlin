@@ -27,6 +27,9 @@ class ProgramServiceAsyncImpl internal constructor(private val clientOptions: Cl
 
     override fun withRawResponse(): ProgramServiceAsync.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): ProgramServiceAsync =
+        ProgramServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override suspend fun create(
         params: ProgramCreateParams,
         requestOptions: RequestOptions,
@@ -38,6 +41,13 @@ class ProgramServiceAsyncImpl internal constructor(private val clientOptions: Cl
         ProgramServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): ProgramServiceAsync.WithRawResponse =
+            ProgramServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val createHandler: Handler<Program> =
             jsonHandler<Program>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

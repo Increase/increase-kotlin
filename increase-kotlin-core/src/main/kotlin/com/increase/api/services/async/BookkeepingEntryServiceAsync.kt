@@ -3,6 +3,7 @@
 package com.increase.api.services.async
 
 import com.google.errorprone.annotations.MustBeClosed
+import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.bookkeepingentries.BookkeepingEntry
@@ -16,6 +17,13 @@ interface BookkeepingEntryServiceAsync {
      * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: (ClientOptions.Builder) -> Unit): BookkeepingEntryServiceAsync
 
     /** Retrieve a Bookkeeping Entry */
     suspend fun retrieve(
@@ -53,6 +61,15 @@ interface BookkeepingEntryServiceAsync {
      * method.
      */
     interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): BookkeepingEntryServiceAsync.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `get /bookkeeping_entries/{bookkeeping_entry_id}`, but is

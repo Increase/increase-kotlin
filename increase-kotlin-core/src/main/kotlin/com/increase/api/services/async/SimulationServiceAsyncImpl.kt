@@ -172,6 +172,9 @@ class SimulationServiceAsyncImpl internal constructor(private val clientOptions:
 
     override fun withRawResponse(): SimulationServiceAsync.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): SimulationServiceAsync =
+        SimulationServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun interestPayments(): InterestPaymentServiceAsync = interestPayments
 
     override fun cardAuthorizations(): CardAuthorizationServiceAsync = cardAuthorizations
@@ -347,6 +350,13 @@ class SimulationServiceAsyncImpl internal constructor(private val clientOptions:
         private val documents: DocumentServiceAsync.WithRawResponse by lazy {
             DocumentServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): SimulationServiceAsync.WithRawResponse =
+            SimulationServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         override fun interestPayments(): InterestPaymentServiceAsync.WithRawResponse =
             interestPayments

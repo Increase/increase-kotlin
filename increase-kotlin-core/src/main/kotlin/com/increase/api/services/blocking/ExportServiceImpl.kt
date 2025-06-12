@@ -32,6 +32,9 @@ class ExportServiceImpl internal constructor(private val clientOptions: ClientOp
 
     override fun withRawResponse(): ExportService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): ExportService =
+        ExportServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun create(params: ExportCreateParams, requestOptions: RequestOptions): Export =
         // post /exports
         withRawResponse().create(params, requestOptions).parse()
@@ -48,6 +51,11 @@ class ExportServiceImpl internal constructor(private val clientOptions: ClientOp
         ExportService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): ExportService.WithRawResponse =
+            ExportServiceImpl.WithRawResponseImpl(clientOptions.toBuilder().apply(modifier).build())
 
         private val createHandler: Handler<Export> =
             jsonHandler<Export>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

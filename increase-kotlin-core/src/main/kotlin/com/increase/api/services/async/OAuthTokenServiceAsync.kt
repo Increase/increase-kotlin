@@ -3,6 +3,7 @@
 package com.increase.api.services.async
 
 import com.google.errorprone.annotations.MustBeClosed
+import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.oauthtokens.OAuthToken
@@ -15,6 +16,13 @@ interface OAuthTokenServiceAsync {
      */
     fun withRawResponse(): WithRawResponse
 
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: (ClientOptions.Builder) -> Unit): OAuthTokenServiceAsync
+
     /** Create an OAuth Token */
     suspend fun create(
         params: OAuthTokenCreateParams,
@@ -26,6 +34,15 @@ interface OAuthTokenServiceAsync {
      * method.
      */
     interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): OAuthTokenServiceAsync.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `post /oauth/tokens`, but is otherwise the same as

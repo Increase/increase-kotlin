@@ -35,6 +35,11 @@ internal constructor(private val clientOptions: ClientOptions) :
     override fun withRawResponse(): IntrafiAccountEnrollmentServiceAsync.WithRawResponse =
         withRawResponse
 
+    override fun withOptions(
+        modifier: (ClientOptions.Builder) -> Unit
+    ): IntrafiAccountEnrollmentServiceAsync =
+        IntrafiAccountEnrollmentServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override suspend fun create(
         params: IntrafiAccountEnrollmentCreateParams,
         requestOptions: RequestOptions,
@@ -67,6 +72,13 @@ internal constructor(private val clientOptions: ClientOptions) :
         IntrafiAccountEnrollmentServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): IntrafiAccountEnrollmentServiceAsync.WithRawResponse =
+            IntrafiAccountEnrollmentServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val createHandler: Handler<IntrafiAccountEnrollment> =
             jsonHandler<IntrafiAccountEnrollment>(clientOptions.jsonMapper)
