@@ -27,6 +27,9 @@ class CardIncrementServiceAsyncImpl internal constructor(private val clientOptio
 
     override fun withRawResponse(): CardIncrementServiceAsync.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): CardIncrementServiceAsync =
+        CardIncrementServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override suspend fun create(
         params: CardIncrementCreateParams,
         requestOptions: RequestOptions,
@@ -38,6 +41,13 @@ class CardIncrementServiceAsyncImpl internal constructor(private val clientOptio
         CardIncrementServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): CardIncrementServiceAsync.WithRawResponse =
+            CardIncrementServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val createHandler: Handler<CardPayment> =
             jsonHandler<CardPayment>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

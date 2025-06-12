@@ -3,6 +3,7 @@
 package com.increase.api.services.blocking.simulations
 
 import com.google.errorprone.annotations.MustBeClosed
+import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.inboundwiredrawdownrequests.InboundWireDrawdownRequest
@@ -15,6 +16,13 @@ interface InboundWireDrawdownRequestService {
      */
     fun withRawResponse(): WithRawResponse
 
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: (ClientOptions.Builder) -> Unit): InboundWireDrawdownRequestService
+
     /** Simulates receiving an [Inbound Wire Drawdown Request](#inbound-wire-drawdown-requests). */
     fun create(
         params: InboundWireDrawdownRequestCreateParams,
@@ -26,6 +34,15 @@ interface InboundWireDrawdownRequestService {
      * each method.
      */
     interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): InboundWireDrawdownRequestService.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `post /simulations/inbound_wire_drawdown_requests`, but

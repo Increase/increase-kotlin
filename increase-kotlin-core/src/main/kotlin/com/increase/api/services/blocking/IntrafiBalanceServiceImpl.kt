@@ -27,6 +27,9 @@ class IntrafiBalanceServiceImpl internal constructor(private val clientOptions: 
 
     override fun withRawResponse(): IntrafiBalanceService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): IntrafiBalanceService =
+        IntrafiBalanceServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun intrafiBalance(
         params: IntrafiBalanceIntrafiBalanceParams,
         requestOptions: RequestOptions,
@@ -38,6 +41,13 @@ class IntrafiBalanceServiceImpl internal constructor(private val clientOptions: 
         IntrafiBalanceService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): IntrafiBalanceService.WithRawResponse =
+            IntrafiBalanceServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val intrafiBalanceHandler: Handler<IntrafiBalance> =
             jsonHandler<IntrafiBalance>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

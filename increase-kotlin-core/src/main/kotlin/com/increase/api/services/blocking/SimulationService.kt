@@ -2,6 +2,7 @@
 
 package com.increase.api.services.blocking
 
+import com.increase.api.core.ClientOptions
 import com.increase.api.services.blocking.simulations.AccountStatementService
 import com.increase.api.services.blocking.simulations.AccountTransferService
 import com.increase.api.services.blocking.simulations.AchTransferService
@@ -36,6 +37,13 @@ interface SimulationService {
      * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: (ClientOptions.Builder) -> Unit): SimulationService
 
     fun interestPayments(): InterestPaymentService
 
@@ -93,6 +101,15 @@ interface SimulationService {
 
     /** A view of [SimulationService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): SimulationService.WithRawResponse
 
         fun interestPayments(): InterestPaymentService.WithRawResponse
 

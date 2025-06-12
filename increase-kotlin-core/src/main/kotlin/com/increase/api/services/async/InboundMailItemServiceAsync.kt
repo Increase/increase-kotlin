@@ -3,6 +3,7 @@
 package com.increase.api.services.async
 
 import com.google.errorprone.annotations.MustBeClosed
+import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.inboundmailitems.InboundMailItem
@@ -16,6 +17,13 @@ interface InboundMailItemServiceAsync {
      * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: (ClientOptions.Builder) -> Unit): InboundMailItemServiceAsync
 
     /** Retrieve an Inbound Mail Item */
     suspend fun retrieve(
@@ -53,6 +61,15 @@ interface InboundMailItemServiceAsync {
      * method.
      */
     interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): InboundMailItemServiceAsync.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `get /inbound_mail_items/{inbound_mail_item_id}`, but is

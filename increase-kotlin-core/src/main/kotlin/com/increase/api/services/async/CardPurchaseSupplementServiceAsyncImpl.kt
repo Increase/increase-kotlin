@@ -32,6 +32,11 @@ internal constructor(private val clientOptions: ClientOptions) :
     override fun withRawResponse(): CardPurchaseSupplementServiceAsync.WithRawResponse =
         withRawResponse
 
+    override fun withOptions(
+        modifier: (ClientOptions.Builder) -> Unit
+    ): CardPurchaseSupplementServiceAsync =
+        CardPurchaseSupplementServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override suspend fun retrieve(
         params: CardPurchaseSupplementRetrieveParams,
         requestOptions: RequestOptions,
@@ -50,6 +55,13 @@ internal constructor(private val clientOptions: ClientOptions) :
         CardPurchaseSupplementServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): CardPurchaseSupplementServiceAsync.WithRawResponse =
+            CardPurchaseSupplementServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val retrieveHandler: Handler<CardPurchaseSupplement> =
             jsonHandler<CardPurchaseSupplement>(clientOptions.jsonMapper)

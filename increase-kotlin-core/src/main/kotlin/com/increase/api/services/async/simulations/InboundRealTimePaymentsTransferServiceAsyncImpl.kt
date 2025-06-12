@@ -30,6 +30,13 @@ internal constructor(private val clientOptions: ClientOptions) :
     override fun withRawResponse(): InboundRealTimePaymentsTransferServiceAsync.WithRawResponse =
         withRawResponse
 
+    override fun withOptions(
+        modifier: (ClientOptions.Builder) -> Unit
+    ): InboundRealTimePaymentsTransferServiceAsync =
+        InboundRealTimePaymentsTransferServiceAsyncImpl(
+            clientOptions.toBuilder().apply(modifier).build()
+        )
+
     override suspend fun create(
         params: InboundRealTimePaymentsTransferCreateParams,
         requestOptions: RequestOptions,
@@ -41,6 +48,13 @@ internal constructor(private val clientOptions: ClientOptions) :
         InboundRealTimePaymentsTransferServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): InboundRealTimePaymentsTransferServiceAsync.WithRawResponse =
+            InboundRealTimePaymentsTransferServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val createHandler: Handler<InboundRealTimePaymentsTransfer> =
             jsonHandler<InboundRealTimePaymentsTransfer>(clientOptions.jsonMapper)

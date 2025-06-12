@@ -39,6 +39,9 @@ class EntityServiceAsyncImpl internal constructor(private val clientOptions: Cli
 
     override fun withRawResponse(): EntityServiceAsync.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): EntityServiceAsync =
+        EntityServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override suspend fun create(
         params: EntityCreateParams,
         requestOptions: RequestOptions,
@@ -113,6 +116,13 @@ class EntityServiceAsyncImpl internal constructor(private val clientOptions: Cli
         EntityServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): EntityServiceAsync.WithRawResponse =
+            EntityServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val createHandler: Handler<Entity> =
             jsonHandler<Entity>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

@@ -33,6 +33,9 @@ class IntrafiExclusionServiceImpl internal constructor(private val clientOptions
 
     override fun withRawResponse(): IntrafiExclusionService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): IntrafiExclusionService =
+        IntrafiExclusionServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun create(
         params: IntrafiExclusionCreateParams,
         requestOptions: RequestOptions,
@@ -65,6 +68,13 @@ class IntrafiExclusionServiceImpl internal constructor(private val clientOptions
         IntrafiExclusionService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): IntrafiExclusionService.WithRawResponse =
+            IntrafiExclusionServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val createHandler: Handler<IntrafiExclusion> =
             jsonHandler<IntrafiExclusion>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

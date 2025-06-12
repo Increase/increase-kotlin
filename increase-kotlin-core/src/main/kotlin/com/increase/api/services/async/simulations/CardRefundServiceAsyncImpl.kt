@@ -27,6 +27,9 @@ class CardRefundServiceAsyncImpl internal constructor(private val clientOptions:
 
     override fun withRawResponse(): CardRefundServiceAsync.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): CardRefundServiceAsync =
+        CardRefundServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override suspend fun create(
         params: CardRefundCreateParams,
         requestOptions: RequestOptions,
@@ -38,6 +41,13 @@ class CardRefundServiceAsyncImpl internal constructor(private val clientOptions:
         CardRefundServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): CardRefundServiceAsync.WithRawResponse =
+            CardRefundServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val createHandler: Handler<Transaction> =
             jsonHandler<Transaction>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

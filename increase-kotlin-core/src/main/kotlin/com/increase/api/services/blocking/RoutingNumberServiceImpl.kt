@@ -27,6 +27,9 @@ class RoutingNumberServiceImpl internal constructor(private val clientOptions: C
 
     override fun withRawResponse(): RoutingNumberService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): RoutingNumberService =
+        RoutingNumberServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun list(
         params: RoutingNumberListParams,
         requestOptions: RequestOptions,
@@ -38,6 +41,13 @@ class RoutingNumberServiceImpl internal constructor(private val clientOptions: C
         RoutingNumberService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): RoutingNumberService.WithRawResponse =
+            RoutingNumberServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val listHandler: Handler<RoutingNumberListPageResponse> =
             jsonHandler<RoutingNumberListPageResponse>(clientOptions.jsonMapper)

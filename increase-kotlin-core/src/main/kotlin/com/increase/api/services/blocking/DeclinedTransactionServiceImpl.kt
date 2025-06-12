@@ -30,6 +30,11 @@ internal constructor(private val clientOptions: ClientOptions) : DeclinedTransac
 
     override fun withRawResponse(): DeclinedTransactionService.WithRawResponse = withRawResponse
 
+    override fun withOptions(
+        modifier: (ClientOptions.Builder) -> Unit
+    ): DeclinedTransactionService =
+        DeclinedTransactionServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun retrieve(
         params: DeclinedTransactionRetrieveParams,
         requestOptions: RequestOptions,
@@ -48,6 +53,13 @@ internal constructor(private val clientOptions: ClientOptions) : DeclinedTransac
         DeclinedTransactionService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): DeclinedTransactionService.WithRawResponse =
+            DeclinedTransactionServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val retrieveHandler: Handler<DeclinedTransaction> =
             jsonHandler<DeclinedTransaction>(clientOptions.jsonMapper)

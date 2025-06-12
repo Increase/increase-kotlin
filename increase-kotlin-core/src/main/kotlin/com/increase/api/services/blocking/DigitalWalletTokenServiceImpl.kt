@@ -30,6 +30,9 @@ class DigitalWalletTokenServiceImpl internal constructor(private val clientOptio
 
     override fun withRawResponse(): DigitalWalletTokenService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): DigitalWalletTokenService =
+        DigitalWalletTokenServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun retrieve(
         params: DigitalWalletTokenRetrieveParams,
         requestOptions: RequestOptions,
@@ -48,6 +51,13 @@ class DigitalWalletTokenServiceImpl internal constructor(private val clientOptio
         DigitalWalletTokenService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): DigitalWalletTokenService.WithRawResponse =
+            DigitalWalletTokenServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val retrieveHandler: Handler<DigitalWalletToken> =
             jsonHandler<DigitalWalletToken>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

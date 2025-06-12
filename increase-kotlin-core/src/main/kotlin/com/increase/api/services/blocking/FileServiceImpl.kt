@@ -31,6 +31,9 @@ class FileServiceImpl internal constructor(private val clientOptions: ClientOpti
 
     override fun withRawResponse(): FileService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): FileService =
+        FileServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun create(params: FileCreateParams, requestOptions: RequestOptions): File =
         // post /files
         withRawResponse().create(params, requestOptions).parse()
@@ -47,6 +50,11 @@ class FileServiceImpl internal constructor(private val clientOptions: ClientOpti
         FileService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): FileService.WithRawResponse =
+            FileServiceImpl.WithRawResponseImpl(clientOptions.toBuilder().apply(modifier).build())
 
         private val createHandler: Handler<File> =
             jsonHandler<File>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

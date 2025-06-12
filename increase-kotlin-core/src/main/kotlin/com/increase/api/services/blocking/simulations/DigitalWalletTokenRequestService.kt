@@ -3,6 +3,7 @@
 package com.increase.api.services.blocking.simulations
 
 import com.google.errorprone.annotations.MustBeClosed
+import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.simulations.digitalwallettokenrequests.DigitalWalletTokenRequestCreateParams
@@ -15,6 +16,13 @@ interface DigitalWalletTokenRequestService {
      */
     fun withRawResponse(): WithRawResponse
 
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: (ClientOptions.Builder) -> Unit): DigitalWalletTokenRequestService
+
     /** Simulates a user attempting add a [Card](#cards) to a digital wallet such as Apple Pay. */
     fun create(
         params: DigitalWalletTokenRequestCreateParams,
@@ -26,6 +34,15 @@ interface DigitalWalletTokenRequestService {
      * each method.
      */
     interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): DigitalWalletTokenRequestService.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `post /simulations/digital_wallet_token_requests`, but is

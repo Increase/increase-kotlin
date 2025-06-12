@@ -27,6 +27,11 @@ internal constructor(private val clientOptions: ClientOptions) : CardFuelConfirm
 
     override fun withRawResponse(): CardFuelConfirmationService.WithRawResponse = withRawResponse
 
+    override fun withOptions(
+        modifier: (ClientOptions.Builder) -> Unit
+    ): CardFuelConfirmationService =
+        CardFuelConfirmationServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun create(
         params: CardFuelConfirmationCreateParams,
         requestOptions: RequestOptions,
@@ -38,6 +43,13 @@ internal constructor(private val clientOptions: ClientOptions) : CardFuelConfirm
         CardFuelConfirmationService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): CardFuelConfirmationService.WithRawResponse =
+            CardFuelConfirmationServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val createHandler: Handler<CardPayment> =
             jsonHandler<CardPayment>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

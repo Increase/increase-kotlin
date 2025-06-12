@@ -30,6 +30,9 @@ class ProgramServiceImpl internal constructor(private val clientOptions: ClientO
 
     override fun withRawResponse(): ProgramService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): ProgramService =
+        ProgramServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun retrieve(params: ProgramRetrieveParams, requestOptions: RequestOptions): Program =
         // get /programs/{program_id}
         withRawResponse().retrieve(params, requestOptions).parse()
@@ -42,6 +45,13 @@ class ProgramServiceImpl internal constructor(private val clientOptions: ClientO
         ProgramService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): ProgramService.WithRawResponse =
+            ProgramServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val retrieveHandler: Handler<Program> =
             jsonHandler<Program>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

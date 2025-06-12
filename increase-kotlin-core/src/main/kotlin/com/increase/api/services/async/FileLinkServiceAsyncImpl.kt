@@ -27,6 +27,9 @@ class FileLinkServiceAsyncImpl internal constructor(private val clientOptions: C
 
     override fun withRawResponse(): FileLinkServiceAsync.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): FileLinkServiceAsync =
+        FileLinkServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override suspend fun create(
         params: FileLinkCreateParams,
         requestOptions: RequestOptions,
@@ -38,6 +41,13 @@ class FileLinkServiceAsyncImpl internal constructor(private val clientOptions: C
         FileLinkServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): FileLinkServiceAsync.WithRawResponse =
+            FileLinkServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val createHandler: Handler<FileLink> =
             jsonHandler<FileLink>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

@@ -30,6 +30,9 @@ class CheckDepositServiceAsyncImpl internal constructor(private val clientOption
 
     override fun withRawResponse(): CheckDepositServiceAsync.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): CheckDepositServiceAsync =
+        CheckDepositServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override suspend fun reject(
         params: CheckDepositRejectParams,
         requestOptions: RequestOptions,
@@ -55,6 +58,13 @@ class CheckDepositServiceAsyncImpl internal constructor(private val clientOption
         CheckDepositServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): CheckDepositServiceAsync.WithRawResponse =
+            CheckDepositServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val rejectHandler: Handler<CheckDeposit> =
             jsonHandler<CheckDeposit>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

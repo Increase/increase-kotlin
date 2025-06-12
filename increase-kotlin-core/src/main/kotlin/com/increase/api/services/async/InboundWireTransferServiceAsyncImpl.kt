@@ -33,6 +33,11 @@ internal constructor(private val clientOptions: ClientOptions) : InboundWireTran
     override fun withRawResponse(): InboundWireTransferServiceAsync.WithRawResponse =
         withRawResponse
 
+    override fun withOptions(
+        modifier: (ClientOptions.Builder) -> Unit
+    ): InboundWireTransferServiceAsync =
+        InboundWireTransferServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override suspend fun retrieve(
         params: InboundWireTransferRetrieveParams,
         requestOptions: RequestOptions,
@@ -58,6 +63,13 @@ internal constructor(private val clientOptions: ClientOptions) : InboundWireTran
         InboundWireTransferServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): InboundWireTransferServiceAsync.WithRawResponse =
+            InboundWireTransferServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val retrieveHandler: Handler<InboundWireTransfer> =
             jsonHandler<InboundWireTransfer>(clientOptions.jsonMapper)

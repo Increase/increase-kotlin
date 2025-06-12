@@ -27,6 +27,9 @@ class CardSettlementServiceImpl internal constructor(private val clientOptions: 
 
     override fun withRawResponse(): CardSettlementService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): CardSettlementService =
+        CardSettlementServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun create(
         params: CardSettlementCreateParams,
         requestOptions: RequestOptions,
@@ -38,6 +41,13 @@ class CardSettlementServiceImpl internal constructor(private val clientOptions: 
         CardSettlementService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): CardSettlementService.WithRawResponse =
+            CardSettlementServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val createHandler: Handler<Transaction> =
             jsonHandler<Transaction>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

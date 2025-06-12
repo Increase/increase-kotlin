@@ -30,6 +30,9 @@ class OAuthConnectionServiceImpl internal constructor(private val clientOptions:
 
     override fun withRawResponse(): OAuthConnectionService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): OAuthConnectionService =
+        OAuthConnectionServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun retrieve(
         params: OAuthConnectionRetrieveParams,
         requestOptions: RequestOptions,
@@ -48,6 +51,13 @@ class OAuthConnectionServiceImpl internal constructor(private val clientOptions:
         OAuthConnectionService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): OAuthConnectionService.WithRawResponse =
+            OAuthConnectionServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val retrieveHandler: Handler<OAuthConnection> =
             jsonHandler<OAuthConnection>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

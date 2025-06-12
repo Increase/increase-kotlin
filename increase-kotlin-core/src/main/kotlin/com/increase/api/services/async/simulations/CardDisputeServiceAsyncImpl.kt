@@ -28,6 +28,9 @@ class CardDisputeServiceAsyncImpl internal constructor(private val clientOptions
 
     override fun withRawResponse(): CardDisputeServiceAsync.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): CardDisputeServiceAsync =
+        CardDisputeServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override suspend fun action(
         params: CardDisputeActionParams,
         requestOptions: RequestOptions,
@@ -39,6 +42,13 @@ class CardDisputeServiceAsyncImpl internal constructor(private val clientOptions
         CardDisputeServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): CardDisputeServiceAsync.WithRawResponse =
+            CardDisputeServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val actionHandler: Handler<CardDispute> =
             jsonHandler<CardDispute>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

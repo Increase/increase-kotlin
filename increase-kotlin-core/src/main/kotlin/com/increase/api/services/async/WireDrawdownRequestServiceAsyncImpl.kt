@@ -33,6 +33,11 @@ internal constructor(private val clientOptions: ClientOptions) : WireDrawdownReq
     override fun withRawResponse(): WireDrawdownRequestServiceAsync.WithRawResponse =
         withRawResponse
 
+    override fun withOptions(
+        modifier: (ClientOptions.Builder) -> Unit
+    ): WireDrawdownRequestServiceAsync =
+        WireDrawdownRequestServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override suspend fun create(
         params: WireDrawdownRequestCreateParams,
         requestOptions: RequestOptions,
@@ -58,6 +63,13 @@ internal constructor(private val clientOptions: ClientOptions) : WireDrawdownReq
         WireDrawdownRequestServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): WireDrawdownRequestServiceAsync.WithRawResponse =
+            WireDrawdownRequestServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val createHandler: Handler<WireDrawdownRequest> =
             jsonHandler<WireDrawdownRequest>(clientOptions.jsonMapper)

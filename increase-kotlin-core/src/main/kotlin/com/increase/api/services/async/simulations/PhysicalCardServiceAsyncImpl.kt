@@ -29,6 +29,9 @@ class PhysicalCardServiceAsyncImpl internal constructor(private val clientOption
 
     override fun withRawResponse(): PhysicalCardServiceAsync.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): PhysicalCardServiceAsync =
+        PhysicalCardServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override suspend fun advanceShipment(
         params: PhysicalCardAdvanceShipmentParams,
         requestOptions: RequestOptions,
@@ -47,6 +50,13 @@ class PhysicalCardServiceAsyncImpl internal constructor(private val clientOption
         PhysicalCardServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): PhysicalCardServiceAsync.WithRawResponse =
+            PhysicalCardServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val advanceShipmentHandler: Handler<PhysicalCard> =
             jsonHandler<PhysicalCard>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

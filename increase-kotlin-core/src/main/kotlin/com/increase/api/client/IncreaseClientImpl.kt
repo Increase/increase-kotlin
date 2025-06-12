@@ -324,6 +324,9 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
 
     override fun withRawResponse(): IncreaseClient.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): IncreaseClient =
+        IncreaseClientImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun accounts(): AccountService = accounts
 
     override fun accountNumbers(): AccountNumberService = accountNumbers
@@ -650,6 +653,13 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
         private val simulations: SimulationService.WithRawResponse by lazy {
             SimulationServiceImpl.WithRawResponseImpl(clientOptions)
         }
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): IncreaseClient.WithRawResponse =
+            IncreaseClientImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         override fun accounts(): AccountService.WithRawResponse = accounts
 

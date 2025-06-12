@@ -27,6 +27,9 @@ class CardReversalServiceImpl internal constructor(private val clientOptions: Cl
 
     override fun withRawResponse(): CardReversalService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): CardReversalService =
+        CardReversalServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun create(
         params: CardReversalCreateParams,
         requestOptions: RequestOptions,
@@ -38,6 +41,13 @@ class CardReversalServiceImpl internal constructor(private val clientOptions: Cl
         CardReversalService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): CardReversalService.WithRawResponse =
+            CardReversalServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val createHandler: Handler<CardPayment> =
             jsonHandler<CardPayment>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
