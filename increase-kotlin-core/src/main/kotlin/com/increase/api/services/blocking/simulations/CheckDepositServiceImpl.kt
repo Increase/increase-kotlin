@@ -30,6 +30,9 @@ class CheckDepositServiceImpl internal constructor(private val clientOptions: Cl
 
     override fun withRawResponse(): CheckDepositService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): CheckDepositService =
+        CheckDepositServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun reject(
         params: CheckDepositRejectParams,
         requestOptions: RequestOptions,
@@ -55,6 +58,13 @@ class CheckDepositServiceImpl internal constructor(private val clientOptions: Cl
         CheckDepositService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): CheckDepositService.WithRawResponse =
+            CheckDepositServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val rejectHandler: Handler<CheckDeposit> =
             jsonHandler<CheckDeposit>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

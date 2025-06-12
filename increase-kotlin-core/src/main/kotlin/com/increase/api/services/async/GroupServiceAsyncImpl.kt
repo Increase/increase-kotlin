@@ -26,6 +26,9 @@ class GroupServiceAsyncImpl internal constructor(private val clientOptions: Clie
 
     override fun withRawResponse(): GroupServiceAsync.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): GroupServiceAsync =
+        GroupServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override suspend fun retrieve(
         params: GroupRetrieveParams,
         requestOptions: RequestOptions,
@@ -37,6 +40,13 @@ class GroupServiceAsyncImpl internal constructor(private val clientOptions: Clie
         GroupServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): GroupServiceAsync.WithRawResponse =
+            GroupServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val retrieveHandler: Handler<Group> =
             jsonHandler<Group>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

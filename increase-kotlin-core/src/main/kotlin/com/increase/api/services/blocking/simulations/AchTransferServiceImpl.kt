@@ -32,6 +32,9 @@ class AchTransferServiceImpl internal constructor(private val clientOptions: Cli
 
     override fun withRawResponse(): AchTransferService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): AchTransferService =
+        AchTransferServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun acknowledge(
         params: AchTransferAcknowledgeParams,
         requestOptions: RequestOptions,
@@ -71,6 +74,13 @@ class AchTransferServiceImpl internal constructor(private val clientOptions: Cli
         AchTransferService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): AchTransferService.WithRawResponse =
+            AchTransferServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val acknowledgeHandler: Handler<AchTransfer> =
             jsonHandler<AchTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

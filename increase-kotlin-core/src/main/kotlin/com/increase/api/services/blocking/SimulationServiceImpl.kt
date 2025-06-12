@@ -165,6 +165,9 @@ class SimulationServiceImpl internal constructor(private val clientOptions: Clie
 
     override fun withRawResponse(): SimulationService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): SimulationService =
+        SimulationServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun interestPayments(): InterestPaymentService = interestPayments
 
     override fun cardAuthorizations(): CardAuthorizationService = cardAuthorizations
@@ -339,6 +342,13 @@ class SimulationServiceImpl internal constructor(private val clientOptions: Clie
         private val documents: DocumentService.WithRawResponse by lazy {
             DocumentServiceImpl.WithRawResponseImpl(clientOptions)
         }
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): SimulationService.WithRawResponse =
+            SimulationServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         override fun interestPayments(): InterestPaymentService.WithRawResponse = interestPayments
 

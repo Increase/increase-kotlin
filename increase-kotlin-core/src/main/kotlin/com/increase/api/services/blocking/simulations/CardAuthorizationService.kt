@@ -3,6 +3,7 @@
 package com.increase.api.services.blocking.simulations
 
 import com.google.errorprone.annotations.MustBeClosed
+import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.simulations.cardauthorizations.CardAuthorizationCreateParams
@@ -14,6 +15,13 @@ interface CardAuthorizationService {
      * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: (ClientOptions.Builder) -> Unit): CardAuthorizationService
 
     /**
      * Simulates a purchase authorization on a [Card](#cards). Depending on the balance available to
@@ -33,6 +41,15 @@ interface CardAuthorizationService {
      * method.
      */
     interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): CardAuthorizationService.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `post /simulations/card_authorizations`, but is otherwise

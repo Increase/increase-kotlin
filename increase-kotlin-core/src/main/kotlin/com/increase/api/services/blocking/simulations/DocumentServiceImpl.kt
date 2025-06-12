@@ -27,6 +27,9 @@ class DocumentServiceImpl internal constructor(private val clientOptions: Client
 
     override fun withRawResponse(): DocumentService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): DocumentService =
+        DocumentServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun create(params: DocumentCreateParams, requestOptions: RequestOptions): Document =
         // post /simulations/documents
         withRawResponse().create(params, requestOptions).parse()
@@ -35,6 +38,13 @@ class DocumentServiceImpl internal constructor(private val clientOptions: Client
         DocumentService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): DocumentService.WithRawResponse =
+            DocumentServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val createHandler: Handler<Document> =
             jsonHandler<Document>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

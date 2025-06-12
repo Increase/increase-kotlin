@@ -35,6 +35,9 @@ class CheckTransferServiceImpl internal constructor(private val clientOptions: C
 
     override fun withRawResponse(): CheckTransferService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): CheckTransferService =
+        CheckTransferServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun create(
         params: CheckTransferCreateParams,
         requestOptions: RequestOptions,
@@ -81,6 +84,13 @@ class CheckTransferServiceImpl internal constructor(private val clientOptions: C
         CheckTransferService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): CheckTransferService.WithRawResponse =
+            CheckTransferServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val createHandler: Handler<CheckTransfer> =
             jsonHandler<CheckTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

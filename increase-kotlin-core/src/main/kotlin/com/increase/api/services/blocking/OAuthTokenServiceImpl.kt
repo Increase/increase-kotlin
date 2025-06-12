@@ -27,6 +27,9 @@ class OAuthTokenServiceImpl internal constructor(private val clientOptions: Clie
 
     override fun withRawResponse(): OAuthTokenService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): OAuthTokenService =
+        OAuthTokenServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun create(
         params: OAuthTokenCreateParams,
         requestOptions: RequestOptions,
@@ -38,6 +41,13 @@ class OAuthTokenServiceImpl internal constructor(private val clientOptions: Clie
         OAuthTokenService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): OAuthTokenService.WithRawResponse =
+            OAuthTokenServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val createHandler: Handler<OAuthToken> =
             jsonHandler<OAuthToken>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

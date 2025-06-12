@@ -3,6 +3,7 @@
 package com.increase.api.services.blocking
 
 import com.google.errorprone.annotations.MustBeClosed
+import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.digitalcardprofiles.DigitalCardProfile
@@ -19,6 +20,13 @@ interface DigitalCardProfileService {
      * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: (ClientOptions.Builder) -> Unit): DigitalCardProfileService
 
     /** Create a Digital Card Profile */
     fun create(
@@ -101,6 +109,15 @@ interface DigitalCardProfileService {
      * method.
      */
     interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): DigitalCardProfileService.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `post /digital_card_profiles`, but is otherwise the same

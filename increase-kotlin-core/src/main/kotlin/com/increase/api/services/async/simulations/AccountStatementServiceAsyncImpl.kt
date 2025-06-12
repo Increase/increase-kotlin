@@ -27,6 +27,11 @@ internal constructor(private val clientOptions: ClientOptions) : AccountStatemen
 
     override fun withRawResponse(): AccountStatementServiceAsync.WithRawResponse = withRawResponse
 
+    override fun withOptions(
+        modifier: (ClientOptions.Builder) -> Unit
+    ): AccountStatementServiceAsync =
+        AccountStatementServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override suspend fun create(
         params: AccountStatementCreateParams,
         requestOptions: RequestOptions,
@@ -38,6 +43,13 @@ internal constructor(private val clientOptions: ClientOptions) : AccountStatemen
         AccountStatementServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): AccountStatementServiceAsync.WithRawResponse =
+            AccountStatementServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val createHandler: Handler<AccountStatement> =
             jsonHandler<AccountStatement>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

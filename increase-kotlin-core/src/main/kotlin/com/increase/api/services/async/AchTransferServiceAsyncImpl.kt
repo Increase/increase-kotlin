@@ -34,6 +34,9 @@ class AchTransferServiceAsyncImpl internal constructor(private val clientOptions
 
     override fun withRawResponse(): AchTransferServiceAsync.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): AchTransferServiceAsync =
+        AchTransferServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override suspend fun create(
         params: AchTransferCreateParams,
         requestOptions: RequestOptions,
@@ -73,6 +76,13 @@ class AchTransferServiceAsyncImpl internal constructor(private val clientOptions
         AchTransferServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): AchTransferServiceAsync.WithRawResponse =
+            AchTransferServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val createHandler: Handler<AchTransfer> =
             jsonHandler<AchTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

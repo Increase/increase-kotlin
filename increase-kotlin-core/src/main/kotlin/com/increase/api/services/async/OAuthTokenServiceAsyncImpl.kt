@@ -27,6 +27,9 @@ class OAuthTokenServiceAsyncImpl internal constructor(private val clientOptions:
 
     override fun withRawResponse(): OAuthTokenServiceAsync.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): OAuthTokenServiceAsync =
+        OAuthTokenServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override suspend fun create(
         params: OAuthTokenCreateParams,
         requestOptions: RequestOptions,
@@ -38,6 +41,13 @@ class OAuthTokenServiceAsyncImpl internal constructor(private val clientOptions:
         OAuthTokenServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): OAuthTokenServiceAsync.WithRawResponse =
+            OAuthTokenServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val createHandler: Handler<OAuthToken> =
             jsonHandler<OAuthToken>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

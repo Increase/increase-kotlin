@@ -30,6 +30,9 @@ class TransactionServiceAsyncImpl internal constructor(private val clientOptions
 
     override fun withRawResponse(): TransactionServiceAsync.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): TransactionServiceAsync =
+        TransactionServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override suspend fun retrieve(
         params: TransactionRetrieveParams,
         requestOptions: RequestOptions,
@@ -48,6 +51,13 @@ class TransactionServiceAsyncImpl internal constructor(private val clientOptions
         TransactionServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): TransactionServiceAsync.WithRawResponse =
+            TransactionServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val retrieveHandler: Handler<Transaction> =
             jsonHandler<Transaction>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

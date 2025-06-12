@@ -3,6 +3,7 @@
 package com.increase.api.services.async
 
 import com.google.errorprone.annotations.MustBeClosed
+import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.bookkeepingaccounts.BookkeepingAccount
@@ -19,6 +20,13 @@ interface BookkeepingAccountServiceAsync {
      * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: (ClientOptions.Builder) -> Unit): BookkeepingAccountServiceAsync
 
     /** Create a Bookkeeping Account */
     suspend fun create(
@@ -82,6 +90,15 @@ interface BookkeepingAccountServiceAsync {
      * each method.
      */
     interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): BookkeepingAccountServiceAsync.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `post /bookkeeping_accounts`, but is otherwise the same

@@ -27,6 +27,9 @@ class InboundAchTransferServiceImpl internal constructor(private val clientOptio
 
     override fun withRawResponse(): InboundAchTransferService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): InboundAchTransferService =
+        InboundAchTransferServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun create(
         params: InboundAchTransferCreateParams,
         requestOptions: RequestOptions,
@@ -38,6 +41,13 @@ class InboundAchTransferServiceImpl internal constructor(private val clientOptio
         InboundAchTransferService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): InboundAchTransferService.WithRawResponse =
+            InboundAchTransferServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val createHandler: Handler<InboundAchTransfer> =
             jsonHandler<InboundAchTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

@@ -3,6 +3,7 @@
 package com.increase.api.services.blocking
 
 import com.google.errorprone.annotations.MustBeClosed
+import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.oauthapplications.OAuthApplication
@@ -16,6 +17,13 @@ interface OAuthApplicationService {
      * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: (ClientOptions.Builder) -> Unit): OAuthApplicationService
 
     /** Retrieve an OAuth Application */
     fun retrieve(
@@ -50,6 +58,15 @@ interface OAuthApplicationService {
      * method.
      */
     interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): OAuthApplicationService.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `get /oauth_applications/{oauth_application_id}`, but is

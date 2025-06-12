@@ -30,6 +30,11 @@ internal constructor(private val clientOptions: ClientOptions) : SupplementalDoc
 
     override fun withRawResponse(): SupplementalDocumentService.WithRawResponse = withRawResponse
 
+    override fun withOptions(
+        modifier: (ClientOptions.Builder) -> Unit
+    ): SupplementalDocumentService =
+        SupplementalDocumentServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun create(
         params: SupplementalDocumentCreateParams,
         requestOptions: RequestOptions,
@@ -48,6 +53,13 @@ internal constructor(private val clientOptions: ClientOptions) : SupplementalDoc
         SupplementalDocumentService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): SupplementalDocumentService.WithRawResponse =
+            SupplementalDocumentServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val createHandler: Handler<EntitySupplementalDocument> =
             jsonHandler<EntitySupplementalDocument>(clientOptions.jsonMapper)

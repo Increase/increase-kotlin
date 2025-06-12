@@ -29,6 +29,13 @@ internal constructor(private val clientOptions: ClientOptions) :
     override fun withRawResponse(): InboundWireDrawdownRequestServiceAsync.WithRawResponse =
         withRawResponse
 
+    override fun withOptions(
+        modifier: (ClientOptions.Builder) -> Unit
+    ): InboundWireDrawdownRequestServiceAsync =
+        InboundWireDrawdownRequestServiceAsyncImpl(
+            clientOptions.toBuilder().apply(modifier).build()
+        )
+
     override suspend fun create(
         params: InboundWireDrawdownRequestCreateParams,
         requestOptions: RequestOptions,
@@ -40,6 +47,13 @@ internal constructor(private val clientOptions: ClientOptions) :
         InboundWireDrawdownRequestServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): InboundWireDrawdownRequestServiceAsync.WithRawResponse =
+            InboundWireDrawdownRequestServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val createHandler: Handler<InboundWireDrawdownRequest> =
             jsonHandler<InboundWireDrawdownRequest>(clientOptions.jsonMapper)

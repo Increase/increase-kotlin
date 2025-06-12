@@ -3,6 +3,7 @@
 package com.increase.api.services.async.simulations
 
 import com.google.errorprone.annotations.MustBeClosed
+import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.accounttransfers.AccountTransfer
@@ -14,6 +15,13 @@ interface AccountTransferServiceAsync {
      * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: (ClientOptions.Builder) -> Unit): AccountTransferServiceAsync
 
     /**
      * If your account is configured to require approval for each transfer, this endpoint simulates
@@ -46,6 +54,15 @@ interface AccountTransferServiceAsync {
      * method.
      */
     interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): AccountTransferServiceAsync.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `post

@@ -29,6 +29,11 @@ internal constructor(private val clientOptions: ClientOptions) :
     override fun withRawResponse(): CardAuthorizationExpirationService.WithRawResponse =
         withRawResponse
 
+    override fun withOptions(
+        modifier: (ClientOptions.Builder) -> Unit
+    ): CardAuthorizationExpirationService =
+        CardAuthorizationExpirationServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun create(
         params: CardAuthorizationExpirationCreateParams,
         requestOptions: RequestOptions,
@@ -40,6 +45,13 @@ internal constructor(private val clientOptions: ClientOptions) :
         CardAuthorizationExpirationService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): CardAuthorizationExpirationService.WithRawResponse =
+            CardAuthorizationExpirationServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val createHandler: Handler<CardPayment> =
             jsonHandler<CardPayment>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

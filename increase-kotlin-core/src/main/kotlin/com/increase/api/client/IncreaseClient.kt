@@ -2,6 +2,7 @@
 
 package com.increase.api.client
 
+import com.increase.api.core.ClientOptions
 import com.increase.api.services.blocking.AccountNumberService
 import com.increase.api.services.blocking.AccountService
 import com.increase.api.services.blocking.AccountStatementService
@@ -84,6 +85,13 @@ interface IncreaseClient {
      * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: (ClientOptions.Builder) -> Unit): IncreaseClient
 
     fun accounts(): AccountService
 
@@ -206,6 +214,13 @@ interface IncreaseClient {
 
     /** A view of [IncreaseClient] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(modifier: (ClientOptions.Builder) -> Unit): IncreaseClient.WithRawResponse
 
         fun accounts(): AccountService.WithRawResponse
 

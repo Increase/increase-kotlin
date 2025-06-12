@@ -3,6 +3,7 @@
 package com.increase.api.services.async.simulations
 
 import com.google.errorprone.annotations.MustBeClosed
+import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.cardpayments.CardPayment
@@ -15,6 +16,15 @@ interface CardAuthorizationExpirationServiceAsync {
      */
     fun withRawResponse(): WithRawResponse
 
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(
+        modifier: (ClientOptions.Builder) -> Unit
+    ): CardAuthorizationExpirationServiceAsync
+
     /** Simulates expiring a Card Authorization immediately. */
     suspend fun create(
         params: CardAuthorizationExpirationCreateParams,
@@ -26,6 +36,15 @@ interface CardAuthorizationExpirationServiceAsync {
      * responses for each method.
      */
     interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): CardAuthorizationExpirationServiceAsync.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `post /simulations/card_authorization_expirations`, but

@@ -26,6 +26,9 @@ class GroupServiceImpl internal constructor(private val clientOptions: ClientOpt
 
     override fun withRawResponse(): GroupService.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): GroupService =
+        GroupServiceImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override fun retrieve(params: GroupRetrieveParams, requestOptions: RequestOptions): Group =
         // get /groups/current
         withRawResponse().retrieve(params, requestOptions).parse()
@@ -34,6 +37,11 @@ class GroupServiceImpl internal constructor(private val clientOptions: ClientOpt
         GroupService.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): GroupService.WithRawResponse =
+            GroupServiceImpl.WithRawResponseImpl(clientOptions.toBuilder().apply(modifier).build())
 
         private val retrieveHandler: Handler<Group> =
             jsonHandler<Group>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

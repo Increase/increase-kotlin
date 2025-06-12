@@ -32,6 +32,9 @@ class FileServiceAsyncImpl internal constructor(private val clientOptions: Clien
 
     override fun withRawResponse(): FileServiceAsync.WithRawResponse = withRawResponse
 
+    override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): FileServiceAsync =
+        FileServiceAsyncImpl(clientOptions.toBuilder().apply(modifier).build())
+
     override suspend fun create(params: FileCreateParams, requestOptions: RequestOptions): File =
         // post /files
         withRawResponse().create(params, requestOptions).parse()
@@ -54,6 +57,13 @@ class FileServiceAsyncImpl internal constructor(private val clientOptions: Clien
         FileServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+
+        override fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): FileServiceAsync.WithRawResponse =
+            FileServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier).build()
+            )
 
         private val createHandler: Handler<File> =
             jsonHandler<File>(clientOptions.jsonMapper).withErrorHandler(errorHandler)

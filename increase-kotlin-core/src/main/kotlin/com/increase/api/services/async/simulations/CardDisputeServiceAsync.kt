@@ -3,6 +3,7 @@
 package com.increase.api.services.async.simulations
 
 import com.google.errorprone.annotations.MustBeClosed
+import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.carddisputes.CardDispute
@@ -14,6 +15,13 @@ interface CardDisputeServiceAsync {
      * Returns a view of this service that provides access to raw HTTP responses for each method.
      */
     fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: (ClientOptions.Builder) -> Unit): CardDisputeServiceAsync
 
     /**
      * After a [Card Dispute](#card-disputes) is created in production, the dispute will be
@@ -38,6 +46,15 @@ interface CardDisputeServiceAsync {
      * method.
      */
     interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(
+            modifier: (ClientOptions.Builder) -> Unit
+        ): CardDisputeServiceAsync.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `post
