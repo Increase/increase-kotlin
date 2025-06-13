@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.236.0 (2025-06-13)
+
+Full Changelog: [v0.235.0...v0.236.0](https://github.com/Increase/increase-kotlin/compare/v0.235.0...v0.236.0)
+
+### Features
+
+* **api:** api update ([920bdac](https://github.com/Increase/increase-kotlin/commit/920bdac40728289c44aead541afc4963710bb843))
+* **client:** add a `withOptions` method ([4696d77](https://github.com/Increase/increase-kotlin/commit/4696d771341448c44c0d21b01d5fc3539961aa88))
+
 ## 0.235.0 (2025-06-12)
 
 Full Changelog: [v0.234.0...v0.235.0](https://github.com/Increase/increase-kotlin/compare/v0.234.0...v0.235.0)
