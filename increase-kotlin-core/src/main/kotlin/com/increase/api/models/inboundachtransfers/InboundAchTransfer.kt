@@ -34,7 +34,6 @@ private constructor(
     private val decline: JsonField<Decline>,
     private val direction: JsonField<Direction>,
     private val effectiveDate: JsonField<LocalDate>,
-    private val expectedSettlementSchedule: JsonField<ExpectedSettlementSchedule>,
     private val internationalAddenda: JsonField<InternationalAddenda>,
     private val notificationOfChange: JsonField<NotificationOfChange>,
     private val originatorCompanyDescriptiveDate: JsonField<String>,
@@ -45,6 +44,7 @@ private constructor(
     private val originatorRoutingNumber: JsonField<String>,
     private val receiverIdNumber: JsonField<String>,
     private val receiverName: JsonField<String>,
+    private val settlement: JsonField<Settlement>,
     private val standardEntryClassCode: JsonField<StandardEntryClassCode>,
     private val status: JsonField<Status>,
     private val traceNumber: JsonField<String>,
@@ -78,9 +78,6 @@ private constructor(
         @JsonProperty("effective_date")
         @ExcludeMissing
         effectiveDate: JsonField<LocalDate> = JsonMissing.of(),
-        @JsonProperty("expected_settlement_schedule")
-        @ExcludeMissing
-        expectedSettlementSchedule: JsonField<ExpectedSettlementSchedule> = JsonMissing.of(),
         @JsonProperty("international_addenda")
         @ExcludeMissing
         internationalAddenda: JsonField<InternationalAddenda> = JsonMissing.of(),
@@ -111,6 +108,9 @@ private constructor(
         @JsonProperty("receiver_name")
         @ExcludeMissing
         receiverName: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("settlement")
+        @ExcludeMissing
+        settlement: JsonField<Settlement> = JsonMissing.of(),
         @JsonProperty("standard_entry_class_code")
         @ExcludeMissing
         standardEntryClassCode: JsonField<StandardEntryClassCode> = JsonMissing.of(),
@@ -134,7 +134,6 @@ private constructor(
         decline,
         direction,
         effectiveDate,
-        expectedSettlementSchedule,
         internationalAddenda,
         notificationOfChange,
         originatorCompanyDescriptiveDate,
@@ -145,6 +144,7 @@ private constructor(
         originatorRoutingNumber,
         receiverIdNumber,
         receiverName,
+        settlement,
         standardEntryClassCode,
         status,
         traceNumber,
@@ -245,15 +245,6 @@ private constructor(
     fun effectiveDate(): LocalDate = effectiveDate.getRequired("effective_date")
 
     /**
-     * The settlement schedule the transfer is expected to follow.
-     *
-     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
-    fun expectedSettlementSchedule(): ExpectedSettlementSchedule =
-        expectedSettlementSchedule.getRequired("expected_settlement_schedule")
-
-    /**
      * If the Inbound ACH Transfer has a Standard Entry Class Code of IAT, this will contain fields
      * pertaining to the International ACH Transaction.
      *
@@ -341,6 +332,15 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun receiverName(): String? = receiverName.getNullable("receiver_name")
+
+    /**
+     * A subhash containing information about when and how the transfer settled at the Federal
+     * Reserve.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun settlement(): Settlement? = settlement.getNullable("settlement")
 
     /**
      * The Standard Entry Class (SEC) code of the transfer.
@@ -476,17 +476,6 @@ private constructor(
     fun _effectiveDate(): JsonField<LocalDate> = effectiveDate
 
     /**
-     * Returns the raw JSON value of [expectedSettlementSchedule].
-     *
-     * Unlike [expectedSettlementSchedule], this method doesn't throw if the JSON field has an
-     * unexpected type.
-     */
-    @JsonProperty("expected_settlement_schedule")
-    @ExcludeMissing
-    fun _expectedSettlementSchedule(): JsonField<ExpectedSettlementSchedule> =
-        expectedSettlementSchedule
-
-    /**
      * Returns the raw JSON value of [internationalAddenda].
      *
      * Unlike [internationalAddenda], this method doesn't throw if the JSON field has an unexpected
@@ -587,6 +576,15 @@ private constructor(
     fun _receiverName(): JsonField<String> = receiverName
 
     /**
+     * Returns the raw JSON value of [settlement].
+     *
+     * Unlike [settlement], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("settlement")
+    @ExcludeMissing
+    fun _settlement(): JsonField<Settlement> = settlement
+
+    /**
      * Returns the raw JSON value of [standardEntryClassCode].
      *
      * Unlike [standardEntryClassCode], this method doesn't throw if the JSON field has an
@@ -658,7 +656,6 @@ private constructor(
          * .decline()
          * .direction()
          * .effectiveDate()
-         * .expectedSettlementSchedule()
          * .internationalAddenda()
          * .notificationOfChange()
          * .originatorCompanyDescriptiveDate()
@@ -669,6 +666,7 @@ private constructor(
          * .originatorRoutingNumber()
          * .receiverIdNumber()
          * .receiverName()
+         * .settlement()
          * .standardEntryClassCode()
          * .status()
          * .traceNumber()
@@ -693,7 +691,6 @@ private constructor(
         private var decline: JsonField<Decline>? = null
         private var direction: JsonField<Direction>? = null
         private var effectiveDate: JsonField<LocalDate>? = null
-        private var expectedSettlementSchedule: JsonField<ExpectedSettlementSchedule>? = null
         private var internationalAddenda: JsonField<InternationalAddenda>? = null
         private var notificationOfChange: JsonField<NotificationOfChange>? = null
         private var originatorCompanyDescriptiveDate: JsonField<String>? = null
@@ -704,6 +701,7 @@ private constructor(
         private var originatorRoutingNumber: JsonField<String>? = null
         private var receiverIdNumber: JsonField<String>? = null
         private var receiverName: JsonField<String>? = null
+        private var settlement: JsonField<Settlement>? = null
         private var standardEntryClassCode: JsonField<StandardEntryClassCode>? = null
         private var status: JsonField<Status>? = null
         private var traceNumber: JsonField<String>? = null
@@ -723,7 +721,6 @@ private constructor(
             decline = inboundAchTransfer.decline
             direction = inboundAchTransfer.direction
             effectiveDate = inboundAchTransfer.effectiveDate
-            expectedSettlementSchedule = inboundAchTransfer.expectedSettlementSchedule
             internationalAddenda = inboundAchTransfer.internationalAddenda
             notificationOfChange = inboundAchTransfer.notificationOfChange
             originatorCompanyDescriptiveDate = inboundAchTransfer.originatorCompanyDescriptiveDate
@@ -735,6 +732,7 @@ private constructor(
             originatorRoutingNumber = inboundAchTransfer.originatorRoutingNumber
             receiverIdNumber = inboundAchTransfer.receiverIdNumber
             receiverName = inboundAchTransfer.receiverName
+            settlement = inboundAchTransfer.settlement
             standardEntryClassCode = inboundAchTransfer.standardEntryClassCode
             status = inboundAchTransfer.status
             traceNumber = inboundAchTransfer.traceNumber
@@ -884,21 +882,6 @@ private constructor(
         fun effectiveDate(effectiveDate: JsonField<LocalDate>) = apply {
             this.effectiveDate = effectiveDate
         }
-
-        /** The settlement schedule the transfer is expected to follow. */
-        fun expectedSettlementSchedule(expectedSettlementSchedule: ExpectedSettlementSchedule) =
-            expectedSettlementSchedule(JsonField.of(expectedSettlementSchedule))
-
-        /**
-         * Sets [Builder.expectedSettlementSchedule] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.expectedSettlementSchedule] with a well-typed
-         * [ExpectedSettlementSchedule] value instead. This method is primarily for setting the
-         * field to an undocumented or not yet supported value.
-         */
-        fun expectedSettlementSchedule(
-            expectedSettlementSchedule: JsonField<ExpectedSettlementSchedule>
-        ) = apply { this.expectedSettlementSchedule = expectedSettlementSchedule }
 
         /**
          * If the Inbound ACH Transfer has a Standard Entry Class Code of IAT, this will contain
@@ -1061,6 +1044,21 @@ private constructor(
             this.receiverName = receiverName
         }
 
+        /**
+         * A subhash containing information about when and how the transfer settled at the Federal
+         * Reserve.
+         */
+        fun settlement(settlement: Settlement?) = settlement(JsonField.ofNullable(settlement))
+
+        /**
+         * Sets [Builder.settlement] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.settlement] with a well-typed [Settlement] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun settlement(settlement: JsonField<Settlement>) = apply { this.settlement = settlement }
+
         /** The Standard Entry Class (SEC) code of the transfer. */
         fun standardEntryClassCode(standardEntryClassCode: StandardEntryClassCode) =
             standardEntryClassCode(JsonField.of(standardEntryClassCode))
@@ -1171,7 +1169,6 @@ private constructor(
          * .decline()
          * .direction()
          * .effectiveDate()
-         * .expectedSettlementSchedule()
          * .internationalAddenda()
          * .notificationOfChange()
          * .originatorCompanyDescriptiveDate()
@@ -1182,6 +1179,7 @@ private constructor(
          * .originatorRoutingNumber()
          * .receiverIdNumber()
          * .receiverName()
+         * .settlement()
          * .standardEntryClassCode()
          * .status()
          * .traceNumber()
@@ -1204,7 +1202,6 @@ private constructor(
                 checkRequired("decline", decline),
                 checkRequired("direction", direction),
                 checkRequired("effectiveDate", effectiveDate),
-                checkRequired("expectedSettlementSchedule", expectedSettlementSchedule),
                 checkRequired("internationalAddenda", internationalAddenda),
                 checkRequired("notificationOfChange", notificationOfChange),
                 checkRequired("originatorCompanyDescriptiveDate", originatorCompanyDescriptiveDate),
@@ -1221,6 +1218,7 @@ private constructor(
                 checkRequired("originatorRoutingNumber", originatorRoutingNumber),
                 checkRequired("receiverIdNumber", receiverIdNumber),
                 checkRequired("receiverName", receiverName),
+                checkRequired("settlement", settlement),
                 checkRequired("standardEntryClassCode", standardEntryClassCode),
                 checkRequired("status", status),
                 checkRequired("traceNumber", traceNumber),
@@ -1248,7 +1246,6 @@ private constructor(
         decline()?.validate()
         direction().validate()
         effectiveDate()
-        expectedSettlementSchedule().validate()
         internationalAddenda()?.validate()
         notificationOfChange()?.validate()
         originatorCompanyDescriptiveDate()
@@ -1259,6 +1256,7 @@ private constructor(
         originatorRoutingNumber()
         receiverIdNumber()
         receiverName()
+        settlement()?.validate()
         standardEntryClassCode().validate()
         status().validate()
         traceNumber()
@@ -1292,7 +1290,6 @@ private constructor(
             (decline.asKnown()?.validity() ?: 0) +
             (direction.asKnown()?.validity() ?: 0) +
             (if (effectiveDate.asKnown() == null) 0 else 1) +
-            (expectedSettlementSchedule.asKnown()?.validity() ?: 0) +
             (internationalAddenda.asKnown()?.validity() ?: 0) +
             (notificationOfChange.asKnown()?.validity() ?: 0) +
             (if (originatorCompanyDescriptiveDate.asKnown() == null) 0 else 1) +
@@ -1303,6 +1300,7 @@ private constructor(
             (if (originatorRoutingNumber.asKnown() == null) 0 else 1) +
             (if (receiverIdNumber.asKnown() == null) 0 else 1) +
             (if (receiverName.asKnown() == null) 0 else 1) +
+            (settlement.asKnown()?.validity() ?: 0) +
             (standardEntryClassCode.asKnown()?.validity() ?: 0) +
             (status.asKnown()?.validity() ?: 0) +
             (if (traceNumber.asKnown() == null) 0 else 1) +
@@ -2856,146 +2854,6 @@ private constructor(
             }
 
             return /* spotless:off */ other is Direction && value == other.value /* spotless:on */
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-    }
-
-    /** The settlement schedule the transfer is expected to follow. */
-    class ExpectedSettlementSchedule
-    @JsonCreator
-    private constructor(private val value: JsonField<String>) : Enum {
-
-        /**
-         * Returns this class instance's raw value.
-         *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
-         */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        companion object {
-
-            /** The transfer is expected to settle same-day. */
-            val SAME_DAY = of("same_day")
-
-            /** The transfer is expected to settle on a future date. */
-            val FUTURE_DATED = of("future_dated")
-
-            fun of(value: String) = ExpectedSettlementSchedule(JsonField.of(value))
-        }
-
-        /** An enum containing [ExpectedSettlementSchedule]'s known values. */
-        enum class Known {
-            /** The transfer is expected to settle same-day. */
-            SAME_DAY,
-            /** The transfer is expected to settle on a future date. */
-            FUTURE_DATED,
-        }
-
-        /**
-         * An enum containing [ExpectedSettlementSchedule]'s known values, as well as an [_UNKNOWN]
-         * member.
-         *
-         * An instance of [ExpectedSettlementSchedule] can contain an unknown value in a couple of
-         * cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
-         * - It was constructed with an arbitrary value using the [of] method.
-         */
-        enum class Value {
-            /** The transfer is expected to settle same-day. */
-            SAME_DAY,
-            /** The transfer is expected to settle on a future date. */
-            FUTURE_DATED,
-            /**
-             * An enum member indicating that [ExpectedSettlementSchedule] was instantiated with an
-             * unknown value.
-             */
-            _UNKNOWN,
-        }
-
-        /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
-         *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
-         */
-        fun value(): Value =
-            when (this) {
-                SAME_DAY -> Value.SAME_DAY
-                FUTURE_DATED -> Value.FUTURE_DATED
-                else -> Value._UNKNOWN
-            }
-
-        /**
-         * Returns an enum member corresponding to this class instance's value.
-         *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
-         *
-         * @throws IncreaseInvalidDataException if this class instance's value is a not a known
-         *   member.
-         */
-        fun known(): Known =
-            when (this) {
-                SAME_DAY -> Known.SAME_DAY
-                FUTURE_DATED -> Known.FUTURE_DATED
-                else ->
-                    throw IncreaseInvalidDataException("Unknown ExpectedSettlementSchedule: $value")
-            }
-
-        /**
-         * Returns this class instance's primitive wire representation.
-         *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
-         *
-         * @throws IncreaseInvalidDataException if this class instance's value does not have the
-         *   expected primitive type.
-         */
-        fun asString(): String =
-            _value().asString() ?: throw IncreaseInvalidDataException("Value is not a String")
-
-        private var validated: Boolean = false
-
-        fun validate(): ExpectedSettlementSchedule = apply {
-            if (validated) {
-                return@apply
-            }
-
-            known()
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: IncreaseInvalidDataException) {
-                false
-            }
-
-        /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
-         *
-         * Used for best match union deserialization.
-         */
-        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return /* spotless:off */ other is ExpectedSettlementSchedule && value == other.value /* spotless:on */
         }
 
         override fun hashCode() = value.hashCode()
@@ -6078,6 +5936,360 @@ private constructor(
             "NotificationOfChange{updatedAccountNumber=$updatedAccountNumber, updatedRoutingNumber=$updatedRoutingNumber, additionalProperties=$additionalProperties}"
     }
 
+    /**
+     * A subhash containing information about when and how the transfer settled at the Federal
+     * Reserve.
+     */
+    class Settlement
+    private constructor(
+        private val settledAt: JsonField<OffsetDateTime>,
+        private val settlementSchedule: JsonField<SettlementSchedule>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("settled_at")
+            @ExcludeMissing
+            settledAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+            @JsonProperty("settlement_schedule")
+            @ExcludeMissing
+            settlementSchedule: JsonField<SettlementSchedule> = JsonMissing.of(),
+        ) : this(settledAt, settlementSchedule, mutableMapOf())
+
+        /**
+         * When the funds for this transfer settle at the recipient bank at the Federal Reserve.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun settledAt(): OffsetDateTime = settledAt.getRequired("settled_at")
+
+        /**
+         * The settlement schedule this transfer follows.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun settlementSchedule(): SettlementSchedule =
+            settlementSchedule.getRequired("settlement_schedule")
+
+        /**
+         * Returns the raw JSON value of [settledAt].
+         *
+         * Unlike [settledAt], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("settled_at")
+        @ExcludeMissing
+        fun _settledAt(): JsonField<OffsetDateTime> = settledAt
+
+        /**
+         * Returns the raw JSON value of [settlementSchedule].
+         *
+         * Unlike [settlementSchedule], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("settlement_schedule")
+        @ExcludeMissing
+        fun _settlementSchedule(): JsonField<SettlementSchedule> = settlementSchedule
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [Settlement].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .settledAt()
+             * .settlementSchedule()
+             * ```
+             */
+            fun builder() = Builder()
+        }
+
+        /** A builder for [Settlement]. */
+        class Builder internal constructor() {
+
+            private var settledAt: JsonField<OffsetDateTime>? = null
+            private var settlementSchedule: JsonField<SettlementSchedule>? = null
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            internal fun from(settlement: Settlement) = apply {
+                settledAt = settlement.settledAt
+                settlementSchedule = settlement.settlementSchedule
+                additionalProperties = settlement.additionalProperties.toMutableMap()
+            }
+
+            /**
+             * When the funds for this transfer settle at the recipient bank at the Federal Reserve.
+             */
+            fun settledAt(settledAt: OffsetDateTime) = settledAt(JsonField.of(settledAt))
+
+            /**
+             * Sets [Builder.settledAt] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.settledAt] with a well-typed [OffsetDateTime] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun settledAt(settledAt: JsonField<OffsetDateTime>) = apply {
+                this.settledAt = settledAt
+            }
+
+            /** The settlement schedule this transfer follows. */
+            fun settlementSchedule(settlementSchedule: SettlementSchedule) =
+                settlementSchedule(JsonField.of(settlementSchedule))
+
+            /**
+             * Sets [Builder.settlementSchedule] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.settlementSchedule] with a well-typed
+             * [SettlementSchedule] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
+             */
+            fun settlementSchedule(settlementSchedule: JsonField<SettlementSchedule>) = apply {
+                this.settlementSchedule = settlementSchedule
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Settlement].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .settledAt()
+             * .settlementSchedule()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): Settlement =
+                Settlement(
+                    checkRequired("settledAt", settledAt),
+                    checkRequired("settlementSchedule", settlementSchedule),
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Settlement = apply {
+            if (validated) {
+                return@apply
+            }
+
+            settledAt()
+            settlementSchedule().validate()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int =
+            (if (settledAt.asKnown() == null) 0 else 1) +
+                (settlementSchedule.asKnown()?.validity() ?: 0)
+
+        /** The settlement schedule this transfer follows. */
+        class SettlementSchedule
+        @JsonCreator
+        private constructor(private val value: JsonField<String>) : Enum {
+
+            /**
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
+             */
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            companion object {
+
+                /** The transfer is expected to settle same-day. */
+                val SAME_DAY = of("same_day")
+
+                /** The transfer is expected to settle on a future date. */
+                val FUTURE_DATED = of("future_dated")
+
+                fun of(value: String) = SettlementSchedule(JsonField.of(value))
+            }
+
+            /** An enum containing [SettlementSchedule]'s known values. */
+            enum class Known {
+                /** The transfer is expected to settle same-day. */
+                SAME_DAY,
+                /** The transfer is expected to settle on a future date. */
+                FUTURE_DATED,
+            }
+
+            /**
+             * An enum containing [SettlementSchedule]'s known values, as well as an [_UNKNOWN]
+             * member.
+             *
+             * An instance of [SettlementSchedule] can contain an unknown value in a couple of
+             * cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
+            enum class Value {
+                /** The transfer is expected to settle same-day. */
+                SAME_DAY,
+                /** The transfer is expected to settle on a future date. */
+                FUTURE_DATED,
+                /**
+                 * An enum member indicating that [SettlementSchedule] was instantiated with an
+                 * unknown value.
+                 */
+                _UNKNOWN,
+            }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
+            fun value(): Value =
+                when (this) {
+                    SAME_DAY -> Value.SAME_DAY
+                    FUTURE_DATED -> Value.FUTURE_DATED
+                    else -> Value._UNKNOWN
+                }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+             *   member.
+             */
+            fun known(): Known =
+                when (this) {
+                    SAME_DAY -> Known.SAME_DAY
+                    FUTURE_DATED -> Known.FUTURE_DATED
+                    else -> throw IncreaseInvalidDataException("Unknown SettlementSchedule: $value")
+                }
+
+            /**
+             * Returns this class instance's primitive wire representation.
+             *
+             * This differs from the [toString] method because that method is primarily for
+             * debugging and generally doesn't throw.
+             *
+             * @throws IncreaseInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
+             */
+            fun asString(): String =
+                _value().asString() ?: throw IncreaseInvalidDataException("Value is not a String")
+
+            private var validated: Boolean = false
+
+            fun validate(): SettlementSchedule = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return /* spotless:off */ other is SettlementSchedule && value == other.value /* spotless:on */
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return /* spotless:off */ other is Settlement && settledAt == other.settledAt && settlementSchedule == other.settlementSchedule && additionalProperties == other.additionalProperties /* spotless:on */
+        }
+
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(settledAt, settlementSchedule, additionalProperties) }
+        /* spotless:on */
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "Settlement{settledAt=$settledAt, settlementSchedule=$settlementSchedule, additionalProperties=$additionalProperties}"
+    }
+
     /** The Standard Entry Class (SEC) code of the transfer. */
     class StandardEntryClassCode
     @JsonCreator
@@ -7161,15 +7373,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is InboundAchTransfer && id == other.id && acceptance == other.acceptance && accountId == other.accountId && accountNumberId == other.accountNumberId && addenda == other.addenda && amount == other.amount && automaticallyResolvesAt == other.automaticallyResolvesAt && createdAt == other.createdAt && decline == other.decline && direction == other.direction && effectiveDate == other.effectiveDate && expectedSettlementSchedule == other.expectedSettlementSchedule && internationalAddenda == other.internationalAddenda && notificationOfChange == other.notificationOfChange && originatorCompanyDescriptiveDate == other.originatorCompanyDescriptiveDate && originatorCompanyDiscretionaryData == other.originatorCompanyDiscretionaryData && originatorCompanyEntryDescription == other.originatorCompanyEntryDescription && originatorCompanyId == other.originatorCompanyId && originatorCompanyName == other.originatorCompanyName && originatorRoutingNumber == other.originatorRoutingNumber && receiverIdNumber == other.receiverIdNumber && receiverName == other.receiverName && standardEntryClassCode == other.standardEntryClassCode && status == other.status && traceNumber == other.traceNumber && transferReturn == other.transferReturn && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is InboundAchTransfer && id == other.id && acceptance == other.acceptance && accountId == other.accountId && accountNumberId == other.accountNumberId && addenda == other.addenda && amount == other.amount && automaticallyResolvesAt == other.automaticallyResolvesAt && createdAt == other.createdAt && decline == other.decline && direction == other.direction && effectiveDate == other.effectiveDate && internationalAddenda == other.internationalAddenda && notificationOfChange == other.notificationOfChange && originatorCompanyDescriptiveDate == other.originatorCompanyDescriptiveDate && originatorCompanyDiscretionaryData == other.originatorCompanyDiscretionaryData && originatorCompanyEntryDescription == other.originatorCompanyEntryDescription && originatorCompanyId == other.originatorCompanyId && originatorCompanyName == other.originatorCompanyName && originatorRoutingNumber == other.originatorRoutingNumber && receiverIdNumber == other.receiverIdNumber && receiverName == other.receiverName && settlement == other.settlement && standardEntryClassCode == other.standardEntryClassCode && status == other.status && traceNumber == other.traceNumber && transferReturn == other.transferReturn && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, acceptance, accountId, accountNumberId, addenda, amount, automaticallyResolvesAt, createdAt, decline, direction, effectiveDate, expectedSettlementSchedule, internationalAddenda, notificationOfChange, originatorCompanyDescriptiveDate, originatorCompanyDiscretionaryData, originatorCompanyEntryDescription, originatorCompanyId, originatorCompanyName, originatorRoutingNumber, receiverIdNumber, receiverName, standardEntryClassCode, status, traceNumber, transferReturn, type, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, acceptance, accountId, accountNumberId, addenda, amount, automaticallyResolvesAt, createdAt, decline, direction, effectiveDate, internationalAddenda, notificationOfChange, originatorCompanyDescriptiveDate, originatorCompanyDiscretionaryData, originatorCompanyEntryDescription, originatorCompanyId, originatorCompanyName, originatorRoutingNumber, receiverIdNumber, receiverName, settlement, standardEntryClassCode, status, traceNumber, transferReturn, type, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "InboundAchTransfer{id=$id, acceptance=$acceptance, accountId=$accountId, accountNumberId=$accountNumberId, addenda=$addenda, amount=$amount, automaticallyResolvesAt=$automaticallyResolvesAt, createdAt=$createdAt, decline=$decline, direction=$direction, effectiveDate=$effectiveDate, expectedSettlementSchedule=$expectedSettlementSchedule, internationalAddenda=$internationalAddenda, notificationOfChange=$notificationOfChange, originatorCompanyDescriptiveDate=$originatorCompanyDescriptiveDate, originatorCompanyDiscretionaryData=$originatorCompanyDiscretionaryData, originatorCompanyEntryDescription=$originatorCompanyEntryDescription, originatorCompanyId=$originatorCompanyId, originatorCompanyName=$originatorCompanyName, originatorRoutingNumber=$originatorRoutingNumber, receiverIdNumber=$receiverIdNumber, receiverName=$receiverName, standardEntryClassCode=$standardEntryClassCode, status=$status, traceNumber=$traceNumber, transferReturn=$transferReturn, type=$type, additionalProperties=$additionalProperties}"
+        "InboundAchTransfer{id=$id, acceptance=$acceptance, accountId=$accountId, accountNumberId=$accountNumberId, addenda=$addenda, amount=$amount, automaticallyResolvesAt=$automaticallyResolvesAt, createdAt=$createdAt, decline=$decline, direction=$direction, effectiveDate=$effectiveDate, internationalAddenda=$internationalAddenda, notificationOfChange=$notificationOfChange, originatorCompanyDescriptiveDate=$originatorCompanyDescriptiveDate, originatorCompanyDiscretionaryData=$originatorCompanyDiscretionaryData, originatorCompanyEntryDescription=$originatorCompanyEntryDescription, originatorCompanyId=$originatorCompanyId, originatorCompanyName=$originatorCompanyName, originatorRoutingNumber=$originatorRoutingNumber, receiverIdNumber=$receiverIdNumber, receiverName=$receiverName, settlement=$settlement, standardEntryClassCode=$standardEntryClassCode, status=$status, traceNumber=$traceNumber, transferReturn=$transferReturn, type=$type, additionalProperties=$additionalProperties}"
 }
