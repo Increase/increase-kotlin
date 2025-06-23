@@ -1,5 +1,29 @@
 # Changelog
 
+## 0.240.0 (2025-06-23)
+
+Full Changelog: [v0.239.0...v0.240.0](https://github.com/Increase/increase-kotlin/compare/v0.239.0...v0.240.0)
+
+### Features
+
+* **api:** api update ([0aa14b5](https://github.com/Increase/increase-kotlin/commit/0aa14b542901741657aec425de9d935297c67297))
+* **api:** api update ([412d941](https://github.com/Increase/increase-kotlin/commit/412d941d49307cc14e7606db5cde37fa218aa42d))
+* **api:** api update ([a25ab2e](https://github.com/Increase/increase-kotlin/commit/a25ab2edc0a9ac1e1b8a3784ba75a771ab1d2baf))
+* **api:** api update ([c3afe7c](https://github.com/Increase/increase-kotlin/commit/c3afe7c6f37c7f70a5078e432f4bd45456d599f5))
+* **api:** api update ([5602980](https://github.com/Increase/increase-kotlin/commit/5602980e3accb8855f3d6a5f96eb8da3bd8c682c))
+* **api:** api update ([19b54d7](https://github.com/Increase/increase-kotlin/commit/19b54d7750ce26eafc9b3dc2ec97679e13f7c902))
+* **api:** api update ([a586ca2](https://github.com/Increase/increase-kotlin/commit/a586ca2fda9a5a2a75cd4660f17cc3ee63b8321a))
+
+
+### Bug Fixes
+
+* **client:** bump max requests per host to max requests (5 -&gt; 64) ([e17a0aa](https://github.com/Increase/increase-kotlin/commit/e17a0aa5eadadccb7bca272a00b34c63da1165ce))
+
+
+### Chores
+
+* **ci:** enable for pull requests ([cbbabdb](https://github.com/Increase/increase-kotlin/commit/cbbabdb9f5dcfd175fb65d45215c453306e60863))
+
 ## 0.239.0 (2025-06-16)
 
 Full Changelog: [v0.238.0...v0.239.0](https://github.com/Increase/increase-kotlin/compare/v0.238.0...v0.239.0)
