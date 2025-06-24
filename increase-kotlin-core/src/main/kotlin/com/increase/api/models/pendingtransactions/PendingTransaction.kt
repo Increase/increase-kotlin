@@ -19,6 +19,8 @@ import java.util.Objects
 
 /**
  * Pending Transactions are potential future additions and removals of money from your bank account.
+ * They impact your available balance, but not your current balance. To learn more, see
+ * [Transactions and Transfers](/documentation/transactions-transfers).
  */
 class PendingTransaction
 private constructor(
