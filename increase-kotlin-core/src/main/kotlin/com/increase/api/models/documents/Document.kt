@@ -29,6 +29,7 @@ private constructor(
     private val createdAt: JsonField<OffsetDateTime>,
     private val entityId: JsonField<String>,
     private val fileId: JsonField<String>,
+    private val fundingInstructions: JsonField<FundingInstructions>,
     private val idempotencyKey: JsonField<String>,
     private val type: JsonField<Type>,
     private val additionalProperties: MutableMap<String, JsonValue>,
@@ -46,6 +47,9 @@ private constructor(
         createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
         @JsonProperty("entity_id") @ExcludeMissing entityId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("file_id") @ExcludeMissing fileId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("funding_instructions")
+        @ExcludeMissing
+        fundingInstructions: JsonField<FundingInstructions> = JsonMissing.of(),
         @JsonProperty("idempotency_key")
         @ExcludeMissing
         idempotencyKey: JsonField<String> = JsonMissing.of(),
@@ -57,6 +61,7 @@ private constructor(
         createdAt,
         entityId,
         fileId,
+        fundingInstructions,
         idempotencyKey,
         type,
         mutableMapOf(),
@@ -111,6 +116,15 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun fileId(): String = fileId.getRequired("file_id")
+
+    /**
+     * Properties of a funding instructions document.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun fundingInstructions(): FundingInstructions? =
+        fundingInstructions.getNullable("funding_instructions")
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -179,6 +193,16 @@ private constructor(
     @JsonProperty("file_id") @ExcludeMissing fun _fileId(): JsonField<String> = fileId
 
     /**
+     * Returns the raw JSON value of [fundingInstructions].
+     *
+     * Unlike [fundingInstructions], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("funding_instructions")
+    @ExcludeMissing
+    fun _fundingInstructions(): JsonField<FundingInstructions> = fundingInstructions
+
+    /**
      * Returns the raw JSON value of [idempotencyKey].
      *
      * Unlike [idempotencyKey], this method doesn't throw if the JSON field has an unexpected type.
@@ -219,6 +243,7 @@ private constructor(
          * .createdAt()
          * .entityId()
          * .fileId()
+         * .fundingInstructions()
          * .idempotencyKey()
          * .type()
          * ```
@@ -235,6 +260,7 @@ private constructor(
         private var createdAt: JsonField<OffsetDateTime>? = null
         private var entityId: JsonField<String>? = null
         private var fileId: JsonField<String>? = null
+        private var fundingInstructions: JsonField<FundingInstructions>? = null
         private var idempotencyKey: JsonField<String>? = null
         private var type: JsonField<Type>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -246,6 +272,7 @@ private constructor(
             createdAt = document.createdAt
             entityId = document.entityId
             fileId = document.fileId
+            fundingInstructions = document.fundingInstructions
             idempotencyKey = document.idempotencyKey
             type = document.type
             additionalProperties = document.additionalProperties.toMutableMap()
@@ -326,6 +353,21 @@ private constructor(
          */
         fun fileId(fileId: JsonField<String>) = apply { this.fileId = fileId }
 
+        /** Properties of a funding instructions document. */
+        fun fundingInstructions(fundingInstructions: FundingInstructions?) =
+            fundingInstructions(JsonField.ofNullable(fundingInstructions))
+
+        /**
+         * Sets [Builder.fundingInstructions] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.fundingInstructions] with a well-typed
+         * [FundingInstructions] value instead. This method is primarily for setting the field to an
+         * undocumented or not yet supported value.
+         */
+        fun fundingInstructions(fundingInstructions: JsonField<FundingInstructions>) = apply {
+            this.fundingInstructions = fundingInstructions
+        }
+
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
          * is used to ensure that a request is only processed once. Learn more about
@@ -391,6 +433,7 @@ private constructor(
          * .createdAt()
          * .entityId()
          * .fileId()
+         * .fundingInstructions()
          * .idempotencyKey()
          * .type()
          * ```
@@ -405,6 +448,7 @@ private constructor(
                 checkRequired("createdAt", createdAt),
                 checkRequired("entityId", entityId),
                 checkRequired("fileId", fileId),
+                checkRequired("fundingInstructions", fundingInstructions),
                 checkRequired("idempotencyKey", idempotencyKey),
                 checkRequired("type", type),
                 additionalProperties.toMutableMap(),
@@ -424,6 +468,7 @@ private constructor(
         createdAt()
         entityId()
         fileId()
+        fundingInstructions()?.validate()
         idempotencyKey()
         type().validate()
         validated = true
@@ -449,6 +494,7 @@ private constructor(
             (if (createdAt.asKnown() == null) 0 else 1) +
             (if (entityId.asKnown() == null) 0 else 1) +
             (if (fileId.asKnown() == null) 0 else 1) +
+            (fundingInstructions.asKnown()?.validity() ?: 0) +
             (if (idempotencyKey.asKnown() == null) 0 else 1) +
             (type.asKnown()?.validity() ?: 0)
 
@@ -655,6 +701,9 @@ private constructor(
             /** An account verification letter. */
             val ACCOUNT_VERIFICATION_LETTER = of("account_verification_letter")
 
+            /** Funding instructions. */
+            val FUNDING_INSTRUCTIONS = of("funding_instructions")
+
             fun of(value: String) = Category(JsonField.of(value))
         }
 
@@ -676,6 +725,8 @@ private constructor(
             COMPANY_INFORMATION,
             /** An account verification letter. */
             ACCOUNT_VERIFICATION_LETTER,
+            /** Funding instructions. */
+            FUNDING_INSTRUCTIONS,
         }
 
         /**
@@ -704,6 +755,8 @@ private constructor(
             COMPANY_INFORMATION,
             /** An account verification letter. */
             ACCOUNT_VERIFICATION_LETTER,
+            /** Funding instructions. */
+            FUNDING_INSTRUCTIONS,
             /** An enum member indicating that [Category] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -722,6 +775,7 @@ private constructor(
                 PROOF_OF_AUTHORIZATION -> Value.PROOF_OF_AUTHORIZATION
                 COMPANY_INFORMATION -> Value.COMPANY_INFORMATION
                 ACCOUNT_VERIFICATION_LETTER -> Value.ACCOUNT_VERIFICATION_LETTER
+                FUNDING_INSTRUCTIONS -> Value.FUNDING_INSTRUCTIONS
                 else -> Value._UNKNOWN
             }
 
@@ -741,6 +795,7 @@ private constructor(
                 PROOF_OF_AUTHORIZATION -> Known.PROOF_OF_AUTHORIZATION
                 COMPANY_INFORMATION -> Known.COMPANY_INFORMATION
                 ACCOUNT_VERIFICATION_LETTER -> Known.ACCOUNT_VERIFICATION_LETTER
+                FUNDING_INSTRUCTIONS -> Known.FUNDING_INSTRUCTIONS
                 else -> throw IncreaseInvalidDataException("Unknown Category: $value")
             }
 
@@ -794,6 +849,172 @@ private constructor(
         override fun hashCode() = value.hashCode()
 
         override fun toString() = value.toString()
+    }
+
+    /** Properties of a funding instructions document. */
+    class FundingInstructions
+    private constructor(
+        private val accountNumberId: JsonField<String>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("account_number_id")
+            @ExcludeMissing
+            accountNumberId: JsonField<String> = JsonMissing.of()
+        ) : this(accountNumberId, mutableMapOf())
+
+        /**
+         * The identifier of the Account Number the document was generated for.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun accountNumberId(): String = accountNumberId.getRequired("account_number_id")
+
+        /**
+         * Returns the raw JSON value of [accountNumberId].
+         *
+         * Unlike [accountNumberId], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("account_number_id")
+        @ExcludeMissing
+        fun _accountNumberId(): JsonField<String> = accountNumberId
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [FundingInstructions].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .accountNumberId()
+             * ```
+             */
+            fun builder() = Builder()
+        }
+
+        /** A builder for [FundingInstructions]. */
+        class Builder internal constructor() {
+
+            private var accountNumberId: JsonField<String>? = null
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            internal fun from(fundingInstructions: FundingInstructions) = apply {
+                accountNumberId = fundingInstructions.accountNumberId
+                additionalProperties = fundingInstructions.additionalProperties.toMutableMap()
+            }
+
+            /** The identifier of the Account Number the document was generated for. */
+            fun accountNumberId(accountNumberId: String) =
+                accountNumberId(JsonField.of(accountNumberId))
+
+            /**
+             * Sets [Builder.accountNumberId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.accountNumberId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun accountNumberId(accountNumberId: JsonField<String>) = apply {
+                this.accountNumberId = accountNumberId
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [FundingInstructions].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .accountNumberId()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): FundingInstructions =
+                FundingInstructions(
+                    checkRequired("accountNumberId", accountNumberId),
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): FundingInstructions = apply {
+            if (validated) {
+                return@apply
+            }
+
+            accountNumberId()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int = (if (accountNumberId.asKnown() == null) 0 else 1)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return /* spotless:off */ other is FundingInstructions && accountNumberId == other.accountNumberId && additionalProperties == other.additionalProperties /* spotless:on */
+        }
+
+        /* spotless:off */
+        private val hashCode: Int by lazy { Objects.hash(accountNumberId, additionalProperties) }
+        /* spotless:on */
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "FundingInstructions{accountNumberId=$accountNumberId, additionalProperties=$additionalProperties}"
     }
 
     /**
@@ -923,15 +1144,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is Document && id == other.id && accountVerificationLetter == other.accountVerificationLetter && category == other.category && createdAt == other.createdAt && entityId == other.entityId && fileId == other.fileId && idempotencyKey == other.idempotencyKey && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return /* spotless:off */ other is Document && id == other.id && accountVerificationLetter == other.accountVerificationLetter && category == other.category && createdAt == other.createdAt && entityId == other.entityId && fileId == other.fileId && fundingInstructions == other.fundingInstructions && idempotencyKey == other.idempotencyKey && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
     }
 
     /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, accountVerificationLetter, category, createdAt, entityId, fileId, idempotencyKey, type, additionalProperties) }
+    private val hashCode: Int by lazy { Objects.hash(id, accountVerificationLetter, category, createdAt, entityId, fileId, fundingInstructions, idempotencyKey, type, additionalProperties) }
     /* spotless:on */
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "Document{id=$id, accountVerificationLetter=$accountVerificationLetter, category=$category, createdAt=$createdAt, entityId=$entityId, fileId=$fileId, idempotencyKey=$idempotencyKey, type=$type, additionalProperties=$additionalProperties}"
+        "Document{id=$id, accountVerificationLetter=$accountVerificationLetter, category=$category, createdAt=$createdAt, entityId=$entityId, fileId=$fileId, fundingInstructions=$fundingInstructions, idempotencyKey=$idempotencyKey, type=$type, additionalProperties=$additionalProperties}"
 }
