@@ -2211,7 +2211,7 @@ private constructor(
 
                     /**
                      * The two-character ISO 3166-1 code representing the country that issued the
-                     * document.
+                     * document (e.g., `US`).
                      *
                      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                      *   or is unexpectedly missing or null (e.g. if the server responded with an
@@ -2353,7 +2353,7 @@ private constructor(
 
                         /**
                          * The two-character ISO 3166-1 code representing the country that issued
-                         * the document.
+                         * the document (e.g., `US`).
                          */
                         fun country(country: String) = country(JsonField.of(country))
 
@@ -2552,7 +2552,8 @@ private constructor(
                     ) : this(country, expirationDate, fileId, mutableMapOf())
 
                     /**
-                     * The country that issued the passport.
+                     * The two-character ISO 3166-1 code representing the country that issued the
+                     * document (e.g., `US`).
                      *
                      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                      *   or is unexpectedly missing or null (e.g. if the server responded with an
@@ -2651,7 +2652,10 @@ private constructor(
                             additionalProperties = passport.additionalProperties.toMutableMap()
                         }
 
-                        /** The country that issued the passport. */
+                        /**
+                         * The two-character ISO 3166-1 code representing the country that issued
+                         * the document (e.g., `US`).
+                         */
                         fun country(country: String) = country(JsonField.of(country))
 
                         /**
