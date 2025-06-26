@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.244.1 (2025-06-26)
+
+Full Changelog: [v0.244.0...v0.244.1](https://github.com/Increase/increase-kotlin/compare/v0.244.0...v0.244.1)
+
+### Bug Fixes
+
+* **ci:** release-doctor — report correct token name ([697256d](https://github.com/Increase/increase-kotlin/commit/697256d36cfb991e1fc786306a81dfb606384239))
+
 ## 0.244.0 (2025-06-26)
 
 Full Changelog: [v0.243.0...v0.244.0](https://github.com/Increase/increase-kotlin/compare/v0.243.0...v0.244.0)
