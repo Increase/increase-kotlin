@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.244.2 (2025-06-29)
+
+Full Changelog: [v0.244.1...v0.244.2](https://github.com/Increase/increase-kotlin/compare/v0.244.1...v0.244.2)
+
+### Bug Fixes
+
+* **client:** don't close client on `withOptions` usage when original is gc'd ([1e698b7](https://github.com/Increase/increase-kotlin/commit/1e698b774c046087907252b149a28248bcbb57e9))
+
+
+### Chores
+
+* **ci:** only run for pushes and fork pull requests ([01c32e5](https://github.com/Increase/increase-kotlin/commit/01c32e5b1a1e65cebe7268f0ac3b4d6fa24b600b))
+
 ## 0.244.1 (2025-06-26)
 
 Full Changelog: [v0.244.0...v0.244.1](https://github.com/Increase/increase-kotlin/compare/v0.244.0...v0.244.1)
