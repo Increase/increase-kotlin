@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.245.0 (2025-07-01)
+
+Full Changelog: [v0.244.2...v0.245.0](https://github.com/Increase/increase-kotlin/compare/v0.244.2...v0.245.0)
+
+### Features
+
+* **api:** api update ([8fb4a82](https://github.com/Increase/increase-kotlin/commit/8fb4a8214fe88d97e0bd45c84b5e4dd1693302a0))
+
+
+### Refactors
+
+* **internal:** minor `ClientOptionsTest` change ([23ac847](https://github.com/Increase/increase-kotlin/commit/23ac84731241e03439b907b6e8f7c37e8b03529c))
+
 ## 0.244.2 (2025-06-29)
 
 Full Changelog: [v0.244.1...v0.244.2](https://github.com/Increase/increase-kotlin/compare/v0.244.1...v0.244.2)
