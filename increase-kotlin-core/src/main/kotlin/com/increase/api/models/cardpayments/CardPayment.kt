@@ -13885,6 +13885,12 @@ private constructor(
                     val FAILED_3DS_AUTHENTICATION = of("failed_3ds_authentication")
 
                     /**
+                     * The transaction was suspected to be used by a card tester to test for valid
+                     * card numbers.
+                     */
+                    val SUSPECTED_CARD_TESTING = of("suspected_card_testing")
+
+                    /**
                      * The transaction was suspected to be fraudulent. Please reach out to
                      * support@increase.com for more information.
                      */
@@ -13939,6 +13945,11 @@ private constructor(
                     MISSING_ORIGINAL_AUTHORIZATION,
                     /** The transaction was declined because the 3DS authentication failed. */
                     FAILED_3DS_AUTHENTICATION,
+                    /**
+                     * The transaction was suspected to be used by a card tester to test for valid
+                     * card numbers.
+                     */
+                    SUSPECTED_CARD_TESTING,
                     /**
                      * The transaction was suspected to be fraudulent. Please reach out to
                      * support@increase.com for more information.
@@ -14001,6 +14012,11 @@ private constructor(
                     /** The transaction was declined because the 3DS authentication failed. */
                     FAILED_3DS_AUTHENTICATION,
                     /**
+                     * The transaction was suspected to be used by a card tester to test for valid
+                     * card numbers.
+                     */
+                    SUSPECTED_CARD_TESTING,
+                    /**
                      * The transaction was suspected to be fraudulent. Please reach out to
                      * support@increase.com for more information.
                      */
@@ -14039,6 +14055,7 @@ private constructor(
                         INVALID_PHYSICAL_CARD -> Value.INVALID_PHYSICAL_CARD
                         MISSING_ORIGINAL_AUTHORIZATION -> Value.MISSING_ORIGINAL_AUTHORIZATION
                         FAILED_3DS_AUTHENTICATION -> Value.FAILED_3DS_AUTHENTICATION
+                        SUSPECTED_CARD_TESTING -> Value.SUSPECTED_CARD_TESTING
                         SUSPECTED_FRAUD -> Value.SUSPECTED_FRAUD
                         else -> Value._UNKNOWN
                     }
@@ -14072,6 +14089,7 @@ private constructor(
                         INVALID_PHYSICAL_CARD -> Known.INVALID_PHYSICAL_CARD
                         MISSING_ORIGINAL_AUTHORIZATION -> Known.MISSING_ORIGINAL_AUTHORIZATION
                         FAILED_3DS_AUTHENTICATION -> Known.FAILED_3DS_AUTHENTICATION
+                        SUSPECTED_CARD_TESTING -> Known.SUSPECTED_CARD_TESTING
                         SUSPECTED_FRAUD -> Known.SUSPECTED_FRAUD
                         else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
                     }
