@@ -55,6 +55,8 @@ import com.increase.api.services.async.simulations.ProgramServiceAsync
 import com.increase.api.services.async.simulations.ProgramServiceAsyncImpl
 import com.increase.api.services.async.simulations.RealTimePaymentsTransferServiceAsync
 import com.increase.api.services.async.simulations.RealTimePaymentsTransferServiceAsyncImpl
+import com.increase.api.services.async.simulations.WireDrawdownRequestServiceAsync
+import com.increase.api.services.async.simulations.WireDrawdownRequestServiceAsyncImpl
 import com.increase.api.services.async.simulations.WireTransferServiceAsync
 import com.increase.api.services.async.simulations.WireTransferServiceAsyncImpl
 
@@ -131,6 +133,10 @@ class SimulationServiceAsyncImpl internal constructor(private val clientOptions:
 
     private val inboundWireTransfers: InboundWireTransferServiceAsync by lazy {
         InboundWireTransferServiceAsyncImpl(clientOptions)
+    }
+
+    private val wireDrawdownRequests: WireDrawdownRequestServiceAsync by lazy {
+        WireDrawdownRequestServiceAsyncImpl(clientOptions)
     }
 
     private val inboundWireDrawdownRequests: InboundWireDrawdownRequestServiceAsync by lazy {
@@ -210,6 +216,8 @@ class SimulationServiceAsyncImpl internal constructor(private val clientOptions:
     override fun wireTransfers(): WireTransferServiceAsync = wireTransfers
 
     override fun inboundWireTransfers(): InboundWireTransferServiceAsync = inboundWireTransfers
+
+    override fun wireDrawdownRequests(): WireDrawdownRequestServiceAsync = wireDrawdownRequests
 
     override fun inboundWireDrawdownRequests(): InboundWireDrawdownRequestServiceAsync =
         inboundWireDrawdownRequests
@@ -308,6 +316,10 @@ class SimulationServiceAsyncImpl internal constructor(private val clientOptions:
             InboundWireTransferServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val wireDrawdownRequests: WireDrawdownRequestServiceAsync.WithRawResponse by lazy {
+            WireDrawdownRequestServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         private val inboundWireDrawdownRequests:
             InboundWireDrawdownRequestServiceAsync.WithRawResponse by lazy {
             InboundWireDrawdownRequestServiceAsyncImpl.WithRawResponseImpl(clientOptions)
@@ -400,6 +412,9 @@ class SimulationServiceAsyncImpl internal constructor(private val clientOptions:
 
         override fun inboundWireTransfers(): InboundWireTransferServiceAsync.WithRawResponse =
             inboundWireTransfers
+
+        override fun wireDrawdownRequests(): WireDrawdownRequestServiceAsync.WithRawResponse =
+            wireDrawdownRequests
 
         override fun inboundWireDrawdownRequests():
             InboundWireDrawdownRequestServiceAsync.WithRawResponse = inboundWireDrawdownRequests
