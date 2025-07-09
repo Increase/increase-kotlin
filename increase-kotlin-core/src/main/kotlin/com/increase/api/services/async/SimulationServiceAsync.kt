@@ -29,6 +29,7 @@ import com.increase.api.services.async.simulations.InterestPaymentServiceAsync
 import com.increase.api.services.async.simulations.PhysicalCardServiceAsync
 import com.increase.api.services.async.simulations.ProgramServiceAsync
 import com.increase.api.services.async.simulations.RealTimePaymentsTransferServiceAsync
+import com.increase.api.services.async.simulations.WireDrawdownRequestServiceAsync
 import com.increase.api.services.async.simulations.WireTransferServiceAsync
 
 interface SimulationServiceAsync {
@@ -78,6 +79,8 @@ interface SimulationServiceAsync {
     fun wireTransfers(): WireTransferServiceAsync
 
     fun inboundWireTransfers(): InboundWireTransferServiceAsync
+
+    fun wireDrawdownRequests(): WireDrawdownRequestServiceAsync
 
     fun inboundWireDrawdownRequests(): InboundWireDrawdownRequestServiceAsync
 
@@ -147,6 +150,8 @@ interface SimulationServiceAsync {
         fun wireTransfers(): WireTransferServiceAsync.WithRawResponse
 
         fun inboundWireTransfers(): InboundWireTransferServiceAsync.WithRawResponse
+
+        fun wireDrawdownRequests(): WireDrawdownRequestServiceAsync.WithRawResponse
 
         fun inboundWireDrawdownRequests(): InboundWireDrawdownRequestServiceAsync.WithRawResponse
 
