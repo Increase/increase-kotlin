@@ -3,14 +3,14 @@
 package com.increase.api.services.blocking
 
 import com.increase.api.core.ClientOptions
-import com.increase.api.core.JsonValue
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.checkRequired
+import com.increase.api.core.handlers.errorBodyHandler
 import com.increase.api.core.handlers.errorHandler
 import com.increase.api.core.handlers.jsonHandler
-import com.increase.api.core.handlers.withErrorHandler
 import com.increase.api.core.http.HttpMethod
 import com.increase.api.core.http.HttpRequest
+import com.increase.api.core.http.HttpResponse
 import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.json
@@ -83,7 +83,8 @@ class CheckTransferServiceImpl internal constructor(private val clientOptions: C
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         CheckTransferService.WithRawResponse {
 
-        private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+        private val errorHandler: Handler<HttpResponse> =
+            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
         override fun withOptions(
             modifier: (ClientOptions.Builder) -> Unit
@@ -93,7 +94,7 @@ class CheckTransferServiceImpl internal constructor(private val clientOptions: C
             )
 
         private val createHandler: Handler<CheckTransfer> =
-            jsonHandler<CheckTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<CheckTransfer>(clientOptions.jsonMapper)
 
         override fun create(
             params: CheckTransferCreateParams,
@@ -109,7 +110,7 @@ class CheckTransferServiceImpl internal constructor(private val clientOptions: C
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { createHandler.handle(it) }
                     .also {
@@ -121,7 +122,7 @@ class CheckTransferServiceImpl internal constructor(private val clientOptions: C
         }
 
         private val retrieveHandler: Handler<CheckTransfer> =
-            jsonHandler<CheckTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<CheckTransfer>(clientOptions.jsonMapper)
 
         override fun retrieve(
             params: CheckTransferRetrieveParams,
@@ -139,7 +140,7 @@ class CheckTransferServiceImpl internal constructor(private val clientOptions: C
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { retrieveHandler.handle(it) }
                     .also {
@@ -152,7 +153,6 @@ class CheckTransferServiceImpl internal constructor(private val clientOptions: C
 
         private val listHandler: Handler<CheckTransferListPageResponse> =
             jsonHandler<CheckTransferListPageResponse>(clientOptions.jsonMapper)
-                .withErrorHandler(errorHandler)
 
         override fun list(
             params: CheckTransferListParams,
@@ -167,7 +167,7 @@ class CheckTransferServiceImpl internal constructor(private val clientOptions: C
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { listHandler.handle(it) }
                     .also {
@@ -186,7 +186,7 @@ class CheckTransferServiceImpl internal constructor(private val clientOptions: C
         }
 
         private val approveHandler: Handler<CheckTransfer> =
-            jsonHandler<CheckTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<CheckTransfer>(clientOptions.jsonMapper)
 
         override fun approve(
             params: CheckTransferApproveParams,
@@ -205,7 +205,7 @@ class CheckTransferServiceImpl internal constructor(private val clientOptions: C
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { approveHandler.handle(it) }
                     .also {
@@ -217,7 +217,7 @@ class CheckTransferServiceImpl internal constructor(private val clientOptions: C
         }
 
         private val cancelHandler: Handler<CheckTransfer> =
-            jsonHandler<CheckTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<CheckTransfer>(clientOptions.jsonMapper)
 
         override fun cancel(
             params: CheckTransferCancelParams,
@@ -236,7 +236,7 @@ class CheckTransferServiceImpl internal constructor(private val clientOptions: C
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { cancelHandler.handle(it) }
                     .also {
@@ -248,7 +248,7 @@ class CheckTransferServiceImpl internal constructor(private val clientOptions: C
         }
 
         private val stopPaymentHandler: Handler<CheckTransfer> =
-            jsonHandler<CheckTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<CheckTransfer>(clientOptions.jsonMapper)
 
         override fun stopPayment(
             params: CheckTransferStopPaymentParams,
@@ -267,7 +267,7 @@ class CheckTransferServiceImpl internal constructor(private val clientOptions: C
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { stopPaymentHandler.handle(it) }
                     .also {

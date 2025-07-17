@@ -3,14 +3,14 @@
 package com.increase.api.services.async
 
 import com.increase.api.core.ClientOptions
-import com.increase.api.core.JsonValue
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.checkRequired
+import com.increase.api.core.handlers.errorBodyHandler
 import com.increase.api.core.handlers.errorHandler
 import com.increase.api.core.handlers.jsonHandler
-import com.increase.api.core.handlers.withErrorHandler
 import com.increase.api.core.http.HttpMethod
 import com.increase.api.core.http.HttpRequest
+import com.increase.api.core.http.HttpResponse
 import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.json
@@ -78,7 +78,8 @@ internal constructor(private val clientOptions: ClientOptions) : PhysicalCardPro
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         PhysicalCardProfileServiceAsync.WithRawResponse {
 
-        private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+        private val errorHandler: Handler<HttpResponse> =
+            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
         override fun withOptions(
             modifier: (ClientOptions.Builder) -> Unit
@@ -89,7 +90,6 @@ internal constructor(private val clientOptions: ClientOptions) : PhysicalCardPro
 
         private val createHandler: Handler<PhysicalCardProfile> =
             jsonHandler<PhysicalCardProfile>(clientOptions.jsonMapper)
-                .withErrorHandler(errorHandler)
 
         override suspend fun create(
             params: PhysicalCardProfileCreateParams,
@@ -105,7 +105,7 @@ internal constructor(private val clientOptions: ClientOptions) : PhysicalCardPro
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { createHandler.handle(it) }
                     .also {
@@ -118,7 +118,6 @@ internal constructor(private val clientOptions: ClientOptions) : PhysicalCardPro
 
         private val retrieveHandler: Handler<PhysicalCardProfile> =
             jsonHandler<PhysicalCardProfile>(clientOptions.jsonMapper)
-                .withErrorHandler(errorHandler)
 
         override suspend fun retrieve(
             params: PhysicalCardProfileRetrieveParams,
@@ -136,7 +135,7 @@ internal constructor(private val clientOptions: ClientOptions) : PhysicalCardPro
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { retrieveHandler.handle(it) }
                     .also {
@@ -149,7 +148,6 @@ internal constructor(private val clientOptions: ClientOptions) : PhysicalCardPro
 
         private val listHandler: Handler<PhysicalCardProfileListPageResponse> =
             jsonHandler<PhysicalCardProfileListPageResponse>(clientOptions.jsonMapper)
-                .withErrorHandler(errorHandler)
 
         override suspend fun list(
             params: PhysicalCardProfileListParams,
@@ -164,7 +162,7 @@ internal constructor(private val clientOptions: ClientOptions) : PhysicalCardPro
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { listHandler.handle(it) }
                     .also {
@@ -184,7 +182,6 @@ internal constructor(private val clientOptions: ClientOptions) : PhysicalCardPro
 
         private val archiveHandler: Handler<PhysicalCardProfile> =
             jsonHandler<PhysicalCardProfile>(clientOptions.jsonMapper)
-                .withErrorHandler(errorHandler)
 
         override suspend fun archive(
             params: PhysicalCardProfileArchiveParams,
@@ -203,7 +200,7 @@ internal constructor(private val clientOptions: ClientOptions) : PhysicalCardPro
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { archiveHandler.handle(it) }
                     .also {
@@ -216,7 +213,6 @@ internal constructor(private val clientOptions: ClientOptions) : PhysicalCardPro
 
         private val cloneHandler: Handler<PhysicalCardProfile> =
             jsonHandler<PhysicalCardProfile>(clientOptions.jsonMapper)
-                .withErrorHandler(errorHandler)
 
         override suspend fun clone(
             params: PhysicalCardProfileCloneParams,
@@ -235,7 +231,7 @@ internal constructor(private val clientOptions: ClientOptions) : PhysicalCardPro
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { cloneHandler.handle(it) }
                     .also {

@@ -3,14 +3,14 @@
 package com.increase.api.services.blocking.simulations
 
 import com.increase.api.core.ClientOptions
-import com.increase.api.core.JsonValue
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.checkRequired
+import com.increase.api.core.handlers.errorBodyHandler
 import com.increase.api.core.handlers.errorHandler
 import com.increase.api.core.handlers.jsonHandler
-import com.increase.api.core.handlers.withErrorHandler
 import com.increase.api.core.http.HttpMethod
 import com.increase.api.core.http.HttpRequest
+import com.increase.api.core.http.HttpResponse
 import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.json
@@ -41,7 +41,8 @@ class CardDisputeServiceImpl internal constructor(private val clientOptions: Cli
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         CardDisputeService.WithRawResponse {
 
-        private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+        private val errorHandler: Handler<HttpResponse> =
+            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
         override fun withOptions(
             modifier: (ClientOptions.Builder) -> Unit
@@ -51,7 +52,7 @@ class CardDisputeServiceImpl internal constructor(private val clientOptions: Cli
             )
 
         private val actionHandler: Handler<CardDispute> =
-            jsonHandler<CardDispute>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<CardDispute>(clientOptions.jsonMapper)
 
         override fun action(
             params: CardDisputeActionParams,
@@ -70,7 +71,7 @@ class CardDisputeServiceImpl internal constructor(private val clientOptions: Cli
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { actionHandler.handle(it) }
                     .also {
