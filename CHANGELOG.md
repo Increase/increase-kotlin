@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.253.1 (2025-07-17)
+
+Full Changelog: [v0.253.0...v0.253.1](https://github.com/Increase/increase-kotlin/compare/v0.253.0...v0.253.1)
+
+### Bug Fixes
+
+* **client:** ensure error handling always occurs ([37cf4cf](https://github.com/Increase/increase-kotlin/commit/37cf4cfa7e50b03e4b4b5a10e46dd0fa5a23469f))
+
+
+### Chores
+
+* **ci:** bump `actions/setup-java` to v4 ([c3393b8](https://github.com/Increase/increase-kotlin/commit/c3393b827a3c1429ad10b5d124b7e98ab224abcb))
+* **internal:** allow running specific example from cli ([9a11e16](https://github.com/Increase/increase-kotlin/commit/9a11e1658021a7ee064e78e2481bb4dd5abdc3db))
+
 ## 0.253.0 (2025-07-11)
 
 Full Changelog: [v0.252.0...v0.253.0](https://github.com/Increase/increase-kotlin/compare/v0.252.0...v0.253.0)
