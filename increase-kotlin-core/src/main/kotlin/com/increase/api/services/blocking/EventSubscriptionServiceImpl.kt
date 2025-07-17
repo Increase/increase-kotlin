@@ -3,14 +3,14 @@
 package com.increase.api.services.blocking
 
 import com.increase.api.core.ClientOptions
-import com.increase.api.core.JsonValue
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.checkRequired
+import com.increase.api.core.handlers.errorBodyHandler
 import com.increase.api.core.handlers.errorHandler
 import com.increase.api.core.handlers.jsonHandler
-import com.increase.api.core.handlers.withErrorHandler
 import com.increase.api.core.http.HttpMethod
 import com.increase.api.core.http.HttpRequest
+import com.increase.api.core.http.HttpResponse
 import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.json
@@ -67,7 +67,8 @@ class EventSubscriptionServiceImpl internal constructor(private val clientOption
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         EventSubscriptionService.WithRawResponse {
 
-        private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+        private val errorHandler: Handler<HttpResponse> =
+            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
         override fun withOptions(
             modifier: (ClientOptions.Builder) -> Unit
@@ -77,7 +78,7 @@ class EventSubscriptionServiceImpl internal constructor(private val clientOption
             )
 
         private val createHandler: Handler<EventSubscription> =
-            jsonHandler<EventSubscription>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<EventSubscription>(clientOptions.jsonMapper)
 
         override fun create(
             params: EventSubscriptionCreateParams,
@@ -93,7 +94,7 @@ class EventSubscriptionServiceImpl internal constructor(private val clientOption
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { createHandler.handle(it) }
                     .also {
@@ -105,7 +106,7 @@ class EventSubscriptionServiceImpl internal constructor(private val clientOption
         }
 
         private val retrieveHandler: Handler<EventSubscription> =
-            jsonHandler<EventSubscription>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<EventSubscription>(clientOptions.jsonMapper)
 
         override fun retrieve(
             params: EventSubscriptionRetrieveParams,
@@ -123,7 +124,7 @@ class EventSubscriptionServiceImpl internal constructor(private val clientOption
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { retrieveHandler.handle(it) }
                     .also {
@@ -135,7 +136,7 @@ class EventSubscriptionServiceImpl internal constructor(private val clientOption
         }
 
         private val updateHandler: Handler<EventSubscription> =
-            jsonHandler<EventSubscription>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<EventSubscription>(clientOptions.jsonMapper)
 
         override fun update(
             params: EventSubscriptionUpdateParams,
@@ -154,7 +155,7 @@ class EventSubscriptionServiceImpl internal constructor(private val clientOption
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { updateHandler.handle(it) }
                     .also {
@@ -167,7 +168,6 @@ class EventSubscriptionServiceImpl internal constructor(private val clientOption
 
         private val listHandler: Handler<EventSubscriptionListPageResponse> =
             jsonHandler<EventSubscriptionListPageResponse>(clientOptions.jsonMapper)
-                .withErrorHandler(errorHandler)
 
         override fun list(
             params: EventSubscriptionListParams,
@@ -182,7 +182,7 @@ class EventSubscriptionServiceImpl internal constructor(private val clientOption
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { listHandler.handle(it) }
                     .also {

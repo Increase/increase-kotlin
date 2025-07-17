@@ -3,14 +3,14 @@
 package com.increase.api.services.blocking.simulations
 
 import com.increase.api.core.ClientOptions
-import com.increase.api.core.JsonValue
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.checkRequired
+import com.increase.api.core.handlers.errorBodyHandler
 import com.increase.api.core.handlers.errorHandler
 import com.increase.api.core.handlers.jsonHandler
-import com.increase.api.core.handlers.withErrorHandler
 import com.increase.api.core.http.HttpMethod
 import com.increase.api.core.http.HttpRequest
+import com.increase.api.core.http.HttpResponse
 import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.json
@@ -57,7 +57,8 @@ class CheckDepositServiceImpl internal constructor(private val clientOptions: Cl
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         CheckDepositService.WithRawResponse {
 
-        private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+        private val errorHandler: Handler<HttpResponse> =
+            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
         override fun withOptions(
             modifier: (ClientOptions.Builder) -> Unit
@@ -67,7 +68,7 @@ class CheckDepositServiceImpl internal constructor(private val clientOptions: Cl
             )
 
         private val rejectHandler: Handler<CheckDeposit> =
-            jsonHandler<CheckDeposit>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<CheckDeposit>(clientOptions.jsonMapper)
 
         override fun reject(
             params: CheckDepositRejectParams,
@@ -91,7 +92,7 @@ class CheckDepositServiceImpl internal constructor(private val clientOptions: Cl
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { rejectHandler.handle(it) }
                     .also {
@@ -103,7 +104,7 @@ class CheckDepositServiceImpl internal constructor(private val clientOptions: Cl
         }
 
         private val returnHandler: Handler<CheckDeposit> =
-            jsonHandler<CheckDeposit>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<CheckDeposit>(clientOptions.jsonMapper)
 
         override fun return_(
             params: CheckDepositReturnParams,
@@ -127,7 +128,7 @@ class CheckDepositServiceImpl internal constructor(private val clientOptions: Cl
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { returnHandler.handle(it) }
                     .also {
@@ -139,7 +140,7 @@ class CheckDepositServiceImpl internal constructor(private val clientOptions: Cl
         }
 
         private val submitHandler: Handler<CheckDeposit> =
-            jsonHandler<CheckDeposit>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<CheckDeposit>(clientOptions.jsonMapper)
 
         override fun submit(
             params: CheckDepositSubmitParams,
@@ -163,7 +164,7 @@ class CheckDepositServiceImpl internal constructor(private val clientOptions: Cl
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { submitHandler.handle(it) }
                     .also {

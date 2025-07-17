@@ -3,14 +3,14 @@
 package com.increase.api.services.async.simulations
 
 import com.increase.api.core.ClientOptions
-import com.increase.api.core.JsonValue
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.checkRequired
+import com.increase.api.core.handlers.errorBodyHandler
 import com.increase.api.core.handlers.errorHandler
 import com.increase.api.core.handlers.jsonHandler
-import com.increase.api.core.handlers.withErrorHandler
 import com.increase.api.core.http.HttpMethod
 import com.increase.api.core.http.HttpRequest
+import com.increase.api.core.http.HttpResponse
 import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.json
@@ -49,7 +49,8 @@ class PhysicalCardServiceAsyncImpl internal constructor(private val clientOption
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         PhysicalCardServiceAsync.WithRawResponse {
 
-        private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+        private val errorHandler: Handler<HttpResponse> =
+            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
         override fun withOptions(
             modifier: (ClientOptions.Builder) -> Unit
@@ -59,7 +60,7 @@ class PhysicalCardServiceAsyncImpl internal constructor(private val clientOption
             )
 
         private val advanceShipmentHandler: Handler<PhysicalCard> =
-            jsonHandler<PhysicalCard>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<PhysicalCard>(clientOptions.jsonMapper)
 
         override suspend fun advanceShipment(
             params: PhysicalCardAdvanceShipmentParams,
@@ -83,7 +84,7 @@ class PhysicalCardServiceAsyncImpl internal constructor(private val clientOption
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { advanceShipmentHandler.handle(it) }
                     .also {
@@ -95,7 +96,7 @@ class PhysicalCardServiceAsyncImpl internal constructor(private val clientOption
         }
 
         private val trackingUpdatesHandler: Handler<PhysicalCard> =
-            jsonHandler<PhysicalCard>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<PhysicalCard>(clientOptions.jsonMapper)
 
         override suspend fun trackingUpdates(
             params: PhysicalCardTrackingUpdatesParams,
@@ -119,7 +120,7 @@ class PhysicalCardServiceAsyncImpl internal constructor(private val clientOption
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { trackingUpdatesHandler.handle(it) }
                     .also {
