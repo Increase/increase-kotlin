@@ -3,14 +3,14 @@
 package com.increase.api.services.async
 
 import com.increase.api.core.ClientOptions
-import com.increase.api.core.JsonValue
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.checkRequired
+import com.increase.api.core.handlers.errorBodyHandler
 import com.increase.api.core.handlers.errorHandler
 import com.increase.api.core.handlers.jsonHandler
-import com.increase.api.core.handlers.withErrorHandler
 import com.increase.api.core.http.HttpMethod
 import com.increase.api.core.http.HttpRequest
+import com.increase.api.core.http.HttpResponse
 import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.json
@@ -70,7 +70,8 @@ internal constructor(private val clientOptions: ClientOptions) : BookkeepingAcco
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         BookkeepingAccountServiceAsync.WithRawResponse {
 
-        private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+        private val errorHandler: Handler<HttpResponse> =
+            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
         override fun withOptions(
             modifier: (ClientOptions.Builder) -> Unit
@@ -80,7 +81,7 @@ internal constructor(private val clientOptions: ClientOptions) : BookkeepingAcco
             )
 
         private val createHandler: Handler<BookkeepingAccount> =
-            jsonHandler<BookkeepingAccount>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<BookkeepingAccount>(clientOptions.jsonMapper)
 
         override suspend fun create(
             params: BookkeepingAccountCreateParams,
@@ -96,7 +97,7 @@ internal constructor(private val clientOptions: ClientOptions) : BookkeepingAcco
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { createHandler.handle(it) }
                     .also {
@@ -108,7 +109,7 @@ internal constructor(private val clientOptions: ClientOptions) : BookkeepingAcco
         }
 
         private val updateHandler: Handler<BookkeepingAccount> =
-            jsonHandler<BookkeepingAccount>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<BookkeepingAccount>(clientOptions.jsonMapper)
 
         override suspend fun update(
             params: BookkeepingAccountUpdateParams,
@@ -127,7 +128,7 @@ internal constructor(private val clientOptions: ClientOptions) : BookkeepingAcco
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { updateHandler.handle(it) }
                     .also {
@@ -140,7 +141,6 @@ internal constructor(private val clientOptions: ClientOptions) : BookkeepingAcco
 
         private val listHandler: Handler<BookkeepingAccountListPageResponse> =
             jsonHandler<BookkeepingAccountListPageResponse>(clientOptions.jsonMapper)
-                .withErrorHandler(errorHandler)
 
         override suspend fun list(
             params: BookkeepingAccountListParams,
@@ -155,7 +155,7 @@ internal constructor(private val clientOptions: ClientOptions) : BookkeepingAcco
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { listHandler.handle(it) }
                     .also {
@@ -175,7 +175,6 @@ internal constructor(private val clientOptions: ClientOptions) : BookkeepingAcco
 
         private val balanceHandler: Handler<BookkeepingBalanceLookup> =
             jsonHandler<BookkeepingBalanceLookup>(clientOptions.jsonMapper)
-                .withErrorHandler(errorHandler)
 
         override suspend fun balance(
             params: BookkeepingAccountBalanceParams,
@@ -193,7 +192,7 @@ internal constructor(private val clientOptions: ClientOptions) : BookkeepingAcco
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { balanceHandler.handle(it) }
                     .also {

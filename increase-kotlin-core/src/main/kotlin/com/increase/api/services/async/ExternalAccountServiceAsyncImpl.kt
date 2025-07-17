@@ -3,14 +3,14 @@
 package com.increase.api.services.async
 
 import com.increase.api.core.ClientOptions
-import com.increase.api.core.JsonValue
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.checkRequired
+import com.increase.api.core.handlers.errorBodyHandler
 import com.increase.api.core.handlers.errorHandler
 import com.increase.api.core.handlers.jsonHandler
-import com.increase.api.core.handlers.withErrorHandler
 import com.increase.api.core.http.HttpMethod
 import com.increase.api.core.http.HttpRequest
+import com.increase.api.core.http.HttpResponse
 import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.json
@@ -69,7 +69,8 @@ internal constructor(private val clientOptions: ClientOptions) : ExternalAccount
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         ExternalAccountServiceAsync.WithRawResponse {
 
-        private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+        private val errorHandler: Handler<HttpResponse> =
+            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
         override fun withOptions(
             modifier: (ClientOptions.Builder) -> Unit
@@ -79,7 +80,7 @@ internal constructor(private val clientOptions: ClientOptions) : ExternalAccount
             )
 
         private val createHandler: Handler<ExternalAccount> =
-            jsonHandler<ExternalAccount>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<ExternalAccount>(clientOptions.jsonMapper)
 
         override suspend fun create(
             params: ExternalAccountCreateParams,
@@ -95,7 +96,7 @@ internal constructor(private val clientOptions: ClientOptions) : ExternalAccount
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { createHandler.handle(it) }
                     .also {
@@ -107,7 +108,7 @@ internal constructor(private val clientOptions: ClientOptions) : ExternalAccount
         }
 
         private val retrieveHandler: Handler<ExternalAccount> =
-            jsonHandler<ExternalAccount>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<ExternalAccount>(clientOptions.jsonMapper)
 
         override suspend fun retrieve(
             params: ExternalAccountRetrieveParams,
@@ -125,7 +126,7 @@ internal constructor(private val clientOptions: ClientOptions) : ExternalAccount
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { retrieveHandler.handle(it) }
                     .also {
@@ -137,7 +138,7 @@ internal constructor(private val clientOptions: ClientOptions) : ExternalAccount
         }
 
         private val updateHandler: Handler<ExternalAccount> =
-            jsonHandler<ExternalAccount>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<ExternalAccount>(clientOptions.jsonMapper)
 
         override suspend fun update(
             params: ExternalAccountUpdateParams,
@@ -156,7 +157,7 @@ internal constructor(private val clientOptions: ClientOptions) : ExternalAccount
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { updateHandler.handle(it) }
                     .also {
@@ -169,7 +170,6 @@ internal constructor(private val clientOptions: ClientOptions) : ExternalAccount
 
         private val listHandler: Handler<ExternalAccountListPageResponse> =
             jsonHandler<ExternalAccountListPageResponse>(clientOptions.jsonMapper)
-                .withErrorHandler(errorHandler)
 
         override suspend fun list(
             params: ExternalAccountListParams,
@@ -184,7 +184,7 @@ internal constructor(private val clientOptions: ClientOptions) : ExternalAccount
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { listHandler.handle(it) }
                     .also {

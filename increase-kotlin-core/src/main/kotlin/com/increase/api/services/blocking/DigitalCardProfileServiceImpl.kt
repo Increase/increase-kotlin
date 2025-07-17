@@ -3,14 +3,14 @@
 package com.increase.api.services.blocking
 
 import com.increase.api.core.ClientOptions
-import com.increase.api.core.JsonValue
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.checkRequired
+import com.increase.api.core.handlers.errorBodyHandler
 import com.increase.api.core.handlers.errorHandler
 import com.increase.api.core.handlers.jsonHandler
-import com.increase.api.core.handlers.withErrorHandler
 import com.increase.api.core.http.HttpMethod
 import com.increase.api.core.http.HttpRequest
+import com.increase.api.core.http.HttpResponse
 import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.json
@@ -75,7 +75,8 @@ class DigitalCardProfileServiceImpl internal constructor(private val clientOptio
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         DigitalCardProfileService.WithRawResponse {
 
-        private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+        private val errorHandler: Handler<HttpResponse> =
+            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
         override fun withOptions(
             modifier: (ClientOptions.Builder) -> Unit
@@ -85,7 +86,7 @@ class DigitalCardProfileServiceImpl internal constructor(private val clientOptio
             )
 
         private val createHandler: Handler<DigitalCardProfile> =
-            jsonHandler<DigitalCardProfile>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<DigitalCardProfile>(clientOptions.jsonMapper)
 
         override fun create(
             params: DigitalCardProfileCreateParams,
@@ -101,7 +102,7 @@ class DigitalCardProfileServiceImpl internal constructor(private val clientOptio
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { createHandler.handle(it) }
                     .also {
@@ -113,7 +114,7 @@ class DigitalCardProfileServiceImpl internal constructor(private val clientOptio
         }
 
         private val retrieveHandler: Handler<DigitalCardProfile> =
-            jsonHandler<DigitalCardProfile>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<DigitalCardProfile>(clientOptions.jsonMapper)
 
         override fun retrieve(
             params: DigitalCardProfileRetrieveParams,
@@ -131,7 +132,7 @@ class DigitalCardProfileServiceImpl internal constructor(private val clientOptio
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { retrieveHandler.handle(it) }
                     .also {
@@ -144,7 +145,6 @@ class DigitalCardProfileServiceImpl internal constructor(private val clientOptio
 
         private val listHandler: Handler<DigitalCardProfileListPageResponse> =
             jsonHandler<DigitalCardProfileListPageResponse>(clientOptions.jsonMapper)
-                .withErrorHandler(errorHandler)
 
         override fun list(
             params: DigitalCardProfileListParams,
@@ -159,7 +159,7 @@ class DigitalCardProfileServiceImpl internal constructor(private val clientOptio
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { listHandler.handle(it) }
                     .also {
@@ -178,7 +178,7 @@ class DigitalCardProfileServiceImpl internal constructor(private val clientOptio
         }
 
         private val archiveHandler: Handler<DigitalCardProfile> =
-            jsonHandler<DigitalCardProfile>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<DigitalCardProfile>(clientOptions.jsonMapper)
 
         override fun archive(
             params: DigitalCardProfileArchiveParams,
@@ -197,7 +197,7 @@ class DigitalCardProfileServiceImpl internal constructor(private val clientOptio
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { archiveHandler.handle(it) }
                     .also {
@@ -209,7 +209,7 @@ class DigitalCardProfileServiceImpl internal constructor(private val clientOptio
         }
 
         private val cloneHandler: Handler<DigitalCardProfile> =
-            jsonHandler<DigitalCardProfile>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<DigitalCardProfile>(clientOptions.jsonMapper)
 
         override fun clone(
             params: DigitalCardProfileCloneParams,
@@ -228,7 +228,7 @@ class DigitalCardProfileServiceImpl internal constructor(private val clientOptio
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { cloneHandler.handle(it) }
                     .also {

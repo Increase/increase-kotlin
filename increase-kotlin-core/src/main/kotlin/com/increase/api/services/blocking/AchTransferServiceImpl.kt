@@ -3,14 +3,14 @@
 package com.increase.api.services.blocking
 
 import com.increase.api.core.ClientOptions
-import com.increase.api.core.JsonValue
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.checkRequired
+import com.increase.api.core.handlers.errorBodyHandler
 import com.increase.api.core.handlers.errorHandler
 import com.increase.api.core.handlers.jsonHandler
-import com.increase.api.core.handlers.withErrorHandler
 import com.increase.api.core.http.HttpMethod
 import com.increase.api.core.http.HttpRequest
+import com.increase.api.core.http.HttpResponse
 import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.json
@@ -75,7 +75,8 @@ class AchTransferServiceImpl internal constructor(private val clientOptions: Cli
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         AchTransferService.WithRawResponse {
 
-        private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+        private val errorHandler: Handler<HttpResponse> =
+            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
         override fun withOptions(
             modifier: (ClientOptions.Builder) -> Unit
@@ -85,7 +86,7 @@ class AchTransferServiceImpl internal constructor(private val clientOptions: Cli
             )
 
         private val createHandler: Handler<AchTransfer> =
-            jsonHandler<AchTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<AchTransfer>(clientOptions.jsonMapper)
 
         override fun create(
             params: AchTransferCreateParams,
@@ -101,7 +102,7 @@ class AchTransferServiceImpl internal constructor(private val clientOptions: Cli
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { createHandler.handle(it) }
                     .also {
@@ -113,7 +114,7 @@ class AchTransferServiceImpl internal constructor(private val clientOptions: Cli
         }
 
         private val retrieveHandler: Handler<AchTransfer> =
-            jsonHandler<AchTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<AchTransfer>(clientOptions.jsonMapper)
 
         override fun retrieve(
             params: AchTransferRetrieveParams,
@@ -131,7 +132,7 @@ class AchTransferServiceImpl internal constructor(private val clientOptions: Cli
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { retrieveHandler.handle(it) }
                     .also {
@@ -144,7 +145,6 @@ class AchTransferServiceImpl internal constructor(private val clientOptions: Cli
 
         private val listHandler: Handler<AchTransferListPageResponse> =
             jsonHandler<AchTransferListPageResponse>(clientOptions.jsonMapper)
-                .withErrorHandler(errorHandler)
 
         override fun list(
             params: AchTransferListParams,
@@ -159,7 +159,7 @@ class AchTransferServiceImpl internal constructor(private val clientOptions: Cli
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { listHandler.handle(it) }
                     .also {
@@ -178,7 +178,7 @@ class AchTransferServiceImpl internal constructor(private val clientOptions: Cli
         }
 
         private val approveHandler: Handler<AchTransfer> =
-            jsonHandler<AchTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<AchTransfer>(clientOptions.jsonMapper)
 
         override fun approve(
             params: AchTransferApproveParams,
@@ -197,7 +197,7 @@ class AchTransferServiceImpl internal constructor(private val clientOptions: Cli
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { approveHandler.handle(it) }
                     .also {
@@ -209,7 +209,7 @@ class AchTransferServiceImpl internal constructor(private val clientOptions: Cli
         }
 
         private val cancelHandler: Handler<AchTransfer> =
-            jsonHandler<AchTransfer>(clientOptions.jsonMapper).withErrorHandler(errorHandler)
+            jsonHandler<AchTransfer>(clientOptions.jsonMapper)
 
         override fun cancel(
             params: AchTransferCancelParams,
@@ -228,7 +228,7 @@ class AchTransferServiceImpl internal constructor(private val clientOptions: Cli
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { cancelHandler.handle(it) }
                     .also {

@@ -3,14 +3,14 @@
 package com.increase.api.services.async
 
 import com.increase.api.core.ClientOptions
-import com.increase.api.core.JsonValue
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.checkRequired
+import com.increase.api.core.handlers.errorBodyHandler
 import com.increase.api.core.handlers.errorHandler
 import com.increase.api.core.handlers.jsonHandler
-import com.increase.api.core.handlers.withErrorHandler
 import com.increase.api.core.http.HttpMethod
 import com.increase.api.core.http.HttpRequest
+import com.increase.api.core.http.HttpResponse
 import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.parseable
@@ -53,7 +53,8 @@ internal constructor(private val clientOptions: ClientOptions) : DeclinedTransac
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         DeclinedTransactionServiceAsync.WithRawResponse {
 
-        private val errorHandler: Handler<JsonValue> = errorHandler(clientOptions.jsonMapper)
+        private val errorHandler: Handler<HttpResponse> =
+            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
         override fun withOptions(
             modifier: (ClientOptions.Builder) -> Unit
@@ -64,7 +65,6 @@ internal constructor(private val clientOptions: ClientOptions) : DeclinedTransac
 
         private val retrieveHandler: Handler<DeclinedTransaction> =
             jsonHandler<DeclinedTransaction>(clientOptions.jsonMapper)
-                .withErrorHandler(errorHandler)
 
         override suspend fun retrieve(
             params: DeclinedTransactionRetrieveParams,
@@ -82,7 +82,7 @@ internal constructor(private val clientOptions: ClientOptions) : DeclinedTransac
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { retrieveHandler.handle(it) }
                     .also {
@@ -95,7 +95,6 @@ internal constructor(private val clientOptions: ClientOptions) : DeclinedTransac
 
         private val listHandler: Handler<DeclinedTransactionListPageResponse> =
             jsonHandler<DeclinedTransactionListPageResponse>(clientOptions.jsonMapper)
-                .withErrorHandler(errorHandler)
 
         override suspend fun list(
             params: DeclinedTransactionListParams,
@@ -110,7 +109,7 @@ internal constructor(private val clientOptions: ClientOptions) : DeclinedTransac
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.executeAsync(request, requestOptions)
-            return response.parseable {
+            return errorHandler.handle(response).parseable {
                 response
                     .use { listHandler.handle(it) }
                     .also {
