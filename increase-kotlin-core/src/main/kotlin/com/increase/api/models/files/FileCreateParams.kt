@@ -2,11 +2,14 @@
 
 package com.increase.api.models.files
 
+import com.fasterxml.jackson.annotation.JsonAnyGetter
+import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
+import com.increase.api.core.JsonValue
 import com.increase.api.core.MultipartField
 import com.increase.api.core.Params
 import com.increase.api.core.checkRequired
@@ -16,6 +19,7 @@ import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.io.InputStream
 import java.nio.file.Path
+import java.util.Collections
 import java.util.Objects
 import kotlin.io.path.inputStream
 import kotlin.io.path.name
@@ -79,6 +83,8 @@ private constructor(
      * type.
      */
     fun _description(): MultipartField<String> = body._description()
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
     fun _additionalHeaders(): Headers = additionalHeaders
 
@@ -177,6 +183,25 @@ private constructor(
          */
         fun description(description: MultipartField<String>) = apply {
             body.description(description)
+        }
+
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.putAllAdditionalProperties(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
         }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
@@ -295,7 +320,8 @@ private constructor(
     }
 
     fun _body(): Map<String, MultipartField<*>> =
-        mapOf("file" to _file(), "purpose" to _purpose(), "description" to _description())
+        (mapOf("file" to _file(), "purpose" to _purpose(), "description" to _description()) +
+                _additionalBodyProperties().mapValues { MultipartField.of(it) })
             .toImmutable()
 
     override fun _headers(): Headers = additionalHeaders
@@ -307,6 +333,7 @@ private constructor(
         private val file: MultipartField<InputStream>,
         private val purpose: MultipartField<Purpose>,
         private val description: MultipartField<String>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
         /**
@@ -360,6 +387,16 @@ private constructor(
         @ExcludeMissing
         fun _description(): MultipartField<String> = description
 
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
         fun toBuilder() = Builder().from(this)
 
         companion object {
@@ -382,11 +419,13 @@ private constructor(
             private var file: MultipartField<InputStream>? = null
             private var purpose: MultipartField<Purpose>? = null
             private var description: MultipartField<String> = MultipartField.of(null)
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(body: Body) = apply {
                 file = body.file
                 purpose = body.purpose
                 description = body.description
+                additionalProperties = body.additionalProperties.toMutableMap()
             }
 
             /**
@@ -451,6 +490,25 @@ private constructor(
                 this.description = description
             }
 
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
             /**
              * Returns an immutable instance of [Body].
              *
@@ -465,7 +523,12 @@ private constructor(
              * @throws IllegalStateException if any required field is unset.
              */
             fun build(): Body =
-                Body(checkRequired("file", file), checkRequired("purpose", purpose), description)
+                Body(
+                    checkRequired("file", file),
+                    checkRequired("purpose", purpose),
+                    description,
+                    additionalProperties.toMutableMap(),
+                )
         }
 
         private var validated: Boolean = false
@@ -494,16 +557,17 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Body && file == other.file && purpose == other.purpose && description == other.description /* spotless:on */
+            return /* spotless:off */ other is Body && file == other.file && purpose == other.purpose && description == other.description && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(file, purpose, description) }
+        private val hashCode: Int by lazy { Objects.hash(file, purpose, description, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
-        override fun toString() = "Body{file=$file, purpose=$purpose, description=$description}"
+        override fun toString() =
+            "Body{file=$file, purpose=$purpose, description=$description, additionalProperties=$additionalProperties}"
     }
 
     /** What the File will be used for in Increase's systems. */
