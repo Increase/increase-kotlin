@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.254.0 (2025-07-18)
+
+Full Changelog: [v0.253.1...v0.254.0](https://github.com/Increase/increase-kotlin/compare/v0.253.1...v0.254.0)
+
+### Features
+
+* **api:** api update ([5339c9d](https://github.com/Increase/increase-kotlin/commit/5339c9dc8727c3634bb3715e2b10f8b09dbf559c))
+
+
+### Chores
+
+* **internal:** refactor delegating from client to options ([510d124](https://github.com/Increase/increase-kotlin/commit/510d12464cf1539874220334dc1d309e20cb9f86))
+
 ## 0.253.1 (2025-07-17)
 
 Full Changelog: [v0.253.0...v0.253.1](https://github.com/Increase/increase-kotlin/compare/v0.253.0...v0.253.1)
