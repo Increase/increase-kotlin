@@ -9,6 +9,7 @@ import com.increase.api.core.ClientOptions
 import com.increase.api.core.Timeout
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
+import com.increase.api.core.jsonMapper
 import java.net.Proxy
 import java.time.Clock
 import java.time.Duration
@@ -27,12 +28,9 @@ class IncreaseOkHttpClient private constructor() {
     class Builder internal constructor() {
 
         private var clientOptions: ClientOptions.Builder = ClientOptions.builder()
-        private var timeout: Timeout = Timeout.default()
         private var proxy: Proxy? = null
 
-        fun sandbox() = apply { baseUrl(ClientOptions.SANDBOX_URL) }
-
-        fun baseUrl(baseUrl: String) = apply { clientOptions.baseUrl(baseUrl) }
+        fun proxy(proxy: Proxy) = apply { this.proxy = proxy }
 
         /**
          * Whether to throw an exception if any of the Jackson versions detected at runtime are
@@ -48,6 +46,33 @@ class IncreaseOkHttpClient private constructor() {
         fun jsonMapper(jsonMapper: JsonMapper) = apply { clientOptions.jsonMapper(jsonMapper) }
 
         fun clock(clock: Clock) = apply { clientOptions.clock(clock) }
+
+        fun baseUrl(baseUrl: String?) = apply { clientOptions.baseUrl(baseUrl) }
+
+        fun sandbox() = apply { clientOptions.sandbox() }
+
+        fun responseValidation(responseValidation: Boolean) = apply {
+            clientOptions.responseValidation(responseValidation)
+        }
+
+        fun timeout(timeout: Timeout) = apply { clientOptions.timeout(timeout) }
+
+        /**
+         * Sets the maximum time allowed for a complete HTTP call, not including retries.
+         *
+         * See [Timeout.request] for more details.
+         *
+         * For fine-grained control, pass a [Timeout] object.
+         */
+        fun timeout(timeout: Duration) = apply { clientOptions.timeout(timeout) }
+
+        fun maxRetries(maxRetries: Int) = apply { clientOptions.maxRetries(maxRetries) }
+
+        fun apiKey(apiKey: String) = apply { clientOptions.apiKey(apiKey) }
+
+        fun webhookSecret(webhookSecret: String?) = apply {
+            clientOptions.webhookSecret(webhookSecret)
+        }
 
         fun headers(headers: Headers) = apply { clientOptions.headers(headers) }
 
@@ -129,34 +154,6 @@ class IncreaseOkHttpClient private constructor() {
             clientOptions.removeAllQueryParams(keys)
         }
 
-        fun timeout(timeout: Timeout) = apply {
-            clientOptions.timeout(timeout)
-            this.timeout = timeout
-        }
-
-        /**
-         * Sets the maximum time allowed for a complete HTTP call, not including retries.
-         *
-         * See [Timeout.request] for more details.
-         *
-         * For fine-grained control, pass a [Timeout] object.
-         */
-        fun timeout(timeout: Duration) = timeout(Timeout.builder().request(timeout).build())
-
-        fun maxRetries(maxRetries: Int) = apply { clientOptions.maxRetries(maxRetries) }
-
-        fun proxy(proxy: Proxy) = apply { this.proxy = proxy }
-
-        fun responseValidation(responseValidation: Boolean) = apply {
-            clientOptions.responseValidation(responseValidation)
-        }
-
-        fun apiKey(apiKey: String) = apply { clientOptions.apiKey(apiKey) }
-
-        fun webhookSecret(webhookSecret: String?) = apply {
-            clientOptions.webhookSecret(webhookSecret)
-        }
-
         fun fromEnv() = apply { clientOptions.fromEnv() }
 
         /**
@@ -167,7 +164,9 @@ class IncreaseOkHttpClient private constructor() {
         fun build(): IncreaseClient =
             IncreaseClientImpl(
                 clientOptions
-                    .httpClient(OkHttpClient.builder().timeout(timeout).proxy(proxy).build())
+                    .httpClient(
+                        OkHttpClient.builder().timeout(clientOptions.timeout()).proxy(proxy).build()
+                    )
                     .build()
             )
     }
