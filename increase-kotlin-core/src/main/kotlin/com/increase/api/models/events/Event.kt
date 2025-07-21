@@ -630,6 +630,12 @@ private constructor(
             /** Occurs whenever a Physical Card Profile is updated. */
             val PHYSICAL_CARD_PROFILE_UPDATED = of("physical_card_profile.updated")
 
+            /** Occurs whenever a Program is created. */
+            val PROGRAM_CREATED = of("program.created")
+
+            /** Occurs whenever a Program is updated. */
+            val PROGRAM_UPDATED = of("program.updated")
+
             /** Occurs whenever a Proof of Authorization Request is created. */
             val PROOF_OF_AUTHORIZATION_REQUEST_CREATED =
                 of("proof_of_authorization_request.created")
@@ -870,6 +876,10 @@ private constructor(
             PHYSICAL_CARD_PROFILE_CREATED,
             /** Occurs whenever a Physical Card Profile is updated. */
             PHYSICAL_CARD_PROFILE_UPDATED,
+            /** Occurs whenever a Program is created. */
+            PROGRAM_CREATED,
+            /** Occurs whenever a Program is updated. */
+            PROGRAM_UPDATED,
             /** Occurs whenever a Proof of Authorization Request is created. */
             PROOF_OF_AUTHORIZATION_REQUEST_CREATED,
             /** Occurs whenever a Proof of Authorization Request is updated. */
@@ -1090,6 +1100,10 @@ private constructor(
             PHYSICAL_CARD_PROFILE_CREATED,
             /** Occurs whenever a Physical Card Profile is updated. */
             PHYSICAL_CARD_PROFILE_UPDATED,
+            /** Occurs whenever a Program is created. */
+            PROGRAM_CREATED,
+            /** Occurs whenever a Program is updated. */
+            PROGRAM_UPDATED,
             /** Occurs whenever a Proof of Authorization Request is created. */
             PROOF_OF_AUTHORIZATION_REQUEST_CREATED,
             /** Occurs whenever a Proof of Authorization Request is updated. */
@@ -1232,6 +1246,8 @@ private constructor(
                 PHYSICAL_CARD_UPDATED -> Value.PHYSICAL_CARD_UPDATED
                 PHYSICAL_CARD_PROFILE_CREATED -> Value.PHYSICAL_CARD_PROFILE_CREATED
                 PHYSICAL_CARD_PROFILE_UPDATED -> Value.PHYSICAL_CARD_PROFILE_UPDATED
+                PROGRAM_CREATED -> Value.PROGRAM_CREATED
+                PROGRAM_UPDATED -> Value.PROGRAM_UPDATED
                 PROOF_OF_AUTHORIZATION_REQUEST_CREATED ->
                     Value.PROOF_OF_AUTHORIZATION_REQUEST_CREATED
                 PROOF_OF_AUTHORIZATION_REQUEST_UPDATED ->
@@ -1353,6 +1369,8 @@ private constructor(
                 PHYSICAL_CARD_UPDATED -> Known.PHYSICAL_CARD_UPDATED
                 PHYSICAL_CARD_PROFILE_CREATED -> Known.PHYSICAL_CARD_PROFILE_CREATED
                 PHYSICAL_CARD_PROFILE_UPDATED -> Known.PHYSICAL_CARD_PROFILE_UPDATED
+                PROGRAM_CREATED -> Known.PROGRAM_CREATED
+                PROGRAM_UPDATED -> Known.PROGRAM_UPDATED
                 PROOF_OF_AUTHORIZATION_REQUEST_CREATED ->
                     Known.PROOF_OF_AUTHORIZATION_REQUEST_CREATED
                 PROOF_OF_AUTHORIZATION_REQUEST_UPDATED ->
