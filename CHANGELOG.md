@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.255.0 (2025-07-21)
+
+Full Changelog: [v0.254.0...v0.255.0](https://github.com/Increase/increase-kotlin/compare/v0.254.0...v0.255.0)
+
+### Features
+
+* **api:** api update ([426bd26](https://github.com/Increase/increase-kotlin/commit/426bd265bb4924ef65b0ac8b7e4a50bdc880204b))
+* **client:** add https config options ([74be164](https://github.com/Increase/increase-kotlin/commit/74be16484389d9a0d0041c6ce2dbe4de2f192485))
+* **client:** allow configuring env via system properties ([4f5dafc](https://github.com/Increase/increase-kotlin/commit/4f5dafcf52f94483677bbdde6bb74d52a9717c62))
+* **client:** allow setting additional multipart body props ([39186d2](https://github.com/Increase/increase-kotlin/commit/39186d231639ed60c4c026aa2ee30fe205c2ae57))
+
 ## 0.254.0 (2025-07-18)
 
 Full Changelog: [v0.253.1...v0.254.0](https://github.com/Increase/increase-kotlin/compare/v0.253.1...v0.254.0)
