@@ -5762,7 +5762,6 @@ private constructor(
     class Joint
     private constructor(
         private val individuals: JsonField<List<Individual>>,
-        private val name: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -5770,9 +5769,8 @@ private constructor(
         private constructor(
             @JsonProperty("individuals")
             @ExcludeMissing
-            individuals: JsonField<List<Individual>> = JsonMissing.of(),
-            @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
-        ) : this(individuals, name, mutableMapOf())
+            individuals: JsonField<List<Individual>> = JsonMissing.of()
+        ) : this(individuals, mutableMapOf())
 
         /**
          * The two individuals that share control of the entity.
@@ -5783,14 +5781,6 @@ private constructor(
         fun individuals(): List<Individual> = individuals.getRequired("individuals")
 
         /**
-         * The name of the joint entity.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun name(): String? = name.getNullable("name")
-
-        /**
          * Returns the raw JSON value of [individuals].
          *
          * Unlike [individuals], this method doesn't throw if the JSON field has an unexpected type.
@@ -5798,13 +5788,6 @@ private constructor(
         @JsonProperty("individuals")
         @ExcludeMissing
         fun _individuals(): JsonField<List<Individual>> = individuals
-
-        /**
-         * Returns the raw JSON value of [name].
-         *
-         * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -5835,12 +5818,10 @@ private constructor(
         class Builder internal constructor() {
 
             private var individuals: JsonField<MutableList<Individual>>? = null
-            private var name: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(joint: Joint) = apply {
                 individuals = joint.individuals.map { it.toMutableList() }
-                name = joint.name
                 additionalProperties = joint.additionalProperties.toMutableMap()
             }
 
@@ -5869,18 +5850,6 @@ private constructor(
                         checkKnown("individuals", it).add(individual)
                     }
             }
-
-            /** The name of the joint entity. */
-            fun name(name: String) = name(JsonField.of(name))
-
-            /**
-             * Sets [Builder.name] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.name] with a well-typed [String] value instead. This
-             * method is primarily for setting the field to an undocumented or not yet supported
-             * value.
-             */
-            fun name(name: JsonField<String>) = apply { this.name = name }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -5916,7 +5885,6 @@ private constructor(
             fun build(): Joint =
                 Joint(
                     checkRequired("individuals", individuals).map { it.toImmutable() },
-                    name,
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -5929,7 +5897,6 @@ private constructor(
             }
 
             individuals().forEach { it.validate() }
-            name()
             validated = true
         }
 
@@ -5947,9 +5914,7 @@ private constructor(
          *
          * Used for best match union deserialization.
          */
-        internal fun validity(): Int =
-            (individuals.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
-                (if (name.asKnown() == null) 0 else 1)
+        internal fun validity(): Int = (individuals.asKnown()?.sumOf { it.validity().toInt() } ?: 0)
 
         class Individual
         private constructor(
@@ -8063,17 +8028,17 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Joint && individuals == other.individuals && name == other.name && additionalProperties == other.additionalProperties /* spotless:on */
+            return /* spotless:off */ other is Joint && individuals == other.individuals && additionalProperties == other.additionalProperties /* spotless:on */
         }
 
         /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(individuals, name, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(individuals, additionalProperties) }
         /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Joint{individuals=$individuals, name=$name, additionalProperties=$additionalProperties}"
+            "Joint{individuals=$individuals, additionalProperties=$additionalProperties}"
     }
 
     /**
