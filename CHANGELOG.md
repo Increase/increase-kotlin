@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.257.0 (2025-07-22)
+
+Full Changelog: [v0.256.0...v0.257.0](https://github.com/Increase/increase-kotlin/compare/v0.256.0...v0.257.0)
+
+### Features
+
+* **api:** api update ([8aff550](https://github.com/Increase/increase-kotlin/commit/8aff550ec654e4b3ecd02492e4e4b8b12e544128))
+* **api:** api update ([8448a1a](https://github.com/Increase/increase-kotlin/commit/8448a1a0661f723dd09dc03e3399655177ad209f))
+* **client:** add `{QueryParams,Headers}#put(String, JsonValue)` methods ([333dd68](https://github.com/Increase/increase-kotlin/commit/333dd685eb4616e58d6ebbf1651bb9be883e0a99))
+
 ## 0.256.0 (2025-07-21)
 
 Full Changelog: [v0.255.0...v0.256.0](https://github.com/Increase/increase-kotlin/compare/v0.255.0...v0.256.0)
