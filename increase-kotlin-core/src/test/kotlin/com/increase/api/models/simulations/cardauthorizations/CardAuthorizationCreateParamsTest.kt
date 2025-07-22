@@ -15,7 +15,6 @@ internal class CardAuthorizationCreateParamsTest {
             .cardId("card_oubs0hwk5rn6knuecxg2")
             .declineReason(CardAuthorizationCreateParams.DeclineReason.ACCOUNT_CLOSED)
             .digitalWalletTokenId("digital_wallet_token_id")
-            .direction(CardAuthorizationCreateParams.Direction.SETTLEMENT)
             .eventSubscriptionId("event_subscription_001dzz0r20rcdxgb013zqb8m04g")
             .merchantAcceptorId("5665270011000168")
             .merchantCategoryCode("5734")
@@ -38,6 +37,13 @@ internal class CardAuthorizationCreateParamsTest {
             )
             .networkRiskScore(0L)
             .physicalCardId("physical_card_id")
+            .processingCategory(
+                CardAuthorizationCreateParams.ProcessingCategory.builder()
+                    .category(
+                        CardAuthorizationCreateParams.ProcessingCategory.Category.ACCOUNT_FUNDING
+                    )
+                    .build()
+            )
             .terminalId("x")
             .build()
     }
@@ -51,7 +57,6 @@ internal class CardAuthorizationCreateParamsTest {
                 .cardId("card_oubs0hwk5rn6knuecxg2")
                 .declineReason(CardAuthorizationCreateParams.DeclineReason.ACCOUNT_CLOSED)
                 .digitalWalletTokenId("digital_wallet_token_id")
-                .direction(CardAuthorizationCreateParams.Direction.SETTLEMENT)
                 .eventSubscriptionId("event_subscription_001dzz0r20rcdxgb013zqb8m04g")
                 .merchantAcceptorId("5665270011000168")
                 .merchantCategoryCode("5734")
@@ -74,6 +79,14 @@ internal class CardAuthorizationCreateParamsTest {
                 )
                 .networkRiskScore(0L)
                 .physicalCardId("physical_card_id")
+                .processingCategory(
+                    CardAuthorizationCreateParams.ProcessingCategory.builder()
+                        .category(
+                            CardAuthorizationCreateParams.ProcessingCategory.Category
+                                .ACCOUNT_FUNDING
+                        )
+                        .build()
+                )
                 .terminalId("x")
                 .build()
 
@@ -85,7 +98,6 @@ internal class CardAuthorizationCreateParamsTest {
         assertThat(body.declineReason())
             .isEqualTo(CardAuthorizationCreateParams.DeclineReason.ACCOUNT_CLOSED)
         assertThat(body.digitalWalletTokenId()).isEqualTo("digital_wallet_token_id")
-        assertThat(body.direction()).isEqualTo(CardAuthorizationCreateParams.Direction.SETTLEMENT)
         assertThat(body.eventSubscriptionId())
             .isEqualTo("event_subscription_001dzz0r20rcdxgb013zqb8m04g")
         assertThat(body.merchantAcceptorId()).isEqualTo("5665270011000168")
@@ -110,6 +122,14 @@ internal class CardAuthorizationCreateParamsTest {
             )
         assertThat(body.networkRiskScore()).isEqualTo(0L)
         assertThat(body.physicalCardId()).isEqualTo("physical_card_id")
+        assertThat(body.processingCategory())
+            .isEqualTo(
+                CardAuthorizationCreateParams.ProcessingCategory.builder()
+                    .category(
+                        CardAuthorizationCreateParams.ProcessingCategory.Category.ACCOUNT_FUNDING
+                    )
+                    .build()
+            )
         assertThat(body.terminalId()).isEqualTo("x")
     }
 
