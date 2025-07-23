@@ -99,7 +99,7 @@ interface CheckTransferServiceAsync {
     suspend fun cancel(checkTransferId: String, requestOptions: RequestOptions): CheckTransfer =
         cancel(checkTransferId, CheckTransferCancelParams.none(), requestOptions)
 
-    /** Request a stop payment on a Check Transfer */
+    /** Stop payment on a Check Transfer */
     suspend fun stopPayment(
         checkTransferId: String,
         params: CheckTransferStopPaymentParams = CheckTransferStopPaymentParams.none(),
