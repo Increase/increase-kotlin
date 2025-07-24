@@ -8,7 +8,7 @@ import com.increase.api.core.checkRequired
 import com.increase.api.services.blocking.EventSubscriptionService
 import java.util.Objects
 
-/** @see [EventSubscriptionService.list] */
+/** @see EventSubscriptionService.list */
 class EventSubscriptionListPage
 private constructor(
     private val service: EventSubscriptionService,
@@ -19,14 +19,14 @@ private constructor(
     /**
      * Delegates to [EventSubscriptionListPageResponse], but gracefully handles missing data.
      *
-     * @see [EventSubscriptionListPageResponse.data]
+     * @see EventSubscriptionListPageResponse.data
      */
     fun data(): List<EventSubscription> = response._data().getNullable("data") ?: emptyList()
 
     /**
      * Delegates to [EventSubscriptionListPageResponse], but gracefully handles missing data.
      *
-     * @see [EventSubscriptionListPageResponse.nextCursor]
+     * @see EventSubscriptionListPageResponse.nextCursor
      */
     fun nextCursor(): String? = response._nextCursor().getNullable("next_cursor")
 

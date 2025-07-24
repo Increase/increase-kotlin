@@ -49,13 +49,13 @@ interface PendingTransactionServiceAsync {
             requestOptions,
         )
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(
         params: PendingTransactionRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PendingTransaction
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(
         pendingTransactionId: String,
         requestOptions: RequestOptions,
@@ -68,7 +68,7 @@ interface PendingTransactionServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PendingTransactionListPageAsync
 
-    /** @see [list] */
+    /** @see list */
     suspend fun list(requestOptions: RequestOptions): PendingTransactionListPageAsync =
         list(PendingTransactionListParams.none(), requestOptions)
 
@@ -87,13 +87,13 @@ interface PendingTransactionServiceAsync {
             requestOptions,
         )
 
-    /** @see [release] */
+    /** @see release */
     suspend fun release(
         params: PendingTransactionReleaseParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PendingTransaction
 
-    /** @see [release] */
+    /** @see release */
     suspend fun release(
         pendingTransactionId: String,
         requestOptions: RequestOptions,
@@ -140,14 +140,14 @@ interface PendingTransactionServiceAsync {
                 requestOptions,
             )
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             params: PendingTransactionRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PendingTransaction>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             pendingTransactionId: String,
@@ -165,7 +165,7 @@ interface PendingTransactionServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PendingTransactionListPageAsync>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions
@@ -188,14 +188,14 @@ interface PendingTransactionServiceAsync {
                 requestOptions,
             )
 
-        /** @see [release] */
+        /** @see release */
         @MustBeClosed
         suspend fun release(
             params: PendingTransactionReleaseParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PendingTransaction>
 
-        /** @see [release] */
+        /** @see release */
         @MustBeClosed
         suspend fun release(
             pendingTransactionId: String,

@@ -8,7 +8,7 @@ import com.increase.api.core.checkRequired
 import com.increase.api.services.async.RoutingNumberServiceAsync
 import java.util.Objects
 
-/** @see [RoutingNumberServiceAsync.list] */
+/** @see RoutingNumberServiceAsync.list */
 class RoutingNumberListPageAsync
 private constructor(
     private val service: RoutingNumberServiceAsync,
@@ -19,7 +19,7 @@ private constructor(
     /**
      * Delegates to [RoutingNumberListPageResponse], but gracefully handles missing data.
      *
-     * @see [RoutingNumberListPageResponse.data]
+     * @see RoutingNumberListPageResponse.data
      */
     fun data(): List<RoutingNumberListResponse> =
         response._data().getNullable("data") ?: emptyList()
@@ -27,7 +27,7 @@ private constructor(
     /**
      * Delegates to [RoutingNumberListPageResponse], but gracefully handles missing data.
      *
-     * @see [RoutingNumberListPageResponse.nextCursor]
+     * @see RoutingNumberListPageResponse.nextCursor
      */
     fun nextCursor(): String? = response._nextCursor().getNullable("next_cursor")
 

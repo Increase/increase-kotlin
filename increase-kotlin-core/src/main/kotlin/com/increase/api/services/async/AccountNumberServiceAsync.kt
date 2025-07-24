@@ -41,13 +41,13 @@ interface AccountNumberServiceAsync {
     ): AccountNumber =
         retrieve(params.toBuilder().accountNumberId(accountNumberId).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(
         params: AccountNumberRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AccountNumber
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(accountNumberId: String, requestOptions: RequestOptions): AccountNumber =
         retrieve(accountNumberId, AccountNumberRetrieveParams.none(), requestOptions)
 
@@ -59,13 +59,13 @@ interface AccountNumberServiceAsync {
     ): AccountNumber =
         update(params.toBuilder().accountNumberId(accountNumberId).build(), requestOptions)
 
-    /** @see [update] */
+    /** @see update */
     suspend fun update(
         params: AccountNumberUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AccountNumber
 
-    /** @see [update] */
+    /** @see update */
     suspend fun update(accountNumberId: String, requestOptions: RequestOptions): AccountNumber =
         update(accountNumberId, AccountNumberUpdateParams.none(), requestOptions)
 
@@ -75,7 +75,7 @@ interface AccountNumberServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AccountNumberListPageAsync
 
-    /** @see [list] */
+    /** @see list */
     suspend fun list(requestOptions: RequestOptions): AccountNumberListPageAsync =
         list(AccountNumberListParams.none(), requestOptions)
 
@@ -116,14 +116,14 @@ interface AccountNumberServiceAsync {
         ): HttpResponseFor<AccountNumber> =
             retrieve(params.toBuilder().accountNumberId(accountNumberId).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             params: AccountNumberRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AccountNumber>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             accountNumberId: String,
@@ -143,14 +143,14 @@ interface AccountNumberServiceAsync {
         ): HttpResponseFor<AccountNumber> =
             update(params.toBuilder().accountNumberId(accountNumberId).build(), requestOptions)
 
-        /** @see [update] */
+        /** @see update */
         @MustBeClosed
         suspend fun update(
             params: AccountNumberUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AccountNumber>
 
-        /** @see [update] */
+        /** @see update */
         @MustBeClosed
         suspend fun update(
             accountNumberId: String,
@@ -168,7 +168,7 @@ interface AccountNumberServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AccountNumberListPageAsync>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions

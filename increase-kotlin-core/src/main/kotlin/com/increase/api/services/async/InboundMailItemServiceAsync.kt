@@ -33,13 +33,13 @@ interface InboundMailItemServiceAsync {
     ): InboundMailItem =
         retrieve(params.toBuilder().inboundMailItemId(inboundMailItemId).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(
         params: InboundMailItemRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundMailItem
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(
         inboundMailItemId: String,
         requestOptions: RequestOptions,
@@ -52,7 +52,7 @@ interface InboundMailItemServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundMailItemListPageAsync
 
-    /** @see [list] */
+    /** @see list */
     suspend fun list(requestOptions: RequestOptions): InboundMailItemListPageAsync =
         list(InboundMailItemListParams.none(), requestOptions)
 
@@ -86,14 +86,14 @@ interface InboundMailItemServiceAsync {
                 requestOptions,
             )
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             params: InboundMailItemRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<InboundMailItem>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             inboundMailItemId: String,
@@ -111,7 +111,7 @@ interface InboundMailItemServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<InboundMailItemListPageAsync>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions

@@ -39,13 +39,13 @@ interface ExportServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Export = retrieve(params.toBuilder().exportId(exportId).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(
         params: ExportRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Export
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(exportId: String, requestOptions: RequestOptions): Export =
         retrieve(exportId, ExportRetrieveParams.none(), requestOptions)
 
@@ -55,7 +55,7 @@ interface ExportServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ExportListPageAsync
 
-    /** @see [list] */
+    /** @see list */
     suspend fun list(requestOptions: RequestOptions): ExportListPageAsync =
         list(ExportListParams.none(), requestOptions)
 
@@ -95,14 +95,14 @@ interface ExportServiceAsync {
         ): HttpResponseFor<Export> =
             retrieve(params.toBuilder().exportId(exportId).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             params: ExportRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Export>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             exportId: String,
@@ -119,7 +119,7 @@ interface ExportServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ExportListPageAsync>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         suspend fun list(requestOptions: RequestOptions): HttpResponseFor<ExportListPageAsync> =
             list(ExportListParams.none(), requestOptions)

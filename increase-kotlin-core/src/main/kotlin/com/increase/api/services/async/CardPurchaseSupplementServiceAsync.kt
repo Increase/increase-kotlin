@@ -36,13 +36,13 @@ interface CardPurchaseSupplementServiceAsync {
             requestOptions,
         )
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(
         params: CardPurchaseSupplementRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CardPurchaseSupplement
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(
         cardPurchaseSupplementId: String,
         requestOptions: RequestOptions,
@@ -59,7 +59,7 @@ interface CardPurchaseSupplementServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CardPurchaseSupplementListPageAsync
 
-    /** @see [list] */
+    /** @see list */
     suspend fun list(requestOptions: RequestOptions): CardPurchaseSupplementListPageAsync =
         list(CardPurchaseSupplementListParams.none(), requestOptions)
 
@@ -95,14 +95,14 @@ interface CardPurchaseSupplementServiceAsync {
                 requestOptions,
             )
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             params: CardPurchaseSupplementRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CardPurchaseSupplement>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             cardPurchaseSupplementId: String,
@@ -124,7 +124,7 @@ interface CardPurchaseSupplementServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CardPurchaseSupplementListPageAsync>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions

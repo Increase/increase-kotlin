@@ -8,7 +8,7 @@ import com.increase.api.core.checkRequired
 import com.increase.api.services.async.EventServiceAsync
 import java.util.Objects
 
-/** @see [EventServiceAsync.list] */
+/** @see EventServiceAsync.list */
 class EventListPageAsync
 private constructor(
     private val service: EventServiceAsync,
@@ -19,14 +19,14 @@ private constructor(
     /**
      * Delegates to [EventListPageResponse], but gracefully handles missing data.
      *
-     * @see [EventListPageResponse.data]
+     * @see EventListPageResponse.data
      */
     fun data(): List<Event> = response._data().getNullable("data") ?: emptyList()
 
     /**
      * Delegates to [EventListPageResponse], but gracefully handles missing data.
      *
-     * @see [EventListPageResponse.nextCursor]
+     * @see EventListPageResponse.nextCursor
      */
     fun nextCursor(): String? = response._nextCursor().getNullable("next_cursor")
 

@@ -39,13 +39,13 @@ interface DocumentServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Document = retrieve(params.toBuilder().documentId(documentId).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(
         params: DocumentRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Document
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(documentId: String, requestOptions: RequestOptions): Document =
         retrieve(documentId, DocumentRetrieveParams.none(), requestOptions)
 
@@ -55,7 +55,7 @@ interface DocumentServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): DocumentListPageAsync
 
-    /** @see [list] */
+    /** @see list */
     suspend fun list(requestOptions: RequestOptions): DocumentListPageAsync =
         list(DocumentListParams.none(), requestOptions)
 
@@ -95,14 +95,14 @@ interface DocumentServiceAsync {
         ): HttpResponseFor<Document> =
             retrieve(params.toBuilder().documentId(documentId).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             params: DocumentRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Document>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             documentId: String,
@@ -120,7 +120,7 @@ interface DocumentServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<DocumentListPageAsync>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         suspend fun list(requestOptions: RequestOptions): HttpResponseFor<DocumentListPageAsync> =
             list(DocumentListParams.none(), requestOptions)

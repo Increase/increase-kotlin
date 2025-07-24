@@ -8,7 +8,7 @@ import com.increase.api.core.checkRequired
 import com.increase.api.services.async.ExternalAccountServiceAsync
 import java.util.Objects
 
-/** @see [ExternalAccountServiceAsync.list] */
+/** @see ExternalAccountServiceAsync.list */
 class ExternalAccountListPageAsync
 private constructor(
     private val service: ExternalAccountServiceAsync,
@@ -19,14 +19,14 @@ private constructor(
     /**
      * Delegates to [ExternalAccountListPageResponse], but gracefully handles missing data.
      *
-     * @see [ExternalAccountListPageResponse.data]
+     * @see ExternalAccountListPageResponse.data
      */
     fun data(): List<ExternalAccount> = response._data().getNullable("data") ?: emptyList()
 
     /**
      * Delegates to [ExternalAccountListPageResponse], but gracefully handles missing data.
      *
-     * @see [ExternalAccountListPageResponse.nextCursor]
+     * @see ExternalAccountListPageResponse.nextCursor
      */
     fun nextCursor(): String? = response._nextCursor().getNullable("next_cursor")
 

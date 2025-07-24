@@ -41,13 +41,13 @@ interface AchTransferServiceAsync {
     ): AchTransfer =
         acknowledge(params.toBuilder().achTransferId(achTransferId).build(), requestOptions)
 
-    /** @see [acknowledge] */
+    /** @see acknowledge */
     suspend fun acknowledge(
         params: AchTransferAcknowledgeParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AchTransfer
 
-    /** @see [acknowledge] */
+    /** @see acknowledge */
     suspend fun acknowledge(achTransferId: String, requestOptions: RequestOptions): AchTransfer =
         acknowledge(achTransferId, AchTransferAcknowledgeParams.none(), requestOptions)
 
@@ -62,7 +62,7 @@ interface AchTransferServiceAsync {
             requestOptions,
         )
 
-    /** @see [createNotificationOfChange] */
+    /** @see createNotificationOfChange */
     suspend fun createNotificationOfChange(
         params: AchTransferCreateNotificationOfChangeParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -80,13 +80,13 @@ interface AchTransferServiceAsync {
     ): AchTransfer =
         return_(params.toBuilder().achTransferId(achTransferId).build(), requestOptions)
 
-    /** @see [return_] */
+    /** @see return\_ */
     suspend fun return_(
         params: AchTransferReturnParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AchTransfer
 
-    /** @see [return_] */
+    /** @see return\_ */
     suspend fun return_(achTransferId: String, requestOptions: RequestOptions): AchTransfer =
         return_(achTransferId, AchTransferReturnParams.none(), requestOptions)
 
@@ -103,13 +103,13 @@ interface AchTransferServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AchTransfer = settle(params.toBuilder().achTransferId(achTransferId).build(), requestOptions)
 
-    /** @see [settle] */
+    /** @see settle */
     suspend fun settle(
         params: AchTransferSettleParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AchTransfer
 
-    /** @see [settle] */
+    /** @see settle */
     suspend fun settle(achTransferId: String, requestOptions: RequestOptions): AchTransfer =
         settle(achTransferId, AchTransferSettleParams.none(), requestOptions)
 
@@ -126,13 +126,13 @@ interface AchTransferServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AchTransfer = submit(params.toBuilder().achTransferId(achTransferId).build(), requestOptions)
 
-    /** @see [submit] */
+    /** @see submit */
     suspend fun submit(
         params: AchTransferSubmitParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AchTransfer
 
-    /** @see [submit] */
+    /** @see submit */
     suspend fun submit(achTransferId: String, requestOptions: RequestOptions): AchTransfer =
         submit(achTransferId, AchTransferSubmitParams.none(), requestOptions)
 
@@ -164,14 +164,14 @@ interface AchTransferServiceAsync {
         ): HttpResponseFor<AchTransfer> =
             acknowledge(params.toBuilder().achTransferId(achTransferId).build(), requestOptions)
 
-        /** @see [acknowledge] */
+        /** @see acknowledge */
         @MustBeClosed
         suspend fun acknowledge(
             params: AchTransferAcknowledgeParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AchTransfer>
 
-        /** @see [acknowledge] */
+        /** @see acknowledge */
         @MustBeClosed
         suspend fun acknowledge(
             achTransferId: String,
@@ -195,7 +195,7 @@ interface AchTransferServiceAsync {
                 requestOptions,
             )
 
-        /** @see [createNotificationOfChange] */
+        /** @see createNotificationOfChange */
         @MustBeClosed
         suspend fun createNotificationOfChange(
             params: AchTransferCreateNotificationOfChangeParams,
@@ -215,14 +215,14 @@ interface AchTransferServiceAsync {
         ): HttpResponseFor<AchTransfer> =
             return_(params.toBuilder().achTransferId(achTransferId).build(), requestOptions)
 
-        /** @see [return_] */
+        /** @see return\_ */
         @MustBeClosed
         suspend fun return_(
             params: AchTransferReturnParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AchTransfer>
 
-        /** @see [return_] */
+        /** @see return\_ */
         @MustBeClosed
         suspend fun return_(
             achTransferId: String,
@@ -243,14 +243,14 @@ interface AchTransferServiceAsync {
         ): HttpResponseFor<AchTransfer> =
             settle(params.toBuilder().achTransferId(achTransferId).build(), requestOptions)
 
-        /** @see [settle] */
+        /** @see settle */
         @MustBeClosed
         suspend fun settle(
             params: AchTransferSettleParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AchTransfer>
 
-        /** @see [settle] */
+        /** @see settle */
         @MustBeClosed
         suspend fun settle(
             achTransferId: String,
@@ -271,14 +271,14 @@ interface AchTransferServiceAsync {
         ): HttpResponseFor<AchTransfer> =
             submit(params.toBuilder().achTransferId(achTransferId).build(), requestOptions)
 
-        /** @see [submit] */
+        /** @see submit */
         @MustBeClosed
         suspend fun submit(
             params: AchTransferSubmitParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AchTransfer>
 
-        /** @see [submit] */
+        /** @see submit */
         @MustBeClosed
         suspend fun submit(
             achTransferId: String,

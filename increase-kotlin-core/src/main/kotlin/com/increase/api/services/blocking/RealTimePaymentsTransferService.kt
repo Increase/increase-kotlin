@@ -46,13 +46,13 @@ interface RealTimePaymentsTransferService {
             requestOptions,
         )
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: RealTimePaymentsTransferRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): RealTimePaymentsTransfer
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         realTimePaymentsTransferId: String,
         requestOptions: RequestOptions,
@@ -69,7 +69,7 @@ interface RealTimePaymentsTransferService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): RealTimePaymentsTransferListPage
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): RealTimePaymentsTransferListPage =
         list(RealTimePaymentsTransferListParams.none(), requestOptions)
 
@@ -85,13 +85,13 @@ interface RealTimePaymentsTransferService {
             requestOptions,
         )
 
-    /** @see [approve] */
+    /** @see approve */
     fun approve(
         params: RealTimePaymentsTransferApproveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): RealTimePaymentsTransfer
 
-    /** @see [approve] */
+    /** @see approve */
     fun approve(
         realTimePaymentsTransferId: String,
         requestOptions: RequestOptions,
@@ -113,13 +113,13 @@ interface RealTimePaymentsTransferService {
             requestOptions,
         )
 
-    /** @see [cancel] */
+    /** @see cancel */
     fun cancel(
         params: RealTimePaymentsTransferCancelParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): RealTimePaymentsTransfer
 
-    /** @see [cancel] */
+    /** @see cancel */
     fun cancel(
         realTimePaymentsTransferId: String,
         requestOptions: RequestOptions,
@@ -172,14 +172,14 @@ interface RealTimePaymentsTransferService {
                 requestOptions,
             )
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: RealTimePaymentsTransferRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<RealTimePaymentsTransfer>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             realTimePaymentsTransferId: String,
@@ -201,7 +201,7 @@ interface RealTimePaymentsTransferService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<RealTimePaymentsTransferListPage>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             requestOptions: RequestOptions
@@ -225,14 +225,14 @@ interface RealTimePaymentsTransferService {
                 requestOptions,
             )
 
-        /** @see [approve] */
+        /** @see approve */
         @MustBeClosed
         fun approve(
             params: RealTimePaymentsTransferApproveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<RealTimePaymentsTransfer>
 
-        /** @see [approve] */
+        /** @see approve */
         @MustBeClosed
         fun approve(
             realTimePaymentsTransferId: String,
@@ -261,14 +261,14 @@ interface RealTimePaymentsTransferService {
                 requestOptions,
             )
 
-        /** @see [cancel] */
+        /** @see cancel */
         @MustBeClosed
         fun cancel(
             params: RealTimePaymentsTransferCancelParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<RealTimePaymentsTransfer>
 
-        /** @see [cancel] */
+        /** @see cancel */
         @MustBeClosed
         fun cancel(
             realTimePaymentsTransferId: String,

@@ -8,7 +8,7 @@ import com.increase.api.core.checkRequired
 import com.increase.api.services.async.CheckDepositServiceAsync
 import java.util.Objects
 
-/** @see [CheckDepositServiceAsync.list] */
+/** @see CheckDepositServiceAsync.list */
 class CheckDepositListPageAsync
 private constructor(
     private val service: CheckDepositServiceAsync,
@@ -19,14 +19,14 @@ private constructor(
     /**
      * Delegates to [CheckDepositListPageResponse], but gracefully handles missing data.
      *
-     * @see [CheckDepositListPageResponse.data]
+     * @see CheckDepositListPageResponse.data
      */
     fun data(): List<CheckDeposit> = response._data().getNullable("data") ?: emptyList()
 
     /**
      * Delegates to [CheckDepositListPageResponse], but gracefully handles missing data.
      *
-     * @see [CheckDepositListPageResponse.nextCursor]
+     * @see CheckDepositListPageResponse.nextCursor
      */
     fun nextCursor(): String? = response._nextCursor().getNullable("next_cursor")
 

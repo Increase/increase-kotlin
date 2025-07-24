@@ -36,13 +36,13 @@ interface AccountTransferServiceAsync {
     ): AccountTransfer =
         complete(params.toBuilder().accountTransferId(accountTransferId).build(), requestOptions)
 
-    /** @see [complete] */
+    /** @see complete */
     suspend fun complete(
         params: AccountTransferCompleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AccountTransfer
 
-    /** @see [complete] */
+    /** @see complete */
     suspend fun complete(
         accountTransferId: String,
         requestOptions: RequestOptions,
@@ -80,14 +80,14 @@ interface AccountTransferServiceAsync {
                 requestOptions,
             )
 
-        /** @see [complete] */
+        /** @see complete */
         @MustBeClosed
         suspend fun complete(
             params: AccountTransferCompleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AccountTransfer>
 
-        /** @see [complete] */
+        /** @see complete */
         @MustBeClosed
         suspend fun complete(
             accountTransferId: String,

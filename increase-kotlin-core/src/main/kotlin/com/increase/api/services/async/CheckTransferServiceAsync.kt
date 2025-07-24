@@ -43,13 +43,13 @@ interface CheckTransferServiceAsync {
     ): CheckTransfer =
         retrieve(params.toBuilder().checkTransferId(checkTransferId).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(
         params: CheckTransferRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CheckTransfer
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(checkTransferId: String, requestOptions: RequestOptions): CheckTransfer =
         retrieve(checkTransferId, CheckTransferRetrieveParams.none(), requestOptions)
 
@@ -59,7 +59,7 @@ interface CheckTransferServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CheckTransferListPageAsync
 
-    /** @see [list] */
+    /** @see list */
     suspend fun list(requestOptions: RequestOptions): CheckTransferListPageAsync =
         list(CheckTransferListParams.none(), requestOptions)
 
@@ -71,13 +71,13 @@ interface CheckTransferServiceAsync {
     ): CheckTransfer =
         approve(params.toBuilder().checkTransferId(checkTransferId).build(), requestOptions)
 
-    /** @see [approve] */
+    /** @see approve */
     suspend fun approve(
         params: CheckTransferApproveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CheckTransfer
 
-    /** @see [approve] */
+    /** @see approve */
     suspend fun approve(checkTransferId: String, requestOptions: RequestOptions): CheckTransfer =
         approve(checkTransferId, CheckTransferApproveParams.none(), requestOptions)
 
@@ -89,13 +89,13 @@ interface CheckTransferServiceAsync {
     ): CheckTransfer =
         cancel(params.toBuilder().checkTransferId(checkTransferId).build(), requestOptions)
 
-    /** @see [cancel] */
+    /** @see cancel */
     suspend fun cancel(
         params: CheckTransferCancelParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CheckTransfer
 
-    /** @see [cancel] */
+    /** @see cancel */
     suspend fun cancel(checkTransferId: String, requestOptions: RequestOptions): CheckTransfer =
         cancel(checkTransferId, CheckTransferCancelParams.none(), requestOptions)
 
@@ -107,13 +107,13 @@ interface CheckTransferServiceAsync {
     ): CheckTransfer =
         stopPayment(params.toBuilder().checkTransferId(checkTransferId).build(), requestOptions)
 
-    /** @see [stopPayment] */
+    /** @see stopPayment */
     suspend fun stopPayment(
         params: CheckTransferStopPaymentParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CheckTransfer
 
-    /** @see [stopPayment] */
+    /** @see stopPayment */
     suspend fun stopPayment(
         checkTransferId: String,
         requestOptions: RequestOptions,
@@ -157,14 +157,14 @@ interface CheckTransferServiceAsync {
         ): HttpResponseFor<CheckTransfer> =
             retrieve(params.toBuilder().checkTransferId(checkTransferId).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             params: CheckTransferRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CheckTransfer>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             checkTransferId: String,
@@ -182,7 +182,7 @@ interface CheckTransferServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CheckTransferListPageAsync>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions
@@ -201,14 +201,14 @@ interface CheckTransferServiceAsync {
         ): HttpResponseFor<CheckTransfer> =
             approve(params.toBuilder().checkTransferId(checkTransferId).build(), requestOptions)
 
-        /** @see [approve] */
+        /** @see approve */
         @MustBeClosed
         suspend fun approve(
             params: CheckTransferApproveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CheckTransfer>
 
-        /** @see [approve] */
+        /** @see approve */
         @MustBeClosed
         suspend fun approve(
             checkTransferId: String,
@@ -228,14 +228,14 @@ interface CheckTransferServiceAsync {
         ): HttpResponseFor<CheckTransfer> =
             cancel(params.toBuilder().checkTransferId(checkTransferId).build(), requestOptions)
 
-        /** @see [cancel] */
+        /** @see cancel */
         @MustBeClosed
         suspend fun cancel(
             params: CheckTransferCancelParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CheckTransfer>
 
-        /** @see [cancel] */
+        /** @see cancel */
         @MustBeClosed
         suspend fun cancel(
             checkTransferId: String,
@@ -255,14 +255,14 @@ interface CheckTransferServiceAsync {
         ): HttpResponseFor<CheckTransfer> =
             stopPayment(params.toBuilder().checkTransferId(checkTransferId).build(), requestOptions)
 
-        /** @see [stopPayment] */
+        /** @see stopPayment */
         @MustBeClosed
         suspend fun stopPayment(
             params: CheckTransferStopPaymentParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CheckTransfer>
 
-        /** @see [stopPayment] */
+        /** @see stopPayment */
         @MustBeClosed
         suspend fun stopPayment(
             checkTransferId: String,

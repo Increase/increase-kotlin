@@ -40,13 +40,13 @@ interface CheckDepositService {
     ): CheckDeposit =
         retrieve(params.toBuilder().checkDepositId(checkDepositId).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: CheckDepositRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CheckDeposit
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(checkDepositId: String, requestOptions: RequestOptions): CheckDeposit =
         retrieve(checkDepositId, CheckDepositRetrieveParams.none(), requestOptions)
 
@@ -56,7 +56,7 @@ interface CheckDepositService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CheckDepositListPage
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): CheckDepositListPage =
         list(CheckDepositListParams.none(), requestOptions)
 
@@ -96,14 +96,14 @@ interface CheckDepositService {
         ): HttpResponseFor<CheckDeposit> =
             retrieve(params.toBuilder().checkDepositId(checkDepositId).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: CheckDepositRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CheckDeposit>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             checkDepositId: String,
@@ -121,7 +121,7 @@ interface CheckDepositService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CheckDepositListPage>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<CheckDepositListPage> =
             list(CheckDepositListParams.none(), requestOptions)

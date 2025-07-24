@@ -42,13 +42,13 @@ interface CardService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Card = retrieve(params.toBuilder().cardId(cardId).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: CardRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Card
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(cardId: String, requestOptions: RequestOptions): Card =
         retrieve(cardId, CardRetrieveParams.none(), requestOptions)
 
@@ -59,13 +59,13 @@ interface CardService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Card = update(params.toBuilder().cardId(cardId).build(), requestOptions)
 
-    /** @see [update] */
+    /** @see update */
     fun update(
         params: CardUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Card
 
-    /** @see [update] */
+    /** @see update */
     fun update(cardId: String, requestOptions: RequestOptions): Card =
         update(cardId, CardUpdateParams.none(), requestOptions)
 
@@ -75,7 +75,7 @@ interface CardService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CardListPage
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): CardListPage =
         list(CardListParams.none(), requestOptions)
 
@@ -86,13 +86,13 @@ interface CardService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CardDetails = details(params.toBuilder().cardId(cardId).build(), requestOptions)
 
-    /** @see [details] */
+    /** @see details */
     fun details(
         params: CardDetailsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CardDetails
 
-    /** @see [details] */
+    /** @see details */
     fun details(cardId: String, requestOptions: RequestOptions): CardDetails =
         details(cardId, CardDetailsParams.none(), requestOptions)
 
@@ -128,14 +128,14 @@ interface CardService {
         ): HttpResponseFor<Card> =
             retrieve(params.toBuilder().cardId(cardId).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: CardRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Card>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(cardId: String, requestOptions: RequestOptions): HttpResponseFor<Card> =
             retrieve(cardId, CardRetrieveParams.none(), requestOptions)
@@ -151,14 +151,14 @@ interface CardService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Card> = update(params.toBuilder().cardId(cardId).build(), requestOptions)
 
-        /** @see [update] */
+        /** @see update */
         @MustBeClosed
         fun update(
             params: CardUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Card>
 
-        /** @see [update] */
+        /** @see update */
         @MustBeClosed
         fun update(cardId: String, requestOptions: RequestOptions): HttpResponseFor<Card> =
             update(cardId, CardUpdateParams.none(), requestOptions)
@@ -173,7 +173,7 @@ interface CardService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CardListPage>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<CardListPage> =
             list(CardListParams.none(), requestOptions)
@@ -190,14 +190,14 @@ interface CardService {
         ): HttpResponseFor<CardDetails> =
             details(params.toBuilder().cardId(cardId).build(), requestOptions)
 
-        /** @see [details] */
+        /** @see details */
         @MustBeClosed
         fun details(
             params: CardDetailsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CardDetails>
 
-        /** @see [details] */
+        /** @see details */
         @MustBeClosed
         fun details(cardId: String, requestOptions: RequestOptions): HttpResponseFor<CardDetails> =
             details(cardId, CardDetailsParams.none(), requestOptions)

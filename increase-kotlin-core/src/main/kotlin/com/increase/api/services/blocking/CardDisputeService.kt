@@ -40,13 +40,13 @@ interface CardDisputeService {
     ): CardDispute =
         retrieve(params.toBuilder().cardDisputeId(cardDisputeId).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: CardDisputeRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CardDispute
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(cardDisputeId: String, requestOptions: RequestOptions): CardDispute =
         retrieve(cardDisputeId, CardDisputeRetrieveParams.none(), requestOptions)
 
@@ -56,7 +56,7 @@ interface CardDisputeService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CardDisputeListPage
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): CardDisputeListPage =
         list(CardDisputeListParams.none(), requestOptions)
 
@@ -96,14 +96,14 @@ interface CardDisputeService {
         ): HttpResponseFor<CardDispute> =
             retrieve(params.toBuilder().cardDisputeId(cardDisputeId).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: CardDisputeRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CardDispute>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             cardDisputeId: String,
@@ -121,7 +121,7 @@ interface CardDisputeService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CardDisputeListPage>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<CardDisputeListPage> =
             list(CardDisputeListParams.none(), requestOptions)

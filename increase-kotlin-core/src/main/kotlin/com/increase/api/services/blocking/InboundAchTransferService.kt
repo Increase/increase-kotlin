@@ -39,13 +39,13 @@ interface InboundAchTransferService {
             requestOptions,
         )
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: InboundAchTransferRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundAchTransfer
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(inboundAchTransferId: String, requestOptions: RequestOptions): InboundAchTransfer =
         retrieve(inboundAchTransferId, InboundAchTransferRetrieveParams.none(), requestOptions)
 
@@ -55,7 +55,7 @@ interface InboundAchTransferService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundAchTransferListPage
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): InboundAchTransferListPage =
         list(InboundAchTransferListParams.none(), requestOptions)
 
@@ -71,13 +71,13 @@ interface InboundAchTransferService {
             requestOptions,
         )
 
-    /** @see [createNotificationOfChange] */
+    /** @see createNotificationOfChange */
     fun createNotificationOfChange(
         params: InboundAchTransferCreateNotificationOfChangeParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundAchTransfer
 
-    /** @see [createNotificationOfChange] */
+    /** @see createNotificationOfChange */
     fun createNotificationOfChange(
         inboundAchTransferId: String,
         requestOptions: RequestOptions,
@@ -99,13 +99,13 @@ interface InboundAchTransferService {
             requestOptions,
         )
 
-    /** @see [decline] */
+    /** @see decline */
     fun decline(
         params: InboundAchTransferDeclineParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundAchTransfer
 
-    /** @see [decline] */
+    /** @see decline */
     fun decline(inboundAchTransferId: String, requestOptions: RequestOptions): InboundAchTransfer =
         decline(inboundAchTransferId, InboundAchTransferDeclineParams.none(), requestOptions)
 
@@ -120,7 +120,7 @@ interface InboundAchTransferService {
             requestOptions,
         )
 
-    /** @see [transferReturn] */
+    /** @see transferReturn */
     fun transferReturn(
         params: InboundAchTransferTransferReturnParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -156,14 +156,14 @@ interface InboundAchTransferService {
                 requestOptions,
             )
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: InboundAchTransferRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<InboundAchTransfer>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             inboundAchTransferId: String,
@@ -181,7 +181,7 @@ interface InboundAchTransferService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<InboundAchTransferListPage>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<InboundAchTransferListPage> =
             list(InboundAchTransferListParams.none(), requestOptions)
@@ -203,14 +203,14 @@ interface InboundAchTransferService {
                 requestOptions,
             )
 
-        /** @see [createNotificationOfChange] */
+        /** @see createNotificationOfChange */
         @MustBeClosed
         fun createNotificationOfChange(
             params: InboundAchTransferCreateNotificationOfChangeParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<InboundAchTransfer>
 
-        /** @see [createNotificationOfChange] */
+        /** @see createNotificationOfChange */
         @MustBeClosed
         fun createNotificationOfChange(
             inboundAchTransferId: String,
@@ -238,14 +238,14 @@ interface InboundAchTransferService {
                 requestOptions,
             )
 
-        /** @see [decline] */
+        /** @see decline */
         @MustBeClosed
         fun decline(
             params: InboundAchTransferDeclineParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<InboundAchTransfer>
 
-        /** @see [decline] */
+        /** @see decline */
         @MustBeClosed
         fun decline(
             inboundAchTransferId: String,
@@ -269,7 +269,7 @@ interface InboundAchTransferService {
                 requestOptions,
             )
 
-        /** @see [transferReturn] */
+        /** @see transferReturn */
         @MustBeClosed
         fun transferReturn(
             params: InboundAchTransferTransferReturnParams,

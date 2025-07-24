@@ -44,13 +44,13 @@ interface EventSubscriptionServiceAsync {
             requestOptions,
         )
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(
         params: EventSubscriptionRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): EventSubscription
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(
         eventSubscriptionId: String,
         requestOptions: RequestOptions,
@@ -65,13 +65,13 @@ interface EventSubscriptionServiceAsync {
     ): EventSubscription =
         update(params.toBuilder().eventSubscriptionId(eventSubscriptionId).build(), requestOptions)
 
-    /** @see [update] */
+    /** @see update */
     suspend fun update(
         params: EventSubscriptionUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): EventSubscription
 
-    /** @see [update] */
+    /** @see update */
     suspend fun update(
         eventSubscriptionId: String,
         requestOptions: RequestOptions,
@@ -84,7 +84,7 @@ interface EventSubscriptionServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): EventSubscriptionListPageAsync
 
-    /** @see [list] */
+    /** @see list */
     suspend fun list(requestOptions: RequestOptions): EventSubscriptionListPageAsync =
         list(EventSubscriptionListParams.none(), requestOptions)
 
@@ -128,14 +128,14 @@ interface EventSubscriptionServiceAsync {
                 requestOptions,
             )
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             params: EventSubscriptionRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<EventSubscription>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             eventSubscriptionId: String,
@@ -158,14 +158,14 @@ interface EventSubscriptionServiceAsync {
                 requestOptions,
             )
 
-        /** @see [update] */
+        /** @see update */
         @MustBeClosed
         suspend fun update(
             params: EventSubscriptionUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<EventSubscription>
 
-        /** @see [update] */
+        /** @see update */
         @MustBeClosed
         suspend fun update(
             eventSubscriptionId: String,
@@ -183,7 +183,7 @@ interface EventSubscriptionServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<EventSubscriptionListPageAsync>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions

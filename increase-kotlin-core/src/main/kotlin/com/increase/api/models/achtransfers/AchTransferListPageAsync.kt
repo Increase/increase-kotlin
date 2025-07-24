@@ -8,7 +8,7 @@ import com.increase.api.core.checkRequired
 import com.increase.api.services.async.AchTransferServiceAsync
 import java.util.Objects
 
-/** @see [AchTransferServiceAsync.list] */
+/** @see AchTransferServiceAsync.list */
 class AchTransferListPageAsync
 private constructor(
     private val service: AchTransferServiceAsync,
@@ -19,14 +19,14 @@ private constructor(
     /**
      * Delegates to [AchTransferListPageResponse], but gracefully handles missing data.
      *
-     * @see [AchTransferListPageResponse.data]
+     * @see AchTransferListPageResponse.data
      */
     fun data(): List<AchTransfer> = response._data().getNullable("data") ?: emptyList()
 
     /**
      * Delegates to [AchTransferListPageResponse], but gracefully handles missing data.
      *
-     * @see [AchTransferListPageResponse.nextCursor]
+     * @see AchTransferListPageResponse.nextCursor
      */
     fun nextCursor(): String? = response._nextCursor().getNullable("next_cursor")
 

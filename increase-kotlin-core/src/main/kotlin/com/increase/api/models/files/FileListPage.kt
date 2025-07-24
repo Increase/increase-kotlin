@@ -8,7 +8,7 @@ import com.increase.api.core.checkRequired
 import com.increase.api.services.blocking.FileService
 import java.util.Objects
 
-/** @see [FileService.list] */
+/** @see FileService.list */
 class FileListPage
 private constructor(
     private val service: FileService,
@@ -19,14 +19,14 @@ private constructor(
     /**
      * Delegates to [FileListPageResponse], but gracefully handles missing data.
      *
-     * @see [FileListPageResponse.data]
+     * @see FileListPageResponse.data
      */
     fun data(): List<File> = response._data().getNullable("data") ?: emptyList()
 
     /**
      * Delegates to [FileListPageResponse], but gracefully handles missing data.
      *
-     * @see [FileListPageResponse.nextCursor]
+     * @see FileListPageResponse.nextCursor
      */
     fun nextCursor(): String? = response._nextCursor().getNullable("next_cursor")
 

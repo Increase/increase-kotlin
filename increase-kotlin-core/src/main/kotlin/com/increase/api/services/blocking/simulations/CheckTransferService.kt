@@ -35,13 +35,13 @@ interface CheckTransferService {
     ): CheckTransfer =
         mail(params.toBuilder().checkTransferId(checkTransferId).build(), requestOptions)
 
-    /** @see [mail] */
+    /** @see mail */
     fun mail(
         params: CheckTransferMailParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CheckTransfer
 
-    /** @see [mail] */
+    /** @see mail */
     fun mail(checkTransferId: String, requestOptions: RequestOptions): CheckTransfer =
         mail(checkTransferId, CheckTransferMailParams.none(), requestOptions)
 
@@ -72,14 +72,14 @@ interface CheckTransferService {
         ): HttpResponseFor<CheckTransfer> =
             mail(params.toBuilder().checkTransferId(checkTransferId).build(), requestOptions)
 
-        /** @see [mail] */
+        /** @see mail */
         @MustBeClosed
         fun mail(
             params: CheckTransferMailParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CheckTransfer>
 
-        /** @see [mail] */
+        /** @see mail */
         @MustBeClosed
         fun mail(
             checkTransferId: String,

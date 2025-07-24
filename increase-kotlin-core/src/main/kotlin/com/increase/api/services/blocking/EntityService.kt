@@ -46,13 +46,13 @@ interface EntityService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Entity = retrieve(params.toBuilder().entityId(entityId).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: EntityRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Entity
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(entityId: String, requestOptions: RequestOptions): Entity =
         retrieve(entityId, EntityRetrieveParams.none(), requestOptions)
 
@@ -62,7 +62,7 @@ interface EntityService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): EntityListPage
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): EntityListPage =
         list(EntityListParams.none(), requestOptions)
 
@@ -73,13 +73,13 @@ interface EntityService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Entity = archive(params.toBuilder().entityId(entityId).build(), requestOptions)
 
-    /** @see [archive] */
+    /** @see archive */
     fun archive(
         params: EntityArchiveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Entity
 
-    /** @see [archive] */
+    /** @see archive */
     fun archive(entityId: String, requestOptions: RequestOptions): Entity =
         archive(entityId, EntityArchiveParams.none(), requestOptions)
 
@@ -91,7 +91,7 @@ interface EntityService {
     ): Entity =
         archiveBeneficialOwner(params.toBuilder().entityId(entityId).build(), requestOptions)
 
-    /** @see [archiveBeneficialOwner] */
+    /** @see archiveBeneficialOwner */
     fun archiveBeneficialOwner(
         params: EntityArchiveBeneficialOwnerParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -108,13 +108,13 @@ interface EntityService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Entity = confirm(params.toBuilder().entityId(entityId).build(), requestOptions)
 
-    /** @see [confirm] */
+    /** @see confirm */
     fun confirm(
         params: EntityConfirmParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Entity
 
-    /** @see [confirm] */
+    /** @see confirm */
     fun confirm(entityId: String, requestOptions: RequestOptions): Entity =
         confirm(entityId, EntityConfirmParams.none(), requestOptions)
 
@@ -125,7 +125,7 @@ interface EntityService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Entity = createBeneficialOwner(params.toBuilder().entityId(entityId).build(), requestOptions)
 
-    /** @see [createBeneficialOwner] */
+    /** @see createBeneficialOwner */
     fun createBeneficialOwner(
         params: EntityCreateBeneficialOwnerParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -138,7 +138,7 @@ interface EntityService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Entity = updateAddress(params.toBuilder().entityId(entityId).build(), requestOptions)
 
-    /** @see [updateAddress] */
+    /** @see updateAddress */
     fun updateAddress(
         params: EntityUpdateAddressParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -152,7 +152,7 @@ interface EntityService {
     ): Entity =
         updateBeneficialOwnerAddress(params.toBuilder().entityId(entityId).build(), requestOptions)
 
-    /** @see [updateBeneficialOwnerAddress] */
+    /** @see updateBeneficialOwnerAddress */
     fun updateBeneficialOwnerAddress(
         params: EntityUpdateBeneficialOwnerAddressParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -165,7 +165,7 @@ interface EntityService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Entity = updateIndustryCode(params.toBuilder().entityId(entityId).build(), requestOptions)
 
-    /** @see [updateIndustryCode] */
+    /** @see updateIndustryCode */
     fun updateIndustryCode(
         params: EntityUpdateIndustryCodeParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -203,14 +203,14 @@ interface EntityService {
         ): HttpResponseFor<Entity> =
             retrieve(params.toBuilder().entityId(entityId).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: EntityRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Entity>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(entityId: String, requestOptions: RequestOptions): HttpResponseFor<Entity> =
             retrieve(entityId, EntityRetrieveParams.none(), requestOptions)
@@ -225,7 +225,7 @@ interface EntityService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<EntityListPage>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<EntityListPage> =
             list(EntityListParams.none(), requestOptions)
@@ -242,14 +242,14 @@ interface EntityService {
         ): HttpResponseFor<Entity> =
             archive(params.toBuilder().entityId(entityId).build(), requestOptions)
 
-        /** @see [archive] */
+        /** @see archive */
         @MustBeClosed
         fun archive(
             params: EntityArchiveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Entity>
 
-        /** @see [archive] */
+        /** @see archive */
         @MustBeClosed
         fun archive(entityId: String, requestOptions: RequestOptions): HttpResponseFor<Entity> =
             archive(entityId, EntityArchiveParams.none(), requestOptions)
@@ -266,7 +266,7 @@ interface EntityService {
         ): HttpResponseFor<Entity> =
             archiveBeneficialOwner(params.toBuilder().entityId(entityId).build(), requestOptions)
 
-        /** @see [archiveBeneficialOwner] */
+        /** @see archiveBeneficialOwner */
         @MustBeClosed
         fun archiveBeneficialOwner(
             params: EntityArchiveBeneficialOwnerParams,
@@ -285,14 +285,14 @@ interface EntityService {
         ): HttpResponseFor<Entity> =
             confirm(params.toBuilder().entityId(entityId).build(), requestOptions)
 
-        /** @see [confirm] */
+        /** @see confirm */
         @MustBeClosed
         fun confirm(
             params: EntityConfirmParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Entity>
 
-        /** @see [confirm] */
+        /** @see confirm */
         @MustBeClosed
         fun confirm(entityId: String, requestOptions: RequestOptions): HttpResponseFor<Entity> =
             confirm(entityId, EntityConfirmParams.none(), requestOptions)
@@ -309,7 +309,7 @@ interface EntityService {
         ): HttpResponseFor<Entity> =
             createBeneficialOwner(params.toBuilder().entityId(entityId).build(), requestOptions)
 
-        /** @see [createBeneficialOwner] */
+        /** @see createBeneficialOwner */
         @MustBeClosed
         fun createBeneficialOwner(
             params: EntityCreateBeneficialOwnerParams,
@@ -328,7 +328,7 @@ interface EntityService {
         ): HttpResponseFor<Entity> =
             updateAddress(params.toBuilder().entityId(entityId).build(), requestOptions)
 
-        /** @see [updateAddress] */
+        /** @see updateAddress */
         @MustBeClosed
         fun updateAddress(
             params: EntityUpdateAddressParams,
@@ -351,7 +351,7 @@ interface EntityService {
                 requestOptions,
             )
 
-        /** @see [updateBeneficialOwnerAddress] */
+        /** @see updateBeneficialOwnerAddress */
         @MustBeClosed
         fun updateBeneficialOwnerAddress(
             params: EntityUpdateBeneficialOwnerAddressParams,
@@ -370,7 +370,7 @@ interface EntityService {
         ): HttpResponseFor<Entity> =
             updateIndustryCode(params.toBuilder().entityId(entityId).build(), requestOptions)
 
-        /** @see [updateIndustryCode] */
+        /** @see updateIndustryCode */
         @MustBeClosed
         fun updateIndustryCode(
             params: EntityUpdateIndustryCodeParams,

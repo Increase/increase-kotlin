@@ -35,7 +35,7 @@ interface CardDisputeServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CardDispute = action(params.toBuilder().cardDisputeId(cardDisputeId).build(), requestOptions)
 
-    /** @see [action] */
+    /** @see action */
     suspend fun action(
         params: CardDisputeActionParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -69,7 +69,7 @@ interface CardDisputeServiceAsync {
         ): HttpResponseFor<CardDispute> =
             action(params.toBuilder().cardDisputeId(cardDisputeId).build(), requestOptions)
 
-        /** @see [action] */
+        /** @see action */
         @MustBeClosed
         suspend fun action(
             params: CardDisputeActionParams,

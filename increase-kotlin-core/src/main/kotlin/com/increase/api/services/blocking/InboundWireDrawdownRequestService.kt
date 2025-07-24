@@ -37,13 +37,13 @@ interface InboundWireDrawdownRequestService {
             requestOptions,
         )
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: InboundWireDrawdownRequestRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundWireDrawdownRequest
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         inboundWireDrawdownRequestId: String,
         requestOptions: RequestOptions,
@@ -60,7 +60,7 @@ interface InboundWireDrawdownRequestService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundWireDrawdownRequestListPage
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): InboundWireDrawdownRequestListPage =
         list(InboundWireDrawdownRequestListParams.none(), requestOptions)
 
@@ -99,14 +99,14 @@ interface InboundWireDrawdownRequestService {
                 requestOptions,
             )
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: InboundWireDrawdownRequestRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<InboundWireDrawdownRequest>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             inboundWireDrawdownRequestId: String,
@@ -129,7 +129,7 @@ interface InboundWireDrawdownRequestService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<InboundWireDrawdownRequestListPage>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(
             requestOptions: RequestOptions

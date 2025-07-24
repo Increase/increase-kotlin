@@ -36,13 +36,13 @@ interface CheckDepositService {
     ): CheckDeposit =
         reject(params.toBuilder().checkDepositId(checkDepositId).build(), requestOptions)
 
-    /** @see [reject] */
+    /** @see reject */
     fun reject(
         params: CheckDepositRejectParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CheckDeposit
 
-    /** @see [reject] */
+    /** @see reject */
     fun reject(checkDepositId: String, requestOptions: RequestOptions): CheckDeposit =
         reject(checkDepositId, CheckDepositRejectParams.none(), requestOptions)
 
@@ -57,13 +57,13 @@ interface CheckDepositService {
     ): CheckDeposit =
         return_(params.toBuilder().checkDepositId(checkDepositId).build(), requestOptions)
 
-    /** @see [return_] */
+    /** @see return\_ */
     fun return_(
         params: CheckDepositReturnParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CheckDeposit
 
-    /** @see [return_] */
+    /** @see return\_ */
     fun return_(checkDepositId: String, requestOptions: RequestOptions): CheckDeposit =
         return_(checkDepositId, CheckDepositReturnParams.none(), requestOptions)
 
@@ -78,13 +78,13 @@ interface CheckDepositService {
     ): CheckDeposit =
         submit(params.toBuilder().checkDepositId(checkDepositId).build(), requestOptions)
 
-    /** @see [submit] */
+    /** @see submit */
     fun submit(
         params: CheckDepositSubmitParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CheckDeposit
 
-    /** @see [submit] */
+    /** @see submit */
     fun submit(checkDepositId: String, requestOptions: RequestOptions): CheckDeposit =
         submit(checkDepositId, CheckDepositSubmitParams.none(), requestOptions)
 
@@ -115,14 +115,14 @@ interface CheckDepositService {
         ): HttpResponseFor<CheckDeposit> =
             reject(params.toBuilder().checkDepositId(checkDepositId).build(), requestOptions)
 
-        /** @see [reject] */
+        /** @see reject */
         @MustBeClosed
         fun reject(
             params: CheckDepositRejectParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CheckDeposit>
 
-        /** @see [reject] */
+        /** @see reject */
         @MustBeClosed
         fun reject(
             checkDepositId: String,
@@ -143,14 +143,14 @@ interface CheckDepositService {
         ): HttpResponseFor<CheckDeposit> =
             return_(params.toBuilder().checkDepositId(checkDepositId).build(), requestOptions)
 
-        /** @see [return_] */
+        /** @see return\_ */
         @MustBeClosed
         fun return_(
             params: CheckDepositReturnParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CheckDeposit>
 
-        /** @see [return_] */
+        /** @see return\_ */
         @MustBeClosed
         fun return_(
             checkDepositId: String,
@@ -171,14 +171,14 @@ interface CheckDepositService {
         ): HttpResponseFor<CheckDeposit> =
             submit(params.toBuilder().checkDepositId(checkDepositId).build(), requestOptions)
 
-        /** @see [submit] */
+        /** @see submit */
         @MustBeClosed
         fun submit(
             params: CheckDepositSubmitParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CheckDeposit>
 
-        /** @see [submit] */
+        /** @see submit */
         @MustBeClosed
         fun submit(
             checkDepositId: String,

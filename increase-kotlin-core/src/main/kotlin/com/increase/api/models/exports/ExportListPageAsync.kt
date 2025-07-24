@@ -8,7 +8,7 @@ import com.increase.api.core.checkRequired
 import com.increase.api.services.async.ExportServiceAsync
 import java.util.Objects
 
-/** @see [ExportServiceAsync.list] */
+/** @see ExportServiceAsync.list */
 class ExportListPageAsync
 private constructor(
     private val service: ExportServiceAsync,
@@ -19,14 +19,14 @@ private constructor(
     /**
      * Delegates to [ExportListPageResponse], but gracefully handles missing data.
      *
-     * @see [ExportListPageResponse.data]
+     * @see ExportListPageResponse.data
      */
     fun data(): List<Export> = response._data().getNullable("data") ?: emptyList()
 
     /**
      * Delegates to [ExportListPageResponse], but gracefully handles missing data.
      *
-     * @see [ExportListPageResponse.nextCursor]
+     * @see ExportListPageResponse.nextCursor
      */
     fun nextCursor(): String? = response._nextCursor().getNullable("next_cursor")
 

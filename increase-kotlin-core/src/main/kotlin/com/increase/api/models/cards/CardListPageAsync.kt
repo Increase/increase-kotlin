@@ -8,7 +8,7 @@ import com.increase.api.core.checkRequired
 import com.increase.api.services.async.CardServiceAsync
 import java.util.Objects
 
-/** @see [CardServiceAsync.list] */
+/** @see CardServiceAsync.list */
 class CardListPageAsync
 private constructor(
     private val service: CardServiceAsync,
@@ -19,14 +19,14 @@ private constructor(
     /**
      * Delegates to [CardListPageResponse], but gracefully handles missing data.
      *
-     * @see [CardListPageResponse.data]
+     * @see CardListPageResponse.data
      */
     fun data(): List<Card> = response._data().getNullable("data") ?: emptyList()
 
     /**
      * Delegates to [CardListPageResponse], but gracefully handles missing data.
      *
-     * @see [CardListPageResponse.nextCursor]
+     * @see CardListPageResponse.nextCursor
      */
     fun nextCursor(): String? = response._nextCursor().getNullable("next_cursor")
 

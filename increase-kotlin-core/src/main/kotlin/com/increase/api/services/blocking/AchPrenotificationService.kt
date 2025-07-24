@@ -43,13 +43,13 @@ interface AchPrenotificationService {
             requestOptions,
         )
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: AchPrenotificationRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AchPrenotification
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(achPrenotificationId: String, requestOptions: RequestOptions): AchPrenotification =
         retrieve(achPrenotificationId, AchPrenotificationRetrieveParams.none(), requestOptions)
 
@@ -59,7 +59,7 @@ interface AchPrenotificationService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AchPrenotificationListPage
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): AchPrenotificationListPage =
         list(AchPrenotificationListParams.none(), requestOptions)
 
@@ -103,14 +103,14 @@ interface AchPrenotificationService {
                 requestOptions,
             )
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: AchPrenotificationRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AchPrenotification>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             achPrenotificationId: String,
@@ -128,7 +128,7 @@ interface AchPrenotificationService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AchPrenotificationListPage>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<AchPrenotificationListPage> =
             list(AchPrenotificationListParams.none(), requestOptions)
