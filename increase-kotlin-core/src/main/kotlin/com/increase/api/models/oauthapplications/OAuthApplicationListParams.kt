@@ -35,8 +35,10 @@ private constructor(
 
     fun status(): Status? = status
 
+    /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
 
+    /** Additional query param to send with the request. */
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
     fun toBuilder() = Builder().from(this)
@@ -278,6 +280,7 @@ private constructor(
          */
         fun onOrBefore(): OffsetDateTime? = onOrBefore
 
+        /** Query params to send with the request. */
         fun _additionalProperties(): QueryParams = additionalProperties
 
         fun toBuilder() = Builder().from(this)
@@ -414,6 +417,7 @@ private constructor(
          */
         fun in_(): List<In>? = in_
 
+        /** Query params to send with the request. */
         fun _additionalProperties(): QueryParams = additionalProperties
 
         fun toBuilder() = Builder().from(this)

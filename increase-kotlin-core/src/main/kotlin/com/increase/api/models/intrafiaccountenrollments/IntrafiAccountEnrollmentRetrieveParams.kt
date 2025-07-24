@@ -18,8 +18,10 @@ private constructor(
     /** The identifier of the IntraFi Account Enrollment to retrieve. */
     fun intrafiAccountEnrollmentId(): String? = intrafiAccountEnrollmentId
 
+    /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
 
+    /** Additional query param to send with the request. */
     fun _additionalQueryParams(): QueryParams = additionalQueryParams
 
     fun toBuilder() = Builder().from(this)
