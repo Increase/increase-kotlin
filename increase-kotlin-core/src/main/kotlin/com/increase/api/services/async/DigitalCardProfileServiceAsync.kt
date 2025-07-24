@@ -45,13 +45,13 @@ interface DigitalCardProfileServiceAsync {
             requestOptions,
         )
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(
         params: DigitalCardProfileRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): DigitalCardProfile
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(
         digitalCardProfileId: String,
         requestOptions: RequestOptions,
@@ -64,7 +64,7 @@ interface DigitalCardProfileServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): DigitalCardProfileListPageAsync
 
-    /** @see [list] */
+    /** @see list */
     suspend fun list(requestOptions: RequestOptions): DigitalCardProfileListPageAsync =
         list(DigitalCardProfileListParams.none(), requestOptions)
 
@@ -79,13 +79,13 @@ interface DigitalCardProfileServiceAsync {
             requestOptions,
         )
 
-    /** @see [archive] */
+    /** @see archive */
     suspend fun archive(
         params: DigitalCardProfileArchiveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): DigitalCardProfile
 
-    /** @see [archive] */
+    /** @see archive */
     suspend fun archive(
         digitalCardProfileId: String,
         requestOptions: RequestOptions,
@@ -100,13 +100,13 @@ interface DigitalCardProfileServiceAsync {
     ): DigitalCardProfile =
         clone(params.toBuilder().digitalCardProfileId(digitalCardProfileId).build(), requestOptions)
 
-    /** @see [clone] */
+    /** @see clone */
     suspend fun clone(
         params: DigitalCardProfileCloneParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): DigitalCardProfile
 
-    /** @see [clone] */
+    /** @see clone */
     suspend fun clone(
         digitalCardProfileId: String,
         requestOptions: RequestOptions,
@@ -153,14 +153,14 @@ interface DigitalCardProfileServiceAsync {
                 requestOptions,
             )
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             params: DigitalCardProfileRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<DigitalCardProfile>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             digitalCardProfileId: String,
@@ -178,7 +178,7 @@ interface DigitalCardProfileServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<DigitalCardProfileListPageAsync>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions
@@ -201,14 +201,14 @@ interface DigitalCardProfileServiceAsync {
                 requestOptions,
             )
 
-        /** @see [archive] */
+        /** @see archive */
         @MustBeClosed
         suspend fun archive(
             params: DigitalCardProfileArchiveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<DigitalCardProfile>
 
-        /** @see [archive] */
+        /** @see archive */
         @MustBeClosed
         suspend fun archive(
             digitalCardProfileId: String,
@@ -232,14 +232,14 @@ interface DigitalCardProfileServiceAsync {
                 requestOptions,
             )
 
-        /** @see [clone] */
+        /** @see clone */
         @MustBeClosed
         suspend fun clone(
             params: DigitalCardProfileCloneParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<DigitalCardProfile>
 
-        /** @see [clone] */
+        /** @see clone */
         @MustBeClosed
         suspend fun clone(
             digitalCardProfileId: String,

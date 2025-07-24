@@ -39,13 +39,13 @@ interface RealTimePaymentsTransferServiceAsync {
             requestOptions,
         )
 
-    /** @see [complete] */
+    /** @see complete */
     suspend fun complete(
         params: RealTimePaymentsTransferCompleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): RealTimePaymentsTransfer
 
-    /** @see [complete] */
+    /** @see complete */
     suspend fun complete(
         realTimePaymentsTransferId: String,
         requestOptions: RequestOptions,
@@ -88,14 +88,14 @@ interface RealTimePaymentsTransferServiceAsync {
                 requestOptions,
             )
 
-        /** @see [complete] */
+        /** @see complete */
         @MustBeClosed
         suspend fun complete(
             params: RealTimePaymentsTransferCompleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<RealTimePaymentsTransfer>
 
-        /** @see [complete] */
+        /** @see complete */
         @MustBeClosed
         suspend fun complete(
             realTimePaymentsTransferId: String,

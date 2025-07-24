@@ -45,7 +45,7 @@ interface BookkeepingAccountServiceAsync {
             requestOptions,
         )
 
-    /** @see [update] */
+    /** @see update */
     suspend fun update(
         params: BookkeepingAccountUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -57,7 +57,7 @@ interface BookkeepingAccountServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BookkeepingAccountListPageAsync
 
-    /** @see [list] */
+    /** @see list */
     suspend fun list(requestOptions: RequestOptions): BookkeepingAccountListPageAsync =
         list(BookkeepingAccountListParams.none(), requestOptions)
 
@@ -72,13 +72,13 @@ interface BookkeepingAccountServiceAsync {
             requestOptions,
         )
 
-    /** @see [balance] */
+    /** @see balance */
     suspend fun balance(
         params: BookkeepingAccountBalanceParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BookkeepingBalanceLookup
 
-    /** @see [balance] */
+    /** @see balance */
     suspend fun balance(
         bookkeepingAccountId: String,
         requestOptions: RequestOptions,
@@ -125,7 +125,7 @@ interface BookkeepingAccountServiceAsync {
                 requestOptions,
             )
 
-        /** @see [update] */
+        /** @see update */
         @MustBeClosed
         suspend fun update(
             params: BookkeepingAccountUpdateParams,
@@ -142,7 +142,7 @@ interface BookkeepingAccountServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<BookkeepingAccountListPageAsync>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions
@@ -165,14 +165,14 @@ interface BookkeepingAccountServiceAsync {
                 requestOptions,
             )
 
-        /** @see [balance] */
+        /** @see balance */
         @MustBeClosed
         suspend fun balance(
             params: BookkeepingAccountBalanceParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<BookkeepingBalanceLookup>
 
-        /** @see [balance] */
+        /** @see balance */
         @MustBeClosed
         suspend fun balance(
             bookkeepingAccountId: String,

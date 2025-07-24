@@ -33,13 +33,13 @@ interface CardPaymentService {
     ): CardPayment =
         retrieve(params.toBuilder().cardPaymentId(cardPaymentId).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: CardPaymentRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CardPayment
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(cardPaymentId: String, requestOptions: RequestOptions): CardPayment =
         retrieve(cardPaymentId, CardPaymentRetrieveParams.none(), requestOptions)
 
@@ -49,7 +49,7 @@ interface CardPaymentService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CardPaymentListPage
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): CardPaymentListPage =
         list(CardPaymentListParams.none(), requestOptions)
 
@@ -79,14 +79,14 @@ interface CardPaymentService {
         ): HttpResponseFor<CardPayment> =
             retrieve(params.toBuilder().cardPaymentId(cardPaymentId).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: CardPaymentRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CardPayment>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             cardPaymentId: String,
@@ -104,7 +104,7 @@ interface CardPaymentService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CardPaymentListPage>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<CardPaymentListPage> =
             list(CardPaymentListParams.none(), requestOptions)

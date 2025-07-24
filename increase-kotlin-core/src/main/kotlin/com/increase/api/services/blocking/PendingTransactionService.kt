@@ -49,13 +49,13 @@ interface PendingTransactionService {
             requestOptions,
         )
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: PendingTransactionRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PendingTransaction
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(pendingTransactionId: String, requestOptions: RequestOptions): PendingTransaction =
         retrieve(pendingTransactionId, PendingTransactionRetrieveParams.none(), requestOptions)
 
@@ -65,7 +65,7 @@ interface PendingTransactionService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PendingTransactionListPage
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): PendingTransactionListPage =
         list(PendingTransactionListParams.none(), requestOptions)
 
@@ -84,13 +84,13 @@ interface PendingTransactionService {
             requestOptions,
         )
 
-    /** @see [release] */
+    /** @see release */
     fun release(
         params: PendingTransactionReleaseParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PendingTransaction
 
-    /** @see [release] */
+    /** @see release */
     fun release(pendingTransactionId: String, requestOptions: RequestOptions): PendingTransaction =
         release(pendingTransactionId, PendingTransactionReleaseParams.none(), requestOptions)
 
@@ -134,14 +134,14 @@ interface PendingTransactionService {
                 requestOptions,
             )
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: PendingTransactionRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PendingTransaction>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             pendingTransactionId: String,
@@ -159,7 +159,7 @@ interface PendingTransactionService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PendingTransactionListPage>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<PendingTransactionListPage> =
             list(PendingTransactionListParams.none(), requestOptions)
@@ -180,14 +180,14 @@ interface PendingTransactionService {
                 requestOptions,
             )
 
-        /** @see [release] */
+        /** @see release */
         @MustBeClosed
         fun release(
             params: PendingTransactionReleaseParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PendingTransaction>
 
-        /** @see [release] */
+        /** @see release */
         @MustBeClosed
         fun release(
             pendingTransactionId: String,

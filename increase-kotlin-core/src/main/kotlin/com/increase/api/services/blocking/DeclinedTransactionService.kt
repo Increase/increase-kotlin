@@ -36,13 +36,13 @@ interface DeclinedTransactionService {
             requestOptions,
         )
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: DeclinedTransactionRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): DeclinedTransaction
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         declinedTransactionId: String,
         requestOptions: RequestOptions,
@@ -55,7 +55,7 @@ interface DeclinedTransactionService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): DeclinedTransactionListPage
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): DeclinedTransactionListPage =
         list(DeclinedTransactionListParams.none(), requestOptions)
 
@@ -89,14 +89,14 @@ interface DeclinedTransactionService {
                 requestOptions,
             )
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: DeclinedTransactionRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<DeclinedTransaction>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             declinedTransactionId: String,
@@ -118,7 +118,7 @@ interface DeclinedTransactionService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<DeclinedTransactionListPage>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<DeclinedTransactionListPage> =
             list(DeclinedTransactionListParams.none(), requestOptions)

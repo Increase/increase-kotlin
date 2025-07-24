@@ -41,13 +41,13 @@ interface PhysicalCardService {
     ): PhysicalCard =
         retrieve(params.toBuilder().physicalCardId(physicalCardId).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: PhysicalCardRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PhysicalCard
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(physicalCardId: String, requestOptions: RequestOptions): PhysicalCard =
         retrieve(physicalCardId, PhysicalCardRetrieveParams.none(), requestOptions)
 
@@ -59,7 +59,7 @@ interface PhysicalCardService {
     ): PhysicalCard =
         update(params.toBuilder().physicalCardId(physicalCardId).build(), requestOptions)
 
-    /** @see [update] */
+    /** @see update */
     fun update(
         params: PhysicalCardUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -71,7 +71,7 @@ interface PhysicalCardService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PhysicalCardListPage
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): PhysicalCardListPage =
         list(PhysicalCardListParams.none(), requestOptions)
 
@@ -111,14 +111,14 @@ interface PhysicalCardService {
         ): HttpResponseFor<PhysicalCard> =
             retrieve(params.toBuilder().physicalCardId(physicalCardId).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: PhysicalCardRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PhysicalCard>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             physicalCardId: String,
@@ -138,7 +138,7 @@ interface PhysicalCardService {
         ): HttpResponseFor<PhysicalCard> =
             update(params.toBuilder().physicalCardId(physicalCardId).build(), requestOptions)
 
-        /** @see [update] */
+        /** @see update */
         @MustBeClosed
         fun update(
             params: PhysicalCardUpdateParams,
@@ -155,7 +155,7 @@ interface PhysicalCardService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PhysicalCardListPage>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<PhysicalCardListPage> =
             list(PhysicalCardListParams.none(), requestOptions)

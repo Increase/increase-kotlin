@@ -8,7 +8,7 @@ import com.increase.api.core.checkRequired
 import com.increase.api.services.blocking.IntrafiAccountEnrollmentService
 import java.util.Objects
 
-/** @see [IntrafiAccountEnrollmentService.list] */
+/** @see IntrafiAccountEnrollmentService.list */
 class IntrafiAccountEnrollmentListPage
 private constructor(
     private val service: IntrafiAccountEnrollmentService,
@@ -19,14 +19,14 @@ private constructor(
     /**
      * Delegates to [IntrafiAccountEnrollmentListPageResponse], but gracefully handles missing data.
      *
-     * @see [IntrafiAccountEnrollmentListPageResponse.data]
+     * @see IntrafiAccountEnrollmentListPageResponse.data
      */
     fun data(): List<IntrafiAccountEnrollment> = response._data().getNullable("data") ?: emptyList()
 
     /**
      * Delegates to [IntrafiAccountEnrollmentListPageResponse], but gracefully handles missing data.
      *
-     * @see [IntrafiAccountEnrollmentListPageResponse.nextCursor]
+     * @see IntrafiAccountEnrollmentListPageResponse.nextCursor
      */
     fun nextCursor(): String? = response._nextCursor().getNullable("next_cursor")
 

@@ -8,7 +8,7 @@ import com.increase.api.core.checkRequired
 import com.increase.api.services.async.PendingTransactionServiceAsync
 import java.util.Objects
 
-/** @see [PendingTransactionServiceAsync.list] */
+/** @see PendingTransactionServiceAsync.list */
 class PendingTransactionListPageAsync
 private constructor(
     private val service: PendingTransactionServiceAsync,
@@ -19,14 +19,14 @@ private constructor(
     /**
      * Delegates to [PendingTransactionListPageResponse], but gracefully handles missing data.
      *
-     * @see [PendingTransactionListPageResponse.data]
+     * @see PendingTransactionListPageResponse.data
      */
     fun data(): List<PendingTransaction> = response._data().getNullable("data") ?: emptyList()
 
     /**
      * Delegates to [PendingTransactionListPageResponse], but gracefully handles missing data.
      *
-     * @see [PendingTransactionListPageResponse.nextCursor]
+     * @see PendingTransactionListPageResponse.nextCursor
      */
     fun nextCursor(): String? = response._nextCursor().getNullable("next_cursor")
 

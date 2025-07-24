@@ -8,7 +8,7 @@ import com.increase.api.core.checkRequired
 import com.increase.api.services.async.InboundWireDrawdownRequestServiceAsync
 import java.util.Objects
 
-/** @see [InboundWireDrawdownRequestServiceAsync.list] */
+/** @see InboundWireDrawdownRequestServiceAsync.list */
 class InboundWireDrawdownRequestListPageAsync
 private constructor(
     private val service: InboundWireDrawdownRequestServiceAsync,
@@ -20,7 +20,7 @@ private constructor(
      * Delegates to [InboundWireDrawdownRequestListPageResponse], but gracefully handles missing
      * data.
      *
-     * @see [InboundWireDrawdownRequestListPageResponse.data]
+     * @see InboundWireDrawdownRequestListPageResponse.data
      */
     fun data(): List<InboundWireDrawdownRequest> =
         response._data().getNullable("data") ?: emptyList()
@@ -29,7 +29,7 @@ private constructor(
      * Delegates to [InboundWireDrawdownRequestListPageResponse], but gracefully handles missing
      * data.
      *
-     * @see [InboundWireDrawdownRequestListPageResponse.nextCursor]
+     * @see InboundWireDrawdownRequestListPageResponse.nextCursor
      */
     fun nextCursor(): String? = response._nextCursor().getNullable("next_cursor")
 

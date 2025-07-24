@@ -8,7 +8,7 @@ import com.increase.api.core.checkRequired
 import com.increase.api.services.blocking.InboundWireTransferService
 import java.util.Objects
 
-/** @see [InboundWireTransferService.list] */
+/** @see InboundWireTransferService.list */
 class InboundWireTransferListPage
 private constructor(
     private val service: InboundWireTransferService,
@@ -19,14 +19,14 @@ private constructor(
     /**
      * Delegates to [InboundWireTransferListPageResponse], but gracefully handles missing data.
      *
-     * @see [InboundWireTransferListPageResponse.data]
+     * @see InboundWireTransferListPageResponse.data
      */
     fun data(): List<InboundWireTransfer> = response._data().getNullable("data") ?: emptyList()
 
     /**
      * Delegates to [InboundWireTransferListPageResponse], but gracefully handles missing data.
      *
-     * @see [InboundWireTransferListPageResponse.nextCursor]
+     * @see InboundWireTransferListPageResponse.nextCursor
      */
     fun nextCursor(): String? = response._nextCursor().getNullable("next_cursor")
 

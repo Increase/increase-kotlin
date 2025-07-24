@@ -36,13 +36,13 @@ interface DeclinedTransactionServiceAsync {
             requestOptions,
         )
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(
         params: DeclinedTransactionRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): DeclinedTransaction
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(
         declinedTransactionId: String,
         requestOptions: RequestOptions,
@@ -55,7 +55,7 @@ interface DeclinedTransactionServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): DeclinedTransactionListPageAsync
 
-    /** @see [list] */
+    /** @see list */
     suspend fun list(requestOptions: RequestOptions): DeclinedTransactionListPageAsync =
         list(DeclinedTransactionListParams.none(), requestOptions)
 
@@ -89,14 +89,14 @@ interface DeclinedTransactionServiceAsync {
                 requestOptions,
             )
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             params: DeclinedTransactionRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<DeclinedTransaction>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             declinedTransactionId: String,
@@ -118,7 +118,7 @@ interface DeclinedTransactionServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<DeclinedTransactionListPageAsync>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions

@@ -42,13 +42,13 @@ interface WireTransferServiceAsync {
     ): WireTransfer =
         retrieve(params.toBuilder().wireTransferId(wireTransferId).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(
         params: WireTransferRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): WireTransfer
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(wireTransferId: String, requestOptions: RequestOptions): WireTransfer =
         retrieve(wireTransferId, WireTransferRetrieveParams.none(), requestOptions)
 
@@ -58,7 +58,7 @@ interface WireTransferServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): WireTransferListPageAsync
 
-    /** @see [list] */
+    /** @see list */
     suspend fun list(requestOptions: RequestOptions): WireTransferListPageAsync =
         list(WireTransferListParams.none(), requestOptions)
 
@@ -70,13 +70,13 @@ interface WireTransferServiceAsync {
     ): WireTransfer =
         approve(params.toBuilder().wireTransferId(wireTransferId).build(), requestOptions)
 
-    /** @see [approve] */
+    /** @see approve */
     suspend fun approve(
         params: WireTransferApproveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): WireTransfer
 
-    /** @see [approve] */
+    /** @see approve */
     suspend fun approve(wireTransferId: String, requestOptions: RequestOptions): WireTransfer =
         approve(wireTransferId, WireTransferApproveParams.none(), requestOptions)
 
@@ -88,13 +88,13 @@ interface WireTransferServiceAsync {
     ): WireTransfer =
         cancel(params.toBuilder().wireTransferId(wireTransferId).build(), requestOptions)
 
-    /** @see [cancel] */
+    /** @see cancel */
     suspend fun cancel(
         params: WireTransferCancelParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): WireTransfer
 
-    /** @see [cancel] */
+    /** @see cancel */
     suspend fun cancel(wireTransferId: String, requestOptions: RequestOptions): WireTransfer =
         cancel(wireTransferId, WireTransferCancelParams.none(), requestOptions)
 
@@ -135,14 +135,14 @@ interface WireTransferServiceAsync {
         ): HttpResponseFor<WireTransfer> =
             retrieve(params.toBuilder().wireTransferId(wireTransferId).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             params: WireTransferRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<WireTransfer>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             wireTransferId: String,
@@ -160,7 +160,7 @@ interface WireTransferServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<WireTransferListPageAsync>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions
@@ -179,14 +179,14 @@ interface WireTransferServiceAsync {
         ): HttpResponseFor<WireTransfer> =
             approve(params.toBuilder().wireTransferId(wireTransferId).build(), requestOptions)
 
-        /** @see [approve] */
+        /** @see approve */
         @MustBeClosed
         suspend fun approve(
             params: WireTransferApproveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<WireTransfer>
 
-        /** @see [approve] */
+        /** @see approve */
         @MustBeClosed
         suspend fun approve(
             wireTransferId: String,
@@ -206,14 +206,14 @@ interface WireTransferServiceAsync {
         ): HttpResponseFor<WireTransfer> =
             cancel(params.toBuilder().wireTransferId(wireTransferId).build(), requestOptions)
 
-        /** @see [cancel] */
+        /** @see cancel */
         @MustBeClosed
         suspend fun cancel(
             params: WireTransferCancelParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<WireTransfer>
 
-        /** @see [cancel] */
+        /** @see cancel */
         @MustBeClosed
         suspend fun cancel(
             wireTransferId: String,

@@ -39,13 +39,13 @@ interface InboundAchTransferServiceAsync {
             requestOptions,
         )
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(
         params: InboundAchTransferRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundAchTransfer
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(
         inboundAchTransferId: String,
         requestOptions: RequestOptions,
@@ -58,7 +58,7 @@ interface InboundAchTransferServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundAchTransferListPageAsync
 
-    /** @see [list] */
+    /** @see list */
     suspend fun list(requestOptions: RequestOptions): InboundAchTransferListPageAsync =
         list(InboundAchTransferListParams.none(), requestOptions)
 
@@ -74,13 +74,13 @@ interface InboundAchTransferServiceAsync {
             requestOptions,
         )
 
-    /** @see [createNotificationOfChange] */
+    /** @see createNotificationOfChange */
     suspend fun createNotificationOfChange(
         params: InboundAchTransferCreateNotificationOfChangeParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundAchTransfer
 
-    /** @see [createNotificationOfChange] */
+    /** @see createNotificationOfChange */
     suspend fun createNotificationOfChange(
         inboundAchTransferId: String,
         requestOptions: RequestOptions,
@@ -102,13 +102,13 @@ interface InboundAchTransferServiceAsync {
             requestOptions,
         )
 
-    /** @see [decline] */
+    /** @see decline */
     suspend fun decline(
         params: InboundAchTransferDeclineParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundAchTransfer
 
-    /** @see [decline] */
+    /** @see decline */
     suspend fun decline(
         inboundAchTransferId: String,
         requestOptions: RequestOptions,
@@ -126,7 +126,7 @@ interface InboundAchTransferServiceAsync {
             requestOptions,
         )
 
-    /** @see [transferReturn] */
+    /** @see transferReturn */
     suspend fun transferReturn(
         params: InboundAchTransferTransferReturnParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -162,14 +162,14 @@ interface InboundAchTransferServiceAsync {
                 requestOptions,
             )
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             params: InboundAchTransferRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<InboundAchTransfer>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             inboundAchTransferId: String,
@@ -187,7 +187,7 @@ interface InboundAchTransferServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<InboundAchTransferListPageAsync>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions
@@ -211,14 +211,14 @@ interface InboundAchTransferServiceAsync {
                 requestOptions,
             )
 
-        /** @see [createNotificationOfChange] */
+        /** @see createNotificationOfChange */
         @MustBeClosed
         suspend fun createNotificationOfChange(
             params: InboundAchTransferCreateNotificationOfChangeParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<InboundAchTransfer>
 
-        /** @see [createNotificationOfChange] */
+        /** @see createNotificationOfChange */
         @MustBeClosed
         suspend fun createNotificationOfChange(
             inboundAchTransferId: String,
@@ -246,14 +246,14 @@ interface InboundAchTransferServiceAsync {
                 requestOptions,
             )
 
-        /** @see [decline] */
+        /** @see decline */
         @MustBeClosed
         suspend fun decline(
             params: InboundAchTransferDeclineParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<InboundAchTransfer>
 
-        /** @see [decline] */
+        /** @see decline */
         @MustBeClosed
         suspend fun decline(
             inboundAchTransferId: String,
@@ -277,7 +277,7 @@ interface InboundAchTransferServiceAsync {
                 requestOptions,
             )
 
-        /** @see [transferReturn] */
+        /** @see transferReturn */
         @MustBeClosed
         suspend fun transferReturn(
             params: InboundAchTransferTransferReturnParams,

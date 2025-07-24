@@ -43,13 +43,13 @@ interface FileServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): File = retrieve(params.toBuilder().fileId(fileId).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(
         params: FileRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): File
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(fileId: String, requestOptions: RequestOptions): File =
         retrieve(fileId, FileRetrieveParams.none(), requestOptions)
 
@@ -59,7 +59,7 @@ interface FileServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): FileListPageAsync
 
-    /** @see [list] */
+    /** @see list */
     suspend fun list(requestOptions: RequestOptions): FileListPageAsync =
         list(FileListParams.none(), requestOptions)
 
@@ -95,14 +95,14 @@ interface FileServiceAsync {
         ): HttpResponseFor<File> =
             retrieve(params.toBuilder().fileId(fileId).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             params: FileRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<File>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             fileId: String,
@@ -119,7 +119,7 @@ interface FileServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<FileListPageAsync>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         suspend fun list(requestOptions: RequestOptions): HttpResponseFor<FileListPageAsync> =
             list(FileListParams.none(), requestOptions)

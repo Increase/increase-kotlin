@@ -43,13 +43,13 @@ interface BookkeepingEntrySetServiceAsync {
             requestOptions,
         )
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(
         params: BookkeepingEntrySetRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BookkeepingEntrySet
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(
         bookkeepingEntrySetId: String,
         requestOptions: RequestOptions,
@@ -62,7 +62,7 @@ interface BookkeepingEntrySetServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BookkeepingEntrySetListPageAsync
 
-    /** @see [list] */
+    /** @see list */
     suspend fun list(requestOptions: RequestOptions): BookkeepingEntrySetListPageAsync =
         list(BookkeepingEntrySetListParams.none(), requestOptions)
 
@@ -106,14 +106,14 @@ interface BookkeepingEntrySetServiceAsync {
                 requestOptions,
             )
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             params: BookkeepingEntrySetRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<BookkeepingEntrySet>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             bookkeepingEntrySetId: String,
@@ -135,7 +135,7 @@ interface BookkeepingEntrySetServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<BookkeepingEntrySetListPageAsync>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions

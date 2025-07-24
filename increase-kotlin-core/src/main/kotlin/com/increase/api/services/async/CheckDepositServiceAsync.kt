@@ -40,13 +40,13 @@ interface CheckDepositServiceAsync {
     ): CheckDeposit =
         retrieve(params.toBuilder().checkDepositId(checkDepositId).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(
         params: CheckDepositRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CheckDeposit
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(checkDepositId: String, requestOptions: RequestOptions): CheckDeposit =
         retrieve(checkDepositId, CheckDepositRetrieveParams.none(), requestOptions)
 
@@ -56,7 +56,7 @@ interface CheckDepositServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CheckDepositListPageAsync
 
-    /** @see [list] */
+    /** @see list */
     suspend fun list(requestOptions: RequestOptions): CheckDepositListPageAsync =
         list(CheckDepositListParams.none(), requestOptions)
 
@@ -97,14 +97,14 @@ interface CheckDepositServiceAsync {
         ): HttpResponseFor<CheckDeposit> =
             retrieve(params.toBuilder().checkDepositId(checkDepositId).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             params: CheckDepositRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CheckDeposit>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             checkDepositId: String,
@@ -122,7 +122,7 @@ interface CheckDepositServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CheckDepositListPageAsync>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions

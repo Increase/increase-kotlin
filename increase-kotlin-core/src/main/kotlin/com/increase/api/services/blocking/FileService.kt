@@ -43,13 +43,13 @@ interface FileService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): File = retrieve(params.toBuilder().fileId(fileId).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: FileRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): File
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(fileId: String, requestOptions: RequestOptions): File =
         retrieve(fileId, FileRetrieveParams.none(), requestOptions)
 
@@ -59,7 +59,7 @@ interface FileService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): FileListPage
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): FileListPage =
         list(FileListParams.none(), requestOptions)
 
@@ -95,14 +95,14 @@ interface FileService {
         ): HttpResponseFor<File> =
             retrieve(params.toBuilder().fileId(fileId).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: FileRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<File>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(fileId: String, requestOptions: RequestOptions): HttpResponseFor<File> =
             retrieve(fileId, FileRetrieveParams.none(), requestOptions)
@@ -117,7 +117,7 @@ interface FileService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<FileListPage>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<FileListPage> =
             list(FileListParams.none(), requestOptions)

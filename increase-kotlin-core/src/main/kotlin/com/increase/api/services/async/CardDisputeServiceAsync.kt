@@ -40,13 +40,13 @@ interface CardDisputeServiceAsync {
     ): CardDispute =
         retrieve(params.toBuilder().cardDisputeId(cardDisputeId).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(
         params: CardDisputeRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CardDispute
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(cardDisputeId: String, requestOptions: RequestOptions): CardDispute =
         retrieve(cardDisputeId, CardDisputeRetrieveParams.none(), requestOptions)
 
@@ -56,7 +56,7 @@ interface CardDisputeServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CardDisputeListPageAsync
 
-    /** @see [list] */
+    /** @see list */
     suspend fun list(requestOptions: RequestOptions): CardDisputeListPageAsync =
         list(CardDisputeListParams.none(), requestOptions)
 
@@ -97,14 +97,14 @@ interface CardDisputeServiceAsync {
         ): HttpResponseFor<CardDispute> =
             retrieve(params.toBuilder().cardDisputeId(cardDisputeId).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             params: CardDisputeRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CardDispute>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             cardDisputeId: String,
@@ -122,7 +122,7 @@ interface CardDisputeServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CardDisputeListPageAsync>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions

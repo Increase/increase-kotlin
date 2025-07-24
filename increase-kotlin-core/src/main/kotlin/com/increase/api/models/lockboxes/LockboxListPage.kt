@@ -8,7 +8,7 @@ import com.increase.api.core.checkRequired
 import com.increase.api.services.blocking.LockboxService
 import java.util.Objects
 
-/** @see [LockboxService.list] */
+/** @see LockboxService.list */
 class LockboxListPage
 private constructor(
     private val service: LockboxService,
@@ -19,14 +19,14 @@ private constructor(
     /**
      * Delegates to [LockboxListPageResponse], but gracefully handles missing data.
      *
-     * @see [LockboxListPageResponse.data]
+     * @see LockboxListPageResponse.data
      */
     fun data(): List<Lockbox> = response._data().getNullable("data") ?: emptyList()
 
     /**
      * Delegates to [LockboxListPageResponse], but gracefully handles missing data.
      *
-     * @see [LockboxListPageResponse.nextCursor]
+     * @see LockboxListPageResponse.nextCursor
      */
     fun nextCursor(): String? = response._nextCursor().getNullable("next_cursor")
 

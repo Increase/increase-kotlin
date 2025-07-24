@@ -41,13 +41,13 @@ interface IntrafiExclusionServiceAsync {
     ): IntrafiExclusion =
         retrieve(params.toBuilder().intrafiExclusionId(intrafiExclusionId).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(
         params: IntrafiExclusionRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): IntrafiExclusion
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(
         intrafiExclusionId: String,
         requestOptions: RequestOptions,
@@ -60,7 +60,7 @@ interface IntrafiExclusionServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): IntrafiExclusionListPageAsync
 
-    /** @see [list] */
+    /** @see list */
     suspend fun list(requestOptions: RequestOptions): IntrafiExclusionListPageAsync =
         list(IntrafiExclusionListParams.none(), requestOptions)
 
@@ -72,13 +72,13 @@ interface IntrafiExclusionServiceAsync {
     ): IntrafiExclusion =
         archive(params.toBuilder().intrafiExclusionId(intrafiExclusionId).build(), requestOptions)
 
-    /** @see [archive] */
+    /** @see archive */
     suspend fun archive(
         params: IntrafiExclusionArchiveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): IntrafiExclusion
 
-    /** @see [archive] */
+    /** @see archive */
     suspend fun archive(
         intrafiExclusionId: String,
         requestOptions: RequestOptions,
@@ -125,14 +125,14 @@ interface IntrafiExclusionServiceAsync {
                 requestOptions,
             )
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             params: IntrafiExclusionRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<IntrafiExclusion>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             intrafiExclusionId: String,
@@ -150,7 +150,7 @@ interface IntrafiExclusionServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<IntrafiExclusionListPageAsync>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions
@@ -173,14 +173,14 @@ interface IntrafiExclusionServiceAsync {
                 requestOptions,
             )
 
-        /** @see [archive] */
+        /** @see archive */
         @MustBeClosed
         suspend fun archive(
             params: IntrafiExclusionArchiveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<IntrafiExclusion>
 
-        /** @see [archive] */
+        /** @see archive */
         @MustBeClosed
         suspend fun archive(
             intrafiExclusionId: String,

@@ -35,7 +35,7 @@ interface PhysicalCardServiceAsync {
     ): PhysicalCard =
         advanceShipment(params.toBuilder().physicalCardId(physicalCardId).build(), requestOptions)
 
-    /** @see [advanceShipment] */
+    /** @see advanceShipment */
     suspend fun advanceShipment(
         params: PhysicalCardAdvanceShipmentParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -52,7 +52,7 @@ interface PhysicalCardServiceAsync {
     ): PhysicalCard =
         trackingUpdates(params.toBuilder().physicalCardId(physicalCardId).build(), requestOptions)
 
-    /** @see [trackingUpdates] */
+    /** @see trackingUpdates */
     suspend fun trackingUpdates(
         params: PhysicalCardTrackingUpdatesParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -89,7 +89,7 @@ interface PhysicalCardServiceAsync {
                 requestOptions,
             )
 
-        /** @see [advanceShipment] */
+        /** @see advanceShipment */
         @MustBeClosed
         suspend fun advanceShipment(
             params: PhysicalCardAdvanceShipmentParams,
@@ -112,7 +112,7 @@ interface PhysicalCardServiceAsync {
                 requestOptions,
             )
 
-        /** @see [trackingUpdates] */
+        /** @see trackingUpdates */
         @MustBeClosed
         suspend fun trackingUpdates(
             params: PhysicalCardTrackingUpdatesParams,

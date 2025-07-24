@@ -8,7 +8,7 @@ import com.increase.api.core.checkRequired
 import com.increase.api.services.async.AccountTransferServiceAsync
 import java.util.Objects
 
-/** @see [AccountTransferServiceAsync.list] */
+/** @see AccountTransferServiceAsync.list */
 class AccountTransferListPageAsync
 private constructor(
     private val service: AccountTransferServiceAsync,
@@ -19,14 +19,14 @@ private constructor(
     /**
      * Delegates to [AccountTransferListPageResponse], but gracefully handles missing data.
      *
-     * @see [AccountTransferListPageResponse.data]
+     * @see AccountTransferListPageResponse.data
      */
     fun data(): List<AccountTransfer> = response._data().getNullable("data") ?: emptyList()
 
     /**
      * Delegates to [AccountTransferListPageResponse], but gracefully handles missing data.
      *
-     * @see [AccountTransferListPageResponse.nextCursor]
+     * @see AccountTransferListPageResponse.nextCursor
      */
     fun nextCursor(): String? = response._nextCursor().getNullable("next_cursor")
 

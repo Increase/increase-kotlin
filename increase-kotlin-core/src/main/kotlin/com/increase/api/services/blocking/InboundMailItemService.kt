@@ -33,13 +33,13 @@ interface InboundMailItemService {
     ): InboundMailItem =
         retrieve(params.toBuilder().inboundMailItemId(inboundMailItemId).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: InboundMailItemRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundMailItem
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(inboundMailItemId: String, requestOptions: RequestOptions): InboundMailItem =
         retrieve(inboundMailItemId, InboundMailItemRetrieveParams.none(), requestOptions)
 
@@ -49,7 +49,7 @@ interface InboundMailItemService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundMailItemListPage
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): InboundMailItemListPage =
         list(InboundMailItemListParams.none(), requestOptions)
 
@@ -83,14 +83,14 @@ interface InboundMailItemService {
                 requestOptions,
             )
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: InboundMailItemRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<InboundMailItem>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             inboundMailItemId: String,
@@ -108,7 +108,7 @@ interface InboundMailItemService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<InboundMailItemListPage>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<InboundMailItemListPage> =
             list(InboundMailItemListParams.none(), requestOptions)

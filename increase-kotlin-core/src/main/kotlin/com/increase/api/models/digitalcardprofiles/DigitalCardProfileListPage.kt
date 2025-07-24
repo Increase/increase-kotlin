@@ -8,7 +8,7 @@ import com.increase.api.core.checkRequired
 import com.increase.api.services.blocking.DigitalCardProfileService
 import java.util.Objects
 
-/** @see [DigitalCardProfileService.list] */
+/** @see DigitalCardProfileService.list */
 class DigitalCardProfileListPage
 private constructor(
     private val service: DigitalCardProfileService,
@@ -19,14 +19,14 @@ private constructor(
     /**
      * Delegates to [DigitalCardProfileListPageResponse], but gracefully handles missing data.
      *
-     * @see [DigitalCardProfileListPageResponse.data]
+     * @see DigitalCardProfileListPageResponse.data
      */
     fun data(): List<DigitalCardProfile> = response._data().getNullable("data") ?: emptyList()
 
     /**
      * Delegates to [DigitalCardProfileListPageResponse], but gracefully handles missing data.
      *
-     * @see [DigitalCardProfileListPageResponse.nextCursor]
+     * @see DigitalCardProfileListPageResponse.nextCursor
      */
     fun nextCursor(): String? = response._nextCursor().getNullable("next_cursor")
 

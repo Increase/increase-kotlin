@@ -41,13 +41,13 @@ interface AccountNumberService {
     ): AccountNumber =
         retrieve(params.toBuilder().accountNumberId(accountNumberId).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: AccountNumberRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AccountNumber
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(accountNumberId: String, requestOptions: RequestOptions): AccountNumber =
         retrieve(accountNumberId, AccountNumberRetrieveParams.none(), requestOptions)
 
@@ -59,13 +59,13 @@ interface AccountNumberService {
     ): AccountNumber =
         update(params.toBuilder().accountNumberId(accountNumberId).build(), requestOptions)
 
-    /** @see [update] */
+    /** @see update */
     fun update(
         params: AccountNumberUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AccountNumber
 
-    /** @see [update] */
+    /** @see update */
     fun update(accountNumberId: String, requestOptions: RequestOptions): AccountNumber =
         update(accountNumberId, AccountNumberUpdateParams.none(), requestOptions)
 
@@ -75,7 +75,7 @@ interface AccountNumberService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AccountNumberListPage
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): AccountNumberListPage =
         list(AccountNumberListParams.none(), requestOptions)
 
@@ -115,14 +115,14 @@ interface AccountNumberService {
         ): HttpResponseFor<AccountNumber> =
             retrieve(params.toBuilder().accountNumberId(accountNumberId).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: AccountNumberRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AccountNumber>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             accountNumberId: String,
@@ -142,14 +142,14 @@ interface AccountNumberService {
         ): HttpResponseFor<AccountNumber> =
             update(params.toBuilder().accountNumberId(accountNumberId).build(), requestOptions)
 
-        /** @see [update] */
+        /** @see update */
         @MustBeClosed
         fun update(
             params: AccountNumberUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AccountNumber>
 
-        /** @see [update] */
+        /** @see update */
         @MustBeClosed
         fun update(
             accountNumberId: String,
@@ -167,7 +167,7 @@ interface AccountNumberService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AccountNumberListPage>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<AccountNumberListPage> =
             list(AccountNumberListParams.none(), requestOptions)

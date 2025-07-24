@@ -8,7 +8,7 @@ import com.increase.api.core.checkRequired
 import com.increase.api.services.async.SupplementalDocumentServiceAsync
 import java.util.Objects
 
-/** @see [SupplementalDocumentServiceAsync.list] */
+/** @see SupplementalDocumentServiceAsync.list */
 class SupplementalDocumentListPageAsync
 private constructor(
     private val service: SupplementalDocumentServiceAsync,
@@ -19,7 +19,7 @@ private constructor(
     /**
      * Delegates to [SupplementalDocumentListPageResponse], but gracefully handles missing data.
      *
-     * @see [SupplementalDocumentListPageResponse.data]
+     * @see SupplementalDocumentListPageResponse.data
      */
     fun data(): List<EntitySupplementalDocument> =
         response._data().getNullable("data") ?: emptyList()
@@ -27,7 +27,7 @@ private constructor(
     /**
      * Delegates to [SupplementalDocumentListPageResponse], but gracefully handles missing data.
      *
-     * @see [SupplementalDocumentListPageResponse.nextCursor]
+     * @see SupplementalDocumentListPageResponse.nextCursor
      */
     fun nextCursor(): String? = response._nextCursor().getNullable("next_cursor")
 

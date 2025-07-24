@@ -41,13 +41,13 @@ interface PhysicalCardServiceAsync {
     ): PhysicalCard =
         retrieve(params.toBuilder().physicalCardId(physicalCardId).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(
         params: PhysicalCardRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PhysicalCard
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(physicalCardId: String, requestOptions: RequestOptions): PhysicalCard =
         retrieve(physicalCardId, PhysicalCardRetrieveParams.none(), requestOptions)
 
@@ -59,7 +59,7 @@ interface PhysicalCardServiceAsync {
     ): PhysicalCard =
         update(params.toBuilder().physicalCardId(physicalCardId).build(), requestOptions)
 
-    /** @see [update] */
+    /** @see update */
     suspend fun update(
         params: PhysicalCardUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -71,7 +71,7 @@ interface PhysicalCardServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PhysicalCardListPageAsync
 
-    /** @see [list] */
+    /** @see list */
     suspend fun list(requestOptions: RequestOptions): PhysicalCardListPageAsync =
         list(PhysicalCardListParams.none(), requestOptions)
 
@@ -112,14 +112,14 @@ interface PhysicalCardServiceAsync {
         ): HttpResponseFor<PhysicalCard> =
             retrieve(params.toBuilder().physicalCardId(physicalCardId).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             params: PhysicalCardRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PhysicalCard>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             physicalCardId: String,
@@ -139,7 +139,7 @@ interface PhysicalCardServiceAsync {
         ): HttpResponseFor<PhysicalCard> =
             update(params.toBuilder().physicalCardId(physicalCardId).build(), requestOptions)
 
-        /** @see [update] */
+        /** @see update */
         @MustBeClosed
         suspend fun update(
             params: PhysicalCardUpdateParams,
@@ -156,7 +156,7 @@ interface PhysicalCardServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PhysicalCardListPageAsync>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions

@@ -45,13 +45,13 @@ interface IntrafiAccountEnrollmentServiceAsync {
             requestOptions,
         )
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(
         params: IntrafiAccountEnrollmentRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): IntrafiAccountEnrollment
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(
         intrafiAccountEnrollmentId: String,
         requestOptions: RequestOptions,
@@ -68,7 +68,7 @@ interface IntrafiAccountEnrollmentServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): IntrafiAccountEnrollmentListPageAsync
 
-    /** @see [list] */
+    /** @see list */
     suspend fun list(requestOptions: RequestOptions): IntrafiAccountEnrollmentListPageAsync =
         list(IntrafiAccountEnrollmentListParams.none(), requestOptions)
 
@@ -84,13 +84,13 @@ interface IntrafiAccountEnrollmentServiceAsync {
             requestOptions,
         )
 
-    /** @see [unenroll] */
+    /** @see unenroll */
     suspend fun unenroll(
         params: IntrafiAccountEnrollmentUnenrollParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): IntrafiAccountEnrollment
 
-    /** @see [unenroll] */
+    /** @see unenroll */
     suspend fun unenroll(
         intrafiAccountEnrollmentId: String,
         requestOptions: RequestOptions,
@@ -143,14 +143,14 @@ interface IntrafiAccountEnrollmentServiceAsync {
                 requestOptions,
             )
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             params: IntrafiAccountEnrollmentRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<IntrafiAccountEnrollment>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             intrafiAccountEnrollmentId: String,
@@ -172,7 +172,7 @@ interface IntrafiAccountEnrollmentServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<IntrafiAccountEnrollmentListPageAsync>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions
@@ -196,14 +196,14 @@ interface IntrafiAccountEnrollmentServiceAsync {
                 requestOptions,
             )
 
-        /** @see [unenroll] */
+        /** @see unenroll */
         @MustBeClosed
         suspend fun unenroll(
             params: IntrafiAccountEnrollmentUnenrollParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<IntrafiAccountEnrollment>
 
-        /** @see [unenroll] */
+        /** @see unenroll */
         @MustBeClosed
         suspend fun unenroll(
             intrafiAccountEnrollmentId: String,

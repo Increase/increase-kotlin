@@ -40,13 +40,13 @@ interface LockboxService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Lockbox = retrieve(params.toBuilder().lockboxId(lockboxId).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: LockboxRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Lockbox
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(lockboxId: String, requestOptions: RequestOptions): Lockbox =
         retrieve(lockboxId, LockboxRetrieveParams.none(), requestOptions)
 
@@ -57,13 +57,13 @@ interface LockboxService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Lockbox = update(params.toBuilder().lockboxId(lockboxId).build(), requestOptions)
 
-    /** @see [update] */
+    /** @see update */
     fun update(
         params: LockboxUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Lockbox
 
-    /** @see [update] */
+    /** @see update */
     fun update(lockboxId: String, requestOptions: RequestOptions): Lockbox =
         update(lockboxId, LockboxUpdateParams.none(), requestOptions)
 
@@ -73,7 +73,7 @@ interface LockboxService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LockboxListPage
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): LockboxListPage =
         list(LockboxListParams.none(), requestOptions)
 
@@ -109,14 +109,14 @@ interface LockboxService {
         ): HttpResponseFor<Lockbox> =
             retrieve(params.toBuilder().lockboxId(lockboxId).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: LockboxRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Lockbox>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(lockboxId: String, requestOptions: RequestOptions): HttpResponseFor<Lockbox> =
             retrieve(lockboxId, LockboxRetrieveParams.none(), requestOptions)
@@ -133,14 +133,14 @@ interface LockboxService {
         ): HttpResponseFor<Lockbox> =
             update(params.toBuilder().lockboxId(lockboxId).build(), requestOptions)
 
-        /** @see [update] */
+        /** @see update */
         @MustBeClosed
         fun update(
             params: LockboxUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Lockbox>
 
-        /** @see [update] */
+        /** @see update */
         @MustBeClosed
         fun update(lockboxId: String, requestOptions: RequestOptions): HttpResponseFor<Lockbox> =
             update(lockboxId, LockboxUpdateParams.none(), requestOptions)
@@ -155,7 +155,7 @@ interface LockboxService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<LockboxListPage>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<LockboxListPage> =
             list(LockboxListParams.none(), requestOptions)

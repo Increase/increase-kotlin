@@ -33,13 +33,13 @@ interface OAuthConnectionService {
     ): OAuthConnection =
         retrieve(params.toBuilder().oauthConnectionId(oauthConnectionId).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: OAuthConnectionRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): OAuthConnection
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(oauthConnectionId: String, requestOptions: RequestOptions): OAuthConnection =
         retrieve(oauthConnectionId, OAuthConnectionRetrieveParams.none(), requestOptions)
 
@@ -49,7 +49,7 @@ interface OAuthConnectionService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): OAuthConnectionListPage
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): OAuthConnectionListPage =
         list(OAuthConnectionListParams.none(), requestOptions)
 
@@ -83,14 +83,14 @@ interface OAuthConnectionService {
                 requestOptions,
             )
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: OAuthConnectionRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<OAuthConnection>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             oauthConnectionId: String,
@@ -108,7 +108,7 @@ interface OAuthConnectionService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<OAuthConnectionListPage>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<OAuthConnectionListPage> =
             list(OAuthConnectionListParams.none(), requestOptions)

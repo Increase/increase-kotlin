@@ -8,7 +8,7 @@ import com.increase.api.core.checkRequired
 import com.increase.api.services.blocking.ProgramService
 import java.util.Objects
 
-/** @see [ProgramService.list] */
+/** @see ProgramService.list */
 class ProgramListPage
 private constructor(
     private val service: ProgramService,
@@ -19,14 +19,14 @@ private constructor(
     /**
      * Delegates to [ProgramListPageResponse], but gracefully handles missing data.
      *
-     * @see [ProgramListPageResponse.data]
+     * @see ProgramListPageResponse.data
      */
     fun data(): List<Program> = response._data().getNullable("data") ?: emptyList()
 
     /**
      * Delegates to [ProgramListPageResponse], but gracefully handles missing data.
      *
-     * @see [ProgramListPageResponse.nextCursor]
+     * @see ProgramListPageResponse.nextCursor
      */
     fun nextCursor(): String? = response._nextCursor().getNullable("next_cursor")
 

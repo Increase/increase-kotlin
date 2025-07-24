@@ -43,13 +43,13 @@ interface AccountServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Account = retrieve(params.toBuilder().accountId(accountId).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(
         params: AccountRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Account
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(accountId: String, requestOptions: RequestOptions): Account =
         retrieve(accountId, AccountRetrieveParams.none(), requestOptions)
 
@@ -60,13 +60,13 @@ interface AccountServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Account = update(params.toBuilder().accountId(accountId).build(), requestOptions)
 
-    /** @see [update] */
+    /** @see update */
     suspend fun update(
         params: AccountUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Account
 
-    /** @see [update] */
+    /** @see update */
     suspend fun update(accountId: String, requestOptions: RequestOptions): Account =
         update(accountId, AccountUpdateParams.none(), requestOptions)
 
@@ -76,7 +76,7 @@ interface AccountServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AccountListPageAsync
 
-    /** @see [list] */
+    /** @see list */
     suspend fun list(requestOptions: RequestOptions): AccountListPageAsync =
         list(AccountListParams.none(), requestOptions)
 
@@ -90,13 +90,13 @@ interface AccountServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BalanceLookup = balance(params.toBuilder().accountId(accountId).build(), requestOptions)
 
-    /** @see [balance] */
+    /** @see balance */
     suspend fun balance(
         params: AccountBalanceParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BalanceLookup
 
-    /** @see [balance] */
+    /** @see balance */
     suspend fun balance(accountId: String, requestOptions: RequestOptions): BalanceLookup =
         balance(accountId, AccountBalanceParams.none(), requestOptions)
 
@@ -107,13 +107,13 @@ interface AccountServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Account = close(params.toBuilder().accountId(accountId).build(), requestOptions)
 
-    /** @see [close] */
+    /** @see close */
     suspend fun close(
         params: AccountCloseParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Account
 
-    /** @see [close] */
+    /** @see close */
     suspend fun close(accountId: String, requestOptions: RequestOptions): Account =
         close(accountId, AccountCloseParams.none(), requestOptions)
 
@@ -153,14 +153,14 @@ interface AccountServiceAsync {
         ): HttpResponseFor<Account> =
             retrieve(params.toBuilder().accountId(accountId).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             params: AccountRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Account>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             accountId: String,
@@ -180,14 +180,14 @@ interface AccountServiceAsync {
         ): HttpResponseFor<Account> =
             update(params.toBuilder().accountId(accountId).build(), requestOptions)
 
-        /** @see [update] */
+        /** @see update */
         @MustBeClosed
         suspend fun update(
             params: AccountUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Account>
 
-        /** @see [update] */
+        /** @see update */
         @MustBeClosed
         suspend fun update(
             accountId: String,
@@ -204,7 +204,7 @@ interface AccountServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AccountListPageAsync>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         suspend fun list(requestOptions: RequestOptions): HttpResponseFor<AccountListPageAsync> =
             list(AccountListParams.none(), requestOptions)
@@ -221,14 +221,14 @@ interface AccountServiceAsync {
         ): HttpResponseFor<BalanceLookup> =
             balance(params.toBuilder().accountId(accountId).build(), requestOptions)
 
-        /** @see [balance] */
+        /** @see balance */
         @MustBeClosed
         suspend fun balance(
             params: AccountBalanceParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<BalanceLookup>
 
-        /** @see [balance] */
+        /** @see balance */
         @MustBeClosed
         suspend fun balance(
             accountId: String,
@@ -248,14 +248,14 @@ interface AccountServiceAsync {
         ): HttpResponseFor<Account> =
             close(params.toBuilder().accountId(accountId).build(), requestOptions)
 
-        /** @see [close] */
+        /** @see close */
         @MustBeClosed
         suspend fun close(
             params: AccountCloseParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Account>
 
-        /** @see [close] */
+        /** @see close */
         @MustBeClosed
         suspend fun close(
             accountId: String,

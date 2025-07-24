@@ -8,7 +8,7 @@ import com.increase.api.core.checkRequired
 import com.increase.api.services.blocking.AchPrenotificationService
 import java.util.Objects
 
-/** @see [AchPrenotificationService.list] */
+/** @see AchPrenotificationService.list */
 class AchPrenotificationListPage
 private constructor(
     private val service: AchPrenotificationService,
@@ -19,14 +19,14 @@ private constructor(
     /**
      * Delegates to [AchPrenotificationListPageResponse], but gracefully handles missing data.
      *
-     * @see [AchPrenotificationListPageResponse.data]
+     * @see AchPrenotificationListPageResponse.data
      */
     fun data(): List<AchPrenotification> = response._data().getNullable("data") ?: emptyList()
 
     /**
      * Delegates to [AchPrenotificationListPageResponse], but gracefully handles missing data.
      *
-     * @see [AchPrenotificationListPageResponse.nextCursor]
+     * @see AchPrenotificationListPageResponse.nextCursor
      */
     fun nextCursor(): String? = response._nextCursor().getNullable("next_cursor")
 

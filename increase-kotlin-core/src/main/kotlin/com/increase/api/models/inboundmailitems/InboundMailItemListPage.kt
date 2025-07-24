@@ -8,7 +8,7 @@ import com.increase.api.core.checkRequired
 import com.increase.api.services.blocking.InboundMailItemService
 import java.util.Objects
 
-/** @see [InboundMailItemService.list] */
+/** @see InboundMailItemService.list */
 class InboundMailItemListPage
 private constructor(
     private val service: InboundMailItemService,
@@ -19,14 +19,14 @@ private constructor(
     /**
      * Delegates to [InboundMailItemListPageResponse], but gracefully handles missing data.
      *
-     * @see [InboundMailItemListPageResponse.data]
+     * @see InboundMailItemListPageResponse.data
      */
     fun data(): List<InboundMailItem> = response._data().getNullable("data") ?: emptyList()
 
     /**
      * Delegates to [InboundMailItemListPageResponse], but gracefully handles missing data.
      *
-     * @see [InboundMailItemListPageResponse.nextCursor]
+     * @see InboundMailItemListPageResponse.nextCursor
      */
     fun nextCursor(): String? = response._nextCursor().getNullable("next_cursor")
 

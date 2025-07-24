@@ -29,7 +29,7 @@ interface GroupServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Group
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(requestOptions: RequestOptions): Group =
         retrieve(GroupRetrieveParams.none(), requestOptions)
 
@@ -55,7 +55,7 @@ interface GroupServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Group>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(requestOptions: RequestOptions): HttpResponseFor<Group> =
             retrieve(GroupRetrieveParams.none(), requestOptions)

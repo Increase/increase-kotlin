@@ -32,13 +32,13 @@ interface RealTimeDecisionService {
     ): RealTimeDecision =
         retrieve(params.toBuilder().realTimeDecisionId(realTimeDecisionId).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: RealTimeDecisionRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): RealTimeDecision
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(realTimeDecisionId: String, requestOptions: RequestOptions): RealTimeDecision =
         retrieve(realTimeDecisionId, RealTimeDecisionRetrieveParams.none(), requestOptions)
 
@@ -50,13 +50,13 @@ interface RealTimeDecisionService {
     ): RealTimeDecision =
         action(params.toBuilder().realTimeDecisionId(realTimeDecisionId).build(), requestOptions)
 
-    /** @see [action] */
+    /** @see action */
     fun action(
         params: RealTimeDecisionActionParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): RealTimeDecision
 
-    /** @see [action] */
+    /** @see action */
     fun action(realTimeDecisionId: String, requestOptions: RequestOptions): RealTimeDecision =
         action(realTimeDecisionId, RealTimeDecisionActionParams.none(), requestOptions)
 
@@ -90,14 +90,14 @@ interface RealTimeDecisionService {
                 requestOptions,
             )
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: RealTimeDecisionRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<RealTimeDecision>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             realTimeDecisionId: String,
@@ -121,14 +121,14 @@ interface RealTimeDecisionService {
                 requestOptions,
             )
 
-        /** @see [action] */
+        /** @see action */
         @MustBeClosed
         fun action(
             params: RealTimeDecisionActionParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<RealTimeDecision>
 
-        /** @see [action] */
+        /** @see action */
         @MustBeClosed
         fun action(
             realTimeDecisionId: String,

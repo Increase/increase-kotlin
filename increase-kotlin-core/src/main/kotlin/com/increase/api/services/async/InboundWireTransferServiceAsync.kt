@@ -37,13 +37,13 @@ interface InboundWireTransferServiceAsync {
             requestOptions,
         )
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(
         params: InboundWireTransferRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundWireTransfer
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(
         inboundWireTransferId: String,
         requestOptions: RequestOptions,
@@ -56,7 +56,7 @@ interface InboundWireTransferServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundWireTransferListPageAsync
 
-    /** @see [list] */
+    /** @see list */
     suspend fun list(requestOptions: RequestOptions): InboundWireTransferListPageAsync =
         list(InboundWireTransferListParams.none(), requestOptions)
 
@@ -71,7 +71,7 @@ interface InboundWireTransferServiceAsync {
             requestOptions,
         )
 
-    /** @see [reverse] */
+    /** @see reverse */
     suspend fun reverse(
         params: InboundWireTransferReverseParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -107,14 +107,14 @@ interface InboundWireTransferServiceAsync {
                 requestOptions,
             )
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             params: InboundWireTransferRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<InboundWireTransfer>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             inboundWireTransferId: String,
@@ -136,7 +136,7 @@ interface InboundWireTransferServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<InboundWireTransferListPageAsync>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions
@@ -159,7 +159,7 @@ interface InboundWireTransferServiceAsync {
                 requestOptions,
             )
 
-        /** @see [reverse] */
+        /** @see reverse */
         @MustBeClosed
         suspend fun reverse(
             params: InboundWireTransferReverseParams,
