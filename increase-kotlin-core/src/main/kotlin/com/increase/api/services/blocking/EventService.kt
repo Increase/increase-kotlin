@@ -32,13 +32,13 @@ interface EventService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Event = retrieve(params.toBuilder().eventId(eventId).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: EventRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Event
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(eventId: String, requestOptions: RequestOptions): Event =
         retrieve(eventId, EventRetrieveParams.none(), requestOptions)
 
@@ -48,7 +48,7 @@ interface EventService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): EventListPage
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): EventListPage =
         list(EventListParams.none(), requestOptions)
 
@@ -74,14 +74,14 @@ interface EventService {
         ): HttpResponseFor<Event> =
             retrieve(params.toBuilder().eventId(eventId).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: EventRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Event>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(eventId: String, requestOptions: RequestOptions): HttpResponseFor<Event> =
             retrieve(eventId, EventRetrieveParams.none(), requestOptions)
@@ -96,7 +96,7 @@ interface EventService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<EventListPage>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<EventListPage> =
             list(EventListParams.none(), requestOptions)

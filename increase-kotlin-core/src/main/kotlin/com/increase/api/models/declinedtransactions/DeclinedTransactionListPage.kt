@@ -8,7 +8,7 @@ import com.increase.api.core.checkRequired
 import com.increase.api.services.blocking.DeclinedTransactionService
 import java.util.Objects
 
-/** @see [DeclinedTransactionService.list] */
+/** @see DeclinedTransactionService.list */
 class DeclinedTransactionListPage
 private constructor(
     private val service: DeclinedTransactionService,
@@ -19,14 +19,14 @@ private constructor(
     /**
      * Delegates to [DeclinedTransactionListPageResponse], but gracefully handles missing data.
      *
-     * @see [DeclinedTransactionListPageResponse.data]
+     * @see DeclinedTransactionListPageResponse.data
      */
     fun data(): List<DeclinedTransaction> = response._data().getNullable("data") ?: emptyList()
 
     /**
      * Delegates to [DeclinedTransactionListPageResponse], but gracefully handles missing data.
      *
-     * @see [DeclinedTransactionListPageResponse.nextCursor]
+     * @see DeclinedTransactionListPageResponse.nextCursor
      */
     fun nextCursor(): String? = response._nextCursor().getNullable("next_cursor")
 

@@ -8,7 +8,7 @@ import com.increase.api.core.checkRequired
 import com.increase.api.services.blocking.CardDisputeService
 import java.util.Objects
 
-/** @see [CardDisputeService.list] */
+/** @see CardDisputeService.list */
 class CardDisputeListPage
 private constructor(
     private val service: CardDisputeService,
@@ -19,14 +19,14 @@ private constructor(
     /**
      * Delegates to [CardDisputeListPageResponse], but gracefully handles missing data.
      *
-     * @see [CardDisputeListPageResponse.data]
+     * @see CardDisputeListPageResponse.data
      */
     fun data(): List<CardDispute> = response._data().getNullable("data") ?: emptyList()
 
     /**
      * Delegates to [CardDisputeListPageResponse], but gracefully handles missing data.
      *
-     * @see [CardDisputeListPageResponse.nextCursor]
+     * @see CardDisputeListPageResponse.nextCursor
      */
     fun nextCursor(): String? = response._nextCursor().getNullable("next_cursor")
 

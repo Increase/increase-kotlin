@@ -8,7 +8,7 @@ import com.increase.api.core.checkRequired
 import com.increase.api.services.blocking.BookkeepingAccountService
 import java.util.Objects
 
-/** @see [BookkeepingAccountService.list] */
+/** @see BookkeepingAccountService.list */
 class BookkeepingAccountListPage
 private constructor(
     private val service: BookkeepingAccountService,
@@ -19,14 +19,14 @@ private constructor(
     /**
      * Delegates to [BookkeepingAccountListPageResponse], but gracefully handles missing data.
      *
-     * @see [BookkeepingAccountListPageResponse.data]
+     * @see BookkeepingAccountListPageResponse.data
      */
     fun data(): List<BookkeepingAccount> = response._data().getNullable("data") ?: emptyList()
 
     /**
      * Delegates to [BookkeepingAccountListPageResponse], but gracefully handles missing data.
      *
-     * @see [BookkeepingAccountListPageResponse.nextCursor]
+     * @see BookkeepingAccountListPageResponse.nextCursor
      */
     fun nextCursor(): String? = response._nextCursor().getNullable("next_cursor")
 

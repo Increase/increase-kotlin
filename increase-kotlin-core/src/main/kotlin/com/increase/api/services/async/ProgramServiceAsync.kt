@@ -32,13 +32,13 @@ interface ProgramServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Program = retrieve(params.toBuilder().programId(programId).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(
         params: ProgramRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Program
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(programId: String, requestOptions: RequestOptions): Program =
         retrieve(programId, ProgramRetrieveParams.none(), requestOptions)
 
@@ -48,7 +48,7 @@ interface ProgramServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ProgramListPageAsync
 
-    /** @see [list] */
+    /** @see list */
     suspend fun list(requestOptions: RequestOptions): ProgramListPageAsync =
         list(ProgramListParams.none(), requestOptions)
 
@@ -78,14 +78,14 @@ interface ProgramServiceAsync {
         ): HttpResponseFor<Program> =
             retrieve(params.toBuilder().programId(programId).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             params: ProgramRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Program>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             programId: String,
@@ -103,7 +103,7 @@ interface ProgramServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ProgramListPageAsync>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         suspend fun list(requestOptions: RequestOptions): HttpResponseFor<ProgramListPageAsync> =
             list(ProgramListParams.none(), requestOptions)

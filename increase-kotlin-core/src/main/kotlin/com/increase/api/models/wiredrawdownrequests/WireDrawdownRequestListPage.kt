@@ -8,7 +8,7 @@ import com.increase.api.core.checkRequired
 import com.increase.api.services.blocking.WireDrawdownRequestService
 import java.util.Objects
 
-/** @see [WireDrawdownRequestService.list] */
+/** @see WireDrawdownRequestService.list */
 class WireDrawdownRequestListPage
 private constructor(
     private val service: WireDrawdownRequestService,
@@ -19,14 +19,14 @@ private constructor(
     /**
      * Delegates to [WireDrawdownRequestListPageResponse], but gracefully handles missing data.
      *
-     * @see [WireDrawdownRequestListPageResponse.data]
+     * @see WireDrawdownRequestListPageResponse.data
      */
     fun data(): List<WireDrawdownRequest> = response._data().getNullable("data") ?: emptyList()
 
     /**
      * Delegates to [WireDrawdownRequestListPageResponse], but gracefully handles missing data.
      *
-     * @see [WireDrawdownRequestListPageResponse.nextCursor]
+     * @see WireDrawdownRequestListPageResponse.nextCursor
      */
     fun nextCursor(): String? = response._nextCursor().getNullable("next_cursor")
 

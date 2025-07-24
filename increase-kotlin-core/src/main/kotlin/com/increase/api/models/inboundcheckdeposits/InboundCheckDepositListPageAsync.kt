@@ -8,7 +8,7 @@ import com.increase.api.core.checkRequired
 import com.increase.api.services.async.InboundCheckDepositServiceAsync
 import java.util.Objects
 
-/** @see [InboundCheckDepositServiceAsync.list] */
+/** @see InboundCheckDepositServiceAsync.list */
 class InboundCheckDepositListPageAsync
 private constructor(
     private val service: InboundCheckDepositServiceAsync,
@@ -19,14 +19,14 @@ private constructor(
     /**
      * Delegates to [InboundCheckDepositListPageResponse], but gracefully handles missing data.
      *
-     * @see [InboundCheckDepositListPageResponse.data]
+     * @see InboundCheckDepositListPageResponse.data
      */
     fun data(): List<InboundCheckDeposit> = response._data().getNullable("data") ?: emptyList()
 
     /**
      * Delegates to [InboundCheckDepositListPageResponse], but gracefully handles missing data.
      *
-     * @see [InboundCheckDepositListPageResponse.nextCursor]
+     * @see InboundCheckDepositListPageResponse.nextCursor
      */
     fun nextCursor(): String? = response._nextCursor().getNullable("next_cursor")
 

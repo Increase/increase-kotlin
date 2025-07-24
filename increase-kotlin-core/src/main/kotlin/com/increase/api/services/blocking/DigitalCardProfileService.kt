@@ -45,13 +45,13 @@ interface DigitalCardProfileService {
             requestOptions,
         )
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: DigitalCardProfileRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): DigitalCardProfile
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(digitalCardProfileId: String, requestOptions: RequestOptions): DigitalCardProfile =
         retrieve(digitalCardProfileId, DigitalCardProfileRetrieveParams.none(), requestOptions)
 
@@ -61,7 +61,7 @@ interface DigitalCardProfileService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): DigitalCardProfileListPage
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): DigitalCardProfileListPage =
         list(DigitalCardProfileListParams.none(), requestOptions)
 
@@ -76,13 +76,13 @@ interface DigitalCardProfileService {
             requestOptions,
         )
 
-    /** @see [archive] */
+    /** @see archive */
     fun archive(
         params: DigitalCardProfileArchiveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): DigitalCardProfile
 
-    /** @see [archive] */
+    /** @see archive */
     fun archive(digitalCardProfileId: String, requestOptions: RequestOptions): DigitalCardProfile =
         archive(digitalCardProfileId, DigitalCardProfileArchiveParams.none(), requestOptions)
 
@@ -94,13 +94,13 @@ interface DigitalCardProfileService {
     ): DigitalCardProfile =
         clone(params.toBuilder().digitalCardProfileId(digitalCardProfileId).build(), requestOptions)
 
-    /** @see [clone] */
+    /** @see clone */
     fun clone(
         params: DigitalCardProfileCloneParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): DigitalCardProfile
 
-    /** @see [clone] */
+    /** @see clone */
     fun clone(digitalCardProfileId: String, requestOptions: RequestOptions): DigitalCardProfile =
         clone(digitalCardProfileId, DigitalCardProfileCloneParams.none(), requestOptions)
 
@@ -144,14 +144,14 @@ interface DigitalCardProfileService {
                 requestOptions,
             )
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: DigitalCardProfileRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<DigitalCardProfile>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             digitalCardProfileId: String,
@@ -169,7 +169,7 @@ interface DigitalCardProfileService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<DigitalCardProfileListPage>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<DigitalCardProfileListPage> =
             list(DigitalCardProfileListParams.none(), requestOptions)
@@ -190,14 +190,14 @@ interface DigitalCardProfileService {
                 requestOptions,
             )
 
-        /** @see [archive] */
+        /** @see archive */
         @MustBeClosed
         fun archive(
             params: DigitalCardProfileArchiveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<DigitalCardProfile>
 
-        /** @see [archive] */
+        /** @see archive */
         @MustBeClosed
         fun archive(
             digitalCardProfileId: String,
@@ -221,14 +221,14 @@ interface DigitalCardProfileService {
                 requestOptions,
             )
 
-        /** @see [clone] */
+        /** @see clone */
         @MustBeClosed
         fun clone(
             params: DigitalCardProfileCloneParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<DigitalCardProfile>
 
-        /** @see [clone] */
+        /** @see clone */
         @MustBeClosed
         fun clone(
             digitalCardProfileId: String,

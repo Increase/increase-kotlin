@@ -36,13 +36,13 @@ interface AccountTransferService {
     ): AccountTransfer =
         complete(params.toBuilder().accountTransferId(accountTransferId).build(), requestOptions)
 
-    /** @see [complete] */
+    /** @see complete */
     fun complete(
         params: AccountTransferCompleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AccountTransfer
 
-    /** @see [complete] */
+    /** @see complete */
     fun complete(accountTransferId: String, requestOptions: RequestOptions): AccountTransfer =
         complete(accountTransferId, AccountTransferCompleteParams.none(), requestOptions)
 
@@ -77,14 +77,14 @@ interface AccountTransferService {
                 requestOptions,
             )
 
-        /** @see [complete] */
+        /** @see complete */
         @MustBeClosed
         fun complete(
             params: AccountTransferCompleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AccountTransfer>
 
-        /** @see [complete] */
+        /** @see complete */
         @MustBeClosed
         fun complete(
             accountTransferId: String,

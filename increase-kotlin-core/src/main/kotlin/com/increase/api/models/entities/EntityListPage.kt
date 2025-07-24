@@ -8,7 +8,7 @@ import com.increase.api.core.checkRequired
 import com.increase.api.services.blocking.EntityService
 import java.util.Objects
 
-/** @see [EntityService.list] */
+/** @see EntityService.list */
 class EntityListPage
 private constructor(
     private val service: EntityService,
@@ -19,14 +19,14 @@ private constructor(
     /**
      * Delegates to [EntityListPageResponse], but gracefully handles missing data.
      *
-     * @see [EntityListPageResponse.data]
+     * @see EntityListPageResponse.data
      */
     fun data(): List<Entity> = response._data().getNullable("data") ?: emptyList()
 
     /**
      * Delegates to [EntityListPageResponse], but gracefully handles missing data.
      *
-     * @see [EntityListPageResponse.nextCursor]
+     * @see EntityListPageResponse.nextCursor
      */
     fun nextCursor(): String? = response._nextCursor().getNullable("next_cursor")
 

@@ -43,13 +43,13 @@ interface WireDrawdownRequestService {
             requestOptions,
         )
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: WireDrawdownRequestRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): WireDrawdownRequest
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         wireDrawdownRequestId: String,
         requestOptions: RequestOptions,
@@ -62,7 +62,7 @@ interface WireDrawdownRequestService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): WireDrawdownRequestListPage
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): WireDrawdownRequestListPage =
         list(WireDrawdownRequestListParams.none(), requestOptions)
 
@@ -106,14 +106,14 @@ interface WireDrawdownRequestService {
                 requestOptions,
             )
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: WireDrawdownRequestRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<WireDrawdownRequest>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             wireDrawdownRequestId: String,
@@ -135,7 +135,7 @@ interface WireDrawdownRequestService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<WireDrawdownRequestListPage>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<WireDrawdownRequestListPage> =
             list(WireDrawdownRequestListParams.none(), requestOptions)

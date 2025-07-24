@@ -8,7 +8,7 @@ import com.increase.api.core.checkRequired
 import com.increase.api.services.blocking.CardPurchaseSupplementService
 import java.util.Objects
 
-/** @see [CardPurchaseSupplementService.list] */
+/** @see CardPurchaseSupplementService.list */
 class CardPurchaseSupplementListPage
 private constructor(
     private val service: CardPurchaseSupplementService,
@@ -19,14 +19,14 @@ private constructor(
     /**
      * Delegates to [CardPurchaseSupplementListPageResponse], but gracefully handles missing data.
      *
-     * @see [CardPurchaseSupplementListPageResponse.data]
+     * @see CardPurchaseSupplementListPageResponse.data
      */
     fun data(): List<CardPurchaseSupplement> = response._data().getNullable("data") ?: emptyList()
 
     /**
      * Delegates to [CardPurchaseSupplementListPageResponse], but gracefully handles missing data.
      *
-     * @see [CardPurchaseSupplementListPageResponse.nextCursor]
+     * @see CardPurchaseSupplementListPageResponse.nextCursor
      */
     fun nextCursor(): String? = response._nextCursor().getNullable("next_cursor")
 

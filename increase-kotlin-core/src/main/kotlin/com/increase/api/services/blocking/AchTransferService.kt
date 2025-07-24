@@ -42,13 +42,13 @@ interface AchTransferService {
     ): AchTransfer =
         retrieve(params.toBuilder().achTransferId(achTransferId).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: AchTransferRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AchTransfer
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(achTransferId: String, requestOptions: RequestOptions): AchTransfer =
         retrieve(achTransferId, AchTransferRetrieveParams.none(), requestOptions)
 
@@ -58,7 +58,7 @@ interface AchTransferService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AchTransferListPage
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): AchTransferListPage =
         list(AchTransferListParams.none(), requestOptions)
 
@@ -70,13 +70,13 @@ interface AchTransferService {
     ): AchTransfer =
         approve(params.toBuilder().achTransferId(achTransferId).build(), requestOptions)
 
-    /** @see [approve] */
+    /** @see approve */
     fun approve(
         params: AchTransferApproveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AchTransfer
 
-    /** @see [approve] */
+    /** @see approve */
     fun approve(achTransferId: String, requestOptions: RequestOptions): AchTransfer =
         approve(achTransferId, AchTransferApproveParams.none(), requestOptions)
 
@@ -87,13 +87,13 @@ interface AchTransferService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AchTransfer = cancel(params.toBuilder().achTransferId(achTransferId).build(), requestOptions)
 
-    /** @see [cancel] */
+    /** @see cancel */
     fun cancel(
         params: AchTransferCancelParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AchTransfer
 
-    /** @see [cancel] */
+    /** @see cancel */
     fun cancel(achTransferId: String, requestOptions: RequestOptions): AchTransfer =
         cancel(achTransferId, AchTransferCancelParams.none(), requestOptions)
 
@@ -133,14 +133,14 @@ interface AchTransferService {
         ): HttpResponseFor<AchTransfer> =
             retrieve(params.toBuilder().achTransferId(achTransferId).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: AchTransferRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AchTransfer>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             achTransferId: String,
@@ -158,7 +158,7 @@ interface AchTransferService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AchTransferListPage>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<AchTransferListPage> =
             list(AchTransferListParams.none(), requestOptions)
@@ -175,14 +175,14 @@ interface AchTransferService {
         ): HttpResponseFor<AchTransfer> =
             approve(params.toBuilder().achTransferId(achTransferId).build(), requestOptions)
 
-        /** @see [approve] */
+        /** @see approve */
         @MustBeClosed
         fun approve(
             params: AchTransferApproveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AchTransfer>
 
-        /** @see [approve] */
+        /** @see approve */
         @MustBeClosed
         fun approve(
             achTransferId: String,
@@ -202,14 +202,14 @@ interface AchTransferService {
         ): HttpResponseFor<AchTransfer> =
             cancel(params.toBuilder().achTransferId(achTransferId).build(), requestOptions)
 
-        /** @see [cancel] */
+        /** @see cancel */
         @MustBeClosed
         fun cancel(
             params: AchTransferCancelParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AchTransfer>
 
-        /** @see [cancel] */
+        /** @see cancel */
         @MustBeClosed
         fun cancel(
             achTransferId: String,

@@ -8,7 +8,7 @@ import com.increase.api.core.checkRequired
 import com.increase.api.services.async.RealTimePaymentsTransferServiceAsync
 import java.util.Objects
 
-/** @see [RealTimePaymentsTransferServiceAsync.list] */
+/** @see RealTimePaymentsTransferServiceAsync.list */
 class RealTimePaymentsTransferListPageAsync
 private constructor(
     private val service: RealTimePaymentsTransferServiceAsync,
@@ -19,14 +19,14 @@ private constructor(
     /**
      * Delegates to [RealTimePaymentsTransferListPageResponse], but gracefully handles missing data.
      *
-     * @see [RealTimePaymentsTransferListPageResponse.data]
+     * @see RealTimePaymentsTransferListPageResponse.data
      */
     fun data(): List<RealTimePaymentsTransfer> = response._data().getNullable("data") ?: emptyList()
 
     /**
      * Delegates to [RealTimePaymentsTransferListPageResponse], but gracefully handles missing data.
      *
-     * @see [RealTimePaymentsTransferListPageResponse.nextCursor]
+     * @see RealTimePaymentsTransferListPageResponse.nextCursor
      */
     fun nextCursor(): String? = response._nextCursor().getNullable("next_cursor")
 

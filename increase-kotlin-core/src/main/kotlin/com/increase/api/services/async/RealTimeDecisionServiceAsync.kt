@@ -32,13 +32,13 @@ interface RealTimeDecisionServiceAsync {
     ): RealTimeDecision =
         retrieve(params.toBuilder().realTimeDecisionId(realTimeDecisionId).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(
         params: RealTimeDecisionRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): RealTimeDecision
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(
         realTimeDecisionId: String,
         requestOptions: RequestOptions,
@@ -53,13 +53,13 @@ interface RealTimeDecisionServiceAsync {
     ): RealTimeDecision =
         action(params.toBuilder().realTimeDecisionId(realTimeDecisionId).build(), requestOptions)
 
-    /** @see [action] */
+    /** @see action */
     suspend fun action(
         params: RealTimeDecisionActionParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): RealTimeDecision
 
-    /** @see [action] */
+    /** @see action */
     suspend fun action(
         realTimeDecisionId: String,
         requestOptions: RequestOptions,
@@ -96,14 +96,14 @@ interface RealTimeDecisionServiceAsync {
                 requestOptions,
             )
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             params: RealTimeDecisionRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<RealTimeDecision>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             realTimeDecisionId: String,
@@ -127,14 +127,14 @@ interface RealTimeDecisionServiceAsync {
                 requestOptions,
             )
 
-        /** @see [action] */
+        /** @see action */
         @MustBeClosed
         suspend fun action(
             params: RealTimeDecisionActionParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<RealTimeDecision>
 
-        /** @see [action] */
+        /** @see action */
         @MustBeClosed
         suspend fun action(
             realTimeDecisionId: String,

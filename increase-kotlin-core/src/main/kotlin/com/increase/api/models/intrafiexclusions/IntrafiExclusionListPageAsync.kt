@@ -8,7 +8,7 @@ import com.increase.api.core.checkRequired
 import com.increase.api.services.async.IntrafiExclusionServiceAsync
 import java.util.Objects
 
-/** @see [IntrafiExclusionServiceAsync.list] */
+/** @see IntrafiExclusionServiceAsync.list */
 class IntrafiExclusionListPageAsync
 private constructor(
     private val service: IntrafiExclusionServiceAsync,
@@ -19,14 +19,14 @@ private constructor(
     /**
      * Delegates to [IntrafiExclusionListPageResponse], but gracefully handles missing data.
      *
-     * @see [IntrafiExclusionListPageResponse.data]
+     * @see IntrafiExclusionListPageResponse.data
      */
     fun data(): List<IntrafiExclusion> = response._data().getNullable("data") ?: emptyList()
 
     /**
      * Delegates to [IntrafiExclusionListPageResponse], but gracefully handles missing data.
      *
-     * @see [IntrafiExclusionListPageResponse.nextCursor]
+     * @see IntrafiExclusionListPageResponse.nextCursor
      */
     fun nextCursor(): String? = response._nextCursor().getNullable("next_cursor")
 

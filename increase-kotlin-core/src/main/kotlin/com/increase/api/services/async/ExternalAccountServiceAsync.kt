@@ -41,13 +41,13 @@ interface ExternalAccountServiceAsync {
     ): ExternalAccount =
         retrieve(params.toBuilder().externalAccountId(externalAccountId).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(
         params: ExternalAccountRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ExternalAccount
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(
         externalAccountId: String,
         requestOptions: RequestOptions,
@@ -62,13 +62,13 @@ interface ExternalAccountServiceAsync {
     ): ExternalAccount =
         update(params.toBuilder().externalAccountId(externalAccountId).build(), requestOptions)
 
-    /** @see [update] */
+    /** @see update */
     suspend fun update(
         params: ExternalAccountUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ExternalAccount
 
-    /** @see [update] */
+    /** @see update */
     suspend fun update(externalAccountId: String, requestOptions: RequestOptions): ExternalAccount =
         update(externalAccountId, ExternalAccountUpdateParams.none(), requestOptions)
 
@@ -78,7 +78,7 @@ interface ExternalAccountServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ExternalAccountListPageAsync
 
-    /** @see [list] */
+    /** @see list */
     suspend fun list(requestOptions: RequestOptions): ExternalAccountListPageAsync =
         list(ExternalAccountListParams.none(), requestOptions)
 
@@ -122,14 +122,14 @@ interface ExternalAccountServiceAsync {
                 requestOptions,
             )
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             params: ExternalAccountRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ExternalAccount>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             externalAccountId: String,
@@ -149,14 +149,14 @@ interface ExternalAccountServiceAsync {
         ): HttpResponseFor<ExternalAccount> =
             update(params.toBuilder().externalAccountId(externalAccountId).build(), requestOptions)
 
-        /** @see [update] */
+        /** @see update */
         @MustBeClosed
         suspend fun update(
             params: ExternalAccountUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ExternalAccount>
 
-        /** @see [update] */
+        /** @see update */
         @MustBeClosed
         suspend fun update(
             externalAccountId: String,
@@ -174,7 +174,7 @@ interface ExternalAccountServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ExternalAccountListPageAsync>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions

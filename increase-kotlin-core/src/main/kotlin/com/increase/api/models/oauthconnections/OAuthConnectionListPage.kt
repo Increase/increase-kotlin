@@ -8,7 +8,7 @@ import com.increase.api.core.checkRequired
 import com.increase.api.services.blocking.OAuthConnectionService
 import java.util.Objects
 
-/** @see [OAuthConnectionService.list] */
+/** @see OAuthConnectionService.list */
 class OAuthConnectionListPage
 private constructor(
     private val service: OAuthConnectionService,
@@ -19,14 +19,14 @@ private constructor(
     /**
      * Delegates to [OAuthConnectionListPageResponse], but gracefully handles missing data.
      *
-     * @see [OAuthConnectionListPageResponse.data]
+     * @see OAuthConnectionListPageResponse.data
      */
     fun data(): List<OAuthConnection> = response._data().getNullable("data") ?: emptyList()
 
     /**
      * Delegates to [OAuthConnectionListPageResponse], but gracefully handles missing data.
      *
-     * @see [OAuthConnectionListPageResponse.nextCursor]
+     * @see OAuthConnectionListPageResponse.nextCursor
      */
     fun nextCursor(): String? = response._nextCursor().getNullable("next_cursor")
 

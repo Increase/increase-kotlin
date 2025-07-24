@@ -36,13 +36,13 @@ interface WireTransferServiceAsync {
     ): WireTransfer =
         reverse(params.toBuilder().wireTransferId(wireTransferId).build(), requestOptions)
 
-    /** @see [reverse] */
+    /** @see reverse */
     suspend fun reverse(
         params: WireTransferReverseParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): WireTransfer
 
-    /** @see [reverse] */
+    /** @see reverse */
     suspend fun reverse(wireTransferId: String, requestOptions: RequestOptions): WireTransfer =
         reverse(wireTransferId, WireTransferReverseParams.none(), requestOptions)
 
@@ -57,13 +57,13 @@ interface WireTransferServiceAsync {
     ): WireTransfer =
         submit(params.toBuilder().wireTransferId(wireTransferId).build(), requestOptions)
 
-    /** @see [submit] */
+    /** @see submit */
     suspend fun submit(
         params: WireTransferSubmitParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): WireTransfer
 
-    /** @see [submit] */
+    /** @see submit */
     suspend fun submit(wireTransferId: String, requestOptions: RequestOptions): WireTransfer =
         submit(wireTransferId, WireTransferSubmitParams.none(), requestOptions)
 
@@ -95,14 +95,14 @@ interface WireTransferServiceAsync {
         ): HttpResponseFor<WireTransfer> =
             reverse(params.toBuilder().wireTransferId(wireTransferId).build(), requestOptions)
 
-        /** @see [reverse] */
+        /** @see reverse */
         @MustBeClosed
         suspend fun reverse(
             params: WireTransferReverseParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<WireTransfer>
 
-        /** @see [reverse] */
+        /** @see reverse */
         @MustBeClosed
         suspend fun reverse(
             wireTransferId: String,
@@ -123,14 +123,14 @@ interface WireTransferServiceAsync {
         ): HttpResponseFor<WireTransfer> =
             submit(params.toBuilder().wireTransferId(wireTransferId).build(), requestOptions)
 
-        /** @see [submit] */
+        /** @see submit */
         @MustBeClosed
         suspend fun submit(
             params: WireTransferSubmitParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<WireTransfer>
 
-        /** @see [submit] */
+        /** @see submit */
         @MustBeClosed
         suspend fun submit(
             wireTransferId: String,

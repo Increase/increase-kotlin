@@ -36,13 +36,13 @@ interface DigitalWalletTokenServiceAsync {
             requestOptions,
         )
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(
         params: DigitalWalletTokenRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): DigitalWalletToken
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(
         digitalWalletTokenId: String,
         requestOptions: RequestOptions,
@@ -55,7 +55,7 @@ interface DigitalWalletTokenServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): DigitalWalletTokenListPageAsync
 
-    /** @see [list] */
+    /** @see list */
     suspend fun list(requestOptions: RequestOptions): DigitalWalletTokenListPageAsync =
         list(DigitalWalletTokenListParams.none(), requestOptions)
 
@@ -89,14 +89,14 @@ interface DigitalWalletTokenServiceAsync {
                 requestOptions,
             )
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             params: DigitalWalletTokenRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<DigitalWalletToken>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             digitalWalletTokenId: String,
@@ -114,7 +114,7 @@ interface DigitalWalletTokenServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<DigitalWalletTokenListPageAsync>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions

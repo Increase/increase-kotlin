@@ -8,7 +8,7 @@ import com.increase.api.core.checkRequired
 import com.increase.api.services.blocking.DigitalWalletTokenService
 import java.util.Objects
 
-/** @see [DigitalWalletTokenService.list] */
+/** @see DigitalWalletTokenService.list */
 class DigitalWalletTokenListPage
 private constructor(
     private val service: DigitalWalletTokenService,
@@ -19,14 +19,14 @@ private constructor(
     /**
      * Delegates to [DigitalWalletTokenListPageResponse], but gracefully handles missing data.
      *
-     * @see [DigitalWalletTokenListPageResponse.data]
+     * @see DigitalWalletTokenListPageResponse.data
      */
     fun data(): List<DigitalWalletToken> = response._data().getNullable("data") ?: emptyList()
 
     /**
      * Delegates to [DigitalWalletTokenListPageResponse], but gracefully handles missing data.
      *
-     * @see [DigitalWalletTokenListPageResponse.nextCursor]
+     * @see DigitalWalletTokenListPageResponse.nextCursor
      */
     fun nextCursor(): String? = response._nextCursor().getNullable("next_cursor")
 

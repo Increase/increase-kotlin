@@ -33,13 +33,13 @@ interface BookkeepingEntryService {
     ): BookkeepingEntry =
         retrieve(params.toBuilder().bookkeepingEntryId(bookkeepingEntryId).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: BookkeepingEntryRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BookkeepingEntry
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(bookkeepingEntryId: String, requestOptions: RequestOptions): BookkeepingEntry =
         retrieve(bookkeepingEntryId, BookkeepingEntryRetrieveParams.none(), requestOptions)
 
@@ -49,7 +49,7 @@ interface BookkeepingEntryService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BookkeepingEntryListPage
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): BookkeepingEntryListPage =
         list(BookkeepingEntryListParams.none(), requestOptions)
 
@@ -83,14 +83,14 @@ interface BookkeepingEntryService {
                 requestOptions,
             )
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: BookkeepingEntryRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<BookkeepingEntry>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             bookkeepingEntryId: String,
@@ -108,7 +108,7 @@ interface BookkeepingEntryService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<BookkeepingEntryListPage>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<BookkeepingEntryListPage> =
             list(BookkeepingEntryListParams.none(), requestOptions)

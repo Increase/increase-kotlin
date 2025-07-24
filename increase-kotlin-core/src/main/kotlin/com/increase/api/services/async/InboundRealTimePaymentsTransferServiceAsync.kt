@@ -42,13 +42,13 @@ interface InboundRealTimePaymentsTransferServiceAsync {
             requestOptions,
         )
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(
         params: InboundRealTimePaymentsTransferRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundRealTimePaymentsTransfer
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(
         inboundRealTimePaymentsTransferId: String,
         requestOptions: RequestOptions,
@@ -66,7 +66,7 @@ interface InboundRealTimePaymentsTransferServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundRealTimePaymentsTransferListPageAsync
 
-    /** @see [list] */
+    /** @see list */
     suspend fun list(requestOptions: RequestOptions): InboundRealTimePaymentsTransferListPageAsync =
         list(InboundRealTimePaymentsTransferListParams.none(), requestOptions)
 
@@ -105,14 +105,14 @@ interface InboundRealTimePaymentsTransferServiceAsync {
                 requestOptions,
             )
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             params: InboundRealTimePaymentsTransferRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<InboundRealTimePaymentsTransfer>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             inboundRealTimePaymentsTransferId: String,
@@ -135,7 +135,7 @@ interface InboundRealTimePaymentsTransferServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<InboundRealTimePaymentsTransferListPageAsync>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions

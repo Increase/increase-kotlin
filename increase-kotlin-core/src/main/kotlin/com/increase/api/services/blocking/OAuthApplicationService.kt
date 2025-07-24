@@ -33,13 +33,13 @@ interface OAuthApplicationService {
     ): OAuthApplication =
         retrieve(params.toBuilder().oauthApplicationId(oauthApplicationId).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: OAuthApplicationRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): OAuthApplication
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(oauthApplicationId: String, requestOptions: RequestOptions): OAuthApplication =
         retrieve(oauthApplicationId, OAuthApplicationRetrieveParams.none(), requestOptions)
 
@@ -49,7 +49,7 @@ interface OAuthApplicationService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): OAuthApplicationListPage
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): OAuthApplicationListPage =
         list(OAuthApplicationListParams.none(), requestOptions)
 
@@ -83,14 +83,14 @@ interface OAuthApplicationService {
                 requestOptions,
             )
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: OAuthApplicationRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<OAuthApplication>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             oauthApplicationId: String,
@@ -108,7 +108,7 @@ interface OAuthApplicationService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<OAuthApplicationListPage>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<OAuthApplicationListPage> =
             list(OAuthApplicationListParams.none(), requestOptions)

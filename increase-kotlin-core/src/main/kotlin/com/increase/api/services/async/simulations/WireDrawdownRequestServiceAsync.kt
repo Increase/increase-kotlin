@@ -34,13 +34,13 @@ interface WireDrawdownRequestServiceAsync {
             requestOptions,
         )
 
-    /** @see [refuse] */
+    /** @see refuse */
     suspend fun refuse(
         params: WireDrawdownRequestRefuseParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): WireDrawdownRequest
 
-    /** @see [refuse] */
+    /** @see refuse */
     suspend fun refuse(
         wireDrawdownRequestId: String,
         requestOptions: RequestOptions,
@@ -78,14 +78,14 @@ interface WireDrawdownRequestServiceAsync {
                 requestOptions,
             )
 
-        /** @see [refuse] */
+        /** @see refuse */
         @MustBeClosed
         suspend fun refuse(
             params: WireDrawdownRequestRefuseParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<WireDrawdownRequest>
 
-        /** @see [refuse] */
+        /** @see refuse */
         @MustBeClosed
         suspend fun refuse(
             wireDrawdownRequestId: String,

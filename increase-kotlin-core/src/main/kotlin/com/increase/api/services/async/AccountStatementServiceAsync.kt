@@ -33,13 +33,13 @@ interface AccountStatementServiceAsync {
     ): AccountStatement =
         retrieve(params.toBuilder().accountStatementId(accountStatementId).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(
         params: AccountStatementRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AccountStatement
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(
         accountStatementId: String,
         requestOptions: RequestOptions,
@@ -52,7 +52,7 @@ interface AccountStatementServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AccountStatementListPageAsync
 
-    /** @see [list] */
+    /** @see list */
     suspend fun list(requestOptions: RequestOptions): AccountStatementListPageAsync =
         list(AccountStatementListParams.none(), requestOptions)
 
@@ -86,14 +86,14 @@ interface AccountStatementServiceAsync {
                 requestOptions,
             )
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             params: AccountStatementRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AccountStatement>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             accountStatementId: String,
@@ -111,7 +111,7 @@ interface AccountStatementServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AccountStatementListPageAsync>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions

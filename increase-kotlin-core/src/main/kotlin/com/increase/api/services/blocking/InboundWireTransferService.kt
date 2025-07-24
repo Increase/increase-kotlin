@@ -37,13 +37,13 @@ interface InboundWireTransferService {
             requestOptions,
         )
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: InboundWireTransferRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundWireTransfer
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         inboundWireTransferId: String,
         requestOptions: RequestOptions,
@@ -56,7 +56,7 @@ interface InboundWireTransferService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): InboundWireTransferListPage
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): InboundWireTransferListPage =
         list(InboundWireTransferListParams.none(), requestOptions)
 
@@ -71,7 +71,7 @@ interface InboundWireTransferService {
             requestOptions,
         )
 
-    /** @see [reverse] */
+    /** @see reverse */
     fun reverse(
         params: InboundWireTransferReverseParams,
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -107,14 +107,14 @@ interface InboundWireTransferService {
                 requestOptions,
             )
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: InboundWireTransferRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<InboundWireTransfer>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             inboundWireTransferId: String,
@@ -136,7 +136,7 @@ interface InboundWireTransferService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<InboundWireTransferListPage>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<InboundWireTransferListPage> =
             list(InboundWireTransferListParams.none(), requestOptions)
@@ -157,7 +157,7 @@ interface InboundWireTransferService {
                 requestOptions,
             )
 
-        /** @see [reverse] */
+        /** @see reverse */
         @MustBeClosed
         fun reverse(
             params: InboundWireTransferReverseParams,

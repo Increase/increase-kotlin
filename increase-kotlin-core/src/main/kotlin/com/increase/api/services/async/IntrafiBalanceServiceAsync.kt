@@ -34,13 +34,13 @@ interface IntrafiBalanceServiceAsync {
     ): IntrafiBalance =
         intrafiBalance(params.toBuilder().accountId(accountId).build(), requestOptions)
 
-    /** @see [intrafiBalance] */
+    /** @see intrafiBalance */
     suspend fun intrafiBalance(
         params: IntrafiBalanceIntrafiBalanceParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): IntrafiBalance
 
-    /** @see [intrafiBalance] */
+    /** @see intrafiBalance */
     suspend fun intrafiBalance(accountId: String, requestOptions: RequestOptions): IntrafiBalance =
         intrafiBalance(accountId, IntrafiBalanceIntrafiBalanceParams.none(), requestOptions)
 
@@ -71,14 +71,14 @@ interface IntrafiBalanceServiceAsync {
         ): HttpResponseFor<IntrafiBalance> =
             intrafiBalance(params.toBuilder().accountId(accountId).build(), requestOptions)
 
-        /** @see [intrafiBalance] */
+        /** @see intrafiBalance */
         @MustBeClosed
         suspend fun intrafiBalance(
             params: IntrafiBalanceIntrafiBalanceParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<IntrafiBalance>
 
-        /** @see [intrafiBalance] */
+        /** @see intrafiBalance */
         @MustBeClosed
         suspend fun intrafiBalance(
             accountId: String,

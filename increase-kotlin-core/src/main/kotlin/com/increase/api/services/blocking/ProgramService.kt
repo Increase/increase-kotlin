@@ -32,13 +32,13 @@ interface ProgramService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Program = retrieve(params.toBuilder().programId(programId).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(
         params: ProgramRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Program
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     fun retrieve(programId: String, requestOptions: RequestOptions): Program =
         retrieve(programId, ProgramRetrieveParams.none(), requestOptions)
 
@@ -48,7 +48,7 @@ interface ProgramService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ProgramListPage
 
-    /** @see [list] */
+    /** @see list */
     fun list(requestOptions: RequestOptions): ProgramListPage =
         list(ProgramListParams.none(), requestOptions)
 
@@ -74,14 +74,14 @@ interface ProgramService {
         ): HttpResponseFor<Program> =
             retrieve(params.toBuilder().programId(programId).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(
             params: ProgramRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Program>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         fun retrieve(programId: String, requestOptions: RequestOptions): HttpResponseFor<Program> =
             retrieve(programId, ProgramRetrieveParams.none(), requestOptions)
@@ -96,7 +96,7 @@ interface ProgramService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ProgramListPage>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<ProgramListPage> =
             list(ProgramListParams.none(), requestOptions)

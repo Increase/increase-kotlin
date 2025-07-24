@@ -8,7 +8,7 @@ import com.increase.api.core.checkRequired
 import com.increase.api.services.async.PhysicalCardServiceAsync
 import java.util.Objects
 
-/** @see [PhysicalCardServiceAsync.list] */
+/** @see PhysicalCardServiceAsync.list */
 class PhysicalCardListPageAsync
 private constructor(
     private val service: PhysicalCardServiceAsync,
@@ -19,14 +19,14 @@ private constructor(
     /**
      * Delegates to [PhysicalCardListPageResponse], but gracefully handles missing data.
      *
-     * @see [PhysicalCardListPageResponse.data]
+     * @see PhysicalCardListPageResponse.data
      */
     fun data(): List<PhysicalCard> = response._data().getNullable("data") ?: emptyList()
 
     /**
      * Delegates to [PhysicalCardListPageResponse], but gracefully handles missing data.
      *
-     * @see [PhysicalCardListPageResponse.nextCursor]
+     * @see PhysicalCardListPageResponse.nextCursor
      */
     fun nextCursor(): String? = response._nextCursor().getNullable("next_cursor")
 

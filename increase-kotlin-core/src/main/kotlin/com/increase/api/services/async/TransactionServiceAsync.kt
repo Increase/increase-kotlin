@@ -33,13 +33,13 @@ interface TransactionServiceAsync {
     ): Transaction =
         retrieve(params.toBuilder().transactionId(transactionId).build(), requestOptions)
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(
         params: TransactionRetrieveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Transaction
 
-    /** @see [retrieve] */
+    /** @see retrieve */
     suspend fun retrieve(transactionId: String, requestOptions: RequestOptions): Transaction =
         retrieve(transactionId, TransactionRetrieveParams.none(), requestOptions)
 
@@ -49,7 +49,7 @@ interface TransactionServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): TransactionListPageAsync
 
-    /** @see [list] */
+    /** @see list */
     suspend fun list(requestOptions: RequestOptions): TransactionListPageAsync =
         list(TransactionListParams.none(), requestOptions)
 
@@ -80,14 +80,14 @@ interface TransactionServiceAsync {
         ): HttpResponseFor<Transaction> =
             retrieve(params.toBuilder().transactionId(transactionId).build(), requestOptions)
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             params: TransactionRetrieveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Transaction>
 
-        /** @see [retrieve] */
+        /** @see retrieve */
         @MustBeClosed
         suspend fun retrieve(
             transactionId: String,
@@ -105,7 +105,7 @@ interface TransactionServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<TransactionListPageAsync>
 
-        /** @see [list] */
+        /** @see list */
         @MustBeClosed
         suspend fun list(
             requestOptions: RequestOptions
