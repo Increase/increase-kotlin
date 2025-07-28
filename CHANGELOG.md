@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.258.1 (2025-07-28)
+
+Full Changelog: [v0.258.0...v0.258.1](https://github.com/Increase/increase-kotlin/compare/v0.258.0...v0.258.1)
+
+### Bug Fixes
+
+* **client:** some bad `_additionalBodyProperties` serialization ([527c209](https://github.com/Increase/increase-kotlin/commit/527c209bb9276d88ff8fe99d18ea67579a1c2df6))
+
+
+### Chores
+
+* **internal:** remove unnecessary `[...]` in `[@see](https://github.com/see)` ([b790aff](https://github.com/Increase/increase-kotlin/commit/b790affb0a704a221d9ad3b14715ce1f99ea4d5e))
+
+
+### Documentation
+
+* more code comments ([45c8054](https://github.com/Increase/increase-kotlin/commit/45c80548f6976c7b133085731433284be3d7d74c))
+
 ## 0.258.0 (2025-07-23)
 
 Full Changelog: [v0.257.0...v0.258.0](https://github.com/Increase/increase-kotlin/compare/v0.257.0...v0.258.0)
