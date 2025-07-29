@@ -2453,6 +2453,7 @@ private constructor(
             private val declinedTransactionId: JsonField<String>,
             private val digitalWalletTokenId: JsonField<String>,
             private val direction: JsonField<Direction>,
+            private val incrementedCardAuthorizationId: JsonField<String>,
             private val merchantAcceptorId: JsonField<String>,
             private val merchantCategoryCode: JsonField<String>,
             private val merchantCity: JsonField<String>,
@@ -2500,6 +2501,9 @@ private constructor(
                 @JsonProperty("direction")
                 @ExcludeMissing
                 direction: JsonField<Direction> = JsonMissing.of(),
+                @JsonProperty("incremented_card_authorization_id")
+                @ExcludeMissing
+                incrementedCardAuthorizationId: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("merchant_acceptor_id")
                 @ExcludeMissing
                 merchantAcceptorId: JsonField<String> = JsonMissing.of(),
@@ -2567,6 +2571,7 @@ private constructor(
                 declinedTransactionId,
                 digitalWalletTokenId,
                 direction,
+                incrementedCardAuthorizationId,
                 merchantAcceptorId,
                 merchantCategoryCode,
                 merchantCity,
@@ -2678,6 +2683,16 @@ private constructor(
              *   value).
              */
             fun direction(): Direction = direction.getRequired("direction")
+
+            /**
+             * The identifier of the card authorization this request attempted to incrementally
+             * authorize.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
+            fun incrementedCardAuthorizationId(): String? =
+                incrementedCardAuthorizationId.getNullable("incremented_card_authorization_id")
 
             /**
              * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
@@ -2943,6 +2958,17 @@ private constructor(
             fun _direction(): JsonField<Direction> = direction
 
             /**
+             * Returns the raw JSON value of [incrementedCardAuthorizationId].
+             *
+             * Unlike [incrementedCardAuthorizationId], this method doesn't throw if the JSON field
+             * has an unexpected type.
+             */
+            @JsonProperty("incremented_card_authorization_id")
+            @ExcludeMissing
+            fun _incrementedCardAuthorizationId(): JsonField<String> =
+                incrementedCardAuthorizationId
+
+            /**
              * Returns the raw JSON value of [merchantAcceptorId].
              *
              * Unlike [merchantAcceptorId], this method doesn't throw if the JSON field has an
@@ -3158,6 +3184,7 @@ private constructor(
                  * .declinedTransactionId()
                  * .digitalWalletTokenId()
                  * .direction()
+                 * .incrementedCardAuthorizationId()
                  * .merchantAcceptorId()
                  * .merchantCategoryCode()
                  * .merchantCity()
@@ -3194,6 +3221,7 @@ private constructor(
                 private var declinedTransactionId: JsonField<String>? = null
                 private var digitalWalletTokenId: JsonField<String>? = null
                 private var direction: JsonField<Direction>? = null
+                private var incrementedCardAuthorizationId: JsonField<String>? = null
                 private var merchantAcceptorId: JsonField<String>? = null
                 private var merchantCategoryCode: JsonField<String>? = null
                 private var merchantCity: JsonField<String>? = null
@@ -3225,6 +3253,7 @@ private constructor(
                     declinedTransactionId = cardDecline.declinedTransactionId
                     digitalWalletTokenId = cardDecline.digitalWalletTokenId
                     direction = cardDecline.direction
+                    incrementedCardAuthorizationId = cardDecline.incrementedCardAuthorizationId
                     merchantAcceptorId = cardDecline.merchantAcceptorId
                     merchantCategoryCode = cardDecline.merchantCategoryCode
                     merchantCity = cardDecline.merchantCity
@@ -3387,6 +3416,26 @@ private constructor(
                 fun direction(direction: JsonField<Direction>) = apply {
                     this.direction = direction
                 }
+
+                /**
+                 * The identifier of the card authorization this request attempted to incrementally
+                 * authorize.
+                 */
+                fun incrementedCardAuthorizationId(incrementedCardAuthorizationId: String?) =
+                    incrementedCardAuthorizationId(
+                        JsonField.ofNullable(incrementedCardAuthorizationId)
+                    )
+
+                /**
+                 * Sets [Builder.incrementedCardAuthorizationId] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.incrementedCardAuthorizationId] with a
+                 * well-typed [String] value instead. This method is primarily for setting the field
+                 * to an undocumented or not yet supported value.
+                 */
+                fun incrementedCardAuthorizationId(
+                    incrementedCardAuthorizationId: JsonField<String>
+                ) = apply { this.incrementedCardAuthorizationId = incrementedCardAuthorizationId }
 
                 /**
                  * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
@@ -3746,6 +3795,7 @@ private constructor(
                  * .declinedTransactionId()
                  * .digitalWalletTokenId()
                  * .direction()
+                 * .incrementedCardAuthorizationId()
                  * .merchantAcceptorId()
                  * .merchantCategoryCode()
                  * .merchantCity()
@@ -3780,6 +3830,10 @@ private constructor(
                         checkRequired("declinedTransactionId", declinedTransactionId),
                         checkRequired("digitalWalletTokenId", digitalWalletTokenId),
                         checkRequired("direction", direction),
+                        checkRequired(
+                            "incrementedCardAuthorizationId",
+                            incrementedCardAuthorizationId,
+                        ),
                         checkRequired("merchantAcceptorId", merchantAcceptorId),
                         checkRequired("merchantCategoryCode", merchantCategoryCode),
                         checkRequired("merchantCity", merchantCity),
@@ -3819,6 +3873,7 @@ private constructor(
                 declinedTransactionId()
                 digitalWalletTokenId()
                 direction().validate()
+                incrementedCardAuthorizationId()
                 merchantAcceptorId()
                 merchantCategoryCode()
                 merchantCity()
@@ -3865,6 +3920,7 @@ private constructor(
                     (if (declinedTransactionId.asKnown() == null) 0 else 1) +
                     (if (digitalWalletTokenId.asKnown() == null) 0 else 1) +
                     (direction.asKnown()?.validity() ?: 0) +
+                    (if (incrementedCardAuthorizationId.asKnown() == null) 0 else 1) +
                     (if (merchantAcceptorId.asKnown() == null) 0 else 1) +
                     (if (merchantCategoryCode.asKnown() == null) 0 else 1) +
                     (if (merchantCity.asKnown() == null) 0 else 1) +
@@ -10478,17 +10534,17 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is CardDecline && id == other.id && actioner == other.actioner && additionalAmounts == other.additionalAmounts && amount == other.amount && cardPaymentId == other.cardPaymentId && currency == other.currency && declinedTransactionId == other.declinedTransactionId && digitalWalletTokenId == other.digitalWalletTokenId && direction == other.direction && merchantAcceptorId == other.merchantAcceptorId && merchantCategoryCode == other.merchantCategoryCode && merchantCity == other.merchantCity && merchantCountry == other.merchantCountry && merchantDescriptor == other.merchantDescriptor && merchantPostalCode == other.merchantPostalCode && merchantState == other.merchantState && networkDetails == other.networkDetails && networkIdentifiers == other.networkIdentifiers && networkRiskScore == other.networkRiskScore && physicalCardId == other.physicalCardId && presentmentAmount == other.presentmentAmount && presentmentCurrency == other.presentmentCurrency && processingCategory == other.processingCategory && realTimeDecisionId == other.realTimeDecisionId && realTimeDecisionReason == other.realTimeDecisionReason && reason == other.reason && terminalId == other.terminalId && verification == other.verification && additionalProperties == other.additionalProperties /* spotless:on */
+                return /* spotless:off */ other is CardDecline && id == other.id && actioner == other.actioner && additionalAmounts == other.additionalAmounts && amount == other.amount && cardPaymentId == other.cardPaymentId && currency == other.currency && declinedTransactionId == other.declinedTransactionId && digitalWalletTokenId == other.digitalWalletTokenId && direction == other.direction && incrementedCardAuthorizationId == other.incrementedCardAuthorizationId && merchantAcceptorId == other.merchantAcceptorId && merchantCategoryCode == other.merchantCategoryCode && merchantCity == other.merchantCity && merchantCountry == other.merchantCountry && merchantDescriptor == other.merchantDescriptor && merchantPostalCode == other.merchantPostalCode && merchantState == other.merchantState && networkDetails == other.networkDetails && networkIdentifiers == other.networkIdentifiers && networkRiskScore == other.networkRiskScore && physicalCardId == other.physicalCardId && presentmentAmount == other.presentmentAmount && presentmentCurrency == other.presentmentCurrency && processingCategory == other.processingCategory && realTimeDecisionId == other.realTimeDecisionId && realTimeDecisionReason == other.realTimeDecisionReason && reason == other.reason && terminalId == other.terminalId && verification == other.verification && additionalProperties == other.additionalProperties /* spotless:on */
             }
 
             /* spotless:off */
-            private val hashCode: Int by lazy { Objects.hash(id, actioner, additionalAmounts, amount, cardPaymentId, currency, declinedTransactionId, digitalWalletTokenId, direction, merchantAcceptorId, merchantCategoryCode, merchantCity, merchantCountry, merchantDescriptor, merchantPostalCode, merchantState, networkDetails, networkIdentifiers, networkRiskScore, physicalCardId, presentmentAmount, presentmentCurrency, processingCategory, realTimeDecisionId, realTimeDecisionReason, reason, terminalId, verification, additionalProperties) }
+            private val hashCode: Int by lazy { Objects.hash(id, actioner, additionalAmounts, amount, cardPaymentId, currency, declinedTransactionId, digitalWalletTokenId, direction, incrementedCardAuthorizationId, merchantAcceptorId, merchantCategoryCode, merchantCity, merchantCountry, merchantDescriptor, merchantPostalCode, merchantState, networkDetails, networkIdentifiers, networkRiskScore, physicalCardId, presentmentAmount, presentmentCurrency, processingCategory, realTimeDecisionId, realTimeDecisionReason, reason, terminalId, verification, additionalProperties) }
             /* spotless:on */
 
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "CardDecline{id=$id, actioner=$actioner, additionalAmounts=$additionalAmounts, amount=$amount, cardPaymentId=$cardPaymentId, currency=$currency, declinedTransactionId=$declinedTransactionId, digitalWalletTokenId=$digitalWalletTokenId, direction=$direction, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, networkDetails=$networkDetails, networkIdentifiers=$networkIdentifiers, networkRiskScore=$networkRiskScore, physicalCardId=$physicalCardId, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, processingCategory=$processingCategory, realTimeDecisionId=$realTimeDecisionId, realTimeDecisionReason=$realTimeDecisionReason, reason=$reason, terminalId=$terminalId, verification=$verification, additionalProperties=$additionalProperties}"
+                "CardDecline{id=$id, actioner=$actioner, additionalAmounts=$additionalAmounts, amount=$amount, cardPaymentId=$cardPaymentId, currency=$currency, declinedTransactionId=$declinedTransactionId, digitalWalletTokenId=$digitalWalletTokenId, direction=$direction, incrementedCardAuthorizationId=$incrementedCardAuthorizationId, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, networkDetails=$networkDetails, networkIdentifiers=$networkIdentifiers, networkRiskScore=$networkRiskScore, physicalCardId=$physicalCardId, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, processingCategory=$processingCategory, realTimeDecisionId=$realTimeDecisionId, realTimeDecisionReason=$realTimeDecisionReason, reason=$reason, terminalId=$terminalId, verification=$verification, additionalProperties=$additionalProperties}"
         }
 
         /**
