@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.259.0 (2025-07-29)
+
+Full Changelog: [v0.258.1...v0.259.0](https://github.com/Increase/increase-kotlin/compare/v0.258.1...v0.259.0)
+
+### Features
+
+* add retryable exception ([0cc6bf5](https://github.com/Increase/increase-kotlin/commit/0cc6bf55b1a443b51bb87c028c480ff705e7ddca))
+* **api:** api update ([4c8182f](https://github.com/Increase/increase-kotlin/commit/4c8182ff82d66cf3f6429b364556335b9485fbc2))
+* **api:** api update ([086e8ed](https://github.com/Increase/increase-kotlin/commit/086e8eda8956fc4036d1fb35341470b08b16b346))
+* **client:** ensure compat with proguard ([bbe2741](https://github.com/Increase/increase-kotlin/commit/bbe2741784c131a6bd5aca70223c2c5213d06302))
+
 ## 0.258.1 (2025-07-28)
 
 Full Changelog: [v0.258.0...v0.258.1](https://github.com/Increase/increase-kotlin/compare/v0.258.0...v0.258.1)
