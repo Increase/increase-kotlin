@@ -26772,11 +26772,14 @@ private constructor(
             private val network: JsonField<Network>,
             private val networkIdentifiers: JsonField<NetworkIdentifiers>,
             private val pendingTransactionId: JsonField<String>,
+            private val presentmentCurrency: JsonField<String>,
             private val reversalAmount: JsonField<Long>,
+            private val reversalPresentmentAmount: JsonField<Long>,
             private val reversalReason: JsonField<ReversalReason>,
             private val terminalId: JsonField<String>,
             private val type: JsonField<Type>,
             private val updatedAuthorizationAmount: JsonField<Long>,
+            private val updatedAuthorizationPresentmentAmount: JsonField<Long>,
             private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
 
@@ -26819,9 +26822,15 @@ private constructor(
                 @JsonProperty("pending_transaction_id")
                 @ExcludeMissing
                 pendingTransactionId: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("presentment_currency")
+                @ExcludeMissing
+                presentmentCurrency: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("reversal_amount")
                 @ExcludeMissing
                 reversalAmount: JsonField<Long> = JsonMissing.of(),
+                @JsonProperty("reversal_presentment_amount")
+                @ExcludeMissing
+                reversalPresentmentAmount: JsonField<Long> = JsonMissing.of(),
                 @JsonProperty("reversal_reason")
                 @ExcludeMissing
                 reversalReason: JsonField<ReversalReason> = JsonMissing.of(),
@@ -26832,6 +26841,9 @@ private constructor(
                 @JsonProperty("updated_authorization_amount")
                 @ExcludeMissing
                 updatedAuthorizationAmount: JsonField<Long> = JsonMissing.of(),
+                @JsonProperty("updated_authorization_presentment_amount")
+                @ExcludeMissing
+                updatedAuthorizationPresentmentAmount: JsonField<Long> = JsonMissing.of(),
             ) : this(
                 id,
                 cardAuthorizationId,
@@ -26846,11 +26858,14 @@ private constructor(
                 network,
                 networkIdentifiers,
                 pendingTransactionId,
+                presentmentCurrency,
                 reversalAmount,
+                reversalPresentmentAmount,
                 reversalReason,
                 terminalId,
                 type,
                 updatedAuthorizationAmount,
+                updatedAuthorizationPresentmentAmount,
                 mutableMapOf(),
             )
 
@@ -26977,6 +26992,17 @@ private constructor(
                 pendingTransactionId.getNullable("pending_transaction_id")
 
             /**
+             * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the reversal's
+             * presentment currency.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun presentmentCurrency(): String =
+                presentmentCurrency.getRequired("presentment_currency")
+
+            /**
              * The amount of this reversal in the minor unit of the transaction's currency. For
              * dollars, for example, this is cents.
              *
@@ -26985,6 +27011,17 @@ private constructor(
              *   value).
              */
             fun reversalAmount(): Long = reversalAmount.getRequired("reversal_amount")
+
+            /**
+             * The amount of this reversal in the minor unit of the transaction's presentment
+             * currency. For dollars, for example, this is cents.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun reversalPresentmentAmount(): Long =
+                reversalPresentmentAmount.getRequired("reversal_presentment_amount")
 
             /**
              * Why this reversal was initiated.
@@ -27023,6 +27060,19 @@ private constructor(
              */
             fun updatedAuthorizationAmount(): Long =
                 updatedAuthorizationAmount.getRequired("updated_authorization_amount")
+
+            /**
+             * The amount left pending on the Card Authorization in the minor unit of the
+             * transaction's presentment currency. For dollars, for example, this is cents.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun updatedAuthorizationPresentmentAmount(): Long =
+                updatedAuthorizationPresentmentAmount.getRequired(
+                    "updated_authorization_presentment_amount"
+                )
 
             /**
              * Returns the raw JSON value of [id].
@@ -27149,6 +27199,16 @@ private constructor(
             fun _pendingTransactionId(): JsonField<String> = pendingTransactionId
 
             /**
+             * Returns the raw JSON value of [presentmentCurrency].
+             *
+             * Unlike [presentmentCurrency], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("presentment_currency")
+            @ExcludeMissing
+            fun _presentmentCurrency(): JsonField<String> = presentmentCurrency
+
+            /**
              * Returns the raw JSON value of [reversalAmount].
              *
              * Unlike [reversalAmount], this method doesn't throw if the JSON field has an
@@ -27157,6 +27217,16 @@ private constructor(
             @JsonProperty("reversal_amount")
             @ExcludeMissing
             fun _reversalAmount(): JsonField<Long> = reversalAmount
+
+            /**
+             * Returns the raw JSON value of [reversalPresentmentAmount].
+             *
+             * Unlike [reversalPresentmentAmount], this method doesn't throw if the JSON field has
+             * an unexpected type.
+             */
+            @JsonProperty("reversal_presentment_amount")
+            @ExcludeMissing
+            fun _reversalPresentmentAmount(): JsonField<Long> = reversalPresentmentAmount
 
             /**
              * Returns the raw JSON value of [reversalReason].
@@ -27195,6 +27265,17 @@ private constructor(
             @ExcludeMissing
             fun _updatedAuthorizationAmount(): JsonField<Long> = updatedAuthorizationAmount
 
+            /**
+             * Returns the raw JSON value of [updatedAuthorizationPresentmentAmount].
+             *
+             * Unlike [updatedAuthorizationPresentmentAmount], this method doesn't throw if the JSON
+             * field has an unexpected type.
+             */
+            @JsonProperty("updated_authorization_presentment_amount")
+            @ExcludeMissing
+            fun _updatedAuthorizationPresentmentAmount(): JsonField<Long> =
+                updatedAuthorizationPresentmentAmount
+
             @JsonAnySetter
             private fun putAdditionalProperty(key: String, value: JsonValue) {
                 additionalProperties.put(key, value)
@@ -27227,11 +27308,14 @@ private constructor(
                  * .network()
                  * .networkIdentifiers()
                  * .pendingTransactionId()
+                 * .presentmentCurrency()
                  * .reversalAmount()
+                 * .reversalPresentmentAmount()
                  * .reversalReason()
                  * .terminalId()
                  * .type()
                  * .updatedAuthorizationAmount()
+                 * .updatedAuthorizationPresentmentAmount()
                  * ```
                  */
                 fun builder() = Builder()
@@ -27253,11 +27337,14 @@ private constructor(
                 private var network: JsonField<Network>? = null
                 private var networkIdentifiers: JsonField<NetworkIdentifiers>? = null
                 private var pendingTransactionId: JsonField<String>? = null
+                private var presentmentCurrency: JsonField<String>? = null
                 private var reversalAmount: JsonField<Long>? = null
+                private var reversalPresentmentAmount: JsonField<Long>? = null
                 private var reversalReason: JsonField<ReversalReason>? = null
                 private var terminalId: JsonField<String>? = null
                 private var type: JsonField<Type>? = null
                 private var updatedAuthorizationAmount: JsonField<Long>? = null
+                private var updatedAuthorizationPresentmentAmount: JsonField<Long>? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 internal fun from(cardReversal: CardReversal) = apply {
@@ -27274,11 +27361,15 @@ private constructor(
                     network = cardReversal.network
                     networkIdentifiers = cardReversal.networkIdentifiers
                     pendingTransactionId = cardReversal.pendingTransactionId
+                    presentmentCurrency = cardReversal.presentmentCurrency
                     reversalAmount = cardReversal.reversalAmount
+                    reversalPresentmentAmount = cardReversal.reversalPresentmentAmount
                     reversalReason = cardReversal.reversalReason
                     terminalId = cardReversal.terminalId
                     type = cardReversal.type
                     updatedAuthorizationAmount = cardReversal.updatedAuthorizationAmount
+                    updatedAuthorizationPresentmentAmount =
+                        cardReversal.updatedAuthorizationPresentmentAmount
                     additionalProperties = cardReversal.additionalProperties.toMutableMap()
                 }
 
@@ -27481,6 +27572,24 @@ private constructor(
                 }
 
                 /**
+                 * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the reversal's
+                 * presentment currency.
+                 */
+                fun presentmentCurrency(presentmentCurrency: String) =
+                    presentmentCurrency(JsonField.of(presentmentCurrency))
+
+                /**
+                 * Sets [Builder.presentmentCurrency] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.presentmentCurrency] with a well-typed [String]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
+                fun presentmentCurrency(presentmentCurrency: JsonField<String>) = apply {
+                    this.presentmentCurrency = presentmentCurrency
+                }
+
+                /**
                  * The amount of this reversal in the minor unit of the transaction's currency. For
                  * dollars, for example, this is cents.
                  */
@@ -27496,6 +27605,24 @@ private constructor(
                  */
                 fun reversalAmount(reversalAmount: JsonField<Long>) = apply {
                     this.reversalAmount = reversalAmount
+                }
+
+                /**
+                 * The amount of this reversal in the minor unit of the transaction's presentment
+                 * currency. For dollars, for example, this is cents.
+                 */
+                fun reversalPresentmentAmount(reversalPresentmentAmount: Long) =
+                    reversalPresentmentAmount(JsonField.of(reversalPresentmentAmount))
+
+                /**
+                 * Sets [Builder.reversalPresentmentAmount] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.reversalPresentmentAmount] with a well-typed
+                 * [Long] value instead. This method is primarily for setting the field to an
+                 * undocumented or not yet supported value.
+                 */
+                fun reversalPresentmentAmount(reversalPresentmentAmount: JsonField<Long>) = apply {
+                    this.reversalPresentmentAmount = reversalPresentmentAmount
                 }
 
                 /** Why this reversal was initiated. */
@@ -27564,6 +27691,31 @@ private constructor(
                         this.updatedAuthorizationAmount = updatedAuthorizationAmount
                     }
 
+                /**
+                 * The amount left pending on the Card Authorization in the minor unit of the
+                 * transaction's presentment currency. For dollars, for example, this is cents.
+                 */
+                fun updatedAuthorizationPresentmentAmount(
+                    updatedAuthorizationPresentmentAmount: Long
+                ) =
+                    updatedAuthorizationPresentmentAmount(
+                        JsonField.of(updatedAuthorizationPresentmentAmount)
+                    )
+
+                /**
+                 * Sets [Builder.updatedAuthorizationPresentmentAmount] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.updatedAuthorizationPresentmentAmount] with a
+                 * well-typed [Long] value instead. This method is primarily for setting the field
+                 * to an undocumented or not yet supported value.
+                 */
+                fun updatedAuthorizationPresentmentAmount(
+                    updatedAuthorizationPresentmentAmount: JsonField<Long>
+                ) = apply {
+                    this.updatedAuthorizationPresentmentAmount =
+                        updatedAuthorizationPresentmentAmount
+                }
+
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
                     putAllAdditionalProperties(additionalProperties)
@@ -27606,11 +27758,14 @@ private constructor(
                  * .network()
                  * .networkIdentifiers()
                  * .pendingTransactionId()
+                 * .presentmentCurrency()
                  * .reversalAmount()
+                 * .reversalPresentmentAmount()
                  * .reversalReason()
                  * .terminalId()
                  * .type()
                  * .updatedAuthorizationAmount()
+                 * .updatedAuthorizationPresentmentAmount()
                  * ```
                  *
                  * @throws IllegalStateException if any required field is unset.
@@ -27630,11 +27785,17 @@ private constructor(
                         checkRequired("network", network),
                         checkRequired("networkIdentifiers", networkIdentifiers),
                         checkRequired("pendingTransactionId", pendingTransactionId),
+                        checkRequired("presentmentCurrency", presentmentCurrency),
                         checkRequired("reversalAmount", reversalAmount),
+                        checkRequired("reversalPresentmentAmount", reversalPresentmentAmount),
                         checkRequired("reversalReason", reversalReason),
                         checkRequired("terminalId", terminalId),
                         checkRequired("type", type),
                         checkRequired("updatedAuthorizationAmount", updatedAuthorizationAmount),
+                        checkRequired(
+                            "updatedAuthorizationPresentmentAmount",
+                            updatedAuthorizationPresentmentAmount,
+                        ),
                         additionalProperties.toMutableMap(),
                     )
             }
@@ -27659,11 +27820,14 @@ private constructor(
                 network().validate()
                 networkIdentifiers().validate()
                 pendingTransactionId()
+                presentmentCurrency()
                 reversalAmount()
+                reversalPresentmentAmount()
                 reversalReason()?.validate()
                 terminalId()
                 type().validate()
                 updatedAuthorizationAmount()
+                updatedAuthorizationPresentmentAmount()
                 validated = true
             }
 
@@ -27695,11 +27859,14 @@ private constructor(
                     (network.asKnown()?.validity() ?: 0) +
                     (networkIdentifiers.asKnown()?.validity() ?: 0) +
                     (if (pendingTransactionId.asKnown() == null) 0 else 1) +
+                    (if (presentmentCurrency.asKnown() == null) 0 else 1) +
                     (if (reversalAmount.asKnown() == null) 0 else 1) +
+                    (if (reversalPresentmentAmount.asKnown() == null) 0 else 1) +
                     (reversalReason.asKnown()?.validity() ?: 0) +
                     (if (terminalId.asKnown() == null) 0 else 1) +
                     (type.asKnown()?.validity() ?: 0) +
-                    (if (updatedAuthorizationAmount.asKnown() == null) 0 else 1)
+                    (if (updatedAuthorizationAmount.asKnown() == null) 0 else 1) +
+                    (if (updatedAuthorizationPresentmentAmount.asKnown() == null) 0 else 1)
 
             /**
              * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the reversal's
@@ -28571,17 +28738,17 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is CardReversal && id == other.id && cardAuthorizationId == other.cardAuthorizationId && currency == other.currency && merchantAcceptorId == other.merchantAcceptorId && merchantCategoryCode == other.merchantCategoryCode && merchantCity == other.merchantCity && merchantCountry == other.merchantCountry && merchantDescriptor == other.merchantDescriptor && merchantPostalCode == other.merchantPostalCode && merchantState == other.merchantState && network == other.network && networkIdentifiers == other.networkIdentifiers && pendingTransactionId == other.pendingTransactionId && reversalAmount == other.reversalAmount && reversalReason == other.reversalReason && terminalId == other.terminalId && type == other.type && updatedAuthorizationAmount == other.updatedAuthorizationAmount && additionalProperties == other.additionalProperties /* spotless:on */
+                return /* spotless:off */ other is CardReversal && id == other.id && cardAuthorizationId == other.cardAuthorizationId && currency == other.currency && merchantAcceptorId == other.merchantAcceptorId && merchantCategoryCode == other.merchantCategoryCode && merchantCity == other.merchantCity && merchantCountry == other.merchantCountry && merchantDescriptor == other.merchantDescriptor && merchantPostalCode == other.merchantPostalCode && merchantState == other.merchantState && network == other.network && networkIdentifiers == other.networkIdentifiers && pendingTransactionId == other.pendingTransactionId && presentmentCurrency == other.presentmentCurrency && reversalAmount == other.reversalAmount && reversalPresentmentAmount == other.reversalPresentmentAmount && reversalReason == other.reversalReason && terminalId == other.terminalId && type == other.type && updatedAuthorizationAmount == other.updatedAuthorizationAmount && updatedAuthorizationPresentmentAmount == other.updatedAuthorizationPresentmentAmount && additionalProperties == other.additionalProperties /* spotless:on */
             }
 
             /* spotless:off */
-            private val hashCode: Int by lazy { Objects.hash(id, cardAuthorizationId, currency, merchantAcceptorId, merchantCategoryCode, merchantCity, merchantCountry, merchantDescriptor, merchantPostalCode, merchantState, network, networkIdentifiers, pendingTransactionId, reversalAmount, reversalReason, terminalId, type, updatedAuthorizationAmount, additionalProperties) }
+            private val hashCode: Int by lazy { Objects.hash(id, cardAuthorizationId, currency, merchantAcceptorId, merchantCategoryCode, merchantCity, merchantCountry, merchantDescriptor, merchantPostalCode, merchantState, network, networkIdentifiers, pendingTransactionId, presentmentCurrency, reversalAmount, reversalPresentmentAmount, reversalReason, terminalId, type, updatedAuthorizationAmount, updatedAuthorizationPresentmentAmount, additionalProperties) }
             /* spotless:on */
 
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "CardReversal{id=$id, cardAuthorizationId=$cardAuthorizationId, currency=$currency, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, network=$network, networkIdentifiers=$networkIdentifiers, pendingTransactionId=$pendingTransactionId, reversalAmount=$reversalAmount, reversalReason=$reversalReason, terminalId=$terminalId, type=$type, updatedAuthorizationAmount=$updatedAuthorizationAmount, additionalProperties=$additionalProperties}"
+                "CardReversal{id=$id, cardAuthorizationId=$cardAuthorizationId, currency=$currency, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, network=$network, networkIdentifiers=$networkIdentifiers, pendingTransactionId=$pendingTransactionId, presentmentCurrency=$presentmentCurrency, reversalAmount=$reversalAmount, reversalPresentmentAmount=$reversalPresentmentAmount, reversalReason=$reversalReason, terminalId=$terminalId, type=$type, updatedAuthorizationAmount=$updatedAuthorizationAmount, updatedAuthorizationPresentmentAmount=$updatedAuthorizationPresentmentAmount, additionalProperties=$additionalProperties}"
         }
 
         /**
