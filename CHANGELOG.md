@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.261.1 (2025-07-31)
+
+Full Changelog: [v0.261.0...v0.261.1](https://github.com/Increase/increase-kotlin/compare/v0.261.0...v0.261.1)
+
+### Bug Fixes
+
+* **client:** r8 support ([74702c4](https://github.com/Increase/increase-kotlin/commit/74702c4c7242fef07a013741be6edcb1550f7e2d))
+
+
+### Chores
+
+* **internal:** reduce proguard ci logging ([e770f8a](https://github.com/Increase/increase-kotlin/commit/e770f8a9c1a5aaee4594b0249c7a6738115dcef9))
+
 ## 0.261.0 (2025-07-29)
 
 Full Changelog: [v0.260.0...v0.261.0](https://github.com/Increase/increase-kotlin/compare/v0.260.0...v0.261.0)
