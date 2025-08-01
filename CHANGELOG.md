@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.262.0 (2025-08-01)
+
+Full Changelog: [v0.261.1...v0.262.0](https://github.com/Increase/increase-kotlin/compare/v0.261.1...v0.262.0)
+
+### Features
+
+* **api:** api update ([c6ed8a9](https://github.com/Increase/increase-kotlin/commit/c6ed8a9b39f4ea93ffb9536e343f25446b47e46a))
+
+
+### Chores
+
+* **internal:** bump ci test timeout ([464d56f](https://github.com/Increase/increase-kotlin/commit/464d56f99d28cb26f5ac6d113d5e5bbbd6e0c72f))
+
 ## 0.261.1 (2025-07-31)
 
 Full Changelog: [v0.261.0...v0.261.1](https://github.com/Increase/increase-kotlin/compare/v0.261.0...v0.261.1)
