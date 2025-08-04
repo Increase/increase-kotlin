@@ -3170,6 +3170,9 @@ private constructor(
             /** A savings account. */
             val SAVINGS = of("savings")
 
+            /** A bank's general ledger. Uncommon. */
+            val GENERAL_LEDGER = of("general_ledger")
+
             fun of(value: String) = Funding(JsonField.of(value))
         }
 
@@ -3179,6 +3182,8 @@ private constructor(
             CHECKING,
             /** A savings account. */
             SAVINGS,
+            /** A bank's general ledger. Uncommon. */
+            GENERAL_LEDGER,
         }
 
         /**
@@ -3195,6 +3200,8 @@ private constructor(
             CHECKING,
             /** A savings account. */
             SAVINGS,
+            /** A bank's general ledger. Uncommon. */
+            GENERAL_LEDGER,
             /** An enum member indicating that [Funding] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -3210,6 +3217,7 @@ private constructor(
             when (this) {
                 CHECKING -> Value.CHECKING
                 SAVINGS -> Value.SAVINGS
+                GENERAL_LEDGER -> Value.GENERAL_LEDGER
                 else -> Value._UNKNOWN
             }
 
@@ -3226,6 +3234,7 @@ private constructor(
             when (this) {
                 CHECKING -> Known.CHECKING
                 SAVINGS -> Known.SAVINGS
+                GENERAL_LEDGER -> Known.GENERAL_LEDGER
                 else -> throw IncreaseInvalidDataException("Unknown Funding: $value")
             }
 
