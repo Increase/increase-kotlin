@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.266.0 (2025-08-06)
+
+Full Changelog: [v0.265.0...v0.266.0](https://github.com/Increase/increase-kotlin/compare/v0.265.0...v0.266.0)
+
+### Features
+
+* **api:** api update ([fe44e57](https://github.com/Increase/increase-kotlin/commit/fe44e57368151e6bdf5b88ebe79665e8c25b3a33))
+
+
+### Chores
+
+* **example:** fix run example comment ([b70ff36](https://github.com/Increase/increase-kotlin/commit/b70ff36ec6d2d2d3ebd658d4a22ab01769f3d93b))
+* **internal:** add lock helper ([7c0bf20](https://github.com/Increase/increase-kotlin/commit/7c0bf206841f8d5d78ecd6d74b125d8811448aea))
+
 ## 0.265.0 (2025-08-04)
 
 Full Changelog: [v0.264.0...v0.265.0](https://github.com/Increase/increase-kotlin/compare/v0.264.0...v0.265.0)
