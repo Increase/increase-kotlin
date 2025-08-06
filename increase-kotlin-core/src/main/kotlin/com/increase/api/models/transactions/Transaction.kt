@@ -6486,21 +6486,26 @@ private constructor(
                         val CHARGEBACK_SUBMITTED = of("chargeback_submitted")
 
                         /** The user declined the merchant's request for pre-arbitration. */
-                        val MERCHANT_PREARBITRATION_DECLINED =
-                            of("merchant_prearbitration_declined")
+                        val MERCHANT_PREARBITRATION_REQUEST_DECLINE_SUBMITTED =
+                            of("merchant_prearbitration_request_decline_submitted")
 
                         /** The merchant's request for pre-arbitration was received. */
-                        val MERCHANT_PREARBITRATION_RECEIVED =
-                            of("merchant_prearbitration_received")
+                        val MERCHANT_PREARBITRATION_REQUEST_RECEIVED =
+                            of("merchant_prearbitration_request_received")
 
                         /** The transaction was represented by the merchant. */
                         val REPRESENTED = of("represented")
 
                         /** The user's request for pre-arbitration was declined. */
-                        val USER_PREARBITRATION_DECLINED = of("user_prearbitration_declined")
+                        val USER_PREARBITRATION_REQUEST_DECLINE_RECEIVED =
+                            of("user_prearbitration_request_decline_received")
 
                         /** The user's request for pre-arbitration was submitted. */
-                        val USER_PREARBITRATION_SUBMITTED = of("user_prearbitration_submitted")
+                        val USER_PREARBITRATION_REQUEST_SUBMITTED =
+                            of("user_prearbitration_request_submitted")
+
+                        /** The user withdrew from the dispute. */
+                        val USER_WITHDRAWAL_SUBMITTED = of("user_withdrawal_submitted")
 
                         fun of(value: String) = EventType(JsonField.of(value))
                     }
@@ -6510,15 +6515,17 @@ private constructor(
                         /** The user's chargeback was submitted. */
                         CHARGEBACK_SUBMITTED,
                         /** The user declined the merchant's request for pre-arbitration. */
-                        MERCHANT_PREARBITRATION_DECLINED,
+                        MERCHANT_PREARBITRATION_REQUEST_DECLINE_SUBMITTED,
                         /** The merchant's request for pre-arbitration was received. */
-                        MERCHANT_PREARBITRATION_RECEIVED,
+                        MERCHANT_PREARBITRATION_REQUEST_RECEIVED,
                         /** The transaction was represented by the merchant. */
                         REPRESENTED,
                         /** The user's request for pre-arbitration was declined. */
-                        USER_PREARBITRATION_DECLINED,
+                        USER_PREARBITRATION_REQUEST_DECLINE_RECEIVED,
                         /** The user's request for pre-arbitration was submitted. */
-                        USER_PREARBITRATION_SUBMITTED,
+                        USER_PREARBITRATION_REQUEST_SUBMITTED,
+                        /** The user withdrew from the dispute. */
+                        USER_WITHDRAWAL_SUBMITTED,
                     }
 
                     /**
@@ -6535,15 +6542,17 @@ private constructor(
                         /** The user's chargeback was submitted. */
                         CHARGEBACK_SUBMITTED,
                         /** The user declined the merchant's request for pre-arbitration. */
-                        MERCHANT_PREARBITRATION_DECLINED,
+                        MERCHANT_PREARBITRATION_REQUEST_DECLINE_SUBMITTED,
                         /** The merchant's request for pre-arbitration was received. */
-                        MERCHANT_PREARBITRATION_RECEIVED,
+                        MERCHANT_PREARBITRATION_REQUEST_RECEIVED,
                         /** The transaction was represented by the merchant. */
                         REPRESENTED,
                         /** The user's request for pre-arbitration was declined. */
-                        USER_PREARBITRATION_DECLINED,
+                        USER_PREARBITRATION_REQUEST_DECLINE_RECEIVED,
                         /** The user's request for pre-arbitration was submitted. */
-                        USER_PREARBITRATION_SUBMITTED,
+                        USER_PREARBITRATION_REQUEST_SUBMITTED,
+                        /** The user withdrew from the dispute. */
+                        USER_WITHDRAWAL_SUBMITTED,
                         /**
                          * An enum member indicating that [EventType] was instantiated with an
                          * unknown value.
@@ -6561,13 +6570,16 @@ private constructor(
                     fun value(): Value =
                         when (this) {
                             CHARGEBACK_SUBMITTED -> Value.CHARGEBACK_SUBMITTED
-                            MERCHANT_PREARBITRATION_DECLINED ->
-                                Value.MERCHANT_PREARBITRATION_DECLINED
-                            MERCHANT_PREARBITRATION_RECEIVED ->
-                                Value.MERCHANT_PREARBITRATION_RECEIVED
+                            MERCHANT_PREARBITRATION_REQUEST_DECLINE_SUBMITTED ->
+                                Value.MERCHANT_PREARBITRATION_REQUEST_DECLINE_SUBMITTED
+                            MERCHANT_PREARBITRATION_REQUEST_RECEIVED ->
+                                Value.MERCHANT_PREARBITRATION_REQUEST_RECEIVED
                             REPRESENTED -> Value.REPRESENTED
-                            USER_PREARBITRATION_DECLINED -> Value.USER_PREARBITRATION_DECLINED
-                            USER_PREARBITRATION_SUBMITTED -> Value.USER_PREARBITRATION_SUBMITTED
+                            USER_PREARBITRATION_REQUEST_DECLINE_RECEIVED ->
+                                Value.USER_PREARBITRATION_REQUEST_DECLINE_RECEIVED
+                            USER_PREARBITRATION_REQUEST_SUBMITTED ->
+                                Value.USER_PREARBITRATION_REQUEST_SUBMITTED
+                            USER_WITHDRAWAL_SUBMITTED -> Value.USER_WITHDRAWAL_SUBMITTED
                             else -> Value._UNKNOWN
                         }
 
@@ -6583,13 +6595,16 @@ private constructor(
                     fun known(): Known =
                         when (this) {
                             CHARGEBACK_SUBMITTED -> Known.CHARGEBACK_SUBMITTED
-                            MERCHANT_PREARBITRATION_DECLINED ->
-                                Known.MERCHANT_PREARBITRATION_DECLINED
-                            MERCHANT_PREARBITRATION_RECEIVED ->
-                                Known.MERCHANT_PREARBITRATION_RECEIVED
+                            MERCHANT_PREARBITRATION_REQUEST_DECLINE_SUBMITTED ->
+                                Known.MERCHANT_PREARBITRATION_REQUEST_DECLINE_SUBMITTED
+                            MERCHANT_PREARBITRATION_REQUEST_RECEIVED ->
+                                Known.MERCHANT_PREARBITRATION_REQUEST_RECEIVED
                             REPRESENTED -> Known.REPRESENTED
-                            USER_PREARBITRATION_DECLINED -> Known.USER_PREARBITRATION_DECLINED
-                            USER_PREARBITRATION_SUBMITTED -> Known.USER_PREARBITRATION_SUBMITTED
+                            USER_PREARBITRATION_REQUEST_DECLINE_RECEIVED ->
+                                Known.USER_PREARBITRATION_REQUEST_DECLINE_RECEIVED
+                            USER_PREARBITRATION_REQUEST_SUBMITTED ->
+                                Known.USER_PREARBITRATION_REQUEST_SUBMITTED
+                            USER_WITHDRAWAL_SUBMITTED -> Known.USER_WITHDRAWAL_SUBMITTED
                             else -> throw IncreaseInvalidDataException("Unknown EventType: $value")
                         }
 
