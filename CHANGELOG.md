@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.269.0 (2025-08-07)
+
+Full Changelog: [v0.268.0...v0.269.0](https://github.com/Increase/increase-kotlin/compare/v0.268.0...v0.269.0)
+
+### Features
+
+* **api:** api update ([38eb5a6](https://github.com/Increase/increase-kotlin/commit/38eb5a6d8842f4e0b6fb8e6f04770dc4d4d6c41e))
+
+
+### Chores
+
+* increase max gradle JVM heap to 8GB ([03ed53b](https://github.com/Increase/increase-kotlin/commit/03ed53bf33823c883dda2a733e0ca103062c5192))
+
 ## 0.268.0 (2025-08-07)
 
 Full Changelog: [v0.267.0...v0.268.0](https://github.com/Increase/increase-kotlin/compare/v0.267.0...v0.268.0)
