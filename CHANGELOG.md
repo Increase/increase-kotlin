@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.270.0 (2025-08-11)
+
+Full Changelog: [v0.269.0...v0.270.0](https://github.com/Increase/increase-kotlin/compare/v0.269.0...v0.270.0)
+
+### Features
+
+* **api:** api update ([ee4e8d6](https://github.com/Increase/increase-kotlin/commit/ee4e8d6cbea681453cb50dde297162c5ca378bb4))
+
+
+### Chores
+
+* **internal:** update comment in script ([3331a50](https://github.com/Increase/increase-kotlin/commit/3331a50bc597e7628fff847b0d6bdb5f4cc7531c))
+* update @stainless-api/prism-cli to v5.15.0 ([35fd383](https://github.com/Increase/increase-kotlin/commit/35fd383f56a55ea3688c436476d8b8f9465cd1a6))
+
 ## 0.269.0 (2025-08-07)
 
 Full Changelog: [v0.268.0...v0.269.0](https://github.com/Increase/increase-kotlin/compare/v0.268.0...v0.269.0)
