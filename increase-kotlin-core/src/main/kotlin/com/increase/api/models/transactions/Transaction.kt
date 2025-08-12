@@ -33132,6 +33132,7 @@ private constructor(
             private val inputSequenceNumber: JsonField<String>,
             private val inputSource: JsonField<String>,
             private val originatorRoutingNumber: JsonField<String>,
+            private val originatorToBeneficiaryInformation: JsonField<String>,
             private val previousMessageInputCycleDate: JsonField<LocalDate>,
             private val previousMessageInputMessageAccountabilityData: JsonField<String>,
             private val previousMessageInputSequenceNumber: JsonField<String>,
@@ -33171,6 +33172,9 @@ private constructor(
                 @JsonProperty("originator_routing_number")
                 @ExcludeMissing
                 originatorRoutingNumber: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("originator_to_beneficiary_information")
+                @ExcludeMissing
+                originatorToBeneficiaryInformation: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("previous_message_input_cycle_date")
                 @ExcludeMissing
                 previousMessageInputCycleDate: JsonField<LocalDate> = JsonMissing.of(),
@@ -33205,6 +33209,7 @@ private constructor(
                 inputSequenceNumber,
                 inputSource,
                 originatorRoutingNumber,
+                originatorToBeneficiaryInformation,
                 previousMessageInputCycleDate,
                 previousMessageInputMessageAccountabilityData,
                 previousMessageInputSequenceNumber,
@@ -33303,6 +33308,17 @@ private constructor(
              */
             fun originatorRoutingNumber(): String? =
                 originatorRoutingNumber.getNullable("originator_routing_number")
+
+            /**
+             * Additional information included in the wire reversal by the reversal originator.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
+            fun originatorToBeneficiaryInformation(): String? =
+                originatorToBeneficiaryInformation.getNullable(
+                    "originator_to_beneficiary_information"
+                )
 
             /**
              * The Fedwire cycle date for the wire transfer that is being reversed by this message.
@@ -33476,6 +33492,17 @@ private constructor(
             fun _originatorRoutingNumber(): JsonField<String> = originatorRoutingNumber
 
             /**
+             * Returns the raw JSON value of [originatorToBeneficiaryInformation].
+             *
+             * Unlike [originatorToBeneficiaryInformation], this method doesn't throw if the JSON
+             * field has an unexpected type.
+             */
+            @JsonProperty("originator_to_beneficiary_information")
+            @ExcludeMissing
+            fun _originatorToBeneficiaryInformation(): JsonField<String> =
+                originatorToBeneficiaryInformation
+
+            /**
              * Returns the raw JSON value of [previousMessageInputCycleDate].
              *
              * Unlike [previousMessageInputCycleDate], this method doesn't throw if the JSON field
@@ -33587,6 +33614,7 @@ private constructor(
                  * .inputSequenceNumber()
                  * .inputSource()
                  * .originatorRoutingNumber()
+                 * .originatorToBeneficiaryInformation()
                  * .previousMessageInputCycleDate()
                  * .previousMessageInputMessageAccountabilityData()
                  * .previousMessageInputSequenceNumber()
@@ -33614,6 +33642,7 @@ private constructor(
                 private var inputSequenceNumber: JsonField<String>? = null
                 private var inputSource: JsonField<String>? = null
                 private var originatorRoutingNumber: JsonField<String>? = null
+                private var originatorToBeneficiaryInformation: JsonField<String>? = null
                 private var previousMessageInputCycleDate: JsonField<LocalDate>? = null
                 private var previousMessageInputMessageAccountabilityData: JsonField<String>? = null
                 private var previousMessageInputSequenceNumber: JsonField<String>? = null
@@ -33636,6 +33665,8 @@ private constructor(
                     inputSequenceNumber = inboundWireReversal.inputSequenceNumber
                     inputSource = inboundWireReversal.inputSource
                     originatorRoutingNumber = inboundWireReversal.originatorRoutingNumber
+                    originatorToBeneficiaryInformation =
+                        inboundWireReversal.originatorToBeneficiaryInformation
                     previousMessageInputCycleDate =
                         inboundWireReversal.previousMessageInputCycleDate
                     previousMessageInputMessageAccountabilityData =
@@ -33798,6 +33829,29 @@ private constructor(
                  */
                 fun originatorRoutingNumber(originatorRoutingNumber: JsonField<String>) = apply {
                     this.originatorRoutingNumber = originatorRoutingNumber
+                }
+
+                /**
+                 * Additional information included in the wire reversal by the reversal originator.
+                 */
+                fun originatorToBeneficiaryInformation(
+                    originatorToBeneficiaryInformation: String?
+                ) =
+                    originatorToBeneficiaryInformation(
+                        JsonField.ofNullable(originatorToBeneficiaryInformation)
+                    )
+
+                /**
+                 * Sets [Builder.originatorToBeneficiaryInformation] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.originatorToBeneficiaryInformation] with a
+                 * well-typed [String] value instead. This method is primarily for setting the field
+                 * to an undocumented or not yet supported value.
+                 */
+                fun originatorToBeneficiaryInformation(
+                    originatorToBeneficiaryInformation: JsonField<String>
+                ) = apply {
+                    this.originatorToBeneficiaryInformation = originatorToBeneficiaryInformation
                 }
 
                 /**
@@ -33985,6 +34039,7 @@ private constructor(
                  * .inputSequenceNumber()
                  * .inputSource()
                  * .originatorRoutingNumber()
+                 * .originatorToBeneficiaryInformation()
                  * .previousMessageInputCycleDate()
                  * .previousMessageInputMessageAccountabilityData()
                  * .previousMessageInputSequenceNumber()
@@ -34014,6 +34069,10 @@ private constructor(
                         checkRequired("inputSequenceNumber", inputSequenceNumber),
                         checkRequired("inputSource", inputSource),
                         checkRequired("originatorRoutingNumber", originatorRoutingNumber),
+                        checkRequired(
+                            "originatorToBeneficiaryInformation",
+                            originatorToBeneficiaryInformation,
+                        ),
                         checkRequired(
                             "previousMessageInputCycleDate",
                             previousMessageInputCycleDate,
@@ -34054,6 +34113,7 @@ private constructor(
                 inputSequenceNumber()
                 inputSource()
                 originatorRoutingNumber()
+                originatorToBeneficiaryInformation()
                 previousMessageInputCycleDate()
                 previousMessageInputMessageAccountabilityData()
                 previousMessageInputSequenceNumber()
@@ -34090,6 +34150,7 @@ private constructor(
                     (if (inputSequenceNumber.asKnown() == null) 0 else 1) +
                     (if (inputSource.asKnown() == null) 0 else 1) +
                     (if (originatorRoutingNumber.asKnown() == null) 0 else 1) +
+                    (if (originatorToBeneficiaryInformation.asKnown() == null) 0 else 1) +
                     (if (previousMessageInputCycleDate.asKnown() == null) 0 else 1) +
                     (if (previousMessageInputMessageAccountabilityData.asKnown() == null) 0
                     else 1) +
@@ -34105,17 +34166,17 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is InboundWireReversal && amount == other.amount && createdAt == other.createdAt && description == other.description && financialInstitutionToFinancialInstitutionInformation == other.financialInstitutionToFinancialInstitutionInformation && inputCycleDate == other.inputCycleDate && inputMessageAccountabilityData == other.inputMessageAccountabilityData && inputSequenceNumber == other.inputSequenceNumber && inputSource == other.inputSource && originatorRoutingNumber == other.originatorRoutingNumber && previousMessageInputCycleDate == other.previousMessageInputCycleDate && previousMessageInputMessageAccountabilityData == other.previousMessageInputMessageAccountabilityData && previousMessageInputSequenceNumber == other.previousMessageInputSequenceNumber && previousMessageInputSource == other.previousMessageInputSource && receiverFinancialInstitutionInformation == other.receiverFinancialInstitutionInformation && senderReference == other.senderReference && transactionId == other.transactionId && wireTransferId == other.wireTransferId && additionalProperties == other.additionalProperties /* spotless:on */
+                return /* spotless:off */ other is InboundWireReversal && amount == other.amount && createdAt == other.createdAt && description == other.description && financialInstitutionToFinancialInstitutionInformation == other.financialInstitutionToFinancialInstitutionInformation && inputCycleDate == other.inputCycleDate && inputMessageAccountabilityData == other.inputMessageAccountabilityData && inputSequenceNumber == other.inputSequenceNumber && inputSource == other.inputSource && originatorRoutingNumber == other.originatorRoutingNumber && originatorToBeneficiaryInformation == other.originatorToBeneficiaryInformation && previousMessageInputCycleDate == other.previousMessageInputCycleDate && previousMessageInputMessageAccountabilityData == other.previousMessageInputMessageAccountabilityData && previousMessageInputSequenceNumber == other.previousMessageInputSequenceNumber && previousMessageInputSource == other.previousMessageInputSource && receiverFinancialInstitutionInformation == other.receiverFinancialInstitutionInformation && senderReference == other.senderReference && transactionId == other.transactionId && wireTransferId == other.wireTransferId && additionalProperties == other.additionalProperties /* spotless:on */
             }
 
             /* spotless:off */
-            private val hashCode: Int by lazy { Objects.hash(amount, createdAt, description, financialInstitutionToFinancialInstitutionInformation, inputCycleDate, inputMessageAccountabilityData, inputSequenceNumber, inputSource, originatorRoutingNumber, previousMessageInputCycleDate, previousMessageInputMessageAccountabilityData, previousMessageInputSequenceNumber, previousMessageInputSource, receiverFinancialInstitutionInformation, senderReference, transactionId, wireTransferId, additionalProperties) }
+            private val hashCode: Int by lazy { Objects.hash(amount, createdAt, description, financialInstitutionToFinancialInstitutionInformation, inputCycleDate, inputMessageAccountabilityData, inputSequenceNumber, inputSource, originatorRoutingNumber, originatorToBeneficiaryInformation, previousMessageInputCycleDate, previousMessageInputMessageAccountabilityData, previousMessageInputSequenceNumber, previousMessageInputSource, receiverFinancialInstitutionInformation, senderReference, transactionId, wireTransferId, additionalProperties) }
             /* spotless:on */
 
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "InboundWireReversal{amount=$amount, createdAt=$createdAt, description=$description, financialInstitutionToFinancialInstitutionInformation=$financialInstitutionToFinancialInstitutionInformation, inputCycleDate=$inputCycleDate, inputMessageAccountabilityData=$inputMessageAccountabilityData, inputSequenceNumber=$inputSequenceNumber, inputSource=$inputSource, originatorRoutingNumber=$originatorRoutingNumber, previousMessageInputCycleDate=$previousMessageInputCycleDate, previousMessageInputMessageAccountabilityData=$previousMessageInputMessageAccountabilityData, previousMessageInputSequenceNumber=$previousMessageInputSequenceNumber, previousMessageInputSource=$previousMessageInputSource, receiverFinancialInstitutionInformation=$receiverFinancialInstitutionInformation, senderReference=$senderReference, transactionId=$transactionId, wireTransferId=$wireTransferId, additionalProperties=$additionalProperties}"
+                "InboundWireReversal{amount=$amount, createdAt=$createdAt, description=$description, financialInstitutionToFinancialInstitutionInformation=$financialInstitutionToFinancialInstitutionInformation, inputCycleDate=$inputCycleDate, inputMessageAccountabilityData=$inputMessageAccountabilityData, inputSequenceNumber=$inputSequenceNumber, inputSource=$inputSource, originatorRoutingNumber=$originatorRoutingNumber, originatorToBeneficiaryInformation=$originatorToBeneficiaryInformation, previousMessageInputCycleDate=$previousMessageInputCycleDate, previousMessageInputMessageAccountabilityData=$previousMessageInputMessageAccountabilityData, previousMessageInputSequenceNumber=$previousMessageInputSequenceNumber, previousMessageInputSource=$previousMessageInputSource, receiverFinancialInstitutionInformation=$receiverFinancialInstitutionInformation, senderReference=$senderReference, transactionId=$transactionId, wireTransferId=$wireTransferId, additionalProperties=$additionalProperties}"
         }
 
         /**
