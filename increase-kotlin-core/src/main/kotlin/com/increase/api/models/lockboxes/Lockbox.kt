@@ -828,12 +828,19 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Address && city == other.city && line1 == other.line1 && line2 == other.line2 && postalCode == other.postalCode && recipient == other.recipient && state == other.state && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Address &&
+                city == other.city &&
+                line1 == other.line1 &&
+                line2 == other.line2 &&
+                postalCode == other.postalCode &&
+                recipient == other.recipient &&
+                state == other.state &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(city, line1, line2, postalCode, recipient, state, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(city, line1, line2, postalCode, recipient, state, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -965,7 +972,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
+            return other is Status && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1085,7 +1092,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
+            return other is Type && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1098,12 +1105,33 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is Lockbox && id == other.id && accountId == other.accountId && address == other.address && createdAt == other.createdAt && description == other.description && idempotencyKey == other.idempotencyKey && recipientName == other.recipientName && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return other is Lockbox &&
+            id == other.id &&
+            accountId == other.accountId &&
+            address == other.address &&
+            createdAt == other.createdAt &&
+            description == other.description &&
+            idempotencyKey == other.idempotencyKey &&
+            recipientName == other.recipientName &&
+            status == other.status &&
+            type == other.type &&
+            additionalProperties == other.additionalProperties
     }
 
-    /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, accountId, address, createdAt, description, idempotencyKey, recipientName, status, type, additionalProperties) }
-    /* spotless:on */
+    private val hashCode: Int by lazy {
+        Objects.hash(
+            id,
+            accountId,
+            address,
+            createdAt,
+            description,
+            idempotencyKey,
+            recipientName,
+            status,
+            type,
+            additionalProperties,
+        )
+    }
 
     override fun hashCode(): Int = hashCode
 

@@ -968,7 +968,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is CreditDebitIndicator && value == other.value /* spotless:on */
+            return other is CreditDebitIndicator && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1584,7 +1584,7 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is ChangeCode && value == other.value /* spotless:on */
+                return other is ChangeCode && value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -1597,12 +1597,16 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is NotificationsOfChange && changeCode == other.changeCode && correctedData == other.correctedData && createdAt == other.createdAt && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is NotificationsOfChange &&
+                changeCode == other.changeCode &&
+                correctedData == other.correctedData &&
+                createdAt == other.createdAt &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(changeCode, correctedData, createdAt, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(changeCode, correctedData, createdAt, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -3013,7 +3017,7 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is ReturnReasonCode && value == other.value /* spotless:on */
+                return other is ReturnReasonCode && value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -3026,12 +3030,15 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is PrenotificationReturn && createdAt == other.createdAt && returnReasonCode == other.returnReasonCode && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is PrenotificationReturn &&
+                createdAt == other.createdAt &&
+                returnReasonCode == other.returnReasonCode &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(createdAt, returnReasonCode, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(createdAt, returnReasonCode, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -3181,7 +3188,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
+            return other is Status && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -3304,7 +3311,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
+            return other is Type && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -3317,12 +3324,47 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is AchPrenotification && id == other.id && accountNumber == other.accountNumber && addendum == other.addendum && companyDescriptiveDate == other.companyDescriptiveDate && companyDiscretionaryData == other.companyDiscretionaryData && companyEntryDescription == other.companyEntryDescription && companyName == other.companyName && createdAt == other.createdAt && creditDebitIndicator == other.creditDebitIndicator && effectiveDate == other.effectiveDate && idempotencyKey == other.idempotencyKey && notificationsOfChange == other.notificationsOfChange && prenotificationReturn == other.prenotificationReturn && routingNumber == other.routingNumber && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return other is AchPrenotification &&
+            id == other.id &&
+            accountNumber == other.accountNumber &&
+            addendum == other.addendum &&
+            companyDescriptiveDate == other.companyDescriptiveDate &&
+            companyDiscretionaryData == other.companyDiscretionaryData &&
+            companyEntryDescription == other.companyEntryDescription &&
+            companyName == other.companyName &&
+            createdAt == other.createdAt &&
+            creditDebitIndicator == other.creditDebitIndicator &&
+            effectiveDate == other.effectiveDate &&
+            idempotencyKey == other.idempotencyKey &&
+            notificationsOfChange == other.notificationsOfChange &&
+            prenotificationReturn == other.prenotificationReturn &&
+            routingNumber == other.routingNumber &&
+            status == other.status &&
+            type == other.type &&
+            additionalProperties == other.additionalProperties
     }
 
-    /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, accountNumber, addendum, companyDescriptiveDate, companyDiscretionaryData, companyEntryDescription, companyName, createdAt, creditDebitIndicator, effectiveDate, idempotencyKey, notificationsOfChange, prenotificationReturn, routingNumber, status, type, additionalProperties) }
-    /* spotless:on */
+    private val hashCode: Int by lazy {
+        Objects.hash(
+            id,
+            accountNumber,
+            addendum,
+            companyDescriptiveDate,
+            companyDiscretionaryData,
+            companyEntryDescription,
+            companyName,
+            createdAt,
+            creditDebitIndicator,
+            effectiveDate,
+            idempotencyKey,
+            notificationsOfChange,
+            prenotificationReturn,
+            routingNumber,
+            status,
+            type,
+            additionalProperties,
+        )
+    }
 
     override fun hashCode(): Int = hashCode
 

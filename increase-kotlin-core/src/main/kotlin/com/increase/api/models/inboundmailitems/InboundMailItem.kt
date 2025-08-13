@@ -726,12 +726,16 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Check && amount == other.amount && backFileId == other.backFileId && frontFileId == other.frontFileId && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Check &&
+                amount == other.amount &&
+                backFileId == other.backFileId &&
+                frontFileId == other.frontFileId &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(amount, backFileId, frontFileId, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(amount, backFileId, frontFileId, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -876,7 +880,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is RejectionReason && value == other.value /* spotless:on */
+            return other is RejectionReason && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1017,7 +1021,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
+            return other is Status && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1140,7 +1144,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
+            return other is Type && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1153,12 +1157,33 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is InboundMailItem && id == other.id && checks == other.checks && createdAt == other.createdAt && fileId == other.fileId && lockboxId == other.lockboxId && recipientName == other.recipientName && rejectionReason == other.rejectionReason && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return other is InboundMailItem &&
+            id == other.id &&
+            checks == other.checks &&
+            createdAt == other.createdAt &&
+            fileId == other.fileId &&
+            lockboxId == other.lockboxId &&
+            recipientName == other.recipientName &&
+            rejectionReason == other.rejectionReason &&
+            status == other.status &&
+            type == other.type &&
+            additionalProperties == other.additionalProperties
     }
 
-    /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, checks, createdAt, fileId, lockboxId, recipientName, rejectionReason, status, type, additionalProperties) }
-    /* spotless:on */
+    private val hashCode: Int by lazy {
+        Objects.hash(
+            id,
+            checks,
+            createdAt,
+            fileId,
+            lockboxId,
+            recipientName,
+            rejectionReason,
+            status,
+            type,
+            additionalProperties,
+        )
+    }
 
     override fun hashCode(): Int = hashCode
 

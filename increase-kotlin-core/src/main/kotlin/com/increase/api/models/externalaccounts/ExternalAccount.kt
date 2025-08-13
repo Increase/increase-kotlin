@@ -674,7 +674,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is AccountHolder && value == other.value /* spotless:on */
+            return other is AccountHolder && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -815,7 +815,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Funding && value == other.value /* spotless:on */
+            return other is Funding && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -947,7 +947,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
+            return other is Status && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1070,7 +1070,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
+            return other is Type && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1083,12 +1083,35 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is ExternalAccount && id == other.id && accountHolder == other.accountHolder && accountNumber == other.accountNumber && createdAt == other.createdAt && description == other.description && funding == other.funding && idempotencyKey == other.idempotencyKey && routingNumber == other.routingNumber && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return other is ExternalAccount &&
+            id == other.id &&
+            accountHolder == other.accountHolder &&
+            accountNumber == other.accountNumber &&
+            createdAt == other.createdAt &&
+            description == other.description &&
+            funding == other.funding &&
+            idempotencyKey == other.idempotencyKey &&
+            routingNumber == other.routingNumber &&
+            status == other.status &&
+            type == other.type &&
+            additionalProperties == other.additionalProperties
     }
 
-    /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, accountHolder, accountNumber, createdAt, description, funding, idempotencyKey, routingNumber, status, type, additionalProperties) }
-    /* spotless:on */
+    private val hashCode: Int by lazy {
+        Objects.hash(
+            id,
+            accountHolder,
+            accountNumber,
+            createdAt,
+            description,
+            funding,
+            idempotencyKey,
+            routingNumber,
+            status,
+            type,
+            additionalProperties,
+        )
+    }
 
     override fun hashCode(): Int = hashCode
 
