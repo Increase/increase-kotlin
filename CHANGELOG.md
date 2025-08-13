@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.273.0 (2025-08-13)
+
+Full Changelog: [v0.272.0...v0.273.0](https://github.com/Increase/increase-kotlin/compare/v0.272.0...v0.273.0)
+
+### Features
+
+* **api:** api update ([7cc9811](https://github.com/Increase/increase-kotlin/commit/7cc9811b2469a948698e81499fc42ef69d43fb51))
+
+
+### Chores
+
+* **internal:** dynamically determine included projects ([d0107b5](https://github.com/Increase/increase-kotlin/commit/d0107b54614a8cd9c2899742e99c63b9b17bf2ce))
+* **internal:** format identity methods ([61507ca](https://github.com/Increase/increase-kotlin/commit/61507ca954a1a79ea55f671cc0a9b1e546b377e7))
+* **internal:** support passing arguments to test script ([d99f7dc](https://github.com/Increase/increase-kotlin/commit/d99f7dce6cae5f4939a7146c6f83aa7c5d6fe57b))
+
 ## 0.272.0 (2025-08-12)
 
 Full Changelog: [v0.271.0...v0.272.0](https://github.com/Increase/increase-kotlin/compare/v0.271.0...v0.272.0)
