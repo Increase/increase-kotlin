@@ -1681,7 +1681,7 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is Reason && value == other.value /* spotless:on */
+                return other is Reason && value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -1694,12 +1694,13 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Reversal && reason == other.reason && reversedAt == other.reversedAt && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Reversal &&
+                reason == other.reason &&
+                reversedAt == other.reversedAt &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
         private val hashCode: Int by lazy { Objects.hash(reason, reversedAt, additionalProperties) }
-        /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
@@ -1858,7 +1859,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
+            return other is Status && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1981,7 +1982,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
+            return other is Type && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1994,12 +1995,73 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is InboundWireTransfer && id == other.id && accountId == other.accountId && accountNumberId == other.accountNumberId && amount == other.amount && beneficiaryAddressLine1 == other.beneficiaryAddressLine1 && beneficiaryAddressLine2 == other.beneficiaryAddressLine2 && beneficiaryAddressLine3 == other.beneficiaryAddressLine3 && beneficiaryName == other.beneficiaryName && beneficiaryReference == other.beneficiaryReference && createdAt == other.createdAt && description == other.description && inputMessageAccountabilityData == other.inputMessageAccountabilityData && originatorAddressLine1 == other.originatorAddressLine1 && originatorAddressLine2 == other.originatorAddressLine2 && originatorAddressLine3 == other.originatorAddressLine3 && originatorName == other.originatorName && originatorRoutingNumber == other.originatorRoutingNumber && originatorToBeneficiaryInformation == other.originatorToBeneficiaryInformation && originatorToBeneficiaryInformationLine1 == other.originatorToBeneficiaryInformationLine1 && originatorToBeneficiaryInformationLine2 == other.originatorToBeneficiaryInformationLine2 && originatorToBeneficiaryInformationLine3 == other.originatorToBeneficiaryInformationLine3 && originatorToBeneficiaryInformationLine4 == other.originatorToBeneficiaryInformationLine4 && reversal == other.reversal && senderReference == other.senderReference && status == other.status && type == other.type && wireDrawdownRequestId == other.wireDrawdownRequestId && additionalProperties == other.additionalProperties /* spotless:on */
+        return other is InboundWireTransfer &&
+            id == other.id &&
+            accountId == other.accountId &&
+            accountNumberId == other.accountNumberId &&
+            amount == other.amount &&
+            beneficiaryAddressLine1 == other.beneficiaryAddressLine1 &&
+            beneficiaryAddressLine2 == other.beneficiaryAddressLine2 &&
+            beneficiaryAddressLine3 == other.beneficiaryAddressLine3 &&
+            beneficiaryName == other.beneficiaryName &&
+            beneficiaryReference == other.beneficiaryReference &&
+            createdAt == other.createdAt &&
+            description == other.description &&
+            inputMessageAccountabilityData == other.inputMessageAccountabilityData &&
+            originatorAddressLine1 == other.originatorAddressLine1 &&
+            originatorAddressLine2 == other.originatorAddressLine2 &&
+            originatorAddressLine3 == other.originatorAddressLine3 &&
+            originatorName == other.originatorName &&
+            originatorRoutingNumber == other.originatorRoutingNumber &&
+            originatorToBeneficiaryInformation == other.originatorToBeneficiaryInformation &&
+            originatorToBeneficiaryInformationLine1 ==
+                other.originatorToBeneficiaryInformationLine1 &&
+            originatorToBeneficiaryInformationLine2 ==
+                other.originatorToBeneficiaryInformationLine2 &&
+            originatorToBeneficiaryInformationLine3 ==
+                other.originatorToBeneficiaryInformationLine3 &&
+            originatorToBeneficiaryInformationLine4 ==
+                other.originatorToBeneficiaryInformationLine4 &&
+            reversal == other.reversal &&
+            senderReference == other.senderReference &&
+            status == other.status &&
+            type == other.type &&
+            wireDrawdownRequestId == other.wireDrawdownRequestId &&
+            additionalProperties == other.additionalProperties
     }
 
-    /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, accountId, accountNumberId, amount, beneficiaryAddressLine1, beneficiaryAddressLine2, beneficiaryAddressLine3, beneficiaryName, beneficiaryReference, createdAt, description, inputMessageAccountabilityData, originatorAddressLine1, originatorAddressLine2, originatorAddressLine3, originatorName, originatorRoutingNumber, originatorToBeneficiaryInformation, originatorToBeneficiaryInformationLine1, originatorToBeneficiaryInformationLine2, originatorToBeneficiaryInformationLine3, originatorToBeneficiaryInformationLine4, reversal, senderReference, status, type, wireDrawdownRequestId, additionalProperties) }
-    /* spotless:on */
+    private val hashCode: Int by lazy {
+        Objects.hash(
+            id,
+            accountId,
+            accountNumberId,
+            amount,
+            beneficiaryAddressLine1,
+            beneficiaryAddressLine2,
+            beneficiaryAddressLine3,
+            beneficiaryName,
+            beneficiaryReference,
+            createdAt,
+            description,
+            inputMessageAccountabilityData,
+            originatorAddressLine1,
+            originatorAddressLine2,
+            originatorAddressLine3,
+            originatorName,
+            originatorRoutingNumber,
+            originatorToBeneficiaryInformation,
+            originatorToBeneficiaryInformationLine1,
+            originatorToBeneficiaryInformationLine2,
+            originatorToBeneficiaryInformationLine3,
+            originatorToBeneficiaryInformationLine4,
+            reversal,
+            senderReference,
+            status,
+            type,
+            wireDrawdownRequestId,
+            additionalProperties,
+        )
+    }
 
     override fun hashCode(): Int = hashCode
 

@@ -687,12 +687,25 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Body && grantType == other.grantType && clientId == other.clientId && clientSecret == other.clientSecret && code == other.code && productionToken == other.productionToken && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Body &&
+                grantType == other.grantType &&
+                clientId == other.clientId &&
+                clientSecret == other.clientSecret &&
+                code == other.code &&
+                productionToken == other.productionToken &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(grantType, clientId, clientSecret, code, productionToken, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(
+                grantType,
+                clientId,
+                clientSecret,
+                code,
+                productionToken,
+                additionalProperties,
+            )
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -829,7 +842,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is GrantType && value == other.value /* spotless:on */
+            return other is GrantType && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -842,10 +855,13 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is OAuthTokenCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is OAuthTokenCreateParams &&
+            body == other.body &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int = Objects.hash(body, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
         "OAuthTokenCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

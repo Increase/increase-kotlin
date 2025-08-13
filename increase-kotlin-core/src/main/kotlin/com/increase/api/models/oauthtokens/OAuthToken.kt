@@ -355,7 +355,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is TokenType && value == other.value /* spotless:on */
+            return other is TokenType && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -477,7 +477,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
+            return other is Type && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -490,12 +490,16 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is OAuthToken && accessToken == other.accessToken && tokenType == other.tokenType && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return other is OAuthToken &&
+            accessToken == other.accessToken &&
+            tokenType == other.tokenType &&
+            type == other.type &&
+            additionalProperties == other.additionalProperties
     }
 
-    /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(accessToken, tokenType, type, additionalProperties) }
-    /* spotless:on */
+    private val hashCode: Int by lazy {
+        Objects.hash(accessToken, tokenType, type, additionalProperties)
+    }
 
     override fun hashCode(): Int = hashCode
 

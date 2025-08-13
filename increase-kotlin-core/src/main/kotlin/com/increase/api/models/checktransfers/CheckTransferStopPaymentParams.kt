@@ -375,12 +375,12 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Body && reason == other.reason && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Body &&
+                reason == other.reason &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
         private val hashCode: Int by lazy { Objects.hash(reason, additionalProperties) }
-        /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
@@ -520,7 +520,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Reason && value == other.value /* spotless:on */
+            return other is Reason && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -533,10 +533,15 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is CheckTransferStopPaymentParams && checkTransferId == other.checkTransferId && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is CheckTransferStopPaymentParams &&
+            checkTransferId == other.checkTransferId &&
+            body == other.body &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(checkTransferId, body, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int =
+        Objects.hash(checkTransferId, body, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
         "CheckTransferStopPaymentParams{checkTransferId=$checkTransferId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

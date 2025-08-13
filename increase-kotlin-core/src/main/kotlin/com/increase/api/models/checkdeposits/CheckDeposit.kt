@@ -1497,7 +1497,7 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is Currency && value == other.value /* spotless:on */
+                return other is Currency && value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -1510,12 +1510,29 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is DepositAcceptance && accountNumber == other.accountNumber && amount == other.amount && auxiliaryOnUs == other.auxiliaryOnUs && checkDepositId == other.checkDepositId && currency == other.currency && routingNumber == other.routingNumber && serialNumber == other.serialNumber && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is DepositAcceptance &&
+                accountNumber == other.accountNumber &&
+                amount == other.amount &&
+                auxiliaryOnUs == other.auxiliaryOnUs &&
+                checkDepositId == other.checkDepositId &&
+                currency == other.currency &&
+                routingNumber == other.routingNumber &&
+                serialNumber == other.serialNumber &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(accountNumber, amount, auxiliaryOnUs, checkDepositId, currency, routingNumber, serialNumber, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(
+                accountNumber,
+                amount,
+                auxiliaryOnUs,
+                checkDepositId,
+                currency,
+                routingNumber,
+                serialNumber,
+                additionalProperties,
+            )
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -2052,7 +2069,7 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is Currency && value == other.value /* spotless:on */
+                return other is Currency && value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -2267,7 +2284,7 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is Reason && value == other.value /* spotless:on */
+                return other is Reason && value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -2280,12 +2297,27 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is DepositRejection && amount == other.amount && checkDepositId == other.checkDepositId && currency == other.currency && declinedTransactionId == other.declinedTransactionId && reason == other.reason && rejectedAt == other.rejectedAt && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is DepositRejection &&
+                amount == other.amount &&
+                checkDepositId == other.checkDepositId &&
+                currency == other.currency &&
+                declinedTransactionId == other.declinedTransactionId &&
+                reason == other.reason &&
+                rejectedAt == other.rejectedAt &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(amount, checkDepositId, currency, declinedTransactionId, reason, rejectedAt, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(
+                amount,
+                checkDepositId,
+                currency,
+                declinedTransactionId,
+                reason,
+                rejectedAt,
+                additionalProperties,
+            )
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -2829,7 +2861,7 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is Currency && value == other.value /* spotless:on */
+                return other is Currency && value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -3205,7 +3237,7 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is ReturnReason && value == other.value /* spotless:on */
+                return other is ReturnReason && value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -3218,12 +3250,27 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is DepositReturn && amount == other.amount && checkDepositId == other.checkDepositId && currency == other.currency && returnReason == other.returnReason && returnedAt == other.returnedAt && transactionId == other.transactionId && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is DepositReturn &&
+                amount == other.amount &&
+                checkDepositId == other.checkDepositId &&
+                currency == other.currency &&
+                returnReason == other.returnReason &&
+                returnedAt == other.returnedAt &&
+                transactionId == other.transactionId &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(amount, checkDepositId, currency, returnReason, returnedAt, transactionId, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(
+                amount,
+                checkDepositId,
+                currency,
+                returnReason,
+                returnedAt,
+                transactionId,
+                additionalProperties,
+            )
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -3481,12 +3528,16 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is DepositSubmission && backFileId == other.backFileId && frontFileId == other.frontFileId && submittedAt == other.submittedAt && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is DepositSubmission &&
+                backFileId == other.backFileId &&
+                frontFileId == other.frontFileId &&
+                submittedAt == other.submittedAt &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(backFileId, frontFileId, submittedAt, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(backFileId, frontFileId, submittedAt, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -4197,7 +4248,7 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is Currency && value == other.value /* spotless:on */
+                return other is Currency && value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -4331,7 +4382,7 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is Status && value == other.value /* spotless:on */
+                return other is Status && value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -4454,7 +4505,7 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is Type && value == other.value /* spotless:on */
+                return other is Type && value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -4467,12 +4518,35 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is InboundFundsHold && id == other.id && amount == other.amount && automaticallyReleasesAt == other.automaticallyReleasesAt && createdAt == other.createdAt && currency == other.currency && heldTransactionId == other.heldTransactionId && pendingTransactionId == other.pendingTransactionId && releasedAt == other.releasedAt && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is InboundFundsHold &&
+                id == other.id &&
+                amount == other.amount &&
+                automaticallyReleasesAt == other.automaticallyReleasesAt &&
+                createdAt == other.createdAt &&
+                currency == other.currency &&
+                heldTransactionId == other.heldTransactionId &&
+                pendingTransactionId == other.pendingTransactionId &&
+                releasedAt == other.releasedAt &&
+                status == other.status &&
+                type == other.type &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(id, amount, automaticallyReleasesAt, createdAt, currency, heldTransactionId, pendingTransactionId, releasedAt, status, type, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(
+                id,
+                amount,
+                automaticallyReleasesAt,
+                createdAt,
+                currency,
+                heldTransactionId,
+                pendingTransactionId,
+                releasedAt,
+                status,
+                type,
+                additionalProperties,
+            )
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -4622,7 +4696,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
+            return other is Status && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -4745,7 +4819,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
+            return other is Type && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -4758,12 +4832,51 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is CheckDeposit && id == other.id && accountId == other.accountId && amount == other.amount && backImageFileId == other.backImageFileId && createdAt == other.createdAt && depositAcceptance == other.depositAcceptance && depositRejection == other.depositRejection && depositReturn == other.depositReturn && depositSubmission == other.depositSubmission && description == other.description && frontImageFileId == other.frontImageFileId && idempotencyKey == other.idempotencyKey && inboundFundsHold == other.inboundFundsHold && inboundMailItemId == other.inboundMailItemId && lockboxId == other.lockboxId && status == other.status && transactionId == other.transactionId && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return other is CheckDeposit &&
+            id == other.id &&
+            accountId == other.accountId &&
+            amount == other.amount &&
+            backImageFileId == other.backImageFileId &&
+            createdAt == other.createdAt &&
+            depositAcceptance == other.depositAcceptance &&
+            depositRejection == other.depositRejection &&
+            depositReturn == other.depositReturn &&
+            depositSubmission == other.depositSubmission &&
+            description == other.description &&
+            frontImageFileId == other.frontImageFileId &&
+            idempotencyKey == other.idempotencyKey &&
+            inboundFundsHold == other.inboundFundsHold &&
+            inboundMailItemId == other.inboundMailItemId &&
+            lockboxId == other.lockboxId &&
+            status == other.status &&
+            transactionId == other.transactionId &&
+            type == other.type &&
+            additionalProperties == other.additionalProperties
     }
 
-    /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, accountId, amount, backImageFileId, createdAt, depositAcceptance, depositRejection, depositReturn, depositSubmission, description, frontImageFileId, idempotencyKey, inboundFundsHold, inboundMailItemId, lockboxId, status, transactionId, type, additionalProperties) }
-    /* spotless:on */
+    private val hashCode: Int by lazy {
+        Objects.hash(
+            id,
+            accountId,
+            amount,
+            backImageFileId,
+            createdAt,
+            depositAcceptance,
+            depositRejection,
+            depositReturn,
+            depositSubmission,
+            description,
+            frontImageFileId,
+            idempotencyKey,
+            inboundFundsHold,
+            inboundMailItemId,
+            lockboxId,
+            status,
+            transactionId,
+            type,
+            additionalProperties,
+        )
+    }
 
     override fun hashCode(): Int = hashCode
 

@@ -399,12 +399,12 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Body && cardPaymentId == other.cardPaymentId && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Body &&
+                cardPaymentId == other.cardPaymentId &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
         private val hashCode: Int by lazy { Objects.hash(cardPaymentId, additionalProperties) }
-        /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
@@ -417,10 +417,13 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is CardAuthorizationExpirationCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is CardAuthorizationExpirationCreateParams &&
+            body == other.body &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int = Objects.hash(body, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
         "CardAuthorizationExpirationCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
