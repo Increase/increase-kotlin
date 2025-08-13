@@ -872,12 +872,16 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Acceptance && acceptedAt == other.acceptedAt && cardDisputeId == other.cardDisputeId && transactionId == other.transactionId && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Acceptance &&
+                acceptedAt == other.acceptedAt &&
+                cardDisputeId == other.cardDisputeId &&
+                transactionId == other.transactionId &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(acceptedAt, cardDisputeId, transactionId, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(acceptedAt, cardDisputeId, transactionId, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -1169,12 +1173,17 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Loss && cardDisputeId == other.cardDisputeId && explanation == other.explanation && lostAt == other.lostAt && transactionId == other.transactionId && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Loss &&
+                cardDisputeId == other.cardDisputeId &&
+                explanation == other.explanation &&
+                lostAt == other.lostAt &&
+                transactionId == other.transactionId &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(cardDisputeId, explanation, lostAt, transactionId, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(cardDisputeId, explanation, lostAt, transactionId, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -1426,12 +1435,16 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Rejection && cardDisputeId == other.cardDisputeId && explanation == other.explanation && rejectedAt == other.rejectedAt && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Rejection &&
+                cardDisputeId == other.cardDisputeId &&
+                explanation == other.explanation &&
+                rejectedAt == other.rejectedAt &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(cardDisputeId, explanation, rejectedAt, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(cardDisputeId, explanation, rejectedAt, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -1617,7 +1630,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
+            return other is Status && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1740,7 +1753,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
+            return other is Type && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1943,12 +1956,15 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Win && cardDisputeId == other.cardDisputeId && wonAt == other.wonAt && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Win &&
+                cardDisputeId == other.cardDisputeId &&
+                wonAt == other.wonAt &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(cardDisputeId, wonAt, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(cardDisputeId, wonAt, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -1961,12 +1977,39 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is CardDispute && id == other.id && acceptance == other.acceptance && amount == other.amount && createdAt == other.createdAt && disputedTransactionId == other.disputedTransactionId && explanation == other.explanation && idempotencyKey == other.idempotencyKey && loss == other.loss && rejection == other.rejection && status == other.status && type == other.type && win == other.win && additionalProperties == other.additionalProperties /* spotless:on */
+        return other is CardDispute &&
+            id == other.id &&
+            acceptance == other.acceptance &&
+            amount == other.amount &&
+            createdAt == other.createdAt &&
+            disputedTransactionId == other.disputedTransactionId &&
+            explanation == other.explanation &&
+            idempotencyKey == other.idempotencyKey &&
+            loss == other.loss &&
+            rejection == other.rejection &&
+            status == other.status &&
+            type == other.type &&
+            win == other.win &&
+            additionalProperties == other.additionalProperties
     }
 
-    /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, acceptance, amount, createdAt, disputedTransactionId, explanation, idempotencyKey, loss, rejection, status, type, win, additionalProperties) }
-    /* spotless:on */
+    private val hashCode: Int by lazy {
+        Objects.hash(
+            id,
+            acceptance,
+            amount,
+            createdAt,
+            disputedTransactionId,
+            explanation,
+            idempotencyKey,
+            loss,
+            rejection,
+            status,
+            type,
+            win,
+            additionalProperties,
+        )
+    }
 
     override fun hashCode(): Int = hashCode
 

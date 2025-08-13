@@ -1035,12 +1035,33 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Body && structure == other.structure && corporation == other.corporation && description == other.description && governmentAuthority == other.governmentAuthority && joint == other.joint && naturalPerson == other.naturalPerson && supplementalDocuments == other.supplementalDocuments && thirdPartyVerification == other.thirdPartyVerification && trust == other.trust && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Body &&
+                structure == other.structure &&
+                corporation == other.corporation &&
+                description == other.description &&
+                governmentAuthority == other.governmentAuthority &&
+                joint == other.joint &&
+                naturalPerson == other.naturalPerson &&
+                supplementalDocuments == other.supplementalDocuments &&
+                thirdPartyVerification == other.thirdPartyVerification &&
+                trust == other.trust &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(structure, corporation, description, governmentAuthority, joint, naturalPerson, supplementalDocuments, thirdPartyVerification, trust, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(
+                structure,
+                corporation,
+                description,
+                governmentAuthority,
+                joint,
+                naturalPerson,
+                supplementalDocuments,
+                thirdPartyVerification,
+                trust,
+                additionalProperties,
+            )
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -1201,7 +1222,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Structure && value == other.value /* spotless:on */
+            return other is Structure && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1997,12 +2018,18 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is Address && city == other.city && line1 == other.line1 && state == other.state && zip == other.zip && line2 == other.line2 && additionalProperties == other.additionalProperties /* spotless:on */
+                return other is Address &&
+                    city == other.city &&
+                    line1 == other.line1 &&
+                    state == other.state &&
+                    zip == other.zip &&
+                    line2 == other.line2 &&
+                    additionalProperties == other.additionalProperties
             }
 
-            /* spotless:off */
-            private val hashCode: Int by lazy { Objects.hash(city, line1, state, zip, line2, additionalProperties) }
-            /* spotless:on */
+            private val hashCode: Int by lazy {
+                Objects.hash(city, line1, state, zip, line2, additionalProperties)
+            }
 
             override fun hashCode(): Int = hashCode
 
@@ -2965,12 +2992,19 @@ private constructor(
                             return true
                         }
 
-                        return /* spotless:off */ other is Address && country == other.country && line1 == other.line1 && city == other.city && line2 == other.line2 && state == other.state && zip == other.zip && additionalProperties == other.additionalProperties /* spotless:on */
+                        return other is Address &&
+                            country == other.country &&
+                            line1 == other.line1 &&
+                            city == other.city &&
+                            line2 == other.line2 &&
+                            state == other.state &&
+                            zip == other.zip &&
+                            additionalProperties == other.additionalProperties
                     }
 
-                    /* spotless:off */
-                    private val hashCode: Int by lazy { Objects.hash(country, line1, city, line2, state, zip, additionalProperties) }
-                    /* spotless:on */
+                    private val hashCode: Int by lazy {
+                        Objects.hash(country, line1, city, line2, state, zip, additionalProperties)
+                    }
 
                     override fun hashCode(): Int = hashCode
 
@@ -3473,7 +3507,7 @@ private constructor(
                                 return true
                             }
 
-                            return /* spotless:off */ other is Method && value == other.value /* spotless:on */
+                            return other is Method && value == other.value
                         }
 
                         override fun hashCode() = value.hashCode()
@@ -3779,12 +3813,23 @@ private constructor(
                                 return true
                             }
 
-                            return /* spotless:off */ other is DriversLicense && expirationDate == other.expirationDate && fileId == other.fileId && state == other.state && backFileId == other.backFileId && additionalProperties == other.additionalProperties /* spotless:on */
+                            return other is DriversLicense &&
+                                expirationDate == other.expirationDate &&
+                                fileId == other.fileId &&
+                                state == other.state &&
+                                backFileId == other.backFileId &&
+                                additionalProperties == other.additionalProperties
                         }
 
-                        /* spotless:off */
-                        private val hashCode: Int by lazy { Objects.hash(expirationDate, fileId, state, backFileId, additionalProperties) }
-                        /* spotless:on */
+                        private val hashCode: Int by lazy {
+                            Objects.hash(
+                                expirationDate,
+                                fileId,
+                                state,
+                                backFileId,
+                                additionalProperties,
+                            )
+                        }
 
                         override fun hashCode(): Int = hashCode
 
@@ -4141,12 +4186,25 @@ private constructor(
                                 return true
                             }
 
-                            return /* spotless:off */ other is Other && country == other.country && description == other.description && fileId == other.fileId && backFileId == other.backFileId && expirationDate == other.expirationDate && additionalProperties == other.additionalProperties /* spotless:on */
+                            return other is Other &&
+                                country == other.country &&
+                                description == other.description &&
+                                fileId == other.fileId &&
+                                backFileId == other.backFileId &&
+                                expirationDate == other.expirationDate &&
+                                additionalProperties == other.additionalProperties
                         }
 
-                        /* spotless:off */
-                        private val hashCode: Int by lazy { Objects.hash(country, description, fileId, backFileId, expirationDate, additionalProperties) }
-                        /* spotless:on */
+                        private val hashCode: Int by lazy {
+                            Objects.hash(
+                                country,
+                                description,
+                                fileId,
+                                backFileId,
+                                expirationDate,
+                                additionalProperties,
+                            )
+                        }
 
                         override fun hashCode(): Int = hashCode
 
@@ -4408,12 +4466,16 @@ private constructor(
                                 return true
                             }
 
-                            return /* spotless:off */ other is Passport && country == other.country && expirationDate == other.expirationDate && fileId == other.fileId && additionalProperties == other.additionalProperties /* spotless:on */
+                            return other is Passport &&
+                                country == other.country &&
+                                expirationDate == other.expirationDate &&
+                                fileId == other.fileId &&
+                                additionalProperties == other.additionalProperties
                         }
 
-                        /* spotless:off */
-                        private val hashCode: Int by lazy { Objects.hash(country, expirationDate, fileId, additionalProperties) }
-                        /* spotless:on */
+                        private val hashCode: Int by lazy {
+                            Objects.hash(country, expirationDate, fileId, additionalProperties)
+                        }
 
                         override fun hashCode(): Int = hashCode
 
@@ -4426,12 +4488,25 @@ private constructor(
                             return true
                         }
 
-                        return /* spotless:off */ other is Identification && method == other.method && number == other.number && driversLicense == other.driversLicense && this.other == other.other && passport == other.passport && additionalProperties == other.additionalProperties /* spotless:on */
+                        return other is Identification &&
+                            method == other.method &&
+                            number == other.number &&
+                            driversLicense == other.driversLicense &&
+                            this.other == other.other &&
+                            passport == other.passport &&
+                            additionalProperties == other.additionalProperties
                     }
 
-                    /* spotless:off */
-                    private val hashCode: Int by lazy { Objects.hash(method, number, driversLicense, other, passport, additionalProperties) }
-                    /* spotless:on */
+                    private val hashCode: Int by lazy {
+                        Objects.hash(
+                            method,
+                            number,
+                            driversLicense,
+                            other,
+                            passport,
+                            additionalProperties,
+                        )
+                    }
 
                     override fun hashCode(): Int = hashCode
 
@@ -4444,12 +4519,25 @@ private constructor(
                         return true
                     }
 
-                    return /* spotless:off */ other is Individual && address == other.address && dateOfBirth == other.dateOfBirth && identification == other.identification && name == other.name && confirmedNoUsTaxId == other.confirmedNoUsTaxId && additionalProperties == other.additionalProperties /* spotless:on */
+                    return other is Individual &&
+                        address == other.address &&
+                        dateOfBirth == other.dateOfBirth &&
+                        identification == other.identification &&
+                        name == other.name &&
+                        confirmedNoUsTaxId == other.confirmedNoUsTaxId &&
+                        additionalProperties == other.additionalProperties
                 }
 
-                /* spotless:off */
-                private val hashCode: Int by lazy { Objects.hash(address, dateOfBirth, identification, name, confirmedNoUsTaxId, additionalProperties) }
-                /* spotless:on */
+                private val hashCode: Int by lazy {
+                    Objects.hash(
+                        address,
+                        dateOfBirth,
+                        identification,
+                        name,
+                        confirmedNoUsTaxId,
+                        additionalProperties,
+                    )
+                }
 
                 override fun hashCode(): Int = hashCode
 
@@ -4585,7 +4673,7 @@ private constructor(
                         return true
                     }
 
-                    return /* spotless:off */ other is Prong && value == other.value /* spotless:on */
+                    return other is Prong && value == other.value
                 }
 
                 override fun hashCode() = value.hashCode()
@@ -4598,12 +4686,16 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is BeneficialOwner && individual == other.individual && prongs == other.prongs && companyTitle == other.companyTitle && additionalProperties == other.additionalProperties /* spotless:on */
+                return other is BeneficialOwner &&
+                    individual == other.individual &&
+                    prongs == other.prongs &&
+                    companyTitle == other.companyTitle &&
+                    additionalProperties == other.additionalProperties
             }
 
-            /* spotless:off */
-            private val hashCode: Int by lazy { Objects.hash(individual, prongs, companyTitle, additionalProperties) }
-            /* spotless:on */
+            private val hashCode: Int by lazy {
+                Objects.hash(individual, prongs, companyTitle, additionalProperties)
+            }
 
             override fun hashCode(): Int = hashCode
 
@@ -4758,7 +4850,7 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is BeneficialOwnershipExemptionReason && value == other.value /* spotless:on */
+                return other is BeneficialOwnershipExemptionReason && value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -4771,12 +4863,31 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Corporation && address == other.address && beneficialOwners == other.beneficialOwners && name == other.name && taxIdentifier == other.taxIdentifier && beneficialOwnershipExemptionReason == other.beneficialOwnershipExemptionReason && incorporationState == other.incorporationState && industryCode == other.industryCode && website == other.website && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Corporation &&
+                address == other.address &&
+                beneficialOwners == other.beneficialOwners &&
+                name == other.name &&
+                taxIdentifier == other.taxIdentifier &&
+                beneficialOwnershipExemptionReason == other.beneficialOwnershipExemptionReason &&
+                incorporationState == other.incorporationState &&
+                industryCode == other.industryCode &&
+                website == other.website &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(address, beneficialOwners, name, taxIdentifier, beneficialOwnershipExemptionReason, incorporationState, industryCode, website, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(
+                address,
+                beneficialOwners,
+                name,
+                taxIdentifier,
+                beneficialOwnershipExemptionReason,
+                incorporationState,
+                industryCode,
+                website,
+                additionalProperties,
+            )
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -5442,12 +5553,18 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is Address && city == other.city && line1 == other.line1 && state == other.state && zip == other.zip && line2 == other.line2 && additionalProperties == other.additionalProperties /* spotless:on */
+                return other is Address &&
+                    city == other.city &&
+                    line1 == other.line1 &&
+                    state == other.state &&
+                    zip == other.zip &&
+                    line2 == other.line2 &&
+                    additionalProperties == other.additionalProperties
             }
 
-            /* spotless:off */
-            private val hashCode: Int by lazy { Objects.hash(city, line1, state, zip, line2, additionalProperties) }
-            /* spotless:on */
+            private val hashCode: Int by lazy {
+                Objects.hash(city, line1, state, zip, line2, additionalProperties)
+            }
 
             override fun hashCode(): Int = hashCode
 
@@ -5603,12 +5720,12 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is AuthorizedPerson && name == other.name && additionalProperties == other.additionalProperties /* spotless:on */
+                return other is AuthorizedPerson &&
+                    name == other.name &&
+                    additionalProperties == other.additionalProperties
             }
 
-            /* spotless:off */
             private val hashCode: Int by lazy { Objects.hash(name, additionalProperties) }
-            /* spotless:on */
 
             override fun hashCode(): Int = hashCode
 
@@ -5761,7 +5878,7 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is Category && value == other.value /* spotless:on */
+                return other is Category && value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -5774,12 +5891,27 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is GovernmentAuthority && address == other.address && authorizedPersons == other.authorizedPersons && category == other.category && name == other.name && taxIdentifier == other.taxIdentifier && website == other.website && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is GovernmentAuthority &&
+                address == other.address &&
+                authorizedPersons == other.authorizedPersons &&
+                category == other.category &&
+                name == other.name &&
+                taxIdentifier == other.taxIdentifier &&
+                website == other.website &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(address, authorizedPersons, category, name, taxIdentifier, website, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(
+                address,
+                authorizedPersons,
+                category,
+                name,
+                taxIdentifier,
+                website,
+                additionalProperties,
+            )
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -6587,12 +6719,18 @@ private constructor(
                         return true
                     }
 
-                    return /* spotless:off */ other is Address && city == other.city && line1 == other.line1 && state == other.state && zip == other.zip && line2 == other.line2 && additionalProperties == other.additionalProperties /* spotless:on */
+                    return other is Address &&
+                        city == other.city &&
+                        line1 == other.line1 &&
+                        state == other.state &&
+                        zip == other.zip &&
+                        line2 == other.line2 &&
+                        additionalProperties == other.additionalProperties
                 }
 
-                /* spotless:off */
-                private val hashCode: Int by lazy { Objects.hash(city, line1, state, zip, line2, additionalProperties) }
-                /* spotless:on */
+                private val hashCode: Int by lazy {
+                    Objects.hash(city, line1, state, zip, line2, additionalProperties)
+                }
 
                 override fun hashCode(): Int = hashCode
 
@@ -7084,7 +7222,7 @@ private constructor(
                             return true
                         }
 
-                        return /* spotless:off */ other is Method && value == other.value /* spotless:on */
+                        return other is Method && value == other.value
                     }
 
                     override fun hashCode() = value.hashCode()
@@ -7383,12 +7521,23 @@ private constructor(
                             return true
                         }
 
-                        return /* spotless:off */ other is DriversLicense && expirationDate == other.expirationDate && fileId == other.fileId && state == other.state && backFileId == other.backFileId && additionalProperties == other.additionalProperties /* spotless:on */
+                        return other is DriversLicense &&
+                            expirationDate == other.expirationDate &&
+                            fileId == other.fileId &&
+                            state == other.state &&
+                            backFileId == other.backFileId &&
+                            additionalProperties == other.additionalProperties
                     }
 
-                    /* spotless:off */
-                    private val hashCode: Int by lazy { Objects.hash(expirationDate, fileId, state, backFileId, additionalProperties) }
-                    /* spotless:on */
+                    private val hashCode: Int by lazy {
+                        Objects.hash(
+                            expirationDate,
+                            fileId,
+                            state,
+                            backFileId,
+                            additionalProperties,
+                        )
+                    }
 
                     override fun hashCode(): Int = hashCode
 
@@ -7740,12 +7889,25 @@ private constructor(
                             return true
                         }
 
-                        return /* spotless:off */ other is Other && country == other.country && description == other.description && fileId == other.fileId && backFileId == other.backFileId && expirationDate == other.expirationDate && additionalProperties == other.additionalProperties /* spotless:on */
+                        return other is Other &&
+                            country == other.country &&
+                            description == other.description &&
+                            fileId == other.fileId &&
+                            backFileId == other.backFileId &&
+                            expirationDate == other.expirationDate &&
+                            additionalProperties == other.additionalProperties
                     }
 
-                    /* spotless:off */
-                    private val hashCode: Int by lazy { Objects.hash(country, description, fileId, backFileId, expirationDate, additionalProperties) }
-                    /* spotless:on */
+                    private val hashCode: Int by lazy {
+                        Objects.hash(
+                            country,
+                            description,
+                            fileId,
+                            backFileId,
+                            expirationDate,
+                            additionalProperties,
+                        )
+                    }
 
                     override fun hashCode(): Int = hashCode
 
@@ -8003,12 +8165,16 @@ private constructor(
                             return true
                         }
 
-                        return /* spotless:off */ other is Passport && country == other.country && expirationDate == other.expirationDate && fileId == other.fileId && additionalProperties == other.additionalProperties /* spotless:on */
+                        return other is Passport &&
+                            country == other.country &&
+                            expirationDate == other.expirationDate &&
+                            fileId == other.fileId &&
+                            additionalProperties == other.additionalProperties
                     }
 
-                    /* spotless:off */
-                    private val hashCode: Int by lazy { Objects.hash(country, expirationDate, fileId, additionalProperties) }
-                    /* spotless:on */
+                    private val hashCode: Int by lazy {
+                        Objects.hash(country, expirationDate, fileId, additionalProperties)
+                    }
 
                     override fun hashCode(): Int = hashCode
 
@@ -8021,12 +8187,25 @@ private constructor(
                         return true
                     }
 
-                    return /* spotless:off */ other is Identification && method == other.method && number == other.number && driversLicense == other.driversLicense && this.other == other.other && passport == other.passport && additionalProperties == other.additionalProperties /* spotless:on */
+                    return other is Identification &&
+                        method == other.method &&
+                        number == other.number &&
+                        driversLicense == other.driversLicense &&
+                        this.other == other.other &&
+                        passport == other.passport &&
+                        additionalProperties == other.additionalProperties
                 }
 
-                /* spotless:off */
-                private val hashCode: Int by lazy { Objects.hash(method, number, driversLicense, other, passport, additionalProperties) }
-                /* spotless:on */
+                private val hashCode: Int by lazy {
+                    Objects.hash(
+                        method,
+                        number,
+                        driversLicense,
+                        other,
+                        passport,
+                        additionalProperties,
+                    )
+                }
 
                 override fun hashCode(): Int = hashCode
 
@@ -8039,12 +8218,25 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is Individual && address == other.address && dateOfBirth == other.dateOfBirth && identification == other.identification && name == other.name && confirmedNoUsTaxId == other.confirmedNoUsTaxId && additionalProperties == other.additionalProperties /* spotless:on */
+                return other is Individual &&
+                    address == other.address &&
+                    dateOfBirth == other.dateOfBirth &&
+                    identification == other.identification &&
+                    name == other.name &&
+                    confirmedNoUsTaxId == other.confirmedNoUsTaxId &&
+                    additionalProperties == other.additionalProperties
             }
 
-            /* spotless:off */
-            private val hashCode: Int by lazy { Objects.hash(address, dateOfBirth, identification, name, confirmedNoUsTaxId, additionalProperties) }
-            /* spotless:on */
+            private val hashCode: Int by lazy {
+                Objects.hash(
+                    address,
+                    dateOfBirth,
+                    identification,
+                    name,
+                    confirmedNoUsTaxId,
+                    additionalProperties,
+                )
+            }
 
             override fun hashCode(): Int = hashCode
 
@@ -8057,12 +8249,12 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Joint && individuals == other.individuals && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Joint &&
+                individuals == other.individuals &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
         private val hashCode: Int by lazy { Objects.hash(individuals, additionalProperties) }
-        /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
@@ -8692,12 +8884,18 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is Address && city == other.city && line1 == other.line1 && state == other.state && zip == other.zip && line2 == other.line2 && additionalProperties == other.additionalProperties /* spotless:on */
+                return other is Address &&
+                    city == other.city &&
+                    line1 == other.line1 &&
+                    state == other.state &&
+                    zip == other.zip &&
+                    line2 == other.line2 &&
+                    additionalProperties == other.additionalProperties
             }
 
-            /* spotless:off */
-            private val hashCode: Int by lazy { Objects.hash(city, line1, state, zip, line2, additionalProperties) }
-            /* spotless:on */
+            private val hashCode: Int by lazy {
+                Objects.hash(city, line1, state, zip, line2, additionalProperties)
+            }
 
             override fun hashCode(): Int = hashCode
 
@@ -9181,7 +9379,7 @@ private constructor(
                         return true
                     }
 
-                    return /* spotless:off */ other is Method && value == other.value /* spotless:on */
+                    return other is Method && value == other.value
                 }
 
                 override fun hashCode() = value.hashCode()
@@ -9471,12 +9669,17 @@ private constructor(
                         return true
                     }
 
-                    return /* spotless:off */ other is DriversLicense && expirationDate == other.expirationDate && fileId == other.fileId && state == other.state && backFileId == other.backFileId && additionalProperties == other.additionalProperties /* spotless:on */
+                    return other is DriversLicense &&
+                        expirationDate == other.expirationDate &&
+                        fileId == other.fileId &&
+                        state == other.state &&
+                        backFileId == other.backFileId &&
+                        additionalProperties == other.additionalProperties
                 }
 
-                /* spotless:off */
-                private val hashCode: Int by lazy { Objects.hash(expirationDate, fileId, state, backFileId, additionalProperties) }
-                /* spotless:on */
+                private val hashCode: Int by lazy {
+                    Objects.hash(expirationDate, fileId, state, backFileId, additionalProperties)
+                }
 
                 override fun hashCode(): Int = hashCode
 
@@ -9815,12 +10018,25 @@ private constructor(
                         return true
                     }
 
-                    return /* spotless:off */ other is Other && country == other.country && description == other.description && fileId == other.fileId && backFileId == other.backFileId && expirationDate == other.expirationDate && additionalProperties == other.additionalProperties /* spotless:on */
+                    return other is Other &&
+                        country == other.country &&
+                        description == other.description &&
+                        fileId == other.fileId &&
+                        backFileId == other.backFileId &&
+                        expirationDate == other.expirationDate &&
+                        additionalProperties == other.additionalProperties
                 }
 
-                /* spotless:off */
-                private val hashCode: Int by lazy { Objects.hash(country, description, fileId, backFileId, expirationDate, additionalProperties) }
-                /* spotless:on */
+                private val hashCode: Int by lazy {
+                    Objects.hash(
+                        country,
+                        description,
+                        fileId,
+                        backFileId,
+                        expirationDate,
+                        additionalProperties,
+                    )
+                }
 
                 override fun hashCode(): Int = hashCode
 
@@ -10073,12 +10289,16 @@ private constructor(
                         return true
                     }
 
-                    return /* spotless:off */ other is Passport && country == other.country && expirationDate == other.expirationDate && fileId == other.fileId && additionalProperties == other.additionalProperties /* spotless:on */
+                    return other is Passport &&
+                        country == other.country &&
+                        expirationDate == other.expirationDate &&
+                        fileId == other.fileId &&
+                        additionalProperties == other.additionalProperties
                 }
 
-                /* spotless:off */
-                private val hashCode: Int by lazy { Objects.hash(country, expirationDate, fileId, additionalProperties) }
-                /* spotless:on */
+                private val hashCode: Int by lazy {
+                    Objects.hash(country, expirationDate, fileId, additionalProperties)
+                }
 
                 override fun hashCode(): Int = hashCode
 
@@ -10091,12 +10311,18 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is Identification && method == other.method && number == other.number && driversLicense == other.driversLicense && this.other == other.other && passport == other.passport && additionalProperties == other.additionalProperties /* spotless:on */
+                return other is Identification &&
+                    method == other.method &&
+                    number == other.number &&
+                    driversLicense == other.driversLicense &&
+                    this.other == other.other &&
+                    passport == other.passport &&
+                    additionalProperties == other.additionalProperties
             }
 
-            /* spotless:off */
-            private val hashCode: Int by lazy { Objects.hash(method, number, driversLicense, other, passport, additionalProperties) }
-            /* spotless:on */
+            private val hashCode: Int by lazy {
+                Objects.hash(method, number, driversLicense, other, passport, additionalProperties)
+            }
 
             override fun hashCode(): Int = hashCode
 
@@ -10109,12 +10335,25 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is NaturalPerson && address == other.address && dateOfBirth == other.dateOfBirth && identification == other.identification && name == other.name && confirmedNoUsTaxId == other.confirmedNoUsTaxId && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is NaturalPerson &&
+                address == other.address &&
+                dateOfBirth == other.dateOfBirth &&
+                identification == other.identification &&
+                name == other.name &&
+                confirmedNoUsTaxId == other.confirmedNoUsTaxId &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(address, dateOfBirth, identification, name, confirmedNoUsTaxId, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(
+                address,
+                dateOfBirth,
+                identification,
+                name,
+                confirmedNoUsTaxId,
+                additionalProperties,
+            )
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -10266,12 +10505,12 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is SupplementalDocument && fileId == other.fileId && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is SupplementalDocument &&
+                fileId == other.fileId &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
         private val hashCode: Int by lazy { Objects.hash(fileId, additionalProperties) }
-        /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
@@ -10595,7 +10834,7 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is Vendor && value == other.value /* spotless:on */
+                return other is Vendor && value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -10608,12 +10847,13 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is ThirdPartyVerification && reference == other.reference && vendor == other.vendor && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is ThirdPartyVerification &&
+                reference == other.reference &&
+                vendor == other.vendor &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
         private val hashCode: Int by lazy { Objects.hash(reference, vendor, additionalProperties) }
-        /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
@@ -11380,12 +11620,18 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is Address && city == other.city && line1 == other.line1 && state == other.state && zip == other.zip && line2 == other.line2 && additionalProperties == other.additionalProperties /* spotless:on */
+                return other is Address &&
+                    city == other.city &&
+                    line1 == other.line1 &&
+                    state == other.state &&
+                    zip == other.zip &&
+                    line2 == other.line2 &&
+                    additionalProperties == other.additionalProperties
             }
 
-            /* spotless:off */
-            private val hashCode: Int by lazy { Objects.hash(city, line1, state, zip, line2, additionalProperties) }
-            /* spotless:on */
+            private val hashCode: Int by lazy {
+                Objects.hash(city, line1, state, zip, line2, additionalProperties)
+            }
 
             override fun hashCode(): Int = hashCode
 
@@ -11524,7 +11770,7 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is Category && value == other.value /* spotless:on */
+                return other is Category && value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -11847,7 +12093,7 @@ private constructor(
                         return true
                     }
 
-                    return /* spotless:off */ other is Structure && value == other.value /* spotless:on */
+                    return other is Structure && value == other.value
                 }
 
                 override fun hashCode() = value.hashCode()
@@ -12522,12 +12768,18 @@ private constructor(
                             return true
                         }
 
-                        return /* spotless:off */ other is Address && city == other.city && line1 == other.line1 && state == other.state && zip == other.zip && line2 == other.line2 && additionalProperties == other.additionalProperties /* spotless:on */
+                        return other is Address &&
+                            city == other.city &&
+                            line1 == other.line1 &&
+                            state == other.state &&
+                            zip == other.zip &&
+                            line2 == other.line2 &&
+                            additionalProperties == other.additionalProperties
                     }
 
-                    /* spotless:off */
-                    private val hashCode: Int by lazy { Objects.hash(city, line1, state, zip, line2, additionalProperties) }
-                    /* spotless:on */
+                    private val hashCode: Int by lazy {
+                        Objects.hash(city, line1, state, zip, line2, additionalProperties)
+                    }
 
                     override fun hashCode(): Int = hashCode
 
@@ -13030,7 +13282,7 @@ private constructor(
                                 return true
                             }
 
-                            return /* spotless:off */ other is Method && value == other.value /* spotless:on */
+                            return other is Method && value == other.value
                         }
 
                         override fun hashCode() = value.hashCode()
@@ -13336,12 +13588,23 @@ private constructor(
                                 return true
                             }
 
-                            return /* spotless:off */ other is DriversLicense && expirationDate == other.expirationDate && fileId == other.fileId && state == other.state && backFileId == other.backFileId && additionalProperties == other.additionalProperties /* spotless:on */
+                            return other is DriversLicense &&
+                                expirationDate == other.expirationDate &&
+                                fileId == other.fileId &&
+                                state == other.state &&
+                                backFileId == other.backFileId &&
+                                additionalProperties == other.additionalProperties
                         }
 
-                        /* spotless:off */
-                        private val hashCode: Int by lazy { Objects.hash(expirationDate, fileId, state, backFileId, additionalProperties) }
-                        /* spotless:on */
+                        private val hashCode: Int by lazy {
+                            Objects.hash(
+                                expirationDate,
+                                fileId,
+                                state,
+                                backFileId,
+                                additionalProperties,
+                            )
+                        }
 
                         override fun hashCode(): Int = hashCode
 
@@ -13698,12 +13961,25 @@ private constructor(
                                 return true
                             }
 
-                            return /* spotless:off */ other is Other && country == other.country && description == other.description && fileId == other.fileId && backFileId == other.backFileId && expirationDate == other.expirationDate && additionalProperties == other.additionalProperties /* spotless:on */
+                            return other is Other &&
+                                country == other.country &&
+                                description == other.description &&
+                                fileId == other.fileId &&
+                                backFileId == other.backFileId &&
+                                expirationDate == other.expirationDate &&
+                                additionalProperties == other.additionalProperties
                         }
 
-                        /* spotless:off */
-                        private val hashCode: Int by lazy { Objects.hash(country, description, fileId, backFileId, expirationDate, additionalProperties) }
-                        /* spotless:on */
+                        private val hashCode: Int by lazy {
+                            Objects.hash(
+                                country,
+                                description,
+                                fileId,
+                                backFileId,
+                                expirationDate,
+                                additionalProperties,
+                            )
+                        }
 
                         override fun hashCode(): Int = hashCode
 
@@ -13965,12 +14241,16 @@ private constructor(
                                 return true
                             }
 
-                            return /* spotless:off */ other is Passport && country == other.country && expirationDate == other.expirationDate && fileId == other.fileId && additionalProperties == other.additionalProperties /* spotless:on */
+                            return other is Passport &&
+                                country == other.country &&
+                                expirationDate == other.expirationDate &&
+                                fileId == other.fileId &&
+                                additionalProperties == other.additionalProperties
                         }
 
-                        /* spotless:off */
-                        private val hashCode: Int by lazy { Objects.hash(country, expirationDate, fileId, additionalProperties) }
-                        /* spotless:on */
+                        private val hashCode: Int by lazy {
+                            Objects.hash(country, expirationDate, fileId, additionalProperties)
+                        }
 
                         override fun hashCode(): Int = hashCode
 
@@ -13983,12 +14263,25 @@ private constructor(
                             return true
                         }
 
-                        return /* spotless:off */ other is Identification && method == other.method && number == other.number && driversLicense == other.driversLicense && this.other == other.other && passport == other.passport && additionalProperties == other.additionalProperties /* spotless:on */
+                        return other is Identification &&
+                            method == other.method &&
+                            number == other.number &&
+                            driversLicense == other.driversLicense &&
+                            this.other == other.other &&
+                            passport == other.passport &&
+                            additionalProperties == other.additionalProperties
                     }
 
-                    /* spotless:off */
-                    private val hashCode: Int by lazy { Objects.hash(method, number, driversLicense, other, passport, additionalProperties) }
-                    /* spotless:on */
+                    private val hashCode: Int by lazy {
+                        Objects.hash(
+                            method,
+                            number,
+                            driversLicense,
+                            other,
+                            passport,
+                            additionalProperties,
+                        )
+                    }
 
                     override fun hashCode(): Int = hashCode
 
@@ -14001,12 +14294,25 @@ private constructor(
                         return true
                     }
 
-                    return /* spotless:off */ other is Individual && address == other.address && dateOfBirth == other.dateOfBirth && identification == other.identification && name == other.name && confirmedNoUsTaxId == other.confirmedNoUsTaxId && additionalProperties == other.additionalProperties /* spotless:on */
+                    return other is Individual &&
+                        address == other.address &&
+                        dateOfBirth == other.dateOfBirth &&
+                        identification == other.identification &&
+                        name == other.name &&
+                        confirmedNoUsTaxId == other.confirmedNoUsTaxId &&
+                        additionalProperties == other.additionalProperties
                 }
 
-                /* spotless:off */
-                private val hashCode: Int by lazy { Objects.hash(address, dateOfBirth, identification, name, confirmedNoUsTaxId, additionalProperties) }
-                /* spotless:on */
+                private val hashCode: Int by lazy {
+                    Objects.hash(
+                        address,
+                        dateOfBirth,
+                        identification,
+                        name,
+                        confirmedNoUsTaxId,
+                        additionalProperties,
+                    )
+                }
 
                 override fun hashCode(): Int = hashCode
 
@@ -14019,12 +14325,15 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is Trustee && structure == other.structure && individual == other.individual && additionalProperties == other.additionalProperties /* spotless:on */
+                return other is Trustee &&
+                    structure == other.structure &&
+                    individual == other.individual &&
+                    additionalProperties == other.additionalProperties
             }
 
-            /* spotless:off */
-            private val hashCode: Int by lazy { Objects.hash(structure, individual, additionalProperties) }
-            /* spotless:on */
+            private val hashCode: Int by lazy {
+                Objects.hash(structure, individual, additionalProperties)
+            }
 
             override fun hashCode(): Int = hashCode
 
@@ -14675,12 +14984,18 @@ private constructor(
                         return true
                     }
 
-                    return /* spotless:off */ other is Address && city == other.city && line1 == other.line1 && state == other.state && zip == other.zip && line2 == other.line2 && additionalProperties == other.additionalProperties /* spotless:on */
+                    return other is Address &&
+                        city == other.city &&
+                        line1 == other.line1 &&
+                        state == other.state &&
+                        zip == other.zip &&
+                        line2 == other.line2 &&
+                        additionalProperties == other.additionalProperties
                 }
 
-                /* spotless:off */
-                private val hashCode: Int by lazy { Objects.hash(city, line1, state, zip, line2, additionalProperties) }
-                /* spotless:on */
+                private val hashCode: Int by lazy {
+                    Objects.hash(city, line1, state, zip, line2, additionalProperties)
+                }
 
                 override fun hashCode(): Int = hashCode
 
@@ -15172,7 +15487,7 @@ private constructor(
                             return true
                         }
 
-                        return /* spotless:off */ other is Method && value == other.value /* spotless:on */
+                        return other is Method && value == other.value
                     }
 
                     override fun hashCode() = value.hashCode()
@@ -15471,12 +15786,23 @@ private constructor(
                             return true
                         }
 
-                        return /* spotless:off */ other is DriversLicense && expirationDate == other.expirationDate && fileId == other.fileId && state == other.state && backFileId == other.backFileId && additionalProperties == other.additionalProperties /* spotless:on */
+                        return other is DriversLicense &&
+                            expirationDate == other.expirationDate &&
+                            fileId == other.fileId &&
+                            state == other.state &&
+                            backFileId == other.backFileId &&
+                            additionalProperties == other.additionalProperties
                     }
 
-                    /* spotless:off */
-                    private val hashCode: Int by lazy { Objects.hash(expirationDate, fileId, state, backFileId, additionalProperties) }
-                    /* spotless:on */
+                    private val hashCode: Int by lazy {
+                        Objects.hash(
+                            expirationDate,
+                            fileId,
+                            state,
+                            backFileId,
+                            additionalProperties,
+                        )
+                    }
 
                     override fun hashCode(): Int = hashCode
 
@@ -15828,12 +16154,25 @@ private constructor(
                             return true
                         }
 
-                        return /* spotless:off */ other is Other && country == other.country && description == other.description && fileId == other.fileId && backFileId == other.backFileId && expirationDate == other.expirationDate && additionalProperties == other.additionalProperties /* spotless:on */
+                        return other is Other &&
+                            country == other.country &&
+                            description == other.description &&
+                            fileId == other.fileId &&
+                            backFileId == other.backFileId &&
+                            expirationDate == other.expirationDate &&
+                            additionalProperties == other.additionalProperties
                     }
 
-                    /* spotless:off */
-                    private val hashCode: Int by lazy { Objects.hash(country, description, fileId, backFileId, expirationDate, additionalProperties) }
-                    /* spotless:on */
+                    private val hashCode: Int by lazy {
+                        Objects.hash(
+                            country,
+                            description,
+                            fileId,
+                            backFileId,
+                            expirationDate,
+                            additionalProperties,
+                        )
+                    }
 
                     override fun hashCode(): Int = hashCode
 
@@ -16091,12 +16430,16 @@ private constructor(
                             return true
                         }
 
-                        return /* spotless:off */ other is Passport && country == other.country && expirationDate == other.expirationDate && fileId == other.fileId && additionalProperties == other.additionalProperties /* spotless:on */
+                        return other is Passport &&
+                            country == other.country &&
+                            expirationDate == other.expirationDate &&
+                            fileId == other.fileId &&
+                            additionalProperties == other.additionalProperties
                     }
 
-                    /* spotless:off */
-                    private val hashCode: Int by lazy { Objects.hash(country, expirationDate, fileId, additionalProperties) }
-                    /* spotless:on */
+                    private val hashCode: Int by lazy {
+                        Objects.hash(country, expirationDate, fileId, additionalProperties)
+                    }
 
                     override fun hashCode(): Int = hashCode
 
@@ -16109,12 +16452,25 @@ private constructor(
                         return true
                     }
 
-                    return /* spotless:off */ other is Identification && method == other.method && number == other.number && driversLicense == other.driversLicense && this.other == other.other && passport == other.passport && additionalProperties == other.additionalProperties /* spotless:on */
+                    return other is Identification &&
+                        method == other.method &&
+                        number == other.number &&
+                        driversLicense == other.driversLicense &&
+                        this.other == other.other &&
+                        passport == other.passport &&
+                        additionalProperties == other.additionalProperties
                 }
 
-                /* spotless:off */
-                private val hashCode: Int by lazy { Objects.hash(method, number, driversLicense, other, passport, additionalProperties) }
-                /* spotless:on */
+                private val hashCode: Int by lazy {
+                    Objects.hash(
+                        method,
+                        number,
+                        driversLicense,
+                        other,
+                        passport,
+                        additionalProperties,
+                    )
+                }
 
                 override fun hashCode(): Int = hashCode
 
@@ -16127,12 +16483,25 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is Grantor && address == other.address && dateOfBirth == other.dateOfBirth && identification == other.identification && name == other.name && confirmedNoUsTaxId == other.confirmedNoUsTaxId && additionalProperties == other.additionalProperties /* spotless:on */
+                return other is Grantor &&
+                    address == other.address &&
+                    dateOfBirth == other.dateOfBirth &&
+                    identification == other.identification &&
+                    name == other.name &&
+                    confirmedNoUsTaxId == other.confirmedNoUsTaxId &&
+                    additionalProperties == other.additionalProperties
             }
 
-            /* spotless:off */
-            private val hashCode: Int by lazy { Objects.hash(address, dateOfBirth, identification, name, confirmedNoUsTaxId, additionalProperties) }
-            /* spotless:on */
+            private val hashCode: Int by lazy {
+                Objects.hash(
+                    address,
+                    dateOfBirth,
+                    identification,
+                    name,
+                    confirmedNoUsTaxId,
+                    additionalProperties,
+                )
+            }
 
             override fun hashCode(): Int = hashCode
 
@@ -16145,12 +16514,31 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Trust && address == other.address && category == other.category && name == other.name && trustees == other.trustees && formationDocumentFileId == other.formationDocumentFileId && formationState == other.formationState && grantor == other.grantor && taxIdentifier == other.taxIdentifier && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Trust &&
+                address == other.address &&
+                category == other.category &&
+                name == other.name &&
+                trustees == other.trustees &&
+                formationDocumentFileId == other.formationDocumentFileId &&
+                formationState == other.formationState &&
+                grantor == other.grantor &&
+                taxIdentifier == other.taxIdentifier &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(address, category, name, trustees, formationDocumentFileId, formationState, grantor, taxIdentifier, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(
+                address,
+                category,
+                name,
+                trustees,
+                formationDocumentFileId,
+                formationState,
+                grantor,
+                taxIdentifier,
+                additionalProperties,
+            )
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -16163,10 +16551,13 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is EntityCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is EntityCreateParams &&
+            body == other.body &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int = Objects.hash(body, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
         "EntityCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

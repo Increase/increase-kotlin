@@ -1502,12 +1502,15 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Acceptance && acceptedAt == other.acceptedAt && transactionId == other.transactionId && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Acceptance &&
+                acceptedAt == other.acceptedAt &&
+                transactionId == other.transactionId &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(acceptedAt, transactionId, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(acceptedAt, transactionId, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -1813,7 +1816,7 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is Category && value == other.value /* spotless:on */
+                return other is Category && value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -2142,12 +2145,14 @@ private constructor(
                         return true
                     }
 
-                    return /* spotless:off */ other is Entry && paymentRelatedInformation == other.paymentRelatedInformation && additionalProperties == other.additionalProperties /* spotless:on */
+                    return other is Entry &&
+                        paymentRelatedInformation == other.paymentRelatedInformation &&
+                        additionalProperties == other.additionalProperties
                 }
 
-                /* spotless:off */
-                private val hashCode: Int by lazy { Objects.hash(paymentRelatedInformation, additionalProperties) }
-                /* spotless:on */
+                private val hashCode: Int by lazy {
+                    Objects.hash(paymentRelatedInformation, additionalProperties)
+                }
 
                 override fun hashCode(): Int = hashCode
 
@@ -2160,12 +2165,12 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is Freeform && entries == other.entries && additionalProperties == other.additionalProperties /* spotless:on */
+                return other is Freeform &&
+                    entries == other.entries &&
+                    additionalProperties == other.additionalProperties
             }
 
-            /* spotless:off */
             private val hashCode: Int by lazy { Objects.hash(entries, additionalProperties) }
-            /* spotless:on */
 
             override fun hashCode(): Int = hashCode
 
@@ -2178,12 +2183,13 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Addenda && category == other.category && freeform == other.freeform && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Addenda &&
+                category == other.category &&
+                freeform == other.freeform &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
         private val hashCode: Int by lazy { Objects.hash(category, freeform, additionalProperties) }
-        /* spotless:on */
 
         override fun hashCode(): Int = hashCode
 
@@ -2701,7 +2707,7 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is Reason && value == other.value /* spotless:on */
+                return other is Reason && value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -2714,12 +2720,16 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Decline && declinedAt == other.declinedAt && declinedTransactionId == other.declinedTransactionId && reason == other.reason && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Decline &&
+                declinedAt == other.declinedAt &&
+                declinedTransactionId == other.declinedTransactionId &&
+                reason == other.reason &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(declinedAt, declinedTransactionId, reason, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(declinedAt, declinedTransactionId, reason, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -2853,7 +2863,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Direction && value == other.value /* spotless:on */
+            return other is Direction && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -4891,7 +4901,7 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is ForeignExchangeIndicator && value == other.value /* spotless:on */
+                return other is ForeignExchangeIndicator && value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -5054,7 +5064,7 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is ForeignExchangeReferenceIndicator && value == other.value /* spotless:on */
+                return other is ForeignExchangeReferenceIndicator && value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -5358,7 +5368,7 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is InternationalTransactionTypeCode && value == other.value /* spotless:on */
+                return other is InternationalTransactionTypeCode && value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -5526,7 +5536,8 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is OriginatingDepositoryFinancialInstitutionIdQualifier && value == other.value /* spotless:on */
+                return other is OriginatingDepositoryFinancialInstitutionIdQualifier &&
+                    value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -5694,7 +5705,8 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is ReceivingDepositoryFinancialInstitutionIdQualifier && value == other.value /* spotless:on */
+                return other is ReceivingDepositoryFinancialInstitutionIdQualifier &&
+                    value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -5707,12 +5719,89 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is InternationalAddenda && destinationCountryCode == other.destinationCountryCode && destinationCurrencyCode == other.destinationCurrencyCode && foreignExchangeIndicator == other.foreignExchangeIndicator && foreignExchangeReference == other.foreignExchangeReference && foreignExchangeReferenceIndicator == other.foreignExchangeReferenceIndicator && foreignPaymentAmount == other.foreignPaymentAmount && foreignTraceNumber == other.foreignTraceNumber && internationalTransactionTypeCode == other.internationalTransactionTypeCode && originatingCurrencyCode == other.originatingCurrencyCode && originatingDepositoryFinancialInstitutionBranchCountry == other.originatingDepositoryFinancialInstitutionBranchCountry && originatingDepositoryFinancialInstitutionId == other.originatingDepositoryFinancialInstitutionId && originatingDepositoryFinancialInstitutionIdQualifier == other.originatingDepositoryFinancialInstitutionIdQualifier && originatingDepositoryFinancialInstitutionName == other.originatingDepositoryFinancialInstitutionName && originatorCity == other.originatorCity && originatorCountry == other.originatorCountry && originatorIdentification == other.originatorIdentification && originatorName == other.originatorName && originatorPostalCode == other.originatorPostalCode && originatorStateOrProvince == other.originatorStateOrProvince && originatorStreetAddress == other.originatorStreetAddress && paymentRelatedInformation == other.paymentRelatedInformation && paymentRelatedInformation2 == other.paymentRelatedInformation2 && receiverCity == other.receiverCity && receiverCountry == other.receiverCountry && receiverIdentificationNumber == other.receiverIdentificationNumber && receiverPostalCode == other.receiverPostalCode && receiverStateOrProvince == other.receiverStateOrProvince && receiverStreetAddress == other.receiverStreetAddress && receivingCompanyOrIndividualName == other.receivingCompanyOrIndividualName && receivingDepositoryFinancialInstitutionCountry == other.receivingDepositoryFinancialInstitutionCountry && receivingDepositoryFinancialInstitutionId == other.receivingDepositoryFinancialInstitutionId && receivingDepositoryFinancialInstitutionIdQualifier == other.receivingDepositoryFinancialInstitutionIdQualifier && receivingDepositoryFinancialInstitutionName == other.receivingDepositoryFinancialInstitutionName && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is InternationalAddenda &&
+                destinationCountryCode == other.destinationCountryCode &&
+                destinationCurrencyCode == other.destinationCurrencyCode &&
+                foreignExchangeIndicator == other.foreignExchangeIndicator &&
+                foreignExchangeReference == other.foreignExchangeReference &&
+                foreignExchangeReferenceIndicator == other.foreignExchangeReferenceIndicator &&
+                foreignPaymentAmount == other.foreignPaymentAmount &&
+                foreignTraceNumber == other.foreignTraceNumber &&
+                internationalTransactionTypeCode == other.internationalTransactionTypeCode &&
+                originatingCurrencyCode == other.originatingCurrencyCode &&
+                originatingDepositoryFinancialInstitutionBranchCountry ==
+                    other.originatingDepositoryFinancialInstitutionBranchCountry &&
+                originatingDepositoryFinancialInstitutionId ==
+                    other.originatingDepositoryFinancialInstitutionId &&
+                originatingDepositoryFinancialInstitutionIdQualifier ==
+                    other.originatingDepositoryFinancialInstitutionIdQualifier &&
+                originatingDepositoryFinancialInstitutionName ==
+                    other.originatingDepositoryFinancialInstitutionName &&
+                originatorCity == other.originatorCity &&
+                originatorCountry == other.originatorCountry &&
+                originatorIdentification == other.originatorIdentification &&
+                originatorName == other.originatorName &&
+                originatorPostalCode == other.originatorPostalCode &&
+                originatorStateOrProvince == other.originatorStateOrProvince &&
+                originatorStreetAddress == other.originatorStreetAddress &&
+                paymentRelatedInformation == other.paymentRelatedInformation &&
+                paymentRelatedInformation2 == other.paymentRelatedInformation2 &&
+                receiverCity == other.receiverCity &&
+                receiverCountry == other.receiverCountry &&
+                receiverIdentificationNumber == other.receiverIdentificationNumber &&
+                receiverPostalCode == other.receiverPostalCode &&
+                receiverStateOrProvince == other.receiverStateOrProvince &&
+                receiverStreetAddress == other.receiverStreetAddress &&
+                receivingCompanyOrIndividualName == other.receivingCompanyOrIndividualName &&
+                receivingDepositoryFinancialInstitutionCountry ==
+                    other.receivingDepositoryFinancialInstitutionCountry &&
+                receivingDepositoryFinancialInstitutionId ==
+                    other.receivingDepositoryFinancialInstitutionId &&
+                receivingDepositoryFinancialInstitutionIdQualifier ==
+                    other.receivingDepositoryFinancialInstitutionIdQualifier &&
+                receivingDepositoryFinancialInstitutionName ==
+                    other.receivingDepositoryFinancialInstitutionName &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(destinationCountryCode, destinationCurrencyCode, foreignExchangeIndicator, foreignExchangeReference, foreignExchangeReferenceIndicator, foreignPaymentAmount, foreignTraceNumber, internationalTransactionTypeCode, originatingCurrencyCode, originatingDepositoryFinancialInstitutionBranchCountry, originatingDepositoryFinancialInstitutionId, originatingDepositoryFinancialInstitutionIdQualifier, originatingDepositoryFinancialInstitutionName, originatorCity, originatorCountry, originatorIdentification, originatorName, originatorPostalCode, originatorStateOrProvince, originatorStreetAddress, paymentRelatedInformation, paymentRelatedInformation2, receiverCity, receiverCountry, receiverIdentificationNumber, receiverPostalCode, receiverStateOrProvince, receiverStreetAddress, receivingCompanyOrIndividualName, receivingDepositoryFinancialInstitutionCountry, receivingDepositoryFinancialInstitutionId, receivingDepositoryFinancialInstitutionIdQualifier, receivingDepositoryFinancialInstitutionName, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(
+                destinationCountryCode,
+                destinationCurrencyCode,
+                foreignExchangeIndicator,
+                foreignExchangeReference,
+                foreignExchangeReferenceIndicator,
+                foreignPaymentAmount,
+                foreignTraceNumber,
+                internationalTransactionTypeCode,
+                originatingCurrencyCode,
+                originatingDepositoryFinancialInstitutionBranchCountry,
+                originatingDepositoryFinancialInstitutionId,
+                originatingDepositoryFinancialInstitutionIdQualifier,
+                originatingDepositoryFinancialInstitutionName,
+                originatorCity,
+                originatorCountry,
+                originatorIdentification,
+                originatorName,
+                originatorPostalCode,
+                originatorStateOrProvince,
+                originatorStreetAddress,
+                paymentRelatedInformation,
+                paymentRelatedInformation2,
+                receiverCity,
+                receiverCountry,
+                receiverIdentificationNumber,
+                receiverPostalCode,
+                receiverStateOrProvince,
+                receiverStreetAddress,
+                receivingCompanyOrIndividualName,
+                receivingDepositoryFinancialInstitutionCountry,
+                receivingDepositoryFinancialInstitutionId,
+                receivingDepositoryFinancialInstitutionIdQualifier,
+                receivingDepositoryFinancialInstitutionName,
+                additionalProperties,
+            )
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -5923,12 +6012,15 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is NotificationOfChange && updatedAccountNumber == other.updatedAccountNumber && updatedRoutingNumber == other.updatedRoutingNumber && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is NotificationOfChange &&
+                updatedAccountNumber == other.updatedAccountNumber &&
+                updatedRoutingNumber == other.updatedRoutingNumber &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(updatedAccountNumber, updatedRoutingNumber, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(updatedAccountNumber, updatedRoutingNumber, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -6264,7 +6356,7 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is SettlementSchedule && value == other.value /* spotless:on */
+                return other is SettlementSchedule && value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -6277,12 +6369,15 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Settlement && settledAt == other.settledAt && settlementSchedule == other.settlementSchedule && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Settlement &&
+                settledAt == other.settledAt &&
+                settlementSchedule == other.settlementSchedule &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(settledAt, settlementSchedule, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(settledAt, settlementSchedule, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -6547,7 +6642,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is StandardEntryClassCode && value == other.value /* spotless:on */
+            return other is StandardEntryClassCode && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -6706,7 +6801,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
+            return other is Status && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -7219,7 +7314,7 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is Reason && value == other.value /* spotless:on */
+                return other is Reason && value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -7232,12 +7327,16 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is TransferReturn && reason == other.reason && returnedAt == other.returnedAt && transactionId == other.transactionId && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is TransferReturn &&
+                reason == other.reason &&
+                returnedAt == other.returnedAt &&
+                transactionId == other.transactionId &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(reason, returnedAt, transactionId, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(reason, returnedAt, transactionId, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -7360,7 +7459,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
+            return other is Type && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -7373,12 +7472,69 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is InboundAchTransfer && id == other.id && acceptance == other.acceptance && accountId == other.accountId && accountNumberId == other.accountNumberId && addenda == other.addenda && amount == other.amount && automaticallyResolvesAt == other.automaticallyResolvesAt && createdAt == other.createdAt && decline == other.decline && direction == other.direction && effectiveDate == other.effectiveDate && internationalAddenda == other.internationalAddenda && notificationOfChange == other.notificationOfChange && originatorCompanyDescriptiveDate == other.originatorCompanyDescriptiveDate && originatorCompanyDiscretionaryData == other.originatorCompanyDiscretionaryData && originatorCompanyEntryDescription == other.originatorCompanyEntryDescription && originatorCompanyId == other.originatorCompanyId && originatorCompanyName == other.originatorCompanyName && originatorRoutingNumber == other.originatorRoutingNumber && receiverIdNumber == other.receiverIdNumber && receiverName == other.receiverName && settlement == other.settlement && standardEntryClassCode == other.standardEntryClassCode && status == other.status && traceNumber == other.traceNumber && transferReturn == other.transferReturn && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return other is InboundAchTransfer &&
+            id == other.id &&
+            acceptance == other.acceptance &&
+            accountId == other.accountId &&
+            accountNumberId == other.accountNumberId &&
+            addenda == other.addenda &&
+            amount == other.amount &&
+            automaticallyResolvesAt == other.automaticallyResolvesAt &&
+            createdAt == other.createdAt &&
+            decline == other.decline &&
+            direction == other.direction &&
+            effectiveDate == other.effectiveDate &&
+            internationalAddenda == other.internationalAddenda &&
+            notificationOfChange == other.notificationOfChange &&
+            originatorCompanyDescriptiveDate == other.originatorCompanyDescriptiveDate &&
+            originatorCompanyDiscretionaryData == other.originatorCompanyDiscretionaryData &&
+            originatorCompanyEntryDescription == other.originatorCompanyEntryDescription &&
+            originatorCompanyId == other.originatorCompanyId &&
+            originatorCompanyName == other.originatorCompanyName &&
+            originatorRoutingNumber == other.originatorRoutingNumber &&
+            receiverIdNumber == other.receiverIdNumber &&
+            receiverName == other.receiverName &&
+            settlement == other.settlement &&
+            standardEntryClassCode == other.standardEntryClassCode &&
+            status == other.status &&
+            traceNumber == other.traceNumber &&
+            transferReturn == other.transferReturn &&
+            type == other.type &&
+            additionalProperties == other.additionalProperties
     }
 
-    /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, acceptance, accountId, accountNumberId, addenda, amount, automaticallyResolvesAt, createdAt, decline, direction, effectiveDate, internationalAddenda, notificationOfChange, originatorCompanyDescriptiveDate, originatorCompanyDiscretionaryData, originatorCompanyEntryDescription, originatorCompanyId, originatorCompanyName, originatorRoutingNumber, receiverIdNumber, receiverName, settlement, standardEntryClassCode, status, traceNumber, transferReturn, type, additionalProperties) }
-    /* spotless:on */
+    private val hashCode: Int by lazy {
+        Objects.hash(
+            id,
+            acceptance,
+            accountId,
+            accountNumberId,
+            addenda,
+            amount,
+            automaticallyResolvesAt,
+            createdAt,
+            decline,
+            direction,
+            effectiveDate,
+            internationalAddenda,
+            notificationOfChange,
+            originatorCompanyDescriptiveDate,
+            originatorCompanyDiscretionaryData,
+            originatorCompanyEntryDescription,
+            originatorCompanyId,
+            originatorCompanyName,
+            originatorRoutingNumber,
+            receiverIdNumber,
+            receiverName,
+            settlement,
+            standardEntryClassCode,
+            status,
+            traceNumber,
+            transferReturn,
+            type,
+            additionalProperties,
+        )
+    }
 
     override fun hashCode(): Int = hashCode
 

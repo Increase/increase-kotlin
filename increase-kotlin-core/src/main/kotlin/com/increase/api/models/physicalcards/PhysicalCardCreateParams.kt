@@ -610,12 +610,17 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Body && cardId == other.cardId && cardholder == other.cardholder && shipment == other.shipment && physicalCardProfileId == other.physicalCardProfileId && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Body &&
+                cardId == other.cardId &&
+                cardholder == other.cardholder &&
+                shipment == other.shipment &&
+                physicalCardProfileId == other.physicalCardProfileId &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(cardId, cardholder, shipment, physicalCardProfileId, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(cardId, cardholder, shipment, physicalCardProfileId, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -808,12 +813,15 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Cardholder && firstName == other.firstName && lastName == other.lastName && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Cardholder &&
+                firstName == other.firstName &&
+                lastName == other.lastName &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(firstName, lastName, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(firstName, lastName, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -1511,12 +1519,33 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is Address && city == other.city && line1 == other.line1 && name == other.name && postalCode == other.postalCode && state == other.state && country == other.country && line2 == other.line2 && line3 == other.line3 && phoneNumber == other.phoneNumber && additionalProperties == other.additionalProperties /* spotless:on */
+                return other is Address &&
+                    city == other.city &&
+                    line1 == other.line1 &&
+                    name == other.name &&
+                    postalCode == other.postalCode &&
+                    state == other.state &&
+                    country == other.country &&
+                    line2 == other.line2 &&
+                    line3 == other.line3 &&
+                    phoneNumber == other.phoneNumber &&
+                    additionalProperties == other.additionalProperties
             }
 
-            /* spotless:off */
-            private val hashCode: Int by lazy { Objects.hash(city, line1, name, postalCode, state, country, line2, line3, phoneNumber, additionalProperties) }
-            /* spotless:on */
+            private val hashCode: Int by lazy {
+                Objects.hash(
+                    city,
+                    line1,
+                    name,
+                    postalCode,
+                    state,
+                    country,
+                    line2,
+                    line3,
+                    phoneNumber,
+                    additionalProperties,
+                )
+            }
 
             override fun hashCode(): Int = hashCode
 
@@ -1668,7 +1697,7 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is Method && value == other.value /* spotless:on */
+                return other is Method && value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -1832,7 +1861,7 @@ private constructor(
                     return true
                 }
 
-                return /* spotless:off */ other is Schedule && value == other.value /* spotless:on */
+                return other is Schedule && value == other.value
             }
 
             override fun hashCode() = value.hashCode()
@@ -1845,12 +1874,16 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Shipment && address == other.address && method == other.method && schedule == other.schedule && additionalProperties == other.additionalProperties /* spotless:on */
+            return other is Shipment &&
+                address == other.address &&
+                method == other.method &&
+                schedule == other.schedule &&
+                additionalProperties == other.additionalProperties
         }
 
-        /* spotless:off */
-        private val hashCode: Int by lazy { Objects.hash(address, method, schedule, additionalProperties) }
-        /* spotless:on */
+        private val hashCode: Int by lazy {
+            Objects.hash(address, method, schedule, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
@@ -1863,10 +1896,13 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is PhysicalCardCreateParams && body == other.body && additionalHeaders == other.additionalHeaders && additionalQueryParams == other.additionalQueryParams /* spotless:on */
+        return other is PhysicalCardCreateParams &&
+            body == other.body &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = /* spotless:off */ Objects.hash(body, additionalHeaders, additionalQueryParams) /* spotless:on */
+    override fun hashCode(): Int = Objects.hash(body, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
         "PhysicalCardCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"

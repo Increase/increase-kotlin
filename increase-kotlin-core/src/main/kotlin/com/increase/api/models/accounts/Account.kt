@@ -886,7 +886,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Bank && value == other.value /* spotless:on */
+            return other is Bank && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1054,7 +1054,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Currency && value == other.value /* spotless:on */
+            return other is Currency && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1186,7 +1186,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
+            return other is Status && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1306,7 +1306,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
+            return other is Type && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1319,12 +1319,45 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is Account && id == other.id && bank == other.bank && closedAt == other.closedAt && createdAt == other.createdAt && currency == other.currency && entityId == other.entityId && idempotencyKey == other.idempotencyKey && informationalEntityId == other.informationalEntityId && interestAccrued == other.interestAccrued && interestAccruedAt == other.interestAccruedAt && interestRate == other.interestRate && name == other.name && programId == other.programId && status == other.status && type == other.type && additionalProperties == other.additionalProperties /* spotless:on */
+        return other is Account &&
+            id == other.id &&
+            bank == other.bank &&
+            closedAt == other.closedAt &&
+            createdAt == other.createdAt &&
+            currency == other.currency &&
+            entityId == other.entityId &&
+            idempotencyKey == other.idempotencyKey &&
+            informationalEntityId == other.informationalEntityId &&
+            interestAccrued == other.interestAccrued &&
+            interestAccruedAt == other.interestAccruedAt &&
+            interestRate == other.interestRate &&
+            name == other.name &&
+            programId == other.programId &&
+            status == other.status &&
+            type == other.type &&
+            additionalProperties == other.additionalProperties
     }
 
-    /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, bank, closedAt, createdAt, currency, entityId, idempotencyKey, informationalEntityId, interestAccrued, interestAccruedAt, interestRate, name, programId, status, type, additionalProperties) }
-    /* spotless:on */
+    private val hashCode: Int by lazy {
+        Objects.hash(
+            id,
+            bank,
+            closedAt,
+            createdAt,
+            currency,
+            entityId,
+            idempotencyKey,
+            informationalEntityId,
+            interestAccrued,
+            interestAccruedAt,
+            interestRate,
+            name,
+            programId,
+            status,
+            type,
+            additionalProperties,
+        )
+    }
 
     override fun hashCode(): Int = hashCode
 

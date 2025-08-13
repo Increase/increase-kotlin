@@ -1562,7 +1562,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is SelectedEventCategory && value == other.value /* spotless:on */
+            return other is SelectedEventCategory && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1721,7 +1721,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Status && value == other.value /* spotless:on */
+            return other is Status && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1844,7 +1844,7 @@ private constructor(
                 return true
             }
 
-            return /* spotless:off */ other is Type && value == other.value /* spotless:on */
+            return other is Type && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1857,12 +1857,31 @@ private constructor(
             return true
         }
 
-        return /* spotless:off */ other is EventSubscription && id == other.id && createdAt == other.createdAt && idempotencyKey == other.idempotencyKey && oauthConnectionId == other.oauthConnectionId && selectedEventCategory == other.selectedEventCategory && status == other.status && type == other.type && url == other.url && additionalProperties == other.additionalProperties /* spotless:on */
+        return other is EventSubscription &&
+            id == other.id &&
+            createdAt == other.createdAt &&
+            idempotencyKey == other.idempotencyKey &&
+            oauthConnectionId == other.oauthConnectionId &&
+            selectedEventCategory == other.selectedEventCategory &&
+            status == other.status &&
+            type == other.type &&
+            url == other.url &&
+            additionalProperties == other.additionalProperties
     }
 
-    /* spotless:off */
-    private val hashCode: Int by lazy { Objects.hash(id, createdAt, idempotencyKey, oauthConnectionId, selectedEventCategory, status, type, url, additionalProperties) }
-    /* spotless:on */
+    private val hashCode: Int by lazy {
+        Objects.hash(
+            id,
+            createdAt,
+            idempotencyKey,
+            oauthConnectionId,
+            selectedEventCategory,
+            status,
+            type,
+            url,
+            additionalProperties,
+        )
+    }
 
     override fun hashCode(): Int = hashCode
 
