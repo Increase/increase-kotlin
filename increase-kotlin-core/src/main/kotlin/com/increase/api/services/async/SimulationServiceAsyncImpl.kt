@@ -25,6 +25,8 @@ import com.increase.api.services.async.simulations.CardReversalServiceAsync
 import com.increase.api.services.async.simulations.CardReversalServiceAsyncImpl
 import com.increase.api.services.async.simulations.CardSettlementServiceAsync
 import com.increase.api.services.async.simulations.CardSettlementServiceAsyncImpl
+import com.increase.api.services.async.simulations.CardTokenServiceAsync
+import com.increase.api.services.async.simulations.CardTokenServiceAsyncImpl
 import com.increase.api.services.async.simulations.CheckDepositServiceAsync
 import com.increase.api.services.async.simulations.CheckDepositServiceAsyncImpl
 import com.increase.api.services.async.simulations.CheckTransferServiceAsync
@@ -176,6 +178,10 @@ class SimulationServiceAsyncImpl internal constructor(private val clientOptions:
 
     private val documents: DocumentServiceAsync by lazy { DocumentServiceAsyncImpl(clientOptions) }
 
+    private val cardTokens: CardTokenServiceAsync by lazy {
+        CardTokenServiceAsyncImpl(clientOptions)
+    }
+
     override fun withRawResponse(): SimulationServiceAsync.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: (ClientOptions.Builder) -> Unit): SimulationServiceAsync =
@@ -241,6 +247,8 @@ class SimulationServiceAsyncImpl internal constructor(private val clientOptions:
     override fun accountStatements(): AccountStatementServiceAsync = accountStatements
 
     override fun documents(): DocumentServiceAsync = documents
+
+    override fun cardTokens(): CardTokenServiceAsync = cardTokens
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         SimulationServiceAsync.WithRawResponse {
@@ -363,6 +371,10 @@ class SimulationServiceAsyncImpl internal constructor(private val clientOptions:
             DocumentServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val cardTokens: CardTokenServiceAsync.WithRawResponse by lazy {
+            CardTokenServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: (ClientOptions.Builder) -> Unit
         ): SimulationServiceAsync.WithRawResponse =
@@ -442,5 +454,7 @@ class SimulationServiceAsyncImpl internal constructor(private val clientOptions:
             accountStatements
 
         override fun documents(): DocumentServiceAsync.WithRawResponse = documents
+
+        override fun cardTokens(): CardTokenServiceAsync.WithRawResponse = cardTokens
     }
 }
