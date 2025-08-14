@@ -31,9 +31,9 @@ internal class EntityCreateParamsTest {
                                         EntityCreateParams.Corporation.BeneficialOwner.Individual
                                             .Address
                                             .builder()
+                                            .city("New York")
                                             .country("x")
                                             .line1("33 Liberty Street")
-                                            .city("New York")
                                             .line2("x")
                                             .state("NY")
                                             .zip("10045")
@@ -417,9 +417,9 @@ internal class EntityCreateParamsTest {
                                                 .Individual
                                                 .Address
                                                 .builder()
+                                                .city("New York")
                                                 .country("x")
                                                 .line1("33 Liberty Street")
-                                                .city("New York")
                                                 .line2("x")
                                                 .state("NY")
                                                 .zip("10045")
@@ -818,9 +818,9 @@ internal class EntityCreateParamsTest {
                                         EntityCreateParams.Corporation.BeneficialOwner.Individual
                                             .Address
                                             .builder()
+                                            .city("New York")
                                             .country("x")
                                             .line1("33 Liberty Street")
-                                            .city("New York")
                                             .line2("x")
                                             .state("NY")
                                             .zip("10045")
