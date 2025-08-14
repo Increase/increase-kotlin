@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.274.0 (2025-08-14)
+
+Full Changelog: [v0.273.0...v0.274.0](https://github.com/Increase/increase-kotlin/compare/v0.273.0...v0.274.0)
+
+### Features
+
+* **api:** api update ([c30f9fc](https://github.com/Increase/increase-kotlin/commit/c30f9fc42efd04eb97b35b756c3bb3bc196c67b5))
+
+
+### Performance Improvements
+
+* **internal:** make formatting faster ([4b92355](https://github.com/Increase/increase-kotlin/commit/4b923551669e039c62d1ed48becfd83ea526c42a))
+
 ## 0.273.0 (2025-08-13)
 
 Full Changelog: [v0.272.0...v0.273.0](https://github.com/Increase/increase-kotlin/compare/v0.272.0...v0.273.0)
