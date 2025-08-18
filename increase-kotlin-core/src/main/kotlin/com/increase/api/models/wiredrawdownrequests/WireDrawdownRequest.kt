@@ -35,6 +35,7 @@ private constructor(
     private val currency: JsonField<String>,
     private val debtorAccountNumber: JsonField<String>,
     private val debtorAddress: JsonField<DebtorAddress>,
+    private val debtorExternalAccountId: JsonField<String>,
     private val debtorName: JsonField<String>,
     private val debtorRoutingNumber: JsonField<String>,
     private val fulfillmentInboundWireTransferId: JsonField<String>,
@@ -69,6 +70,9 @@ private constructor(
         @JsonProperty("debtor_address")
         @ExcludeMissing
         debtorAddress: JsonField<DebtorAddress> = JsonMissing.of(),
+        @JsonProperty("debtor_external_account_id")
+        @ExcludeMissing
+        debtorExternalAccountId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("debtor_name")
         @ExcludeMissing
         debtorName: JsonField<String> = JsonMissing.of(),
@@ -99,6 +103,7 @@ private constructor(
         currency,
         debtorAccountNumber,
         debtorAddress,
+        debtorExternalAccountId,
         debtorName,
         debtorRoutingNumber,
         fulfillmentInboundWireTransferId,
@@ -184,6 +189,15 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun debtorAddress(): DebtorAddress = debtorAddress.getRequired("debtor_address")
+
+    /**
+     * The debtor's external account identifier.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun debtorExternalAccountId(): String? =
+        debtorExternalAccountId.getNullable("debtor_external_account_id")
 
     /**
      * The debtor's name.
@@ -332,6 +346,16 @@ private constructor(
     fun _debtorAddress(): JsonField<DebtorAddress> = debtorAddress
 
     /**
+     * Returns the raw JSON value of [debtorExternalAccountId].
+     *
+     * Unlike [debtorExternalAccountId], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    @JsonProperty("debtor_external_account_id")
+    @ExcludeMissing
+    fun _debtorExternalAccountId(): JsonField<String> = debtorExternalAccountId
+
+    /**
      * Returns the raw JSON value of [debtorName].
      *
      * Unlike [debtorName], this method doesn't throw if the JSON field has an unexpected type.
@@ -428,6 +452,7 @@ private constructor(
          * .currency()
          * .debtorAccountNumber()
          * .debtorAddress()
+         * .debtorExternalAccountId()
          * .debtorName()
          * .debtorRoutingNumber()
          * .fulfillmentInboundWireTransferId()
@@ -453,6 +478,7 @@ private constructor(
         private var currency: JsonField<String>? = null
         private var debtorAccountNumber: JsonField<String>? = null
         private var debtorAddress: JsonField<DebtorAddress>? = null
+        private var debtorExternalAccountId: JsonField<String>? = null
         private var debtorName: JsonField<String>? = null
         private var debtorRoutingNumber: JsonField<String>? = null
         private var fulfillmentInboundWireTransferId: JsonField<String>? = null
@@ -473,6 +499,7 @@ private constructor(
             currency = wireDrawdownRequest.currency
             debtorAccountNumber = wireDrawdownRequest.debtorAccountNumber
             debtorAddress = wireDrawdownRequest.debtorAddress
+            debtorExternalAccountId = wireDrawdownRequest.debtorExternalAccountId
             debtorName = wireDrawdownRequest.debtorName
             debtorRoutingNumber = wireDrawdownRequest.debtorRoutingNumber
             fulfillmentInboundWireTransferId = wireDrawdownRequest.fulfillmentInboundWireTransferId
@@ -610,6 +637,21 @@ private constructor(
          */
         fun debtorAddress(debtorAddress: JsonField<DebtorAddress>) = apply {
             this.debtorAddress = debtorAddress
+        }
+
+        /** The debtor's external account identifier. */
+        fun debtorExternalAccountId(debtorExternalAccountId: String?) =
+            debtorExternalAccountId(JsonField.ofNullable(debtorExternalAccountId))
+
+        /**
+         * Sets [Builder.debtorExternalAccountId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.debtorExternalAccountId] with a well-typed [String]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun debtorExternalAccountId(debtorExternalAccountId: JsonField<String>) = apply {
+            this.debtorExternalAccountId = debtorExternalAccountId
         }
 
         /** The debtor's name. */
@@ -767,6 +809,7 @@ private constructor(
          * .currency()
          * .debtorAccountNumber()
          * .debtorAddress()
+         * .debtorExternalAccountId()
          * .debtorName()
          * .debtorRoutingNumber()
          * .fulfillmentInboundWireTransferId()
@@ -790,6 +833,7 @@ private constructor(
                 checkRequired("currency", currency),
                 checkRequired("debtorAccountNumber", debtorAccountNumber),
                 checkRequired("debtorAddress", debtorAddress),
+                checkRequired("debtorExternalAccountId", debtorExternalAccountId),
                 checkRequired("debtorName", debtorName),
                 checkRequired("debtorRoutingNumber", debtorRoutingNumber),
                 checkRequired("fulfillmentInboundWireTransferId", fulfillmentInboundWireTransferId),
@@ -821,6 +865,7 @@ private constructor(
         currency()
         debtorAccountNumber()
         debtorAddress().validate()
+        debtorExternalAccountId()
         debtorName()
         debtorRoutingNumber()
         fulfillmentInboundWireTransferId()
@@ -855,6 +900,7 @@ private constructor(
             (if (currency.asKnown() == null) 0 else 1) +
             (if (debtorAccountNumber.asKnown() == null) 0 else 1) +
             (debtorAddress.asKnown()?.validity() ?: 0) +
+            (if (debtorExternalAccountId.asKnown() == null) 0 else 1) +
             (if (debtorName.asKnown() == null) 0 else 1) +
             (if (debtorRoutingNumber.asKnown() == null) 0 else 1) +
             (if (fulfillmentInboundWireTransferId.asKnown() == null) 0 else 1) +
@@ -2037,6 +2083,7 @@ private constructor(
             currency == other.currency &&
             debtorAccountNumber == other.debtorAccountNumber &&
             debtorAddress == other.debtorAddress &&
+            debtorExternalAccountId == other.debtorExternalAccountId &&
             debtorName == other.debtorName &&
             debtorRoutingNumber == other.debtorRoutingNumber &&
             fulfillmentInboundWireTransferId == other.fulfillmentInboundWireTransferId &&
@@ -2059,6 +2106,7 @@ private constructor(
             currency,
             debtorAccountNumber,
             debtorAddress,
+            debtorExternalAccountId,
             debtorName,
             debtorRoutingNumber,
             fulfillmentInboundWireTransferId,
@@ -2074,5 +2122,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "WireDrawdownRequest{id=$id, accountNumberId=$accountNumberId, amount=$amount, createdAt=$createdAt, creditorAddress=$creditorAddress, creditorName=$creditorName, currency=$currency, debtorAccountNumber=$debtorAccountNumber, debtorAddress=$debtorAddress, debtorName=$debtorName, debtorRoutingNumber=$debtorRoutingNumber, fulfillmentInboundWireTransferId=$fulfillmentInboundWireTransferId, idempotencyKey=$idempotencyKey, status=$status, submission=$submission, type=$type, unstructuredRemittanceInformation=$unstructuredRemittanceInformation, additionalProperties=$additionalProperties}"
+        "WireDrawdownRequest{id=$id, accountNumberId=$accountNumberId, amount=$amount, createdAt=$createdAt, creditorAddress=$creditorAddress, creditorName=$creditorName, currency=$currency, debtorAccountNumber=$debtorAccountNumber, debtorAddress=$debtorAddress, debtorExternalAccountId=$debtorExternalAccountId, debtorName=$debtorName, debtorRoutingNumber=$debtorRoutingNumber, fulfillmentInboundWireTransferId=$fulfillmentInboundWireTransferId, idempotencyKey=$idempotencyKey, status=$status, submission=$submission, type=$type, unstructuredRemittanceInformation=$unstructuredRemittanceInformation, additionalProperties=$additionalProperties}"
 }
