@@ -7,9 +7,11 @@ import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.cards.Card
+import com.increase.api.models.cards.CardCreateDetailsIframeParams
 import com.increase.api.models.cards.CardCreateParams
 import com.increase.api.models.cards.CardDetails
 import com.increase.api.models.cards.CardDetailsParams
+import com.increase.api.models.cards.CardIframeUrl
 import com.increase.api.models.cards.CardListPage
 import com.increase.api.models.cards.CardListParams
 import com.increase.api.models.cards.CardRetrieveParams
@@ -79,7 +81,31 @@ interface CardService {
     fun list(requestOptions: RequestOptions): CardListPage =
         list(CardListParams.none(), requestOptions)
 
-    /** Retrieve sensitive details for a Card */
+    /**
+     * Create an iframe URL for a Card to display the card details. More details about styling and
+     * usage can be found in the [documentation](/documentation/embedded-card-component).
+     */
+    fun createDetailsIframe(
+        cardId: String,
+        params: CardCreateDetailsIframeParams = CardCreateDetailsIframeParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CardIframeUrl =
+        createDetailsIframe(params.toBuilder().cardId(cardId).build(), requestOptions)
+
+    /** @see createDetailsIframe */
+    fun createDetailsIframe(
+        params: CardCreateDetailsIframeParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CardIframeUrl
+
+    /** @see createDetailsIframe */
+    fun createDetailsIframe(cardId: String, requestOptions: RequestOptions): CardIframeUrl =
+        createDetailsIframe(cardId, CardCreateDetailsIframeParams.none(), requestOptions)
+
+    /**
+     * Sensitive details for a Card include the primary account number, expiry, card verification
+     * code, and PIN.
+     */
     fun details(
         cardId: String,
         params: CardDetailsParams = CardDetailsParams.none(),
@@ -177,6 +203,33 @@ interface CardService {
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<CardListPage> =
             list(CardListParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `post /cards/{card_id}/create_details_iframe`, but is
+         * otherwise the same as [CardService.createDetailsIframe].
+         */
+        @MustBeClosed
+        fun createDetailsIframe(
+            cardId: String,
+            params: CardCreateDetailsIframeParams = CardCreateDetailsIframeParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<CardIframeUrl> =
+            createDetailsIframe(params.toBuilder().cardId(cardId).build(), requestOptions)
+
+        /** @see createDetailsIframe */
+        @MustBeClosed
+        fun createDetailsIframe(
+            params: CardCreateDetailsIframeParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<CardIframeUrl>
+
+        /** @see createDetailsIframe */
+        @MustBeClosed
+        fun createDetailsIframe(
+            cardId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<CardIframeUrl> =
+            createDetailsIframe(cardId, CardCreateDetailsIframeParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /cards/{card_id}/details`, but is otherwise the same
