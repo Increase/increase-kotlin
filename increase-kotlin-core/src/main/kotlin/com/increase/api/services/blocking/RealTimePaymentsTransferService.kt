@@ -73,7 +73,7 @@ interface RealTimePaymentsTransferService {
     fun list(requestOptions: RequestOptions): RealTimePaymentsTransferListPage =
         list(RealTimePaymentsTransferListParams.none(), requestOptions)
 
-    /** Approves an Real-Time Payments Transfer in a pending_approval state. */
+    /** Approves a Real-Time Payments Transfer in a pending_approval state. */
     fun approve(
         realTimePaymentsTransferId: String,
         params: RealTimePaymentsTransferApproveParams =
@@ -102,7 +102,7 @@ interface RealTimePaymentsTransferService {
             requestOptions,
         )
 
-    /** Cancels an Real-Time Payments Transfer in a pending_approval state. */
+    /** Cancels a Real-Time Payments Transfer in a pending_approval state. */
     fun cancel(
         realTimePaymentsTransferId: String,
         params: RealTimePaymentsTransferCancelParams = RealTimePaymentsTransferCancelParams.none(),
