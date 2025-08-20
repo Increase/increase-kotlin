@@ -548,6 +548,11 @@ private constructor(
                 val SWIFT_TRANSFER_INTENTION = of("swift_transfer_intention")
 
                 /**
+                 * Swift Transfer Return: details will be under the `swift_transfer_return` object.
+                 */
+                val SWIFT_TRANSFER_RETURN = of("swift_transfer_return")
+
+                /**
                  * Card Push Transfer Acceptance: details will be under the
                  * `card_push_transfer_acceptance` object.
                  */
@@ -681,6 +686,10 @@ private constructor(
                  * object.
                  */
                 SWIFT_TRANSFER_INTENTION,
+                /**
+                 * Swift Transfer Return: details will be under the `swift_transfer_return` object.
+                 */
+                SWIFT_TRANSFER_RETURN,
                 /**
                  * Card Push Transfer Acceptance: details will be under the
                  * `card_push_transfer_acceptance` object.
@@ -821,6 +830,10 @@ private constructor(
                  */
                 SWIFT_TRANSFER_INTENTION,
                 /**
+                 * Swift Transfer Return: details will be under the `swift_transfer_return` object.
+                 */
+                SWIFT_TRANSFER_RETURN,
+                /**
                  * Card Push Transfer Acceptance: details will be under the
                  * `card_push_transfer_acceptance` object.
                  */
@@ -875,6 +888,7 @@ private constructor(
                     SAMPLE_FUNDS -> Value.SAMPLE_FUNDS
                     WIRE_TRANSFER_INTENTION -> Value.WIRE_TRANSFER_INTENTION
                     SWIFT_TRANSFER_INTENTION -> Value.SWIFT_TRANSFER_INTENTION
+                    SWIFT_TRANSFER_RETURN -> Value.SWIFT_TRANSFER_RETURN
                     CARD_PUSH_TRANSFER_ACCEPTANCE -> Value.CARD_PUSH_TRANSFER_ACCEPTANCE
                     OTHER -> Value.OTHER
                     else -> Value._UNKNOWN
@@ -926,6 +940,7 @@ private constructor(
                     SAMPLE_FUNDS -> Known.SAMPLE_FUNDS
                     WIRE_TRANSFER_INTENTION -> Known.WIRE_TRANSFER_INTENTION
                     SWIFT_TRANSFER_INTENTION -> Known.SWIFT_TRANSFER_INTENTION
+                    SWIFT_TRANSFER_RETURN -> Known.SWIFT_TRANSFER_RETURN
                     CARD_PUSH_TRANSFER_ACCEPTANCE -> Known.CARD_PUSH_TRANSFER_ACCEPTANCE
                     OTHER -> Known.OTHER
                     else -> throw IncreaseInvalidDataException("Unknown In: $value")
