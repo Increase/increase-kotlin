@@ -7,7 +7,10 @@ import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import java.util.Objects
 
-/** Retrieve sensitive details for a Card */
+/**
+ * Sensitive details for a Card include the primary account number, expiry, card verification code,
+ * and PIN.
+ */
 class CardDetailsParams
 private constructor(
     private val cardId: String?,
