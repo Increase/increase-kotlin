@@ -9,7 +9,7 @@ import com.increase.api.core.http.QueryParams
 import com.increase.api.core.toImmutable
 import java.util.Objects
 
-/** Cancels an Real-Time Payments Transfer in a pending_approval state. */
+/** Cancels a Real-Time Payments Transfer in a pending_approval state. */
 class RealTimePaymentsTransferCancelParams
 private constructor(
     private val realTimePaymentsTransferId: String?,
