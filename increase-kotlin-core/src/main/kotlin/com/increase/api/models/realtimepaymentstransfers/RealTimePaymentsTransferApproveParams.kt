@@ -9,7 +9,7 @@ import com.increase.api.core.http.QueryParams
 import com.increase.api.core.toImmutable
 import java.util.Objects
 
-/** Approves an Real-Time Payments Transfer in a pending_approval state. */
+/** Approves a Real-Time Payments Transfer in a pending_approval state. */
 class RealTimePaymentsTransferApproveParams
 private constructor(
     private val realTimePaymentsTransferId: String?,
