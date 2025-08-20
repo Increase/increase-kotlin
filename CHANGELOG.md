@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.285.0 (2025-08-20)
+
+Full Changelog: [v0.284.0...v0.285.0](https://github.com/Increase/increase-kotlin/compare/v0.284.0...v0.285.0)
+
+### Features
+
+* **api:** api update ([b93048b](https://github.com/Increase/increase-kotlin/commit/b93048b06f7b90cc0b3e482d51840101b856d22c))
+
+
+### Chores
+
+* **client:** refactor closing / shutdown ([5aa3507](https://github.com/Increase/increase-kotlin/commit/5aa350728a97d37becd7b8d990fc9c75e80bf9fb))
+* **internal:** support running ktfmt directly ([1129e62](https://github.com/Increase/increase-kotlin/commit/1129e622fed546ec16e63ec4b2a89c78620433da))
+
 ## 0.284.0 (2025-08-20)
 
 Full Changelog: [v0.283.0...v0.284.0](https://github.com/Increase/increase-kotlin/compare/v0.283.0...v0.284.0)
