@@ -25,6 +25,7 @@ import java.util.Objects
 class Account
 private constructor(
     private val id: JsonField<String>,
+    private val accountRevenueRate: JsonField<String>,
     private val bank: JsonField<Bank>,
     private val closedAt: JsonField<OffsetDateTime>,
     private val createdAt: JsonField<OffsetDateTime>,
@@ -45,6 +46,9 @@ private constructor(
     @JsonCreator
     private constructor(
         @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("account_revenue_rate")
+        @ExcludeMissing
+        accountRevenueRate: JsonField<String> = JsonMissing.of(),
         @JsonProperty("bank") @ExcludeMissing bank: JsonField<Bank> = JsonMissing.of(),
         @JsonProperty("closed_at")
         @ExcludeMissing
@@ -75,6 +79,7 @@ private constructor(
         @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
     ) : this(
         id,
+        accountRevenueRate,
         bank,
         closedAt,
         createdAt,
@@ -99,6 +104,15 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun id(): String = id.getRequired("id")
+
+    /**
+     * The account revenue rate currently being earned on the account, as a string containing a
+     * decimal number. For example, a 1% account revenue rate would be represented as "0.01".
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun accountRevenueRate(): String? = accountRevenueRate.getNullable("account_revenue_rate")
 
     /**
      * The bank the Account is with.
@@ -179,7 +193,7 @@ private constructor(
     fun interestAccruedAt(): LocalDate? = interestAccruedAt.getNullable("interest_accrued_at")
 
     /**
-     * The Interest Rate currently being earned on the account, as a string containing a decimal
+     * The interest rate currently being earned on the account, as a string containing a decimal
      * number. For example, a 1% interest rate would be represented as "0.01".
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
@@ -226,6 +240,16 @@ private constructor(
      * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
+
+    /**
+     * Returns the raw JSON value of [accountRevenueRate].
+     *
+     * Unlike [accountRevenueRate], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("account_revenue_rate")
+    @ExcludeMissing
+    fun _accountRevenueRate(): JsonField<String> = accountRevenueRate
 
     /**
      * Returns the raw JSON value of [bank].
@@ -359,6 +383,7 @@ private constructor(
          * The following fields are required:
          * ```kotlin
          * .id()
+         * .accountRevenueRate()
          * .bank()
          * .closedAt()
          * .createdAt()
@@ -382,6 +407,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var id: JsonField<String>? = null
+        private var accountRevenueRate: JsonField<String>? = null
         private var bank: JsonField<Bank>? = null
         private var closedAt: JsonField<OffsetDateTime>? = null
         private var createdAt: JsonField<OffsetDateTime>? = null
@@ -400,6 +426,7 @@ private constructor(
 
         internal fun from(account: Account) = apply {
             id = account.id
+            accountRevenueRate = account.accountRevenueRate
             bank = account.bank
             closedAt = account.closedAt
             createdAt = account.createdAt
@@ -427,6 +454,24 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun id(id: JsonField<String>) = apply { this.id = id }
+
+        /**
+         * The account revenue rate currently being earned on the account, as a string containing a
+         * decimal number. For example, a 1% account revenue rate would be represented as "0.01".
+         */
+        fun accountRevenueRate(accountRevenueRate: String?) =
+            accountRevenueRate(JsonField.ofNullable(accountRevenueRate))
+
+        /**
+         * Sets [Builder.accountRevenueRate] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.accountRevenueRate] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun accountRevenueRate(accountRevenueRate: JsonField<String>) = apply {
+            this.accountRevenueRate = accountRevenueRate
+        }
 
         /** The bank the Account is with. */
         fun bank(bank: Bank) = bank(JsonField.of(bank))
@@ -566,7 +611,7 @@ private constructor(
         }
 
         /**
-         * The Interest Rate currently being earned on the account, as a string containing a decimal
+         * The interest rate currently being earned on the account, as a string containing a decimal
          * number. For example, a 1% interest rate would be represented as "0.01".
          */
         fun interestRate(interestRate: String) = interestRate(JsonField.of(interestRate))
@@ -659,6 +704,7 @@ private constructor(
          * The following fields are required:
          * ```kotlin
          * .id()
+         * .accountRevenueRate()
          * .bank()
          * .closedAt()
          * .createdAt()
@@ -680,6 +726,7 @@ private constructor(
         fun build(): Account =
             Account(
                 checkRequired("id", id),
+                checkRequired("accountRevenueRate", accountRevenueRate),
                 checkRequired("bank", bank),
                 checkRequired("closedAt", closedAt),
                 checkRequired("createdAt", createdAt),
@@ -706,6 +753,7 @@ private constructor(
         }
 
         id()
+        accountRevenueRate()
         bank().validate()
         closedAt()
         createdAt()
@@ -738,6 +786,7 @@ private constructor(
      */
     internal fun validity(): Int =
         (if (id.asKnown() == null) 0 else 1) +
+            (if (accountRevenueRate.asKnown() == null) 0 else 1) +
             (bank.asKnown()?.validity() ?: 0) +
             (if (closedAt.asKnown() == null) 0 else 1) +
             (if (createdAt.asKnown() == null) 0 else 1) +
@@ -1321,6 +1370,7 @@ private constructor(
 
         return other is Account &&
             id == other.id &&
+            accountRevenueRate == other.accountRevenueRate &&
             bank == other.bank &&
             closedAt == other.closedAt &&
             createdAt == other.createdAt &&
@@ -1341,6 +1391,7 @@ private constructor(
     private val hashCode: Int by lazy {
         Objects.hash(
             id,
+            accountRevenueRate,
             bank,
             closedAt,
             createdAt,
@@ -1362,5 +1413,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "Account{id=$id, bank=$bank, closedAt=$closedAt, createdAt=$createdAt, currency=$currency, entityId=$entityId, idempotencyKey=$idempotencyKey, informationalEntityId=$informationalEntityId, interestAccrued=$interestAccrued, interestAccruedAt=$interestAccruedAt, interestRate=$interestRate, name=$name, programId=$programId, status=$status, type=$type, additionalProperties=$additionalProperties}"
+        "Account{id=$id, accountRevenueRate=$accountRevenueRate, bank=$bank, closedAt=$closedAt, createdAt=$createdAt, currency=$currency, entityId=$entityId, idempotencyKey=$idempotencyKey, informationalEntityId=$informationalEntityId, interestAccrued=$interestAccrued, interestAccruedAt=$interestAccruedAt, interestRate=$interestRate, name=$name, programId=$programId, status=$status, type=$type, additionalProperties=$additionalProperties}"
 }
