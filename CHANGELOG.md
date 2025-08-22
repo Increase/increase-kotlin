@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.289.1 (2025-08-22)
+
+Full Changelog: [v0.289.0...v0.289.1](https://github.com/Increase/increase-kotlin/compare/v0.289.0...v0.289.1)
+
+### Bug Fixes
+
+* update singularization rules ([6e6930e](https://github.com/Increase/increase-kotlin/commit/6e6930e2521948f7aeba569f53b3b322a4265a21))
+
 ## 0.289.0 (2025-08-22)
 
 Full Changelog: [v0.288.0...v0.289.0](https://github.com/Increase/increase-kotlin/compare/v0.288.0...v0.289.0)
