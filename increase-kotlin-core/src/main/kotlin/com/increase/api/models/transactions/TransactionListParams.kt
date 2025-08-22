@@ -496,13 +496,6 @@ private constructor(
                     of("inbound_real_time_payments_transfer_confirmation")
 
                 /**
-                 * Inbound Real-Time Payments Transfer Decline: details will be under the
-                 * `inbound_real_time_payments_transfer_decline` object.
-                 */
-                val INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE =
-                    of("inbound_real_time_payments_transfer_decline")
-
-                /**
                  * Inbound Wire Reversal: details will be under the `inbound_wire_reversal` object.
                  */
                 val INBOUND_WIRE_REVERSAL = of("inbound_wire_reversal")
@@ -647,11 +640,6 @@ private constructor(
                  */
                 INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION,
                 /**
-                 * Inbound Real-Time Payments Transfer Decline: details will be under the
-                 * `inbound_real_time_payments_transfer_decline` object.
-                 */
-                INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE,
-                /**
                  * Inbound Wire Reversal: details will be under the `inbound_wire_reversal` object.
                  */
                 INBOUND_WIRE_REVERSAL,
@@ -790,11 +778,6 @@ private constructor(
                  */
                 INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION,
                 /**
-                 * Inbound Real-Time Payments Transfer Decline: details will be under the
-                 * `inbound_real_time_payments_transfer_decline` object.
-                 */
-                INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE,
-                /**
                  * Inbound Wire Reversal: details will be under the `inbound_wire_reversal` object.
                  */
                 INBOUND_WIRE_REVERSAL,
@@ -876,8 +859,6 @@ private constructor(
                     INBOUND_CHECK_ADJUSTMENT -> Value.INBOUND_CHECK_ADJUSTMENT
                     INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION ->
                         Value.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION
-                    INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE ->
-                        Value.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE
                     INBOUND_WIRE_REVERSAL -> Value.INBOUND_WIRE_REVERSAL
                     INBOUND_WIRE_TRANSFER -> Value.INBOUND_WIRE_TRANSFER
                     INBOUND_WIRE_TRANSFER_REVERSAL -> Value.INBOUND_WIRE_TRANSFER_REVERSAL
@@ -928,8 +909,6 @@ private constructor(
                     INBOUND_CHECK_ADJUSTMENT -> Known.INBOUND_CHECK_ADJUSTMENT
                     INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION ->
                         Known.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION
-                    INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE ->
-                        Known.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE
                     INBOUND_WIRE_REVERSAL -> Known.INBOUND_WIRE_REVERSAL
                     INBOUND_WIRE_TRANSFER -> Known.INBOUND_WIRE_TRANSFER
                     INBOUND_WIRE_TRANSFER_REVERSAL -> Known.INBOUND_WIRE_TRANSFER_REVERSAL
