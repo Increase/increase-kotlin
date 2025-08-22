@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.288.0 (2025-08-22)
+
+Full Changelog: [v0.287.0...v0.288.0](https://github.com/Increase/increase-kotlin/compare/v0.287.0...v0.288.0)
+
+### Features
+
+* **api:** api update ([ec91aa1](https://github.com/Increase/increase-kotlin/commit/ec91aa11418370033d58f1da07a93cd423b28c71))
+
+
+### Chores
+
+* **ci:** reduce log noise ([7ac222f](https://github.com/Increase/increase-kotlin/commit/7ac222f4b53f04eb04a80a97b3f23c9f3cd2ca19))
+* remove memory upper bound from publishing step ([f7111e3](https://github.com/Increase/increase-kotlin/commit/f7111e3d567e40ffdc4a0d8295f84c231785fb04))
+
 ## 0.287.0 (2025-08-21)
 
 Full Changelog: [v0.286.0...v0.287.0](https://github.com/Increase/increase-kotlin/compare/v0.286.0...v0.287.0)
