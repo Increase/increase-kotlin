@@ -7,6 +7,7 @@ import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.simulations.wiredrawdownrequests.WireDrawdownRequestRefuseParams
+import com.increase.api.models.simulations.wiredrawdownrequests.WireDrawdownRequestSubmitParams
 import com.increase.api.models.wiredrawdownrequests.WireDrawdownRequest
 
 interface WireDrawdownRequestServiceAsync {
@@ -46,6 +47,30 @@ interface WireDrawdownRequestServiceAsync {
         requestOptions: RequestOptions,
     ): WireDrawdownRequest =
         refuse(wireDrawdownRequestId, WireDrawdownRequestRefuseParams.none(), requestOptions)
+
+    /** Simulates a Wire Drawdown Request being submitted to Fedwire. */
+    suspend fun submit(
+        wireDrawdownRequestId: String,
+        params: WireDrawdownRequestSubmitParams = WireDrawdownRequestSubmitParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): WireDrawdownRequest =
+        submit(
+            params.toBuilder().wireDrawdownRequestId(wireDrawdownRequestId).build(),
+            requestOptions,
+        )
+
+    /** @see submit */
+    suspend fun submit(
+        params: WireDrawdownRequestSubmitParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): WireDrawdownRequest
+
+    /** @see submit */
+    suspend fun submit(
+        wireDrawdownRequestId: String,
+        requestOptions: RequestOptions,
+    ): WireDrawdownRequest =
+        submit(wireDrawdownRequestId, WireDrawdownRequestSubmitParams.none(), requestOptions)
 
     /**
      * A view of [WireDrawdownRequestServiceAsync] that provides access to raw HTTP responses for
@@ -92,5 +117,36 @@ interface WireDrawdownRequestServiceAsync {
             requestOptions: RequestOptions,
         ): HttpResponseFor<WireDrawdownRequest> =
             refuse(wireDrawdownRequestId, WireDrawdownRequestRefuseParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `post
+         * /simulations/wire_drawdown_requests/{wire_drawdown_request_id}/submit`, but is otherwise
+         * the same as [WireDrawdownRequestServiceAsync.submit].
+         */
+        @MustBeClosed
+        suspend fun submit(
+            wireDrawdownRequestId: String,
+            params: WireDrawdownRequestSubmitParams = WireDrawdownRequestSubmitParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<WireDrawdownRequest> =
+            submit(
+                params.toBuilder().wireDrawdownRequestId(wireDrawdownRequestId).build(),
+                requestOptions,
+            )
+
+        /** @see submit */
+        @MustBeClosed
+        suspend fun submit(
+            params: WireDrawdownRequestSubmitParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<WireDrawdownRequest>
+
+        /** @see submit */
+        @MustBeClosed
+        suspend fun submit(
+            wireDrawdownRequestId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<WireDrawdownRequest> =
+            submit(wireDrawdownRequestId, WireDrawdownRequestSubmitParams.none(), requestOptions)
     }
 }
