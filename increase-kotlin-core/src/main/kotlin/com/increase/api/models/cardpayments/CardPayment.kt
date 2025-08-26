@@ -37230,6 +37230,7 @@ private constructor(
             private val merchantName: JsonField<String>,
             private val merchantPostalCode: JsonField<String>,
             private val merchantState: JsonField<String>,
+            private val network: JsonField<Network>,
             private val networkIdentifiers: JsonField<NetworkIdentifiers>,
             private val pendingTransactionId: JsonField<String>,
             private val presentmentAmount: JsonField<Long>,
@@ -37280,6 +37281,9 @@ private constructor(
                 @JsonProperty("merchant_state")
                 @ExcludeMissing
                 merchantState: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("network")
+                @ExcludeMissing
+                network: JsonField<Network> = JsonMissing.of(),
                 @JsonProperty("network_identifiers")
                 @ExcludeMissing
                 networkIdentifiers: JsonField<NetworkIdentifiers> = JsonMissing.of(),
@@ -37314,6 +37318,7 @@ private constructor(
                 merchantName,
                 merchantPostalCode,
                 merchantState,
+                network,
                 networkIdentifiers,
                 pendingTransactionId,
                 presentmentAmount,
@@ -37451,6 +37456,15 @@ private constructor(
              *   if the server responded with an unexpected value).
              */
             fun merchantState(): String? = merchantState.getNullable("merchant_state")
+
+            /**
+             * The card network on which this transaction was processed.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun network(): Network = network.getRequired("network")
 
             /**
              * Network-specific identifiers for this refund.
@@ -37654,6 +37668,13 @@ private constructor(
             fun _merchantState(): JsonField<String> = merchantState
 
             /**
+             * Returns the raw JSON value of [network].
+             *
+             * Unlike [network], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("network") @ExcludeMissing fun _network(): JsonField<Network> = network
+
+            /**
              * Returns the raw JSON value of [networkIdentifiers].
              *
              * Unlike [networkIdentifiers], this method doesn't throw if the JSON field has an
@@ -37753,6 +37774,7 @@ private constructor(
                  * .merchantName()
                  * .merchantPostalCode()
                  * .merchantState()
+                 * .network()
                  * .networkIdentifiers()
                  * .pendingTransactionId()
                  * .presentmentAmount()
@@ -37782,6 +37804,7 @@ private constructor(
                 private var merchantName: JsonField<String>? = null
                 private var merchantPostalCode: JsonField<String>? = null
                 private var merchantState: JsonField<String>? = null
+                private var network: JsonField<Network>? = null
                 private var networkIdentifiers: JsonField<NetworkIdentifiers>? = null
                 private var pendingTransactionId: JsonField<String>? = null
                 private var presentmentAmount: JsonField<Long>? = null
@@ -37806,6 +37829,7 @@ private constructor(
                     merchantName = cardSettlement.merchantName
                     merchantPostalCode = cardSettlement.merchantPostalCode
                     merchantState = cardSettlement.merchantState
+                    network = cardSettlement.network
                     networkIdentifiers = cardSettlement.networkIdentifiers
                     pendingTransactionId = cardSettlement.pendingTransactionId
                     presentmentAmount = cardSettlement.presentmentAmount
@@ -38029,6 +38053,18 @@ private constructor(
                     this.merchantState = merchantState
                 }
 
+                /** The card network on which this transaction was processed. */
+                fun network(network: Network) = network(JsonField.of(network))
+
+                /**
+                 * Sets [Builder.network] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.network] with a well-typed [Network] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun network(network: JsonField<Network>) = apply { this.network = network }
+
                 /** Network-specific identifiers for this refund. */
                 fun networkIdentifiers(networkIdentifiers: NetworkIdentifiers) =
                     networkIdentifiers(JsonField.of(networkIdentifiers))
@@ -38183,6 +38219,7 @@ private constructor(
                  * .merchantName()
                  * .merchantPostalCode()
                  * .merchantState()
+                 * .network()
                  * .networkIdentifiers()
                  * .pendingTransactionId()
                  * .presentmentAmount()
@@ -38210,6 +38247,7 @@ private constructor(
                         checkRequired("merchantName", merchantName),
                         checkRequired("merchantPostalCode", merchantPostalCode),
                         checkRequired("merchantState", merchantState),
+                        checkRequired("network", network),
                         checkRequired("networkIdentifiers", networkIdentifiers),
                         checkRequired("pendingTransactionId", pendingTransactionId),
                         checkRequired("presentmentAmount", presentmentAmount),
@@ -38242,6 +38280,7 @@ private constructor(
                 merchantName()
                 merchantPostalCode()
                 merchantState()
+                network().validate()
                 networkIdentifiers().validate()
                 pendingTransactionId()
                 presentmentAmount()
@@ -38281,6 +38320,7 @@ private constructor(
                     (if (merchantName.asKnown() == null) 0 else 1) +
                     (if (merchantPostalCode.asKnown() == null) 0 else 1) +
                     (if (merchantState.asKnown() == null) 0 else 1) +
+                    (network.asKnown()?.validity() ?: 0) +
                     (networkIdentifiers.asKnown()?.validity() ?: 0) +
                     (if (pendingTransactionId.asKnown() == null) 0 else 1) +
                     (if (presentmentAmount.asKnown() == null) 0 else 1) +
@@ -39302,6 +39342,134 @@ private constructor(
 
                 override fun toString() =
                     "Interchange{amount=$amount, code=$code, currency=$currency, additionalProperties=$additionalProperties}"
+            }
+
+            /** The card network on which this transaction was processed. */
+            class Network @JsonCreator private constructor(private val value: JsonField<String>) :
+                Enum {
+
+                /**
+                 * Returns this class instance's raw value.
+                 *
+                 * This is usually only useful if this instance was deserialized from data that
+                 * doesn't match any known member, and you want to know that value. For example, if
+                 * the SDK is on an older version than the API, then the API may respond with new
+                 * members that the SDK is unaware of.
+                 */
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                companion object {
+
+                    /** Visa */
+                    val VISA = of("visa")
+
+                    fun of(value: String) = Network(JsonField.of(value))
+                }
+
+                /** An enum containing [Network]'s known values. */
+                enum class Known {
+                    /** Visa */
+                    VISA
+                }
+
+                /**
+                 * An enum containing [Network]'s known values, as well as an [_UNKNOWN] member.
+                 *
+                 * An instance of [Network] can contain an unknown value in a couple of cases:
+                 * - It was deserialized from data that doesn't match any known member. For example,
+                 *   if the SDK is on an older version than the API, then the API may respond with
+                 *   new members that the SDK is unaware of.
+                 * - It was constructed with an arbitrary value using the [of] method.
+                 */
+                enum class Value {
+                    /** Visa */
+                    VISA,
+                    /**
+                     * An enum member indicating that [Network] was instantiated with an unknown
+                     * value.
+                     */
+                    _UNKNOWN,
+                }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value, or
+                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                 *
+                 * Use the [known] method instead if you're certain the value is always known or if
+                 * you want to throw for the unknown case.
+                 */
+                fun value(): Value =
+                    when (this) {
+                        VISA -> Value.VISA
+                        else -> Value._UNKNOWN
+                    }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value.
+                 *
+                 * Use the [value] method instead if you're uncertain the value is always known and
+                 * don't want to throw for the unknown case.
+                 *
+                 * @throws IncreaseInvalidDataException if this class instance's value is a not a
+                 *   known member.
+                 */
+                fun known(): Known =
+                    when (this) {
+                        VISA -> Known.VISA
+                        else -> throw IncreaseInvalidDataException("Unknown Network: $value")
+                    }
+
+                /**
+                 * Returns this class instance's primitive wire representation.
+                 *
+                 * This differs from the [toString] method because that method is primarily for
+                 * debugging and generally doesn't throw.
+                 *
+                 * @throws IncreaseInvalidDataException if this class instance's value does not have
+                 *   the expected primitive type.
+                 */
+                fun asString(): String =
+                    _value().asString()
+                        ?: throw IncreaseInvalidDataException("Value is not a String")
+
+                private var validated: Boolean = false
+
+                fun validate(): Network = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is Network && value == other.value
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
             }
 
             /** Network-specific identifiers for this refund. */
@@ -46206,6 +46374,7 @@ private constructor(
                     merchantName == other.merchantName &&
                     merchantPostalCode == other.merchantPostalCode &&
                     merchantState == other.merchantState &&
+                    network == other.network &&
                     networkIdentifiers == other.networkIdentifiers &&
                     pendingTransactionId == other.pendingTransactionId &&
                     presentmentAmount == other.presentmentAmount &&
@@ -46232,6 +46401,7 @@ private constructor(
                     merchantName,
                     merchantPostalCode,
                     merchantState,
+                    network,
                     networkIdentifiers,
                     pendingTransactionId,
                     presentmentAmount,
@@ -46246,7 +46416,7 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "CardSettlement{id=$id, amount=$amount, cardAuthorization=$cardAuthorization, cardPaymentId=$cardPaymentId, cashback=$cashback, currency=$currency, interchange=$interchange, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantName=$merchantName, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, networkIdentifiers=$networkIdentifiers, pendingTransactionId=$pendingTransactionId, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, purchaseDetails=$purchaseDetails, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
+                "CardSettlement{id=$id, amount=$amount, cardAuthorization=$cardAuthorization, cardPaymentId=$cardPaymentId, cashback=$cashback, currency=$currency, interchange=$interchange, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantName=$merchantName, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, network=$network, networkIdentifiers=$networkIdentifiers, pendingTransactionId=$pendingTransactionId, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, purchaseDetails=$purchaseDetails, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
         }
 
         /**
