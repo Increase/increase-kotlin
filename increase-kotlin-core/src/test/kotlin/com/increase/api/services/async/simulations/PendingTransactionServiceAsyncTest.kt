@@ -8,20 +8,22 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(TestServerExtension::class)
-internal class InboundFundsHoldServiceAsyncTest {
+internal class PendingTransactionServiceAsyncTest {
 
     @Test
-    suspend fun release() {
+    suspend fun releaseInboundFundsHold() {
         val client =
             IncreaseOkHttpClientAsync.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
-        val inboundFundsHoldServiceAsync = client.simulations().inboundFundsHolds()
+        val pendingTransactionServiceAsync = client.simulations().pendingTransactions()
 
-        val response =
-            inboundFundsHoldServiceAsync.release("inbound_funds_hold_9vuasmywdo7xb3zt4071")
+        val pendingTransaction =
+            pendingTransactionServiceAsync.releaseInboundFundsHold(
+                "pending_transaction_k1sfetcau2qbvjbzgju4"
+            )
 
-        response.validate()
+        pendingTransaction.validate()
     }
 }
