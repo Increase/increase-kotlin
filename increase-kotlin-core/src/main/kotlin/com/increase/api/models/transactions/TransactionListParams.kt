@@ -551,6 +551,12 @@ private constructor(
                  */
                 val CARD_PUSH_TRANSFER_ACCEPTANCE = of("card_push_transfer_acceptance")
 
+                /**
+                 * Account Revenue Payment: details will be under the `account_revenue_payment`
+                 * object.
+                 */
+                val ACCOUNT_REVENUE_PAYMENT = of("account_revenue_payment")
+
                 /** The Transaction was made for an undocumented or deprecated reason. */
                 val OTHER = of("other")
 
@@ -683,6 +689,11 @@ private constructor(
                  * `card_push_transfer_acceptance` object.
                  */
                 CARD_PUSH_TRANSFER_ACCEPTANCE,
+                /**
+                 * Account Revenue Payment: details will be under the `account_revenue_payment`
+                 * object.
+                 */
+                ACCOUNT_REVENUE_PAYMENT,
                 /** The Transaction was made for an undocumented or deprecated reason. */
                 OTHER,
             }
@@ -821,6 +832,11 @@ private constructor(
                  * `card_push_transfer_acceptance` object.
                  */
                 CARD_PUSH_TRANSFER_ACCEPTANCE,
+                /**
+                 * Account Revenue Payment: details will be under the `account_revenue_payment`
+                 * object.
+                 */
+                ACCOUNT_REVENUE_PAYMENT,
                 /** The Transaction was made for an undocumented or deprecated reason. */
                 OTHER,
                 /** An enum member indicating that [In] was instantiated with an unknown value. */
@@ -871,6 +887,7 @@ private constructor(
                     SWIFT_TRANSFER_INTENTION -> Value.SWIFT_TRANSFER_INTENTION
                     SWIFT_TRANSFER_RETURN -> Value.SWIFT_TRANSFER_RETURN
                     CARD_PUSH_TRANSFER_ACCEPTANCE -> Value.CARD_PUSH_TRANSFER_ACCEPTANCE
+                    ACCOUNT_REVENUE_PAYMENT -> Value.ACCOUNT_REVENUE_PAYMENT
                     OTHER -> Value.OTHER
                     else -> Value._UNKNOWN
                 }
@@ -921,6 +938,7 @@ private constructor(
                     SWIFT_TRANSFER_INTENTION -> Known.SWIFT_TRANSFER_INTENTION
                     SWIFT_TRANSFER_RETURN -> Known.SWIFT_TRANSFER_RETURN
                     CARD_PUSH_TRANSFER_ACCEPTANCE -> Known.CARD_PUSH_TRANSFER_ACCEPTANCE
+                    ACCOUNT_REVENUE_PAYMENT -> Known.ACCOUNT_REVENUE_PAYMENT
                     OTHER -> Known.OTHER
                     else -> throw IncreaseInvalidDataException("Unknown In: $value")
                 }
