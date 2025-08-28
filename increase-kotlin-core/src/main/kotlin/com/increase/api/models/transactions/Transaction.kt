@@ -36226,6 +36226,10 @@ private constructor(
                     /** Sample funds return */
                     val SAMPLE_FUNDS_RETURN = of("sample_funds_return")
 
+                    /** Account revenue payment distribution */
+                    val ACCOUNT_REVENUE_PAYMENT_DISTRIBUTION =
+                        of("account_revenue_payment_distribution")
+
                     fun of(value: String) = Reason(JsonField.of(value))
                 }
 
@@ -36261,6 +36265,8 @@ private constructor(
                     SAMPLE_FUNDS,
                     /** Sample funds return */
                     SAMPLE_FUNDS_RETURN,
+                    /** Account revenue payment distribution */
+                    ACCOUNT_REVENUE_PAYMENT_DISTRIBUTION,
                 }
 
                 /**
@@ -36303,6 +36309,8 @@ private constructor(
                     SAMPLE_FUNDS,
                     /** Sample funds return */
                     SAMPLE_FUNDS_RETURN,
+                    /** Account revenue payment distribution */
+                    ACCOUNT_REVENUE_PAYMENT_DISTRIBUTION,
                     /**
                      * An enum member indicating that [Reason] was instantiated with an unknown
                      * value.
@@ -36334,6 +36342,8 @@ private constructor(
                         NEGATIVE_BALANCE_FORGIVENESS -> Value.NEGATIVE_BALANCE_FORGIVENESS
                         SAMPLE_FUNDS -> Value.SAMPLE_FUNDS
                         SAMPLE_FUNDS_RETURN -> Value.SAMPLE_FUNDS_RETURN
+                        ACCOUNT_REVENUE_PAYMENT_DISTRIBUTION ->
+                            Value.ACCOUNT_REVENUE_PAYMENT_DISTRIBUTION
                         else -> Value._UNKNOWN
                     }
 
@@ -36363,6 +36373,8 @@ private constructor(
                         NEGATIVE_BALANCE_FORGIVENESS -> Known.NEGATIVE_BALANCE_FORGIVENESS
                         SAMPLE_FUNDS -> Known.SAMPLE_FUNDS
                         SAMPLE_FUNDS_RETURN -> Known.SAMPLE_FUNDS_RETURN
+                        ACCOUNT_REVENUE_PAYMENT_DISTRIBUTION ->
+                            Known.ACCOUNT_REVENUE_PAYMENT_DISTRIBUTION
                         else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
                     }
 
