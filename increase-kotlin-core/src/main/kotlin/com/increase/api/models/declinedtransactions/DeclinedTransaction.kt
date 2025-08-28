@@ -11423,6 +11423,9 @@ private constructor(
                     /** The check cannot be processed. This is rare: please contact support. */
                     val UNABLE_TO_PROCESS = of("unable_to_process")
 
+                    /** The check image is unusable. */
+                    val UNUSABLE_IMAGE = of("unusable_image")
+
                     /** Your integration declined this check via the API. */
                     val USER_INITIATED = of("user_initiated")
 
@@ -11466,6 +11469,8 @@ private constructor(
                     REFER_TO_IMAGE,
                     /** The check cannot be processed. This is rare: please contact support. */
                     UNABLE_TO_PROCESS,
+                    /** The check image is unusable. */
+                    UNUSABLE_IMAGE,
                     /** Your integration declined this check via the API. */
                     USER_INITIATED,
                 }
@@ -11515,6 +11520,8 @@ private constructor(
                     REFER_TO_IMAGE,
                     /** The check cannot be processed. This is rare: please contact support. */
                     UNABLE_TO_PROCESS,
+                    /** The check image is unusable. */
+                    UNUSABLE_IMAGE,
                     /** Your integration declined this check via the API. */
                     USER_INITIATED,
                     /**
@@ -11549,6 +11556,7 @@ private constructor(
                         NO_ACCOUNT_NUMBER_FOUND -> Value.NO_ACCOUNT_NUMBER_FOUND
                         REFER_TO_IMAGE -> Value.REFER_TO_IMAGE
                         UNABLE_TO_PROCESS -> Value.UNABLE_TO_PROCESS
+                        UNUSABLE_IMAGE -> Value.UNUSABLE_IMAGE
                         USER_INITIATED -> Value.USER_INITIATED
                         else -> Value._UNKNOWN
                     }
@@ -11580,6 +11588,7 @@ private constructor(
                         NO_ACCOUNT_NUMBER_FOUND -> Known.NO_ACCOUNT_NUMBER_FOUND
                         REFER_TO_IMAGE -> Known.REFER_TO_IMAGE
                         UNABLE_TO_PROCESS -> Known.UNABLE_TO_PROCESS
+                        UNUSABLE_IMAGE -> Known.UNUSABLE_IMAGE
                         USER_INITIATED -> Known.USER_INITIATED
                         else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
                     }
