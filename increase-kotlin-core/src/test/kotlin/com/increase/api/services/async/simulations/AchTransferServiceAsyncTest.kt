@@ -6,6 +6,7 @@ import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
 import com.increase.api.models.simulations.achtransfers.AchTransferCreateNotificationOfChangeParams
 import com.increase.api.models.simulations.achtransfers.AchTransferReturnParams
+import com.increase.api.models.simulations.achtransfers.AchTransferSettleParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -79,7 +80,15 @@ internal class AchTransferServiceAsyncTest {
                 .build()
         val achTransferServiceAsync = client.simulations().achTransfers()
 
-        val achTransfer = achTransferServiceAsync.settle("ach_transfer_uoxatyh3lt5evrsdvo7q")
+        val achTransfer =
+            achTransferServiceAsync.settle(
+                AchTransferSettleParams.builder()
+                    .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
+                    .inboundFundsHoldBehavior(
+                        AchTransferSettleParams.InboundFundsHoldBehavior.RELEASE_IMMEDIATELY
+                    )
+                    .build()
+            )
 
         achTransfer.validate()
     }
