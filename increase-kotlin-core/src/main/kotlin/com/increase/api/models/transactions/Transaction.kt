@@ -1042,7 +1042,7 @@ private constructor(
 
         /**
          * An Account Revenue Payment object. This field will be present in the JSON response if and
-         * only if `category` is equal to `account_revenue_payment`. A Account Revenue Payment
+         * only if `category` is equal to `account_revenue_payment`. An Account Revenue Payment
          * represents a payment made to an account from the bank. Account revenue is a type of
          * non-interest income.
          *
@@ -1910,7 +1910,7 @@ private constructor(
 
             /**
              * An Account Revenue Payment object. This field will be present in the JSON response if
-             * and only if `category` is equal to `account_revenue_payment`. A Account Revenue
+             * and only if `category` is equal to `account_revenue_payment`. An Account Revenue
              * Payment represents a payment made to an account from the bank. Account revenue is a
              * type of non-interest income.
              */
@@ -2814,7 +2814,7 @@ private constructor(
 
         /**
          * An Account Revenue Payment object. This field will be present in the JSON response if and
-         * only if `category` is equal to `account_revenue_payment`. A Account Revenue Payment
+         * only if `category` is equal to `account_revenue_payment`. An Account Revenue Payment
          * represents a payment made to an account from the bank. Account revenue is a type of
          * non-interest income.
          */
