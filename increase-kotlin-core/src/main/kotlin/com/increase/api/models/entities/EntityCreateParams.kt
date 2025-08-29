@@ -57,7 +57,7 @@ private constructor(
 
     /**
      * Details of the Government Authority entity to create. Required if `structure` is equal to
-     * `Government Authority`.
+     * `government_authority`.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -268,7 +268,7 @@ private constructor(
 
         /**
          * Details of the Government Authority entity to create. Required if `structure` is equal to
-         * `Government Authority`.
+         * `government_authority`.
          */
         fun governmentAuthority(governmentAuthority: GovernmentAuthority) = apply {
             body.governmentAuthority(governmentAuthority)
@@ -596,7 +596,7 @@ private constructor(
 
         /**
          * Details of the Government Authority entity to create. Required if `structure` is equal to
-         * `Government Authority`.
+         * `government_authority`.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -828,7 +828,7 @@ private constructor(
 
             /**
              * Details of the Government Authority entity to create. Required if `structure` is
-             * equal to `Government Authority`.
+             * equal to `government_authority`.
              */
             fun governmentAuthority(governmentAuthority: GovernmentAuthority) =
                 governmentAuthority(JsonField.of(governmentAuthority))
@@ -4896,7 +4896,7 @@ private constructor(
 
     /**
      * Details of the Government Authority entity to create. Required if `structure` is equal to
-     * `Government Authority`.
+     * `government_authority`.
      */
     class GovernmentAuthority
     private constructor(
@@ -11804,8 +11804,8 @@ private constructor(
             fun structure(): Structure = structure.getRequired("structure")
 
             /**
-             * Details of the individual trustee. Required when the trustee `structure` is equal to
-             * `individual`.
+             * Details of the individual trustee. Within the trustee object, this is required if
+             * `structure` is equal to `individual`.
              *
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
@@ -11885,8 +11885,8 @@ private constructor(
                 }
 
                 /**
-                 * Details of the individual trustee. Required when the trustee `structure` is equal
-                 * to `individual`.
+                 * Details of the individual trustee. Within the trustee object, this is required if
+                 * `structure` is equal to `individual`.
                  */
                 fun individual(individual: Individual) = individual(JsonField.of(individual))
 
@@ -12101,8 +12101,8 @@ private constructor(
             }
 
             /**
-             * Details of the individual trustee. Required when the trustee `structure` is equal to
-             * `individual`.
+             * Details of the individual trustee. Within the trustee object, this is required if
+             * `structure` is equal to `individual`.
              */
             class Individual
             private constructor(
