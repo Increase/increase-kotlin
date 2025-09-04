@@ -36,6 +36,7 @@ private constructor(
     private val idempotencyKey: JsonField<String>,
     private val joint: JsonField<Joint>,
     private val naturalPerson: JsonField<NaturalPerson>,
+    private val riskRating: JsonField<RiskRating>,
     private val status: JsonField<Status>,
     private val structure: JsonField<Structure>,
     private val supplementalDocuments: JsonField<List<EntitySupplementalDocument>>,
@@ -70,6 +71,9 @@ private constructor(
         @JsonProperty("natural_person")
         @ExcludeMissing
         naturalPerson: JsonField<NaturalPerson> = JsonMissing.of(),
+        @JsonProperty("risk_rating")
+        @ExcludeMissing
+        riskRating: JsonField<RiskRating> = JsonMissing.of(),
         @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
         @JsonProperty("structure")
         @ExcludeMissing
@@ -92,6 +96,7 @@ private constructor(
         idempotencyKey,
         joint,
         naturalPerson,
+        riskRating,
         status,
         structure,
         supplementalDocuments,
@@ -179,6 +184,15 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun naturalPerson(): NaturalPerson? = naturalPerson.getNullable("natural_person")
+
+    /**
+     * An assessment of the entity’s potential risk of involvement in financial crimes, such as
+     * money laundering.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun riskRating(): RiskRating? = riskRating.getNullable("risk_rating")
 
     /**
      * The status of the entity.
@@ -311,6 +325,15 @@ private constructor(
     fun _naturalPerson(): JsonField<NaturalPerson> = naturalPerson
 
     /**
+     * Returns the raw JSON value of [riskRating].
+     *
+     * Unlike [riskRating], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("risk_rating")
+    @ExcludeMissing
+    fun _riskRating(): JsonField<RiskRating> = riskRating
+
+    /**
      * Returns the raw JSON value of [status].
      *
      * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
@@ -387,6 +410,7 @@ private constructor(
          * .idempotencyKey()
          * .joint()
          * .naturalPerson()
+         * .riskRating()
          * .status()
          * .structure()
          * .supplementalDocuments()
@@ -410,6 +434,7 @@ private constructor(
         private var idempotencyKey: JsonField<String>? = null
         private var joint: JsonField<Joint>? = null
         private var naturalPerson: JsonField<NaturalPerson>? = null
+        private var riskRating: JsonField<RiskRating>? = null
         private var status: JsonField<Status>? = null
         private var structure: JsonField<Structure>? = null
         private var supplementalDocuments: JsonField<MutableList<EntitySupplementalDocument>>? =
@@ -429,6 +454,7 @@ private constructor(
             idempotencyKey = entity.idempotencyKey
             joint = entity.joint
             naturalPerson = entity.naturalPerson
+            riskRating = entity.riskRating
             status = entity.status
             structure = entity.structure
             supplementalDocuments = entity.supplementalDocuments.map { it.toMutableList() }
@@ -577,6 +603,21 @@ private constructor(
             this.naturalPerson = naturalPerson
         }
 
+        /**
+         * An assessment of the entity’s potential risk of involvement in financial crimes, such as
+         * money laundering.
+         */
+        fun riskRating(riskRating: RiskRating?) = riskRating(JsonField.ofNullable(riskRating))
+
+        /**
+         * Sets [Builder.riskRating] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.riskRating] with a well-typed [RiskRating] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun riskRating(riskRating: JsonField<RiskRating>) = apply { this.riskRating = riskRating }
+
         /** The status of the entity. */
         fun status(status: Status) = status(JsonField.of(status))
 
@@ -709,6 +750,7 @@ private constructor(
          * .idempotencyKey()
          * .joint()
          * .naturalPerson()
+         * .riskRating()
          * .status()
          * .structure()
          * .supplementalDocuments()
@@ -730,6 +772,7 @@ private constructor(
                 checkRequired("idempotencyKey", idempotencyKey),
                 checkRequired("joint", joint),
                 checkRequired("naturalPerson", naturalPerson),
+                checkRequired("riskRating", riskRating),
                 checkRequired("status", status),
                 checkRequired("structure", structure),
                 checkRequired("supplementalDocuments", supplementalDocuments).map {
@@ -758,6 +801,7 @@ private constructor(
         idempotencyKey()
         joint()?.validate()
         naturalPerson()?.validate()
+        riskRating()?.validate()
         status().validate()
         structure().validate()
         supplementalDocuments().forEach { it.validate() }
@@ -790,6 +834,7 @@ private constructor(
             (if (idempotencyKey.asKnown() == null) 0 else 1) +
             (joint.asKnown()?.validity() ?: 0) +
             (naturalPerson.asKnown()?.validity() ?: 0) +
+            (riskRating.asKnown()?.validity() ?: 0) +
             (status.asKnown()?.validity() ?: 0) +
             (structure.asKnown()?.validity() ?: 0) +
             (supplementalDocuments.asKnown()?.sumOf { it.validity().toInt() } ?: 0) +
@@ -6381,6 +6426,355 @@ private constructor(
             "NaturalPerson{address=$address, dateOfBirth=$dateOfBirth, identification=$identification, name=$name, additionalProperties=$additionalProperties}"
     }
 
+    /**
+     * An assessment of the entity’s potential risk of involvement in financial crimes, such as
+     * money laundering.
+     */
+    class RiskRating
+    private constructor(
+        private val ratedAt: JsonField<OffsetDateTime>,
+        private val rating: JsonField<Rating>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("rated_at")
+            @ExcludeMissing
+            ratedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+            @JsonProperty("rating") @ExcludeMissing rating: JsonField<Rating> = JsonMissing.of(),
+        ) : this(ratedAt, rating, mutableMapOf())
+
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the risk rating was
+         * performed.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun ratedAt(): OffsetDateTime = ratedAt.getRequired("rated_at")
+
+        /**
+         * The rating given to this entity.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun rating(): Rating = rating.getRequired("rating")
+
+        /**
+         * Returns the raw JSON value of [ratedAt].
+         *
+         * Unlike [ratedAt], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("rated_at")
+        @ExcludeMissing
+        fun _ratedAt(): JsonField<OffsetDateTime> = ratedAt
+
+        /**
+         * Returns the raw JSON value of [rating].
+         *
+         * Unlike [rating], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("rating") @ExcludeMissing fun _rating(): JsonField<Rating> = rating
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [RiskRating].
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .ratedAt()
+             * .rating()
+             * ```
+             */
+            fun builder() = Builder()
+        }
+
+        /** A builder for [RiskRating]. */
+        class Builder internal constructor() {
+
+            private var ratedAt: JsonField<OffsetDateTime>? = null
+            private var rating: JsonField<Rating>? = null
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            internal fun from(riskRating: RiskRating) = apply {
+                ratedAt = riskRating.ratedAt
+                rating = riskRating.rating
+                additionalProperties = riskRating.additionalProperties.toMutableMap()
+            }
+
+            /**
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the risk rating
+             * was performed.
+             */
+            fun ratedAt(ratedAt: OffsetDateTime) = ratedAt(JsonField.of(ratedAt))
+
+            /**
+             * Sets [Builder.ratedAt] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.ratedAt] with a well-typed [OffsetDateTime] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun ratedAt(ratedAt: JsonField<OffsetDateTime>) = apply { this.ratedAt = ratedAt }
+
+            /** The rating given to this entity. */
+            fun rating(rating: Rating) = rating(JsonField.of(rating))
+
+            /**
+             * Sets [Builder.rating] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.rating] with a well-typed [Rating] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun rating(rating: JsonField<Rating>) = apply { this.rating = rating }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [RiskRating].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```kotlin
+             * .ratedAt()
+             * .rating()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): RiskRating =
+                RiskRating(
+                    checkRequired("ratedAt", ratedAt),
+                    checkRequired("rating", rating),
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): RiskRating = apply {
+            if (validated) {
+                return@apply
+            }
+
+            ratedAt()
+            rating().validate()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int =
+            (if (ratedAt.asKnown() == null) 0 else 1) + (rating.asKnown()?.validity() ?: 0)
+
+        /** The rating given to this entity. */
+        class Rating @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+            /**
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
+             */
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            companion object {
+
+                /** Low */
+                val LOW = of("low")
+
+                /** Medium */
+                val MEDIUM = of("medium")
+
+                /** High */
+                val HIGH = of("high")
+
+                fun of(value: String) = Rating(JsonField.of(value))
+            }
+
+            /** An enum containing [Rating]'s known values. */
+            enum class Known {
+                /** Low */
+                LOW,
+                /** Medium */
+                MEDIUM,
+                /** High */
+                HIGH,
+            }
+
+            /**
+             * An enum containing [Rating]'s known values, as well as an [_UNKNOWN] member.
+             *
+             * An instance of [Rating] can contain an unknown value in a couple of cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
+            enum class Value {
+                /** Low */
+                LOW,
+                /** Medium */
+                MEDIUM,
+                /** High */
+                HIGH,
+                /**
+                 * An enum member indicating that [Rating] was instantiated with an unknown value.
+                 */
+                _UNKNOWN,
+            }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
+            fun value(): Value =
+                when (this) {
+                    LOW -> Value.LOW
+                    MEDIUM -> Value.MEDIUM
+                    HIGH -> Value.HIGH
+                    else -> Value._UNKNOWN
+                }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+             *   member.
+             */
+            fun known(): Known =
+                when (this) {
+                    LOW -> Known.LOW
+                    MEDIUM -> Known.MEDIUM
+                    HIGH -> Known.HIGH
+                    else -> throw IncreaseInvalidDataException("Unknown Rating: $value")
+                }
+
+            /**
+             * Returns this class instance's primitive wire representation.
+             *
+             * This differs from the [toString] method because that method is primarily for
+             * debugging and generally doesn't throw.
+             *
+             * @throws IncreaseInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
+             */
+            fun asString(): String =
+                _value().asString() ?: throw IncreaseInvalidDataException("Value is not a String")
+
+            private var validated: Boolean = false
+
+            fun validate(): Rating = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Rating && value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is RiskRating &&
+                ratedAt == other.ratedAt &&
+                rating == other.rating &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(ratedAt, rating, additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "RiskRating{ratedAt=$ratedAt, rating=$rating, additionalProperties=$additionalProperties}"
+    }
+
     /** The status of the entity. */
     class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
@@ -10499,6 +10893,7 @@ private constructor(
             idempotencyKey == other.idempotencyKey &&
             joint == other.joint &&
             naturalPerson == other.naturalPerson &&
+            riskRating == other.riskRating &&
             status == other.status &&
             structure == other.structure &&
             supplementalDocuments == other.supplementalDocuments &&
@@ -10519,6 +10914,7 @@ private constructor(
             idempotencyKey,
             joint,
             naturalPerson,
+            riskRating,
             status,
             structure,
             supplementalDocuments,
@@ -10532,5 +10928,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "Entity{id=$id, corporation=$corporation, createdAt=$createdAt, description=$description, detailsConfirmedAt=$detailsConfirmedAt, governmentAuthority=$governmentAuthority, idempotencyKey=$idempotencyKey, joint=$joint, naturalPerson=$naturalPerson, status=$status, structure=$structure, supplementalDocuments=$supplementalDocuments, thirdPartyVerification=$thirdPartyVerification, trust=$trust, type=$type, additionalProperties=$additionalProperties}"
+        "Entity{id=$id, corporation=$corporation, createdAt=$createdAt, description=$description, detailsConfirmedAt=$detailsConfirmedAt, governmentAuthority=$governmentAuthority, idempotencyKey=$idempotencyKey, joint=$joint, naturalPerson=$naturalPerson, riskRating=$riskRating, status=$status, structure=$structure, supplementalDocuments=$supplementalDocuments, thirdPartyVerification=$thirdPartyVerification, trust=$trust, type=$type, additionalProperties=$additionalProperties}"
 }

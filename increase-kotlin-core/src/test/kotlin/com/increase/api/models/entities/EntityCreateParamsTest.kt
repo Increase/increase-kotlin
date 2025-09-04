@@ -3,6 +3,7 @@
 package com.increase.api.models.entities
 
 import java.time.LocalDate
+import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -237,6 +238,12 @@ internal class EntityCreateParamsTest {
                     )
                     .name("x")
                     .confirmedNoUsTaxId(true)
+                    .build()
+            )
+            .riskRating(
+                EntityCreateParams.RiskRating.builder()
+                    .ratedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .rating(EntityCreateParams.RiskRating.Rating.LOW)
                     .build()
             )
             .addSupplementalDocument(
@@ -637,6 +644,12 @@ internal class EntityCreateParamsTest {
                         .confirmedNoUsTaxId(true)
                         .build()
                 )
+                .riskRating(
+                    EntityCreateParams.RiskRating.builder()
+                        .ratedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .rating(EntityCreateParams.RiskRating.Rating.LOW)
+                        .build()
+                )
                 .addSupplementalDocument(
                     EntityCreateParams.SupplementalDocument.builder()
                         .fileId("file_makxrc67oh9l6sg7w9yc")
@@ -1027,6 +1040,13 @@ internal class EntityCreateParamsTest {
                     )
                     .name("x")
                     .confirmedNoUsTaxId(true)
+                    .build()
+            )
+        assertThat(body.riskRating())
+            .isEqualTo(
+                EntityCreateParams.RiskRating.builder()
+                    .ratedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .rating(EntityCreateParams.RiskRating.Rating.LOW)
                     .build()
             )
         assertThat(body.supplementalDocuments())
