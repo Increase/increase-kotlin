@@ -33,6 +33,30 @@ private constructor(
     fun entityId(): String? = entityId
 
     /**
+     * Details of the corporation entity to update.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun corporation(): Corporation? = body.corporation()
+
+    /**
+     * Details of the government authority entity to update.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun governmentAuthority(): GovernmentAuthority? = body.governmentAuthority()
+
+    /**
+     * Details of the natural person entity to update.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun naturalPerson(): NaturalPerson? = body.naturalPerson()
+
+    /**
      * An assessment of the entity’s potential risk of involvement in financial crimes, such as
      * money laundering.
      *
@@ -51,6 +75,36 @@ private constructor(
     fun thirdPartyVerification(): ThirdPartyVerification? = body.thirdPartyVerification()
 
     /**
+     * Details of the trust entity to update.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun trust(): Trust? = body.trust()
+
+    /**
+     * Returns the raw JSON value of [corporation].
+     *
+     * Unlike [corporation], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _corporation(): JsonField<Corporation> = body._corporation()
+
+    /**
+     * Returns the raw JSON value of [governmentAuthority].
+     *
+     * Unlike [governmentAuthority], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    fun _governmentAuthority(): JsonField<GovernmentAuthority> = body._governmentAuthority()
+
+    /**
+     * Returns the raw JSON value of [naturalPerson].
+     *
+     * Unlike [naturalPerson], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _naturalPerson(): JsonField<NaturalPerson> = body._naturalPerson()
+
+    /**
      * Returns the raw JSON value of [riskRating].
      *
      * Unlike [riskRating], this method doesn't throw if the JSON field has an unexpected type.
@@ -65,6 +119,13 @@ private constructor(
      */
     fun _thirdPartyVerification(): JsonField<ThirdPartyVerification> =
         body._thirdPartyVerification()
+
+    /**
+     * Returns the raw JSON value of [trust].
+     *
+     * Unlike [trust], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _trust(): JsonField<Trust> = body._trust()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
@@ -107,10 +168,60 @@ private constructor(
          *
          * This is generally only useful if you are already constructing the body separately.
          * Otherwise, it's more convenient to use the top-level setters instead:
+         * - [corporation]
+         * - [governmentAuthority]
+         * - [naturalPerson]
          * - [riskRating]
          * - [thirdPartyVerification]
+         * - etc.
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
+
+        /** Details of the corporation entity to update. */
+        fun corporation(corporation: Corporation) = apply { body.corporation(corporation) }
+
+        /**
+         * Sets [Builder.corporation] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.corporation] with a well-typed [Corporation] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun corporation(corporation: JsonField<Corporation>) = apply {
+            body.corporation(corporation)
+        }
+
+        /** Details of the government authority entity to update. */
+        fun governmentAuthority(governmentAuthority: GovernmentAuthority) = apply {
+            body.governmentAuthority(governmentAuthority)
+        }
+
+        /**
+         * Sets [Builder.governmentAuthority] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.governmentAuthority] with a well-typed
+         * [GovernmentAuthority] value instead. This method is primarily for setting the field to an
+         * undocumented or not yet supported value.
+         */
+        fun governmentAuthority(governmentAuthority: JsonField<GovernmentAuthority>) = apply {
+            body.governmentAuthority(governmentAuthority)
+        }
+
+        /** Details of the natural person entity to update. */
+        fun naturalPerson(naturalPerson: NaturalPerson) = apply {
+            body.naturalPerson(naturalPerson)
+        }
+
+        /**
+         * Sets [Builder.naturalPerson] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.naturalPerson] with a well-typed [NaturalPerson] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun naturalPerson(naturalPerson: JsonField<NaturalPerson>) = apply {
+            body.naturalPerson(naturalPerson)
+        }
 
         /**
          * An assessment of the entity’s potential risk of involvement in financial crimes, such as
@@ -146,6 +257,17 @@ private constructor(
             apply {
                 body.thirdPartyVerification(thirdPartyVerification)
             }
+
+        /** Details of the trust entity to update. */
+        fun trust(trust: Trust) = apply { body.trust(trust) }
+
+        /**
+         * Sets [Builder.trust] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.trust] with a well-typed [Trust] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun trust(trust: JsonField<Trust>) = apply { body.trust(trust) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             body.additionalProperties(additionalBodyProperties)
@@ -292,20 +414,67 @@ private constructor(
 
     class Body
     private constructor(
+        private val corporation: JsonField<Corporation>,
+        private val governmentAuthority: JsonField<GovernmentAuthority>,
+        private val naturalPerson: JsonField<NaturalPerson>,
         private val riskRating: JsonField<RiskRating>,
         private val thirdPartyVerification: JsonField<ThirdPartyVerification>,
+        private val trust: JsonField<Trust>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
         @JsonCreator
         private constructor(
+            @JsonProperty("corporation")
+            @ExcludeMissing
+            corporation: JsonField<Corporation> = JsonMissing.of(),
+            @JsonProperty("government_authority")
+            @ExcludeMissing
+            governmentAuthority: JsonField<GovernmentAuthority> = JsonMissing.of(),
+            @JsonProperty("natural_person")
+            @ExcludeMissing
+            naturalPerson: JsonField<NaturalPerson> = JsonMissing.of(),
             @JsonProperty("risk_rating")
             @ExcludeMissing
             riskRating: JsonField<RiskRating> = JsonMissing.of(),
             @JsonProperty("third_party_verification")
             @ExcludeMissing
             thirdPartyVerification: JsonField<ThirdPartyVerification> = JsonMissing.of(),
-        ) : this(riskRating, thirdPartyVerification, mutableMapOf())
+            @JsonProperty("trust") @ExcludeMissing trust: JsonField<Trust> = JsonMissing.of(),
+        ) : this(
+            corporation,
+            governmentAuthority,
+            naturalPerson,
+            riskRating,
+            thirdPartyVerification,
+            trust,
+            mutableMapOf(),
+        )
+
+        /**
+         * Details of the corporation entity to update.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun corporation(): Corporation? = corporation.getNullable("corporation")
+
+        /**
+         * Details of the government authority entity to update.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun governmentAuthority(): GovernmentAuthority? =
+            governmentAuthority.getNullable("government_authority")
+
+        /**
+         * Details of the natural person entity to update.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun naturalPerson(): NaturalPerson? = naturalPerson.getNullable("natural_person")
 
         /**
          * An assessment of the entity’s potential risk of involvement in financial crimes, such as
@@ -327,6 +496,43 @@ private constructor(
             thirdPartyVerification.getNullable("third_party_verification")
 
         /**
+         * Details of the trust entity to update.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun trust(): Trust? = trust.getNullable("trust")
+
+        /**
+         * Returns the raw JSON value of [corporation].
+         *
+         * Unlike [corporation], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("corporation")
+        @ExcludeMissing
+        fun _corporation(): JsonField<Corporation> = corporation
+
+        /**
+         * Returns the raw JSON value of [governmentAuthority].
+         *
+         * Unlike [governmentAuthority], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("government_authority")
+        @ExcludeMissing
+        fun _governmentAuthority(): JsonField<GovernmentAuthority> = governmentAuthority
+
+        /**
+         * Returns the raw JSON value of [naturalPerson].
+         *
+         * Unlike [naturalPerson], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("natural_person")
+        @ExcludeMissing
+        fun _naturalPerson(): JsonField<NaturalPerson> = naturalPerson
+
+        /**
          * Returns the raw JSON value of [riskRating].
          *
          * Unlike [riskRating], this method doesn't throw if the JSON field has an unexpected type.
@@ -344,6 +550,13 @@ private constructor(
         @JsonProperty("third_party_verification")
         @ExcludeMissing
         fun _thirdPartyVerification(): JsonField<ThirdPartyVerification> = thirdPartyVerification
+
+        /**
+         * Returns the raw JSON value of [trust].
+         *
+         * Unlike [trust], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("trust") @ExcludeMissing fun _trust(): JsonField<Trust> = trust
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -366,14 +579,66 @@ private constructor(
         /** A builder for [Body]. */
         class Builder internal constructor() {
 
+            private var corporation: JsonField<Corporation> = JsonMissing.of()
+            private var governmentAuthority: JsonField<GovernmentAuthority> = JsonMissing.of()
+            private var naturalPerson: JsonField<NaturalPerson> = JsonMissing.of()
             private var riskRating: JsonField<RiskRating> = JsonMissing.of()
             private var thirdPartyVerification: JsonField<ThirdPartyVerification> = JsonMissing.of()
+            private var trust: JsonField<Trust> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             internal fun from(body: Body) = apply {
+                corporation = body.corporation
+                governmentAuthority = body.governmentAuthority
+                naturalPerson = body.naturalPerson
                 riskRating = body.riskRating
                 thirdPartyVerification = body.thirdPartyVerification
+                trust = body.trust
                 additionalProperties = body.additionalProperties.toMutableMap()
+            }
+
+            /** Details of the corporation entity to update. */
+            fun corporation(corporation: Corporation) = corporation(JsonField.of(corporation))
+
+            /**
+             * Sets [Builder.corporation] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.corporation] with a well-typed [Corporation] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun corporation(corporation: JsonField<Corporation>) = apply {
+                this.corporation = corporation
+            }
+
+            /** Details of the government authority entity to update. */
+            fun governmentAuthority(governmentAuthority: GovernmentAuthority) =
+                governmentAuthority(JsonField.of(governmentAuthority))
+
+            /**
+             * Sets [Builder.governmentAuthority] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.governmentAuthority] with a well-typed
+             * [GovernmentAuthority] value instead. This method is primarily for setting the field
+             * to an undocumented or not yet supported value.
+             */
+            fun governmentAuthority(governmentAuthority: JsonField<GovernmentAuthority>) = apply {
+                this.governmentAuthority = governmentAuthority
+            }
+
+            /** Details of the natural person entity to update. */
+            fun naturalPerson(naturalPerson: NaturalPerson) =
+                naturalPerson(JsonField.of(naturalPerson))
+
+            /**
+             * Sets [Builder.naturalPerson] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.naturalPerson] with a well-typed [NaturalPerson]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun naturalPerson(naturalPerson: JsonField<NaturalPerson>) = apply {
+                this.naturalPerson = naturalPerson
             }
 
             /**
@@ -412,6 +677,18 @@ private constructor(
                     this.thirdPartyVerification = thirdPartyVerification
                 }
 
+            /** Details of the trust entity to update. */
+            fun trust(trust: Trust) = trust(JsonField.of(trust))
+
+            /**
+             * Sets [Builder.trust] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.trust] with a well-typed [Trust] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
+            fun trust(trust: JsonField<Trust>) = apply { this.trust = trust }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 putAllAdditionalProperties(additionalProperties)
@@ -437,7 +714,15 @@ private constructor(
              * Further updates to this [Builder] will not mutate the returned instance.
              */
             fun build(): Body =
-                Body(riskRating, thirdPartyVerification, additionalProperties.toMutableMap())
+                Body(
+                    corporation,
+                    governmentAuthority,
+                    naturalPerson,
+                    riskRating,
+                    thirdPartyVerification,
+                    trust,
+                    additionalProperties.toMutableMap(),
+                )
         }
 
         private var validated: Boolean = false
@@ -447,8 +732,12 @@ private constructor(
                 return@apply
             }
 
+            corporation()?.validate()
+            governmentAuthority()?.validate()
+            naturalPerson()?.validate()
             riskRating()?.validate()
             thirdPartyVerification()?.validate()
+            trust()?.validate()
             validated = true
         }
 
@@ -467,8 +756,12 @@ private constructor(
          * Used for best match union deserialization.
          */
         internal fun validity(): Int =
-            (riskRating.asKnown()?.validity() ?: 0) +
-                (thirdPartyVerification.asKnown()?.validity() ?: 0)
+            (corporation.asKnown()?.validity() ?: 0) +
+                (governmentAuthority.asKnown()?.validity() ?: 0) +
+                (naturalPerson.asKnown()?.validity() ?: 0) +
+                (riskRating.asKnown()?.validity() ?: 0) +
+                (thirdPartyVerification.asKnown()?.validity() ?: 0) +
+                (trust.asKnown()?.validity() ?: 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -476,19 +769,452 @@ private constructor(
             }
 
             return other is Body &&
+                corporation == other.corporation &&
+                governmentAuthority == other.governmentAuthority &&
+                naturalPerson == other.naturalPerson &&
                 riskRating == other.riskRating &&
                 thirdPartyVerification == other.thirdPartyVerification &&
+                trust == other.trust &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(riskRating, thirdPartyVerification, additionalProperties)
+            Objects.hash(
+                corporation,
+                governmentAuthority,
+                naturalPerson,
+                riskRating,
+                thirdPartyVerification,
+                trust,
+                additionalProperties,
+            )
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{riskRating=$riskRating, thirdPartyVerification=$thirdPartyVerification, additionalProperties=$additionalProperties}"
+            "Body{corporation=$corporation, governmentAuthority=$governmentAuthority, naturalPerson=$naturalPerson, riskRating=$riskRating, thirdPartyVerification=$thirdPartyVerification, trust=$trust, additionalProperties=$additionalProperties}"
+    }
+
+    /** Details of the corporation entity to update. */
+    class Corporation
+    private constructor(
+        private val name: JsonField<String>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of()
+        ) : this(name, mutableMapOf())
+
+        /**
+         * The legal name of the corporation.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun name(): String? = name.getNullable("name")
+
+        /**
+         * Returns the raw JSON value of [name].
+         *
+         * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /** Returns a mutable builder for constructing an instance of [Corporation]. */
+            fun builder() = Builder()
+        }
+
+        /** A builder for [Corporation]. */
+        class Builder internal constructor() {
+
+            private var name: JsonField<String> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            internal fun from(corporation: Corporation) = apply {
+                name = corporation.name
+                additionalProperties = corporation.additionalProperties.toMutableMap()
+            }
+
+            /** The legal name of the corporation. */
+            fun name(name: String) = name(JsonField.of(name))
+
+            /**
+             * Sets [Builder.name] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.name] with a well-typed [String] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
+            fun name(name: JsonField<String>) = apply { this.name = name }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Corporation].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): Corporation = Corporation(name, additionalProperties.toMutableMap())
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Corporation = apply {
+            if (validated) {
+                return@apply
+            }
+
+            name()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int = (if (name.asKnown() == null) 0 else 1)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Corporation &&
+                name == other.name &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(name, additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "Corporation{name=$name, additionalProperties=$additionalProperties}"
+    }
+
+    /** Details of the government authority entity to update. */
+    class GovernmentAuthority
+    private constructor(
+        private val name: JsonField<String>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of()
+        ) : this(name, mutableMapOf())
+
+        /**
+         * The legal name of the government authority.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun name(): String? = name.getNullable("name")
+
+        /**
+         * Returns the raw JSON value of [name].
+         *
+         * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /** Returns a mutable builder for constructing an instance of [GovernmentAuthority]. */
+            fun builder() = Builder()
+        }
+
+        /** A builder for [GovernmentAuthority]. */
+        class Builder internal constructor() {
+
+            private var name: JsonField<String> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            internal fun from(governmentAuthority: GovernmentAuthority) = apply {
+                name = governmentAuthority.name
+                additionalProperties = governmentAuthority.additionalProperties.toMutableMap()
+            }
+
+            /** The legal name of the government authority. */
+            fun name(name: String) = name(JsonField.of(name))
+
+            /**
+             * Sets [Builder.name] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.name] with a well-typed [String] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
+            fun name(name: JsonField<String>) = apply { this.name = name }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [GovernmentAuthority].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): GovernmentAuthority =
+                GovernmentAuthority(name, additionalProperties.toMutableMap())
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): GovernmentAuthority = apply {
+            if (validated) {
+                return@apply
+            }
+
+            name()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int = (if (name.asKnown() == null) 0 else 1)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is GovernmentAuthority &&
+                name == other.name &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(name, additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "GovernmentAuthority{name=$name, additionalProperties=$additionalProperties}"
+    }
+
+    /** Details of the natural person entity to update. */
+    class NaturalPerson
+    private constructor(
+        private val name: JsonField<String>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of()
+        ) : this(name, mutableMapOf())
+
+        /**
+         * The legal name of the natural person.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun name(): String? = name.getNullable("name")
+
+        /**
+         * Returns the raw JSON value of [name].
+         *
+         * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /** Returns a mutable builder for constructing an instance of [NaturalPerson]. */
+            fun builder() = Builder()
+        }
+
+        /** A builder for [NaturalPerson]. */
+        class Builder internal constructor() {
+
+            private var name: JsonField<String> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            internal fun from(naturalPerson: NaturalPerson) = apply {
+                name = naturalPerson.name
+                additionalProperties = naturalPerson.additionalProperties.toMutableMap()
+            }
+
+            /** The legal name of the natural person. */
+            fun name(name: String) = name(JsonField.of(name))
+
+            /**
+             * Sets [Builder.name] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.name] with a well-typed [String] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
+            fun name(name: JsonField<String>) = apply { this.name = name }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [NaturalPerson].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): NaturalPerson = NaturalPerson(name, additionalProperties.toMutableMap())
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): NaturalPerson = apply {
+            if (validated) {
+                return@apply
+            }
+
+            name()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int = (if (name.asKnown() == null) 0 else 1)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is NaturalPerson &&
+                name == other.name &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(name, additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "NaturalPerson{name=$name, additionalProperties=$additionalProperties}"
     }
 
     /**
@@ -1181,6 +1907,145 @@ private constructor(
 
         override fun toString() =
             "ThirdPartyVerification{reference=$reference, vendor=$vendor, additionalProperties=$additionalProperties}"
+    }
+
+    /** Details of the trust entity to update. */
+    class Trust
+    private constructor(
+        private val name: JsonField<String>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of()
+        ) : this(name, mutableMapOf())
+
+        /**
+         * The legal name of the trust.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun name(): String? = name.getNullable("name")
+
+        /**
+         * Returns the raw JSON value of [name].
+         *
+         * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /** Returns a mutable builder for constructing an instance of [Trust]. */
+            fun builder() = Builder()
+        }
+
+        /** A builder for [Trust]. */
+        class Builder internal constructor() {
+
+            private var name: JsonField<String> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            internal fun from(trust: Trust) = apply {
+                name = trust.name
+                additionalProperties = trust.additionalProperties.toMutableMap()
+            }
+
+            /** The legal name of the trust. */
+            fun name(name: String) = name(JsonField.of(name))
+
+            /**
+             * Sets [Builder.name] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.name] with a well-typed [String] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
+            fun name(name: JsonField<String>) = apply { this.name = name }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Trust].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): Trust = Trust(name, additionalProperties.toMutableMap())
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Trust = apply {
+            if (validated) {
+                return@apply
+            }
+
+            name()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int = (if (name.asKnown() == null) 0 else 1)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Trust &&
+                name == other.name &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(name, additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() = "Trust{name=$name, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
