@@ -15,8 +15,10 @@ internal class PhysicalCardProfileCreateParamsTest {
             .description("My Card Profile")
             .frontImageFileId("file_o6aex13wm1jcc36sgcj1")
             .programId("program_i2v2os4mwza1oetokh9i")
+            .backColor(PhysicalCardProfileCreateParams.BackColor.BLACK)
             .cardStockReference("x")
             .carrierStockReference("x")
+            .frontColor(PhysicalCardProfileCreateParams.FrontColor.BLACK)
             .frontText(
                 PhysicalCardProfileCreateParams.FrontText.builder().line1("x").line2("x").build()
             )
@@ -32,8 +34,10 @@ internal class PhysicalCardProfileCreateParamsTest {
                 .description("My Card Profile")
                 .frontImageFileId("file_o6aex13wm1jcc36sgcj1")
                 .programId("program_i2v2os4mwza1oetokh9i")
+                .backColor(PhysicalCardProfileCreateParams.BackColor.BLACK)
                 .cardStockReference("x")
                 .carrierStockReference("x")
+                .frontColor(PhysicalCardProfileCreateParams.FrontColor.BLACK)
                 .frontText(
                     PhysicalCardProfileCreateParams.FrontText.builder()
                         .line1("x")
@@ -49,8 +53,10 @@ internal class PhysicalCardProfileCreateParamsTest {
         assertThat(body.description()).isEqualTo("My Card Profile")
         assertThat(body.frontImageFileId()).isEqualTo("file_o6aex13wm1jcc36sgcj1")
         assertThat(body.programId()).isEqualTo("program_i2v2os4mwza1oetokh9i")
+        assertThat(body.backColor()).isEqualTo(PhysicalCardProfileCreateParams.BackColor.BLACK)
         assertThat(body.cardStockReference()).isEqualTo("x")
         assertThat(body.carrierStockReference()).isEqualTo("x")
+        assertThat(body.frontColor()).isEqualTo(PhysicalCardProfileCreateParams.FrontColor.BLACK)
         assertThat(body.frontText())
             .isEqualTo(
                 PhysicalCardProfileCreateParams.FrontText.builder().line1("x").line2("x").build()
