@@ -42,6 +42,15 @@ private constructor(
     fun corporation(): Corporation? = body.corporation()
 
     /**
+     * When your user last confirmed the Entity's details. Depending on your program, you may be
+     * required to affirmatively confirm details with your users on an annual basis.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun detailsConfirmedAt(): OffsetDateTime? = body.detailsConfirmedAt()
+
+    /**
      * Details of the government authority entity to update. If you specify this parameter and the
      * entity is not a government authority, the request will fail.
      *
@@ -92,6 +101,14 @@ private constructor(
      * Unlike [corporation], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _corporation(): JsonField<Corporation> = body._corporation()
+
+    /**
+     * Returns the raw JSON value of [detailsConfirmedAt].
+     *
+     * Unlike [detailsConfirmedAt], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    fun _detailsConfirmedAt(): JsonField<OffsetDateTime> = body._detailsConfirmedAt()
 
     /**
      * Returns the raw JSON value of [governmentAuthority].
@@ -173,10 +190,10 @@ private constructor(
          * This is generally only useful if you are already constructing the body separately.
          * Otherwise, it's more convenient to use the top-level setters instead:
          * - [corporation]
+         * - [detailsConfirmedAt]
          * - [governmentAuthority]
          * - [naturalPerson]
          * - [riskRating]
-         * - [thirdPartyVerification]
          * - etc.
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
@@ -196,6 +213,25 @@ private constructor(
          */
         fun corporation(corporation: JsonField<Corporation>) = apply {
             body.corporation(corporation)
+        }
+
+        /**
+         * When your user last confirmed the Entity's details. Depending on your program, you may be
+         * required to affirmatively confirm details with your users on an annual basis.
+         */
+        fun detailsConfirmedAt(detailsConfirmedAt: OffsetDateTime) = apply {
+            body.detailsConfirmedAt(detailsConfirmedAt)
+        }
+
+        /**
+         * Sets [Builder.detailsConfirmedAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.detailsConfirmedAt] with a well-typed [OffsetDateTime]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun detailsConfirmedAt(detailsConfirmedAt: JsonField<OffsetDateTime>) = apply {
+            body.detailsConfirmedAt(detailsConfirmedAt)
         }
 
         /**
@@ -431,6 +467,7 @@ private constructor(
     class Body
     private constructor(
         private val corporation: JsonField<Corporation>,
+        private val detailsConfirmedAt: JsonField<OffsetDateTime>,
         private val governmentAuthority: JsonField<GovernmentAuthority>,
         private val naturalPerson: JsonField<NaturalPerson>,
         private val riskRating: JsonField<RiskRating>,
@@ -444,6 +481,9 @@ private constructor(
             @JsonProperty("corporation")
             @ExcludeMissing
             corporation: JsonField<Corporation> = JsonMissing.of(),
+            @JsonProperty("details_confirmed_at")
+            @ExcludeMissing
+            detailsConfirmedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
             @JsonProperty("government_authority")
             @ExcludeMissing
             governmentAuthority: JsonField<GovernmentAuthority> = JsonMissing.of(),
@@ -459,6 +499,7 @@ private constructor(
             @JsonProperty("trust") @ExcludeMissing trust: JsonField<Trust> = JsonMissing.of(),
         ) : this(
             corporation,
+            detailsConfirmedAt,
             governmentAuthority,
             naturalPerson,
             riskRating,
@@ -475,6 +516,16 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun corporation(): Corporation? = corporation.getNullable("corporation")
+
+        /**
+         * When your user last confirmed the Entity's details. Depending on your program, you may be
+         * required to affirmatively confirm details with your users on an annual basis.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun detailsConfirmedAt(): OffsetDateTime? =
+            detailsConfirmedAt.getNullable("details_confirmed_at")
 
         /**
          * Details of the government authority entity to update. If you specify this parameter and
@@ -531,6 +582,16 @@ private constructor(
         @JsonProperty("corporation")
         @ExcludeMissing
         fun _corporation(): JsonField<Corporation> = corporation
+
+        /**
+         * Returns the raw JSON value of [detailsConfirmedAt].
+         *
+         * Unlike [detailsConfirmedAt], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("details_confirmed_at")
+        @ExcludeMissing
+        fun _detailsConfirmedAt(): JsonField<OffsetDateTime> = detailsConfirmedAt
 
         /**
          * Returns the raw JSON value of [governmentAuthority].
@@ -600,6 +661,7 @@ private constructor(
         class Builder internal constructor() {
 
             private var corporation: JsonField<Corporation> = JsonMissing.of()
+            private var detailsConfirmedAt: JsonField<OffsetDateTime> = JsonMissing.of()
             private var governmentAuthority: JsonField<GovernmentAuthority> = JsonMissing.of()
             private var naturalPerson: JsonField<NaturalPerson> = JsonMissing.of()
             private var riskRating: JsonField<RiskRating> = JsonMissing.of()
@@ -609,6 +671,7 @@ private constructor(
 
             internal fun from(body: Body) = apply {
                 corporation = body.corporation
+                detailsConfirmedAt = body.detailsConfirmedAt
                 governmentAuthority = body.governmentAuthority
                 naturalPerson = body.naturalPerson
                 riskRating = body.riskRating
@@ -632,6 +695,24 @@ private constructor(
              */
             fun corporation(corporation: JsonField<Corporation>) = apply {
                 this.corporation = corporation
+            }
+
+            /**
+             * When your user last confirmed the Entity's details. Depending on your program, you
+             * may be required to affirmatively confirm details with your users on an annual basis.
+             */
+            fun detailsConfirmedAt(detailsConfirmedAt: OffsetDateTime) =
+                detailsConfirmedAt(JsonField.of(detailsConfirmedAt))
+
+            /**
+             * Sets [Builder.detailsConfirmedAt] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.detailsConfirmedAt] with a well-typed
+             * [OffsetDateTime] value instead. This method is primarily for setting the field to an
+             * undocumented or not yet supported value.
+             */
+            fun detailsConfirmedAt(detailsConfirmedAt: JsonField<OffsetDateTime>) = apply {
+                this.detailsConfirmedAt = detailsConfirmedAt
             }
 
             /**
@@ -749,6 +830,7 @@ private constructor(
             fun build(): Body =
                 Body(
                     corporation,
+                    detailsConfirmedAt,
                     governmentAuthority,
                     naturalPerson,
                     riskRating,
@@ -766,6 +848,7 @@ private constructor(
             }
 
             corporation()?.validate()
+            detailsConfirmedAt()
             governmentAuthority()?.validate()
             naturalPerson()?.validate()
             riskRating()?.validate()
@@ -790,6 +873,7 @@ private constructor(
          */
         internal fun validity(): Int =
             (corporation.asKnown()?.validity() ?: 0) +
+                (if (detailsConfirmedAt.asKnown() == null) 0 else 1) +
                 (governmentAuthority.asKnown()?.validity() ?: 0) +
                 (naturalPerson.asKnown()?.validity() ?: 0) +
                 (riskRating.asKnown()?.validity() ?: 0) +
@@ -803,6 +887,7 @@ private constructor(
 
             return other is Body &&
                 corporation == other.corporation &&
+                detailsConfirmedAt == other.detailsConfirmedAt &&
                 governmentAuthority == other.governmentAuthority &&
                 naturalPerson == other.naturalPerson &&
                 riskRating == other.riskRating &&
@@ -814,6 +899,7 @@ private constructor(
         private val hashCode: Int by lazy {
             Objects.hash(
                 corporation,
+                detailsConfirmedAt,
                 governmentAuthority,
                 naturalPerson,
                 riskRating,
@@ -826,7 +912,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{corporation=$corporation, governmentAuthority=$governmentAuthority, naturalPerson=$naturalPerson, riskRating=$riskRating, thirdPartyVerification=$thirdPartyVerification, trust=$trust, additionalProperties=$additionalProperties}"
+            "Body{corporation=$corporation, detailsConfirmedAt=$detailsConfirmedAt, governmentAuthority=$governmentAuthority, naturalPerson=$naturalPerson, riskRating=$riskRating, thirdPartyVerification=$thirdPartyVerification, trust=$trust, additionalProperties=$additionalProperties}"
     }
 
     /**
