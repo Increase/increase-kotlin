@@ -492,6 +492,7 @@ internal class EntityServiceAsyncTest {
                                     .line2("Unit 2")
                                     .build()
                             )
+                            .industryCode("x")
                             .name("x")
                             .build()
                     )
