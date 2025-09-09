@@ -1507,6 +1507,7 @@ private constructor(
         private val additionalAmounts: JsonField<AdditionalAmounts>,
         private val cardId: JsonField<String>,
         private val decision: JsonField<Decision>,
+        private val decline: JsonField<Decline>,
         private val digitalWalletTokenId: JsonField<String>,
         private val direction: JsonField<Direction>,
         private val merchantAcceptorId: JsonField<String>,
@@ -1544,6 +1545,7 @@ private constructor(
             @JsonProperty("decision")
             @ExcludeMissing
             decision: JsonField<Decision> = JsonMissing.of(),
+            @JsonProperty("decline") @ExcludeMissing decline: JsonField<Decline> = JsonMissing.of(),
             @JsonProperty("digital_wallet_token_id")
             @ExcludeMissing
             digitalWalletTokenId: JsonField<String> = JsonMissing.of(),
@@ -1615,6 +1617,7 @@ private constructor(
             additionalAmounts,
             cardId,
             decision,
+            decline,
             digitalWalletTokenId,
             direction,
             merchantAcceptorId,
@@ -1674,6 +1677,15 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun decision(): Decision? = decision.getNullable("decision")
+
+        /**
+         * Present if and only if `decision` is `decline`. Contains information related to the
+         * reason the authorization was declined.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun decline(): Decline? = decline.getNullable("decline")
 
         /**
          * If the authorization was made via a Digital Wallet Token (such as an Apple Pay purchase),
@@ -1900,6 +1912,13 @@ private constructor(
          * Unlike [decision], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("decision") @ExcludeMissing fun _decision(): JsonField<Decision> = decision
+
+        /**
+         * Returns the raw JSON value of [decline].
+         *
+         * Unlike [decline], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("decline") @ExcludeMissing fun _decline(): JsonField<Decline> = decline
 
         /**
          * Returns the raw JSON value of [digitalWalletTokenId].
@@ -2142,6 +2161,7 @@ private constructor(
              * .additionalAmounts()
              * .cardId()
              * .decision()
+             * .decline()
              * .digitalWalletTokenId()
              * .direction()
              * .merchantAcceptorId()
@@ -2176,6 +2196,7 @@ private constructor(
             private var additionalAmounts: JsonField<AdditionalAmounts>? = null
             private var cardId: JsonField<String>? = null
             private var decision: JsonField<Decision>? = null
+            private var decline: JsonField<Decline>? = null
             private var digitalWalletTokenId: JsonField<String>? = null
             private var direction: JsonField<Direction>? = null
             private var merchantAcceptorId: JsonField<String>? = null
@@ -2205,6 +2226,7 @@ private constructor(
                 additionalAmounts = cardAuthorization.additionalAmounts
                 cardId = cardAuthorization.cardId
                 decision = cardAuthorization.decision
+                decline = cardAuthorization.decline
                 digitalWalletTokenId = cardAuthorization.digitalWalletTokenId
                 direction = cardAuthorization.direction
                 merchantAcceptorId = cardAuthorization.merchantAcceptorId
@@ -2284,6 +2306,21 @@ private constructor(
              * supported value.
              */
             fun decision(decision: JsonField<Decision>) = apply { this.decision = decision }
+
+            /**
+             * Present if and only if `decision` is `decline`. Contains information related to the
+             * reason the authorization was declined.
+             */
+            fun decline(decline: Decline?) = decline(JsonField.ofNullable(decline))
+
+            /**
+             * Sets [Builder.decline] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.decline] with a well-typed [Decline] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun decline(decline: JsonField<Decline>) = apply { this.decline = decline }
 
             /**
              * If the authorization was made via a Digital Wallet Token (such as an Apple Pay
@@ -2689,6 +2726,7 @@ private constructor(
              * .additionalAmounts()
              * .cardId()
              * .decision()
+             * .decline()
              * .digitalWalletTokenId()
              * .direction()
              * .merchantAcceptorId()
@@ -2721,6 +2759,7 @@ private constructor(
                     checkRequired("additionalAmounts", additionalAmounts),
                     checkRequired("cardId", cardId),
                     checkRequired("decision", decision),
+                    checkRequired("decline", decline),
                     checkRequired("digitalWalletTokenId", digitalWalletTokenId),
                     checkRequired("direction", direction),
                     checkRequired("merchantAcceptorId", merchantAcceptorId),
@@ -2758,6 +2797,7 @@ private constructor(
             additionalAmounts().validate()
             cardId()
             decision()?.validate()
+            decline()?.validate()
             digitalWalletTokenId()
             direction().validate()
             merchantAcceptorId()
@@ -2802,6 +2842,7 @@ private constructor(
                 (additionalAmounts.asKnown()?.validity() ?: 0) +
                 (if (cardId.asKnown() == null) 0 else 1) +
                 (decision.asKnown()?.validity() ?: 0) +
+                (decline.asKnown()?.validity() ?: 0) +
                 (if (digitalWalletTokenId.asKnown() == null) 0 else 1) +
                 (direction.asKnown()?.validity() ?: 0) +
                 (if (merchantAcceptorId.asKnown() == null) 0 else 1) +
@@ -5422,6 +5463,168 @@ private constructor(
             override fun hashCode() = value.hashCode()
 
             override fun toString() = value.toString()
+        }
+
+        /**
+         * Present if and only if `decision` is `decline`. Contains information related to the
+         * reason the authorization was declined.
+         */
+        class Decline
+        private constructor(
+            private val reason: JsonField<String>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("reason") @ExcludeMissing reason: JsonField<String> = JsonMissing.of()
+            ) : this(reason, mutableMapOf())
+
+            /**
+             * The reason the authorization was declined.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun reason(): String = reason.getRequired("reason")
+
+            /**
+             * Returns the raw JSON value of [reason].
+             *
+             * Unlike [reason], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("reason") @ExcludeMissing fun _reason(): JsonField<String> = reason
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /**
+                 * Returns a mutable builder for constructing an instance of [Decline].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .reason()
+                 * ```
+                 */
+                fun builder() = Builder()
+            }
+
+            /** A builder for [Decline]. */
+            class Builder internal constructor() {
+
+                private var reason: JsonField<String>? = null
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                internal fun from(decline: Decline) = apply {
+                    reason = decline.reason
+                    additionalProperties = decline.additionalProperties.toMutableMap()
+                }
+
+                /** The reason the authorization was declined. */
+                fun reason(reason: String) = reason(JsonField.of(reason))
+
+                /**
+                 * Sets [Builder.reason] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.reason] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun reason(reason: JsonField<String>) = apply { this.reason = reason }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [Decline].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .reason()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
+                fun build(): Decline =
+                    Decline(checkRequired("reason", reason), additionalProperties.toMutableMap())
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): Decline = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                reason()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            internal fun validity(): Int = (if (reason.asKnown() == null) 0 else 1)
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Decline &&
+                    reason == other.reason &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy { Objects.hash(reason, additionalProperties) }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "Decline{reason=$reason, additionalProperties=$additionalProperties}"
         }
 
         /**
@@ -9032,18 +9235,20 @@ private constructor(
 
                     companion object {
 
-                        /** No address was provided in the authorization request. */
+                        /** No address information was provided in the authorization request. */
                         val NOT_CHECKED = of("not_checked")
 
-                        /** Postal code matches, but the street address was not verified. */
-                        val POSTAL_CODE_MATCH_ADDRESS_NOT_CHECKED =
-                            of("postal_code_match_address_not_checked")
-
-                        /** Postal code matches, but the street address does not match. */
+                        /**
+                         * Postal code matches, but the street address does not match or was not
+                         * provided.
+                         */
                         val POSTAL_CODE_MATCH_ADDRESS_NO_MATCH =
                             of("postal_code_match_address_no_match")
 
-                        /** Postal code does not match, but the street address matches. */
+                        /**
+                         * Postal code does not match, but the street address matches or was not
+                         * provided.
+                         */
                         val POSTAL_CODE_NO_MATCH_ADDRESS_MATCH =
                             of("postal_code_no_match_address_match")
 
@@ -9053,23 +9258,39 @@ private constructor(
                         /** Postal code and street address do not match. */
                         val NO_MATCH = of("no_match")
 
+                        /**
+                         * Postal code matches, but the street address was not verified.
+                         * (deprecated)
+                         */
+                        val POSTAL_CODE_MATCH_ADDRESS_NOT_CHECKED =
+                            of("postal_code_match_address_not_checked")
+
                         fun of(value: String) = Result(JsonField.of(value))
                     }
 
                     /** An enum containing [Result]'s known values. */
                     enum class Known {
-                        /** No address was provided in the authorization request. */
+                        /** No address information was provided in the authorization request. */
                         NOT_CHECKED,
-                        /** Postal code matches, but the street address was not verified. */
-                        POSTAL_CODE_MATCH_ADDRESS_NOT_CHECKED,
-                        /** Postal code matches, but the street address does not match. */
+                        /**
+                         * Postal code matches, but the street address does not match or was not
+                         * provided.
+                         */
                         POSTAL_CODE_MATCH_ADDRESS_NO_MATCH,
-                        /** Postal code does not match, but the street address matches. */
+                        /**
+                         * Postal code does not match, but the street address matches or was not
+                         * provided.
+                         */
                         POSTAL_CODE_NO_MATCH_ADDRESS_MATCH,
                         /** Postal code and street address match. */
                         MATCH,
                         /** Postal code and street address do not match. */
                         NO_MATCH,
+                        /**
+                         * Postal code matches, but the street address was not verified.
+                         * (deprecated)
+                         */
+                        POSTAL_CODE_MATCH_ADDRESS_NOT_CHECKED,
                     }
 
                     /**
@@ -9082,18 +9303,27 @@ private constructor(
                      * - It was constructed with an arbitrary value using the [of] method.
                      */
                     enum class Value {
-                        /** No address was provided in the authorization request. */
+                        /** No address information was provided in the authorization request. */
                         NOT_CHECKED,
-                        /** Postal code matches, but the street address was not verified. */
-                        POSTAL_CODE_MATCH_ADDRESS_NOT_CHECKED,
-                        /** Postal code matches, but the street address does not match. */
+                        /**
+                         * Postal code matches, but the street address does not match or was not
+                         * provided.
+                         */
                         POSTAL_CODE_MATCH_ADDRESS_NO_MATCH,
-                        /** Postal code does not match, but the street address matches. */
+                        /**
+                         * Postal code does not match, but the street address matches or was not
+                         * provided.
+                         */
                         POSTAL_CODE_NO_MATCH_ADDRESS_MATCH,
                         /** Postal code and street address match. */
                         MATCH,
                         /** Postal code and street address do not match. */
                         NO_MATCH,
+                        /**
+                         * Postal code matches, but the street address was not verified.
+                         * (deprecated)
+                         */
+                        POSTAL_CODE_MATCH_ADDRESS_NOT_CHECKED,
                         /**
                          * An enum member indicating that [Result] was instantiated with an unknown
                          * value.
@@ -9111,14 +9341,14 @@ private constructor(
                     fun value(): Value =
                         when (this) {
                             NOT_CHECKED -> Value.NOT_CHECKED
-                            POSTAL_CODE_MATCH_ADDRESS_NOT_CHECKED ->
-                                Value.POSTAL_CODE_MATCH_ADDRESS_NOT_CHECKED
                             POSTAL_CODE_MATCH_ADDRESS_NO_MATCH ->
                                 Value.POSTAL_CODE_MATCH_ADDRESS_NO_MATCH
                             POSTAL_CODE_NO_MATCH_ADDRESS_MATCH ->
                                 Value.POSTAL_CODE_NO_MATCH_ADDRESS_MATCH
                             MATCH -> Value.MATCH
                             NO_MATCH -> Value.NO_MATCH
+                            POSTAL_CODE_MATCH_ADDRESS_NOT_CHECKED ->
+                                Value.POSTAL_CODE_MATCH_ADDRESS_NOT_CHECKED
                             else -> Value._UNKNOWN
                         }
 
@@ -9134,14 +9364,14 @@ private constructor(
                     fun known(): Known =
                         when (this) {
                             NOT_CHECKED -> Known.NOT_CHECKED
-                            POSTAL_CODE_MATCH_ADDRESS_NOT_CHECKED ->
-                                Known.POSTAL_CODE_MATCH_ADDRESS_NOT_CHECKED
                             POSTAL_CODE_MATCH_ADDRESS_NO_MATCH ->
                                 Known.POSTAL_CODE_MATCH_ADDRESS_NO_MATCH
                             POSTAL_CODE_NO_MATCH_ADDRESS_MATCH ->
                                 Known.POSTAL_CODE_NO_MATCH_ADDRESS_MATCH
                             MATCH -> Known.MATCH
                             NO_MATCH -> Known.NO_MATCH
+                            POSTAL_CODE_MATCH_ADDRESS_NOT_CHECKED ->
+                                Known.POSTAL_CODE_MATCH_ADDRESS_NOT_CHECKED
                             else -> throw IncreaseInvalidDataException("Unknown Result: $value")
                         }
 
@@ -9260,6 +9490,7 @@ private constructor(
                 additionalAmounts == other.additionalAmounts &&
                 cardId == other.cardId &&
                 decision == other.decision &&
+                decline == other.decline &&
                 digitalWalletTokenId == other.digitalWalletTokenId &&
                 direction == other.direction &&
                 merchantAcceptorId == other.merchantAcceptorId &&
@@ -9291,6 +9522,7 @@ private constructor(
                 additionalAmounts,
                 cardId,
                 decision,
+                decline,
                 digitalWalletTokenId,
                 direction,
                 merchantAcceptorId,
@@ -9320,7 +9552,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "CardAuthorization{accountId=$accountId, additionalAmounts=$additionalAmounts, cardId=$cardId, decision=$decision, digitalWalletTokenId=$digitalWalletTokenId, direction=$direction, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, networkDetails=$networkDetails, networkIdentifiers=$networkIdentifiers, networkRiskScore=$networkRiskScore, physicalCardId=$physicalCardId, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, processingCategory=$processingCategory, requestDetails=$requestDetails, settlementAmount=$settlementAmount, settlementCurrency=$settlementCurrency, terminalId=$terminalId, upcomingCardPaymentId=$upcomingCardPaymentId, verification=$verification, additionalProperties=$additionalProperties}"
+            "CardAuthorization{accountId=$accountId, additionalAmounts=$additionalAmounts, cardId=$cardId, decision=$decision, decline=$decline, digitalWalletTokenId=$digitalWalletTokenId, direction=$direction, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, networkDetails=$networkDetails, networkIdentifiers=$networkIdentifiers, networkRiskScore=$networkRiskScore, physicalCardId=$physicalCardId, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, processingCategory=$processingCategory, requestDetails=$requestDetails, settlementAmount=$settlementAmount, settlementCurrency=$settlementCurrency, terminalId=$terminalId, upcomingCardPaymentId=$upcomingCardPaymentId, verification=$verification, additionalProperties=$additionalProperties}"
     }
 
     /** The category of the Real-Time Decision. */
