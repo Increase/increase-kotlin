@@ -871,6 +871,7 @@ private constructor(
         private val checkDepositAcceptance: JsonField<CheckDepositAcceptance>,
         private val checkDepositReturn: JsonField<CheckDepositReturn>,
         private val checkTransferDeposit: JsonField<CheckTransferDeposit>,
+        private val fedNowTransferAcknowledgement: JsonField<FedNowTransferAcknowledgement>,
         private val feePayment: JsonField<FeePayment>,
         private val inboundAchTransfer: JsonField<InboundAchTransfer>,
         private val inboundAchTransferReturnIntention: JsonField<InboundAchTransferReturnIntention>,
@@ -947,6 +948,10 @@ private constructor(
             @JsonProperty("check_transfer_deposit")
             @ExcludeMissing
             checkTransferDeposit: JsonField<CheckTransferDeposit> = JsonMissing.of(),
+            @JsonProperty("fed_now_transfer_acknowledgement")
+            @ExcludeMissing
+            fedNowTransferAcknowledgement: JsonField<FedNowTransferAcknowledgement> =
+                JsonMissing.of(),
             @JsonProperty("fee_payment")
             @ExcludeMissing
             feePayment: JsonField<FeePayment> = JsonMissing.of(),
@@ -1020,6 +1025,7 @@ private constructor(
             checkDepositAcceptance,
             checkDepositReturn,
             checkTransferDeposit,
+            fedNowTransferAcknowledgement,
             feePayment,
             inboundAchTransfer,
             inboundAchTransferReturnIntention,
@@ -1235,6 +1241,18 @@ private constructor(
          */
         fun checkTransferDeposit(): CheckTransferDeposit? =
             checkTransferDeposit.getNullable("check_transfer_deposit")
+
+        /**
+         * A FedNow Transfer Acknowledgement object. This field will be present in the JSON response
+         * if and only if `category` is equal to `fed_now_transfer_acknowledgement`. A FedNow
+         * Transfer Acknowledgement is created when a FedNow Transfer sent from Increase is
+         * acknowledged by the receiving bank.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun fedNowTransferAcknowledgement(): FedNowTransferAcknowledgement? =
+            fedNowTransferAcknowledgement.getNullable("fed_now_transfer_acknowledgement")
 
         /**
          * A Fee Payment object. This field will be present in the JSON response if and only if
@@ -1599,6 +1617,17 @@ private constructor(
         fun _checkTransferDeposit(): JsonField<CheckTransferDeposit> = checkTransferDeposit
 
         /**
+         * Returns the raw JSON value of [fedNowTransferAcknowledgement].
+         *
+         * Unlike [fedNowTransferAcknowledgement], this method doesn't throw if the JSON field has
+         * an unexpected type.
+         */
+        @JsonProperty("fed_now_transfer_acknowledgement")
+        @ExcludeMissing
+        fun _fedNowTransferAcknowledgement(): JsonField<FedNowTransferAcknowledgement> =
+            fedNowTransferAcknowledgement
+
+        /**
          * Returns the raw JSON value of [feePayment].
          *
          * Unlike [feePayment], this method doesn't throw if the JSON field has an unexpected type.
@@ -1799,6 +1828,7 @@ private constructor(
              * .checkDepositAcceptance()
              * .checkDepositReturn()
              * .checkTransferDeposit()
+             * .fedNowTransferAcknowledgement()
              * .feePayment()
              * .inboundAchTransfer()
              * .inboundAchTransferReturnIntention()
@@ -1841,6 +1871,8 @@ private constructor(
             private var checkDepositAcceptance: JsonField<CheckDepositAcceptance>? = null
             private var checkDepositReturn: JsonField<CheckDepositReturn>? = null
             private var checkTransferDeposit: JsonField<CheckTransferDeposit>? = null
+            private var fedNowTransferAcknowledgement: JsonField<FedNowTransferAcknowledgement>? =
+                null
             private var feePayment: JsonField<FeePayment>? = null
             private var inboundAchTransfer: JsonField<InboundAchTransfer>? = null
             private var inboundAchTransferReturnIntention:
@@ -1886,6 +1918,7 @@ private constructor(
                 checkDepositAcceptance = source.checkDepositAcceptance
                 checkDepositReturn = source.checkDepositReturn
                 checkTransferDeposit = source.checkTransferDeposit
+                fedNowTransferAcknowledgement = source.fedNowTransferAcknowledgement
                 feePayment = source.feePayment
                 inboundAchTransfer = source.inboundAchTransfer
                 inboundAchTransferReturnIntention = source.inboundAchTransferReturnIntention
@@ -2250,6 +2283,27 @@ private constructor(
                 apply {
                     this.checkTransferDeposit = checkTransferDeposit
                 }
+
+            /**
+             * A FedNow Transfer Acknowledgement object. This field will be present in the JSON
+             * response if and only if `category` is equal to `fed_now_transfer_acknowledgement`. A
+             * FedNow Transfer Acknowledgement is created when a FedNow Transfer sent from Increase
+             * is acknowledged by the receiving bank.
+             */
+            fun fedNowTransferAcknowledgement(
+                fedNowTransferAcknowledgement: FedNowTransferAcknowledgement?
+            ) = fedNowTransferAcknowledgement(JsonField.ofNullable(fedNowTransferAcknowledgement))
+
+            /**
+             * Sets [Builder.fedNowTransferAcknowledgement] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.fedNowTransferAcknowledgement] with a well-typed
+             * [FedNowTransferAcknowledgement] value instead. This method is primarily for setting
+             * the field to an undocumented or not yet supported value.
+             */
+            fun fedNowTransferAcknowledgement(
+                fedNowTransferAcknowledgement: JsonField<FedNowTransferAcknowledgement>
+            ) = apply { this.fedNowTransferAcknowledgement = fedNowTransferAcknowledgement }
 
             /**
              * A Fee Payment object. This field will be present in the JSON response if and only if
@@ -2647,6 +2701,7 @@ private constructor(
              * .checkDepositAcceptance()
              * .checkDepositReturn()
              * .checkTransferDeposit()
+             * .fedNowTransferAcknowledgement()
              * .feePayment()
              * .inboundAchTransfer()
              * .inboundAchTransferReturnIntention()
@@ -2687,6 +2742,7 @@ private constructor(
                     checkRequired("checkDepositAcceptance", checkDepositAcceptance),
                     checkRequired("checkDepositReturn", checkDepositReturn),
                     checkRequired("checkTransferDeposit", checkTransferDeposit),
+                    checkRequired("fedNowTransferAcknowledgement", fedNowTransferAcknowledgement),
                     checkRequired("feePayment", feePayment),
                     checkRequired("inboundAchTransfer", inboundAchTransfer),
                     checkRequired(
@@ -2744,6 +2800,7 @@ private constructor(
             checkDepositAcceptance()?.validate()
             checkDepositReturn()?.validate()
             checkTransferDeposit()?.validate()
+            fedNowTransferAcknowledgement()?.validate()
             feePayment()?.validate()
             inboundAchTransfer()?.validate()
             inboundAchTransferReturnIntention()?.validate()
@@ -2795,6 +2852,7 @@ private constructor(
                 (checkDepositAcceptance.asKnown()?.validity() ?: 0) +
                 (checkDepositReturn.asKnown()?.validity() ?: 0) +
                 (checkTransferDeposit.asKnown()?.validity() ?: 0) +
+                (fedNowTransferAcknowledgement.asKnown()?.validity() ?: 0) +
                 (feePayment.asKnown()?.validity() ?: 0) +
                 (inboundAchTransfer.asKnown()?.validity() ?: 0) +
                 (inboundAchTransferReturnIntention.asKnown()?.validity() ?: 0) +
@@ -26923,6 +26981,12 @@ private constructor(
                 val CHECK_DEPOSIT_RETURN = of("check_deposit_return")
 
                 /**
+                 * FedNow Transfer Acknowledgement: details will be under the
+                 * `fed_now_transfer_acknowledgement` object.
+                 */
+                val FED_NOW_TRANSFER_ACKNOWLEDGEMENT = of("fed_now_transfer_acknowledgement")
+
+                /**
                  * Check Transfer Deposit: details will be under the `check_transfer_deposit`
                  * object.
                  */
@@ -27083,6 +27147,11 @@ private constructor(
                  */
                 CHECK_DEPOSIT_RETURN,
                 /**
+                 * FedNow Transfer Acknowledgement: details will be under the
+                 * `fed_now_transfer_acknowledgement` object.
+                 */
+                FED_NOW_TRANSFER_ACKNOWLEDGEMENT,
+                /**
                  * Check Transfer Deposit: details will be under the `check_transfer_deposit`
                  * object.
                  */
@@ -27226,6 +27295,11 @@ private constructor(
                  */
                 CHECK_DEPOSIT_RETURN,
                 /**
+                 * FedNow Transfer Acknowledgement: details will be under the
+                 * `fed_now_transfer_acknowledgement` object.
+                 */
+                FED_NOW_TRANSFER_ACKNOWLEDGEMENT,
+                /**
                  * Check Transfer Deposit: details will be under the `check_transfer_deposit`
                  * object.
                  */
@@ -27336,6 +27410,7 @@ private constructor(
                     CARD_REVENUE_PAYMENT -> Value.CARD_REVENUE_PAYMENT
                     CHECK_DEPOSIT_ACCEPTANCE -> Value.CHECK_DEPOSIT_ACCEPTANCE
                     CHECK_DEPOSIT_RETURN -> Value.CHECK_DEPOSIT_RETURN
+                    FED_NOW_TRANSFER_ACKNOWLEDGEMENT -> Value.FED_NOW_TRANSFER_ACKNOWLEDGEMENT
                     CHECK_TRANSFER_DEPOSIT -> Value.CHECK_TRANSFER_DEPOSIT
                     FEE_PAYMENT -> Value.FEE_PAYMENT
                     INBOUND_ACH_TRANSFER -> Value.INBOUND_ACH_TRANSFER
@@ -27387,6 +27462,7 @@ private constructor(
                     CARD_REVENUE_PAYMENT -> Known.CARD_REVENUE_PAYMENT
                     CHECK_DEPOSIT_ACCEPTANCE -> Known.CHECK_DEPOSIT_ACCEPTANCE
                     CHECK_DEPOSIT_RETURN -> Known.CHECK_DEPOSIT_RETURN
+                    FED_NOW_TRANSFER_ACKNOWLEDGEMENT -> Known.FED_NOW_TRANSFER_ACKNOWLEDGEMENT
                     CHECK_TRANSFER_DEPOSIT -> Known.CHECK_TRANSFER_DEPOSIT
                     FEE_PAYMENT -> Known.FEE_PAYMENT
                     INBOUND_ACH_TRANSFER -> Known.INBOUND_ACH_TRANSFER
@@ -29791,6 +29867,183 @@ private constructor(
 
             override fun toString() =
                 "CheckTransferDeposit{backImageFileId=$backImageFileId, bankOfFirstDepositRoutingNumber=$bankOfFirstDepositRoutingNumber, depositedAt=$depositedAt, frontImageFileId=$frontImageFileId, inboundCheckDepositId=$inboundCheckDepositId, transactionId=$transactionId, transferId=$transferId, type=$type, additionalProperties=$additionalProperties}"
+        }
+
+        /**
+         * A FedNow Transfer Acknowledgement object. This field will be present in the JSON response
+         * if and only if `category` is equal to `fed_now_transfer_acknowledgement`. A FedNow
+         * Transfer Acknowledgement is created when a FedNow Transfer sent from Increase is
+         * acknowledged by the receiving bank.
+         */
+        class FedNowTransferAcknowledgement
+        private constructor(
+            private val transferId: JsonField<String>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("transfer_id")
+                @ExcludeMissing
+                transferId: JsonField<String> = JsonMissing.of()
+            ) : this(transferId, mutableMapOf())
+
+            /**
+             * The identifier of the FedNow Transfer that led to this Transaction.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun transferId(): String = transferId.getRequired("transfer_id")
+
+            /**
+             * Returns the raw JSON value of [transferId].
+             *
+             * Unlike [transferId], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("transfer_id")
+            @ExcludeMissing
+            fun _transferId(): JsonField<String> = transferId
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /**
+                 * Returns a mutable builder for constructing an instance of
+                 * [FedNowTransferAcknowledgement].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .transferId()
+                 * ```
+                 */
+                fun builder() = Builder()
+            }
+
+            /** A builder for [FedNowTransferAcknowledgement]. */
+            class Builder internal constructor() {
+
+                private var transferId: JsonField<String>? = null
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                internal fun from(fedNowTransferAcknowledgement: FedNowTransferAcknowledgement) =
+                    apply {
+                        transferId = fedNowTransferAcknowledgement.transferId
+                        additionalProperties =
+                            fedNowTransferAcknowledgement.additionalProperties.toMutableMap()
+                    }
+
+                /** The identifier of the FedNow Transfer that led to this Transaction. */
+                fun transferId(transferId: String) = transferId(JsonField.of(transferId))
+
+                /**
+                 * Sets [Builder.transferId] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.transferId] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun transferId(transferId: JsonField<String>) = apply {
+                    this.transferId = transferId
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [FedNowTransferAcknowledgement].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .transferId()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
+                fun build(): FedNowTransferAcknowledgement =
+                    FedNowTransferAcknowledgement(
+                        checkRequired("transferId", transferId),
+                        additionalProperties.toMutableMap(),
+                    )
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): FedNowTransferAcknowledgement = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                transferId()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            internal fun validity(): Int = (if (transferId.asKnown() == null) 0 else 1)
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is FedNowTransferAcknowledgement &&
+                    transferId == other.transferId &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy { Objects.hash(transferId, additionalProperties) }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "FedNowTransferAcknowledgement{transferId=$transferId, additionalProperties=$additionalProperties}"
         }
 
         /**
@@ -37846,6 +38099,7 @@ private constructor(
                 checkDepositAcceptance == other.checkDepositAcceptance &&
                 checkDepositReturn == other.checkDepositReturn &&
                 checkTransferDeposit == other.checkTransferDeposit &&
+                fedNowTransferAcknowledgement == other.fedNowTransferAcknowledgement &&
                 feePayment == other.feePayment &&
                 inboundAchTransfer == other.inboundAchTransfer &&
                 inboundAchTransferReturnIntention == other.inboundAchTransferReturnIntention &&
@@ -37887,6 +38141,7 @@ private constructor(
                 checkDepositAcceptance,
                 checkDepositReturn,
                 checkTransferDeposit,
+                fedNowTransferAcknowledgement,
                 feePayment,
                 inboundAchTransfer,
                 inboundAchTransferReturnIntention,
@@ -37911,7 +38166,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Source{accountRevenuePayment=$accountRevenuePayment, accountTransferIntention=$accountTransferIntention, achTransferIntention=$achTransferIntention, achTransferRejection=$achTransferRejection, achTransferReturn=$achTransferReturn, cardDisputeAcceptance=$cardDisputeAcceptance, cardDisputeFinancial=$cardDisputeFinancial, cardDisputeLoss=$cardDisputeLoss, cardPushTransferAcceptance=$cardPushTransferAcceptance, cardRefund=$cardRefund, cardRevenuePayment=$cardRevenuePayment, cardSettlement=$cardSettlement, cashbackPayment=$cashbackPayment, category=$category, checkDepositAcceptance=$checkDepositAcceptance, checkDepositReturn=$checkDepositReturn, checkTransferDeposit=$checkTransferDeposit, feePayment=$feePayment, inboundAchTransfer=$inboundAchTransfer, inboundAchTransferReturnIntention=$inboundAchTransferReturnIntention, inboundCheckAdjustment=$inboundCheckAdjustment, inboundCheckDepositReturnIntention=$inboundCheckDepositReturnIntention, inboundRealTimePaymentsTransferConfirmation=$inboundRealTimePaymentsTransferConfirmation, inboundWireReversal=$inboundWireReversal, inboundWireTransfer=$inboundWireTransfer, inboundWireTransferReversal=$inboundWireTransferReversal, interestPayment=$interestPayment, internalSource=$internalSource, other=$other, realTimePaymentsTransferAcknowledgement=$realTimePaymentsTransferAcknowledgement, sampleFunds=$sampleFunds, swiftTransferIntention=$swiftTransferIntention, swiftTransferReturn=$swiftTransferReturn, wireTransferIntention=$wireTransferIntention, additionalProperties=$additionalProperties}"
+            "Source{accountRevenuePayment=$accountRevenuePayment, accountTransferIntention=$accountTransferIntention, achTransferIntention=$achTransferIntention, achTransferRejection=$achTransferRejection, achTransferReturn=$achTransferReturn, cardDisputeAcceptance=$cardDisputeAcceptance, cardDisputeFinancial=$cardDisputeFinancial, cardDisputeLoss=$cardDisputeLoss, cardPushTransferAcceptance=$cardPushTransferAcceptance, cardRefund=$cardRefund, cardRevenuePayment=$cardRevenuePayment, cardSettlement=$cardSettlement, cashbackPayment=$cashbackPayment, category=$category, checkDepositAcceptance=$checkDepositAcceptance, checkDepositReturn=$checkDepositReturn, checkTransferDeposit=$checkTransferDeposit, fedNowTransferAcknowledgement=$fedNowTransferAcknowledgement, feePayment=$feePayment, inboundAchTransfer=$inboundAchTransfer, inboundAchTransferReturnIntention=$inboundAchTransferReturnIntention, inboundCheckAdjustment=$inboundCheckAdjustment, inboundCheckDepositReturnIntention=$inboundCheckDepositReturnIntention, inboundRealTimePaymentsTransferConfirmation=$inboundRealTimePaymentsTransferConfirmation, inboundWireReversal=$inboundWireReversal, inboundWireTransfer=$inboundWireTransfer, inboundWireTransferReversal=$inboundWireTransferReversal, interestPayment=$interestPayment, internalSource=$internalSource, other=$other, realTimePaymentsTransferAcknowledgement=$realTimePaymentsTransferAcknowledgement, sampleFunds=$sampleFunds, swiftTransferIntention=$swiftTransferIntention, swiftTransferReturn=$swiftTransferReturn, wireTransferIntention=$wireTransferIntention, additionalProperties=$additionalProperties}"
     }
 
     /**
