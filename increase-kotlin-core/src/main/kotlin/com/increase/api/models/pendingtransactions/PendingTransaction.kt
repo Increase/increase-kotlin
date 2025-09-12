@@ -1135,6 +1135,7 @@ private constructor(
         private val category: JsonField<Category>,
         private val checkDepositInstruction: JsonField<CheckDepositInstruction>,
         private val checkTransferInstruction: JsonField<CheckTransferInstruction>,
+        private val fedNowTransferInstruction: JsonField<FedNowTransferInstruction>,
         private val inboundFundsHold: JsonField<InboundFundsHold>,
         private val inboundWireTransferReversal: JsonField<InboundWireTransferReversal>,
         private val other: JsonValue,
@@ -1169,6 +1170,9 @@ private constructor(
             @JsonProperty("check_transfer_instruction")
             @ExcludeMissing
             checkTransferInstruction: JsonField<CheckTransferInstruction> = JsonMissing.of(),
+            @JsonProperty("fed_now_transfer_instruction")
+            @ExcludeMissing
+            fedNowTransferInstruction: JsonField<FedNowTransferInstruction> = JsonMissing.of(),
             @JsonProperty("inbound_funds_hold")
             @ExcludeMissing
             inboundFundsHold: JsonField<InboundFundsHold> = JsonMissing.of(),
@@ -1197,6 +1201,7 @@ private constructor(
             category,
             checkDepositInstruction,
             checkTransferInstruction,
+            fedNowTransferInstruction,
             inboundFundsHold,
             inboundWireTransferReversal,
             other,
@@ -1276,6 +1281,16 @@ private constructor(
          */
         fun checkTransferInstruction(): CheckTransferInstruction? =
             checkTransferInstruction.getNullable("check_transfer_instruction")
+
+        /**
+         * A FedNow Transfer Instruction object. This field will be present in the JSON response if
+         * and only if `category` is equal to `fed_now_transfer_instruction`.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun fedNowTransferInstruction(): FedNowTransferInstruction? =
+            fedNowTransferInstruction.getNullable("fed_now_transfer_instruction")
 
         /**
          * An Inbound Funds Hold object. This field will be present in the JSON response if and only
@@ -1419,6 +1434,17 @@ private constructor(
             checkTransferInstruction
 
         /**
+         * Returns the raw JSON value of [fedNowTransferInstruction].
+         *
+         * Unlike [fedNowTransferInstruction], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("fed_now_transfer_instruction")
+        @ExcludeMissing
+        fun _fedNowTransferInstruction(): JsonField<FedNowTransferInstruction> =
+            fedNowTransferInstruction
+
+        /**
          * Returns the raw JSON value of [inboundFundsHold].
          *
          * Unlike [inboundFundsHold], this method doesn't throw if the JSON field has an unexpected
@@ -1497,6 +1523,7 @@ private constructor(
              * .category()
              * .checkDepositInstruction()
              * .checkTransferInstruction()
+             * .fedNowTransferInstruction()
              * .inboundFundsHold()
              * .inboundWireTransferReversal()
              * .other()
@@ -1519,6 +1546,7 @@ private constructor(
             private var category: JsonField<Category>? = null
             private var checkDepositInstruction: JsonField<CheckDepositInstruction>? = null
             private var checkTransferInstruction: JsonField<CheckTransferInstruction>? = null
+            private var fedNowTransferInstruction: JsonField<FedNowTransferInstruction>? = null
             private var inboundFundsHold: JsonField<InboundFundsHold>? = null
             private var inboundWireTransferReversal: JsonField<InboundWireTransferReversal>? = null
             private var other: JsonValue? = null
@@ -1538,6 +1566,7 @@ private constructor(
                 category = source.category
                 checkDepositInstruction = source.checkDepositInstruction
                 checkTransferInstruction = source.checkTransferInstruction
+                fedNowTransferInstruction = source.fedNowTransferInstruction
                 inboundFundsHold = source.inboundFundsHold
                 inboundWireTransferReversal = source.inboundWireTransferReversal
                 other = source.other
@@ -1675,6 +1704,24 @@ private constructor(
             fun checkTransferInstruction(
                 checkTransferInstruction: JsonField<CheckTransferInstruction>
             ) = apply { this.checkTransferInstruction = checkTransferInstruction }
+
+            /**
+             * A FedNow Transfer Instruction object. This field will be present in the JSON response
+             * if and only if `category` is equal to `fed_now_transfer_instruction`.
+             */
+            fun fedNowTransferInstruction(fedNowTransferInstruction: FedNowTransferInstruction?) =
+                fedNowTransferInstruction(JsonField.ofNullable(fedNowTransferInstruction))
+
+            /**
+             * Sets [Builder.fedNowTransferInstruction] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.fedNowTransferInstruction] with a well-typed
+             * [FedNowTransferInstruction] value instead. This method is primarily for setting the
+             * field to an undocumented or not yet supported value.
+             */
+            fun fedNowTransferInstruction(
+                fedNowTransferInstruction: JsonField<FedNowTransferInstruction>
+            ) = apply { this.fedNowTransferInstruction = fedNowTransferInstruction }
 
             /**
              * An Inbound Funds Hold object. This field will be present in the JSON response if and
@@ -1826,6 +1873,7 @@ private constructor(
              * .category()
              * .checkDepositInstruction()
              * .checkTransferInstruction()
+             * .fedNowTransferInstruction()
              * .inboundFundsHold()
              * .inboundWireTransferReversal()
              * .other()
@@ -1846,6 +1894,7 @@ private constructor(
                     checkRequired("category", category),
                     checkRequired("checkDepositInstruction", checkDepositInstruction),
                     checkRequired("checkTransferInstruction", checkTransferInstruction),
+                    checkRequired("fedNowTransferInstruction", fedNowTransferInstruction),
                     checkRequired("inboundFundsHold", inboundFundsHold),
                     checkRequired("inboundWireTransferReversal", inboundWireTransferReversal),
                     checkRequired("other", other),
@@ -1874,6 +1923,7 @@ private constructor(
             category().validate()
             checkDepositInstruction()?.validate()
             checkTransferInstruction()?.validate()
+            fedNowTransferInstruction()?.validate()
             inboundFundsHold()?.validate()
             inboundWireTransferReversal()?.validate()
             realTimePaymentsTransferInstruction()?.validate()
@@ -1904,6 +1954,7 @@ private constructor(
                 (category.asKnown()?.validity() ?: 0) +
                 (checkDepositInstruction.asKnown()?.validity() ?: 0) +
                 (checkTransferInstruction.asKnown()?.validity() ?: 0) +
+                (fedNowTransferInstruction.asKnown()?.validity() ?: 0) +
                 (inboundFundsHold.asKnown()?.validity() ?: 0) +
                 (inboundWireTransferReversal.asKnown()?.validity() ?: 0) +
                 (realTimePaymentsTransferInstruction.asKnown()?.validity() ?: 0) +
@@ -10610,6 +10661,12 @@ private constructor(
                  */
                 val CHECK_TRANSFER_INSTRUCTION = of("check_transfer_instruction")
 
+                /**
+                 * FedNow Transfer Instruction: details will be under the
+                 * `fed_now_transfer_instruction` object.
+                 */
+                val FED_NOW_TRANSFER_INSTRUCTION = of("fed_now_transfer_instruction")
+
                 /** Inbound Funds Hold: details will be under the `inbound_funds_hold` object. */
                 val INBOUND_FUNDS_HOLD = of("inbound_funds_hold")
 
@@ -10677,6 +10734,11 @@ private constructor(
                  * `check_transfer_instruction` object.
                  */
                 CHECK_TRANSFER_INSTRUCTION,
+                /**
+                 * FedNow Transfer Instruction: details will be under the
+                 * `fed_now_transfer_instruction` object.
+                 */
+                FED_NOW_TRANSFER_INSTRUCTION,
                 /** Inbound Funds Hold: details will be under the `inbound_funds_hold` object. */
                 INBOUND_FUNDS_HOLD,
                 /** User Initiated Hold: details will be under the `user_initiated_hold` object. */
@@ -10742,6 +10804,11 @@ private constructor(
                  * `check_transfer_instruction` object.
                  */
                 CHECK_TRANSFER_INSTRUCTION,
+                /**
+                 * FedNow Transfer Instruction: details will be under the
+                 * `fed_now_transfer_instruction` object.
+                 */
+                FED_NOW_TRANSFER_INSTRUCTION,
                 /** Inbound Funds Hold: details will be under the `inbound_funds_hold` object. */
                 INBOUND_FUNDS_HOLD,
                 /** User Initiated Hold: details will be under the `user_initiated_hold` object. */
@@ -10793,6 +10860,7 @@ private constructor(
                     CARD_AUTHORIZATION -> Value.CARD_AUTHORIZATION
                     CHECK_DEPOSIT_INSTRUCTION -> Value.CHECK_DEPOSIT_INSTRUCTION
                     CHECK_TRANSFER_INSTRUCTION -> Value.CHECK_TRANSFER_INSTRUCTION
+                    FED_NOW_TRANSFER_INSTRUCTION -> Value.FED_NOW_TRANSFER_INSTRUCTION
                     INBOUND_FUNDS_HOLD -> Value.INBOUND_FUNDS_HOLD
                     USER_INITIATED_HOLD -> Value.USER_INITIATED_HOLD
                     REAL_TIME_PAYMENTS_TRANSFER_INSTRUCTION ->
@@ -10821,6 +10889,7 @@ private constructor(
                     CARD_AUTHORIZATION -> Known.CARD_AUTHORIZATION
                     CHECK_DEPOSIT_INSTRUCTION -> Known.CHECK_DEPOSIT_INSTRUCTION
                     CHECK_TRANSFER_INSTRUCTION -> Known.CHECK_TRANSFER_INSTRUCTION
+                    FED_NOW_TRANSFER_INSTRUCTION -> Known.FED_NOW_TRANSFER_INSTRUCTION
                     INBOUND_FUNDS_HOLD -> Known.INBOUND_FUNDS_HOLD
                     USER_INITIATED_HOLD -> Known.USER_INITIATED_HOLD
                     REAL_TIME_PAYMENTS_TRANSFER_INSTRUCTION ->
@@ -11870,6 +11939,180 @@ private constructor(
 
             override fun toString() =
                 "CheckTransferInstruction{amount=$amount, currency=$currency, transferId=$transferId, additionalProperties=$additionalProperties}"
+        }
+
+        /**
+         * A FedNow Transfer Instruction object. This field will be present in the JSON response if
+         * and only if `category` is equal to `fed_now_transfer_instruction`.
+         */
+        class FedNowTransferInstruction
+        private constructor(
+            private val transferId: JsonField<String>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("transfer_id")
+                @ExcludeMissing
+                transferId: JsonField<String> = JsonMissing.of()
+            ) : this(transferId, mutableMapOf())
+
+            /**
+             * The identifier of the FedNow Transfer that led to this Pending Transaction.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun transferId(): String = transferId.getRequired("transfer_id")
+
+            /**
+             * Returns the raw JSON value of [transferId].
+             *
+             * Unlike [transferId], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("transfer_id")
+            @ExcludeMissing
+            fun _transferId(): JsonField<String> = transferId
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /**
+                 * Returns a mutable builder for constructing an instance of
+                 * [FedNowTransferInstruction].
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .transferId()
+                 * ```
+                 */
+                fun builder() = Builder()
+            }
+
+            /** A builder for [FedNowTransferInstruction]. */
+            class Builder internal constructor() {
+
+                private var transferId: JsonField<String>? = null
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                internal fun from(fedNowTransferInstruction: FedNowTransferInstruction) = apply {
+                    transferId = fedNowTransferInstruction.transferId
+                    additionalProperties =
+                        fedNowTransferInstruction.additionalProperties.toMutableMap()
+                }
+
+                /** The identifier of the FedNow Transfer that led to this Pending Transaction. */
+                fun transferId(transferId: String) = transferId(JsonField.of(transferId))
+
+                /**
+                 * Sets [Builder.transferId] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.transferId] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun transferId(transferId: JsonField<String>) = apply {
+                    this.transferId = transferId
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [FedNowTransferInstruction].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```kotlin
+                 * .transferId()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
+                fun build(): FedNowTransferInstruction =
+                    FedNowTransferInstruction(
+                        checkRequired("transferId", transferId),
+                        additionalProperties.toMutableMap(),
+                    )
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): FedNowTransferInstruction = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                transferId()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            internal fun validity(): Int = (if (transferId.asKnown() == null) 0 else 1)
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is FedNowTransferInstruction &&
+                    transferId == other.transferId &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy { Objects.hash(transferId, additionalProperties) }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "FedNowTransferInstruction{transferId=$transferId, additionalProperties=$additionalProperties}"
         }
 
         /**
@@ -13833,6 +14076,7 @@ private constructor(
                 category == other.category &&
                 checkDepositInstruction == other.checkDepositInstruction &&
                 checkTransferInstruction == other.checkTransferInstruction &&
+                fedNowTransferInstruction == other.fedNowTransferInstruction &&
                 inboundFundsHold == other.inboundFundsHold &&
                 inboundWireTransferReversal == other.inboundWireTransferReversal &&
                 this.other == other.other &&
@@ -13852,6 +14096,7 @@ private constructor(
                 category,
                 checkDepositInstruction,
                 checkTransferInstruction,
+                fedNowTransferInstruction,
                 inboundFundsHold,
                 inboundWireTransferReversal,
                 other,
@@ -13866,7 +14111,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Source{accountTransferInstruction=$accountTransferInstruction, achTransferInstruction=$achTransferInstruction, cardAuthorization=$cardAuthorization, cardPushTransferInstruction=$cardPushTransferInstruction, category=$category, checkDepositInstruction=$checkDepositInstruction, checkTransferInstruction=$checkTransferInstruction, inboundFundsHold=$inboundFundsHold, inboundWireTransferReversal=$inboundWireTransferReversal, other=$other, realTimePaymentsTransferInstruction=$realTimePaymentsTransferInstruction, swiftTransferInstruction=$swiftTransferInstruction, userInitiatedHold=$userInitiatedHold, wireTransferInstruction=$wireTransferInstruction, additionalProperties=$additionalProperties}"
+            "Source{accountTransferInstruction=$accountTransferInstruction, achTransferInstruction=$achTransferInstruction, cardAuthorization=$cardAuthorization, cardPushTransferInstruction=$cardPushTransferInstruction, category=$category, checkDepositInstruction=$checkDepositInstruction, checkTransferInstruction=$checkTransferInstruction, fedNowTransferInstruction=$fedNowTransferInstruction, inboundFundsHold=$inboundFundsHold, inboundWireTransferReversal=$inboundWireTransferReversal, other=$other, realTimePaymentsTransferInstruction=$realTimePaymentsTransferInstruction, swiftTransferInstruction=$swiftTransferInstruction, userInitiatedHold=$userInitiatedHold, wireTransferInstruction=$wireTransferInstruction, additionalProperties=$additionalProperties}"
     }
 
     /** Whether the Pending Transaction has been confirmed and has an associated Transaction. */
