@@ -871,7 +871,7 @@ private constructor(
         private val checkDepositAcceptance: JsonField<CheckDepositAcceptance>,
         private val checkDepositReturn: JsonField<CheckDepositReturn>,
         private val checkTransferDeposit: JsonField<CheckTransferDeposit>,
-        private val fedNowTransferAcknowledgement: JsonField<FedNowTransferAcknowledgement>,
+        private val fednowTransferAcknowledgement: JsonField<FednowTransferAcknowledgement>,
         private val feePayment: JsonField<FeePayment>,
         private val inboundAchTransfer: JsonField<InboundAchTransfer>,
         private val inboundAchTransferReturnIntention: JsonField<InboundAchTransferReturnIntention>,
@@ -948,9 +948,9 @@ private constructor(
             @JsonProperty("check_transfer_deposit")
             @ExcludeMissing
             checkTransferDeposit: JsonField<CheckTransferDeposit> = JsonMissing.of(),
-            @JsonProperty("fed_now_transfer_acknowledgement")
+            @JsonProperty("fednow_transfer_acknowledgement")
             @ExcludeMissing
-            fedNowTransferAcknowledgement: JsonField<FedNowTransferAcknowledgement> =
+            fednowTransferAcknowledgement: JsonField<FednowTransferAcknowledgement> =
                 JsonMissing.of(),
             @JsonProperty("fee_payment")
             @ExcludeMissing
@@ -1025,7 +1025,7 @@ private constructor(
             checkDepositAcceptance,
             checkDepositReturn,
             checkTransferDeposit,
-            fedNowTransferAcknowledgement,
+            fednowTransferAcknowledgement,
             feePayment,
             inboundAchTransfer,
             inboundAchTransferReturnIntention,
@@ -1244,15 +1244,15 @@ private constructor(
 
         /**
          * A FedNow Transfer Acknowledgement object. This field will be present in the JSON response
-         * if and only if `category` is equal to `fed_now_transfer_acknowledgement`. A FedNow
+         * if and only if `category` is equal to `fednow_transfer_acknowledgement`. A FedNow
          * Transfer Acknowledgement is created when a FedNow Transfer sent from Increase is
          * acknowledged by the receiving bank.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun fedNowTransferAcknowledgement(): FedNowTransferAcknowledgement? =
-            fedNowTransferAcknowledgement.getNullable("fed_now_transfer_acknowledgement")
+        fun fednowTransferAcknowledgement(): FednowTransferAcknowledgement? =
+            fednowTransferAcknowledgement.getNullable("fednow_transfer_acknowledgement")
 
         /**
          * A Fee Payment object. This field will be present in the JSON response if and only if
@@ -1617,15 +1617,15 @@ private constructor(
         fun _checkTransferDeposit(): JsonField<CheckTransferDeposit> = checkTransferDeposit
 
         /**
-         * Returns the raw JSON value of [fedNowTransferAcknowledgement].
+         * Returns the raw JSON value of [fednowTransferAcknowledgement].
          *
-         * Unlike [fedNowTransferAcknowledgement], this method doesn't throw if the JSON field has
+         * Unlike [fednowTransferAcknowledgement], this method doesn't throw if the JSON field has
          * an unexpected type.
          */
-        @JsonProperty("fed_now_transfer_acknowledgement")
+        @JsonProperty("fednow_transfer_acknowledgement")
         @ExcludeMissing
-        fun _fedNowTransferAcknowledgement(): JsonField<FedNowTransferAcknowledgement> =
-            fedNowTransferAcknowledgement
+        fun _fednowTransferAcknowledgement(): JsonField<FednowTransferAcknowledgement> =
+            fednowTransferAcknowledgement
 
         /**
          * Returns the raw JSON value of [feePayment].
@@ -1828,7 +1828,7 @@ private constructor(
              * .checkDepositAcceptance()
              * .checkDepositReturn()
              * .checkTransferDeposit()
-             * .fedNowTransferAcknowledgement()
+             * .fednowTransferAcknowledgement()
              * .feePayment()
              * .inboundAchTransfer()
              * .inboundAchTransferReturnIntention()
@@ -1871,7 +1871,7 @@ private constructor(
             private var checkDepositAcceptance: JsonField<CheckDepositAcceptance>? = null
             private var checkDepositReturn: JsonField<CheckDepositReturn>? = null
             private var checkTransferDeposit: JsonField<CheckTransferDeposit>? = null
-            private var fedNowTransferAcknowledgement: JsonField<FedNowTransferAcknowledgement>? =
+            private var fednowTransferAcknowledgement: JsonField<FednowTransferAcknowledgement>? =
                 null
             private var feePayment: JsonField<FeePayment>? = null
             private var inboundAchTransfer: JsonField<InboundAchTransfer>? = null
@@ -1918,7 +1918,7 @@ private constructor(
                 checkDepositAcceptance = source.checkDepositAcceptance
                 checkDepositReturn = source.checkDepositReturn
                 checkTransferDeposit = source.checkTransferDeposit
-                fedNowTransferAcknowledgement = source.fedNowTransferAcknowledgement
+                fednowTransferAcknowledgement = source.fednowTransferAcknowledgement
                 feePayment = source.feePayment
                 inboundAchTransfer = source.inboundAchTransfer
                 inboundAchTransferReturnIntention = source.inboundAchTransferReturnIntention
@@ -2286,24 +2286,24 @@ private constructor(
 
             /**
              * A FedNow Transfer Acknowledgement object. This field will be present in the JSON
-             * response if and only if `category` is equal to `fed_now_transfer_acknowledgement`. A
+             * response if and only if `category` is equal to `fednow_transfer_acknowledgement`. A
              * FedNow Transfer Acknowledgement is created when a FedNow Transfer sent from Increase
              * is acknowledged by the receiving bank.
              */
-            fun fedNowTransferAcknowledgement(
-                fedNowTransferAcknowledgement: FedNowTransferAcknowledgement?
-            ) = fedNowTransferAcknowledgement(JsonField.ofNullable(fedNowTransferAcknowledgement))
+            fun fednowTransferAcknowledgement(
+                fednowTransferAcknowledgement: FednowTransferAcknowledgement?
+            ) = fednowTransferAcknowledgement(JsonField.ofNullable(fednowTransferAcknowledgement))
 
             /**
-             * Sets [Builder.fedNowTransferAcknowledgement] to an arbitrary JSON value.
+             * Sets [Builder.fednowTransferAcknowledgement] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.fedNowTransferAcknowledgement] with a well-typed
-             * [FedNowTransferAcknowledgement] value instead. This method is primarily for setting
+             * You should usually call [Builder.fednowTransferAcknowledgement] with a well-typed
+             * [FednowTransferAcknowledgement] value instead. This method is primarily for setting
              * the field to an undocumented or not yet supported value.
              */
-            fun fedNowTransferAcknowledgement(
-                fedNowTransferAcknowledgement: JsonField<FedNowTransferAcknowledgement>
-            ) = apply { this.fedNowTransferAcknowledgement = fedNowTransferAcknowledgement }
+            fun fednowTransferAcknowledgement(
+                fednowTransferAcknowledgement: JsonField<FednowTransferAcknowledgement>
+            ) = apply { this.fednowTransferAcknowledgement = fednowTransferAcknowledgement }
 
             /**
              * A Fee Payment object. This field will be present in the JSON response if and only if
@@ -2701,7 +2701,7 @@ private constructor(
              * .checkDepositAcceptance()
              * .checkDepositReturn()
              * .checkTransferDeposit()
-             * .fedNowTransferAcknowledgement()
+             * .fednowTransferAcknowledgement()
              * .feePayment()
              * .inboundAchTransfer()
              * .inboundAchTransferReturnIntention()
@@ -2742,7 +2742,7 @@ private constructor(
                     checkRequired("checkDepositAcceptance", checkDepositAcceptance),
                     checkRequired("checkDepositReturn", checkDepositReturn),
                     checkRequired("checkTransferDeposit", checkTransferDeposit),
-                    checkRequired("fedNowTransferAcknowledgement", fedNowTransferAcknowledgement),
+                    checkRequired("fednowTransferAcknowledgement", fednowTransferAcknowledgement),
                     checkRequired("feePayment", feePayment),
                     checkRequired("inboundAchTransfer", inboundAchTransfer),
                     checkRequired(
@@ -2800,7 +2800,7 @@ private constructor(
             checkDepositAcceptance()?.validate()
             checkDepositReturn()?.validate()
             checkTransferDeposit()?.validate()
-            fedNowTransferAcknowledgement()?.validate()
+            fednowTransferAcknowledgement()?.validate()
             feePayment()?.validate()
             inboundAchTransfer()?.validate()
             inboundAchTransferReturnIntention()?.validate()
@@ -2852,7 +2852,7 @@ private constructor(
                 (checkDepositAcceptance.asKnown()?.validity() ?: 0) +
                 (checkDepositReturn.asKnown()?.validity() ?: 0) +
                 (checkTransferDeposit.asKnown()?.validity() ?: 0) +
-                (fedNowTransferAcknowledgement.asKnown()?.validity() ?: 0) +
+                (fednowTransferAcknowledgement.asKnown()?.validity() ?: 0) +
                 (feePayment.asKnown()?.validity() ?: 0) +
                 (inboundAchTransfer.asKnown()?.validity() ?: 0) +
                 (inboundAchTransferReturnIntention.asKnown()?.validity() ?: 0) +
@@ -26982,9 +26982,9 @@ private constructor(
 
                 /**
                  * FedNow Transfer Acknowledgement: details will be under the
-                 * `fed_now_transfer_acknowledgement` object.
+                 * `fednow_transfer_acknowledgement` object.
                  */
-                val FED_NOW_TRANSFER_ACKNOWLEDGEMENT = of("fed_now_transfer_acknowledgement")
+                val FEDNOW_TRANSFER_ACKNOWLEDGEMENT = of("fednow_transfer_acknowledgement")
 
                 /**
                  * Check Transfer Deposit: details will be under the `check_transfer_deposit`
@@ -27148,9 +27148,9 @@ private constructor(
                 CHECK_DEPOSIT_RETURN,
                 /**
                  * FedNow Transfer Acknowledgement: details will be under the
-                 * `fed_now_transfer_acknowledgement` object.
+                 * `fednow_transfer_acknowledgement` object.
                  */
-                FED_NOW_TRANSFER_ACKNOWLEDGEMENT,
+                FEDNOW_TRANSFER_ACKNOWLEDGEMENT,
                 /**
                  * Check Transfer Deposit: details will be under the `check_transfer_deposit`
                  * object.
@@ -27296,9 +27296,9 @@ private constructor(
                 CHECK_DEPOSIT_RETURN,
                 /**
                  * FedNow Transfer Acknowledgement: details will be under the
-                 * `fed_now_transfer_acknowledgement` object.
+                 * `fednow_transfer_acknowledgement` object.
                  */
-                FED_NOW_TRANSFER_ACKNOWLEDGEMENT,
+                FEDNOW_TRANSFER_ACKNOWLEDGEMENT,
                 /**
                  * Check Transfer Deposit: details will be under the `check_transfer_deposit`
                  * object.
@@ -27410,7 +27410,7 @@ private constructor(
                     CARD_REVENUE_PAYMENT -> Value.CARD_REVENUE_PAYMENT
                     CHECK_DEPOSIT_ACCEPTANCE -> Value.CHECK_DEPOSIT_ACCEPTANCE
                     CHECK_DEPOSIT_RETURN -> Value.CHECK_DEPOSIT_RETURN
-                    FED_NOW_TRANSFER_ACKNOWLEDGEMENT -> Value.FED_NOW_TRANSFER_ACKNOWLEDGEMENT
+                    FEDNOW_TRANSFER_ACKNOWLEDGEMENT -> Value.FEDNOW_TRANSFER_ACKNOWLEDGEMENT
                     CHECK_TRANSFER_DEPOSIT -> Value.CHECK_TRANSFER_DEPOSIT
                     FEE_PAYMENT -> Value.FEE_PAYMENT
                     INBOUND_ACH_TRANSFER -> Value.INBOUND_ACH_TRANSFER
@@ -27462,7 +27462,7 @@ private constructor(
                     CARD_REVENUE_PAYMENT -> Known.CARD_REVENUE_PAYMENT
                     CHECK_DEPOSIT_ACCEPTANCE -> Known.CHECK_DEPOSIT_ACCEPTANCE
                     CHECK_DEPOSIT_RETURN -> Known.CHECK_DEPOSIT_RETURN
-                    FED_NOW_TRANSFER_ACKNOWLEDGEMENT -> Known.FED_NOW_TRANSFER_ACKNOWLEDGEMENT
+                    FEDNOW_TRANSFER_ACKNOWLEDGEMENT -> Known.FEDNOW_TRANSFER_ACKNOWLEDGEMENT
                     CHECK_TRANSFER_DEPOSIT -> Known.CHECK_TRANSFER_DEPOSIT
                     FEE_PAYMENT -> Known.FEE_PAYMENT
                     INBOUND_ACH_TRANSFER -> Known.INBOUND_ACH_TRANSFER
@@ -29871,11 +29871,11 @@ private constructor(
 
         /**
          * A FedNow Transfer Acknowledgement object. This field will be present in the JSON response
-         * if and only if `category` is equal to `fed_now_transfer_acknowledgement`. A FedNow
+         * if and only if `category` is equal to `fednow_transfer_acknowledgement`. A FedNow
          * Transfer Acknowledgement is created when a FedNow Transfer sent from Increase is
          * acknowledged by the receiving bank.
          */
-        class FedNowTransferAcknowledgement
+        class FednowTransferAcknowledgement
         private constructor(
             private val transferId: JsonField<String>,
             private val additionalProperties: MutableMap<String, JsonValue>,
@@ -29923,7 +29923,7 @@ private constructor(
 
                 /**
                  * Returns a mutable builder for constructing an instance of
-                 * [FedNowTransferAcknowledgement].
+                 * [FednowTransferAcknowledgement].
                  *
                  * The following fields are required:
                  * ```kotlin
@@ -29933,17 +29933,17 @@ private constructor(
                 fun builder() = Builder()
             }
 
-            /** A builder for [FedNowTransferAcknowledgement]. */
+            /** A builder for [FednowTransferAcknowledgement]. */
             class Builder internal constructor() {
 
                 private var transferId: JsonField<String>? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-                internal fun from(fedNowTransferAcknowledgement: FedNowTransferAcknowledgement) =
+                internal fun from(fednowTransferAcknowledgement: FednowTransferAcknowledgement) =
                     apply {
-                        transferId = fedNowTransferAcknowledgement.transferId
+                        transferId = fednowTransferAcknowledgement.transferId
                         additionalProperties =
-                            fedNowTransferAcknowledgement.additionalProperties.toMutableMap()
+                            fednowTransferAcknowledgement.additionalProperties.toMutableMap()
                     }
 
                 /** The identifier of the FedNow Transfer that led to this Transaction. */
@@ -29983,7 +29983,7 @@ private constructor(
                 }
 
                 /**
-                 * Returns an immutable instance of [FedNowTransferAcknowledgement].
+                 * Returns an immutable instance of [FednowTransferAcknowledgement].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  *
@@ -29994,8 +29994,8 @@ private constructor(
                  *
                  * @throws IllegalStateException if any required field is unset.
                  */
-                fun build(): FedNowTransferAcknowledgement =
-                    FedNowTransferAcknowledgement(
+                fun build(): FednowTransferAcknowledgement =
+                    FednowTransferAcknowledgement(
                         checkRequired("transferId", transferId),
                         additionalProperties.toMutableMap(),
                     )
@@ -30003,7 +30003,7 @@ private constructor(
 
             private var validated: Boolean = false
 
-            fun validate(): FedNowTransferAcknowledgement = apply {
+            fun validate(): FednowTransferAcknowledgement = apply {
                 if (validated) {
                     return@apply
                 }
@@ -30033,7 +30033,7 @@ private constructor(
                     return true
                 }
 
-                return other is FedNowTransferAcknowledgement &&
+                return other is FednowTransferAcknowledgement &&
                     transferId == other.transferId &&
                     additionalProperties == other.additionalProperties
             }
@@ -30043,7 +30043,7 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "FedNowTransferAcknowledgement{transferId=$transferId, additionalProperties=$additionalProperties}"
+                "FednowTransferAcknowledgement{transferId=$transferId, additionalProperties=$additionalProperties}"
         }
 
         /**
@@ -38099,7 +38099,7 @@ private constructor(
                 checkDepositAcceptance == other.checkDepositAcceptance &&
                 checkDepositReturn == other.checkDepositReturn &&
                 checkTransferDeposit == other.checkTransferDeposit &&
-                fedNowTransferAcknowledgement == other.fedNowTransferAcknowledgement &&
+                fednowTransferAcknowledgement == other.fednowTransferAcknowledgement &&
                 feePayment == other.feePayment &&
                 inboundAchTransfer == other.inboundAchTransfer &&
                 inboundAchTransferReturnIntention == other.inboundAchTransferReturnIntention &&
@@ -38141,7 +38141,7 @@ private constructor(
                 checkDepositAcceptance,
                 checkDepositReturn,
                 checkTransferDeposit,
-                fedNowTransferAcknowledgement,
+                fednowTransferAcknowledgement,
                 feePayment,
                 inboundAchTransfer,
                 inboundAchTransferReturnIntention,
@@ -38166,7 +38166,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Source{accountRevenuePayment=$accountRevenuePayment, accountTransferIntention=$accountTransferIntention, achTransferIntention=$achTransferIntention, achTransferRejection=$achTransferRejection, achTransferReturn=$achTransferReturn, cardDisputeAcceptance=$cardDisputeAcceptance, cardDisputeFinancial=$cardDisputeFinancial, cardDisputeLoss=$cardDisputeLoss, cardPushTransferAcceptance=$cardPushTransferAcceptance, cardRefund=$cardRefund, cardRevenuePayment=$cardRevenuePayment, cardSettlement=$cardSettlement, cashbackPayment=$cashbackPayment, category=$category, checkDepositAcceptance=$checkDepositAcceptance, checkDepositReturn=$checkDepositReturn, checkTransferDeposit=$checkTransferDeposit, fedNowTransferAcknowledgement=$fedNowTransferAcknowledgement, feePayment=$feePayment, inboundAchTransfer=$inboundAchTransfer, inboundAchTransferReturnIntention=$inboundAchTransferReturnIntention, inboundCheckAdjustment=$inboundCheckAdjustment, inboundCheckDepositReturnIntention=$inboundCheckDepositReturnIntention, inboundRealTimePaymentsTransferConfirmation=$inboundRealTimePaymentsTransferConfirmation, inboundWireReversal=$inboundWireReversal, inboundWireTransfer=$inboundWireTransfer, inboundWireTransferReversal=$inboundWireTransferReversal, interestPayment=$interestPayment, internalSource=$internalSource, other=$other, realTimePaymentsTransferAcknowledgement=$realTimePaymentsTransferAcknowledgement, sampleFunds=$sampleFunds, swiftTransferIntention=$swiftTransferIntention, swiftTransferReturn=$swiftTransferReturn, wireTransferIntention=$wireTransferIntention, additionalProperties=$additionalProperties}"
+            "Source{accountRevenuePayment=$accountRevenuePayment, accountTransferIntention=$accountTransferIntention, achTransferIntention=$achTransferIntention, achTransferRejection=$achTransferRejection, achTransferReturn=$achTransferReturn, cardDisputeAcceptance=$cardDisputeAcceptance, cardDisputeFinancial=$cardDisputeFinancial, cardDisputeLoss=$cardDisputeLoss, cardPushTransferAcceptance=$cardPushTransferAcceptance, cardRefund=$cardRefund, cardRevenuePayment=$cardRevenuePayment, cardSettlement=$cardSettlement, cashbackPayment=$cashbackPayment, category=$category, checkDepositAcceptance=$checkDepositAcceptance, checkDepositReturn=$checkDepositReturn, checkTransferDeposit=$checkTransferDeposit, fednowTransferAcknowledgement=$fednowTransferAcknowledgement, feePayment=$feePayment, inboundAchTransfer=$inboundAchTransfer, inboundAchTransferReturnIntention=$inboundAchTransferReturnIntention, inboundCheckAdjustment=$inboundCheckAdjustment, inboundCheckDepositReturnIntention=$inboundCheckDepositReturnIntention, inboundRealTimePaymentsTransferConfirmation=$inboundRealTimePaymentsTransferConfirmation, inboundWireReversal=$inboundWireReversal, inboundWireTransfer=$inboundWireTransfer, inboundWireTransferReversal=$inboundWireTransferReversal, interestPayment=$interestPayment, internalSource=$internalSource, other=$other, realTimePaymentsTransferAcknowledgement=$realTimePaymentsTransferAcknowledgement, sampleFunds=$sampleFunds, swiftTransferIntention=$swiftTransferIntention, swiftTransferReturn=$swiftTransferReturn, wireTransferIntention=$wireTransferIntention, additionalProperties=$additionalProperties}"
     }
 
     /**
