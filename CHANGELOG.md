@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.318.1 (2025-09-15)
+
+Full Changelog: [v0.318.0...v0.318.1](https://github.com/Increase/increase-kotlin/compare/v0.318.0...v0.318.1)
+
+### Bug Fixes
+
+* **client:** incorrect `getPackageVersion` impl ([d1779fe](https://github.com/Increase/increase-kotlin/commit/d1779fe23586bd412ce6f26839f54319d34c907c))
+
 ## 0.318.0 (2025-09-12)
 
 Full Changelog: [v0.317.0...v0.318.0](https://github.com/Increase/increase-kotlin/compare/v0.317.0...v0.318.0)
