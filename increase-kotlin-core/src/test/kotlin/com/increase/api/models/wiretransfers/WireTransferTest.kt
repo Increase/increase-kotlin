@@ -63,6 +63,23 @@ internal class WireTransferTest {
                 .originatorAddressLine3(null)
                 .originatorName(null)
                 .pendingTransactionId(null)
+                .remittance(
+                    WireTransfer.Remittance.builder()
+                        .category(WireTransfer.Remittance.Category.UNSTRUCTURED)
+                        .tax(
+                            WireTransfer.Remittance.Tax.builder()
+                                .date(LocalDate.parse("2019-12-27"))
+                                .identificationNumber("identification_number")
+                                .typeCode("type_code")
+                                .build()
+                        )
+                        .unstructured(
+                            WireTransfer.Remittance.Unstructured.builder()
+                                .message("Payment for invoice 12345")
+                                .build()
+                        )
+                        .build()
+                )
                 .reversal(
                     WireTransfer.Reversal.builder()
                         .amount(0L)
@@ -142,6 +159,24 @@ internal class WireTransferTest {
         assertThat(wireTransfer.originatorAddressLine3()).isNull()
         assertThat(wireTransfer.originatorName()).isNull()
         assertThat(wireTransfer.pendingTransactionId()).isNull()
+        assertThat(wireTransfer.remittance())
+            .isEqualTo(
+                WireTransfer.Remittance.builder()
+                    .category(WireTransfer.Remittance.Category.UNSTRUCTURED)
+                    .tax(
+                        WireTransfer.Remittance.Tax.builder()
+                            .date(LocalDate.parse("2019-12-27"))
+                            .identificationNumber("identification_number")
+                            .typeCode("type_code")
+                            .build()
+                    )
+                    .unstructured(
+                        WireTransfer.Remittance.Unstructured.builder()
+                            .message("Payment for invoice 12345")
+                            .build()
+                    )
+                    .build()
+            )
         assertThat(wireTransfer.reversal())
             .isEqualTo(
                 WireTransfer.Reversal.builder()
@@ -228,6 +263,23 @@ internal class WireTransferTest {
                 .originatorAddressLine3(null)
                 .originatorName(null)
                 .pendingTransactionId(null)
+                .remittance(
+                    WireTransfer.Remittance.builder()
+                        .category(WireTransfer.Remittance.Category.UNSTRUCTURED)
+                        .tax(
+                            WireTransfer.Remittance.Tax.builder()
+                                .date(LocalDate.parse("2019-12-27"))
+                                .identificationNumber("identification_number")
+                                .typeCode("type_code")
+                                .build()
+                        )
+                        .unstructured(
+                            WireTransfer.Remittance.Unstructured.builder()
+                                .message("Payment for invoice 12345")
+                                .build()
+                        )
+                        .build()
+                )
                 .reversal(
                     WireTransfer.Reversal.builder()
                         .amount(0L)
