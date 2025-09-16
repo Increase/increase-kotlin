@@ -2,6 +2,7 @@
 
 package com.increase.api.models.wiretransfers
 
+import java.time.LocalDate
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -13,7 +14,6 @@ internal class WireTransferCreateParamsTest {
             .accountId("account_in71c4amph0vgo2qllky")
             .amount(100L)
             .beneficiaryName("Ian Crease")
-            .messageToRecipient("New account transfer")
             .accountNumber("987654321")
             .beneficiaryAddressLine1("33 Liberty Street")
             .beneficiaryAddressLine2("New York")
@@ -24,6 +24,23 @@ internal class WireTransferCreateParamsTest {
             .originatorAddressLine2("x")
             .originatorAddressLine3("x")
             .originatorName("x")
+            .remittance(
+                WireTransferCreateParams.Remittance.builder()
+                    .category(WireTransferCreateParams.Remittance.Category.UNSTRUCTURED)
+                    .tax(
+                        WireTransferCreateParams.Remittance.Tax.builder()
+                            .date(LocalDate.parse("2019-12-27"))
+                            .identificationNumber("xxxxxxxxx")
+                            .typeCode("xxxxx")
+                            .build()
+                    )
+                    .unstructured(
+                        WireTransferCreateParams.Remittance.Unstructured.builder()
+                            .message("New account transfer")
+                            .build()
+                    )
+                    .build()
+            )
             .requireApproval(true)
             .routingNumber("101050001")
             .sourceAccountNumberId("source_account_number_id")
@@ -37,7 +54,6 @@ internal class WireTransferCreateParamsTest {
                 .accountId("account_in71c4amph0vgo2qllky")
                 .amount(100L)
                 .beneficiaryName("Ian Crease")
-                .messageToRecipient("New account transfer")
                 .accountNumber("987654321")
                 .beneficiaryAddressLine1("33 Liberty Street")
                 .beneficiaryAddressLine2("New York")
@@ -48,6 +64,23 @@ internal class WireTransferCreateParamsTest {
                 .originatorAddressLine2("x")
                 .originatorAddressLine3("x")
                 .originatorName("x")
+                .remittance(
+                    WireTransferCreateParams.Remittance.builder()
+                        .category(WireTransferCreateParams.Remittance.Category.UNSTRUCTURED)
+                        .tax(
+                            WireTransferCreateParams.Remittance.Tax.builder()
+                                .date(LocalDate.parse("2019-12-27"))
+                                .identificationNumber("xxxxxxxxx")
+                                .typeCode("xxxxx")
+                                .build()
+                        )
+                        .unstructured(
+                            WireTransferCreateParams.Remittance.Unstructured.builder()
+                                .message("New account transfer")
+                                .build()
+                        )
+                        .build()
+                )
                 .requireApproval(true)
                 .routingNumber("101050001")
                 .sourceAccountNumberId("source_account_number_id")
@@ -58,7 +91,6 @@ internal class WireTransferCreateParamsTest {
         assertThat(body.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
         assertThat(body.amount()).isEqualTo(100L)
         assertThat(body.beneficiaryName()).isEqualTo("Ian Crease")
-        assertThat(body.messageToRecipient()).isEqualTo("New account transfer")
         assertThat(body.accountNumber()).isEqualTo("987654321")
         assertThat(body.beneficiaryAddressLine1()).isEqualTo("33 Liberty Street")
         assertThat(body.beneficiaryAddressLine2()).isEqualTo("New York")
@@ -70,6 +102,24 @@ internal class WireTransferCreateParamsTest {
         assertThat(body.originatorAddressLine2()).isEqualTo("x")
         assertThat(body.originatorAddressLine3()).isEqualTo("x")
         assertThat(body.originatorName()).isEqualTo("x")
+        assertThat(body.remittance())
+            .isEqualTo(
+                WireTransferCreateParams.Remittance.builder()
+                    .category(WireTransferCreateParams.Remittance.Category.UNSTRUCTURED)
+                    .tax(
+                        WireTransferCreateParams.Remittance.Tax.builder()
+                            .date(LocalDate.parse("2019-12-27"))
+                            .identificationNumber("xxxxxxxxx")
+                            .typeCode("xxxxx")
+                            .build()
+                    )
+                    .unstructured(
+                        WireTransferCreateParams.Remittance.Unstructured.builder()
+                            .message("New account transfer")
+                            .build()
+                    )
+                    .build()
+            )
         assertThat(body.requireApproval()).isEqualTo(true)
         assertThat(body.routingNumber()).isEqualTo("101050001")
         assertThat(body.sourceAccountNumberId()).isEqualTo("source_account_number_id")
@@ -82,7 +132,6 @@ internal class WireTransferCreateParamsTest {
                 .accountId("account_in71c4amph0vgo2qllky")
                 .amount(100L)
                 .beneficiaryName("Ian Crease")
-                .messageToRecipient("New account transfer")
                 .build()
 
         val body = params._body()
@@ -90,6 +139,5 @@ internal class WireTransferCreateParamsTest {
         assertThat(body.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
         assertThat(body.amount()).isEqualTo(100L)
         assertThat(body.beneficiaryName()).isEqualTo("Ian Crease")
-        assertThat(body.messageToRecipient()).isEqualTo("New account transfer")
     }
 }
