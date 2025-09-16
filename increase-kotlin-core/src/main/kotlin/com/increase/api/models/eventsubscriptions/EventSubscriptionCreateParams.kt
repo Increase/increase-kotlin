@@ -798,6 +798,12 @@ private constructor(
             /** Occurs whenever an External Account is updated. */
             val EXTERNAL_ACCOUNT_UPDATED = of("external_account.updated")
 
+            /** Occurs whenever a FedNow Transfer is created. */
+            val FEDNOW_TRANSFER_CREATED = of("fednow_transfer.created")
+
+            /** Occurs whenever a FedNow Transfer is updated. */
+            val FEDNOW_TRANSFER_UPDATED = of("fednow_transfer.updated")
+
             /** Occurs whenever a File is created. */
             val FILE_CREATED = of("file.created")
 
@@ -1090,6 +1096,10 @@ private constructor(
             EXTERNAL_ACCOUNT_CREATED,
             /** Occurs whenever an External Account is updated. */
             EXTERNAL_ACCOUNT_UPDATED,
+            /** Occurs whenever a FedNow Transfer is created. */
+            FEDNOW_TRANSFER_CREATED,
+            /** Occurs whenever a FedNow Transfer is updated. */
+            FEDNOW_TRANSFER_UPDATED,
             /** Occurs whenever a File is created. */
             FILE_CREATED,
             /** Occurs whenever a Group is updated. */
@@ -1319,6 +1329,10 @@ private constructor(
             EXTERNAL_ACCOUNT_CREATED,
             /** Occurs whenever an External Account is updated. */
             EXTERNAL_ACCOUNT_UPDATED,
+            /** Occurs whenever a FedNow Transfer is created. */
+            FEDNOW_TRANSFER_CREATED,
+            /** Occurs whenever a FedNow Transfer is updated. */
+            FEDNOW_TRANSFER_UPDATED,
             /** Occurs whenever a File is created. */
             FILE_CREATED,
             /** Occurs whenever a Group is updated. */
@@ -1511,6 +1525,8 @@ private constructor(
                 EXPORT_UPDATED -> Value.EXPORT_UPDATED
                 EXTERNAL_ACCOUNT_CREATED -> Value.EXTERNAL_ACCOUNT_CREATED
                 EXTERNAL_ACCOUNT_UPDATED -> Value.EXTERNAL_ACCOUNT_UPDATED
+                FEDNOW_TRANSFER_CREATED -> Value.FEDNOW_TRANSFER_CREATED
+                FEDNOW_TRANSFER_UPDATED -> Value.FEDNOW_TRANSFER_UPDATED
                 FILE_CREATED -> Value.FILE_CREATED
                 GROUP_UPDATED -> Value.GROUP_UPDATED
                 GROUP_HEARTBEAT -> Value.GROUP_HEARTBEAT
@@ -1636,6 +1652,8 @@ private constructor(
                 EXPORT_UPDATED -> Known.EXPORT_UPDATED
                 EXTERNAL_ACCOUNT_CREATED -> Known.EXTERNAL_ACCOUNT_CREATED
                 EXTERNAL_ACCOUNT_UPDATED -> Known.EXTERNAL_ACCOUNT_UPDATED
+                FEDNOW_TRANSFER_CREATED -> Known.FEDNOW_TRANSFER_CREATED
+                FEDNOW_TRANSFER_UPDATED -> Known.FEDNOW_TRANSFER_UPDATED
                 FILE_CREATED -> Known.FILE_CREATED
                 GROUP_UPDATED -> Known.GROUP_UPDATED
                 GROUP_HEARTBEAT -> Known.GROUP_HEARTBEAT
